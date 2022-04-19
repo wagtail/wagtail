@@ -1679,14 +1679,17 @@ class TestCopyForTranslationAction(AdminAPITestCase):
     def test_translating_latest_non_draft_page_revision(self):
         old_index_title = self.en_eventindex.title
         old_post_title = self.en_eventpage.title
-        new_index_title = old_index_title + '-77777'
-        new_post_title = old_post_title + '-77777'
+        new_index_title = old_index_title + "-77777"
+        new_post_title = old_post_title + "-77777"
         self.en_eventindex.title = new_index_title
         self.en_eventindex.save_revision(log_action=True)
         self.en_eventpage.title = new_post_title
         self.en_eventpage.save_revision(log_action=True)
 
-        response = self.get_response(self.en_eventindex.id, {"locale": "fr", "copy_parents": True, "recursive": True})
+        response = self.get_response(
+            self.en_eventindex.id,
+            {"locale": "fr", "copy_parents": True, "recursive": True},
+        )
 
         assert response.status_code == 201
 
@@ -1708,20 +1711,25 @@ class TestCopyForTranslationAction(AdminAPITestCase):
 
         draft_index_page = TestPage(title="Draft Blog", slug="draft_blog", live=False)
         self.en_homepage.add_child(instance=draft_index_page)
-        draft_blog_post = TestPage(title="Draft Blog post", slug="draft_blog-post", live=False)
+        draft_blog_post = TestPage(
+            title="Draft Blog post", slug="draft_blog-post", live=False
+        )
         draft_index_page.add_child(instance=draft_blog_post)
 
         old_index_title = draft_index_page.title
-        new_index_title = old_index_title + '-77777'
+        new_index_title = old_index_title + "-77777"
         draft_index_page.title = new_index_title
         draft_index_page.save_revision(log_action=True)
 
         old_page_title = draft_blog_post.title
-        new_page_title = old_page_title + '-77777'
+        new_page_title = old_page_title + "-77777"
         draft_blog_post.title = new_page_title
         draft_blog_post.save_revision(log_action=True)
 
-        response = self.get_response(draft_index_page.id, {"locale": "fr", "copy_parents": True, "recursive": True})
+        response = self.get_response(
+            draft_index_page.id,
+            {"locale": "fr", "copy_parents": True, "recursive": True},
+        )
 
         assert response.status_code == 201
 
