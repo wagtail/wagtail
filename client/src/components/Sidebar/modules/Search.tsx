@@ -98,7 +98,9 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           className={`
             ${slim || !isVisible ? 'w-hidden' : ''}
             !w-pl-[45px]
+            !w-py-[13px]
             !w-subpixel-antialiased
+            padding: 13px 20px;
             !w-absolute
             !w-left-0
             !w-font-normal
@@ -109,6 +111,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
             !w-rounded-none
             !w-text-white/80
             !w-outline-offset-inside
+            !w-leading-none
             placeholder:!w-text-white/80`}
           type="text"
           id="menu-search-q"

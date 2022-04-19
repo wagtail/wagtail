@@ -219,11 +219,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           (isVisible ? ' sidebar-footer--visible' : '')
         }
       >
-        <Tippy
-          disabled={!slim}
-          content={gettext('Edit your account')}
-          placement="right"
-        >
+        <Tippy disabled={!slim} content={gettext('Account')} placement="right">
           <button
             className="
             sidebar-footer__account

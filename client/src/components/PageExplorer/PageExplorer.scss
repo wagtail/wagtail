@@ -41,7 +41,7 @@ $menu-footer-height: 50px;
 $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header {
-  @apply w-bg-black/50 w-text-white/85;
+  @apply w-bg-primary-200 w-text-white/85 w-border-b w-border-primary;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;

@@ -15,14 +15,15 @@
     width: 100%;
     box-sizing: border-box;
     white-space: nowrap;
-    border-inline-start: 3px solid transparent;
+    border-inline: 3px solid transparent;
     -webkit-font-smoothing: auto;
     border: 0;
     background: transparent;
     text-align: start;
     color: $color-menu-text;
-    padding: 11px 20px;
+    padding: 13px 20px;
     font-weight: 400;
+    line-height: 1;
 
     // Note, font-weights lower than normal,
     // and font-size smaller than 1em (80% ~= 12.8px),
@@ -84,6 +85,7 @@
 .menuitem-label {
   @include transition(opacity $menu-transition-duration ease);
   margin-inline-start: 0.5em;
+  line-height: 1;
 }
 
 .sidebar--slim {
