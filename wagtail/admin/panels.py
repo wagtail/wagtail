@@ -501,10 +501,9 @@ class HelpPanel(Panel):
         self,
         content="",
         template="wagtailadmin/panels/help_panel.html",
-        heading="",
-        classname="",
+        **kwargs,
     ):
-        super().__init__(heading=heading, classname=classname)
+        super().__init__(**kwargs)
         self.content = content
         self.template = template
 
