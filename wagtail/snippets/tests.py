@@ -29,7 +29,7 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.snippets.views.snippets import get_snippet_panel
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -1266,7 +1266,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             advert=Advert.objects.create(text=self.advert_text)
         )
 
-        self.edit_handler = get_snippet_edit_handler(model)
+        self.edit_handler = get_snippet_panel(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.get_bound_panel(
@@ -1741,13 +1741,13 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
 class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
     def test_standard_edit_handler(self):
-        edit_handler = get_snippet_edit_handler(StandardSnippet)
+        edit_handler = get_snippet_panel(StandardSnippet)
         form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertFalse(issubclass(form_class, FancySnippetForm))
 
     def test_fancy_edit_handler(self):
-        edit_handler = get_snippet_edit_handler(FancySnippet)
+        edit_handler = get_snippet_panel(FancySnippet)
         form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertTrue(issubclass(form_class, FancySnippetForm))
@@ -2121,7 +2121,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             )
         )
 
-        self.edit_handler = get_snippet_edit_handler(model)
+        self.edit_handler = get_snippet_panel(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.get_bound_panel(

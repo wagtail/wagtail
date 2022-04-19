@@ -49,15 +49,15 @@ def get_snippet_model_from_url_params(app_name, model_name):
 
 
 @lru_cache(maxsize=None)
-def get_snippet_edit_handler(model):
+def get_snippet_panel(model):
     if hasattr(model, "edit_handler"):
-        # use the edit handler specified on the page class
-        edit_handler = model.edit_handler
+        # use the edit handler specified on the snippet class
+        panel = model.edit_handler
     else:
         panels = extract_panel_definitions_from_model_class(model)
-        edit_handler = ObjectList(panels)
+        panel = ObjectList(panels)
 
-    return edit_handler.bind_to_model(model)
+    return panel.bind_to_model(model)
 
 
 # == Views ==
@@ -209,7 +209,7 @@ class Create(CreateView):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def get_panel(self):
-        return get_snippet_edit_handler(self.model)
+        return get_snippet_panel(self.model)
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
@@ -328,7 +328,7 @@ class Edit(EditView):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def get_panel(self):
-        return get_snippet_edit_handler(self.model)
+        return get_snippet_panel(self.model)
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("change", self.model)
