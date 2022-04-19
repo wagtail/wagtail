@@ -77,7 +77,9 @@ class LocaleMixin:
         self.locale = self.get_locale()
 
     def get_translations(self):
-        return []
+        if not self.locale:
+            return Locale.objects.none()
+        return Locale.objects.all().exclude(id=self.locale.id)
 
     def get_locale(self):
         i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
