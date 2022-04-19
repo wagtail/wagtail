@@ -20,7 +20,7 @@ from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
 from .hooks import BeforeAfterHookMixin
-from .mixins import LocaleMixin
+from .mixins import LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
@@ -184,6 +184,7 @@ class IndexView(
 
 class CreateView(
     LocaleMixin,
+    PanelMixin,
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
@@ -260,6 +261,7 @@ class CreateView(
 
 class EditView(
     LocaleMixin,
+    PanelMixin,
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
@@ -360,6 +362,7 @@ class EditView(
 
 class DeleteView(
     LocaleMixin,
+    PanelMixin,
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,

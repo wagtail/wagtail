@@ -208,13 +208,12 @@ class Create(CreateView):
         self.app_label = app_label
         self.model_name = model_name
         self.model = self._get_model()
-        self.panel = self._get_panel()
         super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    def _get_panel(self):
+    def get_panel(self):
         return get_snippet_edit_handler(self.model)
 
     def dispatch(self, request, *args, **kwargs):
@@ -262,11 +261,6 @@ class Create(CreateView):
             )
         ]
 
-    def _get_bound_panel(self, form):
-        return self.panel.get_bound_panel(
-            request=self.request, instance=form.instance, form=form
-        )
-
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view="create", model=self.model)
 
@@ -278,9 +272,6 @@ class Create(CreateView):
             instance.locale = self.locale
 
         return instance
-
-    def get_form_class(self):
-        return self.panel.get_form_class()
 
     def get_form_kwargs(self):
         return {
@@ -306,16 +297,14 @@ class Create(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = context.get("form")
-        panel = self._get_bound_panel(form)
+        media = context.get("media")
         action_menu = self._get_action_menu()
 
         context.update(
             {
                 "model_opts": self.model._meta,
-                "panel": panel,
                 "action_menu": action_menu,
-                "media": panel.media + form.media + action_menu.media,
+                "media": media + action_menu.media,
             }
         )
 
@@ -337,14 +326,13 @@ class Edit(EditView):
         self.model_name = model_name
         self.pk = pk
         self.model = self._get_model()
-        self.panel = self._get_panel()
         self.object = self.get_object()
         super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    def _get_panel(self):
+    def get_panel(self):
         return get_snippet_edit_handler(self.model)
 
     def get_locale(self):
@@ -406,19 +394,11 @@ class Edit(EditView):
             )
         ]
 
-    def _get_bound_panel(self, form):
-        return self.panel.get_bound_panel(
-            request=self.request, instance=self.object, form=form
-        )
-
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view="edit", instance=self.object)
 
     def _get_latest_log_entry(self):
         return log_registry.get_logs_for_instance(self.object).first()
-
-    def get_form_class(self):
-        return self.panel.get_form_class()
 
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
@@ -442,8 +422,7 @@ class Edit(EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        form = context.get("form")
-        panel = self._get_bound_panel(form)
+        media = context.get("media")
         action_menu = self._get_action_menu()
         latest_log_entry = self._get_latest_log_entry()
 
@@ -451,10 +430,9 @@ class Edit(EditView):
             {
                 "model_opts": self.model._meta,
                 "instance": self.object,
-                "panel": panel,
                 "action_menu": action_menu,
                 "latest_log_entry": latest_log_entry,
-                "media": panel.media + form.media + action_menu.media,
+                "media": media + action_menu.media,
             }
         )
 
