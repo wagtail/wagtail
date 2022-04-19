@@ -159,7 +159,7 @@ The following search backends (configured in ``WAGTAILSEARCH_BACKENDS``) have be
 
 Both of these backends have now been replaced by ``wagtail.search.backends.database``. This new
 backend supports all of the features of the PostgreSQL backend, and also supports other databases.
-It will be made the default backend in Wagtail 2.17. To enable the new backend, edit (or add) the
+It will be made the default backend in Wagtail 3.0. To enable the new backend, edit (or add) the
 ``WAGTAILSEARCH_BACKENDS`` setting as follows:
 
 .. code-block:: python
