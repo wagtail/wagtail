@@ -7,7 +7,7 @@
 
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
-        {{ edit_handler.render_form_content }}
+        {{ panel.render_form_content }}
 
         <footer class="footer">
             <nav aria-label="{% trans 'Actions' %}">
