@@ -19,8 +19,7 @@ from wagtail.log_actions import log
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
-from .hooks import BeforeAfterHookMixin
-from .mixins import LocaleMixin, PanelMixin
+from .mixins import BeforeAfterHookMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
