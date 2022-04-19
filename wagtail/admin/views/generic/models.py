@@ -96,7 +96,7 @@ class IndexView(
     def get_search_url(self):
         if not self.is_searchable:
             return None
-        return reverse(self.index_url_name)
+        return self.get_index_url()
 
     def get_search_form(self):
         if self.model is None:

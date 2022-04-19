@@ -114,7 +114,7 @@ class List(IndexView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_search_url(self):
+    def get_index_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
 
     def get_queryset(self):
