@@ -96,12 +96,22 @@ class PageSidePanels:
     def __init__(self, request, page):
         self.request = request
         self.page = page
+        self.edit_handler = page.get_edit_handler()
+        self.form_class = self.edit_handler.get_form_class()
+        self.form = self.form_class(
+            instance=page,
+            for_user=request.user,
+        )
 
         self.side_panels = [
             StatusSidePanel(page, self.request),
-            CommentsSidePanel(page, self.request),
             # PreviewSidePanel(page),
         ]
+
+        if self.form.show_comments_toggle:
+            self.side_panels = self.side_panels + [
+                CommentsSidePanel(page, self.request)
+            ]
 
     def __iter__(self):
         return iter(self.side_panels)
