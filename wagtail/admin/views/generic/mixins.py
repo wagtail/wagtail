@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.forms import Media
 from django.shortcuts import get_object_or_404
-from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 
 from wagtail.models import Locale, TranslatableMixin
 
@@ -46,10 +45,7 @@ class PanelMixin:
         self.panel = self.get_panel()
 
     def get_panel(self):
-        panels = extract_panel_definitions_from_model_class(self.model)
-        panel = ObjectList(panels)
-
-        return panel.bind_to_model(self.model)
+        return None
 
     def get_bound_panel(self, form):
         if not self.panel:
