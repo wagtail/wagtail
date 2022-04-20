@@ -21,10 +21,11 @@ from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexV
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale
+from wagtail.permissions import ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
-from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
+from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
@@ -97,6 +98,7 @@ class Index(TemplateView):
 
 
 class List(IndexView):
+    any_permission_required = ["add", "change", "delete"]
     paginate_by = 20
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
@@ -106,20 +108,11 @@ class List(IndexView):
         self.app_label = app_label
         self.model_name = model_name
         self.model = self._get_model()
+        self.permission_policy = ModelPermissionPolicy(self.model)
         super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-    def dispatch(self, request, *args, **kwargs):
-        permissions = [
-            get_permission_name(action, self.model)
-            for action in ["add", "change", "delete"]
-        ]
-        if not any([request.user.has_perm(perm) for perm in permissions]):
-            raise PermissionDenied
-
-        return super().dispatch(request, *args, **kwargs)
 
     def get_index_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
@@ -164,11 +157,11 @@ class List(IndexView):
             {
                 "model_opts": self.model._meta,
                 "items": paginated_items,
-                "can_add_snippet": self.request.user.has_perm(
-                    get_permission_name("add", self.model)
+                "can_add_snippet": self.permission_policy.user_has_permission(
+                    self.request.user, "add"
                 ),
-                "can_delete_snippets": self.request.user.has_perm(
-                    get_permission_name("delete", self.model)
+                "can_delete_snippets": self.permission_policy.user_has_permission(
+                    self.request.user, "delete"
                 ),
             }
         )
@@ -197,6 +190,7 @@ class List(IndexView):
 
 
 class Create(CreateView):
+    permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
 
@@ -210,6 +204,7 @@ class Create(CreateView):
         self.app_label = app_label
         self.model_name = model_name
         self.model = self._get_model()
+        self.permission_policy = ModelPermissionPolicy(self.model)
         super().setup(request, *args, **kwargs)
 
     def _get_model(self):
@@ -217,14 +212,6 @@ class Create(CreateView):
 
     def get_panel(self):
         return get_snippet_panel(self.model)
-
-    def dispatch(self, request, *args, **kwargs):
-        permission = get_permission_name("add", self.model)
-
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
-        return super().dispatch(request, *args, **kwargs)
 
     def get_add_url(self):
         url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
@@ -314,6 +301,7 @@ class Create(CreateView):
 
 
 class Edit(EditView):
+    permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = _("The snippet could not be saved due to errors.")
 
@@ -329,6 +317,7 @@ class Edit(EditView):
         self.pk = pk
         self.model = self._get_model()
         self.object = self.get_object()
+        self.permission_policy = ModelPermissionPolicy(self.model)
         super().setup(request, *args, **kwargs)
 
     def _get_model(self):
@@ -336,14 +325,6 @@ class Edit(EditView):
 
     def get_panel(self):
         return get_snippet_panel(self.model)
-
-    def dispatch(self, request, *args, **kwargs):
-        permission = get_permission_name("change", self.model)
-
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
-        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=unquote(self.pk))
@@ -437,6 +418,7 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
+    permission_required = "delete"
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
     def run_before_hook(self):
@@ -452,17 +434,10 @@ class Delete(DeleteView):
         self.pk = pk
         self.model = self._get_model()
         self.objects = self.get_objects()
+        self.permission_policy = ModelPermissionPolicy(self.model)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-    def dispatch(self, request, *args, **kwargs):
-        permission = get_permission_name("delete", self.model)
-
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
-        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         # DeleteView requires either a pk kwarg or a positional arg, but we use
