@@ -591,6 +591,7 @@ Contributors
 * Kyle J. Roux
 * Vaibhav Shukla
 * Rishank Kanaparti
+* Przemysław Buczkowski
 
 Translators
 ===========
