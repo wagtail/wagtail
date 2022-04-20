@@ -97,7 +97,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
         <input
           className={`
             ${slim || !isVisible ? 'w-hidden' : ''}
-            !w-pl-[45px]
+            !w-pl-[55px]
             !w-py-[13px]
             !w-subpixel-antialiased
             padding: 13px 20px;

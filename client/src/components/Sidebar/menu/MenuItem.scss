@@ -23,7 +23,8 @@
     background: transparent;
     text-align: start;
     color: $color-menu-text;
-    padding: 13px 20px;
+    padding-block: 13px;
+    padding-inline: 20px;
     font-weight: 400;
     line-height: 1;
     overflow: hidden;
@@ -42,7 +43,6 @@
       width: 1rem;
       height: 1rem;
       font-size: 1rem;
-      vertical-align: -15%;
       display: flex;
       align-items: center;
       margin-inline-end: 0;
@@ -58,23 +58,18 @@
       right: 0.5em;
       inset-inline-end: 0.5em;
       top: 0.5em;
-      margin-top: 0;
-    }
-
-    // Disable icon margin, this is instead applied to the left of the .menuitem-label
-    // This is because SVG icons and legacy icons apply this margin differently,
-    // we could remove this override when we remove legacy icons
-    .icon {
-      margin-inline-end: 0 !important;
     }
   }
 
   &--in-sub-menu {
     @apply hover:w-bg-primary;
 
-    #{$root}__link {
+    #{$root}__link,
+    .menuitem-label {
+      @apply w-leading-tight;
       // Links inside a submenu should have normal wrapping
       white-space: normal;
+      align-items: flex-start;
     }
   }
 
@@ -101,13 +96,30 @@
 .sidebar--slim {
   .sidebar-menu-item {
     .menuitem-label {
+      @apply w-sr-only;
       opacity: 0;
+    }
+  }
+
+  .sidebar-menu-item__link {
+    margin-inline-start: auto;
+    display: inline-flex;
+
+    .sidebar-sub-menu-trigger-icon {
+      margin-inline-start: 0;
     }
   }
 
   .sidebar-menu-item--in-sub-menu {
     .menuitem-label {
+      @apply w-not-sr-only;
       opacity: 1;
+      margin-inline-start: 1rem;
+    }
+
+    .sidebar-menu-item__link {
+      justify-content: flex-start;
+      padding-inline: 20px;
     }
   }
 }

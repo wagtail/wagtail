@@ -61,6 +61,13 @@
     border-inline-end: 1px solid transparent;
   }
 
+  .icon--menuitem {
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    vertical-align: text-top;
+  }
+
   &--slim {
     width: $menu-width-slim;
   }
@@ -86,14 +93,6 @@
   // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
   &--mobile &__collapse-toggle {
     display: none;
-  }
-
-  .icon--menuitem {
-    width: 1rem;
-    height: 1rem;
-    min-width: 1rem;
-    margin-inline-end: 0.5rem;
-    vertical-align: text-top;
   }
 }
 
