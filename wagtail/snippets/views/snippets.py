@@ -16,12 +16,7 @@ from django.views.generic import TemplateView
 from wagtail.admin import messages
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
-from wagtail.admin.views.generic import (
-    CreateView,
-    DeleteView,
-    EditView,
-    IndexView,
-)
+from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale
