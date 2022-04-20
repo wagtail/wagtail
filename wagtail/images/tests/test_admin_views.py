@@ -78,10 +78,32 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         )
 
     def test_ordering(self):
-        orderings = ["title", "-created_at"]
+        orderings = [
+            "title",
+            "-title",
+            "created_at",
+            "-created_at",
+            "file_size",
+            "-file_size",
+        ]
         for ordering in orderings:
             response = self.get({"ordering": ordering})
             self.assertEqual(response.status_code, 200)
+
+            context = response.context
+            self.assertEqual(context["current_ordering"], ordering)
+            self.assertEqual(context["images"].object_list.query.order_by, (ordering,))
+
+    def test_default_ordering_used_if_invalid_ordering_provided(self):
+        response = self.get({"ordering": "bogus"})
+        self.assertEqual(response.status_code, 200)
+
+        context = response.context
+        default_ordering = "-created_at"
+        self.assertEqual(context["current_ordering"], default_ordering)
+        self.assertEqual(
+            context["images"].object_list.query.order_by, (default_ordering,)
+        )
 
     def test_collection_order(self):
         root_collection = Collection.get_first_root_node()

@@ -13,10 +13,13 @@
             targetOutput: "#image-results"
         }
 
+        const dropdownSelectors = ["#collection_chooser_collection_id", "#order_images_by"];
         $(function() {
-            $('#collection_chooser_collection_id').on('change', function() {
-                this.form.submit();
-            })
+            dropdownSelectors.forEach(dropdownSelector =>
+                $(dropdownSelector).on('change', function() {
+                    this.form.submit();
+                })
+            );
         });
     </script>
     <script>
@@ -45,6 +48,21 @@
                         <input type="hidden" name="tag" value="{{ current_tag }}" />
                     {% endif %}
                 {% endif %}
+                <li>
+                    <div class="field choice_field select">
+                        <label for="order_images_by">{% trans "Sort by" %}:</label>
+                        <div class="field-content">
+                            <div class="input">
+                                <select id="order_images_by" name="ordering">
+                                    {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                                        <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 {% if popular_tags %}
                     <li>
                         <fieldset class="tagfilter">
