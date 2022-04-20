@@ -11,7 +11,9 @@
       background-color $menu-transition-duration ease
     );
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
     box-sizing: border-box;
     white-space: nowrap;
@@ -24,6 +26,7 @@
     padding: 13px 20px;
     font-weight: 400;
     line-height: 1;
+    overflow: hidden;
 
     // Note, font-weights lower than normal,
     // and font-size smaller than 1em (80% ~= 12.8px),
@@ -36,9 +39,13 @@
     }
 
     &:before {
+      width: 1rem;
+      height: 1rem;
       font-size: 1rem;
       vertical-align: -15%;
-      margin-inline-end: 0.5em;
+      display: flex;
+      align-items: center;
+      margin-inline-end: 0;
     }
 
     // only really used for spinners and settings menu
@@ -84,8 +91,11 @@
 
 .menuitem-label {
   @include transition(opacity $menu-transition-duration ease);
-  margin-inline-start: 0.5em;
+  margin-inline-start: 1rem;
   line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .sidebar--slim {
