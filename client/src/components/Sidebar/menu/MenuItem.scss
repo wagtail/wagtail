@@ -5,7 +5,7 @@
   position: relative;
 
   &__link {
-    @apply w-text-14;
+    @apply w-text-14 w-leading-none;
     @include transition(
       border-color $menu-transition-duration ease,
       background-color $menu-transition-duration ease
@@ -26,7 +26,6 @@
     padding-block: 13px;
     padding-inline: 20px;
     font-weight: 400;
-    line-height: 1;
     overflow: hidden;
 
     // Note, font-weights lower than normal,
