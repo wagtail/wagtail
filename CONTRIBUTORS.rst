@@ -594,6 +594,7 @@ Contributors
 * Daniel Kirkham
 * Luz Paz
 * Simon Krull
+* Przemysław Buczkowski
 
 Translators
 ===========
