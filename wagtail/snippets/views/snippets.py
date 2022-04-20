@@ -146,7 +146,7 @@ class List(IndexView):
         page = paginator.get_page(page_number)
         return (paginator, page, page.object_list, page.has_other_pages())
 
-    def get_translations(self):
+    def _get_translations(self):
         return [
             {
                 "locale": locale,
@@ -177,6 +177,7 @@ class List(IndexView):
                 "can_delete_snippets": self.request.user.has_perm(
                     get_permission_name("delete", self.model)
                 ),
+                "translations": self._get_translations(),
             }
         )
 
@@ -275,7 +276,7 @@ class Create(CreateView):
             "for_user": self.request.user,
         }
 
-    def get_translations(self):
+    def _get_translations(self):
         return [
             {
                 "locale": locale,
@@ -300,6 +301,7 @@ class Create(CreateView):
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "media": media + action_menu.media,
+                "translations": self._get_translations(),
             }
         )
 
@@ -391,7 +393,7 @@ class Edit(EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
-    def get_translations(self):
+    def _get_translations(self):
         return [
             {
                 "locale": translation.locale,
@@ -421,6 +423,7 @@ class Edit(EditView):
                 "action_menu": action_menu,
                 "latest_log_entry": latest_log_entry,
                 "media": media + action_menu.media,
+                "translations": self._get_translations(),
             }
         )
 
