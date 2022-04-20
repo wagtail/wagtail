@@ -10,6 +10,7 @@ from wagtail.core.utils import (
     accepts_kwarg, camelcase_to_underscore, cautious_slugify, find_available_slug,
     get_content_languages, get_dummy_request, get_supported_content_language_variant, multigetattr,
     safe_snake_case, string_to_ascii)
+from wagtail.utils.utils import deep_update
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -374,3 +375,38 @@ class TestGetDummyRequest(TestCase):
 
         request = get_dummy_request(site=site)
         self.assertEqual(request.get_host(), 'other.example.com:8888')
+
+
+class TestDeepUpdate(TestCase):
+    def test_deep_update(self):
+        val = {
+            "captain": "picard",
+            "beverage": {
+                "type": "coffee",
+                "temperature": "hot",
+            },
+        }
+
+        deep_update(
+            val,
+            {
+                "beverage": {
+                    "type": "tea",
+                    "variant": "earl grey",
+                },
+                "starship": "enterprise",
+            },
+        )
+
+        self.assertEqual(
+            val,
+            {
+                "captain": "picard",
+                "beverage": {
+                    "type": "tea",
+                    "variant": "earl grey",
+                    "temperature": "hot",
+                },
+                "starship": "enterprise",
+            },
+        )
