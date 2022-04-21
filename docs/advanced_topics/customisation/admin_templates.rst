@@ -91,6 +91,22 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 
+.. _custom_user_interface_fonts:
+
+Custom user interface fonts
+===========================
+
+To customise the font families used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
+
+
+.. code-block:: text
+
+    :root {
+        --w-font-sans: Papyrus;
+        --w-font-mono: Courier;
+    }
+
+
 .. _custom_user_interface_colors:
 
 Custom user interface colors
@@ -100,7 +116,7 @@ Custom user interface colors
 .. warning::
     The default Wagtail colors conform to the WCAG2.1 AA level color contrast requirements. When customizing the admin colors you should test the contrast using tools like `Axe <https://www.deque.com/axe/browser-extensions/>`_.
 
-To customize the primary color used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
+To customise the primary color used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
 
 .. code-block:: text
 

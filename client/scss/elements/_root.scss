@@ -1,3 +1,5 @@
+@use 'sass:meta';
+
 :root {
   --w-font-sans: #{$font-sans};
   --w-font-mono: #{$font-mono};

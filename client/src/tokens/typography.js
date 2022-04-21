@@ -45,8 +45,8 @@ const monoFontStack = [
 ];
 
 const fontFamily = {
-  sans: systemUIFontStack,
-  mono: monoFontStack,
+  sans: `var(--w-font-sans, ${systemUIFontStack.join(', ')})`,
+  mono: `var(--w-font-mono, ${monoFontStack.join(', ')})`,
 };
 
 // Key is equal to the pixel size of the rem value.

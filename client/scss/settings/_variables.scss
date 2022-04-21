@@ -1,4 +1,6 @@
 @use 'sass:color';
+@use 'sass:meta';
+
 // paths
 
 // We can't use absolute paths here, because those are dependent on Django's
@@ -102,7 +104,7 @@ $system-color-button-text: ButtonText;
 // Our fonts are based off of a list of system fallbacks to ensure
 // that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.
 
-$font-sans:
+$w-font-sans:
   // iOS Safari, macOS Safari, macOS Firefox
   -apple-system,
   // macOS Chrome
@@ -122,7 +124,7 @@ $font-sans:
   'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
-$font-mono:
+$w-font-mono:
   // iOS Safari, MacOS Safari
   ui-monospace, Menlo, Monaco,
   // Windows
@@ -141,6 +143,9 @@ $font-mono:
   // All the emojis 👋🙂
   'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$font-sans: var(--w-font-sans, #{meta.inspect($w-font-sans)});
+$font-mono: var(--w-font-mono, #{meta.inspect($w-font-mono)});
 
 // Legacy icon font, to be removed in the near future.
 $font-wagtail-icons: wagtail;
