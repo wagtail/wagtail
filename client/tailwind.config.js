@@ -56,7 +56,10 @@ module.exports = {
       LinkText: 'LinkText',
       ButtonText: 'ButtonText',
     },
-    fontFamily,
+    fontFamily: {
+      sans: 'var(--w-font-sans)',
+      mono: 'var(--w-font-mono)',
+    },
     fontSize,
     fontWeight,
     lineHeight,
@@ -111,6 +114,17 @@ module.exports = {
         );
       });
       addComponents(scale);
+    }),
+    /**
+     * CSS Custom properties defined from our design tokens.
+     */
+    plugin(({ addBase }) => {
+      addBase({
+        ':root': {
+          '--w-font-sans': fontFamily.sans.join(', '),
+          '--w-font-mono': fontFamily.mono.join(', '),
+        },
+      });
     }),
   ],
   corePlugins: {
