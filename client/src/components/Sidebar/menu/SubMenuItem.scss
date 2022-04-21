@@ -1,8 +1,8 @@
 .sidebar-sub-menu-trigger-icon {
   $root: &;
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1rem;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
   inset-inline-end: 15px;
