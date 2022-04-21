@@ -24,7 +24,7 @@
             {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-button-with-dropdown-toggle' text=action_text dropdown=True %}
             {% icon name='arrow-down' class_name='w-w-5 w-h-5 w-text-teal-200 w-transition motion-reduce:w-transition-none' %}
 
-            <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2 w-transition" data-button-with-dropdown-content>
+            <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
                 {% for translation in translations %}
                     <a href="{{ translation.url }}"
                         lang="{{ translation.locale.language_code }}"
