@@ -30,6 +30,7 @@ const hideTooltipOnBreadcrumbExpand = {
     function onBreadcrumbToggleHover() {
       hide();
     }
+
     const breadcrumbsToggle = document.querySelector(
       '[data-toggle-breadcrumbs]',
     );
@@ -80,7 +81,14 @@ export function initModernDropdown() {
     );
 
     if (toggle) {
-      content.classList.remove('w-hidden');
+      toggle.addEventListener('click', () => {
+        const dropdownIcon = container.querySelector('.icon');
+        dropdownIcon.classList.toggle('w-rotate-180');
+      });
+
+      if (content) {
+        content.classList.remove('w-hidden');
+      }
 
       tippy(toggle, {
         content: content,

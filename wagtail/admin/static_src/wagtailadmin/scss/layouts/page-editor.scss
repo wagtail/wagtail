@@ -158,7 +158,7 @@
       @apply w-text-primary w-absolute w-left-2 w-top-2 hover:w-text-primary-200 w-bg-white w-p-2.5 w-hidden w-transition;
 
       .icon {
-        @apply w-w-5 w-h-5;
+        @apply w-w-4 w-h-4;
       }
     }
 
@@ -470,6 +470,7 @@
   textarea {
     font-size: 2em;
     font-family: $font-sans;
+    font-weight: 800;
   }
 }
 
