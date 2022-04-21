@@ -1,3 +1,4 @@
+import warnings
 from functools import lru_cache
 from urllib.parse import urlencode
 
@@ -24,6 +25,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 # == Helper functions ==
@@ -53,6 +55,16 @@ def get_snippet_panel(model):
         panel = ObjectList(panels)
 
     return panel.bind_to_model(model)
+
+
+def get_snippet_edit_handler(model):
+    get_snippet_panel(model)
+
+    warnings.warn(
+        "The get_snippet_edit_handler function has been renamed to get_snippet_panel",
+        category=RemovedInWagtail50Warning,
+        stacklevel=2,
+    )
 
 
 # == Views ==
