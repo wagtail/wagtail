@@ -83,7 +83,10 @@ export function initModernDropdown() {
     if (toggle) {
       toggle.addEventListener('click', () => {
         const dropdownIcon = container.querySelector('.icon');
-        dropdownIcon.classList.toggle('w-rotate-180');
+
+        if (dropdownIcon) {
+          dropdownIcon.classList.toggle('w-rotate-180');
+        }
       });
 
       if (content) {
