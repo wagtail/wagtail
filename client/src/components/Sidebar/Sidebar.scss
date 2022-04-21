@@ -42,20 +42,20 @@
 }
 
 .sidebar {
-  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300] w-transition-sidebar w-duration-150 w-ease-linear;
   width: $menu-width;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
   left: 0;
   inset-inline-start: 0;
 
-  @include transition(
-    width $menu-transition-duration ease,
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left $menu-transition-duration ease,
-    inset-inline-start $menu-transition-duration ease
-  );
+  //@include transition(
+  //  width $menu-transition-duration ease,
+  //  // Remove once we drop support for Safari 13.
+  //  // stylelint-disable-next-line property-disallowed-list
+  //  left $menu-transition-duration ease,
+  //  inset-inline-start $menu-transition-duration ease
+  //);
 
   @media (forced-colors: $media-forced-colours) {
     border-inline-end: 1px solid transparent;
@@ -81,7 +81,7 @@
 
   &__inner {
     // On medium, make it possible for the nav links to scroll.
-    @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap;
+    @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap w-relative;
   }
 
   &__collapse-toggle {

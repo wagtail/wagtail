@@ -164,29 +164,9 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     };
   }, []);
 
-  // Determine if the sidebar is expanded from account button click
-  const [expandedFromAccountClick, setExpandedFromAccountClick] =
-    React.useState<boolean>(false);
-
-  // Whenever the parent Sidebar component collapses or expands, close any open menus
-  React.useEffect(() => {
-    if (expandingOrCollapsing && !expandedFromAccountClick) {
-      dispatch({
-        type: 'set-navigation-path',
-        path: '',
-      });
-    }
-    if (expandedFromAccountClick) {
-      setExpandedFromAccountClick(false);
-    }
-  }, [expandingOrCollapsing]);
-
   const onClickAccountSettings = () => {
     // Pass account expand information to Sidebar component
     onAccountExpand();
-    if (slim) {
-      setExpandedFromAccountClick(true);
-    }
 
     if (accountSettingsOpen) {
       dispatch({

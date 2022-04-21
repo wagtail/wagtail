@@ -2,14 +2,6 @@
 .sidebar-main-menu {
   overflow: auto;
   overflow-x: hidden;
-  // So the last items in the menu will be seen when the menu is vertically scrollable
-  margin-bottom: 52px;
-
-  @include transition(margin-bottom $menu-transition-duration ease);
-
-  &--open-footer {
-    margin-bottom: 127px;
-  }
 
   &__list {
     margin: 0;
@@ -40,9 +32,9 @@
 }
 
 .sidebar-footer {
-  @apply w-bg-primary w-bottom-0 w-fixed;
+  @apply w-bg-primary w-mt-auto;
   transition: width $menu-transition-duration ease !important; // Override body.ready
-  width: $menu-width;
+  width: 100%;
 
   > ul,
   ul > li {
@@ -54,7 +46,7 @@
   ul > li {
     position: relative;
 
-    @include transition(border-color $menu-transition-duration ease);
+    //@include transition(border-color $menu-transition-duration ease);
   }
 
   > ul {
@@ -90,8 +82,6 @@
   }
 
   @at-root .sidebar--slim #{&} {
-    width: $menu-width-slim;
-
     &__account {
       @apply w-px-0 w-pb-3 w-justify-center;
     }
@@ -102,8 +92,6 @@
   }
 
   &--open {
-    width: $menu-width !important; // Override collapsed style
-
     > ul {
       $footer-submenu-height: 85px;
       max-height: $footer-submenu-height;

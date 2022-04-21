@@ -2,9 +2,9 @@
   @include clearfix();
   height: 100vh;
   transition: transform 0.2s ease;
+  @apply w-transition-sidebar w-duration-150 w-ease-linear;
 
   @include media-breakpoint-up(sm) {
-    @include transition(padding-inline-start $menu-transition-duration ease);
     transform: none;
     padding-inline-start: $menu-width;
 
