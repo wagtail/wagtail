@@ -94,6 +94,8 @@ There is an active community of Wagtail users and developers responding to quest
 
 For topics and discussions that do not fit Stack Overflow's question and answer format, we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack) and a [Wagtail Support mailing list](https://groups.google.com/forum/#!forum/wagtail). Please respect the time and effort of volunteers by not asking the same question in multiple places.
 
+[![Join slack community](.github/join-slack-community.png)](https://github.com/wagtail/wagtail/wiki/Slack)
+
 Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
 
 We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
@@ -126,7 +128,7 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 ### License
 
-[BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE)
+[BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE) - Free to use and modify for any purpose, including both open and closed-source code.
 
 ### Thanks
 
