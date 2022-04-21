@@ -117,9 +117,16 @@ class Panel:
         self.model = None
 
     def clone(self):
+        """
+        Create a clone of this panel definition. By default, constructs a new instance, passing the
+        keyword arguments returned by ``clone_kwargs``.
+        """
         return self.__class__(**self.clone_kwargs())
 
     def clone_kwargs(self):
+        """
+        Return a dictionary of keyword arguments that can be used to create a clone of this panel definition.
+        """
         return {
             "heading": self.heading,
             "classname": self.classname,
@@ -131,7 +138,7 @@ class Panel:
         """
         Return a dictionary of attributes such as 'fields', 'formsets' and 'widgets'
         which should be incorporated into the form class definition to generate a form
-        that this EditHandler can use.
+        that this panel can use.
         This will only be called after binding to a model (i.e. self.model is available).
         """
         options = {}
@@ -202,6 +209,9 @@ class Panel:
         )
 
     def bind_to_model(self, model):
+        """
+        Create a clone of this panel definition with a ``model`` attribute pointing to the linked model class.
+        """
         new = self.clone()
         new.model = model
         new.on_model_bound()
@@ -217,6 +227,10 @@ class Panel:
         return self.get_bound_panel(instance=instance, request=request, form=form)
 
     def get_bound_panel(self, instance=None, request=None, form=None):
+        """
+        Return a ``BoundPanel`` instance that can be rendered onto the template as a component. By default, this creates an instance
+        of the panel class's inner ``BoundPanel`` class, which must inherit from ``Panel.BoundPanel``.
+        """
         if self.model is None:
             raise ImproperlyConfigured(
                 "%s.bind_to_model(model) must be called before get_bound_panel"
@@ -234,6 +248,10 @@ class Panel:
         )
 
     def on_model_bound(self):
+        """
+        Called after the panel has been associated with a model class and the ``self.model`` attribute is available;
+        panels can override this method to perform additional initialisation related to the model.
+        """
         pass
 
     def __repr__(self):
@@ -267,6 +285,10 @@ class Panel:
         return ""
 
     class BoundPanel(Component):
+        """
+        A template component for a panel that has been associated with a model instance, form, and request.
+        """
+
         def __init__(self, panel, instance, request, form):
             self.panel = panel
             self.instance = instance
@@ -287,9 +309,15 @@ class Panel:
             return self.panel.field_type()
 
         def id_for_label(self):
+            """
+            Returns an HTML ID to be used as the target for any label referencing this panel.
+            """
             return self.panel.id_for_label()
 
         def is_shown(self):
+            """
+            Whether this panel should be rendered; if false, it is skipped in the template output.
+            """
             return True
 
         def render_as_object(self):

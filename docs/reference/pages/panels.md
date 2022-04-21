@@ -11,6 +11,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
+   :noindex:
 ```
 
 ### FieldPanel
