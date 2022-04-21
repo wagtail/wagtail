@@ -11,6 +11,7 @@ Django's field types are automatically recognised and provided with an appropria
 Here are some Wagtail-specific types that you might include as fields in your models.
 
 .. module:: wagtail.admin.panels
+   :noindex:
 
 FieldPanel
 ~~~~~~~~~~

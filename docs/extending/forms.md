@@ -74,3 +74,5 @@ A view performs the following steps to render a model form through the panels me
 ** Construct a subclass of the base form class, with the options dict forming the attributes of the inner `Meta` class.
 * An instance of the form class is created as per a normal Django form view.
 * The view then calls `get_bound_panel` on the top-level panel, passing `instance`, `form` and `request` as keyword arguments. This returns a `BoundPanel` object, which follows [the template component API](/extending/template_components). Finally, the `BoundPanel` object (and its media definition) is rendered onto the template.
+
+New panel types can be defined by subclassing `wagtail.admin.panels.Panel` - see [](/reference/panel_api).
