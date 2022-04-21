@@ -17,7 +17,8 @@
     width: 100%;
     box-sizing: border-box;
     white-space: nowrap;
-    border-inline: 3px solid transparent;
+    border-inline-start: 3px solid transparent;
+    border-inline-end: 3px solid transparent;
     -webkit-font-smoothing: auto;
     border: 0;
     background: transparent;
