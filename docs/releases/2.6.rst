@@ -20,7 +20,7 @@ Wagtail isn't fully compliant just yet, but we have made many changes to the adm
 Here are changes which should make Wagtail more usable for all users regardless of abilities:
 
 * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
-* Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
+* Improved text colour contrast across the whole admin (Beth Menzies, Katie Locke)
 * Added consistent focus outline styles across the whole admin (Thibaud Colas)
 * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
 

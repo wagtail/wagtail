@@ -21,10 +21,10 @@ In-place StreamField updating
 
 StreamField values now formally support being updated in-place from Python code, allowing blocks to be inserted, modified and deleted rather than having to assign a new list of blocks to the field. For further details, see :ref:`modifying_streamfield_data`. This feature was developed by Matt Westcott.
 
-Admin color themes
-~~~~~~~~~~~~~~~~~~
+Admin colour themes
+~~~~~~~~~~~~~~~~~~~
 
-Wagtail’s admin now uses CSS custom properties for its primary teal color. Applying brand colors for the whole user interface only takes a few lines of CSS, and third-party extensions can reuse Wagtail’s CSS variables to support the same degree of customization. Read on :ref:`custom_user_interface_colors`. This feature was developed by Joshua Marantz.
+Wagtail’s admin now uses CSS custom properties for its primary teal colour. Applying brand colours for the whole user interface only takes a few lines of CSS, and third-party extensions can reuse Wagtail’s CSS variables to support the same degree of customisation. Read on :ref:`custom_user_interface_colours`. This feature was developed by Joshua Marantz.
 
 Other features
 ~~~~~~~~~~~~~~

@@ -57,7 +57,7 @@ Bug fixes
 
 * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
 * Added https support for Scribd oEmbed provider (Rodrigo)
-* Changed StreamField group label color so labels are visible (Catherine Farman)
+* Changed StreamField group label colour so labels are visible (Catherine Farman)
 * Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
 * Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
 * Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)

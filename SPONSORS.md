@@ -38,7 +38,7 @@ The features below were developed thanks to the sponsorship of these organsation
 
 - Page aliases - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
 
-- Hooks for Snippet customization - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
+- Hooks for Snippet customisation - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
 
 - Utility for testing hooks - [The Mozilla Foundation](https://foundation.mozilla.org/en/)
 

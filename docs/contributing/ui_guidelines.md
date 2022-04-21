@@ -32,7 +32,7 @@ We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://s
 - We follow [BEM](http://getbem.com/) and [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), with a large amount of utilities created with [Tailwind](https://tailwindcss.com/).
 - Familiarise yourself with our [stylelint-config-wagtail](https://github.com/wagtail/stylelint-config-wagtail) configuration, which details our preferred code style.
 - Use `rems` for `font-size`, because they offer absolute control over text. Additionally, unit-less `line-height` is preferred because it does not inherit a percentage value of its parent element, but instead is based on a multiplier of the `font-size`.
-- Always use variables for design tokens such as colors or font sizes, rather than hard-coding specific values.
+- Always use variables for design tokens such as colours or font sizes, rather than hard-coding specific values.
 - We use the `w-` prefix for all styles intended to be reusable by Wagtail site implementers.
 
 ## JavaScript guidelines

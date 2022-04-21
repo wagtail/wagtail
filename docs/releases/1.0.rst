@@ -337,7 +337,7 @@ Previously, the forms for creating and editing images followed Django's default 
 ``construct_wagtail_edit_bird`` hook has been renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously you could customize the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+Previously you could customise the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
 The hook has been renamed to ``construct_wagtail_userbar``.
 
 The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.

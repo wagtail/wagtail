@@ -102,7 +102,7 @@ A few special cases to note about ``list_display``:
             last_name = models.CharField(max_length=50)
             color_code = models.CharField(max_length=6)
 
-            def colored_name(self):
+            def styled_name(self):
                 return format_html(
                     '<span style="color: #{};">{} {}</span>',
                     self.color_code,
@@ -113,7 +113,7 @@ A few special cases to note about ``list_display``:
 
         class PersonAdmin(ModelAdmin):
             model = Person
-            list_display = ('first_name', 'last_name', 'colored_name')
+            list_display = ('first_name', 'last_name', 'styled_name')
 
 
 -   If the value of a field is ``None``, an empty string, or an iterable
@@ -183,22 +183,22 @@ A few special cases to note about ``list_display``:
             last_name = models.CharField(max_length=50)
             color_code = models.CharField(max_length=6)
 
-            def colored_first_name(self):
+            def styled_first_name(self):
                 return format_html(
                     '<span style="color: #{};">{}</span>',
                     self.color_code,
                     self.first_name,
                 )
-            colored_first_name.admin_order_field = 'first_name'
+            styled_first_name.admin_order_field = 'first_name'
 
 
         class PersonAdmin(ModelAdmin):
             model = Person
-            list_display = ('colored_first_name', 'last_name')
+            list_display = ('styled_first_name', 'last_name')
 
 
     The above will tell Wagtail to order by the ``first_name`` field when
-    trying to sort by ``colored_first_name`` in the index view.
+    trying to sort by ``styled_first_name`` in the index view.
 
     To indicate descending order with ``admin_order_field`` you can use a
     hyphen prefix on the field name. Using the above example, this would look
@@ -206,7 +206,7 @@ A few special cases to note about ``list_display``:
 
     .. code-block:: python
 
-        colored_first_name.admin_order_field = '-first_name'
+        styled_first_name.admin_order_field = '-first_name'
 
 
     ``admin_order_field`` supports query lookups to sort by values on related

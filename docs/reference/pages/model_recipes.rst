@@ -132,7 +132,7 @@ Be careful if you're introducing new required arguments to the ``serve()`` metho
 .. code-block:: python
 
     def serve_preview(self, request, mode_name):
-        return self.serve(request, color='purple')
+        return self.serve(request, variant='radiant')
 
 .. _tagging:
 
