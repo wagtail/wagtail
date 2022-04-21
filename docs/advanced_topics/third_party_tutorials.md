@@ -64,7 +64,7 @@ the latest Wagtail versions.
 -   [Deploying my Wagtail blog to Digital Ocean](https://rosederwelt.com/deploying-my-wagtail-blog-digital-ocean-pt-1/) Part 1 of a 2 part series (29 January 2020)
 -   [How to Create and Manage Menus of Wagtail application](https://www.accordbox.com/blog/wagtail-tutorial-12-how-create-and-manage-menus-wagtail-application/) - An updated overview of implementing menus (22 February 2020)
 -   [Adding a React component in Wagtail Admin](https://dev.to/lb/adding-a-react-component-in-wagtail-admin-3e) - Shows how to render an interactive timeline of published Pages (30 December 2019)
--   [Wagtail API - how to customize the detail URL](https://dev.to/wagtail/wagtail-api-how-to-customize-the-detail-url-2j3l) (19 December 2020)
+-   [Wagtail API - how to customise the detail URL](https://dev.to/wagtail/wagtail-api-how-to-customize-the-detail-url-2j3l) (19 December 2020)
 -   [How to Add Django Models to the Wagtail Admin](https://dev.to/revsys/how-to-add-django-models-to-the-wagtail-admin-1mdi) (27 August 2019)
 -   [How do I Wagtail](https://foundation.mozilla.org/en/docs/how-do-i-wagtail/) - An Editor\'s Guide for Mozilla\'s usage of Wagtail (25 April 2019)
 -   [Learn Wagtail](https://learnwagtail.com/) - Regular video tutorials about all aspects of Wagtail (1 March 2019)

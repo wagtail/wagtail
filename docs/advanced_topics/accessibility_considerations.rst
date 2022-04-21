@@ -31,7 +31,7 @@ Ideally, always add an optional “alt text” field wherever an image is used, 
 
 - For normal fields, add an alt text field to your image’s panel.
 - For StreamField, add an extra field to your image block.
-- For rich text – Wagtail already makes it possible to customize alt text for rich text images.
+- For rich text – Wagtail already makes it possible to customise alt text for rich text images.
 
 When defining the alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. Take the time to provide ``help_text`` with appropriate guidance.
 For example, linking to `established resources on alt text <https://axesslab.com/alt-texts/>`_.

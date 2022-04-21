@@ -312,7 +312,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # performed by this configuration is to send an email to
   # the site admins on every HTTP 500 error when DEBUG=False.
   # See https://docs.djangoproject.com/en/stable/topics/logging for
-  # more details on how to customize your logging configuration.
+  # more details on how to customise your logging configuration.
   LOGGING = {
       'version': 1,
       'disable_existing_loggers': False,

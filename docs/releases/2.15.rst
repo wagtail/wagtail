@@ -58,7 +58,7 @@ Individual fixes were implemented by a large number of first-time and seasoned c
 
  * Comments icon now matches link colour (Dmitrii Faiazov, LB (Ben Johnston))
  * Sidebar logo is now visible in high contrast mode (Dmitrii Faiazov, LB (Ben Johnston))
- * Icons in links and buttons now use the appropriate “active control” color (Dmitrii Faiazov, LB (Ben Johnston))
+ * Icons in links and buttons now use the appropriate “active control” colour (Dmitrii Faiazov, LB (Ben Johnston))
  * Comments dropdown now has a border (Shariq Jamil, LB (Ben Johnston))
  * Make StreamField block chooser menu buttons appear as buttons (Dmitrii Faiazov, LB (Ben Johnston))
  * Add a separator to identify the search forms (Dmitrii Faiazov, LB (Ben Johnston))

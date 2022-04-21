@@ -396,7 +396,7 @@ To tighten up template code like this, we could use Django's `with` tag:
 {% endfor %}
 ```
 
-When you start writing more customized Wagtail code, you'll find a whole set of QuerySet
+When you start writing more customised Wagtail code, you'll find a whole set of QuerySet
 modifiers to help you navigate the hierarchy.
 
 ```python

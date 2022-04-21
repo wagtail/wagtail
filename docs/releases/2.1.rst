@@ -91,7 +91,7 @@ Bug fixes
 * Bypass select/prefetch related optimisation on ``update_index`` for ``ParentalManyToManyField`` to fix crash (Tim Kamanin)
 * 'Add user' is now rendered as a button due to the use of quotes within translations (Benoît Vogel)
 * Menu icon no longer overlaps with title in Modeladmin on mobile (Coen van der Kamp)
-* Background color overflow within the Wagtail documentation (Sergey Fedoseev)
+* Background colour overflow within the Wagtail documentation (Sergey Fedoseev)
 * Page count on homepage summary panel now takes account of user permissions (Andy Chosak)
 * Explorer view now prevents navigating outside of the common ancestor of the user's permissions (Andy Chosak)
 * Generate URL for the current site when multiple sites share the same root page (Codie Roelf)
