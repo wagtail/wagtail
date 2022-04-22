@@ -435,6 +435,9 @@ class Delete(DeleteView):
             + urlencode([("id", instance.pk) for instance in self.objects])
         )
 
+    def get_index_url(self):
+        return reverse(self.viewset.get_url_name("list"))
+
     def get_success_url(self):
         return reverse(self.viewset.get_url_name("list"))
 
@@ -471,6 +474,7 @@ class Delete(DeleteView):
                 "model_opts": self.model._meta,
                 "objects": self.objects,
                 "action_url": self.get_delete_url(),
+                "index_url": self.get_index_url(),
             }
         )
         return context
