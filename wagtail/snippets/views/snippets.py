@@ -106,10 +106,6 @@ class List(IndexView):
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.permission_policy = ModelPermissionPolicy(self.model)
-
     def get_index_url(self):
         return reverse(self.viewset.get_url_name("list"))
 
@@ -207,10 +203,6 @@ class Create(CreateView):
     def run_after_hook(self):
         return self.run_hook("after_create_snippet", self.request, self.object)
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.permission_policy = ModelPermissionPolicy(self.model)
-
     def get_panel(self):
         return get_snippet_panel(self.model)
 
@@ -307,7 +299,6 @@ class Edit(EditView):
         super().setup(request, *args, **kwargs)
         self.pk = pk
         self.object = self.get_object()
-        self.permission_policy = ModelPermissionPolicy(self.model)
 
     def get_panel(self):
         return get_snippet_panel(self.model)
@@ -413,7 +404,6 @@ class Delete(DeleteView):
         super().setup(request, *args, **kwargs)
         self.pk = pk
         self.objects = self.get_objects()
-        self.permission_policy = ModelPermissionPolicy(self.model)
 
     def get_object(self, queryset=None):
         # DeleteView requires either a pk kwarg or a positional arg, but we use
@@ -578,34 +568,65 @@ class SnippetViewSet(ViewSet):
     history_view_class = HistoryView
 
     @property
+    def permission_policy(self):
+        return ModelPermissionPolicy(self.model)
+
+    @property
     def index_view(self):
-        return self.index_view_class.as_view(viewset=self, model=self.model)
+        return self.index_view_class.as_view(
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+        )
 
     @property
     def index_results_view(self):
         return self.index_view_class.as_view(
-            viewset=self, model=self.model, results_only=True
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+            results_only=True,
         )
 
     @property
     def add_view(self):
-        return self.add_view_class.as_view(viewset=self, model=self.model)
+        return self.add_view_class.as_view(
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+        )
 
     @property
     def edit_view(self):
-        return self.edit_view_class.as_view(viewset=self, model=self.model)
+        return self.edit_view_class.as_view(
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+        )
 
     @property
     def delete_view(self):
-        return self.delete_view_class.as_view(viewset=self, model=self.model)
+        return self.delete_view_class.as_view(
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+        )
 
     @property
     def usage_view(self):
-        return self.usage_view_class.as_view(viewset=self, model=self.model)
+        return self.usage_view_class.as_view(
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+        )
 
     @property
     def history_view(self):
-        return self.history_view_class.as_view(viewset=self, model=self.model)
+        return self.history_view_class.as_view(
+            viewset=self,
+            model=self.model,
+            permission_policy=self.permission_policy,
+        )
 
     @property
     def redirect_to_edit(self):
