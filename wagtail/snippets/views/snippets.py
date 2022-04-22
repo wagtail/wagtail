@@ -106,15 +106,9 @@ class List(IndexView):
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
-    def setup(self, request, *args, app_label, model_name, **kwargs):
-        self.app_label = app_label
-        self.model_name = model_name
-        self.model = self._get_model()
-        self.permission_policy = ModelPermissionPolicy(self.model)
+    def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-
-    def _get_model(self):
-        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+        self.permission_policy = ModelPermissionPolicy(self.model)
 
     def get_index_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
@@ -203,15 +197,9 @@ class Create(CreateView):
     def run_after_hook(self):
         return self.run_hook("after_create_snippet", self.request, self.object)
 
-    def setup(self, request, *args, app_label, model_name, **kwargs):
-        self.app_label = app_label
-        self.model_name = model_name
-        self.model = self._get_model()
-        self.permission_policy = ModelPermissionPolicy(self.model)
+    def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-
-    def _get_model(self):
-        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+        self.permission_policy = ModelPermissionPolicy(self.model)
 
     def get_panel(self):
         return get_snippet_panel(self.model)
@@ -315,17 +303,11 @@ class Edit(EditView):
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
 
-    def setup(self, request, *args, app_label, model_name, pk, **kwargs):
-        self.app_label = app_label
-        self.model_name = model_name
+    def setup(self, request, *args, pk, **kwargs):
+        super().setup(request, *args, **kwargs)
         self.pk = pk
-        self.model = self._get_model()
         self.object = self.get_object()
         self.permission_policy = ModelPermissionPolicy(self.model)
-        super().setup(request, *args, **kwargs)
-
-    def _get_model(self):
-        return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def get_panel(self):
         return get_snippet_panel(self.model)
@@ -432,17 +414,11 @@ class Delete(DeleteView):
     def run_after_hook(self):
         return self.run_hook("after_delete_snippet", self.request, self.objects)
 
-    def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
-        self.app_label = app_label
-        self.model_name = model_name
-        self.pk = pk
-        self.model = self._get_model()
+    def setup(self, request, *args, pk=None, **kwargs):
         super().setup(request, *args, **kwargs)
+        self.pk = pk
         self.objects = self.get_objects()
         self.permission_policy = ModelPermissionPolicy(self.model)
-
-    def _get_model(self):
-        return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def get_object(self, queryset=None):
         # DeleteView requires either a pk kwarg or a positional arg, but we use
@@ -517,16 +493,10 @@ class Usage(IndexView):
     paginate_by = 20
     page_kwarg = "p"
 
-    def setup(self, request, *args, app_label, model_name, **kwargs):
-        self.app_label = app_label
-        self.model_name = model_name
-        self.pk = kwargs.get("pk")
-        self.model = self._get_model()
-        self.instance = self._get_instance()
+    def setup(self, request, *args, pk, **kwargs):
         super().setup(request, *args, **kwargs)
-
-    def _get_model(self):
-        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+        self.pk = pk
+        self.instance = self._get_instance()
 
     def _get_instance(self):
         return get_object_or_404(self.model, pk=unquote(self.pk))
@@ -576,12 +546,9 @@ class HistoryView(IndexView):
         DateColumn("timestamp", label=gettext_lazy("Date")),
     ]
 
-    def setup(self, request, *args, app_label, model_name, pk, **kwargs):
-        self.app_label = app_label
-        self.model_name = model_name
-        self.model = get_snippet_model_from_url_params(app_label, model_name)
-        self.object = get_object_or_404(self.model, pk=unquote(pk))
+    def setup(self, request, *args, pk, **kwargs):
         super().setup(request, *args, **kwargs)
+        self.object = get_object_or_404(self.model, pk=unquote(pk))
 
     def get_page_subtitle(self):
         return str(self.object)
