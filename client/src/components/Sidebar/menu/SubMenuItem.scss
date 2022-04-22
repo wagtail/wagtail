@@ -1,16 +1,12 @@
 .sidebar-sub-menu-trigger-icon {
   $root: &;
   display: block;
-  width: 20px;
-  height: 20px;
-  position: absolute;
+  width: 1.25rem;
+  height: 1rem;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
-  right: 15px;
   inset-inline-end: 15px;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
+  margin-inline-start: auto;
 
   @include transition(
     transform $menu-transition-duration ease,
@@ -24,13 +20,13 @@
   }
 
   .sidebar--slim & {
-    width: 16px;
-    height: 16px;
-    transform: translate3d(13px, 0, 0);
-  }
-
-  .sidebar--slim &--open {
-    transform: translate3d(13px, 0, 0) rotate(180deg);
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    right: 0;
+    inset-inline-end: 0;
   }
 }
 
@@ -44,8 +40,8 @@
   }
 
   > h2 {
-    // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
-    @apply w-min-h-[160px] w-mt-[45px] w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center;
+    // w-min-h-[160px] is to vertically align the title and icon combination to the search input on the left
+    @apply w-min-h-[220px] w-mt-0 w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center;
 
     &:before {
       font-size: 4em;
@@ -57,7 +53,7 @@
     }
 
     @at-root .sidebar--slim & {
-      @apply w-mt-3;
+      @apply w-min-h-[150px];
     }
   }
 

@@ -1,4 +1,5 @@
 // stylelint-disable declaration-no-important
+$logo-size: 110px;
 
 // Wagging animation
 @keyframes tail-wag {
@@ -18,10 +19,10 @@
   align-items: center;
   color: #aaa;
   -webkit-font-smoothing: auto;
-  margin: 4em auto 1.8em;
+  margin: 4rem auto;
   text-align: center;
-  width: 100px;
-  height: 100px;
+  width: $logo-size;
+  height: $logo-size;
   transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
     width $menu-transition-duration ease, height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
@@ -29,12 +30,13 @@
   border-radius: 100%;
 
   @include media-breakpoint-up(sm) {
-    margin: 1.8em auto 2.5em;
+    margin: 0 auto 4rem;
   }
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
     @include show-focus-outline-inside();
+    margin: 1.125em auto 2.5em;
     width: 60px;
     height: 60px;
   }
@@ -70,8 +72,8 @@
   &__icon-wrapper {
     @apply w-bg-white/15 w-relative w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
-    width: 100px;
-    height: 100px;
+    width: $logo-size;
+    height: $logo-size;
     border-radius: 50%;
 
     .sidebar--slim & {

@@ -189,9 +189,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             >
               <Icon
                 name="expand-right"
-                className={`w-transition motion-reduce:w-transition-none
-                ${!collapsed ? '-w-rotate-180' : ''}
-                `}
+                className={!collapsed ? '-w-rotate-180' : ''}
               />
             </button>
           </div>
