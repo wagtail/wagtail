@@ -1,12 +1,12 @@
 Changelog
 =========
 
-unreleased (xx.xx.xxxx) - IN DEVELOPMENT
+4.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
  * Add clarity to confirmation when being asked to convert an external link to an internal one (Thijs Kramer)
  * Convert various pages in the documentation to Markdown (Daniel Kirkham)
- * Add `base_url_path` to `ModelAdmin` so that the default URL structure of app_label/model_name can be overridden, sub-classes of `AdminURLHelper` overriding `__init__` will need to accept a new kwarg of `base_url_path` (Vu Pham, Khanh Hoang)
+ * Add `base_url_path` to `ModelAdmin` so that the default URL structure of app_label/model_name can be overridden (Vu Pham, Khanh Hoang)
  * Add `full_url` to the API output of `ImageRenditionField` (Paarth Agarwal)
 
 
