@@ -113,6 +113,15 @@ class List(IndexView):
     def get_index_url(self):
         return reverse(self.viewset.get_url_name("list"))
 
+    def get_index_results_url(self):
+        return reverse(self.viewset.get_url_name("list_results"))
+
+    def get_delete_multiple_url(self):
+        return reverse(self.viewset.get_url_name("delete-multiple"))
+
+    def get_add_url(self):
+        return reverse(self.viewset.get_url_name("add"))
+
     def get_edit_url_name(self):
         return self.viewset.get_url_name("edit")
 
@@ -154,6 +163,9 @@ class List(IndexView):
 
         context.update(
             {
+                "index_results_url": self.get_index_results_url(),
+                "delete_multiple_url": self.get_delete_multiple_url(),
+                "add_url": self.get_add_url(),
                 "model_opts": self.model._meta,
                 "items": paginated_items,
                 "can_add_snippet": self.permission_policy.user_has_permission(

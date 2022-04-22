@@ -69,8 +69,8 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
         yield SnippetListingButton(
             _("Edit"),
             reverse(
-                "wagtailsnippets:edit",
-                args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)],
+                f"wagtailsnippets_{model._meta.app_label}_{model._meta.model_name}:edit",
+                args=[quote(snippet.pk)],
             ),
             attrs={"aria-label": _("Edit '%(title)s'") % {"title": str(snippet)}},
             priority=10,
@@ -80,8 +80,8 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
         yield SnippetListingButton(
             _("Delete"),
             reverse(
-                "wagtailsnippets:delete",
-                args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)],
+                f"wagtailsnippets_{model._meta.app_label}_{model._meta.model_name}:delete",
+                args=[quote(snippet.pk)],
             ),
             attrs={"aria-label": _("Delete '%(title)s'") % {"title": str(snippet)}},
             priority=20,
