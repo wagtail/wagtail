@@ -58,27 +58,15 @@ const hideTooltipOnBreadcrumbExpand = {
 const rotateToggleIcon = {
   name: 'rotateToggleIcon',
   fn(instance) {
-    const dropdownIcon = instance.reference.querySelector('.icon');
+    const dropdownIcon = instance.reference.querySelector('.icon-arrow-down');
 
-    function setRotate() {
-      if (dropdownIcon) {
-        dropdownIcon.classList.add('w-rotate-180');
-      }
-    }
-
-    function removeRotate() {
-      if (dropdownIcon) {
-        dropdownIcon.classList.remove('w-rotate-180');
-      }
+    if (!dropdownIcon) {
+      return {};
     }
 
     return {
-      onShow() {
-        setRotate();
-      },
-      onHide() {
-        removeRotate();
-      },
+      onShow: () => dropdownIcon.classList.add('w-rotate-180'),
+      onHide: () => dropdownIcon.classList.remove('w-rotate-180'),
     };
   },
 };
