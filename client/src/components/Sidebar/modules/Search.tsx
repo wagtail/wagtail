@@ -100,7 +100,6 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
             !w-pl-[55px]
             !w-py-[13px]
             !w-subpixel-antialiased
-            padding: 13px 20px;
             !w-absolute
             !w-left-0
             !w-font-normal
