@@ -500,15 +500,21 @@ class Usage(IndexView):
 
 
 def redirect_to_edit(request, app_label, model_name, pk):
-    return redirect("wagtailsnippets:edit", app_label, model_name, pk, permanent=True)
+    return redirect(
+        f"wagtailsnippets_{app_label}_{model_name}:edit", pk, permanent=True
+    )
 
 
 def redirect_to_delete(request, app_label, model_name, pk):
-    return redirect("wagtailsnippets:delete", app_label, model_name, pk, permanent=True)
+    return redirect(
+        f"wagtailsnippets_{app_label}_{model_name}:delete", pk, permanent=True
+    )
 
 
 def redirect_to_usage(request, app_label, model_name, pk):
-    return redirect("wagtailsnippets:usage", app_label, model_name, pk, permanent=True)
+    return redirect(
+        f"wagtailsnippets_{app_label}_{model_name}:usage", pk, permanent=True
+    )
 
 
 class HistoryView(IndexView):
