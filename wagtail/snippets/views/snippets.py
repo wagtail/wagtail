@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
@@ -18,6 +18,7 @@ from wagtail.admin import messages
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale
@@ -98,6 +99,7 @@ class Index(TemplateView):
 
 
 class List(IndexView):
+    viewset = None
     any_permission_required = ["add", "change", "delete"]
     paginate_by = 20
     page_kwarg = "p"
@@ -190,6 +192,7 @@ class List(IndexView):
 
 
 class Create(CreateView):
+    viewset = None
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
@@ -301,6 +304,7 @@ class Create(CreateView):
 
 
 class Edit(EditView):
+    viewset = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = _("The snippet could not be saved due to errors.")
@@ -418,6 +422,7 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
+    viewset = None
     permission_required = "delete"
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
@@ -507,6 +512,7 @@ class Delete(DeleteView):
 
 
 class Usage(IndexView):
+    viewset = None
     template_name = "wagtailsnippets/snippets/usage.html"
     paginate_by = 20
     page_kwarg = "p"
@@ -559,6 +565,7 @@ def redirect_to_usage(request, app_label, model_name, pk):
 
 
 class HistoryView(IndexView):
+    viewset = None
     template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippet history")
     header_icon = "history"
@@ -589,3 +596,54 @@ class HistoryView(IndexView):
         return log_registry.get_logs_for_instance(self.object).prefetch_related(
             "user__wagtail_userprofile"
         )
+
+
+class SnippetViewSet(ViewSet):
+    index_view_class = List
+    add_view_class = Create
+    edit_view_class = Edit
+    delete_view_class = Delete
+    usage_view_class = Usage
+    history_view_class = HistoryView
+
+    @property
+    def index_view(self):
+        return self.index_view_class.as_view(viewset=self, model=self.model)
+
+    @property
+    def index_results_view(self):
+        return self.index_view_class.as_view(
+            viewset=self, model=self.model, results_only=True
+        )
+
+    @property
+    def add_view(self):
+        return self.add_view_class.as_view(viewset=self, model=self.model)
+
+    @property
+    def edit_view(self):
+        return self.edit_view_class.as_view(viewset=self, model=self.model)
+
+    @property
+    def delete_view(self):
+        return self.delete_view_class.as_view(viewset=self, model=self.model)
+
+    @property
+    def usage_view(self):
+        return self.usage_view_class.as_view(viewset=self, model=self.model)
+
+    @property
+    def history_view(self):
+        return self.history_view_class.as_view(viewset=self, model=self.model)
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            path("", self.index_view, name="list"),
+            path("results/", self.index_results_view, name="list_results"),
+            path("add/", self.add_view, name="add"),
+            path("edit/<str:pk>/", self.edit_view, name="edit"),
+            path("multiple/delete/", self.delete_view, name="delete-multiple"),
+            path("delete/<str:pk>/", self.delete_view, name="delete"),
+            path("usage/<str:pk>/", self.usage_view, name="usage"),
+            path("history/<str:pk>/", self.history_view, name="history"),
+        ]
