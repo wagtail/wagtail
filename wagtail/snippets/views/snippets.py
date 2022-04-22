@@ -328,6 +328,12 @@ class Edit(EditView):
             args=[quote(self.object.pk)],
         )
 
+    def get_history_url(self):
+        return reverse(
+            self.viewset.get_url_name("history"),
+            args=[quote(self.object.pk)],
+        )
+
     def get_success_url(self):
         return reverse(self.viewset.get_url_name("list"))
 
@@ -370,6 +376,7 @@ class Edit(EditView):
                 "instance": self.object,
                 "action_menu": action_menu,
                 "latest_log_entry": latest_log_entry,
+                "history_url": self.get_history_url(),
                 "media": media + action_menu.media,
             }
         )
