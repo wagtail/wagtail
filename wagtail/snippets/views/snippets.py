@@ -81,7 +81,7 @@ class Index(TemplateView):
 
     def _get_snippet_types(self):
         return [
-            model._meta
+            {"model_opts": model._meta, "model": model}
             for model in get_snippet_models()
             if user_can_edit_snippet_type(self.request.user, model)
         ]
@@ -92,10 +92,10 @@ class Index(TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        snippet_model_opts = sorted(
-            self.snippet_types, key=lambda x: x.verbose_name.lower()
+        snippet_types = sorted(
+            self.snippet_types, key=lambda x: x["model_opts"].verbose_name.lower()
         )
-        return super().get_context_data(snippet_model_opts=snippet_model_opts, **kwargs)
+        return super().get_context_data(snippet_types=snippet_types, **kwargs)
 
 
 class List(IndexView):
