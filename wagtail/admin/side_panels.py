@@ -93,22 +93,16 @@ class PreviewSidePanel(BaseSidePanel):
 
 
 class PageSidePanels:
-    def __init__(self, request, page):
+    def __init__(self, request, page, *, comments_enabled):
         self.request = request
         self.page = page
-        self.edit_handler = page.get_edit_handler()
-        self.form_class = self.edit_handler.get_form_class()
-        self.form = self.form_class(
-            instance=page,
-            for_user=request.user,
-        )
 
         self.side_panels = [
             StatusSidePanel(page, self.request),
             # PreviewSidePanel(page),
         ]
 
-        if self.form.show_comments_toggle:
+        if comments_enabled:
             self.side_panels = self.side_panels + [
                 CommentsSidePanel(page, self.request)
             ]
