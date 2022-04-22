@@ -868,7 +868,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             instance=self.page, request=self.request, form=self.form
         )
         action_menu = PageActionMenu(self.request, view="edit", page=self.page)
-        side_panels = PageSidePanels(self.request, self.page_for_status)
+        side_panels = PageSidePanels(
+            self.request,
+            self.page_for_status,
+            comments_enabled=self.form.show_comments_toggle,
+        )
 
         context.update(
             {

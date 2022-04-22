@@ -2405,7 +2405,7 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
-
+        self.assertNotContains(response, 'data-side-panel-toggle="comments"')
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(
             response,
