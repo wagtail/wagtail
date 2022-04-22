@@ -14,7 +14,7 @@ exports[`Menu should render with the minimum required props 1`] = `
     className="sidebar-footer sidebar-footer--visible"
   >
     <ForwardRef(TippyWrapper)
-      content="Edit your account"
+      content="Account"
       disabled={true}
       placement="right"
     >

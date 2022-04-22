@@ -41,7 +41,7 @@ $menu-footer-height: 50px;
 $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header {
-  @apply w-bg-black/50 w-text-white/85;
+  @apply w-bg-primary-200 w-text-white/85 w-border-b w-border-primary;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -55,15 +55,12 @@ $explorer-header-horizontal-padding: 10px;
 }
 
 .c-page-explorer__header__title {
+  @apply hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
   color: inherit;
-
-  &:focus,
-  &:hover {
-    @apply w-bg-black/50 w-text-white;
-  }
 }
 
 .c-page-explorer__header__title__inner {
+  @apply w-flex;
   padding: 1em $explorer-header-horizontal-padding;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -76,7 +73,7 @@ $explorer-header-horizontal-padding: 10px;
   }
 
   .icon--explorer-header {
-    @apply w-text-white/85;
+    @apply w-text-white/85 w-mr-2;
     width: 1.25em;
     height: 1.25em;
     margin-inline-end: 0.25rem;
@@ -95,7 +92,6 @@ $explorer-header-horizontal-padding: 10px;
 
   > select {
     padding: 5px 30px 5px 10px;
-    border-radius: 0;
     border-color: #4c4e4d;
     font-size: 0.875rem;
 
@@ -116,15 +112,16 @@ $explorer-header-horizontal-padding: 10px;
 
   // Add select arrow back on browsers where native ui has been removed
   &-icon {
+    @apply w-text-primary;
     position: absolute;
     // Remove once we drop support for Safari 13.
     // stylelint-disable-next-line property-disallowed-list
     right: 1rem;
     inset-inline-end: 1rem;
-    top: 1rem;
+    top: 0.85rem;
     width: 1.25rem;
     height: 1.25rem;
-    color: $color-grey-3;
+    pointer-events: none;
 
     .ie & {
       display: none;

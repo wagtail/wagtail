@@ -1,20 +1,10 @@
 .c-page-explorer__item {
-  @apply w-flex w-flex-row w-flex-nowrap w-border-0 w-border-b w-border-solid w-border-black/50 w-divide-x w-divide-solid w-divide-black/50 w-divide-y-0;
+  @apply w-flex w-flex-row w-flex-nowrap w-border-0 w-border-b w-border-solid w-border-primary w-divide-x w-divide-solid w-divide-primary w-divide-y-0;
 }
 
 .c-page-explorer__item__link {
-  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1 w-transition;
+  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1 w-transition hover:w-bg-primary focus:w-bg-primary focus:w-text-white hover:w-text-white;
   padding: 1.45em 1em;
-
-  &:focus,
-  &:hover {
-    background: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
-
-  @include hover {
-    background: $c-page-explorer-bg-active;
-  }
 
   @include media-breakpoint-up(sm) {
     padding: 1.45em 1.75em;
@@ -35,7 +25,7 @@
 }
 
 .c-page-explorer__item__action {
-  @apply w-text-white/85 w-transition;
+  @apply w-text-white/85 w-transition hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -45,12 +35,6 @@
   line-height: 1;
   font-size: 2em;
   cursor: pointer;
-
-  &:focus,
-  &:hover {
-    background: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
 
   .icon::before {
     margin-inline-end: 0;
