@@ -428,11 +428,11 @@ class Delete(DeleteView):
         return self.run_hook("after_delete_snippet", self.request, self.objects)
 
     def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
-        super().setup(request, *args, **kwargs)
         self.app_label = app_label
         self.model_name = model_name
         self.pk = pk
         self.model = self._get_model()
+        super().setup(request, *args, **kwargs)
         self.objects = self.get_objects()
         self.permission_policy = ModelPermissionPolicy(self.model)
 
