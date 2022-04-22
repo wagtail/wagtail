@@ -167,7 +167,7 @@ class ChosenView(View):
             "id": str(item.pk),
             "string": str(item),
             "edit_link": reverse(
-                "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
+                f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quote(item.pk)]
             ),
         }
 
