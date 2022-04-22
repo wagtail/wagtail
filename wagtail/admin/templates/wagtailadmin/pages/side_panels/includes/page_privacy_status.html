@@ -25,7 +25,7 @@
 {% block action %}
     {% page_permissions page as page_perms %}
     {% if page.id and page_perms.can_set_view_restrictions %}
-        {% trans 'Set privacy' as set_privacy_text %}
+        {% trans 'Change privacy' as set_privacy_text %}
         {% url 'wagtailadmin_pages:set_privacy' page.id as privacy_url %}
         {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-set-privacy' data_url=privacy_url text=set_privacy_text %}
     {% else %}

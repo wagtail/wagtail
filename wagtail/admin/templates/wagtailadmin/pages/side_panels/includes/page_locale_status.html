@@ -21,7 +21,7 @@
     {% if translations %}
         <div data-button-with-dropdown>
             {% trans 'Switch locales' as action_text %}
-            {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-button-with-dropdown-toggle' text=action_text %}
+            {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
 
             <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
                 {% for translation in translations %}
