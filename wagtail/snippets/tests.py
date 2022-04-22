@@ -679,10 +679,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
     def test_non_existant_model(self):
         response = self.client.get(
-            reverse(
-                "wagtailsnippets_tests_foo:edit",
-                args=[quote(self.test_snippet.pk)],
-            )
+            f"/admin/snippets/tests/foo/edit/{quote(self.test_snippet.pk)}/"
         )
         self.assertEqual(response.status_code, 404)
 
