@@ -119,8 +119,8 @@ class List(IndexView):
     def get_delete_multiple_url(self):
         return reverse(self.viewset.get_url_name("delete-multiple"))
 
-    def get_add_url(self):
-        return reverse(self.viewset.get_url_name("add"))
+    def get_add_url_name(self):
+        return self.viewset.get_url_name("add")
 
     def get_edit_url_name(self):
         return self.viewset.get_url_name("edit")
@@ -165,7 +165,7 @@ class List(IndexView):
             {
                 "index_results_url": self.get_index_results_url(),
                 "delete_multiple_url": self.get_delete_multiple_url(),
-                "add_url": self.get_add_url(),
+                "add_url_name": self.get_add_url_name(),
                 "model_opts": self.model._meta,
                 "items": paginated_items,
                 "can_add_snippet": self.permission_policy.user_has_permission(
@@ -181,9 +181,7 @@ class List(IndexView):
             context["translations"] = [
                 {
                     "locale": locale,
-                    "url": self.viewset.get_url_name("list")
-                    + "?locale="
-                    + locale.language_code,
+                    "url": self.get_index_url() + "?locale=" + locale.language_code,
                 }
                 for locale in Locale.objects.all().exclude(id=self.locale.id)
             ]
