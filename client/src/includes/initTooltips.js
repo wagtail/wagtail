@@ -30,6 +30,7 @@ const hideTooltipOnBreadcrumbExpand = {
     function onBreadcrumbToggleHover() {
       hide();
     }
+
     const breadcrumbsToggle = document.querySelector(
       '[data-toggle-breadcrumbs]',
     );
@@ -47,6 +48,25 @@ const hideTooltipOnBreadcrumbExpand = {
           onBreadcrumbToggleHover,
         );
       },
+    };
+  },
+};
+
+/*
+ If the toggle button has a toggle arrow, rotate it when open and closed
+ */
+const rotateToggleIcon = {
+  name: 'rotateToggleIcon',
+  fn(instance) {
+    const dropdownIcon = instance.reference.querySelector('.icon-arrow-down');
+
+    if (!dropdownIcon) {
+      return {};
+    }
+
+    return {
+      onShow: () => dropdownIcon.classList.add('w-rotate-180'),
+      onHide: () => dropdownIcon.classList.remove('w-rotate-180'),
     };
   },
 };
@@ -80,7 +100,9 @@ export function initModernDropdown() {
     );
 
     if (toggle) {
-      content.classList.remove('w-hidden');
+      if (content) {
+        content.classList.remove('w-hidden');
+      }
 
       tippy(toggle, {
         content: content,
@@ -88,7 +110,11 @@ export function initModernDropdown() {
         interactive: true,
         theme: 'dropdown',
         placement: 'bottom',
-        plugins: [hideTooltipOnEsc, hideTooltipOnBreadcrumbExpand],
+        plugins: [
+          hideTooltipOnEsc,
+          hideTooltipOnBreadcrumbExpand,
+          rotateToggleIcon,
+        ],
       });
     }
   });
