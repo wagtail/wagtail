@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -135,11 +135,11 @@ msgstr "Uredi stran"
 msgid "Search %(snippet_type_name)s"
 msgstr "Iskanje po %(snippet_type_name)s"
 
-msgid "Edit"
-msgstr "Uredi"
-
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."

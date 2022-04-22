@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -79,20 +79,6 @@ msgstr "ค้นหา"
 msgid "Upload"
 msgstr "อัพโหลด"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" มี %(counter)s ที่ตรงกัน\n"
-" "
-
 msgid "Latest documents"
 msgstr "เอกสารอันล่าสุด"
 
@@ -105,18 +91,6 @@ msgstr "คุณยังไม่ได้อัพโหลดเอกสา
 
 msgid "You haven't uploaded any documents."
 msgstr "คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย"
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-" ทำไมถึงไม่ <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">อัพโหลดสักอันตอนนี้</a>?\n"
-" "
 
 msgid "Uploading…"
 msgstr "กำลังอัพโหลด..."

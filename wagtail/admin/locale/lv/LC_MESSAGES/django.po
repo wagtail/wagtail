@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -39,15 +39,6 @@ msgstr "Atsaukt publicēšanu"
 msgid "Delete"
 msgstr "Dzēst"
 
-msgid "Lock"
-msgstr "Slēgt"
-
-msgid "Apply editor lock"
-msgstr "Pielietot redaktora slēgšanu"
-
-msgid "Unlock"
-msgstr "Atslēgt"
-
 msgid "Save Draft"
 msgstr "Saglabāt melnrakstu"
 
@@ -65,21 +56,6 @@ msgstr "Jums nav tiesību pieklūt administrācijas videi"
 
 msgid "None"
 msgstr "Nav"
-
-msgid "Scheduled publishing"
-msgstr "Plānota publicēšana"
-
-msgid "Privacy"
-msgstr "Privātums"
-
-msgid "Content"
-msgstr "Saturs"
-
-msgid "Promote"
-msgstr "Veicināšana"
-
-msgid "Settings"
-msgstr "Iestatījumi"
 
 msgid "Date from"
 msgstr "Datums no"
@@ -240,92 +216,26 @@ msgstr "Piešķir darbplūsmai nosaukumu"
 msgid "Add tasks to your workflow"
 msgstr "Pievieno uzdevumus savai darbplūsmai "
 
-msgid "Page"
-msgstr "Lapa"
+msgid "Scheduled publishing"
+msgstr "Plānota publicēšana"
 
-msgid "Pages"
-msgstr "Lapas"
+msgid "Privacy"
+msgstr "Privātums"
 
-msgid "Loading…"
-msgstr "Ielādē..."
+msgid "Content"
+msgstr "Saturs"
 
-msgid "No results"
-msgstr "Nav rezultātu"
+msgid "Promote"
+msgstr "Veicināšana"
 
-msgid "Server Error"
-msgstr "Servera kļūda"
+msgid "Settings"
+msgstr "Iestatījumi"
 
-msgid "See all"
-msgstr "Apskatīt visu"
+msgid "Status"
+msgstr "Statuss"
 
-msgid "Close explorer"
-msgstr "Aizvērt pārlūku"
-
-msgid "Alt text"
-msgstr "Alt teksts"
-
-msgid "Write here…"
-msgstr "Raksti šeit..."
-
-msgid "Horizontal line"
-msgstr "Horizontāla līnija"
-
-msgid "Line break"
-msgstr "Līnijas pārtraukums"
-
-msgid "Undo"
-msgstr "Atsaukt"
-
-msgid "Redo"
-msgstr "Atcelt atsaukšanu"
-
-msgid "Reload the page"
-msgstr "Pārlādēt lapas saturu"
-
-msgid "Reload saved content"
-msgstr "Pārlādēt saglabāto saturu"
-
-msgid "Show latest content"
-msgstr "Pārādīt jaunāko saturu"
-
-msgid "Show error"
-msgstr "Parādīt kļūdu"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "Redaktors kļūda. Saturs ir atiestatīts uz pēdējo saglabāto versiju."
-
-msgid "Broken link"
-msgstr "Bojāta saite"
-
-msgid "Missing document"
-msgstr "Trūkstošs dokuments"
-
-msgid "Close"
-msgstr "Aizvērt"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Rediģēt '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Apskatīt '{title}' zemāka līmeņa lapas"
-
-msgid "Page explorer"
-msgstr "Lapu pārlūks"
-
-msgid "Save"
-msgstr "Saglabāt"
-
-msgid "Saving..."
-msgstr "Saglabā..."
-
-msgid "Dashboard"
-msgstr "Informācijas panelis"
-
-msgid "Edit your account"
-msgstr "Mainīt konta iestatījumus"
+msgid "Preview"
+msgstr "Priekšskatīt"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -409,28 +319,6 @@ msgstr "Tālruņa saite"
 msgid "Anchor link"
 msgstr "Enkura saite"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"        %(counter)s rezultātu\n"
-"    "
-msgstr[1] ""
-"\n"
-"        %(counter)s atbilstība\n"
-"    "
-msgstr[2] ""
-"\n"
-"        %(counter)s atbilstības\n"
-"    "
-
 msgid "Add an anchor link"
 msgstr "Pievienot enkura saiti"
 
@@ -470,6 +358,9 @@ msgstr ""
 "Privātuma iestatījumi nosaka, kurš var skatīt šajā kolekcijā esošos "
 "dokumentus."
 
+msgid "Save"
+msgstr "Saglabāt"
+
 msgid "Set collection privacy. Current status: Public"
 msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Publisks"
 
@@ -489,21 +380,14 @@ msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
 msgid "Name"
 msgstr "Nosaukums"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "Pievienot %(label)s"
-
-msgid "Move up"
-msgstr "Uz augšu"
-
-msgid "Move down"
-msgstr "Uz leju"
-
 msgid "Yes, delete"
 msgstr "Dzēst"
 
 msgid "Update"
 msgstr "Atjaunot"
+
+msgid "Dashboard"
+msgstr "Informācijas panelis"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -527,6 +411,9 @@ msgstr "Slēgta plkst."
 
 msgid "Edit this page"
 msgstr "Labot šo lapu"
+
+msgid "Unlock"
+msgstr "Atslēgt"
 
 msgid "Draft"
 msgstr "Melnraksts"
@@ -556,14 +443,8 @@ msgstr "Apstiprināt"
 msgid "Reject"
 msgstr "Noraidīt"
 
-msgid "Preview"
-msgstr "Priekšskatīt"
-
 msgid "Your most recent edits"
 msgstr "Neseni labojumi"
-
-msgid "Status"
-msgstr "Statuss"
 
 msgid "Date"
 msgstr "Datums"
@@ -720,9 +601,6 @@ msgstr "Kopēt šo lapu"
 msgid "New %(page_type)s"
 msgstr "Jauns %(page_type)s"
 
-msgid "New"
-msgstr "Jauns"
-
 msgid "Actions"
 msgstr "Darbības"
 
@@ -800,8 +678,20 @@ msgstr "Izvēlēties jaunu virslapu %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Izvēlēties jaunu virslapu <span>%(title)s</span>"
 
+msgid "Close"
+msgstr "Aizvērt"
+
 msgid "Enter a search term above"
 msgstr "Lūdzu ievadiet meklēšanas terminu"
+
+msgid "Locked"
+msgstr "Slēgts"
+
+msgid "Unlocked"
+msgstr "Atslēgts"
+
+msgid "Lock"
+msgstr "Slēgt"
 
 msgid "No pages use"
 msgstr "Neviena lapa nelieto"
@@ -809,20 +699,30 @@ msgstr "Neviena lapa nelieto"
 msgid "Started at"
 msgstr "Sākās plkst."
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Pievienot %(label)s"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
 
 msgid "Filter"
 msgstr "Atsijāt"
 
-msgid "Locked"
-msgstr "Slēgts"
-
 msgid "Edit this item"
 msgstr "Rediģēt šo vienību"
 
 msgid "Workflow"
 msgstr "Darbplūsma"
+
+msgid "Page"
+msgstr "Lapa"
 
 msgid "Completed at"
 msgstr "Pabeigts plkst."
@@ -837,9 +737,6 @@ msgstr "Sākumlapa"
 msgid "All collections"
 msgstr "Visas kolekcijas"
 
-msgid "Log out"
-msgstr "Iziet"
-
 msgid "Other searches"
 msgstr "Citi meklējumi"
 
@@ -849,12 +746,21 @@ msgstr "Pievienot apakšlapu"
 msgid "Show in Explorer"
 msgstr "Parādīt pārlūkā"
 
+msgid "No"
+msgstr "Nē"
+
+msgid "New"
+msgstr "Jauns"
+
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "autors %(modified_by)s"
 
 msgid "More"
 msgstr "Vairāk"
+
+msgid "Log out"
+msgstr "Iziet"
 
 msgid "draft"
 msgstr "melnraksts"
@@ -999,14 +905,17 @@ msgstr "Rādīt"
 msgid "Awaiting my review"
 msgstr "Gaida manu pārbaudi"
 
+msgid "Server Error"
+msgstr "Servera kļūda"
+
+msgid "Pages"
+msgstr "Lapas"
+
 msgid "Add child page"
 msgstr "Pievienot apakšlapu"
 
 msgid "Yes"
 msgstr "Jā"
-
-msgid "No"
-msgstr "Nē"
 
 msgid "Choose an item"
 msgstr "Izvēlies vienību"

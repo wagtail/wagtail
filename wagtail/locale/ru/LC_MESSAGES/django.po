@@ -14,7 +14,7 @@
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
-# Vladislav <integration.into.society@gmail.com>, 2021
+# Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # Sergey Mazanov <mvver@outlook.com>, 2021
@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020-2021\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"

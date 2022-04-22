@@ -5,14 +5,15 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020\n"
+"Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -37,17 +38,9 @@ msgid "Search"
 msgstr "검색"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            일치하는 %(counter)s개의 결과가 있습니다."
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s만큼 일치"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -57,12 +50,18 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
-"%(snippet_type_name)s 스니펫은 없습니다. 하나 <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">만들어 보세요</"
-"a>."
+"당신은 어떤 %(snippet_type_name)s정보도 생성한적 없습니다. <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">새로 생성</a>하는 것은 어떤가요?"
+
+msgid "Last updated"
+msgstr "마지막으로 업로드된"
+
+msgid "History"
+msgstr "자취"
 
 msgid "Saving…"
 msgstr "저장 중…"
@@ -170,15 +169,15 @@ msgstr "페이지 변경"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 검색"
 
+msgid "The snippet could not be created due to errors."
+msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' 생성됨."
 
 msgid "Edit"
 msgstr "수정"
-
-msgid "The snippet could not be created due to errors."
-msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
@@ -196,12 +195,22 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d개의 %(snippet_type)s 삭제됨."
 
+msgid "Snippet history"
+msgstr "정보 자취"
+
+msgid "Action"
+msgstr "행동"
+
 msgid "Date"
 msgstr "날짜"
 
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' 수정"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "'%(title)s' 삭제"
 
 #, python-format
 msgid "Choose %s"

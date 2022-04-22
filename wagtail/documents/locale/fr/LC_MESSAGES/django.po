@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2021\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -73,12 +73,6 @@ msgstr "Document"
 msgid "documents"
 msgstr "documents"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "Ajouter des mots-clés à 1 document"
-msgstr[1] "Ajouter des mots-clés à %(counter)s documents"
-
 msgid "Add tags to documents"
 msgstr "Ajouter des mots-clés à des documents"
 
@@ -103,12 +97,6 @@ msgstr "Oui, ajouter"
 msgid "No, don't add"
 msgstr "Non, ne pas ajouter"
 
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Ajouter 1 document à la nouvelle collection"
-msgstr[1] "Ajouter %(counter)s documents à la nouvelle collection"
-
 msgid "Add documents to collection"
 msgstr "Ajouter des documents à la collection"
 
@@ -131,12 +119,6 @@ msgstr[0] ""
 "Vous n’avez pas l’autorisation d'ajouter ce document à une collection"
 msgstr[1] ""
 "Vous n’avez pas l’autorisation d'ajouter ces documents à une collection"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "Supprimer 1 document"
-msgstr[1] "Supprimer %(counter)s documents"
 
 msgid "Delete documents"
 msgstr "Supprimer des documents"
@@ -172,22 +154,6 @@ msgstr "Recherche"
 msgid "Upload"
 msgstr "Transférer"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"        Il y a %(counter)s correspondance"
-msgstr[1] ""
-"\n"
-"        Il y a %(counter)s correspondances"
-
 msgid "Latest documents"
 msgstr "Derniers documents"
 
@@ -200,17 +166,6 @@ msgstr "Vous n’avez pas encore transféré de document dans cette collection."
 
 msgid "You haven't uploaded any documents."
 msgstr "Vous n’avez pas encore transféré de document."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Pourquoi ne pas <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">en transférer un</a> ?"
 
 msgid "Uploading…"
 msgstr "Transfert…"
@@ -306,28 +261,6 @@ msgstr "Statut"
 
 msgid "Edit this page"
 msgstr "Modifier cette page"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden\">créé "
-"dans %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">créés dans %(site_name)s</span>\n"
-"    "
 
 msgid "Add multiple documents"
 msgstr "Ajouter plusieurs documents"

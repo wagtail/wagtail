@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -120,10 +120,6 @@ msgstr "Não, não apagar"
 msgid "Home"
 msgstr "Início"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr " Por %(filter_title)s "
-
 msgid "Last updated"
 msgstr "Última atualização"
 
@@ -166,18 +162,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Ainda não foram criados %(name)s."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                Que tal <a href=\"%(url)s"
-"\">criar um</a>?\n"
-"                                            "
 
 msgid "Pagination"
 msgstr "Paginação"

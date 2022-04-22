@@ -6,15 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -25,10 +25,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtailin lomakkeet"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s lähetykset"
 
 msgid "Date from"
 msgstr "Lähtien"
@@ -92,6 +88,9 @@ msgstr "lomakkeen lähetykset"
 msgid "name"
 msgstr "nimi"
 
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Lomakekentän turvallinen nimi, muunnetaan ascii_snake_caseksi"
+
 msgid "label"
 msgstr "otsikko"
 
@@ -108,17 +107,20 @@ msgid "choices"
 msgstr "valinnat"
 
 msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
 msgstr ""
-"Pilkulla eroteltu lista vaihtoehtoja. Pätee vain valintalaatikoihin, -"
-"nappeihin ja alasvetovalikoihin."
+"Pilkulla tai uudella rivillä lista valinnoista. Pätee vain "
+"valintalaatikoihin, valintanappeihin ja pudotusvalikoihin."
 
 msgid "default value"
 msgstr "oletusarvo"
 
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Oletusarvo. Pilkulla erotellut arvot käyvät valintalaatikkokenttiin."
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Oletusarvo. Pilkuin tai uudella rivillä erotellut arvot ovat tuettuja "
+"valintalaatikoissa."
 
 msgid "help text"
 msgstr "aputeksti"
@@ -149,35 +151,23 @@ msgid "subject"
 msgstr "otsake"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s lähetykset"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Poista lomakkeen %(title)s tiedot"
 
 msgid "Delete form data"
 msgstr "Poista lomakkeen tiedot"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Haluatko varmasti poistaa tämän lomakkeen tiedot?"
-msgstr[1] ""
-"\n"
-"Haluatko varmasti poistaa nämä lomakkeen tiedot?"
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Haluatko varmasti poistaa tämän lähetetyn lomakkeen?"
+msgstr[1] "Haluatko varmasti poistaa nämä lähetetyt lomakkeet?"
 
 msgid "Delete"
 msgstr "Poista"
-
-msgid "Total submissions"
-msgstr "Lähettyjä yhteensä"
-
-msgid "Latest submission"
-msgstr "Viimeksi lähetetty"
 
 msgid "Forms"
 msgstr "Lomakkeet"
@@ -214,6 +204,12 @@ msgstr "Lähde"
 
 msgid "Delete selected submissions"
 msgstr "Poista valitut tiedot"
+
+msgid "Total submissions"
+msgstr "Lähettyjä yhteensä"
+
+msgid "Latest submission"
+msgstr "Viimeksi lähetetty"
 
 msgid "No form pages have been created."
 msgstr "Lomakesivuja ei ole luotu."

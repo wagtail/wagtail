@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -27,10 +27,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Форми Wagtail "
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s подання"
 
 msgid "Date from"
 msgstr "Дата початку"
@@ -111,19 +107,8 @@ msgstr "обов'язково"
 msgid "choices"
 msgstr "варіанти"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Список варіантів для вибору, розділений комами. Застосовується тільки для "
-"прапорців, перемикачів та випадаючих списків."
-
 msgid "default value"
 msgstr "початкове значення"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Початкове значення. Значення, розділені комою, підтримуються для чекбоксів"
 
 msgid "help text"
 msgstr "допоміжний текст"
@@ -154,45 +139,18 @@ msgid "subject"
 msgstr "предмет"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s подання"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Видалити з даних %(title)s"
 
 msgid "Delete form data"
 msgstr "Видалити з даних"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Ви впевнені, що хочете видалити це подання форми?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Ви впевнені, що хочете видалити ці подання форми?\n"
-"            "
-msgstr[2] ""
-"\n"
-"               Ви впевнені, що хочете видалити ці подання форми?\n"
-"            "
-msgstr[3] ""
-"\n"
-"               Ви впевнені, що хочете видалити ці подання форми?\n"
-"            "
-
 msgid "Delete"
 msgstr "Видалити"
-
-msgid "Total submissions"
-msgstr "Всього подань"
-
-msgid "Latest submission"
-msgstr "Останнє подання"
 
 msgid "Forms"
 msgstr "Форми"
@@ -229,6 +187,12 @@ msgstr "Оригінал"
 
 msgid "Delete selected submissions"
 msgstr "Видалили обрані подання"
+
+msgid "Total submissions"
+msgstr "Всього подань"
+
+msgid "Latest submission"
+msgstr "Останнє подання"
 
 msgid "No form pages have been created."
 msgstr "Сторінки із формами відсутні, їх не було створено."

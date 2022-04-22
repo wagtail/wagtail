@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2018,2020\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -22,10 +22,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail form"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s innsending"
 
 msgid "Date from"
 msgstr "Dags frá"
@@ -108,20 +104,8 @@ msgstr "skylda"
 msgid "choices"
 msgstr "valmöguleikar"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Valmöguleikar með kommu á milli. Á aðeins við um hakreiti, einvalsreiti og "
-"valmyndir."
-
 msgid "default value"
 msgstr "sjálfvalið gildi"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Sjálfvalið gildi. Listi af gildum með kommu á milli er leyfilegt fyrir "
-"hakreiti."
 
 msgid "help text"
 msgstr "hjálpartexti"
@@ -152,38 +136,18 @@ msgid "subject"
 msgstr "Viðfangslína"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s innsending"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Eyða gögnum fyrir skráningarform %(title)s"
 
 msgid "Delete form data"
 msgstr "Eyða gögnum skráningarforms"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Ertu viss um að þú viljir eyða innsendum gögnum þessa "
-"skráningarforms?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Ertu viss um að þú viljir eyða þessum innsendu gögnum?\n"
-"            "
-
 msgid "Delete"
 msgstr "Eyða"
-
-msgid "Total submissions"
-msgstr "Heildarfjöldi innsendinga"
-
-msgid "Latest submission"
-msgstr "Síðasta innsending"
 
 msgid "Forms"
 msgstr "Skráningarform"
@@ -220,6 +184,12 @@ msgstr "Uppruni"
 
 msgid "Delete selected submissions"
 msgstr "Eyða völdum innsendingum"
+
+msgid "Total submissions"
+msgstr "Heildarfjöldi innsendinga"
+
+msgid "Latest submission"
+msgstr "Síðasta innsending"
 
 msgid "No form pages have been created."
 msgstr "Engin skráningarform hafa verið búin til"

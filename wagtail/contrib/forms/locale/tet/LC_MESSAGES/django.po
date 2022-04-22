@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -21,10 +21,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Formulariu wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s submisaun"
 
 msgid "Date from"
 msgstr "Data husi"
@@ -99,17 +95,8 @@ msgstr "rekeridu"
 msgid "choices"
 msgstr "Hili"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Koma separa lista husi hili. Aplikabel iha kaiza selesaun radiu no drop down"
-
 msgid "default value"
 msgstr "Valor detallu"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Valor detallu, koma separa ona valor sira suporta kaixa selesaun."
 
 msgid "help text"
 msgstr "Testu ajuda"
@@ -140,6 +127,10 @@ msgid "subject"
 msgstr "Sujeitu"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s submisaun"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Hamoos husi data %(title)s"
 
@@ -148,12 +139,6 @@ msgstr "Hamoos data formula"
 
 msgid "Delete"
 msgstr "Hamoos"
-
-msgid "Total submissions"
-msgstr "Total submisaun"
-
-msgid "Latest submission"
-msgstr "Submisaun foun"
 
 msgid "Forms"
 msgstr "Formulariu"
@@ -187,6 +172,12 @@ msgstr "Orijen"
 
 msgid "Delete selected submissions"
 msgstr "Hamoos submisaun nebe hila ona"
+
+msgid "Total submissions"
+msgstr "Total submisaun"
+
+msgid "Latest submission"
+msgstr "Submisaun foun"
 
 msgid "No form pages have been created."
 msgstr "La iha pajina formulariu nebe kria tiha ona."

@@ -5,14 +5,15 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2017-2018\n"
+"Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "일간 히트 쿼리"
+
+msgid "index entry"
+msgstr "색인 등록"
+
+msgid "index entries"
+msgstr "색인 등록들"
 
 msgid "Popular search terms"
 msgstr "인기있는 검색어"

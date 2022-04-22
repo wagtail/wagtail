@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -36,36 +36,8 @@ msgid "Search"
 msgstr "Søk"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Det er %(counter)s treff\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Det er %(counter)s treff\n"
-"        "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen snutter samsvarer med <em>\"%(query_string)s\"</em>"
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"Du har ikke opprettet noen %(snippet_type_name)s snutter. Hvorfor ikke <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noopener noreferrer\">lage en nå</a>?"
 
 msgid "Saving…"
 msgstr "Lagrer…"
@@ -174,15 +146,15 @@ msgstr "Rediger denne siden"
 msgid "Search %(snippet_type_name)s"
 msgstr "Søk etter %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Snutten kunne ikke opprettes grunnet feil."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s «%(instance)s» opprettet."
 
 msgid "Edit"
 msgstr "Rediger"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Snutten kunne ikke opprettes grunnet feil."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

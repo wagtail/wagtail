@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -147,6 +147,9 @@ msgstr "آپلود"
 
 msgid "Popular tags"
 msgstr "برچسب های پرتکرار"
+
+msgid "New"
+msgstr "جدید"
 
 msgid "Latest images"
 msgstr "آخرین تصاویر"

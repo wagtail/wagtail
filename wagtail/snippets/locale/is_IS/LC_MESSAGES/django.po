@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2022
 # saevarom <saevar@saevar.is>, 2015-2016,2018-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015-2016,2018-2021\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -36,21 +37,10 @@ msgid "Search"
 msgstr "Leita"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Það er %(counter)s niðurstaða\n"
-"        "
-msgstr[1] ""
-"\n"
-"Það eru %(counter)s niðurstöður        "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] " Það er %(counter)s niðurstaða        "
+msgstr[1] " Það eru %(counter)s niðurstöður        "
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -60,12 +50,12 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
-"Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að  "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">búa til "
-"eitt núna</a>?"
+"Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að "
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">búa til eitt núna</a>?"
 
 msgid "Last updated"
 msgstr "Síðast uppfært"
@@ -180,15 +170,15 @@ msgstr "Breyta þessari síðu"
 msgid "Search %(snippet_type_name)s"
 msgstr "Leita í %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' búið til."
 
 msgid "Edit"
 msgstr "Breyta"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

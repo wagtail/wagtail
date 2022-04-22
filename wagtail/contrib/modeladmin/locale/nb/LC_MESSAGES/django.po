@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -119,10 +119,6 @@ msgid "Home"
 msgstr "Hjem"
 
 #, python-format
-msgid " By %(filter_title)s "
-msgstr " På %(filter_title)s "
-
-#, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Beklager, fant ingen %(name)s som samsvarer med søket ditt."
 
@@ -153,18 +149,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Ingen %(name)s har blitt opprettet ennå."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                Hvorfor ikke <a href="
-"\"%(url)s\">legg til en</a>?\n"
-"                                            "
 
 msgid "Pagination"
 msgstr "Paginering"

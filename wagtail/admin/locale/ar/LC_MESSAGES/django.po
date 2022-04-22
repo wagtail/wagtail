@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: HossamElDin Mohamed <garo5070@gmail.com>, 2021\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -44,12 +44,6 @@ msgstr "غير منشور"
 msgid "Delete"
 msgstr "احذف"
 
-msgid "Lock"
-msgstr "قفل"
-
-msgid "Unlock"
-msgstr "إزالة القفل"
-
 msgid "Save Draft"
 msgstr "حفظ مسودة"
 
@@ -71,21 +65,6 @@ msgstr "ليس لديك الصلاحيات الدخول ك Admin"
 
 msgid "None"
 msgstr "فارغ"
-
-msgid "Scheduled publishing"
-msgstr "نشر مجدول زمنيا"
-
-msgid "Privacy"
-msgstr "نظام السرية"
-
-msgid "Content"
-msgstr "محتوى"
-
-msgid "Promote"
-msgstr "ترويج"
-
-msgid "Settings"
-msgstr "إعدادات"
 
 msgid "Date from"
 msgstr "التاريخ من"
@@ -223,92 +202,26 @@ msgstr "هذا الحقل مقتضى"
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
 
-msgid "Page"
-msgstr "صفحة"
+msgid "Scheduled publishing"
+msgstr "نشر مجدول زمنيا"
 
-msgid "Pages"
-msgstr "صفحات"
+msgid "Privacy"
+msgstr "نظام السرية"
 
-msgid "Loading…"
-msgstr "تحميل..."
+msgid "Content"
+msgstr "محتوى"
 
-msgid "No results"
-msgstr "لاتوجد نتائج"
+msgid "Promote"
+msgstr "ترويج"
 
-msgid "Server Error"
-msgstr "خطا بالخادم"
+msgid "Settings"
+msgstr "إعدادات"
 
-msgid "See all"
-msgstr "مشاهدة الكل"
+msgid "Status"
+msgstr "رتبة"
 
-msgid "Close explorer"
-msgstr "اغلق المستكشف"
-
-msgid "Alt text"
-msgstr "نص للمساعدة"
-
-msgid "Write here…"
-msgstr "اكتب هنا..."
-
-msgid "Horizontal line"
-msgstr "خط افقي"
-
-msgid "Line break"
-msgstr "خط فصل"
-
-msgid "Undo"
-msgstr "تراجع"
-
-msgid "Redo"
-msgstr "للامام"
-
-msgid "Reload the page"
-msgstr "اعادة تحميل الصفحه"
-
-msgid "Reload saved content"
-msgstr "اعادة تحميل المحتوى المحفوظ"
-
-msgid "Show latest content"
-msgstr "اظهر اخر محتوى"
-
-msgid "Show error"
-msgstr "اعرض الخطء"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
-
-msgid "Broken link"
-msgstr "رابط معطوب"
-
-msgid "Missing document"
-msgstr "مستند مفقود"
-
-msgid "Close"
-msgstr "اغلاق"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "تحرير '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "أعرض الصفحات التابعة ل '{title}'"
-
-msgid "Page explorer"
-msgstr "مستكشف الصفحة"
-
-msgid "Save"
-msgstr "احفظ"
-
-msgid "Saving..."
-msgstr "يتم الحفظ..."
-
-msgid "Dashboard"
-msgstr "لوحة التحكم"
-
-msgid "Edit your account"
-msgstr "تعديل حسابك"
+msgid "Preview"
+msgstr "نظر مقدم"
 
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
@@ -390,34 +303,6 @@ msgstr "حلقة إلكتترونية"
 msgid "Phone link"
 msgstr "رابط الهاتف"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"هنالك %(counter)s تم الوصول اليها"
-msgstr[1] ""
-"\n"
-"هنالك %(counter)s تم الوصول اليها"
-msgstr[2] ""
-"\n"
-"هنالك %(counter)s  تم الوصول اليها"
-msgstr[3] ""
-"\n"
-"هنالك %(counter)s  تم الوصول اليها"
-msgstr[4] ""
-"\n"
-"هنالك %(counter)s تم الوصول اليها"
-msgstr[5] ""
-"\n"
-"هنالك %(counter)s تم الوصول اليها"
-
 msgid "Choose"
 msgstr "اختر"
 
@@ -446,6 +331,9 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المستندات في هذه المجموعة."
 
+msgid "Save"
+msgstr "احفظ"
+
 msgid "Public"
 msgstr "عمومي"
 
@@ -467,21 +355,14 @@ msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "اضف %(label)s"
-
-msgid "Move up"
-msgstr "تقدم إلى فوق "
-
-msgid "Move down"
-msgstr "تقدم إلى تحت"
-
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
 msgid "Update"
 msgstr "حدث"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -499,6 +380,9 @@ msgstr "عنوان"
 
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
+
+msgid "Unlock"
+msgstr "إزالة القفل"
 
 msgid "Draft"
 msgstr "مسودة"
@@ -524,14 +408,8 @@ msgstr "موافق"
 msgid "Reject"
 msgstr "مرفوض"
 
-msgid "Preview"
-msgstr "نظر مقدم"
-
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
-
-msgid "Status"
-msgstr "رتبة"
 
 msgid "Date"
 msgstr "تاريخ"
@@ -707,9 +585,6 @@ msgstr "انسخ هذه الصفحة"
 msgid "New %(page_type)s"
 msgstr "جديد %(page_type)s"
 
-msgid "New"
-msgstr "جديد"
-
 msgid "Actions"
 msgstr "النشاطات"
 
@@ -743,61 +618,8 @@ msgstr "اسحب"
 msgid "Updated"
 msgstr "مجدد"
 
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"مستوى الجذر حيث يمكنك إضافة مواقع جديدة إلى تركيب Wagtail الخاص بك. لن يتم "
-"الوصول إلى الصفحات التي تم إنشاؤها هنا في أي عنوان URL حتى ترتبط بموقع."
-
 msgid "Configure a site now."
 msgstr "تكوين موقع الآن."
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"إذا كنت تريد فقط إضافة صفحات إلى موقع حالي ، فقم بإنشاءها كأطفال في الصفحة "
-"الرئيسية بدلاً من ذلك."
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"لن يتم الوصول إلى الصفحات التي تم إنشاؤها هنا في أي عنوان URL. لإضافة صفحات "
-"إلى موقع موجود ، قم بإنشائها كأطفال في الصفحة الرئيسية."
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"لا يوجد موقع تم إعداده لهذا الموقع. لن يتم الوصول إلى الصفحات التي تم "
-"إنشاؤها هنا في أي عنوان URL حتى يرتبط موقع بهذا الموقع"
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"لا يوجد سجل للموقع لهذا الموقع. لن يتم الوصول إلى الصفحات التي تم إنشاؤها "
-"هنا في أي عنوان URL."
 
 msgid "No pages have been created at this location."
 msgstr "لم تنسأ إي صفحات في هذا الموقع"
@@ -830,15 +652,6 @@ msgstr "قائمة الموقع"
 msgid "Pagination"
 msgstr "ترقيم الصفحات"
 
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"الصفحة %(page_number)s من %(num_pages)s ."
-
 msgid "Previous"
 msgstr "سابق"
 
@@ -868,17 +681,8 @@ msgstr "حدد صفحة رئيسية جديدة لـ <span> %(title)s </span>"
 msgid "Preview error"
 msgstr "استعراض الخطء"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"من المستحيل لمعاينة هذه الصفحة ، تبقى بعض الأخطاء.\n"
-"الرجاء إغلاق علامة التبويب هذه وتحرير الصفحة لإصلاح هذه الأخطاء ،\n"
-"ثم استخدم المعاينة مرة أخرى."
+msgid "Close"
+msgstr "اغلاق"
 
 msgid "Cancel scheduled publish"
 msgstr "إلغاء النشر المجدول"
@@ -918,8 +722,27 @@ msgstr "انواع الصفحة"
 msgid "Enter a search term above"
 msgstr "أدخل مصطلح البحث أعلاه"
 
+msgid "Locked"
+msgstr "مغلق"
+
+msgid "Unlocked"
+msgstr "غير مغلق"
+
+msgid "Lock"
+msgstr "قفل"
+
 msgid "No pages use"
 msgstr "لا توجد صفحات تستخدم"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "اضف %(label)s"
+
+msgid "Move up"
+msgstr "تقدم إلى فوق "
+
+msgid "Move down"
+msgstr "تقدم إلى تحت"
 
 msgid "Download CSV"
 msgstr "تنزيل ملف CSV"
@@ -927,11 +750,11 @@ msgstr "تنزيل ملف CSV"
 msgid "Filter"
 msgstr "فلتر"
 
-msgid "Locked"
-msgstr "مغلق"
-
 msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
+
+msgid "Page"
+msgstr "صفحة"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -946,12 +769,6 @@ msgstr "الرئيسة"
 msgid "All collections"
 msgstr "جميع المجموعات"
 
-msgid "Account settings"
-msgstr "إعدادات الحساب"
-
-msgid "Log out"
-msgstr "تسجيل الخروج"
-
 msgid "Other searches"
 msgstr "عمليات البحث الاخرى"
 
@@ -960,6 +777,9 @@ msgstr "إضافة صفحة فرعية"
 
 msgid "Show in Explorer"
 msgstr "اعرض في المستكشف"
+
+msgid "New"
+msgstr "جديد"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -970,6 +790,9 @@ msgstr "مقارنة مع النسخة الحية"
 
 msgid "More"
 msgstr "المزيد"
+
+msgid "Log out"
+msgstr "تسجيل الخروج"
 
 msgid "live"
 msgstr "حي"
@@ -1123,6 +946,12 @@ msgstr "مراجعة {0} من \"{1}\""
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "الصفحة '{0}' غير منشورة."
+
+msgid "Server Error"
+msgstr "خطا بالخادم"
+
+msgid "Pages"
+msgstr "صفحات"
 
 msgid "Add child page"
 msgstr "أضف صفحة لطفل "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -23,10 +23,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail formulari"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s unosa"
 
 msgid "Date from"
 msgstr "Datum od"
@@ -108,20 +104,8 @@ msgstr "obavezno"
 msgid "choices"
 msgstr "odabiri"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Popis mogućih odabira odvojenih zarezom. Vrijedi samo za potvrdne okvire, "
-"radijske gumbe i popisne okvire."
-
 msgid "default value"
 msgstr "zadana vrijednost"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Zadana vrijednost. Vrijednosti odvojene zarezom su podržane u kontrolnim "
-"okvirima."
 
 msgid "help text"
 msgstr "pomoćni tekst"
@@ -152,38 +136,18 @@ msgid "subject"
 msgstr "predmet"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s unosa"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Izbriši podatke formulara %(title)s"
 
 msgid "Delete form data"
 msgstr "Izbriši podatke formulara"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Jeste li sigurni da želite izbrisati unos?"
-msgstr[1] ""
-"\n"
-"Jeste li sigurni da želite izbrisati unose?"
-msgstr[2] ""
-"\n"
-"Jeste li sigurni da želite izbrisati unose?"
-
 msgid "Delete"
 msgstr "Izbriši"
-
-msgid "Total submissions"
-msgstr "Ukupno unosa"
-
-msgid "Latest submission"
-msgstr "Najnoviji unosi"
 
 msgid "Forms"
 msgstr "Formulari"
@@ -220,6 +184,12 @@ msgstr "Ishodište"
 
 msgid "Delete selected submissions"
 msgstr "Izbriši odabrane unose"
+
+msgid "Total submissions"
+msgstr "Ukupno unosa"
+
+msgid "Latest submission"
+msgstr "Najnoviji unosi"
 
 msgid "No form pages have been created."
 msgstr "Nema stranica s formularima."

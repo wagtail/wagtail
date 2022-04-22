@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -26,10 +26,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail formuláře"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s odeslání"
 
 msgid "Date from"
 msgstr "Od"
@@ -110,18 +106,8 @@ msgstr "vyžadováno"
 msgid "choices"
 msgstr "volby"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Čárkou oddělené volby. Použitelné na zaškrtávací pole, přepínací tlačítka a "
-"rozbalovací seznam."
-
 msgid "default value"
 msgstr "výchozí hodnota"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Výchozí hodnota. Čárkou oddělené hodnoty pro zaškrtávací pole."
 
 msgid "help text"
 msgstr "nápověda"
@@ -152,41 +138,18 @@ msgid "subject"
 msgstr "předmět"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s odeslání"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Smazat formulářová data %(title)s"
 
 msgid "Delete form data"
 msgstr "Smazat formulářová data"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Opravdu chcete smazat tento odeslaný formulář?"
-msgstr[1] ""
-"\n"
-"Opravdu chcete smazat tyto odeslané formuláře?"
-msgstr[2] ""
-"\n"
-"Opravdu chcete smazat tyto odeslané formuláře?"
-msgstr[3] ""
-"\n"
-"Opravdu chcete smazat tyto odeslané formuláře?"
-
 msgid "Delete"
 msgstr "Smazat"
-
-msgid "Total submissions"
-msgstr "Celkový počet odeslání"
-
-msgid "Latest submission"
-msgstr "Poslední odeslání"
 
 msgid "Forms"
 msgstr "Formuláře"
@@ -223,6 +186,12 @@ msgstr "Původní"
 
 msgid "Delete selected submissions"
 msgstr "Smazat vybraná odeslání"
+
+msgid "Total submissions"
+msgstr "Celkový počet odeslání"
+
+msgid "Latest submission"
+msgstr "Poslední odeslání"
 
 msgid "No form pages have been created."
 msgstr "Žádné stránky s formuláři nebyly vytvořeny."

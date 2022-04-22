@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -39,44 +39,8 @@ msgid "Search"
 msgstr "Hledat"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Je %(counter)s shoda\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Jsou %(counter)s shody\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Je(jsou) %(counter)s shody(a)\n"
-"        "
-msgstr[3] ""
-"\n"
-"Je/jsou %(counter)s shoda/y\n"
-"        "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Bohužel, žádný úryvek neodpovídá \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"Nevytvořil(a) jste žádný %(snippet_type_name)s úryvek. Pojďme <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">nějaký vytvořit</a>."
 
 msgid "History"
 msgstr "Historie"
@@ -190,15 +154,15 @@ msgstr "Editovat tuto stránku"
 msgid "Search %(snippet_type_name)s"
 msgstr "Hledat %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Úryvek nemohl být vytvořen kvůli chybám."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' vytvořeno."
 
 msgid "Edit"
 msgstr "Upravit"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Úryvek nemohl být vytvořen kvůli chybám."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

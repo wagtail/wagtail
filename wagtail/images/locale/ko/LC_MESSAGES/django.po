@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -147,6 +147,12 @@ msgstr "이미지"
 msgid "images"
 msgstr "이미지"
 
+msgid "Yes, add"
+msgstr "네, 추가합니다"
+
+msgid "No, don't add"
+msgstr "아니오, 추가하지 않습니다"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -170,18 +176,11 @@ msgstr "업로드"
 msgid "Popular tags"
 msgstr "인기있는 태그"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            일치하는 %(counter)s개의 결과가 있습니다."
+msgid "Existing"
+msgstr "존재함"
+
+msgid "New"
+msgstr "신규"
 
 msgid "Latest images"
 msgstr "최근 이미지"
@@ -194,23 +193,6 @@ msgstr "이미지 삽입"
 
 msgid "Uploading…"
 msgstr "업로드 중…"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span>개의 이미지가 <span class=\"visuallyhidden\">"
-"%(site_name)s에 생성됨</span>\n"
-"    "
 
 msgid "Change image file:"
 msgstr "이미지 파일 변경"
@@ -367,6 +349,11 @@ msgstr "죄송합니다, 업로드가 실패하였습니다."
 msgid "Server Error"
 msgstr "서버 오류"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "이 오류를 다음의 정보와 함께 웹 관리자에게 보고하시길 바랍니다"
+
 msgid "Image updated."
 msgstr "이미지 수정됨."
 
@@ -375,6 +362,12 @@ msgstr "이미지 권한"
 
 msgid "Add an image permission"
 msgstr "이미지 권한 추가"
+
+msgid "Tag"
+msgstr "테그"
+
+msgid "Add to collection"
+msgstr "컬렉션에 추가"
 
 msgid "Delete"
 msgstr "삭제"

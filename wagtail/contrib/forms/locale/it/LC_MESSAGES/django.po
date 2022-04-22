@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -24,10 +24,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Moduli Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s invii"
 
 msgid "Date from"
 msgstr "Data dal"
@@ -108,18 +104,8 @@ msgstr "richiesto"
 msgid "choices"
 msgstr "voci"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Lista di voci separate da virgola. Applicabile soltanto a checkboxes, radio "
-"e dropdown"
-
 msgid "default value"
 msgstr "valore di default"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Valore di default. Valori separati da virgola per checkboxes."
 
 msgid "help text"
 msgstr "testo di aiuto"
@@ -150,37 +136,18 @@ msgid "subject"
 msgstr "oggetto"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s invii"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Elimina dati form %(title)s"
 
 msgid "Delete form data"
 msgstr "Elimina dati form"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Sei sicuro di voler eliminare questo invio del form?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Sei sicuro di voler eliminare questi invii del form?\n"
-"            "
-
 msgid "Delete"
 msgstr "Elimina"
-
-msgid "Total submissions"
-msgstr "Invii totali"
-
-msgid "Latest submission"
-msgstr "Ultimi invii"
 
 msgid "Forms"
 msgstr "Modulistica"
@@ -217,6 +184,12 @@ msgstr "Origine"
 
 msgid "Delete selected submissions"
 msgstr "Elimina invii selezionati"
+
+msgid "Total submissions"
+msgstr "Invii totali"
+
+msgid "Latest submission"
+msgstr "Ultimi invii"
 
 msgid "No form pages have been created."
 msgstr "Nessuna pagina form è stata creata."

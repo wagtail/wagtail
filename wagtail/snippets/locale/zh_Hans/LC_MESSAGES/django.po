@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2018-2019,2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -44,32 +44,8 @@ msgid "Search"
 msgstr "搜索"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            有%(counter)s条匹配结果\n"
-"        "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有匹配 \"<em>%(query_string)s</em>\" 的片段"
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"还没有创建 %(snippet_type_name)s 片段。现在 <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">创建一个</a>吗？"
 
 msgid "Last updated"
 msgstr "最后更新"
@@ -183,15 +159,15 @@ msgstr "编辑此页面"
 msgid "Search %(snippet_type_name)s"
 msgstr "查找 %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "无法创建片段，出现错误。"
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' 已创建。"
 
 msgid "Edit"
 msgstr "编辑"
-
-msgid "The snippet could not be created due to errors."
-msgstr "无法创建片段，出现错误。"
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

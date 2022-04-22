@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -113,10 +113,6 @@ msgstr "Lae, Labele hamoos"
 
 msgid "Home"
 msgstr "Uma"
-
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "hosi %(filter_title)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."

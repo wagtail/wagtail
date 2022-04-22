@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -112,11 +112,11 @@ msgstr "ویرایش این صفحه"
 msgid "Search %(snippet_type_name)s"
 msgstr "جستجوی %(snippet_type_name)s"
 
-msgid "Edit"
-msgstr "ویرایش"
-
 msgid "The snippet could not be created due to errors."
 msgstr "به دلیل بروز خطا قطعه ای ساخته نشد."
+
+msgid "Edit"
+msgstr "ویرایش"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "قطعه به دلیل بروز خطا ذخیره نشد."

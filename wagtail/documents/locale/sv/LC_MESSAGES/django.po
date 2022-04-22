@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -66,12 +66,6 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokument"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "Lägg till taggar på 1 dokument"
-msgstr[1] "Lägg till taggar på %(counter)s dokument"
-
 msgid "Add tags to documents"
 msgstr "Lägg till taggar till dokument"
 
@@ -91,12 +85,6 @@ msgstr "Ja, lägg till"
 msgid "No, don't add"
 msgstr "Nej, lägg inte till"
 
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Lägg till 1 dokument till samling"
-msgstr[1] "Lägg till %(counter)s dokument till samling"
-
 msgid "Add documents to collection"
 msgstr "Lägg till dokument till samling"
 
@@ -115,12 +103,6 @@ msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Du saknar rättigheter att lägga till detta dokument till samling"
 msgstr[1] "Du saknar rättigheter att lägga till dessa dokument till samling"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "Radera 1 dokument"
-msgstr[1] "Radera %(counter)s dokument"
 
 msgid "Delete documents"
 msgstr "Radera dokument"
@@ -156,24 +138,6 @@ msgstr "Sök"
 msgid "Upload"
 msgstr "Ladda upp"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Det finns %(counter)s matchning\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Det finns %(counter)s matchningar\n"
-"        "
-
 msgid "Latest documents"
 msgstr "Senaste dokument"
 
@@ -186,18 +150,6 @@ msgstr "Du har inte laddat upp några dokument i den här samlingen."
 
 msgid "You haven't uploaded any documents."
 msgstr "Du har inte laddat upp några dokument."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"            Varför inte <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?\n"
-"            "
 
 msgid "Uploading…"
 msgstr "Laddar upp…"
@@ -293,26 +245,6 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Redigera denna sida"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
-"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Lägg till flera dokument"

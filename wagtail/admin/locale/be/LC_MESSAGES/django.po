@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -46,15 +46,6 @@ msgstr "Адмяніць публікацыю"
 msgid "Delete"
 msgstr "Выдаліць"
 
-msgid "Lock"
-msgstr "Заблакаваць"
-
-msgid "Apply editor lock"
-msgstr "Заблакаваць рэдактар"
-
-msgid "Unlock"
-msgstr "Разблакаваць"
-
 msgid "Save Draft"
 msgstr "Захаваць чарнавік"
 
@@ -76,21 +67,6 @@ msgstr "У вас няма доступу да панэлі адміністра
 
 msgid "None"
 msgstr "Некалькі"
-
-msgid "Scheduled publishing"
-msgstr "Адкладзеная публікацыя"
-
-msgid "Privacy"
-msgstr "Сакрэтнасць"
-
-msgid "Content"
-msgstr "Змест"
-
-msgid "Promote"
-msgstr "Прасоўванне"
-
-msgid "Settings"
-msgstr "Налады"
 
 msgid "Date from"
 msgstr "З"
@@ -234,89 +210,26 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
 
-msgid "Page"
-msgstr "Старонка"
+msgid "Scheduled publishing"
+msgstr "Адкладзеная публікацыя"
 
-msgid "Pages"
-msgstr "Старонкі"
+msgid "Privacy"
+msgstr "Сакрэтнасць"
 
-msgid "Loading…"
-msgstr "Загрузка..."
+msgid "Content"
+msgstr "Змест"
 
-msgid "No results"
-msgstr "Няма вынікаў"
+msgid "Promote"
+msgstr "Прасоўванне"
 
-msgid "Server Error"
-msgstr "Памылка Сервера"
+msgid "Settings"
+msgstr "Налады"
 
-msgid "See all"
-msgstr "Усё паглядзець"
+msgid "Status"
+msgstr "Статус"
 
-msgid "Close explorer"
-msgstr "Зачыніць даследчык"
-
-msgid "Alt text"
-msgstr "Тэкст падказкі"
-
-msgid "Write here…"
-msgstr "Пішыце тут..."
-
-msgid "Horizontal line"
-msgstr "Гарызантальная лінія"
-
-msgid "Line break"
-msgstr "Канец радка"
-
-msgid "Undo"
-msgstr "Адмяніць дзеянне"
-
-msgid "Redo"
-msgstr "Абнавіць"
-
-msgid "Reload the page"
-msgstr "Абнавіць старонку"
-
-msgid "Reload saved content"
-msgstr " Обнавиць захаваны змест"
-
-msgid "Show latest content"
-msgstr "Паказаць апошні змест"
-
-msgid "Show error"
-msgstr "Паказаць памылку"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "Рэдактар ​​зламаўся. Змест быў скінут да апошняй захаванай версіі."
-
-msgid "Broken link"
-msgstr "Спасылка зламалася"
-
-msgid "Missing document"
-msgstr "Дакумент адсутнічае"
-
-msgid "Close"
-msgstr "Зачыніць"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Змяніць «{title}»"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Прагляд даччынай старонкі «{title}»"
-
-msgid "Page explorer"
-msgstr "Агляд старонак"
-
-msgid "Save"
-msgstr "Захаваць"
-
-msgid "Dashboard"
-msgstr "Панэль кіравання"
-
-msgid "Edit your account"
-msgstr "Рэдагаваць ваш рахунак"
+msgid "Preview"
+msgstr "Папярэдні прагляд"
 
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
@@ -404,28 +317,6 @@ msgstr "Нумар тэлефона"
 msgid "Anchor link"
 msgstr "Якарная спасылка"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"%(counter)s супадзенне"
-msgstr[1] ""
-"\n"
-"%(counter)s супадзення"
-msgstr[2] ""
-"\n"
-"%(counter)s супадзенняў"
-msgstr[3] ""
-"\n"
-"%(counter)s супадзенняў"
-
 msgid "Add an anchor link"
 msgstr "Дадаць прывязку"
 
@@ -437,34 +328,6 @@ msgstr "Выбраць"
 
 msgid "Choose a page"
 msgstr "Выбраць старонку"
-
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"Для гэтага поля можна выбраць толькі наступныя тып старонкі: %(type)s. "
-"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
-msgstr[1] ""
-"\n"
-"Для гэтага поля можна выбраць толькі наступныя тыпы старонак: %(type)s. "
-"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
-msgstr[2] ""
-"\n"
-"Для гэтага поля можна выбраць толькі наступныя тыпы старонак: %(type)s. "
-"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
-msgstr[3] ""
-"\n"
-"Для гэтага поля можна выбраць толькі наступныя тыпы старонак: %(type)s. "
-"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
 
 msgid "Add an email link"
 msgstr "Дадаць спасылку па электроннай пошце"
@@ -492,6 +355,9 @@ msgid ""
 msgstr ""
 "Параметры прыватнасці вызначаюць, хто можа праглядаць дакументы ў гэтай "
 "калекцыі."
+
+msgid "Save"
+msgstr "Захаваць"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Усталяваны статус прыватнасці: грамадскі"
@@ -521,21 +387,14 @@ msgstr ""
 "Калекцыі яшчэ не былі створаны. Давай <a href=\"%(add_collection_url)s"
 "\">створым адну</a>?"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "Дадаць %(label)s"
-
-msgid "Move up"
-msgstr "Падвінуць наверх"
-
-msgid "Move down"
-msgstr "Падвінусь уніз"
-
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
 
 msgid "Update"
 msgstr "Аднаўленне"
+
+msgid "Dashboard"
+msgstr "Панэль кіравання"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -559,6 +418,9 @@ msgstr "Зачынены ў"
 
 msgid "Edit this page"
 msgstr "Змяніць гэтую старонку"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
 
 msgid "Draft"
 msgstr "Чарнавік"
@@ -584,44 +446,14 @@ msgstr "Пацвярдзіць"
 msgid "Reject"
 msgstr "Адхіліць"
 
-msgid "Preview"
-msgstr "Папярэдні прагляд"
-
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
 
 msgid "Site summary"
 msgstr "Агульная інфармацыя"
-
-#, python-format
-msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(total)s старонка створана ў %(site_name)s"
-msgstr[1] ""
-"\n"
-"%(total)s старонкі створаны ў %(site_name)s"
-msgstr[2] ""
-"\n"
-"%(total)s старонак створана ў %(site_name)s"
-msgstr[3] ""
-"\n"
-"%(total)s старонкі створаны ў %(site_name)s"
 
 msgid "Sign in"
 msgstr "Увайсці"
@@ -688,9 +520,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
 
-msgid "Visit the live page"
-msgstr "Наведаць старонку"
-
 msgid "Set page privacy. Current status: Public"
 msgstr "Усталяваць статус канфідэнцыяльнасці старонкі: грамадскі"
 
@@ -745,29 +574,6 @@ msgstr "Выдаліць %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Вы ўпэўненыя, што жадаеце выдаліць гэтую старонку?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"Выдаліць яшчэ адну подстаронку."
-msgstr[1] ""
-"\n"
-"Выдаліць яшчэ %(descendant_count)s падстаронак."
-msgstr[2] ""
-"\n"
-"Выдаліць яшчэ %(descendant_count)s падстаронак."
-msgstr[3] ""
-"\n"
-"Выдаліць яшчэ %(descendant_count)s падстаронак."
-
 msgid "Yes, delete it"
 msgstr "Так. Выдаліць"
 
@@ -810,31 +616,6 @@ msgstr "Адмяніць публікацыю %(title)s"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы ўпэўнены, што хочаце апублікаваць гэтую старонку?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"У гэтай старонкі адна даччыная старонка. Распубликуйте яе."
-msgstr[1] ""
-"\n"
-"У этой старонкі %(live_descendant_count)s даччыных старонак. Распубликуйте "
-"іх."
-msgstr[2] ""
-"\n"
-"У этой старонкі%(live_descendant_count)s даччыных старонак. Распубликуйте іх."
-msgstr[3] ""
-"\n"
-"У гэтай старонкі %(live_descendant_count)s даччыных старонак. Распубликуйте "
-"іх."
-
 msgid "Yes, unpublish it"
 msgstr "Так, апублікаваць"
 
@@ -858,9 +639,6 @@ msgstr "Скапіяваць гэтую старонку"
 #, python-format
 msgid "New %(page_type)s"
 msgstr "Новы %(page_type)s"
-
-msgid "New"
-msgstr "Новы"
 
 msgid "Actions"
 msgstr "Дзеянні"
@@ -892,62 +670,8 @@ msgstr "Перацягнуць"
 msgid "Updated"
 msgstr "Абноўлена"
 
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"Каранёвы ўзровень на якім вы можаце дадаваць новыя сайты Wagtail. У "
-"створаных тут старонак не будзе адраса для прагляду, пакуль яны не будуць "
-"звязаныя з сайтам."
-
 msgid "Configure a site now."
 msgstr "Наладзіць сайт."
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"Калі вы хочаце дадаць старонкі да існуючага сайту, стварыце іх як даччыныя "
-"старонкі для галоўнай старонкі."
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"У створаных тут старонак не будзе адрасы для прагляду. Каб дадаць старонкі "
-"да існуючага сайту, стварыце іх як даччыныя для галоўнай старонкі."
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"Для гэтага адрасу не настроены сайт. У створаных тут старонак не будзе "
-"адраса для прагляду, пакуль яны не будуць звязаныя з гэтым размяшчэннем."
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"Нет сайтаў для гэтага адрасу. У створаных тут старонак не будзе адрасы для "
-"прагляду."
 
 msgid "No pages have been created at this location."
 msgstr "У гэтым размяшчэнні не было створана старонак."
@@ -980,15 +704,6 @@ msgstr "Спіс сайтаў"
 msgid "Pagination"
 msgstr "Пагінацыя"
 
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"Страница %(page_number)s из %(num_pages)s."
-
 msgid "Previous"
 msgstr "Папярэдні"
 
@@ -1018,18 +733,8 @@ msgstr "Выбрать новую родительскую страницу дл
 msgid "Preview error"
 msgstr "Памылка прадпрагляду"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"Прадпрагляд гэтай старонкі немагчымы з-за памылак.\n"
-"Калі ласка, зачыніце гэтую ўкладку і адрэдагуйце старонку для таго каб "
-"выправіць памылкі.\n"
-"Пасля выпраўлення памылак - паспрабуйце яшчэ раз"
+msgid "Close"
+msgstr "Зачыніць"
 
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
@@ -1048,54 +753,6 @@ msgid "Changes"
 msgstr "Змены"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Перамешчана ўніз на 1 пазіцыю."
-msgstr[1] ""
-"\n"
-"Перамешчана ўніз на %(counter)s пазіцый."
-msgstr[2] ""
-"\n"
-"Перамешчана ўніз на %(counter)s пазіцый."
-msgstr[3] ""
-"\n"
-"Перамешчана ўніз на %(counter)s пазіцый."
-
-#, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"Перамешчана уверх на 1 пазіцыю."
-msgstr[1] ""
-"\n"
-"Перамешчана уверх на %(counter)s пазіцыі."
-msgstr[2] ""
-"\n"
-"Перамешчана уверх на %(counter)s пазіцыі."
-msgstr[3] ""
-"\n"
-"Перамешчана уверх на %(counter)s пазіцый."
-
-#, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Адмена версіі %(revision.id)s для %(title)s"
 
@@ -1111,36 +768,33 @@ msgstr "Так, адмяніць часовую публікацыю"
 msgid "No, don't unschedule"
 msgstr "Не, не адмяняць публікацыю па раскладзе"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"Ёсць адна супадальная старонка"
-msgstr[1] ""
-"\n"
-"Ёсць %(counter)s супадальных старонак"
-msgstr[2] ""
-"\n"
-"Ёсць %(counter)s супадальных старонак"
-msgstr[3] ""
-"\n"
-"Ёсць %(counter)s супадальных старонак"
-
 msgid "Page types"
 msgstr "Тыпы старонак"
 
 msgid "Enter a search term above"
 msgstr "Калі ласка, увядзіце крытэр пошуку вышэй"
 
+msgid "Locked"
+msgstr "Заблакавана"
+
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
 msgid "No pages use"
 msgstr "Няма старонак выкарыстоўваюць"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Дадаць %(label)s"
+
+msgid "Move up"
+msgstr "Падвінуць наверх"
+
+msgid "Move down"
+msgstr "Падвінусь уніз"
 
 msgid "No pages found."
 msgstr "Старонкі не знойдзены."
@@ -1160,43 +814,14 @@ msgstr "Фільтр"
 msgid "Locking status"
 msgstr "Статус блакавання"
 
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"Заблякаваны <b>Вами</b> у <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"Заблякаваны <b>%(locked_by)s</b> у <b>%(locking_date)s</b>"
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"Заблякаваны ў <b>%(locking_date)s</b>"
-
-msgid "Locked"
-msgstr "Заблакавана"
-
 msgid "No locked pages found."
 msgstr "Не знойдзены заблякаваныя старонкі."
 
 msgid "Edit this item"
 msgstr "Рэдагаваць гэты элемент"
+
+msgid "Page"
+msgstr "Старонка"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1214,11 +839,8 @@ msgstr "Галоўная"
 msgid "All collections"
 msgstr "Усе калекцыі"
 
-msgid "Account settings"
-msgstr "Наладкі акаўнта"
-
-msgid "Log out"
-msgstr "Выйсці"
+msgid "Visit the live page"
+msgstr "Наведаць старонку"
 
 msgid "Current page status:"
 msgstr "Бягучы статус старонкі:"
@@ -1226,19 +848,14 @@ msgstr "Бягучы статус старонкі:"
 msgid "Other searches"
 msgstr "Іншыя пошукі"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Вы карыстаецеся <strong>устаревший</strong> браўзэр. Калі ласка <a href="
-"\"https://browsehappy.com/\">обновите Ваш браузер</a>."
-
 msgid "Add a child page"
 msgstr "Дадаць даччыную старонку"
 
 msgid "Show in Explorer"
 msgstr "Паказаць Правадыр"
+
+msgid "New"
+msgstr "Новы"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -1265,6 +882,9 @@ msgstr ""
 
 msgid "More"
 msgstr "Больш"
+
+msgid "Log out"
+msgstr "Выйсці"
 
 msgid "live"
 msgstr "апублікавана"
@@ -1438,6 +1058,12 @@ msgstr "версія {0} старонкі \"{1}\""
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Старонка '{0}' знята з публікацыі."
+
+msgid "Server Error"
+msgstr "Памылка Сервера"
+
+msgid "Pages"
+msgstr "Старонкі"
 
 #, python-format
 msgid "Edit '%(title)s'"

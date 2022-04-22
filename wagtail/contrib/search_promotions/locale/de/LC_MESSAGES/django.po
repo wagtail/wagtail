@@ -6,7 +6,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
-# M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: oliverengel <codeangel@posteo.de>, 2021\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -47,37 +47,6 @@ msgstr "Hervorgehobenes Suchergebnis hinzufügen"
 
 msgid "Add search pick"
 msgstr "Suchauswahl hinzufügen"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"        <p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte "
-"Seiten zu empfehlen, die von sich aus nicht sehr weit oben in den "
-"Suchergebnissen auftauchen würden. So könnte zum Beispiel Ihre Spendenseite "
-"auftauchen wenn nach dem Suchbegriff „<em>unterstützen</em>“ gesucht wird.</"
-"p>\n"
-"        "
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"        <p>Im Eingabefeld „Suchbegriffe/Phrasen“ müssen Sie den "
-"vollständigen und genauen Suchbegriff, inklusive eventueller "
-"Rechtschreibfehler, eingeben, für den Sie Seiten empfehlen möchten. Zur "
-"Unterstützung können Sie aus häufig verwendeten Suchbegriffen wählen.</p>\n"
-"        "
 
 msgid "Save"
 msgstr "Speichern"
@@ -152,22 +121,6 @@ msgstr "Dieses hervorgehobene Suchergebnis bearbeiten"
 
 msgid "None"
 msgstr "Keine"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Es gibt %(counter)s Ergebnisse."
-msgstr[1] ""
-"\n"
-"Es gibt %(counter)s Ergebnisse."
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

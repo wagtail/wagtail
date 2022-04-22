@@ -6,15 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -43,34 +43,6 @@ msgstr "Lisää hakupromootio"
 
 msgid "Add search pick"
 msgstr "Lisää hakuvalinta"
-
-msgid ""
-"\n"
-"                <p>Promoted search results are a means of recommending "
-"specific pages that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>\n"
-"            "
-msgstr ""
-"\n"
-"</p>Nostetut hakutulokset mahdollistavat tiettyjen sivujen suosittelun "
-"silloin kun sivu ei ole luonnollisesti ensimmäisten hakutulosten joukossa. "
-"Esim. lahjoitussivua voi suositella käyttäjille jotka hakevat termillä "
-"\"<em>antaminen</em>\".</p>"
-
-msgid ""
-"\n"
-"                <p>The \"Search term(s)/phrase\" field below must contain "
-"the full and exact search for which you wish to provide recommended results, "
-"<em>including</em> any misspellings/user error. To help, you can choose from "
-"search terms that have been popular with users of your site.</p>\n"
-"            "
-msgstr ""
-"\n"
-"<p>Alla olevan hakutermi/-lause -kentän täytyy sisältää täsmälleen se "
-"sisältö (sisältäen mahdolliset kirjoitusvirheet) jolla haluat suositellun "
-"sisällön löytyvän. Helpottaaksesi tätä voit valita sivustolla käytetyistä "
-"suosituista hakutermeistä.</p>"
 
 msgid "Save"
 msgstr "Tallenna"
@@ -145,20 +117,10 @@ msgid "None"
 msgstr "Ei mitään"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi %(counter)s osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

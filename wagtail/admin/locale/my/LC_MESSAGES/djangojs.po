@@ -1,0 +1,29 @@
+#
+# Translators:
+# ime11 <pmh.yourworstnightmare@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2022\n"
+"Language-Team: Burmese (https://www.transifex.com/torchbox/teams/8009/my/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: my\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Delete"
+msgstr "ဖျက်သိမ်းပါ"
+
+msgid "Edit"
+msgstr "ပြင်ဆင်ပါ"
+
+msgid "Page"
+msgstr "စာမျက်နှာ"
+
+msgid "Pages"
+msgstr "စာမျက်နှာများ"
+
+msgid "Save"
+msgstr "သိမ်းဆည်းပါ"
+
+msgid "Search"
+msgstr "ရှာဖွေရေး"

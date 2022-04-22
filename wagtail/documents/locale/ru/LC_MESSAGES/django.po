@@ -12,18 +12,18 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # sergeybe <sergeybe@gmail.com>, 2020
-# Vladislav <integration.into.society@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
-# Vladislav <integration.into.society@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2022
 # Михаил Герасимов, 2019
 # Sergey Mazanov <mvver@outlook.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -131,28 +131,6 @@ msgstr "Поиск"
 msgid "Upload"
 msgstr "Загрузка"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Найдено %(counter)s совпадение"
-msgstr[1] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[2] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[3] ""
-"\n"
-"Найдено %(counter)s совпадений"
-
 msgid "Latest documents"
 msgstr "Последние документы"
 
@@ -166,17 +144,6 @@ msgstr "Вы не загрузили документы в эту коллекц
 
 msgid "You haven't uploaded any documents."
 msgstr "Вы не загрузили каких-либо документов."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Почему бы не <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">загрузить сейчас</a>? "
 
 msgid "Uploading…"
 msgstr "Загрузка..."
@@ -272,38 +239,6 @@ msgstr "Статус"
 
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Документ <span class=\"visuallyhidden"
-"\">создан в %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Документа <span class=\"visuallyhidden"
-"\">созданы в %(site_name)s</span>\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Документов <span class=\"visuallyhidden"
-"\">создано в %(site_name)s</span>\n"
-"    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Документов <span class=\"visuallyhidden"
-"\">создано в %(site_name)s</span>\n"
-"    "
 
 msgid "Add multiple documents"
 msgstr "Добавить несколько документов"

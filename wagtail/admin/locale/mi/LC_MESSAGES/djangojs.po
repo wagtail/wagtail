@@ -1,0 +1,100 @@
+#
+# Translators:
+# Matt Westcott <matthew@torchbox.com>, 2022
+# Awatea Randall <awatea@octave.nz>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Awatea Randall <awatea@octave.nz>, 2022\n"
+"Language-Team: Maori (https://www.transifex.com/torchbox/teams/8009/mi/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Alt text"
+msgstr "Manohi kuputuhi"
+
+msgid "Broken link"
+msgstr "Hono pākaru"
+
+msgid "Close"
+msgstr "Kōpani"
+
+msgid "Comment"
+msgstr "Tākupu"
+
+msgid "Dashboard"
+msgstr "Papatohu"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+msgid "Edit '{title}'"
+msgstr "Whakarerekē '{title}'"
+
+msgid "Horizontal line"
+msgstr "Rarangi huapae"
+
+msgid "Line break"
+msgstr "Rārangi wāhi"
+
+msgid "Loading…"
+msgstr "Whakauta..."
+
+msgid "Missing document"
+msgstr "Kua ngaro te pukapuka"
+
+msgid "No results"
+msgstr "Karekau he tukunga iho "
+
+msgid "Page"
+msgstr "Whārangi"
+
+msgid "Page explorer"
+msgstr "Kaihōpara-a-whārangi"
+
+msgid "Pages"
+msgstr "Ngā whārangi"
+
+msgid "Redo"
+msgstr "Tukurua"
+
+msgid "Reload saved content"
+msgstr "Uta anō tē rārangi take e puritia."
+
+msgid "Reload the page"
+msgstr "Uta anō te whārangi"
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Search"
+msgstr "Haha"
+
+msgid "See all"
+msgstr "Kitea katoa"
+
+msgid "Server Error"
+msgstr "Hapa rorohiko"
+
+msgid "Show error"
+msgstr "Whakaatu hē"
+
+msgid "Show latest content"
+msgstr "Whakaatu te rārangi take hōu"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Kua pakaru tē ētita. Kua puritia tē rārangi ki te rerenga tuatahi"
+
+msgid "Undo"
+msgstr "Whakakore"
+
+msgid "View child pages of '{title}'"
+msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
+
+msgid "Write here…"
+msgstr "Tuhi i konei"

@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Iuri L. Machado, 2021\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
@@ -130,12 +130,6 @@ msgstr "Perfil de usuário"
 msgid "user profiles"
 msgstr "perfis de usuário"
 
-#, python-format
-msgid "Assign role to 1 user "
-msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "Atribuir função a 1 usuário"
-msgstr[1] "Atribuir função a %(counter)susuários"
-
 msgid "Assign role"
 msgstr "Atribuir função"
 
@@ -152,12 +146,6 @@ msgstr "Atribuir"
 
 msgid "No, don't assign"
 msgstr "Não atribuir"
-
-#, python-format
-msgid "Delete 1 user "
-msgid_plural "Delete %(counter)s users"
-msgstr[0] "Excluir 1 usuário"
-msgstr[1] "Excluir%(counter)susuários"
 
 msgid "Delete"
 msgstr "Remover"
@@ -176,12 +164,6 @@ msgstr "Sim, remova"
 msgid "No, don't delete"
 msgstr "Não, não apague"
 
-#, python-format
-msgid "Change active state for 1 user "
-msgid_plural "Change active state for %(counter)s users"
-msgstr[0] "Alterar o estado ativo para 1 usuário"
-msgstr[1] "Alterar o estado ativo para %(counter)s usuários"
-
 msgid "Set active state"
 msgstr "Ativar estado"
 
@@ -199,28 +181,6 @@ msgstr "Não alterar estado"
 
 msgid "Delete group"
 msgstr "Remover grupo"
-
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                O grupo '%(group_name)s' tem <strong>%(group_user_count)s</"
-"strong> membro.\n"
-"            "
-msgstr[1] ""
-"\n"
-"                O grupo '%(group_name)s' tem <strong>%(group_user_count)s</"
-"strong> membros.\n"
-"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -340,24 +300,6 @@ msgstr "Inativo"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s atrás"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Há %(counter)s resultado\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Há %(counter)s resultados\n"
-"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

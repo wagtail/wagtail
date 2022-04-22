@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,10 +22,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail vormid"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s esildisid"
 
 msgid "Date from"
 msgstr "Kuupäev alates"
@@ -106,18 +102,8 @@ msgstr "kohustuslik"
 msgid "choices"
 msgstr "valikud"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Komaga eraldatud valikute loend. Kohaldatav ainult lünkades, valikmenüüs ja "
-"rippmenüüs."
-
 msgid "default value"
 msgstr "vaikeväärtus"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Vaikeväärtus. Lünkade puhul on komadega eraldatud väärtuste toetus."
 
 msgid "help text"
 msgstr "abitekst"
@@ -148,35 +134,18 @@ msgid "subject"
 msgstr "teema"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s esildisid"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Kustuta vormi andmed %(title)s"
 
 msgid "Delete form data"
 msgstr "Kustutage vormi andmed"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Kas olete kindel, et soovite selle vormi esildise kustutada?"
-msgstr[1] ""
-"\n"
-" Kas olete kindel, et soovite need vormi esildised kustutada?"
-
 msgid "Delete"
 msgstr "Kustuta"
-
-msgid "Total submissions"
-msgstr "Kõik kanded"
-
-msgid "Latest submission"
-msgstr "Viimased kanded"
 
 msgid "Forms"
 msgstr "Vormid"
@@ -213,6 +182,12 @@ msgstr " Päritolu"
 
 msgid "Delete selected submissions"
 msgstr "Kustutage valitud esildised"
+
+msgid "Total submissions"
+msgstr "Kõik kanded"
+
+msgid "Latest submission"
+msgstr "Viimased kanded"
 
 msgid "No form pages have been created."
 msgstr "Vormilehti pole loodud."

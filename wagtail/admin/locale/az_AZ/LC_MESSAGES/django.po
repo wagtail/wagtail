@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mirza Iskandarov <mirza.iskandarov@gmail.com>, 2020\n"
 "Language-Team: Azerbaijani (Azerbaijan) (http://www.transifex.com/torchbox/"
@@ -49,18 +49,6 @@ msgstr "Administrasiya hissəsinə keçid üçün sizin icazəniz yoxdur."
 msgid "None"
 msgstr "Boşluq"
 
-msgid "Scheduled publishing"
-msgstr "Dərc üçün planlaşdır"
-
-msgid "Content"
-msgstr "Məzmun"
-
-msgid "Promote"
-msgstr "Reklam et"
-
-msgid "Settings"
-msgstr "Parametrlər"
-
 msgid "Enter password"
 msgstr "Şifrəni daxil edin"
 
@@ -88,6 +76,18 @@ msgstr "Nüsxə bu ana səhifənin alt səhifəsi olacaq."
 
 msgid "Copy subpages"
 msgstr "Altsəhifələrin surətini çıxart"
+
+msgid "Scheduled publishing"
+msgstr "Dərc üçün planlaşdır"
+
+msgid "Content"
+msgstr "Məzmun"
+
+msgid "Promote"
+msgstr "Reklam et"
+
+msgid "Settings"
+msgstr "Parametrlər"
 
 msgid "Save"
 msgstr "Yadda saxla"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -35,36 +35,10 @@ msgid "Search"
 msgstr "Keresés"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s találat"
-msgstr[1] ""
-"\n"
-"%(counter)s találat"
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Sajnáljuk, de egyetlen elem sem felel meg a következő feltételeknek: \"<em>"
 "%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"Még egyetlen %(snippet_type_name)s típusú elem sincs létrehozva. Miért nem "
-"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noopener noreferrer\">hoz létre egy újat most</a>?"
 
 msgid "Last updated"
 msgstr "Utolsó frissítés"
@@ -179,15 +153,15 @@ msgstr "Oldal szerkesztése"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s keresése"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Hiba történt az elem létrehozása közben."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "'%(instance)s' %(snippet_type)s létrehozva."
 
 msgid "Edit"
 msgstr "Szerkeszt"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Hiba történt az elem létrehozása közben."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

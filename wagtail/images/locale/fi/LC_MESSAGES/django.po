@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,7 @@ msgid "images"
 msgstr "kuvaa"
 
 #, python-format
-msgid "Add tags to 1 image "
+msgid "Add tags to 1 image"
 msgid_plural "Add tags to %(counter)s images"
 msgstr[0] "Lisää tunnisteet 1 kuvaan"
 msgstr[1] "Lisää tunnisteet %(counter)s kuvaan"
@@ -191,7 +191,7 @@ msgid "No, don't add"
 msgstr "Ei, älä lisää"
 
 #, python-format
-msgid "Add 1 image to new collection "
+msgid "Add 1 image to new collection"
 msgid_plural "Add %(counter)s images to new collection"
 msgstr[0] "Lisää 1 kuva uuteen kokoelmaan"
 msgstr[1] "Lisää %(counter)s kuvaa uuteen kokoelmaan"
@@ -254,21 +254,31 @@ msgstr "Lähetä"
 msgid "Popular tags"
 msgstr "Suositut asiasanat"
 
-#, python-format
 msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi %(counter)s osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Lähetys onnistui. Uusi kuva vaikuttaa kuitenkin olevan kaksoiskappale "
+"olemassa olevasta kuvasta. Saatat mahdollisesti haluta poistaa uuden kuvan, "
+"jos kaksoiskappale ei ollut tarkoituksellinen."
+
+msgid "Existing"
+msgstr "Olemassa oleva"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "Use new image"
+msgstr "Käytä uutta kuvaa"
+
+msgid "Use existing and delete new"
+msgstr "Käytä olemassa olevaa ja poista uusi"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
 
 msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
@@ -284,21 +294,15 @@ msgstr "Lähetetään…"
 
 #, python-format
 msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgstr[0] ""
-"\n"
 "<span>%(total)s</span> kuva <span class=\"visuallyhidden\">luotu sivustolle "
 "%(site_name)s</span>"
 msgstr[1] ""
-"\n"
 "<span>%(total)s</span> kuvaa <span class=\"visuallyhidden\">luotu sivustolle "
 "%(site_name)s</span>"
 
@@ -316,6 +320,12 @@ msgstr "Tallenna"
 
 msgid "Delete image"
 msgstr "Poista kuva"
+
+msgid "Keep new image"
+msgstr "Säilytä uusi kuva"
+
+msgid "Delete new image"
+msgstr "Poista uusi kuva"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -458,11 +468,24 @@ msgstr ""
 "Siirto onnistui. Päivitä kuva osuvammalla otsikolla, jos tarpeellista. Voit "
 "myös poistaa kuvan kokonaan, jos siirto ei ollut tarpeellinen."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Lähetys onnistui. Uusi kuva vaikuttaa kuitenkin olevan tämän olemassa olevan "
+"kuvan kaksoiskappale. Saatat mahdollisesti haluta poistaa uuden kuvan, jos "
+"kaksoiskappale ei ollut tarkoituksellinen."
+
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
 
 msgid "Server Error"
 msgstr "Palvelinvirhe"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 msgid "Image updated."
 msgstr "Kuva päivitetty."

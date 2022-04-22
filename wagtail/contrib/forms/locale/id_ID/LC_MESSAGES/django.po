@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dzikri Hakim <dzikers@gmail.com>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -22,10 +22,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail formulir"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s hasil."
 
 msgid "Date from"
 msgstr "dari tanggal"
@@ -100,18 +96,8 @@ msgstr "wajib"
 msgid "choices"
 msgstr "pilihan"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Daftar pilihan dipisahkan dengan koma. Hanya berlaku untuk kotak centang, "
-"radio, dan dropdown."
-
 msgid "default value"
 msgstr "isi awal"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Isi awal. daftar isi yang dipisah koma didukung untuk kotak centang."
 
 msgid "help text"
 msgstr "teks bantuan"
@@ -136,32 +122,18 @@ msgid "subject"
 msgstr "subyek"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s hasil."
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Hapus data formulir %(title)s"
 
 msgid "Delete form data"
 msgstr "Hapus data formulir"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Apakah Anda yakin untuk menghapus hasil formulir ini?"
-
 msgid "Delete"
 msgstr "Hapus"
-
-msgid "Total submissions"
-msgstr "Total hasil"
-
-msgid "Latest submission"
-msgstr "Hasil terakhir"
 
 msgid "Forms"
 msgstr "Formulir"
@@ -195,6 +167,12 @@ msgstr "Asal"
 
 msgid "Delete selected submissions"
 msgstr "Hapus hasil terpilih"
+
+msgid "Total submissions"
+msgstr "Total hasil"
+
+msgid "Latest submission"
+msgstr "Hasil terakhir"
 
 msgid "No form pages have been created."
 msgstr "Tidak ada halaman formulir yang dibuat."

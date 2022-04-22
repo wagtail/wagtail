@@ -1,0 +1,28 @@
+#
+# Translators:
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2022
+# Karl Hobley <karl@torchbox.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Karl Hobley <karl@torchbox.com>, 2022\n"
+"Language-Team: Bulgarian (https://www.transifex.com/torchbox/teams/8009/"
+"bg/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Dashboard"
+msgstr "Работно Табло"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Save"
+msgstr "Запази"
+
+msgid "Search"
+msgstr "Търсене"

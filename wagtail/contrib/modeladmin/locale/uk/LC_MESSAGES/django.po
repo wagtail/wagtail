@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -123,10 +123,6 @@ msgstr "Ні, не видаляти"
 msgid "Home"
 msgstr "Головна"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "за %(filter_title)s "
-
 msgid "Last updated"
 msgstr "Востаннє оновлено"
 
@@ -169,18 +165,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Жодних %(name)s ще не було створено."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                Чому б не <a href=\"%(url)s"
-"\">додати</a>?\n"
-"                                            "
 
 msgid "Pagination"
 msgstr "Пагінація"

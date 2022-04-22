@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: oliverengel <codeangel@posteo.de>, 2021\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -31,10 +31,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail Formulare"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s Abgaben"
 
 msgid "Date from"
 msgstr "Datum von"
@@ -119,19 +115,8 @@ msgstr "Erforderlich"
 msgid "choices"
 msgstr "Auswahl"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Liste der Wahlmöglichkeiten, durch Kommas getrennt. Gilt nur für Checkboxen, "
-"Dropdowns und Radiobuttons."
-
 msgid "default value"
 msgstr "Vorgabewert"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Standardwert. Werte für Checkboxen können durch Kommas getrennt werden."
 
 msgid "help text"
 msgstr "Hilfetext"
@@ -162,35 +147,18 @@ msgid "subject"
 msgstr "Betreff"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s Abgaben"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Formulardaten löschen %(title)s"
 
 msgid "Delete form data"
 msgstr "Formulardaten löschen"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Sind Sie sicher, dass Sie diese Formular-Eingabe löschen wollen?"
-msgstr[1] ""
-"\n"
-"Sind Sie sicher, dass Sie diese Formular-Eingaben löschen wollen?"
-
 msgid "Delete"
 msgstr "Löschen"
-
-msgid "Total submissions"
-msgstr "Anzahl Abgaben"
-
-msgid "Latest submission"
-msgstr "Neueste Abgabe"
 
 msgid "Forms"
 msgstr "Formulare"
@@ -227,6 +195,12 @@ msgstr "Ursprung"
 
 msgid "Delete selected submissions"
 msgstr "Ausgewählte Abgaben löschen"
+
+msgid "Total submissions"
+msgstr "Anzahl Abgaben"
+
+msgid "Latest submission"
+msgstr "Neueste Abgabe"
 
 msgid "No form pages have been created."
 msgstr "Es wurden keine Formularseiten angelegt."

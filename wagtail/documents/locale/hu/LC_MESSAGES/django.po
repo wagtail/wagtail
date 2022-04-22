@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -65,12 +65,6 @@ msgstr "dokumentum"
 msgid "documents"
 msgstr "dokumentumok"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "Címke hozzáadása 1 dokumentumhoz"
-msgstr[1] "Címke hozzáadása %(counter)s dokumentumhoz"
-
 msgid "Add tags to documents"
 msgstr "Dokumentumok címkézése"
 
@@ -89,12 +83,6 @@ msgstr "Igen, hozzáadom"
 
 msgid "No, don't add"
 msgstr "Nem, mégsem"
-
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "1 dokumentum mozgatása új gyűjteménybe"
-msgstr[1] "%(counter)s dokumentum mozgatása új gyűjteménybe"
 
 msgid "Add documents to collection"
 msgstr "Dokumentumok mozgatása gyűjteménybe"
@@ -117,12 +105,6 @@ msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Nincs jogosultsága hozzáadni a dokumentumot a gyűjteményhez"
 msgstr[1] ""
 "Nincs jogosultsága hozzáadni ezeket a dokumentumokat a gyűjteményhez"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "1 dokumentum törlése"
-msgstr[1] "%(counter)s dokumentum törlése"
 
 msgid "Delete documents"
 msgstr "Dokumentumok törlése"
@@ -158,22 +140,6 @@ msgstr "Keresés"
 msgid "Upload"
 msgstr "Feltöltés"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s találat"
-msgstr[1] ""
-"\n"
-"%(counter)s találat"
-
 msgid "Latest documents"
 msgstr "Legutóbbi dokumentumok"
 
@@ -186,17 +152,6 @@ msgstr "Ebbe a gyűjteménybe még nincs dokumentum feltöltve."
 
 msgid "You haven't uploaded any documents."
 msgstr "Még nem töltött fel dokumentumot."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Miért nem <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">tölt fel egyet most</a>?"
 
 msgid "Uploading…"
 msgstr "Feltöltés folyamatban…"
@@ -292,26 +247,6 @@ msgstr "Állapot"
 
 msgid "Edit this page"
 msgstr "Oldal szerkesztése"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> dokumentum <span class=\"visuallyhidden\">létrehozva "
-"itt: %(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span>dokumentum <span class=\"visuallyhidden\">létrehozva "
-"itt: %(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Több dokumentum hozzáadása"

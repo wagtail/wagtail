@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
-# Naglis Jonaitis, 2020-2021
+# Naglis Jonaitis, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Naglis Jonaitis, 2020-2021\n"
+"Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,9 @@ msgstr "Perkelti aukštyn"
 
 msgid "Move down"
 msgstr "Perkelti žemyn"
+
+msgid "Duplicate"
+msgstr "Dubliuoti"
 
 msgid "Delete"
 msgstr "Ištrinti"
@@ -222,6 +225,9 @@ msgstr "grupės"
 msgid "Approve"
 msgstr "Patvirtinti"
 
+msgid "Approve with comment"
+msgstr "Patvirtinti su komentaru"
+
 msgid "comment"
 msgstr "komentaras"
 
@@ -350,6 +356,9 @@ msgstr "Prancūzų"
 msgid "German"
 msgstr "Vokiečių"
 
+msgid "Create"
+msgstr "Sukurti"
+
 msgid "Edited"
 msgstr "Redaguotas"
 
@@ -377,6 +386,33 @@ msgstr "Perkelti"
 msgid "Add comment"
 msgstr "Pridėti komentarą"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Pridėjo %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Pridėjo komentarą"
+
+msgid "Edit comment"
+msgstr "Redaguoti komentarą"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Redagavo %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Redagavo komentarą"
+
+msgid "Delete comment"
+msgstr "Ištrinti komentarą"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Ištrynė %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Ištrynė komentarą"
+
 msgid "Resolve comment"
 msgstr "Išspręsti komentarą"
 
@@ -386,3 +422,33 @@ msgstr "Išsprendė „%(field)s“ laukelio komentarą: „%(text)s“"
 
 msgid "Resolved a comment"
 msgstr "Išsprendė komentarą"
+
+msgid "Reply to comment"
+msgstr "Atsakyti į komentarą"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Atsakė į %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Atsakė į komentarą"
+
+msgid "Edit reply to comment"
+msgstr "Redaguoti atsakymą į komentarą"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Redagavo %(field)s laukelio atsakymą į komentarą: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Redagavo atsakymą"
+
+msgid "Delete reply to comment"
+msgstr "Ištrinti atsakymą į komentarą"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Ištrynė %(field)s laukelio atsakymą į komentarą: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Ištrynė atsakymą"

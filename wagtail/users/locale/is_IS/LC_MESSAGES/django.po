@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2022
 # saevarom <saevar@saevar.is>, 2017-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2017-2021\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -122,7 +123,7 @@ msgid "user profiles"
 msgstr "uppsetning notenda"
 
 #, python-format
-msgid "Assign role to 1 user "
+msgid "Assign role to 1 user"
 msgid_plural "Assign role to %(counter)s users"
 msgstr[0] "Gefa 1 notanda réttindi"
 msgstr[1] "Gefa %(counter)s notendum réttindi"
@@ -145,7 +146,7 @@ msgid "No, don't assign"
 msgstr "Nei"
 
 #, python-format
-msgid "Delete 1 user "
+msgid "Delete 1 user"
 msgid_plural "Delete %(counter)s users"
 msgstr[0] "Eyða 1 notanda"
 msgstr[1] "Eyða %(counter)s notendum"
@@ -168,7 +169,7 @@ msgid "No, don't delete"
 msgstr "Nei, ekki eyða"
 
 #, python-format
-msgid "Change active state for 1 user "
+msgid "Change active state for 1 user"
 msgid_plural "Change active state for %(counter)s users"
 msgstr[0] "Breyta stöðu fyrir 1 notanda"
 msgstr[1] "Breyta stöðu fyrir %(counter)s notendur"
@@ -193,25 +194,15 @@ msgstr "Eyða hóp"
 
 #, python-format
 msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
 msgstr[0] ""
-"\n"
-"                Hópurinn '%(group_name)s' hefur <strong>"
-"%(group_user_count)s</strong> meðlim.\n"
-"            "
+"Hópurinn '%(group_name)s' er með <strong>%(group_user_count)s</strong> "
+"notendur."
 msgstr[1] ""
-"\n"
-"                Hópurinn '%(group_name)s' hefur <strong>"
-"%(group_user_count)s</strong> meðlimi.\n"
-"            "
+"Hópurinn '%(group_name)s' er með <strong>%(group_user_count)s</strong> "
+"notendur."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -333,20 +324,10 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s síðan"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Það er %(counter)s niðurstaða"
-msgstr[1] ""
-"\n"
-"Það eru %(counter)s niðurstöður"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Það er %(counter)s niðurstaða"
+msgstr[1] " Það eru %(counter)s niðurstöður        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

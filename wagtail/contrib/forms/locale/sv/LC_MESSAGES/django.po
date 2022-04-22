@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,10 +27,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail formulär"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s anmälningar"
 
 msgid "Date from"
 msgstr "Datum från"
@@ -112,18 +108,8 @@ msgstr "obligatorisk"
 msgid "choices"
 msgstr "val"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Kommaseparerad lista med val. Används bara för kryssrutor, radioknappar och "
-"rullistor."
-
 msgid "default value"
 msgstr "standardvärde"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Startvärde. Kommaseparerade värden för kryssrutor."
 
 msgid "help text"
 msgstr "hjälptext"
@@ -154,37 +140,18 @@ msgid "subject"
 msgstr "ämne"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s anmälningar"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Radera formulärdata %(title)s"
 
 msgid "Delete form data"
 msgstr "Radera formulärdata"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Är du säker på att du vill radera denna formulärinlaga?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Är du säker på att du vill radera dessa formulärinlagor?\n"
-"            "
-
 msgid "Delete"
 msgstr "Radera"
-
-msgid "Total submissions"
-msgstr "Antal inlämningar"
-
-msgid "Latest submission"
-msgstr "Senaste inlämning"
 
 msgid "Forms"
 msgstr "Formulär"
@@ -221,6 +188,12 @@ msgstr "Källa"
 
 msgid "Delete selected submissions"
 msgstr "Radera valda inlämningar"
+
+msgid "Total submissions"
+msgstr "Antal inlämningar"
+
+msgid "Latest submission"
+msgstr "Senaste inlämning"
 
 msgid "No form pages have been created."
 msgstr "Inga formulär har skapats."

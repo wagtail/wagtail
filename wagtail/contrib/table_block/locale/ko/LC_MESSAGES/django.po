@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2017-2018,2020\n"
+"Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -41,3 +42,6 @@ msgid ""
 "A heading that identifies the overall topic of the table, and is useful for "
 "screen reader users"
 msgstr "표의 전반적 주제를 나타내면서 스크린 리더 사용자에게 유용한 제목"
+
+msgid "Table"
+msgstr "테이블"

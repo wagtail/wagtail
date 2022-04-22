@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2018,2020\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -31,10 +31,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail 表单"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s提交"
 
 msgid "Date from"
 msgstr "起始日起"
@@ -115,16 +111,8 @@ msgstr "必填"
 msgid "choices"
 msgstr "选项"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr "使用逗号分隔多个选项。只能用于多选框、单选按钮和下拉列表框。"
-
 msgid "default value"
 msgstr "默认值"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "默认值。多选框支持使用逗号分隔多个值。"
 
 msgid "help text"
 msgstr "帮助文本"
@@ -153,33 +141,18 @@ msgid "subject"
 msgstr "主题"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s提交"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "删除表单数据 %(title)s"
 
 msgid "Delete form data"
 msgstr "删除表单数据"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                确认要删除这些表单的提交吗？\n"
-"            "
-
 msgid "Delete"
 msgstr "删除"
-
-msgid "Total submissions"
-msgstr "所有的提交"
-
-msgid "Latest submission"
-msgstr "上一次提交"
 
 msgid "Forms"
 msgstr "表单"
@@ -216,6 +189,12 @@ msgstr "原始"
 
 msgid "Delete selected submissions"
 msgstr "删除选中提交"
+
+msgid "Total submissions"
+msgstr "所有的提交"
+
+msgid "Latest submission"
+msgstr "上一次提交"
 
 msgid "No form pages have been created."
 msgstr "还没有创建表单页面。"

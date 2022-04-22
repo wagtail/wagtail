@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020\n"
+"Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -118,8 +119,18 @@ msgid "Home"
 msgstr "홈"
 
 #, python-format
-msgid " By %(filter_title)s "
-msgstr "%(filter_title)s으로"
+msgid "By %(filter_title)s"
+msgstr "%(filter_title)s까지"
+
+msgid "Last updated"
+msgstr "마지막으로 업로드된"
+
+msgid "History"
+msgstr "자취"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(all_count)s중에%(result_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -154,14 +165,8 @@ msgid "No %(name)s have been created yet."
 msgstr "아직 생성된 %(name)s 항목이 없습니다."
 
 #, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"하나 <a href=\"%(url)s\">추가</a>하는 것은 어떠신가요?"
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "<a href=\"%(url)s\">하나 추가</a>해보시지 않으시렵니까?"
 
 msgid "Pagination"
 msgstr "페이지네이션"
@@ -232,6 +237,9 @@ msgstr "분석"
 #, python-format
 msgid "Inspecting %s"
 msgstr "%s 분석"
+
+msgid "Action"
+msgstr "행동"
 
 msgid "Date"
 msgstr "날짜"

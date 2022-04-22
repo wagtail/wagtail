@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -38,36 +38,8 @@ msgid "Search"
 msgstr "Cercar"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Hi ha %(counter)s coincidència\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hi ha %(counter)s coincidències\n"
-"        "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "No hi ha cap fragment amb \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"No heu creat cap fragment %(snippet_type_name)s. Per què no en <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">creeu un ara</a>?"
 
 msgid "Last updated"
 msgstr "Última actualització"
@@ -182,15 +154,15 @@ msgstr "Editar aquesta plana"
 msgid "Search %(snippet_type_name)s"
 msgstr "Cercar %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "El fragment no s'ha pogut crear degut a errors."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' creat."
 
 msgid "Edit"
 msgstr "Editar"
-
-msgid "The snippet could not be created due to errors."
-msgstr "El fragment no s'ha pogut crear degut a errors."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

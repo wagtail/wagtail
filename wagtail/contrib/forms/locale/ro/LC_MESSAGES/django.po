@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dan Braghis, 2014-2020\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,10 +23,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Formulare Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s depuneri"
 
 msgid "Date from"
 msgstr "Data din"
@@ -109,18 +105,8 @@ msgstr "necesar"
 msgid "choices"
 msgstr "opțiuni"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Listă de opțiuni separate prin virgulă. Aplicabil în căsuțe, butoane radio "
-"și liste derulante."
-
 msgid "default value"
 msgstr "valoare implicită"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Valoare implicită. Suportă valori separate prin virgule pentru căsuțe."
 
 msgid "help text"
 msgstr "text de ajutor"
@@ -151,41 +137,18 @@ msgid "subject"
 msgstr "subiect"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s depuneri"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Șterge datele formularui %(title)s"
 
 msgid "Delete form data"
 msgstr "Șterge date formular"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Sigur doriți să ștergeți această înregistrare de formular?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Sigur doriți să ștergeți aceste înregistrări de formular?\n"
-"            "
-msgstr[2] ""
-"\n"
-"                Sigur doriți să ștergeți aceste înregistrări de formular?\n"
-"            "
-
 msgid "Delete"
 msgstr "Șterge"
-
-msgid "Total submissions"
-msgstr "Total înregistrări"
-
-msgid "Latest submission"
-msgstr "Ultima înregistrare"
 
 msgid "Forms"
 msgstr "Formulare"
@@ -222,6 +185,12 @@ msgstr "Origine"
 
 msgid "Delete selected submissions"
 msgstr "Șterge înregistrările selectate"
+
+msgid "Total submissions"
+msgstr "Total înregistrări"
+
+msgid "Latest submission"
+msgstr "Ultima înregistrare"
 
 msgid "No form pages have been created."
 msgstr "Nu a fost creată nici o pagină de formular"

@@ -1,0 +1,94 @@
+#
+# Translators:
+# Asger Sørensen <asger.soerensen@live.com>, 2022
+# MRostgaard <Mrostgaard@gmail.com>, 2022
+# Mads Kronborg <madskronborg99@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Mads Kronborg <madskronborg99@gmail.com>, 2022\n"
+"Language-Team: Danish (https://www.transifex.com/torchbox/teams/8009/da/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Alt text"
+msgstr "Alt text"
+
+msgid "Close"
+msgstr "Luk"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Edit '{title}'"
+msgstr "Rediger '{title}'"
+
+msgid "Edit your account"
+msgstr "Rediger din konto"
+
+msgid "Horizontal line"
+msgstr "Horisontal linje"
+
+msgid "Line break"
+msgstr "Ny linje"
+
+msgid "Loading…"
+msgstr "Loader..."
+
+msgid "No results"
+msgstr "Ingen resultater"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Redo"
+msgstr "Gå frem"
+
+msgid "Reload saved content"
+msgstr "Genindlæs gemt indhold"
+
+msgid "Reload the page"
+msgstr "Genindlæs siden"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Saving..."
+msgstr "Gemmer..."
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "See all"
+msgstr "Se alle"
+
+msgid "Server Error"
+msgstr "Server Fejl"
+
+msgid "Show error"
+msgstr "Vis fejl"
+
+msgid "Show latest content"
+msgstr "Vis seneste indhold"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Redigeringsprogrammet crashede. Indholdet er blevet sat til den nyeste gemte "
+"version."
+
+msgid "Undo"
+msgstr "Gå tilbage"
+
+msgid "Write here…"
+msgstr "Skriv her..."

@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,16 @@ msgstr "hylkäys&shy;ilmoitukset"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hylätään"
 
+msgid "updated comments notifications"
+msgstr "päivitetty kommentti-ilmoitukset"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Vastaanota ilmoitus, kun kommentteja on luotu, selvitetty tai poistettu "
+"sivulta, jonka osalta olet tilannut kommentti-ilmoitukset"
+
 msgid "preferred language"
 msgstr "mieluisin kieli"
 
@@ -117,7 +127,7 @@ msgid "user profiles"
 msgstr "käyttäjäprofiilit"
 
 #, python-format
-msgid "Assign role to 1 user "
+msgid "Assign role to 1 user"
 msgid_plural "Assign role to %(counter)s users"
 msgstr[0] "Määritä rooli 1 käyttäjälle"
 msgstr[1] "Määritä rooli %(counter)s käyttäjälle"
@@ -140,7 +150,7 @@ msgid "No, don't assign"
 msgstr "Ei, älä määritä"
 
 #, python-format
-msgid "Delete 1 user "
+msgid "Delete 1 user"
 msgid_plural "Delete %(counter)s users"
 msgstr[0] "Poista 1 käyttäjä"
 msgstr[1] "Poista %(counter)s käyttäjää"
@@ -162,25 +172,39 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Muuta aktiivista tilaa 1 käyttäjän osalta"
+msgstr[1] "Muuta aktiivista tilaa %(counter)s käyttäjän osalta"
+
+msgid "Set active state"
+msgstr "Aseta aktiivinen tila"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Haluatko varmasti muuttaa aktiivisen tilan seuraavien käyttäjien osalta?"
+
+msgid "You cannot change your own active status"
+msgstr "Et voi muuttaa omaa aktiivista tilaasi"
+
+msgid "Yes, change state"
+msgstr "Kyllä, vaihda tila"
+
+msgid "No, don't change state"
+msgstr "Ei, älä vaihda tilaa"
+
 msgid "Delete group"
 msgstr "Poista ryhmä"
 
 #, python-format
 msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
 msgstr[0] ""
-"\n"
 "Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsen."
 msgstr[1] ""
-"\n"
 "Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsentä."
 
 msgid ""
@@ -303,20 +327,10 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s sitten"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi %(counter)s osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -356,6 +370,9 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d käyttäjä on poistettu"
 msgstr[1] "%(num_parent_objects)d käyttäjää on poistettu."
+
+msgid "Change the active state for selected users"
+msgstr "Muuta valittujen käyttäjien aktiivista tilaa"
 
 #, python-format
 msgid "%(num_parent_objects)d user has been marked as active"

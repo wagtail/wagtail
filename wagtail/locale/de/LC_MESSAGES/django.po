@@ -4,6 +4,7 @@
 #
 # Translators:
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -28,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail Kern"
@@ -559,6 +563,15 @@ msgstr "Englisch"
 
 msgid "French"
 msgstr "Französisch"
+
+msgid "Wagtail tests"
+msgstr "Wagtail Tests"
+
+msgid "The form is already filled."
+msgstr "Das Formular ist bereits ausgefüllt."
+
+msgid "You must log in first."
+msgstr "Du musst dich zuerst anmelden."
 
 msgid "German"
 msgstr "Deutsch"

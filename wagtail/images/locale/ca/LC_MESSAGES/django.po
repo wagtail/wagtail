@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -158,12 +158,6 @@ msgstr "imatge"
 msgid "images"
 msgstr "imatges"
 
-#, python-format
-msgid "Add tags to 1 image "
-msgid_plural "Add tags to %(counter)s images"
-msgstr[0] "Afegir etiquetes a 1 imatges"
-msgstr[1] "Afegir etiquetes a %(counter)s imatges"
-
 msgid "Add tags to images"
 msgstr "Afegir etiquetes a les imatges"
 
@@ -182,12 +176,6 @@ msgstr "Sí, afegir"
 
 msgid "No, don't add"
 msgstr "No afegir"
-
-#, python-format
-msgid "Add 1 image to new collection "
-msgid_plural "Add %(counter)s images to new collection"
-msgstr[0] "Afegir 1 imatge a la nova col·lecció"
-msgstr[1] "Afegir %(counter)s imatges a la nova col·lecció"
 
 msgid "Add images to collection"
 msgstr "Afegir imatges a una col·lecció"
@@ -239,6 +227,9 @@ msgstr "Puja"
 
 msgid "Popular tags"
 msgstr "Tags populars"
+
+msgid "New"
+msgstr "Nou"
 
 msgid "Latest images"
 msgstr "Últimes imatges"
