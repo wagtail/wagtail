@@ -10,7 +10,7 @@
 {% endcomment %}
 <button type="button" class="{{ classes }} w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-underline w-inline-flex w-justify-center" {% if data_url %}data-url="{{ data_url }}" {% endif %} {% if has_toggle_icon %}data-has-toggle {% endif %} {{ attr }}>
     {{ text }}
-    {% if has_toggle %}
+    {% if has_toggle_icon %}
         {% icon name='arrow-down' class_name='w-w-4 w-h-4 w-text-teal-200 w-transition motion-reduce:w-transition-none' %}
     {% endif %}
 </button>
