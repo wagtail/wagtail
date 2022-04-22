@@ -20,14 +20,4 @@ urlpatterns = [
         chooser.ChosenView.as_view(),
         name="chosen",
     ),
-    # legacy URLs that could potentially collide if the pk matches one of the reserved names above
-    # ('add', 'edit' etc) - redirect to the unambiguous version
-    path("<slug:app_label>/<slug:model_name>/<str:pk>/", snippets.redirect_to_edit),
-    path(
-        "<slug:app_label>/<slug:model_name>/<str:pk>/delete/",
-        snippets.redirect_to_delete,
-    ),
-    path(
-        "<slug:app_label>/<slug:model_name>/<str:pk>/usage/", snippets.redirect_to_usage
-    ),
 ]

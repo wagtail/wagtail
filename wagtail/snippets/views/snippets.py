@@ -1,5 +1,5 @@
 import warnings
-from functools import lru_cache
+from functools import lru_cache, partial
 from urllib.parse import urlencode
 
 from django.apps import apps
@@ -607,6 +607,30 @@ class SnippetViewSet(ViewSet):
     def history_view(self):
         return self.history_view_class.as_view(viewset=self, model=self.model)
 
+    @property
+    def redirect_to_edit(self):
+        return partial(
+            redirect_to_edit,
+            app_label=self.model._meta.app_label,
+            model_name=self.model._meta.model_name,
+        )
+
+    @property
+    def redirect_to_delete(self):
+        return partial(
+            redirect_to_delete,
+            app_label=self.model._meta.app_label,
+            model_name=self.model._meta.model_name,
+        )
+
+    @property
+    def redirect_to_usage(self):
+        return partial(
+            redirect_to_usage,
+            app_label=self.model._meta.app_label,
+            model_name=self.model._meta.model_name,
+        )
+
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
             path("", self.index_view, name="list"),
@@ -617,4 +641,9 @@ class SnippetViewSet(ViewSet):
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
+            # legacy URLs that could potentially collide if the pk matches one of the reserved names above
+            # ('add', 'edit' etc) - redirect to the unambiguous version
+            path("<str:pk>/", self.redirect_to_edit),
+            path("<str:pk>/delete/", self.redirect_to_delete),
+            path("<str:pk>/usage/", self.redirect_to_usage),
         ]
