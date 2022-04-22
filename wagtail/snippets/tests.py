@@ -1046,6 +1046,20 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_delete_get_with_i18n_enabled(self):
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets:delete",
+                args=(
+                    "tests",
+                    "advert",
+                    quote(self.test_snippet.pk),
+                ),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
     def test_delete_post_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
@@ -1388,6 +1402,11 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
             response,
             '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">',
         )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_get_with_i18n_enabled(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):
