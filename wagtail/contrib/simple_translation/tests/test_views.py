@@ -256,27 +256,28 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         view = SubmitSnippetTranslationView()
         view.object = self.en_snippet
         view.kwargs = {
-            "app_label": "some_app",
-            "model_name": "some_model",
+            "app_label": "snippetstests",
+            "model_name": "translatablesnippet",
             "pk": 99,
         }
         self.assertEqual(
-            view.get_success_url(), "/admin/snippets/some_app/some_model/edit/99/"
+            view.get_success_url(),
+            "/admin/snippets/snippetstests/translatablesnippet/edit/99/",
         )
 
     def test_get_success_url_for_single_locale(self):
         view = SubmitSnippetTranslationView()
         view.object = self.en_snippet
         view.kwargs = {
-            "app_label": "some_app",
-            "model_name": "some_model",
+            "app_label": "snippetstests",
+            "model_name": "translatablesnippet",
             "pk": 99,
         }
 
         self.assertEqual(
             view.get_success_url(view.object),
             reverse(
-                "wagtailsnippets_some_app_some_model:edit",
+                "wagtailsnippets_snippetstests_translatablesnippet:edit",
                 args=[view.object.pk],
             ),
         )
