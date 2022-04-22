@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -91,10 +91,6 @@ msgstr "Тийм, устга"
 
 msgid "Home"
 msgstr "Нүүр хуудас"
-
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "%(filter_title)s-р"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."

@@ -13,17 +13,17 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
-# Vladislav <integration.into.society@gmail.com>, 2022
-# Vladislav <integration.into.society@gmail.com>, 2021-2022
+# Влад <integration.into.society@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -156,14 +156,6 @@ msgstr "Да, назначить"
 msgid "No, don't assign"
 msgstr "Нет, не назначать"
 
-#, python-format
-msgid "Delete 1 user "
-msgid_plural "Delete %(counter)s users"
-msgstr[0] "Удалить одного пользователя"
-msgstr[1] "Удалить %(counter)s пользователей"
-msgstr[2] "Удалить %(counter)s пользователей"
-msgstr[3] "Удалить %(counter)s пользователей"
-
 msgid "Delete"
 msgstr "Удалить"
 
@@ -194,38 +186,6 @@ msgstr "Нет, не менять состояние"
 
 msgid "Delete group"
 msgstr "Удалить группу"
-
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                В группе '%(group_name)s' состоит <strong>"
-"%(group_user_count)s</strong> пользователь.\n"
-"            "
-msgstr[1] ""
-"\n"
-"                В группе '%(group_name)s' состоит <strong>"
-"%(group_user_count)s</strong> пользователей.\n"
-"            "
-msgstr[2] ""
-"\n"
-"                В группе '%(group_name)s' состоит <strong>"
-"%(group_user_count)s</strong> пользователей.\n"
-"            "
-msgstr[3] ""
-"\n"
-"                В группе '%(group_name)s' состоит <strong>"
-"%(group_user_count)s</strong> пользователей.\n"
-"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -345,28 +305,6 @@ msgstr "Неактивный"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s назад"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Найдено %(counter)s совпадение"
-msgstr[1] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[2] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[3] ""
-"\n"
-"Найдено %(counter)s совпадений"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

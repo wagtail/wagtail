@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -42,16 +42,6 @@ msgstr "بحث"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "عذرًا ، لا يوجد تطابق في المقتطفات \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"لم تنشئ أي %(snippet_type_name)s مقتطفات. لماذا لا <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">تنشءواحد الان</a>؟"
 
 msgid "Saving…"
 msgstr "يتم الحفظ…"
@@ -146,11 +136,11 @@ msgstr "حرر هذه الصفحة"
 msgid "Search %(snippet_type_name)s"
 msgstr "بحث %(snippet_type_name)s"
 
-msgid "Edit"
-msgstr "تحرير"
-
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"
+
+msgid "Edit"
+msgstr "تحرير"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"

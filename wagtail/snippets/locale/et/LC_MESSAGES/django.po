@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -35,34 +35,8 @@ msgid "Search"
 msgstr "Otsing"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"On %(counter)s vaste"
-msgstr[1] ""
-"\n"
-"On %(counter)s vastet."
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski jupp ei sobi \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"Sa pole ühtegi loonud %(snippet_type_name)s juppi. Miks mitte lisada <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">üks nüüd</a>?"
 
 msgid "History"
 msgstr "Ajalugu"
@@ -174,15 +148,15 @@ msgstr "Muutke seda lehte"
 msgid "Search %(snippet_type_name)s"
 msgstr "Otsi %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Seda juppi ei saanud vigade tõttu luua. "
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s \"%(instance)s\" loodud."
 
 msgid "Edit"
 msgstr "Muuda"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Seda juppi ei saanud vigade tõttu luua. "
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

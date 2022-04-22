@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -65,11 +65,11 @@ msgstr "Търсене"
 msgid "Search term"
 msgstr "Фраза за търсене"
 
-msgid "Save"
-msgstr "Запази"
+msgid "Status"
+msgstr "Статус"
 
-msgid "Dashboard"
-msgstr "Работно Табло"
+msgid "Preview"
+msgstr "Преглед"
 
 msgid "Account"
 msgstr "Профил"
@@ -128,17 +128,17 @@ msgstr "Добави линк"
 msgid "Add an external link"
 msgstr "Добави външен линк"
 
+msgid "Save"
+msgstr "Запази"
+
 msgid "Name"
 msgstr "Име"
 
-msgid "Move up"
-msgstr "Нагоре"
-
-msgid "Move down"
-msgstr "Надолу"
-
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
+
+msgid "Dashboard"
+msgstr "Работно Табло"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -169,14 +169,8 @@ msgstr "Одобрете"
 msgid "Reject"
 msgstr "Отхвърлете"
 
-msgid "Preview"
-msgstr "Преглед"
-
 msgid "Your most recent edits"
 msgstr "Вашите последни редакции"
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
@@ -247,25 +241,6 @@ msgid "Are you sure you want to delete this page?"
 msgstr "Сигурен ли сте, че искате да изтриете страницата?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Това ще изтрие още една подстраница.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Това ще изтрие още %(descendant_count)s подстраници.\n"
-"                "
-
-#, python-format
 msgid "Move %(title)s"
 msgstr "Промести %(title)s"
 
@@ -300,9 +275,6 @@ msgstr "Страници използващи"
 #, python-format
 msgid "New %(page_type)s"
 msgstr "Нова %(page_type)s"
-
-msgid "New"
-msgstr "Ново"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -341,6 +313,12 @@ msgstr "Изберете нова страница родител за <span>%(t
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
 
+msgid "Move up"
+msgstr "Нагоре"
+
+msgid "Move down"
+msgstr "Надолу"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s от %(total_pages)s."
@@ -348,11 +326,8 @@ msgstr "Страница %(page_num)s от %(total_pages)s."
 msgid "Home"
 msgstr "Начало"
 
-msgid "Account settings"
-msgstr "Настройки на профила"
-
-msgid "Log out"
-msgstr "Излез"
+msgid "New"
+msgstr "Ново"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -360,6 +335,9 @@ msgstr "по %(modified_by)s"
 
 msgid "More"
 msgstr "Повече"
+
+msgid "Log out"
+msgstr "Излез"
 
 msgid "Password"
 msgstr "Парола"

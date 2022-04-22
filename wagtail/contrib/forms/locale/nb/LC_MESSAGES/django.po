@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -23,10 +23,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail-skjema"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s innsendinger"
 
 msgid "Date from"
 msgstr "Fra-dato"
@@ -104,18 +100,8 @@ msgstr "påkrevet"
 msgid "choices"
 msgstr "valg"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Kommaseparert liste av valg. Brukes bare for avkrysningsbokser, radioknapper "
-"og rullegardinmeny."
-
 msgid "default value"
 msgstr "standardverdi"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Standardverdi. Kommaseparerte verdier støttes for avkrysningsbokser."
 
 msgid "help text"
 msgstr "hjelpetekst"
@@ -146,37 +132,18 @@ msgid "subject"
 msgstr "emne"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s innsendinger"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Slett skjemadata for %(title)s"
 
 msgid "Delete form data"
 msgstr "Slett skjemadata"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Er du sikker på at du vil slette dette innsendte skjemaet?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Er du sikker på at du vil slette disse innsendte skjemaene?\n"
-"            "
-
 msgid "Delete"
 msgstr "Slett"
-
-msgid "Total submissions"
-msgstr "Alle innsendinger"
-
-msgid "Latest submission"
-msgstr "Siste innsendinger"
 
 msgid "Forms"
 msgstr "Skjemaer"
@@ -213,6 +180,12 @@ msgstr "Opphav"
 
 msgid "Delete selected submissions"
 msgstr "Slett valgte innsendinger"
+
+msgid "Total submissions"
+msgstr "Alle innsendinger"
+
+msgid "Latest submission"
+msgstr "Siste innsendinger"
 
 msgid "No form pages have been created."
 msgstr "Ingen skjemasider har blitt opprettet."

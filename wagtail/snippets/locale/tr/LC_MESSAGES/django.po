@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Basitlik İyidir, 2020\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -38,37 +38,9 @@ msgid "Search"
 msgstr "Ara"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            %(counter)s eşleşme bulundu\n"
-"        "
-msgstr[1] ""
-"\n"
-"            %(counter)s eşleşme bulundu\n"
-"        "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen kod bloğu bulunmuyor"
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"%(snippet_type_name)s kod bloğu oluşturmadınız. Neden <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">bir tane oluşturmuyorsunuz</a>?"
 
 msgid "Saving…"
 msgstr "Kaydediliyor…"
@@ -179,15 +151,15 @@ msgstr "Sayfayı düzenle"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s ara"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Hata nedeniyle kod bloğu oluşturulamadı."
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' oluşturuldu."
 
 msgid "Edit"
 msgstr "Düzenle"
-
-msgid "The snippet could not be created due to errors."
-msgstr "Hata nedeniyle kod bloğu oluşturulamadı."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."

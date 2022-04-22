@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>, 2020-2021\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -116,10 +116,6 @@ msgstr "否，不刪除"
 msgid "Home"
 msgstr "主頁"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "按  %(filter_title)s "
-
 msgid "Last updated"
 msgstr "最近更新"
 
@@ -155,18 +151,6 @@ msgstr "還沒有創建%(name)s。這些當中必須先創建一個才能增加�
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "還沒有創建%(name)s。"
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                為何不<a href=\"%(url)s\">新"
-"增一個</a>？\n"
-"                                            "
 
 msgid "Pagination"
 msgstr "分頁"

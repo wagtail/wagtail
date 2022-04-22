@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -68,12 +68,6 @@ msgstr "documento"
 msgid "documents"
 msgstr "documenti"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "Aggiungi tag ad 1 documento"
-msgstr[1] "Aggiungi tag a %(counter)s documenti"
-
 msgid "Add tags to documents"
 msgstr "Aggiungi tag ai documenti"
 
@@ -92,12 +86,6 @@ msgstr "Sì, aggiungi"
 
 msgid "No, don't add"
 msgstr "Sì non aggiungere"
-
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Aggiungi 1 documento alla nuova raccolta"
-msgstr[1] "Aggiungi %(counter)s documenti alla nuova raccolta"
 
 msgid "Add documents to collection"
 msgstr "Aggiungi documenti alla raccolta"
@@ -119,12 +107,6 @@ msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Non hai i permessi per aggiungere questo documento alla raccolta"
 msgstr[1] "Non hai i permessi per aggiungere questi documenti alla raccolta"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "Elimina 1 documento"
-msgstr[1] "Elimina %(counter)s documenti"
 
 msgid "Delete documents"
 msgstr "Elimina documenti"
@@ -160,24 +142,6 @@ msgstr "Cerca"
 msgid "Upload"
 msgstr "Carica"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            C'è %(counter)s corrispondenza\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Ci sono %(counter)s corrispondenze\n"
-"        "
-
 msgid "Latest documents"
 msgstr "Ultimi documenti"
 
@@ -191,18 +155,6 @@ msgstr "Non hai ancora caricato alcun documento in questa raccolta."
 
 msgid "You haven't uploaded any documents."
 msgstr "Non hai ancora caricato alcun documento."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"            Perché non ne <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">carichi uno adesso</a>?\n"
-"            "
 
 msgid "Uploading…"
 msgstr "Caricamento…"
@@ -298,26 +250,6 @@ msgstr "Stato"
 
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Documento creato in %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Documenti creati in %(site_name)s</span>\n"
-"    "
 
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"

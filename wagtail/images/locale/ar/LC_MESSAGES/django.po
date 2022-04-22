@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -156,6 +156,9 @@ msgstr "انقل إلى الحاسوب"
 
 msgid "Popular tags"
 msgstr "علامات دالة شائعة"
+
+msgid "New"
+msgstr "جديد"
 
 msgid "Latest images"
 msgstr "احد الصور"

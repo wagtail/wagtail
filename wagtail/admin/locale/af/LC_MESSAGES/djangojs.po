@@ -1,0 +1,15 @@
+#
+# Translators:
+# Jaco du Plessis <jaco@jacoduplessis.co.za>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Jaco du Plessis <jaco@jacoduplessis.co.za>, 2022\n"
+"Language-Team: Afrikaans (https://www.transifex.com/torchbox/teams/8009/"
+"af/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: af\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Save"
+msgstr "Stoor"

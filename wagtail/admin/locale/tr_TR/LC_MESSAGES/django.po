@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Halim Turan <halim_turan_61@hotmail.com>, 2020\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -40,12 +40,6 @@ msgstr "Yayından Kaldır"
 msgid "Delete"
 msgstr "Sil"
 
-msgid "Lock"
-msgstr "Kilitle"
-
-msgid "Unlock"
-msgstr "Kilidi kaldır"
-
 msgid "Save Draft"
 msgstr "Taslak Olarak Kaydet"
 
@@ -63,21 +57,6 @@ msgstr "Yönetici bölümüne erişim yetkiniz yok"
 
 msgid "None"
 msgstr "Yok"
-
-msgid "Scheduled publishing"
-msgstr "Planlanmış yayın"
-
-msgid "Privacy"
-msgstr "Gizlilik"
-
-msgid "Content"
-msgstr "İçerik"
-
-msgid "Promote"
-msgstr "Tanıtımını yap"
-
-msgid "Settings"
-msgstr "Ayarlar"
 
 msgid "Date from"
 msgstr "Başlangıç tarihi"
@@ -214,92 +193,26 @@ msgstr "Bu alan zorunludur."
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
 
-msgid "Page"
-msgstr "Sayfa"
+msgid "Scheduled publishing"
+msgstr "Planlanmış yayın"
 
-msgid "Pages"
-msgstr "Sayfalar"
+msgid "Privacy"
+msgstr "Gizlilik"
 
-msgid "Loading…"
-msgstr "Yükleniyor…"
+msgid "Content"
+msgstr "İçerik"
 
-msgid "No results"
-msgstr "Sonuç yok"
+msgid "Promote"
+msgstr "Tanıtımını yap"
 
-msgid "Server Error"
-msgstr "Sunucu Hatası"
+msgid "Settings"
+msgstr "Ayarlar"
 
-msgid "See all"
-msgstr "Tümünü gör"
+msgid "Status"
+msgstr "Durum"
 
-msgid "Close explorer"
-msgstr "Gezgini kapat"
-
-msgid "Alt text"
-msgstr "Alt metin"
-
-msgid "Write here…"
-msgstr "Buraya yazın…"
-
-msgid "Horizontal line"
-msgstr "Yatay çizgi"
-
-msgid "Line break"
-msgstr "Satır sonu"
-
-msgid "Undo"
-msgstr "Geri al"
-
-msgid "Redo"
-msgstr "Yeniden"
-
-msgid "Reload the page"
-msgstr "Sayfayı yeniden yükle"
-
-msgid "Reload saved content"
-msgstr "Kayıtlı içeriği yeniden yükle"
-
-msgid "Show latest content"
-msgstr "Son içeriği göster"
-
-msgid "Show error"
-msgstr "Hatayı göster"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
-
-msgid "Broken link"
-msgstr "Kırık bağlantı"
-
-msgid "Missing document"
-msgstr "Eksik belge"
-
-msgid "Close"
-msgstr "Kapat"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "'{title}' düzenle"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "'{title}' alt sayfalarını gör"
-
-msgid "Page explorer"
-msgstr "Sayfa bulucu"
-
-msgid "Save"
-msgstr "Kaydet"
-
-msgid "Saving..."
-msgstr "Kaydediyor..."
-
-msgid "Dashboard"
-msgstr "Kontrol paneli"
-
-msgid "Edit your account"
-msgstr "Hesabını düzenle"
+msgid "Preview"
+msgstr "Önizleme"
 
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
@@ -383,24 +296,6 @@ msgstr "Telefon bağlantısı"
 msgid "Anchor link"
 msgstr "Çapa bağlantısı"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"       %(counter)s eşleşme var\n"
-"    "
-msgstr[1] ""
-"\n"
-"       %(counter)s eşleşme var\n"
-"    "
-
 msgid "Add an anchor link"
 msgstr "Çapa bağlantısı ekle"
 
@@ -412,26 +307,6 @@ msgstr "Seç"
 
 msgid "Choose a page"
 msgstr "Bir sayfa seç"
-
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"  Bu alan için sadece aşağıdaki sayfa tipleri seçilebilir:%(type)s . Arama "
-"sonuçlarında başka türdeki sayfalar hariç tutulacaktır."
-msgstr[1] ""
-"\n"
-"  Bu alan için sadece aşağıdaki sayfa tipleri seçilebilir: %(type)s. Arama "
-"sonuçlarında başka türdeki sayfalar hariç tutulacaktır."
 
 msgid "Add an email link"
 msgstr "Bir eposta bağlantısı ekle"
@@ -458,6 +333,9 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini belirler."
+
+msgid "Save"
+msgstr "Kaydet"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Koleksiyon gizliliğini ayarla. Şimdiki durum: Genel"
@@ -486,21 +364,14 @@ msgstr ""
 "Hiç koleksiyon oluşturulmadı. Neden bir adet <a href=\"%(add_collection_url)s"
 "\">eklemiyorsun</a>?"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "Ekle %(label)s"
-
-msgid "Move up"
-msgstr "Yukarı taşı"
-
-msgid "Move down"
-msgstr "Aşağı taşı"
-
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
 msgid "Update"
 msgstr "Güncelle"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -524,6 +395,9 @@ msgstr "Kilitli"
 
 msgid "Edit this page"
 msgstr "Bu sayfayı düzenle"
+
+msgid "Unlock"
+msgstr "Kilidi kaldır"
 
 msgid "Draft"
 msgstr "Taslak"
@@ -549,42 +423,14 @@ msgstr "Onayla"
 msgid "Reject"
 msgstr "Reddet"
 
-msgid "Preview"
-msgstr "Önizleme"
-
 msgid "Your most recent edits"
 msgstr "En son düzenlemeleriniz"
-
-msgid "Status"
-msgstr "Durum"
 
 msgid "Date"
 msgstr "Tarih"
 
 msgid "Site summary"
 msgstr "Site özeti"
-
-#, python-format
-msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgstr[0] ""
-"\n"
-"            <span class=\"visuallyhidden\">%(site_name)s</span> içinde <span>"
-"%(total)s</span> Sayfa oluşturuldu\n"
-"        "
-msgstr[1] ""
-"\n"
-"            <span class=\"visuallyhidden\">%(site_name)s</span> içinde <span>"
-"%(total)s</span> Sayfa oluşturuldu\n"
-"        "
 
 msgid "Sign in"
 msgstr "Oturum aç"
@@ -650,9 +496,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
 
-msgid "Visit the live page"
-msgstr "Yayındaki sayfayı gör"
-
 msgid "Set page privacy. Current status: Public"
 msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
 
@@ -707,26 +550,6 @@ msgstr "%(title)s sil"
 msgid "Are you sure you want to delete this page?"
 msgstr "Bu sayfayı silmek istediğinize emin misiniz?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Ayrıca bir alt sayfa daha silinecek.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Ayrıca %(descendant_count)s adet alt sayfa daha "
-"silinecek.\n"
-"                "
-
 msgid "Yes, delete it"
 msgstr "Evet, sil"
 
@@ -769,27 +592,6 @@ msgstr "%(title)s yayından kaldır"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Bu sayfayı yayından kaldırmak istediğinize emin misiniz?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Bu sayfanın bir alt sayfası bulunuyor. Bunu da yayından "
-"kaldır\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Bu sayfanın %(live_descendant_count)s adet alt sayfası "
-"bulunuyor. Bunları da yayından kaldır\n"
-"                "
-
 msgid "Yes, unpublish it"
 msgstr "Evet, yayından kaldır"
 
@@ -813,9 +615,6 @@ msgstr "Bu sayfayı kopyala"
 #, python-format
 msgid "New %(page_type)s"
 msgstr "Yeni %(page_type)s"
-
-msgid "New"
-msgstr "Yeni"
 
 msgid "Actions"
 msgstr "Eylemler"
@@ -850,70 +649,8 @@ msgstr "Sürükle"
 msgid "Updated"
 msgstr "Güncellendi"
 
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"                            Root (kök) seviyesi, Wagtail kurulumuna yeni "
-"siteler ekleyebileceğiniz alandır. Burada oluşturulan sayfalar, bir siteyle "
-"ilişkilendirilmedikçe ulaşılabilir olmayacaktır.\n"
-"                        "
-
 msgid "Configure a site now."
 msgstr "Şimdi bir site yapılandırın."
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"                            Bunun yerine, sadece varolan siteye yeni "
-"sayfalar eklemek istiyorsanız, anasayfanın alt sayfaları şeklinde "
-"oluşturun.\n"
-"                        "
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Burada oluşturulan sayfalar herhangi bir URL ile "
-"erişilebilir olmayacaktır. Varolan siteye sayfa eklemek istiyorsanız, "
-"anasayfanın alt sayfası şeklinde oluşturun.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Bu konum için herhangi bir site "
-"yapılandırılmamıştır. Bu konumla bir site ilişkilendirilene kadar, "
-"oluşturulan sayfalara herhangi bir URL ile erişilemeyecektir.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Bu konum için herhangi bir site kaydı bulunmuyor. "
-"Burada oluşturulan sayfalara herhangi bir URL ile erişilemeyecektir.\n"
-"                    "
 
 msgid "No pages have been created at this location."
 msgstr "Bu konumda hiç sayfa oluşturulmadı."
@@ -946,16 +683,6 @@ msgstr "Siteler menüsü"
 msgid "Pagination"
 msgstr "Sayfalama"
 
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"        Sayfa %(page_number)s / %(num_pages)s.\n"
-"    "
-
 msgid "Previous"
 msgstr "Önceki"
 
@@ -985,19 +712,8 @@ msgstr "<span>%(title)s</span> için yeni bir üst sayfa seç"
 msgid "Preview error"
 msgstr "Önizleme hatası"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"                Bazı hatalar devam ettiği için sayfa önizlenemiyor.\n"
-"                Lütfen hataları düzeltmek için sekmeyi kapatıp sayfayı "
-"düzenleyin,\n"
-"                sonra tekrar önizleme yapın.\n"
-"            "
+msgid "Close"
+msgstr "Kapat"
 
 msgid "Cancel scheduled publish"
 msgstr "Zamanlanmış yayını iptal et"
@@ -1016,48 +732,6 @@ msgid "Changes"
 msgstr "Değişiklikler"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            1 kademe aşağı "
-"alındı.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            %(counter)s "
-"kademe aşağı alındı.\n"
-"                                                        "
-
-#, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            %(counter)s "
-"kademe yukarı alındı"
-msgstr[1] ""
-"\n"
-"                                                            %(counter)s "
-"kademe yukarı alındı"
-
-#, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
 
@@ -1073,32 +747,33 @@ msgstr "Evet, planı kaldır"
 msgid "No, don't unschedule"
 msgstr "Hayır, planı kaldırma"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Eşleşen bir sayfa var\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Eşleşen %(counter)s sayfa var\n"
-"            "
-
 msgid "Page types"
 msgstr "Sayfa türleri"
 
 msgid "Enter a search term above"
 msgstr "Bir arama kelimesi girin"
 
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+msgid "Lock"
+msgstr "Kilitle"
+
 msgid "No pages use"
 msgstr "Hiçbir sayfa kullanmıyor"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Ekle %(label)s"
+
+msgid "Move up"
+msgstr "Yukarı taşı"
+
+msgid "Move down"
+msgstr "Aşağı taşı"
 
 msgid "No pages found."
 msgstr "Sayfa bulunamadı."
@@ -1118,33 +793,14 @@ msgstr "Filtrele"
 msgid "Locking status"
 msgstr "Kilitli durum"
 
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"<b>Sizin</b> tarafınızdan %(locking_date)s tarihinde kilitlendi"
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"<b>%(locking_date)s</b> tarihinde kilitlendi"
-
-msgid "Locked"
-msgstr "Kilitlendi"
-
 msgid "No locked pages found."
 msgstr "Kilitli sayfa bulunamadı."
 
 msgid "Edit this item"
 msgstr "Bu elemanı düzenle"
+
+msgid "Page"
+msgstr "Sayfa"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1162,11 +818,8 @@ msgstr "Ana Sayfa"
 msgid "All collections"
 msgstr "Tüm koleksiyonlar"
 
-msgid "Account settings"
-msgstr "Hesap ayarları"
-
-msgid "Log out"
-msgstr "Çıkış yap"
+msgid "Visit the live page"
+msgstr "Yayındaki sayfayı gör"
 
 msgid "Current page status:"
 msgstr "Şimdiki sayfa durumu:"
@@ -1179,6 +832,9 @@ msgstr "Alt sayfa ekle"
 
 msgid "Show in Explorer"
 msgstr "Araştırıcıda göster"
+
+msgid "New"
+msgstr "Yeni"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -1205,6 +861,9 @@ msgstr ""
 
 msgid "More"
 msgstr "Daha fazla"
+
+msgid "Log out"
+msgstr "Çıkış yap"
 
 msgid "live"
 msgstr "canlı"
@@ -1369,6 +1028,12 @@ msgstr "sürüm {0} / \"{1}\""
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sayfa '{0}' yayından kaldırıldı."
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "Pages"
+msgstr "Sayfalar"
 
 #, python-format
 msgid "Edit '%(title)s'"

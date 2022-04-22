@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -21,10 +21,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "ဝဂ်တေးဖောင်များ"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%sတင်ပြချက်များ"
 
 msgid "Date from"
 msgstr "နေ့စွဲမှ"
@@ -96,16 +92,8 @@ msgstr "လိုအပ်သည်"
 msgid "choices"
 msgstr "ရွေးချယ်ခွင့်များ"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr "ကော်မာခံထားသောရွေးချယ်ခွင့် စာရင်း။ အမှန်ခြစ်အကွက်များ၊ ရေဒီယို၊ ဆွဲချနှင့်သာ အသုံးပြုနိုင်သည်။"
-
 msgid "default value"
 msgstr "မူလတန်ဖိုး"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "မူလတန်ဖိုး။ အမှန်ခြစ်အကွက်များအတွက် ကော်မာခံထားသောတန်ဖိုးများ ပံ့ပိုးထားသည်။"
 
 msgid "help text"
 msgstr "အကူအညီစာသား"
@@ -130,32 +118,18 @@ msgid "subject"
 msgstr "အကြောင်းအရာ"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%sတင်ပြချက်များ"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "%(title)sဖောင်ဒေတာများကို ဖျက်သိမ်းပါ"
 
 msgid "Delete form data"
 msgstr "ဖောင်ဒေတာကို ဖျက်သိမ်းပါ"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"ဤဖောင်တင်ပြချက်ကို ဖျက်သိမ်းဖို့ သေချာပါသလား။"
-
 msgid "Delete"
 msgstr "ဖျက်သိမ်းပါ"
-
-msgid "Total submissions"
-msgstr "တင်ပြချက်စုစုပေါင်း"
-
-msgid "Latest submission"
-msgstr "နောက်ဆုံးတင်ပြချက်"
 
 msgid "Forms"
 msgstr "ဖောင်များ"
@@ -189,6 +163,12 @@ msgstr "ဇာစ်မြစ်"
 
 msgid "Delete selected submissions"
 msgstr "ရွေးချယ်ထားသောတင်ပြချက်များကို ဖျက်သိမ်းပါ"
+
+msgid "Total submissions"
+msgstr "တင်ပြချက်စုစုပေါင်း"
+
+msgid "Latest submission"
+msgstr "နောက်ဆုံးတင်ပြချက်"
 
 msgid "No form pages have been created."
 msgstr "ဘယ်ဖောင်စာမျက်နှာမှ မဖန်တီးထားပါ။"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020-2021\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -45,15 +45,6 @@ msgstr "Cancelar publicación"
 msgid "Delete"
 msgstr "Eliminar"
 
-msgid "Lock"
-msgstr "Bloquear"
-
-msgid "Apply editor lock"
-msgstr "Aplicar bloqueo de editor"
-
-msgid "Unlock"
-msgstr "Desbloquear"
-
 msgid "Save Draft"
 msgstr "Gardar borrador"
 
@@ -75,21 +66,6 @@ msgstr "Non tes permisos para acceder ao administrador"
 
 msgid "None"
 msgstr "Ningún"
-
-msgid "Scheduled publishing"
-msgstr "Publicazón programada"
-
-msgid "Privacy"
-msgstr "Privacidade"
-
-msgid "Content"
-msgstr "Contido"
-
-msgid "Promote"
-msgstr "Promocionar"
-
-msgid "Settings"
-msgstr "Propiedades"
 
 msgid "Date from"
 msgstr "Data dende"
@@ -239,26 +215,26 @@ msgstr "Todos os tipos"
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Esta páxina xa ten o fluxo de traballo '{0}' asignado."
 
-msgid "Page"
-msgstr "Páxina"
+msgid "Scheduled publishing"
+msgstr "Publicazón programada"
 
-msgid "Pages"
-msgstr "Páxinas"
+msgid "Privacy"
+msgstr "Privacidade"
 
-msgid "Server Error"
-msgstr "Erro do Servidor"
+msgid "Content"
+msgstr "Contido"
 
-msgid "Save"
-msgstr "Gardar"
+msgid "Promote"
+msgstr "Promocionar"
 
-msgid "Saving..."
-msgstr "Gardando..."
+msgid "Settings"
+msgstr "Propiedades"
 
-msgid "Dashboard"
-msgstr "Panel de control"
+msgid "Status"
+msgstr "Estado"
 
-msgid "Edit your account"
-msgstr "Editar a túa conta"
+msgid "Preview"
+msgstr "Previsualizar"
 
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"
@@ -317,28 +293,6 @@ msgstr "Seleccionar"
 msgid "Choose a page"
 msgstr "Seleccionar unha páxina"
 
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Só as páxinas de tipo \"%(type)s\" poden ser elexidos para "
-"este campo. Buscar resultados excluirá páxinas de outros tipos.\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Só os seguintes tipos de páxina poden ser elexidos para este "
-"campo: %(type)s. Procurar resultados excluirá páxinas de outros tipos.\n"
-"            "
-
 msgid "Add an email link"
 msgstr "Engadir unha ligazón de correo electrónico"
 
@@ -350,6 +304,9 @@ msgstr "Engadir unha ligazón externa"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Podes editar a configuración de privacidade en:"
+
+msgid "Save"
+msgstr "Gardar"
 
 msgid "Public"
 msgstr "Público"
@@ -373,20 +330,14 @@ msgstr ""
 "Ningunha colección foi creada. ¿Por que non <a href=\"%(add_collection_url)s"
 "\">engadir unha</a>?"
 
-msgid "Move up"
-msgstr "Subir"
-
-msgid "Move down"
-msgstr "Baixar"
-
-msgid "Add comment"
-msgstr "Engadir comentario"
-
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
 msgid "Update"
 msgstr "Actualizar"
+
+msgid "Dashboard"
+msgstr "Panel de control"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -404,6 +355,9 @@ msgstr "Título"
 
 msgid "Edit this page"
 msgstr "Editar esta páxina"
+
+msgid "Unlock"
+msgstr "Desbloquear"
 
 msgid "Draft"
 msgstr "Borrador"
@@ -426,14 +380,8 @@ msgstr "Aprobar"
 msgid "Reject"
 msgstr "Rexeitar"
 
-msgid "Preview"
-msgstr "Previsualizar"
-
 msgid "Your most recent edits"
 msgstr "As túas edicións máis recentes"
-
-msgid "Status"
-msgstr "Estado"
 
 msgid "Date"
 msgstr "Data"
@@ -537,26 +485,6 @@ msgid "Are you sure you want to delete this page?"
 msgstr "¿Seguro que queres eliminar esta páxina?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Isto tamén eliminará outra subpáxina.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Isto tamén eliminará %(descendant_count)s subpáxinas "
-"máis.\n"
-"                "
-
-#, python-format
 msgid "Move %(title)s"
 msgstr "Mover %(title)s"
 
@@ -602,9 +530,6 @@ msgstr "Copiar esta páxina"
 msgid "New %(page_type)s"
 msgstr "Nova %(page_type)s"
 
-msgid "New"
-msgstr "Nova"
-
 msgid "Actions"
 msgstr "Accións"
 
@@ -628,69 +553,8 @@ msgstr "Levar"
 msgid "Updated"
 msgstr "Actualizado"
 
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"                            O nivel raíz é onde podes engadir novos sitios "
-"web á túa instalación de Wagtail. As páxinas creadas aquí non estarán "
-"accesibles en ningunha URL ata que sexan asociadas cun sitio web.\n"
-"                        "
-
 msgid "Configure a site now."
 msgstr "Configurar un sitio web agora."
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"                            Se só queres engadir páxinas a un sitio web xa "
-"existente, has de crealas como fillas da páxina principal.\n"
-"                        "
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"                        As páxinas creadas aquí non estarán accesibles en "
-"ningunha URL. Para engadir páxinas a un sitio web existente, has de crealas "
-"como fillas da páxina principal.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Non hai ningunha configuración para esta "
-"localización. As páxinas creadas aquí non estarán accesibles en ningunha URL "
-"ata que un sitio web sexa asociado con esta localización.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Non hai ningún rexistro para esta localización. As "
-"páxinas creadas aquí non estarán accesibles en ningunha URL.\n"
-"                    "
 
 msgid "No pages have been created at this location."
 msgstr "Ningunha páxina foi creada nesta localización."
@@ -717,16 +581,6 @@ msgstr "Explorar páxinas fillas de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Engadir páxina filla a '%(title)s'"
 
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"        Páxina %(page_number)s de %(num_pages)s.\n"
-"    "
-
 msgid "Previous"
 msgstr "Anterior"
 
@@ -750,26 +604,17 @@ msgstr "Seleccionar unha nova páxina pai para %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Seleccionar unha nova páxina pai para <span>%(title)s</span>"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Hai unha páxina coincidente\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Hai %(counter)s páxinas coincidentes\n"
-"            "
-
 msgid "Enter a search term above"
 msgstr "Introduce o termo de procura arriba"
+
+msgid "Locked"
+msgstr "Bloqueada"
+
+msgid "Unlocked"
+msgstr "Desbloqueada"
+
+msgid "Lock"
+msgstr "Bloquear"
 
 msgid "No pages use"
 msgstr "Non hay uso de páxinas"
@@ -777,20 +622,29 @@ msgstr "Non hay uso de páxinas"
 msgid "Started at"
 msgstr "Comezado o"
 
+msgid "Move up"
+msgstr "Subir"
+
+msgid "Move down"
+msgstr "Baixar"
+
+msgid "Add comment"
+msgstr "Engadir comentario"
+
 msgid "Download CSV"
 msgstr "Descargar CSV"
 
 msgid "Filter"
 msgstr "Filtro"
 
-msgid "Locked"
-msgstr "Bloqueada"
-
 msgid "Edit this item"
 msgstr "Editar este ítem"
 
 msgid "Workflow"
 msgstr "Fluxo de traballo"
+
+msgid "Page"
+msgstr "Páxina"
 
 msgid "Completed at"
 msgstr "Completado o"
@@ -805,12 +659,6 @@ msgstr "Principal"
 msgid "All collections"
 msgstr "Todas as coleccións"
 
-msgid "Account settings"
-msgstr "Axustes de conta"
-
-msgid "Log out"
-msgstr "Pechar sesión"
-
 msgid "Other searches"
 msgstr "Outras procuras"
 
@@ -820,12 +668,21 @@ msgstr "Engadir unha páxina filla"
 msgid "Show in Explorer"
 msgstr "Mostrar no Navegador"
 
+msgid "No"
+msgstr "Non"
+
+msgid "New"
+msgstr "Nova"
+
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "por %(modified_by)s"
 
 msgid "More"
 msgstr "Máis"
+
+msgid "Log out"
+msgstr "Pechar sesión"
 
 msgid "live"
 msgstr "en vivo"
@@ -976,14 +833,17 @@ msgstr "Amosar"
 msgid "Awaiting my review"
 msgstr "Agardar a miña revisión"
 
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Pages"
+msgstr "Páxinas"
+
 msgid "Add child page"
 msgstr "Engadir páxina filla"
 
 msgid "Yes"
 msgstr "Si"
-
-msgid "No"
-msgstr "Non"
 
 msgid "Choose an item"
 msgstr "Seleccionar un elemento"

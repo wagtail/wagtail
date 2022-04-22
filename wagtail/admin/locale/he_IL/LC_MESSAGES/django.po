@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Adi Ron <adi@bnop.co>, 2019\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -45,21 +45,6 @@ msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "None"
 msgstr "אף אחת"
-
-msgid "Scheduled publishing"
-msgstr "פרסום מתוזמן"
-
-msgid "Privacy"
-msgstr "פרטיות"
-
-msgid "Content"
-msgstr "תוכן"
-
-msgid "Promote"
-msgstr "קידום"
-
-msgid "Settings"
-msgstr "הגדרות"
 
 msgid "First Name"
 msgstr "שם פרטי"
@@ -166,20 +151,26 @@ msgstr "ערך לחיפוש"
 msgid "This field is required."
 msgstr "שדה חובה"
 
-msgid "Page"
-msgstr "עמוד"
+msgid "Scheduled publishing"
+msgstr "פרסום מתוזמן"
 
-msgid "Pages"
-msgstr "עמודים"
+msgid "Privacy"
+msgstr "פרטיות"
 
-msgid "Save"
-msgstr "שמור"
+msgid "Content"
+msgstr "תוכן"
 
-msgid "Dashboard"
-msgstr "לוח מחוונים"
+msgid "Promote"
+msgstr "קידום"
 
-msgid "Edit your account"
-msgstr "ערכו את חשבונכם"
+msgid "Settings"
+msgstr "הגדרות"
+
+msgid "Status"
+msgstr "מצב"
+
+msgid "Preview"
+msgstr "תצוגה מקדימה"
 
 msgid "Account"
 msgstr "חשבון"
@@ -239,6 +230,9 @@ msgstr "הוסיפו קישור חיצוני"
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
+msgid "Save"
+msgstr "שמור"
+
 msgid "Public"
 msgstr "ציבורי"
 
@@ -248,21 +242,14 @@ msgstr "פרטי"
 msgid "Name"
 msgstr "שם"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "הוסף %(label)s "
-
-msgid "Move up"
-msgstr "עברו מעלה"
-
-msgid "Move down"
-msgstr "עברו מטה"
-
 msgid "Yes, delete"
 msgstr "כן, מחק"
 
 msgid "Update"
 msgstr "עדכן"
+
+msgid "Dashboard"
+msgstr "לוח מחוונים"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -300,14 +287,8 @@ msgstr "אשרו"
 msgid "Reject"
 msgstr "דחו"
 
-msgid "Preview"
-msgstr "תצוגה מקדימה"
-
 msgid "Your most recent edits"
 msgstr "עריכות אחרונות"
-
-msgid "Status"
-msgstr "מצב"
 
 msgid "Date"
 msgstr "תאריך"
@@ -403,29 +384,6 @@ msgid "Are you sure you want to delete this page?"
 msgstr "בטוח למחוק עמוד זה?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"פעולה זו תמחק בנוסף תת-עמוד אחד."
-msgstr[1] ""
-"\n"
-"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
-msgstr[2] ""
-"\n"
-"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
-msgstr[3] ""
-"\n"
-"פעולה זו תמחק %(descendant_count)s תת-עמודים נוספים."
-
-#, python-format
 msgid "Move %(title)s"
 msgstr "הזזת %(title)s"
 
@@ -468,9 +426,6 @@ msgstr "העתק עמוד זה"
 #, python-format
 msgid "New %(page_type)s"
 msgstr "%(page_type)s חדש"
-
-msgid "New"
-msgstr "חדש "
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -533,8 +488,24 @@ msgstr "בחירת עמוד הורה חדש עבור <span>%(title)s</span>"
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
 
+msgid "Locked"
+msgstr "נעול"
+
+msgid "Unlocked"
+msgstr "בלתי נעול"
+
 msgid "No pages use"
 msgstr "אף עמוד בשימוש"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "הוסף %(label)s "
+
+msgid "Move up"
+msgstr "עברו מעלה"
+
+msgid "Move down"
+msgstr "עברו מטה"
 
 msgid "Download CSV"
 msgstr "הורד CSV"
@@ -542,11 +513,11 @@ msgstr "הורד CSV"
 msgid "Filter"
 msgstr "מסנן"
 
-msgid "Locked"
-msgstr "נעול"
-
 msgid "Edit this item"
 msgstr "ערוך פריט זה"
+
+msgid "Page"
+msgstr "עמוד"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -555,18 +526,21 @@ msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 msgid "Home"
 msgstr "לעמוד הבית "
 
-msgid "Log out"
-msgstr "התנתקות"
-
 msgid "Other searches"
 msgstr "חיפושים אחרים"
 
 msgid "Add a child page"
 msgstr "הוספת תת-עמוד"
 
+msgid "New"
+msgstr "חדש "
+
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "מאת %(modified_by)s"
+
+msgid "Log out"
+msgstr "התנתקות"
 
 msgid "live"
 msgstr "לייב"
@@ -648,6 +622,9 @@ msgstr "עמוד {0} הוזז"
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
+
+msgid "Pages"
+msgstr "עמודים"
 
 msgid "Add child page"
 msgstr "הוספת תת-עמוד"

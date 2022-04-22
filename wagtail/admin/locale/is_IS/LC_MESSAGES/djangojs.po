@@ -1,0 +1,160 @@
+#
+# Translators:
+# saevarom <saevar@saevar.is>, 2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022\n"
+"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Add a comment"
+msgstr "Bæta við athugasemd"
+
+msgid "Alt text"
+msgstr "Alt eigindi"
+
+msgid "Are you sure?"
+msgstr "Ertu viss?"
+
+msgid "Broken link"
+msgstr "Brotinn hlekkur"
+
+msgid "Cancel"
+msgstr "Hætta við"
+
+msgid "Close"
+msgstr "Loka"
+
+msgid "Comment"
+msgstr "Athugasemd"
+
+msgid "Dashboard"
+msgstr "Yfirlitssíða"
+
+msgid "Decorative image"
+msgstr "Mynd til skrauts"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Delete error"
+msgstr "Eyða villu"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit '{title}'"
+msgstr "Breyta '{title}'"
+
+msgid "Edit your account"
+msgstr "Breyta reikningnum þínum"
+
+msgid "Focus comment"
+msgstr "Setja athugasemd í fókus"
+
+msgid "Horizontal line"
+msgstr "Þverlína"
+
+msgid "Line break"
+msgstr "Ný lína"
+
+msgid "Loading…"
+msgstr "Hleð..."
+
+msgid "Main menu"
+msgstr "Aðalvalmynd"
+
+msgid "Missing document"
+msgstr "Vantar skrá"
+
+msgid "More actions"
+msgstr "Fleiri aðgerðir"
+
+msgid "No results"
+msgstr "Engar niðurstöður"
+
+msgid "Page"
+msgstr "Síða"
+
+msgid "Page explorer"
+msgstr "Veftré"
+
+msgid "Pages"
+msgstr "Síður"
+
+msgid "Redo"
+msgstr "Endurgera"
+
+msgid "Reload saved content"
+msgstr "Endurhlaða vistuðu efni"
+
+msgid "Reload the page"
+msgstr "Endurhlaða síðunni"
+
+msgid "Reply"
+msgstr "Svara"
+
+msgid "Resolve"
+msgstr "Leysa"
+
+msgid "Retry"
+msgstr "Reyna aftur"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Save error"
+msgstr "Vista villu"
+
+msgid "Save the page to add this comment"
+msgstr "Vistaðu síðuna til að bæta þessari athugasemd við"
+
+msgid "Save the page to save this comment"
+msgstr "Vistaðu síðuna til að vista þessa athugasemd"
+
+msgid "Save the page to save this reply"
+msgstr "Vistaðu síðuna til að vista þetta svar"
+
+msgid "Saving..."
+msgstr "Vista..."
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "See all"
+msgstr "Sjá allt"
+
+msgid "Server Error"
+msgstr "Villa á vefþjóni"
+
+msgid "Show error"
+msgstr "Sýna villu"
+
+msgid "Show latest content"
+msgstr "Sýna nýjasta efni"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
+"útgáfu."
+
+msgid "Toggle sidebar"
+msgstr "Hliðarstika af/á"
+
+msgid "Undo"
+msgstr "Bakka"
+
+msgid "Unfocus comment"
+msgstr "Taka fókus af athugasemd"
+
+msgid "View child pages of '{title}'"
+msgstr "Skoða undirsíður '{title}'"
+
+msgid "Write here…"
+msgstr "Skrifið hér..."

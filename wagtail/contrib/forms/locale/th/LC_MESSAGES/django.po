@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,10 +22,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "แบบฟอร์ม Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s ส่ง"
 
 msgid "Date from"
 msgstr "จากวันที่"
@@ -100,18 +96,8 @@ msgstr "จำเป็น"
 msgid "choices"
 msgstr "ทางเลือก"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"เครื่องหมายจุลภาคจะช่วยแบ่งรายการเลือกของเรา เกี่ยวข้องกับช่องสำหรับทำเครื่องหมาย,"
-"วิทยุและการเลือกที่เราลากลงมา"
-
 msgid "default value"
 msgstr "คุณค่าของต้นฉบับ"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "ค่าของต้นฉบับ ค่าที่คั่นด้วยเครื่องหมายจุลภาคจะรองรับช่องทำเครื่องหมาย"
 
 msgid "help text"
 msgstr "ข้อความช่วยเหลือ"
@@ -134,32 +120,18 @@ msgid "subject"
 msgstr "เรื่อง"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s ส่ง"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "ลบทิ้งรูปแบบข้อมูล %(title)s"
 
 msgid "Delete form data"
 msgstr "ลบจากข้อมูล"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"คุณแน่ใจว่าคุณต้องการจะลบสิ่งนี้จากแบบฟอร์มการส่ง?"
-
 msgid "Delete"
 msgstr "ลบ"
-
-msgid "Total submissions"
-msgstr "การส่งทั้งหมด"
-
-msgid "Latest submission"
-msgstr "การส่งล่าสุด"
 
 msgid "Forms"
 msgstr "แบบฟอร์ม"
@@ -193,6 +165,12 @@ msgstr "ต้นแบบ"
 
 msgid "Delete selected submissions"
 msgstr "การส่งที่เราเลือกลบแล้ว"
+
+msgid "Total submissions"
+msgstr "การส่งทั้งหมด"
+
+msgid "Latest submission"
+msgstr "การส่งล่าสุด"
 
 msgid "No form pages have been created."
 msgstr "ไม่มีหน้าแบบฟอร์มที่ถูกสร้าง"

@@ -4,6 +4,7 @@
 #
 # Translators:
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2018
 # Bohreromir, 2019
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2021\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -125,8 +126,8 @@ msgid "Home"
 msgstr "Home"
 
 #, python-format
-msgid " By %(filter_title)s "
-msgstr " Nach %(filter_title)s "
+msgid "By %(filter_title)s"
+msgstr "Von %(filter_title)s"
 
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -172,16 +173,8 @@ msgid "No %(name)s have been created yet."
 msgstr "Es wurden noch keine %(name)s erstellt."
 
 #, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                <a href=\"%(url)s\">Fügen "
-"Sie doch eine hinzu!</a>\n"
-"                                            "
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Warum nicht <a href=\"%(url)s\">eins hinzufügen</a>?"
 
 msgid "Pagination"
 msgstr "Seitennummerierung"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -65,14 +65,6 @@ msgstr "dogfen"
 msgid "documents"
 msgstr "dogfennau"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "Ychwanegu tagiau i 1 dogfen"
-msgstr[1] "Ychwanegu tagiau i %(counter)s dogfen"
-msgstr[2] "Ychwanegu tagiau i %(counter)s dogfen"
-msgstr[3] "Ychwanegu tagiau i %(counter)s dogfen"
-
 msgid "Add tags to documents"
 msgstr "Ychwanegu tagiau i ddogfenni"
 
@@ -95,14 +87,6 @@ msgstr "Ia, ychwanegu"
 
 msgid "No, don't add"
 msgstr "Na, paid a ychwanegu"
-
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Ychwanegu 1 dogfen i gasgliad newydd"
-msgstr[1] "Ychwanegu %(counter)s dogfen i gasgliad newydd"
-msgstr[2] "Ychwanegu %(counter)s dogfen i gasgliad newydd"
-msgstr[3] "Ychwanegu %(counter)s dogfen i gasgliad newydd"
 
 msgid "Add documents to collection"
 msgstr "Ychwanegu dogfennau i gasgliad"
@@ -132,14 +116,6 @@ msgstr[0] "Nid oes gennych ganiatâd i ychwanegu'r dogfen hyn at gasgliad"
 msgstr[1] "Nid oes gennych ganiatâd i ychwanegu'r dogfennau hyn at gasgliad"
 msgstr[2] "Nid oes gennych ganiatâd i ychwanegu'r dogfennau hyn at gasgliad"
 msgstr[3] "Nid oes gennych ganiatâd i ychwanegu'r dogfennau hyn at gasgliad"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "Dileu 1 dogfen"
-msgstr[1] "Dileu %(counter)s dogfen"
-msgstr[2] "Dileu %(counter)s dogfen"
-msgstr[3] "Dileu %(counter)s dogfen"
 
 msgid "Delete documents"
 msgstr "Dileu dogfennau"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -120,9 +120,8 @@ msgstr "Ne, neištrinti"
 msgid "Home"
 msgstr "Namai"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "Pagal %(filter_title)s"
+msgid "Last updated"
+msgstr "Pask. kartą atnaujinta"
 
 msgid "History"
 msgstr "Istorija"
@@ -159,16 +158,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Jokie %(name)s dar nebuvo sukurti."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"Kodėl gi <a href=\"%(url)s\">nepridėjus vieno</a>?"
 
 msgid "Pagination"
 msgstr "Skaidymas į puslapius"
@@ -239,6 +228,9 @@ msgstr "Tikrinama"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Tikrinama %s"
+
+msgid "Action"
+msgstr "Veiksmas"
 
 msgid "Date"
 msgstr "Data"

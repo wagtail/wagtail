@@ -1,0 +1,21 @@
+#
+# Translators:
+# Hantz Vius <vhantz@protonmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Hantz Vius <vhantz@protonmail.com>, 2022\n"
+"Language-Team: Haitian (Haitian Creole) (https://www.transifex.com/torchbox/"
+"teams/8009/ht/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ht\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Modifye"
+
+msgid "Save"
+msgstr "Anrejistre"
+
+msgid "Search"
+msgstr "Chèche"

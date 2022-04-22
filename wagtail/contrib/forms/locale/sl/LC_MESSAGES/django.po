@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -24,10 +24,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Obrazci Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s stališča"
 
 msgid "Date from"
 msgstr "Datum od"
@@ -118,6 +114,10 @@ msgstr "naslov pošiljatelja"
 
 msgid "subject"
 msgstr "zadeva"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s stališča"
 
 msgid "Delete"
 msgstr "Izbriši"

@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2022
 # saevarom <saevar@saevar.is>, 2016
 # saevarom <saevar@saevar.is>, 2016,2018,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018,2020-2021\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgid "Home"
 msgstr "Heim"
 
 #, python-format
-msgid " By %(filter_title)s "
+msgid "By %(filter_title)s"
 msgstr " Eftir %(filter_title)s "
 
 msgid "Last updated"
@@ -166,16 +166,8 @@ msgid "No %(name)s have been created yet."
 msgstr "Engin %(name)s hafa verið búin til enn."
 
 #, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                Hví ekki að <a href=\"%(url)s"
-"\">bæta einu við</a>?\n"
-"                                            "
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Því ekki að <a href=\"%(url)s\">búa til eina</a>?"
 
 msgid "Pagination"
 msgstr "Síðuskipting"

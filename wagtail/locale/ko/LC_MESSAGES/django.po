@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -59,6 +59,9 @@ msgstr "비밀번호"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 주세요."
+
+msgid "Comment"
+msgstr "댓글"
 
 msgid "title"
 msgstr "제목"
@@ -230,6 +233,9 @@ msgstr "그룹"
 msgid "Approve"
 msgstr "승인"
 
+msgid "Not started"
+msgstr "시작되지 않음"
+
 msgid "collection"
 msgstr "모음"
 
@@ -291,6 +297,9 @@ msgstr "사이트"
 msgid "sites"
 msgstr "사이트"
 
+msgid "default"
+msgstr "기본"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -351,11 +360,17 @@ msgstr "프랑스어"
 msgid "German"
 msgstr "독일어"
 
+msgid "Create"
+msgstr "생성"
+
 msgid "Created"
 msgstr "생성일"
 
 msgid "Edited"
 msgstr "수정된"
+
+msgid "Published"
+msgstr "출시된"
 
 msgid "Unpublish"
 msgstr "게시 해제"
@@ -374,3 +389,9 @@ msgstr "복사"
 
 msgid "Move"
 msgstr "이동"
+
+msgid "Add comment"
+msgstr "댓글 추가"
+
+msgid "Workflow started"
+msgstr "워크플로우 시작됨"

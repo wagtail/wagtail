@@ -6,15 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,9 @@ msgstr "uudelleenohjaa sivulle"
 msgid "redirect to any URL"
 msgstr "uudelleenohjaa URL-osoitteeseen"
 
+msgid "automatically created"
+msgstr "automaattisesti luotu"
+
 msgid "created at"
 msgstr "luotu"
 
@@ -103,24 +106,6 @@ msgstr "Uudelleenohjaukset"
 
 msgid "Import redirects"
 msgstr "Tuo uudelleenohjaukset"
-
-msgid ""
-"\n"
-"                <p>Select a file where redirects are separated into rows and "
-"contains the columns representing <code>from</code> and <code>to</code> "
-"(they can be named anything).</p>\n"
-"                <p>After submitting you will be taken to a confirmation view "
-"where you can customize your redirects before import.</p>\n"
-"            "
-msgstr ""
-"\n"
-"                <p>Valitse tiedosto, jossa uudelleenohjaukset on erotettu "
-"riveihin ja jossa on sarakkeet <code>from</code> ja <code>to</code> (voivat "
-"olla millä nimellä tahansa, esimerkiksi lähde ja kohde).</p>\n"
-"                <p>Tiedoston lähettämisen jälkeen sinut siirretään "
-"vahvistusnäkymään, jossa voit mukauttaa uudelleenohjauksia ennen niiden "
-"tuontia.</p>\n"
-"            "
 
 msgid "Import"
 msgstr "Tuo"
@@ -193,22 +178,6 @@ msgstr "Muokkaa tätä uudelleenohjausta"
 
 msgid "No redirects found."
 msgstr "Uudelleenohjauksia ei löytynyt."
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi %(counter)s osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

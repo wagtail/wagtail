@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -54,15 +54,6 @@ msgstr "Зняти з публікації"
 msgid "Delete"
 msgstr "Видалити"
 
-msgid "Lock"
-msgstr "Блокувати"
-
-msgid "Apply editor lock"
-msgstr "Застосувати редакторське блокування"
-
-msgid "Unlock"
-msgstr "Розблокувати"
-
 msgid "Save Draft"
 msgstr "Зберегти чернентку"
 
@@ -84,27 +75,6 @@ msgstr "У Вас не вистачає прав для доступу до ад
 
 msgid "None"
 msgstr "Нічого"
-
-msgid "Scheduled publishing"
-msgstr "Запланована публікація"
-
-msgid "Privacy"
-msgstr "Приватність"
-
-msgid "For search engines"
-msgstr "Для пошукових систем"
-
-msgid "For site menus"
-msgstr "Для меню сайту"
-
-msgid "Content"
-msgstr "Контент"
-
-msgid "Promote"
-msgstr "Просування"
-
-msgid "Settings"
-msgstr "Налаштування"
 
 msgid "Date from"
 msgstr "Дата початку"
@@ -297,151 +267,6 @@ msgstr "Дайте назву робочому процесу"
 msgid "Add tasks to your workflow"
 msgstr "Додати завдання до робочого процесу"
 
-msgid "Page"
-msgstr "Сторінка"
-
-msgid "Pages"
-msgstr "Сторінки"
-
-msgid "Loading…"
-msgstr "Завантаження..."
-
-msgid "No results"
-msgstr "Результати відсутні"
-
-msgid "Server Error"
-msgstr "Помилка Сервера"
-
-msgid "See all"
-msgstr "Показати всі"
-
-msgid "Close explorer"
-msgstr "Закрити переглядач"
-
-msgid "Alt text"
-msgstr "Альтернатиний текст"
-
-msgid "Decorative image"
-msgstr "Декоративне зображення"
-
-msgid "Write here…"
-msgstr "Пишіть тут..."
-
-msgid "Horizontal line"
-msgstr "Горизонтальна лінія"
-
-msgid "Line break"
-msgstr "Рядковий розрив"
-
-msgid "Undo"
-msgstr "Відмінити"
-
-msgid "Redo"
-msgstr "Повторити"
-
-msgid "Reload the page"
-msgstr "Перезавантажити цю сторінку"
-
-msgid "Reload saved content"
-msgstr "Перезавантажити збережений контент"
-
-msgid "Show latest content"
-msgstr "Показати останній вміст"
-
-msgid "Show error"
-msgstr "Показати помилку"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
-
-msgid "Broken link"
-msgstr "Непрацююче посилання"
-
-msgid "Missing document"
-msgstr "Документ відсутній"
-
-msgid "Close"
-msgstr "Закрити"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Редагувати '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Переглянути дочірні сторінки '{title}'"
-
-msgid "Page explorer"
-msgstr "Провідник сторінок"
-
-msgid "Save"
-msgstr "Зберегти"
-
-msgid "Saving..."
-msgstr "Зберігання"
-
-msgid "Cancel"
-msgstr "Скасувати"
-
-msgid "Deleting..."
-msgstr "Видалення..."
-
-msgid "Add a comment"
-msgstr "Додати коментар"
-
-msgid "Show comments"
-msgstr "Показати коментарі"
-
-msgid "Reply"
-msgstr "Відповісти"
-
-msgid "Resolve"
-msgstr "Закрити обговорення"
-
-msgid "Retry"
-msgstr "Повторити"
-
-msgid "Delete error"
-msgstr "Видалити помилку"
-
-msgid "Are you sure?"
-msgstr "Ви впевненні?"
-
-msgid "Save error"
-msgstr "Зберегти помилку"
-
-msgid "This will be saved when the page is saved"
-msgstr "Це буде збережено при збереженні сторінки"
-
-msgid "Focus comment"
-msgstr "Сфосукувати коментар"
-
-msgid "Unfocus comment"
-msgstr "Розфокусувати коментар"
-
-msgid "Comment"
-msgstr "Коментар"
-
-msgid "More actions"
-msgstr "Більше дій"
-
-msgid "Save the page to add this comment"
-msgstr "Збережіть сторінку, щоб додати цей коментар"
-
-msgid "Save the page to save this comment"
-msgstr "Збережіть сторінку, щоб зберегти цей коментар"
-
-msgid "Save the page to save this reply"
-msgstr "Збережіть сторінку, щоб зберегти цю відповідь"
-
-msgid "Dashboard"
-msgstr "Панель"
-
-msgid "Edit your account"
-msgstr "Редагувати ваш аккаунт"
-
 msgid "1 page selected"
 msgstr "Обрано 1 сторінку"
 
@@ -512,6 +337,36 @@ msgstr "Обрано всі {0} об'єктів на цьому екрані"
 msgid "All items in listing selected"
 msgstr "Обрано всі об'єкти у списку"
 
+msgid "Scheduled publishing"
+msgstr "Запланована публікація"
+
+msgid "Privacy"
+msgstr "Приватність"
+
+msgid "For search engines"
+msgstr "Для пошукових систем"
+
+msgid "For site menus"
+msgstr "Для меню сайту"
+
+msgid "Content"
+msgstr "Контент"
+
+msgid "Promote"
+msgstr "Просування"
+
+msgid "Settings"
+msgstr "Налаштування"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
 
@@ -526,6 +381,9 @@ msgstr "Перехід до адмінпанелі"
 
 msgid "Account"
 msgstr "Обліковий запис"
+
+msgid "More actions"
+msgstr "Більше дій"
 
 msgid "Save account details"
 msgstr "Зберегти дані облікового запису"
@@ -618,32 +476,6 @@ msgstr "Посилання на телефон"
 msgid "Anchor link"
 msgstr "Якір посилання"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"            Знайдено %(counter)s збіг\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-
 msgid "Add an anchor link"
 msgstr "Добавити якір посилання"
 
@@ -656,76 +488,8 @@ msgstr "Вибрати"
 msgid "Choose a page"
 msgstr "Оберіть сторінку"
 
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Для цього поля можуть бути вибрані лише сторінки типу "
-"\"%(type)s\". Результати пошуку не будуть містити сторінок інших типів.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                Для цього поля можуть бути вибрані сторінки тільки таких "
-"типів: %(type)s. Інші типи сторінок не будуть включені до результатів "
-"пошуку.\n"
-"            "
-msgstr[2] ""
-"\n"
-"                Для цього поля можуть бути вибрані сторінки тільки таких "
-"типів: %(type)s. Інші типи сторінок не будуть включені до результатів "
-"пошуку.\n"
-"            "
-msgstr[3] ""
-"\n"
-"                Для цього поля можуть бути вибрані сторінки тільки таких "
-"типів: %(type)s. Інші типи сторінок не будуть включені до результатів "
-"пошуку.\n"
-"            "
-
 msgid "Convert to internal link"
 msgstr "Конвертувати у внутрішнє посилання"
-
-#, python-format
-msgid ""
-"\n"
-"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                looks like it matches the internal page %(page)s, which has "
-"the URL\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>.\n"
-"            "
-msgstr ""
-"\n"
-"               Посилання, яке ви ввели, <a target=\"_blank\" rel="
-"\"noreferrer noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"               схоже на посилання <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(internal_url)s\">%(internal_url)s</a>, яке відповідає "
-"внутрішній сторінці %(page)s.\n"
-" "
-
-#, python-format
-msgid ""
-"\n"
-"                Converting this to an internal link to %(page)s would make "
-"the link more robust.\n"
-"                Would you like to do this?\n"
-"            "
-msgstr ""
-"\n"
-"                 Конвертування цього внутрішнього посилання на %(page)s "
-"зробить посилання більш надійним.\n"
-"                Чи хотіли б ви це зробити?\n"
-" "
 
 msgid "Use external link"
 msgstr "Використовувати зовнішнє посилання"
@@ -757,6 +521,9 @@ msgstr ""
 "Налаштування приватності визначають, хто зможе переглядати документи у цій "
 "колекції."
 
+msgid "Save"
+msgstr "Зберегти"
+
 msgid "Set collection privacy. Current status: Public"
 msgstr "Встановити конфіденційність колекції. Поточний статус: Public"
 
@@ -785,37 +552,14 @@ msgstr ""
 "Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
 "\">створити одну</a>?"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "Додати %(label)s"
-
-msgid "Move up"
-msgstr "Пересунути вгору"
-
-msgid "Move down"
-msgstr "Пересунути вниз"
-
-msgid "Add comment"
-msgstr "Додати коментар"
-
-msgid "Comments"
-msgstr "Коментарі"
-
-msgid "Toggle visibility of comment notifications dropdown"
-msgstr ""
-"Ввімкнути/вимкнути відображення випадаючого меню сповіщень про коментарі"
-
-msgid "Commenting on this page"
-msgstr "Коментування на цій сторінці"
-
-msgid "Comment notifications"
-msgstr "Сповіщення про коментарі"
-
 msgid "Yes, delete"
 msgstr "Так, видалити"
 
 msgid "Update"
 msgstr "Оновити"
+
+msgid "Dashboard"
+msgstr "Панель"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -839,6 +583,9 @@ msgstr "Заблоковано в "
 
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
+
+msgid "Unlock"
+msgstr "Розблокувати"
 
 msgid "Draft"
 msgstr "Чернетка"
@@ -868,52 +615,14 @@ msgstr "Підтвердити"
 msgid "Reject"
 msgstr "Відхилити"
 
-msgid "Preview"
-msgstr "Попередній перегляд"
-
 msgid "Your most recent edits"
 msgstr "Найостанніші зміни, зроблені вами"
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
 
 msgid "Site summary"
 msgstr "Резюме сайту"
-
-#, python-format
-msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgstr[0] ""
-"\n"
-"       <span>%(total)s</span>сторінка <span class=\"visuallyhidden"
-"\">створена в %(site_name)s</span>\n"
-"     "
-msgstr[1] ""
-"\n"
-"       <span>%(total)s</span>сторінок <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"     "
-msgstr[2] ""
-"\n"
-"       <span>%(total)s</span>сторінок <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"     "
-msgstr[3] ""
-"\n"
-"       <span>%(total)s</span>сторінок <span class=\"visuallyhidden"
-"\">створено в %(site_name)s</span>\n"
-"     "
 
 msgid "Your pages in a workflow"
 msgstr "Ваші сторінки в робочому процесі"
@@ -1030,14 +739,6 @@ msgstr ""
 "\"%(task)s\"."
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been submitted for approval in moderation stage "
-"\"%(task)s\" "
-msgstr ""
-"Сторінку \"%(title)s\" було передано на затвердження на етапі модерації "
-"\"%(task)s\""
-
-#, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
 msgstr "%(editor)s оновив коментарі до \"%(title)s\"."
 
@@ -1121,11 +822,6 @@ msgstr ""
 "Сторінку \"%(title)s\" було передано на модерацію до робочого процесу "
 "\"%(workflow)s\"."
 
-#, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr ""
-"Сторінка \"%(title)s\" була передана до робочого процесу \"%(workflow)s\""
-
 msgid "Page privacy"
 msgstr "Приватність сторінки"
 
@@ -1136,15 +832,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Зміни приватності також будуть застосовані до усіх дочірніх сторінок цієї "
 "сторінки."
-
-msgid "Visit the live page"
-msgstr "Відвідати сторінку"
-
-msgid "This page is live but only available to certain users"
-msgstr "Ця сторінка опублікована тільки для певних користувачів"
-
-msgid "restricted"
-msgstr "заборонений"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Встановити конфіденційність сторінки. Поточний статус: Публічний"
@@ -1199,42 +886,8 @@ msgstr "Оберіть тип сторінки, яку ви б хотіли ст
 msgid "Pages using %(page_type)s"
 msgstr "Сторінка використовує %(page_type)s"
 
-#, python-format
-msgid "Delete 1 page "
-msgid_plural "Delete %(counter)s pages"
-msgstr[0] "Видалити 1 сторінку"
-msgstr[1] "Видалити %(counter)s сторінок"
-msgstr[2] "Видалити %(counter)s сторінок"
-msgstr[3] "Видалити %(counter)s сторінок"
-
 msgid "Are you sure you want to delete these pages?"
 msgstr "Ви впевнені, що ви бажаєте видалити ці сторінки?"
-
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This will also delete %(counter)s more subpages.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Цим ви видалите також одну дочірню сторінку.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Цим ви видалите також %(counter)s дочірніх сторінок.\n"
-"                "
-msgstr[2] ""
-"\n"
-"                    Цим ви видалите також %(counter)s дочірніх сторінок.\n"
-"                "
-msgstr[3] ""
-"\n"
-"                    Цим ви видалите також %(counter)s дочірніх сторінок.\n"
-"                "
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -1260,46 +913,12 @@ msgstr "Перемістити"
 msgid "Are you sure you want to move these pages?"
 msgstr "Ви впевнені, що ви бажаєте перемістити ці сторінки?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one child page\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s child pages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                   Ця сторінка має одну дочірню сторінку\n"
-" "
-msgstr[1] ""
-"\n"
-"                   Ця сторінка має %(counter)s дочірніх сторінок\n"
-" "
-msgstr[2] ""
-"\n"
-"                   Ця сторінка має %(counter)s дочірніх сторінок\n"
-" "
-msgstr[3] ""
-"\n"
-"                   Ця сторінка має %(counter)s дочірніх сторінок\n"
-" "
-
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Вам не дозволено переміщувати цю сторінку"
 msgstr[1] "Вам не дозволено переміщувати ці сторінки"
 msgstr[2] "Вам не дозволено переміщувати ці сторінки"
 msgstr[3] "Вам не дозволено переміщувати ці сторінки"
-
-#, python-format
-msgid "The following page cannot be moved to %(dest_title)s "
-msgid_plural "The following pages cannot be moved to %(dest_title)s"
-msgstr[0] "Наступна сторінка не може бути переміщена до %(dest_title)s"
-msgstr[1] "Наступні сторінки не можуть бути переміщені до %(dest_title)s"
-msgstr[2] "Наступні сторінки не можуть бути переміщені до %(dest_title)s"
-msgstr[3] "Наступні сторінки не можуть бути переміщені до %(dest_title)s"
 
 msgid "The following page cannot be moved due to duplicate slug"
 msgid_plural "The following pages cannot be moved due to duplicate slugs"
@@ -1321,42 +940,8 @@ msgstr "Так, перемістити цю сторінку"
 msgid "No, don't move"
 msgstr "Ні, не переміщувати"
 
-#, python-format
-msgid "Publish 1 page "
-msgid_plural "Publish %(counter)s pages"
-msgstr[0] "Опублікувати 1 сторінку"
-msgstr[1] "Опублікувати %(counter)s сторінок"
-msgstr[2] "Опублікувати %(counter)s сторінок"
-msgstr[3] "Опублікувати %(counter)s сторінок"
-
 msgid "Are you sure you want to publish these pages?"
 msgstr "Ви впевнені, що хочете опублікувати ці сторінки?"
-
-#, python-format
-msgid ""
-"\n"
-"                This page has one unpublished subpage\n"
-"                "
-msgid_plural ""
-"\n"
-"                This page has %(counter)s unpublished subpages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                Ця сторінка має одну неопубліковану підсторінку\n"
-"   "
-msgstr[1] ""
-"\n"
-"                Ця сторінка має %(counter)s неопублікованих підсторінок\n"
-"    "
-msgstr[2] ""
-"\n"
-"                Ця сторінка має %(counter)s неопублікованих підсторінок\n"
-"    "
-msgstr[3] ""
-"\n"
-"                Ця сторінка має %(counter)s неопублікованих підсторінок\n"
-"    "
 
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
@@ -1371,42 +956,8 @@ msgstr "Так, опублікувати"
 msgid "No, don't publish"
 msgstr "Ні, не опубліковувати"
 
-#, python-format
-msgid "Unpublish 1 page "
-msgid_plural "Unpublish %(counter)s pages"
-msgstr[0] "Зняти з публікації 1 сторінку"
-msgstr[1] "Зняти з публікації %(counter)s сторінок"
-msgstr[2] "Зняти з публікації %(counter)s сторінок"
-msgstr[3] "Зняти з публікації %(counter)s сторінок"
-
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Ви впевнені, що хочете зняти з публікації ці сторінки?"
-
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s subpages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                   Ця сторінка має одну підсторінку\n"
-" "
-msgstr[1] ""
-"\n"
-"                   Ця сторінка має %(counter)s підсторінок\n"
-" "
-msgstr[2] ""
-"\n"
-"                   Ця сторінка має %(counter)s підсторінок\n"
-" "
-msgstr[3] ""
-"\n"
-"                   Ця сторінка має %(counter)s підсторінок\n"
-" "
 
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
@@ -1447,36 +998,6 @@ msgstr "Видалити %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Ви впевнені, що хочете видалити цю сторінку?"
-
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Цим ви видалите також одну дочірню сторінку.\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Цим ви видалите також %(descendant_count)s дочірніх "
-"сторінки.\n"
-"                "
-msgstr[2] ""
-"\n"
-"                    Цим ви видалите також %(descendant_count)s дочірніх "
-"сторінок.\n"
-"                "
-msgstr[3] ""
-"\n"
-"                    Цим ви видалите також %(descendant_count)s дочірніх "
-"сторінок.\n"
-"                "
 
 msgid "Yes, delete it"
 msgstr "Так, видалити"
@@ -1520,72 +1041,20 @@ msgstr "Зняти з публікації %(title)s"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ви впевнені, що хочете зняти з публікації цю сторінку?"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Ця сторінка має одну дочірню сторінку. Зняти її з "
-"публікації також\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Ця сторінка має %(live_descendant_count)s дочірніх "
-"сторінки. Зняти їх з публікації також\n"
-"                "
-msgstr[2] ""
-"\n"
-"                    Ця сторінка має %(live_descendant_count)s дочірніх "
-"сторінок. Зняти їх з публікації також\n"
-"                "
-msgstr[3] ""
-"\n"
-"                    Ця сторінка має %(live_descendant_count)s дочірніх "
-"сторінок. Зняти їх з публікації також\n"
-"                "
-
 msgid "Yes, unpublish it"
 msgstr "Так, зняти з публікації"
 
 msgid "Publish page"
 msgstr "Опублікувати сторінку"
 
-#, python-format
-msgid ""
-"\n"
-"            This page was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"            Ця сторінка була позначена, що потребує змін о <strong>%(task)s</"
-"strong> в <strong>%(workflow)s</strong>.\n"
-" "
-
-#, python-format
-msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"           Ця сторінка зараз знаходиться на <strong>%(task)s</strong> в "
-"<strong>%(workflow)s</strong>.\n"
-"  "
-
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Публікація цієї сторінки скасує поточний робочий процес."
 
 msgid "Would you still like to publish this page?"
 msgstr "Ви все одно хочете опублікувати сторінку?"
+
+msgid "Cancel"
+msgstr "Скасувати"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1608,9 +1077,6 @@ msgstr "Копіювати цю сторінку"
 msgid "New %(page_type)s"
 msgstr "Створити %(page_type)s"
 
-msgid "New"
-msgstr "Створити"
-
 msgid "Actions"
 msgstr "Дії"
 
@@ -1620,13 +1086,6 @@ msgstr "Ця сторінка має незбережені зміни"
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Редагування %(page_type)s: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr "Редагування %(page_type)s"
-
-msgid "History"
-msgstr "Історія змін"
 
 msgid "This page is an alias of another page."
 msgstr "Ця сторінка псевдонім іншої сторінки. "
@@ -1649,6 +1108,9 @@ msgstr "Користувач"
 
 msgid "Date / Time"
 msgstr "Дата / Час"
+
+msgid "Comment"
+msgstr "Коментар"
 
 msgid "Live version"
 msgstr "Версія наживо"
@@ -1679,69 +1141,8 @@ msgstr "Перетягнути"
 msgid "Updated"
 msgstr "Оновлено"
 
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"                           Кореневий рівень призначений для додавання сайтів "
-"до екземпляру Wagtail. Сторінки, створені тут не будут доступні за жодною "
-"адресою поки вони не будуть асоційовані із сайтом.\n"
-"                        "
-
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"                            Якщо ви хочете просто додати сторінки на сайт, "
-"створіть їх як дочірні по відношенню до головної.\n"
-"                        "
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Сторінки, створені у даному розташуванні, не будуть "
-"доступні за жодним посиланням. Аби додавати сторінки на існуючий сайт, "
-"створіть їх як дочірні для домашньої сторінки.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"                       За цим розташуванням немає налаштованого сайту. "
-"Сторінки, створені тут, не будуть доступні за жодним посиланням, допоки сайт "
-"не буде асоційований із цим розташуванням.\n"
-"                    "
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"                        Для цього розташування немає запису сайту. Сторінки, "
-"створені тут, не будуть доступні за жодним посиланням.\n"
-"                    "
 
 msgid "No pages have been created at this location."
 msgstr "У цьому розташування немає створених сторінок."
@@ -1774,16 +1175,6 @@ msgstr "Меню сайтів"
 msgid "Pagination"
 msgstr "Пагінація"
 
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"        Сторінка %(page_number)s з %(num_pages)s.\n"
-"    "
-
 msgid "Previous"
 msgstr "Попередній"
 
@@ -1813,20 +1204,8 @@ msgstr "Обрати нову батьківську сторінку для <sp
 msgid "Preview error"
 msgstr "Помилка попереднього перегляду"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"                Неможливо зробити попередній перегляд цієї сторінки, "
-"лишаються ще деякі помилки.\n"
-"                Будь ласка, закрийте цю вкладу, відредагуйте сторінку, щоб "
-"виправити ці помилки \n"
-"                і тоді зробіть ще раз попередній перегляд.\n"
-"            "
+msgid "Close"
+msgstr "Закрити"
 
 msgid "Current status:"
 msgstr "Поточний статус: "
@@ -1862,70 +1241,6 @@ msgstr "Поля"
 msgid "Changes"
 msgstr "Зміни"
 
-#, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            Переміщено вниз "
-"на 1 місце.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            Переміщено вниз "
-"на %(counter)s місць.\n"
-"                                                        "
-msgstr[2] ""
-"\n"
-"                                                            Переміщено вниз "
-"на %(counter)s місць.\n"
-"                                                        "
-msgstr[3] ""
-"\n"
-"                                                            Переміщено вниз "
-"на %(counter)s місць.\n"
-"                                                        "
-
-#, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            Переміщено вгору "
-"на 1 місце.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            Переміщено вгору "
-"на %(counter)s місць.\n"
-"                                                        "
-msgstr[2] ""
-"\n"
-"                                                            Переміщено вгору "
-"на %(counter)s місць.\n"
-"                                                        "
-msgstr[3] ""
-"\n"
-"                                                            Переміщено вгору "
-"на %(counter)s місць.\n"
-"                                                        "
-
 msgid "There are no differences between these two versions"
 msgstr "Немає ніяких відмінностей між цими двома версіями"
 
@@ -1945,31 +1260,6 @@ msgstr "Так, зняти з розкладу"
 msgid "No, don't unschedule"
 msgstr "Ні, не знімати з розкладу"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Знайдено одну сторінку, що має відповідність"
-msgstr[1] ""
-"\n"
-"                Знайдено %(counter)s сторінки, що мають відповідність\n"
-"            "
-msgstr[2] ""
-"\n"
-"                Знайдено %(counter)s сторінок, що мають відповідність\n"
-"            "
-msgstr[3] ""
-"\n"
-"                Знайдено %(counter)s сторінок, що мають відповідність\n"
-"            "
-
 msgid "Page types"
 msgstr "Типи сторінок"
 
@@ -1979,6 +1269,18 @@ msgstr "Вибачте, жодна сторінка не відповідає <e
 
 msgid "Enter a search term above"
 msgstr "Введіть пошукову фразу"
+
+msgid "Locked"
+msgstr "Заблоковано"
+
+msgid "Unlocked"
+msgstr "Розблоковано"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "since"
+msgstr "від"
 
 msgid "No pages use"
 msgstr "Не використовується жодна сторінка"
@@ -2013,28 +1315,6 @@ msgstr "Початкова Ревізія"
 msgid "Page edited"
 msgstr "Сторінка відредагована"
 
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s by <b>%(who)s</b> at "
-"<b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                             %(action)s <b>%(who)s</b> в <b>"
-"%(at)s</b>\n"
-" "
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s at <b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s в <b>%(at)s</b>\n"
-" "
-
 msgid "with comment:"
 msgstr "з коментарем:"
 
@@ -2043,17 +1323,6 @@ msgstr "Робочий процес запущений"
 
 msgid "Workflow completed"
 msgstr "Робочий процес завершений"
-
-#, python-format
-msgid ""
-"\n"
-"                                        %(action)s by <b>%(who)s</b>\n"
-"                                    "
-msgstr ""
-"\n"
-"                                        %(action)s користувачем <b>%(who)s</"
-"b>\n"
-"   "
 
 #, python-format
 msgid "Workflow history for %(title)s"
@@ -2079,6 +1348,22 @@ msgstr "Незавершене завдання"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Цю сторінку ще не надіслано на модерацію "
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Додати %(label)s"
+
+msgid "Move up"
+msgstr "Пересунути вгору"
+
+msgid "Move down"
+msgstr "Пересунути вниз"
+
+msgid "Add comment"
+msgstr "Додати коментар"
+
+msgid "Comment notifications"
+msgstr "Сповіщення про коментарі"
 
 msgid "Collection management permissions"
 msgstr "Дозволи на керування колекцією"
@@ -2107,43 +1392,6 @@ msgstr "Застосувати фільтри"
 msgid "Locking status"
 msgstr "Статус блокування"
 
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"                                Заблоковано <b>вами</b> о <b>"
-"%(locking_date)s</b>\n"
-"  "
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"                               Заблоковано користувачем <b>%(locked_by)s</b> "
-"о <b>%(locking_date)s</b>\n"
-"  "
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"                          Заблоковано о <b>%(locking_date)s</b>\n"
-"   "
-
-msgid "Locked"
-msgstr "Заблоковано"
-
 msgid "No locked pages found."
 msgstr "Заблокованих сторінок немає."
 
@@ -2155,6 +1403,9 @@ msgstr "За завданням"
 
 msgid "Workflow"
 msgstr "Робочий процес"
+
+msgid "Page"
+msgstr "Сторінка"
 
 msgid "No pages have been submitted for moderation yet"
 msgstr "Жодну сторінку ще не надіслано на модерацію "
@@ -2181,63 +1432,17 @@ msgstr "Головна"
 msgid "All collections"
 msgstr "Усі колекції"
 
-msgid "Account settings"
-msgstr "Налаштування аккаунту"
+msgid "History"
+msgstr "Історія змін"
 
-msgid "Log out"
-msgstr "Вийти"
+msgid "Visit the live page"
+msgstr "Відвідати сторінку"
 
 msgid "Current page status:"
 msgstr "Поточний статус сторінки:"
 
 msgid "Other searches"
 msgstr "Інші пошуки"
-
-msgid "Changes requested"
-msgstr "Вимагаються зміни"
-
-msgid "since"
-msgstr "від"
-
-msgid "Published"
-msgstr "Опубліковано"
-
-msgid "Draft saved"
-msgstr "Чернетку збережено"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Ви використовуєте <strong>застарілий</strong> браузер, що не підтримується "
-"даним програмним забезпеченням. Будь ласка, <a href=\"https://browsehappy."
-"com/\">оновіть ваш браузер</a>."
-
-msgid ""
-"\n"
-"            JavaScript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            JavaScript необхідний для функціонування Wagtail, проте він "
-"зараз відключений.<br />\n"
-"            Ось <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">інструкції, як увімкнути JavaScript у "
-"вашому браузері</a>.\n"
-"        "
-
-#, python-format
-msgid ""
-"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
-"IE11 alternatives</a>."
-msgstr ""
-"Wagtail вилучив підтримку IE11. <a href=\"%(url)s\">Дізнайтеся більше про "
-"альтернативи IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Перейти до основного вмісту "
@@ -2250,6 +1455,9 @@ msgstr "Додати дочірню сторінку"
 
 msgid "Show in Explorer"
 msgstr "Показати у переглядачі"
+
+msgid "No"
+msgstr "Ні"
 
 msgid "Are you sure you want to disable this workflow?"
 msgstr "Ви впевнені, що хочете вимкнути цей робочий процес?"
@@ -2305,32 +1513,6 @@ msgid "Used by"
 msgstr "Використовується "
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"                                            1 сторінка\n"
-"  "
-msgstr[1] ""
-"\n"
-"                                            %(counter)s сторінок\n"
-"  "
-msgstr[2] ""
-"\n"
-"                                            %(counter)s сторінок\n"
-"  "
-msgstr[3] ""
-"\n"
-"                                            %(counter)s сторінок\n"
-"  "
-
-#, python-format
 msgid "Step %(step_number)s"
 msgstr "Крок %(step_number)s"
 
@@ -2362,37 +1544,14 @@ msgstr "Оберіть тип завдання, якого ви б хотіли 
 msgid "Choose a task"
 msgstr "Оберіть завдання"
 
+msgid "New"
+msgstr "Створити"
+
 msgid "Existing"
 msgstr "Існуючі"
 
 msgid "Choose a different task type"
 msgstr "Оберіть інший тип завдання"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Знайдено %(counter)s збіг\n"
-" "
-msgstr[1] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-" "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-" "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-" "
 
 msgid "Task type"
 msgstr "Тип завдання"
@@ -2406,17 +1565,6 @@ msgstr "Вибачте, жодне завдання не відповідає \"
 
 msgid "You haven't created any tasks."
 msgstr "Ви не створили жодних завдань. "
-
-msgid ""
-"\n"
-"                Why not <a class=\"create-one-now\" href=\"#\">create one "
-"now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"                 Чому б не <a class=\"create-one-now\" href=\"#\">створити "
-"зараз</a>?\n"
-"  "
 
 msgid "Hide disabled tasks"
 msgstr "Приховати вимкнуті завдання"
@@ -2462,9 +1610,15 @@ msgstr "Не запущено"
 msgid "Changes requested by %(requested_by)s"
 msgstr "Зміни за вимогою %(requested_by)s"
 
+msgid "Changes requested"
+msgstr "Вимагаються зміни"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Затверджено %(approved_by)s"
+
+msgid "Published"
+msgstr "Опубліковано"
 
 msgid "See full history"
 msgstr "Переглянути повну історію"
@@ -2499,6 +1653,9 @@ msgstr "0 хвилин"
 
 msgid "Just now"
 msgstr "Щойно"
+
+msgid "Log out"
+msgstr "Вийти"
 
 msgid "live"
 msgstr "наживо"
@@ -3033,6 +2190,12 @@ msgstr[3] ""
 msgid "Task '{0}' enabled."
 msgstr "Завдання \"{0}\" увімкнено."
 
+msgid "Server Error"
+msgstr "Помилка Сервера"
+
+msgid "Pages"
+msgstr "Сторінки"
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Редагувати '%(title)s'"
@@ -3125,9 +2288,6 @@ msgstr "Звіти"
 
 msgid "Yes"
 msgstr "Так"
-
-msgid "No"
-msgstr "Ні"
 
 msgid "Choose an item"
 msgstr "Оберіть елемент"

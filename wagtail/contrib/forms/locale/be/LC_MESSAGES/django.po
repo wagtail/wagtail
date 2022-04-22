@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -23,10 +23,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Формы Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%sпрадстаўлення"
 
 msgid "Date from"
 msgstr "Дата ад"
@@ -104,18 +100,8 @@ msgstr "абавязкова"
 msgid "choices"
 msgstr "выбар"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Падзелены коскамі спіс варыянтаў. Ужываецца толькі для сцяжкоў, радиокнопок "
-"і ў выпадальным спісе."
-
 msgid "default value"
 msgstr "значэнне па змаўчанні"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Значэнне па змаўчанні. Падзеленыя коскамі значэння для сцяжкоў."
 
 msgid "help text"
 msgstr "тэкст падказкі"
@@ -146,41 +132,18 @@ msgid "subject"
 msgstr "тэма"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%sпрадстаўлення"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Выдаліць дадзеныя формы %(title)s"
 
 msgid "Delete form data"
 msgstr "Выдаліць дадзеныя формы"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Вы ўпэўнены, што жадаеце выдаліць гэты запіс формы?"
-msgstr[1] ""
-"\n"
-"Вы ўпэўнены, што жадаеце выдаліць гэтыя запісы формы?"
-msgstr[2] ""
-"\n"
-"Вы ўпэўнены, што жадаеце выдаліць гэтыя запісы формы?"
-msgstr[3] ""
-"\n"
-"Вы ўпэўнены, што жадаеце выдаліць гэтыя запісы формы?"
-
 msgid "Delete"
 msgstr "Выдаліць"
-
-msgid "Total submissions"
-msgstr "Усяго даданняў"
-
-msgid "Latest submission"
-msgstr "Апошняе даданне"
 
 msgid "Forms"
 msgstr "Формы"
@@ -217,6 +180,12 @@ msgstr "Паходжанне"
 
 msgid "Delete selected submissions"
 msgstr "Выдаліць абраныя"
+
+msgid "Total submissions"
+msgstr "Усяго даданняў"
+
+msgid "Latest submission"
+msgstr "Апошняе даданне"
 
 msgid "No form pages have been created."
 msgstr "Старонак з формамі не было створана."

@@ -1,0 +1,35 @@
+#
+# Translators:
+# Orangle Liu <orangleliu@gmail.com>, 2022
+# serafeim <serafeim@torchbox.com>, 2022
+# shengsheng gz <gzshengsheng@139.com>, 2022
+# Karl Hobley <karl@torchbox.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Karl Hobley <karl@torchbox.com>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/torchbox/teams/8009/zh/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Dashboard"
+msgstr "仪表板"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Saving..."
+msgstr "正在保存"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Server Error"
+msgstr "服务错误"

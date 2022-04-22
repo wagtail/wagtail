@@ -12,8 +12,8 @@
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
-# Vladislav <integration.into.society@gmail.com>, 2022
-# Vladislav <integration.into.society@gmail.com>, 2021-2022
+# Влад <integration.into.society@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # gsstver <gsstver@gmail.com>, 2016
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -173,14 +173,6 @@ msgstr "Изображение"
 msgid "images"
 msgstr "Изображения"
 
-#, python-format
-msgid "Add tags to 1 image "
-msgid_plural "Add tags to %(counter)s images"
-msgstr[0] "Добавить теги к 1 изображению"
-msgstr[1] "Добавить теги к %(counter)s изображениям"
-msgstr[2] "Добавить теги к %(counter)s изображениям"
-msgstr[3] "Добавить теги к %(counter)s изображениям"
-
 msgid "Add tags to images"
 msgstr "Добавить теги к изображениям"
 
@@ -203,14 +195,6 @@ msgstr "Да, добавить"
 
 msgid "No, don't add"
 msgstr "Нет, не добавлять"
-
-#, python-format
-msgid "Add 1 image to new collection "
-msgid_plural "Add %(counter)s images to new collection"
-msgstr[0] "Добавить 1 изображение в новую коллекцию"
-msgstr[1] "Добавить %(counter)s изображения в новую коллекцию"
-msgstr[2] "Добавить %(counter)s изображения в новую коллекцию"
-msgstr[3] "Добавить %(counter)s изображения в новую коллекцию"
 
 msgid "Add images to collection"
 msgstr "Добавить изображения в коллекцию"
@@ -286,27 +270,11 @@ msgstr "Загрузка"
 msgid "Popular tags"
 msgstr "Популярные теги"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Найдено %(counter)s совпадение"
-msgstr[1] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[2] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[3] ""
-"\n"
-"Найдено %(counter)s совпадений"
+msgid "Existing"
+msgstr "Существующие"
+
+msgid "New"
+msgstr "Новый"
 
 msgid "Latest images"
 msgstr "Недавние изображения"
@@ -319,38 +287,6 @@ msgstr "Вставить изображение"
 
 msgid "Uploading…"
 msgstr "Загрузка..."
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Изображение <span class=\"visuallyhidden"
-"\">создано в %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Изображения <span class=\"visuallyhidden"
-"\">созданы в %(site_name)s</span>\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Изображений <span class=\"visuallyhidden"
-"\">создано в %(site_name)s</span>\n"
-"    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Изображений <span class=\"visuallyhidden"
-"\">создано в %(site_name)s</span>\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Изменить файл изображения:"
@@ -366,31 +302,6 @@ msgstr "Сохранить"
 
 msgid "Delete image"
 msgstr "Удалить изображение"
-
-msgid ""
-"\n"
-"                    Are you sure you want to delete this image?\n"
-"                "
-msgid_plural ""
-"\n"
-"                    Are you sure you want to delete these images?\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Вы уверены, что хотите удалить это изображение?\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Вы уверены, что хотите удалить эти изображения?\n"
-"                "
-msgstr[2] ""
-"\n"
-"                    Вы уверены, что хотите удалить эти изображения?\n"
-"                "
-msgstr[3] ""
-"\n"
-"                    Вы уверены, что хотите удалить эти изображения?\n"
-"                "
 
 #, python-format
 msgid "Editing image %(title)s"

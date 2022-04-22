@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Favo Yang <favoyang@gmail.com>, 2021-2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -60,15 +60,6 @@ msgstr "取消发布"
 msgid "Delete"
 msgstr "删除"
 
-msgid "Lock"
-msgstr "锁定"
-
-msgid "Apply editor lock"
-msgstr "应用编辑锁定"
-
-msgid "Unlock"
-msgstr "解锁"
-
 msgid "Save Draft"
 msgstr "保存草稿"
 
@@ -90,27 +81,6 @@ msgstr "你没有访问后台管理的权限"
 
 msgid "None"
 msgstr "无"
-
-msgid "Scheduled publishing"
-msgstr "定时发布"
-
-msgid "Privacy"
-msgstr "私有设置"
-
-msgid "For search engines"
-msgstr "用于搜索引擎"
-
-msgid "For site menus"
-msgstr "用于站点菜单"
-
-msgid "Content"
-msgstr "内容"
-
-msgid "Promote"
-msgstr "推荐"
-
-msgid "Settings"
-msgstr "设置"
 
 msgid "Date from"
 msgstr "起始日期"
@@ -283,156 +253,6 @@ msgstr "请给你的工作流一个名称"
 msgid "Add tasks to your workflow"
 msgstr "增加任务到你的工作流"
 
-msgid "Page"
-msgstr "页面"
-
-msgid "Pages"
-msgstr "页面"
-
-msgid "Loading…"
-msgstr "正在载入..."
-
-msgid "No results"
-msgstr "没有结果"
-
-msgid "Server Error"
-msgstr "服务器错误"
-
-msgid "See all"
-msgstr "查看全部"
-
-msgid "Close explorer"
-msgstr "关闭资源管理"
-
-msgid "Alt text"
-msgstr "替代文字"
-
-msgid "Decorative image"
-msgstr "装饰性图片"
-
-msgid "Write here…"
-msgstr "写在这里..."
-
-msgid "Horizontal line"
-msgstr "横线"
-
-msgid "Line break"
-msgstr "换行"
-
-msgid "Undo"
-msgstr "撤销"
-
-msgid "Redo"
-msgstr "重复"
-
-msgid "Reload the page"
-msgstr "刷新页面"
-
-msgid "Reload saved content"
-msgstr "重新加载已保存内容"
-
-msgid "Show latest content"
-msgstr "显示最新内容"
-
-msgid "Show error"
-msgstr "显示错误"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "编辑器崩溃了😭，内容被重新设置为最后保存的版本。"
-
-msgid "Broken link"
-msgstr "无效链接"
-
-msgid "Missing document"
-msgstr "缺失文档"
-
-msgid "Close"
-msgstr "关闭"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "编辑 '{title}'"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "查看 '{title}' 的子页面"
-
-msgid "Page explorer"
-msgstr "页面管理"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Saving..."
-msgstr "正在保存……"
-
-msgid "Cancel"
-msgstr "取消"
-
-msgid "Deleting..."
-msgstr "正在删除……"
-
-msgid "Add a comment"
-msgstr "添加一个评论"
-
-msgid "Show comments"
-msgstr "显示评论"
-
-msgid "Reply"
-msgstr "回复"
-
-msgid "Resolve"
-msgstr "解决"
-
-msgid "Retry"
-msgstr "重试"
-
-msgid "Delete error"
-msgstr "删除错误"
-
-msgid "Are you sure?"
-msgstr "你确定吗？"
-
-msgid "Save error"
-msgstr "保存错误"
-
-msgid "This will be saved when the page is saved"
-msgstr "这会在页面被保存时一起被保存"
-
-msgid "Focus comment"
-msgstr "聚焦评论"
-
-msgid "Unfocus comment"
-msgstr "取消聚焦评论"
-
-msgid "Comment"
-msgstr "评论"
-
-msgid "More actions"
-msgstr "更多动作"
-
-msgid "Save the page to add this comment"
-msgstr "保存页面来添加此条评论。"
-
-msgid "Save the page to save this comment"
-msgstr "保存页面来保存此条评论。"
-
-msgid "Save the page to save this reply"
-msgstr "保存页面来保存此条回复。"
-
-msgid "Toggle sidebar"
-msgstr "切换侧边栏"
-
-msgid "Main menu"
-msgstr "主菜单"
-
-msgid "Dashboard"
-msgstr "控制面板"
-
-msgid "Edit your account"
-msgstr "编辑账户"
-
 msgid "1 page selected"
 msgstr "已选择1个页面"
 
@@ -503,6 +323,36 @@ msgstr "已选择本屏幕的所有{0} 个条目"
 msgid "All items in listing selected"
 msgstr "已选择列表中的所有条目"
 
+msgid "Scheduled publishing"
+msgstr "定时发布"
+
+msgid "Privacy"
+msgstr "私有设置"
+
+msgid "For search engines"
+msgstr "用于搜索引擎"
+
+msgid "For site menus"
+msgstr "用于站点菜单"
+
+msgid "Content"
+msgstr "内容"
+
+msgid "Promote"
+msgstr "推荐"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Comments"
+msgstr "评论"
+
+msgid "Preview"
+msgstr "预览"
+
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
 
@@ -517,6 +367,9 @@ msgstr "转到管理界面"
 
 msgid "Account"
 msgstr "帐号"
+
+msgid "More actions"
+msgstr "更多动作"
 
 msgid "Save account details"
 msgstr "保存帐号详情"
@@ -604,20 +457,6 @@ msgstr "电话链接"
 msgid "Anchor link"
 msgstr "锚链"
 
-#, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"            有%(counter)s条匹配结果\n"
-"        "
-
 msgid "Add an anchor link"
 msgstr "添加一个锚链"
 
@@ -630,55 +469,8 @@ msgstr "选择"
 msgid "Choose a page"
 msgstr "选择一个页面"
 
-#, python-format
-msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
-msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
-msgstr[0] ""
-"\n"
-"这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。"
-
 msgid "Convert to internal link"
 msgstr "转换为内部链接"
-
-#, python-format
-msgid ""
-"\n"
-"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                looks like it matches the internal page %(page)s, which has "
-"the URL\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>.\n"
-"            "
-msgstr ""
-"\n"
-"                你输入的URL：<a target=\"_blank\" rel=\"noreferrer noopener"
-"\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                看起来与内部页面 %(page)s的URL相匹配\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>。\n"
-"            "
-
-#, python-format
-msgid ""
-"\n"
-"                Converting this to an internal link to %(page)s would make "
-"the link more robust.\n"
-"                Would you like to do this?\n"
-"            "
-msgstr ""
-"\n"
-"                将其转换为指向 %(page)s的内部链接将使链接更加可靠。\n"
-"                你想这样做吗？\n"
-"            "
 
 msgid "Use external link"
 msgstr "使用外部链接"
@@ -708,6 +500,9 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "私有设置决定谁可以查看这个集合中的文档。"
 
+msgid "Save"
+msgstr "保存"
+
 msgid "Set collection privacy. Current status: Public"
 msgstr "设置选集的隐私状态。当前状态：公开"
 
@@ -734,36 +529,14 @@ msgid ""
 msgstr ""
 "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "增加 %(label)s"
-
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
-
-msgid "Add comment"
-msgstr "添加评论"
-
-msgid "Comments"
-msgstr "评论"
-
-msgid "Toggle visibility of comment notifications dropdown"
-msgstr "切换评论通知下拉菜单是否可见"
-
-msgid "Commenting on this page"
-msgstr "为页面添加评论"
-
-msgid "Comment notifications"
-msgstr "评论通知"
-
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
 msgid "Update"
 msgstr "更新"
+
+msgid "Dashboard"
+msgstr "控制面板"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -785,6 +558,9 @@ msgstr "锁定于"
 
 msgid "Edit this page"
 msgstr "编辑此页"
+
+msgid "Unlock"
+msgstr "解锁"
 
 msgid "Draft"
 msgstr "草稿"
@@ -814,36 +590,14 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
-msgid "Preview"
-msgstr "预览"
-
 msgid "Your most recent edits"
 msgstr "最近编辑"
-
-msgid "Status"
-msgstr "状态"
 
 msgid "Date"
 msgstr "日期"
 
 msgid "Site summary"
 msgstr "网站摘要"
-
-#, python-format
-msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
-msgstr[0] ""
-"\n"
-"<span class=\"visuallyhidden\">在%(site_name)s中共创建了</span><span>"
-"%(total)s</span>个页面"
 
 msgid "Your pages in a workflow"
 msgstr "工作流中的页面"
@@ -959,12 +713,6 @@ msgid ""
 msgstr "页面“%(title)s”已提交到审核阶段“%(task)s”审批。"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been submitted for approval in moderation stage "
-"\"%(task)s\" "
-msgstr "页面“%(title)s”已在审核阶段“%(task)s”提交审批"
-
-#, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
 msgstr "%(editor)s更新了对于“%(title)s”的评论"
 
@@ -1040,10 +788,6 @@ msgid ""
 "\"%(workflow)s\"."
 msgstr "页面“%(title)s”已提交到工作流“%(workflow)s”以进行审核。"
 
-#, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr "页面“%(title)s”已提交到工作流“%(workflow)s”"
-
 msgid "Page privacy"
 msgstr "页面私有设置"
 
@@ -1052,15 +796,6 @@ msgstr "此页面已被父节点设置为私有。"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有设置也会应用到此页面的所有子页面。"
-
-msgid "Visit the live page"
-msgstr "查看已发布的页面"
-
-msgid "This page is live but only available to certain users"
-msgstr "此页面是发布的，但仅对某些用户可用"
-
-msgid "restricted"
-msgstr "受限的"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "设置页面的隐私状态。当前状态：公开"
@@ -1115,27 +850,8 @@ msgstr "选择创建的页面类型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s类型的页面"
 
-#, python-format
-msgid "Delete 1 page "
-msgid_plural "Delete %(counter)s pages"
-msgstr[0] "删除%(counter)s个页面"
-
 msgid "Are you sure you want to delete these pages?"
 msgstr "你确实要删除这些页面吗？"
-
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This will also delete %(counter)s more subpages.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    这还会删除 %(counter)s 个子页面。\n"
-"                    "
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -1155,28 +871,9 @@ msgstr "移动"
 msgid "Are you sure you want to move these pages?"
 msgstr "你确实要移动这些页面吗？"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one child page\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s child pages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    此页面有 %(counter)s 个子页面\n"
-"                    "
-
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "您没有移动这些页面的权限"
-
-#, python-format
-msgid "The following page cannot be moved to %(dest_title)s "
-msgid_plural "The following pages cannot be moved to %(dest_title)s"
-msgstr[0] " 无法将以下页面移动到%(dest_title)s"
 
 msgid "The following page cannot be moved due to duplicate slug"
 msgid_plural "The following pages cannot be moved due to duplicate slugs"
@@ -1193,26 +890,8 @@ msgstr "æ¯çï¼ç§»å¨è¿äºé¡µé¢"
 msgid "No, don't move"
 msgstr "å¦ï¼ä¸ç§»å¨"
 
-#, python-format
-msgid "Publish 1 page "
-msgid_plural "Publish %(counter)s pages"
-msgstr[0] "åå¸%(counter)sä¸ªé¡µé¢"
-
 msgid "Are you sure you want to publish these pages?"
 msgstr "ä½ ç¡®å®è¦åå¸è¿äºé¡µé¢åï¼"
-
-#, python-format
-msgid ""
-"\n"
-"                This page has one unpublished subpage\n"
-"                "
-msgid_plural ""
-"\n"
-"                This page has %(counter)s unpublished subpages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    æ­¤é¡µé¢æ %(counter)s ä¸ªæªåå¸çå­é¡µé¢"
 
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
@@ -1224,26 +903,8 @@ msgstr "æ¯ï¼åå¸"
 msgid "No, don't publish"
 msgstr "å¦ï¼ä¸åå¸"
 
-#, python-format
-msgid "Unpublish 1 page "
-msgid_plural "Unpublish %(counter)s pages"
-msgstr[0] "åæ¶åå¸%(counter)sä¸ªé¡µé¢"
-
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "ä½ ç¡®å®è¦åæ¶åå¸è¿äºé¡µé¢åï¼"
-
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s subpages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    æ­¤é¡µé¢æ %(counter)s ä¸ªå­é¡µé¢"
 
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
@@ -1280,20 +941,6 @@ msgstr "删除%(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "确定要删除此页面吗？"
-
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"这还会删除 %(descendant_count)s 个子页面。"
 
 msgid "Yes, delete it"
 msgstr "是，删除此页面"
@@ -1334,57 +981,20 @@ msgstr "取消发布%(title)s"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "此页面确定要取消发布吗？"
 
-#, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    此页面有 %(live_descendant_count)s 个子页面。它们也都会被"
-"取消发布\n"
-"                "
-
 msgid "Yes, unpublish it"
 msgstr "是，取消发布"
 
 msgid "Publish page"
 msgstr "发布页面"
 
-#, python-format
-msgid ""
-"\n"
-"            This page was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"            此页面在工作流<strong>%(workflow)s</strong>中的任务<strong>"
-"%(task)s</strong>标记为需要更改。  \n"
-"        "
-
-#, python-format
-msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
-msgstr ""
-"\n"
-"            此页面当前已在工作流<strong>%(workflow)s</strong>中的任务 "
-"<strong>%(task)s</strong> 中了。\n"
-"        "
-
 msgid "Publishing this page will cancel the current workflow."
 msgstr "发布此页面将会取消当前工作流."
 
 msgid "Would you still like to publish this page?"
 msgstr "你确定仍然要发布此页面吗?"
+
+msgid "Cancel"
+msgstr "取消"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1407,9 +1017,6 @@ msgstr "复制此页"
 msgid "New %(page_type)s"
 msgstr "新%(page_type)s页面类型"
 
-msgid "New"
-msgstr "新"
-
 msgid "Actions"
 msgstr "动作"
 
@@ -1419,13 +1026,6 @@ msgstr "页面还没保存"
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "编辑 %(page_type)s: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr "编辑 %(page_type)s"
-
-msgid "History"
-msgstr "历史"
 
 msgid "This page is an alias of another page."
 msgstr "这个页面是另一个页面的别名。"
@@ -1448,6 +1048,9 @@ msgstr "用户"
 
 msgid "Date / Time"
 msgstr "日期/时间"
+
+msgid "Comment"
+msgstr "评论"
 
 msgid "Live version"
 msgstr "发布版本"
@@ -1478,60 +1081,8 @@ msgstr "拖曳"
 msgid "Updated"
 msgstr "已更新"
 
-msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
-msgstr ""
-"\n"
-"你可以在根节点添加一个新站点。除非关联一个站点，否则添加的页面将无法通过URL访"
-"问。\n"
-"                        "
-
 msgid "Configure a site now."
 msgstr "现在配置一个站点。"
-
-msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
-msgstr ""
-"\n"
-"                           你只是想给已有的站点添加一个页面，请直接在首页中添"
-"加子页面。"
-
-msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
-msgstr ""
-"\n"
-"在这里创建的页面将无法通过URL访问，如果想给已有的站点添加页面，请在首页中添加"
-"子页面。"
-
-msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
-msgstr ""
-"\n"
-"当前位置没有配置站点，在这里创建的页面将无法通过任何URL访问。"
-
-msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
-msgstr ""
-"\n"
-"当前位置没有配置站点，页面将无法访问。"
 
 msgid "No pages have been created at this location."
 msgstr "这个位置还没有创建页面。"
@@ -1564,15 +1115,6 @@ msgstr "站点菜单"
 msgid "Pagination"
 msgstr "分页"
 
-#, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"第 %(page_number)s 页 共 %(num_pages)s 页。"
-
 msgid "Previous"
 msgstr "上一个"
 
@@ -1602,18 +1144,8 @@ msgstr "为<span>%(title)s</span>选择新的父节点"
 msgid "Preview error"
 msgstr "预览错误"
 
-msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
-msgstr ""
-"\n"
-"                无法预览当前页面, 一些错误依然存在。\n"
-"                请关闭当前标签页, 并编辑页面以修正错误,\n"
-"                然后再进行预览。\n"
-"            "
+msgid "Close"
+msgstr "关闭"
 
 msgid "Current status:"
 msgstr "当前状态:"
@@ -1649,36 +1181,6 @@ msgstr "字段"
 msgid "Changes"
 msgstr "更改"
 
-#, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"下移 %(counter)s 位。"
-
-#, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"上移 %(counter)s 位。"
-
 msgid "There are no differences between these two versions"
 msgstr "这两个版本之间没有区别"
 
@@ -1698,19 +1200,6 @@ msgstr "是的，取消发布计划"
 msgid "No, don't unschedule"
 msgstr "否，不取消发布计划"
 
-#, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"有%(counter)s个符合要求的页面"
-
 msgid "Page types"
 msgstr "页面类型"
 
@@ -1720,6 +1209,18 @@ msgstr "对不起，没有符合<em>%(query_string)s</em>的页面"
 
 msgid "Enter a search term above"
 msgstr "输入上面的搜索条件"
+
+msgid "Locked"
+msgstr "已锁定"
+
+msgid "Unlocked"
+msgstr "已解锁"
+
+msgid "Lock"
+msgstr "锁定"
+
+msgid "since"
+msgstr "自"
 
 msgid "No pages use"
 msgstr "没有页面使用"
@@ -1754,28 +1255,6 @@ msgstr "初版"
 msgid "Page edited"
 msgstr "页面已编辑"
 
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s by <b>%(who)s</b> at "
-"<b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s 经由 <b>%(who)s</b> 于"
-"<b>%(at)s</b>完成\n"
-"                                        "
-
-#, python-format
-msgid ""
-"\n"
-"                                            %(action)s at <b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s 于 <b>%(at)s</b>\n"
-"                                        "
-
 msgid "with comment:"
 msgstr "有评论："
 
@@ -1784,16 +1263,6 @@ msgstr "工作流已启动"
 
 msgid "Workflow completed"
 msgstr "工作流已完成"
-
-#, python-format
-msgid ""
-"\n"
-"                                        %(action)s by <b>%(who)s</b>\n"
-"                                    "
-msgstr ""
-"\n"
-"                                        %(action)s 经由 <b>%(who)s</b>\n"
-"                                    "
 
 #, python-format
 msgid "Workflow history for %(title)s"
@@ -1820,6 +1289,22 @@ msgstr "未完成的任务"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "此页面尚未提交审核"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "增加 %(label)s"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Add comment"
+msgstr "添加评论"
+
+msgid "Comment notifications"
+msgstr "评论通知"
+
 msgid "Collection management permissions"
 msgstr "集合管理权限"
 
@@ -1831,15 +1316,6 @@ msgstr "最后发布"
 
 msgid "Last published by"
 msgstr "最后发布者"
-
-#, python-format
-msgid ""
-"\n"
-"                                    %(time_period)s ago\n"
-"                                "
-msgstr ""
-"\n"
-"%(time_period)s之前"
 
 msgid "No pages found."
 msgstr "找不到页面。"
@@ -1862,42 +1338,6 @@ msgstr "应用过滤器"
 msgid "Locking status"
 msgstr "锁定状态"
 
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"                                被 <b>你</b> 锁定于<b>%(locking_date)s</b>\n"
-"                            "
-
-#, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"                                被 <b>%(locked_by)s</b> 锁定于 <b>"
-"%(locking_date)s</b>\n"
-"                            "
-
-#, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"                            锁定于 <b>%(locking_date)s</b>\n"
-"                        "
-
-msgid "Locked"
-msgstr "已锁定"
-
 msgid "No locked pages found."
 msgstr "找不到已锁定的页面。"
 
@@ -1909,6 +1349,9 @@ msgstr "按任务"
 
 msgid "Workflow"
 msgstr "工作流"
+
+msgid "Page"
+msgstr "页面"
 
 msgid "No pages have been submitted for moderation yet"
 msgstr "尚未提交任何页面进行审核"
@@ -1935,61 +1378,17 @@ msgstr "主页"
 msgid "All collections"
 msgstr "所有集合"
 
-msgid "Account settings"
-msgstr "帐号设置"
+msgid "History"
+msgstr "历史"
 
-msgid "Log out"
-msgstr "注销"
+msgid "Visit the live page"
+msgstr "查看已发布的页面"
 
 msgid "Current page status:"
 msgstr "当前页面状态："
 
 msgid "Other searches"
 msgstr "其它搜索"
-
-msgid "Changes requested"
-msgstr "请求的变更"
-
-msgid "since"
-msgstr "自"
-
-msgid "Published"
-msgstr "已发布"
-
-msgid "Draft saved"
-msgstr "已保存草稿"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
-"\"https://browsehappy.com/\">更新浏览器</a>。"
-
-msgid ""
-"\n"
-"            JavaScript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            使用 Wagtail 需要JavaScript支持，但是当前已被禁用。<br />\n"
-"            请查看 <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
-"JavaScript</a>。\n"
-"        "
-
-#, python-format
-msgid ""
-"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
-"IE11 alternatives</a>."
-msgstr ""
-"Wagtail已经移除了对IE11的支持。<a href=\"%(url)s\">了解更多关于IE11替代方案的"
-"信息</a>。"
 
 msgid "Skip to main content"
 msgstr "跳到主要内容"
@@ -2002,6 +1401,9 @@ msgstr "添加子页面"
 
 msgid "Show in Explorer"
 msgstr "在资源管理器中显示"
+
+msgid "No"
+msgstr "否"
 
 msgid "Are you sure you want to disable this workflow?"
 msgstr "确定要禁用此工作流吗？"
@@ -2055,20 +1457,6 @@ msgid "Used by"
 msgstr "被用于"
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"                                            %(counter)s 个页面\n"
-"                                        "
-
-#, python-format
 msgid "Step %(step_number)s"
 msgstr "步进数%(step_number)s"
 
@@ -2093,25 +1481,14 @@ msgstr "选择要创建的任务类型。"
 msgid "Choose a task"
 msgstr "选择一个任务"
 
+msgid "New"
+msgstr "新"
+
 msgid "Existing"
 msgstr "已存在"
 
 msgid "Choose a different task type"
 msgstr "选择一下不同的任务类型"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            有%(counter)s条匹配结果\n"
-"        "
 
 msgid "Task type"
 msgstr "任务类型"
@@ -2125,17 +1502,6 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的任务"
 
 msgid "You haven't created any tasks."
 msgstr "你还没有创建任何任务。"
-
-msgid ""
-"\n"
-"                Why not <a class=\"create-one-now\" href=\"#\">create one "
-"now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"               现在要 <a class=\"create-one-now\" href=\"#\">创建一个</a>"
-"吗?\n"
-"            "
 
 msgid "Hide disabled tasks"
 msgstr "隐藏禁用的任务"
@@ -2178,9 +1544,15 @@ msgstr "未启动"
 msgid "Changes requested by %(requested_by)s"
 msgstr "已由%(requested_by)s请求变更"
 
+msgid "Changes requested"
+msgstr "请求的变更"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "已由%(approved_by)s批准"
+
+msgid "Published"
+msgstr "已发布"
 
 msgid "See full history"
 msgstr "查看完整历史"
@@ -2211,6 +1583,9 @@ msgstr "0 分钟"
 
 msgid "Just now"
 msgstr "刚刚"
+
+msgid "Log out"
+msgstr "注销"
 
 msgid "live"
 msgstr "发布"
@@ -2680,10 +2055,16 @@ msgstr[0] ""
 msgid "Task '{0}' enabled."
 msgstr "任务 '{0}' 已启用。"
 
+msgid "Server Error"
+msgstr "服务器错误"
+
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
 msgstr "向系统管理员报告错误并提供以下信息："
+
+msgid "Pages"
+msgstr "页面"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2777,9 +2158,6 @@ msgstr "报告"
 
 msgid "Yes"
 msgstr "是"
-
-msgid "No"
-msgstr "否"
 
 msgid "Choose an item"
 msgstr "选择一项"

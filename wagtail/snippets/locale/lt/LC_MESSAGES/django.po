@@ -4,13 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017-2018\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,9 @@ msgstr "Ištrinti"
 msgid "Save"
 msgstr "Išsaugoti"
 
+msgid "Wagtail snippets"
+msgstr "Wagtail nuokarpos"
+
 msgid "Choose"
 msgstr "Pasirinkti"
 
@@ -37,11 +41,21 @@ msgstr "Paieška"
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Atsiprašome, jokios nuokarpos neatitiko \"<em>%(query_string)s</em>\""
 
+msgid "Last updated"
+msgstr "Pask. kartą atnaujinta"
+
 msgid "History"
 msgstr "Istorija"
 
 msgid "Saving…"
 msgstr "Saugoma…"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Ištrinti %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Ištrinti"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -54,6 +68,10 @@ msgstr[3] "Panaudota %(usage_count)s kartų"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Ar tikrai norite ištrinti šią %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Ar tikrai norite ištrinti %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
@@ -130,17 +148,43 @@ msgstr "Redaguoti šį puslapį"
 msgid "Search %(snippet_type_name)s"
 msgstr "Ieškoti %(snippet_type_name)s"
 
+msgid "The snippet could not be created due to errors."
+msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created."
+msgstr "%(snippet_type)s '%(instance)s' sukurta."
+
 msgid "Edit"
 msgstr "Redaguoti"
 
-msgid "The snippet could not be created due to errors."
-msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' atnaujinta."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' ištrinta."
+
+msgid "Snippet history"
+msgstr "Nuokarpos istorija"
+
+msgid "Action"
+msgstr "Veiksmas"
+
 msgid "Date"
 msgstr "Data"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redaguoti '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Ištrinti '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

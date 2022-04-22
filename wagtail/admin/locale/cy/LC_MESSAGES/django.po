@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -45,15 +45,6 @@ msgstr "Anghyhoedd"
 msgid "Delete"
 msgstr "Dileu"
 
-msgid "Lock"
-msgstr "Clo"
-
-msgid "Apply editor lock"
-msgstr "Cymhwyso clo golygydd"
-
-msgid "Unlock"
-msgstr "Datgloi"
-
 msgid "Save Draft"
 msgstr "Cadw drafft"
 
@@ -76,27 +67,6 @@ msgstr "Nid oes gennych ganiatâd i gael mynediad i'r weinyddiaeth"
 
 msgid "None"
 msgstr "Ddim"
-
-msgid "Scheduled publishing"
-msgstr "Cyhoeddi wedi'i drefnu"
-
-msgid "Privacy"
-msgstr "Preifatrwydd"
-
-msgid "For search engines"
-msgstr "Ar gyfer peiriannau chwilio"
-
-msgid "For site menus"
-msgstr "Ar gyfer ddewislen safle"
-
-msgid "Content"
-msgstr "Cynnwys"
-
-msgid "Promote"
-msgstr "Hyrwyddo"
-
-msgid "Settings"
-msgstr "Gosodiadau"
 
 msgid "Date from"
 msgstr "Dyddiad o"
@@ -273,50 +243,32 @@ msgstr "Mae angen y'r ffild hon."
 msgid "Please select at least one group."
 msgstr "Dewiswch o leiaf un grwp os gwelwch yn dda."
 
-msgid "Page"
-msgstr "Tudalen"
+msgid "Scheduled publishing"
+msgstr "Cyhoeddi wedi'i drefnu"
 
-msgid "Pages"
-msgstr "Tudalennau"
+msgid "Privacy"
+msgstr "Preifatrwydd"
 
-msgid "Server Error"
-msgstr "Gwall Gweinydd"
+msgid "For search engines"
+msgstr "Ar gyfer peiriannau chwilio"
 
-msgid "Alt text"
-msgstr "Testun alt"
+msgid "For site menus"
+msgstr "Ar gyfer ddewislen safle"
 
-msgid "Missing document"
-msgstr "Dogfen ar goll"
+msgid "Content"
+msgstr "Cynnwys"
 
-msgid "Close"
-msgstr "Cau"
+msgid "Promote"
+msgstr "Hyrwyddo"
 
-msgid "Save"
-msgstr "Cadw"
+msgid "Settings"
+msgstr "Gosodiadau"
 
-msgid "Saving..."
-msgstr "Cadw..."
+msgid "Status"
+msgstr "Statws"
 
-msgid "Cancel"
-msgstr "Canslo"
-
-msgid "Reply"
-msgstr "Ymateb"
-
-msgid "Resolve"
-msgstr "Datrys"
-
-msgid "Retry"
-msgstr "Ailgynnig"
-
-msgid "Are you sure?"
-msgstr "Wyt ti'n siwr?"
-
-msgid "Save error"
-msgstr "Arbed gwall"
-
-msgid "Comment"
-msgstr "Sylw"
+msgid "Preview"
+msgstr "Rhagolwg"
 
 msgid "Error 404"
 msgstr "Gwall 404"
@@ -357,14 +309,11 @@ msgstr "Dewis"
 msgid "Choose a page"
 msgstr "Dewisiwch tudalen"
 
+msgid "Save"
+msgstr "Cadw"
+
 msgid "Name"
 msgstr "Enw"
-
-msgid "Move up"
-msgstr "Symyd i fyny"
-
-msgid "Move down"
-msgstr "Symyd i lawr"
 
 msgid "Yes, delete"
 msgstr "Ia, dileu"
@@ -378,6 +327,9 @@ msgstr "Teitl"
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
 
+msgid "Unlock"
+msgstr "Datgloi"
+
 msgid "Draft"
 msgstr "Drafft"
 
@@ -386,12 +338,6 @@ msgstr "Yn fyw"
 
 msgid "Type"
 msgstr "Math"
-
-msgid "Preview"
-msgstr "Rhagolwg"
-
-msgid "Status"
-msgstr "Statws"
 
 msgid "Date"
 msgstr "Dyddiad"
@@ -405,20 +351,20 @@ msgstr "Na, peidiwch a ddileu"
 msgid "Yes, convert it"
 msgstr "Ia, ei drosi"
 
+msgid "Cancel"
+msgstr "Canslo"
+
 msgid "Copy"
 msgstr "Copio"
-
-msgid "New"
-msgstr "Newydd"
 
 msgid "Actions"
 msgstr "Gweithredoedd"
 
-msgid "History"
-msgstr "Hanes"
-
 msgid "Action"
 msgstr "Gweithred"
+
+msgid "Comment"
+msgstr "Sylw"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -433,8 +379,20 @@ msgstr "Blaenorol"
 msgid "Next"
 msgstr "Nesaf"
 
+msgid "Close"
+msgstr "Cau"
+
+msgid "Lock"
+msgstr "Clo"
+
 msgid "Started at"
 msgstr "Dechreuwyd yn"
+
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
 
 msgid "Download XLSX"
 msgstr "Lawrlwythwch XSLX"
@@ -448,6 +406,9 @@ msgstr "Hidlydd"
 msgid "Workflow"
 msgstr "Llif gwaith"
 
+msgid "Page"
+msgstr "Tudalen"
+
 msgid "Completed at"
 msgstr "Wedi'i gwblhau yn"
 
@@ -456,6 +417,12 @@ msgstr "Briwsion Bara"
 
 msgid "Home"
 msgstr "Adref"
+
+msgid "History"
+msgstr "Hanes"
+
+msgid "New"
+msgstr "Newydd"
 
 msgid "Published"
 msgstr "Wedi cyhoeddi"
@@ -481,11 +448,17 @@ msgstr "Analluogi"
 msgid "Enable"
 msgstr "Galluogi"
 
+msgid "Server Error"
+msgstr "Gwall Gweinydd"
+
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
 msgstr ""
 "Riportiwch y gwall hwn i weinyddwr eich gwefan gyda'r wybodaeth ganlynol:"
+
+msgid "Pages"
+msgstr "Tudalennau"
 
 #, python-format
 msgid "Edit '%(title)s'"

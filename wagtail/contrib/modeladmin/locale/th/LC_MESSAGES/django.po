@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -114,10 +114,6 @@ msgid "Home"
 msgstr "หน้าหลักของเว็บไซด์"
 
 #, python-format
-msgid " By %(filter_title)s "
-msgstr " โดย %(filter_title)s "
-
-#, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "ขออภัย,ไม่มี %(name)s ที่ตรงกันของการค้นหา."
 
@@ -145,17 +141,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "ยังไม่ %(name)s มีการถูกสร้าง"
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-" ทำไมคุณไม่ <a href=\"%(url)s\">เพิ่มสักอัน</a>?\n"
-" "
 
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."

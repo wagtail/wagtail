@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -66,12 +66,6 @@ msgstr "document"
 msgid "documents"
 msgstr "documenten"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "Voeg tags toe aan 1 document"
-msgstr[1] "Voeg tags toe aan %(counter)s documenten"
-
 msgid "Add tags to documents"
 msgstr "Voeg tags toe aan documenten"
 
@@ -92,12 +86,6 @@ msgstr "Ja, voeg toe"
 
 msgid "No, don't add"
 msgstr "Nee, niet toevoegen"
-
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "Voeg 1 document toe aan nieuwe collectie"
-msgstr[1] "Voeg %(counter)s documenten toe aan nieuwe collectie"
 
 msgid "Add documents to collection"
 msgstr "Voeg documenten toe aan collectie"
@@ -123,12 +111,6 @@ msgstr[0] ""
 msgstr[1] ""
 "U heeft niet de juiste rechten om deze documenten aan een collectie toe te "
 "voegen"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "Verwijder 1 document"
-msgstr[1] "Verwijder %(counter)s document"
 
 msgid "Delete documents"
 msgstr "Verwijder documenten"
@@ -164,22 +146,6 @@ msgstr "Zoek"
 msgid "Upload"
 msgstr "Uploaden"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Er is %(counter)s resultaat"
-msgstr[1] ""
-"\n"
-"Er zijn %(counter)s resultaten."
-
 msgid "Latest documents"
 msgstr "Nieuwste documenten"
 
@@ -194,17 +160,6 @@ msgstr "U heeft nog geen documenten aan deze collectie toegevoegd."
 
 msgid "You haven't uploaded any documents."
 msgstr "U heeft nog geen documenten geüpload."
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"Upload <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">een document</a>"
 
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
@@ -300,28 +255,6 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> document <span class=\"visuallyhidden"
-"\">aangemaakt in %(site_name)s</span>\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> documenten <span class=\"visuallyhidden"
-"\">aangemaakt in%(site_name)s</span>\n"
-"    "
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"

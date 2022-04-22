@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -72,11 +72,6 @@ msgstr "文档"
 msgid "documents"
 msgstr "文档"
 
-#, python-format
-msgid "Add tags to 1 document "
-msgid_plural "Add tags to %(counter)s documents"
-msgstr[0] "给%(counter)s个文档添加标签"
-
 msgid "Add tags to documents"
 msgstr "给文档添加标签"
 
@@ -94,11 +89,6 @@ msgstr "是的，添加"
 msgid "No, don't add"
 msgstr "否，不添加"
 
-#, python-format
-msgid "Add 1 document to new collection "
-msgid_plural "Add %(counter)s documents to new collection"
-msgstr[0] "将%(counter)s个文档添加到新集合"
-
 msgid "Add documents to collection"
 msgstr "将文档添加到集合"
 
@@ -113,11 +103,6 @@ msgstr[0] "是否确实要将以下文档添加到所选集合？"
 msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "您没有将这些文档添加到集合的权限"
-
-#, python-format
-msgid "Delete 1 document "
-msgid_plural "Delete %(counter)s documents"
-msgstr[0] "删除%(counter)s个文档"
 
 msgid "Delete documents"
 msgstr "删除文档"
@@ -150,20 +135,6 @@ msgstr "搜索"
 msgid "Upload"
 msgstr "上传"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            有%(counter)s条匹配结果\n"
-"        "
-
 msgid "Latest documents"
 msgstr "最新文档"
 
@@ -176,17 +147,6 @@ msgstr "你还没有上传任何文档到这个集合。"
 
 msgid "You haven't uploaded any documents."
 msgstr "你还没有上传任何文档。"
-
-#, python-format
-msgid ""
-"\n"
-"            Why not <a class=\"upload-one-now\" href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
-"            "
-msgstr ""
-"\n"
-"    现在<a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
-"\">上传一个文档</a>吗？"
 
 msgid "Uploading…"
 msgstr "正在上传…"
@@ -282,22 +242,6 @@ msgstr "状态"
 
 msgid "Edit this page"
 msgstr "编辑此页面"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span class=\"visuallyhidden\">在%(site_name)s中共创建了</span><span>"
-"%(total)s</span>个文档"
 
 msgid "Add multiple documents"
 msgstr "添加多个文档"

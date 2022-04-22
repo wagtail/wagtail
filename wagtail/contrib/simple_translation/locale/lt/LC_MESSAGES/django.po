@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Naglis Jonaitis, 2021
+# Naglis Jonaitis, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Naglis Jonaitis, 2021\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/"
 "lt/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,10 @@ msgstr "{} lokalės"
 
 msgid "Translate page"
 msgstr "Versti puslapį"
+
+#, python-brace-format
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "'{page_title}' puslapis sėkminai sukurtas {locales} lokalėse"
 
 #, python-brace-format
 msgid "Translate {model_name}"

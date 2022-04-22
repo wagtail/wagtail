@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -123,12 +123,6 @@ msgstr "profilo utente"
 msgid "user profiles"
 msgstr "profili utente"
 
-#, python-format
-msgid "Assign role to 1 user "
-msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "Assegna ruolo ad 1 utente"
-msgstr[1] "Assegna ruolo a %(counter)sutenti"
-
 msgid "Assign role"
 msgstr "Assegna ruolo"
 
@@ -145,12 +139,6 @@ msgstr "Sì, assegna"
 
 msgid "No, don't assign"
 msgstr "No, non assegnare"
-
-#, python-format
-msgid "Delete 1 user "
-msgid_plural "Delete %(counter)s users"
-msgstr[0] "Elimina 1 utente"
-msgstr[1] "Elimina %(counter)s utenti"
 
 msgid "Delete"
 msgstr "Elimina"
@@ -169,12 +157,6 @@ msgstr "Si, elimina"
 msgid "No, don't delete"
 msgstr "No, non eliminarlo"
 
-#, python-format
-msgid "Change active state for 1 user "
-msgid_plural "Change active state for %(counter)s users"
-msgstr[0] "Cambia lo stato attivo per un utente"
-msgstr[1] "Cambia lo stato attivo per %(counter)s utenti"
-
 msgid "Set active state"
 msgstr "Imposta lo stato attivo"
 
@@ -192,28 +174,6 @@ msgstr "No, non cambiare stato"
 
 msgid "Delete group"
 msgstr "Elimina gruppo"
-
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Il gruppo '%(group_name)s' ha <strong>%(group_user_count)s</"
-"strong> membro.\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Il gruppo '%(group_name)s' ha <strong>%(group_user_count)s</"
-"strong> membri.\n"
-"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -333,24 +293,6 @@ msgstr "Inattivo"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s fa"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            C'è %(counter)s corrispondenza\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Ci sono %(counter)s corrispondenze\n"
-"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

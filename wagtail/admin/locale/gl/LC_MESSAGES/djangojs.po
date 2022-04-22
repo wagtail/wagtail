@@ -1,0 +1,41 @@
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
+"Language-Team: Galician (https://www.transifex.com/torchbox/teams/8009/gl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Dashboard"
+msgstr "Panel de control"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit your account"
+msgstr "Editar a túa conta"
+
+msgid "Page"
+msgstr "Páxina"
+
+msgid "Pages"
+msgstr "Páxinas"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Saving..."
+msgstr "Gardando..."
+
+msgid "Search"
+msgstr "Porcurar"
+
+msgid "Server Error"
+msgstr "Erro do Servidor"

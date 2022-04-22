@@ -12,7 +12,7 @@
 # Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
-# M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -177,12 +177,6 @@ msgstr "Bild"
 msgid "images"
 msgstr "Bilder"
 
-#, python-format
-msgid "Add tags to 1 image "
-msgid_plural "Add tags to %(counter)s images"
-msgstr[0] "Schlagwörter zu 1 Bild hinzufügen"
-msgstr[1] "Schlagwörter zu %(counter)s Bildern hinzufügen"
-
 msgid "Add tags to images"
 msgstr "Schlagwörter zu Bildern hinzufügen"
 
@@ -205,12 +199,6 @@ msgstr "Ja, hinzufügen"
 
 msgid "No, don't add"
 msgstr "Nein, nicht hinzufügen"
-
-#, python-format
-msgid "Add 1 image to new collection "
-msgid_plural "Add %(counter)s images to new collection"
-msgstr[0] "1 Bild zur neuen Sammlung hinzufügen"
-msgstr[1] "%(counter)s Bilder zur neuen Sammlung hinzufügen"
 
 msgid "Add images to collection"
 msgstr "Der Sammlung hinzufügen"
@@ -276,23 +264,11 @@ msgstr "Hochladen"
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Es gibt %(counter)s Ergebnis\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
+msgid "Existing"
+msgstr "Vorhanden"
+
+msgid "New"
+msgstr "Neu"
 
 msgid "Latest images"
 msgstr "Neueste Bilder"
@@ -305,26 +281,6 @@ msgstr "Bild einfügen"
 
 msgid "Uploading…"
 msgstr "Wird hochgeladen…"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
-"in %(site_name)s</span>\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Bild <span class=\"visuallyhidden\">erstellt in "
-"%(site_name)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Bilder <span class=\"visuallyhidden\">erstellt in "
-"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Bild-Datei ändern: "
@@ -340,25 +296,6 @@ msgstr "Speichern"
 
 msgid "Delete image"
 msgstr "Bild löschen"
-
-msgid ""
-"\n"
-"                    Are you sure you want to delete this image?\n"
-"                "
-msgid_plural ""
-"\n"
-"                    Are you sure you want to delete these images?\n"
-"                "
-msgstr[0] ""
-"\n"
-"                    Sind Sie sich sicher, dass Sie dieses Bild löschen "
-"möchten?\n"
-"                "
-msgstr[1] ""
-"\n"
-"                    Sind Sie sich sicher, dass Sie diese Bilder löschen "
-"möchten?\n"
-"                "
 
 #, python-format
 msgid "Editing image %(title)s"

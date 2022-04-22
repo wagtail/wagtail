@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -35,32 +35,8 @@ msgid "Search"
 msgstr "ค้นหา"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" มี %(counter)s ที่ตรงกัน\n"
-" "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "ขออภัย, ไม่มีเกร็ดเล็กเกร็ดน้อยที่ตรงกัน \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
-msgstr ""
-"คุณยังไม่ได้สร้าง%(snippet_type_name)s เกร็ดเล็กเกร็ดน้อยอันไหนเลย ทำไมคุณไม่ <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">สร้างหนึ่งอันในตอนนี้</a>?"
 
 msgid "Saving…"
 msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
@@ -154,11 +130,11 @@ msgstr "แก้ไขหน้านี้"
 msgid "Search %(snippet_type_name)s"
 msgstr "ค้นหา %(snippet_type_name)s"
 
-msgid "Edit"
-msgstr "แก้ไข"
-
 msgid "The snippet could not be created due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "Edit"
+msgstr "แก้ไข"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"

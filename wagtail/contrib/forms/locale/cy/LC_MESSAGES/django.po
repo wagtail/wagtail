@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,10 +23,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Ffurflen Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s cyflwyniadau"
 
 msgid "Date from"
 msgstr "Dyddiad o"
@@ -107,19 +103,8 @@ msgstr "ofynnol"
 msgid "choices"
 msgstr "dewisiadau"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Rhestr o ddewisiadau wedi'u gwahanu gan goma. Dim ond yn berthnasol mewn "
-"blychau ticio, radio a'r gwymplen."
-
 msgid "default value"
 msgstr "gwerth rhagosodedig"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Gwerth diofyn. Cefnogir gwerthoedd gwahanu atalnodau ar gyfer blychau ticio."
 
 msgid "help text"
 msgstr "testun cymorth"
@@ -150,49 +135,18 @@ msgid "subject"
 msgstr "Pwnc"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s cyflwyniadau"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Dileu data'r ffurflen%(title)s"
 
 msgid "Delete form data"
 msgstr "Dileu data'r ffurflen"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Ydych chi'n siŵr eich bod am ddileu'r cyflwyniadau ffurflen "
-"hon?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Ydych chi'n siŵr eich bod am ddileu'r cyflwyniadau ffurflen "
-"hyn?\n"
-"            "
-msgstr[2] ""
-"\n"
-"                Ydych chi'n siŵr eich bod am ddileu'r cyflwyniadau ffurflen "
-"hyn?\n"
-"            "
-msgstr[3] ""
-"\n"
-"                Ydych chi'n siŵr eich bod am ddileu'r cyflwyniadau ffurflen "
-"hyn?\n"
-"            "
-
 msgid "Delete"
 msgstr "Dileu"
-
-msgid "Total submissions"
-msgstr "Cyfanswm y cyflwyniadau"
-
-msgid "Latest submission"
-msgstr "Y cyflwyniadau diweddaraf"
 
 msgid "Forms"
 msgstr "Ffurflenni"
@@ -229,6 +183,12 @@ msgstr "Gwraidd"
 
 msgid "Delete selected submissions"
 msgstr "Dileu cyflwyniadau dethol"
+
+msgid "Total submissions"
+msgstr "Cyfanswm y cyflwyniadau"
+
+msgid "Latest submission"
+msgstr "Y cyflwyniadau diweddaraf"
 
 msgid "No form pages have been created."
 msgstr "Nid oes unrhyw dudalennau ffurflen wedi'u creu."

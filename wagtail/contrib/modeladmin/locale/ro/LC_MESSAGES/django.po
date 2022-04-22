@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Dan Braghis, 2016,2019-2021\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -122,10 +122,6 @@ msgstr "Nu, nu șterge"
 msgid "Home"
 msgstr "Acasă"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr " După %(filter_title)s "
-
 msgid "Last updated"
 msgstr "Ultima actualizare"
 
@@ -167,18 +163,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Nu a fost creată nici o %(name)s."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                De ce să nu adăugați <a href="
-"\"%(url)s\">una</a>?\n"
-"                                            "
 
 msgid "Pagination"
 msgstr "Paginare"

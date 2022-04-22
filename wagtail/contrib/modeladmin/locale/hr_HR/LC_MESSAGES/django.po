@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -118,10 +118,6 @@ msgstr "Ne, nemoj izbrisati"
 msgid "Home"
 msgstr "Naslovna"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "Po %(filter_title)s"
-
 msgid "History"
 msgstr "Povijest"
 
@@ -157,16 +153,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Nema stvorenih %(name)s."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"Zašto ne biste <a href=\"%(url)s\">dodali jedan</a>?"
 
 msgid "Pagination"
 msgstr "Numeriranje stranica"

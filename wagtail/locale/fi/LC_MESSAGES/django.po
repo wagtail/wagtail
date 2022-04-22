@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Glen Somerville <glen.somerville@gmail.com>, 2015
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +45,9 @@ msgstr "Siirrä ylös"
 msgid "Move down"
 msgstr "Siirrä alas"
 
+msgid "Duplicate"
+msgstr "Kaksoiskappale"
+
 msgid "Delete"
 msgstr "Poista"
 
@@ -60,6 +63,12 @@ msgstr "Tällä lohkolla ei ole valintoja."
 
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtailin käyttöliittymän välimuisti"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtailin sivukartat"
 
 msgid "Password"
 msgstr "Salasana"
@@ -268,8 +277,22 @@ msgstr "nimi"
 msgid "active"
 msgstr "aktiivinen"
 
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktiivisia tehtäviä on mahdollista lisätä työnkulkuihin. Tehtävän "
+"aktivoinnin poistaminen ei poista tehtävää olemassa olevasta työnkulusta."
+
 msgid "tasks"
 msgstr "tehtävät"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Aktiivisia työnkulkuja on mahdollista lisätä sivuihin. Työnkulun aktivoinnin "
+"poistaminen ei poista työnkulkua olemassa olevasta sivusta."
 
 msgid "workflows"
 msgstr "työnkulut"
@@ -285,6 +308,15 @@ msgstr "Hyväksy"
 
 msgid "Approve with comment"
 msgstr "Hyväksy kommentin kera"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Valitun Wagtail-ryhmän jäsenet voivat hyväksyä tämän tehtävän"
+
+msgid "Group approval task"
+msgstr "Ryhmän hyväksyntätehtävä"
+
+msgid "Group approval tasks"
+msgstr "Ryhmän hyväksyntätehtävät"
 
 msgid "In progress"
 msgstr "Meneillään"
@@ -306,6 +338,10 @@ msgstr "pyytänyt"
 
 msgid "current task state"
 msgstr "nykyinen tehtävän tila"
+
+#, python-brace-format
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Työnkulku '{0}' sivulla '{1}': {2}"
 
 msgid "Not started"
 msgstr "Ei aloitettu"
@@ -343,8 +379,23 @@ msgstr "Luonnos tallennettu"
 msgid "comment"
 msgstr "kommentti"
 
+msgid "comments"
+msgstr "kommentit"
+
+msgid "comment reply"
+msgstr "kommentin vastaus"
+
+msgid "comment replies"
+msgstr "kommentin vastaukset"
+
 msgid "timestamp (UTC)"
 msgstr "aikaleima (UTC)"
+
+msgid "log entry"
+msgstr "lokimerkintä"
+
+msgid "log entries"
+msgstr "lokimerkinnät"
 
 msgid "The log action '{}' has not been registered."
 msgstr "Lokitoimintoa '{}' ei ole rekisteröity."
@@ -359,6 +410,12 @@ msgstr "järjestelmä"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Tuntematon %(action)s"
+
+msgid "model log entry"
+msgstr "mallin lokimerkintä"
+
+msgid "model log entries"
+msgstr "mallin lokimerkinnät"
 
 msgid "collection"
 msgstr "kokoelma"
@@ -474,11 +531,23 @@ msgstr "Tarvitset salasanan päästäksesi tälle sivulle"
 msgid "Continue"
 msgstr "Jatka"
 
+msgid "Wagtail search tests"
+msgstr "Wagtailin hakutestit"
+
 msgid "English"
 msgstr "englanti"
 
 msgid "French"
 msgstr "ranska"
+
+msgid "Wagtail tests"
+msgstr "Wagtailin testit"
+
+msgid "The form is already filled."
+msgstr "Lomake on jo täytetty."
+
+msgid "You must log in first."
+msgstr "Sinun tulee ensin kirjautua sisään."
 
 msgid "German"
 msgstr "saksa"
@@ -528,6 +597,10 @@ msgstr "Hylkää"
 msgid "Rename"
 msgstr "Nimeä uudelleen"
 
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Nimetty uudelleen '%(old)s' muotoon '%(new)s'"
+
 msgid "Renamed"
 msgstr "Nimetty uudelleen"
 
@@ -568,12 +641,24 @@ msgstr "SIirrä"
 msgid "Moved"
 msgstr "Siirretty"
 
+msgid "Reorder"
+msgstr "Järjestä uudelleen"
+
+msgid "Reordered"
+msgstr "Järjestetty uudelleen"
+
+msgid "Schedule publication"
+msgstr "Aikatauluta julkaisu"
+
 #, python-format
 msgid "Page scheduled for publishing at %(go_live_at)s"
 msgstr "Sivu ajastettu julkaistavaksi %(go_live_at)s"
 
 msgid "Page scheduled for publishing"
 msgstr "Sivu ajastettu julkaistavaksi"
+
+msgid "Unschedule publication"
+msgstr "Poista julkaisun aikataulutus"
 
 msgid "Page unscheduled from publishing"
 msgstr "Sivun ajastettu julkaisu peruttu"
@@ -609,11 +694,19 @@ msgstr "Lisätty kommentti"
 msgid "Edit comment"
 msgstr "Muokkaa kommenttia"
 
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Muokattu kommenttia kentässä %(field)s: \"%(text)s\""
+
 msgid "Edited a comment"
 msgstr "Muokattu kommenttia"
 
 msgid "Delete comment"
 msgstr "Poista kommentti"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Poistettu kommentti kentässä %(field)s: \"%(text)s\""
 
 msgid "Deleted a comment"
 msgstr "Poistettu kommentti"
@@ -666,8 +759,22 @@ msgstr "Hyväksytty tehtävässä '%(task)s'. '%(workflow)s' valmistui"
 msgid "Workflow task approved"
 msgstr "Työnkulun tehtävä hyväksytty"
 
+msgid "Workflow: reject task"
+msgstr "Työnkulku: hylkää tehtävä"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Hylätty tehtävässä '%(task)s'. Muutoksia pyydetty"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Työnkulun tehtävä hylätty. Työnkulku valmistui"
+
 msgid "Workflow: cancel"
 msgstr "Työnkulku: peruttu"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Peruttu työnkulku '%(workflow)s' tehtävässä '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Työnkulku peruttu"

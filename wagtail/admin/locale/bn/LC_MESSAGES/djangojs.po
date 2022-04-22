@@ -1,0 +1,24 @@
+#
+# Translators:
+# Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2022
+# MA Rahman <ugikot@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: MA Rahman <ugikot@gmail.com>, 2022\n"
+"Language-Team: Bengali (https://www.transifex.com/torchbox/teams/8009/bn/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: bn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "মুছে ফেলুন "
+
+msgid "Edit"
+msgstr "সম্পাদনা করুন"
+
+msgid "Save"
+msgstr "সংরক্ষণ"
+
+msgid "Search"
+msgstr "সার্চ"

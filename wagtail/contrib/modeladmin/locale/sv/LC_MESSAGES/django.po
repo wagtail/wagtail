@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -120,10 +120,6 @@ msgstr "Nej, radera inte"
 msgid "Home"
 msgstr "Hem"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "Av %(filter_title)s"
-
 msgid "Last updated"
 msgstr "Senast ändrad"
 
@@ -165,18 +161,6 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Inga %(name)s har skapats ännu."
-
-#, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                Varför inte <a href=\"%(url)s"
-"\">lägga till en</a>?\n"
-"                                            "
 
 msgid "Pagination"
 msgstr "Sidnumrering"

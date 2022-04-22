@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -122,12 +122,6 @@ msgstr "felhasználói profil"
 msgid "user profiles"
 msgstr "felhasználói fiókok"
 
-#, python-format
-msgid "Assign role to 1 user "
-msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "Szerepkör hozzáadása 1 felhasználóhoz"
-msgstr[1] "Szerepkör hozzáadása %(counter)s felhasználóhoz"
-
 msgid "Assign role"
 msgstr "Szerepkör hozzáadása"
 
@@ -144,12 +138,6 @@ msgstr "Igen, hozzáadom"
 
 msgid "No, don't assign"
 msgstr "Nem, mégsem"
-
-#, python-format
-msgid "Delete 1 user "
-msgid_plural "Delete %(counter)s users"
-msgstr[0] "1 felhasználó törlése"
-msgstr[1] "%(counter)s felhasználó törlése"
 
 msgid "Delete"
 msgstr "Törlés"
@@ -168,12 +156,6 @@ msgstr "Igen, törlés"
 msgid "No, don't delete"
 msgstr "Nem, ne töröljük"
 
-#, python-format
-msgid "Change active state for 1 user "
-msgid_plural "Change active state for %(counter)s users"
-msgstr[0] "1 felhasználó státusztának megváltoztatása"
-msgstr[1] "%(counter)s felhasználó státuszának megváltoztatása"
-
 msgid "Set active state"
 msgstr "Aktív státusz beállítása"
 
@@ -191,26 +173,6 @@ msgstr "Nem, mégsem"
 
 msgid "Delete group"
 msgstr "Csoport törlése"
-
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong>  "
-"tagja van."
-msgstr[1] ""
-"\n"
-"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong> tagja "
-"van."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -331,22 +293,6 @@ msgstr "Kikapcsolt"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s találat"
-msgstr[1] ""
-"\n"
-"%(counter)s találat"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

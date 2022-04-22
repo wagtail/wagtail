@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017-2018\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -20,10 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s pateikimas"
 
 msgid "Date from"
 msgstr "Data nuo"
@@ -98,20 +94,8 @@ msgstr "būtinas"
 msgid "choices"
 msgstr "pasirinkimai"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Kableliais atskirtas pasirinkimų sąrašas. Tinka tik žymimiesiems langeliams, "
-"vieno pasirinkimo langeliams ir išsiskleidžiantiems sąrašams."
-
 msgid "default value"
 msgstr "numatytoji reikšmė"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Numatytoji reikšmė. Kableliais atskirtos reikšmės palaikomos žymimiesiems "
-"langeliams."
 
 msgid "help text"
 msgstr "pagalbinis tekstas"
@@ -136,41 +120,18 @@ msgid "subject"
 msgstr "tema"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s pateikimas"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Ištrinti formos duomenis %(title)s"
 
 msgid "Delete form data"
 msgstr "Ištrinti formos duomenis"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"Ar tikrai norite ištrinti šį formos pateikimą?"
-msgstr[1] ""
-"\n"
-"Ar tikrai norite ištrinti šiuos formų pateikimus?"
-msgstr[2] ""
-"\n"
-"Ar tikrai norite ištrinti šiuos formų pateikimus?"
-msgstr[3] ""
-"\n"
-"Ar tikrai norite ištrinti šiuos formų pateikimus?"
-
 msgid "Delete"
 msgstr "Ištrinti"
-
-msgid "Total submissions"
-msgstr "Viso pateikimų"
-
-msgid "Latest submission"
-msgstr "Paskutinis pateikimas"
 
 msgid "Forms"
 msgstr "Formos"
@@ -207,6 +168,12 @@ msgstr "Kilmė"
 
 msgid "Delete selected submissions"
 msgstr "Ištrinti pasirinktus pateikimus"
+
+msgid "Total submissions"
+msgstr "Viso pateikimų"
+
+msgid "Latest submission"
+msgstr "Paskutinis pateikimas"
 
 msgid "No form pages have been created."
 msgstr "Jokie formų puslapiai nebuvo sukurti."

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -26,10 +26,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail formlar"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s teslim"
 
 msgid "Date from"
 msgstr "Başlangıç tarihi"
@@ -104,18 +100,8 @@ msgstr "gerekli"
 msgid "choices"
 msgstr "şıklar"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Virgülle ayrılmış seçimler listesi. Sadece onay kutuları, radyo düğmeleri ve "
-"açılır listelere uygulanabilir."
-
 msgid "default value"
 msgstr "varsayılan değer"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "Varsayılan değer. Onay kutuları için virgülle ayrılmış değerler."
 
 msgid "help text"
 msgstr "yardım metni"
@@ -146,37 +132,18 @@ msgid "subject"
 msgstr "konu"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s teslim"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "%(title)s form verisini sil"
 
 msgid "Delete form data"
 msgstr "Form verisini sil"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Bu form iletisini silmek istediğinize emin misiniz?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Bu form iletilerini silmek istediğinize emin misiniz?\n"
-"            "
-
 msgid "Delete"
 msgstr "Sil"
-
-msgid "Total submissions"
-msgstr "Toplam ileti"
-
-msgid "Latest submission"
-msgstr "Son ileti"
 
 msgid "Forms"
 msgstr "Formlar"
@@ -213,6 +180,12 @@ msgstr "Köken"
 
 msgid "Delete selected submissions"
 msgstr "Seçili iletileri sil"
+
+msgid "Total submissions"
+msgstr "Toplam ileti"
+
+msgid "Latest submission"
+msgstr "Son ileti"
 
 msgid "No form pages have been created."
 msgstr "Herhangi bir form sayfası oluşturulmadı."

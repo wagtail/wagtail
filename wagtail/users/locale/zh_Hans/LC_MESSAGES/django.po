@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017,2019-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -128,11 +128,6 @@ msgstr "用户资料"
 msgid "user profiles"
 msgstr "用户资料"
 
-#, python-format
-msgid "Assign role to 1 user "
-msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "将角色分配给%(counter)s个用户"
-
 msgid "Assign role"
 msgstr "分配角色"
 
@@ -149,11 +144,6 @@ msgstr "是的，分配"
 msgid "No, don't assign"
 msgstr "否，不分配"
 
-#, python-format
-msgid "Delete 1 user "
-msgid_plural "Delete %(counter)s users"
-msgstr[0] "删除%(counter)s个用户"
-
 msgid "Delete"
 msgstr "删除"
 
@@ -169,11 +159,6 @@ msgstr "确认删除"
 
 msgid "No, don't delete"
 msgstr "否，不删除"
-
-#, python-format
-msgid "Change active state for 1 user "
-msgid_plural "Change active state for %(counter)s users"
-msgstr[0] "更改%(counter)s个用户的活动状态"
 
 msgid "Set active state"
 msgstr "设置活动状态"
@@ -192,23 +177,6 @@ msgstr "否，不更改状态"
 
 msgid "Delete group"
 msgstr "删除组"
-
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                '%(group_name)s' 组有 <strong>%(group_user_count)s</strong> "
-"个成员。\n"
-"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -325,20 +293,6 @@ msgstr "无效"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s 之前"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            有%(counter)s条匹配结果\n"
-"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

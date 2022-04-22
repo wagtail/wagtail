@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: hanfeng <appweb.cn@gmail.com>, 2014,2017\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -38,12 +38,6 @@ msgstr "您没有进入后台的权限"
 
 msgid "None"
 msgstr "没有"
-
-msgid "Content"
-msgstr "内容"
-
-msgid "Settings"
-msgstr "设置"
 
 msgid "First Name"
 msgstr "名"
@@ -84,17 +78,17 @@ msgstr "搜索"
 msgid "Search term"
 msgstr "搜索词"
 
-msgid "Server Error"
-msgstr "服务错误"
+msgid "Content"
+msgstr "内容"
 
-msgid "Save"
-msgstr "保存"
+msgid "Settings"
+msgstr "设置"
 
-msgid "Saving..."
-msgstr "正在保存"
+msgid "Status"
+msgstr "状态"
 
-msgid "Dashboard"
-msgstr "仪表板"
+msgid "Preview"
+msgstr "预览"
 
 msgid "Account"
 msgstr "账号"
@@ -151,20 +145,20 @@ msgstr "插入一个链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
+msgid "Save"
+msgstr "保存"
+
 msgid "Name"
 msgstr "名字"
-
-msgid "Move up"
-msgstr "向上移动"
-
-msgid "Move down"
-msgstr "向下移动"
 
 msgid "Yes, delete"
 msgstr "是的，删除"
 
 msgid "Update"
 msgstr "更新"
+
+msgid "Dashboard"
+msgstr "仪表板"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -199,14 +193,8 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
-msgid "Preview"
-msgstr "预览"
-
 msgid "Your most recent edits"
 msgstr "你最近的编辑"
-
-msgid "Status"
-msgstr "状态"
 
 msgid "Date"
 msgstr "日期"
@@ -326,9 +314,6 @@ msgstr "复制"
 msgid "New %(page_type)s"
 msgstr "新%(page_type)s类"
 
-msgid "New"
-msgstr "新"
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "浏览%(title)s"
@@ -366,6 +351,12 @@ msgstr "为<span>%(title)s</span>选择一个新的根页面"
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
 
+msgid "Move up"
+msgstr "向上移动"
+
+msgid "Move down"
+msgstr "向下移动"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第%(page_num)s页 共%(total_pages)s页"
@@ -373,11 +364,8 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 msgid "Home"
 msgstr "主页"
 
-msgid "Account settings"
-msgstr "账号设置"
-
-msgid "Log out"
-msgstr "登出"
+msgid "New"
+msgstr "新"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -385,6 +373,9 @@ msgstr "作者%(modified_by)s"
 
 msgid "More"
 msgstr "更多"
+
+msgid "Log out"
+msgstr "登出"
 
 msgid "Password"
 msgstr "密码"
@@ -431,6 +422,9 @@ msgstr "第 '{0}' 页已移动。"
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
+
+msgid "Server Error"
+msgstr "服务错误"
 
 msgid "Add child page"
 msgstr "添加子页面"

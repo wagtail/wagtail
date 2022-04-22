@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -24,10 +24,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "نماذج Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%sالمقدمة "
 
 msgid "Date from"
 msgstr "التاريخ من"
@@ -102,18 +98,8 @@ msgstr "مطلوب"
 msgid "choices"
 msgstr "خيارات"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"قائمة مفصولة بفواصل من الخيارات. ينطبق فقط في مربعات الاختيار والإذاعة "
-"والقائمة المنسدلة."
-
 msgid "default value"
 msgstr "القيمة الإفتراضية"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr "القيمة الافتراضية. قيم مفصولة بفواصل معتمدة لمربعات الاختيار."
 
 msgid "help text"
 msgstr "نص للمساعدة"
@@ -138,47 +124,18 @@ msgid "subject"
 msgstr "موضوع"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%sالمقدمة "
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "حذف من بيانات%(title)s"
 
 msgid "Delete form data"
 msgstr "حذف بيانات النموذج"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"هل أنت متأكد من أنك تريد حذف هذه الطلب؟"
-msgstr[1] ""
-"\n"
-"هل أنت متأكد من أنك تريد حذف هذه الطلب؟"
-msgstr[2] ""
-"\n"
-"هل أنت متأكد من أنك تريد حذف هذه الطلبات؟"
-msgstr[3] ""
-"\n"
-"هل أنت متأكد من أنك تريد حذف هذه الطلبات؟"
-msgstr[4] ""
-"\n"
-"هل أنت متأكد من أنك تريد حذف هذه الطلبات؟"
-msgstr[5] ""
-"\n"
-"هل أنت متأكد من أنك تريد حذف هذه الطلبات؟"
-
 msgid "Delete"
 msgstr "احذف"
-
-msgid "Total submissions"
-msgstr "مجموع التقديمات"
-
-msgid "Latest submission"
-msgstr "أحدث التقديم"
 
 msgid "Forms"
 msgstr "نماذج"
@@ -208,6 +165,12 @@ msgstr "أصل"
 
 msgid "Delete selected submissions"
 msgstr "حذف التقديمات المحددة"
+
+msgid "Total submissions"
+msgstr "مجموع التقديمات"
+
+msgid "Latest submission"
+msgstr "أحدث التقديم"
 
 msgid "No form pages have been created."
 msgstr "لم تنشئ أي  نماذج."

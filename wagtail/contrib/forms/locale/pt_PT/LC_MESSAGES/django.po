@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -25,10 +25,6 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Formulários Wagtail"
-
-#, python-format
-msgid "%s submissions"
-msgstr "%s envios"
 
 msgid "Date from"
 msgstr "Data desde"
@@ -111,20 +107,8 @@ msgstr "obrigatório"
 msgid "choices"
 msgstr "opções"
 
-msgid ""
-"Comma separated list of choices. Only applicable in checkboxes, radio and "
-"dropdown."
-msgstr ""
-"Lista de opções separadas por vírgula. Só utilizável nas caixas de seleção, "
-"botões de seleção e listas pendentes."
-
 msgid "default value"
 msgstr "valor pré-definido"
-
-msgid "Default value. Comma separated values supported for checkboxes."
-msgstr ""
-"Valor pré-definido. Valores separados por vírgula são permitidos para caixas "
-"de seleção."
 
 msgid "help text"
 msgstr "texto de ajuda"
@@ -155,37 +139,18 @@ msgid "subject"
 msgstr "assunto"
 
 #, python-format
+msgid "%s submissions"
+msgstr "%s envios"
+
+#, python-format
 msgid "Delete form data %(title)s"
 msgstr "Apagar dados do formulário %(title)s"
 
 msgid "Delete form data"
 msgstr "Apagar dados do formulário"
 
-msgid ""
-"\n"
-"                Are you sure you want to delete this form submission?\n"
-"            "
-msgid_plural ""
-"\n"
-"                Are you sure you want to delete these form submissions?\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Tem a certeza que quer apagar este envio de formulário?\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Tem a certeza que quer apagar estes envios de formulário?\n"
-"            "
-
 msgid "Delete"
 msgstr "Apagar"
-
-msgid "Total submissions"
-msgstr "Total de envios"
-
-msgid "Latest submission"
-msgstr "Último envio"
 
 msgid "Forms"
 msgstr "Formulários"
@@ -222,6 +187,12 @@ msgstr "Origem"
 
 msgid "Delete selected submissions"
 msgstr "Apagar entradas selecionadas"
+
+msgid "Total submissions"
+msgstr "Total de envios"
+
+msgid "Latest submission"
+msgstr "Último envio"
 
 msgid "No form pages have been created."
 msgstr "Não existem páginas de formulário."
