@@ -93,15 +93,19 @@ class PreviewSidePanel(BaseSidePanel):
 
 
 class PageSidePanels:
-    def __init__(self, request, page):
+    def __init__(self, request, page, *, comments_enabled):
         self.request = request
         self.page = page
 
         self.side_panels = [
             StatusSidePanel(page, self.request),
-            CommentsSidePanel(page, self.request),
             # PreviewSidePanel(page),
         ]
+
+        if comments_enabled:
+            self.side_panels = self.side_panels + [
+                CommentsSidePanel(page, self.request)
+            ]
 
     def __iter__(self):
         return iter(self.side_panels)

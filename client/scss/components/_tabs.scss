@@ -11,7 +11,7 @@
 
 .w-tabs {
   &__wrapper {
-    @apply w-mb-10 w-overflow-x-auto w-scrollbar-thin;
+    @apply w-mb-10 w-overflow-x-auto w-scrollbar-thin w-flex w-items-center w-justify-between w-flex-wrap w-gap-4;
   }
 
   &__list {
