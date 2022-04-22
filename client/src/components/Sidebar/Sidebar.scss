@@ -42,7 +42,7 @@
 }
 
 .sidebar {
-  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300] w-transition-sidebar w-duration-150 w-ease-linear;
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300] w-transition-sidebar;
   width: $menu-width;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list

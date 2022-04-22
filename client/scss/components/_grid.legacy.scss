@@ -2,7 +2,7 @@
   @include clearfix();
   height: 100vh;
   transition: transform 0.2s ease;
-  @apply w-transition-sidebar w-duration-150 w-ease-linear;
+  @apply w-transition-sidebar;
 
   @include media-breakpoint-up(sm) {
     transform: none;

@@ -68,7 +68,9 @@ interface MenuProps {
   slim: boolean;
   expandingOrCollapsing: boolean;
   onAccountExpand: () => void;
+  onHideMobile: () => void;
   currentPath: string;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -78,6 +80,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   user,
   expandingOrCollapsing,
   onAccountExpand,
+  onHideMobile,
   slim,
   currentPath,
   navigate,
@@ -138,6 +141,10 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           type: 'set-navigation-path',
           path: '',
         });
+
+        if (state.navigationPath === '') {
+          onHideMobile();
+        }
       }
     };
 
@@ -162,7 +169,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
       document.removeEventListener('mousedown', onClickOutside);
       document.removeEventListener('touchend', onClickOutside);
     };
-  }, []);
+  }, [state]);
 
   const onClickAccountSettings = () => {
     // Pass account expand information to Sidebar component
@@ -269,6 +276,7 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
     slim,
     expandingOrCollapsing,
     onAccountExpand,
+    onHideMobile,
     key,
     currentPath,
     navigate,
@@ -281,6 +289,7 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
         slim={slim}
         expandingOrCollapsing={expandingOrCollapsing}
         onAccountExpand={onAccountExpand}
+        onHideMobile={onHideMobile}
         key={key}
         currentPath={currentPath}
         navigate={navigate}

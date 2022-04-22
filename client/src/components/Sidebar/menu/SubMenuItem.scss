@@ -31,7 +31,7 @@
 }
 
 .sidebar-sub-menu-panel {
-  @apply w-flex w-flex-col w-bg-primary-200 w-h-screen w-transition-sidebar w-duration-150 w-ease-linear;
+  @apply w-flex w-flex-col w-bg-primary-200 w-h-screen w-transition-sidebar;
   width: $menu-width;
 
   > h2,
@@ -41,7 +41,7 @@
 
   > h2 {
     // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
-    @apply w-min-h-[160px] w-mt-[45px] w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center w-transition-sidebar w-duration-150 w-ease-linear;
+    @apply w-min-h-[160px] w-mt-[45px] w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center w-transition-sidebar;
 
     &:before {
       font-size: 4em;

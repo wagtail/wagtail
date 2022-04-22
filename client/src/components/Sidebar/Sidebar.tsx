@@ -11,6 +11,7 @@ export interface ModuleRenderContext {
   slim: boolean;
   expandingOrCollapsing: boolean;
   onAccountExpand: () => void;
+  onHideMobile: () => void;
   onSearchClick: () => void;
   currentPath: string;
   navigate(url: string): Promise<void>;
@@ -39,6 +40,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
   const [collapsed, setCollapsed] = React.useState(collapsedOnLoad);
+  const sidebarRef = React.useRef<HTMLDivElement>(null);
+  const mobileNavToggleRef = React.useRef<HTMLButtonElement>(null);
 
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {
@@ -103,6 +106,17 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     setVisibleOnMobile(!visibleOnMobile);
     setExpandingOrCollapsing(true);
 
+    if (isMobile) {
+      const focusableElements: NodeListOf<HTMLInputElement> | undefined =
+        sidebarRef.current?.querySelectorAll(
+          'a[href], button:not([disabled]), textarea, input, select',
+        );
+      if (focusableElements !== undefined) {
+        const firstElement = focusableElements[1];
+        firstElement.focus();
+      }
+    }
+
     const finishTimeout = setTimeout(() => {
       setExpandingOrCollapsing(false);
     }, SIDEBAR_TRANSITION_DURATION);
@@ -139,6 +153,15 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     }
   };
 
+  const onHideMobile = () => {
+    setVisibleOnMobile(false);
+
+    if (mobileNavToggleRef) {
+      // When menu is closed with escape key bring focus back to open close toggle
+      mobileNavToggleRef.current?.focus();
+    }
+  };
+
   // Render modules
   const renderedModules = modules.map((module, index) =>
     module.render({
@@ -146,6 +169,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       slim,
       expandingOrCollapsing,
       onAccountExpand,
+      onHideMobile,
       onSearchClick,
       currentPath,
       navigate,
@@ -161,6 +185,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           (isMobile ? ' sidebar--mobile' : '') +
           (isMobile && !visibleOnMobile ? ' sidebar--hidden' : '')
         }
+        aria-hidden={isMobile && !visibleOnMobile}
+        ref={sidebarRef}
       >
         <div
           className="sidebar__inner"
@@ -207,6 +233,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
         }
         type="button"
+        ref={mobileNavToggleRef}
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>
