@@ -76,7 +76,7 @@ def get_snippet_usage_url(self):
 
 @classmethod
 def get_admin_base_path(cls):
-    return f"newsnippets/{cls._meta.app_label}/{cls._meta.model_name}"
+    return f"snippets/{cls._meta.app_label}/{cls._meta.model_name}"
 
 
 @classmethod
