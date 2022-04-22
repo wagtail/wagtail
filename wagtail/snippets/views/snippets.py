@@ -111,7 +111,10 @@ class List(IndexView):
         self.permission_policy = ModelPermissionPolicy(self.model)
 
     def get_index_url(self):
-        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+        return reverse(self.viewset.get_url_name("list"))
+
+    def get_edit_url_name(self):
+        return self.viewset.get_url_name("edit")
 
     def get_queryset(self):
         items = self.model.objects.all()
@@ -166,10 +169,7 @@ class List(IndexView):
             context["translations"] = [
                 {
                     "locale": locale,
-                    "url": reverse(
-                        "wagtailsnippets:list",
-                        args=[self.app_label, self.model_name],
-                    )
+                    "url": self.viewset.get_url_name("list")
                     + "?locale="
                     + locale.language_code,
                 }
@@ -205,7 +205,7 @@ class Create(CreateView):
         return get_snippet_panel(self.model)
 
     def get_add_url(self):
-        url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
+        url = reverse(self.viewset.get_url_name("add"))
         if self.locale:
             url += "?locale=" + self.locale.language_code
         return url
@@ -215,10 +215,7 @@ class Create(CreateView):
         if self.locale and self.object.locale is not Locale.get_default():
             urlquery = "?locale=" + self.object.locale.language_code
 
-        return (
-            reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
-            + urlquery
-        )
+        return reverse(self.viewset.get_url_name("list")) + urlquery
 
     def get_success_message(self, instance):
         return _("%(snippet_type)s '%(instance)s' created.") % {
@@ -230,12 +227,8 @@ class Create(CreateView):
         return [
             messages.button(
                 reverse(
-                    "wagtailsnippets:edit",
-                    args=(
-                        self.app_label,
-                        self.model_name,
-                        quote(self.object.pk),
-                    ),
+                    self.viewset.get_url_name("edit"),
+                    args=[quote(self.object.pk)],
                 ),
                 _("Edit"),
             )
@@ -278,10 +271,7 @@ class Create(CreateView):
             context["translations"] = [
                 {
                     "locale": locale,
-                    "url": reverse(
-                        "wagtailsnippets:add",
-                        args=[self.app_label, self.model_name],
-                    )
+                    "url": reverse(self.viewset.get_url_name("add"))
                     + "?locale="
                     + locale.language_code,
                 }
@@ -317,23 +307,19 @@ class Edit(EditView):
 
     def get_edit_url(self):
         return reverse(
-            "wagtailsnippets:edit",
-            args=[self.app_label, self.model_name, quote(self.object.pk)],
+            self.viewset.get_url_name("edit"),
+            args=[quote(self.object.pk)],
         )
 
     def get_delete_url(self):
         # This actually isn't used because we use a custom action menu
         return reverse(
-            "wagtailsnippets:delete",
-            args=[
-                self.app_label,
-                self.model_name,
-                quote(self.object.pk),
-            ],
+            self.viewset.get_url_name("delete"),
+            args=[quote(self.object.pk)],
         )
 
     def get_success_url(self):
-        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+        return reverse(self.viewset.get_url_name("list"))
 
     def get_success_message(self):
         return _("%(snippet_type)s '%(instance)s' updated.") % {
@@ -345,12 +331,8 @@ class Edit(EditView):
         return [
             messages.button(
                 reverse(
-                    "wagtailsnippets:edit",
-                    args=(
-                        self.app_label,
-                        self.model_name,
-                        quote(self.object.pk),
-                    ),
+                    self.viewset.get_url_name("edit"),
+                    args=[quote(self.object.pk)],
                 ),
                 _("Edit"),
             )
@@ -387,12 +369,8 @@ class Edit(EditView):
                 {
                     "locale": translation.locale,
                     "url": reverse(
-                        "wagtailsnippets:edit",
-                        args=[
-                            self.app_label,
-                            self.model_name,
-                            quote(translation.pk),
-                        ],
+                        self.viewset.get_url_name("edit"),
+                        args=[quote(translation.pk)],
                     ),
                 }
                 for translation in self.object.get_translations().select_related(
@@ -439,15 +417,14 @@ class Delete(DeleteView):
     def get_delete_url(self):
         return (
             reverse(
-                "wagtailsnippets:delete-multiple",
-                args=(self.app_label, self.model_name),
+                self.viewset.get_url_name("delete-multiple"),
             )
             + "?"
             + urlencode([("id", instance.pk) for instance in self.objects])
         )
 
     def get_success_url(self):
-        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+        return reverse(self.viewset.get_url_name("list"))
 
     def get_success_message(self):
         count = len(self.objects)
@@ -555,8 +532,8 @@ class HistoryView(IndexView):
 
     def get_index_url(self):
         return reverse(
-            "wagtailsnippets:history",
-            args=(self.app_label, self.model_name, quote(self.object.pk)),
+            self.viewset.get_url_name("history"),
+            args=[quote(self.object.pk)],
         )
 
     def get_queryset(self):
