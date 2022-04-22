@@ -569,13 +569,12 @@ class HistoryView(IndexView):
         DateColumn("timestamp", label=gettext_lazy("Date")),
     ]
 
-    def dispatch(self, request, app_label, model_name, pk):
+    def setup(self, request, *args, app_label, model_name, pk, **kwargs):
         self.app_label = app_label
         self.model_name = model_name
         self.model = get_snippet_model_from_url_params(app_label, model_name)
         self.object = get_object_or_404(self.model, pk=unquote(pk))
-
-        return super().dispatch(request)
+        super().setup(request, *args, **kwargs)
 
     def get_page_subtitle(self):
         return str(self.object)
