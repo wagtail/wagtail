@@ -58,9 +58,7 @@ const hideTooltipOnBreadcrumbExpand = {
 const rotateToggleIcon = {
   name: 'rotateToggleIcon',
   fn(instance) {
-    const dropdownIcon = instance.reference.querySelector(
-      '[data-has-toggle] .icon',
-    );
+    const dropdownIcon = instance.reference.querySelector('.icon');
 
     function setRotate() {
       if (dropdownIcon) {
