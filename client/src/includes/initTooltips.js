@@ -52,6 +52,39 @@ const hideTooltipOnBreadcrumbExpand = {
   },
 };
 
+/*
+ If the toggle button has a toggle arrow, rotate it when open and closed
+ */
+const rotateToggleIcon = {
+  name: 'rotateToggleIcon',
+  fn(instance) {
+    const dropdownIcon = instance.reference.querySelector(
+      '[data-has-toggle] .icon',
+    );
+
+    function setRotate() {
+      if (dropdownIcon) {
+        dropdownIcon.classList.add('w-rotate-180');
+      }
+    }
+
+    function removeRotate() {
+      if (dropdownIcon) {
+        dropdownIcon.classList.remove('w-rotate-180');
+      }
+    }
+
+    return {
+      onShow() {
+        setRotate();
+      },
+      onHide() {
+        removeRotate();
+      },
+    };
+  },
+};
+
 /**
  Default Tippy Tooltips
  */
@@ -81,14 +114,6 @@ export function initModernDropdown() {
     );
 
     if (toggle) {
-      toggle.addEventListener('click', () => {
-        const dropdownIcon = container.querySelector('.icon');
-
-        if (dropdownIcon) {
-          dropdownIcon.classList.toggle('w-rotate-180');
-        }
-      });
-
       if (content) {
         content.classList.remove('w-hidden');
       }
@@ -99,7 +124,11 @@ export function initModernDropdown() {
         interactive: true,
         theme: 'dropdown',
         placement: 'bottom',
-        plugins: [hideTooltipOnEsc, hideTooltipOnBreadcrumbExpand],
+        plugins: [
+          hideTooltipOnEsc,
+          hideTooltipOnBreadcrumbExpand,
+          rotateToggleIcon,
+        ],
       });
     }
   });
