@@ -3,6 +3,7 @@ import json
 from unittest import skip
 
 from django.apps import apps
+from django.core.exceptions import ImproperlyConfigured
 from django.db import connection, models
 from django.template import Context, Template, engines
 from django.test import TestCase, skipUnlessDBFeature
@@ -22,7 +23,6 @@ from wagtail.test.testapp.models import (
     MinMaxCountStreamModel,
     StreamModel,
 )
-from wagtail.utils.deprecation import RemovedInWagtail40Warning
 
 
 class TestLazyStreamField(TestCase):
@@ -231,8 +231,7 @@ class TestUseJsonFieldWarning(TestCase):
         apps.clear_cache()
 
     def test_system_check_validates_block(self):
-        message = "StreamField must explicitly set use_json_field argument to True/False instead of None."
-        with self.assertWarnsMessage(RemovedInWagtail40Warning, message):
+        with self.assertRaises(ImproperlyConfigured):
 
             class DeprecatedStreamModel(models.Model):
                 body = StreamField(
