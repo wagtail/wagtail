@@ -276,12 +276,8 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         self.assertEqual(
             view.get_success_url(view.object),
             reverse(
-                "wagtailsnippets:edit",
-                args=[
-                    "some_app",
-                    "some_model",
-                    view.object.pk,
-                ],
+                "wagtailsnippets_some_app_some_model:edit",
+                args=[view.object.pk],
             ),
         )
 

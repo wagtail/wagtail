@@ -138,25 +138,18 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         return get_object_or_404(model, pk=unquote(self.kwargs["pk"]))
 
     def get_success_url(self, translated_snippet=None):
+        app_label = self.kwargs["app_label"]
+        model_name = self.kwargs["model_name"]
+        pk = self.kwargs["pk"]
+
         if translated_snippet:
             # If the editor chose a single locale to translate to, redirect to
             # the newly translated snippet's edit view.
-            return reverse(
-                "wagtailsnippets:edit",
-                args=[
-                    self.kwargs["app_label"],
-                    self.kwargs["model_name"],
-                    translated_snippet.pk,
-                ],
-            )
+            pk = translated_snippet.pk
 
         return reverse(
-            "wagtailsnippets:edit",
-            args=[
-                self.kwargs["app_label"],
-                self.kwargs["model_name"],
-                self.kwargs["pk"],
-            ],
+            f"wagtailsnippets_{app_label}_{model_name}:edit",
+            args=[pk],
         )
 
     def get_success_message(self, locales):
