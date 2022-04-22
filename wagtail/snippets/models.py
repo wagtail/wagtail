@@ -31,14 +31,12 @@ class SnippetAdminURLFinder:
             self.user_can_edit = True
 
     def get_edit_url(self, instance):
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
         if self.user_can_edit:
             return reverse(
-                "wagtailsnippets:edit",
-                args=(
-                    self.model._meta.app_label,
-                    self.model._meta.model_name,
-                    quote(instance.pk),
-                ),
+                f"wagtailsnippets_{app_label}_{model_name}:edit",
+                args=[quote(instance.pk)],
             )
 
 
