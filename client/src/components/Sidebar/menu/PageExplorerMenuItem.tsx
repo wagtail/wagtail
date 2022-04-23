@@ -27,6 +27,17 @@ export const PageExplorerMenuItem: React.FunctionComponent<
     store.current = initPageExplorerStore();
   }
 
+  const onCloseExplorer = () => {
+    // When a submenu is closed, we have to wait for the close animation
+    // to finish before making it invisible
+    setTimeout(() => {
+      setIsVisible(false);
+      if (store.current) {
+        store.current.dispatch(closePageExplorer());
+      }
+    }, SIDEBAR_TRANSITION_DURATION);
+  };
+
   React.useEffect(() => {
     if (isOpen) {
       // isOpen is set at the moment the user clicks the menu item
@@ -36,14 +47,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
         store.current.dispatch(openPageExplorer(item.startPageId));
       }
     } else if (!isOpen && isVisible) {
-      // When a submenu is closed, we have to wait for the close animation
-      // to finish before making it invisible
-      setTimeout(() => {
-        setIsVisible(false);
-        if (store.current) {
-          store.current.dispatch(closePageExplorer());
-        }
-      }, SIDEBAR_TRANSITION_DURATION);
+      onCloseExplorer();
     }
   }, [isOpen]);
 
@@ -95,7 +99,11 @@ export const PageExplorerMenuItem: React.FunctionComponent<
         >
           {store.current && (
             <Provider store={store.current}>
-              <PageExplorer isVisible={isVisible} navigate={navigate} />
+              <PageExplorer
+                isVisible={isVisible}
+                navigate={navigate}
+                onClose={onCloseExplorer}
+              />
             </Provider>
           )}
         </SidebarPanel>
