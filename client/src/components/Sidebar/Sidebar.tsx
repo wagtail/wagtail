@@ -14,7 +14,6 @@ export interface ModuleRenderContext {
   onHideMobile: () => void;
   onSearchClick: () => void;
   currentPath: string;
-
   navigate(url: string): Promise<void>;
 }
 
@@ -26,9 +25,7 @@ export interface SidebarProps {
   modules: ModuleDefinition[];
   currentPath: string;
   collapsedOnLoad: boolean;
-
   navigate(url: string): Promise<void>;
-
   onExpandCollapse?(collapsed: boolean);
 }
 

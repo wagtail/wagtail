@@ -70,7 +70,6 @@ interface MenuProps {
   onAccountExpand: () => void;
   onHideMobile: () => void;
   currentPath: string;
-
   navigate(url: string): Promise<void>;
 }
 
@@ -169,7 +168,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
       document.removeEventListener('mousedown', onClickOutside);
       document.removeEventListener('touchend', onClickOutside);
     };
-  }, [state]);
+  }, []);
 
   const onClickAccountSettings = () => {
     // Pass account expand information to Sidebar component
