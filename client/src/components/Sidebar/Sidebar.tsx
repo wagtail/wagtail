@@ -68,7 +68,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       setClosedOnMobile(true);
     }, SIDEBAR_TRANSITION_DURATION);
 
-    function handleResize(menuHideCallback) {
+    function handleResize(hideMenuCallback) {
       if (checkWindowSizeIsMobile()) {
         setIsMobile(true);
       } else {
@@ -76,7 +76,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
 
         // Close the menu and animate out as this state is not used in desktop
         setVisibleOnMobile(false);
-        menuHideCallback();
+        hideMenuCallback();
       }
     }
 
