@@ -63,28 +63,29 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   const checkWindowSizeIsMobile = () => window.innerWidth < 800;
   const [isMobile, setIsMobile] = React.useState(checkWindowSizeIsMobile());
   React.useEffect(() => {
-    // wait for animation to finish then hide menu from screen readers as well.
-    const finishHidingMenu = setTimeout(() => {
-      setClosedOnMobile(true);
-    }, SIDEBAR_TRANSITION_DURATION);
-
-    function handleResize(hideMenuCallback) {
+    function handleResize() {
       if (checkWindowSizeIsMobile()) {
         setIsMobile(true);
+        return null;
       } else {
         setIsMobile(false);
 
         // Close the menu and animate out as this state is not used in desktop
         setVisibleOnMobile(false);
-        hideMenuCallback();
+        // wait for animation to finish then hide menu from screen readers as well.
+        return setTimeout(() => {
+          setClosedOnMobile(true);
+        }, SIDEBAR_TRANSITION_DURATION);
       }
     }
 
     window.addEventListener('resize', handleResize);
-    handleResize(finishHidingMenu);
+    const closeTimeout = handleResize();
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearTimeout(finishHidingMenu);
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+      }
     };
   }, []);
 
