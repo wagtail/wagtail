@@ -79,6 +79,11 @@
     inset-inline-start: -$menu-width;
   }
 
+  // When sidebar is completely closed and animations have finished
+  &--closed {
+    display: none;
+  }
+
   &__inner {
     // On medium, make it possible for the nav links to scroll.
     @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap w-relative;
