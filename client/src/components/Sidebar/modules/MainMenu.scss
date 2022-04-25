@@ -81,11 +81,11 @@
 
   @at-root .sidebar--slim #{&} {
     &__account {
-      @apply w-px-0 w-pb-3 w-justify-center;
+      @apply w-pb-3;
     }
 
     &__account-toggle {
-      @apply w-hidden;
+      @apply w-sr-only;
     }
   }
 

@@ -70,6 +70,7 @@ interface MenuProps {
   onAccountExpand: () => void;
   onHideMobile: () => void;
   currentPath: string;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -93,8 +94,18 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     navigationPath: '',
     activePath: '',
   });
-  const accountSettingsOpen = state.navigationPath.startsWith('.account');
   const isVisible = !slim || expandingOrCollapsing;
+  const accountSettingsOpen = state.navigationPath.startsWith('.account');
+
+  React.useEffect(() => {
+    // Force account navigation to closed state when in slim mode
+    if (slim) {
+      dispatch({
+        type: 'set-navigation-path',
+        path: '',
+      });
+    }
+  }, [slim]);
 
   // Whenever currentPath or menu changes, work out new activePath
   React.useEffect(() => {
