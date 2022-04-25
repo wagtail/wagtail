@@ -523,6 +523,7 @@ def redirect_to_usage(request, app_label, model_name, pk):
 
 class HistoryView(IndexView):
     viewset = None
+    history_url_name = None
     template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippet history")
     header_icon = "history"
@@ -542,7 +543,7 @@ class HistoryView(IndexView):
 
     def get_index_url(self):
         return reverse(
-            self.viewset.get_url_name("history"),
+            self.history_url_name,
             args=[quote(self.object.pk)],
         )
 
@@ -638,6 +639,7 @@ class SnippetViewSet(ViewSet):
             viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
+            history_url_name=self.get_url_name("history"),
         )
 
     @property
