@@ -99,7 +99,7 @@ class Index(TemplateView):
 
 
 class List(IndexView):
-    list_results_url_name = None
+    index_results_url_name = None
     delete_multiple_url_name = None
     any_permission_required = ["add", "change", "delete"]
     paginate_by = 20
@@ -555,7 +555,7 @@ class SnippetViewSet(ViewSet):
             model=self.model,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
-            list_results_url_name=self.get_url_name("list_results"),
+            index_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
             delete_multiple_url_name=self.get_url_name("delete-multiple"),
@@ -568,7 +568,7 @@ class SnippetViewSet(ViewSet):
             permission_policy=self.permission_policy,
             results_only=True,
             index_url_name=self.get_url_name("list"),
-            list_results_url_name=self.get_url_name("list_results"),
+            index_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
             delete_multiple_url_name=self.get_url_name("delete-multiple"),
