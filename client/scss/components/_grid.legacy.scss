@@ -1,8 +1,7 @@
 .wrapper {
   @include clearfix();
-  height: 100vh;
-  transition: transform 0.2s ease;
   @apply w-transition-sidebar;
+  height: 100vh;
 
   @include media-breakpoint-up(sm) {
     transform: none;
