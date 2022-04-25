@@ -36,7 +36,7 @@ $logo-size: 110px;
   // Reduce overall size when in slim mode
   .sidebar--slim & {
     @include show-focus-outline-inside();
-    margin: 1.125em auto 2.5em;
+    margin: 1.125em auto 4em;
     width: 40px;
     height: 40px;
   }
