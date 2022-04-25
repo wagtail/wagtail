@@ -382,6 +382,8 @@ class Edit(EditView):
 
 class Delete(DeleteView):
     viewset = None
+    list_url_name = None
+    delete_multiple_url_name = None
     permission_required = "delete"
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
@@ -415,17 +417,17 @@ class Delete(DeleteView):
     def get_delete_url(self):
         return (
             reverse(
-                self.viewset.get_url_name("delete-multiple"),
+                self.delete_multiple_url_name,
             )
             + "?"
             + urlencode([("id", instance.pk) for instance in self.objects])
         )
 
     def get_index_url(self):
-        return reverse(self.viewset.get_url_name("list"))
+        return reverse(self.list_url_name)
 
     def get_success_url(self):
-        return reverse(self.viewset.get_url_name("list"))
+        return reverse(self.list_url_name)
 
     def get_success_message(self):
         count = len(self.objects)
@@ -618,6 +620,8 @@ class SnippetViewSet(ViewSet):
             viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
+            list_url_name=self.get_url_name("list"),
+            delete_multiple_url_name=self.get_url_name("delete-multiple"),
         )
 
     @property
