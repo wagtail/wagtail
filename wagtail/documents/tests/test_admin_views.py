@@ -136,6 +136,19 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         next_url = quote(response._request.get_full_path())
         self.assertContains(response, "%s?next=%s" % (edit_url, next_url))
 
+    def test_search_form_rendered(self):
+        response = self.get()
+        html = response.content.decode()
+        search_url = reverse("wagtaildocs:index")
+
+        # Search form in the header should be rendered.
+        self.assertTagInHTML(
+            f"""<form action="{search_url}" method="get" role="search">""",
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
 
 class TestDocumentListingResultsView(TestCase, WagtailTestUtils):
     def setUp(self):
