@@ -155,18 +155,23 @@ class ChooseResultsView(BaseChooseView):
         )
 
 
-def chosen(request, app_label, model_name, pk):
-    model = get_snippet_model_from_url_params(app_label, model_name)
-    item = get_object_or_404(model, pk=unquote(pk))
+class ChosenView(View):
+    def get(request, *args, app_label, model_name, pk, **kwargs):
+        model = get_snippet_model_from_url_params(app_label, model_name)
+        item = get_object_or_404(model, pk=unquote(pk))
 
-    snippet_data = {
-        "id": str(item.pk),
-        "string": str(item),
-        "edit_link": reverse(
-            "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
-        ),
-    }
+        snippet_data = {
+            "id": str(item.pk),
+            "string": str(item),
+            "edit_link": reverse(
+                "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
+            ),
+        }
 
-    return render_modal_workflow(
-        request, None, None, None, json_data={"step": "chosen", "result": snippet_data}
-    )
+        return render_modal_workflow(
+            request,
+            None,
+            None,
+            None,
+            json_data={"step": "chosen", "result": snippet_data},
+        )
