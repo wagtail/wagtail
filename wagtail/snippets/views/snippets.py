@@ -99,7 +99,6 @@ class Index(TemplateView):
 
 
 class List(IndexView):
-    list_url_name = None
     list_results_url_name = None
     delete_multiple_url_name = None
     any_permission_required = ["add", "change", "delete"]
@@ -107,9 +106,6 @@ class List(IndexView):
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
-
-    def get_index_url(self):
-        return reverse(self.list_url_name)
 
     def get_queryset(self):
         items = self.model.objects.all()
@@ -179,7 +175,6 @@ class List(IndexView):
 
 
 class Create(CreateView):
-    list_url_name = None
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
@@ -204,7 +199,7 @@ class Create(CreateView):
         if self.locale and self.object.locale is not Locale.get_default():
             urlquery = "?locale=" + self.object.locale.language_code
 
-        return reverse(self.list_url_name) + urlquery
+        return reverse(self.index_url_name) + urlquery
 
     def get_success_message(self, instance):
         return _("%(snippet_type)s '%(instance)s' created.") % {
@@ -271,7 +266,6 @@ class Create(CreateView):
 
 
 class Edit(EditView):
-    list_url_name = None
     history_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
@@ -314,7 +308,7 @@ class Edit(EditView):
         )
 
     def get_success_url(self):
-        return reverse(self.list_url_name)
+        return reverse(self.index_url_name)
 
     def get_success_message(self):
         return _("%(snippet_type)s '%(instance)s' updated.") % {
@@ -378,7 +372,6 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
-    list_url_name = None
     delete_multiple_url_name = None
     permission_required = "delete"
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
@@ -420,10 +413,7 @@ class Delete(DeleteView):
         )
 
     def get_index_url(self):
-        return reverse(self.list_url_name)
-
-    def get_success_url(self):
-        return reverse(self.list_url_name)
+        return reverse(self.index_url_name)
 
     def get_success_message(self):
         count = len(self.objects)
@@ -564,7 +554,7 @@ class SnippetViewSet(ViewSet):
         return self.index_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
-            list_url_name=self.get_url_name("list"),
+            index_url_name=self.get_url_name("list"),
             list_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
@@ -577,7 +567,7 @@ class SnippetViewSet(ViewSet):
             model=self.model,
             permission_policy=self.permission_policy,
             results_only=True,
-            list_url_name=self.get_url_name("list"),
+            index_url_name=self.get_url_name("list"),
             list_results_url_name=self.get_url_name("list_results"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
@@ -589,7 +579,7 @@ class SnippetViewSet(ViewSet):
         return self.add_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
-            list_url_name=self.get_url_name("list"),
+            index_url_name=self.get_url_name("list"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
         )
@@ -599,7 +589,7 @@ class SnippetViewSet(ViewSet):
         return self.edit_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
-            list_url_name=self.get_url_name("list"),
+            index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
@@ -610,7 +600,7 @@ class SnippetViewSet(ViewSet):
         return self.delete_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
-            list_url_name=self.get_url_name("list"),
+            index_url_name=self.get_url_name("list"),
             delete_multiple_url_name=self.get_url_name("delete-multiple"),
         )
 
