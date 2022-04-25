@@ -278,9 +278,9 @@ class Edit(EditView):
         return self.run_hook("after_edit_snippet", self.request, self.object)
 
     def setup(self, request, *args, pk, **kwargs):
-        super().setup(request, *args, **kwargs)
         self.pk = pk
         self.object = self.get_object()
+        super().setup(request, *args, **kwargs)
 
     def get_panel(self):
         return get_snippet_panel(self.model)
@@ -515,8 +515,8 @@ class HistoryView(IndexView):
     ]
 
     def setup(self, request, *args, pk, **kwargs):
-        super().setup(request, *args, **kwargs)
         self.object = get_object_or_404(self.model, pk=unquote(pk))
+        super().setup(request, *args, **kwargs)
 
     def get_page_subtitle(self):
         return str(self.object)
