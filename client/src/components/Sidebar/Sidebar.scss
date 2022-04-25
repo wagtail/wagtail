@@ -41,7 +41,8 @@
   }
 }
 
-.sidebar {
+.sidebar,
+.sidebar-loading {
   @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300] w-transition-sidebar;
   width: $menu-width;
   // Remove once we drop support for Safari 13.
@@ -90,6 +91,10 @@
   &--mobile &__collapse-toggle {
     display: none;
   }
+}
+
+.sidebar-collapsed .sidebar-loading {
+  width: $menu-width-slim;
 }
 
 // This is a separate component as it needs to display in the header
