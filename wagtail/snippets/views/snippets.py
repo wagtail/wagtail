@@ -412,9 +412,6 @@ class Delete(DeleteView):
             + urlencode([("id", instance.pk) for instance in self.objects])
         )
 
-    def get_index_url(self):
-        return reverse(self.index_url_name)
-
     def get_success_message(self):
         count = len(self.objects)
         if count == 1:
@@ -448,7 +445,6 @@ class Delete(DeleteView):
                 "model_opts": self.model._meta,
                 "objects": self.objects,
                 "action_url": self.get_delete_url(),
-                "index_url": self.get_index_url(),
             }
         )
         return context
