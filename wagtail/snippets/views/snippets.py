@@ -181,6 +181,7 @@ class List(IndexView):
 
 class Create(CreateView):
     viewset = None
+    list_url_name = None
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
@@ -195,7 +196,7 @@ class Create(CreateView):
         return get_snippet_panel(self.model)
 
     def get_add_url(self):
-        url = reverse(self.viewset.get_url_name("add"))
+        url = reverse(self.add_url_name)
         if self.locale:
             url += "?locale=" + self.locale.language_code
         return url
@@ -205,7 +206,7 @@ class Create(CreateView):
         if self.locale and self.object.locale is not Locale.get_default():
             urlquery = "?locale=" + self.object.locale.language_code
 
-        return reverse(self.viewset.get_url_name("list")) + urlquery
+        return reverse(self.list_url_name) + urlquery
 
     def get_success_message(self, instance):
         return _("%(snippet_type)s '%(instance)s' created.") % {
@@ -217,7 +218,7 @@ class Create(CreateView):
         return [
             messages.button(
                 reverse(
-                    self.viewset.get_url_name("edit"),
+                    self.edit_url_name,
                     args=[quote(self.object.pk)],
                 ),
                 _("Edit"),
@@ -261,7 +262,7 @@ class Create(CreateView):
             context["translations"] = [
                 {
                     "locale": locale,
-                    "url": reverse(self.viewset.get_url_name("add"))
+                    "url": reverse(self.add_url_name)
                     + "?locale="
                     + locale.language_code,
                 }
@@ -592,6 +593,9 @@ class SnippetViewSet(ViewSet):
             viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
+            list_url_name=self.get_url_name("list"),
+            add_url_name=self.get_url_name("add"),
+            edit_url_name=self.get_url_name("edit"),
         )
 
     @property
