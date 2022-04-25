@@ -84,7 +84,7 @@ Wagtail supports:
 
 -   Django 3.2.x and 4.0.x
 -   Python 3.7, 3.8, 3.9 and 3.10
--   PostgreSQL, MySQL and SQLite as database backends
+-   PostgreSQL, MySQL and SQLite (with JSON1) as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and earlier Django versions.
 
