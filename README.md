@@ -53,6 +53,8 @@ Wagtail works with [Python 3](https://www.python.org/downloads/), on any platfor
 
 To get started with using Wagtail, run the following in a virtual environment:
 
+![Installing Wagtail](.github/install-animation.gif)
+
 ```bash
 pip install wagtail
 wagtail start mysite
@@ -63,7 +65,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-For detailed installation and setup docs, see [docs.wagtail.org](https://docs.wagtail.org/).
+For detailed installation and setup docs, see [the getting started tutorial](https://docs.wagtail.org/en/stable/getting_started/tutorial.html).
 
 
 ### Who’s using it?
