@@ -10,7 +10,6 @@ export interface ModuleRenderContext {
   key: number;
   slim: boolean;
   expandingOrCollapsing: boolean;
-  onAccountExpand: () => void;
   onHideMobile: () => void;
   onSearchClick: () => void;
   currentPath: string;
@@ -52,7 +51,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   // 'visibleOnMobile' indicates whether the sidebar is currently visible on mobile
   // On mobile, the sidebar is completely hidden by default and must be opened manually
   const [visibleOnMobile, setVisibleOnMobile] = React.useState(false);
-  // 'closedOnMobile' is used to set the menu to display none so it can no longer interacted with when its hidden
+  // 'closedOnMobile' is used to set the menu to display none so it can no longer be interacted with by keyboard when its hidden
   const [closedOnMobile, setClosedOnMobile] = React.useState(true);
 
   // Tracks whether the screen is below 800 pixels. In this state, the menu is completely hidden.
@@ -87,13 +86,12 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   }, []);
 
   // Whether or not to display the menu with slim layout.
-  // Separate from 'collapsed' as the menu can still be displayed with an expanded
-  // layout while in 'collapsed' mode if the user is 'peeking' into it (see above)
   const slim = collapsed && !isMobile;
 
   // 'expandingOrCollapsing' is set to true whilst the the menu is transitioning between slim and expanded layouts
   const [expandingOrCollapsing, setExpandingOrCollapsing] =
     React.useState(false);
+
   React.useEffect(() => {
     setExpandingOrCollapsing(true);
     const finishTimeout = setTimeout(() => {
@@ -148,12 +146,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     }
   };
 
-  const onAccountExpand = () => {
-    if (slim) {
-      onClickCollapseToggle();
-    }
-  };
-
   React.useEffect(() => {
     // wait for animation to finish then hide menu from screen readers as well.
     const finishHidingMenu = setTimeout(() => {
@@ -182,7 +174,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       key: index,
       slim,
       expandingOrCollapsing,
-      onAccountExpand,
       onHideMobile,
       onSearchClick,
       currentPath,

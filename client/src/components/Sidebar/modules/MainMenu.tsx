@@ -67,7 +67,6 @@ interface MenuProps {
   user: MainMenuModuleDefinition['user'];
   slim: boolean;
   expandingOrCollapsing: boolean;
-  onAccountExpand: () => void;
   onHideMobile: () => void;
   currentPath: string;
 
@@ -79,7 +78,6 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   accountMenuItems,
   user,
   expandingOrCollapsing,
-  onAccountExpand,
   onHideMobile,
   slim,
   currentPath,
@@ -99,7 +97,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
 
   React.useEffect(() => {
     // Force account navigation to closed state when in slim mode
-    if (slim) {
+    if (slim && accountSettingsOpen) {
       dispatch({
         type: 'set-navigation-path',
         path: '',
@@ -183,7 +181,6 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
 
   const onClickAccountSettings = () => {
     // Pass account expand information to Sidebar component
-    onAccountExpand();
 
     if (accountSettingsOpen) {
       dispatch({
@@ -216,9 +213,10 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           (isVisible ? ' sidebar-footer--visible' : '')
         }
       >
-        <Tippy disabled={!slim} content={gettext('Account')} placement="right">
+        <Tippy disabled={!slim} content={user.name} placement="right">
           <button
-            className="
+            className={`
+            ${slim ? 'w-px-4' : 'w-px-5'}
             sidebar-footer__account
             w-bg-primary
             w-text-white
@@ -229,11 +227,10 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             w-appearance-none
             w-border-0
             w-overflow-hidden
-            w-px-5
             w-py-3
             hover:w-bg-primary-200
             focus:w-bg-primary-200
-            w-transition"
+            w-transition`}
             title={gettext('Edit your account')}
             onClick={onClickAccountSettings}
             aria-label={gettext('Edit your account')}
@@ -285,7 +282,6 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
   render({
     slim,
     expandingOrCollapsing,
-    onAccountExpand,
     onHideMobile,
     key,
     currentPath,
@@ -298,7 +294,6 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
         user={this.user}
         slim={slim}
         expandingOrCollapsing={expandingOrCollapsing}
-        onAccountExpand={onAccountExpand}
         onHideMobile={onHideMobile}
         key={key}
         currentPath={currentPath}
