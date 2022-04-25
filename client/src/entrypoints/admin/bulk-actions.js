@@ -8,6 +8,7 @@ const BULK_ACTION_FOOTER = '[data-bulk-action-footer]';
 const BULK_ACTION_NUM_OBJECTS = '[data-bulk-action-num-objects]';
 const BULK_ACTION_NUM_OBJECTS_IN_LISTING =
   '[data-bulk-action-num-objects-in-listing]';
+const MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR = '.actions [data-dropdown]';
 
 const checkedState = {
   checkedObjects: new Set(),
@@ -15,6 +16,23 @@ const checkedState = {
   selectAllInListing: false,
   shouldShowAllInListingText: true,
 };
+
+/**
+ * Toggles the 'more' dropdown button in listing pages.
+ * @param {boolean} show - Determines if the button should be shown or not.
+ */
+function toggleMoreActionsDropdownBtn(show) {
+  const moreActionsDropdown = document.querySelector(
+    MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR,
+  );
+  if (moreActionsDropdown !== null) {
+    if (show === true) {
+      moreActionsDropdown.classList.remove('hidden');
+    } else {
+      moreActionsDropdown.classList.add('hidden');
+    }
+  }
+}
 
 /**
  * Utility function to get the appropriate string for display in action bar
@@ -48,9 +66,12 @@ function onSelectAllChange(e) {
     }
   });
   if (!e.target.checked) {
+    toggleMoreActionsDropdownBtn(true);
     // when deselecting all checkbox, simply hide the footer for smooth transition
     checkedState.checkedObjects.clear();
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
+  } else {
+    toggleMoreActionsDropdownBtn(false);
   }
 }
 
@@ -74,12 +95,14 @@ function onSelectIndividualCheckbox(e) {
 
   if (numCheckedObjects === 0) {
     /* when all checkboxes are unchecked */
+    toggleMoreActionsDropdownBtn(true);
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
     document
       .querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT)
       .forEach((el) => el.classList.remove('show'));
   } else if (numCheckedObjects === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
+    toggleMoreActionsDropdownBtn(false);
     document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
       el.classList.add('show');
     });
