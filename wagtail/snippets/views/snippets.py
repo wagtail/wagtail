@@ -100,6 +100,9 @@ class Index(TemplateView):
 
 class List(IndexView):
     viewset = None
+    list_url_name = None
+    list_results_url_name = None
+    delete_multiple_url_name = None
     any_permission_required = ["add", "change", "delete"]
     paginate_by = 20
     page_kwarg = "p"
@@ -107,19 +110,7 @@ class List(IndexView):
     results_only = False
 
     def get_index_url(self):
-        return reverse(self.viewset.get_url_name("list"))
-
-    def get_index_results_url(self):
-        return reverse(self.viewset.get_url_name("list_results"))
-
-    def get_delete_multiple_url(self):
-        return reverse(self.viewset.get_url_name("delete-multiple"))
-
-    def get_add_url_name(self):
-        return self.viewset.get_url_name("add")
-
-    def get_edit_url_name(self):
-        return self.viewset.get_url_name("edit")
+        return reverse(self.list_url_name)
 
     def get_queryset(self):
         items = self.model.objects.all()
@@ -159,9 +150,6 @@ class List(IndexView):
 
         context.update(
             {
-                "index_results_url": self.get_index_results_url(),
-                "delete_multiple_url": self.get_delete_multiple_url(),
-                "add_url_name": self.get_add_url_name(),
                 "model_opts": self.model._meta,
                 "items": paginated_items,
                 "can_add_snippet": self.permission_policy.user_has_permission(
@@ -577,6 +565,11 @@ class SnippetViewSet(ViewSet):
             viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
+            list_url_name=self.get_url_name("list"),
+            list_results_url_name=self.get_url_name("list_results"),
+            add_url_name=self.get_url_name("add"),
+            edit_url_name=self.get_url_name("edit"),
+            delete_multiple_url_name=self.get_url_name("delete-multiple"),
         )
 
     @property
@@ -586,6 +579,11 @@ class SnippetViewSet(ViewSet):
             model=self.model,
             permission_policy=self.permission_policy,
             results_only=True,
+            list_url_name=self.get_url_name("list"),
+            list_results_url_name=self.get_url_name("list_results"),
+            add_url_name=self.get_url_name("add"),
+            edit_url_name=self.get_url_name("edit"),
+            delete_multiple_url_name=self.get_url_name("delete-multiple"),
         )
 
     @property
