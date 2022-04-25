@@ -13,12 +13,15 @@
             targetOutput: "#image-results"
         }
 
+        const submitFormOnDropdownChange = (dropdownSelector) => {
+            const dropdown = document.querySelector(dropdownSelector);
+            dropdown.addEventListener('change', () => {
+                dropdown.form.submit();
+            })
+        };
         const dropdownSelectors = ["#collection_chooser_collection_id", "#order_images_by"];
-        $(function() {
-            dropdownSelectors.forEach(dropdownSelector =>
-                $(dropdownSelector).on('change', function() {
-                    this.form.submit();
-                })
+        window.addEventListener("DOMContentLoaded", () => {
+            dropdownSelectors.forEach(dropdownSelector => submitFormOnDropdownChange(dropdownSelector)
             );
         });
     </script>
