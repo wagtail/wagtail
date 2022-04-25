@@ -99,7 +99,6 @@ class Index(TemplateView):
 
 
 class List(IndexView):
-    viewset = None
     list_url_name = None
     list_results_url_name = None
     delete_multiple_url_name = None
@@ -180,7 +179,6 @@ class List(IndexView):
 
 
 class Create(CreateView):
-    viewset = None
     list_url_name = None
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
@@ -273,7 +271,6 @@ class Create(CreateView):
 
 
 class Edit(EditView):
-    viewset = None
     list_url_name = None
     history_url_name = None
     permission_required = "change"
@@ -381,7 +378,6 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
-    viewset = None
     list_url_name = None
     delete_multiple_url_name = None
     permission_required = "delete"
@@ -469,7 +465,6 @@ class Delete(DeleteView):
 
 
 class Usage(IndexView):
-    viewset = None
     template_name = "wagtailsnippets/snippets/usage.html"
     paginate_by = 20
     page_kwarg = "p"
@@ -522,7 +517,6 @@ def redirect_to_usage(request, app_label, model_name, pk):
 
 
 class HistoryView(IndexView):
-    viewset = None
     history_url_name = None
     template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippet history")
@@ -568,7 +562,6 @@ class SnippetViewSet(ViewSet):
     @property
     def index_view(self):
         return self.index_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             list_url_name=self.get_url_name("list"),
@@ -581,7 +574,6 @@ class SnippetViewSet(ViewSet):
     @property
     def index_results_view(self):
         return self.index_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             results_only=True,
@@ -595,7 +587,6 @@ class SnippetViewSet(ViewSet):
     @property
     def add_view(self):
         return self.add_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             list_url_name=self.get_url_name("list"),
@@ -606,7 +597,6 @@ class SnippetViewSet(ViewSet):
     @property
     def edit_view(self):
         return self.edit_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             list_url_name=self.get_url_name("list"),
@@ -618,7 +608,6 @@ class SnippetViewSet(ViewSet):
     @property
     def delete_view(self):
         return self.delete_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             list_url_name=self.get_url_name("list"),
@@ -628,7 +617,6 @@ class SnippetViewSet(ViewSet):
     @property
     def usage_view(self):
         return self.usage_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
         )
@@ -636,7 +624,6 @@ class SnippetViewSet(ViewSet):
     @property
     def history_view(self):
         return self.history_view_class.as_view(
-            viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
             history_url_name=self.get_url_name("history"),
