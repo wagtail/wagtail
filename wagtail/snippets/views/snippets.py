@@ -274,6 +274,8 @@ class Create(CreateView):
 
 class Edit(EditView):
     viewset = None
+    list_url_name = None
+    history_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = _("The snippet could not be saved due to errors.")
@@ -297,25 +299,25 @@ class Edit(EditView):
 
     def get_edit_url(self):
         return reverse(
-            self.viewset.get_url_name("edit"),
+            self.edit_url_name,
             args=[quote(self.object.pk)],
         )
 
     def get_delete_url(self):
         # This actually isn't used because we use a custom action menu
         return reverse(
-            self.viewset.get_url_name("delete"),
+            self.delete_url_name,
             args=[quote(self.object.pk)],
         )
 
     def get_history_url(self):
         return reverse(
-            self.viewset.get_url_name("history"),
+            self.history_url_name,
             args=[quote(self.object.pk)],
         )
 
     def get_success_url(self):
-        return reverse(self.viewset.get_url_name("list"))
+        return reverse(self.list_url_name)
 
     def get_success_message(self):
         return _("%(snippet_type)s '%(instance)s' updated.") % {
@@ -327,7 +329,7 @@ class Edit(EditView):
         return [
             messages.button(
                 reverse(
-                    self.viewset.get_url_name("edit"),
+                    self.edit_url_name,
                     args=[quote(self.object.pk)],
                 ),
                 _("Edit"),
@@ -366,7 +368,7 @@ class Edit(EditView):
                 {
                     "locale": translation.locale,
                     "url": reverse(
-                        self.viewset.get_url_name("edit"),
+                        self.edit_url_name,
                         args=[quote(translation.pk)],
                     ),
                 }
@@ -604,6 +606,10 @@ class SnippetViewSet(ViewSet):
             viewset=self,
             model=self.model,
             permission_policy=self.permission_policy,
+            list_url_name=self.get_url_name("list"),
+            edit_url_name=self.get_url_name("edit"),
+            delete_url_name=self.get_url_name("delete"),
+            history_url_name=self.get_url_name("history"),
         )
 
     @property
