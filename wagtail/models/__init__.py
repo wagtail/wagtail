@@ -2150,7 +2150,7 @@ class SubmittedRevisionsManager(models.Manager):
 
 
 class Revision(models.Model):
-    page = models.CharField(
+    object_id = models.CharField(
         max_length=255,
         verbose_name=_("object id"),
     )
