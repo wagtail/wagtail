@@ -1,6 +1,6 @@
 import json
+import warnings
 
-from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.models.fields.json import KeyTransform
@@ -8,6 +8,7 @@ from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.rich_text import get_text_for_indexing
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class RichTextField(models.TextField):
@@ -99,8 +100,10 @@ class StreamField(models.Field):
 
     def _check_json_field(self):
         if type(self.use_json_field) is not bool:
-            raise ImproperlyConfigured(
+            warnings.warn(
                 f"StreamField must explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
+                RemovedInWagtail50Warning,
+                stacklevel=3,
             )
 
     def get_internal_type(self):
