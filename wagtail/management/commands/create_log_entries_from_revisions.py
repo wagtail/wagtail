@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from wagtail.models import PageLogEntry, PageRevision
+from wagtail.models import PageLogEntry, Revision
 
 
 def get_comparison(page, revision_a, revision_b):
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         current_page_id = None
         missing_models_content_type_ids = set()
         for revision in (
-            PageRevision.objects.order_by("page_id", "created_at")
+            Revision.objects.order_by("page_id", "created_at")
             .select_related("page")
             .iterator()
         ):

@@ -2266,7 +2266,7 @@ class Revision(models.Model):
             # newer than any revision that might exist in the database
             return True
         latest_revision = (
-            PageRevision.objects.filter(page_id=self.page_id)
+            Revision.objects.filter(page_id=self.page_id)
             .order_by("-created_at", "-id")
             .first()
         )
@@ -2277,7 +2277,7 @@ class Revision(models.Model):
 
         try:
             next_revision = self.get_next()
-        except PageRevision.DoesNotExist:
+        except Revision.DoesNotExist:
             next_revision = None
 
         if next_revision:
@@ -2378,9 +2378,9 @@ class UserPagePermissionsProxy:
 
         # Deal with the trivial cases first...
         if not self.user.is_active:
-            return PageRevision.objects.none()
+            return Revision.objects.none()
         if self.user.is_superuser:
-            return PageRevision.submitted_revisions.all()
+            return Revision.submitted_revisions.all()
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
@@ -2390,16 +2390,16 @@ class UserPagePermissionsProxy:
             .distinct()
         )
         if not publishable_pages_paths:
-            return PageRevision.objects.none()
+            return Revision.objects.none()
 
-        # compile a filter expression to apply to the PageRevision.submitted_revisions manager:
+        # compile a filter expression to apply to the Revision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
         only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
         for page_path in publishable_pages_paths[1:]:
             only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
 
         # return the filtered queryset
-        return PageRevision.submitted_revisions.filter(only_my_sections)
+        return Revision.submitted_revisions.filter(only_my_sections)
 
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
@@ -3492,7 +3492,7 @@ class WorkflowState(models.Model):
 
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
-        return PageRevision.objects.filter(
+        return Revision.objects.filter(
             page_id=self.page_id,
             id__in=self.task_states.values_list("page_revision_id", flat=True),
         ).defer("content")
@@ -3962,7 +3962,7 @@ class Comment(ClusterableModel):
     updated_at = models.DateTimeField(auto_now=True)
 
     revision_created = models.ForeignKey(
-        PageRevision,
+        Revision,
         on_delete=models.CASCADE,
         related_name="created_comments",
         null=True,

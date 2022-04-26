@@ -16,7 +16,7 @@ from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
 from wagtail.models import (
     Page,
-    PageRevision,
+    Revision,
     TaskState,
     UserPagePermissionsProxy,
     WorkflowState,
@@ -162,7 +162,7 @@ class RecentEditsPanel(Component):
         if connection.vendor == "mysql":
             # MySQL can't handle the subselect created by the ORM version -
             # it fails with "This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'"
-            last_edits = PageRevision.objects.raw(
+            last_edits = Revision.objects.raw(
                 """
                 SELECT wp.* FROM
                     wagtailcore_pagerevision wp JOIN (
@@ -177,13 +177,13 @@ class RecentEditsPanel(Component):
             )
         else:
             last_edits_dates = (
-                PageRevision.objects.filter(user=request.user)
+                Revision.objects.filter(user=request.user)
                 .values("page_id")
                 .annotate(latest_date=Max("created_at"))
                 .order_by("-latest_date")
                 .values("latest_date")[:edit_count]
             )
-            last_edits = PageRevision.objects.filter(
+            last_edits = Revision.objects.filter(
                 created_at__in=last_edits_dates
             ).order_by("-created_at")
 

@@ -16,7 +16,7 @@ from wagtail.log_actions import registry as log_action_registry
 from wagtail.models import (
     Page,
     PageLogEntry,
-    PageRevision,
+    Revision,
     TaskState,
     UserPagePermissionsProxy,
     WorkflowState,
@@ -83,7 +83,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     # It's possible that the page is edited while the workflow is running, so some
     # tasks may be repeated. All tasks that have been completed no matter what
     # revision needs to be displayed on this page.
-    page_revisions = PageRevision.objects.filter(
+    page_revisions = Revision.objects.filter(
         page=page,
         id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list(
             "page_revision_id", flat=True

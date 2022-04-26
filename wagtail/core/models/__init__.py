@@ -18,7 +18,7 @@ from wagtail.models import (  # noqa
     PageLogEntryQuerySet,
     PageManager,
     PagePermissionTester,
-    PageRevision,
+    Revision,
     PageSubscription,
     PageViewRestriction,
     SubmittedRevisionsManager,

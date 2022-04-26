@@ -6,11 +6,11 @@ from django.views.decorators.http import require_GET
 
 from wagtail.admin import messages
 from wagtail.admin.mail import send_moderation_notification
-from wagtail.models import PageRevision
+from wagtail.models import Revision
 
 
 def approve_moderation(request, revision_id):
-    revision = get_object_or_404(PageRevision, id=revision_id)
+    revision = get_object_or_404(Revision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
@@ -48,7 +48,7 @@ def approve_moderation(request, revision_id):
 
 
 def reject_moderation(request, revision_id):
-    revision = get_object_or_404(PageRevision, id=revision_id)
+    revision = get_object_or_404(Revision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
@@ -85,7 +85,7 @@ def reject_moderation(request, revision_id):
 
 @require_GET
 def preview_for_moderation(request, revision_id):
-    revision = get_object_or_404(PageRevision, id=revision_id)
+    revision = get_object_or_404(Revision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
