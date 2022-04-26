@@ -4,6 +4,9 @@
 header {
   @apply w-text-primary w-py-4 w-mb-8;
 
+  padding-inline-start: 90px;
+  padding-inline-end: 90px;
+
   a {
     @apply w-text-primary w-underline;
   }
@@ -15,15 +18,11 @@ header {
   }
 
   h1 {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
+    position: relative;
 
-    &.icon:before {
-      width: 1em;
-      display: none;
-      margin-inline-end: 0.4em;
-      font-size: 1.5em;
+    > svg.icon {
+      position: absolute;
+      left: -2em;
     }
 
     span {
