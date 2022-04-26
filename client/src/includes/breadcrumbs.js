@@ -34,6 +34,7 @@ export default function initCollapsibleBreadcrumbs() {
       .querySelector('svg use')
       .setAttribute('href', '#icon-breadcrumb-expand');
     open = false;
+    keepOpen = false;
 
     document.dispatchEvent(new CustomEvent('wagtail:breadcrumbs-collapse'));
   }
@@ -55,12 +56,29 @@ export default function initCollapsibleBreadcrumbs() {
     document.dispatchEvent(new CustomEvent('wagtail:breadcrumbs-expand'));
   }
 
+  breadcrumbsToggle.addEventListener('keydown', (e) => {
+    if (e.key === ' ') {
+      e.preventDefault();
+
+      if (keepOpen || open) {
+        hideBreadcrumbs();
+      } else {
+        showBreadcrumbs();
+        keepOpen = true;
+
+        // Change Icon to cross
+        breadcrumbsToggle
+          .querySelector('svg use')
+          .setAttribute('href', '#icon-cross');
+      }
+    }
+  });
+
   // Events
   breadcrumbsToggle.addEventListener('click', () => {
     if (keepOpen) {
       mouseExitedToggle = false;
       hideBreadcrumbs();
-      keepOpen = false;
     }
 
     if (open) {
