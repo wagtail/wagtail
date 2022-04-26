@@ -419,7 +419,7 @@ class TestTabbedInterface(TestCase):
 
         # result should contain tab buttons
         self.assertIn(
-            '<a id="tab-label-event-details" href="#tab-event-details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
             result,
         )
         self.assertIn(
@@ -428,7 +428,7 @@ class TestTabbedInterface(TestCase):
         )
 
         # result should contain tab panels
-        self.assertIn('aria-labelledby="tab-label-event-details"', result)
+        self.assertIn('aria-labelledby="tab-label-event_details"', result)
         self.assertIn('aria-labelledby="tab-label-speakers"', result)
 
         # result should contain rendered content from descendants
@@ -512,7 +512,7 @@ class TestObjectList(TestCase):
 
         # result should include help text for children
         self.assertInHTML(
-            '<p id="id_date_to_help_text" class="w-help-text">Not required if event is on a single day</p>',
+            '<p id="panel-child-date_to-helptext" class="w-help-text">Not required if event is on a single day</p>',
             result,
         )
 
@@ -860,7 +860,7 @@ class TestPageChooserPanel(TestCase):
     def test_render_html(self):
         result = self.page_chooser_panel.render_html()
         self.assertIn(
-            '<p id="id_page_help_text" class="w-help-text">help text</p>', result
+            '<p id="panel-helptext" class="w-help-text">help text</p>', result
         )
         self.assertIn('<span class="title">Christmas</span>', result)
         self.assertIn(
@@ -878,7 +878,7 @@ class TestPageChooserPanel(TestCase):
         result = page_chooser_panel.render_html()
 
         self.assertIn(
-            '<p id="id_page_help_text" class="w-help-text">help text</p>', result
+            '<p id="panel-helptext" class="w-help-text">help text</p>', result
         )
         self.assertIn('<span class="title"></span>', result)
         self.assertIn("Choose a page", result)

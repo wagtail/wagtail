@@ -23,6 +23,7 @@ from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_displa
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
+from wagtail.coreutils import safe_snake_case
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
@@ -223,7 +224,7 @@ class Panel:
         )
         return self.get_bound_panel(instance=instance, request=request, form=form)
 
-    def get_bound_panel(self, instance=None, request=None, form=None):
+    def get_bound_panel(self, instance=None, request=None, form=None, prefix="panel"):
         """
         Return a ``BoundPanel`` instance that can be rendered onto the template as a component. By default, this creates an instance
         of the panel class's inner ``BoundPanel`` class, which must inherit from ``Panel.BoundPanel``.
@@ -241,7 +242,7 @@ class Panel:
             )
 
         return self.BoundPanel(
-            panel=self, instance=instance, request=request, form=form
+            panel=self, instance=instance, request=request, form=form, prefix=prefix
         )
 
     def on_model_bound(self):
@@ -275,16 +276,35 @@ class Panel:
         """
         return ""
 
+    @property
+    def clean_name(self):
+        """
+        A name for this panel, consisting only of ASCII alphanumerics and underscores, suitable for use in identifiers.
+        Usually generated from the panel heading. Note that this is not guaranteed to be unique or non-empty; anything
+        making use of this and requiring uniqueness should validate and modify the return value as needed.
+        """
+        return safe_snake_case(self.heading)
+
     class BoundPanel(Component):
         """
         A template component for a panel that has been associated with a model instance, form, and request.
         """
 
-        def __init__(self, panel, instance, request, form):
+        def __init__(self, panel, instance, request, form, prefix):
+            #: The panel definition corresponding to this bound panel
             self.panel = panel
+
+            #: The model instance associated with this panel
             self.instance = instance
+
+            #: The request object associated with this panel
             self.request = request
+
+            #: The form object associated with this panel
             self.form = form
+
+            #: A unique prefix for this panel, for use in HTML IDs
+            self.prefix = prefix
 
             self.heading = self.panel.heading
             self.help_text = self.panel.help_text
@@ -445,19 +465,55 @@ class PanelGroup(Panel):
     def on_model_bound(self):
         self.children = [child.bind_to_model(self.model) for child in self.children]
 
+    @cached_property
+    def child_identifiers(self):
+        """
+        A list of identifiers corresponding to child panels in ``self.children``, formed from the clean_name property
+        but validated to be unique and non-empty.
+        """
+        used_names = set()
+        result = []
+        for panel in self.children:
+            base_name = panel.clean_name or "panel"
+            candidate_name = base_name
+            suffix = 0
+            while candidate_name in used_names:
+                suffix += 1
+                candidate_name = "%s%d" % (base_name, suffix)
+
+            result.append(candidate_name)
+            used_names.add(candidate_name)
+
+        return result
+
     class BoundPanel(Panel.BoundPanel):
         @cached_property
         def children(self):
             return [
                 child.get_bound_panel(
-                    instance=self.instance, request=self.request, form=self.form
+                    instance=self.instance,
+                    request=self.request,
+                    form=self.form,
+                    prefix=("%s-child-%s" % (self.prefix, identifier)),
                 )
-                for child in self.panel.children
+                for child, identifier in zip(
+                    self.panel.children, self.panel.child_identifiers
+                )
             ]
 
         @cached_property
         def visible_children(self):
             return [child for child in self.children if child.is_shown()]
+
+        @cached_property
+        def visible_children_with_identifiers(self):
+            return [
+                (child, identifier)
+                for child, identifier in zip(
+                    self.children, self.panel.child_identifiers
+                )
+                if child.is_shown()
+            ]
 
         def is_shown(self):
             return any(child.is_shown() for child in self.children)
@@ -527,6 +583,10 @@ class HelpPanel(Panel):
             template=self.template,
         )
         return kwargs
+
+    @property
+    def clean_name(self):
+        return super().clean_name or "help"
 
     class BoundPanel(Panel.BoundPanel):
         def __init__(self, **kwargs):
@@ -601,6 +661,10 @@ class FieldPanel(Panel):
             )
 
         return model._meta.get_field(self.field_name)
+
+    @property
+    def clean_name(self):
+        return self.field_name
 
     def __repr__(self):
         return "<%s '%s' with model=%s>" % (
@@ -829,7 +893,7 @@ class InlinePanel(Panel):
             self.child_edit_handler = self.panel.child_edit_handler
 
             self.children = []
-            for subform in self.formset.forms:
+            for index, subform in enumerate(self.formset.forms):
                 # override the DELETE field to have a hidden input
                 subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
 
@@ -839,7 +903,10 @@ class InlinePanel(Panel):
 
                 self.children.append(
                     self.child_edit_handler.get_bound_panel(
-                        instance=subform.instance, request=self.request, form=subform
+                        instance=subform.instance,
+                        request=self.request,
+                        form=subform,
+                        prefix=("%s-%d" % (self.prefix, index)),
                     )
                 )
 
@@ -856,16 +923,22 @@ class InlinePanel(Panel):
                 empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             self.empty_child = self.child_edit_handler.get_bound_panel(
-                instance=empty_form.instance, request=self.request, form=empty_form
+                instance=empty_form.instance,
+                request=self.request,
+                form=empty_form,
+                prefix=("%s-__prefix__" % self.prefix),
             )
 
         def get_comparison(self):
             field_comparisons = []
 
-            for panel in self.panel.child_edit_handler.children:
+            for index, panel in enumerate(self.panel.child_edit_handler.children):
                 field_comparisons.extend(
                     panel.get_bound_panel(
-                        instance=None, request=self.request, form=None
+                        instance=None,
+                        request=self.request,
+                        form=None,
+                        prefix=("%s-%d" % (self.prefix, index)),
                     ).get_comparison()
                 )
 
@@ -911,6 +984,10 @@ class PrivacyModalPanel(Panel):
         updated_kwargs.update(kwargs)
         super().__init__(**updated_kwargs)
 
+    @property
+    def clean_name(self):
+        return super().clean_name or "privacy_modal"
+
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/pages/privacy_switch_panel.html"
 
@@ -941,6 +1018,10 @@ class CommentPanel(Panel):
                 }
             },
         }
+
+    @property
+    def clean_name(self):
+        return super().clean_name or "commments"
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/comments/comment_panel.html"

@@ -1,23 +1,23 @@
 {% load wagtailadmin_tags %}
 
-{% for child in self.visible_children %}
+{% for child, identifier in self.visible_children_with_identifiers %}
     <section
-        id="content-standalone_section"
-        aria-labelledby="content-standalone_section_heading"
+        id="{{ self.prefix }}-childsection-{{ identifier }}"
+        aria-labelledby="{{ self.prefix }}-childheading-{{ identifier }}"
         class="w-panel"
     >
         <div class="w-panel__header">
-            <a href="#content-standalone_section" aria-label="Link to {{ child.heading }}">#</a>
+            <a href="#{{ self.prefix }}-childsection-{{ identifier }}" aria-label="Link to {{ child.heading }}">#</a>
             <button
                 type="button"
                 class="w-panel__toggle"
                 aria-label="Toggle {{ child.heading }}"
-                aria-controls="content-standalone_section_content"
+                aria-controls="{{ self.prefix }}-childcontent-{{ identifier }}"
                 aria-expanded="true"
             >
                 <svg width="16" height="16"><use href="#icon-pilcrow"></use></svg>
             </button>
-            <h2 id="content-standalone_section_heading" class="w-panel__heading">
+            <h2 id="{{ self.prefix }}-childheading-{{ identifier }}" class="w-panel__heading">
                 {% if child.id_for_label %}
                     <label for="{{ child.id_for_label }}">{{ child.heading }}{% if child.is_required %}<span class="w-error" aria-hidden="true">*</span>{% endif %}</label>
                 {% else %}
@@ -26,7 +26,7 @@
             </h2>
         </div>
 
-        <div id="content-standalone_section_content" class="w-panel__content">
+        <div id="{{ self.prefix }}-childcontent-{{ identifier }}" class="w-panel__content">
             {% component child %}
         </div>
     </section>
