@@ -18,7 +18,7 @@ from urllib.parse import urlparse
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -315,6 +315,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
+    revisions = GenericRelation("Revision", related_query_name="page")
     live_revision = models.ForeignKey(
         "Revision",
         related_name="+",
