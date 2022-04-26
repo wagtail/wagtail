@@ -2152,7 +2152,7 @@ class SubmittedRevisionsManager(models.Manager):
 
 
 class Revision(models.Model):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.CharField(
         max_length=255,
         verbose_name=_("object id"),
