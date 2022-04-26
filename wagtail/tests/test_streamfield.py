@@ -22,7 +22,7 @@ from wagtail.test.testapp.models import (
     MinMaxCountStreamModel,
     StreamModel,
 )
-from wagtail.utils.deprecation import RemovedInWagtail40Warning
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class TestLazyStreamField(TestCase):
@@ -232,7 +232,7 @@ class TestUseJsonFieldWarning(TestCase):
 
     def test_system_check_validates_block(self):
         message = "StreamField must explicitly set use_json_field argument to True/False instead of None."
-        with self.assertWarnsMessage(RemovedInWagtail40Warning, message):
+        with self.assertWarnsMessage(RemovedInWagtail50Warning, message):
 
             class DeprecatedStreamModel(models.Model):
                 body = StreamField(
