@@ -2150,11 +2150,9 @@ class SubmittedRevisionsManager(models.Manager):
 
 
 class Revision(models.Model):
-    page = models.ForeignKey(
-        "Page",
-        verbose_name=_("page"),
-        related_name="revisions",
-        on_delete=models.CASCADE,
+    page = models.CharField(
+        max_length=255,
+        verbose_name=_("object id"),
     )
     submitted_for_moderation = models.BooleanField(
         verbose_name=_("submitted for moderation"), default=False, db_index=True
