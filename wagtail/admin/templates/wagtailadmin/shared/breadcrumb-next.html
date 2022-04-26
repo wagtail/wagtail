@@ -39,12 +39,22 @@
                                 </a>
                                 {% icon name="arrow-right" class_name=icon_classes %}
                             </li>
+                        {% elif forloop.last %}
+                            <li class="{{ breadcrumb_item_classes }}" {% if not forloop.last or trailing_breadcrumb_title %} data-breadcrumb-item hidden {% endif %}>
+                                <a class="{{ breadcrumb_link_classes }}"
+                                    href="{% url 'wagtailadmin_explore' page.id %}">
+                                    {{ page.get_admin_display_title }}
+                                </a>
+                                {% if not forloop.last or trailing_breadcrumb_title %}
+                                    {% icon name="arrow-right" class_name=icon_classes %}
+                                {% endif %}
+                            </li>
                         {% else %}
                             <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
                                 <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore' page.id %}">
                                     {{ page.get_admin_display_title }}
                                 </a>
-                                {% if not forloop.last or trailing_breadcrumb_title %}
+                                {% if not forloop.last %}
                                     {% icon name="arrow-right" class_name=icon_classes %}
                                 {% endif %}
                             </li>
