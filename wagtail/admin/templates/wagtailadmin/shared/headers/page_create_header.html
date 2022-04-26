@@ -3,7 +3,7 @@
 
 {% block header_content %}
     {% trans 'New: '|add:content_type.model_class.get_verbose_name as title %}
-    {% explorer_breadcrumb parent_page include_self=1 trailing_breadcrumb_title=title use_next_template=True %}
+    {% explorer_breadcrumb parent_page include_self=1 use_next_template=True trailing_breadcrumb_title=title  %}
 
     <h1 class="w-sr-only">
         {{ title }}
