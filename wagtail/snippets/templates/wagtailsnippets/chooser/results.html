@@ -18,7 +18,7 @@
     {% if is_searching %}
         <p role="alert">{% blocktrans trimmed %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_snippet_url %}
+        {% url view.add_url_name as wagtailsnippets_create_snippet_url %}
         <p>{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank" rel="noreferrer">create one now</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

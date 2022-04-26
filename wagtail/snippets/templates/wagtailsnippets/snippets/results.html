@@ -12,13 +12,12 @@
 
     {% include "wagtailsnippets/snippets/list.html" %}
 
-    {% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name as wagtailsnippets_list_url %}
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=items linkurl=wagtailsnippets_list_url %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=items linkurl=index_url %}
 {% else %}
     {% if is_searching %}
         <p role="alert">{% blocktrans trimmed %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
-        {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_url %}
+        {% url view.add_url_name as wagtailsnippets_create_url %}
 
         {# NOTE: The two strings in the following messages are exactly the same #}
         {# The difference is that the first variant appends '?locale={{ locale.language_code}}' to 'wagtailsnippets_create_url' #}

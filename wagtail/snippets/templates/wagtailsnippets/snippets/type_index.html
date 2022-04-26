@@ -6,7 +6,7 @@
     {{ block.super }}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailsnippets:list_results' model_opts.app_label model_opts.model_name %}",
+            url: "{% url view.index_results_url_name %}",
             termInput: "#id_q",
             targetOutput: "#snippet-results"
         }
@@ -48,7 +48,7 @@
                     <ul class="fields row rowflush">
                         {% if can_delete_snippets %}
                             <li class="col">
-                                <a class="button bicolor button--icon serious delete-button u-hidden" data-url="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?">
+                                <a class="button bicolor button--icon serious delete-button u-hidden" data-url="{% url view.delete_multiple_url_name %}?">
                                     {% icon name="bin" wrapped=1 %}
                                     {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}
                                 </a>
@@ -63,7 +63,7 @@
                         {% endif %}
                         {% if can_add_snippet %}
                             <li class="col">
-                                <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" class="button bicolor button--icon">
+                                <a href="{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" class="button bicolor button--icon">
                                     {% icon name="plus" wrapped=1 %}
                                     {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
                                 {# TODO: figure out a way of saying "Add a/an [foo]" #}

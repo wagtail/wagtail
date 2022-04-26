@@ -36,7 +36,7 @@ class AdminSnippetChooser(AdminChooser):
         model_name = self.target_model._meta.model_name
         quoted_id = quote(instance.pk)
         edit_url = reverse(
-            "wagtailsnippets:edit", args=[app_label, model_name, quoted_id]
+            f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quoted_id]
         )
 
         return {

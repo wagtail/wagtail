@@ -76,13 +76,11 @@ class DeleteMenuItem(ActionMenuItem):
         )
 
     def get_url(self, context):
+        app_label = context["model"]._meta.app_label
+        model_name = context["model"]._meta.model_name
         return reverse(
-            "wagtailsnippets:delete",
-            args=[
-                context["model"]._meta.app_label,
-                context["model"]._meta.model_name,
-                quote(context["instance"].pk),
-            ],
+            f"wagtailsnippets_{app_label}_{model_name}:delete",
+            args=[quote(context["instance"].pk)],
         )
 
 

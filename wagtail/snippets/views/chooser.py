@@ -142,6 +142,8 @@ class ChooseView(BaseChooseView):
 class ChooseResultsView(BaseChooseView):
     # Return just the HTML fragment for the results
     def render_to_response(self):
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
         return TemplateResponse(
             self.request,
             "wagtailsnippets/chooser/results.html",
@@ -151,6 +153,7 @@ class ChooseResultsView(BaseChooseView):
                 "table": self.table,
                 "query_string": self.search_query,
                 "is_searching": self.is_searching,
+                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
             },
         )
 
@@ -164,7 +167,7 @@ class ChosenView(View):
             "id": str(item.pk),
             "string": str(item),
             "edit_link": reverse(
-                "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
+                f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quote(item.pk)]
             ),
         }
 
