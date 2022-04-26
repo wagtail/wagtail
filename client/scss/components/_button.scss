@@ -48,11 +48,6 @@
       border-color: transparent;
       background-color: $color-button-yes-hover;
     }
-
-    &.button-nobg:hover {
-      color: $color-button-yes;
-      background-color: transparent;
-    }
   }
 
   &.warning {
@@ -69,11 +64,6 @@
       color: $color-white;
       border-color: transparent;
       background-color: $color-button-warning-hover;
-    }
-
-    &.button-nobg:hover {
-      color: $color-button-warning;
-      background-color: transparent;
     }
   }
 
@@ -93,16 +83,6 @@
       border-color: transparent;
       background-color: $color-button-no-hover;
     }
-
-    &.button-nobg:hover {
-      color: $color-button-no;
-      background-color: transparent;
-    }
-  }
-
-  &.button-nobg {
-    border: 0;
-    background-color: transparent;
   }
 
   &.bicolor {
@@ -329,10 +309,6 @@
     &:hover {
       border-color: $color-grey-2;
     }
-
-    &.button-nobg:hover {
-      background-color: transparent;
-    }
   }
 
   &.button--icon {
@@ -463,11 +439,6 @@ button.button.bicolor .icon-wrapper {
     border-color: transparent;
     background-color: $color-button-yes-hover;
   }
-
-  &.button-nobg:hover {
-    color: $color-button-yes;
-    background-color: transparent;
-  }
 }
 
 .no,
@@ -486,16 +457,6 @@ button.button.bicolor .icon-wrapper {
     border-color: transparent;
     background-color: $color-button-no-hover;
   }
-
-  &.button-nobg:hover {
-    color: $color-button-no;
-    background-color: transparent;
-  }
-}
-
-.button-nobg {
-  border: 0;
-  background-color: transparent;
 }
 
 .bicolor {
