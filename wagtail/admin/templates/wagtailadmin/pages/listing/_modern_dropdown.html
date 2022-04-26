@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags i18n %}
 
 <div {{ self.attrs }} class="{{ classes|join:' ' }}" data-button-with-dropdown>
-    <button class="{{ button_classes|join:' ' }}" data-button-with-dropdown-toggle data-tippy-offset="[0, -2]">
+    <button class="{{ button_classes|join:' ' }}" data-button-with-dropdown-toggle data-hover-tooltip-content="{{ title }}" data-tippy-offset="[0, -2]">
         <span class="{% if hide_title %}w-sr-only{% endif %}">{{ title }}</span>
         {% if icon_name %}{% icon name=icon_name class_name='w-w-5 w-h-5' %}{% endif %}
     </button>

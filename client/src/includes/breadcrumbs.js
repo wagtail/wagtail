@@ -1,5 +1,7 @@
 export default function initCollapsibleBreadcrumbs() {
   const breadcrumbsContainer = document.querySelector('[data-breadcrumb-next]');
+  const slimHeader = document.querySelector('[data-slim-header]');
+
   if (!breadcrumbsContainer) {
     return;
   }
@@ -30,8 +32,10 @@ export default function initCollapsibleBreadcrumbs() {
     // Change Icon to dots
     breadcrumbsToggle
       .querySelector('svg use')
-      .setAttribute('href', '#icon-dots-horizontal');
+      .setAttribute('href', '#icon-breadcrumb-expand');
     open = false;
+
+    document.dispatchEvent(new CustomEvent('wagtail:breadcrumbs-collapse'));
   }
 
   function showBreadcrumbs() {
@@ -47,6 +51,8 @@ export default function initCollapsibleBreadcrumbs() {
     });
     breadcrumbsToggle.setAttribute('aria-expanded', 'true');
     open = true;
+
+    document.dispatchEvent(new CustomEvent('wagtail:breadcrumbs-expand'));
   }
 
   // Events
@@ -82,7 +88,11 @@ export default function initCollapsibleBreadcrumbs() {
     showBreadcrumbs();
   });
 
-  breadcrumbsContainer.addEventListener('mouseleave', () => {
+  breadcrumbsToggle.addEventListener('mouseleave', () => {
+    mouseExitedToggle = true;
+  });
+
+  slimHeader.addEventListener('mouseleave', () => {
     if (!keepOpen) {
       hideBreadcrumbsWithDelay = setTimeout(() => {
         hideBreadcrumbs();
@@ -91,12 +101,8 @@ export default function initCollapsibleBreadcrumbs() {
     }
   });
 
-  breadcrumbsContainer.addEventListener('mouseenter', () => {
+  slimHeader.addEventListener('mouseenter', () => {
     clearTimeout(hideBreadcrumbsWithDelay);
-  });
-
-  breadcrumbsToggle.addEventListener('mouseleave', () => {
-    mouseExitedToggle = true;
   });
 
   document.addEventListener('keydown', (e) => {
