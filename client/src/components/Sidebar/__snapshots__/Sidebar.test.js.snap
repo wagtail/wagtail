@@ -2,6 +2,17 @@
 
 exports[`Sidebar should render with the minimum required props 1`] = `
 <Fragment>
+  <button
+    aria-expanded="false"
+    aria-label="Toggle sidebar"
+    className="button sidebar-nav-toggle"
+    onClick={[Function]}
+    type="button"
+  >
+    <Icon
+      name="bars"
+    />
+  </button>
   <div
     className="sidebar"
   >
@@ -36,16 +47,5 @@ exports[`Sidebar should render with the minimum required props 1`] = `
       </div>
     </div>
   </div>
-  <button
-    aria-expanded="false"
-    aria-label="Toggle sidebar"
-    className="button sidebar-nav-toggle"
-    onClick={[Function]}
-    type="button"
-  >
-    <Icon
-      name="bars"
-    />
-  </button>
 </Fragment>
 `;
