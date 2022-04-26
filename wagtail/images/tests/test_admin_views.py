@@ -193,6 +193,19 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             "?p=3&amp;tag=even" in response_body or "?tag=even&amp;p=3" in response_body
         )
 
+    def test_search_form_rendered(self):
+        response = self.get()
+        html = response.content.decode()
+        search_url = reverse("wagtailimages:index")
+
+        # Search form in the header should be rendered.
+        self.assertTagInHTML(
+            f"""<form action="{search_url}" method="get" role="search">""",
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
 
 class TestImageListingResultsView(TestCase, WagtailTestUtils):
     def setUp(self):
