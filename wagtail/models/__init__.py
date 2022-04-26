@@ -315,7 +315,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
     live_revision = models.ForeignKey(
-        "PageRevision",
+        "Revision",
         related_name="+",
         verbose_name=_("live revision"),
         on_delete=models.SET_NULL,
@@ -998,7 +998,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This is called by Wagtail whenever a page with aliases is published.
 
         :param revision: The revision of the original page that we are updating to (used for logging purposes)
-        :type revision: PageRevision, optional
+        :type revision: Revision, optional
         :param user: The user who is publishing (used for logging purposes)
         :type user: User, optional
         """
@@ -2149,7 +2149,7 @@ class SubmittedRevisionsManager(models.Manager):
         return super().get_queryset().filter(submitted_for_moderation=True)
 
 
-class PageRevision(models.Model):
+class Revision(models.Model):
     page = models.ForeignKey(
         "Page",
         verbose_name=_("page"),
@@ -2298,6 +2298,9 @@ class PageRevision(models.Model):
     class Meta:
         verbose_name = _("page revision")
         verbose_name_plural = _("page revisions")
+
+
+PageRevision = Revision
 
 
 PAGE_PERMISSION_TYPES = [
@@ -3623,7 +3626,7 @@ class TaskState(models.Model):
         related_name="task_states",
     )
     page_revision = models.ForeignKey(
-        "PageRevision",
+        "Revision",
         on_delete=models.CASCADE,
         verbose_name=_("page revision"),
         related_name="task_states",
@@ -3888,7 +3891,7 @@ class PageLogEntry(BaseLogEntry):
     )
     # Pointer to a specific page revision
     revision = models.ForeignKey(
-        "wagtailcore.PageRevision",
+        "wagtailcore.Revision",
         null=True,
         blank=True,
         on_delete=models.DO_NOTHING,
