@@ -2309,9 +2309,6 @@ class Revision(models.Model):
         verbose_name_plural = _("page revisions")
 
 
-PageRevision = Revision
-
-
 PAGE_PERMISSION_TYPES = [
     ("add", _("Add"), _("Add/edit pages you own")),
     ("edit", _("Edit"), _("Edit any page")),
