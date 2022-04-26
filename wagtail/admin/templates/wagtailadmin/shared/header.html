@@ -18,8 +18,8 @@
     {% block breadcrumb %}{% endblock %}
     <div class="row">
         <div class="left">
-            <div class="col header-title">
-                <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
+            <div class="col">
+                <h1>{% if icon %}{% icon name=icon %}{% endif %}
                     {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}

@@ -121,13 +121,11 @@ $zindex-modal-background: 500;
 
     h1 {
       @apply w-text-white;
-    }
-  }
 
-  .header-title {
-    // stylelint-disable-next-line declaration-no-important
-    padding-inline-start: 0 !important;
-    margin-inline-start: -36px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 130%;
+    }
   }
 }
 

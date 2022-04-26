@@ -19,14 +19,25 @@ header {
 
   h1 {
     position: relative;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 130%;
 
     > svg.icon {
       position: absolute;
-      left: -2em;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
+      left: -1.5em;
+      inset-inline-start: -1.5em;
+      top: 0.125em;
+      max-width: 1em;
+      max-height: 1em;
+      vertical-align: text-top;
     }
 
     span {
       margin-inline-start: 0.3125rem;
+      font-weight: 400;
     }
   }
 
@@ -213,16 +224,5 @@ header {
     .col9 {
       @include column(9);
     }
-  }
-}
-
-.header-title {
-  @include media-breakpoint-down(xs) {
-    padding-inline-start: $mobile-nav-indent;
-  }
-
-  &-icon {
-    @include svg-icon();
-    margin-inline-end: 0.5em;
   }
 }
