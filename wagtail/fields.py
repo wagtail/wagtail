@@ -8,7 +8,7 @@ from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.rich_text import get_text_for_indexing
-from wagtail.utils.deprecation import RemovedInWagtail40Warning
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class RichTextField(models.TextField):
@@ -102,7 +102,7 @@ class StreamField(models.Field):
         if type(self.use_json_field) is not bool:
             warnings.warn(
                 f"StreamField must explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
-                RemovedInWagtail40Warning,
+                RemovedInWagtail50Warning,
                 stacklevel=3,
             )
 
