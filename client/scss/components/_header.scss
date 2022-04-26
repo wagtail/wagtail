@@ -2,7 +2,7 @@
 @use 'sass:color';
 
 header {
-  @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4 w-mb-8;
+  @apply w-text-primary w-py-4 w-mb-8;
 
   a {
     @apply w-text-primary w-underline;
