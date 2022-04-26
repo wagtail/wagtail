@@ -116,7 +116,9 @@
 
     .icon-wrapper {
       background-color: rgba(0, 0, 0, 0.2);
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
@@ -124,7 +126,6 @@
       inset-inline-start: 0;
       top: 0;
       width: 3em;
-      line-height: 1.85em;
       height: 100%;
       text-align: center;
       // Remove once we drop support for Safari 14.
@@ -140,11 +141,6 @@
     &.button--icon {
       &:before {
         display: none; // TODO: remove once the icon font styles are gone
-      }
-
-      .icon {
-        @include svg-icon(1rem);
-        padding: 0.75em;
       }
     }
 
