@@ -123,6 +123,11 @@ header {
     }
   }
 
+  .button-secondary {
+    color: $color-teal-darker;
+    background-color: transparent;
+  }
+
   label {
     @include visuallyhidden();
   }
