@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags %}
 {% if translations %}
     <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;" data-dropdown>
-        <a href="javascript:void(0)" aria-label="{{ locale.get_display_name }}" class="c-dropdown__button  u-btn-current">
+        <a href="javascript:void(0)" aria-label="{{ locale.get_display_name }}" class="c-dropdown__button u-btn-current w-no-underline">
             {% icon name="site" class_name="default" %}
             {{ locale.get_display_name }}
             <div data-dropdown-toggle class="o-icon c-dropdown__toggle c-dropdown__togle--icon [ icon icon-arrow-down ]">
@@ -13,7 +13,7 @@
             <ul class="c-dropdown__menu u-toggle  u-arrow u-arrow--tl u-background">
                 {% for translation in translations %}
                     <li class="c-dropdown__item ">
-                        <a href="{{ translation.url }}" aria-label="{{ translation.locale.get_display_name }}" class="u-link is-live">
+                        <a href="{{ translation.url }}" aria-label="{{ translation.locale.get_display_name }}" class="u-link is-live w-no-underline">
                             {{ translation.locale.get_display_name }}
                         </a>
                     </li>
