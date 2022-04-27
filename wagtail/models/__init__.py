@@ -2206,9 +2206,9 @@ class Revision(models.Model):
         super().save(*args, **kwargs)
         if self.submitted_for_moderation:
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
-            self.content_object.revisions.exclude(id=self.id).update(
-                submitted_for_moderation=False
-            )
+            Revision.objects.filter(
+                content_type=self.content_type, object_id=self.object_id
+            ).exclude(id=self.id).update(submitted_for_moderation=False)
 
         if (
             self.approved_go_live_at is None
