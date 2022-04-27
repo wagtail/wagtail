@@ -407,7 +407,7 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
 document.addEventListener('DOMContentLoaded', () => {
   const setPanel = (panelName) => {
     const sidePanelWrapper = document.querySelector('[data-form-side]');
-
+    const body = document.querySelector('body');
     // Open / close side panel
 
     // HACK: For now, the comments will show without the side-panel opening.
@@ -433,11 +433,13 @@ document.addEventListener('DOMContentLoaded', () => {
           // eslint-disable-next-line no-param-reassign
           panel.hidden = false;
           panel.dispatchEvent(new CustomEvent('show'));
+          body.classList.add('side-panel-open');
         }
       } else if (!panel.hidden) {
         // eslint-disable-next-line no-param-reassign
         panel.hidden = true;
         panel.dispatchEvent(new CustomEvent('hide'));
+        body.classList.remove('side-panel-open');
       }
     });
 

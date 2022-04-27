@@ -166,6 +166,10 @@
   }
 }
 
+.side-panel-open {
+  @apply w-overflow-y-hidden sm:w-overflow-y-auto;
+}
+
 // An object is the basic wrapper around any field or group of fields in the editor interface
 .object {
   @include nice-padding();
