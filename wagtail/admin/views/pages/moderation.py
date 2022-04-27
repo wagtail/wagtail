@@ -11,14 +11,15 @@ from wagtail.models import Revision
 
 def approve_moderation(request, revision_id):
     revision = get_object_or_404(Revision.page_revisions, id=revision_id)
-    if not revision.content_object.permissions_for_user(request.user).can_publish():
+    revision_page = revision.content_object
+    if not revision_page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
         messages.error(
             request,
             _("The page '{0}' is not currently awaiting moderation.").format(
-                revision.page.specific_deferred.get_admin_display_title()
+                revision_page.specific_deferred.get_admin_display_title()
             ),
         )
         return redirect("wagtailadmin_home")
@@ -27,16 +28,16 @@ def approve_moderation(request, revision_id):
         revision.approve_moderation(user=request.user)
 
         message = _("Page '{0}' published.").format(
-            revision.page.specific_deferred.get_admin_display_title()
+            revision_page.specific_deferred.get_admin_display_title()
         )
         buttons = []
-        if revision.page.url is not None:
+        if revision_page.url is not None:
             buttons.append(
-                messages.button(revision.page.url, _("View live"), new_window=False)
+                messages.button(revision_page.url, _("View live"), new_window=False)
             )
         buttons.append(
             messages.button(
-                reverse("wagtailadmin_pages:edit", args=(revision.page.id,)), _("Edit")
+                reverse("wagtailadmin_pages:edit", args=(revision_page.id,)), _("Edit")
             )
         )
         messages.success(request, message, buttons=buttons)
@@ -49,6 +50,7 @@ def approve_moderation(request, revision_id):
 
 def reject_moderation(request, revision_id):
     revision = get_object_or_404(Revision.page_revisions, id=revision_id)
+    revision_page = revision.content_object
     if not revision.content_object.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
@@ -56,7 +58,7 @@ def reject_moderation(request, revision_id):
         messages.error(
             request,
             _("The page '{0}' is not currently awaiting moderation.").format(
-                revision.page.specific_deferred.get_admin_display_title()
+                revision_page.specific_deferred.get_admin_display_title()
             ),
         )
         return redirect("wagtailadmin_home")
@@ -67,11 +69,11 @@ def reject_moderation(request, revision_id):
         messages.success(
             request,
             _("Page '{0}' rejected for publication.").format(
-                revision.page.specific_deferred.get_admin_display_title()
+                revision_page.specific_deferred.get_admin_display_title()
             ),
             buttons=[
                 messages.button(
-                    reverse("wagtailadmin_pages:edit", args=(revision.page.id,)),
+                    reverse("wagtailadmin_pages:edit", args=(revision_page.id,)),
                     _("Edit"),
                 )
             ],
@@ -86,6 +88,7 @@ def reject_moderation(request, revision_id):
 @require_GET
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(Revision.page_revisions, id=revision_id)
+    revision_page = revision.content_object
     if not revision.content_object.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
@@ -93,7 +96,7 @@ def preview_for_moderation(request, revision_id):
         messages.error(
             request,
             _("The page '{0}' is not currently awaiting moderation.").format(
-                revision.page.specific_deferred.get_admin_display_title()
+                revision_page.specific_deferred.get_admin_display_title()
             ),
         )
         return redirect("wagtailadmin_home")

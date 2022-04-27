@@ -37,7 +37,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
         self.revision = self.page.get_latest_revision()
 
         self.edit_page_url = reverse(
-            "wagtailadmin_pages:edit", args=(self.revision.page.id,)
+            "wagtailadmin_pages:edit", args=(self.revision.object_id,)
         )
         self.preview_page_url = reverse(
             "wagtailadmin_pages:preview_for_moderation", args=(self.revision.id,)
