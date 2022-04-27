@@ -103,6 +103,7 @@ export function initModernDropdown() {
       '[data-button-with-dropdown-toggle]',
     );
 
+    // Adding data-hover-tooltip-content="Tooltip Text" to the toggle element will give you a tooltip on hover as well
     const hoverTooltip = toggle.dataset.hoverTooltipContent;
     let hoverTooltipInstance;
 
@@ -114,6 +115,7 @@ export function initModernDropdown() {
       if (hoverTooltip) {
         hoverTooltipInstance = tippy(toggle, {
           content: hoverTooltip,
+          placement: 'bottom',
           multiple: true,
           plugins: [hideTooltipOnEsc],
         });
