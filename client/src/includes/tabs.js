@@ -164,7 +164,7 @@ class Tabs {
       }),
     );
     // Dispatch tab-changed event on the document
-    document.dispatchEvent(new CustomEvent('tab-changed'));
+    document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
 
     // Set URL hash and browser history
     if (!this.disableURL) {
@@ -230,6 +230,13 @@ class Tabs {
         }
       }
     });
+
+    // Dispatch tab-changed on window load
+    window.onload = () => {
+      if (this.tabContainer) {
+        document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
+      }
+    };
   }
 
   /**

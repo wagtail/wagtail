@@ -252,12 +252,12 @@ $(() => {
     });
   }
 
+  console.log('core.js init');
   // Resize autosize textareas on page load and tab changed
   $(document).ready(resizeTextAreas);
-  $(document).ready(() => {
-    $(document).on('tab-changed', () => {
-      resizeTextAreas();
-    });
+  $(document).on('wagtail:tab-changed', () => {
+    console.log('core.js tab-changed event listener');
+    resizeTextAreas();
   });
 
   // eslint-disable-next-line func-names
