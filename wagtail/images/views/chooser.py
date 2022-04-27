@@ -63,16 +63,13 @@ class BaseChooseView(View):
         self.is_searching = False
         self.q = None
 
-        if "q" in request.GET:
-            self.search_form = SearchForm(request.GET)
-            if self.search_form.is_valid():
-                self.q = self.search_form.cleaned_data["q"]
-                self.is_searching = True
-                images = images.search(self.q)
-        else:
-            self.search_form = SearchForm()
+        self.search_form = SearchForm(request.GET)
+        if self.search_form.cleaned_data["q"]:
+            self.q = self.search_form.cleaned_data["q"]
+            self.is_searching = True
+            images = images.search(self.q)
 
-        if not self.is_searching:
+        else:
             tag_name = request.GET.get("tag")
             if tag_name:
                 images = images.filter(tags__name=tag_name)

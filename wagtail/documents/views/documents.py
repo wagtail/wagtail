@@ -59,13 +59,10 @@ class BaseListingView(TemplateView):
 
         # Search
         query_string = None
-        if "q" in self.request.GET:
-            self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
-            if self.form.is_valid():
-                query_string = self.form.cleaned_data["q"]
-                documents = documents.search(query_string)
-        else:
-            self.form = SearchForm(placeholder=_("Search documents"))
+        self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
+        if self.form.cleaned_data["q"]:
+            query_string = self.form.cleaned_data["q"]
+            documents = documents.search(query_string)
 
         # Pagination
         paginator = Paginator(documents, per_page=20)

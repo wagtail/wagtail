@@ -95,9 +95,6 @@ class Search:
 
         # Get query parameter
         form = SearchForm(request.GET)
-        query = ""
-        if form.is_valid():
-            query = form.cleaned_data["q"]
 
         # provide a hook for modifying the search area, if construct_hook_name has been set
         if self.construct_hook_name:
@@ -106,7 +103,9 @@ class Search:
 
         rendered_search_areas = []
         for item in search_areas:
-            rendered_search_areas.append(item.render_html(request, query, current))
+            rendered_search_areas.append(
+                item.render_html(request, form.cleaned_data["q"], current)
+            )
 
         return mark_safe("".join(rendered_search_areas))
 

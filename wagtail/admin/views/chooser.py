@@ -284,7 +284,7 @@ def search(request, parent_page_id=None):
         pages = hook(pages, request)
 
     search_form = SearchForm(request.GET)
-    if search_form.is_valid() and search_form.cleaned_data["q"]:
+    if search_form.cleaned_data["q"]:
         pages = pages.exclude(depth=1)  # never include root
         pages = pages.type(*desired_classes)
         pages = pages.specific()

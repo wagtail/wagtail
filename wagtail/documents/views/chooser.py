@@ -79,15 +79,12 @@ class BaseChooseView(View):
             documents = documents.filter(collection=self.collection_id)
         self.documents_exist = documents.exists()
 
-        if "q" in request.GET:
-            self.searchform = SearchForm(request.GET)
-            if self.searchform.is_valid():
-                self.q = self.searchform.cleaned_data["q"]
+        self.searchform = SearchForm(request.GET)
+        if self.searchform.cleaned_data["q"]:
+            self.q = self.searchform.cleaned_data["q"]
 
-                documents = documents.search(self.q)
-                self.is_searching = True
-        else:
-            self.searchform = SearchForm()
+            documents = documents.search(self.q)
+            self.is_searching = True
 
         if not self.is_searching:
             documents = documents.order_by("-created_at")

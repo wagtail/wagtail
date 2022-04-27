@@ -71,25 +71,18 @@ class BaseChooseView(View):
         self.is_searchable = class_is_indexed(self.model)
         self.is_searching = False
         self.search_query = None
-        if self.is_searchable and "q" in request.GET:
-            self.search_form = SearchForm(
-                request.GET,
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name},
-            )
 
-            if self.search_form.is_valid():
-                self.search_query = self.search_form.cleaned_data["q"]
+        self.search_form = SearchForm(
+            request.GET,
+            placeholder=_("Search %(snippet_type_name)s")
+            % {"snippet_type_name": self.model._meta.verbose_name},
+        )
+        self.search_query = self.search_form.cleaned_data.get("q", "")
 
-                search_backend = get_search_backend()
-                items = search_backend.search(self.search_query, items)
-                self.is_searching = True
-
-        else:
-            self.search_form = SearchForm(
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name}
-            )
+        if self.search_query:
+            search_backend = get_search_backend()
+            items = search_backend.search(self.search_query, items)
+            self.is_searching = True
 
         # Pagination
         paginator = Paginator(items, per_page=25)

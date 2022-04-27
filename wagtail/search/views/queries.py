@@ -12,16 +12,12 @@ def chooser(request, get_results=False):
     queries = models.Query.get_most_popular()
 
     # If searching, filter results by query string
-    query_string = None
-    if "q" in request.GET:
-        searchform = SearchForm(request.GET)
-        if searchform.is_valid():
-            query_string = searchform.cleaned_data["q"]
-            queries = queries.filter(
-                query_string__icontains=normalise_query_string(query_string)
-            )
-    else:
-        searchform = SearchForm()
+    searchform = SearchForm(request.GET)
+    query_string = searchform.cleaned_data.get("q", "")
+    if query_string:
+        queries = queries.filter(
+            query_string__icontains=normalise_query_string(query_string)
+        )
 
     paginator = Paginator(queries, per_page=10)
     queries = paginator.get_page(request.GET.get("p"))

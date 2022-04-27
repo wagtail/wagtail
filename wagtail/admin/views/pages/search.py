@@ -92,25 +92,19 @@ def search(request):
     else:
         selected_content_type = None
 
-    if "q" in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            q = form.cleaned_data["q"]
+    form = SearchForm(request.GET)
+    if form.cleaned_data["q"]:
+        # Parse query and filter
+        pages, all_pages = page_filter_search(
+            form.cleaned_data["q"], pages, all_pages, ordering
+        )
 
-            # Parse query and filter
-            pages, all_pages = page_filter_search(q, pages, all_pages, ordering)
-
-            # Facets
-            if pages.supports_facet:
-                content_types = [
-                    (ContentType.objects.get(id=content_type_id), count)
-                    for content_type_id, count in all_pages.facet(
-                        "content_type_id"
-                    ).items()
-                ]
-
-    else:
-        form = SearchForm()
+        # Facets
+        if pages.supports_facet:
+            content_types = [
+                (ContentType.objects.get(id=content_type_id), count)
+                for content_type_id, count in all_pages.facet("content_type_id").items()
+            ]
 
     paginator = Paginator(pages, per_page=20)
     pages = paginator.get_page(request.GET.get("p"))

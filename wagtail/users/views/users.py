@@ -73,7 +73,6 @@ def get_users_filter_query(q, model_fields):
 @any_permission_required(add_user_perm, change_user_perm, delete_user_perm)
 @vary_on_headers("X-Requested-With")
 def index(request, *args):
-    q = None
     is_searching = False
 
     group = None
@@ -84,16 +83,13 @@ def index(request, *args):
 
     model_fields = [f.name for f in User._meta.get_fields()]
 
-    if "q" in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search users"))
-        if form.is_valid():
-            q = form.cleaned_data["q"]
-            is_searching = True
-            conditions = get_users_filter_query(q, model_fields)
+    form = SearchForm(request.GET, placeholder=_("Search users"))
+    q = form.cleaned_data.get("q", "")
+    if q:
+        is_searching = True
+        conditions = get_users_filter_query(q, model_fields)
 
-            users = User.objects.filter(group_filter & conditions)
-    else:
-        form = SearchForm(placeholder=_("Search users"))
+        users = User.objects.filter(group_filter & conditions)
 
     if not is_searching:
         users = User.objects.filter(group_filter)
