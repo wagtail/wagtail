@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="left">
                     <div class="col">
-                        <h1 class="icon icon-redirect">{{ redirects_str }}</h1>
+                        <h1>{% icon name="redirect" %}{{ redirects_str }}</h1>
                     </div>
                     <form class="col search-form" action="{% url "wagtailredirects:index" %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
                         <ul class="fields">
