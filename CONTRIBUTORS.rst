@@ -599,6 +599,7 @@ Contributors
 * Christian Franke
 * Tom Hu
 * Thiago Costa de Souza
+* Benedict Faw
 
 Translators
 ===========

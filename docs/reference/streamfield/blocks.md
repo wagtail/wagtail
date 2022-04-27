@@ -1,11 +1,10 @@
-.. _streamfield_block_reference:
+(streamfield_block_reference)=
 
-StreamField block reference
-===========================
+# StreamField block reference
 
-This document details the block types provided by Wagtail for use in :ref:`StreamField <streamfield>`, and how they can be combined into new block types.
+This document details the block types provided by Wagtail for use in [StreamField](../../topics/streamfield.rst), and how they can be combined into new block types.
 
-
+```{eval-rst}
 .. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield`.
@@ -17,46 +16,41 @@ This document details the block types provided by Wagtail for use in :ref:`Strea
    :param max_num: Maximum number of sub-blocks that the stream may have.
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
    :param collapsed: When true, all blocks are initially collapsed.
+```
 
-   .. versionchanged:: 3.0
-     The required ``use_json_field`` argument is added.
+```{versionchanged} 3.0
+The required `use_json_field` argument is added.
+```
 
-   .. code-block:: python
+```python
+body = StreamField([
+    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('paragraph', blocks.RichTextBlock()),
+    ('image', ImageChooserBlock()),
+], block_counts={
+    'heading': {'min_num': 1},
+    'image': {'max_num': 5},
+}, use_json_field=True)
+```
 
-      body = StreamField([
-          ('heading', blocks.CharBlock(form_classname="full title")),
-          ('paragraph', blocks.RichTextBlock()),
-          ('image', ImageChooserBlock()),
-      ], block_counts={
-          'heading': {'min_num': 1},
-          'image': {'max_num': 5},
-      }, use_json_field=True)
-
-
-Block options
--------------
+## Block options
 
 All block definitions accept the following optional keyword arguments:
 
-``default``
-  The default value that a new 'empty' block should receive.
+-   `default`
+    -   The default value that a new 'empty' block should receive.
+-   `label`
+    -   The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a `ListBlock` - the empty string).
+-   `icon`
+    -   The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding `wagtail.contrib.styleguide` to your project’s `INSTALLED_APPS`.
+-   `template`
+    -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
+-   `group`
+    -   The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
-``label``
-  The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a ``ListBlock`` - the empty string).
+## Field block types
 
-``icon``
-  The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding ``wagtail.contrib.styleguide`` to your project's ``INSTALLED_APPS``.
-
-``template``
-  The path to a Django template that will be used to render this block on the front end. See :ref:`streamfield_template_rendering`.
-
-``group``
-  The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
-
-
-Field block types
------------------
-
+```{eval-rst}
 .. class:: wagtail.blocks.CharBlock
 
    A single-line text input. The following keyword arguments are accepted in addition to the standard ones:
@@ -279,9 +273,11 @@ Field block types
 
 
    ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
+```
 
+(streamfield_multiplechoiceblock)=
 
-.. _streamfield_multiplechoiceblock:
+```{eval-rst}
 
 .. class:: wagtail.blocks.MultipleChoiceBlock
 
@@ -335,13 +331,13 @@ Field block types
    :param max_length: The maximum allowed length of the field.
    :param min_length: The minimum allowed length of the field.
    :param help_text: Help text to display alongside the field.
+```
 
+(streamfield_staticblock)=
 
-Structural block types
-----------------------
+## Structural block types
 
-.. _streamfield_staticblock:
-
+```{eval-rst}
 .. class:: wagtail.blocks.StaticBlock
 
    A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags. The following additional keyword argument is accepted:
@@ -488,45 +484,48 @@ Structural block types
 
            class Meta:
                icon='cogs'
+```
 
-   .. _streamfield_top_level_streamblock:
+(streamfield_top_level_streamblock)=
 
-   Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
+```{eval-rst}
+Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
 
-   .. code-block:: python
+.. code-block:: python
 
-       class HomePage(Page):
-           carousel = StreamField(
-               CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
-               use_json_field=True
-            )
+    class HomePage(Page):
+        carousel = StreamField(
+            CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
+            use_json_field=True
+        )
 
-   ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
+``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
 
-   :param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
-   :param min_num: Minimum number of sub-blocks that the stream must have.
-   :param max_num: Maximum number of sub-blocks that the stream may have.
-   :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
-   :param collapsed: When true, all sub-blocks are initially collapsed.
-   :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
+:param required: If true (the default), at least one sub-block must be supplied. This is ignored when using the ``StreamBlock`` as the top-level block of a StreamField; in this case the StreamField's ``blank`` property is respected instead.
+:param min_num: Minimum number of sub-blocks that the stream must have.
+:param max_num: Maximum number of sub-blocks that the stream may have.
+:param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+:param collapsed: When true, all sub-blocks are initially collapsed.
+:param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
 
-    .. code-block:: python
-       :emphasize-lines: 6
+.. code-block:: python
+    :emphasize-lines: 6
 
-       body = StreamField([
-           # ...
-           ('event_promotions', blocks.StreamBlock([
-               ('hashtag', blocks.CharBlock()),
-               ('post_date', blocks.DateBlock()),
-           ], form_classname='event-promotions')),
-       ], use_json_field=True)
+    body = StreamField([
+        # ...
+        ('event_promotions', blocks.StreamBlock([
+            ('hashtag', blocks.CharBlock()),
+            ('post_date', blocks.DateBlock()),
+        ], form_classname='event-promotions')),
+    ], use_json_field=True)
 
-    .. code-block:: python
-        :emphasize-lines: 6
+.. code-block:: python
+    :emphasize-lines: 6
 
-        class EventPromotionsBlock(blocks.StreamBlock):
-            hashtag = blocks.CharBlock()
-            post_date = blocks.DateBlock()
+    class EventPromotionsBlock(blocks.StreamBlock):
+        hashtag = blocks.CharBlock()
+        post_date = blocks.DateBlock()
 
-            class Meta:
-                form_classname = 'event-promotions'
+        class Meta:
+            form_classname = 'event-promotions'
+```

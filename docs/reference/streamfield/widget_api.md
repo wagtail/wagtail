@@ -1,15 +1,13 @@
-.. _streamfield_widget_api:
+(streamfield_widget_api)=
 
-Form widget client-side API
-===========================
+# Form widget client-side API
 
-In order for the StreamField editing interface to dynamically create form fields, any Django form widgets used within StreamField blocks must have an accompanying JavaScript implementation, defining how the widget is rendered client-side and populated with data, and how to extract data from that field. Wagtail provides this implementation for widgets inheriting from ``django.forms.widgets.Input``, ``django.forms.Textarea``, ``django.forms.Select`` and ``django.forms.RadioSelect``. For any other widget types, or ones which require custom client-side behaviour, you will need to provide your own implementation.
+In order for the StreamField editing interface to dynamically create form fields, any Django form widgets used within StreamField blocks must have an accompanying JavaScript implementation, defining how the widget is rendered client-side and populated with data, and how to extract data from that field. Wagtail provides this implementation for widgets inheriting from `django.forms.widgets.Input`, `django.forms.Textarea`, `django.forms.Select` and `django.forms.RadioSelect`. For any other widget types, or ones which require custom client-side behaviour, you will need to provide your own implementation.
 
-The `telepath <https://wagtail.github.io/telepath/>`__ library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of ``wagtail.widget_adapters.WidgetAdapter`` and register it with ``wagtail.telepath.register``.
+The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.widget_adapters.WidgetAdapter` and register it with `wagtail.telepath.register`.
 
-.. code-block:: python
-
-   from wagtail.telepath import register
+```python
+from wagtail.telepath import register
    from wagtail.widget_adapters import WidgetAdapter
 
    class FancyInputAdapter(WidgetAdapter):
@@ -34,10 +32,11 @@ The `telepath <https://wagtail.github.io/telepath/>`__ library is used to set up
 
 
    register(FancyInputAdapter(), FancyInput)
-
+```
 
 The JavaScript object associated with a widget instance should provide a single method:
 
+```{eval-rst}
 .. js:function:: render(placeholder, name, id, initialState)
 
    Render a copy of this widget into the current page, and perform any initialisation required.
@@ -70,3 +69,4 @@ The value returned by ``render`` is a 'bound widget' object allowing this widget
 .. js:function:: focus(soft)
 
    Sets the browser's focus to this widget, so that it receives input events. Widgets that do not have a concept of focus should do nothing. If ``soft`` is true, this indicates that the focus event was not explicitly triggered by a user action (for example, when a new block is inserted, and the first field is focused as a convenience to the user) - in this case, the widget should avoid performing obtrusive UI actions such as opening modals.
+```
