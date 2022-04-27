@@ -53,7 +53,7 @@ class PagesForModerationPanel(Component):
         user_perms = UserPagePermissionsProxy(request.user)
         context["page_revisions_for_moderation"] = (
             user_perms.revisions_for_moderation()
-            .select_related("page", "user")
+            .prefetch_related("content_object", "user")
             .order_by("-created_at")
         )
         context["request"] = request
@@ -99,10 +99,10 @@ class WorkflowPagesToModeratePanel(Component):
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             states = (
                 TaskState.objects.reviewable_by(request.user)
-                .select_related(
+                .prefetch_related(
                     "page_revision",
                     "task",
-                    "page_revision__page",
+                    "page_revision__content_object",
                     "page_revision__user",
                 )
                 .order_by("-started_at")
