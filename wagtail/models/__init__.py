@@ -2148,8 +2148,7 @@ class Orderable(models.Model):
 
 class RevisionQuerySet(models.QuerySet):
     def page_revisions(self):
-        page_content_type = ContentType.objects.get_for_model(Page)
-        return self.filter(content_type=page_content_type)
+        return self.filter(content_type=get_default_page_content_type())
 
     def submitted(self):
         return self.filter(submitted_for_moderation=True)
