@@ -132,15 +132,6 @@ header {
     @include visuallyhidden();
   }
 
-  input[type='text'],
-  select {
-    border-width: 0;
-
-    &:focus {
-      background-color: $color-white;
-    }
-  }
-
   .error-message {
     color: inherit;
   }
