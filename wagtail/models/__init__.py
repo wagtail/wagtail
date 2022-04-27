@@ -315,7 +315,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
-    revisions = GenericRelation("Revision", related_query_name="page")
     live_revision = models.ForeignKey(
         "Revision",
         related_name="+",
@@ -325,6 +324,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         blank=True,
         editable=False,
     )
+
+    # Not to be used directly. This is needed to enable deep reverse lookups
+    # from the Revision model so it knows how to query for attributes that only
+    # exist on a page, e.g. `Revision.objects.filter(page__path=...)`.
+    specific_revisions = GenericRelation("Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
@@ -401,6 +405,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @property
+    def revisions(self):
+        # The GenericRelation manager seems to automatically use the specific page
+        # type's ContentType when querying. Since we always create revisions using
+        # the default Page model's ContentType, we should use this property when
+        # querying for revisions of a page so the default Page ContentType is used.
+        return Revision.page_revisions.filter(object_id=self.id)
 
     @classmethod
     def get_streamfield_names(cls):
@@ -901,11 +913,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             comment.save()
 
         # Create revision
-        revision = self.revisions.create(
-            content=self.serializable_data(),
-            user=user,
+        # We don't use the GenericRelation's .create() method as it seeems to
+        # use the specific page type as the ContentType. We want to always use
+        # the default Page model's ContentType, so we use Revision.objects.create().
+        revision = Revision.objects.create(
+            content_type=get_default_page_content_type(),
+            object_id=self.id,
             submitted_for_moderation=submitted_for_moderation,
+            user=user,
             approved_go_live_at=approved_go_live_at,
+            content=self.serializable_data(),
         )
 
         for comment in new_comments:
