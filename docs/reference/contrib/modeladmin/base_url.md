@@ -9,6 +9,8 @@ depth: 1
 ---
 ```
 
+(modeladmin_base_url_path)=
+
 ## `ModelAdmin.base_url_path`
 
 **Expected value**: A string.
