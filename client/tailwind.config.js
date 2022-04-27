@@ -80,6 +80,9 @@ module.exports = {
         sidebar:
           'left, inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
+      zIndex: {
+        header: '100',
+      },
     },
   },
   plugins: [
