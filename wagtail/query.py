@@ -460,9 +460,9 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 
         return self.annotate(
             _approved_schedule=Exists(
-                Revision.objects.exclude(approved_go_live_at__isnull=True).filter(
-                    page__pk=OuterRef("pk")
-                )
+                Revision.page_revisions.exclude(
+                    approved_go_live_at__isnull=True
+                ).filter(object_id=OuterRef("pk"))
             )
         )
 

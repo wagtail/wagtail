@@ -111,7 +111,7 @@ class WorkflowPagesToModeratePanel(Component):
                 (
                     state,
                     state.task.specific.get_actions(
-                        page=state.page_revision.page, user=request.user
+                        page_id=state.page_revision.object_id, user=request.user
                     ),
                     state.workflow_state.all_tasks_with_status(),
                 )
@@ -177,13 +177,13 @@ class RecentEditsPanel(Component):
             )
         else:
             last_edits_dates = (
-                Revision.objects.filter(user=request.user)
-                .values("page_id")
+                Revision.page_revisions.filter(user=request.user)
+                .values("object_id")
                 .annotate(latest_date=Max("created_at"))
                 .order_by("-latest_date")
                 .values("latest_date")[:edit_count]
             )
-            last_edits = Revision.objects.filter(
+            last_edits = Revision.page_revisions.filter(
                 created_at__in=last_edits_dates
             ).order_by("-created_at")
 

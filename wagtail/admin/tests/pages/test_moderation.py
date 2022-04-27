@@ -145,7 +145,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
 
         # Revision must no longer be submitted for moderation
         self.assertFalse(
-            Revision.objects.get(id=self.revision.id).submitted_for_moderation
+            Revision.page_revisions.get(id=self.revision.id).submitted_for_moderation
         )
 
     def test_reject_moderation_view_bad_revision_id(self):

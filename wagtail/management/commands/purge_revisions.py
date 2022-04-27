@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
 def purge_revisions(days=None):
     # exclude revisions which have been submitted for moderation in the old system
-    purgeable_revisions = Revision.objects.exclude(
+    purgeable_revisions = Revision.page_revisions.exclude(
         submitted_for_moderation=True
     ).exclude(
         # and exclude revisions with an approved_go_live_at date

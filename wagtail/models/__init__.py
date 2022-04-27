@@ -2207,7 +2207,7 @@ class Revision(models.Model):
         super().save(*args, **kwargs)
         if self.submitted_for_moderation:
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
-            self.page.revisions.exclude(id=self.id).update(
+            self.content_object.revisions.exclude(id=self.id).update(
                 submitted_for_moderation=False
             )
 
@@ -2236,14 +2236,14 @@ class Revision(models.Model):
             )
 
     def as_page_object(self):
-        return self.page.specific.with_content_json(self.content)
+        return self.content_object.specific.with_content_json(self.content)
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation approved: "%s" id=%d revision_id=%d',
-                self.page.title,
-                self.page.id,
+                self.content_object.title,
+                self.content_object.id,
                 self.id,
             )
             log(
@@ -2258,8 +2258,8 @@ class Revision(models.Model):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation rejected: "%s" id=%d revision_id=%d',
-                self.page.title,
-                self.page.id,
+                self.content_object.title,
+                self.content_object.id,
                 self.id,
             )
             log(
@@ -2277,7 +2277,7 @@ class Revision(models.Model):
             # newer than any revision that might exist in the database
             return True
         latest_revision = (
-            Revision.objects.filter(page_id=self.page_id)
+            Revision.objects.filter(object_id=self.object_id)
             .order_by("-created_at", "-id")
             .first()
         )
@@ -2307,13 +2307,13 @@ class Revision(models.Model):
         ).execute()
 
     def get_previous(self):
-        return self.get_previous_by_created_at(page=self.page)
+        return self.get_previous_by_created_at(object_id=self.content_object.id)
 
     def get_next(self):
-        return self.get_next_by_created_at(page=self.page)
+        return self.get_next_by_created_at(object_id=self.content_object.id)
 
     def __str__(self):
-        return '"' + str(self.page) + '" at ' + str(self.created_at)
+        return '"' + str(self.content_object) + '" at ' + str(self.created_at)
 
     class Meta:
         verbose_name = _("page revision")
@@ -2388,7 +2388,7 @@ class UserPagePermissionsProxy:
         if not self.user.is_active:
             return Revision.objects.none()
         if self.user.is_superuser:
-            return Revision.submitted_revisions.all()
+            return Revision.page_revisions.submitted()
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
@@ -2402,12 +2402,16 @@ class UserPagePermissionsProxy:
 
         # compile a filter expression to apply to the Revision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
+        only_my_sections = Q(
+            content_object__path__startswith=publishable_pages_paths[0]
+        )
         for page_path in publishable_pages_paths[1:]:
-            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
+            only_my_sections = only_my_sections | Q(
+                content_object__path__startswith=page_path
+            )
 
         # return the filtered queryset
-        return Revision.submitted_revisions.filter(only_my_sections)
+        return Revision.page_revisions.submitted().filter(only_my_sections)
 
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
@@ -3500,8 +3504,8 @@ class WorkflowState(models.Model):
 
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
-        return Revision.objects.filter(
-            page_id=self.page_id,
+        return Revision.page_revisions.filter(
+            object_id=self.page_id,
             id__in=self.task_states.values_list("page_revision_id", flat=True),
         ).defer("content")
 
