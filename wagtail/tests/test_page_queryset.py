@@ -820,7 +820,9 @@ class TestSpecificQuery(TestCase):
         pages.last().save_revision()
 
         results = (
-            Page.objects.live().specific().annotate(revision_count=Count("revisions"))
+            Page.objects.live()
+            .specific()
+            .annotate(revision_count=Count("specific_revisions"))
         )
 
         self.assertEqual(results.first().revision_count, 1)
