@@ -2401,13 +2401,9 @@ class UserPagePermissionsProxy:
 
         # compile a filter expression to apply to the Revision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(
-            content_object__path__startswith=publishable_pages_paths[0]
-        )
+        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
         for page_path in publishable_pages_paths[1:]:
-            only_my_sections = only_my_sections | Q(
-                content_object__path__startswith=page_path
-            )
+            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
 
         # return the filtered queryset
         return Revision.page_revisions.submitted().filter(only_my_sections)

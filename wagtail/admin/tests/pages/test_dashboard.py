@@ -94,7 +94,8 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # check if the revision is the revision of edited Page
         self.assertEqual(
-            ctx["last_edits"][0][0].page, Page.objects.get(pk=self.child_page.id)
+            ctx["last_edits"][0][0].content_object,
+            Page.objects.get(pk=self.child_page.id),
         )
         # check if the page in this list is the specific page of this revision
         self.assertEqual(
