@@ -2306,10 +2306,16 @@ class Revision(models.Model):
         ).execute()
 
     def get_previous(self):
-        return self.get_previous_by_created_at(object_id=self.content_object.id)
+        return self.get_previous_by_created_at(
+            content_type=self.content_type,
+            object_id=self.object_id,
+        )
 
     def get_next(self):
-        return self.get_next_by_created_at(object_id=self.content_object.id)
+        return self.get_next_by_created_at(
+            content_type=self.content_type,
+            object_id=self.object_id,
+        )
 
     def __str__(self):
         return '"' + str(self.content_object) + '" at ' + str(self.created_at)
