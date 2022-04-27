@@ -2146,15 +2146,26 @@ class Orderable(models.Model):
         ordering = ["sort_order"]
 
 
+class RevisionQuerySet(models.QuerySet):
+    def page_revisions(self):
+        page_content_type = ContentType.objects.get_for_model(Page)
+        return self.filter(content_type=page_content_type)
+
+    def submitted(self):
+        return self.filter(submitted_for_moderation=True)
+
+
 class PageRevisionsManager(models.Manager):
     def get_queryset(self):
-        page_content_type = ContentType.objects.get_for_model(Page)
-        return super().get_queryset().filter(content_type=page_content_type)
+        return RevisionQuerySet(self.model, using=self._db).page_revisions()
+
+    def submitted(self):
+        return self.get_queryset().submitted()
 
 
 class SubmittedRevisionsManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(submitted_for_moderation=True)
+        return RevisionQuerySet(self.model, using=self._db).submitted()
 
 
 class Revision(models.Model):
