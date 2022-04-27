@@ -64,14 +64,15 @@ header {
   }
 
   .search-form .icon {
-    @include svg-icon(1.3rem);
-    color: color.adjust($color-white, $lightness: -20%);
+    @include svg-icon(1.2rem);
+    color: theme('colors.primary.DEFAULT');
     position: absolute;
-    top: 0.3em;
+    top: 0;
+    height: 100%;
     // Remove once we drop support for Safari 13.
     // stylelint-disable-next-line property-disallowed-list
-    left: 0.5em;
-    inset-inline-start: 0.5em;
+    left: 0.7em;
+    inset-inline-start: 0.7em;
   }
 
   // For case where content below header should merge with it
