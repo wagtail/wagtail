@@ -190,10 +190,11 @@ a.button {
       .input:before {
         display: inline-block;
         position: absolute;
-        color: $color-grey-4;
-        border: 2px solid $color-grey-4;
+        color: theme('colors.grey.200');
+        border: 2px solid theme('colors.grey.200');
         border-radius: 100%;
         width: 1em;
+        height: 1em;
         padding: 0.3em;
         // Remove once we drop support for Safari 13.
         // stylelint-disable-next-line property-disallowed-list
