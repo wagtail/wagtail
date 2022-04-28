@@ -34,7 +34,6 @@
 .sidebar-footer {
   @apply w-bg-primary w-mt-auto;
   transition: width $menu-transition-duration ease !important; // Override body.ready
-  width: 100%;
 
   > ul,
   ul > li {
@@ -85,7 +84,7 @@
     }
 
     &__account-toggle {
-      @apply w-sr-only;
+      @apply w-hidden;
     }
   }
 
