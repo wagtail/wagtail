@@ -76,6 +76,10 @@ module.exports = {
       outlineOffset: {
         inside: '-3px',
       },
+      transitionProperty: {
+        sidebar:
+          'left, inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
+      },
     },
   },
   plugins: [

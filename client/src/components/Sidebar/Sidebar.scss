@@ -41,21 +41,14 @@
   }
 }
 
-.sidebar {
-  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
+.sidebar,
+.sidebar-loading {
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300] w-transition-sidebar;
   width: $menu-width;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
   left: 0;
   inset-inline-start: 0;
-
-  @include transition(
-    width $menu-transition-duration ease,
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left $menu-transition-duration ease,
-    inset-inline-start $menu-transition-duration ease
-  );
 
   @media (forced-colors: $media-forced-colours) {
     border-inline-end: 1px solid transparent;
@@ -79,6 +72,11 @@
     inset-inline-start: -$menu-width;
   }
 
+  // When sidebar is completely closed and animations have finished
+  &--closed {
+    display: none;
+  }
+
   &__inner {
     // On medium, make it possible for the nav links to scroll.
     @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap;
@@ -93,6 +91,10 @@
   &--mobile &__collapse-toggle {
     display: none;
   }
+}
+
+.sidebar-collapsed .sidebar-loading {
+  width: $menu-width-slim;
 }
 
 // This is a separate component as it needs to display in the header

@@ -10,7 +10,7 @@ export interface ModuleRenderContext {
   key: number;
   slim: boolean;
   expandingOrCollapsing: boolean;
-  onAccountExpand: () => void;
+  onHideMobile: () => void;
   onSearchClick: () => void;
   currentPath: string;
   navigate(url: string): Promise<void>;
@@ -39,6 +39,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
   const [collapsed, setCollapsed] = React.useState(collapsedOnLoad);
+  const mobileNavToggleRef = React.useRef<HTMLButtonElement>(null);
 
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {
@@ -50,6 +51,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   // 'visibleOnMobile' indicates whether the sidebar is currently visible on mobile
   // On mobile, the sidebar is completely hidden by default and must be opened manually
   const [visibleOnMobile, setVisibleOnMobile] = React.useState(false);
+  // 'closedOnMobile' is used to set the menu to display none so it can no longer be interacted with by keyboard when its hidden
+  const [closedOnMobile, setClosedOnMobile] = React.useState(true);
 
   // Tracks whether the screen is below 800 pixels. In this state, the menu is completely hidden.
   // State is used here in case the user changes their browser size
@@ -59,27 +62,36 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     function handleResize() {
       if (checkWindowSizeIsMobile()) {
         setIsMobile(true);
+        return null;
       } else {
         setIsMobile(false);
 
-        // Close the menu as this state is not used in desktop
+        // Close the menu and animate out as this state is not used in desktop
         setVisibleOnMobile(false);
+        // wait for animation to finish then hide menu from screen readers as well.
+        return setTimeout(() => {
+          setClosedOnMobile(true);
+        }, SIDEBAR_TRANSITION_DURATION);
       }
     }
 
     window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => window.removeEventListener('resize', handleResize);
+    const closeTimeout = handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+      }
+    };
   }, []);
 
   // Whether or not to display the menu with slim layout.
-  // Separate from 'collapsed' as the menu can still be displayed with an expanded
-  // layout while in 'collapsed' mode if the user is 'peeking' into it (see above)
   const slim = collapsed && !isMobile;
 
   // 'expandingOrCollapsing' is set to true whilst the the menu is transitioning between slim and expanded layouts
   const [expandingOrCollapsing, setExpandingOrCollapsing] =
     React.useState(false);
+
   React.useEffect(() => {
     setExpandingOrCollapsing(true);
     const finishTimeout = setTimeout(() => {
@@ -105,6 +117,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
 
     const finishTimeout = setTimeout(() => {
       setExpandingOrCollapsing(false);
+      setClosedOnMobile(!closedOnMobile);
     }, SIDEBAR_TRANSITION_DURATION);
     return () => {
       clearTimeout(finishTimeout);
@@ -133,9 +146,25 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     }
   };
 
-  const onAccountExpand = () => {
-    if (slim) {
-      onClickCollapseToggle();
+  React.useEffect(() => {
+    // wait for animation to finish then hide menu from screen readers as well.
+    const finishHidingMenu = setTimeout(() => {
+      if (!visibleOnMobile) {
+        setClosedOnMobile(true);
+      }
+    }, SIDEBAR_TRANSITION_DURATION);
+
+    return () => {
+      clearTimeout(finishHidingMenu);
+    };
+  }, [visibleOnMobile]);
+
+  const onHideMobile = () => {
+    setVisibleOnMobile(false);
+
+    if (mobileNavToggleRef) {
+      // When menu is closed with escape key bring focus back to open close toggle
+      mobileNavToggleRef.current?.focus();
     }
   };
 
@@ -145,7 +174,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       key: index,
       slim,
       expandingOrCollapsing,
-      onAccountExpand,
+      onHideMobile,
       onSearchClick,
       currentPath,
       navigate,
@@ -154,12 +183,29 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
 
   return (
     <>
+      <button
+        onClick={onClickOpenCloseToggle}
+        aria-label={gettext('Toggle sidebar')}
+        aria-expanded={visibleOnMobile ? 'true' : 'false'}
+        className={
+          'button sidebar-nav-toggle' +
+          (isMobile ? ' sidebar-nav-toggle--mobile' : '') +
+          (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
+        }
+        type="button"
+        ref={mobileNavToggleRef}
+      >
+        {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
+      </button>
       <div
         className={
           'sidebar' +
           (slim ? ' sidebar--slim' : '') +
           (isMobile ? ' sidebar--mobile' : '') +
-          (isMobile && !visibleOnMobile ? ' sidebar--hidden' : '')
+          (isMobile && !visibleOnMobile ? ' sidebar--hidden' : '') +
+          (isMobile && !visibleOnMobile && closedOnMobile
+            ? ' sidebar--closed'
+            : '')
         }
       >
         <div
@@ -197,19 +243,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           {renderedModules}
         </div>
       </div>
-      <button
-        onClick={onClickOpenCloseToggle}
-        aria-label={gettext('Toggle sidebar')}
-        aria-expanded={visibleOnMobile ? 'true' : 'false'}
-        className={
-          'button sidebar-nav-toggle' +
-          (isMobile ? ' sidebar-nav-toggle--mobile' : '') +
-          (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
-        }
-        type="button"
-      >
-        {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
-      </button>
     </>
   );
 };

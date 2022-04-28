@@ -14,7 +14,6 @@ exports[`Menu should render with the minimum required props 1`] = `
     className="sidebar-footer sidebar-footer--visible"
   >
     <ForwardRef(TippyWrapper)
-      content="Account"
       disabled={true}
       placement="right"
     >
@@ -23,6 +22,7 @@ exports[`Menu should render with the minimum required props 1`] = `
         aria-haspopup="menu"
         aria-label="Edit your account"
         className="
+            w-px-5
             sidebar-footer__account
             w-bg-primary
             w-text-white
@@ -33,7 +33,6 @@ exports[`Menu should render with the minimum required props 1`] = `
             w-appearance-none
             w-border-0
             w-overflow-hidden
-            w-px-5
             w-py-3
             hover:w-bg-primary-200
             focus:w-bg-primary-200

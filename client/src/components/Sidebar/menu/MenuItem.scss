@@ -24,7 +24,7 @@
     background: transparent;
     text-align: start;
     color: $color-menu-text;
-    padding: 13px 20px;
+    padding: 13px 15px 13px 20px;
     font-weight: 400;
     overflow: hidden;
 
@@ -85,7 +85,7 @@
 
 .menuitem-label {
   @include transition(opacity $menu-transition-duration ease);
-  margin-inline-start: 1rem;
+  margin-inline-start: 0.875rem;
   line-height: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -116,7 +116,6 @@
 
     .sidebar-menu-item__link {
       justify-content: flex-start;
-      padding: 20px;
     }
   }
 }
