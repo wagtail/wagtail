@@ -125,7 +125,8 @@ class PageExplorerPanel extends React.Component<
         paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
         focusTrapOptions={{
           onDeactivate: onClose,
-          clickOutsideDeactivates: true,
+          clickOutsideDeactivates: false,
+          allowOutsideClick: true,
         }}
       >
         <div role="dialog">
