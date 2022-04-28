@@ -252,11 +252,9 @@ $(() => {
     });
   }
 
-  // Resize autosize textareas on page load and tab changed
+  // Resize textareas on page load and when tab changed
   $(document).ready(resizeTextAreas);
-  $(document).on('wagtail:tab-changed', () => {
-    resizeTextAreas();
-  });
+  document.addEventListener('wagtail:tab-changed', resizeTextAreas);
 
   // eslint-disable-next-line func-names
   $('.dropdown').each(function () {

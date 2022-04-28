@@ -230,13 +230,6 @@ class Tabs {
         }
       }
     });
-
-    // Dispatch tab-changed on window load
-    window.onload = () => {
-      if (this.tabContainer) {
-        document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
-      }
-    };
   }
 
   /**
@@ -333,4 +326,11 @@ export default Tabs;
 
 export const initTabs = (tabs = document.querySelectorAll('[data-tabs]')) => {
   tabs.forEach((tabSet) => new Tabs(tabSet));
+
+  // Dispatch tab-changed on window load
+  if (tabs) {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
+    });
+  }
 };
