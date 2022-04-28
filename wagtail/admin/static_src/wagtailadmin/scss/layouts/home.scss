@@ -26,7 +26,10 @@ header {
 
   .avatar {
     position: absolute;
-    left: -70px;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    left: -60px;
+    inset-inline-start: -60px;
   }
 
   .user-name {

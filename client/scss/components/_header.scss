@@ -2,10 +2,12 @@
 @use 'sass:color';
 
 header {
-  @apply w-text-primary w-py-6 w-mb-8;
+  @apply w-text-primary w-mb-8;
 
-  padding-inline-start: 90px;
-  padding-inline-end: 90px;
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+  padding-inline-start: 110px;
+  padding-inline-end: 20px;
 
   a {
     @apply w-text-primary w-underline;
@@ -78,6 +80,7 @@ header {
   // For case where content below header should merge with it
   &.merged {
     margin-bottom: 0;
+    padding-bottom: 1rem;
   }
 
   &.header-with-breadcrumb {
@@ -183,6 +186,10 @@ header {
 
 @include media-breakpoint-up(sm) {
   header {
+    padding-top: 1.5rem;
+    padding-inline-start: 90px;
+    padding-inline-end: 90px;
+
     .left {
       float: left;
       margin-inline-end: 0;
