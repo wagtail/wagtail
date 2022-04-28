@@ -47,26 +47,19 @@
 
   &__errors {
     @apply w-hidden
-    w-box-border
-    w-w-4
-    w-h-4
-    w-text-[0.75rem]
-    w-flex
-    w-justify-center
-    w-items-center
+    w-absolute
+    -w-mr-3
+    w-py-0.5
+    w-px-[0.325rem]
+    w-top-1
+    -w-right-1
+    w-text-[0.5625rem]
     w-font-bold
     w-bg-critical-200
     w-text-white
     w-border
-    w-border-white
-    w-rounded-full
-    w-absolute
-    w-top-[0.4375rem]
-    -w-right-[0.9375rem];
-
-    &--active {
-      @apply w-flex;
-    }
+    w-border-grey-50
+    w-rounded-[1rem];
   }
 
   // Optional animate attr for tabs to animate in

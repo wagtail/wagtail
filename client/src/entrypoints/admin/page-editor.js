@@ -256,9 +256,9 @@ function initErrorDetection() {
   // eslint-disable-next-line guard-for-in
   for (const index in errorSections) {
     $('[data-tabs] a[href="#' + index + '"]')
-      .find('.w-tabs__errors')
-      .addClass('w-tabs__errors--active')
-      .find('.w-tabs__errors-count')
+      .find('[data-tabs-errors]')
+      .addClass('!w-flex')
+      .find('[data-tabs-errors-count]')
       .text(errorSections[index]);
   }
 }
