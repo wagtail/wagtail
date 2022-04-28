@@ -4,16 +4,10 @@ import { Menu } from './MainMenu';
 
 describe('Menu', () => {
   const user = { avatarUrl: 'https://gravatar/profile' };
-  const onAccountExpand = jest.fn();
 
   it('should render with the minimum required props', () => {
     const wrapper = shallow(
-      <Menu
-        accountMenuItems={[]}
-        menuItems={[]}
-        user={user}
-        onAccountExpand={onAccountExpand}
-      />,
+      <Menu accountMenuItems={[]} menuItems={[]} user={user} />,
     );
 
     expect(wrapper).toMatchSnapshot();
@@ -21,12 +15,7 @@ describe('Menu', () => {
 
   it('should toggle the sidebar footer (account) when clicked', () => {
     const wrapper = shallow(
-      <Menu
-        accountMenuItems={[]}
-        menuItems={[]}
-        user={user}
-        onAccountExpand={onAccountExpand}
-      />,
+      <Menu accountMenuItems={[]} menuItems={[]} user={user} />,
     );
 
     // default is closed

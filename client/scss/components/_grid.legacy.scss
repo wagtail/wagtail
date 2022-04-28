@@ -1,10 +1,9 @@
 .wrapper {
   @include clearfix();
+  @apply w-transition-sidebar;
   height: 100vh;
-  transition: transform 0.2s ease;
 
   @include media-breakpoint-up(sm) {
-    @include transition(padding-inline-start $menu-transition-duration ease);
     transform: none;
     padding-inline-start: $menu-width;
 

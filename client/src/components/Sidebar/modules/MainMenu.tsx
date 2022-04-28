@@ -67,8 +67,9 @@ interface MenuProps {
   user: MainMenuModuleDefinition['user'];
   slim: boolean;
   expandingOrCollapsing: boolean;
-  onAccountExpand: () => void;
+  onHideMobile: () => void;
   currentPath: string;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -77,7 +78,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   accountMenuItems,
   user,
   expandingOrCollapsing,
-  onAccountExpand,
+  onHideMobile,
   slim,
   currentPath,
   navigate,
@@ -91,8 +92,18 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     navigationPath: '',
     activePath: '',
   });
-  const accountSettingsOpen = state.navigationPath.startsWith('.account');
   const isVisible = !slim || expandingOrCollapsing;
+  const accountSettingsOpen = state.navigationPath.startsWith('.account');
+
+  React.useEffect(() => {
+    // Force account navigation to closed state when in slim mode
+    if (slim && accountSettingsOpen) {
+      dispatch({
+        type: 'set-navigation-path',
+        path: '',
+      });
+    }
+  }, [slim]);
 
   // Whenever currentPath or menu changes, work out new activePath
   React.useEffect(() => {
@@ -138,6 +149,10 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           type: 'set-navigation-path',
           path: '',
         });
+
+        if (state.navigationPath === '') {
+          onHideMobile();
+        }
       }
     };
 
@@ -164,29 +179,8 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     };
   }, []);
 
-  // Determine if the sidebar is expanded from account button click
-  const [expandedFromAccountClick, setExpandedFromAccountClick] =
-    React.useState<boolean>(false);
-
-  // Whenever the parent Sidebar component collapses or expands, close any open menus
-  React.useEffect(() => {
-    if (expandingOrCollapsing && !expandedFromAccountClick) {
-      dispatch({
-        type: 'set-navigation-path',
-        path: '',
-      });
-    }
-    if (expandedFromAccountClick) {
-      setExpandedFromAccountClick(false);
-    }
-  }, [expandingOrCollapsing]);
-
   const onClickAccountSettings = () => {
     // Pass account expand information to Sidebar component
-    onAccountExpand();
-    if (slim) {
-      setExpandedFromAccountClick(true);
-    }
 
     if (accountSettingsOpen) {
       dispatch({
@@ -219,9 +213,10 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           (isVisible ? ' sidebar-footer--visible' : '')
         }
       >
-        <Tippy disabled={!slim} content={gettext('Account')} placement="right">
+        <Tippy disabled={!slim} content={user.name} placement="right">
           <button
-            className="
+            className={`
+            ${slim ? 'w-px-4' : 'w-px-5'}
             sidebar-footer__account
             w-bg-primary
             w-text-white
@@ -232,11 +227,10 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             w-appearance-none
             w-border-0
             w-overflow-hidden
-            w-px-5
             w-py-3
             hover:w-bg-primary-200
             focus:w-bg-primary-200
-            w-transition"
+            w-transition`}
             title={gettext('Edit your account')}
             onClick={onClickAccountSettings}
             aria-label={gettext('Edit your account')}
@@ -288,7 +282,7 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
   render({
     slim,
     expandingOrCollapsing,
-    onAccountExpand,
+    onHideMobile,
     key,
     currentPath,
     navigate,
@@ -300,7 +294,7 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
         user={this.user}
         slim={slim}
         expandingOrCollapsing={expandingOrCollapsing}
-        onAccountExpand={onAccountExpand}
+        onHideMobile={onHideMobile}
         key={key}
         currentPath={currentPath}
         navigate={navigate}

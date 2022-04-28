@@ -1,5 +1,5 @@
 .sidebar-panel {
-  @apply w-transition w-duration-150;
+  @apply w-transition-sidebar;
   // With CSS variable allows panels with different widths to animate properly
   --width: #{$menu-width};
 

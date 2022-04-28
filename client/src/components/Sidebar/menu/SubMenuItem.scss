@@ -1,7 +1,7 @@
 .sidebar-sub-menu-trigger-icon {
   $root: &;
   display: block;
-  width: 1.25rem;
+  width: 1rem;
   height: 1rem;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
@@ -31,7 +31,7 @@
 }
 
 .sidebar-sub-menu-panel {
-  @apply w-flex w-flex-col w-bg-primary-200 w-h-screen;
+  @apply w-flex w-flex-col w-bg-primary-200 w-h-screen w-transition-sidebar;
   width: $menu-width;
 
   > h2,
@@ -40,8 +40,8 @@
   }
 
   > h2 {
-    // w-min-h-[160px] is to vertically align the title and icon combination to the search input on the left
-    @apply w-min-h-[220px] w-mt-0 w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center;
+    // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
+    @apply w-min-h-[160px] w-mt-[45px] w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center w-transition-sidebar;
 
     &:before {
       font-size: 4em;
@@ -64,6 +64,7 @@
   }
 
   > ul {
+    @apply w-scrollbar-thin;
     flex-grow: 1;
     padding: 0;
     margin: 0;
