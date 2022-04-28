@@ -57,7 +57,7 @@ export default function initCollapsibleBreadcrumbs() {
   }
 
   breadcrumbsToggle.addEventListener('keydown', (e) => {
-    if (e.key === ' ') {
+    if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
 
       if (keepOpen || open) {
