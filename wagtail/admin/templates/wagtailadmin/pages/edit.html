@@ -22,7 +22,7 @@
             {{ edit_handler.render_form_content }}
 
             {% if is_revision %}
-                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}"/>
+                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
             {% endif %}
 
             <footer class="footer">
