@@ -44,7 +44,11 @@
                             {% endif %}
                         {% endblock fields %}
 
-                        <li><a href="#tab-roles" role="tab" class="button lowpriority icon icon-arrow-right-after">{% trans "Roles" %}</a></li>
+                        <li>
+                            <a href="#tab-roles" data-tab-trigger class="button lowpriority icon icon-arrow-right-after">
+                                {% trans "Roles" %}
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <section
