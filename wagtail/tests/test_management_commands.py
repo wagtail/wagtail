@@ -525,8 +525,9 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
         with mock.patch(
-            "wagtail.models.ContentType.model_class",
+            "wagtail.models.Page.specific_class",
             return_value=None,
+            new_callable=mock.PropertyMock,
         ):
             management.call_command("create_log_entries_from_revisions")
             self.assertEqual(PageLogEntry.objects.count(), 0)
