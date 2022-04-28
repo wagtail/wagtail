@@ -118,4 +118,11 @@ module.exports = {
     // Disable text-transform so we don’t rely on uppercasing text.
     textTransform: false,
   },
+  variants: {
+    extend: {
+      backgroundColor: ['forced-colors'],
+      width: ['forced-colors'],
+      height: ['forced-colors'],
+    },
+  },
 };
