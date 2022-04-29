@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
-# Naglis Jonaitis, 2020
+# Naglis Jonaitis, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Naglis Jonaitis, 2020\n"
+"Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail vartotojai"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Būtinas. 30 simbolių arba mažiau. Tik raidės, skaičiai ir @/./+/-/_."
@@ -91,11 +94,20 @@ msgstr "pageidaujama kalba"
 msgid "Select language for the admin"
 msgstr "Pasirinkti kalbą administravimui"
 
+msgid "profile picture"
+msgstr "profilio nuotrauka"
+
 msgid "user profile"
 msgstr "vartotojo profilis"
 
+msgid "user profiles"
+msgstr "vartotojų profiliai"
+
 msgid "Delete"
 msgstr "Ištrinti"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Ar tikrai norite ištrinti šiuos vartotojus?"
 
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
@@ -120,8 +132,14 @@ msgstr "Pridėti grupę"
 msgid "Editing"
 msgstr "Redagavimas"
 
+msgid "View users in this group"
+msgstr "Peržiūrėti šios grupės vartotojus"
+
 msgid "Save"
 msgstr "Išsaugoti"
+
+msgid "Permissions"
+msgstr "Leidimai"
 
 msgid "Object permissions"
 msgstr "Objekto leidimai"
@@ -134,6 +152,9 @@ msgstr "Pridėti"
 
 msgid "Change"
 msgstr "Keisti"
+
+msgid "Custom permissions"
+msgstr "Tinkinti leidimai"
 
 msgid "Other permissions"
 msgstr "Kiti leidimai"
@@ -195,6 +216,9 @@ msgstr "Lygis"
 msgid "Status"
 msgstr "Statusas"
 
+msgid "Last Login"
+msgstr "Paskutinis prisijungimas"
+
 msgid "Admin"
 msgstr "Administratorius"
 
@@ -211,6 +235,9 @@ msgstr "prieš %(time_period)s"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Atsiprašome, jokie vartotojai neatitiko \"<em>%(query_string)s</em>\""
+
+msgid "Delete selected users"
+msgstr "Ištrinti pasirinktus vartotojus"
 
 msgid "Groups"
 msgstr "Grupės"

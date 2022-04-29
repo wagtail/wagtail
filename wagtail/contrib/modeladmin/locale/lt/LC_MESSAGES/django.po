@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
-# Naglis Jonaitis, 2021
+# Naglis Jonaitis, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Naglis Jonaitis, 2021\n"
+"Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -120,11 +120,19 @@ msgstr "Ne, neištrinti"
 msgid "Home"
 msgstr "Namai"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Pagal %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Pask. kartą atnaujinta"
 
 msgid "History"
 msgstr "Istorija"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s iš %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -158,6 +166,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Jokie %(name)s dar nebuvo sukurti."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Kodėl gi <a href=\"%(url)s\">nesukūrus vieno</a>?"
 
 msgid "Pagination"
 msgstr "Skaidymas į puslapius"

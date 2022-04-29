@@ -170,6 +170,12 @@ msgstr "image"
 msgid "images"
 msgstr "images"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Ajouter des mots-clés à 1 image"
+msgstr[1] "Ajouter des mots-clés à %(counter)s images"
+
 msgid "Add tags to images"
 msgstr "Ajouter des mots-clés à des images"
 
@@ -191,6 +197,12 @@ msgstr "Oui, ajouter"
 
 msgid "No, don't add"
 msgstr "Non, ne pas ajouter"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Ajouter 1 image à la nouvelle collection"
+msgstr[1] "Ajouter %(counter)s images à la nouvelle collection"
 
 msgid "Add images to collection"
 msgstr "Ajouter des images à la collection"
@@ -262,6 +274,18 @@ msgstr "Existant"
 msgid "New"
 msgstr "Nouveau"
 
+msgid "Use new image"
+msgstr "Utiliser une nouvelle image"
+
+msgid "Use existing and delete new"
+msgstr "Utiliser l'image existante et supprimer la nouvelle"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
+
 msgid "Latest images"
 msgstr "Dernières images"
 
@@ -273,6 +297,20 @@ msgstr "Insérer l'image"
 
 msgid "Uploading…"
 msgstr "Transfert…"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">créée dans "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">créées dans "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Changer le fichier d'image"
@@ -288,6 +326,12 @@ msgstr "Enregistrer"
 
 msgid "Delete image"
 msgstr "Supprimer l'image"
+
+msgid "Keep new image"
+msgstr "Garder la nouvelle image"
+
+msgid "Delete new image"
+msgstr "Supprimer la nouvelle image"
 
 #, python-format
 msgid "Editing image %(title)s"

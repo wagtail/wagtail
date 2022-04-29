@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2021-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2016,2018
 # Matt Westcott <matthew@torchbox.com>, 2016
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2021\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2021-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -123,6 +123,10 @@ msgstr "No, no eliminar"
 msgid "Home"
 msgstr "Hogar"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Por %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Última vez actualizado"
 
@@ -165,6 +169,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Ningun@ %(name)s ha sido creado aún."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "¿Por qué no <a href=\"%(url)s\">añadir uno</a>?"
 
 msgid "Pagination"
 msgstr "Paginación"

@@ -5,6 +5,7 @@
 # Translators:
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
 # Franklin Kingma <franklin@statix.net>, 2015
+# Harmen <sigmo@sigmo.nl>, 2022
 # mahulst, 2014
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
@@ -166,6 +167,12 @@ msgstr "afbeelding"
 msgid "images"
 msgstr "afbeeldingen"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Voeg tags aan 1 afbeelding toe"
+msgstr[1] "Voeg tags toe aan %(counter)s afbeeldingen"
+
 msgid "Add tags to images"
 msgstr "Voeg tags toe aan afbeeldingen"
 
@@ -186,6 +193,12 @@ msgstr "Ja, voeg toe"
 
 msgid "No, don't add"
 msgstr "Nee, niet toevoegen"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Voeg 1 afbeelding toe aan nieuwe collectie"
+msgstr[1] "Voeg %(counter)s afbeeldingen toe aan nieuwe collectie"
 
 msgid "Add images to collection"
 msgstr "Afbeeldingen aan collectie toevoegen"
@@ -253,11 +266,30 @@ msgstr "Uploaden"
 msgid "Popular tags"
 msgstr "Populaire tags"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van een "
+"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
+
 msgid "Existing"
 msgstr "Bestaand"
 
 msgid "New"
 msgstr "Nieuw"
+
+msgid "Use new image"
+msgstr "Gebruik nieuwe afbeelding"
+
+msgid "Use existing and delete new"
+msgstr "Gebruik bestaande en verwijder nieuwe"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 msgid "Latest images"
 msgstr "Laatste afbeeldingen"
@@ -270,6 +302,20 @@ msgstr "Voeg afbeelding in"
 
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> afbeelding <span class=\"visuallyhidden\">aangemaakt "
+"ijn %(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> afbeeldingen <span class=\"visuallyhidden"
+"\">aangemaakt in %(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
@@ -285,6 +331,12 @@ msgstr "Opslaan"
 
 msgid "Delete image"
 msgstr "Verwijder afbeelding"
+
+msgid "Keep new image"
+msgstr "Bewaar nieuwe afbeelding"
+
+msgid "Delete new image"
+msgstr "Nieuwe afbeelding verwijderen"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -425,6 +477,13 @@ msgstr ""
 "Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig. "
 "U kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
 "bleek. "
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van deze "
+"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."

@@ -10,14 +10,14 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
 # Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Meteor0id, 2018\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,28 @@ msgstr "Voeg een zoekwoord-promotie toe"
 
 msgid "Add search pick"
 msgstr "Voeg een zoekterm toe"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Aanbevolen zoekresultaten zijn een manier om bepaalde pagina's die "
+"normaliter niet hoog in de zoekresultaten zouden komen aan te bevelen. "
+"Bijvoorbeeld het aanbevelen van uw doneerpagina aan een gebruiker die zoekt "
+"op de minder gebruikelijke term \" <em>geven</em>\".</p> "
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Het \"Zoekterm(en)\" veld moet een volledige zoekterm, <em>inclusief</em> "
+"mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
+"resultaat wilt instellen. Om te helpen kunt u kiezen uit populaire "
+"zoektermen van gebruikers van de website.</p>            "
 
 msgid "Save"
 msgstr "Opslaan"
@@ -120,6 +142,12 @@ msgstr "Wijzig deze zoekpromotie"
 
 msgid "None"
 msgstr "Geen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

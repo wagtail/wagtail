@@ -106,6 +106,9 @@ msgstr "tijdelijk"
 msgid "redirect"
 msgstr "Doorverwijzing"
 
+msgid "redirects"
+msgstr "doorverwijzingen"
+
 msgid "Add redirect"
 msgstr "Voeg doorverwijzing toe"
 
@@ -117,6 +120,17 @@ msgstr "Doorverwijzingen"
 
 msgid "Import redirects"
 msgstr "Importeer doorverwijzingen"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Selecteer een bestand met op iedere rij een doorverwijzing en kolommen "
+"met <code>van</code> en <code>naar</code> (de kolomnamen maken niet uit).</"
+"p> <p>Na verzenden krijg je een bevestigingspagina waar doorverwijzingen "
+"gecontroleerd en aangepast kunnen worden.</p>"
 
 msgid "Import"
 msgstr "Importeren"
@@ -189,6 +203,12 @@ msgstr "Wijzig deze doorverwijzing"
 
 msgid "No redirects found."
 msgstr "Geen doorverwijzingen gevonden"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

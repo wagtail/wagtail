@@ -685,6 +685,20 @@ msgstr "Datum"
 msgid "Site summary"
 msgstr "Site samenvatting"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> pagina <span class=\"visuallyhidden\"> aangemaakt in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> pagina's <span class=\"visuallyhidden\">aangemaakt in "
+"%(site_name)s</span>"
+
 msgid "Your pages in a workflow"
 msgstr "Jouw pagina's in een workflow"
 
@@ -805,6 +819,14 @@ msgstr ""
 "\"%(task)s\"."
 
 #, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr ""
+"De pagina \"%(title)s\" is ter goedkeuring ingediend in beoordelingsfase "
+"\"%(task)s\""
+
+#, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
 msgstr "%(editor)sheeft opmerkingen op \"%(title)s\" gewijzigd."
 
@@ -886,6 +908,10 @@ msgid ""
 msgstr ""
 "De pagina \"%(title)s\" is ingediend ter goedkeuring in workflow "
 "\"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr "De pagina \"%(title)s\" is ingediend in workflow \"%(workflow)s\" "
 
 msgid "Page privacy"
 msgstr "Zichtbaarheid van de pagina"
@@ -1455,6 +1481,12 @@ msgstr "Ja, stop met planning"
 msgid "No, don't unschedule"
 msgstr "Nee, niet stoppen met plannen"
 
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Er is één overeenkomstige pagina"
+msgstr[1] "Er zijn %(counter)s overeenkomstige pagina's"
+
 msgid "Page types"
 msgstr "Pagina types"
 
@@ -1464,6 +1496,9 @@ msgstr "Helaas, geen pagina-overeenkomst <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Voer hierboven een zoekterm in."
+
+msgid "Page Locale: "
+msgstr "Paginataal:"
 
 #, python-format
 msgid "Translated to %(count)s other locales"
@@ -1475,14 +1510,30 @@ msgstr "Geen andere vertalingen"
 msgid "Switch locales"
 msgstr "Taal wijzigen"
 
+msgid "Page locking: "
+msgstr "Paginavergrendeling:"
+
 msgid "Locked"
 msgstr "Geblokkeerd"
+
+msgid "Only you can edit this page. Unlock it to allow others to edit"
+msgstr ""
+"Alleen jij kan deze pagina bewerken. Ontgrendel de pagina om anderen ook te "
+"kunnen laten bewerken."
 
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
 
+msgid "Anyone can edit this page. Lock it to prevent others from editing"
+msgstr ""
+"Iedereen kan deze pagina bewerken. Vergrendel de pagina zodat alleen jij de "
+"pagina nog kan bewerken."
+
 msgid "Lock"
 msgstr "Blokkeren"
+
+msgid "Page visibility: "
+msgstr "Paginazichtbaarheid"
 
 msgid "Visible to all"
 msgstr "Zichtbaar voor iedereen"

@@ -9,7 +9,7 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020
+# Loic Teixeira, 2020,2022
 # Loic Teixeira, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Loic Teixeira, 2020\n"
+"Last-Translator: Loic Teixeira, 2020,2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -112,8 +112,21 @@ msgstr "requis"
 msgid "choices"
 msgstr "choix"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Liste de choix séparés par une virgule ou un saut de ligne. Uniquement "
+"applicable aux cases à cocher, boutons radio et les listes déroulantes."
+
 msgid "default value"
 msgstr "valeur par défaut"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valeur par défaut. Liste de valeurs séparées par une virgule ou un saut de "
+"ligne pour les cases à cocher."
 
 msgid "help text"
 msgstr "texte d'aide"
@@ -153,6 +166,11 @@ msgstr "Supprimer les données de formulaire de %(title)s"
 
 msgid "Delete form data"
 msgstr "Supprimer les données de formulaire"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Êtes-vous sûr(e) de vouloir supprimer cette soumission ?"
+msgstr[1] "Êtes-vous sûr(e) de vouloir supprimer ces soumissions ?"
 
 msgid "Delete"
 msgstr "Supprimer"

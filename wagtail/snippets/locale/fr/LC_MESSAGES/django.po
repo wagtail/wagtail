@@ -7,7 +7,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020-2021
+# Loic Teixeira, 2018,2020-2022
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Loic Teixeira, 2018,2020-2021\n"
+"Last-Translator: Loic Teixeira, 2018,2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -43,8 +43,24 @@ msgid "Search"
 msgstr "Rechercher"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
+
+#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucun bloc ne correspond à « <em>%(query_string)s</em> »"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">en créer un maintenant</a> ?"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"

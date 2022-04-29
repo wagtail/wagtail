@@ -355,11 +355,20 @@ msgstr "Definições"
 msgid "Status"
 msgstr "Estado"
 
+msgid "Toggle status"
+msgstr "Mudar estado"
+
 msgid "Comments"
 msgstr "Comentários"
 
+msgid "Toggle comments"
+msgstr "Mudar comentários"
+
 msgid "Preview"
 msgstr "Visualizar"
+
+msgid "Toggle preview"
+msgstr "Mudar visualização"
 
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
@@ -471,6 +480,12 @@ msgstr "Ligação de telefone"
 msgid "Anchor link"
 msgstr "Ligação de âncora"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrado %(counter)s resultado"
+msgstr[1] "Encontrados %(counter)s resultados"
+
 msgid "Add an anchor link"
 msgstr "Adicionar uma ligação de âncora"
 
@@ -483,8 +498,42 @@ msgstr "Escolher"
 msgid "Choose a page"
 msgstr "Escolher uma página"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Só páginas do tipo \"%(type)s\" podem ser escolhidas para este campo. Os "
+"resultados de pesquisa irão excluir páginas de outros tipos."
+msgstr[1] ""
+"Só páginas do tipo \"%(type)s\" podem ser escolhidas para este campo. Os "
+"resultados de pesquisa irão excluir páginas de outros tipos."
+
 msgid "Convert to internal link"
 msgstr "Converter para ligação interna"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"O URL que inseriu, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, parece corresponder à página "
+"interna%(page)s, que tem o URL <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link more "
+"robust. Would you like to do this?"
+msgstr ""
+"Converter isto para uma ligação interna para %(page)s tornaria a ligação "
+"mais robusta. Deseja fazer isto?"
 
 msgid "Use external link"
 msgstr "Usar ligação externa"
@@ -618,6 +667,20 @@ msgstr "Data"
 msgid "Site summary"
 msgstr "Resumo do site"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Imagem <span class=\"visuallyhidden\">criada em "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Imagens <span class=\"visuallyhidden\">criadas em "
+"%(site_name)s</span>"
+
 msgid "Your pages in a workflow"
 msgstr "As suas páginas num fluxo de trabalho"
 
@@ -740,6 +803,14 @@ msgstr ""
 "\"%(task)s\"."
 
 #, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr ""
+"A página \"%(title)s\" foi enviada para aprovação na etapa de moderação "
+"\"%(task)s\"."
+
+#, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
 msgstr "%(editor)s atualizou comentários em \"%(title)s\"."
 
@@ -823,6 +894,11 @@ msgstr ""
 "A página \"%(title)s\" foi enviada para moderação no fluxo de trabalho "
 "\"%(workflow)s\"."
 
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr ""
+"A página \"%(title)s\" foi enviada para o fluxo de trabalho \"%(workflow)s\""
+
 msgid "Page privacy"
 msgstr "Privacidade da página"
 
@@ -886,8 +962,20 @@ msgstr "Escolha o tipo de página que gostaria de criar."
 msgid "Pages using %(page_type)s"
 msgstr "Páginas usando %(page_type)s"
 
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Apagar 1 página"
+msgstr[1] "Apagar %(counter)s páginas"
+
 msgid "Are you sure you want to delete these pages?"
 msgstr "Tem a certeza que quer apagar estas páginas?"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Será apagada mais uma página-filha."
+msgstr[1] "Serão apagadas mais %(counter)s páginas-filha"
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -909,10 +997,22 @@ msgstr "Mover"
 msgid "Are you sure you want to move these pages?"
 msgstr "Tem a certeza que quer mover estas páginas?"
 
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Esta página tem uma página-filha"
+msgstr[1] "Esta página tem %(counter)s páginas-filha"
+
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Não tem permissão para mover esta página"
 msgstr[1] "Não tem permissão para mover estas páginas"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s"
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "A seguinte página não pode ser movida para %(dest_title)s"
+msgstr[1] "As seguintes páginas não podem ser movidas para %(dest_title)s"
 
 msgid "The following page cannot be moved due to duplicate slug"
 msgid_plural "The following pages cannot be moved due to duplicate slugs"
@@ -929,6 +1029,12 @@ msgstr "Sim, mover estas páginas"
 
 msgid "No, don't move"
 msgstr "Não, não mover"
+
+#, python-format
+msgid "Publish 1 page"
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Publicar 1 página"
+msgstr[1] "Publicar %(counter)s páginas"
 
 msgid "Are you sure you want to publish these pages?"
 msgstr "Tem a certeza que quer publicar estas páginas?"

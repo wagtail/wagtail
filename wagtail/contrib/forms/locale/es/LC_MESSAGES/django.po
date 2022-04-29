@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2020
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # Daniel Chimeno <daniel@chimeno.me>, 2015
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2020\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -113,8 +114,21 @@ msgstr "requerido"
 msgid "choices"
 msgstr "opciones"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Lista de opciones separadas por comas o saltos de línea. Solo aplicable para "
+"casillas de verificación, botones de opción y listas desplegables."
+
 msgid "default value"
 msgstr "valor por defecto"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valor por defecto. Valores separados por comas o saltos de línea soportados "
+"para casillas de verificación."
 
 msgid "help text"
 msgstr "texto de ayuda"
@@ -154,6 +168,11 @@ msgstr "Eliminar el formulario de datas %(title)s"
 
 msgid "Delete form data"
 msgstr "Eliminar formulario de datos"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "¿Seguro que quieres eliminar este envío de formulario?"
+msgstr[1] "¿Seguro que quieres eliminar estos envíos de formulario?"
 
 msgid "Delete"
 msgstr "Eliminar"

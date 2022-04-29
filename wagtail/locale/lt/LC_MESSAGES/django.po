@@ -22,6 +22,12 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail branduolys"
+
 msgid "Add Comment"
 msgstr "Pridėti komentarą"
 
@@ -76,8 +82,8 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"Puslapio pavadinimas kuris bus atvaizduojamas URL pvz http://domain.com/blog/"
-"[my-slug]/"
+"Puslapio pavadinimas, kuris bus atvaizduojamas URL, pvz. http://domain.com/"
+"blog/[my-slug]/"
 
 msgid "content type"
 msgstr "turinio tipas"
@@ -94,6 +100,16 @@ msgstr "URL kelias"
 msgid "owner"
 msgstr "valdytojas"
 
+msgid "title tag"
+msgstr "pavadinimo žymė"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Puslapio pavadinimas, atvaizduojamas paieškos variklių rezultatuose kaip "
+"antraštė, kurią galima paspausti."
+
 msgid "show in menus"
 msgstr "rodyti meniu elementuose"
 
@@ -101,6 +117,15 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Ar nuoroda į šį puslapį bus atvaizduojama automatiškai sugeneruotose meniu"
+
+msgid "meta description"
+msgstr "metaduomenų aprašymas"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Aprašymo tekstas, atvaizduojamas po paieškos variklio rezultatų antrašte."
 
 msgid "go live date/time"
 msgstr "veikimo įjungimo data/laikas"
@@ -184,7 +209,7 @@ msgid "Publish any page"
 msgstr "Publikuoti bet kurį puslapį"
 
 msgid "Bulk delete"
-msgstr "Didelio kiekio trinimas"
+msgstr "Masinis trynimas"
 
 msgid "Delete pages with children"
 msgstr "Trinti puslapius su vidiniais puslapiais"
@@ -227,6 +252,12 @@ msgstr "Patvirtinti"
 
 msgid "Approve with comment"
 msgstr "Patvirtinti su komentaru"
+
+msgid "current task state"
+msgstr "dabartinė užduoties būsena"
+
+msgid "Draft saved"
+msgstr "Juodraštis išsaugotas"
 
 msgid "comment"
 msgstr "komentaras"
@@ -353,11 +384,17 @@ msgstr "Anglų"
 msgid "French"
 msgstr "Prancūzų"
 
+msgid "You must log in first."
+msgstr "Pirma privalote prisijungti."
+
 msgid "German"
 msgstr "Vokiečių"
 
 msgid "Create"
 msgstr "Sukurti"
+
+msgid "Created"
+msgstr "Sukurtas"
 
 msgid "Edited"
 msgstr "Redaguotas"
@@ -376,6 +413,9 @@ msgstr "Atrakinta"
 
 msgid "Reject"
 msgstr "Atmesti"
+
+msgid "Rename"
+msgstr "Pervadinti"
 
 msgid "Copy"
 msgstr "Kopijuoti"

@@ -7,14 +7,14 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -39,10 +39,26 @@ msgid "Search"
 msgstr "Zoeken"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
+
+#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Helaas, er komen geen snippets overeen met de zoekterm \"<em>"
 "%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Voeg er nu eentje toe!</a>"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"

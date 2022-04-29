@@ -5,7 +5,7 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -162,6 +162,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Yhtään %(name)s-kohdetta ei ole luotu vielä."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Mikset vaikka <a href=\"%(url)s\">loisi yhtä</a>?"
 
 msgid "Pagination"
 msgstr "Sivutus"

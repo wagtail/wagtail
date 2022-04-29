@@ -113,6 +113,9 @@ msgstr "temporal"
 msgid "redirect"
 msgstr "redirigir"
 
+msgid "redirects"
+msgstr "redirecciones"
+
 msgid "Add redirect"
 msgstr "Añadir redirección"
 
@@ -196,6 +199,12 @@ msgstr "Editar esta redirección"
 
 msgid "No redirects found."
 msgstr "No se encontraron redirecciones."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

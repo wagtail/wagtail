@@ -8,14 +8,14 @@
 # Meteor0id, 2018,2021
 # Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Harmen <sigmo@sigmo.nl>, 2022\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail core"
@@ -62,6 +65,15 @@ msgstr "Dit blok heeft geen opties."
 
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routeerbare pagina"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sitemaps"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -572,11 +584,32 @@ msgstr "U heeft een wachtwoord nodig om deze pagina te kunnen bekijken."
 msgid "Continue"
 msgstr "Ga verder"
 
+msgid "Test Wagtail Model Admin"
+msgstr "Test Wagtail Model Admin"
+
+msgid "Wagtail routable page tests"
+msgstr "Wagtail routeerbare pagina tests"
+
+msgid "Wagtail search tests"
+msgstr "Wagtail Search Tests"
+
 msgid "English"
 msgstr "Engels"
 
 msgid "French"
 msgstr "Frans"
+
+msgid "Wagtail snippets tests"
+msgstr "Wagtail Snippets Tests"
+
+msgid "Wagtail tests"
+msgstr "Wagtail Tests"
+
+msgid "The form is already filled."
+msgstr "Het formulier is al ingevuld."
+
+msgid "You must log in first."
+msgstr "Je moet eerst inloggen."
 
 msgid "German"
 msgstr "Duits"

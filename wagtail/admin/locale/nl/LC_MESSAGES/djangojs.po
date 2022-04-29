@@ -3,12 +3,12 @@
 # mahulst, 2022
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
-# Thijs Kramer <thijskramer@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Thijs Kramer <thijskramer@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -46,6 +46,9 @@ msgstr "Verwijderen"
 
 msgid "Delete error"
 msgstr "Verwijder fout"
+
+msgid "Deleting"
+msgstr "Bezig met verwijderen"
 
 msgid "Edit"
 msgstr "Bewerk"
@@ -139,6 +142,9 @@ msgstr "Toon fout"
 
 msgid "Show latest content"
 msgstr "Toon laatste inhoud"
+
+msgid "Split block"
+msgstr "Splits blok"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

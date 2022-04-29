@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
-# Naglis Jonaitis, 2021
+# Naglis Jonaitis, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Naglis Jonaitis, 2021\n"
+"Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -72,8 +72,19 @@ msgstr "Lygiuoti į dešinę"
 msgid "Collection"
 msgstr "Kolekcija"
 
+msgid "Format"
+msgstr "Formatas"
+
+msgid "Image is decorative"
+msgstr "Paveikslėlis yra dekoratyvinis"
+
 msgid "Alt text"
 msgstr "Alternatyvus tekstas"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Prašome nurodyti alternatyvųjį tekstą arba pažymėti paveikslėlį kaip "
+"dekoratyvinį"
 
 msgid "Filter"
 msgstr "Filtras"
@@ -120,6 +131,9 @@ msgstr "Redaguoti bet kurį paveiksliuką"
 msgid "Choose"
 msgstr "Pasirinkti"
 
+msgid "Select images in choosers"
+msgstr "Leisti pasirinkti paveiksliukus iš šios kolekcijos pasirinkimo lange"
+
 msgid "title"
 msgstr "pavadinimas"
 
@@ -146,6 +160,18 @@ msgstr "paveiksliukas"
 
 msgid "images"
 msgstr "paveiksliukai"
+
+msgid "Yes, add"
+msgstr "Taip, pridėti"
+
+msgid "No, don't add"
+msgstr "Ne, nepridėti"
+
+msgid "Add images to collection"
+msgstr "Pridėti paveiksliukus į kolekciją"
+
+msgid "Delete images"
+msgstr "Ištrinti paveiksliukus"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -187,6 +213,26 @@ msgstr "Įterpti paveiksliuką"
 
 msgid "Uploading…"
 msgstr "Įkeliama..."
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Paveikslėlis <span class=\"visuallyhidden\">, "
+"sukurtas %(site_name)s tinklalapyje</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Paveikslėliai <span class=\"visuallyhidden\">, "
+"sukurti %(site_name)s tinklalapyje</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Paveikslėlis <span class=\"visuallyhidden\">, "
+"sukurtas %(site_name)s tinklalapyje</span>"
+msgstr[3] ""
+"<span>%(total)s</span> Paveikslėlių <span class=\"visuallyhidden\">, sukurtų "
+"%(site_name)s tinklalapyje</span>"
 
 msgid "Change image file:"
 msgstr "Keisti paveiksliuko bylą:"
@@ -350,10 +396,16 @@ msgid "Image updated."
 msgstr "Paveiksliukai atnaujinti."
 
 msgid "Image permissions"
-msgstr "Paveiksliuko leidimai"
+msgstr "Paveiksliukų leidimai"
 
 msgid "Add an image permission"
-msgstr "Pridėti paveiksliuko leidimą"
+msgstr "Pridėti paveiksliukų leidimą"
+
+msgid "Add to collection"
+msgstr "Pridėti į kolekciją"
+
+msgid "Add selected images to collection"
+msgstr "Pridėti pasirinktus paveiksliukus į kolekciją"
 
 msgid "Delete"
 msgstr "Ištrinti"
