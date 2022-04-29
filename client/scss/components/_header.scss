@@ -20,10 +20,8 @@ header {
   }
 
   h1 {
+    @apply w-h1;
     position: relative;
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 130%;
 
     > svg.icon {
       position: absolute;
