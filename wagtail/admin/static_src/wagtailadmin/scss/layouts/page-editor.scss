@@ -472,11 +472,10 @@
 footer .actions,
 footer .preview {
   .button {
-    display: inline-flex;
-    align-items: center;
+    @apply w-leading-none w-inline-flex w-items-center;
 
     .icon {
-      margin-inline-end: 0.5rem;
+      @apply w-pr-2;
     }
   }
 }
