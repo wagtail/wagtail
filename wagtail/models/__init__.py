@@ -909,8 +909,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # base_content_type so that we can query for page revisions without
         # having to know the specific Page type.
         revision = Revision.objects.create(
-            content_type=self.content_type,
-            base_content_type=get_default_page_content_type(),
+            content_type_id=self.content_type_id,
+            base_content_type_id=get_default_page_content_type().id,
             object_id=self.id,
             submitted_for_moderation=submitted_for_moderation,
             user=user,
@@ -2241,7 +2241,8 @@ class Revision(models.Model):
         if self.submitted_for_moderation:
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
             Revision.objects.filter(
-                content_type=self.content_type, object_id=self.object_id
+                content_type_id=self.content_type_id,
+                object_id=self.object_id,
             ).exclude(id=self.id).update(submitted_for_moderation=False)
 
         if (
@@ -2341,13 +2342,13 @@ class Revision(models.Model):
 
     def get_previous(self):
         return self.get_previous_by_created_at(
-            content_type=self.content_type,
+            content_type_id=self.content_type_id,
             object_id=self.object_id,
         )
 
     def get_next(self):
         return self.get_next_by_created_at(
-            content_type=self.content_type,
+            content_type_id=self.content_type_id,
             object_id=self.object_id,
         )
 
