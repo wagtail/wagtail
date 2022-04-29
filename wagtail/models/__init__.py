@@ -2168,6 +2168,9 @@ class RevisionQuerySet(models.QuerySet):
         return self.filter(submitted_for_moderation=True)
 
     def filter(self, *args, **kwargs):
+        # Make sure the object_id is a string, so queries that use the target model's
+        # id still works even when its id is not a string
+        # (e.g. Revision.objects.filter(object_id=some_page.id)).
         if "object_id" in kwargs:
             kwargs["object_id"] = str(kwargs["object_id"])
         return super().filter(*args, **kwargs)
