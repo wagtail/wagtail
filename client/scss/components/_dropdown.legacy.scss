@@ -351,6 +351,5 @@
   .button svg.icon {
     // TODO: leave only class when iconfont styles are removed
     @include svg-icon();
-    margin-inline-end: 0.5em;
   }
 }

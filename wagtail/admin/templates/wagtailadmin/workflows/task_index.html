@@ -3,19 +3,19 @@
 
 {% block content %}
     <header role="banner">
-        <div class="row nice-padding">
+        <div class="row">
             <div class="left">
-                <div class="col header-title">
-                    <h1>{% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                <div class="col">
+                    <h1>{% if view.header_icon %}{% icon name=view.header_icon %}{% endif %}
                         {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
                 </div>
             </div>
             <div class="right">
-                <a href="{% url "wagtailadmin_workflows:task_index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button--icon w-inline-flex w-items-center">
+                <a href="{% url "wagtailadmin_workflows:task_index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button-secondary button--icon w-inline-flex w-items-center w-gap-2">
                     {% if showing_disabled %}
-                        {% icon name="no-view" class_name="w-mr-2" %}{% trans "Hide disabled tasks" %}
+                        {% icon name="no-view" %}{% trans "Hide disabled tasks" %}
                     {% else %}
-                        {% icon name="view" class_name="w-mr-2" %}{% trans "Show disabled tasks" %}
+                        {% icon name="view" %}{% trans "Show disabled tasks" %}
                     {% endif %}
                 </a>
                 <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>

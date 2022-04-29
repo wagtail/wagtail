@@ -734,7 +734,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         )
         self.assertContains(
             response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
@@ -750,5 +750,5 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         )
         self.assertNotContains(
             response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )

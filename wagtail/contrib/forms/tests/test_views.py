@@ -267,10 +267,10 @@ class TestFormsIndexWithLocalisationEnabled(TestCase, WagtailTestUtils):
             )
 
     def get_switch_current_locale_markup(self, locale):
-        return f'<a href="javascript:void(0)" aria-label="{locale.get_display_name()}" class="c-dropdown__button  u-btn-current">'
+        return f'<a href="javascript:void(0)" aria-label="{locale.get_display_name()}" class="c-dropdown__button u-btn-current w-no-underline">'
 
     def get_switch_link_markup(self, locale):
-        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" aria-label="{locale.get_display_name()}" class="u-link is-live">'
+        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" aria-label="{locale.get_display_name()}" class="u-link is-live w-no-underline">'
 
     def test_forms_index(self):
         response = self.client.get(self.forms_index_url)

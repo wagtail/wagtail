@@ -3,12 +3,12 @@
 {% block titletag %}{% blocktrans trimmed %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
-    <header class="nice-padding merged">
+    <header class="merged">
         <div class="row">
             <div class="left">
                 <div class="col">
                     <h1>
-                        {% icon name="cogs" class_name="header-title-icon" %}
+                        {% icon name="cogs" %}
                         {% trans "Editing" %}
                         <span>{{ setting_type_name|capfirst }}</span>
                     </h1>

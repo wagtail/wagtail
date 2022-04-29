@@ -2,7 +2,12 @@
 @use 'sass:color';
 
 header {
-  @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4 w-mb-8;
+  @apply w-text-primary w-mb-8;
+
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+  padding-inline-start: 110px;
+  padding-inline-end: 20px;
 
   a {
     @apply w-text-primary w-underline;
@@ -15,19 +20,24 @@ header {
   }
 
   h1 {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
+    @apply w-h1;
+    position: relative;
 
-    &.icon:before {
-      width: 1em;
-      display: none;
-      margin-inline-end: 0.4em;
-      font-size: 1.5em;
+    > svg.icon {
+      position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
+      left: -1.5em;
+      inset-inline-start: -1.5em;
+      top: 0.125em;
+      max-width: 1em;
+      max-height: 1em;
+      vertical-align: text-top;
     }
 
     span {
       margin-inline-start: 0.3125rem;
+      font-weight: 400;
     }
   }
 
@@ -54,31 +64,21 @@ header {
   }
 
   .search-form .icon {
-    @include svg-icon(1.3rem);
-    color: color.adjust($color-white, $lightness: -20%);
+    @include svg-icon(1.2rem);
+    color: theme('colors.primary.DEFAULT');
     position: absolute;
-    top: 0.3em;
+    top: 0;
+    height: 100%;
     // Remove once we drop support for Safari 13.
     // stylelint-disable-next-line property-disallowed-list
-    left: 0.5em;
-    inset-inline-start: 0.5em;
+    left: 0.7em;
+    inset-inline-start: 0.7em;
   }
 
   // For case where content below header should merge with it
   &.merged {
     margin-bottom: 0;
-  }
-
-  &.header-with-breadcrumb {
-    padding-top: 0;
-
-    .breadcrumb {
-      margin-bottom: 1rem;
-      padding-inline-start: math.div(
-        $desktop-nice-padding,
-        2
-      ); // rather than padding-inline-start: revert;
-    }
+    padding-bottom: 1rem;
   }
 
   &.no-border {
@@ -113,17 +113,13 @@ header {
     }
   }
 
-  label {
-    @include visuallyhidden();
+  .button-secondary {
+    color: $color-teal-darker;
+    background-color: transparent;
   }
 
-  input[type='text'],
-  select {
-    border-width: 0;
-
-    &:focus {
-      background-color: $color-white;
-    }
+  label {
+    @include visuallyhidden();
   }
 
   .error-message {
@@ -176,6 +172,10 @@ header {
 
 @include media-breakpoint-up(sm) {
   header {
+    padding-top: 1.5rem;
+    padding-inline-start: 90px;
+    padding-inline-end: 90px;
+
     .left {
       float: left;
       margin-inline-end: 0;
@@ -214,16 +214,5 @@ header {
     .col9 {
       @include column(9);
     }
-  }
-}
-
-.header-title {
-  @include media-breakpoint-down(xs) {
-    padding-inline-start: $mobile-nav-indent;
-  }
-
-  &-icon {
-    @include svg-icon();
-    margin-inline-end: 0.5em;
   }
 }

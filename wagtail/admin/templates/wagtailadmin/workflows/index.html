@@ -3,15 +3,15 @@
 
 {% block content %}
     <header role="banner">
-        <div class="row nice-padding">
+        <div class="row">
             <div class="left">
-                <div class="col header-title">
-                    <h1>{% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                <div class="col">
+                    <h1>{% if view.header_icon %}{% icon name=view.header_icon %}{% endif %}
                         {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
                 </div>
             </div>
             <div class="right">
-                <a href="{% url "wagtailadmin_workflows:index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button-nobg button--icon">
+                <a href="{% url "wagtailadmin_workflows:index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button-secondary button--icon w-inline-flex w-items-center w-gap-2">
                     {% if showing_disabled %}
                         {% icon name="no-view" %}{% trans "Hide disabled workflows" %}
                     {% else %}

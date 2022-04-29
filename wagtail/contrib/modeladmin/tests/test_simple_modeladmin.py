@@ -454,12 +454,12 @@ class TestTranslatableCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that the locale select exists and is set correctly
-        expected = '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">'
+        expected = '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button u-btn-current w-no-underline">'
         self.assertContains(response, expected)
 
         # Check that the other locale link is right
         expected = """
-        <a href="/admin/modeladmintest/translatablebook/create/?locale=en" aria-label="English" class="u-link is-live">
+        <a href="/admin/modeladmintest/translatablebook/create/?locale=en" aria-label="English" class="u-link is-live w-no-underline">
             English
         </a>"""
         self.assertContains(response, expected, html=True)
@@ -695,7 +695,7 @@ class TestTranslatableBookEditView(TestCase, WagtailTestUtils):
 
         # Check the locale switcher is there
         expected = """
-        <a href="/admin/modeladmintest/translatablebook/edit/1/?locale=en" aria-label="English" class="u-link is-live">
+        <a href="/admin/modeladmintest/translatablebook/edit/1/?locale=en" aria-label="English" class="u-link is-live w-no-underline">
             English
         </a>"""
         self.assertContains(response, expected, html=True)

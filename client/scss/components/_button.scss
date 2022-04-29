@@ -48,11 +48,6 @@
       border-color: transparent;
       background-color: $color-button-yes-hover;
     }
-
-    &.button-nobg:hover {
-      color: $color-button-yes;
-      background-color: transparent;
-    }
   }
 
   &.warning {
@@ -69,11 +64,6 @@
       color: $color-white;
       border-color: transparent;
       background-color: $color-button-warning-hover;
-    }
-
-    &.button-nobg:hover {
-      color: $color-button-warning;
-      background-color: transparent;
     }
   }
 
@@ -93,16 +83,6 @@
       border-color: transparent;
       background-color: $color-button-no-hover;
     }
-
-    &.button-nobg:hover {
-      color: $color-button-no;
-      background-color: transparent;
-    }
-  }
-
-  &.button-nobg {
-    border: 0;
-    background-color: transparent;
   }
 
   &.bicolor {
@@ -136,7 +116,9 @@
 
     .icon-wrapper {
       background-color: rgba(0, 0, 0, 0.2);
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
@@ -144,7 +126,6 @@
       inset-inline-start: 0;
       top: 0;
       width: 3em;
-      line-height: 1.85em;
       height: 100%;
       text-align: center;
       // Remove once we drop support for Safari 14.
@@ -160,11 +141,6 @@
     &.button--icon {
       &:before {
         display: none; // TODO: remove once the icon font styles are gone
-      }
-
-      .icon {
-        @include svg-icon(1rem);
-        padding: 0.75em;
       }
     }
 
@@ -329,10 +305,6 @@
     &:hover {
       border-color: $color-grey-2;
     }
-
-    &.button-nobg:hover {
-      background-color: transparent;
-    }
   }
 
   &.button--icon {
@@ -463,11 +435,6 @@ button.button.bicolor .icon-wrapper {
     border-color: transparent;
     background-color: $color-button-yes-hover;
   }
-
-  &.button-nobg:hover {
-    color: $color-button-yes;
-    background-color: transparent;
-  }
 }
 
 .no,
@@ -486,16 +453,6 @@ button.button.bicolor .icon-wrapper {
     border-color: transparent;
     background-color: $color-button-no-hover;
   }
-
-  &.button-nobg:hover {
-    color: $color-button-no;
-    background-color: transparent;
-  }
-}
-
-.button-nobg {
-  border: 0;
-  background-color: transparent;
 }
 
 .bicolor {

@@ -5,11 +5,11 @@
 
 {% block content %}
     <header role="banner">
-        <div class="row nice-padding">
+        <div class="row">
             <div class="left">
-                <div class="col header-title">
+                <div class="col">
                     <h1>
-                        {% if header_icon %}{% icon name=header_icon class_name="header-title-icon" %}{% endif %}
+                        {% if header_icon %}{% icon name=header_icon %}{% endif %}
                         {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}
                     </h1>
                 </div>

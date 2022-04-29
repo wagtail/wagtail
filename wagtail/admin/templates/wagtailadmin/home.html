@@ -13,14 +13,11 @@
 
 {% block content %}
     <header class="merged nice-padding">
-        <div class="row">
-            <div class="col1">
-                <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
-            </div>
-            <div class="col9">
-                <h1>{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
-                <div class="user-name">{{ user|user_display_name }}</div>
-            </div>
+        <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
+
+        <div>
+            <h1>{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
+            <div class="user-name">{{ user|user_display_name }}</div>
         </div>
     </header>
 

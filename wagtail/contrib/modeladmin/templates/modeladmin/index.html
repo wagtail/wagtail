@@ -17,12 +17,12 @@
     {% block header %}
         <header class="hasform">
             {% block breadcrumb %}{% endblock %}
-            <div class="row nice-padding">
+            <div class="row">
                 <div class="left header-left">
-                    <div class="col header-title">
+                    <div class="col">
                         {% block h1 %}
                             <h1>
-                                {% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                                {% if view.header_icon %}{% icon name=view.header_icon %}{% endif %}
                                 {{ view.get_page_title }}
                                 {% if view.get_page_subtitle %} <span>{{ view.get_page_subtitle }}</span> {% endif %}
                                 {% include 'modeladmin/includes/result_count.html' %}

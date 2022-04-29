@@ -18,11 +18,11 @@
 
 {% block content %}
 
-    <header class="nice-padding">
-        <div class="row row-flush">
+    <header>
+        <div class="row">
             <div class="left">
-                <div class="col header-title">
-                    <h1>{% icon name="snippet" class_name="header-title-icon" %}
+                <div class="col">
+                    <h1>{% icon name="snippet" %}
                         {% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
 
                     {% if is_searchable and search_url %}

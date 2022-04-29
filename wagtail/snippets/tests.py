@@ -195,7 +195,7 @@ class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
         )
         self.assertContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
         # Check that the add URLs include the locale
@@ -223,7 +223,7 @@ class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
         )
         self.assertNotContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
         # Check that the add URLs don't include the locale
@@ -239,7 +239,9 @@ class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
 
-        self.assertNotContains(response, 'aria-label="French" class="u-link is-live">')
+        self.assertNotContains(
+            response, 'aria-label="French" class="u-link is-live w-no-underline">'
+        )
 
         # Check that the add URLs don't include the locale
         add_url = reverse("wagtailsnippets_tests_advert:add")
@@ -577,7 +579,7 @@ class TestLocaleSelectorOnCreate(TestCase, WagtailTestUtils):
         )
         self.assertContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
@@ -592,7 +594,7 @@ class TestLocaleSelectorOnCreate(TestCase, WagtailTestUtils):
         )
         self.assertNotContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
@@ -603,7 +605,7 @@ class TestLocaleSelectorOnCreate(TestCase, WagtailTestUtils):
         )
         self.assertNotContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
 
@@ -899,7 +901,7 @@ class TestEditFileUploadSnippet(BaseTestSnippetEditView):
 class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
     fixtures = ["test.json"]
 
-    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
+    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'
     LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
 
     def setUp(self):
@@ -920,7 +922,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
     def test_locale_selector_without_translation(self):
@@ -936,7 +938,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
@@ -951,7 +953,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">',
+            f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">',
         )
 
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
