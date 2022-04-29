@@ -46,7 +46,6 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = (dispatch) => ({
   gotoPage: (id: number, transition: number) =>
     dispatch(actions.gotoPage(id, transition)),
-  onClose: () => dispatch(actions.closePageExplorer()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageExplorer);
