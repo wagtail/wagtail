@@ -589,7 +589,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         action = PublishPageRevisionAction(
             revision,
-            page=self.page,
             user=self.request.user,
             changed=self.has_content_changes,
             previous_revision=(self.previous_revision if self.is_reverting else None),

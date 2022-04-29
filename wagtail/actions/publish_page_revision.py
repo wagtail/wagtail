@@ -34,16 +34,10 @@ class PublishPageRevisionAction:
     """
 
     def __init__(
-        self,
-        revision,
-        page=None,
-        user=None,
-        changed=True,
-        log_action=True,
-        previous_revision=None,
+        self, revision, user=None, changed=True, log_action=True, previous_revision=None
     ):
         self.revision = revision
-        self.page = page or self.revision.as_page_object()
+        self.page = self.revision.as_page_object()
         self.user = user
         self.changed = changed
         self.log_action = log_action
