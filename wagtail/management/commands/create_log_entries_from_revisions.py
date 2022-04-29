@@ -19,11 +19,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         current_page_id = None
         missing_models_content_type_ids = set()
-        for revision in (
-            Revision.page_revisions.order_by("object_id", "created_at")
-            .prefetch_related("page")
-            .iterator()
-        ):
+        for revision in Revision.page_revisions.order_by(
+            "object_id", "created_at"
+        ).iterator():
             revision_page = revision.page
             # This revision is for a page type that is no longer in the database. Bail out early.
             if revision_page.content_type_id in missing_models_content_type_ids:
