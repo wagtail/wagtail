@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,15 +243,15 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/snippets.py:586
+#: views/snippets.py:613
 msgid "Snippet history"
 msgstr ""
 
-#: views/snippets.py:590
+#: views/snippets.py:617
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:592
+#: views/snippets.py:619
 msgid "Date"
 msgstr ""
 

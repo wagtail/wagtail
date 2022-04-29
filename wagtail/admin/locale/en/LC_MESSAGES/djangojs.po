@@ -75,9 +75,8 @@ msgstr ""
 msgid "Edit '{title}'"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:224
-#: src/components/Sidebar/modules/MainMenu.tsx:244
-#: src/components/Sidebar/modules/MainMenu.tsx:246
+#: src/components/Sidebar/modules/MainMenu.tsx:234
+#: src/components/Sidebar/modules/MainMenu.tsx:236
 msgid "Edit your account"
 msgstr ""
 
@@ -98,7 +97,7 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:210
+#: src/components/Sidebar/modules/MainMenu.tsx:204
 msgid "Main menu"
 msgstr ""
 
@@ -110,7 +109,7 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerPanel.tsx:83
+#: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
 msgstr ""
 
@@ -118,7 +117,7 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerPanel.tsx:127
+#: src/components/PageExplorer/PageExplorerPanel.tsx:132
 msgid "Page explorer"
 msgstr ""
 
@@ -181,7 +180,7 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: src/components/Sidebar/modules/Search.tsx:116
+#: src/components/Sidebar/modules/Search.tsx:118
 #: src/components/Sidebar/modules/Search.tsx:53
 #: src/components/Sidebar/modules/Search.tsx:73
 #: src/components/Sidebar/modules/Search.tsx:93
@@ -193,7 +192,7 @@ msgid "See all"
 msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
-#: src/components/PageExplorer/PageExplorerPanel.tsx:111
+#: src/components/PageExplorer/PageExplorerPanel.tsx:112
 msgid "Server Error"
 msgstr ""
 
@@ -213,8 +212,8 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/components/Sidebar/Sidebar.tsx:177
-#: src/components/Sidebar/Sidebar.tsx:204
+#: src/components/Sidebar/Sidebar.tsx:188
+#: src/components/Sidebar/Sidebar.tsx:223
 msgid "Toggle sidebar"
 msgstr ""
 

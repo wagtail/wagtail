@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,15 +330,6 @@ msgstr ""
 msgid "Add a page permission"
 msgstr ""
 
-#: templates/wagtailusers/groups/index.html:3
-#: templates/wagtailusers/groups/index.html:16
-msgid "groups"
-msgstr ""
-
-#: templates/wagtailusers/groups/index.html:17 views/groups.py:57
-msgid "Add a group"
-msgstr ""
-
 #: templates/wagtailusers/groups/results.html:8
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -364,7 +355,7 @@ msgstr ""
 
 #: templates/wagtailusers/users/create.html:4
 #: templates/wagtailusers/users/create.html:7
-#: templates/wagtailusers/users/create.html:60
+#: templates/wagtailusers/users/create.html:64
 msgid "Add user"
 msgstr ""
 
@@ -374,7 +365,7 @@ msgid "Account"
 msgstr ""
 
 #: templates/wagtailusers/users/create.html:15
-#: templates/wagtailusers/users/create.html:47
+#: templates/wagtailusers/users/create.html:49
 #: templates/wagtailusers/users/edit.html:15
 msgid "Roles"
 msgstr ""
@@ -497,6 +488,10 @@ msgstr[1] ""
 
 #: views/groups.py:56 wagtail_hooks.py:95
 msgid "Groups"
+msgstr ""
+
+#: views/groups.py:57
+msgid "Add a group"
 msgstr ""
 
 #: views/groups.py:58

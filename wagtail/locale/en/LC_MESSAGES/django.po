@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Wagtail search tests"
 msgstr ""
 
-#: test/settings.py:225 tests/test_locale_model.py:57 tests/test_utils.py:215
+#: test/settings.py:225 tests/test_locale_model.py:57 tests/test_utils.py:216
 msgid "English"
 msgstr ""
 
@@ -764,7 +764,7 @@ msgstr ""
 msgid "You must log in first."
 msgstr ""
 
-#: tests/test_utils.py:216
+#: tests/test_utils.py:217
 msgid "German"
 msgstr ""
 

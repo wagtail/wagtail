@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,8 +224,8 @@ msgstr ""
 
 #: templates/wagtaildocs/chooser/results.html:28
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" role=\"tab\">upload "
-"one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/upload_form.html:21
