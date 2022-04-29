@@ -2170,6 +2170,11 @@ class RevisionQuerySet(models.QuerySet):
     def submitted(self):
         return self.filter(submitted_for_moderation=True)
 
+    def filter(self, *args, **kwargs):
+        if "object_id" in kwargs:
+            kwargs["object_id"] = str(kwargs["object_id"])
+        return super().filter(*args, **kwargs)
+
 
 class PageRevisionsManager(models.Manager):
     def get_queryset(self):
