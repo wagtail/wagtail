@@ -30,15 +30,14 @@ $logo-size: 110px;
   border-radius: 100%;
 
   @include media-breakpoint-up(sm) {
-    margin: 0 auto 4rem;
+    margin: 1.25rem auto;
   }
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
     @include show-focus-outline-inside();
-    margin: 1.125em auto 4em;
     width: 40px;
-    height: 40px;
+    height: 110px;
   }
 
   // Remove background on 404 page

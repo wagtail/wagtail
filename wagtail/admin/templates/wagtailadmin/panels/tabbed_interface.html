@@ -1,8 +1,8 @@
 {% load wagtailadmin_tags i18n %}
 
-<div class="w-tabs" data-tabs data-tabs-animate>
+<div class="w-tabs" data-tabs>
     <div class="w-tabs__wrapper">
-        <div role="tablist" class="w-tabs__list w-px-5 sm:w-px-[4.5rem]">
+        <div role="tablist" class="w-tabs__list">
             {% for child in self.children %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=child.heading title=child.heading classes=child.classes|join:" " %}
             {% endfor %}

@@ -685,7 +685,7 @@
         <section id="tabs">
             <h2>Tabs</h2>
 
-            <div class="w-tabs" data-tabs data-tabs-animate>
+            <div class="w-tabs" data-tabs>
                 <div role="tablist" class="w-tabs__list">
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-1' title='Tab 1' %}
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-2' title='Tab 2' %}
@@ -694,7 +694,7 @@
 
             <p>Tabs can also indicate errors:</p>
 
-            <div class="w-tabs" data-tabs data-tabs-animate>
+            <div class="w-tabs" data-tabs>
                 <div role="tablist" class="w-tabs__list">
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-1' title='Tab 1' errors_count='5' %}
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}

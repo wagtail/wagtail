@@ -11,7 +11,7 @@
 
 .w-tabs {
   &__wrapper {
-    @apply w-mb-10 w-overflow-x-auto w-scrollbar-thin w-flex w-items-center w-justify-between w-flex-wrap w-gap-4;
+    @apply w-mb-8 w-overflow-x-auto w-scrollbar-thin w-flex w-items-center w-justify-between w-flex-wrap w-gap-4;
   }
 
   &__list {
@@ -37,11 +37,14 @@
     after:w-left-0
     after:-w-bottom-px
     after:w-transition-all
-    motion-reduce:after:w-transition-none
-    hover:after:w-w-full;
+    after:forced-colors:w-h-1
+    after:forced-colors:w-bg-LinkText
+    hover:after:w-w-full
+    hover:after:forced-colors:w-w-full
+    motion-reduce:after:w-transition-none;
 
     &[aria-selected='true'] {
-      @apply after:w-w-full w-text-primary;
+      @apply after:w-w-full w-text-primary after:forced-colors:w-w-full;
     }
   }
 
