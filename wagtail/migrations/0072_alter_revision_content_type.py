@@ -7,14 +7,27 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
-        ('wagtailcore', '0071_populate_revision_content_type'),
+        ("contenttypes", "0002_remove_content_type_name"),
+        ("wagtailcore", "0071_populate_revision_content_type"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='revision',
-            name='content_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype'),
+            model_name="revision",
+            name="content_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="contenttypes.contenttype",
+                related_name="+",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="revision",
+            name="base_content_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="contenttypes.contenttype",
+                related_name="+",
+            ),
         ),
     ]

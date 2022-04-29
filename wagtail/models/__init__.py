@@ -18,7 +18,6 @@ from urllib.parse import urlparse
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -324,11 +323,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         blank=True,
         editable=False,
     )
-
-    # Not to be used directly. This is needed to enable deep reverse lookups
-    # from the Revision model so it knows how to query for attributes that only
-    # exist on a page, e.g. `Revision.objects.filter(page__path=...)`.
-    specific_revisions = GenericRelation("Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
@@ -2190,12 +2184,16 @@ class SubmittedRevisionsManager(models.Manager):
 
 
 class Revision(models.Model):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    base_content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
     object_id = models.CharField(
         max_length=255,
         verbose_name=_("object id"),
     )
-    content_object = GenericForeignKey("content_type", "object_id")
     submitted_for_moderation = models.BooleanField(
         verbose_name=_("submitted for moderation"), default=False, db_index=True
     )

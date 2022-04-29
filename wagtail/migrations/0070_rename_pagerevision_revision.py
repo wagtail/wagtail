@@ -32,6 +32,17 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 null=True,
                 on_delete=models.CASCADE,
+                related_name="+",
+                to="contenttypes.contenttype",
+            ),
+        ),
+        migrations.AddField(
+            model_name="revision",
+            name="base_content_type",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=models.CASCADE,
+                related_name="+",
                 to="contenttypes.contenttype",
             ),
         ),
