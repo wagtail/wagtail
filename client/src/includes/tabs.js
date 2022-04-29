@@ -3,6 +3,7 @@
  *  All tab buttons need the role="tab" attr and an href with the tab content ID
  *  Tab contents need to have the role="tabpanel" attribute and and ID attribute that matches the href of the tab link.
  *  Tab buttons should also be wrapped in an element with the role="tablist" attribute
+ *  Use the attribute data-tab-trigger on an Anchor link and set the href to the #ID of the tab you would like to trigger
  */
 class Tabs {
   constructor(node) {
@@ -10,6 +11,9 @@ class Tabs {
     this.tabButtons = this.tabContainer.querySelectorAll('[role="tab"]');
     this.tabList = this.tabContainer.querySelector('[role="tablist"]');
     this.tabPanels = this.tabContainer.querySelectorAll('[role="tabpanel"]');
+    // External anchors that can be used for selecting tabs
+    this.tabTriggerLinks =
+      this.tabContainer.querySelectorAll('[data-tab-trigger]');
     this.keydownEventListener = this.keydownEventListener.bind(this);
 
     // Tab Options - Add these data attributes along side the data-tabs attribute
@@ -51,13 +55,7 @@ class Tabs {
     // Set active tab from url or make first tab active
     if (this.tabButtons) {
       // Set each button's aria-controls attribute and select tab if aria-selected has already been set on the element
-      this.tabButtons.forEach((button) => {
-        button.setAttribute(
-          'aria-controls',
-          button.getAttribute('href').replace('#', ''),
-        );
-      });
-
+      this.setAriaControlsByHref(this.tabButtons);
       // Check for active items set by the template
       const tabActive = [...this.tabButtons].find(
         (button) => button.getAttribute('aria-selected') === 'true',
@@ -76,6 +74,11 @@ class Tabs {
       } else {
         this.selectFirstTab();
       }
+    }
+
+    // Set each external trigger button's aria-controls attribute
+    if (this.tabTriggerLinks) {
+      this.setAriaControlsByHref(this.tabTriggerLinks);
     }
   }
 
@@ -201,32 +204,49 @@ class Tabs {
   }
 
   bindEvents() {
-    if (!this.tabButtons) {
-      return;
+    if (this.tabButtons) {
+      this.tabButtons.forEach((tab, index) => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.selectTab(tab);
+        });
+        tab.addEventListener('keydown', this.keydownEventListener);
+        // Set index of tab used in keyboard controls
+        // eslint-disable-next-line no-param-reassign
+        tab.index = index;
+      });
+
+      // Select previous or next tab using history
+      window.addEventListener('popstate', (e) => {
+        if (e.state && e.state.tabContent) {
+          const tab = this.getTabElementByHref(`#${e.state.tabContent}`);
+          if (tab) {
+            this.selectTab(tab);
+            tab.focus();
+          }
+        }
+      });
     }
 
-    this.tabButtons.forEach((tab, index) => {
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.selectTab(tab);
+    if (this.tabTriggerLinks) {
+      this.tabTriggerLinks.forEach((trigger) => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          const tab = this.getTabElementByHref(trigger.getAttribute('href'));
+          if (tab) {
+            this.selectTab(tab);
+            tab.focus();
+          }
+        });
       });
-      tab.addEventListener('keydown', this.keydownEventListener);
-      // Set index of tab used in keyboard controls
-      // eslint-disable-next-line no-param-reassign
-      tab.index = index;
-    });
+    }
+  }
 
-    // Select previous or next tab using history
-    window.addEventListener('popstate', (e) => {
-      if (e.state && e.state.tabContent) {
-        const tab = this.tabContainer.querySelector(
-          `a[href="#${e.state.tabContent}"][role="tab"]`,
-        );
-        if (tab) {
-          this.selectTab(tab);
-        }
-      }
-    });
+  /**
+   * A query selector for selecting a tab element by it's href
+   */
+  getTabElementByHref(href) {
+    return this.tabContainer.querySelector(`a[href="${href}"][role="tab"]`);
   }
 
   /**
@@ -258,9 +278,7 @@ class Tabs {
   selectTabByURLHash() {
     if (window.location.hash) {
       const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-      const tab = this.tabContainer.querySelector(
-        `a[href="${cleanedHash}"][role="tab"]`,
-      );
+      const tab = this.getTabElementByHref(cleanedHash);
       if (tab) {
         this.selectTab(tab);
       } else {
@@ -322,6 +340,19 @@ class Tabs {
   selectFirstTab() {
     this.selectTab(this.tabButtons[0]);
     this.state.activeTabID = this.tabButtons[0].getAttribute('aria-controls');
+  }
+
+  /**
+   *  Populate a list of links aria-controls attributes with their href value
+   * @param links{HTMLAnchorElement[]}
+   */
+  setAriaControlsByHref(links) {
+    links.forEach((link) => {
+      link.setAttribute(
+        'aria-controls',
+        link.getAttribute('href').replace('#', ''),
+      );
+    });
   }
 }
 
