@@ -911,7 +911,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # use the specific page type as the ContentType. We want to always use
         # the default Page model's ContentType, so we use Revision.objects.create().
         revision = Revision.objects.create(
-            content_type=get_default_page_content_type(),
+            content_type=self.content_type,
+            base_content_type=get_default_page_content_type(),
             object_id=self.id,
             submitted_for_moderation=submitted_for_moderation,
             user=user,
@@ -2159,7 +2160,7 @@ class Orderable(models.Model):
 
 class RevisionQuerySet(models.QuerySet):
     def page_revisions(self):
-        return self.filter(content_type=get_default_page_content_type())
+        return self.filter(base_content_type=get_default_page_content_type())
 
     def submitted(self):
         return self.filter(submitted_for_moderation=True)
