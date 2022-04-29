@@ -164,11 +164,11 @@ class RecentEditsPanel(Component):
             # it fails with "This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'"
             last_edits = Revision.objects.raw(
                 """
-                SELECT wp.* FROM
-                    wagtailcore_pagerevision wp JOIN (
-                        SELECT max(created_at) AS max_created_at, page_id FROM
-                            wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
-                    ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
+                SELECT wr.* FROM
+                    wagtailcore_revision wr JOIN (
+                        SELECT max(created_at) AS max_created_at, object_id FROM
+                            wagtailcore_revision WHERE user_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
+                    ) AS max_rev ON max_rev.max_created_at = wr.created_at ORDER BY wr.created_at DESC
                  """,
                 [
                     User._meta.pk.get_db_prep_value(request.user.pk, connection),
