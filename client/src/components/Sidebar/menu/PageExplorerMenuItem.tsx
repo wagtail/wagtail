@@ -81,7 +81,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
         <button
           onClick={onClick}
           className="sidebar-menu-item__link"
-          aria-haspopup="menu"
+          aria-haspopup="dialog"
           aria-expanded={isOpen ? 'true' : 'false'}
           type="button"
         >

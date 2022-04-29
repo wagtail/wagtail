@@ -129,13 +129,8 @@ class PageExplorerPanel extends React.Component<
           allowOutsideClick: true,
         }}
       >
-        <div role="dialog">
-          <Transition
-            name={transition}
-            className="c-page-explorer"
-            component="nav"
-            label={gettext('Page explorer')}
-          >
+        <div role="dialog" aria-label={gettext('Page explorer')}>
+          <Transition name={transition} className="c-page-explorer">
             <div key={depth} className="c-transition-group">
               <PageExplorerHeader
                 depth={depth}
