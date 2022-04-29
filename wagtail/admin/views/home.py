@@ -20,6 +20,7 @@ from wagtail.models import (
     TaskState,
     UserPagePermissionsProxy,
     WorkflowState,
+    get_default_page_content_type,
 )
 
 User = get_user_model()
@@ -166,11 +167,12 @@ class RecentEditsPanel(Component):
                 SELECT wr.* FROM
                     wagtailcore_revision wr JOIN (
                         SELECT max(created_at) AS max_created_at, object_id FROM
-                            wagtailcore_revision WHERE user_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
+                            wagtailcore_revision WHERE user_id = %s AND base_content_type_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
                     ) AS max_rev ON max_rev.max_created_at = wr.created_at ORDER BY wr.created_at DESC
                  """,
                 [
                     User._meta.pk.get_db_prep_value(request.user.pk, connection),
+                    get_default_page_content_type().id,
                     edit_count,
                 ],
             )
