@@ -81,18 +81,6 @@ header {
     padding-bottom: 1rem;
   }
 
-  &.header-with-breadcrumb {
-    padding-top: 0;
-
-    .breadcrumb {
-      margin-bottom: 1rem;
-      padding-inline-start: math.div(
-        $desktop-nice-padding,
-        2
-      ); // rather than padding-inline-start: revert;
-    }
-  }
-
   &.no-border {
     border: 0;
 
