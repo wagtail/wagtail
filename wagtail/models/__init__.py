@@ -2237,6 +2237,12 @@ class Revision(models.Model):
         if self.created_at is None:
             self.created_at = timezone.now()
 
+        # Set default value for base_content_type to the content_type.
+        # Page revisions should set this to the default Page model's content type,
+        # but the distinction may not be necessary for models that do not use inheritance.
+        if self.base_content_type_id is None:
+            self.base_content_type_id = self.content_type_id
+
         super().save(*args, **kwargs)
         if self.submitted_for_moderation:
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
