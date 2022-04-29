@@ -27,7 +27,9 @@
             {% endwith %}
         </div>
         {% if page.first_published_at %}
-            <div class="w-help-text">{% trans 'First published' %} {{ page.first_published_at }}</div>
+            <div class="w-help-text">
+                {% trans 'First published ' %}{% timesince_last_update page.first_published_at use_shorthand=True %}
+            </div>
         {% endif %}
     </div>
 </div>

@@ -8,6 +8,7 @@
 .page-editor {
   .content-wrapper {
     margin-bottom: 10em;
+    overflow-x: hidden;
   }
 
   .breadcrumb {
@@ -122,16 +123,15 @@
   }
 
   .form-side {
-    @apply w-fixed
+    @apply w-absolute
     w-z-[90]
     w-right-0
-    w-top-[100px]
-    sm:w-top-[50px]
+    w-top-full
     w-w-full
+    w-h-screen
     sm:w-max-w-[420px]
     w-transform
     w-translate-x-full
-    w-h-full
     w-px-5
     w-py-10
     md:w-p-10
@@ -140,7 +140,9 @@
     w-transition
     w-duration-300
     w-border-l
-    w-border-grey-100;
+    w-border-grey-100
+    w-overflow-y-auto
+    w-scrollbar-thin;
 
     &--open {
       @apply w-translate-x-0;
@@ -165,8 +167,8 @@
   }
 }
 
-.has-messages .form-side {
-  @apply w-top-[170px] md:w-top-[120px];
+.side-panel-open {
+  @apply w-overflow-y-hidden sm:w-overflow-y-auto;
 }
 
 // An object is the basic wrapper around any field or group of fields in the editor interface

@@ -1,3 +1,3 @@
-<svg id="icon-draft" viewBox="0 0 23 21">
-    <g fill-rule="evenodd"><path d="M18 18v1.11a.88.88 0 01-.875.89H4.875A.88.88 0 014 19.11V18h14zM12.167 1v5.047c0 .49.393.89.875.89H18V9H4V1.89c0-.455.332-.828.765-.883L4.875 1h7.292zm1.071 0c.25 0 .489.098.664.273l3.825 3.829a.935.935 0 01.273.66V6h-5V1h.238z" fill-rule="nonzero"/><text font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="7" font-weight="bold" transform="translate(0 .333)"><tspan x="0" y="15.667">DRAFT</tspan></text></g>
+<svg id="icon-draft" viewBox="0 0 24 23">
+    <path d="M19.8 19.1v2c0 .9-.5 1.6-1 1.6H4.2c-.6 0-1-.7-1-1.6v-2h16.6zM12.9.2v6c0 .6.5 1.1 1 1.1h5.9v2.4H3.2V1.3c0-.5.4-1 .9-1H12.9zm1.3 0c.3 0 .6.1.8.3L19.5 5c.2.2.3.5.3.8v.3h-5.9V.2h.3z"/><text transform="translate(-.5399 16.877)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-weight="bold" font-size="7">DRAFT</text>
 </svg>
