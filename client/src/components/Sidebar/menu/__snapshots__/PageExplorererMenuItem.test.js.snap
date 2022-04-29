@@ -10,7 +10,7 @@ exports[`PageExplorerMenuItem should render with the minimum required props 1`] 
   >
     <button
       aria-expanded="false"
-      aria-haspopup="menu"
+      aria-haspopup="dialog"
       className="sidebar-menu-item__link"
       onClick={[Function]}
       type="button"
