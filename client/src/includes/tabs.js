@@ -244,17 +244,9 @@ class Tabs {
 
   /**
    * A query selector for selecting a tab element by it's href
-   * @returns {HTMLElement}
    */
   getTabElementByHref(href) {
-    const tab = this.tabContainer.querySelector(
-      `a[href="${href}"][role="tab"]`,
-    );
-    if (tab) {
-      return tab;
-    } else {
-      return null;
-    }
+    return this.tabContainer.querySelector(`a[href="${href}"][role="tab"]`);
   }
 
   /**
