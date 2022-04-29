@@ -6,7 +6,7 @@
     {% trans "Account" as account_str %}
     {% include "wagtailadmin/shared/header.html" with title=account_str icon="user" merged=1 %}
 
-    <div class="w-tabs" data-tabs data-tabs-animate>
+    <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
             <div role="tablist" class="w-tabs__list nice-padding">
                 {% for tab in panels_by_tab.keys %}

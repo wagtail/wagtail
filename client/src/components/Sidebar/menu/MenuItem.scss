@@ -5,7 +5,7 @@
   position: relative;
 
   &__link {
-    @apply w-text-14 w-leading-none;
+    @apply w-text-14 w-leading-none w-transition;
     @include transition(
       border-color $menu-transition-duration ease,
       background-color $menu-transition-duration ease
@@ -61,8 +61,6 @@
   }
 
   &--in-sub-menu {
-    @apply hover:w-bg-primary;
-
     #{$root}__link,
     .menuitem-label {
       @apply w-leading-tight;

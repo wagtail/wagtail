@@ -10,6 +10,7 @@ const borderRadius = {
 const borderWidth = {
   DEFAULT: '0.0625rem', // 1px
   0: '0',
+  5: '0.3125rem',
 };
 
 // If adding new values, use T-shirt sizing naming.
