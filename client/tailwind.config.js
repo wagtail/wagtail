@@ -29,10 +29,28 @@ const scrollbarThin = require('./src/plugins/scrollbarThin');
  * Functions
  * themeColors: For converting our design tokens into a format that tailwind accepts
  */
+
+// Use this function keep tailwind's opacity value on custom config options that use CSS vars
+function withOpacity(variableName) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${variableName}), ${opacityValue})`;
+    }
+    return `rgb(var(${variableName}))`;
+  };
+}
+
 const themeColors = Object.fromEntries(
   Object.entries(colors).map(([key, hues]) => {
     const shades = Object.fromEntries(
-      Object.entries(hues).map(([k, shade]) => [k, shade.hex]),
+      Object.entries(hues).map(([k, shade]) => {
+        if (shade.cssVar) {
+          const cssVar = withOpacity(`${shade.cssVar}`);
+          return [k, cssVar];
+        } else {
+          return [k, shade.hex];
+        }
+      }),
     );
     return [key, shades];
   }),
@@ -108,6 +126,28 @@ module.exports = {
         );
       });
       addComponents(scale);
+    }),
+    /**
+     *  CSS Root Vars Plugin
+     *  This plugin takes our design tokens and checks if any have cssVars & RGB set and if they do sets them on the :root so that our configuration will pick them up as well
+     */
+    plugin(({ addBase }) => {
+      const cssVars = {};
+      Object.values(colors).forEach((hue) => {
+        Object.values(hue)
+          .filter(
+            (shade) => shade.cssVar !== undefined && shade.rgb !== undefined,
+          )
+          .forEach((shade) => {
+            if (Object.keys(shade).length > 0) {
+              cssVars[shade.cssVar] = shade.rgb;
+            }
+          });
+      });
+
+      addBase({
+        ':root': cssVars,
+      });
     }),
   ],
   corePlugins: {

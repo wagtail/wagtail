@@ -110,14 +110,18 @@ const colors = {
   },
   primary: {
     DEFAULT: {
-      hex: '#2E1F5E',
+      hex: '#2e1f5e',
+      rgb: '46, 31, 94',
+      cssVar: '--color-primary',
       bgUtility: 'w-bg-primary',
       textUtility: 'w-text-primary',
       usage: 'Wagtail branding, Panels, Headings, Buttons, Labels',
       contrastText: 'white',
     },
     200: {
-      hex: '#261A4E',
+      hex: '#261a4e',
+      rgb: '38, 26, 78',
+      cssVar: '--color-primary-darker',
       bgUtility: 'w-bg-primary-200',
       textUtility: 'w-text-primary-200',
       usage:

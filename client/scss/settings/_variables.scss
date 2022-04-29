@@ -31,11 +31,11 @@ $breakpoints: (
 );
 
 // colours
-$color-teal-light: var(--color-primary-light);
-$color-teal-lighter: var(--color-primary-lighter);
-$color-teal: var(--color-primary);
-$color-teal-darker: var(--color-primary-darker);
-$color-teal-dark: var(--color-primary-dark);
+$color-teal-light: var(--legacy-color-primary-light);
+$color-teal-lighter: var(--legacy-color-primary-lighter);
+$color-teal: var(--legacy-color-primary);
+$color-teal-darker: var(--legacy-color-primary-darker);
+$color-teal-dark: var(--legacy-color-primary-dark);
 
 $color-blue: #71b2d4;
 $color-red: #cd3238;
