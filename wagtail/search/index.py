@@ -233,6 +233,9 @@ class BaseField:
                 if self.field_name in base_cls.__dict__:
                     return base_cls
 
+            # If not found, re-raise
+            raise
+
     def get_type(self, cls):
         if "type" in self.kwargs:
             return self.kwargs["type"]
