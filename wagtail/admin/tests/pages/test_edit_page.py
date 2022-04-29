@@ -978,8 +978,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1004,8 +1004,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(

@@ -733,9 +733,57 @@ class FieldPanel(Panel):
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
+
+            widget_described_by_ids = []
+            help_text = self.bound_field.help_text
+            help_text_id = "%s-helptext" % self.prefix
+            errors = None
+            error_message_id = "%s-errors" % self.prefix
+
+            if help_text:
+                widget_described_by_ids.append(help_text_id)
+
+            if self.bound_field.errors:
+                widget = self.bound_field.field.widget
+                if hasattr(widget, "render_with_errors"):
+                    widget_attrs = {
+                        "id": self.bound_field.auto_id,
+                    }
+                    if widget_described_by_ids:
+                        widget_attrs["aria-describedby"] = " ".join(
+                            widget_described_by_ids
+                        )
+
+                    rendered_field = widget.render_with_errors(
+                        self.bound_field.html_name,
+                        self.bound_field.value(),
+                        attrs=widget_attrs,
+                        errors=self.bound_field.errors,
+                    )
+                else:
+                    errors = self.bound_field.errors
+                    widget_described_by_ids.append(error_message_id)
+                    rendered_field = self.bound_field.as_widget(
+                        attrs={
+                            "aria-invalid": "true",
+                            "aria-describedby": " ".join(widget_described_by_ids),
+                        }
+                    )
+            else:
+                widget_attrs = {}
+                if widget_described_by_ids:
+                    widget_attrs["aria-describedby"] = " ".join(widget_described_by_ids)
+
+                rendered_field = self.bound_field.as_widget(attrs=widget_attrs)
+
             context.update(
                 {
                     "field": self.bound_field,
+                    "rendered_field": rendered_field,
+                    "help_text": help_text,
+                    "help_text_id": help_text_id,
+                    "errors": errors,
+                    "error_message_id": error_message_id,
                     "show_add_comment_button": self.comments_enabled
                     and getattr(
                         self.bound_field.field.widget, "show_add_comment_button", True
