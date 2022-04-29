@@ -22,12 +22,11 @@ class Command(BaseCommand):
         for revision in Revision.page_revisions.order_by(
             "object_id", "created_at"
         ).iterator():
-            revision_page = revision.page
             # This revision is for a page type that is no longer in the database. Bail out early.
-            if revision_page.content_type_id in missing_models_content_type_ids:
+            if revision.page.content_type_id in missing_models_content_type_ids:
                 continue
-            if not revision_page.specific_class:
-                missing_models_content_type_ids.add(revision_page.content_type_id)
+            if not revision.page.specific_class:
+                missing_models_content_type_ids.add(revision.page.content_type_id)
                 continue
 
             is_new_page = revision.object_id != current_page_id
@@ -48,7 +47,7 @@ class Command(BaseCommand):
                     # change at the point that it went from restorable to non-restorable or vice versa.
                     current_revision_as_page = None
 
-                published = revision.id == revision_page.live_revision_id
+                published = revision.id == revision.page.live_revision_id
 
                 if previous_revision is not None:
                     try:
@@ -71,7 +70,7 @@ class Command(BaseCommand):
                     else:
                         # Must use .specific so the comparison picks up all fields, not just base Page ones.
                         comparison = get_comparison(
-                            revision_page.specific,
+                            revision.page.specific,
                             previous_revision_as_page,
                             current_revision_as_page,
                         )

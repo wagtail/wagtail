@@ -402,10 +402,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def revisions(self):
-        # The GenericRelation manager seems to automatically use the specific page
-        # type's ContentType when querying. Since we always create revisions using
-        # the default Page model's ContentType, we should use this property when
-        # querying for revisions of a page so the default Page ContentType is used.
+        # This acts as a replacement for Django's related manager since we don't
+        # use a GenericRelation/GenericForeignKey.
         return Revision.page_revisions.filter(object_id=self.id)
 
     @classmethod
@@ -907,9 +905,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             comment.save()
 
         # Create revision
-        # We don't use the GenericRelation's .create() method as it seeems to
-        # use the specific page type as the ContentType. We want to always use
-        # the default Page model's ContentType, so we use Revision.objects.create().
+        # We want to always use the default Page model's ContentType as the
+        # base_content_type so that we can query for page revisions without
+        # having to know the specific Page type.
         revision = Revision.objects.create(
             content_type=self.content_type,
             base_content_type=get_default_page_content_type(),
@@ -2434,7 +2432,7 @@ class UserPagePermissionsProxy:
         if not publishable_pages_paths:
             return Revision.objects.none()
 
-        # compile a filter expression to apply to the Revision.submitted_revisions manager:
+        # compile a filter expression to apply to the Revision.page_revisions.submitted() queryset:
         # return only those pages whose paths start with one of the publishable_pages paths
         only_my_sections = Q(path__startswith=publishable_pages_paths[0])
         for page_path in publishable_pages_paths[1:]:
