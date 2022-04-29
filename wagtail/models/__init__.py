@@ -28,7 +28,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.db.models import DEFERRED, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
-from django.db.models.functions import Concat, Substr
+from django.db.models.functions import Cast, Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -2432,12 +2432,16 @@ class UserPagePermissionsProxy:
 
         # compile a filter expression to apply to the Revision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
+        only_my_sections = Q(path__startswith=publishable_pages_paths[0])
         for page_path in publishable_pages_paths[1:]:
-            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
+            only_my_sections = only_my_sections | Q(path__startswith=page_path)
 
         # return the filtered queryset
-        return Revision.page_revisions.submitted().filter(only_my_sections)
+        return Revision.page_revisions.submitted().filter(
+            object_id__in=Page.objects.filter(only_my_sections).values_list(
+                Cast("pk", output_field=models.CharField()), flat=True
+            )
+        )
 
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
