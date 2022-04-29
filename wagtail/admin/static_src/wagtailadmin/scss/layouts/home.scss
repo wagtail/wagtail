@@ -9,6 +9,10 @@ h1 {
 header {
   @apply w-text-primary;
 
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
+
   .col1 {
     width: 50px;
     margin-inline-end: 1em;
@@ -25,11 +29,8 @@ header {
   }
 
   .avatar {
-    position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: -60px;
-    inset-inline-start: -60px;
+    margin-top: 0.5em;
+    flex-shrink: 0;
   }
 
   .user-name {

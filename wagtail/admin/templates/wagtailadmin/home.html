@@ -12,9 +12,13 @@
 {% endblock %}
 
 {% block content %}
-    <header class="merged">
-        <h1><div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
-        <div class="user-name">{{ user|user_display_name }}</div>
+    <header class="merged nice-padding">
+       <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
+
+        <div>
+            <h1>{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
+            <div class="user-name">{{ user|user_display_name }}</div>
+        </div>
     </header>
 
     {% if panels %}
