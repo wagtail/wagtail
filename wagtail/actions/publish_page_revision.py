@@ -122,8 +122,8 @@ class PublishPageRevisionAction:
                 except Revision.DoesNotExist:
                     previous = None
                 old_page_title = (
-                    previous.content_object.title
-                    if previous and page.title != previous.content_object.title
+                    previous.page.title
+                    if previous and page.title != previous.page.title
                     else None
                 )
         else:

@@ -11,7 +11,7 @@ from wagtail.models import Revision
 
 def approve_moderation(request, revision_id):
     revision = get_object_or_404(Revision.page_revisions, id=revision_id)
-    revision_page = revision.content_object
+    revision_page = revision.page
     if not revision_page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
@@ -50,8 +50,8 @@ def approve_moderation(request, revision_id):
 
 def reject_moderation(request, revision_id):
     revision = get_object_or_404(Revision.page_revisions, id=revision_id)
-    revision_page = revision.content_object
-    if not revision.content_object.permissions_for_user(request.user).can_publish():
+    revision_page = revision.page
+    if not revision.page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
@@ -88,8 +88,8 @@ def reject_moderation(request, revision_id):
 @require_GET
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(Revision.page_revisions, id=revision_id)
-    revision_page = revision.content_object
-    if not revision.content_object.permissions_for_user(request.user).can_publish():
+    revision_page = revision.page
+    if not revision.page.permissions_for_user(request.user).can_publish():
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:

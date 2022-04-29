@@ -2218,6 +2218,10 @@ class Revision(models.Model):
     page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
 
+    @cached_property
+    def page(self):
+        return self.base_content_type.get_object_for_this_type(pk=self.object_id)
+
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
         # We cannot use auto_now_add as that will override
@@ -2257,14 +2261,14 @@ class Revision(models.Model):
             )
 
     def as_page_object(self):
-        return self.content_object.specific.with_content_json(self.content)
+        return self.page.specific.with_content_json(self.content)
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation approved: "%s" id=%d revision_id=%d',
-                self.content_object.title,
-                self.content_object.id,
+                self.page.title,
+                self.page.id,
                 self.id,
             )
             log(
@@ -2279,8 +2283,8 @@ class Revision(models.Model):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation rejected: "%s" id=%d revision_id=%d',
-                self.content_object.title,
-                self.content_object.id,
+                self.page.title,
+                self.page.id,
                 self.id,
             )
             log(
@@ -2340,7 +2344,7 @@ class Revision(models.Model):
         )
 
     def __str__(self):
-        return '"' + str(self.content_object) + '" at ' + str(self.created_at)
+        return '"' + str(self.page) + '" at ' + str(self.created_at)
 
     class Meta:
         verbose_name = _("page revision")
