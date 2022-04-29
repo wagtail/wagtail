@@ -2311,7 +2311,10 @@ class Revision(models.Model):
             # newer than any revision that might exist in the database
             return True
         latest_revision = (
-            Revision.objects.filter(object_id=self.object_id)
+            Revision.objects.filter(
+                content_type_id=self.content_type_id,
+                object_id=self.object_id,
+            )
             .order_by("-created_at", "-id")
             .first()
         )
