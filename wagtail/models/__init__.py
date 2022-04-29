@@ -919,6 +919,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
         )
+        # This is necessary to prevent fetching a fresh page instance when
+        # changing first_published_at.
+        # Ref: https://github.com/wagtail/wagtail/pull/3498
+        revision.page = self
 
         for comment in new_comments:
             comment.revision_created = revision
