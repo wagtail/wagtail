@@ -8,7 +8,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020-2021
+# Loic Teixeira, 2020-2022
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Loic Teixeira, 2020-2021\n"
+"Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Noyau de Wagtail"
@@ -67,6 +70,12 @@ msgstr "Ce bloc n'a aucune option."
 
 msgid "This field is required."
 msgstr "Ce champ est requis."
+
+msgid "Wagtail frontend cache"
+msgstr "Cache front-end Wagtail"
+
+msgid "Wagtail sitemaps"
+msgstr "Plan des sites Wagtail"
 
 msgid "Password"
 msgstr "Mot de passe"
@@ -583,11 +592,29 @@ msgstr "L'accès à cette page nécessite un mot de passe."
 msgid "Continue"
 msgstr "Continuer"
 
+msgid "Test Wagtail Model Admin"
+msgstr "Tests Model Admin Wagtail"
+
+msgid "Wagtail search tests"
+msgstr "Tests recherche Wagtail"
+
 msgid "English"
 msgstr "anglais"
 
 msgid "French"
 msgstr "français"
+
+msgid "Wagtail snippets tests"
+msgstr "Tests blocs Wagtail"
+
+msgid "Wagtail tests"
+msgstr "Tests Wagtail"
+
+msgid "The form is already filled."
+msgstr "Le formulaire est déjà rempli."
+
+msgid "You must log in first."
+msgstr "Vous devez d'abord vous connecter."
 
 msgid "German"
 msgstr "allemand"

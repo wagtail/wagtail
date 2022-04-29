@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -45,8 +45,25 @@ msgid "Search"
 msgstr "Buscar"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+
+#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "Lo sentimos, ningún retazo coincide con \"<em>%(query_string)s</em>\""
+msgstr ""
+"Lo sentimos, ningún fragmento coincide con \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"No has creado ningún fragmento %(snippet_type_name)s. ¿Por qué no <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">crear uno ahora</a>?"
 
 msgid "Last updated"
 msgstr "Última vez actualizado"

@@ -20,6 +20,9 @@ msgstr "Pridėti komentarą"
 msgid "Alt text"
 msgstr "Alternatyvus tekstas"
 
+msgid "Are you sure?"
+msgstr "Ar esate tikri?"
+
 msgid "Broken link"
 msgstr "Neveikianti nuoroda"
 
@@ -37,6 +40,12 @@ msgstr "Prietaisų skydas"
 
 msgid "Delete"
 msgstr "Ištrinti"
+
+msgid "Delete error"
+msgstr "Klaida ištrinant"
+
+msgid "Deleting"
+msgstr "Ištrinama"
 
 msgid "Edit"
 msgstr "Redaguoti"
@@ -56,6 +65,12 @@ msgstr "Lūžis"
 msgid "Loading…"
 msgstr "Kraunama..."
 
+msgid "Main menu"
+msgstr "Pagrindinis meniu"
+
+msgid "Missing document"
+msgstr "Trūkstamas dokumentas"
+
 msgid "More actions"
 msgstr "Daugiau veiksmų"
 
@@ -74,6 +89,9 @@ msgstr "Puslapiai"
 msgid "Redo"
 msgstr "Atgrąžinti"
 
+msgid "Reload saved content"
+msgstr "Įkelti išsaugotą turinį iš naujo"
+
 msgid "Reload the page"
 msgstr "Įkelti puslapį iš naujo"
 
@@ -89,11 +107,17 @@ msgstr "Bandyti dar kartą"
 msgid "Save"
 msgstr "Išsaugoti"
 
+msgid "Save error"
+msgstr "Klaida išsaugant"
+
 msgid "Save the page to add this comment"
 msgstr "Komentaras bus pridėtas išsaugojus puslapį"
 
 msgid "Save the page to save this comment"
 msgstr "Komentaras bus išsaugotas išsaugojus puslapį"
+
+msgid "Save the page to save this reply"
+msgstr "Išsaugokite puslapį, jei norite išsaugoti šį atsakymą"
 
 msgid "Saving..."
 msgstr "Saugojama..."
@@ -109,6 +133,12 @@ msgstr "Serverio klaida"
 
 msgid "Show error"
 msgstr "Rodyti klaidą"
+
+msgid "Show latest content"
+msgstr "Rodyti naujausią turinį"
+
+msgid "Split block"
+msgstr "Skaidyti bloką"
 
 msgid "Undo"
 msgstr "Anuliuoti"

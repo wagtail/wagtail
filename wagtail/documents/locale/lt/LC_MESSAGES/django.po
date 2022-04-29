@@ -4,13 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017-2018\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail documents"
+msgstr "Wagtail dokumentai"
+
 msgid "Collection"
 msgstr "Kolekcija"
 
@@ -28,7 +32,7 @@ msgid "Add"
 msgstr "Pridėti"
 
 msgid "Add/edit documents you own"
-msgstr "Pridėti/redaguoti dokumentus kurie jums priklauso"
+msgstr "Pridėti/redaguoti dokumentus, kurie jums priklauso"
 
 msgid "Edit"
 msgstr "Redaguoti"
@@ -38,6 +42,9 @@ msgstr "Redaguoti bet kurį dokumentą"
 
 msgid "Choose"
 msgstr "Pasirinkti"
+
+msgid "Select documents in choosers"
+msgstr "Leisti pasirinkti dokumentus iš šios kolekcijos pasirinkimo lange."
 
 msgid "title"
 msgstr "pavadinimas"
@@ -56,6 +63,15 @@ msgstr "žymenos"
 
 msgid "document"
 msgstr "dokumentas"
+
+msgid "documents"
+msgstr "dokumentai"
+
+msgid "Yes, add"
+msgstr "Taip, pridėti"
+
+msgid "No, don't add"
+msgstr "Ne, nepridėti"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -134,6 +150,9 @@ msgstr "Pavadinimas"
 msgid "File"
 msgstr "Byla"
 
+msgid "Created"
+msgstr "Sukurtas"
+
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "prieš %(time_period)s"
@@ -173,6 +192,26 @@ msgstr "Statusas"
 msgid "Edit this page"
 msgstr "Redaguoti šį puslapį"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Dokumentas <span class=\"visuallyhidden\">, sukurtas "
+"%(site_name)s tinklalapyje</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Dokumentai <span class=\"visuallyhidden\">, sukurti "
+"%(site_name)s tinklalapyje</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Dokumentas <span class=\"visuallyhidden\">, sukurtas "
+"%(site_name)s tinklalapyje</span>"
+msgstr[3] ""
+"<span>%(total)s</span> Dokumentų <span class=\"visuallyhidden\">, sukurtų "
+"%(site_name)s tinklalapyje</span>"
+
 msgid "Add multiple documents"
 msgstr "Pridėti daug dokumentų"
 
@@ -198,7 +237,10 @@ msgid "Document permissions"
 msgstr "Dokumento leidimai"
 
 msgid "Add a document permission"
-msgstr "Pridėti dokumento leidimą"
+msgstr "Pridėti dokumentų leidimą"
+
+msgid "Add to collection"
+msgstr "Pridėti į kolekciją"
 
 msgid "Delete"
 msgstr "Ištrinti"

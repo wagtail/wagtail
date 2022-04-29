@@ -5,14 +5,14 @@
 # Translators:
 # Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,12 @@ msgstr "document"
 msgid "documents"
 msgstr "documenten"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Voeg tags toe aan 1 document"
+msgstr[1] "Voeg tags toe aan %(counter)s documenten"
+
 msgid "Add tags to documents"
 msgstr "Voeg tags toe aan documenten"
 
@@ -86,6 +92,12 @@ msgstr "Ja, voeg toe"
 
 msgid "No, don't add"
 msgstr "Nee, niet toevoegen"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Voeg 1 document to aan nieuwe collectie"
+msgstr[1] "Voeg %(counter)s documenten toe aan nieuwe collectie"
 
 msgid "Add documents to collection"
 msgstr "Voeg documenten toe aan collectie"
@@ -111,6 +123,12 @@ msgstr[0] ""
 msgstr[1] ""
 "U heeft niet de juiste rechten om deze documenten aan een collectie toe te "
 "voegen"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Verwijder 1 document"
+msgstr[1] "Verwijder %(counter)s documenten"
 
 msgid "Delete documents"
 msgstr "Verwijder documenten"
@@ -146,6 +164,12 @@ msgstr "Zoek"
 msgid "Upload"
 msgstr "Uploaden"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
+
 msgid "Latest documents"
 msgstr "Nieuwste documenten"
 
@@ -160,6 +184,13 @@ msgstr "U heeft nog geen documenten aan deze collectie toegevoegd."
 
 msgid "You haven't uploaded any documents."
 msgstr "U heeft nog geen documenten geüpload."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" role=\"tab\">upload "
+"one now</a>?"
+msgstr ""
+"<a class=\"upload-one-now\" href=\"#tab-upload\" role=\"tab\">Upload er nu "
+"eentje!</a>"
 
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
@@ -255,6 +286,20 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> document <span class=\"visuallyhidden\">aangemaakt in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> documenten <span class=\"visuallyhidden\">aangemaakt "
+"in%(site_name)s</span>    "
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"

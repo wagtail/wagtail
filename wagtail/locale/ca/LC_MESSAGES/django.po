@@ -521,8 +521,14 @@ msgstr "Afegir restriccions de visualització"
 msgid "Added view restriction"
 msgstr "S'ha afegit una restricció de visualització"
 
+msgid "Add comment"
+msgstr "Afegir comentari"
+
 msgid "Workflow: start"
 msgstr "Fluxe de treball: inicia"
+
+msgid "Workflow started"
+msgstr "Fluxe de treball iniciat"
 
 msgid "Workflow: approve task"
 msgstr "Fluxe de treball: aprova la tasca"

@@ -40,6 +40,10 @@ msgstr "Išsaugoti juodraštį"
 msgid "Page locked"
 msgstr "Puslapis užrakintas"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ir publikuoti"
+
 msgid "Wagtail admin"
 msgstr "Wagtail administravimas"
 
@@ -57,6 +61,9 @@ msgstr "Data nuo"
 
 msgid "Date to"
 msgstr "Data iki"
+
+msgid "All"
+msgstr "Visi"
 
 msgid "Preferred language"
 msgstr "Pageidaujama kalba"
@@ -109,8 +116,17 @@ msgstr "Kolekcija"
 msgid "Add"
 msgstr "Pridėti"
 
+msgid "Add collections"
+msgstr "Pridėti kolekcijas"
+
 msgid "Edit"
 msgstr "Redaguoti"
+
+msgid "Edit collections"
+msgstr "Redaguoti kolekcijas"
+
+msgid "Delete collections"
+msgstr "Ištrinti kolekcijas"
 
 msgid "You cannot edit another user's comment."
 msgstr "Jūs negalite redaguoti kito vartotojo komentarų."
@@ -206,11 +222,20 @@ msgstr "Šis laukas yra privalomas."
 msgid "Please select at least one group."
 msgstr "Prašome pasirinkti bent vieną grupę."
 
+msgid "All types"
+msgstr "Visi tipai"
+
 msgid "Scheduled publishing"
-msgstr "Planuotas publikavimas"
+msgstr "Publikavimo planavimas"
 
 msgid "Privacy"
 msgstr "Privatumas"
+
+msgid "For search engines"
+msgstr "Paieškos varikliams"
+
+msgid "For site menus"
+msgstr "Tinklalapio meniu"
 
 msgid "Content"
 msgstr "Turinys"
@@ -222,7 +247,7 @@ msgid "Settings"
 msgstr "Nustatymai"
 
 msgid "Status"
-msgstr "Statusas"
+msgstr "Būsena"
 
 msgid "Comments"
 msgstr "Komentarai"
@@ -310,6 +335,9 @@ msgstr "Įkelti profilio nuotrauką:"
 msgid "Go back"
 msgstr "Grįžti atgal"
 
+msgid "Bulk actions"
+msgstr "Masiniai veiksmai"
+
 msgid "Select row"
 msgstr "Pažymėti eilutę"
 
@@ -333,6 +361,9 @@ msgstr "Pririšta nuoroda"
 
 msgid "Add an anchor link"
 msgstr "Pridėti pririštą nuorodą"
+
+msgid "Insert anchor"
+msgstr "Įterpti pririštą nuorodą"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -465,8 +496,43 @@ msgstr "Data"
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Puslapis <span class=\"visuallyhidden\">, sukurtas "
+"%(site_name)s tinklalapyje</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Puslapiai <span class=\"visuallyhidden\">, sukurti "
+"%(site_name)s tinklalapyje</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Puslapis <span class=\"visuallyhidden\">, sukurtas "
+"%(site_name)s tinklalapyje</span>"
+msgstr[3] ""
+"<span>%(total)s</span> Puslapių <span class=\"visuallyhidden\">, sukurtų "
+"%(site_name)s tinklalapyje</span>"
+
+msgid "Task"
+msgstr "Užduotis"
+
+msgid "Task started"
+msgstr "Užduotis pradėta"
+
+msgid "Awaiting"
+msgstr "Laukiama"
+
+msgid "Awaiting your review"
+msgstr "Laukia jūsų peržiūros"
+
 msgid "Tasks"
 msgstr "Užduotys"
+
+msgid "Task submitted by"
+msgstr "Užduotį pateikė"
 
 msgid "Sign in"
 msgstr "Prisijungti"
@@ -536,6 +602,12 @@ msgstr "Išspręsti komentarai"
 msgid "Deleted comments"
 msgstr "Ištrinti komentarai"
 
+msgid "New replies"
+msgstr "Nauji atsakymai"
+
+msgid "New replies to:"
+msgstr "Nauji atsakymai į:"
+
 msgid "New comments:"
 msgstr "Nauji komentarai:"
 
@@ -544,6 +616,9 @@ msgstr "Išspręsti komentarai:"
 
 msgid "Deleted comments:"
 msgstr "Ištrinti komentarai:"
+
+msgid "New replies:"
+msgstr "Nauji atsakymai:"
 
 msgid "Page privacy"
 msgstr "Puslapio privatumas"
@@ -588,6 +663,12 @@ msgstr "Ne, neištrinti"
 
 msgid "Move"
 msgstr "Perkelti"
+
+msgid "Yes, publish"
+msgstr "Taip, publikuoti"
+
+msgid "No, don't publish"
+msgstr "Ne, nepublikuoti"
 
 msgid "No, don't unpublish"
 msgstr "Ne, publikuoti"
@@ -644,6 +725,12 @@ msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
 msgid "Yes, unpublish it"
 msgstr "Taip, nebepublikuoti"
 
+msgid "Publish page"
+msgstr "Publikuoti puslapį"
+
+msgid "Would you still like to publish this page?"
+msgstr "Ar vis tiek norite publikuoti šį puslapį?"
+
 msgid "Cancel"
 msgstr "Atšaukti"
 
@@ -677,6 +764,10 @@ msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redaguojamas %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "%(subtitle)s puslapio istorija"
 
 msgid "Action"
 msgstr "Veiksmas"
@@ -776,8 +867,20 @@ msgstr "Peržiūrėti klaidą"
 msgid "Close"
 msgstr "Uždaryti"
 
+msgid "Current status:"
+msgstr "Dabartinė būsena:"
+
 msgid "Set page privacy"
 msgstr "Nustatyti puslapio privatumą"
+
+msgid "Review this version"
+msgstr "Peržiūrėti šią versiją"
+
+msgid "Compare with previous version"
+msgstr "Palyginti su ankstesne versija"
+
+msgid "Compare with current version"
+msgstr "Palyginti su dabartine versija"
 
 msgid "Cancel scheduled publish"
 msgstr "Atšaukti suplanuotą publikavimą"
@@ -820,6 +923,9 @@ msgstr "Puslapių tipai"
 msgid "Enter a search term above"
 msgstr "Aukščiau įveskite paieškos frazę"
 
+msgid "Page Locale: "
+msgstr "Puslapio lokalė:"
+
 msgid "Locked"
 msgstr "Užrakinta"
 
@@ -829,6 +935,9 @@ msgstr "Atrakinta"
 msgid "Lock"
 msgstr "Užrakinti"
 
+msgid "Page status: "
+msgstr "Puslapio būsena:"
+
 msgid "View history"
 msgstr "Peržiūrėti istoriją"
 
@@ -837,6 +946,13 @@ msgstr "Jokie puslapiai nenaudoja"
 
 msgid "Edit / Review"
 msgstr "Redaguoti / Peržiūrėti"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Būsena <span class=\"status-tag primary\">%(status)s</span> "
+
+msgid "Page edited"
+msgstr "Puslapis redaguotas"
 
 msgid "Edit page"
 msgstr "Redaguoti puslapį"
@@ -856,6 +972,12 @@ msgstr "Pridėti komentarą"
 
 msgid "Comment notifications"
 msgstr "Komentarų pranešimai"
+
+msgid "Collection management permissions"
+msgstr "Kolekcijų valdymo leidimai"
+
+msgid "Add a collection permission"
+msgstr "Pridėti kolekcijų leidimą"
 
 msgid "No pages found."
 msgstr "Puslapių nerasta."
@@ -890,6 +1012,9 @@ msgstr "Užrakintų puslapių nerasta."
 msgid "Edit this item"
 msgstr "Redaguoti šį elementą"
 
+msgid "By Task"
+msgstr "Pagal užduotį"
+
 msgid "Page"
 msgstr "Puslapis"
 
@@ -912,6 +1037,9 @@ msgstr "Visos kolekcijos"
 msgid "History"
 msgstr "Istorija"
 
+msgid "Current page status:"
+msgstr "Dabartinė puslapio būsena:"
+
 msgid "Other searches"
 msgstr "Kitos paieškos"
 
@@ -925,6 +1053,14 @@ msgid "Create"
 msgstr "Sukurti"
 
 #, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 puslapis"
+msgstr[1] "%(counter)s puslapiai"
+msgstr[2] "%(counter)s puslapis"
+msgstr[3] "%(counter)s puslapių"
+
+#, python-format
 msgid "Step %(step_number)s"
 msgstr "Žingsnis %(step_number)s"
 
@@ -935,14 +1071,29 @@ msgstr "Naujas"
 msgid "by %(modified_by)s"
 msgstr "pagal %(modified_by)s"
 
+msgid "Submitted"
+msgstr "Pateikta"
+
 msgid "Published"
 msgstr "Publikuotas"
+
+msgid "See full history"
+msgstr "Peržiūrėti pilną istoriją"
 
 msgid "Compare with live version"
 msgstr "Palyginti su veikiančia versija"
 
 msgid "More"
 msgstr "Daugiau"
+
+msgid "View more bulk actions"
+msgstr "Peržiūrėti daugiau masinių veiksmų"
+
+msgid "0 minutes"
+msgstr "0 minučių"
+
+msgid "Just now"
+msgstr "Ką tik"
 
 msgid "Log out"
 msgstr "Atsijungti"
@@ -1127,8 +1278,29 @@ msgstr "Senstantys puslapiai"
 msgid "Site history"
 msgstr "Tinklalapio istorija"
 
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Veiksmo tipas"
+
+msgid "Date/Time"
+msgstr "Data/laikas"
+
 msgid "Locked pages"
 msgstr "Užrakinti puslapiai"
+
+msgid "Show"
+msgstr "Rodyti"
+
+msgid "Page ID"
+msgstr "Puslapio ID"
+
+msgid "Page Type"
+msgstr "Puslapio tipas"
+
+msgid "Page Title"
+msgstr "Puslapio pavadinimas"
 
 msgid "Disable"
 msgstr "Išjungti"
@@ -1152,6 +1324,25 @@ msgstr "Peržiūrėti '%(title)s' juodraštį"
 
 msgid "Add child page"
 msgstr "Pridėti vidinį puslapį"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Perkelti puslapį '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopijuoti puslapį '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Ištrinti puslapį '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Nebepublikuoti '%(title)s' puslapio"
+
+msgid "Sort menu order"
+msgstr "Meniu rikiavimo tvarka"
 
 #, python-format
 msgid "Heading %(level)d"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
+# Naglis Jonaitis, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +22,20 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail redirects"
+msgstr "Wagtail peradresavimai"
+
 msgid "Type"
 msgstr "Tipas"
+
+msgid "Permanent"
+msgstr "Pastovus"
+
+msgid "Temporary"
+msgstr "Laikinas"
+
+msgid "All"
+msgstr "Visi"
 
 msgid "From site"
 msgstr "Iš tinklalapio"
@@ -68,6 +81,9 @@ msgstr "laikinas"
 msgid "redirect"
 msgstr "peradresuoti"
 
+msgid "redirects"
+msgstr "peradresavimai"
+
 msgid "Add redirect"
 msgstr "Pridėti peradresavimą"
 
@@ -76,6 +92,12 @@ msgstr "Išsaugoti"
 
 msgid "Redirects"
 msgstr "Peradresavimai"
+
+msgid "Import redirects"
+msgstr "Importuoti peradresavimus"
+
+msgid "Import"
+msgstr "Importuoti"
 
 #, python-format
 msgid "Delete redirect %(title)s"
@@ -89,6 +111,12 @@ msgstr "Ar tikrai norite ištrinti šį peradresavimą?"
 
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
+
+msgid "Confirm import"
+msgstr "Patvirtinti importą"
+
+msgid "Confirm"
+msgstr "Patvirtinti"
 
 msgid "Cancel"
 msgstr "Atšaukti"
@@ -106,20 +134,32 @@ msgstr "Redagavimas"
 msgid "Delete redirect"
 msgstr "Ištrinti peradresavimą"
 
+msgid "Summary"
+msgstr "Apžvalga"
+
 msgid "From"
 msgstr "Forma"
 
 msgid "To"
 msgstr "Į"
 
+msgid "Error"
+msgstr "Klaida"
+
 msgid "Continue"
 msgstr "Tęsti"
+
+msgid "Export redirects"
+msgstr "Eksportuoti peradresavimus"
 
 msgid "Site"
 msgstr "Tinklalapis"
 
 msgid "Edit this redirect"
 msgstr "Redaguoti šį peradresavimą"
+
+msgid "No redirects found."
+msgstr "Peradresavimų nerasta."
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -157,3 +197,6 @@ msgstr "Peradresavimas '{0}' pridėtas."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Peradresavimas negalėjo būti sukurtas dėl klaidų."
+
+msgid "Export Redirects"
+msgstr "Eksportuoti peradresavimus"

@@ -359,11 +359,20 @@ msgstr "Paramètres"
 msgid "Status"
 msgstr "Statut"
 
+msgid "Toggle status"
+msgstr "Afficher/masquer le statut"
+
 msgid "Comments"
 msgstr "Commentaires"
 
+msgid "Toggle comments"
+msgstr "Afficher/masquer les commentaires"
+
 msgid "Preview"
 msgstr "Prévisualisation"
+
+msgid "Toggle preview"
+msgstr "Afficher/masquer la prévisualisation"
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"
@@ -474,6 +483,12 @@ msgstr "Lien vers un téléphone"
 msgid "Anchor link"
 msgstr "Lien d'ancrage"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
+
 msgid "Add an anchor link"
 msgstr "Ajouter un lien d'ancrage"
 
@@ -486,8 +501,42 @@ msgstr "Choisir"
 msgid "Choose a page"
 msgstr "Choisissez une page"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Seules les pages de type \"%(type)s\" peuvent être choisies pour ce champ. "
+"Les résultats de recherche excluront les pages d'un autre type."
+msgstr[1] ""
+"Seules les pages de type \"%(type)s\" peuvent être choisies pour ce champ. "
+"Les résultats de recherche excluront les pages d'un autre type."
+
 msgid "Convert to internal link"
 msgstr "Convertir en un lien interne"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"L'URL <a target=\"_blank\" rel=\"noreferrer\" href=\"%(submitted_url)s\">"
+"%(submitted_url)s</a> que vous avez saisi semble correspondre à la page "
+"interne « %(page)s » dont l'URL est <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link more "
+"robust. Would you like to do this?"
+msgstr ""
+"La convertir en lien interne vers la page « %(page)s » rendrait le lien plus "
+"résilient. Voulez-vous effectuer cette conversion ?"
 
 msgid "Use external link"
 msgstr "Utiliser un lien externe"
@@ -622,6 +671,20 @@ msgstr "Date"
 
 msgid "Site summary"
 msgstr "Sommaire du site"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">créée dans "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">créées dans "
+"%(site_name)s</span>"
 
 msgid "Your pages in a workflow"
 msgstr "Vos pages dans un workflow"
@@ -892,8 +955,20 @@ msgstr "Choisissez quel type de page vous souhaiteriez créer."
 msgid "Pages using %(page_type)s"
 msgstr "Pages utilisant %(page_type)s"
 
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Supprimer 1 page"
+msgstr[1] "Supprimer %(counter)s pages"
+
 msgid "Are you sure you want to delete these pages?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ces pages ?"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Ceci supprimera également 1 sous-page."
+msgstr[1] "Ceci supprimera également %(counter)s sous-pages."
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -914,6 +989,12 @@ msgstr "Déplacer"
 
 msgid "Are you sure you want to move these pages?"
 msgstr "Êtes-vous sûr(e) de vouloir déplacer ces pages ?"
+
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Cette page a 1 sous-page"
+msgstr[1] "Cette page a %(counter)s sous-pages"
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"

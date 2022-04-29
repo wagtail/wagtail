@@ -10,7 +10,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020-2021
+# Loic Teixeira, 2018,2020-2022
 # nahuel, 2014
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Loic Teixeira, 2018,2020-2021\n"
+"Last-Translator: Loic Teixeira, 2018,2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -134,6 +134,12 @@ msgstr "compte utilisateur"
 msgid "user profiles"
 msgstr "compte utilisateur"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Assigner le rôle à 1 utilisateur"
+msgstr[1] "Assigner le rôle à %(counter)s utilisateurs"
+
 msgid "Assign role"
 msgstr "Assigner le rôle"
 
@@ -151,6 +157,12 @@ msgstr "Oui, assigner"
 msgid "No, don't assign"
 msgstr "Non, ne pas assigner"
 
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Supprimer 1 utilisateur"
+msgstr[1] "Supprimer %(counter)s utilisateurs"
+
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -167,6 +179,12 @@ msgstr "Oui, supprimer"
 
 msgid "No, don't delete"
 msgstr "Non, ne pas supprimer"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Modifier le statut actif pour 1 utilisateur"
+msgstr[1] "Modifier le statut actif pour %(counter)s utilisateurs"
 
 msgid "Set active state"
 msgstr "Définir le statut actif"
@@ -186,6 +204,18 @@ msgstr "Non, ne pas changer le statut"
 
 msgid "Delete group"
 msgstr "Supprimer le groupe"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Le groupe « %(group_name)s » contient <strong>%(group_user_count)s</strong> "
+"utilisateur."
+msgstr[1] ""
+"Le groupe « %(group_name)s » contient <strong>%(group_user_count)s</strong> "
+"utilisateurs."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -305,6 +335,12 @@ msgstr "Inactif"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "il y a %(time_period)s"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

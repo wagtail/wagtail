@@ -109,6 +109,9 @@ msgstr "temporaire"
 msgid "redirect"
 msgstr "règle de redirection"
 
+msgid "redirects"
+msgstr "règles de redirection"
+
 msgid "Add redirect"
 msgstr "Ajouter une règle de redirection"
 
@@ -120,6 +123,19 @@ msgstr "Règles de Redirection"
 
 msgid "Import redirects"
 msgstr "Importer des règles de redirection"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Sélectionnez un fichier dans lequel chaque ligne représente une règle de "
+"redirection et où chaque ligne est composée de deux colonnes représentant la "
+"<code>source</code> et <code>destination</code> (le nom des colonnes est "
+"libre).</p>\n"
+"<p>Après soumission du formulaire, vous pourrez personnaliser les "
+"redirections lors de l'étape de confirmation.</p>"
 
 msgid "Import"
 msgstr "Importer"
@@ -192,6 +208,12 @@ msgstr "Modifier cette règle de redirection"
 
 msgid "No redirects found."
 msgstr "Aucune règle de redirection trouvée."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

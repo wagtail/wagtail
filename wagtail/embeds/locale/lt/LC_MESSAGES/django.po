@@ -4,13 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017-2018\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +22,11 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail embeds"
+msgstr "Wagtail įterpiniai"
+
 msgid "Cannot find an embed for this URL."
-msgstr "Nepavyko rasti ką įmontuoti su šiuo URL."
+msgstr "Nepavyko rasti įterpinio šiuo adresu."
 
 msgid "URL"
 msgstr "URL"
@@ -31,10 +35,13 @@ msgid "Please enter a valid URL"
 msgstr "Prašome įvesti teisingą URL"
 
 msgid "embed"
-msgstr "įmontuoti"
+msgstr "įterpinys"
+
+msgid "embeds"
+msgstr "įterpiniai"
 
 msgid "Insert embed"
-msgstr "Įterpti įmontuotą"
+msgstr "Įterpti įterpinį"
 
 msgid "Insert"
 msgstr "Įterpti"
@@ -49,7 +56,8 @@ msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
-"Yra klaida su Embedly bandant įmontuoti šį URL. Prašome vėl bandyti vėliau."
+"Įvyko klaida bandant pridėti Embedly įterpinį iš šio URL. Prašome pabandyti "
+"vėliau."
 
 msgid "Embed"
-msgstr "Įmontuotas"
+msgstr "Įterpinys"

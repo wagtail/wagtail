@@ -7,7 +7,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020
+# Loic Teixeira, 2020,2022
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Loic Teixeira, 2020\n"
+"Last-Translator: Loic Teixeira, 2020,2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,29 @@ msgstr "Ajouter une promotion de recherche"
 
 msgid "Add search pick"
 msgstr "Ajouter un résultat amélioré"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Les résultats améliorés sont un moyen de recommander des pages "
+"spécifiques qui ne seraient pas arrivées naturellement en haut des résultats "
+"de recherche. Ex: associer votre page de « soutient » à une recherche "
+"utilisateur avec un terme moins explicite comme « <em>donner</em> ».</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Le champ \"Terme(s)/phrase de recherche\" ci-dessous doit contenir la "
+"recherche complète et exacte pour laquelle vous souhaitez fournir des "
+"résultats recommandés, <em>ce qui comprend</em> n'importe quelle faute de "
+"frappe/erreur de l'utilisateur. Pour vous aider, vous pouvez choisir parmi "
+"les termes de recherche populaires des utilisateurs de votre site.</p>"
 
 msgid "Save"
 msgstr "Enregistrer"
@@ -121,6 +144,12 @@ msgstr "Éditer cette promotion"
 
 msgid "None"
 msgstr "Aucun"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

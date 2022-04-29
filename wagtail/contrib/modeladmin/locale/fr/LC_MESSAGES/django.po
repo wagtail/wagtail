@@ -6,7 +6,7 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020-2021
+# Loic Teixeira, 2020-2022
 # Tom Dyson <tom@torchbox.com>, 2016
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Loic Teixeira, 2020-2021\n"
+"Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,10 @@ msgstr "Non, ne pas supprimer"
 msgid "Home"
 msgstr "Accueil"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Par %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Dernière mise à jour"
 
@@ -165,6 +169,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Aucun %(name)s n'a été créé(e) pour l'instant."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Pourquoi ne pas en <a href=\"%(url)s\">ajouter un(e)</a> ?"
 
 msgid "Pagination"
 msgstr "Pagination"

@@ -49,6 +49,9 @@ msgstr "Supprimer"
 msgid "Delete error"
 msgstr "Supprimer l'erreur"
 
+msgid "Deleting"
+msgstr "Suppression…"
+
 msgid "Edit"
 msgstr "Modifier"
 
@@ -141,6 +144,9 @@ msgstr "Afficher l’erreur"
 
 msgid "Show latest content"
 msgstr "Montrer le dernier contenu"
+
+msgid "Split block"
+msgstr "Scinder le bloc"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
