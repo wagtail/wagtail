@@ -87,6 +87,7 @@ Changelog
  * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
  * Fix: Implement ARIA tabs markup and keyboards interactions for admin tabs (Steven Steinwand)
  * Fix: Ensure `wagtail updatemodulepaths` works when system locale is not UTF-8 (Matt Westcott)
+ * Fix: Re-establish focus trap for Pages explorer in slim sidebar (Thibaud Colas)
 
 
 2.16.2 (11.04.2022)
