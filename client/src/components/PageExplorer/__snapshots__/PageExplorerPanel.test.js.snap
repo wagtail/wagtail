@@ -14,13 +14,13 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
   paused={false}
 >
   <div
+    aria-label="Page explorer"
     role="dialog"
   >
     <Transition
       className="c-page-explorer"
-      component="nav"
+      component="div"
       duration={210}
-      label="Page explorer"
       name="push"
     >
       <div
@@ -89,13 +89,13 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
   paused={false}
 >
   <div
+    aria-label="Page explorer"
     role="dialog"
   >
     <Transition
       className="c-page-explorer"
-      component="nav"
+      component="div"
       duration={210}
-      label="Page explorer"
       name="push"
     >
       <div
@@ -145,13 +145,13 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
   paused={false}
 >
   <div
+    aria-label="Page explorer"
     role="dialog"
   >
     <Transition
       className="c-page-explorer"
-      component="nav"
+      component="div"
       duration={210}
-      label="Page explorer"
       name="push"
     >
       <div
@@ -229,13 +229,13 @@ exports[`PageExplorerPanel general rendering no children 1`] = `
   paused={false}
 >
   <div
+    aria-label="Page explorer"
     role="dialog"
   >
     <Transition
       className="c-page-explorer"
-      component="nav"
+      component="div"
       duration={210}
-      label="Page explorer"
       name="push"
     >
       <div
@@ -282,13 +282,13 @@ exports[`PageExplorerPanel general rendering renders 1`] = `
   paused={false}
 >
   <div
+    aria-label="Page explorer"
     role="dialog"
   >
     <Transition
       className="c-page-explorer"
-      component="nav"
+      component="div"
       duration={210}
-      label="Page explorer"
       name="push"
     >
       <div

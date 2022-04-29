@@ -12,21 +12,13 @@ export const POP = 'pop';
 /**
  * Wrapper around react-transition-group with default values.
  */
-const Transition = ({
-  name,
-  component,
-  className,
-  duration,
-  children,
-  label,
-}) => (
+const Transition = ({ name, component, className, duration, children }) => (
   <CSSTransitionGroup
     component={component}
     transitionEnterTimeout={duration}
     transitionLeaveTimeout={duration}
     transitionName={`c-transition-${name}`}
     className={className}
-    aria-label={label}
   >
     {children}
   </CSSTransitionGroup>
@@ -38,7 +30,6 @@ Transition.propTypes = {
   className: PropTypes.string,
   duration: PropTypes.number,
   children: PropTypes.node,
-  label: PropTypes.string,
 };
 
 Transition.defaultProps = {
@@ -46,7 +37,6 @@ Transition.defaultProps = {
   children: null,
   className: null,
   duration: TRANSITION_DURATION,
-  label: null,
 };
 
 export default Transition;
