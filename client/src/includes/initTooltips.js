@@ -133,11 +133,15 @@ export function initModernDropdown() {
           hideTooltipOnBreadcrumbExpandAndCollapse,
           rotateToggleIcon,
         ],
-        onShow(instance, event) {
-          hoverTooltipInstance.disable();
+        onShow() {
+          if (hoverTooltipInstance) {
+            hoverTooltipInstance.disable();
+          }
         },
-        onHide(instance, event) {
-          hoverTooltipInstance.enable();
+        onHide() {
+          if (hoverTooltipInstance) {
+            hoverTooltipInstance.enable();
+          }
         },
       });
     }
