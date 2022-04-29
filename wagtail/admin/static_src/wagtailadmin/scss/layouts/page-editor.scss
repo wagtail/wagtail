@@ -599,6 +599,10 @@ footer .preview {
       @include column(10);
       padding-inline-start: 0;
       padding-inline-end: 0;
+
+      > li {
+        padding: 1em 10em 1em 1.5em;
+      }
     }
 
     &.empty .add {
