@@ -210,9 +210,6 @@ class Tabs {
         e.preventDefault();
         this.selectTab(tab);
       });
-      tab.addEventListener('focusin', () => {
-        this.selectTab(tab);
-      });
       tab.addEventListener('keydown', this.keydownEventListener);
       // Set index of tab used in keyboard controls
       // eslint-disable-next-line no-param-reassign
@@ -298,7 +295,9 @@ class Tabs {
       const target = event.target;
       if (target.index !== undefined) {
         if (tabs[target.index + direction[pressed]]) {
-          tabs[target.index + direction[pressed]].focus();
+          const tab = tabs[target.index + direction[pressed]];
+          tab.focus();
+          this.selectTab(tab);
         } else if (pressed === keys.left) {
           this.focusLastTab();
         } else if (pressed === keys.right) {
@@ -309,11 +308,15 @@ class Tabs {
   }
 
   focusFirstTab() {
-    this.tabButtons[0].focus();
+    const tab = this.tabButtons[0];
+    tab.focus();
+    this.selectTab(tab);
   }
 
   focusLastTab() {
-    this.tabButtons[this.tabButtons.length - 1].focus();
+    const tab = this.tabButtons[this.tabButtons.length - 1];
+    tab.focus();
+    this.selectTab(tab);
   }
 
   selectFirstTab() {
