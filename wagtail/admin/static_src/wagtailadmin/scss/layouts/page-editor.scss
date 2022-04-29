@@ -474,6 +474,10 @@ footer .preview {
   .button {
     display: inline-flex;
     align-items: center;
+
+    .icon {
+      margin-inline-end: 0.5rem;
+    }
   }
 }
 
@@ -488,10 +492,6 @@ footer .preview {
   button,
   .button {
     padding: 0 1em;
-
-    .icon {
-      margin-inline-end: 0.5em;
-    }
 
     @include media-breakpoint-down(xs) {
       width: 100%;
