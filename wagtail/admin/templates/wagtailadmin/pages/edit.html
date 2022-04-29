@@ -9,9 +9,10 @@
     <div id="comments"></div>
     {% page_permissions page as page_perms %}
 
-    {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
-
-    {% include "wagtailadmin/shared/page_side_panels.html" %}
+    <div class="w-sticky w-top-0 w-z-header">
+        {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
+        {% include "wagtailadmin/shared/page_side_panels.html" %}
+    </div>
 
     {% block form %}
         <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
@@ -66,7 +67,6 @@
             </footer>
         </form>
     {% endblock %}
-
 {% endblock %}
 
 {% block extra_css %}
