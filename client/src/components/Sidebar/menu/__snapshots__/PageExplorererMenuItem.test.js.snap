@@ -48,6 +48,7 @@ exports[`PageExplorerMenuItem should render with the minimum required props 1`] 
       >
         <Connect(PageExplorer)
           isVisible={false}
+          onClose={[Function]}
         />
       </Provider>
     </SidebarPanel>

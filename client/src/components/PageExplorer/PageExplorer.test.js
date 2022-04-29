@@ -53,10 +53,5 @@ describe('PageExplorer', () => {
       wrapper.dive().prop('gotoPage')();
       expect(store.dispatch).toHaveBeenCalled();
     });
-
-    it('onClose', () => {
-      wrapper.dive().prop('onClose')();
-      expect(store.dispatch).toHaveBeenCalled();
-    });
   });
 });
