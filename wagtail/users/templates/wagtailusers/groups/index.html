@@ -1,11 +1,11 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% trans "groups" %}{% endblock %}
+{% block titletag %}{{ page_title }}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailusers_groups:index' %}",
+            url: "{% url view.index_url_name %}",
             termInput: "#id_q",
             targetOutput: "#group-results"
         }
@@ -13,10 +13,8 @@
 {% endblock %}
 
 {% block content %}
-    {% trans "groups" as groups_str %}
-    {% trans "Add a group" as add_a_group_str %}
-    {% url "wagtailusers_groups:add" as add_link %}
-    {% include "wagtailadmin/shared/header.html" with title=groups_str action_url=add_link action_text=add_a_group_str icon="group" search_url="wagtailusers_groups:index" %}
+    {% url view.add_url_name as add_link %}
+    {% include "wagtailadmin/shared/header.html" with title=page_title action_url=add_link action_text=view.add_item_label icon=header_icon search_url=view.index_url_name %}
 
     <div class="nice-padding">
         <div id="group-results" class="groups">

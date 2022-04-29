@@ -192,11 +192,15 @@ label.required:after {
     &:before,
     &:after {
       font-family: $font-wagtail-icons;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
       position: absolute;
-      top: 0.5em;
+      top: 0;
+      height: 100%;
       line-height: 100%;
       font-size: 2em;
-      color: $color-grey-3;
+      color: theme('colors.grey.200');
     }
 
     &:before {
@@ -227,7 +231,6 @@ label.required:after {
       &:before,
       &:after {
         font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
-        top: 0.3em;
       }
 
       &:before {

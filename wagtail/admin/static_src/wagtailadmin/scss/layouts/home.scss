@@ -9,6 +9,10 @@ h1 {
 header {
   @apply w-text-primary;
 
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
+
   .col1 {
     width: 50px;
     margin-inline-end: 1em;
@@ -22,6 +26,11 @@ header {
       left: $mobile-nav-indent;
       inset-inline-start: $mobile-nav-indent;
     }
+  }
+
+  .avatar {
+    margin-top: 0.5em;
+    flex-shrink: 0;
   }
 
   .user-name {

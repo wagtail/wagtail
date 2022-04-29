@@ -1024,7 +1024,7 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
 class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
-    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
+    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'
     LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
 
     def setUp(self):
@@ -1044,7 +1044,7 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         switch_to_french_url = self.get_choose_page_url(
             self.fr_locale, parent_page_id=self.child_page_fr.pk
         )
-        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">'
 
         self.login()
 
@@ -1075,7 +1075,7 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         self.assertIn(self.LOCALE_SELECTOR_HTML, html)
 
         switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
-        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">'
         self.assertIn(fr_selector, html)
 
     def test_locale_selector(self):
@@ -1104,14 +1104,14 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         self.assertNotIn(f'data-title="{self.root_page.title}"', html)
         self.assertIn(self.root_page_fr.title, html)
         self.assertIn(
-            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">',
+            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button u-btn-current w-no-underline">',
             html,
         )
         switch_to_english_url = self.get_choose_page_url(
             locale=Locale.objects.get(language_code="en")
         )
         self.assertIn(
-            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live">',
+            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live w-no-underline">',
             html,
         )
 
