@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -436,32 +436,32 @@ msgstr ""
 msgid "All items in listing selected"
 msgstr ""
 
-#: panels.py:920
+#: panels.py:947
 msgid "Scheduled publishing"
 msgstr ""
 
-#: panels.py:929 templates/wagtailadmin/collections/_privacy_switch.html:7
+#: panels.py:956 templates/wagtailadmin/collections/_privacy_switch.html:7
 #: templates/wagtailadmin/pages/_privacy_switch.html:10
 msgid "Privacy"
 msgstr ""
 
-#: panels.py:1032
+#: panels.py:1059
 msgid "For search engines"
 msgstr ""
 
-#: panels.py:1038
+#: panels.py:1065
 msgid "For site menus"
 msgstr ""
 
-#: panels.py:1069
+#: panels.py:1096
 msgid "Content"
 msgstr ""
 
-#: panels.py:1071
+#: panels.py:1098
 msgid "Promote"
 msgstr ""
 
-#: panels.py:1076 wagtail_hooks.py:111
+#: panels.py:1103 wagtail_hooks.py:111
 msgid "Settings"
 msgstr ""
 
@@ -475,7 +475,7 @@ msgstr ""
 #: templates/wagtailadmin/reports/workflow.html:23
 #: templates/wagtailadmin/reports/workflow_tasks.html:23
 #: templates/wagtailadmin/workflows/usage.html:19
-#: views/reports/aging_pages.py:38 views/reports/base.py:67
+#: views/reports/aging_pages.py:39 views/reports/base.py:67
 #: views/reports/workflows.py:120 views/reports/workflows.py:155
 msgid "Status"
 msgstr ""
@@ -523,7 +523,7 @@ msgstr ""
 
 #: templates/wagtailadmin/account/account.html:4
 #: templates/wagtailadmin/account/account.html:6
-#: templatetags/wagtailadmin_tags.py:839
+#: templatetags/wagtailadmin_tags.py:838
 msgid "Account"
 msgstr ""
 
@@ -615,6 +615,10 @@ msgstr ""
 
 #: templates/wagtailadmin/account/settings_panels/avatar.html:15
 msgid "Reset to default"
+msgstr ""
+
+#: templates/wagtailadmin/base.html:7
+msgid "Sidebar"
 msgstr ""
 
 #: templates/wagtailadmin/bulk_actions/confirmation/go_back.html:2
@@ -825,12 +829,12 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: templates/wagtailadmin/home.html:21
+#: templates/wagtailadmin/home.html:19
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr ""
 
-#: templates/wagtailadmin/home.html:32
+#: templates/wagtailadmin/home.html:29
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -880,13 +884,13 @@ msgstr ""
 
 #: templates/wagtailadmin/home/locked_pages.html:40
 #: templates/wagtailadmin/home/recent_edits.html:35
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:46
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:51
 msgid "Draft"
 msgstr ""
 
 #: templates/wagtailadmin/home/locked_pages.html:45
 #: templates/wagtailadmin/home/recent_edits.html:40
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:11
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:16
 #: templates/wagtailadmin/shared/page_status_tag_new.html:47
 #: views/pages/revisions.py:105 views/pages/revisions.py:127
 msgid "Live"
@@ -914,7 +918,7 @@ msgstr ""
 #: templates/wagtailadmin/reports/site_history.html:13
 #: templates/wagtailadmin/workflows/task_index.html:35
 #: templates/wagtailadmin/workflows/usage.html:18
-#: views/reports/aging_pages.py:25 views/reports/aging_pages.py:41
+#: views/reports/aging_pages.py:25 views/reports/aging_pages.py:42
 #: views/reports/audit_logging.py:57 views/reports/audit_logging.py:91
 #: views/reports/base.py:68
 msgid "Type"
@@ -983,7 +987,7 @@ msgid "Changes requested at"
 msgstr ""
 
 #: templates/wagtailadmin/home/user_pages_in_workflow_moderation.html:44
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:82
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:87
 msgid "Awaiting"
 msgstr ""
 
@@ -1713,7 +1717,7 @@ msgstr ""
 #: templates/wagtailadmin/reports/aging_pages.html:42
 #: templates/wagtailadmin/reports/site_history.html:46
 #: templates/wagtailadmin/tables/date_cell.html:4
-#: templatetags/wagtailadmin_tags.py:713 templatetags/wagtailadmin_tags.py:740
+#: templatetags/wagtailadmin_tags.py:712 templatetags/wagtailadmin_tags.py:739
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -1872,7 +1876,7 @@ msgstr ""
 msgid "Select a new parent page for %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/move_choose_destination.html:9
+#: templates/wagtailadmin/pages/move_choose_destination.html:11
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr ""
@@ -2058,34 +2062,34 @@ msgid "Not visible to the public"
 msgstr ""
 
 #: templates/wagtailadmin/pages/side_panels/includes/page_privacy_status.html:28
-msgid "Set privacy"
+msgid "Change privacy"
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:6
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:11
 msgid "Page status: "
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:32
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:37
 msgid "In Moderation"
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:37
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:42
 msgid "View details"
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:65
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:70
 msgid "View history"
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:78
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:83
 msgid " Changes requested"
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:83
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:88
 msgid "since"
 msgstr ""
 
-#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:99
+#: templates/wagtailadmin/pages/side_panels/includes/page_workflow_status.html:104
 msgid "This will publish at "
 msgstr ""
 
@@ -2228,7 +2232,7 @@ msgstr ""
 msgid "Add comment"
 msgstr ""
 
-#: templates/wagtailadmin/panels/tabbed_interface.html:19
+#: templates/wagtailadmin/panels/tabbed_interface.html:15
 msgid "Comment notifications"
 msgstr ""
 
@@ -2245,7 +2249,7 @@ msgid "Last published"
 msgstr ""
 
 #: templates/wagtailadmin/reports/aging_pages.html:18
-#: views/reports/aging_pages.py:40
+#: views/reports/aging_pages.py:41
 msgid "Last published by"
 msgstr ""
 
@@ -2348,7 +2352,7 @@ msgid "Breadcrumb"
 msgstr ""
 
 #: templates/wagtailadmin/shared/breadcrumb-next.html:30
-#: templates/wagtailadmin/shared/breadcrumb-next.html:37
+#: templates/wagtailadmin/shared/breadcrumb-next.html:38
 #: templates/wagtailadmin/shared/breadcrumb.html:11
 #: templates/wagtailadmin/shared/move_breadcrumb.html:9
 msgid "Root"
@@ -2373,8 +2377,8 @@ msgstr ""
 msgid "Editing %(page_type)s %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/shared/headers/page_edit_header.html:21
-#: templates/wagtailadmin/shared/headers/page_edit_header.html:24
+#: templates/wagtailadmin/shared/headers/page_edit_header.html:25
+#: templates/wagtailadmin/shared/headers/page_edit_header.html:28
 #: wagtail_hooks.py:344
 msgid "History"
 msgstr ""
@@ -2597,8 +2601,8 @@ msgstr ""
 
 #: templates/wagtailadmin/workflows/task_chooser/includes/results.html:69
 msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" role=\"tab\">create "
-"one now</a>?"
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
 msgstr ""
 
 #: templates/wagtailadmin/workflows/task_index.html:16
@@ -2689,23 +2693,23 @@ msgid ""
 "descending order."
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:576 wagtail_hooks.py:267
+#: templatetags/wagtailadmin_tags.py:575 wagtail_hooks.py:267
 msgid "More"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:577
+#: templatetags/wagtailadmin_tags.py:576
 msgid "View more bulk actions"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:711
+#: templatetags/wagtailadmin_tags.py:710
 msgid "0 minutes"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:712
+#: templatetags/wagtailadmin_tags.py:711
 msgid "Just now"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:842
+#: templatetags/wagtailadmin_tags.py:841
 msgid "Log out"
 msgstr ""
 
@@ -3147,7 +3151,7 @@ msgstr ""
 msgid "Aging pages"
 msgstr ""
 
-#: views/reports/aging_pages.py:39
+#: views/reports/aging_pages.py:40
 msgid "Last published at"
 msgstr ""
 
