@@ -1,8 +1,6 @@
-@use 'sass:meta';
-
 :root {
-  --w-font-sans: #{meta.inspect($font-sans)};
-  --w-font-mono: #{meta.inspect($font-mono)};
+  --w-font-sans: #{$font-sans};
+  --w-font-mono: #{$font-mono};
 
   @include define-color('color-primary', #007d7e);
   @include define-color(
