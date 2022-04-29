@@ -2223,6 +2223,10 @@ class Revision(models.Model):
     def page(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
 
+    @cached_property
+    def page_id(self):
+        return int(self.object_id)
+
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
         # We cannot use auto_now_add as that will override

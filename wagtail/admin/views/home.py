@@ -188,13 +188,10 @@ class RecentEditsPanel(Component):
                 created_at__in=last_edits_dates
             ).order_by("-created_at")
 
-        # in_bulk() does not seem to support data type coercing.
-        # The revisions' primary key is string, but the Page model expects an
-        # integer primary key, so we cast it to int first.
-        page_keys = [int(pr.object_id) for pr in last_edits]
+        page_keys = [pr.page_id for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
         context["last_edits"] = [
-            [revision, pages.get(int(revision.object_id))] for revision in last_edits
+            [revision, pages.get(revision.page_id)] for revision in last_edits
         ]
         context["request"] = request
         return context
