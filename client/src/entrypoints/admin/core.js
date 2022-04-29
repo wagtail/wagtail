@@ -244,14 +244,17 @@ $(() => {
   });
 
   /* Functions that need to run/rerun when active tabs are changed */
-  document.addEventListener('tab-changed', () => {
-    // Resize autosize textareas
+  function resizeTextAreas() {
     // eslint-disable-next-line func-names
     $('textarea[data-autosize-on]').each(function () {
       // eslint-disable-next-line no-undef
       autosize.update($(this).get());
     });
-  });
+  }
+
+  // Resize textareas on page load and when tab changed
+  $(document).ready(resizeTextAreas);
+  document.addEventListener('wagtail:tab-changed', resizeTextAreas);
 
   // eslint-disable-next-line func-names
   $('.dropdown').each(function () {

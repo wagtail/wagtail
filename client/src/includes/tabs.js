@@ -164,7 +164,7 @@ class Tabs {
       }),
     );
     // Dispatch tab-changed event on the document
-    document.dispatchEvent(new CustomEvent('tab-changed'));
+    document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
 
     // Set URL hash and browser history
     if (!this.disableURL) {
@@ -326,4 +326,11 @@ export default Tabs;
 
 export const initTabs = (tabs = document.querySelectorAll('[data-tabs]')) => {
   tabs.forEach((tabSet) => new Tabs(tabSet));
+
+  // Dispatch tab-changed on window load
+  if (tabs) {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.dispatchEvent(new CustomEvent('wagtail:tab-changed'));
+    });
+  }
 };
