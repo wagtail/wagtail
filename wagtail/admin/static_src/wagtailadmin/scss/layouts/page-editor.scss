@@ -467,6 +467,14 @@
 }
 
 // Footer control bar for performing actions on the page
+footer .actions,
+footer .preview {
+  .button {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 footer .actions {
   .button {
     font-weight: 600;
