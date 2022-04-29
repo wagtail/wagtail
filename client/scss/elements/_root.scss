@@ -1,4 +1,7 @@
 :root {
+  --w-font-sans: #{$font-sans};
+  --w-font-mono: #{$font-mono};
+
   @include define-color('color-primary', #007d7e);
   @include define-color(
     'color-primary-darker',
