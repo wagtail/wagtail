@@ -82,7 +82,6 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
-            install_extras: 'pip uninstall -y django-taggit ; pip install git+https://github.com/jazzband/django-taggit.git@master#egg=django-taggit'
 
     services:
       postgres:
