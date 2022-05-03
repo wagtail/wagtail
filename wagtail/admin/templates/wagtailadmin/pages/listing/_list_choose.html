@@ -2,7 +2,7 @@
 
 {# Page listing include, customised for 'choose' mode #}
 
-<table class="listing {% if full_width %}full-width{% endif %} chooser">
+<table class="listing chooser">
     {% if show_ordering_column or show_bulk_actions %}
         <col width="10px" />
     {% endif %}
@@ -29,7 +29,7 @@
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if not parent_page.can_choose %}disabled{% endif %}">
-                <td class="title"{% if show_ordering_column or show_bulk_actions %} colspan="2"{% endif %}>
+                <td class="title">
                     {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
                 </td>
                 <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
@@ -49,16 +49,9 @@
     </thead>
     <tbody>
         {% if pages %}
-            {% trans "Select page" as checkbox_aria_label %}
             {% for page in pages %}
-                {% page_permissions page as page_perms %}
-                <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
-                    {% if show_ordering_column %}
-                        <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
-                    {% elif show_bulk_actions %}
-                        {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="page" obj=page aria_labelledby_prefix="page_" aria_labelledby=page.pk|unlocalize aria_labelledby_suffix="_title" %}
-                    {% endif %}
-                    <td id="page_{{ page.pk|unlocalize }}_title" class="title" valign="top" data-listing-page-title>
+                <tr class="{% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
+                    <td class="title">
                         {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
                     </td>
                     {% if show_parent %}
