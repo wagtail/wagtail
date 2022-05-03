@@ -31,7 +31,19 @@
             {% for page in pages %}
                 <tr class="{% if page.is_parent_page %}parent-page{% endif %} {% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
                     <td class="title">
-                        {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
+                        <div class="title-wrapper">
+                            {% if page.can_choose %}
+                                <a class="choose-page" href="#{{ page.id|unlocalize }}" data-id="{{ page.id|unlocalize }}" data-title="{{ page.title }}" data-admin-title="{{ page.get_admin_display_title }}" data-url="{{ page.url }}" data-parent-id="{{ page.get_parent.id|unlocalize }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">{{ page.get_admin_display_title }}</a>
+                            {% else %}
+                                {{ page.get_admin_display_title }}
+                            {% endif %}
+                            {% if show_locale_labels and page.depth == 2 %}
+                                <span class="status-tag status-tag--label">{{ page.locale.get_display_name }}</span>
+                            {% endif %}
+
+                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                        </div>
                     </td>
                     {% if show_parent %}
                         <td class="parent">
