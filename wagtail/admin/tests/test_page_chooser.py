@@ -46,8 +46,9 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_page_chooser_queryset", filter_pages):
             response = self.get()
-        self.assertEqual(len(response.context["pages"]), 1)
-        self.assertEqual(response.context["pages"][0].specific, page)
+        # 'results' in the template context consists of the parent page followed by the queryset
+        self.assertEqual(len(response.context["results"]), 2)
+        self.assertEqual(response.context["results"][1].specific, page)
 
 
 class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
@@ -126,7 +127,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
         self.assertEqual(response.context["page_type_string"], "tests.simplepage")
 
-        pages = {page.id: page for page in response.context["pages"].object_list}
+        pages = {page.id: page for page in response.context["results"]}
 
         # Child page is a simple page directly underneath root
         # so should appear in the list
@@ -160,7 +161,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
 
-        page_urls = [page.url for page in response.context["pages"]]
+        page_urls = [page.url for page in response.context["results"]]
 
         self.assertIn("/foo/pointless-suffix/", page_urls)
 
@@ -190,7 +191,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
             response.context["page_type_string"], "tests.simplepage,tests.eventpage"
         )
 
-        pages = {page.id: page for page in response.context["pages"].object_list}
+        pages = {page.id: page for page in response.context["results"]}
 
         # Simple page in results, as before
         self.assertIn(self.child_page.id, pages)
@@ -283,26 +284,26 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.setup_pagination_test_data()
 
         response = self.get()
-        self.assertEqual(response.context["pages"].paginator.num_pages, 5)
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.context["pagination_page"].paginator.num_pages, 5)
+        self.assertEqual(response.context["pagination_page"].number, 1)
 
     def test_pagination_another_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 2})
-        self.assertEqual(response.context["pages"].number, 2)
+        self.assertEqual(response.context["pagination_page"].number, 2)
 
     def test_pagination_invalid_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": "foo"})
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.context["pagination_page"].number, 1)
 
     def test_pagination_out_of_range_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 100})
-        self.assertEqual(response.context["pages"].number, 5)
+        self.assertEqual(response.context["pagination_page"].number, 5)
 
 
 class TestChooserSearch(TestCase, WagtailTestUtils):
