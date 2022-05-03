@@ -154,6 +154,8 @@ def browse(request, parent_page_id=None):
         target_pages=target_pages,
         match_subclass=match_subclass,
     )
+    parent_page.is_parent_page = True
+    parent_page.can_descend = False
 
     selected_locale = None
     locale_options = []
@@ -236,6 +238,7 @@ def browse(request, parent_page_id=None):
             match_subclass=match_subclass,
         )
         page.can_descend = page.get_children_count()
+        page.is_parent_page = False
 
     # Render
     context = shared_context(
@@ -243,7 +246,8 @@ def browse(request, parent_page_id=None):
         {
             "parent_page": parent_page,
             "parent_page_id": parent_page.pk,
-            "pages": pages,
+            "results": [parent_page] + list(pages),
+            "pagination_page": pages,
             "search_form": SearchForm(),
             "page_type_string": page_type_string,
             "page_type_names": [
@@ -297,6 +301,7 @@ def search(request, parent_page_id=None):
 
     for page in pages:
         page.can_choose = True
+        page.is_parent_page = False
 
     return TemplateResponse(
         request,

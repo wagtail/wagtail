@@ -27,29 +27,9 @@
         </tr>
     </thead>
     <tbody>
-        {% if parent_page %}
-            {% page_permissions parent_page as parent_page_perms %}
-            <tr class="parent-page {% if not parent_page.live %} unpublished{% endif %} {% if not parent_page.can_choose %}disabled{% endif %}">
-                <td class="title">
-                    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
-                </td>
-                <td class="updated">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
-                <td class="type">
-                    {% if not parent_page.is_root %}
-                        {{ parent_page.content_type.model_class.get_verbose_name }}
-                    {% endif %}
-                </td>
-                <td class="status">
-                    {% if not parent_page.is_root %}
-                        {% include "wagtailadmin/shared/page_status_tag.html" with page=parent_page %}
-                    {% endif %}
-                </td>
-                <td></td>
-            </tr>
-        {% endif %}
         {% if pages %}
             {% for page in pages %}
-                <tr class="{% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
+                <tr class="{% if page.is_parent_page %}parent-page{% endif %} {% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
                     <td class="title">
                         {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
                     </td>
@@ -64,9 +44,15 @@
                         </td>
                     {% endif %}
                     <td class="updated">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
-                    <td class="type">{{ page.content_type.model_class.get_verbose_name }}</td>
+                    <td class="type">
+                        {% if not page.is_root %}
+                            {{ page.content_type.model_class.get_verbose_name }}
+                        {% endif %}
+                    </td>
                     <td class="status">
-                        {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                        {% if not page.is_root %}
+                            {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                        {% endif %}
                     </td>
                     <td class="{% if allow_navigation and page.can_descend %}children{% endif %}">
                         {% if allow_navigation and page.can_descend %}
