@@ -112,6 +112,11 @@ ul.listing {
   }
 
   &.chooser {
+    tbody .parent-page {
+      font-size: 1.15em;
+      background-color: #e6e6e6;
+    }
+
     tbody .title a {
       @include transition(none);
       display: block;

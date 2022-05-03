@@ -25,20 +25,21 @@
             <th class="status">{% trans 'Status' %}</th>
             <th></th>
         </tr>
-
+    </thead>
+    <tbody>
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
-            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if not parent_page.can_choose %}disabled{% endif %}">
+            <tr class="parent-page {% if not parent_page.live %} unpublished{% endif %} {% if not parent_page.can_choose %}disabled{% endif %}">
                 <td class="title">
                     {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
                 </td>
-                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
-                <td class="type" valign="bottom">
+                <td class="updated">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
+                <td class="type">
                     {% if not parent_page.is_root %}
                         {{ parent_page.content_type.model_class.get_verbose_name }}
                     {% endif %}
                 </td>
-                <td class="status" valign="bottom">
+                <td class="status">
                     {% if not parent_page.is_root %}
                         {% include "wagtailadmin/shared/page_status_tag.html" with page=parent_page %}
                     {% endif %}
@@ -46,8 +47,6 @@
                 <td></td>
             </tr>
         {% endif %}
-    </thead>
-    <tbody>
         {% if pages %}
             {% for page in pages %}
                 <tr class="{% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
@@ -55,7 +54,7 @@
                         {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
                     </td>
                     {% if show_parent %}
-                        <td class="parent" valign="top">
+                        <td class="parent">
                             {% with page.get_parent as parent %}
                                 {% if parent %}
                                     <a href="{% url 'wagtailadmin_choose_page_child' parent.id %}" class="navigate-parent">{{ parent.get_admin_display_title }}</a>
@@ -64,9 +63,9 @@
                             {% endwith %}
                         </td>
                     {% endif %}
-                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
-                    <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
-                    <td class="status" valign="top">
+                    <td class="updated">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
+                    <td class="type">{{ page.content_type.model_class.get_verbose_name }}</td>
+                    <td class="status">
                         {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                     </td>
                     <td class="{% if allow_navigation and page.can_descend %}children{% endif %}">
