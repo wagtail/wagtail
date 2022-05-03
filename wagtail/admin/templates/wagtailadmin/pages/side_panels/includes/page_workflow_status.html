@@ -64,7 +64,7 @@
 
 {% block action %}
     {% if workflow_state %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-workflow-status' data_url=action_url text=action_text  %}
+        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-workflow-status' data_url=action_url text=action_text %}
     {% else %}
         {% url 'wagtailadmin_pages:history' page.id as action_url %}
         {% trans 'View history' as action_text %}
@@ -79,23 +79,21 @@
             <div class="w-flex w-space-x-3 w-mt-3">
                 {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
                 <div class="w-label-3 w-flex-1">
-                    {% blocktrans %}
-                        {% if workflow_state.status == 'needs_changes' %}
-                            Changes requested
-                            {{ workflow_state.current_task_state.finished_at|naturaltime }}
+                    {% if workflow_state.status == 'needs_changes' %}
+                        {% trans 'Changes requested ' %}
+                        {{ workflow_state.current_task_state.finished_at|naturaltime }}
+                    {% else %}
+                        {% if workflow_state.status == "in_progress" %}
+                            {% trans 'Sent to ' %}
                         {% else %}
-                            {% if workflow_state.status == "in_progress" %}
-                                Sent to
-                            {% else %}
-                                {{ workflow_state.get_status_display }}
-                            {% endif %}
-                            {{ workflow_state.current_task_state.task.name }}
-                            {{ workflow_state.current_task_state.started_at|naturaltime }}
+                            {{ workflow_state.get_status_display }}
                         {% endif %}
-                        {% if workflow_state.requested_by %}
-                            by {{ workflow_state.requested_by|user_display_name }}
-                        {% endif %}
-                    {% endblocktrans %}
+                        {{ workflow_state.current_task_state.task.name }}
+                        {{ workflow_state.current_task_state.started_at|naturaltime }}
+                    {% endif %}
+                    {% if workflow_state.requested_by %}
+                        {% trans 'by ' %} {{ workflow_state.requested_by|user_display_name }}
+                    {% endif %}
                 </div>
             </div>
         {% endif %}
