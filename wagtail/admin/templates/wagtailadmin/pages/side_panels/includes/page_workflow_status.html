@@ -79,21 +79,23 @@
             <div class="w-flex w-space-x-3 w-mt-3">
                 {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
                 <div class="w-label-3 w-flex-1">
-                    {% if workflow_state.status == 'needs_changes' %}
-                        {% trans " Changes requested" %}
-                        {{ workflow_state.current_task_state.finished_at|naturaltime }}
-                    {% else %}
-                        {% if workflow_state.status == "in_progress" %}
-                            {% trans "Sent to" %}
+                    {% blocktrans %}
+                        {% if workflow_state.status == 'needs_changes' %}
+                            Changes requested
+                            {{ workflow_state.current_task_state.finished_at|naturaltime }}
                         {% else %}
-                            {{ workflow_state.get_status_display }}
+                            {% if workflow_state.status == "in_progress" %}
+                                Sent to
+                            {% else %}
+                                {{ workflow_state.get_status_display }}
+                            {% endif %}
+                            {{ workflow_state.current_task_state.task.name }}
+                            {{ workflow_state.current_task_state.started_at|naturaltime }}
                         {% endif %}
-                        {{ workflow_state.current_task_state.task.name }}
-                        {{ workflow_state.current_task_state.started_at|naturaltime }}
-                    {% endif %}
-                    {% if workflow_state.requested_by %}
-                        by {{ workflow_state.requested_by|user_display_name }}
-                    {% endif %}
+                        {% if workflow_state.requested_by %}
+                            by {{ workflow_state.requested_by|user_display_name }}
+                        {% endif %}
+                    {% endblocktrans %}
                 </div>
             </div>
         {% endif %}
