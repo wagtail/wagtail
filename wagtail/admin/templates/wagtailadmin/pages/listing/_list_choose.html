@@ -1,42 +1,90 @@
-{% extends "wagtailadmin/pages/listing/_list.html" %}
-
-{% load i18n %}
+{% load i18n l10n wagtailadmin_tags %}
 
 {# Page listing include, customised for 'choose' mode #}
 
-{% block table_classname %}chooser{% endblock %}
+<table class="listing {% if full_width %}full-width{% endif %} chooser">
+    {% if show_ordering_column or show_bulk_actions %}
+        <col width="10px" />
+    {% endif %}
+    <col />
+    {% if show_parent %}
+        <col />
+    {% endif %}
+    <col width="12%" />
+    <col width="12%" />
+    <col width="12%" />
+    <col width="10%" />
+    <thead>
+        <tr class="table-headers">
+            <th class="title">{% trans 'Title' %}</th>
+            {% if show_parent %}
+                <th class="parent">{% trans 'Parent' %}</th>
+            {% endif %}
+            <th class="updated">{% trans 'Updated' %}</th>
+            <th class="type">{% trans 'Type' %}</th>
+            <th class="status">{% trans 'Status' %}</th>
+            <th></th>
+        </tr>
 
-{% block pre_parent_page_headers %}
-    <tr class="table-headers">
-        <th class="title">{% trans 'Title' %}</th>
-        {% if show_parent %}
-            <th class="parent">{% trans 'Parent' %}</th>
+        {% if parent_page %}
+            {% page_permissions parent_page as parent_page_perms %}
+            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% if not parent_page.can_choose %}disabled{% endif %}">
+                <td class="title"{% if show_ordering_column or show_bulk_actions %} colspan="2"{% endif %}>
+                    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
+                </td>
+                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
+                <td class="type" valign="bottom">
+                    {% if not parent_page.is_root %}
+                        {{ parent_page.content_type.model_class.get_verbose_name }}
+                    {% endif %}
+                </td>
+                <td class="status" valign="bottom">
+                    {% if not parent_page.is_root %}
+                        {% include "wagtailadmin/shared/page_status_tag.html" with page=parent_page %}
+                    {% endif %}
+                </td>
+                <td></td>
+            </tr>
         {% endif %}
-        <th class="updated">{% trans 'Updated' %}</th>
-        <th class="type">{% trans 'Type' %}</th>
-        <th class="status">{% trans 'Status' %}</th>
-        <th></th>
-    </tr>
-{% endblock %}
-
-{% block parent_page_row_classname %}{% if not parent_page.can_choose %}disabled{% endif %}{% endblock %}
-
-{% block parent_page_title %}
-    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=parent_page %}
-{% endblock %}
-
-{% block post_parent_page_headers %}{% endblock %}
-
-{% block page_row_classname %}{% if not page.can_choose %}disabled{% endif %}{% endblock %}
-
-{% block page_title %}
-    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
-{% endblock %}
-
-{% block page_parent_page_title %}
-    {% include "wagtailadmin/pages/listing/_page_parent_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
-{% endblock %}
-
-{% block page_navigation %}
-    {% include "wagtailadmin/pages/listing/_navigation_choose.html" %}
-{% endblock %}
+    </thead>
+    <tbody>
+        {% if pages %}
+            {% trans "Select page" as checkbox_aria_label %}
+            {% for page in pages %}
+                {% page_permissions page as page_perms %}
+                <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% if not page.can_choose %}disabled{% endif %}">
+                    {% if show_ordering_column %}
+                        <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
+                    {% elif show_bulk_actions %}
+                        {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="page" obj=page aria_labelledby_prefix="page_" aria_labelledby=page.pk|unlocalize aria_labelledby_suffix="_title" %}
+                    {% endif %}
+                    <td id="page_{{ page.pk|unlocalize }}_title" class="title" valign="top" data-listing-page-title>
+                        {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
+                    </td>
+                    {% if show_parent %}
+                        <td class="parent" valign="top">
+                            {% with page.get_parent as parent %}
+                                {% if parent %}
+                                    <a href="{% url 'wagtailadmin_choose_page_child' parent.id %}" class="navigate-parent">{{ parent.get_admin_display_title }}</a>
+                                    {% if show_locale_labels %}<span class="status-tag status-tag--label">{{ parent.locale.get_display_name }}</span>{% endif %}
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                    {% endif %}
+                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
+                    <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
+                    <td class="status" valign="top">
+                        {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                    </td>
+                    <td class="{% if allow_navigation and page.can_descend %}children{% endif %}">
+                        {% if allow_navigation and page.can_descend %}
+                            <a href="{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}" class="icon text-replace icon-arrow-right navigate-pages" title="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore subpages of '{{ title }}'{% endblocktrans %}">{% trans 'Explore' %}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}{% endblock %}
+        {% endif %}
+    </tbody>
+</table>
