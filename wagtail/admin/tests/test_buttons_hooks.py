@@ -9,7 +9,7 @@ from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
 
-class PagePerms:
+class BasePagePerms:
     def can_move(self):
         return False
 
@@ -17,13 +17,26 @@ class PagePerms:
         return False
 
     def can_delete(self):
-        return True
+        return False
 
     def can_unpublish(self):
         return False
 
     def can_view_revisions(self):
         return False
+
+    def can_reorder_children(self):
+        return False
+
+
+class DeleteOnlyPagePerms(BasePagePerms):
+    def can_delete(self):
+        return True
+
+
+class ReorderOnlyPagePerms(BasePagePerms):
+    def can_reorder_children(self):
+        return True
 
 
 class TestButtonsHooks(TestCase, WagtailTestUtils):
@@ -144,7 +157,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         self.assertContains(response, "Another useless header button")
 
     def test_delete_button_next_url(self):
-        page_perms = PagePerms()
+        page_perms = DeleteOnlyPagePerms()
         page = self.root_page
         base_url = reverse("wagtailadmin_pages:delete", args=[page.id])
 
@@ -168,3 +181,19 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(delete_button.url, base_url)
+
+    def test_reorder_button_visibility(self):
+        page = self.root_page
+        page_perms = BasePagePerms()
+
+        # no button returned
+        buttons = page_listing_more_buttons(page, page_perms, is_parent=True)
+        self.assertEqual(len(list(buttons)), 0)
+
+        page_perms = ReorderOnlyPagePerms()
+        # page_listing_more_button generator yields only `Sort menu order button`
+        reorder_button = next(
+            page_listing_more_buttons(page, page_perms, is_parent=True)
+        )
+
+        self.assertEqual(reorder_button.url, "?ordering=ord")
