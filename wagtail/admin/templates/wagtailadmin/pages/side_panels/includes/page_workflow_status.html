@@ -84,8 +84,7 @@
                         {{ workflow_state.current_task_state.finished_at|naturaltime }}
                     {% else %}
                         {% if workflow_state.status == "in_progress" %}
-                            {% trans "Awaiting" %}
-                            {% trans "since" as since_text %}
+                            {% trans "Sent to" %}
                         {% else %}
                             {{ workflow_state.get_status_display }}
                         {% endif %}
