@@ -350,7 +350,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=50,
         )
 
-    if is_parent:
+    if is_parent and page_perms.can_reorder_children():
         yield Button(
             _("Sort menu order"),
             "?ordering=ord",

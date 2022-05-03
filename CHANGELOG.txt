@@ -35,6 +35,7 @@ Changelog
  * Fix: Ensure that custom document or image models support custom tag models (Matt Westcott)
  * Fix: Ensure comments use translated values for their placeholder text (Stefan Hammer)
  * Fix: Ensure the upgrade notification, shown to admins on the dashboard if Wagtail is out of date, content is translatable (LB (Ben) Johnston)
+ * Fix: Show the re-ordering option to users that have permission to publish pages within the page listing (Stefan Hammer)
 
 
 3.0 (16.05.2022)
