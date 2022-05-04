@@ -806,6 +806,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return ContentType.objects.get_for_id(self.content_type_id)
 
     @property
+    def page_type_display_name(self):
+        """
+        A human-readable version of this page's type
+        """
+        if not self.specific_class or self.is_root():
+            return ""
+        else:
+            return self.specific_class.get_verbose_name()
+
+    @property
     def localized_draft(self):
         """
         Finds the translation in the current active language.
