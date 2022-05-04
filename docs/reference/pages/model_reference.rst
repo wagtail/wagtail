@@ -514,13 +514,13 @@ Database fields
 
         (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
 
-        This is the base content type of the object this revision belongs to. For page revisions, this means the content type of the default page type.
+        This is the base content type of the object this revision belongs to. For page revisions, this means the content type of the :class:`~wagtail.models.Page` model.
 
     .. attribute:: object_id
 
         (string)
 
-        This represents the id of the object this revision belongs to.
+        This represents the primary key of the object this revision belongs to.
 
     .. attribute:: submitted_for_moderation
 
