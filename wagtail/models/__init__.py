@@ -2251,7 +2251,7 @@ class Revision(models.Model):
         if self.submitted_for_moderation:
             # ensure that all other revisions of this object have the 'submitted for moderation' flag unset
             Revision.objects.filter(
-                content_type_id=self.content_type_id,
+                base_content_type_id=self.base_content_type_id,
                 object_id=self.object_id,
             ).exclude(id=self.id).update(submitted_for_moderation=False)
 
@@ -2322,7 +2322,7 @@ class Revision(models.Model):
             return True
         latest_revision = (
             Revision.objects.filter(
-                content_type_id=self.content_type_id,
+                base_content_type_id=self.base_content_type_id,
                 object_id=self.object_id,
             )
             .order_by("-created_at", "-id")
@@ -2355,13 +2355,13 @@ class Revision(models.Model):
 
     def get_previous(self):
         return self.get_previous_by_created_at(
-            content_type_id=self.content_type_id,
+            base_content_type_id=self.base_content_type_id,
             object_id=self.object_id,
         )
 
     def get_next(self):
         return self.get_next_by_created_at(
-            content_type_id=self.content_type_id,
+            base_content_type_id=self.base_content_type_id,
             object_id=self.object_id,
         )
 
