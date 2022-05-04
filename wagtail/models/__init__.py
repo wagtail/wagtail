@@ -2371,6 +2371,16 @@ class Revision(models.Model):
     class Meta:
         verbose_name = _("page revision")
         verbose_name_plural = _("page revisions")
+        indexes = [
+            models.Index(
+                fields=["content_type", "object_id"],
+                name="content_object_idx",
+            ),
+            models.Index(
+                fields=["base_content_type", "object_id"],
+                name="base_content_object_idx",
+            ),
+        ]
 
 
 PAGE_PERMISSION_TYPES = [

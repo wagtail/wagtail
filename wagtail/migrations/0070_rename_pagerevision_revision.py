@@ -46,4 +46,18 @@ class Migration(migrations.Migration):
                 to="contenttypes.contenttype",
             ),
         ),
+        migrations.AddIndex(
+            model_name="revision",
+            index=models.Index(
+                fields=["content_type", "object_id"],
+                name="content_object_idx",
+            ),
+        ),
+        migrations.AddIndex(
+            model_name="revision",
+            index=models.Index(
+                fields=["base_content_type", "object_id"],
+                name="base_content_object_idx",
+            ),
+        ),
     ]
