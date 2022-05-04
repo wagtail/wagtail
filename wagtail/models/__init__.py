@@ -2222,15 +2222,15 @@ class Revision(models.Model):
     page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
 
-    @cached_property
+    @property
     def content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
 
-    @cached_property
+    @property
     def page(self):
         return self.content_object
 
-    @cached_property
+    @property
     def page_id(self):
         return int(self.object_id)
 
