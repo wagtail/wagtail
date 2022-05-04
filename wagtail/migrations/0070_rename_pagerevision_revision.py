@@ -16,6 +16,10 @@ class Migration(migrations.Migration):
             old_name="PageRevision",
             new_name="Revision",
         ),
+        migrations.AlterModelOptions(
+            name="revision",
+            options={"verbose_name": "revision", "verbose_name_plural": "revisions"},
+        ),
         migrations.AlterField(
             model_name="revision",
             name="page",
