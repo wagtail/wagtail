@@ -920,7 +920,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # This is necessary to prevent fetching a fresh page instance when
         # changing first_published_at.
         # Ref: https://github.com/wagtail/wagtail/pull/3498
-        revision.page = self
+        revision.content_object = self
 
         for comment in new_comments:
             comment.revision_created = revision
@@ -2222,7 +2222,7 @@ class Revision(models.Model):
     page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
 
-    @property
+    @cached_property
     def content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
 
