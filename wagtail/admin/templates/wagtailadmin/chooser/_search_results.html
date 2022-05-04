@@ -9,7 +9,7 @@
 </h2>
 
 {% if pages %}
-    {% include "wagtailadmin/pages/listing/_list_choose.html" with show_parent=1 pages=pages show_locale_labels=show_locale_labels %}
+    {% component table %}
 
     {% url 'wagtailadmin_choose_page_search' as pagination_base_url %}
     {% paginate pages base_url=pagination_base_url classnames="navigate-pages" %}
