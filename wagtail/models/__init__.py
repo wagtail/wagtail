@@ -2249,7 +2249,7 @@ class Revision(models.Model):
 
         super().save(*args, **kwargs)
         if self.submitted_for_moderation:
-            # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
+            # ensure that all other revisions of this object have the 'submitted for moderation' flag unset
             Revision.objects.filter(
                 content_type_id=self.content_type_id,
                 object_id=self.object_id,
@@ -2366,11 +2366,11 @@ class Revision(models.Model):
         )
 
     def __str__(self):
-        return '"' + str(self.page) + '" at ' + str(self.created_at)
+        return '"' + str(self.content_object) + '" at ' + str(self.created_at)
 
     class Meta:
-        verbose_name = _("page revision")
-        verbose_name_plural = _("page revisions")
+        verbose_name = _("revision")
+        verbose_name_plural = _("revisions")
         indexes = [
             models.Index(
                 fields=["content_type", "object_id"],
