@@ -63,7 +63,7 @@
                                 <a href="{% url 'wagtailadmin_explore' revision.content_object.get_parent.id %}">{{ revision.content_object.get_parent.specific_deferred.get_admin_display_title }}</a>
                             </td>
                             <td class="type" valign="top">
-                                {{ revision.content_object.content_type.model_class.get_verbose_name }}
+                                {{ revision.content_object.page_type_display_name }}
                             </td>
                             <td valign="top">
                                 <div class="human-readable-date" title="{{ revision.created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=revision.created_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
