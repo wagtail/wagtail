@@ -82,10 +82,13 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
+            postgres: 'postgres:11'
 
     services:
       postgres:
-        image: postgres:10.8
+        image: ${{ matrix.postgres || 'postgres:10.8' }}
+        env:
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -110,7 +113,7 @@ jobs:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
-          DATABASE_PASS: postgres
+          DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
 
@@ -288,7 +291,7 @@ jobs:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
-          DATABASE_PASS: postgres
+          DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
 
   test-postgres-elasticsearch7:
@@ -338,5 +341,5 @@ jobs:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
-          DATABASE_PASS: postgres
+          DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
