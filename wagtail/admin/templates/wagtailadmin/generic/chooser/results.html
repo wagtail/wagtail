@@ -1,0 +1,4 @@
+{% load i18n wagtailadmin_tags %}
+
+{% component table %}
+{% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_url_name %}
