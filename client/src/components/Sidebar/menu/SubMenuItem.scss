@@ -3,8 +3,6 @@
   display: block;
   width: 1rem;
   height: 1rem;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
   inset-inline-end: 15px;
   margin-inline-start: auto;
 
@@ -23,9 +21,6 @@
     width: 1rem;
     height: 1rem;
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
   }
 }

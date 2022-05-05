@@ -61,9 +61,6 @@ ul.listing {
 
       &.icon:after {
         opacity: 0.5;
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 0;
         inset-inline-end: 0;
       }
     }
@@ -476,9 +473,6 @@ table.listing {
       font-size: 1em;
       opacity: 1;
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 10%;
       inset-inline-end: 10%;
       top: 2em;
     }

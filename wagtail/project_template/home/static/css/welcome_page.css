@@ -133,9 +133,6 @@ svg:not(:root) {
     padding: 5px;
     border-radius: 100%;
     top: 10px;
-    /* Remove once we drop support for Safari 13. */
-    /* stylelint-disable-next-line property-disallowed-list */
-    left: 0;
     inset-inline-start: 0;
     position: absolute;
 }

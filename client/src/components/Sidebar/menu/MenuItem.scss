@@ -52,9 +52,6 @@
       font-size: 1.5em;
       margin: 0;
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0.5em;
       inset-inline-end: 0.5em;
       top: 0.5em;
     }

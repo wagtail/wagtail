@@ -20,9 +20,6 @@
 
   iframe {
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
     inset-inline-start: 0;
     top: 0;
     width: 75px;
@@ -189,9 +186,6 @@
     > .xdsoft_select {
       border: 1px solid #ccc;
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0;
       inset-inline-end: 0;
       top: 30px;
       z-index: 101;
@@ -201,16 +195,10 @@
       overflow-y: hidden;
 
       &.xdsoft_monthselect {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: -7px;
         inset-inline-end: -7px;
       }
 
       &.xdsoft_yearselect {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 2px;
         inset-inline-end: 2px;
       }
 
@@ -332,9 +320,6 @@
 .xdsoft_scrollbar {
   position: absolute;
   width: 7px;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   top: 0;
   bottom: 0;

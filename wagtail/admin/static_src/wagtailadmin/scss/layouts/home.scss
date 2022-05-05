@@ -21,9 +21,6 @@ header {
     // make way for the nav-menu button on mobile
     @include media-breakpoint-down(xs) {
       position: relative;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: $mobile-nav-indent;
       inset-inline-start: $mobile-nav-indent;
     }
   }

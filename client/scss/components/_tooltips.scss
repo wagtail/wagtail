@@ -49,9 +49,6 @@
 
 .tooltip.top .tooltip-arrow {
   bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 50%;
   inset-inline-start: 50%;
   margin-inline-start: -5px;
   border-top-color: #000;
@@ -60,18 +57,12 @@
 
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 5px;
   inset-inline-start: 5px;
   border-top-color: #000;
   border-width: 5px 5px 0;
 }
 
 .tooltip.top-right .tooltip-arrow {
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 5px;
   inset-inline-end: 5px;
   bottom: 0;
   border-top-color: #000;
@@ -80,9 +71,6 @@
 
 .tooltip.right .tooltip-arrow {
   top: 50%;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
   margin-top: -5px;
   border-inline-end-color: #000;
@@ -91,9 +79,6 @@
 
 .tooltip.left .tooltip-arrow {
   top: 50%;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   margin-top: -5px;
   border-inline-start-color: #000;
@@ -102,9 +87,6 @@
 
 .tooltip.bottom .tooltip-arrow {
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 50%;
   inset-inline-start: 50%;
   margin-inline-start: -5px;
   border-bottom-color: #000;
@@ -113,9 +95,6 @@
 
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 5px;
   inset-inline-start: 5px;
   border-bottom-color: #000;
   border-width: 0 5px 5px;
@@ -123,9 +102,6 @@
 
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 5px;
   inset-inline-end: 5px;
   border-bottom-color: #000;
   border-width: 0 5px 5px;

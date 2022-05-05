@@ -193,7 +193,7 @@ Wagtail is meant to be used on a wide variety of devices and browsers. Supported
 | Firefox ESR   | Desktop    | Latest     |
 | Safari        | macOS      | Last 3     |
 
-We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
+We aim for Wagtail to work in those environments, there are known support gaps for Safari 13 introduced in Wagtail 4.0 to provide better support for RTL languages. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 
 IE 11 support has been officially dropped in 2.15 as it is gradually falling out of use. Features already known not to work include:
 
