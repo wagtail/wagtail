@@ -12,6 +12,7 @@ as Page.
 import functools
 import logging
 import uuid
+import warnings
 from io import StringIO
 from urllib.parse import urlparse
 
@@ -78,6 +79,7 @@ from wagtail.signals import (
 )
 from wagtail.treebeard import TreebeardPathFixMixin
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .audit_log import (  # noqa
     BaseLogEntry,
@@ -2228,10 +2230,23 @@ class Revision(models.Model):
 
     @property
     def page(self):
+        warnings.warn(
+            "Revisions should access .content_object instead of .page "
+            "to retrieve the object.",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
         return self.content_object
 
     @property
     def page_id(self):
+        warnings.warn(
+            "Revisions should access .object_id instead of .page_id "
+            "to retrieve the object's primary key. For page revisions, "
+            "you may need to cast the object_id to integer first.",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
         return int(self.object_id)
 
     def save(self, user=None, *args, **kwargs):
