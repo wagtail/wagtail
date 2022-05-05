@@ -7,7 +7,7 @@
     Any element with the 'action-choose' class will open the page chooser modal
     when clicked.
 {% endcomment %}
-<div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}{% if classname %}{{ classname }}{% endif %}{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% endblock %}>
+<div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}{% if classname %}{{ classname }}{% endif %}{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% if chooser_url %}data-chooser-url="{{ chooser_url }}"{% endif %}{% endblock %}>
 
     <div class="chosen">
         {% block chosen_icon %}{% if icon %}{% icon name=icon %}{% endif %}{% endblock chosen_icon %}

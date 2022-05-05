@@ -62,6 +62,7 @@ class AdminImageChooser(AdminChooser):
                 "edit_url": value_data.get("edit_url", ""),
                 "icon": "image",
                 "classname": "image-chooser",
+                "chooser_url": reverse("wagtailimages:chooser"),
             },
         )
 

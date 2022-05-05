@@ -170,7 +170,7 @@ class AdminPageChooser(AdminChooser):
         original_field_html = super().render_html(name, value_data.get("id"), attrs)
 
         return render_to_string(
-            "wagtailadmin/widgets/page_chooser.html",
+            "wagtailadmin/widgets/chooser.html",
             {
                 "widget": self,
                 "original_field_html": original_field_html,
@@ -182,6 +182,7 @@ class AdminPageChooser(AdminChooser):
                 "edit_url": value_data.get("edit_url", ""),
                 "icon": "doc-empty-inverse",
                 "classname": "page-chooser",
+                "chooser_url": reverse("wagtailadmin_choose_page"),
             },
         )
 
