@@ -31,6 +31,7 @@ class AdminTaskChooser(AdminChooser):
                 if task
                 else "",
                 "classname": "task-chooser",
+                "chooser_url": reverse("wagtailadmin_workflows:task_chooser"),
             },
         )
 

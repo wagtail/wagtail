@@ -58,7 +58,7 @@ class AdminSnippetChooser(AdminChooser):
         )
 
         return render_to_string(
-            "wagtailsnippets/widgets/snippet_chooser.html",
+            "wagtailadmin/widgets/chooser.html",
             {
                 "widget": self,
                 "original_field_html": original_field_html,
