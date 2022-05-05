@@ -116,7 +116,6 @@ export function initModernDropdown() {
         hoverTooltipInstance = tippy(toggle, {
           content: hoverTooltip,
           placement: 'bottom',
-          multiple: true,
           plugins: [hideTooltipOnEsc],
         });
       }
@@ -127,7 +126,6 @@ export function initModernDropdown() {
         interactive: true,
         theme: 'dropdown',
         placement: 'bottom',
-        multiple: true,
         plugins: [
           hideTooltipOnEsc,
           hideTooltipOnBreadcrumbExpandAndCollapse,
