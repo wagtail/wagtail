@@ -69,6 +69,8 @@ class AdminSnippetChooser(AdminChooser):
                 "display_title": value_data.get("string", ""),
                 "edit_url": value_data.get("edit_url", ""),
                 "chooser_url": chooser_url,
+                "icon": "snippet",
+                "classname": "snippet-chooser",
             },
         )
 

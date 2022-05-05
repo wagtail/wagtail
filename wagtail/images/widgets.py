@@ -60,6 +60,8 @@ class AdminImageChooser(AdminChooser):
                 "title": value_data.get("title", ""),
                 "preview": value_data.get("preview", {}),
                 "edit_url": value_data.get("edit_url", ""),
+                "icon": "image",
+                "classname": "image-chooser",
             },
         )
 

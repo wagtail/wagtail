@@ -51,6 +51,8 @@ class AdminDocumentChooser(AdminChooser):
                 ),  # only used by chooser.html to identify blank values
                 "display_title": value_data.get("title", ""),
                 "edit_url": value_data.get("edit_url", ""),
+                "icon": "doc-full-inverse",
+                "classname": "document-chooser",
             },
         )
 
