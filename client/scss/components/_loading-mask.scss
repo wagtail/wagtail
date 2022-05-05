@@ -13,14 +13,8 @@
     &:before {
       content: '';
       top: -5px;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -5px;
       inset-inline-start: -5px;
       bottom: -5px;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: -5px;
       inset-inline-end: -5px;
       z-index: 1;
       background-color: rgba(255, 255, 255, 0.5);
@@ -31,9 +25,6 @@
       display: block;
       width: 1.875rem;
       height: 1.875rem;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: 50%;
       inset-inline-start: 50%;
       top: 50%;
       animation: spin-wag 0.5s infinite linear;

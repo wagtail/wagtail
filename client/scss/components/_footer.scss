@@ -120,9 +120,6 @@
       }
 
       .avatar {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        left: auto;
         inset-inline-start: auto;
       }
     }

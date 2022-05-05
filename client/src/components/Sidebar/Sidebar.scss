@@ -3,9 +3,6 @@
 
   position: absolute;
   top: $sidebar-toggle-spacing;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: $sidebar-toggle-spacing;
   inset-inline-start: $sidebar-toggle-spacing;
   color: $color-white;
   width: $sidebar-toggle-size;
@@ -25,10 +22,6 @@
   @include media-breakpoint-up(sm) {
     position: static;
     inset-inline-end: $sidebar-toggle-spacing;
-
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: initial;
     inset-inline-start: initial;
   }
 
@@ -45,9 +38,6 @@
 .sidebar-loading {
   @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300] w-transition-sidebar;
   width: $menu-width;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
 
   @media (forced-colors: $media-forced-colours) {
@@ -66,9 +56,6 @@
 
   // The sidebar can move completely off-screen in mobile mode for extra room
   &--hidden {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: -$menu-width;
     inset-inline-start: -$menu-width;
   }
 

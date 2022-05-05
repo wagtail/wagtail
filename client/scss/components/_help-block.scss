@@ -30,9 +30,6 @@
   .icon {
     @include svg-icon(1.25rem);
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 1.125rem;
     inset-inline-start: 1.125rem;
     top: 0.8125rem;
   }

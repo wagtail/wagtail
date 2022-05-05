@@ -10,6 +10,7 @@ Changelog
  * Add `full_url` to the API output of `ImageRenditionField` (Paarth Agarwal)
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
  * Use `InlinePanel`'s label when available for field comparison label (Sandil Ranasinghe)
+ * Drop support for Safari 13 by removing left/right positioning in favour of CSS logical properties (Thibaud Colas)
 
 
 3.0 (xx.xx.xxxx) - IN DEVELOPMENT

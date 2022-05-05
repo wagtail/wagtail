@@ -10,9 +10,6 @@
 
 .u-arrow--tl:before {
   bottom: 100%;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 1rem;
   inset-inline-start: 1rem;
 }
 

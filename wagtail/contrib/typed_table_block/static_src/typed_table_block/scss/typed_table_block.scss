@@ -24,18 +24,12 @@
     button.prepend-column,
     button.append-column {
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -0.9rem;
       inset-inline-start: -0.9rem;
       top: -2rem;
     }
 
     button.delete-column {
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0.625rem;
       inset-inline-end: 0.625rem;
       top: 0.875rem;
     }
@@ -63,9 +57,6 @@
     border-top: 1px dotted $color-grey-2;
 
     button.prepend-row {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -2rem;
       inset-inline-start: -2rem;
       position: absolute;
       top: -0.9rem;
@@ -84,9 +75,6 @@
   ul.add-column-menu {
     position: absolute;
     top: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: -0.9rem;
     inset-inline-start: -0.9rem;
     z-index: 100;
     min-width: 10rem;

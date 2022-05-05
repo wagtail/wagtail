@@ -14,9 +14,6 @@
     opacity: 0;
     position: absolute;
     top: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     direction: ltr;
     width: auto;
@@ -70,27 +67,15 @@
     box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
     z-index: 4;
     top: 60%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 20%;
     inset-inline-start: 20%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 20%;
     inset-inline-end: 20%;
     width: 60%;
   }
 
   .thumb {
     top: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     bottom: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
     inset-inline-start: 0;
     z-index: 1;
     width: 100%;
@@ -99,13 +84,7 @@
   .thumb:before,
   canvas,
   img {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
     inset-inline-start: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     top: 0;
     bottom: 0;

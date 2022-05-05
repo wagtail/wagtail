@@ -114,9 +114,6 @@ $explorer-header-horizontal-padding: 10px;
   &-icon {
     @apply w-text-primary;
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 1rem;
     inset-inline-end: 1rem;
     top: 0.85rem;
     width: 1.25rem;
