@@ -921,7 +921,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertContains(response, workflow_status_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.page.current_workflow_task.name),
+            r"Sent to [\s|\n]+{}".format(self.page.current_workflow_task.name),
         )
         self.assertNotContains(response, "Draft")
 
