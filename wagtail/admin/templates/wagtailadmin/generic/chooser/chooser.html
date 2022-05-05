@@ -1,0 +1,17 @@
+{% load i18n wagtailadmin_tags %}
+{% include "wagtailadmin/shared/header.html" with title=page_title merged=1 icon=icon %}
+
+<div class="w-tabs" data-tabs data-tabs-disable-url>
+    <div class="tab-content nice-padding">
+        <section
+            id="tab-search"
+            class="w-tabs__panel"
+            role="tabpanel"
+            aria-labelledby="tab-label-search"
+        >
+            <div id="search-results" class="listing documents">
+                {% include "wagtailadmin/generic/chooser/results.html" %}
+            </div>
+        </section>
+    </div>
+</div>
