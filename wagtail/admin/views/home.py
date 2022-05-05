@@ -111,7 +111,7 @@ class WorkflowPagesToModeratePanel(Component):
                 (
                     state,
                     state.task.specific.get_actions(
-                        page=state.page_revision.page, user=request.user
+                        page=state.page_revision.content_object, user=request.user
                     ),
                     state.workflow_state.all_tasks_with_status(),
                 )
@@ -188,10 +188,11 @@ class RecentEditsPanel(Component):
                 created_at__in=last_edits_dates
             ).order_by("-created_at")
 
-        page_keys = [pr.page_id for pr in last_edits]
+        # The revision's object_id is a string, so cast it to int first.
+        page_keys = [int(pr.object_id) for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
         context["last_edits"] = [
-            [revision, pages.get(revision.page_id)] for revision in last_edits
+            [revision, pages.get(int(revision.object_id))] for revision in last_edits
         ]
         context["request"] = request
         return context

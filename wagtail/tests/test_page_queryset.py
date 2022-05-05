@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Q
 from django.test import TestCase
 
-from wagtail.models import Locale, Page, PageSubscription, PageViewRestriction, Site
+from wagtail.models import Locale, Page, PageViewRestriction, Site
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import (

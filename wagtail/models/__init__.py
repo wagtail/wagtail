@@ -2295,14 +2295,14 @@ class Revision(models.Model):
             )
 
     def as_page_object(self):
-        return self.page.specific.with_content_json(self.content)
+        return self.content_object.specific.with_content_json(self.content)
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation approved: "%s" id=%d revision_id=%d',
-                self.page.title,
-                self.page.id,
+                self.content_object.title,
+                self.content_object.id,
                 self.id,
             )
             log(
@@ -2317,8 +2317,8 @@ class Revision(models.Model):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation rejected: "%s" id=%d revision_id=%d',
-                self.page.title,
-                self.page.id,
+                self.content_object.title,
+                self.content_object.id,
                 self.id,
             )
             log(

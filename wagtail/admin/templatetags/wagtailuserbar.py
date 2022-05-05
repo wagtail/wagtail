@@ -62,8 +62,12 @@ def wagtailuserbar(context, position="bottom-right"):
             if revision_id:
                 items = [
                     AdminItem(),
-                    ExplorePageItem(Revision.page_revisions.get(id=revision_id).page),
-                    EditPageItem(Revision.page_revisions.get(id=revision_id).page),
+                    ExplorePageItem(
+                        Revision.page_revisions.get(id=revision_id).content_object
+                    ),
+                    EditPageItem(
+                        Revision.page_revisions.get(id=revision_id).content_object
+                    ),
                     ApproveModerationEditPageItem(
                         Revision.page_revisions.get(id=revision_id)
                     ),

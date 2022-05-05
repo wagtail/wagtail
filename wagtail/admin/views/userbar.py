@@ -40,8 +40,8 @@ def for_frontend(request, page_id):
 @permission_required("wagtailadmin.access_admin", raise_exception=True)
 def for_moderation(request, revision_id):
     items = [
-        EditPageItem(Revision.page_revisions.get(id=revision_id).page),
-        AddPageItem(Revision.page_revisions.get(id=revision_id).page),
+        EditPageItem(Revision.page_revisions.get(id=revision_id).content_object),
+        AddPageItem(Revision.page_revisions.get(id=revision_id).content_object),
         ApproveModerationEditPageItem(Revision.page_revisions.get(id=revision_id)),
         RejectModerationEditPageItem(Revision.page_revisions.get(id=revision_id)),
     ]
