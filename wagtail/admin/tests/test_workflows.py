@@ -2369,13 +2369,13 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_1.name),
+            r"Sent to [\s|\n]+{}".format(self.task_1.name),
         )
 
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to [\s|\n]+{}".format(self.task_2.name),
         )
 
         response = self.workflow_action("reject")
@@ -2386,7 +2386,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to [\s|\n]+{}".format(self.task_2.name),
         )
 
         response = self.workflow_action("approve")
@@ -2404,14 +2404,14 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to [\s|\n]+{}".format(self.task_2.name),
         )
         self.workflow_action("reject")
         self.submit("action-restart-workflow")
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_1.name),
+            r"Sent to [\s|\n]+{}".format(self.task_1.name),
         )
 
     def test_workflow_status_modal_task_comments(self):
