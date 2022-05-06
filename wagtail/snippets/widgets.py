@@ -1,7 +1,6 @@
 import json
 
 from django import forms
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -41,11 +40,8 @@ class AdminSnippetChooser(BaseChooser):
         }
 
     def get_context(self, name, value_data, attrs):
-        value_data = value_data or {}
+        context = super().get_context(name, value_data, attrs)
 
-        original_field_html = self.render_hidden_input(
-            name, value_data.get("id"), attrs
-        )
         chooser_url = reverse(
             "wagtailsnippets:choose",
             args=[
@@ -54,25 +50,15 @@ class AdminSnippetChooser(BaseChooser):
             ],
         )
 
-        return {
-            "widget": self,
-            "original_field_html": original_field_html,
-            "attrs": attrs,
-            "value": bool(
-                value_data
-            ),  # only used by chooser.html to identify blank values
-            "display_title": value_data.get("string", ""),
-            "edit_url": value_data.get("edit_url", ""),
-            "chooser_url": chooser_url,
-            "icon": "snippet",
-            "classname": "snippet-chooser",
-        }
-
-    def render_html(self, name, value_data, attrs):
-        return render_to_string(
-            self.template_name,
-            self.get_context(name, value_data, attrs),
+        context.update(
+            {
+                "display_title": value_data.get("string", ""),
+                "chooser_url": chooser_url,
+                "icon": "snippet",
+                "classname": "snippet-chooser",
+            }
         )
+        return context
 
     def render_js_init(self, id_, name, value_data):
         return "createSnippetChooser({id});".format(id=json.dumps(id_))
