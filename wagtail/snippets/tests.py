@@ -53,6 +53,7 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
     AdvertWithTabbedInterface,
+    RevisableModel,
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
 )
@@ -446,6 +447,31 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         )
         snippet = FileUploadSnippet.objects.get()
         self.assertEqual(snippet.file.read(), b"Uploaded file")
+
+    def test_create_with_revision(self):
+        response = self.post(
+            model=RevisableModel, post_data={"text": "create_revisable"}
+        )
+        self.assertRedirects(
+            response, reverse("wagtailsnippets_tests_revisablemodel:list")
+        )
+
+        snippets = RevisableModel.objects.filter(text="create_revisable")
+        snippet = snippets.first()
+        self.assertEqual(snippets.count(), 1)
+
+        # The revision should be created
+        revisions = snippet.revisions
+        revision = revisions.first()
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(revision.content["text"], "create_revisable")
+
+        # The log entry should have the revision attached
+        log_entries = ModelLogEntry.objects.for_instance(snippet).filter(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries.first().revision, revision)
 
     def test_before_create_snippet_hook_get(self):
         def hook_func(request, model):
@@ -963,6 +989,35 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
 
         self.assertNotContains(response, self.LOCALE_SELECTOR_HTML)
         self.assertNotContains(response, 'aria-label="French" class="u-link is-live">')
+
+
+class TestEditRevisionSnippet(BaseTestSnippetEditView):
+    def setUp(self):
+        super().setUp()
+        self.test_snippet = RevisableModel.objects.create(text="foo")
+
+    def test_edit_snippet_with_revision(self):
+        response = self.post(post_data={"text": "bar"})
+        self.assertRedirects(
+            response, reverse("wagtailsnippets_tests_revisablemodel:list")
+        )
+
+        # The instance should be updated
+        snippets = RevisableModel.objects.filter(text="bar")
+        self.assertEqual(snippets.count(), 1)
+
+        # The revision should be created
+        revisions = self.test_snippet.revisions
+        revision = revisions.first()
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(revision.content["text"], "bar")
+
+        # The log entry should have the revision attached
+        log_entries = ModelLogEntry.objects.for_instance(self.test_snippet).filter(
+            action="wagtail.edit"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries.first().revision, revision)
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
