@@ -4,7 +4,7 @@ function createTaskChooser(id) {
   const chooserElement = $('#' + id + '-chooser');
   const taskName = chooserElement.find('.name');
   const input = $('#' + id);
-  const editAction = chooserElement.find('.action-edit');
+  const editAction = chooserElement.find('.edit-link');
 
   $('.action-choose', chooserElement).on('click', () => {
     // eslint-disable-next-line no-undef

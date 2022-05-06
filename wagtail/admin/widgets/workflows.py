@@ -14,10 +14,25 @@ class AdminTaskChooser(AdminChooser):
     choose_one_text = _("Choose a task")
     choose_another_text = _("Choose another task")
     link_to_chosen_text = _("Edit this task")
+    model = Task
 
-    def render_html(self, name, value, attrs):
-        task, value = self.get_instance_and_id(Task, value)
-        original_field_html = super().render_html(name, value, attrs)
+    def get_value_data(self, value):
+        if value is None:
+            return None
+        elif isinstance(value, self.model):
+            instance = value
+        else:  # assume ID
+            instance = self.model.objects.get(pk=value)
+
+        return {
+            "id": instance.pk,
+            "title": instance.name,
+            "edit_url": reverse("wagtailadmin_workflows:edit_task", args=[instance.id]),
+        }
+
+    def render_html(self, name, value_data, attrs):
+        value_data = value_data or {}
+        original_field_html = super().render_html(name, value_data.get("id"), attrs)
 
         return render_to_string(
             "wagtailadmin/workflows/widgets/task_chooser.html",
@@ -25,17 +40,17 @@ class AdminTaskChooser(AdminChooser):
                 "widget": self,
                 "original_field_html": original_field_html,
                 "attrs": attrs,
-                "value": value,
-                "display_title": task.name if task else "",
-                "edit_url": reverse("wagtailadmin_workflows:edit_task", args=[task.id])
-                if task
-                else "",
+                "value": bool(
+                    value_data
+                ),  # only used by chooser.html to identify blank values,
+                "display_title": value_data.get("title", ""),
+                "edit_url": value_data.get("edit_url", ""),
                 "classname": "task-chooser",
                 "chooser_url": reverse("wagtailadmin_workflows:task_chooser"),
             },
         )
 
-    def render_js_init(self, id_, name, value):
+    def render_js_init(self, id_, name, value_data):
         return "createTaskChooser({0});".format(json.dumps(id_))
 
     @property
