@@ -48,7 +48,9 @@ class AdminImageChooser(BaseChooser):
 
     def render_html(self, name, value_data, attrs):
         value_data = value_data or {}
-        original_field_html = super().render_html(name, value_data.get("id"), attrs)
+        original_field_html = self.render_hidden_input(
+            name, value_data.get("id"), attrs
+        )
 
         return render_to_string(
             "wagtailimages/widgets/image_chooser.html",
