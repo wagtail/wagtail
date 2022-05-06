@@ -17,6 +17,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
+from wagtail.models import RevisionMixin
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
@@ -251,7 +252,19 @@ class CreateView(
         and returns the new object. Override this to implement custom save logic.
         """
         instance = self.form.save()
-        log(instance=instance, action="wagtail.create")
+        revision = None
+
+        # Save revision if the model inherits from RevisionMixin
+        if isinstance(instance, RevisionMixin):
+            revision = instance.save_revision(user=self.request.user)
+
+        log(
+            instance=instance,
+            action="wagtail.create",
+            revision=revision,
+            content_changed=True,
+        )
+
         return instance
 
     def form_valid(self, form):
@@ -331,7 +344,24 @@ class EditView(
         Override this to implement custom save logic.
         """
         instance = self.form.save()
-        log(instance=instance, action="wagtail.edit")
+        revision = None
+
+        self.has_content_changes = self.form.has_changed()
+
+        # Save revision if the model inherits from RevisionMixin
+        if isinstance(instance, RevisionMixin):
+            revision = instance.save_revision(
+                user=self.request.user,
+                changed=self.has_content_changes,
+            )
+
+        log(
+            instance=instance,
+            action="wagtail.edit",
+            revision=revision,
+            content_changed=self.has_content_changes,
+        )
+
         return instance
 
     def get_success_message(self):
