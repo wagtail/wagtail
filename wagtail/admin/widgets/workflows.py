@@ -7,11 +7,11 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets import AdminChooser
+from wagtail.admin.widgets import BaseChooser
 from wagtail.models import Task
 
 
-class AdminTaskChooser(AdminChooser):
+class AdminTaskChooser(BaseChooser):
     choose_one_text = _("Choose a task")
     choose_another_text = _("Choose another task")
     link_to_chosen_text = _("Edit this task")

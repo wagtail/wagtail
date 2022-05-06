@@ -8,13 +8,13 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets import AdminChooser
+from wagtail.admin.widgets import BaseChooser
 from wagtail.admin.widgets.button import ListingButton
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 
-class AdminSnippetChooser(AdminChooser):
+class AdminSnippetChooser(BaseChooser):
     def __init__(self, model, **kwargs):
         self.model = model
         name = self.model._meta.verbose_name
