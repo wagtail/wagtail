@@ -250,13 +250,14 @@ class CreateView(
         Called after the form is successfully validated - saves the object to the db
         and returns the new object. Override this to implement custom save logic.
         """
-        return self.form.save()
+        instance = self.form.save()
+        log(instance=instance, action="wagtail.create")
+        return instance
 
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-            log(instance=self.object, action="wagtail.create")
         success_message = self.get_success_message(self.object)
         success_buttons = self.get_success_buttons()
         if success_message is not None:
@@ -329,7 +330,9 @@ class EditView(
         Called after the form is successfully validated - saves the object to the db.
         Override this to implement custom save logic.
         """
-        return self.form.save()
+        instance = self.form.save()
+        log(instance=instance, action="wagtail.edit")
+        return instance
 
     def get_success_message(self):
         if self.success_message is None:
@@ -352,7 +355,6 @@ class EditView(
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-            log(instance=self.object, action="wagtail.edit")
         success_message = self.get_success_message()
         success_buttons = self.get_success_buttons()
         if success_message is not None:
