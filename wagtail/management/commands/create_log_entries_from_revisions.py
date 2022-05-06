@@ -44,7 +44,7 @@ class Command(BaseCommand):
 
             if not PageLogEntry.objects.filter(revision=revision).exists():
                 try:
-                    current_revision_as_page = revision.as_page_object()
+                    current_revision_as_page = revision.as_object()
                 except Exception:
                     # restoring old revisions may fail if e.g. they have an on_delete=PROTECT foreign key
                     # to a no-longer-existing model instance. We cannot compare changes between two
@@ -56,7 +56,7 @@ class Command(BaseCommand):
 
                 if previous_revision is not None:
                     try:
-                        previous_revision_as_page = previous_revision.as_page_object()
+                        previous_revision_as_page = previous_revision.as_object()
                     except Exception:
                         previous_revision_as_page = None
 

@@ -1489,7 +1489,7 @@ class TestCopyPage(TestCase):
         # get_latest_revision_as_page might bypass the revisions table if it determines
         # that there are no draft edits since publish - so retrieve it explicitly from the
         # revision data, to ensure it's been updated there too
-        latest_revision = new_christmas_event.get_latest_revision().as_page_object()
+        latest_revision = new_christmas_event.get_latest_revision().as_object()
         self.assertEqual(latest_revision.title, "New christmas event")
         self.assertEqual(latest_revision.slug, "new-christmas-event")
 

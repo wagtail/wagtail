@@ -260,7 +260,7 @@ def preview_revision_for_task(request, page_id, task_id):
     if not task.get_actions(page, request.user):
         raise PermissionDenied
 
-    page_to_view = revision.as_page_object()
+    page_to_view = revision.as_object()
 
     # TODO: provide workflow actions within this view
 

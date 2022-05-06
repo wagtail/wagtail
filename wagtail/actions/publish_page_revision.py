@@ -37,7 +37,7 @@ class PublishPageRevisionAction:
         self, revision, user=None, changed=True, log_action=True, previous_revision=None
     ):
         self.revision = revision
-        self.page = self.revision.as_page_object()
+        self.page = self.revision.as_object()
         self.user = user
         self.changed = changed
         self.log_action = log_action
@@ -110,7 +110,7 @@ class PublishPageRevisionAction:
                 page.first_published_at = now
 
             if previous_revision:
-                previous_revision_page = previous_revision.as_page_object()
+                previous_revision_page = previous_revision.as_object()
                 old_page_title = (
                     previous_revision_page.title
                     if page.title != previous_revision_page.title

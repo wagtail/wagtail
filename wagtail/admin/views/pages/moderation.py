@@ -103,7 +103,7 @@ def preview_for_moderation(request, revision_id):
         )
         return redirect("wagtailadmin_home")
 
-    page = revision.as_page_object()
+    page = revision.as_object()
 
     try:
         preview_mode = page.default_preview_mode

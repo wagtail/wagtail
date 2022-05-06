@@ -1003,7 +1003,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         latest_revision = self.get_latest_revision()
 
         if latest_revision:
-            return latest_revision.as_page_object()
+            return latest_revision.as_object()
         else:
             return self.specific
 
@@ -2276,7 +2276,7 @@ class Revision(models.Model):
             and "approved_go_live_at" in kwargs["update_fields"]
         ):
             # Log scheduled revision publish cancellation
-            page = self.as_page_object()
+            page = self.as_object()
             # go_live_at = kwargs['update_fields'][]
             log(
                 instance=page,
@@ -2318,7 +2318,7 @@ class Revision(models.Model):
                 self.id,
             )
             log(
-                instance=self.as_page_object(),
+                instance=self.as_object(),
                 action="wagtail.moderation.approve",
                 user=user,
                 revision=self,
@@ -2334,7 +2334,7 @@ class Revision(models.Model):
                 self.id,
             )
             log(
-                instance=self.as_page_object(),
+                instance=self.as_object(),
                 action="wagtail.moderation.reject",
                 user=user,
                 revision=self,
@@ -3912,7 +3912,7 @@ class TaskState(models.Model):
 
     def log_state_change_action(self, user, action):
         """Log the approval/rejection action"""
-        page = self.page_revision.as_page_object()
+        page = self.page_revision.as_object()
         next_task = self.workflow_state.get_next_task()
         next_task_data = None
         if next_task:

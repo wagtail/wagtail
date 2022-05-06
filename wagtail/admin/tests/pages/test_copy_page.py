@@ -766,7 +766,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         new_page = EventPage.objects.last()
 
         # Hack: get the page instance from the edit form which assembles it from the
-        # latest revision. While we could do new_page.get_latest_revision().as_page_object()
+        # latest revision. While we could do new_page.get_latest_revision().as_object()
         # this follow the edit view closer and should it change the test is less
         # prone to continue working because we're skipping some step
         response = self.client.get(
