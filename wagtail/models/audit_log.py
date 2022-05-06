@@ -168,6 +168,16 @@ class BaseLogEntry(models.Model):
         related_name="+",
     )
 
+    # Pointer to a specific page revision
+    revision = models.ForeignKey(
+        "wagtailcore.Revision",
+        null=True,
+        blank=True,
+        on_delete=models.DO_NOTHING,
+        db_constraint=False,
+        related_name="+",
+    )
+
     # Flags for additional context to the 'action' made by the user (or system).
     content_changed = models.BooleanField(default=False, db_index=True)
     deleted = models.BooleanField(default=False)

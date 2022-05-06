@@ -4208,15 +4208,6 @@ class PageLogEntry(BaseLogEntry):
         db_constraint=False,
         related_name="+",
     )
-    # Pointer to a specific page revision
-    revision = models.ForeignKey(
-        "wagtailcore.Revision",
-        null=True,
-        blank=True,
-        on_delete=models.DO_NOTHING,
-        db_constraint=False,
-        related_name="+",
-    )
 
     objects = PageLogEntryManager()
 
