@@ -2294,8 +2294,20 @@ class Revision(models.Model):
                 revision=self,
             )
 
+    def as_object(self):
+        object = self.content_object
+        if isinstance(self, Page):
+            object = object.specific
+        return object.with_content_json(self.content)
+
     def as_page_object(self):
-        return self.content_object.specific.with_content_json(self.content)
+        warnings.warn(
+            "Revisions should use .as_object() instead of .as_page_object() "
+            "to create the object.",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
+        return self.as_object()
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:

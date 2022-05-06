@@ -597,9 +597,13 @@ Methods and properties
 .. class:: Revision
     :noindex:
 
-    .. automethod:: as_page_object
+    .. automethod:: as_object
 
-        This method retrieves this revision as an instance of its :class:`~wagtail.models.Page` subclass. This assumes that the revision belongs to a page.
+        This method retrieves this revision as an instance of its object's class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
+
+        .. versionadded:: 4.0
+
+            This method has been renamed from ``as_page_object()`` to ``as_object()``.
 
     .. automethod:: approve_moderation
 
