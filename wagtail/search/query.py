@@ -51,6 +51,14 @@ class Phrase(SearchQuery):
         return "<Phrase {}>".format(repr(self.query_string))
 
 
+class Fuzzy(SearchQuery):
+    def __init__(self, query_string: str):
+        self.query_string = query_string
+
+    def __repr__(self):
+        return "<Fuzzy {}>".format(repr(self.query_string))
+
+
 class MatchAll(SearchQuery):
     def __repr__(self):
         return "<MatchAll>"
