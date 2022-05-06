@@ -20,15 +20,15 @@ class AdminDocumentChooser(AdminChooser):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.document_model = get_document_model()
+        self.model = get_document_model()
 
     def get_value_data(self, value):
         if value is None:
             return None
-        elif isinstance(value, self.document_model):
+        elif isinstance(value, self.model):
             doc = value
         else:  # assume document ID
-            doc = self.document_model.objects.get(pk=value)
+            doc = self.model.objects.get(pk=value)
 
         return {
             "id": doc.pk,

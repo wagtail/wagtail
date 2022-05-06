@@ -16,8 +16,8 @@ from wagtail.widget_adapters import WidgetAdapter
 
 class AdminSnippetChooser(AdminChooser):
     def __init__(self, model, **kwargs):
-        self.target_model = model
-        name = self.target_model._meta.verbose_name
+        self.model = model
+        name = self.model._meta.verbose_name
         self.choose_one_text = _("Choose %s") % name
         self.choose_another_text = _("Choose another %s") % name
         self.link_to_chosen_text = _("Edit this %s") % name
@@ -27,13 +27,13 @@ class AdminSnippetChooser(AdminChooser):
     def get_value_data(self, value):
         if value is None:
             return None
-        elif isinstance(value, self.target_model):
+        elif isinstance(value, self.model):
             instance = value
         else:  # assume instance ID
-            instance = self.target_model.objects.get(pk=value)
+            instance = self.model.objects.get(pk=value)
 
-        app_label = self.target_model._meta.app_label
-        model_name = self.target_model._meta.model_name
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
         quoted_id = quote(instance.pk)
         edit_url = reverse(
             f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quoted_id]
@@ -52,8 +52,8 @@ class AdminSnippetChooser(AdminChooser):
         chooser_url = reverse(
             "wagtailsnippets:choose",
             args=[
-                self.target_model._meta.app_label,
-                self.target_model._meta.model_name,
+                self.model._meta.app_label,
+                self.model._meta.model_name,
             ],
         )
 
