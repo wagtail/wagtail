@@ -60,7 +60,9 @@ class ModelAdminURLFinder:
         self.user = user
 
     def get_edit_url(self, instance):
-        if self.permission_helper.user_can_edit_obj(self.user, instance):
+        if self.user is None or self.permission_helper.user_can_edit_obj(
+            self.user, instance
+        ):
             return self.url_helper.get_action_url("edit", admin_quote(instance.pk))
 
 

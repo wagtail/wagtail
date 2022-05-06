@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.models import Task
@@ -24,10 +25,12 @@ class AdminTaskChooser(AdminChooser):
         else:  # assume ID
             instance = self.model.objects.get(pk=value)
 
+        edit_url = AdminURLFinder().get_edit_url(instance)
+
         return {
             "id": instance.pk,
             "title": instance.name,
-            "edit_url": reverse("wagtailadmin_workflows:edit_task", args=[instance.id]),
+            "edit_url": edit_url,
         }
 
     def render_html(self, name, value_data, attrs):

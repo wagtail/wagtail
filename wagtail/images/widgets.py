@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.images import get_image_model
@@ -32,6 +33,7 @@ class AdminImageChooser(AdminChooser):
             image = self.model.objects.get(pk=value)
 
         preview_image = get_rendition_or_not_found(image, "max-165x165")
+        edit_url = AdminURLFinder().get_edit_url(image)
 
         return {
             "id": image.pk,
@@ -41,7 +43,7 @@ class AdminImageChooser(AdminChooser):
                 "width": preview_image.width,
                 "height": preview_image.height,
             },
-            "edit_url": reverse("wagtailimages:edit", args=[image.id]),
+            "edit_url": edit_url,
         }
 
     def render_html(self, name, value_data, attrs):
