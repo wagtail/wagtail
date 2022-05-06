@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page
@@ -149,12 +150,13 @@ class AdminPageChooser(AdminChooser):
 
             page = page.specific
 
+        edit_url = AdminURLFinder().get_edit_url(page)
         parent_page = page.get_parent()
         return {
             "id": page.pk,
             "display_title": page.get_admin_display_title(),
             "parent_id": parent_page.pk if parent_page else None,
-            "edit_url": reverse("wagtailadmin_pages:edit", args=[page.pk]),
+            "edit_url": edit_url,
         }
 
     def render_html(self, name, value_data, attrs):

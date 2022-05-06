@@ -1,12 +1,12 @@
 import json
 
 from django import forms
-from django.contrib.admin.utils import quote
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.admin.widgets.button import ListingButton
@@ -32,12 +32,7 @@ class AdminSnippetChooser(AdminChooser):
         else:  # assume instance ID
             instance = self.model.objects.get(pk=value)
 
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
-        quoted_id = quote(instance.pk)
-        edit_url = reverse(
-            f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quoted_id]
-        )
+        edit_url = AdminURLFinder().get_edit_url(instance)
 
         return {
             "id": instance.pk,

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.documents import get_document_model
@@ -30,10 +31,12 @@ class AdminDocumentChooser(AdminChooser):
         else:  # assume document ID
             doc = self.model.objects.get(pk=value)
 
+        edit_url = AdminURLFinder().get_edit_url(doc)
+
         return {
             "id": doc.pk,
             "title": doc.title,
-            "edit_url": reverse("wagtaildocs:edit", args=[doc.id]),
+            "edit_url": edit_url,
         }
 
     def render_html(self, name, value_data, attrs):
