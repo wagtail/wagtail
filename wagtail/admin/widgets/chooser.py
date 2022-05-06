@@ -123,9 +123,12 @@ class BaseChooser(widgets.Input):
         else:
             return result
 
-    def render_html(self, name, value, attrs):
-        """Render the HTML (non-JS) portion of the field markup"""
+    def render_hidden_input(self, name, value, attrs):
+        """Render the HTML for the underlying hidden input element"""
         return super().render(name, value, attrs)
+
+    def render_html(self, name, value, attrs):
+        raise NotImplementedError
 
     def get_value_data(self, value):
         # Perform any necessary preprocessing on the value passed to render() before it is passed
@@ -238,7 +241,9 @@ class AdminPageChooser(BaseChooser):
 
     def render_html(self, name, value_data, attrs):
         value_data = value_data or {}
-        original_field_html = super().render_html(name, value_data.get("id"), attrs)
+        original_field_html = self.render_hidden_input(
+            name, value_data.get("id"), attrs
+        )
 
         return render_to_string(
             "wagtailadmin/widgets/chooser.html",
