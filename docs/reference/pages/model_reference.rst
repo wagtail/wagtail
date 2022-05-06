@@ -1034,6 +1034,12 @@ Database fields
 
         A foreign key to the user that triggered the action.
 
+    .. attribute:: revision
+
+        (foreign key to :class:`Revision`)
+
+        A foreign key to the current revision.
+
     .. attribute:: data
 
         (dict)
@@ -1095,12 +1101,6 @@ Database fields
         (foreign key to :class:`Page`)
 
         A foreign key to the page the action is performed on.
-
-    .. attribute:: revision
-
-        (foreign key to :class:`Revision`)
-
-        A foreign key to the current page revision.
 
 
 
