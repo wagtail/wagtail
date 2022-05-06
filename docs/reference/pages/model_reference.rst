@@ -877,7 +877,7 @@ Database fields
 
     .. attribute:: page_revision
 
-        (foreign key to ``PageRevision``)
+        (foreign key to ``Revision``)
 
         The page revision this task state was created on.
 
@@ -1089,7 +1089,7 @@ Database fields
 
     .. attribute:: revision
 
-        (foreign key to :class:`PageRevision`)
+        (foreign key to :class:`Revision`)
 
         A foreign key to the current page revision.
 
@@ -1151,7 +1151,7 @@ Database fields
 
     .. attribute:: revision_created
 
-        (foreign key to :class:`PageRevision`)
+        (foreign key to :class:`Revision`)
 
         A foreign key to the revision on which the comment was created.
 
