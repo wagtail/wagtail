@@ -123,9 +123,18 @@ class BaseChooser(widgets.Input):
         else:
             return result
 
+    def get_hidden_input_context(self, name, value, attrs):
+        """
+        Return the context variables required to render the underlying hidden input element
+        """
+        return super().get_context(name, value, attrs)
+
     def render_hidden_input(self, name, value, attrs):
         """Render the HTML for the underlying hidden input element"""
-        return super().render(name, value, attrs)
+        return self._render(
+            "django/forms/widgets/input.html",
+            self.get_hidden_input_context(name, value, attrs),
+        )
 
     def render_html(self, name, value, attrs):
         raise NotImplementedError
