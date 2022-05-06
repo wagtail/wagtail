@@ -116,7 +116,6 @@ export function initModernDropdown() {
         hoverTooltipInstance = tippy(toggle, {
           content: hoverTooltip,
           placement: 'bottom',
-          multiple: true,
           plugins: [hideTooltipOnEsc],
         });
       }
@@ -127,17 +126,20 @@ export function initModernDropdown() {
         interactive: true,
         theme: 'dropdown',
         placement: 'bottom',
-        multiple: true,
         plugins: [
           hideTooltipOnEsc,
           hideTooltipOnBreadcrumbExpandAndCollapse,
           rotateToggleIcon,
         ],
-        onShow(instance, event) {
-          hoverTooltipInstance.disable();
+        onShow() {
+          if (hoverTooltipInstance) {
+            hoverTooltipInstance.disable();
+          }
         },
-        onHide(instance, event) {
-          hoverTooltipInstance.enable();
+        onHide() {
+          if (hoverTooltipInstance) {
+            hoverTooltipInstance.enable();
+          }
         },
       });
     }
