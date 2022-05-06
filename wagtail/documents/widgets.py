@@ -39,27 +39,29 @@ class AdminDocumentChooser(BaseChooser):
             "edit_url": edit_url,
         }
 
-    def render_html(self, name, value_data, attrs):
+    def get_context(self, name, value_data, attrs):
         value_data = value_data or {}
         original_field_html = self.render_hidden_input(
             name, value_data.get("id"), attrs
         )
+        return {
+            "widget": self,
+            "original_field_html": original_field_html,
+            "attrs": attrs,
+            "value": bool(
+                value_data
+            ),  # only used by chooser.html to identify blank values
+            "display_title": value_data.get("title", ""),
+            "edit_url": value_data.get("edit_url", ""),
+            "icon": "doc-full-inverse",
+            "classname": "document-chooser",
+            "chooser_url": reverse("wagtaildocs:chooser"),
+        }
 
+    def render_html(self, name, value_data, attrs):
         return render_to_string(
-            "wagtailadmin/widgets/chooser.html",
-            {
-                "widget": self,
-                "original_field_html": original_field_html,
-                "attrs": attrs,
-                "value": bool(
-                    value_data
-                ),  # only used by chooser.html to identify blank values
-                "display_title": value_data.get("title", ""),
-                "edit_url": value_data.get("edit_url", ""),
-                "icon": "doc-full-inverse",
-                "classname": "document-chooser",
-                "chooser_url": reverse("wagtaildocs:chooser"),
-            },
+            self.template_name,
+            self.get_context(name, value_data, attrs),
         )
 
     def render_js_init(self, id_, name, value_data):

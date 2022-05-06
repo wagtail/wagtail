@@ -93,6 +93,7 @@ class BaseChooser(widgets.Input):
     link_to_chosen_text = _("Edit this item")
     show_edit_link = True
     show_clear_link = True
+    template_name = "wagtailadmin/widgets/chooser.html"
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -248,27 +249,29 @@ class AdminPageChooser(BaseChooser):
             "edit_url": edit_url,
         }
 
-    def render_html(self, name, value_data, attrs):
+    def get_context(self, name, value_data, attrs):
         value_data = value_data or {}
         original_field_html = self.render_hidden_input(
             name, value_data.get("id"), attrs
         )
+        return {
+            "widget": self,
+            "original_field_html": original_field_html,
+            "attrs": attrs,
+            "value": bool(
+                value_data
+            ),  # only used by chooser.html to identify blank values
+            "display_title": value_data.get("display_title", ""),
+            "edit_url": value_data.get("edit_url", ""),
+            "icon": "doc-empty-inverse",
+            "classname": "page-chooser",
+            "chooser_url": reverse("wagtailadmin_choose_page"),
+        }
 
+    def render_html(self, name, value_data, attrs):
         return render_to_string(
-            "wagtailadmin/widgets/chooser.html",
-            {
-                "widget": self,
-                "original_field_html": original_field_html,
-                "attrs": attrs,
-                "value": bool(
-                    value_data
-                ),  # only used by chooser.html to identify blank values
-                "display_title": value_data.get("display_title", ""),
-                "edit_url": value_data.get("edit_url", ""),
-                "icon": "doc-empty-inverse",
-                "classname": "page-chooser",
-                "chooser_url": reverse("wagtailadmin_choose_page"),
-            },
+            self.template_name,
+            self.get_context(name, value_data, attrs),
         )
 
     def render_js_init(self, id_, name, value_data):
