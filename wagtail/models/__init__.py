@@ -2169,6 +2169,14 @@ class RevisionQuerySet(models.QuerySet):
     def submitted(self):
         return self.filter(submitted_for_moderation=True)
 
+    def for_instance(self, instance):
+        return self.filter(
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id=str(instance.pk),
+        )
+
     def filter(self, *args, **kwargs):
         # Make sure the object_id is a string, so queries that use the target model's
         # id still works even when its id is not a string
@@ -2182,6 +2190,9 @@ class PageRevisionsManager(models.Manager):
     def get_queryset(self):
         return RevisionQuerySet(self.model, using=self._db).page_revisions()
 
+    def for_instance(self, instance):
+        return self.get_queryset().for_instance(instance)
+
     def submitted(self):
         return self.get_queryset().submitted()
 
@@ -2189,6 +2200,9 @@ class PageRevisionsManager(models.Manager):
 class SubmittedRevisionsManager(models.Manager):
     def get_queryset(self):
         return RevisionQuerySet(self.model, using=self._db).submitted()
+
+    def for_instance(self, instance):
+        return self.get_queryset().for_instance(instance)
 
 
 class Revision(models.Model):
