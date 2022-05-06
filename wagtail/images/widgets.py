@@ -8,14 +8,14 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets import AdminChooser
+from wagtail.admin.widgets import BaseChooser
 from wagtail.images import get_image_model
 from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 
-class AdminImageChooser(AdminChooser):
+class AdminImageChooser(BaseChooser):
     choose_one_text = _("Choose an image")
     choose_another_text = _("Change image")
     link_to_chosen_text = _("Edit this image")

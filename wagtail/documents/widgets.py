@@ -8,13 +8,13 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets import AdminChooser
+from wagtail.admin.widgets import BaseChooser
 from wagtail.documents import get_document_model
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 
-class AdminDocumentChooser(AdminChooser):
+class AdminDocumentChooser(BaseChooser):
     choose_one_text = _("Choose a document")
     choose_another_text = _("Choose another document")
     link_to_chosen_text = _("Edit this document")
