@@ -111,18 +111,11 @@ class AdminPageChooser(AdminChooser):
 
         self.user_perms = user_perms
         self.target_models = cleaned_target_models
-        self.can_choose_root = bool(can_choose_root)
-
-    def _get_lowest_common_page_class(self):
-        """
-        Return a Page class that is an ancestor for all Page classes in
-        ``target_models``, and is also a concrete Page class itself.
-        """
         if len(self.target_models) == 1:
-            # Shortcut for a single page type
-            return self.target_models[0]
+            self.model = self.target_models[0]
         else:
-            return Page
+            self.model = Page
+        self.can_choose_root = bool(can_choose_root)
 
     @property
     def model_names(self):
@@ -149,10 +142,9 @@ class AdminPageChooser(AdminChooser):
         elif isinstance(value, Page):
             page = value.specific
         else:  # assume page ID
-            model_class = self._get_lowest_common_page_class()
             try:
-                page = model_class.objects.get(pk=value)
-            except model_class.DoesNotExist:
+                page = self.model.objects.get(pk=value)
+            except self.model.DoesNotExist:
                 return None
 
             page = page.specific

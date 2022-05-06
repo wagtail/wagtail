@@ -21,15 +21,15 @@ class AdminImageChooser(AdminChooser):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.image_model = get_image_model()
+        self.model = get_image_model()
 
     def get_value_data(self, value):
         if value is None:
             return None
-        elif isinstance(value, self.image_model):
+        elif isinstance(value, self.model):
             image = value
         else:  # assume image ID
-            image = self.image_model.objects.get(pk=value)
+            image = self.model.objects.get(pk=value)
 
         preview_image = get_rendition_or_not_found(image, "max-165x165")
 

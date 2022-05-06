@@ -1250,7 +1250,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         form = form_class()
         widget = form.fields["advert"].widget
         self.assertIsInstance(widget, AdminSnippetChooser)
-        self.assertEqual(widget.target_model, Advert)
+        self.assertEqual(widget.model, Advert)
 
 
 class TestSnippetRegistering(TestCase):
@@ -1724,7 +1724,7 @@ class TestSnippetChooserBlock(TestCase):
 
         self.assertEqual(js_args[0], "test_snippetchooserblock")
         self.assertIsInstance(js_args[1], AdminSnippetChooser)
-        self.assertEqual(js_args[1].target_model, Advert)
+        self.assertEqual(js_args[1].model, Advert)
         self.assertEqual(
             js_args[2],
             {
@@ -1979,7 +1979,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
         self.assertEqual(js_args[0], "test_snippetchooserblock")
         self.assertIsInstance(js_args[1], AdminSnippetChooser)
-        self.assertEqual(js_args[1].target_model, AdvertWithCustomPrimaryKey)
+        self.assertEqual(js_args[1].model, AdvertWithCustomPrimaryKey)
         self.assertEqual(
             js_args[2],
             {
@@ -2090,7 +2090,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         form = form_class()
         widget = form.fields["advertwithcustomprimarykey"].widget
         self.assertIsInstance(widget, AdminSnippetChooser)
-        self.assertEqual(widget.target_model, AdvertWithCustomPrimaryKey)
+        self.assertEqual(widget.model, AdvertWithCustomPrimaryKey)
 
 
 class TestSnippetChooseWithCustomPrimaryKey(TestCase, WagtailTestUtils):
