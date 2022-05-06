@@ -272,7 +272,11 @@ label.required:after {
 .model_multiple_choice_field .input li,
 .checkbox_select_multiple .input li,
 .multiple_choice_field .input li,
-.choice_field .input li {
+.choice_field .input li,
+.model_multiple_choice_field .input > div > div,
+.checkbox_select_multiple .input > div > div,
+.multiple_choice_field .input > div > div,
+.choice_field .input > div > div {
   label {
     display: inline-flex;
     align-items: center;
