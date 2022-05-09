@@ -6,7 +6,7 @@ from wagtail.admin.panels import (
     ObjectList,
     TabbedInterface,
 )
-from wagtail.models import Page, TranslatableMixin
+from wagtail.models import Page, RevisionMixin, TranslatableMixin
 from wagtail.search import index
 
 
@@ -79,7 +79,7 @@ class Token(models.Model):
         return self.key
 
 
-class Publisher(models.Model):
+class Publisher(RevisionMixin, models.Model):
     name = models.CharField(max_length=50)
     headquartered_in = models.CharField(max_length=50, null=True, blank=True)
 

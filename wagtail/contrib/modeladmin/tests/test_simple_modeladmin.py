@@ -465,6 +465,36 @@ class TestTranslatableCreateView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
+class TestRevisableCreateView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def post(self, post_data):
+        return self.client.post("/admin/modeladmintest/publisher/create/", post_data)
+
+    def test_create_with_revision(self):
+        data = {"name": "foo"}
+        response = self.post(data)
+        self.assertRedirects(response, "/admin/modeladmintest/publisher/")
+
+        instances = Publisher.objects.filter(name="foo")
+        instance = instances.first()
+        self.assertEqual(instances.count(), 1)
+
+        # The revision should be created
+        revisions = instance.revisions
+        revision = revisions.first()
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(revision.content["name"], "foo")
+
+        # The log entry should have the revision attached
+        log_entries = ModelLogEntry.objects.for_instance(instance).filter(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries.first().revision, revision)
+
+
 class TestInspectView(TestCase, WagtailTestUtils):
     fixtures = ["modeladmintest_test.json"]
 
@@ -699,6 +729,39 @@ class TestTranslatableBookEditView(TestCase, WagtailTestUtils):
             English
         </a>"""
         self.assertContains(response, expected, html=True)
+
+
+class TestRevisableEditView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+        self.instance = Publisher.objects.create(name="foo")
+
+    def post(self, post_data):
+        return self.client.post(
+            "/admin/modeladmintest/publisher/edit/%s/" % self.instance.pk, post_data
+        )
+
+    def test_edit_with_revision(self):
+        data = {"name": "bar"}
+        response = self.post(data)
+        self.assertRedirects(response, "/admin/modeladmintest/publisher/")
+
+        instances = Publisher.objects.filter(name="bar")
+        instance = instances.first()
+        self.assertEqual(instances.count(), 1)
+
+        # The revision should be created
+        revisions = instance.revisions
+        revision = revisions.first()
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(revision.content["name"], "bar")
+
+        # The log entry should have the revision attached
+        log_entries = ModelLogEntry.objects.for_instance(instance).filter(
+            action="wagtail.edit"
+        )
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries.first().revision, revision)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
