@@ -44,7 +44,7 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import Locale, TranslatableMixin
+from wagtail.models import Locale, RevisionMixin, TranslatableMixin
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .forms import ParentChooserForm
@@ -784,7 +784,18 @@ class CreateView(ModelFormView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        log(instance=self.instance, action="wagtail.create")
+        revision = None
+
+        # Save revision if the model inherits from RevisionMixin
+        if isinstance(self.instance, RevisionMixin):
+            revision = self.instance.save_revision(user=self.request.user)
+
+        log(
+            instance=self.instance,
+            action="wagtail.create",
+            revision=revision,
+            content_changed=True,
+        )
         return response
 
     def get_meta_title(self):
@@ -885,7 +896,23 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        log(instance=self.instance, action="wagtail.edit")
+        revision = None
+
+        self.has_content_changes = form.has_changed()
+
+        # Save revision if the model inherits from RevisionMixin
+        if isinstance(self.instance, RevisionMixin):
+            revision = self.instance.save_revision(
+                user=self.request.user,
+                changed=self.has_content_changes,
+            )
+
+        log(
+            instance=self.instance,
+            action="wagtail.edit",
+            revision=revision,
+            content_changed=self.has_content_changes,
+        )
         return response
 
 
