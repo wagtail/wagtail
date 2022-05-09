@@ -14,6 +14,8 @@ from wagtail.widget_adapters import WidgetAdapter
 
 class AdminSnippetChooser(BaseChooser):
     display_title_key = "string"
+    icon = "snippet"
+    classname = "snippet-chooser"
 
     def __init__(self, model, **kwargs):
         self.model = model
@@ -24,26 +26,14 @@ class AdminSnippetChooser(BaseChooser):
 
         super().__init__(**kwargs)
 
-    def get_context(self, name, value_data, attrs):
-        context = super().get_context(name, value_data, attrs)
-
-        chooser_url = reverse(
+    def get_chooser_modal_url(self):
+        return reverse(
             "wagtailsnippets:choose",
             args=[
                 self.model._meta.app_label,
                 self.model._meta.model_name,
             ],
         )
-
-        context.update(
-            {
-                "display_title": value_data.get("string", ""),
-                "chooser_url": chooser_url,
-                "icon": "snippet",
-                "classname": "snippet-chooser",
-            }
-        )
-        return context
 
     def render_js_init(self, id_, name, value_data):
         return "createSnippetChooser({id});".format(id=json.dumps(id_))

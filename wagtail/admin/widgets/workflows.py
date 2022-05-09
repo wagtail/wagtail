@@ -1,7 +1,6 @@
 import json
 
 from django import forms
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -15,17 +14,8 @@ class AdminTaskChooser(BaseChooser):
     link_to_chosen_text = _("Edit this task")
     model = Task
     template_name = "wagtailadmin/workflows/widgets/task_chooser.html"
-
-    def get_context(self, name, value_data, attrs):
-        context = super().get_context(name, value_data, attrs)
-        context.update(
-            {
-                "display_title": value_data.get("title", ""),
-                "classname": "task-chooser",
-                "chooser_url": reverse("wagtailadmin_workflows:task_chooser"),
-            }
-        )
-        return context
+    chooser_modal_url_name = "wagtailadmin_workflows:task_chooser"
+    classname = "task-chooser"
 
     def render_js_init(self, id_, name, value_data):
         return "createTaskChooser({0});".format(json.dumps(id_))
