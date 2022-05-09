@@ -21,11 +21,6 @@ class AdminDocumentChooser(BaseChooser):
         super().__init__(**kwargs)
         self.model = get_document_model()
 
-    def get_value_data_from_instance(self, instance):
-        data = super().get_value_data_from_instance(instance)
-        data["title"] = instance.title
-        return data
-
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)
         context.update(

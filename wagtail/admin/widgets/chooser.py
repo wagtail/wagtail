@@ -94,6 +94,9 @@ class BaseChooser(widgets.Input):
     show_edit_link = True
     show_clear_link = True
     template_name = "wagtailadmin/widgets/chooser.html"
+    display_title_key = (
+        "title"  # key to use for the display title within the value data dict
+    )
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -169,6 +172,12 @@ class BaseChooser(widgets.Input):
         else:  # assume instance ID
             return self.model.objects.get(pk=value)
 
+    def get_display_title(self, instance):
+        """
+        Return the text to display as the title for this instance
+        """
+        return str(instance)
+
     def get_value_data_from_instance(self, instance):
         """
         Given a model instance, return a value that we can pass to both the server-side template
@@ -178,6 +187,7 @@ class BaseChooser(widgets.Input):
         return {
             "id": instance.pk,
             "edit_url": AdminURLFinder().get_edit_url(instance),
+            self.display_title_key: self.get_display_title(instance),
         }
 
     def get_value_data(self, value):
@@ -214,6 +224,7 @@ class AdminPageChooser(BaseChooser):
     choose_one_text = _("Choose a page")
     choose_another_text = _("Choose another page")
     link_to_chosen_text = _("Edit this page")
+    display_title_key = "display_title"
 
     def __init__(
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
@@ -275,15 +286,13 @@ class AdminPageChooser(BaseChooser):
         if instance:
             return instance.specific
 
+    def get_display_title(self, instance):
+        return instance.get_admin_display_title()
+
     def get_value_data_from_instance(self, instance):
         data = super().get_value_data_from_instance(instance)
         parent_page = instance.get_parent()
-        data.update(
-            {
-                "display_title": instance.get_admin_display_title(),
-                "parent_id": parent_page.pk if parent_page else None,
-            }
-        )
+        data["parent_id"] = parent_page.pk if parent_page else None
         return data
 
     def get_context(self, name, value_data, attrs):

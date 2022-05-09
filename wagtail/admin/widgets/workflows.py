@@ -16,11 +16,6 @@ class AdminTaskChooser(BaseChooser):
     model = Task
     template_name = "wagtailadmin/workflows/widgets/task_chooser.html"
 
-    def get_value_data_from_instance(self, instance):
-        data = super().get_value_data_from_instance(instance)
-        data["title"] = instance.name
-        return data
-
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)
         context.update(
