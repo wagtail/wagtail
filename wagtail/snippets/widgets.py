@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import BaseChooser
 from wagtail.admin.widgets.button import ListingButton
@@ -23,21 +22,10 @@ class AdminSnippetChooser(BaseChooser):
 
         super().__init__(**kwargs)
 
-    def get_value_data(self, value):
-        if value is None:
-            return None
-        elif isinstance(value, self.model):
-            instance = value
-        else:  # assume instance ID
-            instance = self.model.objects.get(pk=value)
-
-        edit_url = AdminURLFinder().get_edit_url(instance)
-
-        return {
-            "id": instance.pk,
-            "string": str(instance),
-            "edit_url": edit_url,
-        }
+    def get_value_data_from_instance(self, instance):
+        data = super().get_value_data_from_instance(instance)
+        data["string"] = str(instance)
+        return data
 
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)

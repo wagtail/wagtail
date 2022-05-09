@@ -157,13 +157,39 @@ class BaseChooser(widgets.Input):
             self.get_context(name, value_data or {}, attrs),
         )
 
+    def get_instance(self, value):
+        """
+        Given a value passed to this widget for rendering (which may be None, an id, or a model
+        instance), return a model instance or None
+        """
+        if value is None:
+            return None
+        elif isinstance(value, self.model):
+            return value
+        else:  # assume instance ID
+            return self.model.objects.get(pk=value)
+
+    def get_value_data_from_instance(self, instance):
+        """
+        Given a model instance, return a value that we can pass to both the server-side template
+        and the client-side rendering code (via telepath) that contains all the information needed
+        for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
+        """
+        return {
+            "id": instance.pk,
+            "edit_url": AdminURLFinder().get_edit_url(instance),
+        }
+
     def get_value_data(self, value):
-        # Perform any necessary preprocessing on the value passed to render() before it is passed
-        # on to render_html / render_js_init. This is a good place to perform database lookups
-        # that are needed by both render_html and render_js_init. Return value is arbitrary
-        # (we only care that render_html / render_js_init can accept it), but will typically be
-        # a dict of data needed for rendering: id, title etc.
-        return value
+        """
+        Given a value passed to this widget for rendering (which may be None, an id, or a model
+        instance), return a value that we can pass to both the server-side template and the
+        client-side rendering code (via telepath) that contains all the information needed
+        for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
+        """
+        instance = self.get_instance(value)
+        if instance:
+            return self.get_value_data_from_instance(instance)
 
     def render(self, name, value, attrs=None, renderer=None):
         # no point trying to come up with sensible semantics for when 'id' is missing from attrs,
@@ -244,27 +270,21 @@ class AdminPageChooser(BaseChooser):
             "user_perms": self.user_perms,
         }
 
-    def get_value_data(self, value):
-        if value is None:
-            return None
-        elif isinstance(value, Page):
-            page = value.specific
-        else:  # assume page ID
-            try:
-                page = self.model.objects.get(pk=value)
-            except self.model.DoesNotExist:
-                return None
+    def get_instance(self, value):
+        instance = super().get_instance(value)
+        if instance:
+            return instance.specific
 
-            page = page.specific
-
-        edit_url = AdminURLFinder().get_edit_url(page)
-        parent_page = page.get_parent()
-        return {
-            "id": page.pk,
-            "display_title": page.get_admin_display_title(),
-            "parent_id": parent_page.pk if parent_page else None,
-            "edit_url": edit_url,
-        }
+    def get_value_data_from_instance(self, instance):
+        data = super().get_value_data_from_instance(instance)
+        parent_page = instance.get_parent()
+        data.update(
+            {
+                "display_title": instance.get_admin_display_title(),
+                "parent_id": parent_page.pk if parent_page else None,
+            }
+        )
+        return data
 
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)

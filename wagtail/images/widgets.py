@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import BaseChooser
 from wagtail.images import get_image_model
@@ -24,27 +23,20 @@ class AdminImageChooser(BaseChooser):
         super().__init__(**kwargs)
         self.model = get_image_model()
 
-    def get_value_data(self, value):
-        if value is None:
-            return None
-        elif isinstance(value, self.model):
-            image = value
-        else:  # assume image ID
-            image = self.model.objects.get(pk=value)
-
-        preview_image = get_rendition_or_not_found(image, "max-165x165")
-        edit_url = AdminURLFinder().get_edit_url(image)
-
-        return {
-            "id": image.pk,
-            "title": image.title,
-            "preview": {
-                "url": preview_image.url,
-                "width": preview_image.width,
-                "height": preview_image.height,
-            },
-            "edit_url": edit_url,
-        }
+    def get_value_data_from_instance(self, instance):
+        data = super().get_value_data_from_instance(instance)
+        preview_image = get_rendition_or_not_found(instance, "max-165x165")
+        data.update(
+            {
+                "title": instance.title,
+                "preview": {
+                    "url": preview_image.url,
+                    "width": preview_image.width,
+                    "height": preview_image.height,
+                },
+            }
+        )
+        return data
 
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)
