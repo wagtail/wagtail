@@ -13,6 +13,8 @@ from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminSnippetChooser(BaseChooser):
+    display_title_key = "string"
+
     def __init__(self, model, **kwargs):
         self.model = model
         name = self.model._meta.verbose_name
@@ -21,11 +23,6 @@ class AdminSnippetChooser(BaseChooser):
         self.link_to_chosen_text = _("Edit this %s") % name
 
         super().__init__(**kwargs)
-
-    def get_value_data_from_instance(self, instance):
-        data = super().get_value_data_from_instance(instance)
-        data["string"] = str(instance)
-        return data
 
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)

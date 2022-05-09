@@ -26,16 +26,11 @@ class AdminImageChooser(BaseChooser):
     def get_value_data_from_instance(self, instance):
         data = super().get_value_data_from_instance(instance)
         preview_image = get_rendition_or_not_found(instance, "max-165x165")
-        data.update(
-            {
-                "title": instance.title,
-                "preview": {
-                    "url": preview_image.url,
-                    "width": preview_image.width,
-                    "height": preview_image.height,
-                },
-            }
-        )
+        data["preview"] = {
+            "url": preview_image.url,
+            "width": preview_image.width,
+            "height": preview_image.height,
+        }
         return data
 
     def get_context(self, name, value_data, attrs):
