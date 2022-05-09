@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import BaseChooser
 from wagtail.documents import get_document_model
@@ -22,21 +21,10 @@ class AdminDocumentChooser(BaseChooser):
         super().__init__(**kwargs)
         self.model = get_document_model()
 
-    def get_value_data(self, value):
-        if value is None:
-            return None
-        elif isinstance(value, self.model):
-            doc = value
-        else:  # assume document ID
-            doc = self.model.objects.get(pk=value)
-
-        edit_url = AdminURLFinder().get_edit_url(doc)
-
-        return {
-            "id": doc.pk,
-            "title": doc.title,
-            "edit_url": edit_url,
-        }
+    def get_value_data_from_instance(self, instance):
+        data = super().get_value_data_from_instance(instance)
+        data["title"] = instance.title
+        return data
 
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)
