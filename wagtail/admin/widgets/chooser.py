@@ -97,6 +97,8 @@ class BaseChooser(widgets.Input):
     display_title_key = (
         "title"  # key to use for the display title within the value data dict
     )
+    icon = None
+    classname = None
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -140,6 +142,9 @@ class BaseChooser(widgets.Input):
             self.get_hidden_input_context(name, value, attrs),
         )
 
+    def get_chooser_modal_url(self):
+        return reverse(self.chooser_modal_url_name)
+
     def get_context(self, name, value_data, attrs):
         original_field_html = self.render_hidden_input(
             name, value_data.get("id"), attrs
@@ -152,6 +157,10 @@ class BaseChooser(widgets.Input):
                 value_data
             ),  # only used by chooser.html to identify blank values
             "edit_url": value_data.get("edit_url", ""),
+            "display_title": value_data.get(self.display_title_key, ""),
+            "chooser_url": self.get_chooser_modal_url(),
+            "icon": self.icon,
+            "classname": self.classname,
         }
 
     def render_html(self, name, value_data, attrs):
@@ -225,6 +234,9 @@ class AdminPageChooser(BaseChooser):
     choose_another_text = _("Choose another page")
     link_to_chosen_text = _("Edit this page")
     display_title_key = "display_title"
+    chooser_modal_url_name = "wagtailadmin_choose_page"
+    icon = "doc-empty-inverse"
+    classname = "page-chooser"
 
     def __init__(
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
@@ -294,18 +306,6 @@ class AdminPageChooser(BaseChooser):
         parent_page = instance.get_parent()
         data["parent_id"] = parent_page.pk if parent_page else None
         return data
-
-    def get_context(self, name, value_data, attrs):
-        context = super().get_context(name, value_data, attrs)
-        context.update(
-            {
-                "display_title": value_data.get("display_title", ""),
-                "icon": "doc-empty-inverse",
-                "classname": "page-chooser",
-                "chooser_url": reverse("wagtailadmin_choose_page"),
-            }
-        )
-        return context
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}

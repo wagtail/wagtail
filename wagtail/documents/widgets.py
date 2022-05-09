@@ -1,7 +1,6 @@
 import json
 
 from django import forms
-from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -16,22 +15,13 @@ class AdminDocumentChooser(BaseChooser):
     choose_one_text = _("Choose a document")
     choose_another_text = _("Choose another document")
     link_to_chosen_text = _("Edit this document")
+    chooser_modal_url_name = "wagtaildocs:chooser"
+    icon = "doc-full-inverse"
+    classname = "document-chooser"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.model = get_document_model()
-
-    def get_context(self, name, value_data, attrs):
-        context = super().get_context(name, value_data, attrs)
-        context.update(
-            {
-                "display_title": value_data.get("title", ""),
-                "icon": "doc-full-inverse",
-                "classname": "document-chooser",
-                "chooser_url": reverse("wagtaildocs:chooser"),
-            }
-        )
-        return context
 
     def render_js_init(self, id_, name, value_data):
         return "createDocumentChooser({0});".format(json.dumps(id_))
