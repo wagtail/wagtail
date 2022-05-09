@@ -88,6 +88,52 @@ A form template for a StructBlock must include the output of `render_form` for e
 </div>
 ```
 
+(controlling_structblock_block_order)=
+
+## Using ``block_order`` to control block order
+
+```{versionadded} 4.0
+```
+
+To customise the order that blocks appear in the page editor without customising the template, you can specify a `block_order` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`). The value should be a list of block names in the order you wish for them to be displayed.
+
+This option is particularly useful when using inheritance, for example:
+
+```python
+class BasePersonBlock(blocks.StructBlock):
+    first_name = blocks.CharBlock()
+    surname = blocks.CharBlock()
+    photo = ImageChooserBlock(required=False)
+    biography = blocks.RichTextBlock()
+
+
+class TeacherBlock(BasePersonBlock):
+    title = blocks.ChoiceBlock(choices=[
+        ("Dr", "Dr"),
+        ("Miss", "Miss"),
+        ("Mr", "Mr"),
+        ("Mrs", "Mrs"),
+        ("Ms", "Ms"),
+        ("Prof", "Prof"),
+    ])
+    suffix = blocks.CharBlock(required=False)
+    department = SnippetChooserBlock("departments.Departement")
+
+    class Meta:
+        icon = 'user'
+        # Show name fields in the correct order,
+        # followed by 'department', then any other fields
+        block_order = [
+            "title",
+            "first_name",
+            "surname",
+            "suffix",
+            "department"
+        ]
+```
+
+Any sub-blocks whose names are not specified will be displayed after those that are named.
+
 ## Additional JavaScript on `StructBlock` forms
 
 Often it may be desirable to attach custom JavaScript behaviour to a StructBlock form. For example, given a block such as:
