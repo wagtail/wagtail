@@ -1,4 +1,5 @@
 import collections
+from typing import Sequence
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -92,6 +93,23 @@ class BaseStructBlock(Block):
             for name, block in local_blocks:
                 block.set_name(name)
                 self.child_blocks[name] = block
+
+        # if specified, re-order child_blocks to match preferred order
+        specific_block_order = getattr(self.meta, "block_order", None)
+        if specific_block_order:
+            self.child_blocks = collections.OrderedDict(
+                sorted(
+                    self.child_blocks.items(),
+                    key=lambda x: self._child_block_order(x[0], specific_block_order),
+                )
+            )
+
+    @staticmethod
+    def _child_block_order(block_name: str, specific_block_order: Sequence[str]):
+        try:
+            return 0, specific_block_order.index(block_name)
+        except ValueError:
+            return 1, 0
 
     def get_default(self):
         """
