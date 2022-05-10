@@ -80,7 +80,8 @@ def explorer_breadcrumb(
         "current_page": page,
         "page_perms": page_perms,
         "use_next_template": use_next_template,
-        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
+        "trailing_breadcrumb_title": trailing_breadcrumb_title,
+        # Only used in collapsible breadcrumb templates
     }
 
 
@@ -540,7 +541,6 @@ def page_header_buttons(context, page, page_perms):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def bulk_action_choices(context, app_label, model_name):
-
     bulk_actions_list = list(
         bulk_action_registry.get_bulk_actions_for_model(app_label, model_name)
     )
@@ -893,3 +893,63 @@ def component(context, obj, fallback_render_method=False):
         raise ValueError("Cannot render %r as a component" % (obj,))
 
     return obj.render_html(context)
+
+
+"""
+ Dialog tag - to be used with its corresponding enddialog tag
+"""
+
+
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog.html")
+def dialog(
+    icon_name,
+    title,
+    description,
+    message_status=None,
+    message_heading=None,
+    message_description=None,
+):
+    return {
+        "icon_name": icon_name,
+        "title": title,
+        "description": description,
+        "message_status": message_status,
+        "message_heading": message_heading,
+        "message_description": message_description,
+    }
+
+
+# Closing tag for dialog tag {% enddialog %}
+@register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
+def enddialog():
+    return
+
+
+# Message for the top of the dialog component
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog-message.html")
+def dialog_message(
+    status=None, icon_name="info-circle", heading=None, description=None
+):
+    status_type = {
+        "info": {
+            "icon_name": "info-circle",
+            "background_color": "w-bg-info-50",
+            "icon_color": "w-text-info-100",
+        },
+        "warning": {
+            "icon_name": "warning",
+            "background_color": "w-bg-warning-50",
+            "icon_color": "w-text-warning-100",
+        },
+        "critical": {
+            "icon_name": "warning",
+            "icon_color": "w-text-critical-200",
+            "background_color": "w-bg-critical-50",
+        },  # ffdd78
+    }
+    return {
+        "status": status,
+        "heading": heading,
+        "description": description,
+        **status_type[status],
+    }

@@ -84,7 +84,25 @@ module.exports = {
           'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
       zIndex: {
-        header: '100',
+        'header': '100',
+        'sidebar': '110',
+        'sidebar-toggle': '120',
+        'dialog': '130',
+      },
+      maxHeight: {
+        dialog: 'calc(100vh - 180px)',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 150ms both',
+      },
+      boxShadow: {
+        dialog: '5px 5px 20px rgba(0, 0, 0, 0.05)',
       },
     },
   },
@@ -100,6 +118,23 @@ module.exports = {
      */
     plugin(({ addVariant }) => {
       addVariant('forced-colors', '@media (forced-colors: active)');
+    }),
+    // Aria expanded attribute variant for styling when aria-expanded:className or aria-not-expanded:className
+    plugin(({ addVariant, e }) => {
+      addVariant('aria-hidden', ({ modifySelectors, separator }) => {
+        modifySelectors(
+          ({ className }) =>
+            `.${e(`aria-hidden${separator}${className}`)}[aria-hidden='true']`,
+        );
+      });
+      addVariant('aria-not-expanded', ({ modifySelectors, separator }) => {
+        modifySelectors(
+          ({ className }) =>
+            `.${e(
+              `aria-not-hidden${separator}${className}`,
+            )}[aria-hidden='false']`,
+        );
+      });
     }),
     /**
      * TypeScale plugin.

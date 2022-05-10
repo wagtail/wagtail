@@ -159,7 +159,7 @@ const colors = {
   },
   warning: {
     100: {
-      hex: '#FFBF00',
+      hex: '#FAA500',
       bgUtility: 'w-bg-warning-100',
       textUtility: 'w-text-warning-100',
       usage: 'Background and icons for potentially dangerous states',
