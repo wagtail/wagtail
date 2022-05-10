@@ -896,7 +896,7 @@ def component(context, obj, fallback_render_method=False):
 
 
 """
- Dialog tag - to be used with its corresponding enddialog tag
+ Dialog tag - to be used with its corresponding {% enddialog %} tag with dialog content markup nested between
 """
 
 
@@ -925,11 +925,14 @@ def enddialog():
     return
 
 
-# Message for the top of the dialog component
+# Optional message for the top of the dialog component
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog-message.html")
-def dialog_message(
-    status=None, icon_name="info-circle", heading=None, description=None
-):
+def dialog_message(status=None, heading=None, description=None):
+    if not status:
+        raise ValueError(
+            "You must supply a status type of info, warning, critical or success"
+        )
+
     status_type = {
         "info": {
             "icon_name": "info-circle",
@@ -945,11 +948,27 @@ def dialog_message(
             "icon_name": "warning",
             "icon_color": "w-text-critical-200",
             "background_color": "w-bg-critical-50",
-        },  # ffdd78
+        },
+        "success": {
+            "icon_name": "circle-check",
+            "icon_color": "w-text-positive-100",
+            "background_color": "w-bg-positive-50",
+        },
     }
     return {
         "status": status,
         "heading": heading,
         "description": description,
         **status_type[status],
+    }
+
+
+# Button used to open dialog's
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
+def dialog_toggle(dialog_title=None, class_name=None, text=None):
+    return {
+        "class_name": class_name,
+        "text": text,
+        "dialog_title": dialog_title
+        # Must match the title of the dialog you are toggling
     }

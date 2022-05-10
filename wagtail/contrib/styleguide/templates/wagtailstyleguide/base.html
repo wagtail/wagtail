@@ -4,7 +4,7 @@
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% versioned_static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css"/>
 
     {{ example_form.media.css }}
 {% endblock %}
@@ -72,9 +72,12 @@
         <section class="palette" id="accessiblecolours">
 
             <h2>Accessible colour combinations</h2>
-            <p>WCAG (Web Content Accessibility Guidelines) ensures that content is accessible by everyone, regardless of any disability or user device. To ensure text remains compliant with WCAG 2.0 AA standards, use only these permitted colour combinations.</p>
+            <p>WCAG (Web Content Accessibility Guidelines) ensures that content is accessible by everyone, regardless of any disability or user device. To ensure text remains compliant with WCAG 2.0
+                AA standards, use only these permitted colour combinations.</p>
 
-            <p>Use this <a href="https://accessibility.oit.ncsu.edu/tools/color-contrast/accessible-color-palette.php?colors=43b1b0,358c8b,246060,71b2d4,cd3238,e9b04d,189370,f37e77,fcf2f2,ffffff,000000,333333,404040,666666,d9d9d9,e6e6e6,fafafa,cacaca&amp;level=AA">Color Palette Accessibility Checker</a> to test new colour combinations using the existing colour palette.</p>
+            <p>Use this <a
+                href="https://accessibility.oit.ncsu.edu/tools/color-contrast/accessible-color-palette.php?colors=43b1b0,358c8b,246060,71b2d4,cd3238,e9b04d,189370,f37e77,fcf2f2,ffffff,000000,333333,404040,666666,d9d9d9,e6e6e6,fafafa,cacaca&amp;level=AA">Color
+                Palette Accessibility Checker</a> to test new colour combinations using the existing colour palette.</p>
 
             <h3>Small text combinations: for font sizes 16px or smaller</h3>
             <ul class="contrast">
@@ -253,7 +256,8 @@
             <h2>Help text</h2>
 
             <p>
-                Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+                Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that
+                explain or warn about something.
             </p>
 
             <div class="help-block help-info">
@@ -313,9 +317,15 @@
 
             <h3><code>ul</code> listing</h3>
             <ul class="listing">
-                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
-                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
-                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li>
+                    <div class="title"><h2><a href="">List item</a></h2></div>
+                </li>
+                <li>
+                    <div class="title"><h2><a href="">List item</a></h2></div>
+                </li>
+                <li>
+                    <div class="title"><h2><a href="">List item</a></h2></div>
+                </li>
             </ul>
 
 
@@ -392,7 +402,10 @@
 
         <section id="buttons">
             <h2>Buttons</h2>
-            <p class="help-block help-warning">{% icon name='warning' %}Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>
+                {% filter force_escape|lower %}
+                    <button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.
+            </p>
 
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
@@ -455,7 +468,8 @@
             <a href="#" class="button button-small no">No</a>
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
-            <p class="help-block help-warning">{% icon name='warning' %}Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be
+                resolved.</p>
             <button class="button button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Secondary</h4>
@@ -469,10 +483,10 @@
 
             <h4>Arbitrarily bigger</h4>
             <style>
-                #button-arbitrarily-bigger{
-                    font-size:1.5em;
-                    padding:1.1em 2.4em;
-                    height:3.5em;
+                #button-arbitrarily-bigger {
+                    font-size: 1.5em;
+                    padding: 1.1em 2.4em;
+                    height: 3.5em;
                 }
             </style>
             <button class="button button-longrunning" id="button-arbitrarily-bigger">{% icon name="spinner" %}Click me</button>
@@ -494,7 +508,7 @@
                 <button class="button">button element</button>
                 <button class="button">button element</button>
             </div>
-            <br />
+            <br/>
             <div class="button-group">
                 <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
                 <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
@@ -552,7 +566,7 @@
             </div>
 
             <div class="row">
-                <br />
+                <br/>
                 <div class="col3">
                     <div class="dropdown dropdown-button match-width">
                         <a href="#" class="button" value="drop down">Link button</a>
@@ -582,7 +596,7 @@
             </div>
 
             <div class="row">
-                <br />
+                <br/>
 
                 <p>
                     Inline dropdown components, primarily used in the listing.
@@ -625,7 +639,7 @@
                 </div>
             </div>
 
-            <p>These can also have an inverted  theme:</p>
+            <p>These can also have an inverted theme:</p>
             <header class="header">
                 <div class="c-dropdown  t-inverted" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
@@ -652,6 +666,48 @@
 
         </section>
 
+        <section id="dialog">
+            <h2>Dialogs</h2>
+
+            <div class="w-flex w-gap-4">
+                <div>
+                    {% dialog_toggle class_name='button button-primary' dialog_title='Simple dialog' text='Simple dialog' %}
+
+                    {% dialog icon_name="doc-full-inverse" title="Simple dialog" description="This is as simple as it gets 😀" %}
+                        <p class="w-base-text">This is an example of a simple dialog with a title and description passed to the dialog tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle class_name='button button-primary' dialog_title='Dialog with info' text='Dialog with info' %}
+
+                    {% dialog icon_name="globe" title="Dialog with info" description="This is a testing description" message_status="info" message_heading="Here is some info on the thing" message_description="This is a subtext for the message" %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=info as well as message_heading and message_description to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle class_name='button button-primary' dialog_title='Dialog with success' text='Dialog with success' %}
+
+                    {% dialog icon_name="globe" title="Dialog with success" description="This is a testing description" message_status="success" message_heading="Success! You've done the thing"  %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=success as well as message_heading to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle class_name='button button-primary' dialog_title='Dialog with warning' text='Dialog with warning' %}
+
+                    {% dialog icon_name="globe" title="Dialog with warning" description="This is a testing description" message_status="warning" message_heading="There was an issue with the thing" message_description="This is a subtext for the message" %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=warning as well as message_heading and message_description to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+                <div>
+                    {% dialog_toggle class_name='button button-primary' dialog_title='Dialog with critical error' text='Dialog with error' %}
+
+                    {% dialog icon_name="globe" title="Dialog with critical error" description="This is a testing description" message_status="critical" message_heading="There was an issue with the thing" message_description="This is a subtext for the message" %}
+                        <p class="w-base-text">This dialog message was generated by passing message_status=critical as well as message_heading and message_description to the dialog template tag</p>
+                    {% enddialog %}
+                </div>
+            </div>
+        </section>
+
         <section id="header">
             <h2>Header</h2>
 
@@ -673,7 +729,9 @@
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
                     {% endfor %}
-                    <li><button type="submit" class="button">{% trans 'Save' %}</button><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                    <li>
+                        <button type="submit" class="button">{% trans 'Save' %}</button>
+                        <a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
         </section>
@@ -707,10 +765,12 @@
 
             <ul class="breadcrumb">
                 {% trans 'Home' as home %}
-                <li class="breadcrumb-item home"><a href="{% url 'wagtailadmin_home' %}" class="breadcrumb-link">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item home"><a href="{% url 'wagtailadmin_home' %}" class="breadcrumb-link">
+                    {% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
                 <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
                 <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span
+                    class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
             </ul>
 
         </section>
@@ -733,9 +793,9 @@
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
 
-            <p><span class="avatar"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar normal</p>
-            <p><span class="avatar square"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar square</p>
-            <p><span class="avatar small"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar small</p>
+            <p><span class="avatar"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt=""/></span> Avatar normal</p>
+            <p><span class="avatar square"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt=""/></span> Avatar square</p>
+            <p><span class="avatar small"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt=""/></span> Avatar small</p>
 
             <h3>Status tags</h3>
             <div class="status-tag primary">Primary tag</div>
@@ -746,7 +806,7 @@
             <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
             <p>Remove the "loading" class to disable the effect</p>
             <div class="loading-mask loading" style="width:200px">
-                <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail" />
+                <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail"/>
             </div>
 
             <h3>Image transparency</h3>
@@ -764,10 +824,12 @@
                     animation-iteration-count: infinite;
                     animation-timing-function: linear;
                 }
+
                 @keyframes spin-wag {
                     from {
                         transform: translateY(0.6em) rotate(0deg);
-                    } to {
+                    }
+                    to {
                         transform: translateY(0.6em) rotate(360deg);
                     }
                 }
@@ -880,15 +942,15 @@
 
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
-    {{ example_form.media.js}}
+    {{ example_form.media.js }}
 
     <script>
-        $(function(){
-            (function runprogress(){
-                var to = setTimeout(function(){
+        $(function () {
+            (function runprogress() {
+                var to = setTimeout(function () {
                     runprogress();
                     clearTimeout(to);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('#progress-example .bar').css('width', '20%');
                     }, 2000);
                 }, 3000);
