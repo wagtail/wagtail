@@ -1,9 +1,10 @@
 import A11yDialog from 'a11y-dialog';
-import Tabs from './tabs';
 
 class Dialog {
   constructor(node) {
     this.dialog = node;
+    // es-lin
+    new A11yDialog(this.dialog);
   }
 }
 
