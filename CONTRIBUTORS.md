@@ -782,6 +782,7 @@
 * Badr Fourane
 * Vaishnav Dasari
 * Aditya
+* Tommaso Amici
 
 ## Translators
 

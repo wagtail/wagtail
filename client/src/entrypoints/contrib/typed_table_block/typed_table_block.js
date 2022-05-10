@@ -13,6 +13,8 @@ export class TypedTableBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
+    this.caption = '';
+
     // list of column definition objects, each consisting of fields:
     // * blockDef: the block definition object
     // * position: the 0-indexed position of this column within the list of columns
@@ -44,8 +46,25 @@ export class TypedTableBlock {
     });
 
     const strings = this.blockDef.meta.strings;
+    const captionID = `${h(prefix)}-caption`;
     const dom = $(`
       <div class="typed-table-block ${h(this.blockDef.meta.classname || '')}">
+        <div class="w-field__wrapper" data-field-wrapper>
+          <label class="w-field__label" for="${captionID}">
+            ${strings.CAPTION}
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field>
+            <div class="w-field__help" data-field-help>
+              <div class="help">
+                ${strings.CAPTION_HELP_TEXT}
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input>
+              <input type="text" id="${captionID}" name="${captionID}" value="" />
+              <span></span>
+            </div>
+          </div>
+        </div>
         <input type="hidden" name="${h(
           prefix,
         )}-column-count" data-column-count value="0">
@@ -89,6 +108,7 @@ export class TypedTableBlock {
     `);
     $(placeholder).replaceWith(dom);
     this.container = dom;
+    this.captionInput = dom.find(`#${captionID}`).get(0);
     this.thead = dom.find('table > thead').get(0);
     this.tbody = dom.find('table > tbody').get(0);
 
@@ -175,6 +195,7 @@ export class TypedTableBlock {
 
   clear() {
     // reset to initial empty state with no rows or columns
+    this.setCaption('');
     this.columns = [];
     this.rows = [];
     this.columnCountIncludingDeleted = 0;
@@ -200,6 +221,11 @@ export class TypedTableBlock {
     // delete all body rows
     this.tbody.replaceChildren();
     this.addRowButton.hide();
+  }
+
+  setCaption(caption) {
+    this.caption = caption;
+    this.captionInput.value = caption;
   }
 
   insertColumn(index, blockDef, opts) {
@@ -454,6 +480,7 @@ export class TypedTableBlock {
       state.rows.forEach((row, index) => {
         this.insertRow(index, row.values);
       });
+      this.setCaption(state.caption);
     }
   }
 
@@ -483,6 +510,7 @@ export class TypedTableBlock {
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getState()),
       })),
+      caption: this.caption,
     };
     return state;
   }
@@ -506,6 +534,7 @@ export class TypedTableBlock {
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getValue()),
       })),
+      caption: this.caption,
     };
     return value;
   }

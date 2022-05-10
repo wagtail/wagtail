@@ -28,7 +28,7 @@ exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
         <label class="w-field__label" for="the-id-handsontable-col-caption">Table caption</label>
         <div class="w-field w-field--char_field w-field--text_input" data-field="">
           <div class="w-field__help" id="the-id-handsontable-col-caption-helptext" data-field-help="">
-            <div class="help">A heading that identifies the overall topic of the table, and is useful for screen reader users</div>
+            <div class="help">A heading that identifies the overall topic of the table, and is useful for screen reader users.</div>
           </div>
           <div class="w-field__input" data-field-input="">
             <input type="text" id="the-id-handsontable-col-caption" name="handsontable-col-caption" aria-describedby="the-id-handsontable-col-caption-helptext">

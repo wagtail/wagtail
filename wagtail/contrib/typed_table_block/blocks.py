@@ -40,12 +40,14 @@ class TypedTableBlockValidationError(ValidationError):
 class TypedTable:
     template = "typed_table_block/typed_table_block.html"
 
-    def __init__(self, columns, row_data):
+    def __init__(self, columns, row_data, caption: str):
         # a list of dicts, each with items 'block' (the block instance) and 'heading'
         self.columns = columns
 
         # a list of dicts, each with an item 'values' (the list of block values)
         self.row_data = row_data
+
+        self.caption = caption
 
     @property
     def rows(self):
@@ -86,6 +88,8 @@ class BaseTypedTableBlock(Block):
                 self.child_blocks[name] = block
 
     def value_from_datadict(self, data, files, prefix):
+        caption = data["%s-caption" % prefix]
+
         column_count = int(data["%s-column-count" % prefix])
         columns = [
             {
@@ -123,6 +127,7 @@ class BaseTypedTableBlock(Block):
                 {"block": col["block"], "heading": col["heading"]} for col in columns
             ],
             row_data=[{"values": row["values"]} for row in rows],
+            caption=caption,
         )
 
     def get_prep_value(self, table):
@@ -141,11 +146,13 @@ class BaseTypedTableBlock(Block):
                     }
                     for row in table.row_data
                 ],
+                "caption": table.caption,
             }
         else:
             return {
                 "columns": [],
                 "rows": [],
+                "caption": "",
             }
 
     def to_python(self, value):
@@ -170,11 +177,13 @@ class BaseTypedTableBlock(Block):
                     {"values": [column_data[row_index] for column_data in columns_data]}
                     for row_index in range(0, len(value["rows"]))
                 ],
+                caption=value.get("caption", ""),
             )
         else:
             return TypedTable(
                 columns=[],
                 row_data=[],
+                caption="",
             )
 
     def get_form_state(self, table):
@@ -193,11 +202,13 @@ class BaseTypedTableBlock(Block):
                     }
                     for row in table.row_data
                 ],
+                "caption": table.caption,
             }
         else:
             return {
                 "columns": [],
                 "rows": [],
+                "caption": "",
             }
 
     def clean(self, table):
@@ -223,10 +234,16 @@ class BaseTypedTableBlock(Block):
             if cell_errors:
                 raise TypedTableBlockValidationError(cell_errors=cell_errors)
             else:
-                return TypedTable(columns=table.columns, row_data=cleaned_rows)
+                return TypedTable(
+                    columns=table.columns, row_data=cleaned_rows, caption=table.caption
+                )
 
         else:
-            return TypedTable(columns=[], row_data=[])
+            return TypedTable(
+                columns=[],
+                row_data=[],
+                caption="",
+            )
 
     def deconstruct(self):
         """
@@ -274,6 +291,10 @@ class TypedTableBlockAdapter(Adapter):
             "required": block.required,
             "icon": block.meta.icon,
             "strings": {
+                "CAPTION": _("Caption"),
+                "CAPTION_HELP_TEXT": _(
+                    "A heading that identifies the overall topic of the table, and is useful for screen reader users."
+                ),
                 "ADD_COLUMN": _("Add column"),
                 "ADD_ROW": _("Add row"),
                 "COLUMN_HEADING": _("Column heading"),

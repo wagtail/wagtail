@@ -263,7 +263,7 @@ class TableInput {
         <label class="w-field__label" for="${id}-handsontable-col-caption">${this.strings['Table caption']}</label>
         <div class="w-field w-field--char_field w-field--text_input" data-field>
           <div class="w-field__help" id="${id}-handsontable-col-caption-helptext" data-field-help>
-            <div class="help">${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']}</div>
+            <div class="help">${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users.']}</div>
           </div>
           <div class="w-field__input" data-field-input>
             <input type="text" id="${id}-handsontable-col-caption" name="handsontable-col-caption" aria-describedby="${id}-handsontable-col-caption-helptext" />
