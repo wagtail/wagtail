@@ -12,6 +12,7 @@ Changelog
  * Use `InlinePanel`'s label when available for field comparison label (Sandil Ranasinghe)
  * Drop support for Safari 13 by removing left/right positioning in favour of CSS logical properties (Thibaud Colas)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
+ * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
 
 
 3.0 (xx.xx.xxxx) - IN DEVELOPMENT

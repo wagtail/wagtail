@@ -25,7 +25,10 @@ from willow.image import Image as WillowImage
 from wagtail import hooks
 from wagtail.admin.models import get_object_usage
 from wagtail.coreutils import string_to_ascii
-from wagtail.images.exceptions import InvalidFilterSpecError
+from wagtail.images.exceptions import (
+    InvalidFilterSpecError,
+    UnknownOutputImageFormatError,
+)
 from wagtail.images.image_operations import (
     FilterOperation,
     ImageTransform,
@@ -677,6 +680,9 @@ class Filter:
                     quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 85)
 
                 return willow.save_as_webp(output, quality=quality)
+            raise UnknownOutputImageFormatError(
+                f"Unknown output image format '{output_format}'"
+            )
 
     def get_cache_key(self, image):
         vary_parts = []

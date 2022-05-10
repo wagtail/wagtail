@@ -596,6 +596,7 @@ Contributors
 * Simon Krull
 * Przemysław Buczkowski
 * Josh Woodcock
+* Christian Franke
 
 Translators
 ===========
