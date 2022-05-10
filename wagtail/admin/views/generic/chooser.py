@@ -1,12 +1,12 @@
-from django.contrib.admin.utils import quote, unquote
+from django.contrib.admin.utils import unquote
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.template.response import TemplateResponse
-from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, View
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
 
@@ -99,7 +99,6 @@ class ChooseResultsView(BaseChooseView):
 
 class ChosenView(View):
     model = None
-    edit_item_url_name = None
 
     def get(self, request, pk):
         try:
@@ -115,18 +114,14 @@ class ChosenView(View):
     def get_object_id(self, instance):
         return instance.pk
 
-    def get_object_string(self, instance):
+    def get_display_title(self, instance):
         """
         Return a string representation of the given object instance
         """
         return str(instance)
 
     def get_edit_item_url(self, instance):
-        if self.edit_item_url_name is None:
-            return None
-        else:
-            object_id = self.get_object_id(instance)
-            return reverse(self.edit_item_url_name, args=(quote(object_id),))
+        return AdminURLFinder(user=self.request.user).get_edit_url(instance)
 
     def get_chosen_response_data(self, item):
         """
@@ -134,7 +129,7 @@ class ChosenView(View):
         """
         return {
             "id": str(self.get_object_id(item)),
-            "string": self.get_object_string(item),
+            "title": self.get_display_title(item),
             "edit_link": self.get_edit_item_url(item),
         }
 
