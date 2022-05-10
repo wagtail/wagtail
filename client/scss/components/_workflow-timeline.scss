@@ -1,0 +1,76 @@
+.workflow-timeline {
+  @apply w-label-3;
+  padding: 0;
+  margin-top: theme('spacing.8');
+  margin-bottom: theme('spacing.3');
+
+  @include media-breakpoint-up(sm) {
+    margin-top: theme('spacing.10');
+    margin-bottom: theme('spacing.10');
+  }
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    padding-bottom: theme('spacing.5');
+
+    &--rejected {
+      color: theme('colors.critical.200');
+    }
+
+    &--approved {
+      color: theme('colors.positive.100');
+    }
+
+    &--in_progress {
+      @apply w-label-1;
+    }
+
+    &--pending {
+      color: theme('colors.grey.400');
+
+      .icon {
+        color: theme('colors.grey.200');
+      }
+    }
+  }
+
+  &__icon {
+    position: relative;
+    flex-shrink: 0;
+    background: theme('colors.white.DEFAULT');
+    margin-inline-end: theme('spacing.[2.5]');
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+    z-index: theme('zIndex.10');
+  }
+
+  &__line {
+    position: absolute;
+    margin-inline-start: -1px;
+    height: 100%;
+    top: theme('spacing.4');
+    inset-inline-start: theme('spacing.[2.5]');
+    border-inline-start: theme('borderWidth.DEFAULT') dashed
+      theme('colors.grey.200');
+  }
+
+  &__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: theme('spacing.4');
+  }
+
+  &__footer-link {
+    @include transition(color 0.15s ease);
+    font-size: theme('fontSize.14');
+    color: theme('colors.teal.200');
+    text-decoration: none;
+
+    &:hover {
+      color: theme('colors.teal.600');
+    }
+  }
+}
