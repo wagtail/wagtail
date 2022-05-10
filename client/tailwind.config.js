@@ -101,9 +101,6 @@ module.exports = {
       animation: {
         'fade-in': 'fade-in 150ms both',
       },
-      boxShadow: {
-        dialog: '5px 5px 20px rgba(0, 0, 0, 0.05)',
-      },
     },
   },
   plugins: [
