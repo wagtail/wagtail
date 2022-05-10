@@ -2,6 +2,22 @@
 
 exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders correctly 1`] = `
 "<div class="typed-table-block ">
+        <div class="w-field__wrapper" data-field-wrapper="">
+          <label class="w-field__label" for="mytable-caption">
+            Caption
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field="">
+            <div class="w-field__help" data-field-help="">
+              <div class="help">
+                A heading that identifies the overall topic of the table, and is useful for screen reader users.
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input="">
+              <input type="text" id="mytable-caption" name="mytable-caption" value="">
+              <span></span>
+            </div>
+          </div>
+        </div>
         <input type="hidden" name="mytable-column-count" data-column-count="" value="2">
         <input type="hidden" name="mytable-row-count" data-row-count="" value="2">
         <div data-deleted-fields=""><input type="hidden" name="mytable-column-0-deleted" value=""><input type="hidden" name="mytable-column-1-deleted" value=""><input type="hidden" name="mytable-row-0-deleted" value=""><input type="hidden" name="mytable-row-1-deleted" value=""></div>
@@ -92,6 +108,22 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
 
 exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passes error messages to children 1`] = `
 "<div class="typed-table-block ">
+        <div class="w-field__wrapper" data-field-wrapper="">
+          <label class="w-field__label" for="mytable-caption">
+            Caption
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field="">
+            <div class="w-field__help" data-field-help="">
+              <div class="help">
+                A heading that identifies the overall topic of the table, and is useful for screen reader users.
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input="">
+              <input type="text" id="mytable-caption" name="mytable-caption" value="">
+              <span></span>
+            </div>
+          </div>
+        </div>
         <input type="hidden" name="mytable-column-count" data-column-count="" value="2">
         <input type="hidden" name="mytable-row-count" data-row-count="" value="2">
         <div data-deleted-fields=""><input type="hidden" name="mytable-column-0-deleted" value=""><input type="hidden" name="mytable-column-1-deleted" value=""><input type="hidden" name="mytable-row-0-deleted" value=""><input type="hidden" name="mytable-row-1-deleted" value=""></div>
@@ -182,6 +214,22 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
 
 exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows non-block errors 1`] = `
 "<div class="typed-table-block "><p class="help-block help-critical">This is just generally wrong</p>
+        <div class="w-field__wrapper" data-field-wrapper="">
+          <label class="w-field__label" for="mytable-caption">
+            Caption
+          </label>
+          <div class="w-field w-field--char_field w-field--text_input" data-field="">
+            <div class="w-field__help" data-field-help="">
+              <div class="help">
+                A heading that identifies the overall topic of the table, and is useful for screen reader users.
+              </div>
+            </div>
+            <div class="w-field__input" data-field-input="">
+              <input type="text" id="mytable-caption" name="mytable-caption" value="">
+              <span></span>
+            </div>
+          </div>
+        </div>
         <input type="hidden" name="mytable-column-count" data-column-count="" value="2">
         <input type="hidden" name="mytable-row-count" data-row-count="" value="2">
         <div data-deleted-fields=""><input type="hidden" name="mytable-column-0-deleted" value=""><input type="hidden" name="mytable-column-1-deleted" value=""><input type="hidden" name="mytable-row-0-deleted" value=""><input type="hidden" name="mytable-row-1-deleted" value=""></div>

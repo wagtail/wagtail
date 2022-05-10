@@ -40,8 +40,8 @@ const TEST_STRINGS = {
     'Display the first column as a header.',
   'Table caption': 'Table caption',
 
-  'A heading that identifies the overall topic of the table, and is useful for screen reader users':
-    'A heading that identifies the overall topic of the table, and is useful for screen reader users',
+  'A heading that identifies the overall topic of the table, and is useful for screen reader users.':
+    'A heading that identifies the overall topic of the table, and is useful for screen reader users.',
   'Table': 'Table',
 };
 
@@ -163,7 +163,7 @@ describe('telepath: wagtail.widgets.TableInput', () => {
         "Affichez la première colonne sous forme d'en-tête.",
       'Table caption': 'Légende du tableau',
 
-      'A heading that identifies the overall topic of the table, and is useful for screen reader users':
+      'A heading that identifies the overall topic of the table, and is useful for screen reader users.':
         "Un en-tête qui identifie le sujet général du tableau et qui est utile pour les utilisateurs de lecteurs d'écran",
       'Table': 'Tableau',
     };

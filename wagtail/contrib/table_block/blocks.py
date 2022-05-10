@@ -76,8 +76,8 @@ class TableInputAdapter(WidgetAdapter):
                 "Display the first column as a header."
             ),
             "Table caption": _("Table caption"),
-            "A heading that identifies the overall topic of the table, and is useful for screen reader users": _(
-                "A heading that identifies the overall topic of the table, and is useful for screen reader users"
+            "A heading that identifies the overall topic of the table, and is useful for screen reader users.": _(
+                "A heading that identifies the overall topic of the table, and is useful for screen reader users."
             ),
             "Table": _("Table"),
         }
