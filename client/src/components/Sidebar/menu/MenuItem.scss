@@ -84,7 +84,7 @@
 .menuitem-label {
   @include transition(opacity $menu-transition-duration ease);
   margin-inline-start: 0.875rem;
-  line-height: 1;
+  line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
