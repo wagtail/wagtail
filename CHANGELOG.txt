@@ -15,6 +15,7 @@ Changelog
  * Add informational Codecov status checks for GitHub CI pipelines (Tom Hu)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
+ * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
 
 
 3.0 (xx.xx.xxxx) - IN DEVELOPMENT

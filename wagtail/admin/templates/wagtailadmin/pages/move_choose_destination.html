@@ -2,14 +2,14 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    <div class="nice-padding">
-        {% move_breadcrumb page_to_move viewed_page %}
-    </div>
     <header>
-        <h1>
-            {% icon name="doc-empty-inverse" %}
-            {% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}
-        </h1>
+        {% move_breadcrumb page_to_move viewed_page %}
+        <div class="row">
+            <h1>
+                {% icon name="doc-empty-inverse" %}
+                {% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}
+            </h1>
+        </div>
     </header>
     <div class="nice-padding">
         {% include "wagtailadmin/pages/listing/_list_move.html" with pages=child_pages parent_page=viewed_page %}

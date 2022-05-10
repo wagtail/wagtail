@@ -4,7 +4,6 @@
   padding-top: 1.4em;
   font-size: 0.85em;
   line-height: 1.5em;
-  margin-inline-start: 2em;
   background: $color-teal;
 
   li,
@@ -72,11 +71,23 @@
     transform: scale(1.75) translate(0.3em, 0.1em);
   }
 
+  // Adjust padding and size of breadcrumbs when nested inside of headers
+  header & {
+    display: flex;
+    align-items: center;
+    height: $mobile-nav-indent;
+    padding-top: 0;
+    padding-inline-start: $mobile-nav-indent + 10px;
+
+    @include media-breakpoint-up(sm) {
+      padding-inline-start: 0;
+      height: auto;
+    }
+  }
+
   @include media-breakpoint-up(sm) {
     padding-top: 0;
     background: $color-teal-darker;
-    margin-inline-start: -($desktop-nice-padding);
-    margin-inline-end: -($desktop-nice-padding);
 
     .home_icon {
       margin-inline-start: 1.25em;
