@@ -1747,6 +1747,66 @@ class TestStructBlock(SimpleTestCase):
         expected = "<b>world</b>"
         self.assertEqual(str(body_bound_block), expected)
 
+    def test_block_order_specified_on_meta_class(self):
+        class SectionBlock(blocks.StructBlock):
+            """
+            Without ordering specified, the child_blocks should remain
+            in the order specified below
+            """
+
+            title = blocks.CharBlock()
+            heading_level = blocks.IntegerBlock()
+            body = blocks.RichTextBlock()
+
+        class ReverseOrderSectionBlock(SectionBlock):
+            """
+            child_blocks should be in the following order:
+            1. body
+            2. heading_level
+            3. title
+            """
+
+            class Meta:
+                block_order = ["body", "heading_level", "title"]
+
+        class PartiallyOrderedSectionBlock(SectionBlock):
+            """
+            child_blocks should be in the following order:
+            1. heading_level
+            2. title
+            3. body
+            """
+
+            class Meta:
+                block_order = ["heading_level"]
+
+        for block_class, expected_block_order in (
+            (SectionBlock, ["title", "heading_level", "body"]),
+            (ReverseOrderSectionBlock, ["body", "heading_level", "title"]),
+            (PartiallyOrderedSectionBlock, ["heading_level", "title", "body"]),
+        ):
+            block = block_class()
+            self.assertEqual(list(block.child_blocks.keys()), expected_block_order)
+
+    def test_block_order_specified_as_init_kwarg(self):
+        class SectionBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            heading_level = blocks.IntegerBlock()
+            body = blocks.RichTextBlock()
+
+        for specified_block_order, expected_child_block_order in (
+            (None, ["title", "heading_level", "body"]),
+            (
+                ["body", "heading_level", "title"],
+                ["body", "heading_level", "title"],
+            ),
+            (["heading_level"], ["heading_level", "title", "body"]),
+        ):
+            block = SectionBlock(block_order=specified_block_order)
+            self.assertEqual(
+                list(block.child_blocks.keys()), expected_child_block_order
+            )
+
     def test_get_form_context(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
