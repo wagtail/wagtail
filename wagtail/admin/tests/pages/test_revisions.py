@@ -169,13 +169,16 @@ class TestStreamRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(test_page_revert_url)
         self.assertEqual(response.status_code, 200)
 
-        # The media files for StreamField should be included
+        html = response.content.decode()
         blocks_js = versioned_static("wagtailadmin/js/telepath/blocks.js")
         streamfield_css = versioned_static("wagtailadmin/css/panels/streamfield.css")
-        self.assertContains(response, f'<script src="{blocks_js}"></script>')
-        self.assertContains(
-            response,
-            f'<link href="{streamfield_css}" type="text/css" media="all" rel="stylesheet">',
+
+        # The media files for StreamField should be included in the HTML
+        self.assertTagInHTML(f'<script src="{blocks_js}"></script>', html)
+        self.assertTagInHTML(
+            f'<link href="{streamfield_css}" media="all" rel="stylesheet">',
+            html,
+            allow_extra_attrs=True,  # Django 4.1 removes the type="text/css" attribute
         )
 
 
