@@ -904,7 +904,7 @@ def component(context, obj, fallback_render_method=False):
 def dialog(
     icon_name,
     title,
-    description,
+    subtitle=None,
     message_status=None,
     message_heading=None,
     message_description=None,
@@ -912,7 +912,7 @@ def dialog(
     return {
         "icon_name": icon_name,
         "title": title,
-        "description": description,
+        "subtitle": subtitle,
         "message_status": message_status,
         "message_heading": message_heading,
         "message_description": message_description,
@@ -965,7 +965,10 @@ def dialog_message(status=None, heading=None, description=None):
 
 # Button used to open dialog's
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
-def dialog_toggle(dialog_title=None, class_name=None, text=None):
+def dialog_toggle(dialog_title, class_name=None, text=None):
+    if not dialog_title:
+        raise ValueError("You must supply the dialog title")
+
     return {
         "class_name": class_name,
         "text": text,
