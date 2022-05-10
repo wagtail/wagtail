@@ -4,11 +4,6 @@
 header {
   @apply w-text-primary w-mb-8;
 
-  padding-top: 0.5rem;
-  padding-bottom: 1.5rem;
-  padding-inline-start: 110px;
-  padding-inline-end: 20px;
-
   a {
     @apply w-text-primary w-underline;
   }
@@ -36,6 +31,26 @@ header {
       margin-inline-start: 0.3125rem;
       font-weight: 400;
     }
+  }
+
+  // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
+  // Use header--with-padding for headers that don't contain .row elements.
+  &.header--with-padding,
+  > .row {
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+    padding-inline-start: 110px;
+    padding-inline-end: 20px;
+  }
+
+  .breadcrumb + .row {
+    padding-inline-start: $mobile-nav-indent + 10px;
+  }
+
+  &.header--home {
+    @include nice-padding();
+    padding-top: 0.5rem;
+    margin-top: $mobile-nav-indent;
   }
 
   .col {
@@ -77,17 +92,6 @@ header {
 
   &.no-border {
     border: 0;
-
-    @include media-breakpoint-down(xs) {
-      // To all hamburger menu to be visible
-      padding-inline-start: 1.6em;
-      padding-inline-end: 1.6em;
-      padding-top: 11px;
-
-      .nice-padding {
-        margin-inline-start: -$desktop-nice-padding;
-      }
-    }
   }
 
   &.merged.no-border {
@@ -166,9 +170,20 @@ header {
 
 @include media-breakpoint-up(sm) {
   header {
-    padding-top: 1.5rem;
-    padding-inline-start: 90px;
-    padding-inline-end: 90px;
+    .row {
+      padding-top: 1.5rem;
+      padding-inline-start: 90px;
+      padding-inline-end: 90px;
+    }
+
+    .breadcrumb + .row {
+      padding-inline-start: 90px;
+    }
+
+    &.header--home {
+      padding-top: 1.5rem;
+      margin-top: 0;
+    }
 
     .left {
       float: left;

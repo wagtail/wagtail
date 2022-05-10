@@ -1,4 +1,5 @@
-<div class="nice-padding">
+{% extends "wagtailadmin/shared/header_with_locale_selector.html" %}
+
+{% block breadcrumb %}
     {% include "modeladmin/includes/breadcrumb.html" %}
-</div>
-{% include "wagtailadmin/shared/header_with_locale_selector.html" %}
+{% endblock %}

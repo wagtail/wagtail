@@ -12,10 +12,10 @@
 {% endblock %}
 
 {% block content %}
-    <header class="merged nice-padding">
+    <header class="merged header--home">
         <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
 
-        <div>
+        <div class="sm:w-ml-4">
             <h1>{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
             <div class="user-name">{{ user|user_display_name }}</div>
         </div>
