@@ -40,16 +40,10 @@ def revisions_revert(request, page_id, revision_id):
         instance=revision_page, request=request, form=form
     )
 
-    if revision_page.live and revision_page.has_unpublished_changes:
-        # Page status needs to present the version of the page containing the correct live URL
-        page_for_status = page.specific
-    else:
-        page_for_status = revision_page
-
     action_menu = PageActionMenu(request, view="revisions_revert", page=page)
     side_panels = PageSidePanels(
         request,
-        page_for_status,
+        page.specific,
         comments_enabled=form.show_comments_toggle,
     )
 
