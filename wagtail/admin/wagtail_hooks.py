@@ -734,8 +734,8 @@ def register_core_features(features):
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["url", "id", "parentId"],
                 "whitelist": {
-                    # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
-                    "href": "^(http:|https:|undefined$)",
+                    # Keep pasted links with URLValidator protocol, and not-pasted links (href = undefined).
+                    "href": "^(http:|https:|ftp:|ftps:|undefined$)",
                 },
             },
             js=[
