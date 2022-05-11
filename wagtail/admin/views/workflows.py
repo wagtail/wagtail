@@ -655,12 +655,7 @@ class BaseTaskChooserView(TemplateView):
         return task_type_choices
 
     def get_form_js_context(self):
-        return {
-            "error_label": _("Server Error"),
-            "error_message": _(
-                "Report this error to your website administrator with the following information:"
-            ),
-        }
+        return {}
 
     def get_task_listing_context_data(self):
         search_form = TaskChooserSearchForm(
