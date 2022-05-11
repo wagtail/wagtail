@@ -1,45 +1,44 @@
 {% load wagtailadmin_tags i18n %}
 {% with id=title|cautious_slugify %}
-    <div
-        id="{{ id }}"
-        aria-labelledby="title-{{ id }}"
-        aria-hidden="true"
-        data-dialog
-        class="w-fixed w-inset-0 w-z-dialog w-flex aria-hidden:w-hidden w-p-4"
-    >
-        {# Overlay #}
-        <div data-a11y-dialog-hide class="w-fixed w-inset-0 w-bg-black/40">
-        </div>
+    <template data-dialog>
+        <div
+            id="{{ id }}"
+            aria-labelledby="title-{{ id }}"
+            aria-hidden="true"
+            class="{{ class_name }} w-fixed w-inset-0 w-z-dialog w-flex aria-hidden:w-hidden w-p-4"
+        >
+            {# Overlay #}
+            <div data-a11y-dialog-hide class="w-fixed w-inset-0 w-bg-black/40"></div>
 
-        {# Dialog #}
-        <div class="w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow-dialog w-rounded-md w-overflow-hidden w-animate-fade-in">
+            {# Dialog #}
+            <div class="w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow-dialog w-rounded-md w-overflow-hidden w-animate-fade-in">
 
-            {# Close button #}
-            <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="w-absolute w-inline-flex w-justify-center w-items-center w-top-2 w-right-2 w-w-12 w-h-12 w-bg-transparent w-p-0">
-                {% icon name='cross' class_name="w-w-4 w-h-4 w-text-grey-600" %}
-            </button>
+                {# Close button #}
+                <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="w-absolute w-inline-flex w-justify-center w-items-center w-top-2 w-right-2 w-w-12 w-h-12 w-bg-transparent w-p-0">
+                    {% icon name='cross' class_name="w-w-4 w-h-4 w-text-grey-600" %}
+                </button>
 
-            {# Message #}
-            {% if message_status and message_heading %}
-                {% dialog_message status=message_status heading=message_heading description=message_description %}
-            {% endif %}
+                {# Message #}
+                {% if message_status and message_heading %}
+                    {% dialog_message status=message_status heading=message_heading description=message_description %}
+                {% endif %}
 
-            <div class="w-p-8 sm:w-p-12 md:w-px-20 w-max-h-dialog w-overflow-auto w-scrollbar-thin">
-                {# Title #}
-                <h2 class="w-h1 w-relative sm:w-ml-12 md:w-ml-0 w-mt-0 w-mb-1" id="title-{{ id }}">
-                    {% if icon_name %}{% icon name=icon_name class_name="w-hidden sm:w-block w-w-5 w-h-5 w-text-primary w-absolute w-top-1/2 -w-translate-y-1/2 -w-left-10" %}{% endif %}
-                    {{ title }}
-                </h2>
+                <div class="w-p-8 sm:w-p-12 md:w-px-20 w-max-h-dialog w-overflow-auto w-scrollbar-thin">
+                    {# Title #}
+                    <h2 class="w-h1 w-relative sm:w-ml-12 md:w-ml-0 w-mt-0 w-mb-1" id="title-{{ id }}">
+                        {% if icon_name %}{% icon name=icon_name class_name="w-hidden sm:w-block w-w-5 w-h-5 w-text-primary w-absolute w-top-1/2 -w-translate-y-1/2 -w-left-10" %}{% endif %}
+                        {{ title }}
+                    </h2>
 
-                {# Subtitle #}
-                <span class="w-help-text">{{ subtitle }}</span>
+                    {# Subtitle #}
+                    <span class="w-help-text w-block w-mb-4">{{ subtitle }}</span>
 
-                {# Content #}
-                <div>
+                    {# Content #}
+                    <div>
 
-                    {% comment %}
-                This markup is intentionally left without closing tags so that the contents can be populated with child elements between dialog and enddialog
-                For the end tags please see end-dialog.html
-            {% endcomment %}
+                        {% comment %}
+        This markup is intentionally left without closing tags so that the contents can be populated with child elements between dialog and enddialog
+        For the end tags please see end-dialog.html
+    {% endcomment %}
 
 {% endwith %}
