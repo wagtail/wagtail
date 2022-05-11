@@ -1,75 +1,21 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
-import { gettext } from '../../utils/gettext';
+import {
+  submitCreationForm,
+  initPrefillTitleFromFilename,
+} from '../../includes/chooserModal';
 
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {
-    var formdata = new FormData(this);
-
-    $.ajax({
-      url: this.action,
-      data: formdata,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      dataType: 'text',
-      success: modal.loadResponseText,
-      error: function (response, textStatus, errorThrown) {
-        var message =
-          gettext(
-            'Report this error to your website administrator with the following information:',
-          ) +
-          '<br />' +
-          errorThrown +
-          ' - ' +
-          response.status;
-        $('#tab-upload', modal.body).append(
-          '<div class="help-block help-critical">' +
-            '<strong>' +
-            gettext('Server Error') +
-            ': </strong>' +
-            message +
-            '</div>',
-        );
-      },
-    });
+    submitCreationForm(modal, this, { errorContainerSelector: '#tab-upload' });
 
     return false;
   });
 
-  var fileWidget = $('#id_document-chooser-upload-file', modal.body);
-  fileWidget.on('change', function () {
-    var titleWidget = $('#id_document-chooser-upload-title', modal.body);
-    var title = titleWidget.val();
-    // do not override a title that already exists (from manual editing or previous upload)
-    if (title === '') {
-      // The file widget value example: `C:\fakepath\image.jpg`
-      var parts = fileWidget.val().split('\\');
-      var filename = parts[parts.length - 1];
-
-      // allow event handler to override filename (used for title) & provide maxLength as int to event
-      var maxTitleLength =
-        parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
-      var data = { title: filename.replace(/\.[^.]+$/, '') };
-
-      // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
-      var form = fileWidget.closest('form').get(0);
-      var event = form.dispatchEvent(
-        new CustomEvent('wagtail:documents-upload', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            data: data,
-            filename: filename,
-            maxTitleLength: maxTitleLength,
-          },
-        }),
-      );
-
-      if (!event) return; // do not set a title if event.preventDefault(); is called by handler
-
-      titleWidget.val(data.title);
-    }
+  initPrefillTitleFromFilename(modal, {
+    fileFieldSelector: '#id_document-chooser-upload-file',
+    titleFieldSelector: '#id_document-chooser-upload-title',
+    eventName: 'wagtail:documents-upload',
   });
 }
 

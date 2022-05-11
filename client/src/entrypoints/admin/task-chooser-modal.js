@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
-import { gettext } from '../../utils/gettext';
+import { submitCreationForm } from '../../includes/chooserModal';
 
 const ajaxifyTaskCreateTab = (modal) => {
   $(
@@ -13,35 +13,7 @@ const ajaxifyTaskCreateTab = (modal) => {
 
   // eslint-disable-next-line func-names
   $('form.task-create', modal.body).on('submit', function () {
-    const formdata = new FormData(this);
-
-    $.ajax({
-      url: this.action,
-      data: formdata,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      dataType: 'text',
-      success: modal.loadResponseText,
-      error(response, textStatus, errorThrown) {
-        const message =
-          gettext(
-            'Report this error to your website administrator with the following information:',
-          ) +
-          '<br />' +
-          errorThrown +
-          ' - ' +
-          response.status;
-        $('#tab-new', modal.body).append(
-          '<div class="help-block help-critical">' +
-            '<strong>' +
-            gettext('Server Error') +
-            ': </strong>' +
-            message +
-            '</div>',
-        );
-      },
-    });
+    submitCreationForm(modal, this, { errorContainerSelector: '#tab-new' });
 
     return false;
   });
