@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
+import { gettext } from '../../utils/gettext';
 
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {
@@ -15,7 +16,9 @@ function ajaxifyDocumentUploadForm(modal) {
       success: modal.loadResponseText,
       error: function (response, textStatus, errorThrown) {
         var message =
-          jsonData.error_message +
+          gettext(
+            'Report this error to your website administrator with the following information:',
+          ) +
           '<br />' +
           errorThrown +
           ' - ' +
@@ -23,7 +26,7 @@ function ajaxifyDocumentUploadForm(modal) {
         $('#tab-upload', modal.body).append(
           '<div class="help-block help-critical">' +
             '<strong>' +
-            jsonData.error_label +
+            gettext('Server Error') +
             ': </strong>' +
             message +
             '</div>',

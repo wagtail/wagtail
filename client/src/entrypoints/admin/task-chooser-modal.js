@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
+import { gettext } from '../../utils/gettext';
 
-const ajaxifyTaskCreateTab = (modal, jsonData) => {
+const ajaxifyTaskCreateTab = (modal) => {
   $(
     '#tab-new a.task-type-choice, #tab-new a.choose-different-task-type',
     modal.body,
@@ -24,7 +25,9 @@ const ajaxifyTaskCreateTab = (modal, jsonData) => {
       success: modal.loadResponseText,
       error(response, textStatus, errorThrown) {
         const message =
-          jsonData.error_message +
+          gettext(
+            'Report this error to your website administrator with the following information:',
+          ) +
           '<br />' +
           errorThrown +
           ' - ' +
@@ -32,7 +35,7 @@ const ajaxifyTaskCreateTab = (modal, jsonData) => {
         $('#tab-new', modal.body).append(
           '<div class="help-block help-critical">' +
             '<strong>' +
-            jsonData.error_label +
+            gettext('Server Error') +
             ': </strong>' +
             message +
             '</div>',
