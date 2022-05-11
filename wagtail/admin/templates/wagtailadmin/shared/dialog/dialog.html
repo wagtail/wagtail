@@ -31,14 +31,16 @@
                     </h2>
 
                     {# Subtitle #}
-                    <span class="w-help-text w-block w-mb-4">{{ subtitle }}</span>
+                    {% if subtitle %}
+                        <p class="w-help-text w-mb-4">{{ subtitle }}</p>
+                    {% endif %}
 
                     {# Content #}
                     <div>
 
-                        {% comment %}
-        This markup is intentionally left without closing tags so that the contents can be populated with child elements between dialog and enddialog
-        For the end tags please see end-dialog.html
-    {% endcomment %}
-
 {% endwith %}
+
+{% comment %}
+    This markup is intentionally left without closing div tags so that the contents can be populated with child elements between dialog and enddialog
+    For the end tags please see end-dialog.html
+{% endcomment %}
