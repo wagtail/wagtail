@@ -496,7 +496,7 @@ def register_workflow_log_actions(actions):
 
         def format_message(self, log_entry):
             try:
-                return _("Resubmitted '%(task)s'. Workflow resumed'") % {
+                return _("Resubmitted '%(task)s'. Workflow resumed") % {
                     "task": log_entry.data["workflow"]["task"]["title"],
                 }
             except (KeyError, TypeError):
