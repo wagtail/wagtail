@@ -908,6 +908,7 @@ def dialog(
     message_status=None,
     message_heading=None,
     message_description=None,
+    class_name=None,
 ):
     return {
         "icon_name": icon_name,
@@ -916,6 +917,7 @@ def dialog(
         "message_status": message_status,
         "message_heading": message_heading,
         "message_description": message_description,
+        "class_name": class_name,
     }
 
 
