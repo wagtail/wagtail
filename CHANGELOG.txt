@@ -51,7 +51,7 @@ Changelog
  * Split up linting / formatting tasks in Makefile into client and server components (Hitansh Shah)
  * Add support for embedding Instagram reels (Luis Nell)
  * Use Django’s JavaScript catalog feature to manage translatable strings in JavaScript (Karl Hobley)
- * Add a `page_description` to the Page model, to provide help text for a given page type (Kalob Taulien, Thibaud Colas, Matt Westcott)
+ * Add a `page_description` to the Page model, to provide help text for a given page type (Kalob Taulien, Thibaud Colas, Matt Westcott, Stefan Hammer)
  * Add `trimmed` attribute to all blocktrans tags, so spacing is more reliable in translated strings (Harris Lapiroff)
  * Add documentation that describes how to use `ModelAdmin` to manage `Tag`s (Abdulmajeed Isa)
  * Rename the setting `BASE_URL` (undocumented) to `WAGTAILADMIN_BASE_URL` and add to documentation, `BASE_URL` will be removed in a future release (Sandil Ranasinghe)

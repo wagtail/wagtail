@@ -69,6 +69,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, "Business child")
+        self.assertContains(response, "A lazy business child page description")
         # List should not contain page types not in the subpage_types list
         self.assertNotContains(response, "Simple page")
 
