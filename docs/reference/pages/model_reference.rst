@@ -599,7 +599,7 @@ Methods and properties
 
     .. automethod:: as_object
 
-        This method retrieves this revision as an instance of its object's class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
+        This method retrieves this revision as an instance of its object's specific class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
 
         .. versionadded:: 4.0
 
@@ -623,7 +623,11 @@ Methods and properties
 
     .. autoattribute:: content_object
 
-        This property returns the object this revision belongs to.
+        This property returns the object this revision belongs to as an instance of the base class.
+
+    .. autoattribute:: specific_content_object
+
+        This property returns the object this revision belongs to as an instance of the specific class.
 
 ``GroupPagePermission``
 =======================

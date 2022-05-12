@@ -2242,6 +2242,12 @@ class Revision(models.Model):
     def content_object(self):
         return self.base_content_type.get_object_for_this_type(pk=self.object_id)
 
+    @cached_property
+    def specific_content_object(self):
+        if isinstance(self.content_object, Page):
+            return self.content_object.specific
+        return self.content_type.get_object_for_this_type(pk=self.object_id)
+
     @property
     def page(self):
         warnings.warn(
@@ -2309,10 +2315,7 @@ class Revision(models.Model):
             )
 
     def as_object(self):
-        object = self.content_object
-        if isinstance(self, Page):
-            object = object.specific
-        return object.with_content_json(self.content)
+        return self.specific_content_object.with_content_json(self.content)
 
     def as_page_object(self):
         warnings.warn(
