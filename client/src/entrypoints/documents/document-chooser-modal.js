@@ -3,6 +3,7 @@ import { initTabs } from '../../includes/tabs';
 import {
   submitCreationForm,
   initPrefillTitleFromFilename,
+  SearchController,
 } from '../../includes/chooserModal';
 
 function ajaxifyDocumentUploadForm(modal) {
@@ -28,7 +29,7 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
 
       $('.pagination a', context).on('click', function () {
-        loadResults(this.href);
+        searchController.fetchResults(this.href);
         return false;
       });
 
@@ -46,47 +47,19 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       initTabs();
     }
 
-    var searchForm = $('form.document-search', modal.body);
-    var searchUrl = searchForm.attr('action');
-    var request;
-    function search() {
-      loadResults(searchUrl, searchForm.serialize());
-      return false;
-    }
-
-    function loadResults(url, data) {
-      var opts = {
-        url: url,
-        success: function (resultsData, status) {
-          request = null;
-          $('#search-results').html(resultsData);
-          ajaxifyLinks($('#search-results'));
-        },
-        error: function () {
-          request = null;
-        },
-      };
-      if (data) {
-        opts.data = data;
-      }
-      request = $.ajax(opts);
-    }
+    const searchController = new SearchController({
+      form: $('form.document-search', modal.body),
+      resultsContainerSelector: '#search-results',
+      onLoadResults: (context) => {
+        ajaxifyLinks(context);
+      },
+      inputDelay: 50,
+    });
+    searchController.attachSearchInput('#id_q');
+    searchController.attachSearchFilter('#collection_chooser_collection_id');
 
     ajaxifyLinks(modal.body);
     ajaxifyDocumentUploadForm(modal);
-
-    $('form.document-search', modal.body).on('submit', search);
-
-    $('#id_q').on('input', function () {
-      if (request) {
-        request.abort();
-      }
-      clearTimeout($.data(this, 'timer'));
-      var wait = setTimeout(search, 50);
-      $(this).data('timer', wait);
-    });
-
-    $('#collection_chooser_collection_id').on('change', search);
   },
   document_chosen: function (modal, jsonData) {
     modal.respond('documentChosen', jsonData.result);
