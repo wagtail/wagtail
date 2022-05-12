@@ -5,8 +5,8 @@
     {% trans 'Page Locale: ' as screen_reader_title_prefix %}
 
     {% if translations %}
-        {% blocktrans trimmed with count=page.get_translations.count asvar help_text %}
-            Translated to {{ count }} other locales
+        {% blocktrans trimmed asvar help_text %}
+            Available in {{ translations_total }} locales
         {% endblocktrans %}
     {% else %}
         {% trans 'No other translations' as help_text %}
