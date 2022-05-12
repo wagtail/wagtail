@@ -1,12 +1,14 @@
 from django import VERSION as DJANGO_VERSION
+from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.forms import Form
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
+from django.views.generic import TemplateView
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import BaseCreateView
 from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
@@ -15,6 +17,7 @@ from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
 from wagtail.models import RevisionMixin
@@ -478,3 +481,103 @@ class DeleteView(
         if hook_response is not None:
             return hook_response
         return HttpResponseRedirect(success_url)
+
+
+class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
+    edit_url_name = None
+    history_url_name = None
+    edit_label = gettext_lazy("Edit")
+    history_label = gettext_lazy("History")
+    template_name = "wagtailadmin/generic/revisions/compare.html"
+    model = None
+
+    def setup(self, request, pk, revision_id_a, revision_id_b, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = pk
+        self.revision_id_a = revision_id_a
+        self.revision_id_b = revision_id_b
+        self.object = self.get_object()
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_edit_handler(self):
+        return get_edit_handler(self.model)
+
+    def get_page_subtitle(self):
+        return str(self.object)
+
+    def get_history_url(self):
+        if self.history_url_name:
+            return reverse(self.history_url_name, args=(quote(self.object.pk),))
+
+    def get_edit_url(self):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    def _get_revision_and_heading(self, revision_id):
+        if revision_id == "live":
+            revision = self.object
+            revision_heading = _("Live")
+            return revision, revision_heading
+
+        if revision_id == "earliest":
+            revision = self.object.revisions.order_by("created_at", "id").first()
+            revision_heading = _("Earliest")
+        elif revision_id == "latest":
+            revision = self.object.revisions.order_by("created_at", "id").last()
+            revision_heading = _("Latest")
+        else:
+            revision = get_object_or_404(self.object.revisions, id=revision_id)
+            if revision:
+                revision_heading = str(revision.created_at)
+
+        if not revision:
+            raise Http404
+
+        revision = revision.as_object()
+
+        return revision, revision_heading
+
+    def _get_comparison(self, revision_a, revision_b):
+        comparison = (
+            self.get_edit_handler()
+            .get_bound_panel(instance=self.object, request=self.request, form=None)
+            .get_comparison()
+        )
+
+        result = []
+        for comp in comparison:
+            diff = comp(revision_a, revision_b)
+            if diff.has_changed():
+                result += [diff]
+
+        return result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        revision_a, revision_a_heading = self._get_revision_and_heading(
+            self.revision_id_a
+        )
+        revision_b, revision_b_heading = self._get_revision_and_heading(
+            self.revision_id_b
+        )
+        comparison = self._get_comparison(revision_a, revision_b)
+
+        context.update(
+            {
+                "object": self.object,
+                "history_label": self.history_label,
+                "edit_label": self.edit_label,
+                "history_url": self.get_history_url(),
+                "edit_url": self.get_edit_url(),
+                "revision_a": revision_a,
+                "revision_a_heading": revision_a_heading,
+                "revision_b": revision_b,
+                "revision_b_heading": revision_b_heading,
+                "comparison": comparison,
+            }
+        )
+
+        return context

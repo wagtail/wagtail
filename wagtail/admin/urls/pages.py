@@ -126,7 +126,7 @@ urlpatterns = [
     ),
     re_path(
         r"^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$",
-        revisions.revisions_compare,
+        revisions.RevisionsCompare.as_view(),
         name="revisions_compare",
     ),
     path(
