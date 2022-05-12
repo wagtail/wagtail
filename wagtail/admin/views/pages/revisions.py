@@ -1,17 +1,19 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.side_panels import PageSidePanels
+from wagtail.admin.views.generic.models import RevisionsCompareView
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
@@ -105,70 +107,25 @@ def revisions_view(request, page_id, revision_id):
     return revision_page.make_preview_request(request, preview_mode)
 
 
-@user_passes_test(user_has_any_page_permission)
-def revisions_compare(request, page_id, revision_id_a, revision_id_b):
-    page = get_object_or_404(Page, id=page_id).specific
+class RevisionsCompare(RevisionsCompareView):
+    history_label = gettext_lazy("Page history")
+    edit_label = gettext_lazy("Edit this page")
+    history_url_name = "wagtailadmin_pages:history"
+    edit_url_name = "wagtailadmin_pages:edit"
+    header_icon = "doc-empty-inverse"
 
-    # Get revision to compare from
-    if revision_id_a == "live":
-        if not page.live:
-            raise Http404
+    @method_decorator(user_passes_test(user_has_any_page_permission))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
-        revision_a = page
-        revision_a_heading = _("Live")
-    elif revision_id_a == "earliest":
-        revision_a = page.revisions.order_by("created_at", "id").first()
-        if revision_a:
-            revision_a = revision_a.as_object()
-            revision_a_heading = _("Earliest")
-        else:
-            raise Http404
-    else:
-        revision_a = get_object_or_404(page.revisions, id=revision_id_a).as_object()
-        revision_a_heading = str(
-            get_object_or_404(page.revisions, id=revision_id_a).created_at
-        )
+    def get_object(self, queryset=None):
+        return get_object_or_404(Page, id=self.pk).specific
 
-    # Get revision to compare to
-    if revision_id_b == "live":
-        if not page.live:
-            raise Http404
+    def get_edit_handler(self):
+        return self.object.get_edit_handler()
 
-        revision_b = page
-        revision_b_heading = _("Live")
-    elif revision_id_b == "latest":
-        revision_b = page.revisions.order_by("created_at", "id").last()
-        if revision_b:
-            revision_b = revision_b.as_object()
-            revision_b_heading = _("Latest")
-        else:
-            raise Http404
-    else:
-        revision_b = get_object_or_404(page.revisions, id=revision_id_b).as_object()
-        revision_b_heading = str(
-            get_object_or_404(page.revisions, id=revision_id_b).created_at
-        )
-
-    comparison = (
-        page.get_edit_handler()
-        .get_bound_panel(instance=page, request=request, form=None)
-        .get_comparison()
-    )
-    comparison = [comp(revision_a, revision_b) for comp in comparison]
-    comparison = [comp for comp in comparison if comp.has_changed()]
-
-    return TemplateResponse(
-        request,
-        "wagtailadmin/pages/revisions/compare.html",
-        {
-            "page": page,
-            "revision_a_heading": revision_a_heading,
-            "revision_a": revision_a,
-            "revision_b_heading": revision_b_heading,
-            "revision_b": revision_b,
-            "comparison": comparison,
-        },
-    )
+    def get_page_subtitle(self):
+        return self.object.get_admin_display_title()
 
 
 def revisions_unschedule(request, page_id, revision_id):

@@ -1,17 +1,17 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page_subtitle %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Comparing" as comparing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=comparing_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=comparing_str subtitle=page_subtitle icon=header_icon %}
 
     <div class="nice-padding">
 
         <p>
-            <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small">{% trans "Page history" %}</a>
-            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit this page" %}</a>
+            <a href="{{ history_url }}" class="button button-small">{{ history_label|capfirst }}</a>
+            <a href="{{ edit_url }}" class="button button-small button-secondary">{{ edit_label|capfirst }}</a>
         </p>
 
 
