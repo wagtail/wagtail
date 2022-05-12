@@ -330,11 +330,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
-        Returns a ``Rendition*`` instance with a ``file`` field value (an
+        Returns a ``Rendition`` instance with a ``file`` field value (an
         image) reflecting the supplied ``filter`` value and focal point values
         from this object.
 
-        *If using custom image models, an instance of the custom rendition
+        Note: If using custom image models, an instance of the custom rendition
         model will be returned.
         """
         if isinstance(filter, str):
@@ -365,14 +365,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
         """
-        Returns an existing ``Rendition*`` instance with a ``file`` field value
+        Returns an existing ``Rendition`` instance with a ``file`` field value
         (an image) reflecting the supplied ``filter`` value and focal point
         values from this object.
 
         If no such rendition exists, a ``DoesNotExist`` error is raised for the
         relevant model.
 
-        *If using custom image models, an instance of the custom rendition
+        Note: If using custom image models, an instance of the custom rendition
         model will be returned.
         """
 
@@ -408,14 +408,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def create_rendition(self, filter: "Filter") -> "AbstractRendition":
         """
-        Creates and returns a ``Rendition*`` instance with a ``file`` field
+        Creates and returns a ``Rendition`` instance with a ``file`` field
         value (an image) reflecting the supplied ``filter`` value and focal
         point values from this object.
 
         This method is usually called by ``Image.get_rendition()``, after first
         checking that a suitable rendition does not already exist.
 
-        *If using custom image models, an instance of the custom rendition
+        Note: If using custom image models, an instance of the custom rendition
         model will be returned.
         """
         # Because of unique constraints applied to the model, we use
