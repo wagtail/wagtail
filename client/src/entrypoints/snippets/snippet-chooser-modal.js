@@ -2,20 +2,22 @@ import $ from 'jquery';
 import { SearchController } from '../../includes/chooserModal';
 
 window.SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  choose: function (modal) {
+  choose: (modal) => {
+    let searchController;
+
     function ajaxifyLinks(context) {
-      $('a.snippet-choice', modal.body).on('click', function () {
-        modal.loadUrl(this.href);
+      $('a.snippet-choice', modal.body).on('click', (event) => {
+        modal.loadUrl(event.currentTarget.href);
         return false;
       });
 
-      $('.pagination a', context).on('click', function () {
-        searchController.fetchResults(this.href);
+      $('.pagination a', context).on('click', (event) => {
+        searchController.fetchResults(event.currentTarget.href);
         return false;
       });
     }
 
-    const searchController = new SearchController({
+    searchController = new SearchController({
       form: $('form.snippet-search', modal.body),
       resultsContainerSelector: '#search-results',
       onLoadResults: (context) => {
@@ -27,7 +29,7 @@ window.SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     ajaxifyLinks(modal.body);
   },
-  chosen: function (modal, jsonData) {
+  chosen: (modal, jsonData) => {
     modal.respond('snippetChosen', jsonData.result);
     modal.close();
   },

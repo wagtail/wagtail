@@ -135,12 +135,7 @@ module.exports = {
       globals: { $: 'readonly' },
     },
     {
-      files: [
-        'wagtail/**/**',
-        'client/src/entrypoints/documents/document-chooser-modal.js',
-        'client/src/entrypoints/images/image-chooser-modal.js',
-        'client/src/entrypoints/snippets/snippet-chooser-modal.js',
-      ],
+      files: ['wagtail/**/**'],
       globals: {
         $: 'readonly',
         addMessage: 'readonly',
