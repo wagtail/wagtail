@@ -1,5 +1,7 @@
-SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  choose: function (modal, jsonData) {
+import $ from 'jquery';
+
+window.SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+  choose: function (modal) {
     function ajaxifyLinks(context) {
       $('a.snippet-choice', modal.body).on('click', function () {
         modal.loadUrl(this.href);

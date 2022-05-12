@@ -116,6 +116,7 @@ module.exports = {
         'wagtail/**/**',
         'client/src/entrypoints/documents/document-chooser-modal.js',
         'client/src/entrypoints/images/image-chooser-modal.js',
+        'client/src/entrypoints/snippets/snippet-chooser-modal.js',
       ],
       globals: {
         $: 'readonly',
