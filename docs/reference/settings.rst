@@ -51,7 +51,7 @@ ADMIN BASE URL
 
 .. code-block:: python
 
-    WAGTAILADMIN_BASE_URL = 'http://example.com/'
+    WAGTAILADMIN_BASE_URL = 'http://example.com'
 
 This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
 
