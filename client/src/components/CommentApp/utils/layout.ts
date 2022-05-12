@@ -51,15 +51,20 @@ export class LayoutController {
       return;
     }
 
-    const currentNodeTop = annotation
-      .getAnchorNode(commentId === this.pinnedComment)
-      .getBoundingClientRect().top;
+    const currentNode = annotation.getAnchorNode(
+      commentId === this.pinnedComment,
+    );
+    let currentNodeTop = currentNode.getBoundingClientRect().top;
+    // adjust currentNodeTop for scroll positions of all ancestor elements
+    let parent = currentNode.parentElement;
+    while (parent) {
+      currentNodeTop += parent.scrollTop;
+      parent = parent.parentElement;
+    }
 
     this.commentDesiredPositions.set(
       commentId,
-      currentNodeTop !== 0
-        ? currentNodeTop + document.documentElement.scrollTop + OFFSET
-        : 0,
+      currentNodeTop !== 0 ? currentNodeTop + OFFSET : 0,
     );
   }
 
