@@ -105,6 +105,10 @@ select,
   }
 }
 
+.tagit {
+  background-color: $color-white;
+}
+
 @media (forced-colors: $media-forced-colours) {
   .tagit,
   .field-content .tagit .tagit-choice,

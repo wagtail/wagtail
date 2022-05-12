@@ -601,7 +601,7 @@ button.ui-button::-moz-focus-inner {
 	height: 100%;
 }
 .ui-progressbar .ui-progressbar-overlay {
-	background: url("images/animated-overlay.gif");
+	/* background: url("images/animated-overlay.gif"); */
 	height: 100%;
 	filter: alpha(opacity=25);
 	opacity: 0.25;
@@ -798,7 +798,7 @@ body .ui-tooltip {
 }
 .ui-widget-content {
 	border: 1px solid #d8d8d8;
-	background: #ffffff url("images/ui-bg_flat_100_ffffff_40x100.png") 50% 50% repeat-x;
+	/* background: #ffffff url("images/ui-bg_flat_100_ffffff_40x100.png") 50% 50% repeat-x; */
 	color: #222222;
 }
 .ui-widget-content a {
@@ -806,7 +806,7 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	border: 1px solid #246060;
-	background: #246060 url("images/ui-bg_flat_100_246060_40x100.png") 50% 50% repeat-x;
+	/* background: #246060 url("images/ui-bg_flat_100_246060_40x100.png") 50% 50% repeat-x; */
 	color: #ffffff;
 	font-weight: bold;
 }
@@ -820,7 +820,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #d3d3d3;
-	background: #ffffff url("images/ui-bg_flat_100_ffffff_40x100.png") 50% 50% repeat-x;
+	/* background: #ffffff url("images/ui-bg_flat_100_ffffff_40x100.png") 50% 50% repeat-x; */
 	font-weight: normal;
 	color: #555555;
 }
@@ -837,7 +837,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #49c0c1;
-	background: #49c0c1 url("images/ui-bg_flat_100_49c0c1_40x100.png") 50% 50% repeat-x;
+	/* background: #49c0c1 url("images/ui-bg_flat_100_49c0c1_40x100.png") 50% 50% repeat-x; */
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -856,7 +856,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #aaaaaa;
-	background: #49c0c1 url("images/ui-bg_flat_65_49c0c1_40x100.png") 50% 50% repeat-x;
+	/* background: #49c0c1 url("images/ui-bg_flat_65_49c0c1_40x100.png") 50% 50% repeat-x; */
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -873,7 +873,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #e8f8f9;
-	background: #e8f8f9 url("images/ui-bg_flat_100_e8f8f9_40x100.png") 50% 50% repeat-x;
+	/* background: #e8f8f9 url("images/ui-bg_flat_100_e8f8f9_40x100.png") 50% 50% repeat-x; */
 	color: #363636;
 }
 .ui-state-highlight a,
@@ -885,7 +885,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #f7474e;
-	background: #f7474e url("images/ui-bg_flat_100_f7474e_40x100.png") 50% 50% repeat-x;
+	/* background: #f7474e url("images/ui-bg_flat_100_f7474e_40x100.png") 50% 50% repeat-x; */
 	color: #ffffff;
 }
 .ui-state-error a,
@@ -929,6 +929,7 @@ body .ui-tooltip {
 	width: 16px;
 	height: 16px;
 }
+/*
 .ui-icon,
 .ui-widget-content .ui-icon {
 	background-image: url("images/ui-icons_222222_256x240.png");
@@ -953,6 +954,7 @@ body .ui-tooltip {
 .ui-state-error-text .ui-icon {
 	background-image: url("images/ui-icons_ffffff_256x240.png");
 }
+*/
 
 /* positioning */
 .ui-icon-blank { background-position: 16px 16px; }
@@ -1164,14 +1166,14 @@ body .ui-tooltip {
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
+	/* background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x; */
 	opacity: .3;
 	filter: Alpha(Opacity=30);
 }
 .ui-widget-shadow {
 	margin: -8px 0 0 -8px;
 	padding: 8px;
-	background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
+	/* background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x; */
 	opacity: .3;
 	filter: Alpha(Opacity=30);
 	border-radius: 8px;

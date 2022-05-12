@@ -27,6 +27,7 @@ Changelog
  * Add `prefetch_renditions` method to `ImageQueryset` for performance optimisation on image listings (Tidiane Dia, Karl Hobley)
  * Add ability to define a custom `get_field_clean_name` method when defining `FormField` models that extend `AbstractFormField` (LB (Ben) Johnston)
  * Migrate Home (Dashboard) view to use generic Wagtail class based view (LB (Ben) Johnston)
+ * Combine most of Wagtail’s stylesheets into the global `core.css` file (Thibaud Colas)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

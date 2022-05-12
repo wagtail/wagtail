@@ -365,9 +365,7 @@ class ModelAdmin(WagtailRegisterable):
         return self.form_fields_exclude
 
     def get_index_view_extra_css(self):
-        css = ["wagtailmodeladmin/css/index.css"]
-        css.extend(self.index_view_extra_css)
-        return css
+        return self.index_view_extra_css
 
     def get_index_view_extra_js(self):
         return self.index_view_extra_js
