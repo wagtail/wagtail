@@ -1,12 +1,4 @@
-@import '../../../../../../client/scss/settings';
-@import '../../../../../../client/scss/tools';
-
-h1 {
-  font-weight: 300;
-  font-size: 2.2em;
-}
-
-header {
+.homepage header {
   @apply w-text-primary;
 
   display: flex;
@@ -34,10 +26,6 @@ header {
     font-size: 1.3em;
     font-weight: 600;
   }
-}
-
-.panel {
-  margin-bottom: 4em;
 }
 
 .summary {
@@ -148,11 +136,11 @@ header {
   }
 }
 
-.object.collapsible .object-layout .title-wrapper::before {
+.homepage .object.collapsible .object-layout .title-wrapper::before {
   display: none;
 }
 
-.object-layout {
+.homepage .object-layout {
   // enforce flex display at all screen sizes
   display: flex;
   flex-flow: row-reverse wrap;
@@ -175,6 +163,6 @@ header {
   }
 }
 
-.task .icon {
+.homepage .task .icon {
   margin-inline-start: -1.75em; // pull out the icon so it aligns with no-icon text
 }

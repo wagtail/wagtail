@@ -2,14 +2,6 @@
 {% load wagtailadmin_tags wagtailcore_tags i18n %}
 {% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
 
-
-{% block extra_css %}
-    {{ block.super }}
-
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/404.css' %}" />
-{% endblock %}
-
-
 {% block furniture %}
     <main class="page404__bg">
         <div class="w-w-full w-h-full w-max-w-6xl w-mx-auto w-flex w-items-center w-justify-center">

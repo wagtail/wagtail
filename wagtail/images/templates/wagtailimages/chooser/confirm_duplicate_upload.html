@@ -1,9 +1,5 @@
 {% load i18n wagtailadmin_tags wagtailimages_tags %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/chooser-duplicate-upload.css' %}" type="text/css" />
-{% endblock %}
-
 <section id="tab-upload" class="duplicate-upload w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-upload">
     <p class="help-block help-warning">
         {% icon name='warning' %}
