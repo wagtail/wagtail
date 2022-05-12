@@ -9,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import path, reverse
+from django.urls import path, re_path, reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
@@ -21,6 +21,8 @@ from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
+from wagtail.admin.views.generic.models import RevisionsCompareView
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
@@ -536,6 +538,7 @@ class History(ReportView):
     view_name = "history"
     edit_url_name = None
     revisions_revert_url_name = None
+    revisions_compare_url_name = None
     any_permission_required = ["add", "change", "delete"]
     template_name = "wagtailsnippets/snippets/history.html"
     title = gettext_lazy("Snippet history")
@@ -570,6 +573,23 @@ class History(ReportView):
         )
 
 
+class RevisionsCompare(PermissionCheckedMixin, RevisionsCompareView):
+    permission_required = "change"
+    header_icon = "snippet"
+
+    @property
+    def edit_label(self):
+        return _("Edit this {model_name}").format(
+            model_name=self.model._meta.verbose_name
+        )
+
+    @property
+    def history_label(self):
+        return _("{model_name} history").format(
+            model_name=self.model._meta.verbose_name
+        )
+
+
 class SnippetViewSet(ViewSet):
     index_view_class = List
     add_view_class = Create
@@ -577,6 +597,7 @@ class SnippetViewSet(ViewSet):
     delete_view_class = Delete
     usage_view_class = Usage
     history_view_class = History
+    revisions_compare_view_class = RevisionsCompare
 
     @property
     def revisions_revert_view_class(self):
@@ -660,6 +681,7 @@ class SnippetViewSet(ViewSet):
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
+            revisions_compare_url_name=self.get_url_name("revisions_compare"),
         )
 
     @property
@@ -672,6 +694,15 @@ class SnippetViewSet(ViewSet):
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
+        )
+
+    @property
+    def revisions_compare(self):
+        return self.revisions_compare_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            edit_url_name=self.get_url_name("edit"),
+            history_url_name=self.get_url_name("history"),
         )
 
     @property
@@ -716,6 +747,11 @@ class SnippetViewSet(ViewSet):
                     "history/<str:pk>/revisions/<int:revision_id>/revert/",
                     self.revisions_revert,
                     name="revisions_revert",
+                ),
+                re_path(
+                    r"history/(?P<pk>.+)/revisions/compare/(?P<revision_id_a>live|earliest|\d+)\.\.\.(?P<revision_id_b>live|latest|\d+)/$",
+                    self.revisions_compare,
+                    name="revisions_compare",
                 ),
             ]
 
