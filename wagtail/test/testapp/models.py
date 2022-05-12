@@ -948,7 +948,15 @@ register_snippet(RevisableModel)
 
 
 class RevisableChildModel(RevisableModel):
-    pass
+    secret_text = models.TextField(blank=True, default="")
+
+    panels = [
+        FieldPanel("text"),
+        FieldPanel("secret_text", permission="superuser"),
+    ]
+
+
+register_snippet(RevisableChildModel)
 
 
 class RevisableGrandChildModel(RevisableChildModel):

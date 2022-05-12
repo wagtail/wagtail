@@ -2,17 +2,23 @@
 
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     {% if revision_enabled and instance.revision %}
-        <span class="report__results--text">{{ value }}</span>
-        {% if instance.revision == object.get_latest_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
-        {% if instance.content_changed %}
+        {% with revision=instance.revision latest_revision=object.get_latest_revision previous_revision=instance.revision.get_previous %}
+            <span class="report__results--text">{{ value }}</span>
+            {% if revision == latest_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
             <ul class="actions">
-                {% if instance.revision == object.get_latest_revision %}
+                {% if revision == latest_revision %}
                     <li><a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
                 {% else %}
-                    <li><a href="{% url view.revisions_revert_url_name object.pk instance.revision.pk %}" class="button button-small button-secondary">{% trans 'Review this version' %}</a></li>
+                    <li><a href="{% url view.revisions_revert_url_name object.pk revision.pk %}" class="button button-small button-secondary">{% trans 'Review this version' %}</a></li>
+                {% endif %}
+                {% if previous_revision %}
+                    <li><a href="{% url view.revisions_compare_url_name object.pk previous_revision.pk revision.pk %}" class="button button-small button-secondary">{% trans 'Compare with previous version' %}</a></li>
+                {% endif %}
+                {% if revision != latest_revision %}
+                    <li><a href="{% url view.revisions_compare_url_name object.pk revision.pk 'latest' %}" class="button button-small button-secondary">{% trans 'Compare with current version' %}</a></li>
                 {% endif %}
             </ul>
-        {% endif %}
+        {% endwith %}
     {% else %}
         {{ value }}
     {% endif %}
