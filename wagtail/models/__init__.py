@@ -1509,6 +1509,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # make sure that page_description is actually a string rather than a model field
         if isinstance(description, str):
             return description
+        elif getattr(description, "_delegate_text", None):
+            # description is a lazy object (e.g. the result of gettext_lazy())
+            return str(description)
         else:
             return ""
 
