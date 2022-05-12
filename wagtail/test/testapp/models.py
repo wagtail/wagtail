@@ -11,6 +11,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
+from django.utils.functional import lazystr
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -976,6 +977,7 @@ class BusinessChild(Page):
 
     subpage_types = []
     parent_page_types = ["tests.BusinessIndex", BusinessSubIndex]
+    page_description = lazystr("A lazy business child page description")
 
 
 class BusinessNowherePage(Page):
