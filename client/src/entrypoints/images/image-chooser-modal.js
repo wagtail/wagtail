@@ -7,9 +7,9 @@ import {
 } from '../../includes/chooserModal';
 
 function ajaxifyImageUploadForm(modal) {
-  $('form.image-upload', modal.body).on('submit', function () {
+  $('form.image-upload', modal.body).on('submit', (event) => {
     if (!$('#id_image-chooser-upload-title', modal.body).val()) {
-      var li = $('#id_image-chooser-upload-title', modal.body).closest('li');
+      const li = $('#id_image-chooser-upload-title', modal.body).closest('li');
       if (!li.hasClass('error')) {
         li.addClass('error');
         $('#id_image-chooser-upload-title', modal.body)
@@ -18,9 +18,10 @@ function ajaxifyImageUploadForm(modal) {
             '<p class="error-message"><span>This field is required.</span></p>',
           );
       }
+      // eslint-disable-next-line no-undef
       setTimeout(cancelSpinner, 500);
     } else {
-      submitCreationForm(modal, this, {
+      submitCreationForm(modal, event.currentTarget, {
         errorContainerSelector: '#tab-upload',
       });
     }
@@ -36,20 +37,22 @@ function ajaxifyImageUploadForm(modal) {
 }
 
 window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  chooser: function (modal, jsonData) {
+  chooser: (modal) => {
+    let searchController;
+
     function ajaxifyLinks(context) {
-      $('.listing a', context).on('click', function () {
-        modal.loadUrl(this.href);
+      $('.listing a', context).on('click', (event) => {
+        modal.loadUrl(event.currentTarget.href);
         return false;
       });
 
-      $('.pagination a', context).on('click', function () {
-        searchController.fetchResults(this.href);
+      $('.pagination a', context).on('click', (event) => {
+        searchController.fetchResults(event.currentTarget.href);
         return false;
       });
     }
 
-    const searchController = new SearchController({
+    searchController = new SearchController({
       form: $('form.image-search', modal.body),
       resultsContainerSelector: '#image-results',
       onLoadResults: (context) => {
@@ -62,10 +65,10 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     ajaxifyLinks(modal.body);
     ajaxifyImageUploadForm(modal);
 
-    $('a.suggested-tag').on('click', function () {
+    $('a.suggested-tag').on('click', (event) => {
       $('#id_q').val('');
       searchController.search({
-        tag: $(this).text(),
+        tag: $(event.currentTarget).text(),
         collection_id: $('#collection_chooser_collection_id').val(),
       });
       return false;
@@ -74,29 +77,31 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     // Reinitialize tabs to hook up tab event listeners in the modal
     initTabs();
   },
-  image_chosen: function (modal, jsonData) {
+  image_chosen: (modal, jsonData) => {
     modal.respond('imageChosen', jsonData.result);
     modal.close();
   },
-  duplicate_found: function (modal, jsonData) {
+  duplicate_found: (modal, jsonData) => {
     $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
-    $('.use-new-image', modal.body).on('click', function () {
-      modal.loadUrl(this.href);
+    $('.use-new-image', modal.body).on('click', (event) => {
+      modal.loadUrl(event.currentTarget.href);
       return false;
     });
-    $('.use-existing-image', modal.body).on('click', function () {
-      var form = $(this).closest('form');
+    $('.use-existing-image', modal.body).on('click', (event) => {
+      var form = $(event.currentTarget).closest('form');
       var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
-      modal.postForm(this.href, { csrfmiddlewaretoken: CSRFToken });
+      modal.postForm(event.currentTarget.href, {
+        csrfmiddlewaretoken: CSRFToken,
+      });
       return false;
     });
   },
-  reshow_upload_form: function (modal, jsonData) {
+  reshow_upload_form: (modal, jsonData) => {
     $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
     initTabs();
     ajaxifyImageUploadForm(modal);
   },
-  select_format: function (modal) {
+  select_format: (modal) => {
     var decorativeImage = document.querySelector(
       '#id_image-chooser-insertion-image_is_decorative',
     );
@@ -106,20 +111,6 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     var altTextLabel = document.querySelector(
       '[for="id_image-chooser-insertion-alt_text"]',
     );
-
-    if (decorativeImage.checked) {
-      disableAltText();
-    } else {
-      enableAltText();
-    }
-
-    decorativeImage.addEventListener('change', function (event) {
-      if (event.target.checked) {
-        disableAltText();
-      } else {
-        enableAltText();
-      }
-    });
 
     function disableAltText() {
       altText.setAttribute('disabled', 'disabled');
@@ -131,8 +122,27 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       altTextLabel.classList.add('required');
     }
 
-    $('form', modal.body).on('submit', function () {
-      $.post(this.action, $(this).serialize(), modal.loadResponseText, 'text');
+    if (decorativeImage.checked) {
+      disableAltText();
+    } else {
+      enableAltText();
+    }
+
+    decorativeImage.addEventListener('change', (event) => {
+      if (event.target.checked) {
+        disableAltText();
+      } else {
+        enableAltText();
+      }
+    });
+
+    $('form', modal.body).on('submit', (event) => {
+      $.post(
+        event.currentTarget.action,
+        $(event.currentTarget).serialize(),
+        modal.loadResponseText,
+        'text',
+      );
 
       return false;
     });

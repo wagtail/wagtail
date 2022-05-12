@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
-import { submitCreationForm } from '../../includes/chooserModal';
+import {
+  submitCreationForm,
+  SearchController,
+} from '../../includes/chooserModal';
 
 const ajaxifyTaskCreateTab = (modal) => {
   $(
@@ -32,7 +35,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       // eslint-disable-next-line func-names
       $('.pagination a', context).on('click', function () {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        fetchResults(this.href);
+        searchController.fetchResults(this.href);
         return false;
       });
 
@@ -40,57 +43,19 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       initTabs();
     }
 
-    const searchForm = $('form.task-search', modal.body);
-    const searchUrl = searchForm.attr('action');
-    let request;
-
-    function fetchResults(url, requestData) {
-      var opts = {
-        url: url,
-        success(data) {
-          request = null;
-          $('#search-results').html(data);
-          ajaxifyLinks($('#search-results'));
-        },
-        error() {
-          request = null;
-        },
-      };
-      if (requestData) {
-        opts.data = requestData;
-      }
-      request = $.ajax(opts);
-    }
-
-    function search() {
-      fetchResults(searchUrl, searchForm.serialize());
-      return false;
-    }
+    const searchController = new SearchController({
+      form: $('form.task-search', modal.body),
+      resultsContainerSelector: '#search-results',
+      onLoadResults: (context) => {
+        ajaxifyLinks(context);
+      },
+      inputDelay: 50,
+    });
+    searchController.attachSearchInput('#id_q');
+    searchController.attachSearchFilter('#id_task_type');
 
     ajaxifyLinks(modal.body);
     ajaxifyTaskCreateTab(modal, jsonData);
-
-    $('form.task-search', modal.body).on('submit', search);
-
-    // eslint-disable-next-line func-names
-    $('#id_q').on('input', function () {
-      if (request) {
-        request.abort();
-      }
-      clearTimeout($.data(this, 'timer'));
-      const wait = setTimeout(search, 50);
-      $(this).data('timer', wait);
-    });
-
-    // eslint-disable-next-line func-names
-    $('#id_task_type').on('change', function () {
-      if (request) {
-        request.abort();
-      }
-      clearTimeout($.data(this, 'timer'));
-      const wait = setTimeout(search, 50);
-      $(this).data('timer', wait);
-    });
   },
   task_chosen(modal, jsonData) {
     modal.respond('taskChosen', jsonData.result);
