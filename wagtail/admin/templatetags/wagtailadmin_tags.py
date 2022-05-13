@@ -943,7 +943,8 @@ def dialog(
         "class_name": class_name,
     }
 
-    context.update(**message_status_type[message_status])
+    if message_status:
+        context.update(**message_status_type[message_status])
 
     return context
 
