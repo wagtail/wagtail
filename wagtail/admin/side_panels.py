@@ -68,6 +68,8 @@ class StatusSidePanel(BaseSidePanel):
                         .select_related("locale")
                         if user_perms.for_page(translation).can_edit()
                     ],
+                    # The sum of translated pages plus 1 to account for the current page
+                    "translations_total": self.page.get_translations().count() + 1,
                 }
             )
 
