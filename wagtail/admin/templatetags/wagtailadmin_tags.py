@@ -80,8 +80,7 @@ def explorer_breadcrumb(
         "current_page": page,
         "page_perms": page_perms,
         "use_next_template": use_next_template,
-        "trailing_breadcrumb_title": trailing_breadcrumb_title,
-        # Only used in collapsible breadcrumb templates
+        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
     }
 
 
@@ -895,47 +894,24 @@ def component(context, obj, fallback_render_method=False):
     return obj.render_html(context)
 
 
-"""
- Dialog tag - to be used with its corresponding {% enddialog %} tag with dialog content markup nested between
-"""
-
-
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog.html")
 def dialog(
-    icon_name,
     title,
+    icon_name=None,
     subtitle=None,
     message_status=None,
     message_heading=None,
     message_description=None,
     class_name=None,
 ):
-    return {
-        "icon_name": icon_name,
-        "title": title,
-        "subtitle": subtitle,
-        "message_status": message_status,
-        "message_heading": message_heading,
-        "message_description": message_description,
-        "class_name": class_name,
-    }
+    """
+    Dialog tag - to be used with its corresponding {% enddialog %} tag with dialog content markup nested between
+    """
+    if not title:
+        raise ValueError("You must supply a title")
 
-
-# Closing tag for dialog tag {% enddialog %}
-@register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
-def enddialog():
-    return
-
-
-# Optional message for the top of the dialog component
-@register.inclusion_tag("wagtailadmin/shared/dialog/dialog-message.html")
-def dialog_message(status=None, heading=None, description=None):
-    if not status:
-        raise ValueError(
-            "You must supply a status type of info, warning, critical or success"
-        )
-
-    status_type = {
+    # Used for determining which icon/colors the message will use
+    message_status_type = {
         "info": {
             "icon_name": "info-circle",
             "background_color": "w-bg-info-50",
@@ -957,15 +933,28 @@ def dialog_message(status=None, heading=None, description=None):
             "background_color": "w-bg-positive-50",
         },
     }
-    return {
-        "status": status,
-        "heading": heading,
-        "description": description,
-        **status_type[status],
+
+    context = {
+        "icon_name": icon_name,
+        "title": title,
+        "subtitle": subtitle,
+        "message_heading": message_heading,
+        "message_description": message_description,
+        "class_name": class_name,
     }
 
+    context.update(**message_status_type[message_status])
 
-# Button used to open dialog's
+    return context
+
+
+# Closing tag for dialog tag {% enddialog %}
+@register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
+def enddialog():
+    return
+
+
+# Button used to open dialogs
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
 def dialog_toggle(dialog_title, class_name=None, text=None):
     if not dialog_title:
@@ -974,6 +963,6 @@ def dialog_toggle(dialog_title, class_name=None, text=None):
     return {
         "class_name": class_name,
         "text": text,
-        "dialog_title": dialog_title
-        # Must match the title of the dialog you are toggling
+        # dialog_title must match the title of the dialog you are toggling
+        "dialog_title": dialog_title,
     }
