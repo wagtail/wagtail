@@ -19,9 +19,9 @@
                 </button>
 
                 {# Message #}
-                {% if message_status and message_heading %}
-                    <div class="dialog-{{ message_status }} {{ message_background_color }} w-flex w-items-center w-p-5 w-space-x-2.5">
-                        {% with icon_classes="w-w-5 w-h-5 w-flex-shrink-0 " %}
+                {% if message_heading and message_icon_name %}
+                    <div class="dialog-{{ message_status }} {{ message_bg_color }} w-flex w-items-center w-p-5 w-space-x-2.5">
+                        {% with message_icon_classes="w-w-5 w-h-5 w-flex-shrink-0 " %}
                             {% if message_icon_color %}
                                 {% icon name=message_icon_name class_name=message_icon_classes|add:message_icon_color %}
                             {% else %}
@@ -30,7 +30,7 @@
                         {% endwith %}
                         <div class="w-text-grey-600 w-pr-8">
                             <strong class="w-text-14 w-text-grey-600">{{ message_heading }}</strong>
-                            {% if description %}<p class="w-text-14 w-mb-0 w-text-grey-600 ">{{ message_description }}</p>{% endif %}
+                            {% if message_description %}<p class="w-text-14 w-mb-0 w-text-grey-600 ">{{ message_description }}</p>{% endif %}
                         </div>
                     </div>
                 {% endif %}
