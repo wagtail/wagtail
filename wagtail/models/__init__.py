@@ -421,6 +421,26 @@ class DraftStateMixin(models.Model):
     class Meta:
         abstract = True
 
+    @classmethod
+    def check(cls, **kwargs):
+        return [
+            *super().check(**kwargs),
+            *cls._check_revision_mixin(),
+        ]
+
+    @classmethod
+    def _check_revision_mixin(cls):
+        if RevisionMixin not in cls.mro():
+            return [
+                checks.Error(
+                    "DraftStateMixin requires RevisionMixin to be applied.",
+                    hint="Add RevisionMixin to the model's base classes before DraftStateMixin.",
+                    obj=cls,
+                    id="wagtail.EXXX",
+                ),
+            ]
+        return []
+
 
 class AbstractPage(
     RevisionMixin, DraftStateMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node
