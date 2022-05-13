@@ -16,7 +16,11 @@
                 {# Message #}
                 {% if message_heading and message_icon_name %}
                     <div class="dialog__message dialog__message--{{ message_status }}">
-                        {% icon name=message_icon_name class_name="dialog__message-icon "|add:message_icon_color %}
+                        {% if message_icon_color %}
+                            {% icon name=message_icon_name class_name="dialog__message-icon "|add:message_icon_color %}
+                        {% else %}
+                            {% icon name=message_icon_name class_name="dialog__message-icon" %}
+                        {% endif %}
                         <div class="dialog__message-header">
                             <strong class="dialog__message-heading">{{ message_heading }}</strong>
                             {% if message_description %}<p class="dialog__message-description ">{{ message_description }}</p>{% endif %}
