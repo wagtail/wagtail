@@ -9,6 +9,7 @@ Changelog
  * Maintenance: Update djhtml (html formatting) library to v 1.5.2 (Loveth Omokaro)
  * Maintenance: Re-enable `strictPropertyInitialization` in tsconfig (Thibaud Colas)
  * Maintenance: Refactor accessibility checker userbar item (Albina Starykova)
+ * Maintenance: Removed unused `Page.get_static_site_paths` method (Yosr Karoui)
 
 
 4.2 (xx.xx.xxxx) - IN DEVELOPMENT

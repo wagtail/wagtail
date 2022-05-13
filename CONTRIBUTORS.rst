@@ -685,6 +685,7 @@ Contributors
 * Nick Lee
 * Beniamin Bucur
 * Ananjan-R
+* Yosr Karoui
 
 Translators
 ===========
