@@ -932,9 +932,11 @@ def dialog(
         "subtitle": subtitle,
         "message_heading": message_heading,
         "message_description": message_description,
+        "message_status": message_status,
         "class_name": class_name,
     }
 
+    # If there is a message status then add the context for that message type
     if message_status:
         context.update(**message_status_type[message_status])
 
