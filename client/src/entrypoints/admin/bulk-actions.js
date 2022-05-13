@@ -15,6 +15,7 @@ const checkedState = {
   numObjects: 0,
   selectAllInListing: false,
   shouldShowAllInListingText: true,
+  prevCheckedObject: null,
 };
 
 /**
@@ -72,6 +73,42 @@ function onSelectAllChange(e) {
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
   } else {
     toggleMoreActionsDropdownBtn(false);
+  }
+}
+
+/**
+ * Event listener for clicking individual checkbox and checking if shift key is pressed
+ *
+ * @param {Event} event
+ */
+function onClickIndividualCheckbox(event) {
+  if (event.shiftKey && checkedState.prevCheckedObject) {
+    const individualCheckboxList = [
+      ...document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT),
+    ];
+    const prevCheckedObjectIndex = individualCheckboxList.findIndex(
+      (el) => el.dataset.objectId === checkedState.prevCheckedObject,
+    );
+    const shiftClickedObjectIndex = individualCheckboxList.findIndex(
+      (el) => el.dataset.objectId === event.target.dataset.objectId,
+    );
+
+    const startingIndex =
+      (prevCheckedObjectIndex > shiftClickedObjectIndex
+        ? shiftClickedObjectIndex
+        : prevCheckedObjectIndex) + 1;
+    const endingIndex =
+      (prevCheckedObjectIndex <= shiftClickedObjectIndex
+        ? shiftClickedObjectIndex
+        : prevCheckedObjectIndex) - 1;
+
+    for (let i = startingIndex; i <= endingIndex; i++) {
+      const changeEvent = new Event('change');
+      individualCheckboxList[i].checked =
+        individualCheckboxList[prevCheckedObjectIndex].checked;
+      individualCheckboxList[i].dispatchEvent(changeEvent);
+    }
+    checkedState.prevCheckedObject = event.target.dataset.objectId;
   }
 }
 
@@ -146,6 +183,9 @@ function onSelectIndividualCheckbox(e) {
     document.querySelector(BULK_ACTION_NUM_OBJECTS).textContent =
       numObjectsSelected;
   }
+
+  // Updating previously checked object
+  checkedState.prevCheckedObject = e.target.dataset.objectId;
 }
 
 /**
@@ -192,6 +232,7 @@ function addBulkActionListeners() {
   document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
     checkedState.numObjects++;
     el.addEventListener('change', onSelectIndividualCheckbox);
+    el.addEventListener('click', onClickIndividualCheckbox);
   });
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
     el.addEventListener('change', onSelectAllChange);
