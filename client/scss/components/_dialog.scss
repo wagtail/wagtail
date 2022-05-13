@@ -1,0 +1,43 @@
+.dialog {
+  @apply w-fixed w-inset-0 w-z-dialog w-flex aria-hidden:w-hidden w-p-4;
+
+  &__overlay {
+    @apply w-fixed w-inset-0 w-bg-black/40;
+  }
+
+  &__box {
+    @apply w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow w-rounded-md w-overflow-hidden w-animate-fade-in;
+  }
+
+  &__close-button {
+    @apply w-absolute w-inline-flex w-justify-center w-items-center w-top-2 w-right-2 w-w-12 w-h-12 w-bg-transparent w-p-0;
+  }
+
+  &__close-icon {
+    @apply w-w-4 w-h-4 w-text-grey-600;
+  }
+
+  &__message {
+    @apply w-flex w-items-center w-p-5 w-space-x-2.5;
+
+    &--info {
+      @apply w-bg-info-50 w-text-info-100;
+    }
+
+    &--warning {
+      @apply w-bg-warning-50 w-text-warning-100;
+    }
+
+    &--critical {
+      @apply w-bg-critical-50 w-text-critical-200;
+    }
+
+    &--success {
+      @apply w-bg-positive-50 w-text-positive-100;
+    }
+  }
+
+  &__message-icon {
+    @apply w-w-5 w-h-5 w-flex-shrink-0;
+  }
+}
