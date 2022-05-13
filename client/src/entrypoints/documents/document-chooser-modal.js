@@ -92,6 +92,9 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
         e.preventDefault();
       });
+
+      // Reinitialize tabs to hook up tab event listeners in the modal
+      initTabs();
     }
 
     var searchForm = $('form.document-search', modal.body);
@@ -135,9 +138,6 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     });
 
     $('#collection_chooser_collection_id').on('change', search);
-
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    initTabs();
   },
   document_chosen: function (modal, jsonData) {
     modal.respond('documentChosen', jsonData.result);
