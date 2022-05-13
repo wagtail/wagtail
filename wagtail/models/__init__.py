@@ -386,7 +386,45 @@ class RevisionMixin(models.Model):
         abstract = True
 
 
-class AbstractPage(RevisionMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node):
+class DraftStateMixin(models.Model):
+    live = models.BooleanField(verbose_name=_("live"), default=True, editable=False)
+    has_unpublished_changes = models.BooleanField(
+        verbose_name=_("has unpublished changes"), default=False, editable=False
+    )
+
+    first_published_at = models.DateTimeField(
+        verbose_name=_("first published at"), blank=True, null=True, db_index=True
+    )
+    last_published_at = models.DateTimeField(
+        verbose_name=_("last published at"), null=True, editable=False
+    )
+    live_revision = models.ForeignKey(
+        "Revision",
+        related_name="+",
+        verbose_name=_("live revision"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+    )
+
+    go_live_at = models.DateTimeField(
+        verbose_name=_("go live date/time"), blank=True, null=True
+    )
+    expire_at = models.DateTimeField(
+        verbose_name=_("expiry date/time"), blank=True, null=True
+    )
+    expired = models.BooleanField(
+        verbose_name=_("expired"), default=False, editable=False
+    )
+
+    class Meta:
+        abstract = True
+
+
+class AbstractPage(
+    RevisionMixin, DraftStateMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node
+):
     """
     Abstract superclass for Page. According to Django's inheritance rules, managers set on
     abstract models are inherited by subclasses, but managers set on concrete models that are extended
@@ -421,10 +459,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("content type"),
         related_name="pages",
         on_delete=models.SET(get_default_page_content_type),
-    )
-    live = models.BooleanField(verbose_name=_("live"), default=True, editable=False)
-    has_unpublished_changes = models.BooleanField(
-        verbose_name=_("has unpublished changes"), default=False, editable=False
     )
     url_path = models.TextField(verbose_name=_("URL path"), blank=True, editable=False)
     owner = models.ForeignKey(
@@ -462,16 +496,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ),
     )
 
-    go_live_at = models.DateTimeField(
-        verbose_name=_("go live date/time"), blank=True, null=True
-    )
-    expire_at = models.DateTimeField(
-        verbose_name=_("expiry date/time"), blank=True, null=True
-    )
-    expired = models.BooleanField(
-        verbose_name=_("expired"), default=False, editable=False
-    )
-
     locked = models.BooleanField(
         verbose_name=_("locked"), default=False, editable=False
     )
@@ -488,24 +512,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         related_name="locked_pages",
     )
 
-    first_published_at = models.DateTimeField(
-        verbose_name=_("first published at"), blank=True, null=True, db_index=True
-    )
-    last_published_at = models.DateTimeField(
-        verbose_name=_("last published at"), null=True, editable=False
-    )
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
-    live_revision = models.ForeignKey(
-        "wagtailcore.Revision",
-        related_name="+",
-        verbose_name=_("live revision"),
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        editable=False,
-    )
+
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
