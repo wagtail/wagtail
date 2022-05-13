@@ -913,24 +913,24 @@ def dialog(
     # Used for determining which icon/colors the message will use
     message_status_type = {
         "info": {
-            "icon_name": "info-circle",
-            "background_color": "w-bg-info-50",
-            "icon_color": "w-text-info-100",
+            "message_icon_name": "info-circle",
+            "message_bg_color": "w-bg-info-50",
+            "message_icon_color": "w-text-info-100",
         },
         "warning": {
-            "icon_name": "warning",
-            "background_color": "w-bg-warning-50",
-            "icon_color": "w-text-warning-100",
+            "message_icon_name": "warning",
+            "message_bg_color": "w-bg-warning-50",
+            "message_icon_color": "w-text-warning-100",
         },
         "critical": {
-            "icon_name": "warning",
-            "icon_color": "w-text-critical-200",
-            "background_color": "w-bg-critical-50",
+            "message_icon_name": "warning",
+            "message_bg_color": "w-bg-critical-50",
+            "message_icon_color": "w-text-critical-200",
         },
         "success": {
-            "icon_name": "circle-check",
-            "icon_color": "w-text-positive-100",
-            "background_color": "w-bg-positive-50",
+            "message_icon_name": "circle-check",
+            "message_bg_color": "w-bg-positive-50",
+            "message_icon_color": "w-text-positive-100",
         },
     }
 
