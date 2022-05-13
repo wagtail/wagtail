@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import $ from 'jquery';
 import { gettext } from '../utils/gettext';
 
@@ -138,4 +139,80 @@ class SearchController {
   }
 }
 
-export { submitCreationForm, initPrefillTitleFromFilename, SearchController };
+class ChooserModalOnloadHandlerFactory {
+  constructor(opts) {
+    this.chosenLinkSelector = opts?.chosenLinkSelector || 'a[data-item-choice]';
+    this.paginationLinkSelector =
+      opts?.paginationLinkSelector || '.pagination a';
+    this.searchFormSelector = opts?.searchFormSelector || 'form[data-search]';
+    this.resultsContainerSelector =
+      opts?.resultsContainerSelector || '#search-results';
+    this.searchInputSelectors = opts?.searchInputSelectors || ['#id_q'];
+    this.searchFilterSelectors = opts?.searchFilterSelectors || [];
+    this.chosenResponseName = opts?.chosenResponseName || 'chosen';
+
+    this.searchController = null;
+  }
+
+  ajaxifyLinks(modal, context) {
+    if (!this.searchController) {
+      throw new Error(
+        'Cannot call ajaxifyLinks until a SearchController is set up',
+      );
+    }
+
+    $(this.chosenLinkSelector, modal.body).on('click', (event) => {
+      modal.loadUrl(event.currentTarget.href);
+      return false;
+    });
+
+    $(this.paginationLinkSelector, context).on('click', (event) => {
+      this.searchController.fetchResults(event.currentTarget.href);
+      return false;
+    });
+  }
+
+  initSearchController(modal) {
+    this.searchController = new SearchController({
+      form: $(this.searchFormSelector, modal.body),
+      resultsContainerSelector: this.resultsContainerSelector,
+      onLoadResults: (context) => {
+        this.ajaxifyLinks(modal, context);
+      },
+    });
+    this.searchInputSelectors.forEach((selector) => {
+      this.searchController.attachSearchInput(selector);
+    });
+    this.searchFilterSelectors.forEach((selector) => {
+      this.searchController.attachSearchFilter(selector);
+    });
+  }
+
+  onLoadChooseStep(modal) {
+    this.initSearchController(modal);
+    this.ajaxifyLinks(modal, modal.body);
+  }
+
+  onLoadChosenStep(modal, jsonData) {
+    modal.respond(this.chosenResponseName, jsonData.result);
+    modal.close();
+  }
+
+  getOnLoadHandlers() {
+    return {
+      choose: (modal, jsonData) => {
+        this.onLoadChooseStep(modal, jsonData);
+      },
+      chosen: (modal, jsonData) => {
+        this.onLoadChosenStep(modal, jsonData);
+      },
+    };
+  }
+}
+
+export {
+  submitCreationForm,
+  initPrefillTitleFromFilename,
+  SearchController,
+  ChooserModalOnloadHandlerFactory,
+};
