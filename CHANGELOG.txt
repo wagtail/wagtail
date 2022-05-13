@@ -46,6 +46,7 @@ Changelog
  * Fix: Add an accessible label to the image focal point input when editing images (Lucie Le Frapper)
  * Fix: Remove unused header search JavaScript on the redirects import page (LB (Ben) Johnston)
  * FIx: Ensure non-square avatar images will correctly show throughout the admin (LB (Ben) Johnston)
+ * Fix: Ignore translations in test files and re-include some translations that were accidentally ignored (Stefan Hammer)
 
 
 3.0 (16.05.2022)
