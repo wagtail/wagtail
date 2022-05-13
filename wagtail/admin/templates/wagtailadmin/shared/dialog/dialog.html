@@ -5,29 +5,18 @@
             id="{{ id }}"
             aria-labelledby="title-{{ id }}"
             aria-hidden="true"
-            class="{{ class_name }} w-fixed w-inset-0 w-z-dialog w-flex aria-hidden:w-hidden w-p-4"
+            class="{{ class_name }} dialog"
         >
-            {# Overlay #}
-            <div data-a11y-dialog-hide class="w-fixed w-inset-0 w-bg-black/40"></div>
-
-            {# Dialog #}
-            <div class="w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow w-rounded-md w-overflow-hidden w-animate-fade-in">
-
-                {# Close button #}
-                <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="w-absolute w-inline-flex w-justify-center w-items-center w-top-2 w-right-2 w-w-12 w-h-12 w-bg-transparent w-p-0">
-                    {% icon name='cross' class_name="w-w-4 w-h-4 w-text-grey-600" %}
+            <div data-a11y-dialog-hide class="dialog__overlay"></div>
+            <div class="dialog__box">
+                <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="dialog__close-button">
+                    {% icon name='cross' class_name="dialog__close-icon" %}
                 </button>
 
                 {# Message #}
                 {% if message_heading and message_icon_name %}
-                    <div class="dialog-{{ message_status }} {{ message_bg_color }} w-flex w-items-center w-p-5 w-space-x-2.5">
-                        {% with message_icon_classes="w-w-5 w-h-5 w-flex-shrink-0 " %}
-                            {% if message_icon_color %}
-                                {% icon name=message_icon_name class_name=message_icon_classes|add:message_icon_color %}
-                            {% else %}
-                                {% icon name=message_icon_name class_name=message_icon_classes %}
-                            {% endif %}
-                        {% endwith %}
+                    <div class="dialog__message dialog__message--{{ message_status }}">
+                        {% icon name=message_icon_name class_name="dialog__message-icon "|add:message_icon_color %}
                         <div class="w-text-grey-600 w-pr-8">
                             <strong class="w-text-14 w-text-grey-600">{{ message_heading }}</strong>
                             {% if message_description %}<p class="w-text-14 w-mb-0 w-text-grey-600 ">{{ message_description }}</p>{% endif %}
