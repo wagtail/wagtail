@@ -910,27 +910,19 @@ def dialog(
     if not title:
         raise ValueError("You must supply a title")
 
-    # Used for determining which icon/colors the message will use
+    # Used for determining which icon the message will use
     message_status_type = {
         "info": {
             "message_icon_name": "info-circle",
-            "message_bg_color": "w-bg-info-50",
-            "message_icon_color": "w-text-info-100",
         },
         "warning": {
             "message_icon_name": "warning",
-            "message_bg_color": "w-bg-warning-50",
-            "message_icon_color": "w-text-warning-100",
         },
         "critical": {
             "message_icon_name": "warning",
-            "message_bg_color": "w-bg-critical-50",
-            "message_icon_color": "w-text-critical-200",
         },
         "success": {
             "message_icon_name": "circle-check",
-            "message_bg_color": "w-bg-positive-50",
-            "message_icon_color": "w-text-positive-100",
         },
     }
 
