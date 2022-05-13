@@ -1,16 +1,16 @@
 import A11yDialog from 'a11y-dialog';
 
-export const initDialog = (
+export const dialog = (
   dialogs = document.querySelectorAll('[data-dialog]'),
 ) => {
   dialogs.forEach((template) => {
     const html = document.documentElement;
     const templateContent = template.content.firstElementChild.cloneNode(true);
     document.body.appendChild(templateContent);
-    const dialog = new A11yDialog(templateContent);
+    const dialogTemplate = new A11yDialog(templateContent);
 
     // Prevent scrolling when dialog is open
-    dialog
+    dialogTemplate
       .on('show', () => {
         html.style.overflowY = 'hidden';
       })

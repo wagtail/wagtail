@@ -11,7 +11,7 @@
             <div data-a11y-dialog-hide class="w-fixed w-inset-0 w-bg-black/40"></div>
 
             {# Dialog #}
-            <div class="w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow-dialog w-rounded-md w-overflow-hidden w-animate-fade-in">
+            <div class="w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow w-rounded-md w-overflow-hidden w-animate-fade-in">
 
                 {# Close button #}
                 <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="w-absolute w-inline-flex w-justify-center w-items-center w-top-2 w-right-2 w-w-12 w-h-12 w-bg-transparent w-p-0">
@@ -20,7 +20,19 @@
 
                 {# Message #}
                 {% if message_status and message_heading %}
-                    {% dialog_message status=message_status heading=message_heading description=message_description %}
+                    <div class="dialog-{{ message_status }} {{ message_background_color }} w-flex w-items-center w-p-5 w-space-x-2.5">
+                        {% with icon_classes="w-w-5 w-h-5 w-flex-shrink-0 " %}
+                            {% if message_icon_color %}
+                                {% icon name=message_icon_name class_name=message_icon_classes|add:message_icon_color %}
+                            {% else %}
+                                {% icon name=message_icon_name class_name=message_icon_classes %}
+                            {% endif %}
+                        {% endwith %}
+                        <div class="w-text-grey-600 w-pr-8">
+                            <strong class="w-text-14 w-text-grey-600">{{ message_heading }}</strong>
+                            {% if description %}<p class="w-text-14 w-mb-0 w-text-grey-600 ">{{ message_description }}</p>{% endif %}
+                        </div>
+                    </div>
                 {% endif %}
 
                 <div class="w-p-8 sm:w-p-12 md:w-px-20 w-max-h-dialog w-overflow-auto w-scrollbar-thin">
