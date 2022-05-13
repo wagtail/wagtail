@@ -17,6 +17,22 @@
     @apply w-w-4 w-h-4 w-text-grey-600;
   }
 
+  &__content {
+    @apply w-p-8 sm:w-p-12 md:w-px-20 w-max-h-dialog w-overflow-auto w-scrollbar-thin;
+  }
+
+  &__icon {
+    @apply w-hidden sm:w-block w-w-5 w-h-5 w-text-primary w-absolute w-top-1/2 -w-translate-y-1/2 -w-left-10;
+  }
+
+  &__title {
+    @apply w-h1 w-relative sm:w-ml-12 md:w-ml-0 w-mt-0 w-mb-1;
+  }
+
+  &__subtitle {
+    @apply w-help-text w-mb-4;
+  }
+
   &__message {
     @apply w-flex w-items-center w-p-5 w-space-x-2.5;
 
@@ -39,5 +55,17 @@
 
   &__message-icon {
     @apply w-w-5 w-h-5 w-flex-shrink-0;
+  }
+
+  &__message-header {
+    @apply w-text-grey-600 w-pr-8;
+  }
+
+  &__message-heading {
+    @apply w-text-14 w-text-grey-600;
+  }
+
+  &__message-description {
+    @apply w-text-14 w-mb-0 w-text-grey-600;
   }
 }

@@ -17,27 +17,24 @@
                 {% if message_heading and message_icon_name %}
                     <div class="dialog__message dialog__message--{{ message_status }}">
                         {% icon name=message_icon_name class_name="dialog__message-icon "|add:message_icon_color %}
-                        <div class="w-text-grey-600 w-pr-8">
-                            <strong class="w-text-14 w-text-grey-600">{{ message_heading }}</strong>
-                            {% if message_description %}<p class="w-text-14 w-mb-0 w-text-grey-600 ">{{ message_description }}</p>{% endif %}
+                        <div class="dialog__message-header">
+                            <strong class="dialog__message-heading">{{ message_heading }}</strong>
+                            {% if message_description %}<p class="dialog__message-description ">{{ message_description }}</p>{% endif %}
                         </div>
                     </div>
                 {% endif %}
 
-                <div class="w-p-8 sm:w-p-12 md:w-px-20 w-max-h-dialog w-overflow-auto w-scrollbar-thin">
+                <div class="dialog__content">
                     {# Title #}
-                    <h2 class="w-h1 w-relative sm:w-ml-12 md:w-ml-0 w-mt-0 w-mb-1" id="title-{{ id }}">
-                        {% if icon_name %}{% icon name=icon_name class_name="w-hidden sm:w-block w-w-5 w-h-5 w-text-primary w-absolute w-top-1/2 -w-translate-y-1/2 -w-left-10" %}{% endif %}
+                    <h2 class="dialog__title" id="title-{{ id }}">
+                        {% if icon_name %}{% icon name=icon_name class_name="dialog__icon" %}{% endif %}
                         {{ title }}
                     </h2>
 
                     {# Subtitle #}
                     {% if subtitle %}
-                        <p class="w-help-text w-mb-4">{{ subtitle }}</p>
+                        <p class="dialog__subtitle">{{ subtitle }}</p>
                     {% endif %}
-
-                    {# Content #}
-                    <div>
 
 {% endwith %}
 
