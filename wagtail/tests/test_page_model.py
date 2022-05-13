@@ -894,33 +894,6 @@ class TestStaticSitePaths(TestCase):
                 )
             )
 
-    def test_local_static_site_paths(self):
-        paths = list(self.about_page.get_static_site_paths())
-
-        self.assertEqual(paths, ["/"])
-
-    def test_child_static_site_paths(self):
-        paths = list(self.home_page.get_static_site_paths())
-
-        self.assertEqual(paths, ["/", "/about/", "/contact/"])
-
-    def test_custom_static_site_paths(self):
-        paths = list(self.event_index.get_static_site_paths())
-
-        # Event index path
-        expected_paths = ["/"]
-
-        # One path for each page of results
-        expected_paths.extend(["/" + str(i + 1) + "/" for i in range(5)])
-
-        # One path for each event page
-        expected_paths.extend(["/event" + str(i) + "/" for i in range(20)])
-
-        paths.sort()
-        expected_paths.sort()
-        self.assertEqual(paths, expected_paths)
-
-
 class TestMovePage(TestCase):
     fixtures = ["test.json"]
 
