@@ -1,16 +1,43 @@
 .dialog {
-  @apply w-fixed w-inset-0 w-z-dialog w-flex aria-hidden:w-hidden w-p-4;
+  @apply w-fixed
+  w-inset-0
+  w-z-dialog
+  w-flex
+  w-p-4;
+
+  &[aria-hidden='true'] {
+    @apply w-hidden;
+  }
 
   &__overlay {
     @apply w-fixed w-inset-0 w-bg-black/40;
   }
 
   &__box {
-    @apply w-w-full w-max-w-2xl sm:w-w-[600px] w-m-auto w-z-dialog w-relative w-bg-white w-shadow w-rounded-md w-overflow-hidden w-animate-fade-in;
+    @apply w-w-full
+    w-max-w-2xl
+    sm:w-w-[600px]
+    w-m-auto
+    w-z-dialog
+    w-relative
+    w-bg-white
+    w-shadow
+    w-rounded-md
+    w-overflow-hidden
+    w-animate-fade-in;
   }
 
   &__close-button {
-    @apply w-absolute w-inline-flex w-justify-center w-items-center w-top-2 w-right-2 w-w-12 w-h-12 w-bg-transparent w-p-0;
+    @apply w-absolute
+    w-inline-flex
+    w-justify-center
+    w-items-center
+    w-top-2
+    w-right-2
+    w-w-12
+    w-h-12
+    w-bg-transparent
+    w-p-0;
   }
 
   &__close-icon {
@@ -18,15 +45,33 @@
   }
 
   &__content {
-    @apply w-p-8 sm:w-p-12 md:w-px-20 w-max-h-dialog w-overflow-auto w-scrollbar-thin;
+    @apply w-p-8
+    sm:w-p-12
+    md:w-px-20
+    w-max-h-dialog
+    w-overflow-auto
+    w-scrollbar-thin;
   }
 
   &__icon {
-    @apply w-hidden sm:w-block w-w-5 w-h-5 w-text-primary w-absolute w-top-1/2 -w-translate-y-1/2 -w-left-10;
+    @apply w-hidden
+    sm:w-block
+    w-w-5
+    w-h-5
+    w-text-primary
+    w-absolute
+    w-top-1/2
+    -w-translate-y-1/2
+    -w-left-10;
   }
 
   &__title {
-    @apply w-h1 w-relative sm:w-ml-12 md:w-ml-0 w-mt-0 w-mb-1;
+    @apply w-h1
+    w-relative
+    sm:w-ml-12
+    md:w-ml-0
+    w-mt-0
+    w-mb-1;
   }
 
   &__subtitle {
