@@ -1,12 +1,9 @@
 @import '../../../../../../client/scss/settings';
 @import '../../../../../../client/scss/tools';
 
-.breadcrumb {
-  margin: -1.2em 0 2em;
-}
-
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-down(sm) {
   .breadcrumb {
-    margin-top: -1.8em;
+    margin-inline-start: 30px;
+    margin-inline-end: -20px;
   }
 }
