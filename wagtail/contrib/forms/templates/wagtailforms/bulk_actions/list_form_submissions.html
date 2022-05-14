@@ -1,0 +1,57 @@
+{% load i18n %}
+<table class="listing">
+    <thead>     
+        <tr>
+            <th id="submit_time" class="">
+                Submission date
+            </th>
+            <th id="subject" class="">
+                Subject
+            </th>
+
+            <th id="your_name" class="">
+                Your Name
+            </th>
+
+            <th id="your_email" class="">
+                Your Email
+            </th>
+
+            <th id="purpose" class="">
+                Purpose
+            </th>
+
+            <th id="body" class="">
+                Body
+            </th>
+        </tr>
+    </thead>
+{% for item in items %}
+    <tbody>
+        <tr>
+            <td>
+                {{item.item.submit_time}}
+            </td>
+            <td>
+                {{item.item.form_data.subject}}
+            </td>
+        
+            <td>
+                {{item.item.form_data.your_name}}
+            </td>
+        
+            <td>
+                {{item.item.form_data.your_email}}
+            </td>
+        
+            <td>
+                {{item.item.form_data.purpose}}
+            </td>
+        
+            <td>
+                {{item.item.form_data.body}}
+            </td>
+        </tr>
+    </tbody>
+{% endfor %}
+</table>

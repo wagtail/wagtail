@@ -111,68 +111,6 @@ class FormPagesListView(SafePaginateListView):
         return context
 
 
-class DeleteSubmissionsView(TemplateView):
-    """Delete the selected submissions"""
-
-    template_name = "wagtailforms/confirm_delete.html"
-    page = None
-    submissions = None
-    success_url = "wagtailforms:list_submissions"
-
-    def get_queryset(self):
-        """Returns a queryset for the selected submissions"""
-        submission_ids = self.request.GET.getlist("selected-submissions")
-        submission_class = self.page.get_submission_class()
-        return submission_class._default_manager.filter(id__in=submission_ids)
-
-    def handle_delete(self, submissions):
-        """Deletes the given queryset"""
-        count = submissions.count()
-        submissions.delete()
-        messages.success(
-            self.request,
-            ngettext(
-                "One submission has been deleted.",
-                "%(count)d submissions have been deleted.",
-                count,
-            )
-            % {"count": count},
-        )
-
-    def get_success_url(self):
-        """Returns the success URL to redirect to after a successful deletion"""
-        return self.success_url
-
-    def dispatch(self, request, *args, **kwargs):
-        """Check permissions, set the page and submissions, handle delete"""
-        page_id = kwargs.get("page_id")
-
-        if not get_forms_for_user(self.request.user).filter(id=page_id).exists():
-            raise PermissionDenied
-
-        self.page = get_object_or_404(Page, id=page_id).specific
-
-        self.submissions = self.get_queryset()
-
-        if self.request.method == "POST":
-            self.handle_delete(self.submissions)
-            return redirect(self.get_success_url(), page_id)
-
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        """Get the context for this view"""
-        context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "page": self.page,
-                "submissions": self.submissions,
-            }
-        )
-
-        return context
-
 
 class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
     """Lists submissions for the provided form page"""
