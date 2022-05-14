@@ -28,13 +28,13 @@
                 {% endif %}
 
                 <div class="dialog__content">
-                    <h2 class="dialog__title" id="title-{{ id }}">
+                    <h2 class="dialog__title w-h1" id="title-{{ id }}">
                         {% if icon_name %}{% icon name=icon_name class_name="dialog__icon" %}{% endif %}
                         {{ title }}
                     </h2>
 
                     {% if subtitle %}
-                        <p class="dialog__subtitle">{{ subtitle }}</p>
+                        <p class="dialog__subtitle w-help-text">{{ subtitle }}</p>
                     {% endif %}
 
 {% endwith %}
