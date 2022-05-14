@@ -28,14 +28,17 @@
                 {% endif %}
 
                 <div class="w-dialog__content">
-                    <h2 class="w-dialog__title" id="title-{{ id }}">
-                        {% if icon_name %}{% icon name=icon_name class_name="w-dialog__icon" %}{% endif %}
-                        {{ title }}
+                    <h2 class="w-dialog__title-wrapper" id="title-{{ id }}">
+                        <div class="w-dialog__title">
+                            {% if icon_name %}{% icon name=icon_name class_name="w-dialog__icon" %}{% endif %}
+                            {{ title }}
+                        </div>
+
+                        {% if subtitle %}
+                            <span class=" w-help-text">{{ subtitle }}</span>
+                        {% endif %}
                     </h2>
 
-                    {% if subtitle %}
-                        <p class="w-dialog__subtitle">{{ subtitle }}</p>
-                    {% endif %}
 
 {% endwith %}
 

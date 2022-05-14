@@ -55,7 +55,7 @@
 
   &__icon {
     @apply w-hidden
-    sm:w-block
+    md:w-block
     w-w-5
     w-h-5
     w-text-primary
@@ -65,17 +65,14 @@
     -w-left-10;
   }
 
+  &__title-wrapper {
+    @apply w-mt-0 w-mb-4 sm:w-mb-6;
+  }
+
   &__title {
     @apply w-h1
     w-relative
-    sm:w-ml-12
-    md:w-ml-0
-    w-mt-0
-    w-mb-1;
-  }
-
-  &__subtitle {
-    @apply w-help-text w-mb-4;
+    md:w-ml-0;
   }
 
   &__message {
