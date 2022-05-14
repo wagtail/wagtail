@@ -1,4 +1,4 @@
-import * as client from './client';
+import client from './client';
 
 describe('client API', () => {
   it('should succeed fetching', (done) => {

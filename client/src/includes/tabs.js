@@ -55,7 +55,7 @@ class Tabs {
     // Set active tab from url or make first tab active
     if (this.tabButtons) {
       // Set each button's aria-controls attribute and select tab if aria-selected has already been set on the element
-      this.setAriaControlsByHref(this.tabButtons);
+      Tabs.setAriaControlsByHref(this.tabButtons);
       // Check for active items set by the template
       const tabActive = [...this.tabButtons].find(
         (button) => button.getAttribute('aria-selected') === 'true',
@@ -78,7 +78,7 @@ class Tabs {
 
     // Set each external trigger button's aria-controls attribute
     if (this.tabTriggerLinks) {
-      this.setAriaControlsByHref(this.tabTriggerLinks);
+      Tabs.setAriaControlsByHref(this.tabTriggerLinks);
     }
   }
 
@@ -310,7 +310,7 @@ class Tabs {
     const tabs = this.tabButtons;
 
     if (direction[pressed]) {
-      const target = event.target;
+      const { target } = event;
       if (target.index !== undefined) {
         if (tabs[target.index + direction[pressed]]) {
           const tab = tabs[target.index + direction[pressed]];
@@ -346,7 +346,7 @@ class Tabs {
    *  Populate a list of links aria-controls attributes with their href value
    * @param links{HTMLAnchorElement[]}
    */
-  setAriaControlsByHref(links) {
+  static setAriaControlsByHref(links) {
     links.forEach((link) => {
       link.setAttribute(
         'aria-controls',

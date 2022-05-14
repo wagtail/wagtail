@@ -1,4 +1,4 @@
-import { get } from '../api/client';
+import client from './client';
 
 import { ADMIN_API } from '../config/wagtailConfig';
 
@@ -32,7 +32,7 @@ interface WagtailPageListAPI {
 export const getPage: (id: number) => Promise<WagtailPageAPI> = (id) => {
   const url = `${ADMIN_API.PAGES}${id}/`;
 
-  return get(url);
+  return client.get(url);
 };
 
 interface GetPageChildrenOptions {
@@ -66,7 +66,7 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
 
   url += ADMIN_API.EXTRA_CHILDREN_PARAMETERS;
 
-  return get(url);
+  return client.get(url);
 };
 
 interface GetPageTranslationsOptions {
@@ -97,7 +97,7 @@ export const getPageTranslations: GetPageTranslations = (id, options = {}) => {
     url += `&offset=${options.offset}`;
   }
 
-  return get(url);
+  return client.get(url);
 };
 
 interface GetAllPageTranslationsOptions {
@@ -113,6 +113,7 @@ export const getAllPageTranslations = async (
   let iterLimit = 100;
 
   for (;;) {
+    // eslint-disable-next-line no-await-in-loop
     const page = await getPageTranslations(id, {
       offset: items.length,
       ...options,
@@ -120,6 +121,7 @@ export const getAllPageTranslations = async (
 
     page.items.forEach((item) => items.push(item));
 
+    // eslint-disable-next-line no-plusplus
     if (items.length >= page.meta.total_count || iterLimit-- <= 0) {
       return items;
     }
