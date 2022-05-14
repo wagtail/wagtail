@@ -10,5 +10,5 @@ urlpatterns = [
     path("", FormPagesListView.as_view(), name="index"),
     path(
         "submissions/<int:page_id>/", get_submissions_list_view, name="list_submissions"
-    )
+    ),
 ]

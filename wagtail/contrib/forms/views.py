@@ -4,12 +4,10 @@ from collections import OrderedDict
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import ngettext
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 
-from wagtail.admin import messages
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
@@ -111,7 +109,6 @@ class FormPagesListView(SafePaginateListView):
         return context
 
 
-
 class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
     """Lists submissions for the provided form page"""
 
@@ -125,8 +122,6 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
         "submit_time",
     )  # used to validate ordering in URL
     select_date_form = None
-    app_label= "wagtailforms"
-    model_name= "formsubmission"
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -254,7 +249,9 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
                     if isinstance(val, list):
                         val = ", ".join(val)
                     data_row.append(val)
-                data_rows.append({"model_id": submission.id,"id":submission.id, "fields": data_row})
+                data_rows.append(
+                    {"model_id": submission.id, "id": submission.id, "fields": data_row}
+                )
             # Build data_headings as list of dicts containing model_id and fields
             ordering_by_field = self.get_validated_ordering()
             orderable_fields = self.orderable_fields
@@ -281,8 +278,8 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
                     "select_date_form": self.select_date_form,
                     "data_headings": data_headings,
                     "data_rows": data_rows,
-                    "app_label": self.app_label,
-                    "model_name": self.model_name,
+                    "app_label": "wagtailforms",
+                    "model_name": "formsubmission",
                 }
             )
 
