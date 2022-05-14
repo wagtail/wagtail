@@ -15,9 +15,10 @@
             </tr>
         </thead>
         <tbody>
+            {% trans "Select document" as checkbox_aria_label %}
             {% for row in data_rows %}
                 <tr>
-                    {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="formsubmission" obj=row aria_labelledby_prefix="formsubmission_" aria_labelledby=row.model_id aria_labelledby_suffix="_title" %}
+                    {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="data_rows" obj=row aria_labelledby_prefix="form_" aria_labelledby=row.model_id aria_labelledby_suffix="_title" %}
                     {% for cell in row.fields %}
                         <td>
                             {{ cell }}

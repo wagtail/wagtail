@@ -120,10 +120,8 @@
     </header>
     <div class="nice-padding">
         {% if submissions %}
-            {% comment %} <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get"> {% endcomment %}
-                {% include "wagtailforms/list_submissions.html" %}
-                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
-            {% comment %} </form> {% endcomment %}
+            {% include "wagtailforms/list_submissions.html" %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
         {% else %}
             <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}

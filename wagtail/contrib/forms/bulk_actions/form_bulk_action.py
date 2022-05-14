@@ -7,10 +7,8 @@ from wagtail.contrib.forms.models import FormSubmission
 class FormBulkAction(BulkAction):
     models = [FormSubmission]
 
-
-
     def get_success_message(self, num_forms,action_done):
-        return _("{} forms have been {}d".format(num_forms,action_done))
+        return _("{} form submissions have been {}d".format(num_forms,action_done))
 
     def get_execution_context(self):
         return {

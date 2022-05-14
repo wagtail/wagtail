@@ -316,7 +316,7 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
                     if isinstance(val, list):
                         val = ", ".join(val)
                     data_row.append(val)
-                data_rows.append({"model_id": submission.id, "fields": data_row})
+                data_rows.append({"model_id": submission.id,"id":submission.id, "fields": data_row})
             # Build data_headings as list of dicts containing model_id and fields
             ordering_by_field = self.get_validated_ordering()
             orderable_fields = self.orderable_fields
