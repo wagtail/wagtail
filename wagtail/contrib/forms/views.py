@@ -187,6 +187,8 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
         "submit_time",
     )  # used to validate ordering in URL
     select_date_form = None
+    app_label= "wagtailforms"
+    model_name= "formsubmission"
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions and set the form page"""
@@ -341,6 +343,8 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
                     "select_date_form": self.select_date_form,
                     "data_headings": data_headings,
                     "data_rows": data_rows,
+                    "app_label": self.app_label,
+                    "model_name": self.model_name,
                 }
             )
 
