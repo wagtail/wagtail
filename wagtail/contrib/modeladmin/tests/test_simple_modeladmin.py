@@ -913,8 +913,8 @@ class TestQuoting(TestCase, WagtailTestUtils):
 
 class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
     """
-    Test that the <ul class="breadcrumbs">... is inserted within the
-    <header> tag for potential future regression.
+    Test that the breadcrumbs region is inserted before the
+    </header> tag for potential future regression.
     See https://github.com/wagtail/wagtail/issues/3889
     """
 
@@ -949,7 +949,7 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         # check that the breadcrumbs are before the first header closing tag
         content_str = str(response.content)
         position_of_header_close = content_str.index("</header>")
-        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
+        position_of_breadcrumbs = content_str.index('<nav aria-label="Breadcrumb">')
         self.assertGreater(position_of_header_close, position_of_breadcrumbs)
 
 
