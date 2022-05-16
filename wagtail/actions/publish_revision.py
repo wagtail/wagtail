@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
 from wagtail.log_actions import log
-from wagtail.signals import page_published
+from wagtail.signals import object_published
 
 logger = logging.getLogger("wagtail")
 
@@ -145,7 +145,7 @@ class PublishRevisionAction:
             workflow_state.cancel(user=user)
 
         if object.live:
-            page_published.send(
+            object_published.send(
                 sender=object.specific_class,
                 instance=object.specific,
                 revision=revision,
