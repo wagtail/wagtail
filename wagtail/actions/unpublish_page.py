@@ -42,8 +42,13 @@ class UnpublishPageAction(UnpublishAction):
                 "You do not have permission to unpublish this page"
             ) from error
 
-    def _send_unpublished_signal(self, object):
-        page_unpublished.send(sender=object.specific_class, instance=object.specific)
+    def _after_unpublish(self):
+        for alias in self.object.aliases.all():
+            alias.unpublish()
+
+        page_unpublished.send(
+            sender=self.object.specific_class, instance=self.object.specific
+        )
 
     def execute(self, skip_permission_checks=False):
         super().execute(skip_permission_checks)

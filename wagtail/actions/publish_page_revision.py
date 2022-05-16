@@ -1,5 +1,7 @@
 import logging
 
+from django.conf import settings
+
 from wagtail.actions.publish_revision import (
     PublishPermissionError,
     PublishRevisionAction,
@@ -40,9 +42,26 @@ class PublishPageRevisionAction(PublishRevisionAction):
                 "You do not have permission to publish this page"
             ) from error
 
-    def _send_published_signal(self, object, revision):
+    def _after_publish(self):
+        from wagtail.models import COMMENTS_RELATION_NAME
+
+        for comment in (
+            getattr(self.object, COMMENTS_RELATION_NAME).all().only("position")
+        ):
+            comment.save(update_fields=["position"])
+
         page_published.send(
-            sender=object.specific_class,
-            instance=object.specific,
-            revision=revision,
+            sender=self.object.specific_class,
+            instance=self.object.specific,
+            revision=self.revision,
+        )
+
+        workflow_state = self.object.current_workflow_state
+        if workflow_state and getattr(
+            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+        ):
+            workflow_state.cancel(user=self.user)
+
+        self.object.update_aliases(
+            revision=self.revision, user=self.user, _content=self.revision.content
         )

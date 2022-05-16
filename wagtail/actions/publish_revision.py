@@ -70,34 +70,12 @@ class PublishRevisionAction:
             content_changed=self.changed,
         )
 
-    def _update_comments_position(self, object):
-        from wagtail.models import COMMENTS_RELATION_NAME
-
-        for comment in getattr(object, COMMENTS_RELATION_NAME).all().only("position"):
-            comment.save(update_fields=["position"])
-
-    def _cancel_workflow(self, object, user):
-        if not hasattr(object, "current_workflow_state"):
-            return
-
-        workflow_state = object.current_workflow_state
-        if workflow_state and getattr(
-            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
-        ):
-            workflow_state.cancel(user=user)
-
-    def _send_published_signal(self, object, revision):
+    def _after_publish(self):
         object_published.send(
-            sender=type(object),
-            instance=object,
-            revision=revision,
+            sender=type(self.object),
+            instance=self.object,
+            revision=self.revision,
         )
-
-    def _update_aliases(self, revision, object, user):
-        if not hasattr(object, "update_aliases"):
-            return
-
-        object.update_aliases(revision=revision, user=user, _content=revision.content)
 
     def _publish_revision(
         self, revision, object, user, changed, log_action, previous_revision
@@ -161,18 +139,12 @@ class PublishRevisionAction:
 
         object.save()
 
-        self._update_comments_position(object)
-
         revision.submitted_for_moderation = False
         object.revisions.update(submitted_for_moderation=False)
 
-        self._cancel_workflow(object, user)
+        self._after_publish()
 
         if object.live:
-            self._send_published_signal(object, revision)
-
-            self._update_aliases(revision, object, user)
-
             if log_action:
                 data = None
                 if previous_revision:
@@ -212,14 +184,14 @@ class PublishRevisionAction:
                 )
 
             logger.info(
-                'Object published: "%s" id=%d revision_id=%d',
+                'Published: "%s" id=%d revision_id=%d',
                 str(object),
                 object.id,
                 revision.id,
             )
         elif object.go_live_at:
             logger.info(
-                'Object scheduled for publish: "%s" id=%d revision_id=%d go_live_at=%s',
+                'Scheduled for publish: "%s" id=%d revision_id=%d go_live_at=%s',
                 str(object),
                 object.id,
                 revision.id,
