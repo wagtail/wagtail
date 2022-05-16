@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -164,12 +164,6 @@ msgstr "페이지"
 msgid "Add a page permission"
 msgstr "페이지 권한 추가"
 
-msgid "groups"
-msgstr "그룹"
-
-msgid "Add a group"
-msgstr "그룹 추가"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
@@ -234,6 +228,9 @@ msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자�
 
 msgid "Groups"
 msgstr "그룹"
+
+msgid "Add a group"
+msgstr "그룹 추가"
 
 msgid "Search groups"
 msgstr "그룹 검색"

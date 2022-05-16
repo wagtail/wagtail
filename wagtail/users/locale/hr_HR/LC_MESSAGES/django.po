@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -185,12 +185,6 @@ msgstr "Stranica"
 msgid "Add a page permission"
 msgstr "Dodaj dozvolu stranice"
 
-msgid "groups"
-msgstr "grupe"
-
-msgid "Add a group"
-msgstr "Dodaj grupu"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Nažalost nisu pronađene grupe koje odgovaraju \"%(query)s\""
@@ -273,6 +267,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Grupe"
+
+msgid "Add a group"
+msgstr "Dodaj grupu"
 
 msgid "Search groups"
 msgstr "Pretraži grupe"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -231,12 +231,6 @@ msgstr "Página"
 msgid "Add a page permission"
 msgstr "Adicionar uma permissão de página"
 
-msgid "groups"
-msgstr "grupos"
-
-msgid "Add a group"
-msgstr "Adicionar um grupo"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Desculpe, nenhum grupo corresponde a \"%(query)s\""
@@ -354,6 +348,9 @@ msgstr[1] "%(num_parent_objects)d utilizadores foram marcados como inativos"
 
 msgid "Groups"
 msgstr "Grupos"
+
+msgid "Add a group"
+msgstr "Adicionar um grupo"
 
 msgid "Search groups"
 msgstr "Pesquisar grupos"

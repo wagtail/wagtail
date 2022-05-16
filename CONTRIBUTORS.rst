@@ -614,9 +614,9 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
 * Chinese (Simplified): Ed, Yin Guanhao, hanfeng, Fan Hei, Yi Huang, Daniel Hwang, Jian Li, Aosp T, Listeng Teng, Feng Wang, whuim, Favo Yang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
-* Chinese (Traditional): gogobook, Andy Kong, Lihan Li, Ocin Leung, ongchi, Jp Shieh, Brian Xu, Yeh Yen-Ke, Yu Hsun Lee
+* Chinese (Traditional): gogobook, Andy Kong, Lihan Li, Ocin Leung, Jp Shieh, ChihWei Wang, Brian Xu, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
-* Czech: Ales Dvorak, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Krystof Pilnacek, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
+* Czech: Ales Dvorak, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Benjamin Bach, Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp
 * Estonian: Erlend Eelmets, Ragnar Rebase
@@ -624,7 +624,7 @@ Translators
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: Amós Oviedo
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Vorlif, Alexander Weiß, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, Dimitri Fekas, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Men770, Adi Ron, Oleg Sverdlov

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -149,12 +149,6 @@ msgstr "Stránk"
 msgid "Add a page permission"
 msgstr "Pridať oprávnenia stránky"
 
-msgid "groups"
-msgstr "skupiny"
-
-msgid "Add a group"
-msgstr "Pridať skupinu"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Prepáčte, žiadne skupiny nevyhovujú hľadanému výrazu \"%(query)s\""
@@ -218,6 +212,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Skupiny"
+
+msgid "Add a group"
+msgstr "Pridať skupinu"
 
 msgid "Search groups"
 msgstr "Hľadať skupiny"

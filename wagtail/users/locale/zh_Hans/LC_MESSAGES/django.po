@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017,2019-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -228,12 +228,6 @@ msgstr "页面"
 msgid "Add a page permission"
 msgstr "添加一个页面权限"
 
-msgid "groups"
-msgstr "组"
-
-msgid "Add a group"
-msgstr "添加一个组"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "对不起，没有符合“%(query)s”的组"
@@ -344,6 +338,9 @@ msgstr[0] "已将%(num_parent_objects)d个用户标记为不活动"
 
 msgid "Groups"
 msgstr "组"
+
+msgid "Add a group"
+msgstr "添加一个组"
 
 msgid "Search groups"
 msgstr "搜索组"

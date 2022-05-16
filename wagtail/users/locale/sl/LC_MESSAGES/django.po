@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -178,12 +178,6 @@ msgstr "Stran"
 msgid "Add a page permission"
 msgstr "Dodaj dovoljenje strani"
 
-msgid "groups"
-msgstr "skupine"
-
-msgid "Add a group"
-msgstr "Dodaj skupino"
-
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
@@ -247,6 +241,9 @@ msgstr "Izbriši izbrane uporabnike"
 
 msgid "Groups"
 msgstr "Skupine"
+
+msgid "Add a group"
+msgstr "Dodaj skupino"
 
 msgid "Search groups"
 msgstr "Iskanje po skupinah"

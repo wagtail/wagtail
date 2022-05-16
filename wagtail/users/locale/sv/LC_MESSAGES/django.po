@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -225,12 +225,6 @@ msgstr "Sida"
 msgid "Add a page permission"
 msgstr "Lägg till en sidrättighet"
 
-msgid "groups"
-msgstr "grupper"
-
-msgid "Add a group"
-msgstr "Lägg till en grupp"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Ledsen, inga grupper matchar \"%(query)s\""
@@ -347,6 +341,9 @@ msgstr[1] "%(num_parent_objects)d användare har markerats som inaktiva"
 
 msgid "Groups"
 msgstr "Grupper"
+
+msgid "Add a group"
+msgstr "Lägg till en grupp"
 
 msgid "Search groups"
 msgstr "Sök grupper"

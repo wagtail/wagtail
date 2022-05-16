@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2020\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -176,12 +176,6 @@ msgstr "Strona"
 msgid "Add a page permission"
 msgstr "Dodaj uprawnienie strony"
 
-msgid "groups"
-msgstr "grupy"
-
-msgid "Add a group"
-msgstr "Dodaj do grupy"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Przykro nam, żadna grupa nie pasuje do \"%(query)s\""
@@ -263,6 +257,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Grupy"
+
+msgid "Add a group"
+msgstr "Dodaj do grupy"
 
 msgid "Search groups"
 msgstr "Przeszukaj grupy"

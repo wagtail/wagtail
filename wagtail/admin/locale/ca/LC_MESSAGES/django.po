@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1190,9 +1190,6 @@ msgstr "Un cop en directe tothom la pot veure"
 
 msgid "Not visible to the public"
 msgstr "No visible de forma pública"
-
-msgid "Set privacy"
-msgstr "Establir privadesa"
 
 msgid "Page status: "
 msgstr "Estat de la pàgina:"

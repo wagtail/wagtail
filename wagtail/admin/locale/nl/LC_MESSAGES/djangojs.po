@@ -57,7 +57,7 @@ msgid "Edit '{title}'"
 msgstr "Wijzig '{title}'"
 
 msgid "Edit your account"
-msgstr "Wijzig uw account"
+msgstr "Wijzig je account"
 
 msgid "Focus comment"
 msgstr "Focus opmerking"
@@ -117,13 +117,13 @@ msgid "Save error"
 msgstr "Opslaan mislukt"
 
 msgid "Save the page to add this comment"
-msgstr "Bewaar deze pagina om het document toe te voegen"
+msgstr "Sla de pagina op om deze opmerking toe te voegen"
 
 msgid "Save the page to save this comment"
-msgstr "Bewaar deze pagina om de opmerking te bewaren"
+msgstr "Sla de pagina op om deze opmerking te bewaren"
 
 msgid "Save the page to save this reply"
-msgstr "Bewaar deze pagina om de reactie te bewaren"
+msgstr "Sla de pagina op om deze reactie te bewaren"
 
 msgid "Saving..."
 msgstr "Bezig met opslaan..."
@@ -149,8 +149,8 @@ msgstr "Splits blok"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"De editor is vastgelopen. Inhoud is terug gezet naar de laatst opgeslagen "
-"versie."
+"De editor is zojuist vastgelopen. De inhoud is teruggezet naar de laatst "
+"opgeslagen versie."
 
 msgid "Toggle sidebar"
 msgstr "Toon/verberg zijbalk"

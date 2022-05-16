@@ -7,15 +7,16 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 # Vláďa Macek <macek@sandbox.cz>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
+"Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail jádro"
@@ -434,6 +438,10 @@ msgstr "položky logu"
 msgid "The log action '{}' has not been registered."
 msgstr "Akce logu '{}' není registrována."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "uživatel %(id)s (odstraněn)"
+
 msgid "system"
 msgstr "systém"
 
@@ -561,6 +569,9 @@ msgstr "Angličtina"
 
 msgid "French"
 msgstr "Francouzština"
+
+msgid "You must log in first."
+msgstr "Je vyžadováno přihlášení"
 
 msgid "German"
 msgstr "Němčina"
@@ -744,6 +755,22 @@ msgstr "Zrušeno omezení zobrazení"
 
 msgid "Add comment"
 msgstr "Přidat komentář"
+
+msgid "Added a comment"
+msgstr "Komentář přidán"
+
+msgid "Edit comment"
+msgstr "Upravit komentář"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Komentář upraven v poli %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Komentář upraven"
+
+msgid "Delete comment"
+msgstr "Odstranit komentář"
 
 msgid "Workflow: start"
 msgstr "Postup: start"

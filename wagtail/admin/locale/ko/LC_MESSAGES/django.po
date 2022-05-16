@@ -6,15 +6,15 @@
 # Jihan Chung <jihanchung20@gmail.com>, 2019
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyu Choi, 2022
-# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022
 # Matt Westcott <matthew@torchbox.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Kyu Choi, 2022\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -437,6 +437,9 @@ msgstr "프로필 사진을 등록하세요:"
 
 msgid "Reset to default"
 msgstr "기본값으로 되돌리다"
+
+msgid "Sidebar"
+msgstr "사이드바"
 
 msgid "Go back"
 msgstr "돌아가다"
@@ -1460,8 +1463,8 @@ msgstr "한 번 공개로 모두에게 공개"
 msgid "Not visible to the public"
 msgstr "대중에게 공개되지 않음"
 
-msgid "Set privacy"
-msgstr "비공개 설정"
+msgid "Change privacy"
+msgstr "공개 범위 변경"
 
 msgid "Page status: "
 msgstr "페이지 상태:"
@@ -1844,13 +1847,6 @@ msgstr ""
 
 msgid "You haven't created any tasks."
 msgstr "당신은 어떤 작업도 생성한 적 없음"
-
-msgid ""
-"Why not <a class=\"create-one-now\" href=\"#tab-new\" role=\"tab\">create "
-"one now</a>?"
-msgstr ""
-"지금 <a class=\"create-one-now\" href=\"#tab-new\" role=\"tab\">하나</a>생성"
-"해보시렵니까?"
 
 msgid "Hide disabled tasks"
 msgstr "불가한 작업 숨기기"
