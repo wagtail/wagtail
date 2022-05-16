@@ -44,7 +44,7 @@ class UnpublishAction:
             )
 
     def _send_unpublished_signal(self, object):
-        object_unpublished.send(sender=object.specific_class, instance=object.specific)
+        object_unpublished.send(sender=type(object), instance=object)
 
     def _unpublish_aliases(self, object):
         if not hasattr(object, "aliases"):
