@@ -43,6 +43,16 @@ class UnpublishAction:
                 "You do not have permission to unpublish this object"
             )
 
+    def _send_unpublished_signal(self, object):
+        object_unpublished.send(sender=object.specific_class, instance=object.specific)
+
+    def _unpublish_aliases(self, object):
+        if not hasattr(object, "aliases"):
+            return
+
+        for alias in object.aliases.all():
+            alias.unpublish()
+
     def _unpublish_object(self, object, set_expired, commit, user, log_action):
         """
         Unpublish the object by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
@@ -61,9 +71,7 @@ class UnpublishAction:
                 # using clean=False to bypass validation
                 object.save(clean=False)
 
-            object_unpublished.send(
-                sender=object.specific_class, instance=object.specific
-            )
+            self._send_unpublished_signal(object)
 
             if log_action:
                 log(
@@ -78,9 +86,7 @@ class UnpublishAction:
 
             object.revisions.update(approved_go_live_at=None)
 
-            # Unpublish aliases
-            for alias in object.aliases.all():
-                alias.unpublish()
+            self._unpublish_aliases(object)
 
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
