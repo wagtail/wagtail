@@ -132,6 +132,27 @@ class TranslatableMixin(models.Model):
         Finds the translation in the current active language.
 
         If there is no translation in the active language, self is returned.
+
+        Note: This will not return the translation if it is in draft.
+        If you want to include drafts, use the ``.localized_draft`` attribute instead.
+        """
+        from wagtail.models import DraftStateMixin
+
+        localized = self.localized_draft
+        if isinstance(self, DraftStateMixin) and not localized.live:
+            return self
+
+        return localized
+
+    @property
+    def localized_draft(self):
+        """
+        Finds the translation in the current active language.
+
+        If there is no translation in the active language, self is returned.
+
+        Note: This will return translations that are in draft. If you want to exclude
+        these, use the ``.localized`` attribute.
         """
         try:
             locale = Locale.get_active()
