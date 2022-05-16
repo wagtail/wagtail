@@ -441,6 +441,19 @@ class DraftStateMixin(models.Model):
             ]
         return []
 
+    @property
+    def status_string(self):
+        if not self.live:
+            if self.expired:
+                return _("expired")
+            else:
+                return _("draft")
+        else:
+            if self.has_unpublished_changes:
+                return _("live + draft")
+            else:
+                return _("live")
+
 
 class AbstractPage(
     RevisionMixin, DraftStateMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node
