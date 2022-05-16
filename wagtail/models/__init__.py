@@ -456,6 +456,17 @@ class DraftStateMixin(models.Model):
             else:
                 return _("live")
 
+    def publish(
+        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+    ):
+        return PublishRevisionAction(
+            revision,
+            user=user,
+            changed=changed,
+            log_action=log_action,
+            previous_revision=previous_revision,
+        ).execute()
+
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         return UnpublishAction(
             self,
@@ -1391,6 +1402,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
     update_aliases.alters_data = True
+
+    def publish(
+        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+    ):
+        return PublishPageRevisionAction(
+            revision,
+            user=user,
+            changed=changed,
+            log_action=log_action,
+            previous_revision=previous_revision,
+        ).execute()
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         return UnpublishPageAction(
@@ -2634,22 +2656,13 @@ class Revision(models.Model):
         return super().delete()
 
     def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
-        if isinstance(self.content_object, Page):
-            return PublishPageRevisionAction(
-                self,
-                user=user,
-                changed=changed,
-                log_action=log_action,
-                previous_revision=previous_revision,
-            ).execute()
-
-        return PublishRevisionAction(
+        return self.content_object.publish(
             self,
             user=user,
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
-        ).execute()
+        )
 
     def get_previous(self):
         return self.get_previous_by_created_at(
