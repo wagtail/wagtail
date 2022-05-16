@@ -88,8 +88,8 @@ class PublishRevisionAction:
 
     def _send_published_signal(self, object, revision):
         object_published.send(
-            sender=object.specific_class,
-            instance=object.specific,
+            sender=type(object),
+            instance=object,
             revision=revision,
         )
 
