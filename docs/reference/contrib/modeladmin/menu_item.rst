@@ -73,3 +73,13 @@ This will only work for individual ``ModelAdmin`` classes registered with their
 own ``modeladmin_register`` call. It won't work for members of a
 ``ModelAdminGroup``.
 
+.. _modeladmin_menu_item_name:
+
+-----------------------------------
+``ModelAdmin.menu_item_name``
+-----------------------------------
+
+**Expected value**: A string or ``None``
+
+Passed on as the ``name`` parameter when initialising the ``MenuItem`` for this
+class, becoming the ``name`` attribute value for that instance.
