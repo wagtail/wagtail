@@ -24,14 +24,12 @@ class UnpublishAction:
         commit=True,
         user=None,
         log_action=True,
-        include_descendants=False,
     ):
         self.object = object
         self.set_expired = set_expired
         self.commit = commit
         self.user = user
         self.log_action = log_action
-        self.include_descendants = include_descendants
 
     def check(self, skip_permission_checks=False):
         if (
@@ -98,14 +96,3 @@ class UnpublishAction:
             user=self.user,
             log_action=self.log_action,
         )
-
-        if self.include_descendants:
-            from wagtail.models import UserPagePermissionsProxy
-
-            user_perms = UserPagePermissionsProxy(self.user)
-            for live_descendant_object in (
-                self.object.get_descendants().live().defer_streamfields().specific()
-            ):
-                action = UnpublishAction(live_descendant_object)
-                if user_perms.for_page(live_descendant_object).can_unpublish():
-                    action.execute(skip_permission_checks=True)
