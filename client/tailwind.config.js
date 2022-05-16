@@ -86,9 +86,6 @@ module.exports = {
         'sidebar-toggle': '120',
         'dialog': '130',
       },
-      maxHeight: {
-        dialog: 'calc(100vh - 180px)',
-      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: 0 },

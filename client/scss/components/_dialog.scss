@@ -1,7 +1,8 @@
-.dialog {
+.w-dialog {
   position: fixed;
+  display: flex;
   inset-inline-start: 0;
-  inset-block-end: 0;
+  inset-inline-end: 0;
   bottom: 0;
   top: 0;
   z-index: theme('zIndex.dialog');
@@ -61,7 +62,7 @@
     // Using apply for scrollbars to avoid having to overwrite scrollbar with excess css
     overflow: auto;
     padding: theme('spacing.8');
-    max-height: theme('maxHeight.dialog');
+    max-height: calc(100vh - 180px);
 
     @include media-breakpoint-up(sm) {
       padding: theme('spacing.12');
@@ -83,7 +84,7 @@
     transform: translateY(0.5rem);
     inset-inline-start: calc(0 - theme('spacing.10'));
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       display: block;
     }
   }
@@ -92,14 +93,6 @@
     position: relative;
     margin-top: 0;
     margin-bottom: theme('spacing.1');
-
-    @include media-breakpoint-up(sm) {
-      margin-inline-start: theme('spacing.12');
-    }
-
-    @include media-breakpoint-up(md) {
-      margin-inline-start: 0;
-    }
   }
 
   &__subtitle {
