@@ -2784,7 +2784,7 @@ class PageViewRestriction(BaseViewRestriction):
         return Q(path__startswith=self.page.path)
 
     def is_descendant_of(self, other: "PageViewRestriction") -> bool:
-        raise self.page.is_descendant_of(other.page)
+        return self.page.is_descendant_of(other.page)
 
     def save(self, user=None, **kwargs):
         """
