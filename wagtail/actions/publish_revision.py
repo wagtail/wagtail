@@ -10,15 +10,15 @@ from wagtail.signals import page_published
 logger = logging.getLogger("wagtail")
 
 
-class PublishPagePermissionError(PermissionDenied):
+class PublishPermissionError(PermissionDenied):
     """
-    Raised when the page publish cannot be performed due to insufficient permissions.
+    Raised when the publish cannot be performed due to insufficient permissions.
     """
 
     pass
 
 
-class PublishPageRevisionAction:
+class PublishRevisionAction:
     """
     Publish or schedule revision for publishing.
 
@@ -49,7 +49,7 @@ class PublishPageRevisionAction:
             and not skip_permission_checks
             and not self.page.permissions_for_user(self.user).can_publish()
         ):
-            raise PublishPagePermissionError(
+            raise PublishPermissionError(
                 "You do not have permission to publish this page"
             )
 
