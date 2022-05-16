@@ -1,12 +1,21 @@
 from django.dispatch import Signal
 
+# Generic object signals
+
+# provides args: instance, revision
+object_published = Signal()
+
+# provides args: instance
+object_unpublished = Signal()
+
+
 # Page signals
 
 # provides args: instance, revision
-page_published = Signal()
+page_published = object_published
 
 # provides args: instance
-page_unpublished = Signal()
+page_unpublished = object_unpublished
 
 # provides args: instance, instance_before
 page_slug_changed = Signal()
