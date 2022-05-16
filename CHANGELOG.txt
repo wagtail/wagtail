@@ -18,7 +18,7 @@ Changelog
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
 
 
-3.0 (xx.xx.xxxx) - IN DEVELOPMENT
+3.0 (16.05.2022)
 ~~~~~~~~~~~~~~~~
 
  * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)
