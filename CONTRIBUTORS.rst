@@ -612,6 +612,8 @@ Contributors
 * Sandeep M A
 * Bernd de Ridder
 * Stefano Silvestri
+* Alexander Rogovskyy
+
 
 Translators
 ===========
