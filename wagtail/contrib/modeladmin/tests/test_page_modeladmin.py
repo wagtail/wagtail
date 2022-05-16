@@ -338,8 +338,8 @@ class TestModeratorAccess(TestCase, WagtailTestUtils):
 
 class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
     """
-    Test that the <ul class="breadcrumbs">... is inserted within the
-    <header> tag for potential future regression.
+    Test that the breadcrumbs region is inserted before the
+    </header> tag for potential future regression.
     See https://github.com/wagtail/wagtail/issues/3889
     """
 
@@ -371,13 +371,11 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
 
-        # check that the breadcrumbs are after the header opening tag
+        # check that the breadcrumbs are before the first header closing tag
         content_str = str(response.content)
-        position_of_header = content_str.index(
-            "<header"
-        )  # intentionally not closing tag
+        position_of_header_close = content_str.index("</header>")
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
-        self.assertLess(position_of_header, position_of_breadcrumbs)
+        self.assertGreater(position_of_header_close, position_of_breadcrumbs)
 
     def test_choose_inspect_page(self):
         response = self.client.get("/admin/tests/eventpage/inspect/4/")
@@ -402,13 +400,11 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
 
-        # check that the breadcrumbs are after the header opening tag
+        # check that the breadcrumbs are before the first header closing tag
         content_str = str(response.content)
-        position_of_header = content_str.index(
-            "<header"
-        )  # intentionally not closing tag
+        position_of_header_close = content_str.index("</header>")
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
-        self.assertLess(position_of_header, position_of_breadcrumbs)
+        self.assertGreater(position_of_header_close, position_of_breadcrumbs)
 
 
 class TestSearch(TestCase, WagtailTestUtils):

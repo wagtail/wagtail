@@ -913,8 +913,8 @@ class TestQuoting(TestCase, WagtailTestUtils):
 
 class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
     """
-    Test that the <ul class="breadcrumbs">... is inserted within the
-    <header> tag for potential future regression.
+    Test that the breadcrumbs region is inserted before the
+    </header> tag for potential future regression.
     See https://github.com/wagtail/wagtail/issues/3889
     """
 
