@@ -42,6 +42,7 @@ module.exports = function exports(env, argv) {
       'filtered-select',
       'lock-unlock-action',
       'modal-workflow',
+      'dialog-workflow',
       'page-chooser-modal',
       'page-chooser',
       'page-editor',
