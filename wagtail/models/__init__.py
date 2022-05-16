@@ -58,6 +58,7 @@ from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.publish_revision import PublishRevisionAction
+from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
@@ -454,6 +455,15 @@ class DraftStateMixin(models.Model):
                 return _("live + draft")
             else:
                 return _("live")
+
+    def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
+        return UnpublishAction(
+            self,
+            set_expired=set_expired,
+            commit=commit,
+            user=user,
+            log_action=log_action,
+        ).execute()
 
 
 class AbstractPage(
