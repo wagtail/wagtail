@@ -99,7 +99,7 @@ class BaseViewRestriction(models.Model):
 
         inclusive_q = Q()
         for obj in accepting_restrictions:
-            inclusive_q |= obj.get_affected_objects_q
+            inclusive_q |= obj.get_affected_objects_q()
 
         restrictive_q = Q()
         for obj in cls.get_all(request or user):
