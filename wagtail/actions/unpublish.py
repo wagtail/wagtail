@@ -74,7 +74,7 @@ class UnpublishAction:
                     user=user,
                 )
 
-            logger.info('Object unpublished: "%s" id=%d', object.title, object.id)
+            logger.info('Object unpublished: "%s" id=%d', str(object), object.id)
 
             object.revisions.update(approved_go_live_at=None)
 
