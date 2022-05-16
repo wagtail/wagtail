@@ -112,8 +112,8 @@ class PublishRevisionAction:
             if previous_revision:
                 previous_revision_object = previous_revision.as_object()
                 old_object_title = (
-                    previous_revision_object.title
-                    if object.title != previous_revision_object.title
+                    str(previous_revision_object)
+                    if str(object) != str(previous_revision_object)
                     else None
                 )
             else:
@@ -122,8 +122,8 @@ class PublishRevisionAction:
                 except Revision.DoesNotExist:
                     previous = None
                 old_object_title = (
-                    previous.content_object.title
-                    if previous and object.title != previous.content_object.title
+                    str(previous.content_object)
+                    if previous and str(object) != str(previous.content_object)
                     else None
                 )
         else:
@@ -172,7 +172,7 @@ class PublishRevisionAction:
                     data = data or {}
                     data["title"] = {
                         "old": old_object_title,
-                        "new": object.title,
+                        "new": str(object),
                     }
 
                     log(
@@ -196,14 +196,14 @@ class PublishRevisionAction:
 
             logger.info(
                 'Object published: "%s" id=%d revision_id=%d',
-                object.title,
+                str(object),
                 object.id,
                 revision.id,
             )
         elif object.go_live_at:
             logger.info(
                 'Object scheduled for publish: "%s" id=%d revision_id=%d go_live_at=%s',
-                object.title,
+                str(object),
                 object.id,
                 revision.id,
                 object.go_live_at.isoformat(),
