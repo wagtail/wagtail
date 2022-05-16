@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -142,12 +142,6 @@ msgstr "صفحه"
 msgid "Add a page permission"
 msgstr "افزودن مجوز صفحه"
 
-msgid "groups"
-msgstr "گروه ها"
-
-msgid "Add a group"
-msgstr "افزودن گروه"
-
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
@@ -205,6 +199,9 @@ msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» 
 
 msgid "Groups"
 msgstr "گروه ها"
+
+msgid "Add a group"
+msgstr "افزودن گروه"
 
 msgid "Search groups"
 msgstr "جستجوی گروه‌ها"

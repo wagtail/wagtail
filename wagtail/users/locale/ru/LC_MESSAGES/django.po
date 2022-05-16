@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -162,6 +162,13 @@ msgstr "Удалить"
 msgid "Are you sure you want to delete these users?"
 msgstr "Вы уверены, что хотите удалить этих пользователей?"
 
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "У вас недостаточно прав для удаления этого пользователя"
+msgstr[1] "У вас недостаточно прав для удаления этих пользователей"
+msgstr[2] "У вас недостаточно прав для удаления этих пользователей"
+msgstr[3] "У вас недостаточно прав для удаления этих пользователей"
+
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -238,12 +245,6 @@ msgstr "Страница"
 
 msgid "Add a page permission"
 msgstr "Добавить права на страницу"
-
-msgid "groups"
-msgstr "группы"
-
-msgid "Add a group"
-msgstr "Добавить группу"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -339,6 +340,9 @@ msgstr "Изменить активное состояние для выбран
 
 msgid "Groups"
 msgstr "Группы"
+
+msgid "Add a group"
+msgstr "Добавить группу"
 
 msgid "Search groups"
 msgstr "Поиск групп"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Dan Braghis, 2014-2021\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -226,12 +226,6 @@ msgstr "Pagină"
 msgid "Add a page permission"
 msgstr "Adaugă permisiune de pagină"
 
-msgid "groups"
-msgstr "grupuri"
-
-msgid "Add a group"
-msgstr "Adaugă un grup"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Ne pare rău, \"%(query)s\" nu se potrivește cu nici un grup"
@@ -354,6 +348,9 @@ msgstr[2] "%(num_parent_objects)d utilizatori au fost marcați ca inactivi"
 
 msgid "Groups"
 msgstr "Grupuri"
+
+msgid "Add a group"
+msgstr "Adaugă un grup"
 
 msgid "Search groups"
 msgstr "Caută grupuri"

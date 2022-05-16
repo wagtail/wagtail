@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -99,12 +99,6 @@ msgstr "Lapa"
 msgid "Add a page permission"
 msgstr "Pievienot atļauju lapai"
 
-msgid "groups"
-msgstr "grupas"
-
-msgid "Add a group"
-msgstr "PIevienot grupu"
-
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
@@ -152,6 +146,9 @@ msgstr "Nav lietotāju, kas atbilst \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grupas"
+
+msgid "Add a group"
+msgstr "PIevienot grupu"
 
 msgid "Search groups"
 msgstr "Meklēt grupas"

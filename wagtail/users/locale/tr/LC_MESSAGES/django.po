@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Basitlik İyidir, 2020\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -169,12 +169,6 @@ msgstr "Sayfa"
 msgid "Add a page permission"
 msgstr "Bir sayfa izni ekle"
 
-msgid "groups"
-msgstr "gruplar"
-
-msgid "Add a group"
-msgstr "Bir grup ekle"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Üzgünüm, \"%(query)s\" ile eşleşen bir grup bulunamadı"
@@ -239,6 +233,9 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen kullanıcı yok"
 
 msgid "Groups"
 msgstr "Gruplar"
+
+msgid "Add a group"
+msgstr "Bir grup ekle"
 
 msgid "Search groups"
 msgstr "Gruplarda ara"

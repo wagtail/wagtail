@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -276,6 +276,12 @@ msgstr "Существующие"
 msgid "New"
 msgstr "Новый"
 
+msgid "Use new image"
+msgstr "Использовать новое изображение"
+
+msgid "Use existing and delete new"
+msgstr "Использовать существующие и удалять новые"
+
 msgid "Latest images"
 msgstr "Недавние изображения"
 
@@ -302,6 +308,12 @@ msgstr "Сохранить"
 
 msgid "Delete image"
 msgstr "Удалить изображение"
+
+msgid "Keep new image"
+msgstr "Оставить новое изображение"
+
+msgid "Delete new image"
+msgstr "Удалить новое изображение"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -444,6 +456,14 @@ msgstr ""
 "Загрузка успешна. Пожалуйста, обновите заголовок для этого изображения, если "
 "необходимо. Так-же вы можете полностью удалить изображение если его загрузка "
 "не была обязательной."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Загрузка прошла успешно. Однако ваше новое изображение кажется дубликатом "
+"существующего изображения. Вы можете удалить его, если в нем нет "
+"необходимости."
 
 msgid "Sorry, upload failed."
 msgstr "Извините, загрузка не удалась."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -166,12 +166,6 @@ msgstr "Side"
 msgid "Add a page permission"
 msgstr "Legg til sidetillatelse"
 
-msgid "groups"
-msgstr "grupper"
-
-msgid "Add a group"
-msgstr "Legg til en gruppe"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Beklager, ingen grupper samsvarer med \"%(query)s\""
@@ -236,6 +230,9 @@ msgstr "Beklager, ingen brukere samsvarer med <em>\"%(query_string)s\"</em>"
 
 msgid "Groups"
 msgstr "Grupper"
+
+msgid "Add a group"
+msgstr "Legg til en gruppe"
 
 msgid "Search groups"
 msgstr "Søk i grupper"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ongchi <ihcgno@icloud.com>, 2020
+# ChihWei Wang <ihcgno@icloud.com>, 2022
+# ChihWei Wang <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>, 2020\n"
+"Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail 核心組件"
+
+msgid "Add Comment"
+msgstr "新增評論"
 
 #, python-format
 msgid "The minimum number of items is %d"
@@ -89,6 +93,9 @@ msgstr "URL路徑"
 
 msgid "owner"
 msgstr "所有者"
+
+msgid "title tag"
+msgstr "標題標籤"
 
 msgid "show in menus"
 msgstr "在選單中顯示"
@@ -343,6 +350,18 @@ msgstr "作業狀態"
 msgid "Draft saved"
 msgstr "已儲存草稿"
 
+msgid "comment"
+msgstr "評論"
+
+msgid "comments"
+msgstr "評論"
+
+msgid "comment reply"
+msgstr "評論回覆"
+
+msgid "comment replies"
+msgstr "評論回覆"
+
 msgid "timestamp (UTC)"
 msgstr "時間標記 (UTC)"
 
@@ -469,6 +488,12 @@ msgstr "英語"
 msgid "French"
 msgstr "法語"
 
+msgid "Wagtail tests"
+msgstr "Wagtail 測試"
+
+msgid "You must log in first."
+msgstr "您必須登入。"
+
 msgid "German"
 msgstr "德語"
 
@@ -487,11 +512,23 @@ msgstr "已刪除"
 msgid "Published"
 msgstr "已發佈"
 
+msgid "Publish scheduled draft"
+msgstr "發佈已預定的草稿"
+
+msgid "Published scheduled draft"
+msgstr "已發佈預定的草稿"
+
 msgid "Unpublish"
 msgstr "取消發佈"
 
 msgid "Unpublished"
 msgstr "取消發佈"
+
+msgid "Unpublish scheduled draft"
+msgstr "取消發佈預定的草稿"
+
+msgid "Unpublished scheduled draft"
+msgstr "已取消發佈預定的草稿"
 
 msgid "Locked"
 msgstr "已鎖定"
@@ -533,6 +570,15 @@ msgstr "移動"
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
 
+msgid "Reordered"
+msgstr "已重新排序"
+
+msgid "Schedule publication"
+msgstr "預定發佈"
+
+msgid "Unschedule publication"
+msgstr "取消預定發佈"
+
 msgid "Add view restrictions"
 msgstr "新增檢視限制"
 
@@ -558,6 +604,48 @@ msgstr "移除檢視限制 '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "已移除檢視限制"
+
+msgid "Add comment"
+msgstr "新增評論"
+
+msgid "Added a comment"
+msgstr "已新增評論"
+
+msgid "Edit comment"
+msgstr "編輯評論"
+
+msgid "Edited a comment"
+msgstr "已編輯評論"
+
+msgid "Delete comment"
+msgstr "刪除評論"
+
+msgid "Deleted a comment"
+msgstr "已刪除評論"
+
+msgid "Resolve comment"
+msgstr "解決評論"
+
+msgid "Resolved a comment"
+msgstr "已解決評論"
+
+msgid "Reply to comment"
+msgstr "回覆評論"
+
+msgid "Replied to a comment"
+msgstr "已回覆評論"
+
+msgid "Edit reply to comment"
+msgstr "編輯回覆"
+
+msgid "Edited a reply"
+msgstr "已編輯回覆"
+
+msgid "Delete reply to comment"
+msgstr "刪除回覆"
+
+msgid "Deleted a reply"
+msgstr "已刪除回覆"
 
 msgid "Workflow: start"
 msgstr "工作流程：開始"

@@ -6,7 +6,7 @@
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
-# Vorlif <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -16,17 +16,18 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
 # Peter Dreuw <archandha@gmx.net>, 2019
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
-# Vorlif <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +142,12 @@ msgstr "Benutzerprofil"
 msgid "user profiles"
 msgstr "Benutzerprofile"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "1 Benutzer die Rolle zuordnen"
+msgstr[1] "%(counter)s Benutzern die Rolle zuordnen"
+
 msgid "Assign role"
 msgstr "Rolle zuordnen"
 
@@ -182,6 +189,12 @@ msgstr "Ja, löschen"
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Aktiven Zustand für 1 Benutzer ändern"
+msgstr[1] "Aktiven Zustand für %(counter)s Benutzer ändern"
+
 msgid "Set active state"
 msgstr "Aktiven Zustand festlegen"
 
@@ -201,6 +214,18 @@ msgstr "Nein, Zustand nicht ändern."
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Der Gruppe „%(group_name)s“ ist <strong>%(group_user_count)s</strong> "
+"Benutzer zugeordnet."
+msgstr[1] ""
+"Der Gruppe „%(group_name)s“ sind <strong>%(group_user_count)s</strong> "
+"Benutzer zugeordnet."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -253,12 +278,6 @@ msgstr "Seite"
 
 msgid "Add a page permission"
 msgstr "Einfügen einer Seiten Berechtigung"
-
-msgid "groups"
-msgstr "Gruppen"
-
-msgid "Add a group"
-msgstr "Eine Gruppe hinzufügen"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -322,6 +341,12 @@ msgid "%(time_period)s ago"
 msgstr "vor %(time_period)s"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Es gibt leider keine Benutzer zum Suchbegriff „<em>%(query_string)s</em>“."
@@ -377,6 +402,9 @@ msgstr[1] "%(num_parent_objects)d Benutzer wurden als inaktive markiert"
 
 msgid "Groups"
 msgstr "Gruppen"
+
+msgid "Add a group"
+msgstr "Eine Gruppe hinzufügen"
 
 msgid "Search groups"
 msgstr "Gruppe suchen"
