@@ -8,7 +8,7 @@ from wagtail.signals import page_unpublished
 logger = logging.getLogger("wagtail")
 
 
-class UnpublishPagePermissionError(PermissionDenied):
+class UnpublishPermissionError(PermissionDenied):
     """
     Raised when the page unpublish cannot be performed due to insufficient permissions.
     """
@@ -16,7 +16,7 @@ class UnpublishPagePermissionError(PermissionDenied):
     pass
 
 
-class UnpublishPageAction:
+class UnpublishAction:
     def __init__(
         self,
         page,
@@ -39,7 +39,7 @@ class UnpublishPageAction:
             and not skip_permission_checks
             and not self.page.permissions_for_user(self.user).can_unpublish()
         ):
-            raise UnpublishPagePermissionError(
+            raise UnpublishPermissionError(
                 "You do not have permission to unpublish this page"
             )
 
@@ -98,6 +98,6 @@ class UnpublishPageAction:
             for live_descendant_page in (
                 self.page.get_descendants().live().defer_streamfields().specific()
             ):
-                action = UnpublishPageAction(live_descendant_page)
+                action = UnpublishAction(live_descendant_page)
                 if user_perms.for_page(live_descendant_page).can_unpublish():
                     action.execute(skip_permission_checks=True)
