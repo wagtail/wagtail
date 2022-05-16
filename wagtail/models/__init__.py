@@ -57,6 +57,7 @@ from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
+from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
@@ -2623,7 +2624,16 @@ class Revision(models.Model):
         return super().delete()
 
     def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
-        return PublishPageRevisionAction(
+        if isinstance(self.content_object, Page):
+            return PublishPageRevisionAction(
+                self,
+                user=user,
+                changed=changed,
+                log_action=log_action,
+                previous_revision=previous_revision,
+            ).execute()
+
+        return PublishRevisionAction(
             self,
             user=user,
             changed=changed,
