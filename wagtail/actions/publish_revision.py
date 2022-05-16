@@ -70,10 +70,39 @@ class PublishRevisionAction:
             content_changed=self.changed,
         )
 
+    def _update_comments_position(self, object):
+        from wagtail.models import COMMENTS_RELATION_NAME
+
+        for comment in getattr(object, COMMENTS_RELATION_NAME).all().only("position"):
+            comment.save(update_fields=["position"])
+
+    def _cancel_workflow(self, object, user):
+        if not hasattr(object, "current_workflow_state"):
+            return
+
+        workflow_state = object.current_workflow_state
+        if workflow_state and getattr(
+            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+        ):
+            workflow_state.cancel(user=user)
+
+    def _send_published_signal(self, object, revision):
+        object_published.send(
+            sender=object.specific_class,
+            instance=object.specific,
+            revision=revision,
+        )
+
+    def _update_aliases(self, revision, object, user):
+        if not hasattr(object, "update_aliases"):
+            return
+
+        object.update_aliases(revision=revision, user=user, _content=revision.content)
+
     def _publish_revision(
         self, revision, object, user, changed, log_action, previous_revision
     ):
-        from wagtail.models import COMMENTS_RELATION_NAME, Revision
+        from wagtail.models import Revision
 
         if object.go_live_at and object.go_live_at > timezone.now():
             object.has_unpublished_changes = True
@@ -132,29 +161,17 @@ class PublishRevisionAction:
 
         object.save()
 
-        for comment in getattr(object, COMMENTS_RELATION_NAME).all().only("position"):
-            comment.save(update_fields=["position"])
+        self._update_comments_position(object)
 
         revision.submitted_for_moderation = False
         object.revisions.update(submitted_for_moderation=False)
 
-        workflow_state = object.current_workflow_state
-        if workflow_state and getattr(
-            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
-        ):
-            workflow_state.cancel(user=user)
+        self._cancel_workflow(object, user)
 
         if object.live:
-            object_published.send(
-                sender=object.specific_class,
-                instance=object.specific,
-                revision=revision,
-            )
+            self._send_published_signal(object, revision)
 
-            # Update alias objects
-            object.update_aliases(
-                revision=revision, user=user, _content=revision.content
-            )
+            self._update_aliases(revision, object, user)
 
             if log_action:
                 data = None
