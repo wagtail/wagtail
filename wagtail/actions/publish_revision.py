@@ -37,7 +37,7 @@ class PublishRevisionAction:
         self, revision, user=None, changed=True, log_action=True, previous_revision=None
     ):
         self.revision = revision
-        self.page = self.revision.as_object()
+        self.object = self.revision.as_object()
         self.user = user
         self.changed = changed
         self.log_action = log_action
@@ -47,73 +47,73 @@ class PublishRevisionAction:
         if (
             self.user
             and not skip_permission_checks
-            and not self.page.permissions_for_user(self.user).can_publish()
+            and not self.object.permissions_for_user(self.user).can_publish()
         ):
             raise PublishPermissionError(
-                "You do not have permission to publish this page"
+                "You do not have permission to publish this object"
             )
 
     def log_scheduling_action(self):
         log(
-            instance=self.page,
+            instance=self.object,
             action="wagtail.publish.schedule",
             user=self.user,
             data={
                 "revision": {
                     "id": self.revision.id,
                     "created": self.revision.created_at.strftime("%d %b %Y %H:%M"),
-                    "go_live_at": self.page.go_live_at.strftime("%d %b %Y %H:%M"),
-                    "has_live_version": self.page.live,
+                    "go_live_at": self.object.go_live_at.strftime("%d %b %Y %H:%M"),
+                    "has_live_version": self.object.live,
                 }
             },
             revision=self.revision,
             content_changed=self.changed,
         )
 
-    def _publish_page_revision(
-        self, revision, page, user, changed, log_action, previous_revision
+    def _publish_revision(
+        self, revision, object, user, changed, log_action, previous_revision
     ):
         from wagtail.models import COMMENTS_RELATION_NAME, Revision
 
-        if page.go_live_at and page.go_live_at > timezone.now():
-            page.has_unpublished_changes = True
+        if object.go_live_at and object.go_live_at > timezone.now():
+            object.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
-            revision.approved_go_live_at = page.go_live_at
+            revision.approved_go_live_at = object.go_live_at
             revision.save()
             # And clear the the approved_go_live_at of any other revisions
-            page.revisions.exclude(id=revision.id).update(approved_go_live_at=None)
-            # if we are updating a currently live page skip the rest
-            if page.live_revision:
+            object.revisions.exclude(id=revision.id).update(approved_go_live_at=None)
+            # if we are updating a currently live object skip the rest
+            if object.live_revision:
                 # Log scheduled publishing
                 if log_action:
                     self.log_scheduling_action()
 
                 return
-            # if we have a go_live in the future don't make the page live
-            page.live = False
+            # if we have a go_live in the future don't make the object live
+            object.live = False
         else:
-            page.live = True
-            # at this point, the page has unpublished changes if and only if there are newer revisions than this one
-            page.has_unpublished_changes = not revision.is_latest_revision()
-            # If page goes live clear the approved_go_live_at of all revisions
-            page.revisions.update(approved_go_live_at=None)
-        page.expired = False  # When a page is published it can't be expired
+            object.live = True
+            # at this point, the object has unpublished changes if and only if there are newer revisions than this one
+            object.has_unpublished_changes = not revision.is_latest_revision()
+            # If object goes live clear the approved_go_live_at of all revisions
+            object.revisions.update(approved_go_live_at=None)
+        object.expired = False  # When a object is published it can't be expired
 
         # Set first_published_at, last_published_at and live_revision
-        # if the page is being published now
-        if page.live:
+        # if the object is being published now
+        if object.live:
             now = timezone.now()
-            page.last_published_at = now
-            page.live_revision = revision
+            object.last_published_at = now
+            object.live_revision = revision
 
-            if page.first_published_at is None:
-                page.first_published_at = now
+            if object.first_published_at is None:
+                object.first_published_at = now
 
             if previous_revision:
-                previous_revision_page = previous_revision.as_object()
-                old_page_title = (
-                    previous_revision_page.title
-                    if page.title != previous_revision_page.title
+                previous_revision_object = previous_revision.as_object()
+                old_object_title = (
+                    previous_revision_object.title
+                    if object.title != previous_revision_object.title
                     else None
                 )
             else:
@@ -121,36 +121,40 @@ class PublishRevisionAction:
                     previous = revision.get_previous()
                 except Revision.DoesNotExist:
                     previous = None
-                old_page_title = (
+                old_object_title = (
                     previous.content_object.title
-                    if previous and page.title != previous.content_object.title
+                    if previous and object.title != previous.content_object.title
                     else None
                 )
         else:
-            # Unset live_revision if the page is going live in the future
-            page.live_revision = None
+            # Unset live_revision if the object is going live in the future
+            object.live_revision = None
 
-        page.save()
+        object.save()
 
-        for comment in getattr(page, COMMENTS_RELATION_NAME).all().only("position"):
+        for comment in getattr(object, COMMENTS_RELATION_NAME).all().only("position"):
             comment.save(update_fields=["position"])
 
         revision.submitted_for_moderation = False
-        page.revisions.update(submitted_for_moderation=False)
+        object.revisions.update(submitted_for_moderation=False)
 
-        workflow_state = page.current_workflow_state
+        workflow_state = object.current_workflow_state
         if workflow_state and getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ):
             workflow_state.cancel(user=user)
 
-        if page.live:
+        if object.live:
             page_published.send(
-                sender=page.specific_class, instance=page.specific, revision=revision
+                sender=object.specific_class,
+                instance=object.specific,
+                revision=revision,
             )
 
-            # Update alias pages
-            page.update_aliases(revision=revision, user=user, _content=revision.content)
+            # Update alias objects
+            object.update_aliases(
+                revision=revision, user=user, _content=revision.content
+            )
 
             if log_action:
                 data = None
@@ -164,15 +168,15 @@ class PublishRevisionAction:
                         }
                     }
 
-                if old_page_title:
+                if old_object_title:
                     data = data or {}
                     data["title"] = {
-                        "old": old_page_title,
-                        "new": page.title,
+                        "old": old_object_title,
+                        "new": object.title,
                     }
 
                     log(
-                        instance=page,
+                        instance=object,
                         action="wagtail.rename",
                         user=user,
                         data=data,
@@ -180,7 +184,7 @@ class PublishRevisionAction:
                     )
 
                 log(
-                    instance=page,
+                    instance=object,
                     action=log_action
                     if isinstance(log_action, str)
                     else "wagtail.publish",
@@ -191,18 +195,18 @@ class PublishRevisionAction:
                 )
 
             logger.info(
-                'Page published: "%s" id=%d revision_id=%d',
-                page.title,
-                page.id,
+                'Object published: "%s" id=%d revision_id=%d',
+                object.title,
+                object.id,
                 revision.id,
             )
-        elif page.go_live_at:
+        elif object.go_live_at:
             logger.info(
-                'Page scheduled for publish: "%s" id=%d revision_id=%d go_live_at=%s',
-                page.title,
-                page.id,
+                'Object scheduled for publish: "%s" id=%d revision_id=%d go_live_at=%s',
+                object.title,
+                object.id,
                 revision.id,
-                page.go_live_at.isoformat(),
+                object.go_live_at.isoformat(),
             )
 
             if log_action:
@@ -211,9 +215,9 @@ class PublishRevisionAction:
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
 
-        return self._publish_page_revision(
+        return self._publish_revision(
             self.revision,
-            self.page,
+            self.object,
             user=self.user,
             changed=self.changed,
             log_action=self.log_action,
