@@ -3,10 +3,7 @@
 {% include "wagtailadmin/shared/header.html" with title=title_str icon="no-view" %}
 
 <div class="nice-padding">
-    <p class="help-block help-warning">
-        {% icon name='warning' %}
-        {% trans "Privacy changes apply to all children of this page too." %}
-    </p>
+
     <form action="{% url 'wagtailadmin_pages:set_privacy' page.id %}" method="POST" novalidate>
         {% csrf_token %}
         <ul class="fields">

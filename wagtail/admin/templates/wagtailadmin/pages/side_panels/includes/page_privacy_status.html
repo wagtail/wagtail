@@ -25,9 +25,16 @@
 {% block action %}
     {% page_permissions page as page_perms %}
     {% if page.id and page_perms.can_set_view_restrictions %}
-        {% trans 'Change privacy' as set_privacy_text %}
-        {% url 'wagtailadmin_pages:set_privacy' page.id as privacy_url %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-set-privacy' data_url=privacy_url text=set_privacy_text %}
+        {% trans 'Change privacy' as set_privacy_title %}
+        {% trans 'Choose who can view the live version of this page' as set_privacy_message %}
+        {% trans 'Privacy changes apply to all children of this page too' as privacy_message_text %}
+        {#        {% url 'wagtailadmin_pages:set_privacy' page.id as privacy_url %}#}
+        {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-text-teal-600 w-inline-flex w-justify-center w-transition' dialog_title=set_privacy_title text=set_privacy_title %}
+        {% dialog icon_name="view" title=set_privacy_title subtitle=set_privacy_message message_status='critical' message_heading=privacy_message_text %}
+            {#            {% include 'wagtailadmin/page_privacy/set_privacy.html' %}#}
+        {% enddialog %}
+
+        {#        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-set-privacy' data_url=privacy_url text=set_privacy_text %}#}
     {% else %}
         {# Empty actions block because of lack of permissions #}
     {% endif %}
