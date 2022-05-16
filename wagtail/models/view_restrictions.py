@@ -104,11 +104,11 @@ class BaseViewRestriction(models.Model):
         restrictive_q = Q()
         for obj in cls.get_all(request or user):
             if obj not in accepting_restrictions:
-                restrictive_q += obj.get_affected_objects_with_conflicts_q(
+                restrictive_q &= obj.get_affected_objects_with_conflicts_q(
                     accepting_restrictions
                 )
 
-        return inclusive_q + ~restrictive_q
+        return inclusive_q & ~restrictive_q
 
     def get_affected_objects_q(self) -> Q:
         """
@@ -130,7 +130,7 @@ class BaseViewRestriction(models.Model):
         q = self.get_affected_objects_q()
         for obj in conflicting_restrictions:
             if obj.is_descendant_of(self):
-                q += ~obj.get_affected_objects_q()
+                q &= ~obj.get_affected_objects_q()
         return q
 
     def is_descendant_of(self, other: "BaseViewRestriction") -> bool:
