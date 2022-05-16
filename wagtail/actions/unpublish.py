@@ -3,14 +3,14 @@ import logging
 from django.core.exceptions import PermissionDenied
 
 from wagtail.log_actions import log
-from wagtail.signals import page_unpublished
+from wagtail.signals import object_unpublished
 
 logger = logging.getLogger("wagtail")
 
 
 class UnpublishPermissionError(PermissionDenied):
     """
-    Raised when the page unpublish cannot be performed due to insufficient permissions.
+    Raised when the object unpublish cannot be performed due to insufficient permissions.
     """
 
     pass
@@ -19,14 +19,14 @@ class UnpublishPermissionError(PermissionDenied):
 class UnpublishAction:
     def __init__(
         self,
-        page,
+        object,
         set_expired=False,
         commit=True,
         user=None,
         log_action=True,
         include_descendants=False,
     ):
-        self.page = page
+        self.object = object
         self.set_expired = set_expired
         self.commit = commit
         self.user = user
@@ -37,54 +37,56 @@ class UnpublishAction:
         if (
             self.user
             and not skip_permission_checks
-            and not self.page.permissions_for_user(self.user).can_unpublish()
+            and not self.object.permissions_for_user(self.user).can_unpublish()
         ):
             raise UnpublishPermissionError(
-                "You do not have permission to unpublish this page"
+                "You do not have permission to unpublish this object"
             )
 
-    def _unpublish_page(self, page, set_expired, commit, user, log_action):
+    def _unpublish_object(self, object, set_expired, commit, user, log_action):
         """
-        Unpublish the page by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
+        Unpublish the object by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
         :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
             Defaults to 'wagtail.unpublish'
         """
-        if page.live:
-            page.live = False
-            page.has_unpublished_changes = True
-            page.live_revision = None
+        if object.live:
+            object.live = False
+            object.has_unpublished_changes = True
+            object.live_revision = None
 
             if set_expired:
-                page.expired = True
+                object.expired = True
 
             if commit:
                 # using clean=False to bypass validation
-                page.save(clean=False)
+                object.save(clean=False)
 
-            page_unpublished.send(sender=page.specific_class, instance=page.specific)
+            object_unpublished.send(
+                sender=object.specific_class, instance=object.specific
+            )
 
             if log_action:
                 log(
-                    instance=page,
+                    instance=object,
                     action=log_action
                     if isinstance(log_action, str)
                     else "wagtail.unpublish",
                     user=user,
                 )
 
-            logger.info('Page unpublished: "%s" id=%d', page.title, page.id)
+            logger.info('Object unpublished: "%s" id=%d', object.title, object.id)
 
-            page.revisions.update(approved_go_live_at=None)
+            object.revisions.update(approved_go_live_at=None)
 
             # Unpublish aliases
-            for alias in page.aliases.all():
+            for alias in object.aliases.all():
                 alias.unpublish()
 
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
 
-        self._unpublish_page(
-            self.page,
+        self._unpublish_object(
+            self.object,
             set_expired=self.set_expired,
             commit=self.commit,
             user=self.user,
@@ -95,9 +97,9 @@ class UnpublishAction:
             from wagtail.models import UserPagePermissionsProxy
 
             user_perms = UserPagePermissionsProxy(self.user)
-            for live_descendant_page in (
-                self.page.get_descendants().live().defer_streamfields().specific()
+            for live_descendant_object in (
+                self.object.get_descendants().live().defer_streamfields().specific()
             ):
-                action = UnpublishAction(live_descendant_page)
-                if user_perms.for_page(live_descendant_page).can_unpublish():
+                action = UnpublishAction(live_descendant_object)
+                if user_perms.for_page(live_descendant_object).can_unpublish():
                     action.execute(skip_permission_checks=True)
