@@ -6,7 +6,7 @@
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
-# Vorlif <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
 # Bohreromir, 2020
@@ -22,16 +22,16 @@
 # Peter Dreuw <archandha@gmx.net>, 2019
 # th3hamm0r <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
-# Vorlif <flori@vorlif.org>, 2015,2017
+# Florian Vogt <flori@vorlif.org>, 2015,2017
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,15 @@ msgstr "Dieser Block hat keine Einstellmöglichkeiten."
 
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail Frontend-Cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail Routable-Page"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail Sitemaps"
 
 msgid "Password"
 msgstr "Passwort"
@@ -283,25 +292,25 @@ msgid "page view restrictions"
 msgstr "Seiten Ansichtsrestriktionen"
 
 msgid "workflow"
-msgstr "Arbeitsablauf"
+msgstr "Workflow"
 
 msgid "workflow page"
-msgstr "Arbeitsablauf-Seite"
+msgstr "Workflow-Seite"
 
 msgid "workflow pages"
-msgstr "Arbeitsablauf-Seiten"
+msgstr "Workflow-Seiten"
 
 msgid "workflow_tasks"
-msgstr "Aufgaben des Arbeitsablaufes"
+msgstr "Workflow-Aufgaben"
 
 msgid "task"
 msgstr "Aufgabe"
 
 msgid "workflow task order"
-msgstr "Reihenfolge der Aufgaben"
+msgstr "Reihenfolge der Workflow-Aufgaben"
 
 msgid "workflow task orders"
-msgstr "Reihenfolgen der Aufgaben"
+msgstr "Reihenfolgen der Workflow-Aufgaben"
 
 msgid "name"
 msgstr "Name"
@@ -313,18 +322,32 @@ msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
-"Aktive Aufgaben können zu einem Arbeitsablauf hinzugefügt werden. Die "
+"Aktive Aufgaben können zu einem Workflow hinzugefügt werden. Die "
 "Deaktivierung einer Aufgabe entfernt diese nicht aus einem bestehenden "
-"Arbeitsablauf."
+"Workflow."
 
 msgid "tasks"
 msgstr "Aufgaben"
 
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Aktive Workflows können zu Seiten hinzugefügt werden. Die Deaktivierung "
+"eines Workflows entfernt diesen nicht aus bestehenden Seiten."
+
 msgid "workflows"
-msgstr "Arbeitsabläufe"
+msgstr "Workflows"
 
 msgid "groups"
 msgstr "Gruppen"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Seiten in diesem Schritt eines Workflows werden durch diese Gruppen von  "
+"Benutzern moderiert oder freigeschaltet"
 
 msgid "Request changes"
 msgstr "Änderungen anfordern"
@@ -338,6 +361,12 @@ msgstr "Mit Kommentar genehmigen"
 msgid "Members of the chosen Wagtail Groups can approve this task"
 msgstr ""
 "Mitglieder der ausgewählten Wagtail-Gruppe können diese Aufgabe genehmigen"
+
+msgid "Group approval task"
+msgstr "Gruppengenehmigungsaufgabe"
+
+msgid "Group approval tasks"
+msgstr "Gruppengenehmigungsaufgaben"
 
 msgid "In progress"
 msgstr "In Bearbeitung"
@@ -360,18 +389,24 @@ msgstr "angefragt von"
 msgid "current task state"
 msgstr "Aktueller Zustand der Aufgabe"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Es kann nur einen Workflow-Zustand „in Bearbeitung“ oder „Änderungen "
+"benötigt“ pro Seite geben."
+
 #, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Arbeitsablauf ‚{0}‘ auf Seite ‚{1}‘: {2}"
+msgstr "Workflow ‚{0}‘ auf Seite ‚{1}‘: {2}"
 
 msgid "Not started"
 msgstr "Nicht begonnen"
 
 msgid "Workflow state"
-msgstr "Zustand des Arbeitsablaufes"
+msgstr "Workflow-Zustand"
 
 msgid "Workflow states"
-msgstr "Zustände des Arbeitsablaufes"
+msgstr "Workflow-Zustände"
 
 msgid "Rejected"
 msgstr "Abgelehnt"
@@ -380,7 +415,7 @@ msgid "Skipped"
 msgstr "Übersprungen"
 
 msgid "workflow state"
-msgstr "Zustand des Arbeitsablaufes"
+msgstr "Workflow-Zustand"
 
 msgid "started at"
 msgstr "Gestartet am"
@@ -390,6 +425,10 @@ msgstr "Beendet am"
 
 msgid "finished by"
 msgstr "Beendet von"
+
+#, python-brace-format
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Aufgabe „{0}“ bei Seitenrevision „{1}“: {2}"
 
 msgid "Task state"
 msgstr "Zustand der Aufgabe"
@@ -440,6 +479,12 @@ msgstr "System"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Unbekannte %(action)s"
+
+msgid "model log entry"
+msgstr "Protokolleintrag"
+
+msgid "model log entries"
+msgstr "Protokolleinträge"
 
 msgid "collection"
 msgstr "Sammlung"
@@ -558,11 +603,23 @@ msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
 msgid "Continue"
 msgstr "Weiter"
 
+msgid "Test Wagtail Model Admin"
+msgstr "Testet Wagtail Model Admin"
+
+msgid "Wagtail routable page tests"
+msgstr "Wagtail Routable-Page Tests"
+
+msgid "Wagtail search tests"
+msgstr "Wagtail Search-Tests"
+
 msgid "English"
 msgstr "Englisch"
 
 msgid "French"
 msgstr "Französisch"
+
+msgid "Wagtail snippets tests"
+msgstr "Wagtail Snippets-Tests"
 
 msgid "Wagtail tests"
 msgstr "Wagtail Tests"
@@ -743,6 +800,36 @@ msgstr "Veröffentlichung der Seite am %(go_live_at)s aufgehoben"
 msgid "Page unscheduled from publishing"
 msgstr "Geplante Veröffentlichung der Seite aufgehoben"
 
+msgid "Add view restrictions"
+msgstr "Ansichtsrestriktionen hinzufügen"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Ansichtsrestriktion „%(restriction)s“ hinzugefügt"
+
+msgid "Added view restriction"
+msgstr "Ansichtsrestriktion hinzugefügt"
+
+msgid "Update view restrictions"
+msgstr "Ansichtsrestriktionen ändern"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Ansichtsrestriktion geändert in „%(restriction)s“"
+
+msgid "Updated view restriction"
+msgstr "Ansichtsrestriktion geändert"
+
+msgid "Remove view restrictions"
+msgstr "Ansichtsrestriktionen entfernen"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Ansichtsrestriktion „%(restriction)s“ entfernt"
+
+msgid "Removed view restriction"
+msgstr "Ansichtsrestriktion entfernt"
+
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"
 
@@ -815,22 +902,55 @@ msgid "Deleted a reply"
 msgstr "Eine Antwort gelöscht"
 
 msgid "Workflow: start"
-msgstr "Arbeitsablauf: Start"
+msgstr "Workflow: Start"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "„%(workflow)s“ gestartet. Nächster Schritt „%(task)s“"
 
 msgid "Workflow started"
-msgstr "Arbeitsablauf gestartet"
+msgstr "Workflow gestartet"
 
 msgid "Workflow: approve task"
-msgstr "Arbeitsablauf: Aufgabe genehmigen"
+msgstr "Workflow: Aufgabe genehmigen"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Freigegeben bei „%(task)s“. Nächster Schritt „%(next_task)s“"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Freigegeben bei „%(task)s“. „%(workflow)s“ abgeschlossen"
+
+msgid "Workflow task approved"
+msgstr "Workflow-Aufgabe freigegeben"
 
 msgid "Workflow: reject task"
-msgstr "Arbeitsablauf: Aufgabe ablehnen"
+msgstr "Workflow: Aufgabe ablehnen"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Abgelehnt bei „%(task)s“. Änderungen angefordert"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Workflow-Aufgabe abgelehnt. Workflow abgeschlossen"
 
 msgid "Workflow: resume task"
-msgstr "Arbeitsablauf: Aufgabe fortsetzen"
+msgstr "Workflow: Aufgabe fortsetzen"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "„%(task)s“ erneut eingereicht. Workflow fortgesetzt"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Workflow-Aufgabe erneut eingereicht. Workflow fortgesetzt"
 
 msgid "Workflow: cancel"
-msgstr "Arbeitsablauf: Abbruch"
+msgstr "Workflow: Abbruch"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "„%(workflow)s“ abgebrochen bei „%(task)s“"
 
 msgid "Workflow cancelled"
-msgstr "Arbeitsablauf abgebrochen"
+msgstr "Workflow abgebrochen"

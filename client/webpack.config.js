@@ -397,7 +397,12 @@ module.exports = function exports(env, argv) {
           test: /\.(scss|css)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                url: false,
+              },
+            },
             {
               loader: 'postcss-loader',
               options: {

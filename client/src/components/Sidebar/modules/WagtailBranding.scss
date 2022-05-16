@@ -30,7 +30,7 @@ $logo-size: 110px;
   border-radius: 100%;
 
   @include media-breakpoint-up(sm) {
-    margin: 1.25rem auto;
+    margin: 0.5rem auto 4rem auto;
   }
 
   // Reduce overall size when in slim mode

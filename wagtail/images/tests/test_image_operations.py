@@ -5,12 +5,16 @@ from django.test import TestCase, override_settings
 
 from wagtail import hooks
 from wagtail.images import image_operations
-from wagtail.images.exceptions import InvalidFilterSpecError
+from wagtail.images.exceptions import (
+    InvalidFilterSpecError,
+    UnknownOutputImageFormatError,
+)
 from wagtail.images.image_operations import TransformOperation
 from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_jpeg,
+    get_test_image_file_tiff,
     get_test_image_file_webp,
 )
 
@@ -597,6 +601,18 @@ class TestFilter(TestCase):
         fil.run(image, BytesIO())
 
         self.assertEqual(run_mock.call_count, 2)
+
+
+class TestUnknownOutputImageFormat(TestCase):
+    @hooks.register_temporarily(
+        "register_image_operations", register_image_operations_hook
+    )
+    def test_run_raises_error(self):
+        fil = Filter(spec="operation1|operation2")
+        image = Image.objects.create(
+            title="Test image", file=get_test_image_file_tiff()
+        )
+        self.assertRaises(UnknownOutputImageFormatError, fil.run, image, BytesIO())
 
 
 class TestFormatFilter(TestCase):

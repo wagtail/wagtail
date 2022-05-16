@@ -81,7 +81,7 @@ But several features do not currently support multi-tenancy:
 
 Permission configuration for built-in models like Sites, Site settings and Users is not site-specific, so any user with permission to edit a single entry can edit them all. This limitation can be mostly circumvented by only allowing superusers to manage these models.
 
-Python, Django, and Wagtail allow you to override, extend and customize functionality. Here are some ideas that may help you create a multi-tenancy solution for your site:
+Python, Django, and Wagtail allow you to override, extend and customise functionality. Here are some ideas that may help you create a multi-tenancy solution for your site:
 
 - Django allows to override templates, this also works in the Wagtail admin.
 - A custom user model can be used to link users to a specific site.

@@ -340,18 +340,18 @@ You can encode the image into lossless WebP format by using the ``format-webp-lo
 
 .. _image_background_color:
 
-Background color
-----------------
+Background colour
+-----------------
 
 The PNG and GIF image formats both support transparency, but if you want to
 convert images to JPEG format, the transparency will need to be replaced with a
-solid background color.
+solid background colour.
 
 By default, Wagtail will set the background to white. But if a white background
-doesn't fit your design, you can specify a color using the ``bgcolor`` filter.
+doesn't fit your design, you can specify a colour using the ``bgcolor`` filter.
 
 This filter takes a single argument, which is a CSS 3 or 6 digit hex code
-representing the color you would like to use:
+representing the colour you would like to use:
 
 .. code-block:: html+Django
 

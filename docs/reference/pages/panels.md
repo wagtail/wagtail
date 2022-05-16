@@ -284,7 +284,7 @@ You must define a `heading` or `label` when using `collapsible` with `InlinePane
 
 By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from {doc}`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
 
-For example, to customize placeholders for a Book model exposed via ModelAdmin:
+For example, to customise placeholders for a Book model exposed via ModelAdmin:
 
 ```python
 # models.py

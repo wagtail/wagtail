@@ -60,6 +60,9 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         fetchResults(this.href);
         return false;
       });
+
+      // Reinitialize tabs to hook up tab event listeners in the modal
+      initTabs();
     }
 
     const searchForm = $('form.task-search', modal.body);
@@ -113,9 +116,6 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       const wait = setTimeout(search, 50);
       $(this).data('timer', wait);
     });
-
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    initTabs();
   },
   task_chosen(modal, jsonData) {
     modal.respond('taskChosen', jsonData.result);

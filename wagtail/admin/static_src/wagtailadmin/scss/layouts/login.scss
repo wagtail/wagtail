@@ -121,9 +121,6 @@ a.button {
   @include media-breakpoint-up(sm) {
     position: absolute;
     top: 139px;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 5%;
     inset-inline-end: 5%;
     padding: 0;
   }
@@ -196,9 +193,6 @@ a.button {
         width: 1em;
         height: 1em;
         padding: 0.3em;
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        left: $desktop-nice-padding;
         inset-inline-start: $desktop-nice-padding;
         margin-top: -1.1rem;
         top: 50%;

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -167,12 +167,6 @@ msgstr "Pajina"
 msgid "Add a page permission"
 msgstr "Hatama permisaun ba pajina"
 
-msgid "groups"
-msgstr "grupu sira"
-
-msgid "Add a group"
-msgstr "Hatama grupu"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Deskulpa, laiha grupu sira apar \"1%(query)s\""
@@ -237,6 +231,9 @@ msgstr "Deskulpa, user sira la hanesan \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grupu sira"
+
+msgid "Add a group"
+msgstr "Hatama grupu"
 
 msgid "Search groups"
 msgstr "Buka grupu sira"

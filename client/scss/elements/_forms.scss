@@ -167,9 +167,6 @@ input[type='radio']:before {
   text-align: center;
   position: absolute;
   top: 0.1875rem;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0.1875rem;
   inset-inline-start: 0.1875rem;
   cursor: pointer;
   display: block;
@@ -200,9 +197,6 @@ input[type='checkbox']:before {
   content: '';
   position: absolute;
   top: 2px;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 2px;
   inset-inline-start: 2px;
   cursor: pointer;
   display: block;
@@ -219,9 +213,6 @@ input[type='checkbox']:checked:before {
   width: 1rem;
   height: 1rem;
   top: 2px;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 2px;
   inset-inline-start: 2px;
 }
 

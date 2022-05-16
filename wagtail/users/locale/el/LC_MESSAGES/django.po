@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -156,12 +156,6 @@ msgstr "Σελίδα"
 msgid "Add a page permission"
 msgstr "Προσθήκη άδειας σελίδας"
 
-msgid "groups"
-msgstr "ομάδες"
-
-msgid "Add a group"
-msgstr "Προσθήκη ομαδας"
-
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
@@ -219,6 +213,9 @@ msgstr "Λυπούμαστε, δε ταιριάζουν χρήστες με το
 
 msgid "Groups"
 msgstr "Ομάδες"
+
+msgid "Add a group"
+msgstr "Προσθήκη ομαδας"
 
 msgid "Search groups"
 msgstr "Αναζήτηση ομαδων"

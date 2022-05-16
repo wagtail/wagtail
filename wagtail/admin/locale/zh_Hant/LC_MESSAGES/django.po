@@ -4,17 +4,18 @@
 #
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
-# ongchi <ihcgno@icloud.com>, 2019
-# ongchi <ihcgno@icloud.com>, 2020-2021
+# ChihWei Wang <ihcgno@icloud.com>, 2022
+# ChihWei Wang <ihcgno@icloud.com>, 2019
+# ChihWei Wang <ihcgno@icloud.com>, 2020-2021
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>, 2020-2021\n"
+"Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -108,6 +109,9 @@ msgstr "URL"
 msgid "Parent"
 msgstr "上一級"
 
+msgid "Please select another parent"
+msgstr "請選擇其它上級"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
 
@@ -128,6 +132,9 @@ msgstr "編輯集合"
 
 msgid "Delete collections"
 msgstr "刪除集合"
+
+msgid "You cannot edit another user's comment."
+msgstr "無法編輯其它使用者的評論"
 
 msgid "New title"
 msgstr "新增標題"
@@ -223,11 +230,54 @@ msgid "Add tasks to your workflow"
 msgstr "增加作業至工作流程"
 
 msgid "1 page selected"
-msgstr "已選擇1頁面"
+msgstr "已選擇 1 頁面"
 
 #, python-brace-format
 msgid "{0} pages selected"
 msgstr "已選擇{0}頁面"
+
+msgid "All pages in listing selected"
+msgstr "已選擇列表中的所有頁面"
+
+msgid "1 document selected"
+msgstr "已選擇 1 項文件"
+
+#, python-brace-format
+msgid "{0} documents selected"
+msgstr "已選擇 {0} 項文件"
+
+msgid "All documents in listing selected"
+msgstr "已選擇列表中的所有文件"
+
+msgid "1 image selected"
+msgstr "已選擇 1 項圖片"
+
+#, python-brace-format
+msgid "{0} images selected"
+msgstr "已選擇 {0} 項圖片"
+
+msgid "All images in listing selected"
+msgstr "已選擇列表中的所有圖片"
+
+msgid "1 user selected"
+msgstr "已選擇 1 位使用者"
+
+#, python-brace-format
+msgid "{0} users selected"
+msgstr "已選擇 {0} 位使用者"
+
+msgid "All users in listing selected"
+msgstr "已選擇列表中的所有使用者"
+
+msgid "1 item selected"
+msgstr "已選擇 1 個項目"
+
+#, python-brace-format
+msgid "{0} items selected"
+msgstr "已選擇 {0} 個項目"
+
+msgid "All items in listing selected"
+msgstr "已選擇列表中的所有項目"
 
 msgid "Scheduled publishing"
 msgstr "定時發佈"
@@ -247,8 +297,20 @@ msgstr "設置"
 msgid "Status"
 msgstr "狀態"
 
+msgid "Toggle status"
+msgstr "切換狀態"
+
+msgid "Comments"
+msgstr "評論"
+
+msgid "Toggle comments"
+msgstr "切換評論"
+
 msgid "Preview"
 msgstr "預覽"
+
+msgid "Toggle preview"
+msgstr "切換預覽"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -267,6 +329,9 @@ msgstr "帳號"
 
 msgid "More actions"
 msgstr "更多動作"
+
+msgid "Save account details"
+msgstr "儲存帳戶詳細資料"
 
 msgid "Change password"
 msgstr "更改密碼"
@@ -324,6 +389,9 @@ msgstr "重置為預設值"
 msgid "Go back"
 msgstr "返回"
 
+msgid "Bulk actions"
+msgstr "批次動作"
+
 msgid "Select row"
 msgstr "選擇列"
 
@@ -344,6 +412,12 @@ msgstr "選擇"
 
 msgid "Choose a page"
 msgstr "選擇頁面"
+
+msgid "Convert to internal link"
+msgstr "轉換為內部連結"
+
+msgid "Use external link"
+msgstr "使用外部連結"
 
 msgid "Add an email link"
 msgstr "新增電子郵件"
@@ -494,6 +568,9 @@ msgstr "登錄Wagtail"
 msgid "Signing in…"
 msgstr "正在登錄..."
 
+msgid "Forgotten password?"
+msgstr "忘記密碼？"
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "頁面 \"%(title)s\" 已核準。"
@@ -563,6 +640,33 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+msgid "New comments"
+msgstr "新增評論"
+
+msgid "Resolved comments"
+msgstr "已解決的評論"
+
+msgid "Deleted comments"
+msgstr "已刪除的評論"
+
+msgid "New replies"
+msgstr "新回覆"
+
+msgid "New replies to:"
+msgstr "新回覆至："
+
+msgid "New comments:"
+msgstr "新評論："
+
+msgid "Resolved comments:"
+msgstr "已解決的評論："
+
+msgid "Deleted comments:"
+msgstr "已刪除的評論："
+
+msgid "New replies:"
+msgstr "新回覆："
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
@@ -650,11 +754,36 @@ msgstr "選擇創建的頁面類型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s類型的頁面"
 
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "刪除 %(counter)s 個頁面"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "確定要刪除這些頁面嗎？"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "此操作將同步刪除 %(counter)s 個子頁面。"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "您沒有刪除這些頁面的權限"
+
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "移動 %(counter)s 個頁面"
+
 msgid "Move"
 msgstr "移動"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "確定要搬移這些頁面？"
 
 msgid "No, don't unpublish"
 msgstr "否，不取消發佈"
@@ -806,6 +935,12 @@ msgstr "沒有發現任何記錄"
 msgid "Exploring %(title)s"
 msgstr "瀏覽 %(title)s"
 
+msgid "Select all pages in listing"
+msgstr "選擇列表中的所有頁面"
+
+msgid "Select page"
+msgstr "選擇頁面"
+
 msgid "Drag"
 msgstr "拖曳"
 
@@ -946,6 +1081,12 @@ msgstr "已解鎖"
 msgid "Lock"
 msgstr "鎖定"
 
+msgid "View details"
+msgstr "檢視詳細資料"
+
+msgid "View history"
+msgstr "檢視歷史"
+
 msgid "since"
 msgstr "自"
 
@@ -1004,6 +1145,9 @@ msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
+
+msgid "Add comment"
+msgstr "新增評論"
 
 msgid "Download XLSX"
 msgstr "下載 XLSX"
@@ -1191,6 +1335,9 @@ msgstr "發佈+草稿"
 
 msgid "Test"
 msgstr "測試"
+
+msgid "Notifications"
+msgstr "通知"
 
 msgid "Password"
 msgstr "密碼"

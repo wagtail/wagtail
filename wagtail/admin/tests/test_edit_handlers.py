@@ -1224,6 +1224,29 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
             )
 
 
+class TestInlinePanelGetComparison(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.request = RequestFactory().get("/")
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
+    def test_get_comparison(self):
+        # Test whether the InlinePanel passes it's label in get_comparison
+
+        page = Page.objects.get(id=4).specific
+        comparison = (
+            page.get_edit_handler()
+            .bind_to(instance=page, request=self.request)
+            .get_comparison()
+        )
+
+        comparison = [comp(page, page) for comp in comparison]
+        field_labels = [comp.field_label() for comp in comparison]
+        self.assertIn("Speakers", field_labels)
+
+
 class TestInlinePanelRelatedModelPanelConfigChecks(TestCase):
     def setUp(self):
         self.original_panels = EventPageSpeaker.panels

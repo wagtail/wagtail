@@ -8,9 +8,17 @@ Changelog
  * Convert various pages in the documentation to Markdown (Daniel Kirkham)
  * Add `base_url_path` to `ModelAdmin` so that the default URL structure of app_label/model_name can be overridden (Vu Pham, Khanh Hoang)
  * Add `full_url` to the API output of `ImageRenditionField` (Paarth Agarwal)
+ * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
+ * Use `InlinePanel`'s label when available for field comparison label (Sandil Ranasinghe)
+ * Drop support for Safari 13 by removing left/right positioning in favour of CSS logical properties (Thibaud Colas)
+ * Use `FormData` instead of jQuery's `form.serialize` when editing documents or images just added so that additional fields can be better supported (Stefan Hammer)
+ * Add informational Codecov status checks for GitHub CI pipelines (Tom Hu)
+ * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
+ * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
+ * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
 
 
-3.0 (xx.xx.xxxx) - IN DEVELOPMENT
+3.0 (16.05.2022)
 ~~~~~~~~~~~~~~~~
 
  * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)
@@ -47,7 +55,7 @@ Changelog
  * Split up linting / formatting tasks in Makefile into client and server components (Hitansh Shah)
  * Add support for embedding Instagram reels (Luis Nell)
  * Use Django’s JavaScript catalog feature to manage translatable strings in JavaScript (Karl Hobley)
- * Add a `page_description` to the Page model, to provide help text for a given page type (Kalob Taulien, Thibaud Colas, Matt Westcott)
+ * Add a `page_description` to the Page model, to provide help text for a given page type (Kalob Taulien, Thibaud Colas, Matt Westcott, Stefan Hammer)
  * Add `trimmed` attribute to all blocktrans tags, so spacing is more reliable in translated strings (Harris Lapiroff)
  * Add documentation that describes how to use `ModelAdmin` to manage `Tag`s (Abdulmajeed Isa)
  * Rename the setting `BASE_URL` (undocumented) to `WAGTAILADMIN_BASE_URL` and add to documentation, `BASE_URL` will be removed in a future release (Sandil Ranasinghe)
@@ -88,6 +96,7 @@ Changelog
  * Fix: Implement ARIA tabs markup and keyboards interactions for admin tabs (Steven Steinwand)
  * Fix: Ensure `wagtail updatemodulepaths` works when system locale is not UTF-8 (Matt Westcott)
  * Fix: Re-establish focus trap for Pages explorer in slim sidebar (Thibaud Colas)
+ * Fix: Ensure the icon font loads correctly when `STATIC_URL` is not `"/static/"` (Jacob Topp-Mugglestone)
 
 
 2.16.2 (11.04.2022)
@@ -1329,7 +1338,7 @@ Changelog
  * Updated documentation styling (LB (Ben Johnston))
  * Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
  * FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
- * Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
+ * Form submission csv exports now have the export date in the filename and can be customised (Johan Arensman)
  * FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben) Johnston)
  * Added `WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
  * Added a basic Dockerfile to the project template (Tom Dyson)

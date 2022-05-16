@@ -8,7 +8,7 @@ The views for managing groups within the app are collected into a 'viewset' clas
 Custom edit/create forms
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This example shows how to customize forms on the 'edit group' and 'create group' views in the Wagtail
+This example shows how to customise forms on the 'edit group' and 'create group' views in the Wagtail
 admin.
 
 Let's say you need to connect Active Directory groups with Django groups.

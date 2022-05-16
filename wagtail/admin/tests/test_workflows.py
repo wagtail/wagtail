@@ -905,7 +905,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(task_state.task.specific, self.task_1)
         self.assertEqual(task_state.status, task_state.STATUS_IN_PROGRESS)
 
-    def test_submit_for_approval_changes_status_in_header_meta(self):
+    def test_submit_for_approval_changes_status_in_status_side_panel_meta(self):
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
 
         response = self.client.get(edit_url)
@@ -921,7 +921,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertContains(response, workflow_status_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.page.current_workflow_task.name),
+            r"Sent to[\s|\n]+{}".format(self.page.current_workflow_task.name),
         )
         self.assertNotContains(response, "Draft")
 
@@ -2369,13 +2369,13 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_1.name),
+            r"Sent to[\s|\n]+{}".format(self.task_1.name),
         )
 
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to[\s|\n]+{}".format(self.task_2.name),
         )
 
         response = self.workflow_action("reject")
@@ -2386,7 +2386,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to[\s|\n]+{}".format(self.task_2.name),
         )
 
         response = self.workflow_action("approve")
@@ -2404,14 +2404,14 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to[\s|\n]+{}".format(self.task_2.name),
         )
         self.workflow_action("reject")
         self.submit("action-restart-workflow")
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_1.name),
+            r"Sent to[\s|\n]+{}".format(self.task_1.name),
         )
 
     def test_workflow_status_modal_task_comments(self):

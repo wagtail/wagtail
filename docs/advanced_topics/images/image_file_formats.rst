@@ -24,7 +24,7 @@ image formats and let the browser choose the one it prefers. For example:
         {% image myimage width-1000 format-png %}
     </picture>
 
-Customizing output formats
+Customising output formats
 --------------------------
 
 By default all ``bmp`` and ``webp`` images are converted to the ``png`` format

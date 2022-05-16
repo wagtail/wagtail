@@ -91,16 +91,16 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 
-.. _custom_user_interface_colors:
+.. _custom_user_interface_colours:
 
-Custom user interface colors
-============================
+Custom user interface colours
+=============================
 
 
 .. warning::
-    The default Wagtail colors conform to the WCAG2.1 AA level color contrast requirements. When customizing the admin colors you should test the contrast using tools like `Axe <https://www.deque.com/axe/browser-extensions/>`_.
+    The default Wagtail colours conform to the WCAG2.1 AA level colour contrast requirements. When customising the admin colours you should test the contrast using tools like `Axe <https://www.deque.com/axe/browser-extensions/>`_.
 
-To customize the primary color used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
+To customise the primary colour used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
 
 .. code-block:: text
 
@@ -108,7 +108,7 @@ To customize the primary color used in the admin user interface, inject a CSS fi
         --color-primary-hue: 25;
     }
 
-``color-primary`` is an `hsl color <https://en.wikipedia.org/wiki/HSL_and_HSV>`_ composed of 3 CSS variables - ``--color-primary-hue`` (0-360 with no unit), ``--color-primary-saturation`` (a percentage), and ``--color-primary-lightness`` (also a percentage). Separating the color into 3 allows us to calculate variations on the color to use alongside the primary color. If needed, you can also control those variations manually by setting ``hue``, ``saturation``, and ``lightness`` variables for the following colors: ``color-primary-darker``, ``color-primary-dark``, ``color-primary-lighter``, ``color-primary-light``, ``color-input-focus``, and ``color-input-focus-border``:
+``color-primary`` is an `hsl colour <https://en.wikipedia.org/wiki/HSL_and_HSV>`_ composed of 3 CSS variables - ``--color-primary-hue`` (0-360 with no unit), ``--color-primary-saturation`` (a percentage), and ``--color-primary-lightness`` (also a percentage). Separating the colour into 3 allows us to calculate variations on the colour to use alongside the primary colour. If needed, you can also control those variations manually by setting ``hue``, ``saturation``, and ``lightness`` variables for the following colours: ``color-primary-darker``, ``color-primary-dark``, ``color-primary-lighter``, ``color-primary-light``, ``color-input-focus``, and ``color-input-focus-border``:
 
 .. code-block:: text
 
@@ -124,7 +124,7 @@ To customize the primary color used in the admin user interface, inject a CSS fi
         --color-primary-dark-lightness: 15%;
     }
 
-If instead you intend to set all available colors, you can use any valid css colors:
+If instead you intend to set all available colours, you can use any valid css colours:
 
 .. code-block:: text
 
@@ -141,7 +141,7 @@ If instead you intend to set all available colors, you can use any valid css col
 Specifying a site or page in the branding
 =========================================
 
-The admin interface has a number of variables available to the renderer context that can be used to customize the branding in the admin page. These can be useful for customizing the dashboard on a multitenanted Wagtail installation:
+The admin interface has a number of variables available to the renderer context that can be used to customise the branding in the admin page. These can be useful for customising the dashboard on a multitenanted Wagtail installation:
 
 ``root_page``
 -------------

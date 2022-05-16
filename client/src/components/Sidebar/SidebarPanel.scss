@@ -9,9 +9,6 @@
   height: 100vh;
   padding: 0;
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
   z-index: 400;
   display: flex;
@@ -41,31 +38,19 @@
 
   @include media-breakpoint-up(sm) {
     @at-root .sidebar--slim #{&} {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: $menu-width-slim;
       inset-inline-start: $menu-width-slim;
     }
     // Don't apply this to nested submenus though
     @at-root .sidebar--slim .sidebar-panel #{&} {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: 0;
       inset-inline-start: 0;
     }
 
     &--open {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: $menu-width;
       inset-inline-start: $menu-width;
       transform: translateX(0);
 
       // Don't apply this to nested submenus though
       @at-root .sidebar--slim .sidebar-panel #{&} {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        left: $menu-width-slim;
         inset-inline-start: $menu-width-slim;
         transform: translateX(0);
       }

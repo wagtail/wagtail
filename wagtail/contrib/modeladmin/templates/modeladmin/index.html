@@ -33,18 +33,20 @@
                 </div>
                 {% block header_extra %}
                     <div class="right header-right">
-                        {% if user_can_create %}
+                        {% if view.list_export or user_can_create %}
                             <div class="actionbutton">
-                                {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
-                            </div>
-                        {% endif %}
-                        {% if view.list_export %}
-                            <div class="dropdown dropdown-button match-width col">
-                                <a href="?export=xlsx&{{ request.GET.urlencode }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
-                                <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                                <ul>
-                                    <li><a  class="button bicolor button--icon" href="?export=csv&{{ request.GET.urlencode }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
-                                </ul>
+                                {% if user_can_create %}
+                                    {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
+                                {% endif %}
+                                {% if view.list_export %}
+                                    <div class="dropdown dropdown-button match-width col">
+                                        <a href="?export=xlsx&{{ request.GET.urlencode }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+                                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                                        <ul>
+                                            <li><a  class="button bicolor button--icon" href="?export=csv&{{ request.GET.urlencode }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
                             </div>
                         {% endif %}
                     </div>

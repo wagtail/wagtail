@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -168,12 +168,6 @@ msgstr "Leht"
 msgid "Add a page permission"
 msgstr "Lisage lehe luba"
 
-msgid "groups"
-msgstr "rühmadesse"
-
-msgid "Add a group"
-msgstr "Lisage rühm"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Vabandust, ükski rühm ei vasta \"%(query)s\\"
@@ -254,6 +248,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Grupid"
+
+msgid "Add a group"
+msgstr "Lisage rühm"
 
 msgid "Search groups"
 msgstr "Gruppide otsimine"

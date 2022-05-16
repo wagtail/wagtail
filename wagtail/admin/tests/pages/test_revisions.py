@@ -5,9 +5,11 @@ from django.test import TestCase
 from django.urls import reverse
 from freezegun import freeze_time
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
+    DefaultStreamPage,
     EventPage,
     FormClassAdditionalFieldPage,
     SecretPage,
@@ -140,6 +142,44 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Page scheduled for publishing at 26 Dec 2014")
         self.assertContains(response, this_christmas_unschedule_url)
+
+
+class TestStreamRevisions(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        self.test_page = DefaultStreamPage(
+            title="A DefaultStreamPage",
+            slug="a-defaultstreampage",
+        )
+        self.root_page.add_child(instance=self.test_page)
+
+        self.test_page.title = "An Updated DefaultStreamPage"
+        self.first_revision = self.test_page.save_revision()
+        self.first_revision.created_at = local_datetime(2022, 5, 10)
+        self.first_revision.save()
+
+        self.login()
+
+    def test_revert_revision(self):
+        test_page_revert_url = reverse(
+            "wagtailadmin_pages:revisions_revert",
+            args=(self.test_page.id, self.first_revision.id),
+        )
+        response = self.client.get(test_page_revert_url)
+        self.assertEqual(response.status_code, 200)
+
+        html = response.content.decode()
+        blocks_js = versioned_static("wagtailadmin/js/telepath/blocks.js")
+        streamfield_css = versioned_static("wagtailadmin/css/panels/streamfield.css")
+
+        # The media files for StreamField should be included in the HTML
+        self.assertTagInHTML(f'<script src="{blocks_js}"></script>', html)
+        self.assertTagInHTML(
+            f'<link href="{streamfield_css}" media="all" rel="stylesheet">',
+            html,
+            allow_extra_attrs=True,  # Django 4.1 removes the type="text/css" attribute
+        )
 
 
 class TestCompareRevisions(TestCase, WagtailTestUtils):

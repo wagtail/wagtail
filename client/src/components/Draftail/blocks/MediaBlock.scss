@@ -8,9 +8,6 @@
   &__icon-wrapper {
     position: absolute;
     top: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     background: $draftail-editor-chrome;
     color: $draftail-editor-chrome-text;

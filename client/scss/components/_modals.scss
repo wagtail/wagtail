@@ -26,14 +26,8 @@ $zindex-modal-background: 500;
   overflow-y: scroll;
   position: fixed;
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
   z-index: $zindex-modal-background;
 }
@@ -75,14 +69,8 @@ $zindex-modal-background: 500;
 .modal-backdrop {
   position: fixed;
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
   z-index: ($zindex-modal-background - 10);
   background-color: $color-black;
@@ -104,9 +92,6 @@ $zindex-modal-background: 500;
   width: 50px;
   height: 50px;
   top: 10px;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 10px;
   inset-inline-end: 10px;
   z-index: 1;
 }

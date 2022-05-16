@@ -64,7 +64,7 @@
 
 {% block action %}
     {% if workflow_state %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-workflow-status' data_url=action_url text=action_text  %}
+        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-workflow-status' data_url=action_url text=action_text %}
     {% else %}
         {% url 'wagtailadmin_pages:history' page.id as action_url %}
         {% trans 'View history' as action_text %}
@@ -77,20 +77,23 @@
     {% with workflow_state=page.current_workflow_state draft_revision=page.get_latest_revision %}
         {% if workflow_state %}
             <div class="w-flex w-space-x-3 w-mt-3">
-                {% icon name='warning' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
+                {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
                 <div class="w-label-3 w-flex-1">
                     {% if workflow_state.status == 'needs_changes' %}
-                        {% trans " Changes requested" %}
-                        {{ workflow_state.current_task_state.finished_at|naturaltime }}
+                        {% blocktrans trimmed with time_ago=workflow_state.current_task_state.finished_at|naturaltime %}
+                            Changes requested {{ time_ago }}
+                        {% endblocktrans %}
                     {% else %}
-                        {% if workflow_state.status == "in_progress" %}
-                            {% trans "Awaiting" %}
-                            {% trans "since" as since_text %}
-                        {% else %}
-                            {{ workflow_state.get_status_display }}
-                        {% endif %}
-                        {{ workflow_state.current_task_state.task.name }}
-                        {{ workflow_state.current_task_state.started_at|naturaltime }}
+                        {% with time_ago=workflow_state.current_task_state.started_at|naturaltime workflow_task=workflow_state.current_task_state.task.name %}
+                            {% if workflow_state.status == "in_progress" %}
+                                {% blocktrans trimmed %}Sent to {{ workflow_task }} {{ time_ago }}{% endblocktrans %}
+                            {% else %}
+                                {{ workflow_state.get_status_display }} {{ workflow_task }} {{ time_ago }}
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    {% if workflow_state.requested_by %}
+                        {% blocktrans trimmed with modified_by=workflow_state.requested_by|user_display_name %}by {{ modified_by }}{% endblocktrans %}
                     {% endif %}
                 </div>
             </div>

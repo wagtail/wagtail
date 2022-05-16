@@ -11,6 +11,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
+from wagtail.admin.side_panels import PageSidePanels
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
@@ -37,6 +38,13 @@ def revisions_revert(request, page_id, revision_id):
     form = form_class(instance=revision_page)
     edit_handler = edit_handler.get_bound_panel(
         instance=revision_page, request=request, form=form
+    )
+
+    action_menu = PageActionMenu(request, view="revisions_revert", page=page)
+    side_panels = PageSidePanels(
+        request,
+        page,
+        comments_enabled=form.show_comments_toggle,
     )
 
     user_avatar = render_to_string(
@@ -66,9 +74,14 @@ def revisions_revert(request, page_id, revision_id):
             "content_type": content_type,
             "edit_handler": edit_handler,
             "errors_debug": None,
-            "action_menu": PageActionMenu(request, view="revisions_revert", page=page),
+            "action_menu": action_menu,
+            "side_panels": side_panels,
             "preview_modes": page.preview_modes,
             "form": form,  # Used in unit tests
+            "media": edit_handler.media
+            + form.media
+            + action_menu.media
+            + side_panels.media,
         },
     )
 

@@ -20,7 +20,7 @@ As a web developer, though, you probably already have a good understanding of tr
             captain-picard-day/
             winter-wrap-up/
 
-The Wagtail admin interface uses the tree to organize content for editing, letting you navigate up and down levels in the tree through its Explorer menu. This method of organization is a good place to start in thinking about your own Wagtail models.
+The Wagtail admin interface uses the tree to organise content for editing, letting you navigate up and down levels in the tree through its Explorer menu. This method of organisation is a good place to start in thinking about your own Wagtail models.
 
 
 Nodes and Leaves
@@ -31,7 +31,7 @@ It might be handy to think of the ``Page``-derived models you want to create as 
 
 Nodes
 `````
-Parent nodes on the Wagtail tree probably want to organize and display a browse-able index of their descendants. A blog, for instance, needs a way to show a list of individual posts.
+Parent nodes on the Wagtail tree probably want to organise and display a browse-able index of their descendants. A blog, for instance, needs a way to show a list of individual posts.
 
 A Parent node could provide its own function returning its descendant objects.
 
