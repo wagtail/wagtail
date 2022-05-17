@@ -22,8 +22,8 @@ from wagtail.models import (
     Locale,
     Page,
     PageLogEntry,
-    PageRevision,
     PageSubscription,
+    Revision,
     Site,
 )
 from wagtail.signals import page_published
@@ -346,21 +346,21 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # A revision with approved_go_live_at should not exist
         self.assertFalse(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
 
         # But a revision with go_live_at and expire_at in their content json *should* exist
         self.assertTrue(
-            PageRevision.objects.filter(
-                page=child_page_new,
+            Revision.page_revisions.filter(
+                object_id=child_page_new.id,
                 content__go_live_at__startswith=str(go_live_at.date()),
             ).exists()
         )
         self.assertTrue(
-            PageRevision.objects.filter(
-                page=child_page_new,
+            Revision.page_revisions.filter(
+                object_id=child_page_new.id,
                 content__expire_at__startswith=str(expire_at.date()),
             ).exists()
         )
@@ -551,7 +551,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -597,7 +597,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -625,7 +625,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # And a revision with approved_go_live_at should not exist
         self.assertFalse(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -664,7 +664,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -719,7 +719,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -753,7 +753,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # And a revision with approved_go_live_at should not exist
         self.assertFalse(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -1244,7 +1244,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # (which is not a valid content language under the current configuration)
         Locale.objects.update(language_code="de")
 
-        PageRevision.objects.filter(page_id=self.child_page.id).delete()
+        Revision.page_revisions.filter(object_id=self.child_page.id).delete()
 
         # Tests that the edit page loads
         response = self.client.get(
@@ -1772,7 +1772,7 @@ class TestIssue3982(TestCase, WagtailTestUtils):
         )
         page = SimplePage.objects.get()
         self.assertFalse(page.live)
-        revision = PageRevision.objects.get(page=page)
+        revision = Revision.page_revisions.get(object_id=page.id)
         revision.submitted_for_moderation = True
         revision.save()
         response = self.client.post(

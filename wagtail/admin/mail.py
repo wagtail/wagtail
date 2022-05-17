@@ -73,7 +73,7 @@ def send_moderation_notification(revision, notification, excluded_user=None):
             settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
         )
         recipient_users = users_with_page_permission(
-            revision.page, "publish", include_superusers
+            revision.content_object, "publish", include_superusers
         )
     elif notification in ["rejected", "approved"]:
         # Get submitter

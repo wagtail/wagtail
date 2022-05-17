@@ -12,6 +12,7 @@ as Page.
 import functools
 import logging
 import uuid
+import warnings
 from io import StringIO
 from urllib.parse import urlparse
 
@@ -28,7 +29,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.db.models import DEFERRED, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
-from django.db.models.functions import Concat, Substr
+from django.db.models.functions import Cast, Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -78,6 +79,7 @@ from wagtail.signals import (
 )
 from wagtail.treebeard import TreebeardPathFixMixin
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .audit_log import (  # noqa
     BaseLogEntry,
@@ -315,7 +317,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
     live_revision = models.ForeignKey(
-        "PageRevision",
+        "Revision",
         related_name="+",
         verbose_name=_("live revision"),
         on_delete=models.SET_NULL,
@@ -399,6 +401,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @property
+    def revisions(self):
+        # This acts as a replacement for Django's related manager since we don't
+        # use a GenericRelation/GenericForeignKey.
+        return Revision.page_revisions.filter(object_id=self.id)
 
     @classmethod
     def get_streamfield_names(cls):
@@ -899,12 +907,22 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             comment.save()
 
         # Create revision
-        revision = self.revisions.create(
-            content=self.serializable_data(),
-            user=user,
+        # We want to always use the default Page model's ContentType as the
+        # base_content_type so that we can query for page revisions without
+        # having to know the specific Page type.
+        revision = Revision.objects.create(
+            content_type_id=self.content_type_id,
+            base_content_type_id=get_default_page_content_type().id,
+            object_id=self.id,
             submitted_for_moderation=submitted_for_moderation,
+            user=user,
             approved_go_live_at=approved_go_live_at,
+            content=self.serializable_data(),
         )
+        # This is necessary to prevent fetching a fresh page instance when
+        # changing first_published_at.
+        # Ref: https://github.com/wagtail/wagtail/pull/3498
+        revision.content_object = self
 
         for comment in new_comments:
             comment.revision_created = revision
@@ -985,7 +1003,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         latest_revision = self.get_latest_revision()
 
         if latest_revision:
-            return latest_revision.as_page_object()
+            return latest_revision.as_object()
         else:
             return self.specific
 
@@ -998,7 +1016,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This is called by Wagtail whenever a page with aliases is published.
 
         :param revision: The revision of the original page that we are updating to (used for logging purposes)
-        :type revision: PageRevision, optional
+        :type revision: Revision, optional
         :param user: The user who is publishing (used for logging purposes)
         :type user: User, optional
         """
@@ -2144,17 +2162,59 @@ class Orderable(models.Model):
         ordering = ["sort_order"]
 
 
+class RevisionQuerySet(models.QuerySet):
+    def page_revisions(self):
+        return self.filter(base_content_type=get_default_page_content_type())
+
+    def submitted(self):
+        return self.filter(submitted_for_moderation=True)
+
+    def for_instance(self, instance):
+        return self.filter(
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id=str(instance.pk),
+        )
+
+    def filter(self, *args, **kwargs):
+        # Make sure the object_id is a string, so queries that use the target model's
+        # id still works even when its id is not a string
+        # (e.g. Revision.objects.filter(object_id=some_page.id)).
+        if "object_id" in kwargs:
+            kwargs["object_id"] = str(kwargs["object_id"])
+        return super().filter(*args, **kwargs)
+
+
+class PageRevisionsManager(models.Manager):
+    def get_queryset(self):
+        return RevisionQuerySet(self.model, using=self._db).page_revisions()
+
+    def for_instance(self, instance):
+        return self.get_queryset().for_instance(instance)
+
+    def submitted(self):
+        return self.get_queryset().submitted()
+
+
 class SubmittedRevisionsManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(submitted_for_moderation=True)
+        return RevisionQuerySet(self.model, using=self._db).submitted()
+
+    def for_instance(self, instance):
+        return self.get_queryset().for_instance(instance)
 
 
-class PageRevision(models.Model):
-    page = models.ForeignKey(
-        "Page",
-        verbose_name=_("page"),
-        related_name="revisions",
-        on_delete=models.CASCADE,
+class Revision(models.Model):
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    base_content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    object_id = models.CharField(
+        max_length=255,
+        verbose_name=_("object id"),
     )
     submitted_for_moderation = models.BooleanField(
         verbose_name=_("submitted for moderation"), default=False, db_index=True
@@ -2175,7 +2235,39 @@ class PageRevision(models.Model):
     )
 
     objects = models.Manager()
+    page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
+
+    @cached_property
+    def content_object(self):
+        return self.base_content_type.get_object_for_this_type(pk=self.object_id)
+
+    @cached_property
+    def specific_content_object(self):
+        if isinstance(self.content_object, Page):
+            return self.content_object.specific
+        return self.content_type.get_object_for_this_type(pk=self.object_id)
+
+    @property
+    def page(self):
+        warnings.warn(
+            "Revisions should access .content_object instead of .page "
+            "to retrieve the object.",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
+        return self.content_object
+
+    @property
+    def page_id(self):
+        warnings.warn(
+            "Revisions should access .object_id instead of .page_id "
+            "to retrieve the object's primary key. For page revisions, "
+            "you may need to cast the object_id to integer first.",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
+        return int(self.object_id)
 
     def save(self, user=None, *args, **kwargs):
         # Set default value for created_at to now
@@ -2184,12 +2276,19 @@ class PageRevision(models.Model):
         if self.created_at is None:
             self.created_at = timezone.now()
 
+        # Set default value for base_content_type to the content_type.
+        # Page revisions should set this to the default Page model's content type,
+        # but the distinction may not be necessary for models that do not use inheritance.
+        if self.base_content_type_id is None:
+            self.base_content_type_id = self.content_type_id
+
         super().save(*args, **kwargs)
         if self.submitted_for_moderation:
-            # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
-            self.page.revisions.exclude(id=self.id).update(
-                submitted_for_moderation=False
-            )
+            # ensure that all other revisions of this object have the 'submitted for moderation' flag unset
+            Revision.objects.filter(
+                base_content_type_id=self.base_content_type_id,
+                object_id=self.object_id,
+            ).exclude(id=self.id).update(submitted_for_moderation=False)
 
         if (
             self.approved_go_live_at is None
@@ -2197,7 +2296,7 @@ class PageRevision(models.Model):
             and "approved_go_live_at" in kwargs["update_fields"]
         ):
             # Log scheduled revision publish cancellation
-            page = self.as_page_object()
+            page = self.as_object()
             # go_live_at = kwargs['update_fields'][]
             log(
                 instance=page,
@@ -2215,19 +2314,28 @@ class PageRevision(models.Model):
                 revision=self,
             )
 
+    def as_object(self):
+        return self.specific_content_object.with_content_json(self.content)
+
     def as_page_object(self):
-        return self.page.specific.with_content_json(self.content)
+        warnings.warn(
+            "Revisions should use .as_object() instead of .as_page_object() "
+            "to create the object.",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
+        return self.as_object()
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation approved: "%s" id=%d revision_id=%d',
-                self.page.title,
-                self.page.id,
+                self.content_object.title,
+                self.content_object.id,
                 self.id,
             )
             log(
-                instance=self.as_page_object(),
+                instance=self.as_object(),
                 action="wagtail.moderation.approve",
                 user=user,
                 revision=self,
@@ -2238,12 +2346,12 @@ class PageRevision(models.Model):
         if self.submitted_for_moderation:
             logger.info(
                 'Page moderation rejected: "%s" id=%d revision_id=%d',
-                self.page.title,
-                self.page.id,
+                self.content_object.title,
+                self.content_object.id,
                 self.id,
             )
             log(
-                instance=self.as_page_object(),
+                instance=self.as_object(),
                 action="wagtail.moderation.reject",
                 user=user,
                 revision=self,
@@ -2257,7 +2365,10 @@ class PageRevision(models.Model):
             # newer than any revision that might exist in the database
             return True
         latest_revision = (
-            PageRevision.objects.filter(page_id=self.page_id)
+            Revision.objects.filter(
+                base_content_type_id=self.base_content_type_id,
+                object_id=self.object_id,
+            )
             .order_by("-created_at", "-id")
             .first()
         )
@@ -2268,7 +2379,7 @@ class PageRevision(models.Model):
 
         try:
             next_revision = self.get_next()
-        except PageRevision.DoesNotExist:
+        except Revision.DoesNotExist:
             next_revision = None
 
         if next_revision:
@@ -2287,17 +2398,33 @@ class PageRevision(models.Model):
         ).execute()
 
     def get_previous(self):
-        return self.get_previous_by_created_at(page=self.page)
+        return self.get_previous_by_created_at(
+            base_content_type_id=self.base_content_type_id,
+            object_id=self.object_id,
+        )
 
     def get_next(self):
-        return self.get_next_by_created_at(page=self.page)
+        return self.get_next_by_created_at(
+            base_content_type_id=self.base_content_type_id,
+            object_id=self.object_id,
+        )
 
     def __str__(self):
-        return '"' + str(self.page) + '" at ' + str(self.created_at)
+        return '"' + str(self.content_object) + '" at ' + str(self.created_at)
 
     class Meta:
-        verbose_name = _("page revision")
-        verbose_name_plural = _("page revisions")
+        verbose_name = _("revision")
+        verbose_name_plural = _("revisions")
+        indexes = [
+            models.Index(
+                fields=["content_type", "object_id"],
+                name="content_object_idx",
+            ),
+            models.Index(
+                fields=["base_content_type", "object_id"],
+                name="base_content_object_idx",
+            ),
+        ]
 
 
 PAGE_PERMISSION_TYPES = [
@@ -2366,9 +2493,9 @@ class UserPagePermissionsProxy:
 
         # Deal with the trivial cases first...
         if not self.user.is_active:
-            return PageRevision.objects.none()
+            return Revision.objects.none()
         if self.user.is_superuser:
-            return PageRevision.submitted_revisions.all()
+            return Revision.page_revisions.submitted()
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
@@ -2378,16 +2505,20 @@ class UserPagePermissionsProxy:
             .distinct()
         )
         if not publishable_pages_paths:
-            return PageRevision.objects.none()
+            return Revision.objects.none()
 
-        # compile a filter expression to apply to the PageRevision.submitted_revisions manager:
+        # compile a filter expression to apply to the Revision.page_revisions.submitted() queryset:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
+        only_my_sections = Q(path__startswith=publishable_pages_paths[0])
         for page_path in publishable_pages_paths[1:]:
-            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
+            only_my_sections = only_my_sections | Q(path__startswith=page_path)
 
         # return the filtered queryset
-        return PageRevision.submitted_revisions.filter(only_my_sections)
+        return Revision.page_revisions.submitted().filter(
+            object_id__in=Page.objects.filter(only_my_sections).values_list(
+                Cast("pk", output_field=models.CharField()), flat=True
+            )
+        )
 
     def for_page(self, page):
         """Return a PagePermissionTester object that can be used to query whether this user has
@@ -3480,8 +3611,8 @@ class WorkflowState(models.Model):
 
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
-        return PageRevision.objects.filter(
-            page_id=self.page_id,
+        return Revision.page_revisions.filter(
+            object_id=self.page_id,
             id__in=self.task_states.values_list("page_revision_id", flat=True),
         ).defer("content")
 
@@ -3623,7 +3754,7 @@ class TaskState(models.Model):
         related_name="task_states",
     )
     page_revision = models.ForeignKey(
-        "PageRevision",
+        "Revision",
         on_delete=models.CASCADE,
         verbose_name=_("page revision"),
         related_name="task_states",
@@ -3798,7 +3929,7 @@ class TaskState(models.Model):
 
     def log_state_change_action(self, user, action):
         """Log the approval/rejection action"""
-        page = self.page_revision.as_page_object()
+        page = self.page_revision.as_object()
         next_task = self.workflow_state.get_next_task()
         next_task_data = None
         if next_task:
@@ -3888,7 +4019,7 @@ class PageLogEntry(BaseLogEntry):
     )
     # Pointer to a specific page revision
     revision = models.ForeignKey(
-        "wagtailcore.PageRevision",
+        "wagtailcore.Revision",
         null=True,
         blank=True,
         on_delete=models.DO_NOTHING,
@@ -3950,7 +4081,7 @@ class Comment(ClusterableModel):
     updated_at = models.DateTimeField(auto_now=True)
 
     revision_created = models.ForeignKey(
-        PageRevision,
+        Revision,
         on_delete=models.CASCADE,
         related_name="created_comments",
         null=True,

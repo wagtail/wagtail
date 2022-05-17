@@ -9,7 +9,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.models import Page, PageRevision
+from wagtail.models import Page, Revision
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -145,7 +145,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
 
         # Revision must no longer be submitted for moderation
         self.assertFalse(
-            PageRevision.objects.get(id=self.revision.id).submitted_for_moderation
+            Revision.page_revisions.get(id=self.revision.id).submitted_for_moderation
         )
 
     def test_reject_moderation_view_bad_revision_id(self):

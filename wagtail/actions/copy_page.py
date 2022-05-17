@@ -190,7 +190,7 @@ class CopyPageAction:
                 revision.pk = None
                 revision.submitted_for_moderation = False
                 revision.approved_go_live_at = None
-                revision.page = page_copy
+                revision.object_id = page_copy.id
 
                 # Update ID fields in content
                 revision_content = revision.content

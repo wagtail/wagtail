@@ -13,6 +13,7 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StreamPage,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageQuerySet(TestCase):
@@ -697,7 +698,7 @@ class TestPageQuerySetSearch(TestCase):
         self.assertNotIn((EventPage, unpublished_event), unpublish_signals_fired)
 
 
-class TestSpecificQuery(TestCase):
+class TestSpecificQuery(TestCase, WagtailTestUtils):
     """
     Test the .specific() queryset method. This is isolated in its own test case
     because it is sensitive to database changes that might happen for other
@@ -816,15 +817,18 @@ class TestSpecificQuery(TestCase):
         # Ensure annotations are reapplied to specific() page queries
 
         pages = Page.objects.live()
-        pages.first().save_revision()
-        pages.last().save_revision()
+        user = self.create_test_user()
+        pages.first().subscribers.create(user=user, comment_notifications=False)
+        pages.last().subscribers.create(user=user, comment_notifications=False)
 
         results = (
-            Page.objects.live().specific().annotate(revision_count=Count("revisions"))
+            Page.objects.live()
+            .specific()
+            .annotate(subscribers_count=Count("subscribers"))
         )
 
-        self.assertEqual(results.first().revision_count, 1)
-        self.assertEqual(results.last().revision_count, 1)
+        self.assertEqual(results.first().subscribers_count, 1)
+        self.assertEqual(results.last().subscribers_count, 1)
 
     def test_specific_query_with_search_and_annotation(self):
         # Ensure annotations are reapplied to specific() page queries

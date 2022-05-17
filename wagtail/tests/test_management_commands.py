@@ -8,7 +8,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.models import Collection, Page, PageLogEntry, PageRevision
+from wagtail.models import Collection, Page, PageLogEntry, Revision
 from wagtail.signals import page_published, page_unpublished
 from wagtail.test.testapp.models import EventPage, SecretPage, SimplePage
 
@@ -191,7 +191,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
-            PageRevision.objects.filter(page=p)
+            Revision.page_revisions.filter(object_id=p.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -203,7 +203,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         self.assertTrue(p.first_published_at)
         self.assertFalse(p.has_unpublished_changes)
         self.assertFalse(
-            PageRevision.objects.filter(page=p)
+            Revision.page_revisions.filter(object_id=p.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -251,7 +251,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
-            PageRevision.objects.filter(page=p)
+            Revision.page_revisions.filter(object_id=p.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -261,7 +261,7 @@ class TestPublishScheduledPagesCommand(TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
-            PageRevision.objects.filter(page=p)
+            Revision.page_revisions.filter(object_id=p.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -336,14 +336,18 @@ class TestPublishScheduledPagesCommand(TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
-            PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists()
+            Revision.page_revisions.filter(
+                object_id=p.id, submitted_for_moderation=True
+            ).exists()
         )
 
         management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(
-            PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists()
+            Revision.page_revisions.filter(
+                object_id=p.id, submitted_for_moderation=True
+            ).exists()
         )
 
 
@@ -379,8 +383,12 @@ class TestPurgeRevisionsCommand(TestCase):
         self.run_command()
 
         # revision 1 should be deleted, revision 2 should not be
-        self.assertNotIn(revision_1, PageRevision.objects.filter(page=self.page))
-        self.assertIn(revision_2, PageRevision.objects.filter(page=self.page))
+        self.assertNotIn(
+            revision_1, Revision.page_revisions.filter(object_id=self.page.id)
+        )
+        self.assertIn(
+            revision_2, Revision.page_revisions.filter(object_id=self.page.id)
+        )
 
     def test_revisions_in_moderation_not_purged(self):
 
@@ -391,8 +399,8 @@ class TestPurgeRevisionsCommand(TestCase):
         self.run_command()
 
         self.assertTrue(
-            PageRevision.objects.filter(
-                page=self.page, submitted_for_moderation=True
+            Revision.page_revisions.filter(
+                object_id=self.page.id, submitted_for_moderation=True
             ).exists()
         )
 
@@ -408,7 +416,9 @@ class TestPurgeRevisionsCommand(TestCase):
             self.run_command()
             # even though no longer the latest revision, the old revision should stay as it is
             # attached to an in progress workflow
-            self.assertIn(revision, PageRevision.objects.filter(page=self.page))
+            self.assertIn(
+                revision, Revision.page_revisions.filter(object_id=self.page.id)
+            )
         except ImportError:
             pass
 
@@ -422,7 +432,9 @@ class TestPurgeRevisionsCommand(TestCase):
 
         self.run_command()
 
-        self.assertIn(approved_revision, PageRevision.objects.filter(page=self.page))
+        self.assertIn(
+            approved_revision, Revision.page_revisions.filter(object_id=self.page.id)
+        )
 
     def test_purge_revisions_with_date_cutoff(self):
 
@@ -433,7 +445,9 @@ class TestPurgeRevisionsCommand(TestCase):
         self.run_command(days=30)
 
         # revision should not be deleted, as it is younger than 30 days
-        self.assertIn(old_revision, PageRevision.objects.filter(page=self.page))
+        self.assertIn(
+            old_revision, Revision.page_revisions.filter(object_id=self.page.id)
+        )
 
         old_revision.created_at = timezone.now() - timedelta(days=31)
         old_revision.save()
@@ -441,7 +455,9 @@ class TestPurgeRevisionsCommand(TestCase):
         self.run_command(days=30)
 
         # revision is now older than 30 days, so should be deleted
-        self.assertNotIn(old_revision, PageRevision.objects.filter(page=self.page))
+        self.assertNotIn(
+            old_revision, Revision.page_revisions.filter(object_id=self.page.id)
+        )
 
 
 class TestCreateLogEntriesFromRevisionsCommand(TestCase):
@@ -509,8 +525,9 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
         with mock.patch(
-            "wagtail.models.ContentType.model_class",
+            "wagtail.models.Page.specific_class",
             return_value=None,
+            new_callable=mock.PropertyMock,
         ):
             management.call_command("create_log_entries_from_revisions")
             self.assertEqual(PageLogEntry.objects.count(), 0)

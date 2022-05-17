@@ -1858,9 +1858,7 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(
-            content, {"message": "No PageRevision matches the given query."}
-        )
+        self.assertEqual(content, {"message": "No Revision matches the given query."})
 
 
 # Overwrite imported test cases do Django doesn't run them
