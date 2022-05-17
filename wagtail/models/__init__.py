@@ -311,6 +311,10 @@ class RevisionMixin(models.Model):
 
         return obj
 
+    def _update_from_revision(self, revision, changed=True):
+        self.latest_revision = revision
+        self.save(update_fields=["latest_revision"])
+
     def save_revision(
         self,
         user=None,
@@ -346,8 +350,7 @@ class RevisionMixin(models.Model):
             object_str=str(self),
         )
 
-        self.latest_revision = revision
-        self.save(update_fields=["latest_revision"])
+        self._update_from_revision(revision, changed)
 
         logger.info(
             'Edited: "%s" pk=%d revision_id=%d', str(self), self.pk, revision.id
@@ -497,6 +500,16 @@ class DraftStateMixin(models.Model):
             return latest_revision.as_object()
         else:
             return self
+
+    def _update_from_revision(self, revision, changed=True):
+        update_fields = ["latest_revision"]
+        self.latest_revision = revision
+
+        if changed:
+            self.has_unpublished_changes = True
+            update_fields.append("has_unpublished_changes")
+
+        self.save(update_fields=update_fields)
 
 
 class AbstractPage(
