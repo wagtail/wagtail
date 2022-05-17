@@ -81,7 +81,7 @@
     height: theme('spacing.5');
     color: theme('colors.primary.DEFAULT');
     top: theme('spacing.[0.5]');
-    transform: translateY(0.5rem);
+    transform: translateY(theme('spacing.2'));
     inset-inline-start: calc(0 - theme('spacing.10'));
 
     @include media-breakpoint-up(md) {
@@ -111,7 +111,7 @@
 
     &--warning {
       background: theme('colors.warning.50');
-      color: theme('colors.warning.100');
+      color: theme('colors.primary.DEFAULT');
     }
 
     &--critical {
@@ -137,14 +137,7 @@
     color: theme('colors.grey.600');
   }
 
-  &__message-heading {
-    font-size: theme('fontSize.14');
-    color: theme('colors.grey.600');
-  }
-
   &__message-description {
     margin-bottom: 0;
-    font-size: theme('fontSize.14');
-    color: theme('colors.grey.600');
   }
 }
