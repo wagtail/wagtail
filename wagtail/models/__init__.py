@@ -481,6 +481,23 @@ class DraftStateMixin(models.Model):
             log_action=log_action,
         ).execute()
 
+    def get_latest_revision_as_object(self):
+        if not self.has_unpublished_changes:
+            # Use the live database copy in preference to the revision record, as:
+            # 1) this will pick up any changes that have been made directly to the model,
+            #    such as automated data imports;
+            # 2) it ensures that inline child objects pick up real database IDs even if
+            #    those are absent from the revision data. (If this wasn't the case, the child
+            #    objects would be recreated with new IDs on next publish - see #1853)
+            return self
+
+        latest_revision = self.get_latest_revision()
+
+        if latest_revision:
+            return latest_revision.as_object()
+        else:
+            return self
+
 
 class AbstractPage(
     DraftStateMixin,
