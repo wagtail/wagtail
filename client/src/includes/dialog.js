@@ -22,7 +22,6 @@ export const dialog = (
     dialogTemplate
       .on('show', () => {
         if (dataUrl) {
-          console.log('gary');
           window.DialogWorkflow(templateContent, {
             url: dataUrl,
             onload: {
@@ -32,8 +31,6 @@ export const dialog = (
                   modal.postForm(this.action, $(this).serialize());
                   return false;
                 });
-
-                console.log(modal);
 
                 const restrictionTypePasswordField = $(
                   "input[name='restriction_type'][value='password']",
