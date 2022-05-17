@@ -8,12 +8,14 @@ from wagtail.models import DraftStateMixin, RevisionMixin
 
 class TestDraftStateMixin(TestCase):
     def tearDown(self):
-        # unregister DeprecatedStreamModel from the overall model registry
-        # so that it doesn't break tests elsewhere
+        # Unregister the models from the overall model registry
+        # so that it doesn't break tests elsewhere.
+        # We can probably replace this with Django's @isolate_apps decorator.
         for package in ("wagtailcore", "wagtail.tests"):
             try:
                 for model in (
                     "draftstatewithoutrevisionmodel",
+                    "draftstateincorrectrevisionmodel",
                     "draftstatewithrevisionmodel",
                 ):
                     del apps.all_models[package][model]
@@ -21,7 +23,7 @@ class TestDraftStateMixin(TestCase):
                 pass
         apps.clear_cache()
 
-    def test_incorrect_model(self):
+    def test_missing_revision_mixin(self):
         class DraftStateWithoutRevisionModel(DraftStateMixin, models.Model):
             pass
 
@@ -29,16 +31,34 @@ class TestDraftStateMixin(TestCase):
             DraftStateWithoutRevisionModel.check(),
             [
                 checks.Error(
-                    "DraftStateMixin requires RevisionMixin to be applied.",
-                    hint="Add RevisionMixin to the model's base classes before DraftStateMixin.",
+                    "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
+                    hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
                     obj=DraftStateWithoutRevisionModel,
                     id="wagtail.EXXX",
                 )
             ],
         )
 
+    def test_incorrect_revision_mixin_order(self):
+        class DraftStateIncorrectRevisionModel(
+            RevisionMixin, DraftStateMixin, models.Model
+        ):
+            pass
+
+        self.assertEqual(
+            DraftStateIncorrectRevisionModel.check(),
+            [
+                checks.Error(
+                    "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
+                    hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
+                    obj=DraftStateIncorrectRevisionModel,
+                    id="wagtail.EXXX",
+                )
+            ],
+        )
+
     def test_correct_model(self):
-        class DraftStateWithRevisionModel(RevisionMixin, DraftStateMixin, models.Model):
+        class DraftStateWithRevisionModel(DraftStateMixin, RevisionMixin, models.Model):
             pass
 
         self.assertEqual(DraftStateWithRevisionModel.check(), [])

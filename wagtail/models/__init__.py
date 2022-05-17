@@ -432,15 +432,20 @@ class DraftStateMixin(models.Model):
 
     @classmethod
     def _check_revision_mixin(cls):
-        if RevisionMixin not in cls.mro():
-            return [
-                checks.Error(
-                    "DraftStateMixin requires RevisionMixin to be applied.",
-                    hint="Add RevisionMixin to the model's base classes before DraftStateMixin.",
-                    obj=cls,
-                    id="wagtail.EXXX",
-                ),
-            ]
+        mro = cls.mro()
+        error = checks.Error(
+            "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
+            hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
+            obj=cls,
+            id="wagtail.EXXX",
+        )
+
+        try:
+            if mro.index(RevisionMixin) < mro.index(DraftStateMixin):
+                return [error]
+        except ValueError:
+            return [error]
+
         return []
 
     @property
@@ -478,7 +483,11 @@ class DraftStateMixin(models.Model):
 
 
 class AbstractPage(
-    RevisionMixin, DraftStateMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node
+    DraftStateMixin,
+    RevisionMixin,
+    TranslatableMixin,
+    TreebeardPathFixMixin,
+    MP_Node,
 ):
     """
     Abstract superclass for Page. According to Django's inheritance rules, managers set on
