@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.forms.models import FormSubmission
 
 
-class FormBulkAction(BulkAction):
+class FormSubmissionBulkAction(BulkAction):
     models = [FormSubmission]
 
     def get_success_message(self, num_forms, action_done):
