@@ -3,7 +3,7 @@
 Signals
 =======
 
-Wagtail's :ref:`page-revision-model-ref` and :ref:`page-model-ref` implement
+Wagtail's :ref:`revision-model-ref` and :ref:`page-model-ref` implement
 :doc:`Signals <topics/signals>` from ``django.dispatch``.
 Signals are useful for creating side-effects from page publish/unpublish events.
 
@@ -13,11 +13,11 @@ For example, you could use signals to send publish notifications to a messaging 
 ``page_published``
 ------------------
 
-This signal is emitted from a ``PageRevision`` when a revision is set to `published`.
+This signal is emitted from a ``Revision`` when a page revision is set to `published`.
 
 :sender: The page ``class``.
 :instance: The specific ``Page`` instance.
-:revision: The ``PageRevision`` that was published.
+:revision: The ``Revision`` that was published.
 :kwargs: Any other arguments passed to ``page_published.send()``.
 
 To listen to a signal, implement ``page_published.connect(receiver, sender, **kwargs)``. Here's a simple
