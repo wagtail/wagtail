@@ -14,11 +14,7 @@
 
             {% if message_heading and message_icon_name %}
                 <div class="w-dialog__message w-dialog__message--{{ message_status }}">
-                    {% if message_icon_color %}
-                        {% icon name=message_icon_name class_name="w-dialog__message-icon "|add:message_icon_color %}
-                    {% else %}
-                        {% icon name=message_icon_name class_name="w-dialog__message-icon" %}
-                    {% endif %}
+                    {% icon name=message_icon_name class_name="w-dialog__message-icon" %}
                     <div class="w-dialog__message-header">
                         <strong class="w-dialog__message-heading">{{ message_heading }}</strong>
                         {% if message_description %}<p class="w-dialog__message-description ">{{ message_description }}</p>{% endif %}
