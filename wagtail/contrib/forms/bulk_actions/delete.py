@@ -1,8 +1,8 @@
-from wagtail.contrib.forms.bulk_actions.form_bulk_action import FormBulkAction
+from wagtail.contrib.forms.bulk_actions.form_bulk_action import FormSubmissionBulkAction
 from django.utils.translation import gettext_lazy as _
 
 
-class DeleteBulkAction(FormBulkAction):
+class DeleteBulkAction(FormSubmissionBulkAction):
     display_name = _("Delete")
     aria_label = _("Delete selected objects")
     action_type = "delete"
