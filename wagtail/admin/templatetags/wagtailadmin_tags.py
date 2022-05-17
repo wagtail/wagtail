@@ -902,7 +902,6 @@ def dialog(
     message_status=None,
     message_heading=None,
     message_description=None,
-    class_name=None,
 ):
     """
     Dialog tag - to be used with its corresponding {% enddialog %} tag with dialog content markup nested between
