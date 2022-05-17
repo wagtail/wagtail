@@ -896,6 +896,7 @@ def component(context, obj, fallback_render_method=False):
 
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog.html")
 def dialog(
+    id,
     title,
     icon_name=None,
     subtitle=None,
@@ -908,6 +909,8 @@ def dialog(
     """
     if not title:
         raise ValueError("You must supply a title")
+    if not id:
+        raise ValueError("You must supply an id")
 
     # Used for determining which icon the message will use
     message_status_type = {
@@ -926,13 +929,13 @@ def dialog(
     }
 
     context = {
-        "icon_name": icon_name,
+        "id": id,
         "title": title,
+        "icon_name": icon_name,
         "subtitle": subtitle,
         "message_heading": message_heading,
         "message_description": message_description,
         "message_status": message_status,
-        "class_name": class_name,
     }
 
     # If there is a message status then add the context for that message type
@@ -950,13 +953,13 @@ def enddialog():
 
 # Button used to open dialogs
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
-def dialog_toggle(dialog_title, class_name=None, text=None):
-    if not dialog_title:
-        raise ValueError("You must supply the dialog title")
+def dialog_toggle(dialog_id, class_name="", text=None):
+    if not dialog_id:
+        raise ValueError("You must supply the dialog ID")
 
     return {
         "class_name": class_name,
         "text": text,
-        # dialog_title must match the title of the dialog you are toggling
-        "dialog_title": dialog_title,
+        # dialog_id must match the ID of the dialog you are toggling
+        "dialog_id": dialog_id,
     }
