@@ -493,7 +493,7 @@ Every time a page is edited a new ``Revision`` is created and saved to the datab
 
 - Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
 - The content of the page is JSON-serialisable and stored in the :attr:`~Revision.content` field
-- You can retrieve a ``Revision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~Revision.as_page_object` method
+- You can retrieve a ``Revision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~Revision.as_object` method
 
 .. versionchanged:: 4.0
 
@@ -559,7 +559,7 @@ Managers
 
     .. attribute:: objects
 
-        This manager is used to retrieve all of the ``Revision`` objects in the database
+        This manager is used to retrieve all of the ``Revision`` objects in the database.
 
         Example:
 
@@ -583,7 +583,7 @@ Managers
 
     .. attribute:: submitted_revisions
 
-        This manager is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval
+        This manager is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
 
         Example:
 
