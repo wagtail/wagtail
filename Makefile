@@ -7,6 +7,7 @@ help:
 	@echo "format - enforce a consistent code style across the codebase, sort python files with isort and fix frontend css/js"
 	@echo "test - run tests"
 	@echo "coverage - check code coverage"
+	@echo "run-test-server - migrates & runs local dev server with testapp"
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -53,3 +54,9 @@ coverage:
 	coverage report -m
 	coverage html
 	open coverage_html_report/index.html
+
+run-test-server:
+	export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
+	./wagtail/test/manage.py migrate
+	./wagtail/test/manage.py createcachetable
+	./wagtail/test/manage.py runserver 0:8000

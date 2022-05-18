@@ -259,6 +259,14 @@ $ npm start
 Wagtail’s UI component library is built with [Storybook](https://storybook.js.org/) and [django-pattern-library](https://github.com/torchbox/django-pattern-library). To run it locally,
 
 ```console
+$ make run-test-server
+# In a separate terminal:
+$ npm run storybook
+```
+
+or you can run each command individually if already set up,
+
+```console
 $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
 # Assumes the current environment contains a valid installation of Wagtail for local development.
 $ ./wagtail/test/manage.py migrate
