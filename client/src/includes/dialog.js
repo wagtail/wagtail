@@ -5,10 +5,11 @@ export const dialog = (
 ) => {
   dialogs.forEach((template) => {
     const html = document.documentElement;
-    console.log(template);
 
     const templateContent = template.content.firstElementChild;
     let dataUrl;
+
+    console.log(templateContent);
 
     // Check if there is a url to ajaxify dialog content
     if (templateContent.hasAttribute('data-url')) {
@@ -22,6 +23,8 @@ export const dialog = (
     dialogTemplate
       .on('show', () => {
         if (dataUrl) {
+          console.log('url');
+
           window.DialogWorkflow(templateContent, {
             url: dataUrl,
             onload: {
