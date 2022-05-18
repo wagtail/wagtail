@@ -56,6 +56,8 @@ class PublishPageRevisionAction(PublishRevisionAction):
             revision=self.revision,
         )
 
+        super()._after_publish()
+
         workflow_state = self.object.current_workflow_state
         if workflow_state and getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True

@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
 from wagtail.log_actions import log
-from wagtail.signals import object_published
+from wagtail.signals import published
 
 logger = logging.getLogger("wagtail")
 
@@ -71,7 +71,7 @@ class PublishRevisionAction:
         )
 
     def _after_publish(self):
-        object_published.send(
+        published.send(
             sender=type(self.object),
             instance=self.object,
             revision=self.revision,

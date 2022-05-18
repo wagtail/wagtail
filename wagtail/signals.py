@@ -3,19 +3,19 @@ from django.dispatch import Signal
 # Generic object signals
 
 # provides args: instance, revision
-object_published = Signal()
+published = Signal()
 
 # provides args: instance
-object_unpublished = Signal()
+unpublished = Signal()
 
 
 # Page signals
 
 # provides args: instance, revision
-page_published = object_published
+page_published = Signal()
 
 # provides args: instance
-page_unpublished = object_unpublished
+page_unpublished = Signal()
 
 # provides args: instance, instance_before
 page_slug_changed = Signal()

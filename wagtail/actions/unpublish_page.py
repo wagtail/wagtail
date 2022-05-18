@@ -50,6 +50,8 @@ class UnpublishPageAction(UnpublishAction):
             sender=self.object.specific_class, instance=self.object.specific
         )
 
+        super()._after_unpublish()
+
     def execute(self, skip_permission_checks=False):
         super().execute(skip_permission_checks)
 

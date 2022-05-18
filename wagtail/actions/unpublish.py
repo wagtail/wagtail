@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import PermissionDenied
 
 from wagtail.log_actions import log
-from wagtail.signals import object_unpublished
+from wagtail.signals import unpublished
 
 logger = logging.getLogger("wagtail")
 
@@ -42,7 +42,7 @@ class UnpublishAction:
             )
 
     def _after_unpublish(self):
-        object_unpublished.send(sender=type(object), instance=object)
+        unpublished.send(sender=type(object), instance=object)
 
     def _unpublish_object(self, object, set_expired, commit, user, log_action):
         """
