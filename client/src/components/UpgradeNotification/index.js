@@ -17,7 +17,9 @@ const initUpgradeNotification = () => {
   const releasesUrl = 'https://releases.wagtail.org/latest.txt';
   const currentVersion = container.dataset.wagtailVersion;
 
-  fetch(releasesUrl)
+  fetch(releasesUrl, {
+    referrerPolicy: 'strict-origin-when-cross-origin',
+  })
     .then((response) => {
       if (response.status !== 200) {
         // eslint-disable-next-line no-console
