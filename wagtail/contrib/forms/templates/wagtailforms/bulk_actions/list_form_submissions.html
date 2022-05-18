@@ -5,25 +5,11 @@
             <th id="submit_time" class="">
                 Submission date
             </th>
-            <th id="subject" class="">
-                Subject
+            {% for heading in data_headings %}
+            <th>
+                {{ heading.name }}
             </th>
-
-            <th id="your_name" class="">
-                Your Name
-            </th>
-
-            <th id="your_email" class="">
-                Your Email
-            </th>
-
-            <th id="purpose" class="">
-                Purpose
-            </th>
-
-            <th id="body" class="">
-                Body
-            </th>
+            {% endfor %}
         </tr>
     </thead>
 {% for item in items %}
@@ -32,25 +18,11 @@
             <td>
                 {{item.item.submit_time}}
             </td>
+            {% for label,data in item.item.form_data.items %}
             <td>
-                {{item.item.form_data.subject}}
+                {{ data }}
             </td>
-        
-            <td>
-                {{item.item.form_data.your_name}}
-            </td>
-        
-            <td>
-                {{item.item.form_data.your_email}}
-            </td>
-        
-            <td>
-                {{item.item.form_data.purpose}}
-            </td>
-        
-            <td>
-                {{item.item.form_data.body}}
-            </td>
+            {% endfor %}
         </tr>
     </tbody>
 {% endfor %}
