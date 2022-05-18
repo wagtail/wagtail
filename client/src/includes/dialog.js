@@ -1,31 +1,23 @@
 import A11yDialog from 'a11y-dialog';
+import $ from 'jquery';
 
 export const dialog = (
   dialogs = document.querySelectorAll('[data-dialog]'),
 ) => {
   dialogs.forEach((template) => {
     const html = document.documentElement;
-
     const templateContent = template.content.firstElementChild;
-    let dataUrl;
-
-    console.log(templateContent);
-
-    // Check if there is a url to ajaxify dialog content
-    if (templateContent.hasAttribute('data-url')) {
-      dataUrl = templateContent.getAttribute('data-url');
-    }
 
     document.body.appendChild(templateContent);
     const dialogTemplate = new A11yDialog(templateContent);
 
     // Prevent scrolling when dialog is open
     dialogTemplate
-      .on('show', () => {
+      .on('show', (element, event) => {
+        const dataUrl = event.currentTarget.getAttribute('data-url');
         if (dataUrl) {
-          console.log('url');
-
-          window.DialogWorkflow(templateContent, {
+          // eslint-disable-next-line no-undef
+          DialogWorkflow(templateContent, {
             url: dataUrl,
             onload: {
               set_privacy(modal) {
@@ -65,6 +57,9 @@ export const dialog = (
                   'change',
                   refreshFormFields,
                 );
+
+                // Rehookup event listeners
+                modal.create();
               },
               set_privacy_done(modal, jsonData) {
                 modal.respond('setPermission', jsonData.is_public);
@@ -107,9 +102,6 @@ export const dialog = (
       })
       .on('hide', () => {
         html.style.overflowY = '';
-      })
-      .on('create', () => {
-        console.log('hey i am created');
       });
   });
 };

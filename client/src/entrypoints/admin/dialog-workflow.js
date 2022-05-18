@@ -22,36 +22,7 @@ function DialogWorkflow(dialog, opts) {
   const responseCallbacks = opts.responses || {};
   const errorCallback = opts.onError || function () {};
 
-  // disable the trigger element so it cannot be clicked twice while modal is loading
-  self.triggerElement = document.activeElement;
-  self.triggerElement.setAttribute('disabled', true);
-
-  // set default contents of container
-  // const iconClose =
-  //   '<svg class="icon icon-cross" aria-hidden="true"><use href="#icon-cross"></use></svg>';
-  // const container = $(
-  //   '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' +
-  //     iconClose +
-  //     gettext('Close') +
-  //     '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>',
-  // );
-
-  // add container to body and hide it, so content can be added to it before display
-  // $('body').append(container);
-  // container.modal('hide');
-
-  // add listener - once modal is about to be hidden, re-enable the trigger
-  // container.on('hide.bs.modal', () => {
-  //   self.triggerElement.removeAttribute('disabled');
-  // });
-
-  // // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
-  // container.on('hidden.bs.modal', function () {
-  //   self.triggerElement.focus();
-  //   container.remove();
-  // });
-
-  self.body = dialog.find('[data-dialog-content]');
+  self.body = $(dialog).find('[data-dialog-content]');
 
   self.loadUrl = function (url, urlParams) {
     $.get(url, urlParams, self.loadResponseText, 'text').fail(errorCallback);
@@ -105,7 +76,7 @@ function DialogWorkflow(dialog, opts) {
   };
 
   self.close = function () {
-    container.modal('hide');
+    dialog.hide();
   };
 
   self.loadUrl(opts.url, opts.urlParams);
