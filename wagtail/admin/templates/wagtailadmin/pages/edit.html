@@ -2,8 +2,7 @@
 {% load wagtailadmin_tags %}
 {% load i18n %}
 {% load l10n %}
-{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}
-{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page_locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
@@ -15,16 +14,6 @@
         {% include "wagtailadmin/shared/page_side_panels.html" %}
     </div>
 
-    <div class="nice-padding w-py-4">
-        <button type="button" class="button button-primary" data-a11y-dialog-show="scheduled-publishing">
-            Warning dialog
-        </button>
-
-        {% dialog icon_name="globe" title="Scheduled Publishing" description="This is a testing description" message_status="warning" message_heading="There was some issue with the thing" message_description="This is a subtext for the message" %}
-        {% enddialog %}
-    </div>
-
-
     {% block form %}
         <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}
@@ -33,7 +22,7 @@
             {{ edit_handler.render_form_content }}
 
             {% if is_revision %}
-                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}"/>
+                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
             {% endif %}
 
             <footer class="footer">
@@ -103,7 +92,7 @@
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
 
-        $(function () {
+        $(function() {
             {% if publishing_will_cancel_workflow %}
                 /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
                 let cancellationConfirmed = false;
@@ -114,7 +103,7 @@
                         ModalWorkflow({
                             'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
                             'onload': {
-                                'confirm': function (modal, jsonData) {
+                                'confirm': function(modal, jsonData) {
                                     $('[data-confirm-cancellation]', modal.body).click((event) => {
                                         cancellationConfirmed = true;
                                         modal.close();
@@ -124,7 +113,7 @@
                                         modal.close();
                                     })
                                 },
-                                'no_confirmation_needed': function (modal, jsonData) {
+                                'no_confirmation_needed': function(modal, jsonData) {
                                     modal.close();
                                     cancellationConfirmed = true;
                                     e.currentTarget.click();
@@ -154,7 +143,7 @@
             /* Tooltips used by the workflow status component */
             $('[data-wagtail-tooltip]').tooltip({
                 animation: false,
-                title: function () {
+                title: function() {
                     return $(this).attr('data-wagtail-tooltip');
                 },
                 trigger: 'hover',
