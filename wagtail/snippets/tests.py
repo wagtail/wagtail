@@ -1352,7 +1352,8 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
         # Check locale filter doesn't exist normally
         self.assertNotIn(
-            '<select id="snippet-chooser-locale" name="lang">', response.json()["html"]
+            '<select data-chooser-modal-search-filter name="lang">',
+            response.json()["html"],
         )
 
     def test_ordering(self):
@@ -1389,7 +1390,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
         # Check the filter is added
         self.assertIn(
-            '<select id="snippet-chooser-locale" name="locale_filter">',
+            '<select data-chooser-modal-search-filter name="locale_filter">',
             response.json()["html"],
         )
 

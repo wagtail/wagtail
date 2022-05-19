@@ -156,7 +156,9 @@ class ChooserModalOnloadHandlerFactory {
     this.resultsContainerSelector =
       opts?.resultsContainerSelector || '#search-results';
     this.searchInputSelectors = opts?.searchInputSelectors || ['#id_q'];
-    this.searchFilterSelectors = opts?.searchFilterSelectors || [];
+    this.searchFilterSelectors = opts?.searchFilterSelectors || [
+      '[data-chooser-modal-search-filter]',
+    ];
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
     this.searchInputDelay = opts?.searchInputDelay || 200;
 
