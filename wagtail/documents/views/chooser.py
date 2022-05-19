@@ -106,7 +106,7 @@ class BaseChooseView(View):
                 "title",
                 label=_("Title"),
                 url_name="wagtaildocs:document_chosen",
-                link_classname="document-choice",
+                link_attrs={"data-chooser-modal-choice": True},
             ),
             DownloadColumn("filename", label=_("File")),
             DateColumn("created_at", label=_("Created"), width="16%"),

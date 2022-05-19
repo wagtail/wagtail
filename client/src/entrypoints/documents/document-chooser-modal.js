@@ -60,7 +60,6 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
   new DocumentChooserModalOnloadHandlerFactory({
     chooseStepName: 'chooser',
     chosenStepName: 'document_chosen',
-    chosenLinkSelector: 'a.document-choice',
     searchFormSelector: 'form.document-search',
     searchFilterSelectors: ['#collection_chooser_collection_id'],
     searchInputDelay: 50,

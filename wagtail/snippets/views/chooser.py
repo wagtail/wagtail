@@ -101,7 +101,7 @@ class BaseChooseView(View):
                     "title",
                     self.model,
                     label=_("Title"),
-                    link_classname="snippet-choice",
+                    link_attrs={"data-chooser-modal-choice": True},
                 ),
             ],
             self.paginated_items,

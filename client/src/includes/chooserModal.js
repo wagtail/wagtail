@@ -143,7 +143,8 @@ class ChooserModalOnloadHandlerFactory {
   constructor(opts) {
     this.chooseStepName = opts?.chooseStepName || 'choose';
     this.chosenStepName = opts?.chosenStepName || 'chosen';
-    this.chosenLinkSelector = opts?.chosenLinkSelector || 'a[data-item-choice]';
+    this.chosenLinkSelector =
+      opts?.chosenLinkSelector || 'a[data-chooser-modal-choice]';
     this.paginationLinkSelector =
       opts?.paginationLinkSelector || '.pagination a';
     this.searchFormSelector = opts?.searchFormSelector || 'form[data-search]';
