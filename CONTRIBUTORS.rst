@@ -598,6 +598,7 @@ Contributors
 * Josh Woodcock
 * Christian Franke
 * Tom Hu
+* Thiago Costa de Souza
 
 Translators
 ===========
