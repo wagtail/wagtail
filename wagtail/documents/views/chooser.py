@@ -30,7 +30,7 @@ def get_document_chosen_response(request, document):
         None,
         None,
         json_data={
-            "step": "document_chosen",
+            "step": "chosen",
             "result": {
                 "id": document.id,
                 "title": document.title,
@@ -144,7 +144,7 @@ class ChooseView(BaseChooseView):
             None,
             self.get_context_data(),
             json_data={
-                "step": "chooser",
+                "step": "choose",
                 "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
             },
         )

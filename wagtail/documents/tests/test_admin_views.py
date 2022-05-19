@@ -1418,7 +1418,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
 
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn("wagtailadmin/js/draftail.js", response_json["html"])
@@ -1437,7 +1437,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtaildocs:chooser"))
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
 
         # custom form fields should be present
@@ -1576,7 +1576,7 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "document_chosen")
+        self.assertEqual(response_json["step"], "chosen")
 
 
 class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
@@ -1601,9 +1601,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         }
         response = self.client.post(reverse("wagtaildocs:chooser_upload"), post_data)
 
-        # Check that the response is the 'document_chosen' step
+        # Check that the response is the 'chosen' step
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "document_chosen")
+        self.assertEqual(response_json["step"], "chosen")
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
@@ -1681,7 +1681,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
 
         # user only has access to one collection -> should not see the collections field
         self.assertNotIn("id_collection", response_json["html"])
@@ -1697,9 +1697,9 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         }
         response = self.client.post(reverse("wagtaildocs:chooser_upload"), post_data)
 
-        # Check that the response is the 'document_chosen' step
+        # Check that the response is the 'chosen' step
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "document_chosen")
+        self.assertEqual(response_json["step"], "chosen")
 
         # Document should be created
         doc = models.Document.objects.filter(title="Test document")
