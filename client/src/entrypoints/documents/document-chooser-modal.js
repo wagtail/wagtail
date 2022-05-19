@@ -1,26 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
-import {
-  submitCreationForm,
-  initPrefillTitleFromFilename,
-  ChooserModalOnloadHandlerFactory,
-} from '../../includes/chooserModal';
-
-function ajaxifyDocumentUploadForm(modal) {
-  $('form.document-upload', modal.body).on('submit', (event) => {
-    submitCreationForm(modal, event.currentTarget, {
-      errorContainerSelector: '#tab-upload',
-    });
-
-    return false;
-  });
-
-  initPrefillTitleFromFilename(modal, {
-    fileFieldSelector: '#id_document-chooser-upload-file',
-    titleFieldSelector: '#id_document-chooser-upload-title',
-    eventName: 'wagtail:documents-upload',
-  });
-}
+import { ChooserModalOnloadHandlerFactory } from '../../includes/chooserModal';
 
 class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
   ajaxifyLinks(modal, context) {
@@ -40,17 +20,16 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
     initTabs();
   }
 
-  onLoadChooseStep(modal, jsonData) {
-    super.onLoadChooseStep(modal, jsonData);
-    ajaxifyDocumentUploadForm(modal);
+  onLoadReshowCreationFormStep(modal, jsonData) {
+    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    initTabs();
+    this.ajaxifyCreationForm(modal);
   }
 
   getOnLoadHandlers() {
     const handlers = super.getOnLoadHandlers();
     handlers.reshow_upload_form = (modal, jsonData) => {
-      $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
-      initTabs();
-      ajaxifyDocumentUploadForm(modal);
+      this.onLoadReshowCreationFormStep(modal, jsonData);
     };
     return handlers;
   }
@@ -61,4 +40,9 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
     searchFilterSelectors: ['#collection_chooser_collection_id'],
     searchInputDelay: 50,
     chosenResponseName: 'documentChosen',
+    creationFormSelector: 'form.document-upload',
+    creationFormErrorContainerSelector: '#tab-upload',
+    creationFormFileFieldSelector: '#id_document-chooser-upload-file',
+    creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
+    creationFormEventName: 'wagtail:documents-upload',
   }).getOnLoadHandlers();
