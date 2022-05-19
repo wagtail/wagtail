@@ -77,8 +77,12 @@ const initPrefillTitleFromFilename = (
 class SearchController {
   constructor(opts) {
     this.form = opts.form;
+    this.containerElement = opts.containerElement;
     this.onLoadResults = opts.onLoadResults;
-    this.resultsContainer = $(opts.resultsContainerSelector);
+    this.resultsContainer = $(
+      opts.resultsContainerSelector,
+      this.containerElement,
+    );
     this.inputDelay = opts.inputDelay || 200;
 
     this.searchUrl = this.form.attr('action');
@@ -93,7 +97,7 @@ class SearchController {
   attachSearchInput(selector) {
     let timer;
 
-    $(selector).on('input', () => {
+    $(selector, this.containerElement).on('input', () => {
       if (this.request) {
         this.request.abort();
       }
@@ -105,7 +109,7 @@ class SearchController {
   }
 
   attachSearchFilter(selector) {
-    $(selector).on('change', () => {
+    $(selector, this.containerElement).on('change', () => {
       this.searchFromForm();
     });
   }
@@ -158,19 +162,19 @@ class ChooserModalOnloadHandlerFactory {
     this.searchController = null;
   }
 
-  ajaxifyLinks(modal, context) {
+  ajaxifyLinks(modal, containerElement) {
     if (!this.searchController) {
       throw new Error(
         'Cannot call ajaxifyLinks until a SearchController is set up',
       );
     }
 
-    $(this.chosenLinkSelector, modal.body).on('click', (event) => {
+    $(this.chosenLinkSelector, containerElement).on('click', (event) => {
       modal.loadUrl(event.currentTarget.href);
       return false;
     });
 
-    $(this.paginationLinkSelector, context).on('click', (event) => {
+    $(this.paginationLinkSelector, containerElement).on('click', (event) => {
       this.searchController.fetchResults(event.currentTarget.href);
       return false;
     });
@@ -179,9 +183,10 @@ class ChooserModalOnloadHandlerFactory {
   initSearchController(modal) {
     this.searchController = new SearchController({
       form: $(this.searchFormSelector, modal.body),
+      containerElement: modal.body,
       resultsContainerSelector: this.resultsContainerSelector,
-      onLoadResults: (context) => {
-        this.ajaxifyLinks(modal, context);
+      onLoadResults: (containerElement) => {
+        this.ajaxifyLinks(modal, containerElement);
       },
       inputDelay: this.searchInputDelay,
     });

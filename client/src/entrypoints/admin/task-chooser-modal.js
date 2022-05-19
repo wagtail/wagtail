@@ -45,6 +45,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     const searchController = new SearchController({
       form: $('form.task-search', modal.body),
+      containerElement: modal.body,
       resultsContainerSelector: '#search-results',
       onLoadResults: (context) => {
         ajaxifyLinks(context);
