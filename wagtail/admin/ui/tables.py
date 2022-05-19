@@ -128,17 +128,28 @@ class TitleColumn(Column):
     cell_template_name = "wagtailadmin/tables/title_cell.html"
 
     def __init__(
-        self, name, url_name=None, get_url=None, link_classname=None, **kwargs
+        self,
+        name,
+        url_name=None,
+        get_url=None,
+        link_classname=None,
+        link_attrs=None,
+        **kwargs,
     ):
         super().__init__(name, **kwargs)
         self.url_name = url_name
         self._get_url_func = get_url
+        self.link_attrs = link_attrs or {}
         self.link_classname = link_classname
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["link_url"] = self.get_link_url(instance, parent_context)
-        context["link_classname"] = self.link_classname
+        context["link_attrs"] = self.link_attrs.copy()
+        context["link_attrs"]["href"] = context["link_url"] = self.get_link_url(
+            instance, parent_context
+        )
+        if self.link_classname is not None:
+            context["link_attrs"]["class"] = self.link_classname
         return context
 
     def get_link_url(self, instance, parent_context):
