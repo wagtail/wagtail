@@ -55,19 +55,22 @@ const initPrefillTitleFromFilename = (
 
       // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
       const form = fileWidget.closest('form').get(0);
-      const event = form.dispatchEvent(
-        new CustomEvent(eventName, {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            data: data,
-            filename: filename,
-            maxTitleLength: maxTitleLength,
-          },
-        }),
-      );
 
-      if (!event) return; // do not set a title if event.preventDefault(); is called by handler
+      if (eventName) {
+        const event = form.dispatchEvent(
+          new CustomEvent(eventName, {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+              data: data,
+              filename: filename,
+              maxTitleLength: maxTitleLength,
+            },
+          }),
+        );
+
+        if (!event) return; // do not set a title if event.preventDefault(); is called by handler
+      }
 
       titleWidget.val(data.title);
     }
@@ -161,6 +164,13 @@ class ChooserModalOnloadHandlerFactory {
     ];
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
     this.searchInputDelay = opts?.searchInputDelay || 200;
+    this.creationFormSelector =
+      opts?.creationFormSelector || 'form[data-chooser-modal-create]';
+    this.creationFormErrorContainerSelector =
+      opts?.creationFormErrorContainerSelector || '#tab-create';
+    this.creationFormFileFieldSelector = opts?.creationFormFileFieldSelector;
+    this.creationFormTitleFieldSelector = opts?.creationFormTitleFieldSelector;
+    this.creationFormEventName = opts?.creationFormEventName;
 
     this.searchController = null;
   }
@@ -181,6 +191,29 @@ class ChooserModalOnloadHandlerFactory {
       this.searchController.fetchResults(event.currentTarget.href);
       return false;
     });
+  }
+
+  ajaxifyCreationForm(modal) {
+    /* Convert the creation form to an AJAX submission */
+    $(this.creationFormSelector, modal.body).on('submit', (event) => {
+      submitCreationForm(modal, event.currentTarget, {
+        errorContainerSelector: this.creationFormErrorContainerSelector,
+      });
+
+      return false;
+    });
+
+    /* If this form has a file and title field, set up the title to be prefilled from the title */
+    if (
+      this.creationFormFileFieldSelector &&
+      this.creationFormTitleFieldSelector
+    ) {
+      initPrefillTitleFromFilename(modal, {
+        fileFieldSelector: this.creationFormFileFieldSelector,
+        titleFieldSelector: this.creationFormTitleFieldSelector,
+        eventName: this.creationFormEventName,
+      });
+    }
   }
 
   initSearchController(modal) {
@@ -204,6 +237,7 @@ class ChooserModalOnloadHandlerFactory {
   onLoadChooseStep(modal) {
     this.initSearchController(modal);
     this.ajaxifyLinks(modal, modal.body);
+    this.ajaxifyCreationForm(modal);
   }
 
   onLoadChosenStep(modal, jsonData) {
