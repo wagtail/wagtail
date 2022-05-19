@@ -54,6 +54,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     searchController = new SearchController({
       form: $('form.image-search', modal.body),
+      containerElement: modal.body,
       resultsContainerSelector: '#image-results',
       onLoadResults: (context) => {
         ajaxifyLinks(context);
