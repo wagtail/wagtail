@@ -94,6 +94,7 @@ class TestTable(TestCase):
                     "hostname",
                     url_name="wagtailsites:edit",
                     link_classname="choose-site",
+                    link_attrs={"data-chooser": "yes"},
                 ),
                 Column("site_name", label="Site name"),
             ],
@@ -112,7 +113,7 @@ class TestTable(TestCase):
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="/admin/sites/%d/" class="choose-site">blog.example.com</a>
+                                <a href="/admin/sites/%d/" class="choose-site" data-chooser="yes">blog.example.com</a>
                             </div>
                         </td>
                         <td>My blog</td>
@@ -120,7 +121,7 @@ class TestTable(TestCase):
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="/admin/sites/%d/" class="choose-site">gallery.example.com</a>
+                                <a href="/admin/sites/%d/" class="choose-site" data-chooser="yes">gallery.example.com</a>
                             </div>
                         </td>
                         <td>My gallery</td>
