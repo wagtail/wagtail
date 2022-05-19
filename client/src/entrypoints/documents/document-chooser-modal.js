@@ -58,7 +58,6 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
 
 window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
   new DocumentChooserModalOnloadHandlerFactory({
-    searchFormSelector: 'form.document-search',
     searchFilterSelectors: ['#collection_chooser_collection_id'],
     searchInputDelay: 50,
     chosenResponseName: 'documentChosen',

@@ -151,7 +151,8 @@ class ChooserModalOnloadHandlerFactory {
       opts?.chosenLinkSelector || 'a[data-chooser-modal-choice]';
     this.paginationLinkSelector =
       opts?.paginationLinkSelector || '.pagination a';
-    this.searchFormSelector = opts?.searchFormSelector || 'form[data-search]';
+    this.searchFormSelector =
+      opts?.searchFormSelector || 'form[data-chooser-modal-search]';
     this.resultsContainerSelector =
       opts?.resultsContainerSelector || '#search-results';
     this.searchInputSelectors = opts?.searchInputSelectors || ['#id_q'];
