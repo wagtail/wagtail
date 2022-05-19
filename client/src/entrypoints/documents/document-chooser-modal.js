@@ -3,7 +3,7 @@ import { initTabs } from '../../includes/tabs';
 import {
   submitCreationForm,
   initPrefillTitleFromFilename,
-  SearchController,
+  ChooserModalOnloadHandlerFactory,
 } from '../../includes/chooserModal';
 
 function ajaxifyDocumentUploadForm(modal) {
@@ -22,56 +22,47 @@ function ajaxifyDocumentUploadForm(modal) {
   });
 }
 
-window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  chooser: (modal) => {
-    let searchController;
+class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
+  ajaxifyLinks(modal, context) {
+    super.ajaxifyLinks(modal, context);
 
-    function ajaxifyLinks(context) {
-      $('a.document-choice', context).on('click', (event) => {
-        modal.loadUrl(event.currentTarget.href);
-        return false;
-      });
+    $('a.upload-one-now').on('click', (event) => {
+      // Set current collection ID at upload form tab
+      const collectionId = $('#collection_chooser_collection_id').val();
+      if (collectionId) {
+        $('#id_document-chooser-upload-collection').val(collectionId);
+      }
 
-      $('.pagination a', context).on('click', (event) => {
-        searchController.fetchResults(event.currentTarget.href);
-        return false;
-      });
-
-      $('a.upload-one-now').on('click', (event) => {
-        // Set current collection ID at upload form tab
-        const collectionId = $('#collection_chooser_collection_id').val();
-        if (collectionId) {
-          $('#id_document-chooser-upload-collection').val(collectionId);
-        }
-
-        event.preventDefault();
-      });
-
-      // Reinitialize tabs to hook up tab event listeners in the modal
-      initTabs();
-    }
-
-    searchController = new SearchController({
-      form: $('form.document-search', modal.body),
-      resultsContainerSelector: '#search-results',
-      onLoadResults: (context) => {
-        ajaxifyLinks(context);
-      },
-      inputDelay: 50,
+      event.preventDefault();
     });
-    searchController.attachSearchInput('#id_q');
-    searchController.attachSearchFilter('#collection_chooser_collection_id');
 
-    ajaxifyLinks(modal.body);
-    ajaxifyDocumentUploadForm(modal);
-  },
-  document_chosen: (modal, jsonData) => {
-    modal.respond('documentChosen', jsonData.result);
-    modal.close();
-  },
-  reshow_upload_form: (modal, jsonData) => {
-    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    // Reinitialize tabs to hook up tab event listeners in the modal
     initTabs();
+  }
+
+  onLoadChooseStep(modal, jsonData) {
+    super.onLoadChooseStep(modal, jsonData);
     ajaxifyDocumentUploadForm(modal);
-  },
-};
+  }
+
+  getOnLoadHandlers() {
+    const handlers = super.getOnLoadHandlers();
+    handlers.reshow_upload_form = (modal, jsonData) => {
+      $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+      initTabs();
+      ajaxifyDocumentUploadForm(modal);
+    };
+    return handlers;
+  }
+}
+
+window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
+  new DocumentChooserModalOnloadHandlerFactory({
+    chooseStepName: 'chooser',
+    chosenStepName: 'document_chosen',
+    chosenLinkSelector: 'a.document-choice',
+    searchFormSelector: 'form.document-search',
+    searchFilterSelectors: ['#collection_chooser_collection_id'],
+    searchInputDelay: 50,
+    chosenResponseName: 'documentChosen',
+  }).getOnLoadHandlers();

@@ -141,6 +141,8 @@ class SearchController {
 
 class ChooserModalOnloadHandlerFactory {
   constructor(opts) {
+    this.chooseStepName = opts?.chooseStepName || 'choose';
+    this.chosenStepName = opts?.chosenStepName || 'chosen';
     this.chosenLinkSelector = opts?.chosenLinkSelector || 'a[data-item-choice]';
     this.paginationLinkSelector =
       opts?.paginationLinkSelector || '.pagination a';
@@ -150,6 +152,7 @@ class ChooserModalOnloadHandlerFactory {
     this.searchInputSelectors = opts?.searchInputSelectors || ['#id_q'];
     this.searchFilterSelectors = opts?.searchFilterSelectors || [];
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
+    this.searchInputDelay = opts?.searchInputDelay || 200;
 
     this.searchController = null;
   }
@@ -179,6 +182,7 @@ class ChooserModalOnloadHandlerFactory {
       onLoadResults: (context) => {
         this.ajaxifyLinks(modal, context);
       },
+      inputDelay: this.searchInputDelay,
     });
     this.searchInputSelectors.forEach((selector) => {
       this.searchController.attachSearchInput(selector);
@@ -200,10 +204,10 @@ class ChooserModalOnloadHandlerFactory {
 
   getOnLoadHandlers() {
     return {
-      choose: (modal, jsonData) => {
+      [this.chooseStepName]: (modal, jsonData) => {
         this.onLoadChooseStep(modal, jsonData);
       },
-      chosen: (modal, jsonData) => {
+      [this.chosenStepName]: (modal, jsonData) => {
         this.onLoadChosenStep(modal, jsonData);
       },
     };
