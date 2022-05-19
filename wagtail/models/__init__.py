@@ -404,7 +404,7 @@ class DraftStateMixin(models.Model):
         verbose_name=_("last published at"), null=True, editable=False
     )
     live_revision = models.ForeignKey(
-        "Revision",
+        "wagtailcore.Revision",
         related_name="+",
         verbose_name=_("live revision"),
         on_delete=models.SET_NULL,
