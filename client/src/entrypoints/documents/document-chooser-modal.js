@@ -27,5 +27,4 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
     creationFormFileFieldSelector: '#id_document-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
     creationFormEventName: 'wagtail:documents-upload',
-    reshowCreationFormStepName: 'reshow_upload_form',
   }).getOnLoadHandlers();
