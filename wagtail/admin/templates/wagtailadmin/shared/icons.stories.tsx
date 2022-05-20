@@ -35,6 +35,7 @@ const IconsTable = ({ color }: { color: string }) => {
       {window.WAGTAIL_ICONS.map((icon) => (
         <tr key={icon}>
           <td
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: template
                 .replace(/__icon__/g, icon)
