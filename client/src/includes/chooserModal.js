@@ -279,9 +279,13 @@ class ChooserModalOnloadHandlerFactory {
   }
 }
 
+const chooserModalOnloadHandlers =
+  new ChooserModalOnloadHandlerFactory().getOnLoadHandlers();
+
 export {
   submitCreationForm,
   initPrefillTitleFromFilename,
   SearchController,
   ChooserModalOnloadHandlerFactory,
+  chooserModalOnloadHandlers,
 };

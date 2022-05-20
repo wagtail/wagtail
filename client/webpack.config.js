@@ -31,6 +31,7 @@ module.exports = function exports(env, argv) {
 
   const entrypoints = {
     'admin': [
+      'chooser-modal',
       'collapsible',
       'comments',
       'core',
