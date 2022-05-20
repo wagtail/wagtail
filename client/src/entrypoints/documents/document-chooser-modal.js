@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { initTabs } from '../../includes/tabs';
 import { ChooserModalOnloadHandlerFactory } from '../../includes/chooserModal';
 
 class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
@@ -15,23 +14,6 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
 
       event.preventDefault();
     });
-
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    initTabs();
-  }
-
-  onLoadReshowCreationFormStep(modal, jsonData) {
-    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
-    initTabs();
-    this.ajaxifyCreationForm(modal);
-  }
-
-  getOnLoadHandlers() {
-    const handlers = super.getOnLoadHandlers();
-    handlers.reshow_upload_form = (modal, jsonData) => {
-      this.onLoadReshowCreationFormStep(modal, jsonData);
-    };
-    return handlers;
   }
 }
 
@@ -41,8 +23,9 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
     searchInputDelay: 50,
     chosenResponseName: 'documentChosen',
     creationFormSelector: 'form.document-upload',
-    creationFormErrorContainerSelector: '#tab-upload',
+    creationFormTabSelector: '#tab-upload',
     creationFormFileFieldSelector: '#id_document-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
     creationFormEventName: 'wagtail:documents-upload',
+    reshowCreationFormStepName: 'reshow_upload_form',
   }).getOnLoadHandlers();

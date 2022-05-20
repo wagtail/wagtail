@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import $ from 'jquery';
+import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
 
 const submitCreationForm = (modal, form, { errorContainerSelector }) => {
@@ -150,6 +151,8 @@ class ChooserModalOnloadHandlerFactory {
   constructor(opts) {
     this.chooseStepName = opts?.chooseStepName || 'choose';
     this.chosenStepName = opts?.chosenStepName || 'chosen';
+    this.reshowCreationFormStepName =
+      opts?.reshowCreationFormStepName || 'reshow_creation_form';
     this.chosenLinkSelector =
       opts?.chosenLinkSelector || 'a[data-chooser-modal-choice]';
     this.paginationLinkSelector =
@@ -166,8 +169,8 @@ class ChooserModalOnloadHandlerFactory {
     this.searchInputDelay = opts?.searchInputDelay || 200;
     this.creationFormSelector =
       opts?.creationFormSelector || 'form[data-chooser-modal-create]';
-    this.creationFormErrorContainerSelector =
-      opts?.creationFormErrorContainerSelector || '#tab-create';
+    this.creationFormTabSelector =
+      opts?.creationFormTabSelector || '#tab-create';
     this.creationFormFileFieldSelector = opts?.creationFormFileFieldSelector;
     this.creationFormTitleFieldSelector = opts?.creationFormTitleFieldSelector;
     this.creationFormEventName = opts?.creationFormEventName;
@@ -191,13 +194,20 @@ class ChooserModalOnloadHandlerFactory {
       this.searchController.fetchResults(event.currentTarget.href);
       return false;
     });
+
+    // Reinitialize tabs to hook up tab event listeners in the modal
+    if (this.modalHasTabs(modal)) initTabs();
+  }
+
+  modalHasTabs(modal) {
+    return $('[data-tabs]', modal.body).length;
   }
 
   ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
       submitCreationForm(modal, event.currentTarget, {
-        errorContainerSelector: this.creationFormErrorContainerSelector,
+        errorContainerSelector: this.creationFormTabSelector,
       });
 
       return false;
@@ -245,6 +255,14 @@ class ChooserModalOnloadHandlerFactory {
     modal.close();
   }
 
+  onLoadReshowCreationFormStep(modal, jsonData) {
+    $(this.creationFormTabSelector, modal.body).replaceWith(
+      jsonData.htmlFragment,
+    );
+    if (this.modalHasTabs(modal)) initTabs();
+    this.ajaxifyCreationForm(modal);
+  }
+
   getOnLoadHandlers() {
     return {
       [this.chooseStepName]: (modal, jsonData) => {
@@ -252,6 +270,9 @@ class ChooserModalOnloadHandlerFactory {
       },
       [this.chosenStepName]: (modal, jsonData) => {
         this.onLoadChosenStep(modal, jsonData);
+      },
+      [this.reshowCreationFormStepName]: (modal, jsonData) => {
+        this.onLoadReshowCreationFormStep(modal, jsonData);
       },
     };
   }
