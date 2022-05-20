@@ -19,7 +19,7 @@ from urllib.parse import urlparse
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -318,7 +318,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
     live_revision = models.ForeignKey(
-        "Revision",
+        "wagtailcore.Revision",
         related_name="+",
         verbose_name=_("live revision"),
         on_delete=models.SET_NULL,
@@ -326,6 +326,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         blank=True,
         editable=False,
     )
+    revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
@@ -402,12 +403,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
-
-    @property
-    def revisions(self):
-        # This acts as a replacement for Django's related manager since we don't
-        # use a GenericRelation/GenericForeignKey.
-        return Revision.page_revisions.filter(object_id=self.id)
 
     @classmethod
     def get_streamfield_names(cls):
