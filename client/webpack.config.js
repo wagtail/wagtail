@@ -197,11 +197,6 @@ module.exports = function exports(env, argv) {
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {
-            from: 'wagtail/snippets/static_src/',
-            to: 'wagtail/snippets/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
             from: 'wagtail/users/static_src/',
             to: 'wagtail/users/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
