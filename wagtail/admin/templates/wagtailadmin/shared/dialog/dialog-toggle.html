@@ -1,0 +1,12 @@
+{% load wagtailadmin_tags %}
+{% comment %}
+    Variables this template accepts:
+
+    dialog_id - The ID of the dialog you are toggling open
+    class_name - CSS classes for styling the button
+    text - The text of the button
+
+{% endcomment %}
+<button type="button" class="{{ class_name }}" data-a11y-dialog-show="{{ dialog_id }}">
+    {{ text }}
+</button>

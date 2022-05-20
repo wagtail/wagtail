@@ -540,7 +540,6 @@ def page_header_buttons(context, page, page_perms):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def bulk_action_choices(context, app_label, model_name):
-
     bulk_actions_list = list(
         bulk_action_registry.get_bulk_actions_for_model(app_label, model_name)
     )
@@ -893,3 +892,74 @@ def component(context, obj, fallback_render_method=False):
         raise ValueError("Cannot render %r as a component" % (obj,))
 
     return obj.render_html(context)
+
+
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog.html")
+def dialog(
+    id,
+    title,
+    icon_name=None,
+    subtitle=None,
+    message_status=None,
+    message_heading=None,
+    message_description=None,
+):
+    """
+    Dialog tag - to be used with its corresponding {% enddialog %} tag with dialog content markup nested between
+    """
+    if not title:
+        raise ValueError("You must supply a title")
+    if not id:
+        raise ValueError("You must supply an id")
+
+    # Used for determining which icon the message will use
+    message_status_type = {
+        "info": {
+            "message_icon_name": "info-circle",
+        },
+        "warning": {
+            "message_icon_name": "warning",
+        },
+        "critical": {
+            "message_icon_name": "warning",
+        },
+        "success": {
+            "message_icon_name": "circle-check",
+        },
+    }
+
+    context = {
+        "id": id,
+        "title": title,
+        "icon_name": icon_name,
+        "subtitle": subtitle,
+        "message_heading": message_heading,
+        "message_description": message_description,
+        "message_status": message_status,
+    }
+
+    # If there is a message status then add the context for that message type
+    if message_status:
+        context.update(**message_status_type[message_status])
+
+    return context
+
+
+# Closing tag for dialog tag {% enddialog %}
+@register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
+def enddialog():
+    return
+
+
+# Button used to open dialogs
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
+def dialog_toggle(dialog_id, class_name="", text=None):
+    if not dialog_id:
+        raise ValueError("You must supply the dialog ID")
+
+    return {
+        "class_name": class_name,
+        "text": text,
+        # dialog_id must match the ID of the dialog you are toggling
+        "dialog_id": dialog_id,
+    }

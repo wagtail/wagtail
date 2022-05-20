@@ -1,0 +1,144 @@
+.w-dialog {
+  position: fixed;
+  display: flex;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  top: 0;
+  z-index: theme('zIndex.dialog');
+  padding: theme('spacing.4');
+
+  &[aria-hidden='true'] {
+    display: none;
+  }
+
+  &__overlay {
+    position: fixed;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    bottom: 0;
+    top: 0;
+    opacity: theme('opacity.40');
+    background: theme('colors.black.DEFAULT');
+  }
+
+  &__box {
+    width: 100%;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    max-width: theme('maxWidth.2xl');
+    z-index: theme('zIndex.dialog');
+    background: theme('colors.white.DEFAULT');
+    box-shadow: theme('boxShadow.DEFAULT');
+    border-radius: theme('borderRadius.md');
+    animation: theme('animation.fade-in');
+
+    @include media-breakpoint-up(sm) {
+      width: 600px;
+    }
+  }
+
+  &__close-button {
+    position: absolute;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 0;
+    top: theme('spacing.2');
+    inset-inline-end: theme('spacing.2');
+    width: theme('spacing.12');
+    height: theme('spacing.12');
+  }
+
+  &__close-icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+    color: theme('colors.grey.600');
+  }
+
+  &__content {
+    // Using apply for scrollbars to avoid having to overwrite scrollbar with excess css
+    overflow: auto;
+    padding: theme('spacing.8');
+    max-height: calc(100vh - 180px);
+
+    @include media-breakpoint-up(sm) {
+      padding: theme('spacing.12');
+    }
+
+    @include media-breakpoint-up(md) {
+      padding-inline-start: theme('spacing.20');
+      padding-inline-end: theme('spacing.20');
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    display: none;
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+    color: theme('colors.primary.DEFAULT');
+    top: theme('spacing.[0.5]');
+    transform: translateY(theme('spacing.2'));
+    inset-inline-start: calc(0 - theme('spacing.10'));
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  &__title {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: theme('spacing.1');
+  }
+
+  &__subtitle {
+    margin-bottom: theme('spacing.4');
+  }
+
+  &__message {
+    display: flex;
+    align-items: center;
+    padding: theme('spacing.5');
+
+    &--info {
+      background: theme('colors.info.50');
+      color: theme('colors.info.100');
+    }
+
+    &--warning {
+      background: theme('colors.warning.50');
+      color: theme('colors.primary.DEFAULT');
+    }
+
+    &--critical {
+      background: theme('colors.critical.50');
+      color: theme('colors.critical.200');
+    }
+
+    &--success {
+      background: theme('colors.positive.50');
+      color: theme('colors.positive.100');
+    }
+  }
+
+  &__message-icon {
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+    flex-shrink: 0;
+  }
+
+  &__message-header {
+    margin-inline-start: theme('spacing[2.5]');
+    padding-inline-end: theme('spacing.8');
+    color: theme('colors.grey.600');
+    font-size: theme('fontSize.14');
+  }
+
+  &__message-description {
+    margin-bottom: 0;
+  }
+}

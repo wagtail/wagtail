@@ -84,7 +84,19 @@ module.exports = {
           'inset-inline-start, padding-inline-start, width, transform, margin-top, min-height',
       },
       zIndex: {
-        header: '100',
+        'header': '100',
+        'sidebar': '110',
+        'sidebar-toggle': '120',
+        'dialog': '130',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 150ms both',
       },
     },
   },
