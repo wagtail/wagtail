@@ -16,8 +16,15 @@ export default {
 
 export const FontFamilies = () => (
   <div>
-    <p>Wagtail’s UI font is a system font stack:</p>
-    <pre>{fontFamily.sans.join(', ')}</pre>
+    <p>Wagtail’s UI fonts use system font stacks:</p>
+    <div className="w-font-sans">
+      <strong>Font sans (default)</strong>
+      <pre>{fontFamily.sans.join(', ')}</pre>
+    </div>
+    <div className="w-font-mono">
+      <strong>Font mono</strong>
+      <pre>{fontFamily.mono.join(', ')}</pre>
+    </div>
   </div>
 );
 

@@ -14,6 +14,7 @@ Changelog
  * Use `FormData` instead of jQuery's `form.serialize` when editing documents or images just added so that additional fields can be better supported (Stefan Hammer)
  * Add informational Codecov status checks for GitHub CI pipelines (Tom Hu)
  * Replace `PageRevision` with generic `Revision` model (Sage Abdullah)
+ * Make it possible to reuse and customise Wagtail’s fonts with CSS variables (LB (Ben) Johnston)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
