@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -918,18 +919,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # base_content_type so that we can query for page revisions without
         # having to know the specific Page type.
         revision = Revision.objects.create(
-            content_type_id=self.content_type_id,
-            base_content_type_id=get_default_page_content_type().id,
-            object_id=self.id,
+            content_object=self,
+            base_content_type=get_default_page_content_type(),
             submitted_for_moderation=submitted_for_moderation,
             user=user,
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
         )
-        # This is necessary to prevent fetching a fresh page instance when
-        # changing first_published_at.
-        # Ref: https://github.com/wagtail/wagtail/pull/3498
-        revision.content_object = self
 
         for comment in new_comments:
             comment.revision_created = revision
@@ -2245,15 +2241,9 @@ class Revision(models.Model):
     page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
 
-    @cached_property
-    def content_object(self):
-        return self.base_content_type.get_object_for_this_type(pk=self.object_id)
-
-    @cached_property
-    def specific_content_object(self):
-        if isinstance(self.content_object, Page):
-            return self.content_object.specific
-        return self.content_type.get_object_for_this_type(pk=self.object_id)
+    content_object = GenericForeignKey(
+        "content_type", "object_id", for_concrete_model=False
+    )
 
     @property
     def page(self):
@@ -2322,7 +2312,7 @@ class Revision(models.Model):
             )
 
     def as_object(self):
-        return self.specific_content_object.with_content_json(self.content)
+        return self.content_object.with_content_json(self.content)
 
     def as_page_object(self):
         warnings.warn(
