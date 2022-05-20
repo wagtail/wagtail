@@ -4,11 +4,11 @@ const legacyCode = {
   'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
-  'import/extensions': 'off',
   'import/first': 'off',
   'import/newline-after-import': 'off',
+  'import/no-cycle': 'off',
   'import/no-extraneous-dependencies': 'off',
-  'import/no-unresolved': 'off',
+  'import/no-unresolved': ['error', { ignore: ['jquery'] }],
   'import/no-useless-path-segments': 'off',
   'import/order': 'off',
   'import/prefer-default-export': 'off',
@@ -61,19 +61,11 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'no-underscore-dangle': [
-      'error',
-      { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
-    ],
-    // note you must disable the base rule as it can report incorrect errors
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
-
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-member-accessibility': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
+    '@typescript-eslint/no-use-before-define': ['error'],
     'import/extensions': [
       'error',
       'always',
@@ -87,24 +79,55 @@ module.exports = {
         },
       },
     ],
-    ...legacyCode,
+    // note you must disable the base rule as it can report incorrect errors
+    'no-use-before-define': 'off',
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
+    'no-underscore-dangle': [
+      'error',
+      { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
+    ],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts', '.tsx'],
+      },
+    },
   },
   overrides: [
+    // Legacy Code - remove from `files` when adopting desired rules in new code progressively
+    {
+      files: [
+        'client/src/components/**',
+        'client/src/entrypoints/**',
+        'client/src/utils/**',
+        '**/documents/static_src/wagtaildocs/js/add-multiple.js',
+        '**/images/static_src/wagtailimages/js/add-multiple.js',
+        '**/images/static_src/wagtailimages/js/focal-point-chooser.js',
+        '**/snippets/static_src/wagtailsnippets/js/snippet-multiple-select.js',
+      ],
+      rules: legacyCode,
+    },
     {
       // Rules we don’t want to enforce for test and tooling code.
       files: [
+        'client/extract-translatable-strings.js',
+        'client/tests/**',
+        'webpack.config.js',
+        'tailwind.config.js',
+        'storybook/**/*',
         '*.test.ts',
         '*.test.tsx',
         '*.test.js',
-        'webpack.config.js',
-        'tailwind.config.js',
         '*.stories.js',
         '*.stories.tsx',
-        'storybook/**/*',
       ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        'import/no-extraneous-dependencies': 'off',
+        'react/function-component-definition': 'off',
+        'react/jsx-props-no-spreading': 'off',
       },
     },
     {

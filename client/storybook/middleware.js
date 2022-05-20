@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
 const middleware = require('storybook-django/src/middleware');
 
 const origin = process.env.TEST_ORIGIN ?? 'http://localhost:8000';

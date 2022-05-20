@@ -1,5 +1,4 @@
-const fetch = global.fetch;
-const Headers = global.Headers;
+const { fetch, Headers } = global;
 
 const REQUEST_TIMEOUT = 15000;
 
@@ -57,4 +56,4 @@ const request = (method, url) => {
     .then(parseJSON);
 };
 
-export const get = (url) => request('GET', url);
+export default { get: (url) => request('GET', url) };

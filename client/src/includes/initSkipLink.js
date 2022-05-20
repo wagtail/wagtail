@@ -22,4 +22,4 @@ const initSkipLink = () => {
   }
 };
 
-export { initSkipLink };
+export default initSkipLink;

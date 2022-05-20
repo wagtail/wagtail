@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { GettextExtractor, JsExtractors } = require('gettext-extractor');
 
 const extractor = new GettextExtractor();
