@@ -101,8 +101,6 @@ module.exports = {
         'client/src/components/**',
         'client/src/entrypoints/**',
         'client/src/utils/**',
-        'client/storybook/**',
-        '*.stories.tsx',
         '**/documents/static_src/wagtaildocs/js/add-multiple.js',
         '**/images/static_src/wagtailimages/js/add-multiple.js',
         '**/images/static_src/wagtailimages/js/focal-point-chooser.js',
@@ -128,6 +126,8 @@ module.exports = {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'react/function-component-definition': 'off',
+        'react/jsx-props-no-spreading': 'off',
       },
     },
     {
