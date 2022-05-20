@@ -1588,7 +1588,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "reshow_upload_form")
+        self.assertEqual(response_json["step"], "reshow_creation_form")
 
     def test_post(self):
         # Build a fake file
@@ -1670,7 +1670,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "reshow_upload_form")
+        self.assertEqual(response_json["step"], "reshow_creation_form")
 
         # user only has access to one collection -> should not see the collections field
         self.assertNotIn("id_collection", response_json["htmlFragment"])

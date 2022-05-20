@@ -199,7 +199,7 @@ def chooser_upload(request):
         None,
         None,
         json_data={
-            "step": "reshow_upload_form",
+            "step": "reshow_creation_form",
             "htmlFragment": render_to_string(
                 "wagtaildocs/chooser/upload_form.html", {"form": form}, request
             ),
