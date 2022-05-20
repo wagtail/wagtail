@@ -326,7 +326,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         blank=True,
         editable=False,
     )
-    revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
+    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
@@ -403,6 +403,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @property
+    def revisions(self):
+        # Always use the specific page instance when querying for revisions as
+        # they are always saved with the specific content_type.
+        return self.specific_deferred._revisions
 
     @classmethod
     def get_streamfield_names(cls):
