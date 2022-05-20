@@ -21,7 +21,7 @@ lint-server:
 	black --target-version py37 --check --diff .
 	flake8
 	isort --check-only --diff .
-	curlylint --exclude '(dialog.html|end_dialog.html)' --parse-only wagtail
+	curlylint --parse-only wagtail
 	git ls-files '*.html' | xargs djhtml --check
 
 lint-client:

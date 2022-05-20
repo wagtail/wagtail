@@ -53,6 +53,7 @@ Changelog
  * Added `WAGTAILADMIN_USER_PASSWORD_RESET_FORM` setting for overriding the admin password reset form (Michael Karamuth)
  * Prefetch workflow states in edit page view to to avoid queries in other parts of the view/templates that need it (Tidiane Dia)
  * Remove the edit link from edit bird in previews to avoid confusion (Sævar Öfjörð Magnússon)
+ * Introduce new template fragment and block level enclosure tags for easier template composition (Thibaud Colas)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
