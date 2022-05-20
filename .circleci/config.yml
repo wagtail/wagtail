@@ -23,7 +23,7 @@ jobs:
       - run: pipenv run isort --check-only --diff .
       - run: pipenv run black --target-version py37 --check --diff .
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
-      - run: pipenv run curlylint --exclude '(dialog.html|end_dialog.html)' --parse-only wagtail
+      - run: pipenv run curlylint --parse-only wagtail
       - run: pipenv run doc8 docs
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
