@@ -1,4 +1,4 @@
-import { VersionNumber, VersionDeltaType } from '../utils/version';
+import { VERSION_DELTA_TYPE, VersionNumber } from '../utils/version';
 
 /**
  * Controls the upgrade notification component to request the latest version
@@ -60,8 +60,8 @@ const initUpgradeNotification = () => {
           return;
         }
         if (
-          versionDelta === VersionDeltaType.MAJOR ||
-          versionDelta === VersionDeltaType.MINOR
+          versionDelta === VERSION_DELTA_TYPE.MAJOR ||
+          versionDelta === VERSION_DELTA_TYPE.MINOR
         ) {
           releaseNotesUrl = data.minorUrl;
         } else {

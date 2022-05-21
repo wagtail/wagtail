@@ -97,7 +97,6 @@ module.exports = {
       files: [
         'client/src/components/**',
         'client/src/entrypoints/**',
-        'client/src/utils/**',
         '**/documents/static_src/wagtaildocs/js/add-multiple.js',
         '**/images/static_src/wagtailimages/js/add-multiple.js',
         '**/images/static_src/wagtailimages/js/focal-point-chooser.js',

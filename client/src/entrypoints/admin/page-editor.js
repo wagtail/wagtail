@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { cleanForSlug } from '../../utils/cleanForSlug';
+import { cleanForSlug } from '../../utils/text';
 import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 
 function InlinePanel(opts) {

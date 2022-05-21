@@ -1,29 +1,21 @@
-import {
-  CanOnlyComparePreReleaseVersionsError,
-  VersionNumberFormatError,
-  VersionNumber,
-  VersionDeltaType,
-} from './version';
+import { VERSION_DELTA_TYPE, VersionNumber } from './version';
 
-describe('version.VersionDeltaType', () => {
+describe('VERSION_DELTA_TYPE', () => {
   it('types equal themselves', () => {
-    expect(VersionDeltaType.MAJOR).toBe(VersionDeltaType.MAJOR);
-    expect(VersionDeltaType.MINOR).toBe(VersionDeltaType.MINOR);
-    expect(VersionDeltaType.PATCH).toBe(VersionDeltaType.PATCH);
+    expect(VERSION_DELTA_TYPE.MAJOR).toBe(VERSION_DELTA_TYPE.MAJOR);
+    expect(VERSION_DELTA_TYPE.MINOR).toBe(VERSION_DELTA_TYPE.MINOR);
+    expect(VERSION_DELTA_TYPE.PATCH).toBe(VERSION_DELTA_TYPE.PATCH);
   });
 
   it('types do not equal others', () => {
-    expect(VersionDeltaType.MAJOR).not.toBe(VersionDeltaType.MINOR);
-    expect(VersionDeltaType.MAJOR).not.toBe(VersionDeltaType.PATCH);
-    expect(VersionDeltaType.MAJOR).not.toBe(new VersionDeltaType('Other'));
+    expect(VERSION_DELTA_TYPE.MAJOR).not.toBe(VERSION_DELTA_TYPE.MINOR);
+    expect(VERSION_DELTA_TYPE.MAJOR).not.toBe(VERSION_DELTA_TYPE.PATCH);
 
-    expect(VersionDeltaType.MINOR).not.toBe(VersionDeltaType.MAJOR);
-    expect(VersionDeltaType.MINOR).not.toBe(VersionDeltaType.PATCH);
-    expect(VersionDeltaType.MINOR).not.toBe(new VersionDeltaType('Other'));
+    expect(VERSION_DELTA_TYPE.MINOR).not.toBe(VERSION_DELTA_TYPE.MAJOR);
+    expect(VERSION_DELTA_TYPE.MINOR).not.toBe(VERSION_DELTA_TYPE.PATCH);
 
-    expect(VersionDeltaType.PATCH).not.toBe(VersionDeltaType.MAJOR);
-    expect(VersionDeltaType.PATCH).not.toBe(VersionDeltaType.MINOR);
-    expect(VersionDeltaType.PATCH).not.toBe(new VersionDeltaType('Other'));
+    expect(VERSION_DELTA_TYPE.PATCH).not.toBe(VERSION_DELTA_TYPE.MAJOR);
+    expect(VERSION_DELTA_TYPE.PATCH).not.toBe(VERSION_DELTA_TYPE.MINOR);
   });
 });
 
@@ -117,26 +109,32 @@ describe('version.VersionNumber initialisation', () => {
   });
 
   it('initialisation throws error for 1', () => {
-    expect(() => new VersionNumber('1')).toThrow(VersionNumberFormatError);
+    expect(() => new VersionNumber('1')).toThrowError(
+      "Version number '1' is not formatted correctly.",
+    );
   });
 
   it('initialisation throws error for 1a', () => {
-    expect(() => new VersionNumber('1a')).toThrow(VersionNumberFormatError);
+    expect(() => new VersionNumber('1a')).toThrowError(
+      "Version number '1a' is not formatted correctly.",
+    );
   });
 
   it('initialisation throws error for 1a0', () => {
-    expect(() => new VersionNumber('1a0')).toThrow(VersionNumberFormatError);
+    expect(() => new VersionNumber('1a0')).toThrowError(
+      "Version number '1a0' is not formatted correctly.",
+    );
   });
 
   it('initialisation throws error for 1.0.0a0', () => {
-    expect(() => new VersionNumber('1.0.0a0')).toThrow(
-      VersionNumberFormatError,
+    expect(() => new VersionNumber('1.0.0a0')).toThrowError(
+      "Version number '1.0.0a0' is not formatted correctly.",
     );
   });
 
   it('initialisation throws error for text string', () => {
-    expect(() => new VersionNumber('not a number')).toThrow(
-      VersionNumberFormatError,
+    expect(() => new VersionNumber('not a number')).toThrowError(
+      "Version number 'not a number' is not formatted correctly.",
     );
   });
 });
@@ -214,14 +212,15 @@ describe('version.VersionNumber.isPreReleaseStepBehind', () => {
     const thisVersion = new VersionNumber('1.0.0');
     const thatVersion = new VersionNumber('1.0rc0');
     expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
-      CanOnlyComparePreReleaseVersionsError,
+      'Can only compare prerelease versions',
     );
   });
+
   it('throws error for that being non-prerelease version', () => {
     const thisVersion = new VersionNumber('1.0rc0');
     const thatVersion = new VersionNumber('1.0.0');
     expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
-      CanOnlyComparePreReleaseVersionsError,
+      'Can only compare prerelease versions',
     );
   });
 });
@@ -234,7 +233,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MAJOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MAJOR);
   });
   it('correctly compares 1.2 to 2.1', () => {
     const thisVersion = new VersionNumber('1.2');
@@ -242,7 +241,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MAJOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MAJOR);
   });
   it('correctly compares 1.0rc0 to 2.0', () => {
     const thisVersion = new VersionNumber('1.0rc0');
@@ -250,7 +249,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MAJOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MAJOR);
   });
 
   // MINOR
@@ -260,7 +259,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
   it('correctly compares 1.1.0 to 1.2.0', () => {
     const thisVersion = new VersionNumber('1.1.0');
@@ -268,7 +267,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
   it('correctly compares 1.0a0 to 1.0', () => {
     const thisVersion = new VersionNumber('1.0a0');
@@ -276,7 +275,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
   it('correctly compares 1.0a1 to 1.0', () => {
     const thisVersion = new VersionNumber('1.0a1');
@@ -284,7 +283,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
   it('correctly compares 1.0a1 to 1.0.1', () => {
     const thisVersion = new VersionNumber('1.0a1');
@@ -292,7 +291,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
   it('correctly compares 1.0a0 to 1.1', () => {
     const thisVersion = new VersionNumber('1.0a0');
@@ -300,7 +299,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
   it('correctly compares 1.0a0 to 1.1a0', () => {
     const thisVersion = new VersionNumber('1.0a0');
@@ -308,7 +307,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.MINOR);
+    expect(result).toBe(VERSION_DELTA_TYPE.MINOR);
   });
 
   // PATCH
@@ -318,7 +317,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PATCH);
+    expect(result).toBe(VERSION_DELTA_TYPE.PATCH);
   });
   it('correctly compares 1.0.0 to 1.0.2', () => {
     const thisVersion = new VersionNumber('1.0.0');
@@ -326,7 +325,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PATCH);
+    expect(result).toBe(VERSION_DELTA_TYPE.PATCH);
   });
 
   // PRE_RELEASE_STEP
@@ -336,7 +335,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PRE_RELEASE_STEP);
+    expect(result).toBe(VERSION_DELTA_TYPE.PRE_RELEASE_STEP);
   });
   it('correctly compares 1.0a0 to 1.0rc0', () => {
     const thisVersion = new VersionNumber('1.0a0');
@@ -344,7 +343,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PRE_RELEASE_STEP);
+    expect(result).toBe(VERSION_DELTA_TYPE.PRE_RELEASE_STEP);
   });
   it('correctly compares 1.0b0 to 1.0rc0', () => {
     const thisVersion = new VersionNumber('1.0b0');
@@ -352,7 +351,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PRE_RELEASE_STEP);
+    expect(result).toBe(VERSION_DELTA_TYPE.PRE_RELEASE_STEP);
   });
 
   // PRE_RELEASE_VERSION
@@ -362,7 +361,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PRE_RELEASE_VERSION);
+    expect(result).toBe(VERSION_DELTA_TYPE.PRE_RELEASE_VERSION);
   });
   it('correctly compares 1.0b0 to 1.0b1', () => {
     const thisVersion = new VersionNumber('1.0b0');
@@ -370,7 +369,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PRE_RELEASE_VERSION);
+    expect(result).toBe(VERSION_DELTA_TYPE.PRE_RELEASE_VERSION);
   });
   it('correctly compares 1.0rc0 to 1.0rc1', () => {
     const thisVersion = new VersionNumber('1.0rc0');
@@ -378,7 +377,7 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PRE_RELEASE_VERSION);
+    expect(result).toBe(VERSION_DELTA_TYPE.PRE_RELEASE_VERSION);
   });
 
   // null

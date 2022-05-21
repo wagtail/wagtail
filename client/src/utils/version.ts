@@ -1,36 +1,32 @@
-class VersionNumberFormatError extends Error {
-  constructor(versionString) {
-    this.message = `Version number '${versionString}' is not formatted correctly.`;
-  }
-}
-
-class CanOnlyComparePreReleaseVersionsError extends Error {
-  constructor() {
-    this.message = 'Can only compare prerelease versions';
-  }
-}
-
-class VersionDeltaType {
-  static MAJOR = new VersionDeltaType('Major');
-  static MINOR = new VersionDeltaType('Minor');
-  static PATCH = new VersionDeltaType('Patch');
-  static PRE_RELEASE_STEP = new VersionDeltaType('PreReleaseStep');
-  static PRE_RELEASE_VERSION = new VersionDeltaType('PreReleaseVersion');
-
-  constructor(name) {
-    this.name = name;
-  }
-}
+const VERSION_DELTA_TYPE = {
+  MAJOR: 'VERSION_DELTA_TYPE_MAJOR',
+  MINOR: 'VERSION_DELTA_TYPE_MINOR',
+  PATCH: 'VERSION_DELTA_TYPE_PATCH',
+  PRE_RELEASE_STEP: 'VERSION_DELTA_TYPE_PRE_RELEASE_STEP',
+  PRE_RELEASE_VERSION: 'VERSION_DELTA_TYPE_PRE_RELEASE_VERSION',
+};
 
 class VersionNumber {
+  major: number;
+
+  minor: number;
+
+  patch: number;
+
+  preReleaseStep: any;
+
+  preReleaseVersion: number;
+
   constructor(versionString) {
     const versionRegex =
       /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preReleaseStep>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
     const matches = versionString.match(versionRegex);
     if (matches === null) {
-      throw new VersionNumberFormatError(versionString);
+      throw new Error(
+        `Version number '${versionString}' is not formatted correctly.`,
+      );
     }
-    const groups = matches.groups;
+    const { groups } = matches;
 
     this.major = parseInt(groups.major, 10);
     this.minor = parseInt(groups.minor, 10);
@@ -39,7 +35,7 @@ class VersionNumber {
     this.preReleaseStep = groups.preReleaseStep ? groups.preReleaseStep : null;
     this.preReleaseVersion = groups.preReleaseVersion
       ? parseInt(groups.preReleaseVersion, 10)
-      : null;
+      : 0;
   }
 
   isPreRelease() {
@@ -51,7 +47,7 @@ class VersionNumber {
    */
   isPreReleaseStepBehind(that) {
     if (!this.isPreRelease() || !that.isPreRelease()) {
-      throw new CanOnlyComparePreReleaseVersionsError();
+      throw new Error('Can only compare prerelease versions');
     }
 
     if (
@@ -59,51 +55,52 @@ class VersionNumber {
       (that.preReleaseStep === 'b' || that.preReleaseStep === 'rc')
     ) {
       return true;
-    } else if (this.preReleaseStep === 'b' && that.preReleaseStep === 'rc') {
+    }
+    if (this.preReleaseStep === 'b' && that.preReleaseStep === 'rc') {
       return true;
     }
     return false;
   }
 
   /*
-   * Get VersionDeltaType that this version is behind the other version passed in.
+   * Get version delta type that this version is behind the other version passed in.
    */
   howMuchBehind(that) {
     if (this.major < that.major) {
-      return VersionDeltaType.MAJOR;
-    } else if (this.major === that.major && this.minor < that.minor) {
-      return VersionDeltaType.MINOR;
-    } else if (
+      return VERSION_DELTA_TYPE.MAJOR;
+    }
+    if (this.major === that.major && this.minor < that.minor) {
+      return VERSION_DELTA_TYPE.MINOR;
+    }
+    if (
       this.major === that.major &&
       this.minor === that.minor &&
       !this.isPreRelease() &&
       !that.isPreRelease() &&
       this.patch < that.patch
     ) {
-      return VersionDeltaType.PATCH;
-    } else if (
+      return VERSION_DELTA_TYPE.PATCH;
+    }
+    if (
       this.major === that.major &&
       this.minor === that.minor &&
       this.isPreRelease()
     ) {
       if (!that.isPreRelease()) {
-        return VersionDeltaType.MINOR;
-      } else if (this.isPreReleaseStepBehind(that)) {
-        return VersionDeltaType.PRE_RELEASE_STEP;
-      } else if (
+        return VERSION_DELTA_TYPE.MINOR;
+      }
+      if (this.isPreReleaseStepBehind(that)) {
+        return VERSION_DELTA_TYPE.PRE_RELEASE_STEP;
+      }
+      if (
         this.preReleaseStep === that.preReleaseStep &&
         this.preReleaseVersion < that.preReleaseVersion
       ) {
-        return VersionDeltaType.PRE_RELEASE_VERSION;
+        return VERSION_DELTA_TYPE.PRE_RELEASE_VERSION;
       }
     }
     return null;
   }
 }
 
-export {
-  CanOnlyComparePreReleaseVersionsError,
-  VersionNumberFormatError,
-  VersionDeltaType,
-  VersionNumber,
-};
+export { VERSION_DELTA_TYPE, VersionNumber };
