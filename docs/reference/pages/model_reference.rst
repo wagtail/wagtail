@@ -627,6 +627,10 @@ Methods and properties
 
         Calling this will copy the content of this revision into the live object. If the object is in draft, it will be published.
 
+    .. autoattribute:: base_content_object
+
+        This property returns the object this revision belongs to as an instance of the base class.
+
 ``GroupPagePermission``
 =======================
 
