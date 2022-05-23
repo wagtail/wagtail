@@ -1,0 +1,17 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block header_content %}
+    {% trans 'New: '|add:content_type.model_class.get_verbose_name as title %}
+    {% explorer_breadcrumb parent_page include_self=1 trailing_breadcrumb_title=title use_next_template=True %}
+
+    <h1 class="w-sr-only">
+        {{ title }}
+    </h1>
+{% endblock %}
+
+{% block actions %}
+    {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-h-[50px] w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary' %}
+        {% include "wagtailadmin/shared/page_side_panel_toggles.html" %}
+    {% endwith %}
+{% endblock %}

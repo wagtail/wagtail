@@ -1,0 +1,34 @@
+{% load wagtailadmin_tags %}
+<div class="w-py-6">
+
+    {% block content %}
+        <section class="w-flex w-space-x-3" aria-labelledby="status-sidebar-{{ title|cautious_slugify }}">
+            {% icon name=icon_name class_name='w-w-5 w-h-5 w-text-primary w-flex-shrink-0' %}
+
+            <div class="w-flex w-flex-1 w-items-start w-justify-between">
+                <div class="w-flex w-flex-col w-flex-1 w-pr-5">
+                    <h3 id="status-sidebar-{{ title|cautious_slugify }}" class="w-label-1 !w-mt-0 w-mb-1">
+                        <span class="w-sr-only">{{ screen_reader_title_prefix }}</span>
+                        {{ title }}
+                    </h3>
+                    {% if help_text %}
+                        <div class="w-help-text">{{ help_text }}</div>
+                    {% endif %}
+                </div>
+                {% block action %}
+                    {% if not hide_action %}
+                        <a class="w-text-14 w-text-teal-200 hover:w-text-teal-600 w-no-underline w-transition"
+                            href="{{ action_url }}"
+                            aria-describedby="status-sidebar-{{ title|cautious_slugify }}"
+                        >
+                            {{ action_text }}
+                        </a>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </section>
+    {% endblock %}
+
+    {% block bottom %}
+    {% endblock %}
+</div>
