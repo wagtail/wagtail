@@ -19,17 +19,15 @@
         {% include "wagtailadmin/shared/page_side_panel_toggles.html" %}
 
         {# Object history #}
-        {% if object.get_latest_revision %}
-            <a href="{{ history_url }}"
-                class="{{ nav_icon_button_classes }}"
-                data-tippy-content="{% trans 'History' %}"
-                data-tippy-offset="[0, 0]"
-                data-tippy-placement="bottom"
-                aria-label="{% trans 'History' %}"
-            >
-                {% icon name="history" class_name=nav_icon_classes %}
-            </a>
-        {% endif %}
+        <a href="{{ history_url }}"
+            class="{{ nav_icon_button_classes }}"
+            data-tippy-content="{% trans 'History' %}"
+            data-tippy-offset="[0, 0]"
+            data-tippy-placement="bottom"
+            aria-label="{% trans 'History' %}"
+        >
+            {% icon name="history" class_name=nav_icon_classes %}
+        </a>
 
         {% include "wagtailadmin/shared/page_status_tag_new.html" with page=object %}
 
