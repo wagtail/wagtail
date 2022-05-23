@@ -34,6 +34,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
+from wagtail.snippets.side_panels import SnippetSidePanels
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
@@ -341,15 +342,17 @@ class Edit(EditView):
         media = context.get("media")
         action_menu = self._get_action_menu()
         latest_log_entry = self._get_latest_log_entry()
+        side_panels = SnippetSidePanels()
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "instance": self.object,
                 "action_menu": action_menu,
+                "side_panels": side_panels,
                 "latest_log_entry": latest_log_entry,
                 "history_url": self.get_history_url(),
-                "media": media + action_menu.media,
+                "media": media + action_menu.media + side_panels.media,
             }
         )
 
