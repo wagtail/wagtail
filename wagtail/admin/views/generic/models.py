@@ -20,7 +20,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
-from wagtail.models import RevisionMixin
+from wagtail.models import DraftStateMixin, RevisionMixin
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
@@ -420,6 +420,9 @@ class EditView(
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label
+
+        context["revision_enabled"] = isinstance(self.object, RevisionMixin)
+        context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
         return context
 
 
