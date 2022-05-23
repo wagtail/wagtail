@@ -8,7 +8,7 @@
         {% include "wagtailadmin/shared/page_side_panels.html" %}
     </div>
     {% trans "Editing" as editing_str %}
-    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" merged=1 locale=locale translations=translations latest_log_entry=latest_log_entry history_url=history_url model_opts=model_opts instance=instance only %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" merged=1 only %}
 
     <div class="row row-flush">
 
