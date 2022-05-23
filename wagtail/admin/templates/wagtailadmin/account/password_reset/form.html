@@ -7,6 +7,8 @@
     <main class="content-wrapper">
         {% include "wagtailadmin/shared/non_field_errors.html" %}
 
+        {% block above_form %}{% endblock %}
+
         <form method="post" novalidate>
             {% csrf_token %}
             <h1>{% trans "Reset your password" %}</h1>
@@ -25,8 +27,22 @@
                         </div>
                     </div>
                 </li>
+
+                {% block extra_fields %}
+                    {% for field_name, field in form.extra_fields %}
+                        <li class="full">
+                            {{ field.label_tag }}
+                            <div class="field iconfield">
+                                {{ field }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endblock extra_fields %}
+
                 <li class="submit">
-                    <button type="submit" class="button">{% trans 'Reset password' %}</button>
+                    {% block submit_buttons %}
+                        <button type="submit" class="button">{% trans 'Reset password' %}</button>
+                    {% endblock %}
                 </li>
             </ul>
         </form>

@@ -51,6 +51,7 @@ Changelog
  * Remove legacy (non-next) breadcrumbs no longer used, remove `ModelAdmin` usage of breadcrumbs completely (Paarth Agarwal)
  * Replace human-readable-date hover pattern with accessible tooltip variant across all of admin (Bernd de Ridder)
  * Add legacy and new status tags to the pattern library (Steven Steinwand)
+ * Added `WAGTAILADMIN_USER_PASSWORD_RESET_FORM` setting for overriding the admin password reset form (Michael Karamuth)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

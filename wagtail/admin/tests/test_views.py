@@ -1,6 +1,8 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.forms.auth import PasswordResetForm
+from wagtail.admin.tests.test_forms import CustomPasswordResetForm
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
@@ -101,3 +103,24 @@ class TestLoginView(TestCase, WagtailTestUtils):
         )
         self.assertFalse(self.client.session.get_expire_at_browser_close())
         self.assertEqual(self.client.session.get_expiry_age(), 7)
+
+
+class TestPasswordResetView(TestCase):
+    def test_password_reset_view_uses_correct_form(self):
+        response = self.client.get(reverse("wagtailadmin_password_reset"))
+        self.assertIsInstance(response.context.get("form"), PasswordResetForm)
+
+        with override_settings(
+            WAGTAILADMIN_USER_PASSWORD_RESET_FORM="wagtail.admin.tests.test_forms.CustomPasswordResetForm"
+        ):
+            response = self.client.get(reverse("wagtailadmin_password_reset"))
+            self.assertIsInstance(response.context.get("form"), CustomPasswordResetForm)
+
+    @override_settings(
+        WAGTAILADMIN_USER_PASSWORD_RESET_FORM="wagtail.admin.tests.test_forms.CustomPasswordResetForm"
+    )
+    def test_password_reset_page_renders_extra_fields(self):
+        response = self.client.get(reverse("wagtailadmin_password_reset"))
+        self.assertContains(
+            response, '<input type="text" name="captcha" required id="id_captcha">'
+        )

@@ -41,6 +41,14 @@ def get_user_login_form():
         return LoginForm
 
 
+def get_password_reset_form():
+    form_setting = "WAGTAILADMIN_USER_PASSWORD_RESET_FORM"
+    if hasattr(settings, form_setting):
+        return get_custom_form(form_setting)
+    else:
+        return PasswordResetForm
+
+
 # Helper functions to check password management settings to enable/disable views as appropriate.
 # These are functions rather than class-level constants so that they can be overridden in tests
 # by override_settings
@@ -305,8 +313,10 @@ class PasswordResetView(PasswordResetEnabledViewMixin, auth_views.PasswordResetV
     template_name = "wagtailadmin/account/password_reset/form.html"
     email_template_name = "wagtailadmin/account/password_reset/email.txt"
     subject_template_name = "wagtailadmin/account/password_reset/email_subject.txt"
-    form_class = PasswordResetForm
     success_url = reverse_lazy("wagtailadmin_password_reset_done")
+
+    def get_form_class(self):
+        return get_password_reset_form()
 
 
 class PasswordResetDoneView(
