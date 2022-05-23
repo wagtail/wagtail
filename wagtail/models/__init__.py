@@ -2298,17 +2298,17 @@ class Revision(models.Model):
             and "approved_go_live_at" in kwargs["update_fields"]
         ):
             # Log scheduled revision publish cancellation
-            page = self.as_object()
+            object = self.as_object()
             # go_live_at = kwargs['update_fields'][]
             log(
-                instance=page,
+                instance=object,
                 action="wagtail.schedule.cancel",
                 data={
                     "revision": {
                         "id": self.id,
                         "created": self.created_at.strftime("%d %b %Y %H:%M"),
-                        "go_live_at": page.go_live_at.strftime("%d %b %Y %H:%M")
-                        if page.go_live_at
+                        "go_live_at": object.go_live_at.strftime("%d %b %Y %H:%M")
+                        if object.go_live_at
                         else None,
                     }
                 },
