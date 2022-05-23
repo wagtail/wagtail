@@ -1,7 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags i18n %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-editor {% if object.live %}page-is-live{% endif %} model-{{ model_opts.model_name }} {% endblock %}
 {% block content %}
+    <div class="w-sticky w-top-0 w-z-header">
+        {% include 'wagtailsnippets/snippets/headers/edit_header.html' %}
+        {% include "wagtailadmin/shared/page_side_panels.html" %}
+    </div>
     {% trans "Editing" as editing_str %}
     {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" merged=1 locale=locale translations=translations latest_log_entry=latest_log_entry history_url=history_url model_opts=model_opts instance=instance only %}
 
