@@ -1,18 +1,21 @@
-{% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
+{% extends 'wagtailsnippets/snippets/side_panels/includes/action_list_item.html' %}
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
-    {% trans 'Page Locale: ' as screen_reader_title_prefix %}
+    {% trans 'Object Locale: ' as screen_reader_title_prefix %}
 
     {% if translations %}
         {% blocktrans trimmed asvar help_text %}
             Available in {{ translations_total }} locales
         {% endblocktrans %}
-    {% else %}
+    {% elif locale %}
         {% trans 'No other translations' as help_text %}
+    {% else %}
+        {% trans 'This snippet is not configured to be translatable' as help_text %}
     {% endif %}
 
-    {% with icon_name='globe' title=page.locale.get_display_name %}
+    {% trans 'Non-translatable' as non_translatable %}
+    {% with icon_name='globe' title=object.locale.get_display_name|default:non_translatable %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
@@ -21,7 +24,7 @@
     {% if translations %}
         <div data-button-with-dropdown>
             {% trans 'Switch locales' as action_text %}
-            {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
+            {% include 'wagtailsnippets/snippets/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
 
             <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
                 {% for translation in translations %}
