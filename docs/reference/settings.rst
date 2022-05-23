@@ -214,6 +214,14 @@ This setting lets you change the number of items shown at 'Your most recent edit
 
 Allows the default ``LoginForm`` to be extended with extra fields.
 
+``WAGTAILADMIN_USER_PASSWORD_RESET_FORM``
+-----------------------------------------
+
+.. code-block:: python
+
+  WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
+
+Allows the default ``PasswordResetForm`` to be extended with extra fields.
 
 .. _wagtail_gravatar_provider_url:
 

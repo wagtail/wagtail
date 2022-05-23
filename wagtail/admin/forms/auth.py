@@ -38,6 +38,12 @@ class PasswordResetForm(DjangoPasswordResetForm):
         required=True,
     )
 
+    @property
+    def extra_fields(self):
+        for field_name in self.fields.keys():
+            if field_name not in ["email"]:
+                yield field_name, self[field_name]
+
 
 class PasswordChangeForm(DjangoPasswordChangeForm):
     """
