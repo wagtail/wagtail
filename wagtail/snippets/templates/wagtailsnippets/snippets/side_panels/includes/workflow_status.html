@@ -20,7 +20,7 @@
                 {% elif revision_enabled and latest_revision %}
                     {# RevisionMixin enabled without DraftStateMixin, latest revision is assumed to be live #}
                     {% timesince_last_update latest_revision.created_at user_display_name=latest_revision.user|user_display_name use_shorthand=True as help_text %}
-                {% else %}
+                {% elif latest_log_entry %}
                     {# Mixins are not applied or revisions can't be found #}
                     {# Get last updated at from log entry, object assumed to be live #}
                     {% timesince_last_update latest_log_entry.timestamp user_display_name=latest_log_entry.user_display_name use_shorthand=True as help_text %}
