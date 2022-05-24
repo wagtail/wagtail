@@ -459,6 +459,7 @@ class Usage(IndexView):
     template_name = "wagtailsnippets/snippets/usage.html"
     paginate_by = 20
     page_kwarg = "p"
+    is_searchable = False
 
     def setup(self, request, *args, pk, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -485,7 +486,13 @@ class Usage(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"object": self.object, "used_by": context.get("page_obj")})
+        context.update(
+            {
+                "object": self.object,
+                "used_by": context.get("page_obj"),
+                "model_opts": self.model._meta,
+            }
+        )
         return context
 
 
@@ -678,6 +685,8 @@ class SnippetViewSet(ViewSet):
         return self.usage_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("list"),
+            edit_url_name=self.get_url_name("edit"),
         )
 
     @property
