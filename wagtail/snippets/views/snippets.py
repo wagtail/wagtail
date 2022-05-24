@@ -541,6 +541,7 @@ class ActionColumn(Column):
 
 class History(ReportView):
     view_name = "history"
+    index_url_name = None
     edit_url_name = None
     revisions_revert_url_name = None
     revisions_compare_url_name = None
@@ -570,6 +571,7 @@ class History(ReportView):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
         context["subtitle"] = self.get_page_subtitle()
+        context["model_opts"] = self.model._meta
         return context
 
     def get_queryset(self):
@@ -684,6 +686,7 @@ class SnippetViewSet(ViewSet):
         return self.history_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
