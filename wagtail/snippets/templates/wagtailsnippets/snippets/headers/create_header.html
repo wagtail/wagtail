@@ -1,10 +1,19 @@
-{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
 {% load wagtailadmin_tags i18n %}
+
+{% block breadcrumb_items %}
+    {{ block.super }}
+    <li class="{{ breadcrumb_item_classes }}">
+        <div class="w-flex w-justify-start w-items-center">
+            {{ title }}
+        </div>
+    </li>
+{% endblock %}
 
 {% block header_content %}
     {% with model_opts.verbose_name|capfirst as model_name %}
         {% trans 'New: '|add:model_name as title %}
-        {% include 'wagtailsnippets/snippets/headers/breadcrumb.html' with trailing_breadcrumb_title=title %}
+        {{ block.super }}
 
         <h1 class="w-sr-only">
             {{ title }}

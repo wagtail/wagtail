@@ -1,8 +1,17 @@
-{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
 {% load wagtailadmin_tags i18n %}
 
+{% block breadcrumb_items %}
+    {{ block.super }}
+    <li class="{{ breadcrumb_item_classes }}">
+        <div class="w-flex w-justify-start w-items-center">
+            {{ object }}
+        </div>
+    </li>
+{% endblock %}
+
 {% block header_content %}
-    {% include 'wagtailsnippets/snippets/headers/breadcrumb.html' with trailing_breadcrumb_title=object %}
+    {{ block.super }}
 
     <h1 class="w-sr-only">
         {% blocktrans trimmed with title=object snippet_type=model_opts.verbose_name %}Editing {{ snippet_type }} {{ title }}{% endblocktrans %}
