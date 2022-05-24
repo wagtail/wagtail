@@ -19,7 +19,11 @@
                 dropdown.form.submit();
             })
         };
-        const dropdownSelectors = ["#collection_chooser_collection_id", "#order_images_by"];
+        const dropdownSelectors = [
+            "#collection_chooser_collection_id",
+            "#order_images_by",
+            "#entries_per_page",
+        ];
         window.addEventListener("DOMContentLoaded", () => {
             dropdownSelectors.forEach(dropdownSelector => submitFormOnDropdownChange(dropdownSelector)
             );
@@ -59,6 +63,21 @@
                                 <select id="order_images_by" name="ordering">
                                     {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
                                         <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="field choice_field select">
+                        <label for="entries_per_page">{% trans "Entries per page" %}:</label>
+                        <div class="field-content">
+                            <div class="input">
+                                <select id="entries_per_page" name="entries_per_page">
+                                    {% for value in ENTRIES_PER_PAGE_CHOICES %}
+                                        <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
                                     {% endfor %}
                                 </select>
                                 <span></span>

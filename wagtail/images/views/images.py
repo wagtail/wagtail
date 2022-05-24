@@ -34,6 +34,7 @@ USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
 class BaseListingView(TemplateView):
+    ENTRIES_PER_PAGE_CHOICES = sorted({10, 25, 50, 100, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
         "created_at": _("Oldest"),
@@ -47,6 +48,17 @@ class BaseListingView(TemplateView):
     @method_decorator(permission_checker.require_any("add", "change", "delete"))
     def get(self, request):
         return super().get(request)
+
+    def get_num_entries_per_page(self):
+        entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
+        try:
+            entries_per_page = int(entries_per_page)
+        except ValueError:
+            entries_per_page = INDEX_PAGE_SIZE
+        if entries_per_page not in self.ENTRIES_PER_PAGE_CHOICES:
+            entries_per_page = INDEX_PAGE_SIZE
+
+        return entries_per_page
 
     def get_valid_orderings(self):
         return self.ORDERING_OPTIONS
@@ -103,7 +115,8 @@ class BaseListingView(TemplateView):
             except (AttributeError):
                 self.current_tag = None
 
-        paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
+        entries_per_page = self.get_num_entries_per_page()
+        paginator = Paginator(images, per_page=entries_per_page)
         images = paginator.get_page(self.request.GET.get("p"))
 
         next_url = reverse("wagtailimages:index")
@@ -117,6 +130,8 @@ class BaseListingView(TemplateView):
                 "query_string": query_string,
                 "is_searching": bool(query_string),
                 "next": next_url,
+                "entries_per_page": entries_per_page,
+                "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
                 "current_ordering": ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }
