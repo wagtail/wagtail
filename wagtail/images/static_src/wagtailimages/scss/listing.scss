@@ -1,10 +1,10 @@
 @import '../../../../../client/scss/settings';
 @import '../../../../../client/scss/tools';
 
-.fields {
-  max-width: none;
+@include media-breakpoint-up(sm) {
+  .fields {
+    max-width: none;
 
-  @include media-breakpoint-up(sm) {
     .field-col {
       padding-inline-start: 0;
 
@@ -24,9 +24,24 @@
     > li {
       padding-top: 0;
     }
+
+    .tagfilter legend {
+      width: auto;
+    }
+  }
+}
+
+.listing.horiz {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  align-items: flex-end;
+  justify-items: center;
+
+  @include media-breakpoint-up(sm) {
+    justify-items: initial;
   }
 
-  .tagfilter legend {
+  > li {
     width: auto;
   }
 }
