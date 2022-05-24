@@ -4,9 +4,9 @@
 {% block breadcrumb_items %}
     {{ block.super }}
     <li class="{{ breadcrumb_item_classes }}">
-        <div class="w-flex w-justify-start w-items-center">
+        <a class="{{ breadcrumb_link_classes }}" href="{% url view.edit_url_name object.pk|admin_urlquote %}">
             {{ object }}
-        </div>
+        </a>
     </li>
 {% endblock %}
 
