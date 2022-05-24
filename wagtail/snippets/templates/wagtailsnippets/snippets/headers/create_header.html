@@ -2,12 +2,14 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block header_content %}
-    {% trans 'New: '|add:content_type.model_class.get_verbose_name as title %}
-    {% explorer_breadcrumb parent_page include_self=1 trailing_breadcrumb_title=title use_next_template=True %}
+    {% with model_opts.verbose_name|capfirst as model_name %}
+        {% trans 'New: '|add:model_name as title %}
+        {% include 'wagtailsnippets/snippets/headers/breadcrumb.html' with trailing_breadcrumb_title=title %}
 
-    <h1 class="w-sr-only">
-        {{ title }}
-    </h1>
+        <h1 class="w-sr-only">
+            {{ title }}
+        </h1>
+    {% endwith %}
 {% endblock %}
 
 {% block actions %}

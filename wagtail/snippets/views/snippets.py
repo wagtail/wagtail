@@ -239,12 +239,14 @@ class Create(CreateView):
 
         media = context.get("media")
         action_menu = self._get_action_menu()
+        side_panels = SnippetSidePanels()
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "media": media + action_menu.media,
+                "side_panels": side_panels,
+                "media": media + action_menu.media + side_panels.media,
             }
         )
 
