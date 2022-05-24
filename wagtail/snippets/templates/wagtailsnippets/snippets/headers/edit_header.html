@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block header_content %}
-    {% include 'wagtailsnippets/snippets/headers/breadcrumb.html' %}
+    {% include 'wagtailsnippets/snippets/headers/breadcrumb.html' with trailing_breadcrumb_title=object %}
 
     <h1 class="w-sr-only">
         {% blocktrans trimmed with title=object snippet_type=model_opts.verbose_name %}Editing {{ snippet_type }} {{ title }}{% endblocktrans %}
