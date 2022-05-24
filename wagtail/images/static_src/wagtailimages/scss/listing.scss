@@ -1,0 +1,32 @@
+@import '../../../../../client/scss/settings';
+@import '../../../../../client/scss/tools';
+
+.fields {
+  max-width: none;
+
+  @include media-breakpoint-up(sm) {
+    .field-col {
+      padding-inline-start: 0;
+
+      .field {
+        display: flex;
+        flex-direction: column;
+
+        .field-content,
+        label {
+          width: auto;
+          max-width: 75%;
+          padding-top: 0;
+        }
+      }
+    }
+
+    > li {
+      padding-top: 0;
+    }
+  }
+
+  .tagfilter legend {
+    width: auto;
+  }
+}

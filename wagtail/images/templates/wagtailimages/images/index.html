@@ -4,6 +4,9 @@
 {% load i18n %}
 
 {% block titletag %}{% trans "Images" %}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/listing.css' %}" type="text/css" />
+{% endblock %}
 {% block extra_js %}
     {{ block.super }}
     <script>
@@ -49,41 +52,45 @@
     <div class="nice-padding">
         <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
             <ul class="fields">
-                {% if collections %}
-                    {% include "wagtailadmin/shared/collection_chooser.html" %}
-                    {% if current_tag %}
-                        <input type="hidden" name="tag" value="{{ current_tag }}" />
-                    {% endif %}
-                {% endif %}
                 <li>
-                    <div class="field choice_field select">
-                        <label for="order_images_by">{% trans "Sort by" %}:</label>
-                        <div class="field-content">
-                            <div class="input">
-                                <select id="order_images_by" name="ordering">
-                                    {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
-                                        <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
-                                    {% endfor %}
-                                </select>
-                                <span></span>
+                    <ul class="field-row">
+                        {% if collections %}
+                            {% include "wagtailadmin/shared/collection_chooser.html" with li_classes="field-col col4" %}
+                            {% if current_tag %}
+                                <input type="hidden" name="tag" value="{{ current_tag }}" />
+                            {% endif %}
+                        {% endif %}
+                        <li class="field-col col4">
+                            <div class="field choice_field select">
+                                <label for="order_images_by">{% trans "Sort by" %}:</label>
+                                <div class="field-content">
+                                    <div class="input">
+                                        <select id="order_images_by" name="ordering">
+                                            {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                                                <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="field choice_field select">
-                        <label for="entries_per_page">{% trans "Entries per page" %}:</label>
-                        <div class="field-content">
-                            <div class="input">
-                                <select id="entries_per_page" name="entries_per_page">
-                                    {% for value in ENTRIES_PER_PAGE_CHOICES %}
-                                        <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
-                                    {% endfor %}
-                                </select>
-                                <span></span>
+                        </li>
+                        <li class="field-col col4">
+                            <div class="field choice_field select">
+                                <label for="entries_per_page">{% trans "Entries per page" %}:</label>
+                                <div class="field-content">
+                                    <div class="input">
+                                        <select id="entries_per_page" name="entries_per_page">
+                                            {% for value in ENTRIES_PER_PAGE_CHOICES %}
+                                                <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </li>
                 {% if popular_tags %}
                     <li>

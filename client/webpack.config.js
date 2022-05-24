@@ -241,6 +241,14 @@ module.exports = function exports(env, argv) {
       'scss',
       'chooser-duplicate-upload.scss',
     );
+  sassEntry[getOutputPath('images', 'css', 'listing')] = path.resolve(
+    'wagtail',
+    'images',
+    'static_src',
+    'wagtailimages',
+    'scss',
+    'listing.scss',
+  );
   sassEntry[getOutputPath('users', 'css', 'groups_edit')] = path.resolve(
     'wagtail',
     'users',
