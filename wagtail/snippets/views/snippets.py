@@ -464,13 +464,13 @@ class Usage(IndexView):
     def setup(self, request, *args, pk, **kwargs):
         super().setup(request, *args, **kwargs)
         self.pk = pk
-        self.instance = self._get_instance()
+        self.object = self.get_object()
 
-    def _get_instance(self):
+    def get_object(self):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get_queryset(self):
-        return self.instance.get_usage()
+        return self.object.get_usage()
 
     def paginate_queryset(self, queryset, page_size):
         paginator = self.get_paginator(
@@ -486,7 +486,7 @@ class Usage(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"instance": self.instance, "used_by": context.get("page_obj")})
+        context.update({"object": self.object, "used_by": context.get("page_obj")})
         return context
 
 
