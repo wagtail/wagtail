@@ -54,7 +54,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
-        for i in range(1, 50):
+        for i in range(1, 55):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -192,7 +192,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["images"].paginator.count, 1)
 
     def test_tag_filtering_preserves_other_params(self):
-        for i in range(1, 100):
+        for i in range(1, 110):
             image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
