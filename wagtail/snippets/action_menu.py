@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
+from wagtail.models import DraftStateMixin
 from wagtail.snippets.permissions import get_permission_name
 
 
@@ -120,6 +121,10 @@ class SnippetActionMenu:
 
         if "instance" in self.context:
             self.context["model"] = self.context["instance"].__class__
+
+        self.context["draftstate_enabled"] = issubclass(
+            self.context["model"], DraftStateMixin
+        )
 
         self.menu_items = [
             menu_item
