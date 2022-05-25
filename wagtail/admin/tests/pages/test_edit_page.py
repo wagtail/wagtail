@@ -2514,6 +2514,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
 
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
+
         # Check the comment was added
         comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, "A test comment")
@@ -2573,6 +2576,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
 
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
+
         # Check the comment was edited
         comment.refresh_from_db()
         self.assertEqual(comment.text, "Edited")
@@ -2626,6 +2632,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
             [{"__all__": ["You cannot edit another user's comment."]}],
         )
 
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
+
         # Check the comment was not edited
         comment.refresh_from_db()
         self.assertNotEqual(comment.text, "Edited")
@@ -2670,6 +2679,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
+
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
 
         # Check the comment was resolved
         comment.refresh_from_db()
@@ -2742,6 +2754,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
 
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
+
         # Check the comment was deleted
         self.assertFalse(self.child_page.wagtail_admin_comments.exists())
 
@@ -2807,6 +2822,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
+
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
 
         # Check the comment reply was added
         comment.refresh_from_db()
@@ -2886,6 +2904,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
 
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
+
         # Check the comment reply was edited
         reply.refresh_from_db()
         self.assertEqual(reply.text, "an edited reply")
@@ -2946,6 +2967,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
+
+        # Refresh so that latest_revision is correct (instead of using the cached id)
+        self.child_page.refresh_from_db()
 
         # Check the comment reply was deleted
         self.assertFalse(comment.replies.exists())

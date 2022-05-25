@@ -210,8 +210,18 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-class RevisionMixin:
+class RevisionMixin(models.Model):
     """A mixin that allows a model to have revisions."""
+
+    latest_revision = models.ForeignKey(
+        "wagtailcore.Revision",
+        related_name="+",
+        verbose_name=_("latest revision"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+    )
 
     @property
     def revisions(self):
@@ -244,7 +254,7 @@ class RevisionMixin:
         return ContentType.objects.get_for_model(self, for_concrete_model=False)
 
     def get_latest_revision(self):
-        return self.revisions.order_by("-created_at", "-id").first()
+        return self.latest_revision
 
     def get_latest_revision_as_object(self):
         latest_revision = self.get_latest_revision()
@@ -273,7 +283,11 @@ class RevisionMixin:
         in the provided ``content`` (which usually comes from a previously-saved revision).
 
         Certain field values are preserved in order to prevent errors if the returned
-        object is saved, such as ``id``.
+        object is saved, such as ``id``. The following field values are also preserved,
+        as they are considered to be meaningful to the object as a whole, rather than
+        to a specific revision:
+
+        * ``latest_revision``
 
         If ``TranslatableMixin`` is applied, the following field values are also preserved:
 
@@ -287,6 +301,7 @@ class RevisionMixin:
 
         # Ensure other values that are meaningful for the object as a whole
         # (rather than to a specific revision) are preserved
+        obj.latest_revision = self.latest_revision
 
         if isinstance(self, TranslatableMixin):
             obj.translation_key = self.translation_key
@@ -328,6 +343,9 @@ class RevisionMixin:
             content=self.serializable_data(),
         )
 
+        self.latest_revision = revision
+        self.save(update_fields=["latest_revision"])
+
         logger.info(
             'Edited: "%s" pk=%d revision_id=%d', str(self), self.pk, revision.id
         )
@@ -362,6 +380,9 @@ class RevisionMixin:
                 )
 
         return revision
+
+    class Meta:
+        abstract = True
 
 
 class AbstractPage(RevisionMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node):
@@ -537,6 +558,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         "path",
         "postgres_index_entries",
         "index_entries",
+        "latest_revision",
         COMMENTS_RELATION_NAME,
     ]
 
@@ -1094,11 +1116,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         self.latest_revision_created_at = revision.created_at
         self.draft_title = self.title
+        self.latest_revision = revision
 
         update_fields = [
             COMMENTS_RELATION_NAME,
             "latest_revision_created_at",
             "draft_title",
+            "latest_revision",
         ]
 
         if changed:
@@ -2161,6 +2185,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``locked``
         * ``locked_by``
         * ``locked_at``
+        * ``latest_revision``
         * ``latest_revision_created_at``
         * ``first_published_at``
         * ``alias_of``
@@ -2207,6 +2232,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.locked = self.locked
         obj.locked_by = self.locked_by
         obj.locked_at = self.locked_at
+        obj.latest_revision = self.latest_revision
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
         obj.translation_key = self.translation_key

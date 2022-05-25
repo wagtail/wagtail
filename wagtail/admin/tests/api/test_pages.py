@@ -1895,7 +1895,7 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.events_page.get_latest_revision().publish()
+        self.events_page.specific.get_latest_revision().publish()
         self.events_page.refresh_from_db()
         self.assertEqual(self.events_page.title, "Events")
 
