@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -317,7 +318,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
     live_revision = models.ForeignKey(
-        "Revision",
+        "wagtailcore.Revision",
         related_name="+",
         verbose_name=_("live revision"),
         on_delete=models.SET_NULL,
@@ -325,6 +326,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         blank=True,
         editable=False,
     )
+    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
@@ -404,9 +406,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def revisions(self):
-        # This acts as a replacement for Django's related manager since we don't
-        # use a GenericRelation/GenericForeignKey.
-        return Revision.page_revisions.filter(object_id=self.id)
+        # Always use the specific page instance when querying for revisions as
+        # they are always saved with the specific content_type.
+        return self.specific_deferred._revisions
 
     @classmethod
     def get_streamfield_names(cls):
@@ -918,18 +920,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # base_content_type so that we can query for page revisions without
         # having to know the specific Page type.
         revision = Revision.objects.create(
-            content_type_id=self.content_type_id,
-            base_content_type_id=get_default_page_content_type().id,
-            object_id=self.id,
+            content_object=self,
+            base_content_type=get_default_page_content_type(),
             submitted_for_moderation=submitted_for_moderation,
             user=user,
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
         )
-        # This is necessary to prevent fetching a fresh page instance when
-        # changing first_published_at.
-        # Ref: https://github.com/wagtail/wagtail/pull/3498
-        revision.content_object = self
 
         for comment in new_comments:
             comment.revision_created = revision
@@ -2184,21 +2181,15 @@ class RevisionQuerySet(models.QuerySet):
             object_id=str(instance.pk),
         )
 
-    def filter(self, *args, **kwargs):
-        # Make sure the object_id is a string, so queries that use the target model's
-        # id still works even when its id is not a string
-        # (e.g. Revision.objects.filter(object_id=some_page.id)).
-        if "object_id" in kwargs:
-            kwargs["object_id"] = str(kwargs["object_id"])
-        return super().filter(*args, **kwargs)
 
-
-class PageRevisionsManager(models.Manager):
-    def get_queryset(self):
-        return RevisionQuerySet(self.model, using=self._db).page_revisions()
-
+class RevisionsManager(models.Manager):
     def for_instance(self, instance):
         return self.get_queryset().for_instance(instance)
+
+
+class PageRevisionsManager(RevisionsManager):
+    def get_queryset(self):
+        return RevisionQuerySet(self.model, using=self._db).page_revisions()
 
     def submitted(self):
         return self.get_queryset().submitted()
@@ -2207,9 +2198,6 @@ class PageRevisionsManager(models.Manager):
 class SubmittedRevisionsManager(models.Manager):
     def get_queryset(self):
         return RevisionQuerySet(self.model, using=self._db).submitted()
-
-    def for_instance(self, instance):
-        return self.get_queryset().for_instance(instance)
 
 
 class Revision(models.Model):
@@ -2241,19 +2229,17 @@ class Revision(models.Model):
         verbose_name=_("approved go live at"), null=True, blank=True, db_index=True
     )
 
-    objects = models.Manager()
+    objects = RevisionsManager()
     page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
 
-    @cached_property
-    def content_object(self):
-        return self.base_content_type.get_object_for_this_type(pk=self.object_id)
+    content_object = GenericForeignKey(
+        "content_type", "object_id", for_concrete_model=False
+    )
 
     @cached_property
-    def specific_content_object(self):
-        if isinstance(self.content_object, Page):
-            return self.content_object.specific
-        return self.content_type.get_object_for_this_type(pk=self.object_id)
+    def base_content_object(self):
+        return self.base_content_type.get_object_for_this_type(pk=self.object_id)
 
     @property
     def page(self):
@@ -2303,17 +2289,17 @@ class Revision(models.Model):
             and "approved_go_live_at" in kwargs["update_fields"]
         ):
             # Log scheduled revision publish cancellation
-            page = self.as_object()
+            object = self.as_object()
             # go_live_at = kwargs['update_fields'][]
             log(
-                instance=page,
+                instance=object,
                 action="wagtail.schedule.cancel",
                 data={
                     "revision": {
                         "id": self.id,
                         "created": self.created_at.strftime("%d %b %Y %H:%M"),
-                        "go_live_at": page.go_live_at.strftime("%d %b %Y %H:%M")
-                        if page.go_live_at
+                        "go_live_at": object.go_live_at.strftime("%d %b %Y %H:%M")
+                        if object.go_live_at
                         else None,
                     }
                 },
@@ -2322,7 +2308,7 @@ class Revision(models.Model):
             )
 
     def as_object(self):
-        return self.specific_content_object.with_content_json(self.content)
+        return self.content_object.with_content_json(self.content)
 
     def as_page_object(self):
         warnings.warn(
@@ -3619,7 +3605,7 @@ class WorkflowState(models.Model):
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
         return Revision.page_revisions.filter(
-            object_id=self.page_id,
+            object_id=str(self.page_id),
             id__in=self.task_states.values_list("page_revision_id", flat=True),
         ).defer("content")
 

@@ -84,7 +84,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     # tasks may be repeated. All tasks that have been completed no matter what
     # revision needs to be displayed on this page.
     page_revisions = Revision.page_revisions.filter(
-        object_id=page.id,
+        object_id=str(page.id),
         id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list(
             "page_revision_id", flat=True
         ),

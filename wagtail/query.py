@@ -7,7 +7,7 @@ from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Prefetch, Q
 from django.db.models.expressions import Exists, OuterRef
-from django.db.models.functions import Length, Substr
+from django.db.models.functions import Cast, Length, Substr
 from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
@@ -462,7 +462,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
             _approved_schedule=Exists(
                 Revision.page_revisions.exclude(
                     approved_go_live_at__isnull=True
-                ).filter(object_id=OuterRef("pk"))
+                ).filter(object_id=Cast(OuterRef("pk"), output_field=CharField()))
             )
         )
 

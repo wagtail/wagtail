@@ -489,7 +489,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 ``Revision``
 ============
 
-Every time a page is edited a new ``Revision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
+Every time a page is edited, a new ``Revision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
 - Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
 - The content of the page is JSON-serialisable and stored in the :attr:`~Revision.content` field
@@ -497,12 +497,18 @@ Every time a page is edited a new ``Revision`` is created and saved to the datab
 
 .. versionchanged:: 4.0
 
-    The model has been renamed from ``PageRevision`` to ``Revision`` and it now references the ``Page`` model using a combination of an ``object_id`` :class:`~django.db.models.CharField` and foreign keys to :class:`~django.contrib.contenttypes.models.ContentType`.
+    The model has been renamed from ``PageRevision`` to ``Revision`` and it now references the ``Page`` model using a :class:`~django.contrib.contenttypes.fields.GenericForeignKey`.
 
 Database fields
 ~~~~~~~~~~~~~~~
 
 .. class:: Revision
+
+    .. attribute:: content_object
+
+        (generic foreign key)
+
+        This property returns the object this revision belongs to as an instance of the specific class.
 
     .. attribute:: content_type
 
@@ -559,17 +565,18 @@ Managers
 
     .. attribute:: objects
 
-        This manager is used to retrieve all of the ``Revision`` objects in the database.
+        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a :meth:`~wagtail.models.RevisionsManager.for_instance` method that lets you query for revisions of a specific object.
 
         Example:
 
         .. code-block:: python
 
             Revision.objects.all()
+            Revision.objects.for_instance(my_object)
 
     .. attribute:: page_revisions
 
-        This manager is used to retrieve all of the ``Revision`` objects that belong to pages.
+        This manager extends the default manager and is used to retrieve all of the ``Revision`` objects that belong to pages.
 
         Example:
 
@@ -583,7 +590,7 @@ Managers
 
     .. attribute:: submitted_revisions
 
-        This manager is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
+        This manager extends the default manager and is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
 
         Example:
 
@@ -601,7 +608,7 @@ Methods and properties
 
         This method retrieves this revision as an instance of its object's specific class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
 
-        .. versionadded:: 4.0
+        .. versionchanged:: 4.0
 
             This method has been renamed from ``as_page_object()`` to ``as_object()``.
 
@@ -621,13 +628,9 @@ Methods and properties
 
         Calling this will copy the content of this revision into the live object. If the object is in draft, it will be published.
 
-    .. autoattribute:: content_object
+    .. autoattribute:: base_content_object
 
         This property returns the object this revision belongs to as an instance of the base class.
-
-    .. autoattribute:: specific_content_object
-
-        This property returns the object this revision belongs to as an instance of the specific class.
 
 ``GroupPagePermission``
 =======================

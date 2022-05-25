@@ -92,15 +92,12 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         panel = RecentEditsPanel()
         ctx = panel.get_context_data({"request": self.client})
 
+        page = Page.objects.get(pk=self.child_page.id).specific
+
         # check if the revision is the revision of edited Page
-        self.assertEqual(
-            ctx["last_edits"][0][0].content_object,
-            Page.objects.get(pk=self.child_page.id),
-        )
+        self.assertEqual(ctx["last_edits"][0][0].content_object, page)
         # check if the page in this list is the specific page of this revision
-        self.assertEqual(
-            ctx["last_edits"][0][1], Page.objects.get(pk=self.child_page.id).specific
-        )
+        self.assertEqual(ctx["last_edits"][0][1], page)
 
 
 class TestRecentEditsQueryCount(TestCase, WagtailTestUtils):
