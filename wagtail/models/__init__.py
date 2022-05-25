@@ -2181,14 +2181,6 @@ class RevisionQuerySet(models.QuerySet):
             object_id=str(instance.pk),
         )
 
-    def filter(self, *args, **kwargs):
-        # Make sure the object_id is a string, so queries that use the target model's
-        # id still works even when its id is not a string
-        # (e.g. Revision.objects.filter(object_id=some_page.id)).
-        if "object_id" in kwargs:
-            kwargs["object_id"] = str(kwargs["object_id"])
-        return super().filter(*args, **kwargs)
-
 
 class RevisionsManager(models.Manager):
     def for_instance(self, instance):
@@ -3613,7 +3605,7 @@ class WorkflowState(models.Model):
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
         return Revision.page_revisions.filter(
-            object_id=self.page_id,
+            object_id=str(self.page_id),
             id__in=self.task_states.values_list("page_revision_id", flat=True),
         ).defer("content")
 
