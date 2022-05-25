@@ -16,6 +16,7 @@ Changelog
  * Replace `PageRevision` with generic `Revision` model (Sage Abdullah)
  * Make it possible to reuse and customise Wagtail’s fonts with CSS variables (LB (Ben) Johnston)
  * Add better handling and informative developer errors for cross linking URLS (e.g. success after add) in generic views `wagtail.admin.views.generic` (Matt Westcott)
+ * Introduce `wagtail.admin.widgets.chooser.BaseChooser` to make it easier to build custom chooser inputs (Matt Westcott)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
