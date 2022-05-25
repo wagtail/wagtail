@@ -484,6 +484,36 @@ class DraftStateMixin(models.Model):
             log_action=log_action,
         ).execute()
 
+    def with_content_json(self, content):
+        """
+        Returns a new version of the object with field values updated to reflect changes
+        in the provided ``content`` (which usually comes from a previously-saved revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        object is saved, such as ``id``. The following field values are also preserved,
+        as they are considered to be meaningful to the object as a whole, rather than
+        to a specific revision:
+
+        * ``latest_revision``
+        * ``live``
+        * ``has_unpublished_changes``
+        * ``first_published_at``
+
+        If ``TranslatableMixin`` is applied, the following field values are also preserved:
+
+        * ``translation_key``
+        * ``locale``
+        """
+        obj = super().with_content_json(content)
+
+        # Ensure other values that are meaningful for the object as a whole (rather than
+        # to a specific revision) are preserved
+        obj.live = self.live
+        obj.has_unpublished_changes = self.has_unpublished_changes
+        obj.first_published_at = self.first_published_at
+
+        return obj
+
     def get_latest_revision_as_object(self):
         if not self.has_unpublished_changes:
             # Use the live database copy in preference to the revision record, as:
