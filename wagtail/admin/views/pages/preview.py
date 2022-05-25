@@ -12,7 +12,7 @@ from wagtail.models import Page
 
 
 def view_draft(request, page_id):
-    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
+    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_object()
     perms = page.permissions_for_user(request.user)
     if not (perms.can_publish() or perms.can_edit()):
         raise PermissionDenied
@@ -48,7 +48,7 @@ class PreviewOnEdit(View):
     def get_page(self):
         return get_object_or_404(
             Page, id=self.kwargs["page_id"]
-        ).get_latest_revision_as_page()
+        ).get_latest_revision_as_object()
 
     def get_form(self, page, query_dict):
         form_class = page.get_edit_handler().get_form_class()

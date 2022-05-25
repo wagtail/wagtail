@@ -328,7 +328,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "back to a branch where the model class is still present."
             )
 
-        self.page = self.real_page_record.get_latest_revision_as_page()
+        self.page = self.real_page_record.get_latest_revision_as_object()
         self.parent = self.page.get_parent()
 
         self.page_perms = self.page.permissions_for_user(self.request.user)

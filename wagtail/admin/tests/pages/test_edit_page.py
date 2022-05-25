@@ -1864,7 +1864,7 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=(created_page.id,))
         )
-        created_revision = created_page.get_latest_revision_as_page()
+        created_revision = created_page.get_latest_revision_as_object()
 
         self.assertIn(self.holiday_category, created_revision.categories.all())
         self.assertIn(self.men_with_beards_category, created_revision.categories.all())
@@ -1945,7 +1945,7 @@ class TestParentalM2M(TestCase, WagtailTestUtils):
             response, reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,))
         )
         updated_page = EventPage.objects.get(id=self.christmas_page.id)
-        created_revision = updated_page.get_latest_revision_as_page()
+        created_revision = updated_page.get_latest_revision_as_object()
 
         self.assertIn(self.holiday_category, created_revision.categories.all())
         self.assertIn(self.men_with_beards_category, created_revision.categories.all())
