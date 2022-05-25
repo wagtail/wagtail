@@ -2190,12 +2190,14 @@ class RevisionQuerySet(models.QuerySet):
         return super().filter(*args, **kwargs)
 
 
-class PageRevisionsManager(models.Manager):
-    def get_queryset(self):
-        return RevisionQuerySet(self.model, using=self._db).page_revisions()
-
+class RevisionsManager(models.Manager):
     def for_instance(self, instance):
         return self.get_queryset().for_instance(instance)
+
+
+class PageRevisionsManager(RevisionsManager):
+    def get_queryset(self):
+        return RevisionQuerySet(self.model, using=self._db).page_revisions()
 
     def submitted(self):
         return self.get_queryset().submitted()
@@ -2204,9 +2206,6 @@ class PageRevisionsManager(models.Manager):
 class SubmittedRevisionsManager(models.Manager):
     def get_queryset(self):
         return RevisionQuerySet(self.model, using=self._db).submitted()
-
-    def for_instance(self, instance):
-        return self.get_queryset().for_instance(instance)
 
 
 class Revision(models.Model):
@@ -2238,7 +2237,7 @@ class Revision(models.Model):
         verbose_name=_("approved go live at"), null=True, blank=True, db_index=True
     )
 
-    objects = models.Manager()
+    objects = RevisionsManager()
     page_revisions = PageRevisionsManager()
     submitted_revisions = SubmittedRevisionsManager()
 
