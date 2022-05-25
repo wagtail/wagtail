@@ -16,6 +16,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -200,11 +201,11 @@ msgid "You haven't uploaded any documents."
 msgstr "Sie haben noch keine Dokumente hochgeladen."
 
 msgid ""
-"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" role=\"tab\">upload "
-"one now</a>?"
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
 msgstr ""
-"Warum nicht <a class=\"upload-one-now\" href=\"#tab-upload\" role=\"tab"
-"\">ein neues hochladen</a>?"
+"Warum nicht <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>ein neues hochladen</a>?"
 
 msgid "Uploading…"
 msgstr "Lade hoch…"

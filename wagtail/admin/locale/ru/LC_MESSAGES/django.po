@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -382,6 +382,9 @@ msgstr "Настройки"
 msgid "Status"
 msgstr "Статус"
 
+msgid "Toggle status"
+msgstr "Переключить статус"
+
 msgid "Comments"
 msgstr "Комментарии"
 
@@ -508,6 +511,26 @@ msgstr "Выбрать"
 
 msgid "Choose a page"
 msgstr "Выберите страницу"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Для этого поля могут быть выбраны только страницы типа \"%(type)s\". "
+"Результаты поиска будут исключать страницы других типов."
+msgstr[1] ""
+"Для этого поля можно выбрать только следующие типы страниц: %(type)s. "
+"Результаты поиска будут исключать страницы других типов."
+msgstr[2] ""
+"Для этого поля можно выбрать только следующие типы страниц: %(type)s. "
+"Результаты поиска будут исключать страницы других типов."
+msgstr[3] ""
+"Для этого поля можно выбрать только следующие типы страниц: %(type)s. "
+"Результаты поиска будут исключать страницы других типов."
 
 msgid "Convert to internal link"
 msgstr "Преобразовать во внутреннюю ссылку"
@@ -1167,8 +1190,47 @@ msgstr "Перетянуть"
 msgid "Updated"
 msgstr "Обновлено"
 
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"На корневом уровне вы можете добавлять новые сайты к своей установке "
+"Wagtail. Страницы, созданные здесь, не будут доступны ни по одному URL-"
+"адресу, пока они не будут связаны с сайтом."
+
 msgid "Configure a site now."
 msgstr "Настроить сайт."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"Если вы просто хотите добавить страницы на существующий сайт, вместо этого "
+"создайте их как дочерние элементы домашней страницы."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"Страницы, созданные здесь, не будут доступны ни по одному URL. Чтобы "
+"добавить страницы на существующий сайт, создайте их как дочерние элементы "
+"главной страницы."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"Для этого места не настроен сайт. Страницы, созданные здесь, не будут "
+"доступны ни по одному URL-адресу, пока сайт не будет связан с этим "
+"местоположением."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr ""
+"Для этого местоположения нет записи сайта. Страницы, созданные здесь, не "
+"будут доступны ни по одному URL."
 
 msgid "No pages have been created at this location."
 msgstr "В этом расположении не было создано страниц."
@@ -1229,6 +1291,14 @@ msgstr "Выбрать новую родительскую страницу дл
 
 msgid "Preview error"
 msgstr "Ошибка предпросмотра"
+
+msgid ""
+"Impossible to preview this page, some errors are remaining. Please close "
+"this tab, edit the page to fix these errors, then use preview again."
+msgstr ""
+"Невозможно просмотреть эту страницу, остались некоторые ошибки. Закройте эту "
+"вкладку, отредактируйте страницу, чтобы исправить эти ошибки, а затем снова "
+"используйте предварительный просмотр."
 
 msgid "Close"
 msgstr "Закрыть"
@@ -1296,17 +1366,79 @@ msgstr "К сожалению, по запросу <em>%(query_string)s</em> н�
 msgid "Enter a search term above"
 msgstr "Введите критерий поиска выше"
 
+msgid "Page Locale: "
+msgstr "Язык страницы:"
+
+#, python-format
+msgid "Translated to %(count)s other locales"
+msgstr "Переведено на %(count)s других языков"
+
+msgid "No other translations"
+msgstr "Нет других переводов"
+
+msgid "Switch locales"
+msgstr "Сменить язык"
+
+msgid "Page locking: "
+msgstr "Блокировка страницы:"
+
 msgid "Locked"
 msgstr "Заблокировано"
+
+msgid "Only you can edit this page. Unlock it to allow others to edit"
+msgstr ""
+"Только вы можете редактировать эту страницу. Разблокируйте это, чтобы другие "
+"могли редактировать"
 
 msgid "Unlocked"
 msgstr "Разблокировано"
 
+msgid "Anyone can edit this page. Lock it to prevent others from editing"
+msgstr ""
+"Эту страницу может редактировать любой желающий. Заблокируйте это, чтобы "
+"другие не могли редактировать"
+
 msgid "Lock"
 msgstr "Заблокировать"
 
+msgid "Page visibility: "
+msgstr "Видимость страницы:"
+
+msgid "Visible to all"
+msgstr "Видно всем"
+
+msgid "Once live anyone can view"
+msgstr "Каждый может просмотреть один раз"
+
+msgid "Not visible to the public"
+msgstr "Не доступен публично"
+
+msgid "Change privacy"
+msgstr "Изменить конфиденциальность"
+
+msgid "Page status: "
+msgstr "Статус страницы:"
+
+msgid "In Moderation"
+msgstr "На модерации"
+
+msgid "View details"
+msgstr "Посмотреть детали"
+
+msgid "View history"
+msgstr "Посмотреть историю"
+
+msgid " Changes requested"
+msgstr "Запрошенные изменения"
+
 msgid "since"
 msgstr "после"
+
+msgid "This will publish at "
+msgstr "Это будет опубликовано"
+
+msgid "First published"
+msgstr "Впервые опубликовано"
 
 msgid "No pages use"
 msgstr "Нет страниц использующих"
@@ -1475,6 +1607,20 @@ msgstr "Текущий статус страницы:"
 
 msgid "Other searches"
 msgstr "Другие поиски"
+
+msgid "Errors Count: "
+msgstr "Количество ошибок:"
+
+msgid ""
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
+msgstr ""
+"Для использования CMS требуется JavaScript, но в настоящее время он отключен."
+"<br />Вот <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noreferrer\">инструкции, как включить JavaScript в вашем веб-браузере</"
+"a>."
 
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
@@ -2279,6 +2425,16 @@ msgstr "Очистить выбор"
 
 msgid "Choose another page"
 msgstr "Выбрать другую страницу"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"Теги из нескольких слов с пробелами будут автоматически заключены в двойные "
+"кавычки (\")."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Теги могут состоять только из одного слова, без пробелов."
 
 msgid "Choose another task"
 msgstr "Выбрать другую задачу"

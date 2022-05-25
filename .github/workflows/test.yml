@@ -82,7 +82,7 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
-            postgres: 'postgres:11'
+            postgres: 'postgres:12'
 
     services:
       postgres:

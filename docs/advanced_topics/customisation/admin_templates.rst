@@ -91,6 +91,21 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 
+.. _custom_user_interface_fonts:
+
+Custom user interface fonts
+===========================
+
+To customise the font families used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
+
+
+.. code-block:: css
+
+    :root {
+        --w-font-sans: Papyrus;
+        --w-font-mono: Courier;
+    }
+
 .. _custom_user_interface_colours:
 
 Custom user interface colours

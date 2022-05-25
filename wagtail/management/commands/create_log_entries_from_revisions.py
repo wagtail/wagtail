@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from wagtail.models import PageLogEntry, PageRevision
+from wagtail.models import PageLogEntry, Revision
 
 
 def get_comparison(page, revision_a, revision_b):
@@ -19,29 +19,32 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         current_page_id = None
         missing_models_content_type_ids = set()
-        for revision in (
-            PageRevision.objects.order_by("page_id", "created_at")
-            .select_related("page")
-            .iterator()
-        ):
+        for revision in Revision.page_revisions.order_by(
+            "object_id", "created_at"
+        ).iterator():
             # This revision is for a page type that is no longer in the database. Bail out early.
-            if revision.page.content_type_id in missing_models_content_type_ids:
+            if (
+                revision.content_object.content_type_id
+                in missing_models_content_type_ids
+            ):
                 continue
-            if not revision.page.specific_class:
-                missing_models_content_type_ids.add(revision.page.content_type_id)
+            if not revision.content_object.specific_class:
+                missing_models_content_type_ids.add(
+                    revision.content_object.content_type_id
+                )
                 continue
 
-            is_new_page = revision.page_id != current_page_id
+            is_new_page = revision.object_id != current_page_id
             if is_new_page:
                 # reset previous revision when encountering a new page.
                 previous_revision = None
 
             has_content_changes = False
-            current_page_id = revision.page_id
+            current_page_id = revision.object_id
 
             if not PageLogEntry.objects.filter(revision=revision).exists():
                 try:
-                    current_revision_as_page = revision.as_page_object()
+                    current_revision_as_page = revision.as_object()
                 except Exception:
                     # restoring old revisions may fail if e.g. they have an on_delete=PROTECT foreign key
                     # to a no-longer-existing model instance. We cannot compare changes between two
@@ -49,11 +52,11 @@ class Command(BaseCommand):
                     # change at the point that it went from restorable to non-restorable or vice versa.
                     current_revision_as_page = None
 
-                published = revision.id == revision.page.live_revision_id
+                published = revision.id == revision.content_object.live_revision_id
 
                 if previous_revision is not None:
                     try:
-                        previous_revision_as_page = previous_revision.as_page_object()
+                        previous_revision_as_page = previous_revision.as_object()
                     except Exception:
                         previous_revision_as_page = None
 
@@ -72,7 +75,7 @@ class Command(BaseCommand):
                     else:
                         # Must use .specific so the comparison picks up all fields, not just base Page ones.
                         comparison = get_comparison(
-                            revision.page.specific,
+                            revision.content_object.specific,
                             previous_revision_as_page,
                             current_revision_as_page,
                         )
@@ -106,7 +109,7 @@ class Command(BaseCommand):
 
     def log_page_action(self, action, revision, has_content_changes):
         PageLogEntry.objects.log_action(
-            instance=revision.page.specific,
+            instance=revision.content_object.specific,
             action=action,
             data={},
             revision=None if action == "wagtail.create" else revision,

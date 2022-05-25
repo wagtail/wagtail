@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -261,12 +261,6 @@ msgstr "Pagina"
 msgid "Add a page permission"
 msgstr "Voeg een paginamachtiging toe"
 
-msgid "groups"
-msgstr "groepen"
-
-msgid "Add a group"
-msgstr "Voeg een groep toe"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr ""
@@ -390,6 +384,9 @@ msgstr[1] "%(num_parent_objects)d gebruikers zijn gemarkeerd als inactief"
 
 msgid "Groups"
 msgstr "Groepen"
+
+msgid "Add a group"
+msgstr "Voeg een groep toe"
 
 msgid "Search groups"
 msgstr "Zoek groepen"

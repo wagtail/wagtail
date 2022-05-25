@@ -10,15 +10,16 @@
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2021\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +48,28 @@ msgstr "Hervorgehobenes Suchergebnis hinzufügen"
 
 msgid "Add search pick"
 msgstr "Suchauswahl hinzufügen"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte Seiten zu "
+"empfehlen, die von sich aus nicht sehr weit oben in den Suchergebnissen "
+"auftauchen würden. So könnte zum Beispiel Ihre Spendenseite auftauchen wenn "
+"nach dem Suchbegriff „<em>unterstützen</em>“ gesucht wird.</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Im Eingabefeld \"Suchbegriffe/Phrasen\" müssen Sie den vollständigen und "
+"genauen Suchbegriff, inklusive eventueller Rechtschreibfehler, eingeben, für "
+"den Sie Seiten empfehlen möchten. Zur Unterstützung können Sie aus häufig "
+"verwendeten Suchbegriffen wählen.</p>"
 
 msgid "Save"
 msgstr "Speichern"
@@ -121,6 +144,12 @@ msgstr "Dieses hervorgehobene Suchergebnis bearbeiten"
 
 msgid "None"
 msgstr "Keine"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

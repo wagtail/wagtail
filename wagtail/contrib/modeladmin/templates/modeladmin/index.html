@@ -15,7 +15,7 @@
 
 {% block content %}
     {% block header %}
-        <header class="hasform">
+        <header class="header hasform">
             {% block breadcrumb %}{% endblock %}
             <div class="row">
                 <div class="left header-left">
@@ -24,7 +24,7 @@
                             <h1>
                                 {% if view.header_icon %}{% icon name=view.header_icon %}{% endif %}
                                 {{ view.get_page_title }}
-                                {% if view.get_page_subtitle %} <span>{{ view.get_page_subtitle }}</span> {% endif %}
+                                {% if view.get_page_subtitle %} <span class="header__subtitle">{{ view.get_page_subtitle }}</span> {% endif %}
                                 {% include 'modeladmin/includes/result_count.html' %}
                             </h1>
                         {% endblock %}

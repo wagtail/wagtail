@@ -53,6 +53,9 @@ msgstr "Удалить"
 msgid "Delete error"
 msgstr "Удалить ошибку"
 
+msgid "Deleting"
+msgstr "Удаление"
+
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -145,6 +148,9 @@ msgstr "Показать ошибку"
 
 msgid "Show latest content"
 msgstr "Показать последнее содержание"
+
+msgid "Split block"
+msgstr "Разделить блок"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."

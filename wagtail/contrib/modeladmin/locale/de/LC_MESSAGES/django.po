@@ -10,13 +10,14 @@
 # Bohreromir, 2019
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -232,8 +233,8 @@ msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
-"Sind Sie sicher, dass Sie diese(s) %s löschen möchten? Andere Objekte, die "
-"damit verknüpft sind, können davon beeinträchtigt werden."
+"Sind Sie sicher, dass Sie dieses „%s“-Objekt löschen möchten? Andere Objekte "
+"Ihrer Seite, die damit verknüpft sind, können davon beeinträchtigt werden."
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' deleted."

@@ -18,13 +18,14 @@
 
 {% block content %}
 
-    <header>
+    <header class="header">
         <div class="row">
             <div class="left">
                 <div class="col">
-                    <h1>{% icon name="snippet" %}
-                        {% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
-
+                    <h1 class="header__title">
+                        {% icon name="snippet" %}
+                        {% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}
+                    </h1>
                     {% if is_searchable and search_url %}
                         <form class="col search-form" action="{{ search_url }}" method="get" novalidate>
                             <ul class="fields">
@@ -36,7 +37,6 @@
                         </form>
                     {% endif %}
                 </div>
-
                 {% if locales %}
                     <div class="col">
 

@@ -484,25 +484,43 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
     .. autoattribute:: localized
 
 
-.. _page-revision-model-ref:
+.. _revision-model-ref:
 
-``PageRevision``
-================
+``Revision``
+============
 
-Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
+Every time a page is edited a new ``Revision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
 - Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
-- The content of the page is JSON-serialisable and stored in the :attr:`~PageRevision.content` field
-- You can retrieve a ``PageRevision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
+- The content of the page is JSON-serialisable and stored in the :attr:`~Revision.content` field
+- You can retrieve a ``Revision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~Revision.as_object` method
+
+.. versionchanged:: 4.0
+
+    The model has been renamed from ``PageRevision`` to ``Revision`` and it now references the ``Page`` model using a combination of an ``object_id`` :class:`~django.db.models.CharField` and foreign keys to :class:`~django.contrib.contenttypes.models.ContentType`.
 
 Database fields
 ~~~~~~~~~~~~~~~
 
-.. class:: PageRevision
+.. class:: Revision
 
-    .. attribute:: page
+    .. attribute:: content_type
 
-        (foreign key to :class:`~wagtail.models.Page`)
+        (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
+
+        This is the content type of the object this revision belongs to. For page revisions, this means the content type of the specific page type.
+
+    .. attribute:: base_content_type
+
+        (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
+
+        This is the base content type of the object this revision belongs to. For page revisions, this means the content type of the :class:`~wagtail.models.Page` model.
+
+    .. attribute:: object_id
+
+        (string)
+
+        This represents the primary key of the object this revision belongs to.
 
     .. attribute:: submitted_for_moderation
 
@@ -536,38 +554,56 @@ Database fields
 Managers
 ~~~~~~~~
 
-.. class:: PageRevision
+.. class:: Revision
     :noindex:
 
     .. attribute:: objects
 
-        This manager is used to retrieve all of the ``PageRevision`` objects in the database
+        This manager is used to retrieve all of the ``Revision`` objects in the database.
 
         Example:
 
         .. code-block:: python
 
-            PageRevision.objects.all()
+            Revision.objects.all()
+
+    .. attribute:: page_revisions
+
+        This manager is used to retrieve all of the ``Revision`` objects that belong to pages.
+
+        Example:
+
+        .. code-block:: python
+
+            Revision.page_revisions.all()
+
+        .. versionadded:: 4.0
+
+            This manager is added as a shorthand to retrieve page revisions.
 
     .. attribute:: submitted_revisions
 
-        This manager is used to retrieve all of the ``PageRevision`` objects that are awaiting moderator approval
+        This manager is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
 
         Example:
 
         .. code-block:: python
 
-            PageRevision.submitted_revisions.all()
+            Revision.submitted_revisions.all()
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. class:: PageRevision
+.. class:: Revision
     :noindex:
 
-    .. automethod:: as_page_object
+    .. automethod:: as_object
 
-        This method retrieves this revision as an instance of its :class:`~wagtail.models.Page` subclass.
+        This method retrieves this revision as an instance of its object's specific class. If the revision belongs to a page, it will be an instance of the :class:`~wagtail.models.Page`'s specific subclass.
+
+        .. versionadded:: 4.0
+
+            This method has been renamed from ``as_page_object()`` to ``as_object()``.
 
     .. automethod:: approve_moderation
 
@@ -579,11 +615,19 @@ Methods and properties
 
     .. automethod:: is_latest_revision
 
-        Returns ``True`` if this revision is its page's latest revision
+        Returns ``True`` if this revision is the object's latest revision
 
     .. automethod:: publish
 
-        Calling this will copy the content of this revision into the live page object. If the page is in draft, it will be published.
+        Calling this will copy the content of this revision into the live object. If the object is in draft, it will be published.
+
+    .. autoattribute:: content_object
+
+        This property returns the object this revision belongs to as an instance of the base class.
+
+    .. autoattribute:: specific_content_object
+
+        This property returns the object this revision belongs to as an instance of the specific class.
 
 ``GroupPagePermission``
 =======================
@@ -837,7 +881,7 @@ Database fields
 
     .. attribute:: page_revision
 
-        (foreign key to ``PageRevision``)
+        (foreign key to ``Revision``)
 
         The page revision this task state was created on.
 
@@ -1049,7 +1093,7 @@ Database fields
 
     .. attribute:: revision
 
-        (foreign key to :class:`PageRevision`)
+        (foreign key to :class:`Revision`)
 
         A foreign key to the current page revision.
 
@@ -1111,7 +1155,7 @@ Database fields
 
     .. attribute:: revision_created
 
-        (foreign key to :class:`PageRevision`)
+        (foreign key to :class:`Revision`)
 
         A foreign key to the revision on which the comment was created.
 

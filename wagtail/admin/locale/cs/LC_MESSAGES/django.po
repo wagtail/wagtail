@@ -8,6 +8,7 @@
 # IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
 # Marek Turnovec <aesculap@gmail.com>, 2016,2020
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
 # Martin Galda <martingalda9@gmail.com>, 2017-2018
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
+"Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -231,6 +232,10 @@ msgstr "Hledat"
 msgid "Search term"
 msgstr "Hledaný výraz"
 
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tag(y) %(value_too_long)s mají více než %(max_tag_length)d znaků"
+
 msgid "Visibility"
 msgstr "Viditelnost"
 
@@ -256,6 +261,42 @@ msgstr "Pojmenujte tento postup"
 msgid "Add tasks to your workflow"
 msgstr "Přidejte úlohy do tohoto postupu"
 
+msgid "1 page selected"
+msgstr "1 stránka vybrána"
+
+#, python-brace-format
+msgid "{0} pages selected"
+msgstr "{0} stránek vybráno"
+
+#, python-brace-format
+msgid "All {0} pages on this screen selected"
+msgstr "Všechny {0} stránky na této obrazovce vybrány"
+
+msgid "1 document selected"
+msgstr "1 dokument vybrán"
+
+#, python-brace-format
+msgid "{0} documents selected"
+msgstr "{0} dokumentů vybráno"
+
+#, python-brace-format
+msgid "All {0} documents on this screen selected"
+msgstr "Všechny {0} dokumenty na této obrazovce vybrány"
+
+msgid "1 image selected"
+msgstr "1 obrázek vybrán"
+
+#, python-brace-format
+msgid "{0} images selected"
+msgstr "{0} obrázků vybráno"
+
+#, python-brace-format
+msgid "All {0} images on this screen selected"
+msgstr "Všechny {0} obrázky na této obrazovce vybrány"
+
+msgid "1 user selected"
+msgstr "1 uživatel vybrán"
+
 msgid "Scheduled publishing"
 msgstr "Naplánovaná publikace"
 
@@ -279,6 +320,9 @@ msgstr "Nastavení"
 
 msgid "Status"
 msgstr "Stav"
+
+msgid "Comments"
+msgstr "Komentáře"
 
 msgid "Preview"
 msgstr "Náhled"
@@ -366,6 +410,12 @@ msgstr "Zpět na původní hodnoty"
 
 msgid "Go back"
 msgstr "Zpět"
+
+msgid "Bulk actions"
+msgstr "Hromadné akce"
+
+msgid "Select row"
+msgstr "Vybrat řádek"
 
 msgid "Select all"
 msgstr "Vybrat vše"
@@ -555,6 +605,9 @@ msgstr "Přihlášení do redakčního systému"
 
 msgid "Signing in…"
 msgstr "Přihlašování..."
+
+msgid "Forgotten password?"
+msgstr "Zapomenuté heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1075,8 +1128,14 @@ msgstr "Odemčeno"
 msgid "Lock"
 msgstr "Uzamknout"
 
+msgid "View history"
+msgstr "Zobrazit historii"
+
 msgid "since"
 msgstr "od"
+
+msgid "First published"
+msgstr "Poprvé publikováno"
 
 msgid "No pages use"
 msgstr "Žádné stránky typu"
@@ -1160,6 +1219,9 @@ msgstr "Přidat komentář"
 
 msgid "Comment notifications"
 msgstr "Notifikace o komentářích"
+
+msgid "Last published"
+msgstr "Naposledy publikováno"
 
 msgid "No pages found."
 msgstr "Nebyla nalezena žádná stránka."
@@ -1505,6 +1567,9 @@ msgstr "Opravdu chcete smazat tuto kolekci?"
 
 msgid "Editing"
 msgstr "Úprava"
+
+msgid "Publish selected pages"
+msgstr "Publikovat vybrané stránky"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1906,6 +1971,9 @@ msgstr "Zrušit výběr"
 
 msgid "Choose another page"
 msgstr "Zvolit jinou stránku"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Tagy mohou být tvořeny pouze jedním slovem, mezery nejsou povoleny."
 
 msgid "Choose another task"
 msgstr "Zvolte jinou úlohu"

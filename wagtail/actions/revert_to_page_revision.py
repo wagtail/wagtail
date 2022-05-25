@@ -57,7 +57,7 @@ class RevertToPageRevisionAction:
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
 
-        return self.revision.as_page_object().save_revision(
+        return self.revision.as_object().save_revision(
             previous_revision=self.revision,
             user=self.user,
             log_action=self.log_action,

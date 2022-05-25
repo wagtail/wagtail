@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.models import GroupPagePermission, Locale, Page, PageRevision
+from wagtail.models import GroupPagePermission, Locale, Page, Revision
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     BusinessChild,
@@ -458,7 +458,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # No revisions with approved_go_live_at
         self.assertFalse(
-            PageRevision.objects.filter(page=page)
+            Revision.page_revisions.filter(object_id=page.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -610,7 +610,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # A revision with approved_go_live_at should exist now
         self.assertTrue(
-            PageRevision.objects.filter(page=page)
+            Revision.page_revisions.filter(object_id=page.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )

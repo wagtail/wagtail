@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Miłosz Miśkiewicz, 2017-2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1235,9 +1235,6 @@ msgstr "Widoczna dla wszystkich"
 
 msgid "Not visible to the public"
 msgstr "Niewidoczna publicznie"
-
-msgid "Set privacy"
-msgstr "Ustaw prywatność"
 
 msgid "Page status: "
 msgstr "Status strony:"

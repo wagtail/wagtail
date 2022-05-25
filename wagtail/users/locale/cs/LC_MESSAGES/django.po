@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -186,12 +186,6 @@ msgstr "Stránka"
 msgid "Add a page permission"
 msgstr "Přidat oprávnění ke stránce"
 
-msgid "groups"
-msgstr "skupin"
-
-msgid "Add a group"
-msgstr "Přidat skupinu"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Bohužel, výrazu \"%(query)s\" neodpovídají žádné skupiny"
@@ -273,6 +267,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Skupiny"
+
+msgid "Add a group"
+msgstr "Přidat skupinu"
 
 msgid "Search groups"
 msgstr "Hledat skupiny"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -73,6 +73,9 @@ msgstr "Ce champ est requis."
 
 msgid "Wagtail frontend cache"
 msgstr "Cache front-end Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routable page"
 
 msgid "Wagtail sitemaps"
 msgstr "Plan des sites Wagtail"
@@ -594,6 +597,9 @@ msgstr "Continuer"
 
 msgid "Test Wagtail Model Admin"
 msgstr "Tests Model Admin Wagtail"
+
+msgid "Wagtail routable page tests"
+msgstr "Wagtail routable page tests"
 
 msgid "Wagtail search tests"
 msgstr "Tests recherche Wagtail"

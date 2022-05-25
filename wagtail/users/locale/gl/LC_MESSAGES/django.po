@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -142,12 +142,6 @@ msgstr "Páxina"
 msgid "Add a page permission"
 msgstr "Engadir un permiso á páxina"
 
-msgid "groups"
-msgstr "grupos"
-
-msgid "Add a group"
-msgstr "Engadir un grupo"
-
 #, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
@@ -195,6 +189,9 @@ msgstr "Sentímolo, ningún usuario coincide con \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grupos"
+
+msgid "Add a group"
+msgstr "Engadir un grupo"
 
 msgid "Search groups"
 msgstr "Procurar grupos"

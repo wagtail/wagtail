@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -160,12 +160,6 @@ msgstr "Halaman"
 msgid "Add a page permission"
 msgstr "Tambah izin halaman"
 
-msgid "groups"
-msgstr "grup"
-
-msgid "Add a group"
-msgstr "Tambah grup"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Maaf, tidak ada grup yang sesuai dengan \"%(query)s\""
@@ -228,6 +222,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Grup"
+
+msgid "Add a group"
+msgstr "Tambah grup"
 
 msgid "Search groups"
 msgstr "Pencarian Grup"

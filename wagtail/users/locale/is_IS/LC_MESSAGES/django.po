@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2022\n"
@@ -256,12 +256,6 @@ msgstr "Síða"
 msgid "Add a page permission"
 msgstr "Bæta við síðuheimild"
 
-msgid "groups"
-msgstr "hópar"
-
-msgid "Add a group"
-msgstr "Bæta við hóp"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Því miður eru engir hópar sem passa við \"%(query)s\""
@@ -385,6 +379,9 @@ msgstr[1] "%(num_parent_objects)d hafa verið gerðir óvirkir"
 
 msgid "Groups"
 msgstr "Hópar"
+
+msgid "Add a group"
+msgstr "Bæta við hóp"
 
 msgid "Search groups"
 msgstr "Leita í hópum"

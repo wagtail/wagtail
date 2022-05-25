@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -107,12 +107,6 @@ msgstr "ပြောင်းလဲပါ"
 msgid "Page"
 msgstr "စာမျက်နှာ"
 
-msgid "groups"
-msgstr "အဖွဲ့များ"
-
-msgid "Add a group"
-msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
-
 msgid "Delete user"
 msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
 
@@ -138,6 +132,9 @@ msgstr "စိတ်မကောင်းပါ၊ ဘယ်အသုံးပ�
 
 msgid "Groups"
 msgstr "အဖွဲ့များ"
+
+msgid "Add a group"
+msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
 
 msgid "Search groups"
 msgstr "အဖွဲ့များကို ရှာပါ"

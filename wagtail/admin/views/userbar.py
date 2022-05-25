@@ -8,7 +8,7 @@ from wagtail.admin.userbar import (
     EditPageItem,
     RejectModerationEditPageItem,
 )
-from wagtail.models import Page, PageRevision
+from wagtail.models import Page, Revision
 
 
 @permission_required("wagtailadmin.access_admin", raise_exception=True)
@@ -40,10 +40,10 @@ def for_frontend(request, page_id):
 @permission_required("wagtailadmin.access_admin", raise_exception=True)
 def for_moderation(request, revision_id):
     items = [
-        EditPageItem(PageRevision.objects.get(id=revision_id).page),
-        AddPageItem(PageRevision.objects.get(id=revision_id).page),
-        ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
-        RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+        EditPageItem(Revision.page_revisions.get(id=revision_id).content_object),
+        AddPageItem(Revision.page_revisions.get(id=revision_id).content_object),
+        ApproveModerationEditPageItem(Revision.page_revisions.get(id=revision_id)),
+        RejectModerationEditPageItem(Revision.page_revisions.get(id=revision_id)),
     ]
 
     for fn in hooks.get_hooks("construct_wagtail_userbar"):

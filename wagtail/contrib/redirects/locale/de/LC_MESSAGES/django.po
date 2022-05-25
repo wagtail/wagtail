@@ -6,7 +6,7 @@
 # oliverengel <codeangel@posteo.de>, 2022
 # Donald Buczek, 2021
 # Ettore Atalan <atalanttore@googlemail.com>, 2016,2020
-# Vorlif <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -18,14 +18,14 @@
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
 # th3hamm0r <stefan@hammerworxx.com>, 2022
-# Vorlif <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -118,6 +118,9 @@ msgstr "temporär"
 msgid "redirect"
 msgstr "Weiterleitung"
 
+msgid "redirects"
+msgstr "Weiterleitungen"
+
 msgid "Add redirect"
 msgstr "Weiterleitung hinzufügen"
 
@@ -129,6 +132,19 @@ msgstr "Weiterleitungen"
 
 msgid "Import redirects"
 msgstr "Weiterleitungen importieren"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Wählen Sie eine Datei, in der die Weiterleitungen zeilenweise angeordnet "
+"sind. Die Datei sollte zwei Spalten enthalten, welche die Werte für "
+"<code>von</code> und <code>nach</code> repräsentieren (die Namen der Spalten "
+"sind beliebig wählbar).</p><p>Nach dem Übermitteln der Datei werden Sie zu "
+"einer Bestätigungsseite weitergeleitet. Hier können Sie Ihre Weiterleitungen "
+"noch einmal anpassen, bevor diese importiert werden.</p> "
 
 msgid "Import"
 msgstr "Import"
@@ -201,6 +217,12 @@ msgstr "Diese Weiterleitung bearbeiten"
 
 msgid "No redirects found."
 msgstr "Keine Weiterleitungen gefunden."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

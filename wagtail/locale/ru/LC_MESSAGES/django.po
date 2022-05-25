@@ -14,7 +14,7 @@
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
-# Влад <integration.into.society@gmail.com>, 2021
+# Влад <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # Sergey Mazanov <mvver@outlook.com>, 2021
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>, 2020-2021\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
@@ -73,6 +76,9 @@ msgstr "Этот блок не имеет опций."
 
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
+
+msgid "Wagtail sitemaps"
+msgstr "Карта сайта Wagtail"
 
 msgid "Password"
 msgstr "Пароль"
@@ -582,11 +588,26 @@ msgstr "Вам нужен пароль для доступа к этой стр�
 msgid "Continue"
 msgstr "Продолжить"
 
+msgid "Wagtail search tests"
+msgstr "Wagtail тесты поиска"
+
 msgid "English"
 msgstr "Английский"
 
 msgid "French"
 msgstr "Французский"
+
+msgid "Wagtail snippets tests"
+msgstr "Wagtail тесты фрагментов"
+
+msgid "Wagtail tests"
+msgstr "Wagtail тесты"
+
+msgid "The form is already filled."
+msgstr "Форма уже заполнена."
+
+msgid "You must log in first."
+msgstr "Сначала вы должны войти в систему."
 
 msgid "German"
 msgstr "Немецкий"

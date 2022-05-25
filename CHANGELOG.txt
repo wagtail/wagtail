@@ -5,7 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add clarity to confirmation when being asked to convert an external link to an internal one (Thijs Kramer)
- * Convert various pages in the documentation to Markdown (Daniel Kirkham)
+ * Convert various pages in the documentation to Markdown (Khanh Hoang, Vu Pham, Daniel Kirkham, LB (Ben) Johnston)
  * Add `base_url_path` to `ModelAdmin` so that the default URL structure of app_label/model_name can be overridden (Vu Pham, Khanh Hoang)
  * Add `full_url` to the API output of `ImageRenditionField` (Paarth Agarwal)
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
@@ -13,12 +13,16 @@ Changelog
  * Drop support for Safari 13 by removing left/right positioning in favour of CSS logical properties (Thibaud Colas)
  * Use `FormData` instead of jQuery's `form.serialize` when editing documents or images just added so that additional fields can be better supported (Stefan Hammer)
  * Add informational Codecov status checks for GitHub CI pipelines (Tom Hu)
+ * Replace `PageRevision` with generic `Revision` model (Sage Abdullah)
+ * Make it possible to reuse and customise Wagtail’s fonts with CSS variables (LB (Ben) Johnston)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
+ * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
+ * Fix: Ensure radio buttons / checkboxes display vertically under Django 4.0 (Matt Westcott)
 
 
-3.0 (xx.xx.xxxx) - IN DEVELOPMENT
+3.0 (16.05.2022)
 ~~~~~~~~~~~~~~~~
 
  * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)

@@ -16,10 +16,11 @@ from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
 from wagtail.models import (
     Page,
-    PageRevision,
+    Revision,
     TaskState,
     UserPagePermissionsProxy,
     WorkflowState,
+    get_default_page_content_type,
 )
 
 User = get_user_model()
@@ -53,7 +54,7 @@ class PagesForModerationPanel(Component):
         user_perms = UserPagePermissionsProxy(request.user)
         context["page_revisions_for_moderation"] = (
             user_perms.revisions_for_moderation()
-            .select_related("page", "user")
+            .select_related("user")
             .order_by("-created_at")
         )
         context["request"] = request
@@ -102,7 +103,6 @@ class WorkflowPagesToModeratePanel(Component):
                 .select_related(
                     "page_revision",
                     "task",
-                    "page_revision__page",
                     "page_revision__user",
                 )
                 .order_by("-started_at")
@@ -111,7 +111,7 @@ class WorkflowPagesToModeratePanel(Component):
                 (
                     state,
                     state.task.specific.get_actions(
-                        page=state.page_revision.page, user=request.user
+                        page=state.page_revision.content_object, user=request.user
                     ),
                     state.workflow_state.all_tasks_with_status(),
                 )
@@ -162,35 +162,37 @@ class RecentEditsPanel(Component):
         if connection.vendor == "mysql":
             # MySQL can't handle the subselect created by the ORM version -
             # it fails with "This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'"
-            last_edits = PageRevision.objects.raw(
+            last_edits = Revision.objects.raw(
                 """
-                SELECT wp.* FROM
-                    wagtailcore_pagerevision wp JOIN (
-                        SELECT max(created_at) AS max_created_at, page_id FROM
-                            wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
-                    ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
+                SELECT wr.* FROM
+                    wagtailcore_revision wr JOIN (
+                        SELECT max(created_at) AS max_created_at, object_id FROM
+                            wagtailcore_revision WHERE user_id = %s AND base_content_type_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
+                    ) AS max_rev ON max_rev.max_created_at = wr.created_at ORDER BY wr.created_at DESC
                  """,
                 [
                     User._meta.pk.get_db_prep_value(request.user.pk, connection),
+                    get_default_page_content_type().id,
                     edit_count,
                 ],
             )
         else:
             last_edits_dates = (
-                PageRevision.objects.filter(user=request.user)
-                .values("page_id")
+                Revision.page_revisions.filter(user=request.user)
+                .values("object_id")
                 .annotate(latest_date=Max("created_at"))
                 .order_by("-latest_date")
                 .values("latest_date")[:edit_count]
             )
-            last_edits = PageRevision.objects.filter(
+            last_edits = Revision.page_revisions.filter(
                 created_at__in=last_edits_dates
             ).order_by("-created_at")
 
-        page_keys = [pr.page_id for pr in last_edits]
+        # The revision's object_id is a string, so cast it to int first.
+        page_keys = [int(pr.object_id) for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
         context["last_edits"] = [
-            [revision, pages.get(revision.page_id)] for revision in last_edits
+            [revision, pages.get(int(revision.object_id))] for revision in last_edits
         ]
         context["request"] = request
         return context

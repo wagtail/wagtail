@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import dateparse, timezone
 
-from wagtail.models import Page, PageRevision
+from wagtail.models import Page, Revision
 
 
 def revision_date_expired(r):
@@ -58,7 +58,7 @@ class Command(BaseCommand):
         # 2. get all page revisions for moderation that have been expired
         expired_revs = [
             r
-            for r in PageRevision.objects.filter(submitted_for_moderation=True)
+            for r in Revision.page_revisions.filter(submitted_for_moderation=True)
             if revision_date_expired(r)
         ]
         if dryrun:
@@ -88,7 +88,7 @@ class Command(BaseCommand):
                 er.save()
 
         # 3. get all revisions that need to be published
-        revs_for_publishing = PageRevision.objects.filter(
+        revs_for_publishing = Revision.page_revisions.filter(
             approved_go_live_at__lt=timezone.now()
         )
         if dryrun:

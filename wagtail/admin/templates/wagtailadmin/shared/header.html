@@ -14,13 +14,15 @@
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
 
 {% endcomment %}
-<header class="{% if merged %}merged{% endif %} {% if search_form %}hasform{% endif %}">
+<header class="header {% if merged %}merged{% endif %} {% if search_form %}hasform{% endif %}">
     {% block breadcrumb %}{% endblock %}
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1>{% if icon %}{% icon name=icon %}{% endif %}
-                    {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+                <h1 class="header__title">
+                    {% if icon %}{% icon name=icon %}{% endif %}
+                    {{ title }}{% if subtitle %} <span class="header__subtitle">{{ subtitle }}</span>{% endif %}
+                </h1>
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">

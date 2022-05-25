@@ -10,7 +10,13 @@ from django.views.generic import View
 from wagtail.admin import messages
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.models import Page, Task, TaskState, WorkflowState
+from wagtail.models import (
+    Page,
+    Task,
+    TaskState,
+    WorkflowState,
+    get_default_page_content_type,
+)
 
 
 class BaseWorkflowFormView(View):
@@ -235,7 +241,10 @@ def preview_revision_for_task(request, page_id, task_id):
     task = get_object_or_404(Task, id=task_id).specific
     try:
         task_state = TaskState.objects.get(
-            page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS
+            page_revision__base_content_type=get_default_page_content_type(),
+            page_revision__object_id=page.id,
+            task=task,
+            status=TaskState.STATUS_IN_PROGRESS,
         )
     except TaskState.DoesNotExist:
         messages.error(
@@ -251,7 +260,7 @@ def preview_revision_for_task(request, page_id, task_id):
     if not task.get_actions(page, request.user):
         raise PermissionDenied
 
-    page_to_view = revision.as_page_object()
+    page_to_view = revision.as_object()
 
     # TODO: provide workflow actions within this view
 

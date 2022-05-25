@@ -18,25 +18,25 @@
                 </thead>
                 <tbody>
                     {% for revision in page_revisions_for_moderation %}
-                        {% page_permissions revision.page as page_perms %}
+                        {% page_permissions revision.content_object as page_perms %}
                         <tr>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     {% if page_perms.can_edit %}
-                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.specific_deferred.get_admin_display_title }}</a>
-                                    {% elif revision.page.is_previewable %}
-                                        <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.page.specific_deferred.get_admin_display_title }}</a>
+                                        <a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" title="{% trans 'Edit this page' %}">{{ revision.content_object.specific_deferred.get_admin_display_title }}</a>
+                                    {% elif revision.content_object.is_previewable %}
+                                        <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.content_object.specific_deferred.get_admin_display_title }}</a>
                                     {% else %}
-                                        {{ revision.page.specific_deferred.get_admin_display_title }}
+                                        {{ revision.content_object.specific_deferred.get_admin_display_title }}
                                     {% endif %}
 
                                     {% i18n_enabled as show_locale_labels %}
-                                    {% if show_locale_labels and revision.page.locale_id %}
-                                        {% locale_label_from_id revision.page.locale_id as locale_label %}
+                                    {% if show_locale_labels and revision.content_object.locale_id %}
+                                        {% locale_label_from_id revision.content_object.locale_id as locale_label %}
                                         <span class="status-tag status-tag--label">{{ locale_label }}</span>
                                     {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.content_object %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.content_object %}
                                 </div>
                                 <ul class="actions">
                                     <li>
@@ -52,18 +52,18 @@
                                         </form>
                                     </li>
                                     {% if page_perms.can_edit %}
-                                        <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                        <li><a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
                                     {% endif %}
-                                    {% if revision.page.is_previewable %}
+                                    {% if revision.content_object.is_previewable %}
                                         <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>
                                     {% endif %}
                                 </ul>
                             </td>
                             <td valign="top">
-                                <a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.specific_deferred.get_admin_display_title }}</a>
+                                <a href="{% url 'wagtailadmin_explore' revision.content_object.get_parent.id %}">{{ revision.content_object.get_parent.specific_deferred.get_admin_display_title }}</a>
                             </td>
                             <td class="type" valign="top">
-                                {{ revision.page.content_type.model_class.get_verbose_name }}
+                                {{ revision.content_object.content_type.model_class.get_verbose_name }}
                             </td>
                             <td valign="top">
                                 <div class="human-readable-date" title="{{ revision.created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=revision.created_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>

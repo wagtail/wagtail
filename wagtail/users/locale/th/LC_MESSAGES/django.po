@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -159,12 +159,6 @@ msgstr "หน้า"
 msgid "Add a page permission"
 msgstr "เพิ่มการขออนุญาตของหน้า"
 
-msgid "groups"
-msgstr "หลายๆกลุ่ม"
-
-msgid "Add a group"
-msgstr "เพิ่มกลุ่ม"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "ขออภัย,ไม่มีกลุ่มที่ตรงกัน \"%(query)s\""
@@ -229,6 +223,9 @@ msgstr "ขออภัย,ไม่มีผู้ใช้ที่ตรง�
 
 msgid "Groups"
 msgstr "หลายกลุ่ม"
+
+msgid "Add a group"
+msgstr "เพิ่มกลุ่ม"
 
 msgid "Search groups"
 msgstr "ค้นหากลุ่ม"

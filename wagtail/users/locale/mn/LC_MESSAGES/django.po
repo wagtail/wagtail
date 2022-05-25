@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -161,12 +161,6 @@ msgstr "Хуудас"
 msgid "Add a page permission"
 msgstr "Хуудсын эрх нэмэх"
 
-msgid "groups"
-msgstr "бүлгүүд"
-
-msgid "Add a group"
-msgstr "Бүлэг нэмэх"
-
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
 msgstr "Уучлаарай, \"%(query)s\" хайлтаар бүлэг олдсонгүй"
@@ -231,6 +225,9 @@ msgstr "Уучлаарай \"<em>%(query_string)s</em>\" хайлтаар хэр
 
 msgid "Groups"
 msgstr "Бүлгүүд"
+
+msgid "Add a group"
+msgstr "Бүлэг нэмэх"
 
 msgid "Search groups"
 msgstr "Бүлэг хайх"

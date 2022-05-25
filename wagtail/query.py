@@ -456,13 +456,13 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         Annotates each page with the existence of an approved go live time.
         Used by `approved_schedule` property on `wagtailcore.models.Page`.
         """
-        from .models import PageRevision
+        from .models import Revision
 
         return self.annotate(
             _approved_schedule=Exists(
-                PageRevision.objects.exclude(approved_go_live_at__isnull=True).filter(
-                    page__pk=OuterRef("pk")
-                )
+                Revision.page_revisions.exclude(
+                    approved_go_live_at__isnull=True
+                ).filter(object_id=OuterRef("pk"))
             )
         )
 

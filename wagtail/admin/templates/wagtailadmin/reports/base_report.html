@@ -4,13 +4,13 @@
 {% block titletag %}{{ title }}{% endblock %}
 
 {% block content %}
-    <header role="banner">
+    <header class="header" role="banner">
         <div class="row">
             <div class="left">
                 <div class="col">
-                    <h1>
+                    <h1 class="header__title">
                         {% if header_icon %}{% icon name=header_icon %}{% endif %}
-                        {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}
+                        {{ title }}{% if subtitle %} <span class="header__subtitle">{{ subtitle }}</span>{% endif %}
                     </h1>
                 </div>
             </div>

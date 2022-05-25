@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 19:17+0100\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -177,6 +177,12 @@ msgstr "Bild"
 msgid "images"
 msgstr "Bilder"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Schlagwörter zu 1 Bild hinzufügen"
+msgstr[1] "Schlagwörter zu %(counter)s Bildern hinzufügen"
+
 msgid "Add tags to images"
 msgstr "Schlagwörter zu Bildern hinzufügen"
 
@@ -199,6 +205,12 @@ msgstr "Ja, hinzufügen"
 
 msgid "No, don't add"
 msgstr "Nein, nicht hinzufügen"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "1 Bild zur neuen Sammlung hinzufügen"
+msgstr[1] "%(counter)s Bilder zur neuen Sammlung hinzufügen"
 
 msgid "Add images to collection"
 msgstr "Der Sammlung hinzufügen"
@@ -264,11 +276,30 @@ msgstr "Hochladen"
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Upload erfolgreich. Jedoch dürfte das neue Bild ein Duplikat eines bereits "
+"vorhandenen Bildes sein. Sie können es löschen, wenn Sie es nicht benötigen."
+
 msgid "Existing"
 msgstr "Vorhanden"
 
 msgid "New"
 msgstr "Neu"
+
+msgid "Use new image"
+msgstr "Neues Bild verwenden"
+
+msgid "Use existing and delete new"
+msgstr "Vorhandenes verwenden und neues löschen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
 
 msgid "Latest images"
 msgstr "Neueste Bilder"
@@ -281,6 +312,20 @@ msgstr "Bild einfügen"
 
 msgid "Uploading…"
 msgstr "Wird hochgeladen…"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Bild <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Bilder <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Bild-Datei ändern: "
@@ -296,6 +341,12 @@ msgstr "Speichern"
 
 msgid "Delete image"
 msgstr "Bild löschen"
+
+msgid "Keep new image"
+msgstr "Neues Bild behalten"
+
+msgid "Delete new image"
+msgstr "Neues Bild löschen"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -438,6 +489,13 @@ msgid ""
 msgstr ""
 "Upload erfolgreich. Bitte geben Sie diesem Bild einen passenden Titel. Sie "
 "können das Bild auch entfernen, wenn der Upload nicht notwendig war."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Upload erfolgreich. Jedoch dürfte das neue Bild ein Duplikat dieses bereits "
+"vorhandenen Bildes sein. Sie können es löschen, wenn Sie es nicht benötigen."
 
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
