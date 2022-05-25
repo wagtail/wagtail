@@ -341,6 +341,7 @@ class RevisionMixin(models.Model):
             user=user,
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
+            object_str=str(self),
         )
 
         self.latest_revision = revision
@@ -1109,6 +1110,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             user=user,
             approved_go_live_at=approved_go_live_at,
             content=self.serializable_data(),
+            object_str=str(self),
         )
 
         for comment in new_comments:
@@ -2417,6 +2419,7 @@ class Revision(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    object_str = models.TextField(default="")
     content = models.JSONField(
         verbose_name=_("content JSON"), encoder=DjangoJSONEncoder
     )
