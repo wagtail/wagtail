@@ -29,12 +29,12 @@ from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
-INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 25)
+INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
 class BaseListingView(TemplateView):
-    ENTRIES_PER_PAGE_CHOICES = sorted({10, 25, 50, 100, INDEX_PAGE_SIZE})
+    ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
     ORDERING_OPTIONS = {
         "-created_at": _("Newest"),
         "created_at": _("Oldest"),

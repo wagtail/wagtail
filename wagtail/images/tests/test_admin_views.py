@@ -54,7 +54,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
-        for i in range(1, 55):
+        for i in range(1, 66):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -106,7 +106,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         )
 
     def test_default_entries_per_page(self):
-        for i in range(1, 30):
+        for i in range(1, 33):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -116,8 +116,8 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         object_list = response.context["images"].object_list
-        # The default number of images shown is 25
-        self.assertEqual(len(object_list), 25)
+        # The default number of images shown is 30
+        self.assertEqual(len(object_list), 30)
 
         response = self.get({"entries_per_page": 10})
         self.assertEqual(response.status_code, 200)
@@ -126,13 +126,13 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(len(object_list), 10)
 
     def test_default_entries_per_page_uses_default(self):
-        for i in range(1, 30):
+        for i in range(1, 33):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
             )
 
-        default_num_entries_per_page = 25
+        default_num_entries_per_page = 30
         invalid_num_entries_values = [66, "a"]
         for value in invalid_num_entries_values:
             response = self.get({"entries_per_page": value})
@@ -228,7 +228,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["images"].paginator.count, 1)
 
     def test_tag_filtering_preserves_other_params(self):
-        for i in range(1, 110):
+        for i in range(1, 130):
             image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -244,7 +244,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # prev link should exist and include tag
         self.assertTrue(
-            "?p=2&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
+            "?p=1&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
         )
         # next link should exist and include tag
         self.assertTrue(
