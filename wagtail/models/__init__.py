@@ -44,7 +44,11 @@ from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
-from modelcluster.models import ClusterableModel
+from modelcluster.models import (
+    ClusterableModel,
+    get_serializable_data_for_fields,
+    model_from_serializable_data,
+)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
@@ -206,7 +210,161 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-class AbstractPage(TranslatableMixin, TreebeardPathFixMixin, MP_Node):
+class RevisionMixin:
+    """A mixin that allows a model to have revisions."""
+
+    @property
+    def revisions(self):
+        """
+        Returns revisions that belong to this object.
+
+        Subclasses should define a GenericRelation to Revision and override
+        this property to return that GenericRelation. This allows subclasses
+        to customise the `related_query_name` of the GenericRelation and add
+        some custom logic (e.g. to always use the specific instance in Page).
+        """
+        return Revision.objects.filter(
+            content_type=self.get_content_type(),
+            object_id=self.pk,
+        )
+
+    def get_base_content_type(self):
+        parents = self._meta.get_parent_list()
+        # Get the last non-abstract parent in the MRO as the base_content_type.
+        # Note: for_concrete_model=False means that the model can be a proxy model.
+        if parents:
+            return ContentType.objects.get_for_model(
+                parents[-1], for_concrete_model=False
+            )
+        # This model doesn't inherit from a non-abstract model,
+        # use it as the base_content_type.
+        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+
+    def get_content_type(self):
+        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+
+    def get_latest_revision(self):
+        return self.revisions.order_by("-created_at", "-id").first()
+
+    def get_latest_revision_as_object(self):
+        latest_revision = self.get_latest_revision()
+        if latest_revision:
+            return latest_revision.as_object()
+        return self
+
+    def serializable_data(self):
+        try:
+            return super().serializable_data()
+        except AttributeError:
+            return get_serializable_data_for_fields(self)
+
+    @classmethod
+    def from_serializable_data(cls, data, check_fks=True, strict_fks=False):
+        try:
+            return super().from_serializable_data(data, check_fks, strict_fks)
+        except AttributeError:
+            return model_from_serializable_data(
+                cls, data, check_fks=check_fks, strict_fks=strict_fks
+            )
+
+    def with_content_json(self, content):
+        """
+        Returns a new version of the object with field values updated to reflect changes
+        in the provided ``content`` (which usually comes from a previously-saved revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        object is saved, such as ``id``.
+
+        If ``TranslatableMixin`` is applied, the following field values are also preserved:
+
+        * ``translation_key``
+        * ``locale``
+        """
+        obj = self.from_serializable_data(content)
+
+        # This should definitely never change between revisions
+        obj.pk = self.pk
+
+        # Ensure other values that are meaningful for the object as a whole
+        # (rather than to a specific revision) are preserved
+
+        if isinstance(self, TranslatableMixin):
+            obj.translation_key = self.translation_key
+            obj.locale = self.locale
+
+        return obj
+
+    def save_revision(
+        self,
+        user=None,
+        submitted_for_moderation=False,
+        approved_go_live_at=None,
+        changed=True,
+        log_action=False,
+        previous_revision=None,
+        clean=True,
+    ):
+        """
+        Creates and saves a revision.
+        :param user: the user performing the action
+        :param submitted_for_moderation: indicates whether the object was submitted for moderation
+        :param approved_go_live_at: the date and time the revision is approved to go live
+        :param changed: indicates whether there were any content changes
+        :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
+            Defaults to 'wagtail.edit' when no 'previous_revision' param is passed, otherwise 'wagtail.revert'
+        :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
+        :param clean: Set this to False to skip cleaning object content before saving this revision
+        :return: the newly created revision
+        """
+        if clean:
+            self.full_clean()
+
+        revision = Revision.objects.create(
+            content_object=self,
+            base_content_type=self.get_base_content_type(),
+            submitted_for_moderation=submitted_for_moderation,
+            user=user,
+            approved_go_live_at=approved_go_live_at,
+            content=self.serializable_data(),
+        )
+
+        logger.info(
+            'Edited: "%s" pk=%d revision_id=%d', str(self), self.pk, revision.id
+        )
+        if log_action:
+            if not previous_revision:
+                log(
+                    instance=self,
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.edit",
+                    user=user,
+                    revision=revision,
+                    content_changed=changed,
+                )
+            else:
+                log(
+                    instance=self,
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.revert",
+                    user=user,
+                    data={
+                        "revision": {
+                            "id": previous_revision.id,
+                            "created": previous_revision.created_at.strftime(
+                                "%d %b %Y %H:%M"
+                            ),
+                        }
+                    },
+                    revision=revision,
+                    content_changed=changed,
+                )
+
+        return revision
+
+
+class AbstractPage(RevisionMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node):
     """
     Abstract superclass for Page. According to Django's inheritance rules, managers set on
     abstract models are inherited by subclasses, but managers set on concrete models that are extended
@@ -409,6 +567,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Always use the specific page instance when querying for revisions as
         # they are always saved with the specific content_type.
         return self.specific_deferred._revisions
+
+    def get_base_content_type(self):
+        # We want to always use the default Page model's ContentType as the
+        # base_content_type so that we can query for page revisions without
+        # having to know the specific Page type.
+        return get_default_page_content_type()
+
+    def get_content_type(self):
+        return self.content_type
 
     @classmethod
     def get_streamfield_names(cls):
@@ -891,18 +1058,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         previous_revision=None,
         clean=True,
     ):
-        """
-        Creates and saves a page revision.
-        :param user: the user performing the action
-        :param submitted_for_moderation: indicates whether the page was submitted for moderation
-        :param approved_go_live_at: the date and time the revision is approved to go live
-        :param changed: indicates whether there were any content changes
-        :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
-            Defaults to 'wagtail.edit' when no 'previous_revision' param is passed, otherwise 'wagtail.revert'
-        :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
-        :param clean: Set this to False to skip cleaning page content before saving this revision
-        :return: the newly created revision
-        """
         # Raise error if this is not the specific version of the page
         if not isinstance(self, self.specific_class):
             raise RuntimeError(
@@ -925,13 +1080,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # We need to ensure comments have an id in the revision, so positions can be identified correctly
             comment.save()
 
-        # Create revision
-        # We want to always use the default Page model's ContentType as the
-        # base_content_type so that we can query for page revisions without
-        # having to know the specific Page type.
         revision = Revision.objects.create(
             content_object=self,
-            base_content_type=get_default_page_content_type(),
+            base_content_type=self.get_base_content_type(),
             submitted_for_moderation=submitted_for_moderation,
             user=user,
             approved_go_live_at=approved_go_live_at,
@@ -941,13 +1092,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for comment in new_comments:
             comment.revision_created = revision
 
-        update_fields = [COMMENTS_RELATION_NAME]
-
         self.latest_revision_created_at = revision.created_at
-        update_fields.append("latest_revision_created_at")
-
         self.draft_title = self.title
-        update_fields.append("draft_title")
+
+        update_fields = [
+            COMMENTS_RELATION_NAME,
+            "latest_revision_created_at",
+            "draft_title",
+        ]
 
         if changed:
             self.has_unpublished_changes = True
@@ -1000,9 +1152,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
         return revision
-
-    def get_latest_revision(self):
-        return self.revisions.order_by("-created_at", "-id").first()
 
     def get_latest_revision_as_page(self):
         warnings.warn(
