@@ -42,6 +42,7 @@ Changelog
  * Fix: Show the re-ordering option to users that have permission to publish pages within the page listing (Stefan Hammer)
  * Fix: Ensure `TabbedInterface` will not show a tab if no panels are visible due to permissions (Paarth Agarwal)
  * Fix: Ensure default sidebar branding (bird logo) is not cropped in RTL mode (Steven Steinwand)
+ * Fix: Specific snippets list language picker was not properly styled (Sage Abdullah)
 
 
 3.0 (16.05.2022)
