@@ -1452,7 +1452,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         # Check that page edits made at the same time as the action have been saved
         page = Page.objects.get(id=self.page.id)
         self.assertEqual(
-            page.get_latest_revision_as_page().title,
+            page.get_latest_revision_as_object().title,
             "This title was edited while approving",
         )
 
