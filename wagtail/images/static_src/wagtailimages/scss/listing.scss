@@ -3,7 +3,7 @@
 
 @include media-breakpoint-up(sm) {
   .fields {
-    max-width: none;
+    max-width: 1000px;
 
     .field-col {
       padding-inline-start: 0;
@@ -15,7 +15,7 @@
         .field-content,
         label {
           width: auto;
-          max-width: 75%;
+          max-width: 85%;
           padding-top: 0;
         }
       }
@@ -36,6 +36,7 @@
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   align-items: flex-end;
   justify-items: center;
+  border: none;
 
   @include media-breakpoint-up(sm) {
     justify-items: initial;
@@ -43,5 +44,6 @@
 
   > li {
     width: auto;
+    border: none;
   }
 }
