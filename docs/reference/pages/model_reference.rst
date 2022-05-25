@@ -489,7 +489,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 ``Revision``
 ============
 
-Every time a page is edited a new ``Revision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
+Every time a page is edited, a new ``Revision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
 - Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
 - The content of the page is JSON-serialisable and stored in the :attr:`~Revision.content` field
@@ -565,17 +565,18 @@ Managers
 
     .. attribute:: objects
 
-        This manager is used to retrieve all of the ``Revision`` objects in the database.
+        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a :meth:`~wagtail.models.RevisionsManager.for_instance` method that lets you query for revisions of a specific object.
 
         Example:
 
         .. code-block:: python
 
             Revision.objects.all()
+            Revision.objects.for_instance(my_object)
 
     .. attribute:: page_revisions
 
-        This manager is used to retrieve all of the ``Revision`` objects that belong to pages.
+        This manager extends the default manager and is used to retrieve all of the ``Revision`` objects that belong to pages.
 
         Example:
 
@@ -589,7 +590,7 @@ Managers
 
     .. attribute:: submitted_revisions
 
-        This manager is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
+        This manager extends the default manager and is used to retrieve all of the ``Revision`` objects that are awaiting moderator approval.
 
         Example:
 
