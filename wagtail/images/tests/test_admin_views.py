@@ -105,6 +105,42 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             context["images"].object_list.query.order_by, (default_ordering,)
         )
 
+    def test_default_entries_per_page(self):
+        for i in range(1, 30):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        object_list = response.context["images"].object_list
+        # The default number of images shown is 25
+        self.assertEqual(len(object_list), 25)
+
+        response = self.get({"entries_per_page": 10})
+        self.assertEqual(response.status_code, 200)
+
+        object_list = response.context["images"].object_list
+        self.assertEqual(len(object_list), 10)
+
+    def test_default_entries_per_page_uses_default(self):
+        for i in range(1, 30):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        default_num_entries_per_page = 25
+        invalid_num_entries_values = [66, "a"]
+        for value in invalid_num_entries_values:
+            response = self.get({"entries_per_page": value})
+            self.assertEqual(response.status_code, 200)
+
+            object_list = response.context["images"].object_list
+            self.assertEqual(len(object_list), default_num_entries_per_page)
+
     def test_collection_order(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
