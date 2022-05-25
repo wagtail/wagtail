@@ -30,8 +30,7 @@
             <div class="left">
                 <div class="col">
                     <h1 class="header__title">
-                        {% icon name="snippet" %}
-                        {% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}
+                        {% icon name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
                     </h1>
                     {% if is_searchable and search_url %}
                         <form class="col search-form" action="{% url search_url %}" method="get" novalidate>

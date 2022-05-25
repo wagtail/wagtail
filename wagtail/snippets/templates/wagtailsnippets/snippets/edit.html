@@ -7,8 +7,7 @@
         {% include 'wagtailsnippets/snippets/headers/edit_header.html' %}
         {% include "wagtailadmin/shared/page_side_panels.html" %}
     </div>
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=object icon="snippet" merged=1 only %}
+    {% include "wagtailadmin/shared/header.html" with title=object icon="snippet" merged=1 only %}
 
     <div class="row row-flush">
 
