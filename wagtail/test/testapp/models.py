@@ -58,6 +58,7 @@ from wagtail.models import (
     Page,
     PageManager,
     PageQuerySet,
+    RevisionMixin,
     Task,
     TranslatableMixin,
 )
@@ -936,6 +937,19 @@ class AdvertWithTabbedInterface(models.Model):
 
 
 register_snippet(AdvertWithTabbedInterface)
+
+
+# Models with RevisionMixin
+class RevisableModel(RevisionMixin, models.Model):
+    text = models.TextField()
+
+
+class RevisableChildModel(RevisableModel):
+    pass
+
+
+class RevisableGrandChildModel(RevisableChildModel):
+    pass
 
 
 class StandardIndex(Page):
