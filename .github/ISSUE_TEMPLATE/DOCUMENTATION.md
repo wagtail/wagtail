@@ -1,17 +1,16 @@
 ---
-name: "📚 Documentation"
+name: '📚 Documentation'
 about: Suggest edits for the Wagtail documentation
 title: ''
 labels: 'Documentation'
 assignees: ''
-
 ---
 
 <!--
   Summarise the documentation change you’re suggesting in the Issue title.
 -->
 
-### Pertinent section of the Wagtail docs 
+### Pertinent section of the Wagtail docs
 
 <!--
   Copy the section link here.
