@@ -93,7 +93,6 @@ This is a powerful but complex feature which will take some space to cover, so w
 Note that you can use `classname="collapsible collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
 See {ref}`collapsible` for more details on `collapsible` usage.
 
-
 ### FieldRowPanel
 
 ```{eval-rst}
@@ -248,11 +247,9 @@ By adding CSS classes to your panel definitions or adding extra parameters to yo
 Use `classname="full"` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a
 [`MultiFieldPanel`](wagtail.admin.panels.MultiFieldPanel), which places its child fields into a formset.
 
-
 ### Titles
 
-Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
-
+Use `classname="title"` to make Page's built-in title field stand out with more vertical padding.
 
 (collapsible)=
 
@@ -264,7 +261,6 @@ Use `classname="collapsible collapsed"` will load the editor page with the panel
 
 You must define a `heading` when using `collapsible` with `MultiFieldPanel`.
 You must define a `heading` or `label` when using `collapsible` with `InlinePanel`.
-
 
 ```python
     content_panels = [
@@ -318,17 +314,17 @@ class Book(models.Model):
 
 ### Required Fields
 
-To make input or chooser selection mandatory for a field, add [`blank=False`](<django.db.models.Field.blank>) to its model definition.
+To make input or chooser selection mandatory for a field, add [`blank=False`](django.db.models.Field.blank) to its model definition.
 
 ### Hiding Fields
 
-Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](<django.db.models.Field.editable>).
+Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](django.db.models.Field.editable).
 
 (inline_panels)=
 
 ## Inline Panels and Model Clusters
 
-The `django-modelcluster` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called `ParentalKey`.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via `ParentalKey` can be created on-the-fly and saved to a draft revision of a `Page` object.
+The `django-modelcluster` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called `ParentalKey`. Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via `ParentalKey` can be created on-the-fly and saved to a draft revision of a `Page` object.
 
 Let's look at the example of adding related links to a [`Page`](wagtail.models.Page)-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 

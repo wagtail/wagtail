@@ -14,7 +14,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 
 ## Setting up the Wagtail codebase
 
-The preferred way to install the correct version of Node is to use [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) or [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied  `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `nvm install` or `fnm install` from the project root.
+The preferred way to install the correct version of Node is to use [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) or [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `nvm install` or `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
@@ -44,7 +44,7 @@ Compile the assets:
 $ npm run build
 ```
 
-Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail.  We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, you should install the site before running the `pip install -e` step, or re-run that step after the site is installed.
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, you should install the site before running the `pip install -e` step, or re-run that step after the site is installed.
 
 (testing)=
 
@@ -125,12 +125,12 @@ the tests against it.
 
 If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [DATABASES](https://docs.djangoproject.com/en/stable/ref/settings/#databases) settings dictionary:
 
-- `DATABASE_ENGINE`
-- `DATABASE_NAME`
-- `DATABASE_PASSWORD`
-- `DATABASE_HOST`
-    - Note that for MySQL, this must be `127.0.0.1` rather than `localhost` if you need to connect using a TCP socket
-- `DATABASE_PORT`
+-   `DATABASE_ENGINE`
+-   `DATABASE_NAME`
+-   `DATABASE_PASSWORD`
+-   `DATABASE_HOST`
+    -   Note that for MySQL, this must be `127.0.0.1` rather than `localhost` if you need to connect using a TCP socket
+-   `DATABASE_PORT`
 
 It is also possible to set `DATABASE_DRIVER`, which corresponds to the `driver` value within `OPTIONS` if an SQL Server engine is used.
 
@@ -198,10 +198,10 @@ We aim for Wagtail to work in those environments, there are known support gaps f
 
 IE 11 support has been officially dropped in 2.15 as it is gradually falling out of use. Features already known not to work include:
 
-- Rich text copy-paste in the rich text editor.
-- Sticky toolbar in the rich text editor.
-- Focus outline styles in the main menu & explorer menu.
-- Keyboard access to the actions in page listing tables.
+-   Rich text copy-paste in the rich text editor.
+-   Sticky toolbar in the rich text editor.
+-   Focus outline styles in the main menu & explorer menu.
+-   Keyboard access to the actions in page listing tables.
 
 **Unsupported browsers / devices include:**
 
@@ -215,26 +215,26 @@ IE 11 support has been officially dropped in 2.15 as it is gradually falling out
 
 We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is [WCAG2.1](https://www.w3.org/TR/WCAG21/), AA level. Here are specific assistive technologies we aim to test for, and ultimately support:
 
-- [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
-- [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
-- [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
-- Windows Speech Recognition and macOS Dictation
-- Mobile [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on iOS, or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
-- Windows [High-contrast mode](https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696)
+-   [NVDA](https://www.nvaccess.org/download/) on Windows with Firefox ESR
+-   [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on macOS with Safari
+-   [Windows Magnifier](https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier) and macOS Zoom
+-   Windows Speech Recognition and macOS Dictation
+-   Mobile [VoiceOver](https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web) on iOS, or [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en-GB) on Android
+-   Windows [High-contrast mode](https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696)
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialised training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
-- [react-axe](https://github.com/dequelabs/react-axe) integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
-- [@wordpress/jest-puppeteer-axe](https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe) running Axe checks as part of integration tests.
-- [Axe](https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension for more comprehensive automated tests of a given page.
-- [Accessibility Insights for Web](https://accessibilityinsights.io/docs/en/web/overview) Chrome extension for semi-automated tests, and manual audits.
+-   [react-axe](https://github.com/dequelabs/react-axe) integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
+-   [@wordpress/jest-puppeteer-axe](https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe) running Axe checks as part of integration tests.
+-   [Axe](https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension for more comprehensive automated tests of a given page.
+-   [Accessibility Insights for Web](https://accessibilityinsights.io/docs/en/web/overview) Chrome extension for semi-automated tests, and manual audits.
 
 ### Known accessibility issues
 
 Wagtail’s administration interface isn’t fully accessible at the moment. We actively work on fixing issues both as part of ongoing maintenance and bigger overhauls. To learn about known issues, check out:
 
-- The [WCAG2.1 AA for CMS admin](https://github.com/wagtail/wagtail/projects/5) issues backlog.
-- Our [2021 accessibility audit](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit).
+-   The [WCAG2.1 AA for CMS admin](https://github.com/wagtail/wagtail/projects/5) issues backlog.
+-   Our [2021 accessibility audit](https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit).
 
 The audit also states which parts of Wagtail have and haven’t been tested, how issues affect WCAG 2.1 compliance, and the likely impact on users.
 

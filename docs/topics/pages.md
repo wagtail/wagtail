@@ -344,8 +344,8 @@ Each inline model requires the following:
 The model inlining feature is provided by [django-modelcluster](https://github.com/torchbox/django-modelcluster) and the `ParentalKey` field type must be imported from there:
 
 ```python
-    from modelcluster.fields import ParentalKey
-````
+from modelcluster.fields import ParentalKey
+```
 
 `ParentalKey` is a subclass of Django's `ForeignKey`, and takes the same arguments.
 
@@ -368,7 +368,7 @@ class BlogPageRelatedLink(Orderable):
         FieldPanel('name'),
         FieldPanel('url'),
     ]
-````
+```
 
 To add this to the admin interface, use the {class}`~wagtail.admin.panels.InlinePanel` edit panel class:
 
