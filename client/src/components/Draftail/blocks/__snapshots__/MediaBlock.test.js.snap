@@ -20,6 +20,8 @@ exports[`MediaBlock no data, no fallback 1`] = `
   <img
     alt=""
     className="MediaBlock__img"
+    decoding="async"
+    loading="lazy"
     src=""
     width="256"
   />
@@ -49,6 +51,8 @@ exports[`MediaBlock no data, with fallback 1`] = `
   <img
     alt=""
     className="MediaBlock__img"
+    decoding="async"
+    loading="lazy"
     src=""
     width="256"
   />
@@ -100,6 +104,8 @@ exports[`MediaBlock renders 1`] = `
   <img
     alt=""
     className="MediaBlock__img"
+    decoding="async"
+    loading="lazy"
     src="example.png"
     width="256"
   />

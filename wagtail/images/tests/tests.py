@@ -211,7 +211,8 @@ class TestMissingImage(TestCase):
         response = self.client.get("/events/christmas/")
         self.assertContains(
             response,
-            '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">',
+            '<img src="/media/not-found" width="0" height="0" alt="A missing image" \
+            class="feed-image">',
             html=True,
         )
 

@@ -1,3 +1,5 @@
+from django.utils.html import format_html
+
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
@@ -52,7 +54,7 @@ class EmbedlyFinder(EmbedFinder):
 
         # Convert photos into HTML
         if oembed["type"] == "photo":
-            html = '<img src="%s" alt="">' % (oembed["url"],)
+            html = format_html('<img src="{}" alt="">', oembed["url"])
         else:
             html = oembed.get("html")
 

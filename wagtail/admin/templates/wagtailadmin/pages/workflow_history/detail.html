@@ -18,7 +18,7 @@
 
         <p>
             {% blocktrans trimmed with modified_by=workflow_state.requested_by|user_display_name %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
-            <span class="avatar small"><img src="{% avatar_url workflow_state.requested_by size=25 %}" alt="" /></span>
+            <span class="avatar small"><img src="{% avatar_url workflow_state.requested_by size=25 %}" alt="" decoding="async" loading="lazy"/></span>
         </p>
 
         <p>
