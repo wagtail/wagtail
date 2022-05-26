@@ -11,6 +11,7 @@ class WagtailImagesAppConfig(AppConfig):
     label = "wagtailimages"
     verbose_name = _("Wagtail images")
     default_auto_field = "django.db.models.AutoField"
+    default_attrs = {}
 
     def ready(self):
         register_signal_handlers()

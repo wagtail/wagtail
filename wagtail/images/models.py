@@ -7,6 +7,7 @@ from contextlib import contextmanager
 from io import BytesIO
 from typing import Union
 
+from django.apps import apps
 from django.conf import settings
 from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
@@ -826,7 +827,11 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
+
+        attrs.update(apps.get_app_config("wagtailimages").default_attrs)
+
         attrs.update(extra_attributes)
+
         return mark_safe("<img{}>".format(flatatt(attrs)))
 
     def __html__(self):

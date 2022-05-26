@@ -83,3 +83,9 @@ TEMPLATES = [{
 To support high volumes of traffic with excellent response times, we recommend a caching proxy. Both [Varnish](https://varnish-cache.org/) and [Squid](http://www.squid-cache.org/) have been tested in production. Hosted proxies like [Cloudflare](https://www.cloudflare.com/) should also work well.
 
 Wagtail supports automatic cache invalidation for Varnish/Squid. See [](frontend_cache_purging) for more information.
+
+### Image attributes
+
+For some images, it may be beneficial to lazy load images, so the rest of the page can continue to load. It can be configured site-wide [](adding_default_attributes_to_images) or per-image [](image_tag_alt). For more details you can read about the [`loading='lazy'` attribute](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading#images_and_iframes) and the [`'decoding='async'` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-decoding) or this [web.dev article on lazy loading images](https://web.dev/lazy-loading-images/).
+
+This optimisation is already handled for you for images in the admin site.
