@@ -154,7 +154,7 @@ changes). You must run the above commands each time you make changes to
 the model definition.
 
 You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish
-the page by selecting *Publish* at the bottom of the page editor, rather than *Save Draft*.
+the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
 
 The page template now needs to be updated to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
@@ -201,9 +201,7 @@ of a `RichTextField`:
 Produces:
 
 ```html
-<p>
-    <b>Welcome</b> to our new site!
-</p>
+<p><b>Welcome</b> to our new site!</p>
 ```
 
 **Note:** You'll need to include `{% load wagtailcore_tags %}` in each
@@ -419,8 +417,8 @@ For more information, see: [Page QuerySet reference](../reference/pages/queryset
 
 There are a couple of problems with our blog index view:
 
-1)  Blogs generally display content in *reverse* chronological order
-2)  We want to make sure we're only displaying *published* content.
+1.  Blogs generally display content in _reverse_ chronological order
+2.  We want to make sure we're only displaying _published_ content.
 
 To accomplish these things, we need to do more than just grab the index
 page's children in the template. Instead, we'll want to modify the

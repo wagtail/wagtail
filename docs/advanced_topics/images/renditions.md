@@ -46,7 +46,7 @@ The `prefetch_renditions` method is only applicable in Wagtail versions 4.0 and 
 
 ### Image QuerySets
 
-When working with an Image QuerySet, you can make use of Wagtail's built-in ``prefetch_renditions`` queryset method to prefetch the renditions needed.
+When working with an Image QuerySet, you can make use of Wagtail's built-in `prefetch_renditions` queryset method to prefetch the renditions needed.
 
 For example, say you were rendering a list of all the images uploaded by a certain user:
 
@@ -64,7 +64,7 @@ def get_images_uploaded_by_user(user)::
 
 The above will prefetch all renditions even if we may not need them.
 
-If images in your project tend to have very large numbers of renditions, and you know in advance the ones you need, you might want to consider specifying a set of filters to the ``prefetch_renditions`` method and only select the renditions you need for rendering. For example:
+If images in your project tend to have very large numbers of renditions, and you know in advance the ones you need, you might want to consider specifying a set of filters to the `prefetch_renditions` method and only select the renditions you need for rendering. For example:
 
 ```python
 def get_images_uploaded_by_user(user):
@@ -92,7 +92,6 @@ def get_events():
     return EventPage.objects.live().select_related("listing_image").prefetch_related("listing_image__renditions")
 ```
 
-
 If you know in advance the renditions you'll need, you can filter the renditions queryset to use:
 
 ```python
@@ -103,7 +102,7 @@ from wagtail.images import get_image_model
 def get_events():
     Image = get_image_model()
     filters = ["fill-300x186", "fill-600x400", "fill-940x680"]
-    
+
     # `Prefetch` is used to fetch only the required renditions
     prefetch_images_and_renditions = Prefetch(
         "listing_image",

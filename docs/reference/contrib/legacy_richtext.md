@@ -1,11 +1,12 @@
 # Legacy richtext
 
 ```{module} wagtail.contrib.legacy.richtext
+
 ```
 
 Provides the legacy richtext wrapper.
 
-Place `wagtail.contrib.legacy.richtext` before `wagtail` in  `INSTALLED_APPS`.
+Place `wagtail.contrib.legacy.richtext` before `wagtail` in `INSTALLED_APPS`.
 
 ```python
 INSTALLED_APPS = [

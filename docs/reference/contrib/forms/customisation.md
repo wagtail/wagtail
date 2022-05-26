@@ -764,12 +764,12 @@ class FormPage(AbstractEmailForm):
 
 ## Custom `clean_name` generation
 
-* Each time a new `FormField` is added a `clean_name` also gets generated based on the user entered `label`.
-* `AbstractFormField` has a method `get_field_clean_name` to convert the label into a HTML valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
-* The resolved `clean_name` is also used as the form field name in rendered HTML forms.
-* Ensure that any conversion will be unique enough to not create conflicts within your `FormPage` instance.
-* This method gets called on creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
-* This method gets called for form previews and also validation of duplicate labels.
+-   Each time a new `FormField` is added a `clean_name` also gets generated based on the user entered `label`.
+-   `AbstractFormField` has a method `get_field_clean_name` to convert the label into a HTML valid `lower_snake_case` ASCII string using the [AnyAscii](https://pypi.org/project/anyascii/) library which can be overridden to generate a custom conversion.
+-   The resolved `clean_name` is also used as the form field name in rendered HTML forms.
+-   Ensure that any conversion will be unique enough to not create conflicts within your `FormPage` instance.
+-   This method gets called on creation of new fields only and as such will not have access to its own `Page` or `pk`. This does not get called when labels are edited as modifying the `clean_name` after any form responses are submitted will mean those field responses will not be retrieved.
+-   This method gets called for form previews and also validation of duplicate labels.
 
 ```python
     import uuid
@@ -793,4 +793,3 @@ class FormPage(AbstractEmailForm):
     class FormPage(AbstractEmailForm):
         # ... page definitions
 ```
-
