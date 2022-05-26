@@ -161,7 +161,7 @@ Wagtail does not allow deforming or stretching images. Image dimension ratios wi
 
 Wagtail provides two shortcuts to give greater control over the `img` element:
 
-**1. Adding attributes to the {% image %} tag**
+### 1. Adding attributes to the {% image %} tag
 
 Extra attributes can be specified with the syntax `attribute="value"`:
 
@@ -171,7 +171,9 @@ Extra attributes can be specified with the syntax `attribute="value"`:
 
 You can set a more relevant `alt` attribute this way, overriding the one automatically generated from the title of the image. The `src`, `width`, and `height` attributes can also be overridden, if necessary.
 
-**2. Generating the image "as foo" to access individual properties**
+You can also add default attributes to all images (a default class or data attribute for example) - see [](adding_default_attributes_to_images).
+
+### 2. Generating the image "as foo" to access individual properties
 
 Wagtail can assign the image data to another variable using Django's `as` syntax:
 
@@ -227,6 +229,35 @@ If your site defines a custom image model using `AbstractImage`, any additional 
 Therefore, if you'd added the field `author` to your AbstractImage in the above example, you'd access it using `{{ page.photo.author }}` rather than `{{ tmp_photo.author }}`.
 
 (Due to the links in the database between renditions and their parent image, you _could_ access it as `{{ tmp_photo.image.author }}`, but that has reduced readability.)
+
+(adding_default_attributes_to_images)=
+
+## Adding default attributes to all images
+
+We can configure the `wagtail.images` application to specify additional attributes to add to images. This is done by setting up a custom `AppConfig` class within your project folder (i.e. the package containing the top-level settings and urls modules).
+
+To do this, create or update your existing `apps.py` file with the following:
+
+```python
+from wagtail.images.apps import WagtailImagesAppConfig
+
+
+class CustomImagesAppConfig(WagtailImagesAppConfig):
+    default_attrs = {"decoding": "async", "loading": "lazy"}
+```
+
+Then, replace `wagtail.images` in `settings.INSTALLED_APPS` with the path to `CustomUsersAppConfig`:
+
+```python
+INSTALLED_APPS = [
+    ...,
+    "myapplication.apps.CustomImagesAppConfig",
+    # "wagtail.images",
+    ...,
+]
+```
+
+Now, images created with `{% image %}` will additionally have `decoding="async" loading="lazy"` attributes. This also goes for images added to Rich Text and `ImageBlock` blocks.
 
 ## Alternative HTML tags
 

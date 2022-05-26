@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*
 import os
+import unittest.mock
 
+from django.apps import apps
 from django.conf import settings
 from django.core import serializers
 from django.test import TestCase
@@ -54,6 +56,19 @@ class TestImageChooserBlock(TestCase):
         )
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_render_with_custom_default_attrs(self):
+        block = ImageChooserBlock()
+        with unittest.mock.patch.object(
+            apps.get_app_config("wagtailimages"),
+            "default_attrs",
+            new={"decoding": "async", "loading": "lazy"},
+        ):
+            html = block.render(self.bad_image)
+        self.assertHTMLEqual(
+            html,
+            '<img alt="missing image" src="/media/not-found" width="0" height="0" decoding="async" loading="lazy">',
+        )
 
     def test_render_missing(self):
         block = ImageChooserBlock()
