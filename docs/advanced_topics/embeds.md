@@ -19,7 +19,7 @@ You can use any of the following methods to call the module:
 
 Wagtail's default rich text editor has a "media" icon that allows embeds to be
 placed into rich text. You don't have to do anything to enable this; just make
-sure the rich text field's content is being passed through the ``|richtext``
+sure the rich text field's content is being passed through the `|richtext`
 filter in the template as this is what calls the embeds module to fetch and
 nest the embed code.
 
@@ -182,7 +182,6 @@ perform the request.
 Wagtail will not try to run any other finder, even if the chosen one didn't
 return an embed.
 
-
 (facebook_and_instagram_embeds)=
 
 ### Facebook and Instagram
@@ -234,7 +233,6 @@ example, if you have multiple Facebook embeds, this would result in multiple scr
 By passing `'omitscript': True` in the configuration, you can indicate that these script
 tags should be omitted from the embed HTML. Note that you will then have to take care of
 loading this script yourself.
-
 
 (Embedly)=
 
