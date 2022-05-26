@@ -46,6 +46,8 @@ exports[`Menu should render with the minimum required props 1`] = `
         >
           <img
             alt=""
+            decoding="async"
+            loading="lazy"
             src="https://gravatar/profile"
           />
         </div>

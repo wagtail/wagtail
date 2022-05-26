@@ -41,6 +41,8 @@ class ThumbnailMixin:
             "src": self.thumb_default,
             "width": self.thumb_image_width,
             "class": self.thumb_classname,
+            "decoding": "async",
+            "loading": "lazy",
         }
         if not image:
             if self.thumb_default:

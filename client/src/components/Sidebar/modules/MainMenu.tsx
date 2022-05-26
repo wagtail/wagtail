@@ -239,7 +239,12 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             type="button"
           >
             <div className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]">
-              <img src={user.avatarUrl} alt="" />
+              <img
+                src={user.avatarUrl}
+                alt=""
+                decoding="async"
+                loading="lazy"
+              />
             </div>
             <div className="sidebar-footer__account-toggle">
               <div className="sidebar-footer__account-label w-label-3">

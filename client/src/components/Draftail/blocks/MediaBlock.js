@@ -117,7 +117,14 @@ class MediaBlock extends Component {
         <span className="MediaBlock__icon-wrapper" aria-hidden>
           <Icon icon={entityType.icon} className="MediaBlock__icon" />
         </span>
-        <img className="MediaBlock__img" src={src} alt={alt} width="256" />
+        <img
+          className="MediaBlock__img"
+          src={src}
+          alt={alt}
+          width="256"
+          decoding="async"
+          loading="lazy"
+        />
 
         {src ? null : (
           <span className="MediaBlock__fallback">{fallbackText}</span>
