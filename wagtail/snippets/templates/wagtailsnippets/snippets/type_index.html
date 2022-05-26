@@ -70,7 +70,7 @@
         <div id="snippet-results" class="snippets">
             {% include "wagtailsnippets/snippets/results.html" %}
         </div>
-        {% trans "Select all pages in listing" as select_all_text %}
+        {% trans "Select all snippets in listing" as select_all_text %}
         {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=items %}
     </div>
 {% endblock %}

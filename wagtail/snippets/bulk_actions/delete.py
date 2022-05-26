@@ -1,5 +1,6 @@
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.permissions import get_permission_name
@@ -30,11 +31,16 @@ class DeleteBulkAction(SnippetBulkAction):
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if num_parent_objects == 1:
-            success_message = _(
-                f"1 {capfirst(self.model._meta.verbose_name)} snippet has been deleted"
-            )
+            return _("%(snippet_type)s '%(instance)s' deleted.") % {
+                "snippet_type": capfirst(self.model._meta.verbose_name),
+                "instance": self.actionable_objects[0],
+            }
         else:
-            success_message = _(
-                f"{num_parent_objects} {capfirst(self.model._meta.verbose_name)} snippets have been deleted"
-            )
-        return success_message
+            return ngettext(
+                "%(count)d %(snippet_type)s deleted.",
+                "%(count)d %(snippet_type)s deleted.",
+                num_parent_objects,
+            ) % {
+                "snippet_type": capfirst(self.model._meta.verbose_name_plural),
+                "count": num_parent_objects,
+            }
