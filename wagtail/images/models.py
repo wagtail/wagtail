@@ -59,7 +59,24 @@ class SourceImageIOError(IOError):
 
 
 class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
-    pass
+    def prefetch_renditions(self, *filters):
+        """
+        Prefetches generated renditions for the given filters.
+        """
+        # Get a list of filter spec strings. The given value could contain Filter objects
+        filter_specs = [
+            filter.spec if isinstance(filter, Filter) else filter for filter in filters
+        ]
+
+        rendition_model = self.model.get_rendition_model()
+
+        return self.prefetch_related(
+            models.Prefetch(
+                "renditions",
+                queryset=rendition_model.objects.filter(filter_spec__in=filter_specs),
+                to_attr="prefetched_renditions",
+            )
+        )
 
 
 def get_upload_to(instance, filename):
@@ -354,6 +371,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 self._prefetched_objects_cache["renditions"]._result_cache.append(
                     rendition
                 )
+            elif hasattr(self, "prefetched_renditions"):
+                self.prefetched_renditions.append(rendition)
 
         try:
             cache = caches["renditions"]
@@ -384,7 +403,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         # Interrogate prefetched values first (if available)
         if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
-            for rendition in self.renditions.all():
+            prefetched_renditions = self.renditions.all()
+        else:
+            prefetched_renditions = getattr(self, "prefetched_renditions", None)
+
+        if prefetched_renditions is not None:
+            for rendition in prefetched_renditions:
                 if (
                     rendition.filter_spec == filter.spec
                     and rendition.focal_point_key == cache_key
