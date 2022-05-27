@@ -48,6 +48,7 @@ class BaseListingView(TemplateView):
             )
             .order_by("-created_at")
             .select_related("collection")
+            .prefetch_renditions("max-165x165")
         )
 
         # Search
