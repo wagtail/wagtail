@@ -286,6 +286,18 @@ class TestRenditions(TestCase):
         # The renditions should match
         self.assertEqual(original_rendition, second_rendition)
 
+    def test_prefetch_renditions_found(self):
+        # Same test as above but uses the `prefetch_renditions` method on the manager instead.
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        image = Image.objects.prefetch_renditions("width-100").get(pk=self.image.pk)
+
+        with self.assertNumQueries(0):
+            second_rendition = image.get_rendition("width-100")
+
+        self.assertEqual(original_rendition, second_rendition)
+
     def test_prefetched_rendition_not_found(self):
         # Request a rendition that does not exist yet
         with self.assertNumQueries(5):
@@ -312,6 +324,23 @@ class TestRenditions(TestCase):
 
         # The second and third renditions should be references to the
         # exact same in-memory object
+        self.assertIs(second_rendition, third_rendition)
+
+    def test_prefetch_renditions_not_found(self):
+        # Same test as above but uses the `prefetch_renditions` method on the manager instead.
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        image = Image.objects.prefetch_renditions("width-100").get(pk=self.image.pk)
+
+        with self.assertNumQueries(4):
+            second_rendition = image.get_rendition("height-66")
+
+        self.assertNotEqual(original_rendition, second_rendition)
+
+        with self.assertNumQueries(0):
+            third_rendition = image.get_rendition("height-66")
+
         self.assertIs(second_rendition, third_rendition)
 
     def test_alt_attribute(self):
