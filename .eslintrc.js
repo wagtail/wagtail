@@ -148,7 +148,6 @@ module.exports = {
     // Files that use jquery via a global
     {
       files: [
-        'docs/_static/**',
         'wagtail/contrib/modeladmin/static_src/wagtailmodeladmin/js/prepopulate.js',
         'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
         'wagtail/documents/static_src/wagtaildocs/js/add-multiple.js',

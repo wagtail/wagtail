@@ -23,8 +23,9 @@ body.body--autocomplete-open .sidebar-container .collapse {
   z-index: 1021;
 }
 
-/* Wagtail Space */
-.wagtailspace {
+/* Promotion banner */
+
+.promotion-banner {
   background: #00676a;
   color: white;
   border-radius: 6px;
@@ -34,12 +35,12 @@ body.body--autocomplete-open .sidebar-container .collapse {
   align-items: flex-start;
 }
 
-.wagtailspace svg {
+.promotion-banner svg {
   margin-right: 1em;
   width: 56px;
 }
 
-.wagtailspace a {
+.promotion-banner a {
   display: flex;
   color: inherit;
   padding: 15px;
@@ -49,11 +50,11 @@ body.body--autocomplete-open .sidebar-container .collapse {
   text-decoration: none;
 }
 
-.wagtailspace strong {
+.promotion-banner strong {
   font-size: 1.25em;
 }
 
-.wagtailspace .wagtailspace-close {
+.promotion-banner .close {
   padding: 10px;
   width: 56px;
   cursor: pointer;
@@ -75,7 +76,7 @@ body.body--autocomplete-open .sidebar-container .collapse {
   }
 }
 
-.wagtailspace a:hover svg {
+.promotion-banner a:hover svg {
   animation-duration: 0.5s;
   animation-fill-mode: both;
   animation-timing-function: linear;
