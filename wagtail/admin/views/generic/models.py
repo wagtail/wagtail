@@ -75,6 +75,8 @@ class IndexView(
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
+        if not hasattr(self, "columns"):
+            self.columns = self.get_columns()
         self.setup_search()
 
     def setup_search(self):
@@ -115,12 +117,6 @@ class IndexView(
             placeholder=_("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
         )
-
-    def get(self, request, *args, **kwargs):
-        if not hasattr(self, "columns"):
-            self.columns = self.get_columns()
-
-        return super().get(request, *args, **kwargs)
 
     def get_columns(self):
         try:
