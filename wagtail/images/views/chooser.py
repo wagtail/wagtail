@@ -47,9 +47,14 @@ class BaseChooseView(View):
     def get(self, request):
         self.image_model = get_image_model()
 
-        images = permission_policy.instances_user_has_any_permission_for(
-            request.user, ["choose"]
-        ).order_by("-created_at")
+        images = (
+            permission_policy.instances_user_has_any_permission_for(
+                request.user, ["choose"]
+            )
+            .order_by("-created_at")
+            .select_related("collection")
+            .prefetch_renditions("max-165x165")
+        )
 
         # allow hooks to modify the queryset
         for hook in hooks.get_hooks("construct_image_chooser_queryset"):

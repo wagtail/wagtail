@@ -264,6 +264,27 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             allow_extra_attrs=True,
         )
 
+    def test_num_queries(self):
+        # Initial number of queries.
+        with self.assertNumQueries(23):
+            self.get()
+
+        # Add 5 images.
+        for i in range(5):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        with self.assertNumQueries(45):
+            # The renditions needed don't exist yet. We have 20 = 5 * 4 + 2 additional queries.
+            self.get()
+
+        with self.assertNumQueries(25):
+            # No extra additional queries since renditions exist and are saved in
+            # the prefetched objects cache.
+            self.get()
+
 
 class TestImageListingResultsView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -1221,6 +1242,27 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
             response = self.get({"q": "Test"})
         self.assertEqual(len(response.context["images"]), 1)
         self.assertEqual(response.context["images"][0], image)
+
+    def test_num_queries(self):
+        # Initial number of queries.
+        with self.assertNumQueries(8):
+            self.get()
+
+        # Add 5 images.
+        for i in range(5):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        with self.assertNumQueries(30):
+            # The renditions needed don't exist yet. We have 21 = 5 * 4 + 2 additional queries.
+            self.get()
+
+        with self.assertNumQueries(10):
+            # No extra additional queries since renditions exist and are saved in
+            # the prefetched objects cache.
+            self.get()
 
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):
