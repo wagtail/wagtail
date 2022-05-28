@@ -101,6 +101,7 @@ class ModelAdmin(WagtailRegisterable):
     menu_label = None
     menu_icon = None
     menu_order = None
+    exclude_from_menu = False
     list_display = ("__str__",)
     list_display_add_buttons = None
     list_export = ()
