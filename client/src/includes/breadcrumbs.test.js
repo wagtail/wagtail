@@ -1,8 +1,8 @@
 import initCollapsibleBreadcrumbs from './breadcrumbs';
 
 describe('initCollapsibleBreadcrumbs', () => {
-  jest.spyOn(document, 'addEventListener').mockImplementation(() => {});
   it('should do nothing if there is no breadcrumbs container', () => {
+    jest.spyOn(document, 'addEventListener').mockImplementation(() => {});
     // Set up our document body
     document.body.innerHTML =
       '<div>' +
@@ -14,20 +14,57 @@ describe('initCollapsibleBreadcrumbs', () => {
     expect(document.addEventListener).not.toHaveBeenCalled();
   });
 
-  it('should expand the breadcrumbs when clicked', () => {
-    // Set up our document body
-    document.body.innerHTML =
-      '<div data-slim-header>' +
-      '<div data-breadcrumb-next>' +
-      '  <span id="username" />' +
-      '  <button id="button" data-toggle-breadcrumbs />' +
-      '  <span id="username" data-breadcrumb-item hidden/>' +
-      '</div>' +
-      '</div>';
-    initCollapsibleBreadcrumbs();
-    document.getElementById('button').click();
-    expect(document.getElementById('username').hidden).toBe(false);
-  });
+  describe('there is a breadcrumbs container present', () => {
+    jest.spyOn(document, 'addEventListener').mockImplementation(() => {});
+    it('should expand the breadcrumbs when clicked', () => {
+      // Set up our document body
+      document.body.innerHTML =
+        '<div data-slim-header>' +
+        '<div data-breadcrumb-next>' +
+        '  <button id="button" data-toggle-breadcrumbs >' +
+        '<svg aria-hidden="true">' +
+        '  <use id="use" href="#icon-breadcrumb-expand" />' +
+        ' </svg>' +
+        '</button>' +
+        '<nav aria-label="Breadcrumb">' +
+        '  <span id="username" data-breadcrumb-item />' +
+        '</nav>' +
+        '</div>' +
+        '</div>';
+      initCollapsibleBreadcrumbs();
+      // event listeners registered
+      expect(document.addEventListener).toHaveBeenCalled();
+      // click to expand the breadcumbs
+      document.getElementById('button').click();
+      // click to change the button icon
+      document.getElementById('button').click();
+      expect(
+        document.getElementById('button').getAttribute('aria-expanded'),
+      ).toBe('true');
+      expect(document.getElementById('use').getAttribute('href')).toBe(
+        '#icon-cross',
+      );
+    });
 
-  it('should collapse the breadcrumbs when clicked, if expanded', () => {});
+    it('should collapse the breadcrumbs when clicked, if expanded', () => {
+      initCollapsibleBreadcrumbs();
+      // expand the breadcrumbs
+      document.getElementById('button').click();
+      document.getElementById('button').click();
+      expect(
+        document.getElementById('button').getAttribute('aria-expanded'),
+      ).toBe('true');
+      expect(document.getElementById('use').getAttribute('href')).toBe(
+        '#icon-cross',
+      );
+      // collapse the breadcrumbs
+      document.getElementById('button').click();
+      expect(
+        document.getElementById('button').getAttribute('aria-expanded'),
+      ).toBe('false');
+      expect(document.getElementById('use').getAttribute('href')).toBe(
+        '#icon-breadcrumb-expand',
+      );
+    });
+  });
 });
