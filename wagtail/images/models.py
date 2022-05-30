@@ -62,18 +62,23 @@ class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
     def prefetch_renditions(self, *filters):
         """
         Prefetches generated renditions for the given filters.
+        Returns all renditions when no filters are provided.
         """
-        # Get a list of filter spec strings. The given value could contain Filter objects
-        filter_specs = [
-            filter.spec if isinstance(filter, Filter) else filter for filter in filters
-        ]
-
         rendition_model = self.model.get_rendition_model()
+        queryset = rendition_model.objects.all()
+
+        if filters:
+            # Get a list of filter spec strings. The given value could contain Filter objects
+            filter_specs = [
+                filter.spec if isinstance(filter, Filter) else filter
+                for filter in filters
+            ]
+            queryset = queryset.filter(filter_spec__in=filter_specs)
 
         return self.prefetch_related(
             models.Prefetch(
                 "renditions",
-                queryset=rendition_model.objects.filter(filter_spec__in=filter_specs),
+                queryset=queryset,
                 to_attr="prefetched_renditions",
             )
         )
