@@ -172,7 +172,7 @@ $ ./wagtail/test/manage.py migrate
 $ ./wagtail/test/manage.py createcachetable
 $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/test/manage.py createsuperuser --noinput
 $ ./wagtail/test/manage.py runserver 0:8000
-#In a seperate terminal:
+# In a separate terminal:
 $ npm --prefix client/tests/integration install
 $ npm run test:integration
 ```
