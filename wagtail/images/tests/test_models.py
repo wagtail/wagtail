@@ -5,6 +5,7 @@ from django.core.cache import caches
 from django.core.files import File
 from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models import Prefetch
 from django.db.utils import IntegrityError
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -463,6 +464,61 @@ class TestRenditions(TestCase):
 
         # clean up
         settings = bkp
+
+
+class TestPrefetchRenditions(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.images = []
+        self.event_pages_pks = []
+
+        event_pages = EventPage.objects.all()[:3]
+        for i, page in enumerate(event_pages):
+            page.feed_image = image = Image.objects.create(
+                title="Test image {i}",
+                file=get_test_image_file(),
+            )
+            page.save(update_fields=["feed_image"])
+            self.images.append(image)
+            self.event_pages_pks.append(page.pk)
+
+        # Generate renditions
+        self.small_renditions = [
+            image.get_rendition("max-100x100") for image in self.images
+        ]
+        self.large_renditions = [
+            image.get_rendition("min-300x600") for image in self.images
+        ]
+
+    def test_prefetch_renditions_on_non_image_querysets(self):
+        prefetch_images_and_small_renditions = Prefetch(
+            "feed_image", queryset=Image.objects.prefetch_renditions("max-100x100")
+        )
+        with self.assertNumQueries(3):
+            # One query to get the `EventPage`s, another one to fetch the feed images
+            # and a last one to select matching renditions.
+            pages = list(
+                EventPage.objects.prefetch_related(
+                    prefetch_images_and_small_renditions
+                ).filter(pk__in=self.event_pages_pks)
+            )
+
+        with self.assertNumQueries(0):
+            # No additional query since small renditions were prefetched.
+            small_renditions = [
+                page.feed_image.get_rendition("max-100x100") for page in pages
+            ]
+
+        self.assertListEqual(self.small_renditions, small_renditions)
+
+        with self.assertNumQueries(3):
+            # Additional queries since large renditions weren't prefetched.
+            large_renditions = [
+                page.feed_image.get_rendition("min-300x600") for page in pages
+            ]
+
+        self.assertListEqual(self.large_renditions, large_renditions)
 
 
 class TestUsageCount(TestCase):

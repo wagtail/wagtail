@@ -24,6 +24,7 @@ Changelog
  * Implement redesign of the Workflow Status dialog, fixing accessibility issues (Steven Steinwand)
  * Add the ability to change the number of images displayed per page in the image library (Tidiane Dia, with sponsorship from YouGov)
  * Allow users to sort by different fields in the image library (Tidiane Dia, with sponsorship from YouGov)
+ * Add `prefetch_renditions` method to `ImageQueryset` for performance optimisation on image listings (Tidiane Dia, Karl Hobley)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
