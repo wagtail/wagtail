@@ -30,20 +30,3 @@
     }
   }
 }
-
-.listing.horiz {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  align-items: flex-end;
-  justify-items: center;
-  border: none;
-
-  @include media-breakpoint-up(sm) {
-    justify-items: initial;
-  }
-
-  > li {
-    width: auto;
-    border: none;
-  }
-}
