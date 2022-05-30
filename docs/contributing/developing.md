@@ -163,7 +163,7 @@ $ npm run test:unit
 
 ### Integration tests
 
-Our end-to-end browser testing suite also uses [Jest](https://jestjs.io/), combined with [Puppeteer](https://pptr.dev/). We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. To run the tests, you will need to install the dependencies and run the test suite’s Django development server:
+Our end-to-end browser testing suite also uses [Jest](https://jestjs.io/), combined with [Puppeteer](https://pptr.dev/). We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. To run the tests, you will need to install the dependencies and, in a separate terminal, run the test suite’s Django development server:
 
 ```console
 $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
@@ -172,6 +172,7 @@ $ ./wagtail/test/manage.py migrate
 $ ./wagtail/test/manage.py createcachetable
 $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/test/manage.py createsuperuser --noinput
 $ ./wagtail/test/manage.py runserver 0:8000
+# In a separate terminal:
 $ npm --prefix client/tests/integration install
 $ npm run test:integration
 ```
