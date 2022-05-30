@@ -1,39 +1,38 @@
 import initCollapsibleBreadcrumbs from './breadcrumbs';
 
 describe('initCollapsibleBreadcrumbs', () => {
+  const spy = jest.spyOn(document, 'addEventListener');
   it('should do nothing if there is no breadcrumbs container', () => {
-    jest.spyOn(document, 'addEventListener').mockImplementation(() => {});
     // Set up our document body
-    document.body.innerHTML =
-      '<div>' +
-      '  <span id="username" />' +
-      '  <button id="button" />' +
-      '</div>';
+    document.body.innerHTML = `
+    <div>
+      <span id="username" />
+      <button id="button" />
+    </div>`;
     initCollapsibleBreadcrumbs();
     // no event listeners registered
-    expect(document.addEventListener).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   describe('there is a breadcrumbs container present', () => {
-    jest.spyOn(document, 'addEventListener').mockImplementation(() => {});
     it('should expand the breadcrumbs when clicked', () => {
       // Set up our document body
-      document.body.innerHTML =
-        '<div data-slim-header>' +
-        '<div data-breadcrumb-next>' +
-        '  <button id="button" data-toggle-breadcrumbs >' +
-        '<svg aria-hidden="true">' +
-        '  <use id="use" href="#icon-breadcrumb-expand" />' +
-        ' </svg>' +
-        '</button>' +
-        '<nav aria-label="Breadcrumb">' +
-        '  <span id="username" data-breadcrumb-item />' +
-        '</nav>' +
-        '</div>' +
-        '</div>';
+      document.body.innerHTML = `
+<div data-slim-header>
+  <div data-breadcrumb-next>
+    <button id="button" data-toggle-breadcrumbs>
+      <svg aria-hidden="true">
+        <use id="use" href="#icon-breadcrumb-expand" />
+      </svg>
+    </button>
+    <nav aria-label="Breadcrumb">
+      <span id="username" data-breadcrumb-item />
+    </nav>
+  </div>
+</div>`;
       initCollapsibleBreadcrumbs();
       // event listeners registered
-      expect(document.addEventListener).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
       // click to expand the breadcumbs
       document.getElementById('button').click();
       // click to change the button icon
@@ -47,16 +46,6 @@ describe('initCollapsibleBreadcrumbs', () => {
     });
 
     it('should collapse the breadcrumbs when clicked, if expanded', () => {
-      initCollapsibleBreadcrumbs();
-      // expand the breadcrumbs
-      document.getElementById('button').click();
-      document.getElementById('button').click();
-      expect(
-        document.getElementById('button').getAttribute('aria-expanded'),
-      ).toBe('true');
-      expect(document.getElementById('use').getAttribute('href')).toBe(
-        '#icon-cross',
-      );
       // collapse the breadcrumbs
       document.getElementById('button').click();
       expect(
