@@ -11,7 +11,6 @@ const legacyCode = {
   'import/no-unresolved': ['error', { ignore: ['jquery'] }],
   'import/no-useless-path-segments': 'off',
   'import/order': 'off',
-  'import/prefer-default-export': 'off',
   'jsx-a11y/alt-text': 'off',
   'jsx-a11y/anchor-is-valid': 'off',
   'jsx-a11y/click-events-have-key-events': 'off',
@@ -79,6 +78,8 @@ module.exports = {
         },
       },
     ],
+    // does not align with the majority of legacy and newer code, some use named others use default exports
+    'import/prefer-default-export': 'off',
     // note you must disable the base rule as it can report incorrect errors
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],

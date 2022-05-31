@@ -1,6 +1,5 @@
 import A11yDialog from 'a11y-dialog';
 
-// eslint-disable-next-line import/prefer-default-export
 export const dialog = (
   dialogs = document.querySelectorAll('[data-dialog]'),
 ) => {
