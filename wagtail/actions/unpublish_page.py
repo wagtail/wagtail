@@ -1,7 +1,6 @@
 import logging
 
 from wagtail.actions.unpublish import UnpublishAction, UnpublishPermissionError
-
 from wagtail.signals import page_unpublished
 
 logger = logging.getLogger("wagtail")
