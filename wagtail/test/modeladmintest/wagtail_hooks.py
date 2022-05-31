@@ -15,6 +15,7 @@ from .models import (
     Author,
     Book,
     Contributor,
+    Enemy,
     Friend,
     Person,
     Publisher,
@@ -198,6 +199,12 @@ class PageAdmin(ModelAdmin):
     menu_label = "Page"
 
 
+class EnemyAdmin(ModelAdmin):
+    model = Enemy
+    exclude_from_menu = True
+    menu_icon = "snippet"
+
+
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
 modeladmin_register(TranslatableBookModelAdmin)
@@ -211,3 +218,4 @@ modeladmin_register(VisitorAdmin)
 modeladmin_register(ContributorAdmin)
 modeladmin_register(RelatedLinkAdmin)
 modeladmin_register(PageAdmin)
+modeladmin_register(EnemyAdmin)
