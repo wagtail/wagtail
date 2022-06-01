@@ -36,6 +36,7 @@ Changelog
  * Fix: Ensure comments use translated values for their placeholder text (Stefan Hammer)
  * Fix: Ensure the upgrade notification, shown to admins on the dashboard if Wagtail is out of date, content is translatable (LB (Ben) Johnston)
  * Fix: Show the re-ordering option to users that have permission to publish pages within the page listing (Stefan Hammer)
+ * Fix: Ensure `TabbedInterface` will not show a tab if no panels are visible due to permissions (Paarth Agarwal)
 
 
 3.0 (16.05.2022)
