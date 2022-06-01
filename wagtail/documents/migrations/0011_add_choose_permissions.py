@@ -21,7 +21,7 @@ def add_choose_permission_to_admin_groups(apps, _schema_editor):
     )
 
     # Assign it to all groups which have "Access the Wagtail admin" permission.
-    # This emulates the previous behavior, where everyone who would access the admin
+    # This emulates the previous behaviour, where everyone who would access the admin
     # could choose any document in any Collection, because choosing wasn't permissioned.
     for group in Group.objects.filter(permissions__codename="access_admin"):
         group.permissions.add(choose_document_permission)
