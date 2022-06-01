@@ -240,7 +240,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         )
 
         #: Sadly signal receivers only get connected when starting django.
-        #: We will re-attach them here to mimic the django startup behavior
+        #: We will re-attach them here to mimic the django startup behaviour
         #: and get the signals connected to our custom model..
         signal_handlers.register_signal_handlers()
 

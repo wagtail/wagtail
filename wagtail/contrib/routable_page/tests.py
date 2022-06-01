@@ -170,7 +170,7 @@ class TestRoutablePage(TestCase):
     def test_routable_page_can_have_instance_bound_descriptors(self):
         # This descriptor pretends that it does not exist in the class, hence
         # it raises an AttributeError when class bound. This is, for instance,
-        # the behavior of django's FileFields.
+        # the behaviour of django's FileFields.
         class InstanceDescriptor:
             def __get__(self, instance, cls=None):
                 if instance is None:
