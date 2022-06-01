@@ -8,7 +8,6 @@ const legacyCode = {
   'import/newline-after-import': 'off',
   'import/no-cycle': 'off',
   'import/no-extraneous-dependencies': 'off',
-  'import/no-unresolved': ['error', { ignore: ['jquery'] }],
   'import/no-useless-path-segments': 'off',
   'import/order': 'off',
   'jsx-a11y/alt-text': 'off',
@@ -89,11 +88,8 @@ module.exports = {
     ],
   },
   settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.ts', '.tsx'],
-      },
-    },
+    'import/core-modules': ['jquery'],
+    'import/resolver': { node: { extensions: ['.js', '.ts', '.tsx'] } },
   },
   overrides: [
     // Legacy Code - remove from `files` when adopting desired rules in new code progressively
@@ -109,8 +105,8 @@ module.exports = {
       ],
       rules: legacyCode,
     },
+    // Rules we don’t want to enforce for test and tooling code.
     {
-      // Rules we don’t want to enforce for test and tooling code.
       files: [
         'client/extract-translatable-strings.js',
         'client/tests/**',
@@ -131,19 +127,32 @@ module.exports = {
         'react/jsx-props-no-spreading': 'off',
       },
     },
+    // Files that use jquery via a global
     {
-      files: ['docs/_static/**'],
-      globals: { $: 'readonly' },
+      files: [
+        'docs/_static/**',
+        'wagtail/contrib/modeladmin/static_src/wagtailmodeladmin/js/prepopulate.js',
+        'wagtail/contrib/settings/static_src/wagtailsettings/js/site-switcher.js',
+        'wagtail/documents/static_src/wagtaildocs/js/add-multiple.js',
+        'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',
+        'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
+        'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
+        'wagtail/images/static_src/wagtailimages/js/image-url-generator.js',
+        'wagtail/search/static_src/wagtailsearch/js/query-chooser-modal.js',
+        'wagtail/search/templates/wagtailsearch/queries/chooser_field.js',
+        'wagtail/snippets/static_src/wagtailsnippets/js/snippet-multiple-select.js',
+        'wagtail/users/static_src/wagtailusers/js/group-form.js',
+      ],
+      globals: { $: 'readonly', jQuery: 'readonly' },
     },
+    // Files that use other globals or legacy/vendor code that is unable to be easily linted
     {
       files: ['wagtail/**/**'],
       globals: {
-        $: 'readonly',
         addMessage: 'readonly',
         buildExpandingFormset: 'readonly',
         cancelSpinner: 'readonly',
         escapeHtml: 'readonly',
-        jQuery: 'readonly',
         jsonData: 'readonly',
         ModalWorkflow: 'readonly',
         DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS: 'writable',
