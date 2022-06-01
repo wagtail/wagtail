@@ -199,7 +199,10 @@ class Create(CreateView):
         return reverse(self.index_url_name) + urlquery
 
     def get_success_message(self, instance):
-        return _("%(snippet_type)s '%(instance)s' created.") % {
+        message = _("%(snippet_type)s '%(instance)s' created.")
+        if self.action == "publish":
+            message = _("%(snippet_type)s '%(instance)s' created and published.")
+        return message % {
             "snippet_type": capfirst(self.model._meta.verbose_name),
             "instance": instance,
         }
@@ -319,7 +322,11 @@ class Edit(EditView):
         return reverse(self.index_url_name)
 
     def get_success_message(self):
-        return _("%(snippet_type)s '%(instance)s' updated.") % {
+        message = _("%(snippet_type)s '%(instance)s' updated.")
+        if self.action == "publish":
+            message = _("%(snippet_type)s '%(instance)s' updated and published.")
+
+        return message % {
             "snippet_type": capfirst(self.model._meta.verbose_name),
             "instance": self.object,
         }
