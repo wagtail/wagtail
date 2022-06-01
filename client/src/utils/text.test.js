@@ -10,7 +10,6 @@ describe('escapeHtml', () => {
 });
 
 describe('cleanForSlug', () => {
-  // eslint-disable-next-line no-unused-expressions, global-require
   require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
     .default;
 

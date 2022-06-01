@@ -116,9 +116,12 @@ module.exports = {
       ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        'global-require': 'off',
         'import/first': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'no-unused-expressions': 'off',
         'react/function-component-definition': 'off',
         'react/jsx-props-no-spreading': 'off',
       },
