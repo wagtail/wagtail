@@ -35,12 +35,14 @@ class PublishPageRevisionAction(PublishRevisionAction):
     """
 
     def check(self, skip_permission_checks=False):
-        try:
-            super().check(skip_permission_checks)
-        except PublishPermissionError as error:
+        if (
+            self.user
+            and not skip_permission_checks
+            and not self.object.permissions_for_user(self.user).can_publish()
+        ):
             raise PublishPagePermissionError(
                 "You do not have permission to publish this page"
-            ) from error
+            )
 
     def _after_publish(self):
         from wagtail.models import COMMENTS_RELATION_NAME

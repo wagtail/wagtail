@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
 from wagtail.log_actions import log
+from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.signals import published
 
 logger = logging.getLogger("wagtail")
@@ -37,6 +38,7 @@ class PublishRevisionAction:
     ):
         self.revision = revision
         self.object = self.revision.as_object()
+        self.permission_policy = ModelPermissionPolicy(type(self.object))
         self.user = user
         self.changed = changed
         self.log_action = log_action
@@ -46,7 +48,7 @@ class PublishRevisionAction:
         if (
             self.user
             and not skip_permission_checks
-            and not self.object.permissions_for_user(self.user).can_publish()
+            and not self.permission_policy.user_has_permission(self.user, "publish")
         ):
             raise PublishPermissionError(
                 "You do not have permission to publish this object"
