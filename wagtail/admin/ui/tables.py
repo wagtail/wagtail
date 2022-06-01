@@ -177,6 +177,12 @@ class StatusFlagColumn(Column):
         self.false_label = false_label
 
 
+class StatusTagColumn(Column):
+    """Represents a status tag"""
+
+    cell_template_name = "wagtailadmin/tables/status_tag_cell.html"
+
+
 class DateColumn(Column):
     """Outputs a date in human-readable format"""
 
