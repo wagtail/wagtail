@@ -108,6 +108,9 @@ class List(IndexView):
         if self.locale:
             items = items.filter(locale=self.locale)
 
+        if issubclass(self.model, DraftStateMixin):
+            items.select_related("latest_revision__object_str")
+
         # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
         if not items.ordered:
