@@ -38,7 +38,6 @@
                 {% if workflow_state.created_at %}
                     {% timesince_last_update workflow_state.created_at user_display_name=workflow_state.requested_by|user_display_name use_shorthand=True as help_text %}
                 {% endif %}
-                {% url 'wagtailadmin_pages:workflow_status' page.id as action_url %}
                 {% trans 'View details' as action_text %}
 
                 {# Icon #}
@@ -63,8 +62,24 @@
 {% endblock %}
 
 {% block action %}
-    {% if workflow_state %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-workflow-status' data_url=action_url text=action_text %}
+    {% if workflow_state and not hide_action %}
+        {% trans 'Moderators approval' as workflow_dialog_title %}
+        {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-text-teal-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
+
+        {# info subtitle #}
+        {% if page.get_latest_revision %}
+            {% workflow_status_with_date workflow_state as message_heading %}
+            {% if workflow_state.requested_by %}
+                {% blocktrans trimmed with user=workflow_state.requested_by|user_display_name asvar modified_by %}by {{ user }}{% endblocktrans %}
+            {% endif %}
+            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_dialog_title message_status='info' message_heading=message_heading|add:' '|add:modified_by %}
+                {% include 'wagtailadmin/workflows/workflow_status.html' %}
+            {% enddialog %}
+        {% else %}
+            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_dialog_title %}
+                {% include 'wagtailadmin/workflows/workflow_status.html' %}
+            {% enddialog %}
+        {% endif %}
     {% else %}
         {% url 'wagtailadmin_pages:history' page.id as action_url %}
         {% trans 'View history' as action_text %}
@@ -79,22 +94,7 @@
             <div class="w-flex w-space-x-3 w-mt-3">
                 {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
                 <div class="w-label-3 w-flex-1">
-                    {% if workflow_state.status == 'needs_changes' %}
-                        {% blocktrans trimmed with time_ago=workflow_state.current_task_state.finished_at|naturaltime %}
-                            Changes requested {{ time_ago }}
-                        {% endblocktrans %}
-                    {% else %}
-                        {% with time_ago=workflow_state.current_task_state.started_at|naturaltime workflow_task=workflow_state.current_task_state.task.name %}
-                            {% if workflow_state.status == "in_progress" %}
-                                {% blocktrans trimmed %}Sent to {{ workflow_task }} {{ time_ago }}{% endblocktrans %}
-                            {% else %}
-                                {{ workflow_state.get_status_display }} {{ workflow_task }} {{ time_ago }}
-                            {% endif %}
-                        {% endwith %}
-                    {% endif %}
-                    {% if workflow_state.requested_by %}
-                        {% blocktrans trimmed with modified_by=workflow_state.requested_by|user_display_name %}by {{ modified_by }}{% endblocktrans %}
-                    {% endif %}
+                    {% workflow_status_with_date workflow_state %}
                 </div>
             </div>
         {% endif %}

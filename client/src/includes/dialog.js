@@ -5,7 +5,7 @@ export const dialog = (
 ) => {
   dialogs.forEach((template) => {
     const html = document.documentElement;
-    const templateContent = template.content.firstElementChild.cloneNode(true);
+    const templateContent = template.content.firstElementChild;
     document.body.appendChild(templateContent);
     const dialogTemplate = new A11yDialog(templateContent);
 
