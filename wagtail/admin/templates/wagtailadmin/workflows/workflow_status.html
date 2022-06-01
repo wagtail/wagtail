@@ -61,14 +61,14 @@
         {% trans "See full history" %}
     </a>
 
-    {% with latest_revision=page.get_latest_revision %}
+    {% with page.get_latest_revision as latest_revision %}
         <div class="w-flex">
             {% if page.live_revision %}
                 <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id 'live' latest_revision.id %}" class="workflow-timeline__footer-link">
                     {% trans "Compare with live version" %}
                 </a>
             {% endif %}
-            {% with previous_revision=latest_revision.get_previous %}
+            {% with latest_revision.get_previous as previous_revision %}
                 {% if previous_revision %}
                     {# Only show the separator if there are two links. #}
                     {% if page.live_revision %}

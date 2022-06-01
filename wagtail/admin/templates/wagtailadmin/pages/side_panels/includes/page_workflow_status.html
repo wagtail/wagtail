@@ -38,7 +38,6 @@
                 {% if workflow_state.created_at %}
                     {% timesince_last_update workflow_state.created_at user_display_name=workflow_state.requested_by|user_display_name use_shorthand=True as help_text %}
                 {% endif %}
-                {% url 'wagtailadmin_pages:workflow_status' page.id as action_url %}
                 {% trans 'View details' as action_text %}
 
                 {# Icon #}
