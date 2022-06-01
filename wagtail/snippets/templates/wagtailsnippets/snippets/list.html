@@ -13,7 +13,7 @@
             <tr id="snippet-row-{{ snippet.pk }}">
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="snippet" obj=snippet aria_labelledby_prefix="snippet_" aria_labelledby=snippet.pk|unlocalize aria_labelledby_suffix="_title" %}
                 <td class="title">
-                    <div class="title-wrapper"><a href="{% url view.edit_url_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
+                    <div class="title-wrapper"><a href="{% url view.edit_url_name snippet.pk|admin_urlquote %}">{{ snippet.latest_revision.object_str|default:snippet }}</a></div>
                     <ul class="actions">
                         {% snippet_listing_buttons snippet %}
                     </ul>
