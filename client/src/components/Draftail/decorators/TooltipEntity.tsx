@@ -1,3 +1,4 @@
+/* eslint-disable react/static-property-placement */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Icon } from 'draftail';
@@ -14,7 +15,42 @@ const shortenLabel = (label) => {
   return shortened;
 };
 
-class TooltipEntity extends Component {
+interface ShowTooltipAt {
+  container: Element;
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+}
+
+class TooltipEntity extends Component<
+  {
+    entityKey: string;
+    icon: string | React.ReactNode;
+    label: string;
+    onEdit: (entityKey: string) => void;
+    onRemove: (entityKey: string) => void;
+    url: string;
+  },
+  { showTooltipAt: ShowTooltipAt | null }
+> {
+  static propTypes = {
+    entityKey: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    icon: PropTypes.oneOfType([
+      PropTypes.string.isRequired,
+      PropTypes.object.isRequired,
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+    url: PropTypes.string,
+  };
+
+  static defaultProps = {
+    url: '',
+  };
+
   constructor(props) {
     super(props);
 
@@ -28,31 +64,31 @@ class TooltipEntity extends Component {
     this.closeTooltip = this.closeTooltip.bind(this);
   }
 
-  onEdit(e) {
+  onEdit(event: React.MouseEvent) {
     const { onEdit, entityKey } = this.props;
 
-    e.preventDefault();
-    e.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
     onEdit(entityKey);
   }
 
-  onRemove(e) {
+  onRemove(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const { onRemove, entityKey } = this.props;
 
-    e.preventDefault();
-    e.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
     onRemove(entityKey);
   }
 
-  openTooltip(e) {
-    const trigger = e.target.closest('[data-draftail-trigger]');
+  openTooltip(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    const target = event.target as HTMLAnchorElement;
+    const trigger = target.closest('[data-draftail-trigger]');
 
     // Click is within the tooltip.
-    if (!trigger) {
-      return;
-    }
+    if (!trigger) return;
 
     const container = trigger.closest('[data-draftail-editor-wrapper]');
+    if (!container) return;
     const containerRect = container.getBoundingClientRect();
     const rect = trigger.getBoundingClientRect();
 
@@ -130,22 +166,5 @@ class TooltipEntity extends Component {
     );
   }
 }
-
-TooltipEntity.propTypes = {
-  entityKey: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  icon: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.object.isRequired,
-  ]).isRequired,
-  label: PropTypes.string.isRequired,
-  url: PropTypes.string,
-};
-
-TooltipEntity.defaultProps = {
-  url: null,
-};
 
 export default TooltipEntity;
