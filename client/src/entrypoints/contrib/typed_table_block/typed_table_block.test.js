@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import '../../admin/telepath/telepath';
 import { TypedTableBlockDefinition } from './typed_table_block';
 import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';

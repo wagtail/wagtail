@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
 
