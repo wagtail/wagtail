@@ -212,6 +212,17 @@ class CreateView(
     success_message = None
     error_message = None
     submit_button_label = gettext_lazy("Create")
+    actions = ["create", "publish"]
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.action = self.get_action(request)
+
+    def get_action(self, request):
+        for action in self.actions:
+            if request.POST.get(f"action-{action}"):
+                return action
+        return "create"
 
     def get_add_url(self):
         if not self.add_url_name:
@@ -230,6 +241,8 @@ class CreateView(
         return reverse(self.index_url_name)
 
     def get_success_message(self, instance):
+        if self.action == "publish":
+            return _("'{0}' has been created and published.").format(str(instance))
         if self.success_message is None:
             return None
         return self.success_message.format(instance)
@@ -257,34 +270,70 @@ class CreateView(
         Called after the form is successfully validated - saves the object to the db
         and returns the new object. Override this to implement custom save logic.
         """
-        instance = self.form.save()
-        revision = None
+        if self.model and issubclass(self.model, DraftStateMixin):
+            instance = self.form.save(commit=False)
+            instance.live = False
+            instance.save()
+            self.form.save_m2m()
+        else:
+            instance = self.form.save()
+
+        self.new_revision = None
 
         # Save revision if the model inherits from RevisionMixin
         if isinstance(instance, RevisionMixin):
-            revision = instance.save_revision(user=self.request.user)
+            self.new_revision = instance.save_revision(user=self.request.user)
 
         log(
             instance=instance,
             action="wagtail.create",
-            revision=revision,
+            revision=self.new_revision,
             content_changed=True,
         )
 
         return instance
 
+    def save_action(self):
+        success_message = self.get_success_message(self.object)
+        success_buttons = self.get_success_buttons()
+        if success_message is not None:
+            messages.success(
+                self.request,
+                success_message,
+                buttons=success_buttons,
+            )
+        return redirect(self.get_success_url())
+
+    def publish_action(self):
+        hook_response = self.run_hook("before_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        self.new_revision.publish(user=self.request.user)
+
+        hook_response = self.run_hook("after_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        return None
+
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-        success_message = self.get_success_message(self.object)
-        success_buttons = self.get_success_buttons()
-        if success_message is not None:
-            messages.success(self.request, success_message, buttons=success_buttons)
+
+        if self.action == "publish" and isinstance(self.object, DraftStateMixin):
+            response = self.publish_action()
+            if response is not None:
+                return response
+
+        response = self.save_action()
+
         hook_response = self.run_after_hook()
         if hook_response is not None:
             return hook_response
-        return redirect(self.get_success_url())
+
+        return response
 
     def form_invalid(self, form):
         self.form = form
