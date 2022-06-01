@@ -599,7 +599,7 @@ table.listing {
     }
 
     &.images {
-      border: none;
+      border: 0;
 
       > li {
         padding: 1.5em;
@@ -607,7 +607,7 @@ table.listing {
         height: auto;
         text-align: center;
         margin-top: -1px;
-        border: none;
+        border: 0;
 
         .bulk-action-checkbox {
           float: left;
