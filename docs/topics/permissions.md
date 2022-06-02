@@ -6,7 +6,7 @@ Wagtail adapts and extends [the Django permission system](https://docs.djangopro
 
 ## Page permissions
 
-Permissions can be attached at any point in the page tree, and propagate down the tree. For example, if a site had the page tree::
+Permissions can be attached at any point in the page tree, and propagate down the tree. For example, if a site had the page tree:
 
 ```
 MegaCorp/
@@ -58,3 +58,7 @@ Users are not allowed to move or delete the collection that is used to assign th
 ## Displaying custom permissions in the admin
 
 Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the `register_permissions` hook (see [](register_permissions)).
+
+## `FieldPanel` permissions
+
+Permissions can be used to restrict access to fields within the editor interface. See `permission` on [FieldPanel](field_panel).
