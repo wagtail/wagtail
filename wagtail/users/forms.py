@@ -263,7 +263,7 @@ class GroupForm(forms.ModelForm):
             return name
         raise forms.ValidationError(self.error_messages["duplicate_name"])
 
-    def save(self):
+    def save(self, commit=True):
         # We go back to the object to read (in order to reapply) the
         # permissions which were set on this group, but which are not
         # accessible in the wagtail admin interface, as otherwise these would
@@ -278,7 +278,7 @@ class GroupForm(forms.ModelForm):
         except ValueError:
             # this form is not bound; we're probably creating a new group
             untouchable_permissions = []
-        group = super().save()
+        group = super().save(commit=commit)
         group.permissions.add(*untouchable_permissions)
         return group
 
