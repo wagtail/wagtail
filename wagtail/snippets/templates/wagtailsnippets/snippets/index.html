@@ -1,17 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% block titletag %}{% trans "Snippets" %}{% endblock %}
-
-{% block extra_js %}
-    {# Needed for the new breadcrumbs #}
-    <script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
-    <script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
-{% endblock %}
-
 {% block content %}
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailsnippets/snippets/headers/index_header.html' %}
-    </div>
     {% trans "Snippets" as snippets_str %}
     {% include "wagtailadmin/shared/header.html" with title=snippets_str icon="snippet" %}
 
