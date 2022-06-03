@@ -98,8 +98,9 @@ class Index(TemplateView):
         return super().get_context_data(snippet_types=snippet_types, **kwargs)
 
 
-class List(IndexView):
+class List(ReportView):
     view_name = "list"
+    header_icon = "snippet"
     index_results_url_name = None
     delete_multiple_url_name = None
     any_permission_required = ["add", "change", "delete"]
@@ -114,12 +115,16 @@ class List(IndexView):
             *super().get_columns(),
         ]
 
+    def get_edit_url(self, instance):
+        return reverse(self.edit_url_name, args=[quote(instance.pk)])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context.update(
             {
                 "model_opts": self.model._meta,
+                "title": capfirst(self.model._meta.verbose_name_plural),
                 "can_add_snippet": self.permission_policy.user_has_permission(
                     self.request.user, "add"
                 ),
