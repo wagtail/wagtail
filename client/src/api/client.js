@@ -38,7 +38,7 @@ const timeout = (ms, promise) => {
 };
 
 /**
- * Wrapper around fetch with sane defaults for behavior in the face of
+ * Wrapper around fetch with sane defaults for behaviour in the face of
  * errors.
  */
 const request = (method, url) => {

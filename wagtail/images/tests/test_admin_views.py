@@ -54,7 +54,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
-        for i in range(1, 50):
+        for i in range(1, 66):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -78,10 +78,68 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         )
 
     def test_ordering(self):
-        orderings = ["title", "-created_at"]
+        orderings = [
+            "title",
+            "-title",
+            "created_at",
+            "-created_at",
+            "file_size",
+            "-file_size",
+        ]
         for ordering in orderings:
             response = self.get({"ordering": ordering})
             self.assertEqual(response.status_code, 200)
+
+            context = response.context
+            self.assertEqual(context["current_ordering"], ordering)
+            self.assertEqual(context["images"].object_list.query.order_by, (ordering,))
+
+    def test_default_ordering_used_if_invalid_ordering_provided(self):
+        response = self.get({"ordering": "bogus"})
+        self.assertEqual(response.status_code, 200)
+
+        context = response.context
+        default_ordering = "-created_at"
+        self.assertEqual(context["current_ordering"], default_ordering)
+        self.assertEqual(
+            context["images"].object_list.query.order_by, (default_ordering,)
+        )
+
+    def test_default_entries_per_page(self):
+        for i in range(1, 33):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        object_list = response.context["images"].object_list
+        # The default number of images shown is 30
+        self.assertEqual(len(object_list), 30)
+
+        response = self.get({"entries_per_page": 10})
+        self.assertEqual(response.status_code, 200)
+
+        object_list = response.context["images"].object_list
+        self.assertEqual(len(object_list), 10)
+
+    def test_default_entries_per_page_uses_default(self):
+        for i in range(1, 33):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        default_num_entries_per_page = 30
+        invalid_num_entries_values = [66, "a"]
+        for value in invalid_num_entries_values:
+            response = self.get({"entries_per_page": value})
+            self.assertEqual(response.status_code, 200)
+
+            object_list = response.context["images"].object_list
+            self.assertEqual(len(object_list), default_num_entries_per_page)
 
     def test_collection_order(self):
         root_collection = Collection.get_first_root_node()
@@ -170,7 +228,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["images"].paginator.count, 1)
 
     def test_tag_filtering_preserves_other_params(self):
-        for i in range(1, 100):
+        for i in range(1, 130):
             image = Image.objects.create(
                 title="Test image %i" % i,
                 file=get_test_image_file(size=(1, 1)),
@@ -186,7 +244,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # prev link should exist and include tag
         self.assertTrue(
-            "?p=2&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
+            "?p=1&amp;tag=even" in response_body or "?tag=even&amp;p=1" in response_body
         )
         # next link should exist and include tag
         self.assertTrue(
@@ -205,6 +263,27 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             count=1,
             allow_extra_attrs=True,
         )
+
+    def test_num_queries(self):
+        # Initial number of queries.
+        with self.assertNumQueries(23):
+            self.get()
+
+        # Add 5 images.
+        for i in range(5):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        with self.assertNumQueries(45):
+            # The renditions needed don't exist yet. We have 20 = 5 * 4 + 2 additional queries.
+            self.get()
+
+        with self.assertNumQueries(25):
+            # No extra additional queries since renditions exist and are saved in
+            # the prefetched objects cache.
+            self.get()
 
 
 class TestImageListingResultsView(TestCase, WagtailTestUtils):
@@ -1163,6 +1242,27 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
             response = self.get({"q": "Test"})
         self.assertEqual(len(response.context["images"]), 1)
         self.assertEqual(response.context["images"][0], image)
+
+    def test_num_queries(self):
+        # Initial number of queries.
+        with self.assertNumQueries(8):
+            self.get()
+
+        # Add 5 images.
+        for i in range(5):
+            self.image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        with self.assertNumQueries(30):
+            # The renditions needed don't exist yet. We have 21 = 5 * 4 + 2 additional queries.
+            self.get()
+
+        with self.assertNumQueries(10):
+            # No extra additional queries since renditions exist and are saved in
+            # the prefetched objects cache.
+            self.get()
 
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):

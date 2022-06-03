@@ -3,7 +3,7 @@
 <div class="w-tabs" data-tabs>
     <div class="w-tabs__wrapper">
         <div role="tablist" class="w-tabs__list">
-            {% for child in self.children %}
+            {% for child in self.visible_children %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=child.heading title=child.heading classes=child.classes|join:" " %}
             {% endfor %}
         </div>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="tab-content">
-        {% for child in self.children %}
+        {% for child in self.visible_children %}
             <section
                 id="tab-{{ child.heading|cautious_slugify }}"
                 class="w-tabs__panel {{ child.classes|join:" " }}"

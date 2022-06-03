@@ -1,6 +1,6 @@
 {% load i18n l10n wagtailadmin_tags %}
 
-<li>
+<li {% if li_classes %}class="{{ li_classes }}"{% endif %}>
     <div class="field choice_field select">
         <label for="collection_chooser_collection_id">{% trans "Collection" %}:</label>
         <div class="field-content">

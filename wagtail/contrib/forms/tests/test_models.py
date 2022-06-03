@@ -18,6 +18,7 @@ from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
     FormField,
+    FormFieldWithCustomSubmission,
     FormPageWithCustomFormBuilder,
     JadeFormPage,
 )
@@ -808,3 +809,56 @@ class TestNonHtmlExtension(TestCase):
         self.assertEqual(
             form_page.landing_page_template, "tests/form_page_landing.jade"
         )
+
+
+class TestFormFieldCleanNameCreation(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.login(username="siteeditor", password="password")
+        self.form_page = Page.objects.get(
+            url_path="/home/contact-us-one-more-time/"
+        ).specific
+
+    def test_form_field_clean_name_creation(self):
+        """creating a new field should use clean_name format (anyascii snake_case)"""
+
+        field = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label="Telefón-nummer",
+            field_type="number",
+        )
+
+        self.assertEqual(field.clean_name, "telefon_nummer")
+
+
+class TestFormFieldCleanNameCreationOverride(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Create a form page
+        home_page = Page.objects.get(url_path="/home/")
+
+        self.form_page = home_page.add_child(
+            instance=FormPageWithCustomFormBuilder(
+                title="Richiesta Gelato",
+                slug="ice-cream-request",
+                to_address="scoops@pro-eis.co.it",
+                from_address="scoops@pro-eis.co.it",
+                subject="Gelato in arrivo",
+            )
+        )
+
+    def test_form_field_clean_name_override(self):
+        """
+        Creating a new field should use the overridden method
+        See ExtendedFormField get_field_clean_name method
+        """
+
+        field = ExtendedFormField.objects.create(
+            page=self.form_page,
+            sort_order=1,
+            label="quanti ge·là·to?",
+            field_type="number",  # only number fields will add the ID as a prefix to the clean_name
+            required=True,
+        )
+
+        self.assertEqual(field.clean_name, "number_field--quanti_gelato")

@@ -29,25 +29,62 @@ from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
-INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 20)
+INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
 USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
 class BaseListingView(TemplateView):
+    ENTRIES_PER_PAGE_CHOICES = sorted({10, 30, 60, 100, 250, INDEX_PAGE_SIZE})
+    ORDERING_OPTIONS = {
+        "-created_at": _("Newest"),
+        "created_at": _("Oldest"),
+        "title": _("Title: (A -> Z)"),
+        "-title": _("Title: (Z -> A)"),
+        "file_size": _("File size: (low to high)"),
+        "-file_size": _("File size: (high to low)"),
+    }
+    default_ordering = "-created_at"
+
     @method_decorator(permission_checker.require_any("add", "change", "delete"))
     def get(self, request):
         return super().get(request)
 
+    def get_num_entries_per_page(self):
+        entries_per_page = self.request.GET.get("entries_per_page", INDEX_PAGE_SIZE)
+        try:
+            entries_per_page = int(entries_per_page)
+        except ValueError:
+            entries_per_page = INDEX_PAGE_SIZE
+        if entries_per_page not in self.ENTRIES_PER_PAGE_CHOICES:
+            entries_per_page = INDEX_PAGE_SIZE
+
+        return entries_per_page
+
+    def get_valid_orderings(self):
+        return self.ORDERING_OPTIONS
+
+    def get_ordering(self):
+        # TODO: remove this method when this view will be based on the
+        # generic model index view from wagtail.admin.views.generic.models.IndexView
+        ordering = self.request.GET.get("ordering")
+        if ordering is None or ordering not in self.get_valid_orderings():
+            ordering = self.default_ordering
+        return ordering
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Get images (filtered by user permission)
+        # Get ordering
+        ordering = self.get_ordering()
+
+        # Get images (filtered by user permission and ordered by `ordering`)
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
-            .order_by("-created_at")
+            .order_by(ordering)
             .select_related("collection")
+            .prefetch_renditions("max-165x165")
         )
 
         # Search
@@ -79,7 +116,8 @@ class BaseListingView(TemplateView):
             except (AttributeError):
                 self.current_tag = None
 
-        paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
+        entries_per_page = self.get_num_entries_per_page()
+        paginator = Paginator(images, per_page=entries_per_page)
         images = paginator.get_page(self.request.GET.get("p"))
 
         next_url = reverse("wagtailimages:index")
@@ -93,6 +131,10 @@ class BaseListingView(TemplateView):
                 "query_string": query_string,
                 "is_searching": bool(query_string),
                 "next": next_url,
+                "entries_per_page": entries_per_page,
+                "ENTRIES_PER_PAGE_CHOICES": self.ENTRIES_PER_PAGE_CHOICES,
+                "current_ordering": ordering,
+                "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
             }
         )
 

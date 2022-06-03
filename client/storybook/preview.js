@@ -3,7 +3,6 @@ import '../tests/stubs';
 import '../../wagtail/admin/static_src/wagtailadmin/scss/core.scss';
 import './preview.scss';
 
-// eslint-disable-next-line import/prefer-default-export
 export const parameters = {
   controls: {
     hideNoControlsWarning: true,

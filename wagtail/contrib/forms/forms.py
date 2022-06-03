@@ -6,7 +6,6 @@ from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.contrib.forms.utils import get_field_clean_name
 
 
 class BaseForm(django.forms.Form):
@@ -142,7 +141,7 @@ class FormBuilder:
             # If the field hasn't been saved to the database yet (e.g. we are previewing
             # a FormPage with unsaved changes) it won't have a clean_name as this is
             # set in FormField.save.
-            clean_name = field.clean_name or get_field_clean_name(field.label)
+            clean_name = field.clean_name or field.get_field_clean_name()
             formfields[clean_name] = create_field(field, options)
 
         return formfields
@@ -187,12 +186,10 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
             for i, form in enumerate(_forms):
                 if "label" in form.changed_data:
                     label = form.cleaned_data.get("label")
-                    clean_name = get_field_clean_name(label)
+                    clean_name = form.instance.get_field_clean_name()
                     for idx, ff in enumerate(_forms):
                         # Exclude self
-                        ff_clean_name = get_field_clean_name(
-                            ff.cleaned_data.get("label")
-                        )
+                        ff_clean_name = ff.instance.get_field_clean_name()
                         if idx != i and clean_name == ff_clean_name:
                             form.add_error(
                                 "label",

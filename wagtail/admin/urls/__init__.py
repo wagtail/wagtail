@@ -23,7 +23,7 @@ from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 urlpatterns = [
-    path("", home.home, name="wagtailadmin_home"),
+    path("", home.HomeView.as_view(), name="wagtailadmin_home"),
     path("test404/", TemplateView.as_view(template_name="wagtailadmin/404.html")),
     path("api/", include(api_urls)),
     path("failwhale/", home.error_test, name="wagtailadmin_error_test"),

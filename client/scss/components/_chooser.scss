@@ -9,9 +9,6 @@ overridden here? hmm.
 */
 
 .chooser {
-  // We show the 'chosen' state...
-  @include clearfix();
-
   input[type='text'] {
     float: left;
     width: 50%;

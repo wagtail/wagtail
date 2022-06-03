@@ -1,10 +1,9 @@
 ---
-name: "🚀 Feature request"
+name: '🚀 Feature request'
 about: Suggest an idea for improving Wagtail
 title: ''
 labels: 'type:Enhancement'
 assignees: ''
-
 ---
 
 ### Is your proposal related to a problem?

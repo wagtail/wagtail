@@ -24,7 +24,7 @@ As part of defining your site’s models, here are areas to pay special attentio
 Alt text for images
 -------------------
 
-The default behavior for Wagtail images is to use the ``title`` field as the alt text (`#4945 <https://github.com/wagtail/wagtail/issues/4945>`_).
+The default behaviour for Wagtail images is to use the ``title`` field as the alt text (`#4945 <https://github.com/wagtail/wagtail/issues/4945>`_).
 This is inappropriate, as it’s not communicated in the CMS interface, and the image upload form uses the image’s filename as the title by default.
 
 Ideally, always add an optional “alt text” field wherever an image is used, alongside the image field:

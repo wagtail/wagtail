@@ -22,7 +22,7 @@ We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](h
 
 - Write [valid](https://validator.w3.org/nu/), [semantic](https://html5doctor.com/element-index/) HTML.
 - Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
-- Use classes for styling, `data-` attributes for JavaScript behavior, IDs for semantics only.
+- Use classes for styling, `data-` attributes for JavaScript behaviour, IDs for semantics only.
 - For comments, use [Django template syntax](https://docs.djangoproject.com/en/stable/ref/templates/language/#comments) instead of HTML.
 
 ## CSS guidelines

@@ -963,3 +963,21 @@ def dialog_toggle(dialog_id, class_name="", text=None):
         # dialog_id must match the ID of the dialog you are toggling
         "dialog_id": dialog_id,
     }
+
+
+@register.simple_tag()
+def workflow_status_with_date(workflow_state):
+    translation_context = {
+        "finished_at": naturaltime(workflow_state.current_task_state.finished_at),
+        "started_at": naturaltime(workflow_state.current_task_state.started_at),
+        "task_name": workflow_state.current_task_state.task.name,
+        "status_display": workflow_state.get_status_display,
+    }
+
+    if workflow_state.status == "needs_changes":
+        return _("Changes requested %(finished_at)s") % translation_context
+
+    if workflow_state.status == "in_progress":
+        return _("Sent to %(task_name)s %(started_at)s") % translation_context
+
+    return _("%(status_display)s %(task_name)s %(started_at)s") % translation_context

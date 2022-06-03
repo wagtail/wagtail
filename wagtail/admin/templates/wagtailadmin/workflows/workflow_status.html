@@ -1,67 +1,84 @@
 {% load wagtailadmin_tags i18n %}
 
-{% include "wagtailadmin/shared/header.html" with title=workflow_state.workflow.name icon="tasks" %}
+<ol class="workflow-timeline">
 
-<div class="nice-padding">
-    {% if page.get_latest_revision %}
-        <p>
-            {% blocktrans trimmed with workflow_name=workflow_state.workflow.name started_at=workflow_state.created_at %}
-                Submitted to <em>{{ workflow_name }}</em> at {{ started_at }}
-            {% endblocktrans %}
-            {% if workflow_state.requested_by %}
-                {% blocktrans trimmed with modified_by=workflow_state.requested_by|user_display_name %}by {{ modified_by }}{% endblocktrans %}
-                <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
-            {% endif %}
-        </p>
+    <li class="workflow-timeline__item workflow-timeline__item--approved">
+        <div class="workflow-timeline__line"></div>
+        {% icon name="circle-check" class_name="workflow-timeline__icon" %}
+        {% trans "Submitted" %}
+    </li>
+
+    {# Workflow tasks #}
+    {% trans "Not started" as not_started_text %}
+    {% if workflow_state %}
+        {% for task in workflow_state.all_tasks_with_state %}
+            {% with status=task.task_state.status status_display=task.task_state.get_status_display|default:not_started_text %}
+                <li class="workflow-timeline__item workflow-timeline__item--{{ status|default:"pending" }}">
+                    <div class="workflow-timeline__line"></div>
+                    {% if status == "rejected" %}
+                        <div class="w-flex">
+                            {% icon name="warning" class_name="workflow-timeline__icon" title=status_display %}
+                            <div class="w-flex w-flex-col">
+                                <strong>{{ task.name }}</strong>
+                                {% if task.task_state.finished_by %}
+                                    {% blocktrans trimmed with requested_by=task.task_state.finished_by|user_display_name %}
+                                        Changes requested by {{ requested_by }}
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% trans "Changes requested" %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        {% icon name="circle-check" class_name="workflow-timeline__icon" title=status_display %}
+                        {{ task.name }}
+                        {% if task.task_state.finished_by %}
+                            {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
+                                Approved by {{ approved_by }}
+                            {% endblocktrans %}
+                        {% endif %}
+                    {% endif %}
+
+                    {% if task.task_state and task.task_state.get_comment %}
+                        <div class="w-ml-[1.875rem] w-w-full">
+                            {% trans "with comment:" %} <em>"{{ task.task_state.get_comment }}"</em>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endwith %}
+        {% endfor %}
     {% endif %}
 
-    <ul class="workflow-timeline">
-        <li class="approved">{% icon name="success" class_name="default" %}{% trans "Submitted" %}</li>
-        {% trans "Not started" as not_started_text %}
-        {% for task in workflow_tasks %}
-            <li data-wagtail-tooltip="{{ task.name }}: {{ task.task_state.get_status_display|default:not_started_text }}" {% if task.task_state and task.task_state.status %}class="{{ task.task_state.status }}"{% endif %}>
-                {% if task.task_state.status == "rejected" %}
-                    {% icon name="warning" class_name="default" %}<strong>{{ task.name }}</strong>
+    {# Published status #}
+    <li class="workflow-timeline__item workflow-timeline__item--pending">
+        {% icon name="circle-check" class_name="workflow-timeline__icon" %}{% trans "Published" %}
+    </li>
+</ol>
 
-                    {% if task.task_state.finished_by %}
-                        {% blocktrans trimmed with requested_by=task.task_state.finished_by|user_display_name %}
-                            Changes requested by {{ requested_by }}
-                        {% endblocktrans %}
-                    {% else %}
-                        {% trans "Changes requested" %}
-                    {% endif %}
-                {% else %}
-                    {% icon name="success" class_name="default" %}{{ task.name }}
-                    {% if task.task_state.finished_by %}
-                        {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
-                            Approved by {{ approved_by }}
-                        {% endblocktrans %}
-                    {% endif %}
-                {% endif %}
-                {% if task.task_state and task.task_state.get_comment %}
-                    {% trans "with comment:" %} <em>"{{ task.task_state.get_comment }}"</em>
-                {% endif %}
-            </li>
-        {% endfor %}
-        <li>{% icon name="success" class_name="default" %}{% trans "Published" %}</li>
-    </ul>
+{# Footer Actions #}
+<div class="workflow-timeline__footer">
+    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button">
+        {% trans "See full history" %}
+    </a>
 
-    <p>
-        <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small">
-            {% trans "See full history" %}
-        </a>
-        {% with page.get_latest_revision as latest_revision %}
+    {% with page.get_latest_revision as latest_revision %}
+        <div class="w-flex">
             {% if page.live_revision %}
-                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id 'live' latest_revision.id %}" class="button button-small button-secondary">
+                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id 'live' latest_revision.id %}" class="workflow-timeline__footer-link">
                     {% trans "Compare with live version" %}
                 </a>
             {% endif %}
-
             {% with latest_revision.get_previous as previous_revision %}
                 {% if previous_revision %}
-                    <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id latest_revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous version' %}</a>
+                    {# Only show the separator if there are two links. #}
+                    {% if page.live_revision %}
+                        <div class="w-mx-2" aria-hidden="true">|</div>
+                    {% endif %}
+                    <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id latest_revision.id %}"
+                        class="workflow-timeline__footer-link">{% trans 'Compare with previous version' %}</a>
                 {% endif %}
             {% endwith %}
-        {% endwith %}
-    </p>
+        </div>
+    {% endwith %}
+
 </div>
