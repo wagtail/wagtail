@@ -1,5 +1,7 @@
 /* global wagtailConfig */
 
+import { range } from '../utils/range';
+
 const BULK_ACTION_PAGE_CHECKBOX_INPUT = '[data-bulk-action-checkbox]';
 const BULK_ACTION_SELECT_ALL_CHECKBOX =
   '[data-bulk-action-select-all-checkbox]';
@@ -10,13 +12,7 @@ const BULK_ACTION_NUM_OBJECTS_IN_LISTING =
   '[data-bulk-action-num-objects-in-listing]';
 const MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR = '.actions [data-dropdown]';
 
-const checkedState = {
-  checkedObjects: new Set(),
-  numObjects: 0,
-  selectAllInListing: false,
-  shouldShowAllInListingText: true,
-  prevCheckedObject: null,
-};
+let checkedState = {};
 
 /**
  * Toggles the 'more' dropdown button in listing pages.
@@ -98,16 +94,17 @@ function onClickIndividualCheckbox(event) {
         ? shiftClickedObjectIndex
         : prevCheckedObjectIndex) + 1;
     const endingIndex =
-      (prevCheckedObjectIndex <= shiftClickedObjectIndex
+      prevCheckedObjectIndex <= shiftClickedObjectIndex
         ? shiftClickedObjectIndex
-        : prevCheckedObjectIndex) - 1;
+        : prevCheckedObjectIndex;
 
-    for (let i = startingIndex; i <= endingIndex; i++) {
+    range(startingIndex, endingIndex).forEach((i) => {
       const changeEvent = new Event('change');
       individualCheckboxList[i].checked =
         individualCheckboxList[prevCheckedObjectIndex].checked;
       individualCheckboxList[i].dispatchEvent(changeEvent);
-    }
+    });
+
     checkedState.prevCheckedObject = event.target.dataset.objectId;
   }
 }
@@ -119,13 +116,13 @@ function onSelectIndividualCheckbox(e) {
   if (checkedState.selectAllInListing) checkedState.selectAllInListing = false;
   const prevLength = checkedState.checkedObjects.size;
   if (e.target.checked) {
-    checkedState.checkedObjects.add(Number(e.target.dataset.objectId));
+    checkedState.checkedObjects.add(e.target.dataset.objectId);
   } else {
     /* unchecks `Select all` checkbox as soon as one page is unchecked */
     document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
       el.checked = false; // eslint-disable-line no-param-reassign
     });
-    checkedState.checkedObjects.delete(Number(e.target.dataset.objectId));
+    checkedState.checkedObjects.delete(e.target.dataset.objectId);
   }
 
   const numCheckedObjects = checkedState.checkedObjects.size;
@@ -226,9 +223,17 @@ function onClickActionButton(e) {
  * Adds all event listeners
  */
 function addBulkActionListeners() {
+  checkedState = {
+    checkedObjects: new Set(),
+    numObjects: 0,
+    selectAllInListing: false,
+    shouldShowAllInListingText: true,
+    prevCheckedObject: null,
+  };
+
   const changeEvent = new Event('change');
   document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
-    checkedState.numObjects++;
+    checkedState.numObjects += 1;
     el.addEventListener('change', onSelectIndividualCheckbox);
     el.addEventListener('click', onClickIndividualCheckbox);
   });
@@ -265,18 +270,9 @@ function rebindBulkActionsEventListeners() {
   checkedState.checkedObjects.clear();
   checkedState.numObjects = 0;
   document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
-    checkedState.numObjects++;
+    checkedState.numObjects += 1;
     el.addEventListener('change', onSelectIndividualCheckbox);
   });
 }
 
-document.addEventListener('DOMContentLoaded', addBulkActionListeners);
-if (window.headerSearch) {
-  const termInput = document.querySelector(window.headerSearch.termInput);
-  if (termInput) {
-    termInput.addEventListener(
-      'search-success',
-      rebindBulkActionsEventListeners,
-    );
-  }
-}
+export { addBulkActionListeners, rebindBulkActionsEventListeners };
