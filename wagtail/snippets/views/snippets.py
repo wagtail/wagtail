@@ -30,7 +30,6 @@ from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
-from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
@@ -102,38 +101,6 @@ class List(IndexView):
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
-
-    def get_queryset(self):
-        items = self.model.objects.all()
-        if self.locale:
-            items = items.filter(locale=self.locale)
-
-        if issubclass(self.model, DraftStateMixin):
-            items.select_related("latest_revision__object_str")
-
-        # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
-        # (to ensure pagination is consistent)
-        if not items.ordered:
-            items = items.order_by("pk")
-
-        # Search
-        if self.search_query:
-            search_backend = get_search_backend()
-            items = search_backend.search(self.search_query, items)
-
-        return items
-
-    def paginate_queryset(self, queryset, page_size):
-        paginator = self.get_paginator(
-            queryset,
-            page_size,
-            orphans=self.get_paginate_orphans(),
-            allow_empty_first_page=self.get_allow_empty(),
-        )
-
-        page_number = self.request.GET.get(self.page_kwarg)
-        page = paginator.get_page(page_number)
-        return (paginator, page, page.object_list, page.has_other_pages())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
