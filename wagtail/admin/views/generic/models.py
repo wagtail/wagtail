@@ -23,6 +23,7 @@ from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, RevisionMixin
+from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
@@ -124,6 +125,39 @@ class IndexView(
             placeholder=_("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
         )
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        if self.locale:
+            queryset = queryset.filter(locale=self.locale)
+
+        if self.model and issubclass(self.model, DraftStateMixin):
+            queryset = queryset.select_related("latest_revision")
+
+        # Preserve the model-level ordering if specified, but fall back on PK if not
+        # (to ensure pagination is consistent)
+        if not queryset.ordered:
+            queryset = queryset.order_by("pk")
+
+        # Search
+        if self.search_query:
+            search_backend = get_search_backend()
+            queryset = search_backend.search(self.search_query, queryset)
+
+        return queryset
+
+    def paginate_queryset(self, queryset, page_size):
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
+        )
+
+        page_number = self.request.GET.get(self.page_kwarg)
+        page = paginator.get_page(page_number)
+        return (paginator, page, page.object_list, page.has_other_pages())
 
     def get_columns(self):
         try:
