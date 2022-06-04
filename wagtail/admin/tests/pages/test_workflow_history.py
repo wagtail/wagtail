@@ -77,6 +77,10 @@ class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
             ),
         )
 
+        self.assertContains(response, '<div class="w-tabs" data-tabs>')
+
+        self.assertContains(response, '<div class="tab-content">')
+
     def test_get_detail_with_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False

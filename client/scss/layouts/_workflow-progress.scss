@@ -3,31 +3,6 @@
  * See: wagtail/wagtail/admin/templates/wagtailadmin/pages/workflow_history/detail.html
  */
 
-.workflow-progress-tabs {
-  &__buttons {
-    margin-top: 30px;
-  }
-
-  &__button {
-    background: none;
-    border: 0;
-    padding-bottom: 5px;
-    font-weight: bold;
-
-    &--active {
-      border-bottom: 3px solid #007d7e;
-    }
-  }
-
-  &__tab {
-    display: none;
-
-    &--active {
-      display: block;
-    }
-  }
-}
-
 .workflow-progress-table {
   width: 100%;
   border-top: 1px solid rgb(229, 229, 229);
