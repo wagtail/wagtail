@@ -21,6 +21,19 @@
   }
 }
 
+.listing:not(.full-width) {
+  thead th.bulk-actions-filter-checkbox,
+  td.bulk-action-checkbox-cell {
+    padding: 0;
+    width: 50px;
+    text-align: center;
+
+    input[type='checkbox'] {
+      margin: 0;
+    }
+  }
+}
+
 .bulk-actions-choices {
   &.footer {
     @include transition(transform 0.1s ease 0.1s);
