@@ -252,7 +252,7 @@ class IndexView(
 
     def get_edit_url(self, instance):
         if self.edit_url_name:
-            return reverse(self.edit_url_name, args=(instance.pk,))
+            return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_add_url(self):
         if self.add_url_name:

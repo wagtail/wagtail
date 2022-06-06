@@ -1,8 +1,8 @@
 {% load i18n %}
-{% if items %}
+{% if object_list %}
     {% if is_searching or is_filtering %}
         <h2 role="alert">
-            {% blocktrans trimmed count counter=items.paginator.count %}
+            {% blocktrans trimmed count counter=page_obj.paginator.count %}
                 There is {{ counter }} match
             {% plural %}
                 There are {{ counter }} matches
@@ -12,7 +12,7 @@
 
     {% include "wagtailsnippets/snippets/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=items linkurl=index_url %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
 {% else %}
     {% if is_searching or is_filtering %}
         <p role="alert">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural %}Sorry, no {{ snippet_type_name_plural }} match your query{% endblocktrans %}</p>

@@ -18,7 +18,13 @@ from django.views.generic import TemplateView
 from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
+from wagtail.admin.ui.tables import (
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    InlineActionsTable,
+    UserColumn,
+)
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
 from wagtail.admin.views.generic.models import RevisionsCompareView
@@ -107,17 +113,18 @@ class List(IndexView):
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
+    def get_columns(self):
+        return [
+            BulkActionsCheckboxColumn("checkbox", accessor=lambda obj: obj),
+            *super().get_columns(),
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # The shared admin templates expect the items to be a page object rather
-        # than the queryset (object_list), so we can't use context_object_name = "items".
-        paginated_items = context.get("page_obj")
 
         context.update(
             {
                 "model_opts": self.model._meta,
-                "items": paginated_items,
                 "can_add_snippet": self.permission_policy.user_has_permission(
                     self.request.user, "add"
                 ),
