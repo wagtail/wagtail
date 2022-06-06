@@ -1,0 +1,14 @@
+{% load wagtailsnippets_admin_tags %}
+
+<td class="{% if column.classname %}{{ column.classname }} {% endif %}title">
+    <div class="title-wrapper">
+        {% if link_url %}
+            <a {% include "wagtailadmin/tables/attrs.html" with attrs=link_attrs %}>{{ value }}</a>
+        {% else %}
+            {{ value }}
+        {% endif %}
+    </div>
+    <ul class="actions">
+        {% snippet_listing_buttons instance %}
+    </ul>
+</td>

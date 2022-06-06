@@ -23,6 +23,7 @@ from wagtail.admin.ui.tables import (
     Column,
     DateColumn,
     InlineActionsTable,
+    TitleColumn,
     UserColumn,
 )
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
@@ -98,6 +99,10 @@ class Index(TemplateView):
         return super().get_context_data(snippet_types=snippet_types, **kwargs)
 
 
+class SnippetTitleColumn(TitleColumn):
+    cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
+
+
 class List(ReportView):
     view_name = "list"
     header_icon = "snippet"
@@ -108,6 +113,21 @@ class List(ReportView):
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
+
+    def _get_title_column(self):
+        def title_accessor(obj):
+            draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+
+            if draftstate_enabled and obj.latest_revision:
+                return obj.latest_revision.object_str
+            return str(obj)
+
+        return SnippetTitleColumn(
+            "name",
+            label=gettext_lazy("Name"),
+            accessor=title_accessor,
+            get_url=self.get_edit_url,
+        )
 
     def get_columns(self):
         return [
