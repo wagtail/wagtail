@@ -77,6 +77,7 @@ class IndexView(
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
     default_ordering = None
+    search_fields = None
     is_searchable = None
     search_kwarg = "q"
     table_class = Table
@@ -102,7 +103,7 @@ class IndexView(
         if self.model is None:
             return False
         if self.is_searchable is None:
-            return class_is_indexed(self.model)
+            return class_is_indexed(self.model) or self.search_fields
         return self.is_searchable
 
     def get_search_url(self):
@@ -142,8 +143,17 @@ class IndexView(
 
         # Search
         if self.search_query:
-            search_backend = get_search_backend()
-            queryset = search_backend.search(self.search_query, queryset)
+            if class_is_indexed(queryset.model):
+                search_backend = get_search_backend()
+                queryset = search_backend.search(
+                    self.search_query, queryset, fields=self.search_fields
+                )
+            else:
+                filters = {
+                    field + "__icontains": self.search_query
+                    for field in self.search_fields or []
+                }
+                queryset = queryset.filter(**filters)
 
         return queryset
 
