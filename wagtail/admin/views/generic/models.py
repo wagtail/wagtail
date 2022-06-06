@@ -73,6 +73,7 @@ class IndexView(
     default_ordering = None
     is_searchable = None
     search_kwarg = "q"
+    table_class = Table
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -161,7 +162,7 @@ class IndexView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         index_url = self.get_index_url()
-        table = Table(
+        table = self.table_class(
             self.columns,
             context["object_list"],
             base_url=index_url,
