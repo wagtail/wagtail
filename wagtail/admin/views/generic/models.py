@@ -19,7 +19,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
-from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.admin.ui.tables import DateColumn, StatusTagColumn, Table, TitleColumn
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, RevisionMixin
@@ -133,8 +133,11 @@ class IndexView(
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
-        if issubclass(self.model, DraftStateMixin):
-            queryset.select_related("latest_revision__object_str")
+        if issubclass(queryset.model, RevisionMixin):
+            queryset.select_related(
+                "latest_revision__object_str",
+                "latest_revision__created_at",
+            )
 
         # Preserve the object's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
@@ -169,18 +172,61 @@ class IndexView(
         page = paginator.get_page(page_number)
         return (paginator, page, page.object_list, page.has_other_pages())
 
+    def _get_title_column(self):
+        def title_accessor(obj):
+            draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+
+            if draftstate_enabled and obj.latest_revision:
+                return obj.latest_revision.object_str
+            return str(obj)
+
+        return TitleColumn(
+            "name",
+            label=gettext_lazy("Name"),
+            accessor=title_accessor,
+            get_url=self.get_edit_url,
+        )
+
+    def _get_updated_at_column(self):
+        def updated_at_accessor(obj):
+            revision_enabled = self.model and issubclass(self.model, RevisionMixin)
+
+            if revision_enabled and obj.latest_revision:
+                return obj.latest_revision.created_at
+
+            latest_log_entry = log_registry.get_logs_for_instance(obj).first()
+            if latest_log_entry:
+                return latest_log_entry.timestamp
+            return None
+
+        return DateColumn(
+            "updated_at",
+            label=_("Updated"),
+            accessor=updated_at_accessor,
+        )
+
+    def _get_status_tag_column(self):
+        return StatusTagColumn(
+            "status_string",
+            label=_("Status"),
+        )
+
+    def _get_default_columns(self):
+        columns = [
+            self._get_title_column(),
+            self._get_updated_at_column(),
+        ]
+
+        draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+        if draftstate_enabled:
+            columns.append(self._get_status_tag_column())
+        return columns
+
     def get_columns(self):
         try:
             return self.columns
         except AttributeError:
-            return [
-                TitleColumn(
-                    "name",
-                    label=gettext_lazy("Name"),
-                    accessor=str,
-                    get_url=lambda obj: self.get_edit_url(obj),
-                ),
-            ]
+            return self._get_default_columns()
 
     def get_index_url(self):
         if self.index_url_name:
