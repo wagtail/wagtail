@@ -127,7 +127,7 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
             Advert.objects.create(pk=i, text="advert %d" % i)
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["items"][0].text, "advert 10")
+        self.assertEqual(response.context["page_obj"][0].text, "advert 10")
 
     def test_simple_pagination(self):
 
@@ -294,7 +294,7 @@ class TestModelOrdering(TestCase, WagtailTestUtils):
             reverse("wagtailsnippets_tests_advertwithtabbedinterface:list")
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["items"][0].text, "aaaadvert")
+        self.assertEqual(response.context["page_obj"][0].text, "aaaadvert")
 
     def test_chooser_respects_model_ordering(self):
         response = self.client.get(
@@ -325,7 +325,7 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
 
         # All snippets should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["page_obj"].object_list)
         self.assertIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -337,7 +337,7 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
         response = self.get({"q": "Hello"})
 
         # Just snippets with "Hello" should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["page_obj"].object_list)
         self.assertIn(self.snippet_a, items)
         self.assertNotIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -346,7 +346,7 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
         response = self.get({"q": "World"})
 
         # Just snippets with "World" should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["page_obj"].object_list)
         self.assertNotIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
@@ -2861,7 +2861,7 @@ class TestSnippetListViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
 
         # All snippets should be in items
-        items = list(response.context["items"].object_list)
+        items = list(response.context["page_obj"].object_list)
         self.assertIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
