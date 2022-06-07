@@ -6,6 +6,7 @@ import { MainMenuModuleDefinition } from './modules/MainMenu';
 import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
 import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
+import { WagtailBrandingModuleDefinition } from './modules/WagtailBranding';
 
 export default {
   title: 'Sidebar/Sidebar',
@@ -188,6 +189,10 @@ function renderSidebarStory(
   modules: ModuleDefinition[],
   { rtl = false }: RenderSidebarStoryOptions = {},
 ) {
+  // Add branding to all sidebar stories by default
+  const wagtailBrandingModule = new WagtailBrandingModuleDefinition('');
+  modules.unshift(wagtailBrandingModule);
+
   // Simulate navigation
   const [currentPath, setCurrentPath] = React.useState('/admin/');
 
@@ -347,7 +352,7 @@ export function withLargeSubmenu() {
 }
 
 export function withoutSearch() {
-  return renderSidebarStory([wagtailBrandingModule(), bogStandardMenuModule()]);
+  return renderSidebarStory([bogStandardMenuModule()]);
 }
 
 function arabicMenuModule(): MainMenuModuleDefinition {

@@ -11,10 +11,12 @@ const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
 
   return (
     <svg
+      style={{
+        left: slim ? '-1.125rem' : '-1.75rem',
+      }}
       className={`
          sidebar-wagtail-branding__icon
          !w-overflow-visible
-         w-pr-6
          w-group
          w-text-primary
          w-z-10
@@ -26,8 +28,8 @@ const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
          ${className || ''}
          ${
            slim
-             ? 'w-w-[58px] w-h-[57px] w-top-2 w-left-[-18px] hover:-w-translate-y-1'
-             : 'w-w-[120px] w-h-[200px] -w-top-1 -w-left-7 hover:w-translate-x-2 hover:-w-translate-y-3'
+             ? 'w-w-[58px] w-h-[57px] w-top-2 hover:-w-translate-y-1'
+             : 'w-w-[120px] w-h-[200px] -w-top-1  hover:w-translate-x-2 hover:-w-translate-y-3'
          }
       `}
       width="430"
