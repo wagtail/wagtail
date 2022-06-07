@@ -456,7 +456,14 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
                 "Fuzzy search on multiple fields is not supported by the "
                 "Elasticsearch search backend."
             )
-        return {"fuzzy": {fields[0]: query.query_string}}
+        return {
+            "match": {
+                fields[0]: {
+                    "query": query.query_string,
+                    "fuzziness": "AUTO",
+                }
+            }
+        }
 
     def _compile_phrase_query(self, query, fields):
         if len(fields) == 1:

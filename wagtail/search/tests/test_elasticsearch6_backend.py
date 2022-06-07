@@ -8,7 +8,7 @@ from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.search.backends.elasticsearch6 import Elasticsearch6SearchBackend
-from wagtail.search.query import Fuzzy, MATCH_ALL, Phrase
+from wagtail.search.query import MATCH_ALL, Fuzzy, Phrase
 from wagtail.test.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
@@ -608,11 +608,15 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_fuzzy_query(self):
         # Create a query
         query_compiler = self.query_compiler_class(
-            models.Book.objects.all(), Fuzzy("Hello world"), partial_match=False,
+            models.Book.objects.all(),
+            Fuzzy("Hello world"),
+            partial_match=False,
         )
 
         # Check it
-        expected_result = {"fuzzy": {"_all_text": "Hello world"}}
+        expected_result = {
+            "match": {"_all_text": {"query": "Hello world", "fuzziness": "AUTO"}}
+        }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
     def test_fuzzy_query_single_field(self):
@@ -625,7 +629,9 @@ class TestElasticsearch6SearchQuery(TestCase):
         )
 
         # Check it
-        expected_result = {"fuzzy": {"title": "Hello world"}}
+        expected_result = {
+            "match": {"title": {"query": "Hello world", "fuzziness": "AUTO"}}
+        }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
     def test_fuzzy_query_multiple_fields_disallowed(self):
