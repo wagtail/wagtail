@@ -47,7 +47,7 @@ If you'd like the menu item for your model to appear in Wagtail's 'Settings' sub
 
 This will only work for individual `ModelAdmin` classes registered with their own `modeladmin_register` call. It won't work for members of a `ModelAdminGroup`.
 
-## `ModelAdmin.add_to_admin`
+## `ModelAdmin.add_to_admin_menu`
 
 **Expected value**: `True` or `False`
 
