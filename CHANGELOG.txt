@@ -38,6 +38,7 @@ Changelog
  * Add `add_to_admin_menu` option for ModelAdmin (Oliver Parker)
  * Implement Fuzzy matching for Elasticsearch (Nick Smith)
  * Rename `Page.get_latest_revision_as_page` to `Page.get_latest_revision_as_object` (Sage Abdullah)
+ * Cache model permission codenames in PermissionHelper (Tidiane Dia)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
