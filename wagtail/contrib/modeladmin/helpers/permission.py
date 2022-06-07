@@ -28,6 +28,13 @@ class PermissionHelper:
             content_type__model=self.opts.model_name,
         )
 
+    def get_all_permission_codenames(self):
+        if not hasattr(self, "_all_permission_codenames"):
+            self._all_permission_codenames = self.get_all_model_permissions().values(
+                "codename"
+            )
+        return self._all_permission_codenames
+
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
 
@@ -44,7 +51,7 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` has any model-wide
         permissions
         """
-        for perm in self.get_all_model_permissions().values("codename"):
+        for perm in self.get_all_permission_codenames():
             if self.user_has_specific_permission(user, perm["codename"]):
                 return True
         return False
