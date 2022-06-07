@@ -216,6 +216,24 @@ For example:
 
 If you are looking to implement phrase queries using the double-quote syntax, see :ref:`wagtailsearch_query_string_parsing`.
 
+Fuzzy matching
+^^^^^^^^^^^^^^
+
+Fuzzy matching will return documents which contain terms similar to the search term, as measured by a `Levenshtein edit distance <https://en.wikipedia.org/wiki/Levenshtein_distance>`.
+
+A maximum of one edit (transposition, insertion, or removal of a character) is permitted for three to five letter terms, two edits for longer terms, and shorter terms must match exactly.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import Fuzzy
+
+    >>> Page.objects.search(Fuzzy("Hallo"))
+    [<Page: Hello World>]
+
+Fuzzy matching is supported by the Elasticsearch search backend only.
+
 
 .. _wagtailsearch_complex_queries:
 
