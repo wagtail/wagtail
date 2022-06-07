@@ -312,7 +312,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.page
 
     def dispatch(self, request, page_id):
-        self.real_page_record = get_object_or_404(Page, id=page_id)
+        self.real_page_record = get_object_or_404(
+            Page.objects.prefetch_workflow_states(), id=page_id
+        )
         self.latest_revision = self.real_page_record.get_latest_revision()
         self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
