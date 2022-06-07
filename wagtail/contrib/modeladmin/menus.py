@@ -26,9 +26,6 @@ class ModelAdminMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        if self.model_admin.exclude_from_menu is True:
-            return False
-
         return self.model_admin.permission_helper.user_can_list(request.user)
 
 

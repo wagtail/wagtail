@@ -56,7 +56,7 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
             ],
         )
 
-    def test_model_admin_exclude_from_menu(self):
+    def test_model_admin_add_to_admin(self):
         menu = Menu(register_hook_name="register_menu_item")
 
         # Only the friend admin should show, enemy admin is excluded from the menu.

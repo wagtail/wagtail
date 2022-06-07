@@ -201,7 +201,7 @@ class PageAdmin(ModelAdmin):
 
 class EnemyAdmin(ModelAdmin):
     model = Enemy
-    exclude_from_menu = True
+    add_to_admin_menu = False
     menu_icon = "snippet"
 
 

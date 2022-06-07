@@ -157,7 +157,7 @@ class Friend(models.Model):
 
 
 class Enemy(models.Model):
-    """model used to test exclude_from_menu usage in ModelAdminMenuItem"""
+    """model used to test add_to_admin_menu usage in ModelAdminMenuItem"""
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
