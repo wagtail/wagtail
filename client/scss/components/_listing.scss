@@ -114,7 +114,17 @@ ul.listing {
   &.chooser {
     tbody .parent-page {
       font-size: 1.15em;
-      background-color: #e6e6e6;
+      background-color: $color-grey-4;
+    }
+
+    tbody .parent-page .title {
+      a {
+        display: inline-block;
+      }
+
+      .status-tag--label {
+        border: 1px solid;
+      }
     }
 
     tbody .title a {
