@@ -22,6 +22,8 @@ class BaseSetting(models.Model):
         Site, unique=True, db_index=True, editable=False, on_delete=models.CASCADE
     )
 
+    icon = "cogs"
+
     class Meta:
         abstract = True
 

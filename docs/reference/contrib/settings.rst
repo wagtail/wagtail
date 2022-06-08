@@ -88,7 +88,10 @@ Appearance
 
 You can change the label used in the menu by changing the :attr:`~django.db.models.Options.verbose_name` of your model.
 
-You can add an icon to the menu by passing an 'icon' argument to the ``register_setting`` decorator:
+You can add an icon to the menu by passing an 'icon' argument to the
+``register_setting`` decorator, and customize the icon in the header by setting
+``icon`` on the class:
+
 
 .. code-block:: python
 
@@ -96,6 +99,8 @@ You can add an icon to the menu by passing an 'icon' argument to the ``register_
     class SocialMediaSettings(BaseSetting):
         class Meta:
             verbose_name = 'social media accounts'
+
+        icon = 'placeholder'
         ...
 
 For a list of all available icons, please see the :ref:`styleguide`.
