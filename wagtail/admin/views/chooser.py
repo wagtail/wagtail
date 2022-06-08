@@ -108,6 +108,11 @@ class PageChooserTable(Table):
 
         return " ".join(classnames)
 
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
+        return context
+
 
 class PageTitleColumn(Column):
     cell_template_name = "wagtailadmin/chooser/tables/page_title_cell.html"
