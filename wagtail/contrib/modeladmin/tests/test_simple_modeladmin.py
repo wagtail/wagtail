@@ -265,6 +265,39 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, test_html, html=True)
 
+    def test_title_column_links_to_edit_view_by_default(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        test_html = """
+            <div class="title-wrapper"><a href="/admin/modeladmintest/author/edit/1/" title="Edit this author">J. R. R. Tolkien</a></div>
+        """
+        self.assertContains(response, test_html, html=True)
+
+    @mock.patch(
+        "wagtail.contrib.modeladmin.helpers.permission.PermissionHelper.user_can_edit_obj",
+        return_value=False,
+    )
+    def test_title_column_links_to_inspect_view_when_user_cannot_edit(self, *mocks):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        test_html = """
+            <div class="title-wrapper"><a href="/admin/modeladmintest/author/inspect/1/" title="Inspect this author">J. R. R. Tolkien</a></div>
+        """
+        self.assertContains(response, test_html, html=True)
+
+    @mock.patch(
+        "wagtail.contrib.modeladmin.helpers.permission.PermissionHelper.user_can_inspect_obj",
+        return_value=False,
+    )
+    @mock.patch(
+        "wagtail.contrib.modeladmin.helpers.permission.PermissionHelper.user_can_edit_obj",
+        return_value=False,
+    )
+    def test_title_column_is_not_linked_when_user_cannot_edit_or_inspect(self, *mocks):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td class="field-name title">J. R. R. Tolkien')
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableBookIndexView(TestCase, WagtailTestUtils):

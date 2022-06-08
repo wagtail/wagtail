@@ -107,6 +107,15 @@ class ButtonHelper:
             btns.append(self.delete_button(pk, classnames_add, classnames_exclude))
         return btns
 
+    def get_primary_button(self, obj):
+        ph = self.permission_helper
+        usr = self.request.user
+        pk = getattr(obj, self.opts.pk.attname)
+        if ph.user_can_edit_obj(usr, obj):
+            return self.edit_button(pk)
+        if ph.user_can_inspect_obj(usr, obj):
+            return self.inspect_button(pk)
+
 
 class PageButtonHelper(ButtonHelper):
 

@@ -55,6 +55,7 @@ Changelog
  * Fix: Show alternative message when no page types are available to be created (Jaspreet Singh)
  * Fix: Prevent error on sending notifications for the legacy moderation process when no user was specified (Yves Serrano)
  * Fix: Ensure `aria-label` is not set on locale selection dropdown within page chooser modal as it was a duplicate of the button contents (LB (Ben Johnston))
+ * Fix: Revise the `ModelAdmin` title column behaviour to only link to 'edit' if the user has the correct permissions, fallback to the 'inspect' view or a non-clickable title if needed (Stefan Hammer)
 
 
 3.0.1 (16.06.2022)

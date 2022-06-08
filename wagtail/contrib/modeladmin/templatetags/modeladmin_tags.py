@@ -71,13 +71,15 @@ def items_for_result(view, result, request):
         row_attrs = modeladmin.get_extra_attrs_for_field_col(result, field_name)
         row_attrs["class"] = " ".join(row_classes)
         row_attrs_flat = flatatt(row_attrs)
+        primary_button = None
         if field_name == modeladmin.get_list_display_add_buttons(request):
-            edit_url = view.url_helper.get_action_url("edit", result.pk)
+            primary_button = view.button_helper.get_primary_button(result)
+        if primary_button is not None and primary_button.get("url"):
             yield format_html(
                 '<td{}><div class="title-wrapper"><a href="{}" title="{}">{}</a></div></td>',
                 row_attrs_flat,
-                edit_url,
-                _("Edit this %s") % view.verbose_name,
+                primary_button["url"],
+                primary_button.get("title", ""),
                 result_repr,
             )
         else:
