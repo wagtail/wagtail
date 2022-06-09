@@ -572,8 +572,15 @@ class History(ReportView):
     table_class = InlineActionsTable
 
     def setup(self, request, *args, pk, **kwargs):
-        self.object = get_object_or_404(self.model, pk=unquote(pk))
+        self.pk = pk
+        self.object = self.get_object()
         super().setup(request, *args, **kwargs)
+
+    def get_object(self):
+        object = get_object_or_404(self.model, pk=unquote(self.pk))
+        if isinstance(object, DraftStateMixin):
+            return object.get_latest_revision_as_object()
+        return object
 
     def get_page_subtitle(self):
         return str(self.object)
