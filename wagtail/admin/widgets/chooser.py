@@ -225,8 +225,13 @@ class BaseChooser(widgets.Input):
         out = "{0}<script>{1}</script>".format(widget_html, js)
         return mark_safe(out)
 
-    def render_js_init(self, id_, name, value):
-        return ""
+    def render_js_init(self, id_, name, value_data):
+        return "new Chooser({0});".format(json.dumps(id_))
+
+    class Media:
+        js = [
+            "wagtailadmin/js/chooser-widget.js",
+        ]
 
 
 class AdminPageChooser(BaseChooser):
