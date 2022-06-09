@@ -28,7 +28,7 @@ Changelog
  * Add ability to define a custom `get_field_clean_name` method when defining `FormField` models that extend `AbstractFormField` (LB (Ben) Johnston)
  * Migrate Home (Dashboard) view to use generic Wagtail class based view (LB (Ben) Johnston)
  * Combine most of Wagtail’s stylesheets into the global `core.css` file (Thibaud Colas)
- * Add new Breadcrumbs to the Wagtail pattern library (Paarth Agarwal)
+ * Add new Breadcrumbs and Tabs to the Wagtail pattern library (Paarth Agarwal)
  * Adopt new Page Editor UI tabs in the workflow history report page (Paarth Agarwal)
  * Update `ReportView` to extend from generic `wagtail.admin.views.generic.models.IndexView` (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
