@@ -10,6 +10,7 @@ This section describes the various mechanisms that can be used to integrate your
     :maxdepth: 2
 
     admin_views
+    generic_views
     template_components
     forms
     adding_reports
