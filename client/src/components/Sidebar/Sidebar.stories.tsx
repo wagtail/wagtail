@@ -214,11 +214,17 @@ function renderSidebarStory(
     }
   };
 
-  if (rtl) {
-    document.documentElement.setAttribute('dir', 'rtl');
-  } else {
-    document.documentElement.setAttribute('dir', 'ltr');
-  }
+  React.useEffect(() => {
+    if (rtl) {
+      document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+    }
+
+    return () => {
+      document.documentElement.setAttribute('dir', 'ltr');
+    };
+  }, [rtl]);
 
   return (
     <div className="wrapper">
