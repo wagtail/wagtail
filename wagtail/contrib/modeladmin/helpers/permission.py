@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -44,6 +46,7 @@ class PermissionHelper:
 
         return user.has_perm("%s.%s" % (self.opts.app_label, perm_codename))
 
+    @lru_cache(maxsize=128)
     def user_has_any_permissions(self, user):
         """
         Return a boolean to indicate whether `user` has any model-wide
