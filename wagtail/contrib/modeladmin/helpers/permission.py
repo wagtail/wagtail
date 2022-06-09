@@ -1,6 +1,7 @@
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.utils.functional import cached_property
 
 from wagtail.models import Page, UserPagePermissionsProxy
 
@@ -28,12 +29,9 @@ class PermissionHelper:
             content_type__model=self.opts.model_name,
         )
 
-    def get_all_permission_codenames(self):
-        if not hasattr(self, "_all_permission_codenames"):
-            self._all_permission_codenames = (
-                self.get_all_model_permissions().values_list("codename", flat=True)
-            )
-        return self._all_permission_codenames
+    @cached_property
+    def all_permission_codenames(self):
+        return self.get_all_model_permissions().values_list("codename", flat=True)
 
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
@@ -51,7 +49,7 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` has any model-wide
         permissions
         """
-        for perm_codename in self.get_all_permission_codenames():
+        for perm_codename in self.all_permission_codenames:
             if self.user_has_specific_permission(user, perm_codename):
                 return True
         return False
