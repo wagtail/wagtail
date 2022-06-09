@@ -479,7 +479,10 @@ class Usage(IndexView):
         self.object = self.get_object()
 
     def get_object(self):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        object = get_object_or_404(self.model, pk=unquote(self.pk))
+        if isinstance(object, DraftStateMixin):
+            return object.get_latest_revision_as_object()
+        return object
 
     def get_queryset(self):
         return self.object.get_usage()
