@@ -44,6 +44,7 @@ Changelog
  * Fix: Ensure default sidebar branding (bird logo) is not cropped in RTL mode (Steven Steinwand)
  * Fix: Specific snippets list language picker was not properly styled (Sage Abdullah)
  * Fix: Add an accessible label to the image focal point input when editing images (Lucie Le Frapper)
+ * Fix: Remove unused header search JavaScript on the redirects import page (LB (Ben) Johnston)
 
 
 3.0 (16.05.2022)
