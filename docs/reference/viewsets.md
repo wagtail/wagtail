@@ -37,4 +37,26 @@ ModelViewSet
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
    .. autoattribute:: delete_view_class
+
+
+ChooserViewSet
+--------------
+
+.. autoclass:: wagtail.admin.viewsets.chooser.ChooserViewSet
+
+   .. attribute:: model
+
+   Required; the model class that this viewset will work with.
+
+   .. autoattribute:: icon
+   .. autoattribute:: choose_one_text
+   .. autoattribute:: page_title
+   .. autoattribute:: choose_another_text
+   .. autoattribute:: edit_item_text
+   .. autoattribute:: choose_view_class
+   .. autoattribute:: choose_results_view_class
+   .. autoattribute:: chosen_view_class
+   .. autoattribute:: widget_class
+   .. autoattribute:: register_widget
+
 ```

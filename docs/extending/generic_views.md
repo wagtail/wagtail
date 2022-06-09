@@ -46,3 +46,37 @@ def register_viewset():
 ```
 
 Various additional attributes are available to customise the viewset - see [](../reference/viewsets).
+
+
+ChooserViewSet
+--------------
+
+The `wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
+
+```python
+from wagtail.admin.viewsets.chooser import ChooserViewSet
+from .models import Person
+
+
+class PersonChooserViewSet(ChooserViewSet):
+    model = People
+    icon = "user"
+    choose_one_text = "Choose a person"
+    choose_another_text = "Choose another person"
+    edit_item_text = "Edit this person"
+```
+
+Again this can be registered with the `register_admin_viewset` hook:
+
+```python
+from wagtail import hooks
+
+from .views import PersonChooserViewSet
+
+
+@hooks.register("register_admin_viewset")
+def register_viewset():
+    return PersonChooserViewSet("person_chooser")
+```
+
+Registering a chooser viewset will also set up a chooser widget to be used whenever a ForeignKey field to that model appears in a `WagtailAdminModelForm` - see [](./forms). In particular, this means that a panel definition such as `FieldPanel("author")`, where `author` is a foreign key to the `Person` model, will automatically use this chooser interface.

@@ -11,17 +11,33 @@ from .base import ViewSet
 
 
 class ChooserViewSet(ViewSet):
-    icon = "snippet"
-    choose_one_text = _("Choose")
-    page_title = None
-    choose_another_text = _("Choose another")
-    edit_item_text = _("Edit")
+    """
+    A viewset that creates a chooser modal interface for choosing model instances.
+    """
 
+    icon = "snippet"  #: The icon to use in the header of the chooser modal, and on the chooser widget
+    choose_one_text = _(
+        "Choose"
+    )  #: Label for the 'choose' button in the chooser widget when choosing an initial item
+    page_title = None  #: Title text for the chooser modal (defaults to the same as ``choose_one_text``)`
+    choose_another_text = _(
+        "Choose another"
+    )  #: Label for the 'choose' button in the chooser widget, when an item has already been chosen
+    edit_item_text = _("Edit")  #: Label for the 'edit' button in the chooser widget
+
+    #: The view class to use for the overall chooser modal; must be a subclass of ``wagtail.admin.views.generic.chooser.ChooseView``.
     choose_view_class = chooser_views.ChooseView
+
+    #: The view class used to render just the results panel within the chooser modal; must be a subclass of ``wagtail.admin.views.generic.chooser.ChooseResultsView``.
     choose_results_view_class = chooser_views.ChooseResultsView
+
+    #: The view class used after an item has been chosen; must be a subclass of ``wagtail.admin.views.generic.chooser.ChosenView``.
     chosen_view_class = chooser_views.ChosenView
+
+    #: The base Widget class that the chooser widget will be derived from.
     base_widget_class = BaseChooser
 
+    #: Defaults to True; if False, the chooser widget will not automatically be registered for use in admin forms.
     register_widget = True
 
     def __init__(self, *args, **kwargs):
@@ -55,6 +71,9 @@ class ChooserViewSet(ViewSet):
 
     @cached_property
     def widget_class(self):
+        """
+        Returns the form widget class for this chooser.
+        """
         return type(
             "%sChooserWidget" % self.model.__name__,
             (self.base_widget_class,),
