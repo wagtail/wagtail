@@ -2,17 +2,6 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
-{% block extra_js %}
-    {{ block.super }}
-    <script>
-        window.headerSearch = {
-            url: "{% url 'wagtailredirects:index' %}",
-            termInput: "#id_q",
-            targetOutput: "#redirects-results"
-        }
-    </script>
-{% endblock %}
-
 {% block content %}
     {% trans "Import redirects" as header_title %}
     {% include "wagtailadmin/shared/header.html" with title=header_title icon="redirect" %}
