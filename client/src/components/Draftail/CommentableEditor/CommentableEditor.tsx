@@ -258,9 +258,20 @@ function splitState(editorState: EditorState) {
   const anchorKey = selection.getAnchorKey();
   const currentContent = editorState.getCurrentContent();
 
+  // In order to use Modifier.splitBlock, we need a collapsed selection
+  // otherwise we will lose highlighted text
+  const collapsedSelection = selection.isCollapsed()
+    ? selection
+    : new SelectionState({
+        anchorKey: selection.getStartKey(),
+        anchorOffset: selection.getStartOffset(),
+        focusKey: selection.getStartKey(),
+        focusOffset: selection.getStartOffset(),
+      });
+
   const multipleBlockContent = Modifier.splitBlock(
     currentContent,
-    selection,
+    collapsedSelection,
   ).getBlocksAsArray();
   const index = multipleBlockContent.findIndex(
     (block) => block.getKey() === anchorKey,
