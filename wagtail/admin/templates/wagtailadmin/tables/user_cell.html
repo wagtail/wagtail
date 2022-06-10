@@ -1,5 +1,5 @@
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     {% if display_name %}
-        {% include "wagtailadmin/shared/avatar.html" with user=value username=display_name size='small' %}
+        {% avatar user=value size='small' username=display_name  %}
     {% endif %}
 </td>

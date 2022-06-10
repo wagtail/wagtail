@@ -4,14 +4,14 @@
     Variables accepted by this template:
 
     - `user` - A user object with avatarUrl, name and ID
-    - `size` - (null|small|large) Avatar's size
+    - `size` - Avatar's size (null|small|large)
     - `username` - A user's username to display (optional)
 {% endcomment %}
 
 <span class="avatar {{ size }}">
-    {% if size='small' %}
+    {% if 'small' in size %}
         <img src="{% avatar_url user 25 %}" alt=""/>
-    {% elif size='large' %}
+    {% elif 'large' in size %}
         <img src="{% avatar_url user 100 %}" alt=""/>
     {% else %}
         <img src="{% avatar_url user %}" alt=""/>

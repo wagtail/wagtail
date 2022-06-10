@@ -653,6 +653,27 @@ def avatar_url(user, size=50, gravatar_only=False):
     return versioned_static_func("wagtailadmin/images/default-user-avatar.png")
 
 
+@register.inclusion_tag("wagtailadmin/shared/avatar.html")
+def avatar(user, size=None, username=None):
+    """
+    Displays a user avatar using the avatar template
+
+    Usage:
+    {% load wagtailadmin_tags %}
+    ...
+    {% avatar user=request.user size='small' username='JaneDoe' %}
+
+    :param user: the user to get avatar information from (User)
+    :param size: default None (None|'small'|'large')
+    :param username: Optional username to display under the avatar (string)
+    :return: Rendered template snippet
+    """
+    if not user:
+        raise ValueError("You must supply a user")
+
+    return {"user": user, "size": size, "username": username}
+
+
 @register.simple_tag
 def js_translation_strings():
     return mark_safe(json.dumps(get_js_translation_strings()))
