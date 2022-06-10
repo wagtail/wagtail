@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
@@ -9,6 +10,8 @@ from django.views.generic.base import ContextMixin, View
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 
 
 class ModalPageFurnitureMixin(ContextMixin):
@@ -37,12 +40,44 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     results_url_name = None
     icon = "snippet"
     page_title = _("Choose")
+    filter_form_class = None
 
     def get_object_list(self):
         return self.model.objects.all()
 
+    def get_filter_form_class(self):
+        if self.filter_form_class:
+            return self.filter_form_class
+        else:
+            fields = {}
+            if class_is_indexed(self.model):
+                fields["q"] = forms.CharField(
+                    label=_("Search term"), widget=forms.TextInput(), required=False
+                )
+
+            return type(
+                "FilterForm",
+                (forms.Form,),
+                fields,
+            )
+
+    def get_filter_form(self):
+        FilterForm = self.get_filter_form_class()
+        return FilterForm(self.request.GET)
+
+    def filter_object_list(self, objects, form):
+        search_query = form.cleaned_data.get("q")
+        if search_query:
+            search_backend = get_search_backend()
+            objects = search_backend.search(search_query, objects)
+        return objects
+
     def get(self, request):
         objects = self.get_object_list()
+        self.filter_form = self.get_filter_form()
+        if self.filter_form.is_valid():
+            objects = self.filter_object_list(objects, self.filter_form)
+
         paginator = Paginator(objects, per_page=self.per_page)
         self.results = paginator.get_page(request.GET.get("p"))
 
@@ -76,6 +111,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
 
 class ChooseView(BaseChooseView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filter_form"] = self.filter_form
+        return context
+
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
