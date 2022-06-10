@@ -9,7 +9,25 @@
             role="tabpanel"
             aria-labelledby="tab-label-search"
         >
-            <div id="search-results" class="listing documents">
+
+            {% if filter_form.fields %}
+                <form data-chooser-modal-search class="search-bar" action="{% url results_url_name %}" method="GET" novalidate>
+                    {% if filter_form.hidden_fields %}
+                        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                    {% endif %}
+
+                    {% if filter_form.visible_fields %}
+                        <ul class="fields">
+                            {% for field in filter_form.visible_fields %}
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                            {% endfor %}
+                            <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
+                        </ul>
+                    {% endif %}
+                </form>
+            {% endif %}
+
+            <div id="search-results" class="listing">
                 {% include "wagtailadmin/generic/chooser/results.html" %}
             </div>
         </section>
