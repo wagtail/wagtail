@@ -654,7 +654,7 @@ def avatar_url(user, size=50, gravatar_only=False):
 
 
 @register.inclusion_tag("wagtailadmin/shared/avatar.html")
-def avatar(user, size=None, username=None):
+def avatar(user=None, size=None, username=None):
     """
     Displays a user avatar using the avatar template
 
@@ -668,9 +668,6 @@ def avatar(user, size=None, username=None):
     :param username: Optional username to display under the avatar (string)
     :return: Rendered template snippet
     """
-    if not user:
-        raise ValueError("You must supply a user")
-
     return {"user": user, "size": size, "username": username}
 
 
