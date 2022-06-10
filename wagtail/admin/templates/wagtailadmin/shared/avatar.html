@@ -4,8 +4,11 @@
     Variables accepted by this template:
 
     - `user` - A user object with avatarUrl, name and ID
-    - `size` - Avatar's size (null|small|large)
+    - `size` - Avatar's size (small|default|large)
     - `username` - A user's username to display (optional)
+
+    Variables passed to storybook to be used in template tag overrides
+    - `storybook_json` - [{'small': 'user 25'}, {'default':'user'}, {'large':'user 100'}]
 {% endcomment %}
 
 <span class="avatar {{ size }}">
