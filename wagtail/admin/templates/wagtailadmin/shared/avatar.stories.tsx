@@ -1,13 +1,18 @@
 import React from 'react';
 import { Pattern, generateDocs } from 'storybook-django/src/react';
 
-import template from './user_avatar.html';
+import template from './avatar.html';
 
 const { docs, argTypes } = generateDocs(template);
 
 export default {
   parameters: { docs },
-  argTypes: { ...argTypes },
+  argTypes: {
+    ...argTypes,
+    size: {
+      choices: [null, 'small', 'large'],
+    },
+  },
 };
 
 const Template = ({ url }) => (

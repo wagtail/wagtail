@@ -45,7 +45,7 @@
                             </div>
                         </td>
                         <td valign="top">
-                            {% include "wagtailadmin/shared/user_avatar.html" with user=page.last_published_by username=page.last_published_by_user %}
+                            {% include "wagtailadmin/shared/avatar.html" with user=page.last_published_by username=page.last_published_by_user size='small' %}
                         </td>
                         <td valign="top">
                             {{ page.content_type|format_content_type }}

@@ -48,7 +48,8 @@ def revisions_revert(request, page_id, revision_id):
     )
 
     user_avatar = render_to_string(
-        "wagtailadmin/shared/user_avatar.html", {"user": revision.user}
+        "wagtailadmin/shared/avatar.html",
+        {"user": revision.user, "username": revision.user.user_display_name},
     )
 
     messages.warning(

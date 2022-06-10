@@ -1,0 +1,23 @@
+{% load wagtailadmin_tags %}
+
+{% comment "text/markdown" %}
+    Variables accepted by this template:
+
+    - `user` - A user object with avatarUrl, name and ID
+    - `size` - (null|small|large) Avatar's size
+    - `username` - A user's username to display (optional)
+{% endcomment %}
+
+<span class="avatar {{ size }}">
+    {% if size='small' %}
+        <img src="{% avatar_url user 25 %}" alt=""/>
+    {% elif size='large' %}
+        <img src="{% avatar_url user 100 %}" alt=""/>
+    {% else %}
+        <img src="{% avatar_url user %}" alt=""/>
+    {% endif %}
+</span>
+
+{% if username %}
+    {{ username }}
+{% endif %}

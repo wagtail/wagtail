@@ -139,7 +139,7 @@ class AvatarSettingsPanel(BaseSettingsPanel):
     name = "avatar"
     title = gettext_lazy("Profile picture")
     order = 300
-    template_name = "wagtailadmin/account/settings_panels/avatar.html"
+    template_name = "wagtailadmin/account/settings_panels/upload_avatar.html"
     form_class = AvatarPreferencesForm
     form_object = "profile"
 
