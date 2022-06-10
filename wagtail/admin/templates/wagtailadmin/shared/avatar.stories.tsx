@@ -4,7 +4,7 @@ import { Pattern, generateDocs } from 'storybook-django/src/react';
 import template from './avatar.html';
 
 const { docs, argTypes } = generateDocs(template);
-console.log(argTypes);
+
 export default {
   parameters: { docs },
   argTypes: {
