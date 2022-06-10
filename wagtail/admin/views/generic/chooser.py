@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.template.response import TemplateResponse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
