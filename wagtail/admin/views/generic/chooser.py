@@ -23,7 +23,7 @@ class ModalPageFurnitureMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "icon": self.icon,
+                "header_icon": self.icon,
                 "page_title": self.page_title,
             }
         )
