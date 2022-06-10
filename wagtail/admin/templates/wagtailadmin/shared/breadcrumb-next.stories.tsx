@@ -16,9 +16,9 @@ export default {
 };
 
 const Template = (args) => (
-  <div data-slim-header>
+  <header>
     <Pattern filename={__filename} context={args} />
-  </div>
+  </header>
 );
 
 export const Base = Template.bind({});
