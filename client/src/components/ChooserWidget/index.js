@@ -1,25 +1,27 @@
-import $ from 'jquery';
-
 import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
 
   constructor(id) {
-    this.chooserElement = $('#' + id + '-chooser');
-    this.titleElement = this.chooserElement.find('.title');
-    this.input = $('#' + id);
-    this.editLink = this.chooserElement.find('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.data('chooserUrl');
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.titleElement = this.chooserElement.querySelector('.title');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
 
     this.state = this.getStateFromHtml();
 
-    this.chooserElement.find('.action-choose').on('click', () => {
-      this.openChooserModal();
-    });
-    this.chooserElement.find('.action-clear').on('click', () => {
-      this.clear();
-    });
+    for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
+      btn.addEventListener('click', () => {
+        this.openChooserModal();
+      });
+    }
+    for (const btn of this.chooserElement.querySelectorAll('.action-clear')) {
+      btn.addEventListener('click', () => {
+        this.clear();
+      });
+    }
   }
 
   getStateFromHtml() {
@@ -31,11 +33,11 @@ export class Chooser {
         wagtail.admin.views.generic.chooser.ChosenView) is a superset of this, and can therefore be
         passed directly to chooser.setState.
         */
-    if (this.input.val()) {
+    if (this.input.value) {
       return {
-        id: this.input.val(),
-        edit_link: this.editLink.attr('href'),
-        title: this.titleElement.text(),
+        id: this.input.value,
+        edit_link: this.editLink.getAttribute('href'),
+        title: this.titleElement.innerText,
       };
     } else {
       return null;
@@ -60,14 +62,14 @@ export class Chooser {
     this.setState(null);
   }
   renderEmptyState() {
-    this.input.val('');
-    this.chooserElement.addClass('blank');
+    this.input.setAttribute('value', '');
+    this.chooserElement.classList.add('blank');
   }
   renderState(newState) {
-    this.input.val(newState.id);
-    this.titleElement.text(newState.title);
-    this.chooserElement.removeClass('blank');
-    this.editLink.attr('href', newState.edit_link);
+    this.input.setAttribute('value', newState.id);
+    this.titleElement.innerText = newState.title;
+    this.chooserElement.classList.remove('blank');
+    this.editLink.setAttribute('href', newState.edit_link);
   }
 
   getTextLabel(opts) {
@@ -79,7 +81,7 @@ export class Chooser {
     return result;
   }
   focus() {
-    $('.action-choose', this.chooserElement).focus();
+    this.chooserElement.querySelector('.action-choose').focus();
   }
 
   openChooserModal() {
