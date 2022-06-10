@@ -1,13 +1,20 @@
 export default function initCollapsibleBreadcrumbs() {
   const breadcrumbsContainer = document.querySelector('[data-breadcrumb-next]');
-  const slimHeader = document.querySelector('[data-slim-header]');
 
   if (!breadcrumbsContainer) {
     return;
   }
+
+  const header = breadcrumbsContainer.closest(
+    breadcrumbsContainer.dataset.headerSelector || 'header',
+  );
+
+  if (!header) return;
+
   const breadcrumbsToggle = breadcrumbsContainer.querySelector(
     '[data-toggle-breadcrumbs]',
   );
+
   const breadcrumbItems = breadcrumbsContainer.querySelectorAll(
     '[data-breadcrumb-item]',
   );
@@ -110,7 +117,7 @@ export default function initCollapsibleBreadcrumbs() {
     mouseExitedToggle = true;
   });
 
-  slimHeader.addEventListener('mouseleave', () => {
+  header.addEventListener('mouseleave', () => {
     if (!keepOpen) {
       hideBreadcrumbsWithDelay = setTimeout(() => {
         hideBreadcrumbs();
@@ -119,7 +126,7 @@ export default function initCollapsibleBreadcrumbs() {
     }
   });
 
-  slimHeader.addEventListener('mouseenter', () => {
+  header.addEventListener('mouseenter', () => {
     clearTimeout(hideBreadcrumbsWithDelay);
   });
 
