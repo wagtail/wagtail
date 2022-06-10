@@ -10,9 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailsnippets/snippets/headers/usage_header.html' %}
-    </div>
+    {% include 'wagtailsnippets/snippets/headers/usage_header.html' %}
 
     {% trans "Usage of" as usage_str %}
     {% include "wagtailadmin/shared/header.html" with title=usage_str subtitle=object %}

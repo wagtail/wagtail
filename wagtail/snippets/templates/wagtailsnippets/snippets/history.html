@@ -16,9 +16,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-sticky w-top-0 w-z-header">
-        {% include 'wagtailsnippets/snippets/headers/history_header.html' %}
-    </div>
+    {% include 'wagtailsnippets/snippets/headers/history_header.html' %}
 
     {{ block.super }}
 {% endblock %}
