@@ -14,11 +14,16 @@ export default {
       options: ['small', 'default', 'large'],
       control: { type: 'select' },
     },
+    storybook_json: {
+      table: {
+        disable: true,
+      },
+    },
   },
 };
 
 // Used to convert storybook_json into usable data for this story
-const formatStorybookJson = (text: string) => {
+const formatArgTypeJson = (text: string) => {
   try {
     // Replace single quotes and convert text to json object
     return Object.assign({}, ...JSON.parse(text.replace(/'/g, '"')));
@@ -29,7 +34,7 @@ const formatStorybookJson = (text: string) => {
 
 const Template = ({ url, size, username }) => {
   // Use argTypes from template to populate tag overrides 😎
-  const tagKeys = formatStorybookJson(argTypes.storybook_json.description);
+  const tagKeys = formatArgTypeJson(argTypes.storybook_json.description);
 
   return (
     <Pattern
