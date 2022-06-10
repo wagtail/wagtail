@@ -2,20 +2,19 @@
 
 Viewsets are Wagtail's mechanism for defining a group of related admin views with shared properties, as a single unit. See [Generic views](../extending/generic_views).
 
+## ViewSet
+
 ```{eval-rst}
-
-ViewSet
--------
-
 .. autoclass:: wagtail.admin.viewsets.base.ViewSet
 
    .. automethod:: on_register
    .. automethod:: get_urlpatterns
    .. automethod:: get_url_name
+```
 
-ModelViewSet
-------------
+## ModelViewSet
 
+```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.model.ModelViewSet
 
    .. attribute:: model
@@ -37,11 +36,11 @@ ModelViewSet
    .. autoattribute:: add_view_class
    .. autoattribute:: edit_view_class
    .. autoattribute:: delete_view_class
+```
 
+## ChooserViewSet
 
-ChooserViewSet
---------------
-
+```{eval-rst}
 .. autoclass:: wagtail.admin.viewsets.chooser.ChooserViewSet
 
    .. attribute:: model
@@ -58,5 +57,4 @@ ChooserViewSet
    .. autoattribute:: chosen_view_class
    .. autoattribute:: widget_class
    .. autoattribute:: register_widget
-
 ```
