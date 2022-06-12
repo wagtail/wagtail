@@ -31,6 +31,8 @@ Changelog
  * Add new Breadcrumbs and Tabs to the Wagtail pattern library (Paarth Agarwal)
  * Adopt new Page Editor UI tabs in the workflow history report page (Paarth Agarwal)
  * Update `ReportView` to extend from generic `wagtail.admin.views.generic.models.IndexView` (Sage Abdullah)
+ * Introduce a `wagtail.admin.viewsets.chooser.ChooserViewSet` module to serve as a common base implementation for chooser modals (Matt Westcott)
+ * Add documentation for `wagtail.admin.viewsets.model.ModelViewSet` (Matt Westcott)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
