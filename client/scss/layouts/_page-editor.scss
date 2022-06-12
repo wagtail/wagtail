@@ -460,7 +460,7 @@ footer .preview {
     @apply w-leading-none w-inline-flex w-items-center;
 
     .icon {
-      @apply w-pr-2;
+      margin-inline-end: theme('spacing.2');
     }
   }
 }
