@@ -37,19 +37,25 @@ Changelog
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
- * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
  * Fix: Ensure radio buttons / checkboxes display vertically under Django 4.0 (Matt Westcott)
  * Fix: Ensure that custom document or image models support custom tag models (Matt Westcott)
  * Fix: Ensure comments use translated values for their placeholder text (Stefan Hammer)
  * Fix: Ensure the upgrade notification, shown to admins on the dashboard if Wagtail is out of date, content is translatable (LB (Ben) Johnston)
  * Fix: Show the re-ordering option to users that have permission to publish pages within the page listing (Stefan Hammer)
- * Fix: Ensure `TabbedInterface` will not show a tab if no panels are visible due to permissions (Paarth Agarwal)
  * Fix: Ensure default sidebar branding (bird logo) is not cropped in RTL mode (Steven Steinwand)
- * Fix: Specific snippets list language picker was not properly styled (Sage Abdullah)
  * Fix: Add an accessible label to the image focal point input when editing images (Lucie Le Frapper)
  * Fix: Remove unused header search JavaScript on the redirects import page (LB (Ben) Johnston)
  * Fix: Ensure non-square avatar images will correctly show throughout the admin (LB (Ben) Johnston)
  * Fix: Ignore translations in test files and re-include some translations that were accidentally ignored (Stefan Hammer)
+
+
+3.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure `TabbedInterface` will not show a tab if no panels are visible due to permissions (Paarth Agarwal)
+ * Fix: Specific snippets list language picker was not properly styled (Sage Abdullah)
+ * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
+ * Fix: Fix misaligned spinner icon on page action button (LB (Ben Johnston))
 
 
 3.0 (16.05.2022)
