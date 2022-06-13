@@ -164,3 +164,22 @@ There are no default tabs on non-Page models so there will be no \
         errors.append(error)
 
     return errors
+
+
+@register("wagtailadmin_base_url")
+def wagtail_admin_base_url_check(app_configs, **kwargs):
+    from django.conf import settings
+
+    errors = []
+
+    if getattr(settings, "WAGTAILADMIN_BASE_URL", None) is None:
+        errors.append(
+            Warning(
+                "The WAGTAILADMIN_BASE_URL setting is not defined",
+                hint="This should be the base URL used to access the Wagtail admin site. "
+                "Without this, URLs in notification emails will not display correctly.",
+                id="wagtailadmin.W003",
+            )
+        )
+
+    return errors
