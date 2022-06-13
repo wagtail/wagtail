@@ -229,8 +229,8 @@ def usage_count_enabled():
 
 
 @register.simple_tag
-def base_url_setting():
-    return get_admin_base_url()
+def base_url_setting(default=None):
+    return get_admin_base_url() or default
 
 
 @register.simple_tag

@@ -1,6 +1,6 @@
 {% extends 'wagtailadmin/notifications/base.txt' %}
 {% load wagtailadmin_tags i18n %}
-{% base_url_setting as base_url %}
+{% base_url_setting default="" as base_url %}
 
 {% block content %}
 {% blocktrans trimmed with task=task.name|safe title=page.get_admin_display_title|safe %}The page "{{ title }}" has been submitted for approval to moderation stage "{{ task }}".{% endblocktrans %}
