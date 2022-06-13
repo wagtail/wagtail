@@ -571,9 +571,9 @@ footer .preview {
   align-items: center;
   justify-content: center;
   column-gap: 0.75rem;
-  border-top: 1px solid $color-grey-4;
-  margin-top: 1rem;
-  padding-top: 1rem;
+  border-bottom: 1px solid $color-grey-4;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 #preview-panel {
