@@ -46,6 +46,7 @@ Changelog
  * Fix: Remove unused header search JavaScript on the redirects import page (LB (Ben) Johnston)
  * Fix: Ensure non-square avatar images will correctly show throughout the admin (LB (Ben) Johnston)
  * Fix: Ignore translations in test files and re-include some translations that were accidentally ignored (Stefan Hammer)
+ * Fix: Show alternative message when no page types are available to be created (Jaspreet Singh)
 
 
 3.0.1 (xx.xx.xxxx) - IN DEVELOPMENT

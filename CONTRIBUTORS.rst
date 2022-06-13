@@ -601,6 +601,7 @@ Contributors
 * Thiago Costa de Souza
 * Benedict Faw
 * Lucie Le Frapper
+* Jaspreet Singh
 
 Translators
 ===========
