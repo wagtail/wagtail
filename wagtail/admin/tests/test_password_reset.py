@@ -66,6 +66,14 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("mysite.com", mail.outbox[0].body)
 
+    @override_settings(ROOT_URLCONF="wagtail.admin.urls", WAGTAILADMIN_BASE_URL=None)
+    def test_email_without_base_url(self):
+        response = self.client.post(
+            reverse("wagtailadmin_password_reset"), {"email": "siteeditor@example.com"}
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 1)
+
     @unittest.skipUnless(
         settings.AUTH_USER_MODEL == "customuser.CustomUser",
         "only applicable to CustomUser",
