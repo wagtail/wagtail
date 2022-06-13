@@ -476,4 +476,18 @@ document.addEventListener('DOMContentLoaded', () => {
       setPanel('');
     });
   }
+
+  const previewButtons = document.querySelectorAll('button[data-preview-size]');
+  const togglePreviewSize = (event) => {
+    const currentButton = event.currentTarget;
+    const previewPanel = document.getElementById('preview-panel');
+
+    previewPanel.dataset.activePreviewSize = currentButton.dataset.previewSize;
+    previewButtons.forEach((b) => b.setAttribute('aria-current', 'false'));
+    currentButton.setAttribute('aria-current', 'true');
+  };
+
+  previewButtons.forEach((button) => {
+    button.addEventListener('click', togglePreviewSize);
+  });
 });
