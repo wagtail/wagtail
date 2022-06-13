@@ -536,8 +536,9 @@ A StreamField's value behaves as a list, and blocks can be inserted, overwritten
     # Delete the last block
     del my_page.body[-1]
 
-    # Append a block to the stream
-    my_page.body.append(('paragraph', "<p>And they all lived happily ever after.</p>"))
+    # Append a rich text block to the stream
+    from wagtail.rich_text import RichText
+    my_page.body.append(('paragraph', RichText("<p>And they all lived happily ever after.</p>")))
 
     # Save the updated data back to the database
     my_page.save()
