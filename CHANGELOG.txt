@@ -1,6 +1,15 @@
 Changelog
 =========
 
+3.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure `TabbedInterface` will not show a tab if no panels are visible due to permissions (Paarth Agarwal)
+ * Fix: Fix incorrect background colour for snippet language selector (Sage Abdullah)
+ * Fix: Send `strict-origin-when-cross-origin` header on version check request (Karl Hobley)
+ * Fix: Fix misaligned spinner icon on page action button (LB (Ben Johnston))
+
+
 3.0 (16.05.2022)
 ~~~~~~~~~~~~~~~~
 
