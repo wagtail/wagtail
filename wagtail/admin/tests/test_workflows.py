@@ -921,7 +921,37 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         )
         self.assertNotContains(response, "Draft")
 
+    @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
     def test_submit_sends_mail(self):
+        self.submit()
+        # 3 emails sent:
+        # - to moderator - submitted for approval in moderation stage test_task_1
+        # - to superuser - submitted for approval in moderation stage test_task_1
+        # - to superuser - submitted to workflow test_workflow
+        self.assertEqual(len(mail.outbox), 3)
+
+        # the 'submitted to workflow' email should include the submitter's name
+        workflow_message = None
+        for msg in mail.outbox:
+            if (
+                msg.subject
+                == 'The page "Hello world! (simple page)" has been submitted to workflow "test_workflow"'
+            ):
+                workflow_message = msg
+                break
+
+        self.assertTrue(workflow_message)
+        self.assertIn(
+            'The page "Hello world! (simple page)" has been submitted for moderation to workflow "test_workflow" by submitter',
+            workflow_message.body,
+        )
+        self.assertIn("http://admin.example.com/admin/", workflow_message.body)
+
+    @override_settings(WAGTAILADMIN_BASE_URL=None)
+    def test_submit_sends_mail_without_base_url(self):
+        # With a missing WAGTAILADMIN_BASE_URL setting, we won't be able to construct absolute URLs
+        # for the email, but we don't want it to fail outright either
+
         self.submit()
         # 3 emails sent:
         # - to moderator - submitted for approval in moderation stage test_task_1
