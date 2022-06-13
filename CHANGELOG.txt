@@ -33,7 +33,7 @@ Changelog
  * Update `ReportView` to extend from generic `wagtail.admin.views.generic.models.IndexView` (Sage Abdullah)
  * Introduce a `wagtail.admin.viewsets.chooser.ChooserViewSet` module to serve as a common base implementation for chooser modals (Matt Westcott)
  * Add documentation for `wagtail.admin.viewsets.model.ModelViewSet` (Matt Westcott)
- * Enhance new Breadcrumbs so they can be added to any header or element (Paarth Agarwal)
+ * Enhance new Breadcrumbs so they can be added to any header or container element and adopt on the page explorer (listing) view (Paarth Agarwal)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
