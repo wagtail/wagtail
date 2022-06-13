@@ -121,20 +121,20 @@ def send_notification(recipient_users, notification, extra_context):
         # Send emails
         sent_count = 0
         for recipient in email_recipients:
+            # update context with this recipient
+            context["user"] = recipient
+
+            # Translate text to the recipient language settings
+            with override(recipient.wagtail_userprofile.get_preferred_language()):
+                # Get email subject and content
+                email_subject = render_to_string(template_subject, context).strip()
+                email_content = render_to_string(template_text, context).strip()
+
+            kwargs = {}
+            if getattr(settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False):
+                kwargs["html_message"] = render_to_string(template_html, context)
+
             try:
-                # update context with this recipient
-                context["user"] = recipient
-
-                # Translate text to the recipient language settings
-                with override(recipient.wagtail_userprofile.get_preferred_language()):
-                    # Get email subject and content
-                    email_subject = render_to_string(template_subject, context).strip()
-                    email_content = render_to_string(template_text, context).strip()
-
-                kwargs = {}
-                if getattr(settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False):
-                    kwargs["html_message"] = render_to_string(template_html, context)
-
                 # Send email
                 send_mail(
                     email_subject,
@@ -257,31 +257,28 @@ class EmailNotificationMixin:
 
                 # Send emails
                 for recipient in recipients:
+                    # update context with this recipient
+                    context["user"] = recipient
+
+                    # Translate text to the recipient language settings
+                    with override(
+                        recipient.wagtail_userprofile.get_preferred_language()
+                    ):
+                        # Get email subject and content
+                        email_subject = render_to_string(
+                            template_set["subject"], context
+                        ).strip()
+                        email_content = render_to_string(
+                            template_set["text"], context
+                        ).strip()
+
+                    kwargs = {}
+                    if getattr(settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False):
+                        kwargs["html_message"] = render_to_string(
+                            template_set["html"], context
+                        )
+
                     try:
-
-                        # update context with this recipient
-                        context["user"] = recipient
-
-                        # Translate text to the recipient language settings
-                        with override(
-                            recipient.wagtail_userprofile.get_preferred_language()
-                        ):
-                            # Get email subject and content
-                            email_subject = render_to_string(
-                                template_set["subject"], context
-                            ).strip()
-                            email_content = render_to_string(
-                                template_set["text"], context
-                            ).strip()
-
-                        kwargs = {}
-                        if getattr(
-                            settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False
-                        ):
-                            kwargs["html_message"] = render_to_string(
-                                template_set["html"], context
-                            )
-
                         # Send email
                         send_mail(
                             email_subject,
