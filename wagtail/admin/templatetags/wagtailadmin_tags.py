@@ -228,9 +228,9 @@ def usage_count_enabled():
     return getattr(settings, "WAGTAIL_USAGE_COUNT_ENABLED", False)
 
 
-@register.simple_tag(takes_context=True)
-def base_url_setting(context=None):
-    return get_admin_base_url(context=context)
+@register.simple_tag
+def base_url_setting():
+    return get_admin_base_url()
 
 
 @register.simple_tag
