@@ -290,7 +290,6 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
-  initCollapsibleBreadcrumbs();
 
   //
   // Preview
