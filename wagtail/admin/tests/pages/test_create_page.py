@@ -19,13 +19,13 @@ from wagtail.test.testapp.models import (
     BusinessSubIndex,
     DefaultStreamPage,
     PersonPage,
+    SimpleChildPage,
     SimplePage,
+    SimpleParentPage,
     SingletonPage,
     SingletonPageViaMaxCount,
     StandardChild,
     StandardIndex,
-    SimpleParentPage,
-    SimpleChildPage
 )
 from wagtail.test.utils import WagtailTestUtils
 
@@ -74,7 +74,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, "A lazy business child page description")
         # List should not contain page types not in the subpage_types list
         self.assertNotContains(response, "Simple page")
-    
+
     def test_no_subpage_type_available_to_create(self):
         # Test if all subpages have reached their max_count_per_parent limit
         simple_parent_page = SimpleParentPage(
@@ -99,8 +99,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         BusinessIndex.max_count_per_parent = None
         self.assertEqual(response.status_code, 200)
         # if there is no page_type available then this message should be shown.
-        self.assertContains(response, "Sorry, you cannot create a page at this location.")
-        self.assertNotContains(response, "Choose which type of page you'd like to create.")
+        self.assertContains(
+            response, "Sorry, you cannot create a page at this location."
+        )
+        self.assertNotContains(
+            response, "Choose which type of page you'd like to create."
+        )
 
     def test_add_subpage_with_one_valid_subpage_type(self):
         # Add a BusinessSubIndex to test business rules in
