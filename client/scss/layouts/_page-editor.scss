@@ -603,14 +603,13 @@ footer .preview {
   }
 
   &[data-active-preview-size='mobile'] {
+    // From DevTools: iPhone SE 375x667
     .preview-wrapper {
-      height: calc(667px * min(1, calc(446/375)));
-      // height: 667px;
+      height: 667px;
 
       iframe {
         width: 375px;
-        // height: calc(667px / min(1, calc(446/375)));
-        height: 667px;
+        height: calc(667px / min(1, calc(446/375)));
         zoom: min(1, calc(446/375));
         transform: scale(min(1, calc(446/375)));
       }
@@ -618,14 +617,13 @@ footer .preview {
   }
 
   &[data-active-preview-size='tablet'] {
+    // From DevTools: iPad Mini 768x1024
     .preview-wrapper {
-      height: calc(1024px * min(1, calc(446/768)));
-      // height: 1024px;
+      height: 1024px;
 
       iframe {
         width: 768px;
-        // height: calc(1024px / min(1, calc(446/768)));
-        height: 1024px;
+        height: calc(1024px / min(1, calc(446/768)));
         zoom: min(1, calc(446/768));
         transform: scale(min(1, calc(446/768)));
       }
@@ -633,14 +631,13 @@ footer .preview {
   }
 
   &[data-active-preview-size='desktop'] {
+    // Desktop 1280x720
     .preview-wrapper {
-      height: calc(720px * min(1, calc(446/1280)));
-      // height: 720px;
+      height: 720px;
 
       iframe {
         width: 1280px;
-        // height: calc(720px/ min(1, calc(446/1280)));
-        height: 720px;
+        height: calc(720px/ min(1, calc(446/1280)));
         zoom: min(1, calc(446/1280));
         transform: scale(min(1, calc(446/1280)));
       }
