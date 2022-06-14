@@ -57,6 +57,7 @@ Changelog
  * Fix: Fix misaligned spinner icon on page action button (LB (Ben Johnston))
  * Fix: Ensure radio buttons / checkboxes display vertically under Django 4.0 (Matt Westcott)
  * Fix: Prevent failures when splitting blocks at the start or end of a block, or with highlighted text (Jacob Topp-Mugglestone)
+ * Fix: Allow scheduled publishing to complete when the initial editor did not have publish permission (Matt Westcott)
 
 
 3.0 (16.05.2022)
