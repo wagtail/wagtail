@@ -12,9 +12,9 @@
             <button class="{{ preview_size_button_class }}" data-preview-size="desktop" aria-label="{% trans "Preview in desktop size" %}" aria-current="false">
                 {% icon name="desktop" class_name="default" %}
             </button>
-        {% endwith %}
 
-        <a href="{% url "wagtailadmin_pages:preview_on_edit" page.id %}" target="_blank" rel="noreferrer noopener" class="w-label-2">Open in a new tab</a>
+            <button href="{% url "wagtailadmin_pages:preview_on_edit" page.id %}" target="_blank" rel="noreferrer noopener" class="{{ preview_size_button_class }}">{% icon name="link-external" class_name="default" %}</button>
+        {% endwith %}
     </div>
 
     <div class="preview-area">
