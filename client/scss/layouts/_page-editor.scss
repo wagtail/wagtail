@@ -570,8 +570,10 @@ footer .preview {
 }
 
 .preview-area {
-  width: 100%; // 329px
+  width: 100%; // 446px
   overflow: scroll;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .preview-buttons {
@@ -580,7 +582,6 @@ footer .preview {
   justify-content: center;
   column-gap: 0.75rem;
   border-bottom: 1px solid $color-grey-4;
-  margin-bottom: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -589,59 +590,59 @@ footer .preview {
 
   .preview-wrapper {
     overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    height: 512px;
+    width: 100%;
+    height: 100%;
 
     iframe {
       transform-origin: 0 0;
+      width: 100%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
   &[data-active-preview-size='mobile'] {
     .preview-wrapper {
-      // 329/390 = 0.843589744
-      width: calc(390px * 0.8436);
-      // height: calc(844px * 0.8436);
+      height: calc(667px * min(1, calc(446/375)));
+      // height: 667px;
 
       iframe {
-        width: 390px;
-        // height: 844px;
-        height: 606.9227px;
-        zoom: 0.8436;
-        transform: scale3d(0.8436, 0.8436, 0.8436);
+        width: 375px;
+        // height: calc(667px / min(1, calc(446/375)));
+        height: 667px;
+        zoom: min(1, calc(446/375));
+        transform: scale(min(1, calc(446/375)));
       }
     }
   }
 
   &[data-active-preview-size='tablet'] {
     .preview-wrapper {
-      // 329/820 = 0.401219512
-      width: calc(820px * 0.4012);
-      // height: calc(1180px * 0.4012);
+      height: calc(1024px * min(1, calc(446/768)));
+      // height: 1024px;
 
       iframe {
-        width: 820px;
-        // height: 1180px;
-        height: 1276.1715px;
-        zoom: 0.4012;
-        transform: scale3d(0.4012, 0.4012, 0.4012);
+        width: 768px;
+        // height: calc(1024px / min(1, calc(446/768)));
+        height: 1024px;
+        zoom: min(1, calc(446/768));
+        transform: scale(min(1, calc(446/768)));
       }
     }
   }
 
   &[data-active-preview-size='desktop'] {
     .preview-wrapper {
-      // 329/1920 = 0.171354167
-      width: calc(1920px * 0.1714);
-      // height: calc(1080px * 0.1714);
+      height: calc(720px * min(1, calc(446/1280)));
+      // height: 720px;
 
       iframe {
-        width: 1920px;
-        // height: 1080px;
-        height: 2987.1645px;
-        zoom: 0.1714;
-        transform: scale3d(0.1714, 0.1714, 0.1714);
+        width: 1280px;
+        // height: calc(720px/ min(1, calc(446/1280)));
+        height: 720px;
+        zoom: min(1, calc(446/1280));
+        transform: scale(min(1, calc(446/1280)));
       }
     }
   }
