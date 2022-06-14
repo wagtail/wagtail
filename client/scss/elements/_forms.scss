@@ -149,6 +149,7 @@ input[type='checkbox'] {
   cursor: pointer;
   border: 0;
   padding: 0;
+
 }
 
 input[type='radio'] {
@@ -223,6 +224,8 @@ input[type='checkbox']:checked:before {
   // stylelint-disable-next-line property-disallowed-list
   left: 2px;
   inset-inline-start: 2px;
+  filter:contrast(0);
+  fill:currentColor;
 }
 
 input[type='checkbox'][disabled]:before {
@@ -250,3 +253,5 @@ textarea,
 select {
   @include transition(background-color 0.2s ease);
 }
+
+
