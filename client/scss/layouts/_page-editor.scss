@@ -85,7 +85,7 @@
     }
 
     &__close-button {
-      @apply w-text-primary w-absolute w-left-2 w-top-2 hover:w-text-primary-200 w-bg-white w-p-2.5 w-hidden w-transition;
+      @apply w-text-primary w-absolute w-left-3 w-top-3 hover:w-text-primary-200 w-bg-white w-p-3 w-hidden w-transition;
 
       .icon {
         @apply w-w-4 w-h-4;
@@ -98,7 +98,15 @@
     }
 
     &__panel {
-      @apply w-hidden w-pl-2.5;
+      @apply w-hidden w-pl-3;
+    }
+
+    &.preview {
+      @apply w-px-6 w-py-4;
+
+      .form-side__panel {
+        @apply w-pl-0;
+      }
     }
   }
 }
