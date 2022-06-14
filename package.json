@@ -119,7 +119,7 @@
     "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
     "build": "webpack --config ./client/webpack.config.js --mode production",
     "fix:js": "eslint --ext .js,.ts,.tsx --fix .",
-    "format": "prettier --write '**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}'",
+    "format": "prettier --write",
     "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
     "lint:css": "stylelint **/*.scss",
     "lint:format": "prettier --check '**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}'",
