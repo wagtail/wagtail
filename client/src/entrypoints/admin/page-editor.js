@@ -423,6 +423,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'aria-labelledby',
         `side-panel-${panelName}-title`,
       );
+      if (panelName === 'preview') {
+        sidePanelWrapper.classList.add('preview');
+      } else {
+        sidePanelWrapper.classList.remove('preview');
+      }
     }
 
     document.querySelectorAll('[data-side-panel]').forEach((panel) => {
