@@ -17,6 +17,8 @@
         {% endwith %}
     </div>
 
+    <button class="button button-small button--icon refresh-button">{% icon name="rotate" class_name="icon" %} Refresh</button>
+
     <div class="preview-area">
         <div class="preview-wrapper">
             <iframe src="{% url "wagtailadmin_pages:preview_on_edit" page.id %}"></iframe>

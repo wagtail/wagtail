@@ -585,6 +585,19 @@ footer .preview {
   padding-bottom: 1rem;
 }
 
+.button.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+
+  .icon {
+    @include svg-icon(0.9rem);
+  }
+}
+
 #preview-panel {
   margin-bottom: 2rem;
 
