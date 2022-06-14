@@ -1014,6 +1014,7 @@ def register_icons(icons):
         "repeat.svg",
         "reset.svg",
         "resubmit.svg",
+        "rotate.svg",
         "search.svg",
         "site.svg",
         "snippet.svg",
