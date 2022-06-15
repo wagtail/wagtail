@@ -4,15 +4,14 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
-from django.test.utils import override_settings
 
 from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
-
 from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
