@@ -615,7 +615,7 @@ footer .preview {
     }
   }
 
-  &[data-active-preview-size='mobile'] {
+  &[data-active-preview-size='mobile'], &[data-active-preview-size].has-errors {
     // From DevTools: iPhone SE 375x667
     .preview-wrapper {
       height: 667px;

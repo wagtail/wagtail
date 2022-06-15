@@ -482,10 +482,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const previewButtons = document.querySelectorAll('button[data-preview-size]');
+  const previewPanel = document.getElementById('preview-panel');
+  const previewButtons = previewPanel.querySelectorAll(
+    'button[data-preview-size]',
+  );
+
   const togglePreviewSize = (event) => {
     const currentButton = event.currentTarget;
-    const previewPanel = document.getElementById('preview-panel');
 
     previewPanel.dataset.activePreviewSize = currentButton.dataset.previewSize;
     previewButtons.forEach((b) => b.setAttribute('aria-current', 'false'));
@@ -495,4 +498,59 @@ document.addEventListener('DOMContentLoaded', () => {
   previewButtons.forEach((button) => {
     button.addEventListener('click', togglePreviewSize);
   });
+
+  const iframe = previewPanel.querySelector('iframe');
+  const refreshButton = previewPanel.querySelector('.refresh-button');
+  const openPreviewButton = previewPanel.querySelector('.open-preview-button');
+  const form = document.getElementById('page-edit-form');
+  const previewUrl = previewPanel.dataset.action;
+  const submitAction = document.querySelector('.action-save');
+
+  const setPreviewData = () =>
+    fetch(previewUrl, {
+      method: 'POST',
+      body: new FormData(form),
+    }).then((response) =>
+      response.json().then((data) => {
+        if (data.is_valid) {
+          previewPanel.classList.remove('has-errors');
+        } else {
+          previewPanel.classList.add('has-errors');
+        }
+        iframe.contentWindow.location.reload();
+        return data.is_valid;
+      }),
+    );
+
+  const handlePreview = () =>
+    setPreviewData()
+      .then((valid) => {
+        // Submit the form to show the validation errors.
+        if (!valid) submitAction.click();
+        return valid;
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-alert
+        alert('Error while sending preview data.');
+      });
+
+  const handlePreviewInNewTab = () => {
+    const previewWindow = window.open('', previewUrl);
+    previewWindow.focus();
+
+    handlePreview().then((success) => {
+      if (success) {
+        previewWindow.document.location = previewUrl;
+      } else {
+        window.focus();
+        previewWindow.close();
+      }
+    });
+  };
+
+  refreshButton.addEventListener('click', handlePreview);
+  openPreviewButton.addEventListener('click', handlePreviewInNewTab);
+
+  // Make sure current preview data in session exists and is up-to-date.
+  setPreviewData();
 });

@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 
-<div id="preview-panel" data-active-preview-size="mobile">
+<div id="preview-panel" data-active-preview-size="mobile" data-action="{% url "wagtailadmin_pages:preview_on_edit" page.id %}">
     <div class="preview-buttons">
         {% with preview_size_button_class="w-w-8 w-h-8 w-bg-transparent w-box-border w-p-0 w-rounded w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary" %}
             <button class="{{ preview_size_button_class }}" data-preview-size="mobile" aria-label="{% trans "Preview in mobile size" %}" aria-current="true">
@@ -13,7 +13,7 @@
                 {% icon name="desktop" class_name="default" %}
             </button>
 
-            <button href="{% url "wagtailadmin_pages:preview_on_edit" page.id %}" target="_blank" rel="noreferrer noopener" class="{{ preview_size_button_class }}">{% icon name="link-external" class_name="default" %}</button>
+            <button class="{{ preview_size_button_class }} open-preview-button">{% icon name="link-external" class_name="default" %}</button>
         {% endwith %}
     </div>
 
