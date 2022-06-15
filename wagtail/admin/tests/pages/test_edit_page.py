@@ -858,7 +858,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(
             response, "<title>Wagtail - Preview not available</title>", html=True
         )
-        self.assertContains(response, "<h1>Preview not available</h1>", html=True)
+        self.assertContains(
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
+        )
 
     @override_settings(
         CACHES={

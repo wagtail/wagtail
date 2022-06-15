@@ -5,11 +5,11 @@
 
 {% block furniture %}
     <div class="preview-error">
-        <header>
+        <header class="preview-error__header">
             {% icon name="warning" %}
-            <h1>{% trans 'Preview not available' %}</h1>
+            <h1 class="preview-error__title">{% trans 'Preview not available' %}</h1>
         </header>
-        <p>
+        <p class="preview-error__details">
             {% blocktrans trimmed %}
                 The page could not be previewed due to validation errors.
                 Make sure all fields have been filled correctly, then refresh the preview.

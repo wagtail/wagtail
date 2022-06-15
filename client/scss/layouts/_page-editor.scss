@@ -698,7 +698,7 @@ footer .preview {
   text-align: center;
   background: $color-white;
 
-  header {
+  &__header {
     @apply w-text-critical-200;
     margin-bottom: 0.5rem;
 
@@ -706,13 +706,13 @@ footer .preview {
       width: 2rem;
       height: 2rem;
     }
-
-    h1 {
-      @apply w-h4 w-text-critical-200;
-    }
   }
 
-  p {
+  &__title {
+    @apply w-h4 w-text-critical-200;
+  }
+
+  &__details {
     @apply w-help-text;
   }
 }
