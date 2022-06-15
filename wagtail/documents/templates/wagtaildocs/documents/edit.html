@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% load wagtailimages_tags wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=document.title %}Editing {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
@@ -64,7 +64,7 @@
                 {% if uc_enabled %}
                     <dt>{% trans "Usage" %}</dt>
                     <dd>
-                        <a href="{{ document.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                        <a href="{{ document.usage_url }}">{% blocktrans trimmed count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                     </dd>
                 {% endif %}
             </dl>

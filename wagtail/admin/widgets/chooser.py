@@ -1,22 +1,25 @@
 import json
+import warnings
 
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.forms import widgets
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page
 from wagtail.telepath import register
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):
-    input_type = "hidden"
     choose_one_text = _("Choose an item")
     choose_another_text = _("Choose another item")
     clear_choice_text = _("Clear choice")
@@ -26,7 +29,30 @@ class AdminChooser(WidgetWithScript, widgets.Input):
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
+    input_type = "hidden"
     is_hidden = False
+
+    def __init__(self, **kwargs):
+        warnings.warn(
+            "wagtail.admin.widgets.chooser.AdminChooser is deprecated. "
+            "Custom chooser subclasses should inherit from wagtail.admin.widgets.chooser.BaseChooser instead",
+            category=RemovedInWagtail50Warning,
+        )
+
+        # allow choose_one_text / choose_another_text to be overridden per-instance
+        if "choose_one_text" in kwargs:
+            self.choose_one_text = kwargs.pop("choose_one_text")
+        if "choose_another_text" in kwargs:
+            self.choose_another_text = kwargs.pop("choose_another_text")
+        if "clear_choice_text" in kwargs:
+            self.clear_choice_text = kwargs.pop("clear_choice_text")
+        if "link_to_chosen_text" in kwargs:
+            self.link_to_chosen_text = kwargs.pop("link_to_chosen_text")
+        if "show_edit_link" in kwargs:
+            self.show_edit_link = kwargs.pop("show_edit_link")
+        if "show_clear_link" in kwargs:
+            self.show_clear_link = kwargs.pop("show_clear_link")
+        super().__init__(**kwargs)
 
     def get_instance(self, model_class, value):
         # helper method for cleanly turning 'value' into an instance object.
@@ -59,6 +85,26 @@ class AdminChooser(WidgetWithScript, widgets.Input):
         else:
             return result
 
+
+class BaseChooser(widgets.Input):
+    choose_one_text = _("Choose an item")
+    choose_another_text = _("Choose another item")
+    clear_choice_text = _("Clear choice")
+    link_to_chosen_text = _("Edit this item")
+    show_edit_link = True
+    show_clear_link = True
+    template_name = "wagtailadmin/widgets/chooser.html"
+    display_title_key = (
+        "title"  # key to use for the display title within the value data dict
+    )
+    icon = None
+    classname = None
+
+    # when looping over form fields, this one should appear in visible_fields, not hidden_fields
+    # despite the underlying input being type="hidden"
+    input_type = "hidden"
+    is_hidden = False
+
     def __init__(self, **kwargs):
         # allow choose_one_text / choose_another_text to be overridden per-instance
         if "choose_one_text" in kwargs:
@@ -75,11 +121,127 @@ class AdminChooser(WidgetWithScript, widgets.Input):
             self.show_clear_link = kwargs.pop("show_clear_link")
         super().__init__(**kwargs)
 
+    def value_from_datadict(self, data, files, name):
+        # treat the empty string as None
+        result = super().value_from_datadict(data, files, name)
+        if result == "":
+            return None
+        else:
+            return result
 
-class AdminPageChooser(AdminChooser):
+    def get_hidden_input_context(self, name, value, attrs):
+        """
+        Return the context variables required to render the underlying hidden input element
+        """
+        return super().get_context(name, value, attrs)
+
+    def render_hidden_input(self, name, value, attrs):
+        """Render the HTML for the underlying hidden input element"""
+        return self._render(
+            "django/forms/widgets/input.html",
+            self.get_hidden_input_context(name, value, attrs),
+        )
+
+    def get_chooser_modal_url(self):
+        return reverse(self.chooser_modal_url_name)
+
+    def get_context(self, name, value_data, attrs):
+        original_field_html = self.render_hidden_input(
+            name, value_data.get("id"), attrs
+        )
+        return {
+            "widget": self,
+            "original_field_html": original_field_html,
+            "attrs": attrs,
+            "value": bool(
+                value_data
+            ),  # only used by chooser.html to identify blank values
+            "edit_url": value_data.get("edit_url", ""),
+            "display_title": value_data.get(self.display_title_key, ""),
+            "chooser_url": self.get_chooser_modal_url(),
+            "icon": self.icon,
+            "classname": self.classname,
+        }
+
+    def render_html(self, name, value_data, attrs):
+        return render_to_string(
+            self.template_name,
+            self.get_context(name, value_data or {}, attrs),
+        )
+
+    def get_instance(self, value):
+        """
+        Given a value passed to this widget for rendering (which may be None, an id, or a model
+        instance), return a model instance or None
+        """
+        if value is None:
+            return None
+        elif isinstance(value, self.model):
+            return value
+        else:  # assume instance ID
+            return self.model.objects.get(pk=value)
+
+    def get_display_title(self, instance):
+        """
+        Return the text to display as the title for this instance
+        """
+        return str(instance)
+
+    def get_value_data_from_instance(self, instance):
+        """
+        Given a model instance, return a value that we can pass to both the server-side template
+        and the client-side rendering code (via telepath) that contains all the information needed
+        for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
+        """
+        return {
+            "id": instance.pk,
+            "edit_url": AdminURLFinder().get_edit_url(instance),
+            self.display_title_key: self.get_display_title(instance),
+        }
+
+    def get_value_data(self, value):
+        """
+        Given a value passed to this widget for rendering (which may be None, an id, or a model
+        instance), return a value that we can pass to both the server-side template and the
+        client-side rendering code (via telepath) that contains all the information needed
+        for display. Typically this is a dict of id, title etc; it must be JSON-serialisable.
+        """
+        instance = self.get_instance(value)
+        if instance:
+            return self.get_value_data_from_instance(instance)
+
+    def render(self, name, value, attrs=None, renderer=None):
+        # no point trying to come up with sensible semantics for when 'id' is missing from attrs,
+        # so let's make sure it fails early in the process
+        try:
+            id_ = attrs["id"]
+        except (KeyError, TypeError):
+            raise TypeError("BaseChooser cannot be rendered without an 'id' attribute")
+
+        value_data = self.get_value_data(value)
+        widget_html = self.render_html(name, value_data, attrs)
+
+        js = self.render_js_init(id_, name, value_data)
+        out = "{0}<script>{1}</script>".format(widget_html, js)
+        return mark_safe(out)
+
+    def render_js_init(self, id_, name, value_data):
+        return "new Chooser({0});".format(json.dumps(id_))
+
+    class Media:
+        js = [
+            "wagtailadmin/js/chooser-widget.js",
+        ]
+
+
+class AdminPageChooser(BaseChooser):
     choose_one_text = _("Choose a page")
     choose_another_text = _("Choose another page")
     link_to_chosen_text = _("Edit this page")
+    display_title_key = "display_title"
+    chooser_modal_url_name = "wagtailadmin_choose_page"
+    icon = "doc-empty-inverse"
+    classname = "page-chooser"
 
     def __init__(
         self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
@@ -111,18 +273,11 @@ class AdminPageChooser(AdminChooser):
 
         self.user_perms = user_perms
         self.target_models = cleaned_target_models
-        self.can_choose_root = bool(can_choose_root)
-
-    def _get_lowest_common_page_class(self):
-        """
-        Return a Page class that is an ancestor for all Page classes in
-        ``target_models``, and is also a concrete Page class itself.
-        """
         if len(self.target_models) == 1:
-            # Shortcut for a single page type
-            return self.target_models[0]
+            self.model = self.target_models[0]
         else:
-            return Page
+            self.model = Page
+        self.can_choose_root = bool(can_choose_root)
 
     @property
     def model_names(self):
@@ -143,45 +298,19 @@ class AdminPageChooser(AdminChooser):
             "user_perms": self.user_perms,
         }
 
-    def get_value_data(self, value):
-        if value is None:
-            return None
-        elif isinstance(value, Page):
-            page = value.specific
-        else:  # assume page ID
-            model_class = self._get_lowest_common_page_class()
-            try:
-                page = model_class.objects.get(pk=value)
-            except model_class.DoesNotExist:
-                return None
+    def get_instance(self, value):
+        instance = super().get_instance(value)
+        if instance:
+            return instance.specific
 
-            page = page.specific
+    def get_display_title(self, instance):
+        return instance.get_admin_display_title()
 
-        parent_page = page.get_parent()
-        return {
-            "id": page.pk,
-            "display_title": page.get_admin_display_title(),
-            "parent_id": parent_page.pk if parent_page else None,
-            "edit_url": reverse("wagtailadmin_pages:edit", args=[page.pk]),
-        }
-
-    def render_html(self, name, value_data, attrs):
-        value_data = value_data or {}
-        original_field_html = super().render_html(name, value_data.get("id"), attrs)
-
-        return render_to_string(
-            "wagtailadmin/widgets/page_chooser.html",
-            {
-                "widget": self,
-                "original_field_html": original_field_html,
-                "attrs": attrs,
-                "value": bool(
-                    value_data
-                ),  # only used by chooser.html to identify blank values
-                "display_title": value_data.get("display_title", ""),
-                "edit_url": value_data.get("edit_url", ""),
-            },
-        )
+    def get_value_data_from_instance(self, instance):
+        data = super().get_value_data_from_instance(instance)
+        parent_page = instance.get_parent()
+        data["parent_id"] = parent_page.pk if parent_page else None
+        return data
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}

@@ -361,6 +361,16 @@ class TestAdminTagWidget(TestCase):
                 return json.loads("[%s]" % params_raw)
         return []
 
+    def get_help_text_html_element(self, html):
+        """Return a help text html element with content as string"""
+        start = """<input type="text" name="tags">"""
+        end = "<script>"
+        items_after_input_tag = html.split(start)[1]
+        if items_after_input_tag:
+            help_text_element = items_after_input_tag.split(end)[0].strip()
+            return help_text_element
+        return []
+
     def test_render_js_init_basic(self):
         """Checks that the 'initTagField' is correctly added to the inline script for tag widgets"""
         widget = widgets.AdminTagWidget()
@@ -462,6 +472,43 @@ class TestAdminTagWidget(TestCase):
             ],
         )
 
+    @override_settings(TAG_SPACES_ALLOWED=True)
+    def test_tags_help_text_spaces_allowed(self):
+        """Checks that the tags help text html element content is correct when TAG_SPACES_ALLOWED is True"""
+        widget = widgets.AdminTagWidget()
+        help_text = widget.get_context(None, None, {})["widget"]["help_text"]
+
+        html = widget.render("tags", None, {})
+        help_text_html_element = self.get_help_text_html_element(html)
+
+        self.assertEqual(
+            help_text,
+            'Multi-word tags with spaces will automatically be enclosed in double quotes (").',
+        )
+
+        self.assertHTMLEqual(
+            help_text_html_element,
+            """<p class="help">%s</p>""" % help_text,
+        )
+
+    @override_settings(TAG_SPACES_ALLOWED=False)
+    def test_tags_help_text_no_spaces_allowed(self):
+        """Checks that the tags help text html element content is correct when TAG_SPACES_ALLOWED is False"""
+        widget = widgets.AdminTagWidget()
+        help_text = widget.get_context(None, None, {})["widget"]["help_text"]
+
+        html = widget.render("tags", None, {})
+        help_text_html_element = self.get_help_text_html_element(html)
+
+        self.assertEqual(
+            help_text, "Tags can only consist of a single word, no spaces allowed."
+        )
+
+        self.assertHTMLEqual(
+            help_text_html_element,
+            """<p class="help">%s</p>""" % help_text,
+        )
+
 
 class TestTagField(TestCase):
     def setUp(self):
@@ -484,6 +531,16 @@ class TestTagField(TestCase):
         form = RestaurantTagForm({"tags": "Italian, delicious"})
         self.assertTrue(form.is_valid())
         self.assertEqual(set(form.cleaned_data["tags"]), {"Italian", "delicious"})
+
+    def test_tag_over_one_hundred_characters(self):
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag)
+
+        tag_name = ""
+        for _ in range(101):
+            tag_name += "a"
+        form = RestaurantTagForm({"tags": tag_name})
+        self.assertFalse(form.is_valid())
 
 
 class TestFilteredSelect(TestCase):

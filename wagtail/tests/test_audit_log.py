@@ -278,28 +278,30 @@ class TestAuditLog(TestCase):
                 title="Another child", slug="child-page-2", content="hello"
             )
         )
-
-        child.delete()
-        self.assertEqual(
-            PageLogEntry.objects.filter(action="wagtail.delete").count(), 1
+        child.add_child(
+            instance=SimplePage(
+                title="Grandchild", slug="grandchild-page", content="hello"
+            )
         )
 
-        # check deleting a parent page logs child deletion
+        # check deleting a parent page logs descendent deletion
         self.home_page.delete()
+
         self.assertEqual(
-            PageLogEntry.objects.filter(action="wagtail.delete").count(), 3
+            PageLogEntry.objects.filter(action="wagtail.delete").count(), 4
         )
-        self.assertListEqual(
-            list(
+        self.assertEqual(
+            set(
                 PageLogEntry.objects.filter(action="wagtail.delete").values_list(
                     "label", flat=True
                 )
             ),
-            [
+            {
                 "Homepage (simple page)",
+                "Grandchild (simple page)",
                 "Child (simple page)",
                 "Another child (simple page)",
-            ],
+            },
         )
 
     def test_workflow_actions(self):

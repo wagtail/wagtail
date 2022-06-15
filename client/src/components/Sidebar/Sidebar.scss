@@ -3,9 +3,6 @@
 
   position: absolute;
   top: $sidebar-toggle-spacing;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: $sidebar-toggle-spacing;
   inset-inline-start: $sidebar-toggle-spacing;
   color: $color-white;
   width: $sidebar-toggle-size;
@@ -23,11 +20,8 @@
   }
 
   @include media-breakpoint-up(sm) {
+    position: static;
     inset-inline-end: $sidebar-toggle-spacing;
-
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: initial;
     inset-inline-start: initial;
   }
 
@@ -40,24 +34,20 @@
   }
 }
 
-.sidebar {
-  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
+.sidebar,
+.sidebar-loading {
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-sidebar w-transition-sidebar;
   width: $menu-width;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
-
-  @include transition(
-    width $menu-transition-duration ease,
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left $menu-transition-duration ease,
-    inset-inline-start $menu-transition-duration ease
-  );
 
   @media (forced-colors: $media-forced-colours) {
     border-inline-end: 1px solid transparent;
+  }
+
+  .icon--menuitem {
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
   }
 
   &--slim {
@@ -66,10 +56,12 @@
 
   // The sidebar can move completely off-screen in mobile mode for extra room
   &--hidden {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: -$menu-width;
     inset-inline-start: -$menu-width;
+  }
+
+  // When sidebar is completely closed and animations have finished
+  &--closed {
+    display: none;
   }
 
   &__inner {
@@ -79,32 +71,27 @@
 
   &__collapse-toggle {
     @include sidebar-toggle;
-    display: grid;
+    // All other styling is done with utility classes on this element
   }
 
   // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
   &--mobile &__collapse-toggle {
     display: none;
   }
+}
 
-  // This element should cover all the area beneath the collapse toggle
-  // It's only used to attach mouse enter/exit event handlers to control peeking
-  &__peek-hover-area {
-    margin-top: $sidebar-toggle-size;
-    display: grid;
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+.sidebar-collapsed .sidebar-loading {
+  width: $menu-width-slim;
 }
 
 // This is a separate component as it needs to display in the header
 .sidebar-nav-toggle {
+  @apply w-z-sidebar-toggle;
   @include sidebar-toggle;
   display: none; // Nav toggle is for mobile only
-  z-index: 305;
 
   &--mobile {
+    @apply w-bg-primary w-top-0 w-left-0 w-h-[50px] w-w-[50px] w-rounded-none hover:w-bg-primary-200;
     display: grid;
   }
 
@@ -118,5 +105,4 @@
 @import 'menu/MenuItem';
 @import 'menu/SubMenuItem';
 @import 'modules/MainMenu';
-@import 'modules/Search';
 @import 'modules/WagtailBranding';

@@ -254,9 +254,6 @@ $positions: (
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: 14px;
       inset-inline-start: 14px;
     }
   }

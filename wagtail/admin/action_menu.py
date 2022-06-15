@@ -224,47 +224,6 @@ class DeleteMenuItem(ActionMenuItem):
         return reverse("wagtailadmin_pages:delete", args=(context["page"].id,))
 
 
-class LockMenuItem(ActionMenuItem):
-    name = "action-lock"
-    label = _("Lock")
-    aria_label = _("Apply editor lock")
-    icon_name = "lock"
-    classname = "action-secondary"
-    template_name = "wagtailadmin/pages/action_menu/lock_unlock_menu_item.html"
-
-    def is_shown(self, context):
-        return (
-            context["view"] == "edit"
-            and not context["page"].locked
-            and self.get_user_page_permissions_tester(context).can_lock()
-        )
-
-    def get_url(self, context):
-        return reverse("wagtailadmin_pages:lock", args=(context["page"].id,))
-
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        context["aria_label"] = self.aria_label
-        return context
-
-
-class UnlockMenuItem(LockMenuItem):
-    name = "action-unlock"
-    label = _("Unlock")
-    aria_label = _("Apply editor lock")
-    icon_name = "lock-open"
-
-    def is_shown(self, context):
-        return (
-            context["view"] == "edit"
-            and context["page"].locked
-            and self.get_user_page_permissions_tester(context).can_unlock()
-        )
-
-    def get_url(self, context):
-        return reverse("wagtailadmin_pages:unlock", args=(context["page"].id,))
-
-
 class SaveDraftMenuItem(ActionMenuItem):
     name = "action-save-draft"
     label = _("Save Draft")
@@ -307,8 +266,6 @@ def _get_base_page_action_menu_items():
         BASE_PAGE_ACTION_MENU_ITEMS = [
             SaveDraftMenuItem(order=0),
             DeleteMenuItem(order=10),
-            LockMenuItem(order=15),
-            UnlockMenuItem(order=15),
             UnpublishMenuItem(order=20),
             PublishMenuItem(order=30),
             CancelWorkflowMenuItem(order=40),

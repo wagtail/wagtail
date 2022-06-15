@@ -1,13 +1,10 @@
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import TemplateResponseMixin, View
-from django.views.generic.list import MultipleObjectMixin
 
+from wagtail.admin.views.generic.models import IndexView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 
-class ReportView(
-    SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMixin, View
-):
+class ReportView(SpreadsheetExportMixin, IndexView):
     header_icon = ""
     page_kwarg = "p"
     template_name = "wagtailadmin/reports/base_report.html"

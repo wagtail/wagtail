@@ -101,7 +101,7 @@ class BaseChooseView(View):
                     "title",
                     self.model,
                     label=_("Title"),
-                    link_classname="snippet-choice",
+                    link_attrs={"data-chooser-modal-choice": True},
                 ),
             ],
             self.paginated_items,
@@ -142,6 +142,8 @@ class ChooseView(BaseChooseView):
 class ChooseResultsView(BaseChooseView):
     # Return just the HTML fragment for the results
     def render_to_response(self):
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
         return TemplateResponse(
             self.request,
             "wagtailsnippets/chooser/results.html",
@@ -151,22 +153,28 @@ class ChooseResultsView(BaseChooseView):
                 "table": self.table,
                 "query_string": self.search_query,
                 "is_searching": self.is_searching,
+                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
             },
         )
 
 
-def chosen(request, app_label, model_name, pk):
-    model = get_snippet_model_from_url_params(app_label, model_name)
-    item = get_object_or_404(model, pk=unquote(pk))
+class ChosenView(View):
+    def get(request, *args, app_label, model_name, pk, **kwargs):
+        model = get_snippet_model_from_url_params(app_label, model_name)
+        item = get_object_or_404(model, pk=unquote(pk))
 
-    snippet_data = {
-        "id": str(item.pk),
-        "string": str(item),
-        "edit_link": reverse(
-            "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
-        ),
-    }
+        snippet_data = {
+            "id": str(item.pk),
+            "string": str(item),
+            "edit_link": reverse(
+                f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quote(item.pk)]
+            ),
+        }
 
-    return render_modal_workflow(
-        request, None, None, None, json_data={"step": "chosen", "result": snippet_data}
-    )
+        return render_modal_workflow(
+            request,
+            None,
+            None,
+            None,
+            json_data={"step": "chosen", "result": snippet_data},
+        )

@@ -10,11 +10,12 @@ const borderRadius = {
 const borderWidth = {
   DEFAULT: '0.0625rem', // 1px
   0: '0',
+  5: '0.3125rem',
 };
 
 // If adding new values, use T-shirt sizing naming.
 const boxShadow = {
-  DEFAULT: '5px 5px 20px rgb(0 0 0 / 0.1)',
+  DEFAULT: '5px 5px 20px rgba(0, 0, 0, 0.05)',
 };
 
 module.exports = {

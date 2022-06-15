@@ -3,12 +3,18 @@ import '../draftail';
 import './telepath';
 import './widgets';
 
+import { createEditorStateFromRaw } from 'draftail';
+import { EditorState } from 'draft-js';
+
+import ReactTestUtils from 'react-dom/test-utils';
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {
   getContentPath: jest.fn(),
 };
+window.draftail.getSplitControl = jest.fn(window.draftail.getSplitControl);
 
 describe('telepath: wagtail.widgets.Widget', () => {
   let boundWidget;
@@ -365,8 +371,10 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
 
 describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   let boundWidget;
+  let inputElement;
+  let parentCapabilities;
 
-  const TEST_VALUE = JSON.stringify({
+  const TEST_RAW = {
     blocks: [
       {
         key: 't30wm',
@@ -389,7 +397,8 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
       },
     ],
     entityMap: {},
-  });
+  };
+  const TEST_VALUE = JSON.stringify(TEST_RAW);
 
   beforeEach(() => {
     // Create a placeholder to render the widget
@@ -453,12 +462,17 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
         },
       ],
     });
+    parentCapabilities = new Map();
+    parentCapabilities.set('split', { enabled: true, fn: jest.fn() });
+    const inputId = 'the-id';
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
       'the-name',
-      'the-id',
+      inputId,
       TEST_VALUE,
+      parentCapabilities,
     );
+    inputElement = document.querySelector('#the-id');
   });
 
   test('it renders correctly', () => {
@@ -471,11 +485,23 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   });
 
   test('getState() returns the current state', () => {
-    expect(boundWidget.getState()).toBe(TEST_VALUE);
+    const state = createEditorStateFromRaw(TEST_RAW);
+    let retrievedState = boundWidget.getState();
+    // Ignore selection, which is altered from the original state by Draftail,
+    // (TODO: figure out why this happens)
+    // and decorator, which is added to by CommentableEditor
+    retrievedState = EditorState.acceptSelection(
+      retrievedState,
+      state.getSelection(),
+    );
+    retrievedState = EditorState.set(retrievedState, {
+      decorator: state.getDecorator(),
+    });
+    expect(retrievedState).toStrictEqual(state);
   });
 
   test('setState() changes the current state', () => {
-    const NEW_VALUE = JSON.stringify({
+    const NEW_VALUE = {
       blocks: [
         {
           key: 't30wm',
@@ -487,11 +513,21 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
         },
       ],
       entityMap: {},
-    });
+    };
+    const NEW_STATE = createEditorStateFromRaw(NEW_VALUE);
+    boundWidget.setState(NEW_STATE);
 
-    expect(() => {
-      boundWidget.setState(NEW_VALUE);
-    }).toThrowError('DraftailRichTextArea.setState is not implemented');
+    let retrievedState = boundWidget.getState();
+    // Ignore selection, which is altered from the original state by Draftail,
+    // and decorator, which is added to by CommentableEditor
+    retrievedState = EditorState.acceptSelection(
+      retrievedState,
+      NEW_STATE.getSelection(),
+    );
+    retrievedState = EditorState.set(retrievedState, {
+      decorator: NEW_STATE.getDecorator(),
+    });
+    expect(retrievedState).toStrictEqual(NEW_STATE);
   });
 
   test('focus() focuses the text input', () => {
@@ -501,6 +537,25 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     jest.runAllTimers();
     expect(document.activeElement).toBe(
       document.querySelector('.public-DraftEditor-content'),
+    );
+  });
+
+  test('setCapabilityOptions for split updates the editor controls', () => {
+    ReactTestUtils.act(() =>
+      boundWidget.setCapabilityOptions('split', { enabled: false }),
+    );
+    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
+      parentCapabilities.get('split').fn,
+      false,
+    );
+    ReactTestUtils.act(() =>
+      boundWidget.setCapabilityOptions('split', { enabled: true }),
+    );
+    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
+      parentCapabilities.get('split').fn,
+      true,
     );
   });
 });

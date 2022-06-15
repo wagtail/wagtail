@@ -162,4 +162,5 @@ describe('Draftail', () => {
     expect(draftail.ModalWorkflowSource).toBeDefined());
   it('#Tooltip', () => expect(draftail.Tooltip).toBeDefined());
   it('#TooltipEntity', () => expect(draftail.TooltipEntity).toBeDefined());
+  it('#getSplitControl', () => expect(draftail.getSplitControl).toBeDefined());
 });

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -121,24 +121,6 @@ msgstr "Ei, ära kustuta"
 msgid "Delete group"
 msgstr "Kustuta grupp"
 
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"Grupil %(group_name)s on <strong>%(group_user_count)s</strong>liige."
-msgstr[1] ""
-"\n"
-"Grupil %(group_name)s on <strong>%(group_user_count)s</strong> liiget."
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -185,12 +167,6 @@ msgstr "Leht"
 
 msgid "Add a page permission"
 msgstr "Lisage lehe luba"
-
-msgid "groups"
-msgstr "rühmadesse"
-
-msgid "Add a group"
-msgstr "Lisage rühm"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -251,22 +227,6 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s tagasi"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Olemas on %(counter)s vaste"
-msgstr[1] ""
-"\n"
-"Olemas on %(counter)s vastet"
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski kasutaja ei vasta  \"<em>%(query_string)s</em>\\"
 
@@ -288,6 +248,9 @@ msgstr ""
 
 msgid "Groups"
 msgstr "Grupid"
+
+msgid "Add a group"
+msgstr "Lisage rühm"
 
 msgid "Search groups"
 msgstr "Gruppide otsimine"

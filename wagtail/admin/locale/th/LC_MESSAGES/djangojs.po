@@ -1,0 +1,87 @@
+#
+# Translators:
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2022\n"
+"Language-Team: Thai (https://www.transifex.com/torchbox/teams/8009/th/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Alt text"
+msgstr "ข้อความอย่างอื่น"
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "Dashboard"
+msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
+
+msgid "Delete"
+msgstr "ลบ,ลบทิ้ง"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Edit '{title}'"
+msgstr "แก้ไข'{title}'"
+
+msgid "Edit your account"
+msgstr "แก้ไขบัญชีของคุณ"
+
+msgid "Horizontal line"
+msgstr "บรรทัดแนวนอน"
+
+msgid "Line break"
+msgstr "ตัวแบ่งบรรทัด"
+
+msgid "Loading…"
+msgstr "กำลังโหลด"
+
+msgid "No results"
+msgstr "ไม่พบ"
+
+msgid "Page"
+msgstr "หน้า"
+
+msgid "Pages"
+msgstr "หลายหน้า"
+
+msgid "Redo"
+msgstr "ทำใหม่"
+
+msgid "Reload saved content"
+msgstr "โหลดเนื้อหาที่คุณเซฟใหม่อีกครั้ง"
+
+msgid "Reload the page"
+msgstr "โหลดหน้าที่ต้องการใหม่อีกครั้ง"
+
+msgid "Save"
+msgstr "เซฟ,เก็บข้อมูล"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "See all"
+msgstr "เปิดทั้งหมด"
+
+msgid "Server Error"
+msgstr "เซฟเว่อร์เกิดข้อผิดพลาด"
+
+msgid "Show error"
+msgstr "แสดงข้อผิดพลาด"
+
+msgid "Show latest content"
+msgstr "แสดงเนื้อหาอันล่าสุด"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "โปรแกรมที่แก้ไขมีปัญหา เนื้อหาเก่าได้ถูกเซฟไว้เรียบร้อยแล้ว"
+
+msgid "Undo"
+msgstr "ถอยหลัง"
+
+msgid "Write here…"
+msgstr "พิมพ์ข้อความตรงนี้"

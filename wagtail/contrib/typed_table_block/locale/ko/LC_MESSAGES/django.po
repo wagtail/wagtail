@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Kyu Choi, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: Kyu Choi, 2022\n"
+"Language-Team: Korean (https://www.transifex.com/torchbox/teams/8009/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add column"
+msgstr "컬른 추가"
+
+msgid "Add row"
+msgstr "로우 추가"
+
+msgid "Column heading"
+msgstr "컬른 방향"
+
+msgid "Insert column"
+msgstr "컬른 삽입"
+
+msgid "Delete column"
+msgstr "컬른 삭제"
+
+msgid "Insert row"
+msgstr "로우 삽입"
+
+msgid "Delete row"
+msgstr "로우 삭제"

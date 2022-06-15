@@ -4,12 +4,12 @@
 {% block titletag %}{% trans 'Preview error' %}{% endblock %}
 
 {% block content %}
-    <header class="nice-padding">
-        <h1>{% trans 'Preview error' %}</h1>
+    <header class="header header--with-padding">
+        <h1 class="header__title">{% trans 'Preview error' %}</h1>
     </header>
     <div class="nice-padding">
         <p>
-            {% blocktrans %}
+            {% blocktrans trimmed %}
                 Impossible to preview this page, some errors are remaining.
                 Please close this tab, edit the page to fix these errors,
                 then use preview again.

@@ -1,5 +1,17 @@
-{% load wagtailcore_tags wagtailadmin_tags %}
-
-<div data-upgrade data-wagtail-version="{% wagtail_version %}" class="panel nice-padding panel-upgrade-notification" style="display:none">
-    <div class="help-block help-warning">{% icon name='warning' %}Wagtail upgrade available. Your version: <strong>{% wagtail_version %}</strong>. New version: <strong data-upgrade-version></strong>. <a data-upgrade-link href="">Read the release notes.</a></div>
+{% load i18n wagtailcore_tags wagtailadmin_tags %}
+{% wagtail_version as current_version %}
+<div
+    class="w-panel-upgrade-notification panel nice-padding"
+    data-upgrade-notification
+    data-current-version="{{ current_version }}"
+    {% if lts_only %}data-upgrade-lts-only{% endif %}
+    style="display:none"
+>
+    <div class="help-block help-warning">
+        {% icon name='warning' %}
+        {% blocktrans trimmed %}
+            Wagtail upgrade available. Your version: <strong>{{ current_version }}</strong>. New version: <strong data-upgrade-version></strong>.
+        {% endblocktrans %}
+        <a data-upgrade-link href="">{% trans "Read the release notes." %}</a>
+    </div>
 </div>

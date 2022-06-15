@@ -160,7 +160,7 @@ class Site(models.Model):
             site = get_site_for_hostname(hostname, port)
         except Site.DoesNotExist:
             pass
-            # copy old SiteMiddleware behavior
+            # copy old SiteMiddleware behaviour
         return site
 
     @property

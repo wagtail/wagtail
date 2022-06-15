@@ -44,7 +44,6 @@ export function initSidebar() {
     ReactDOM.render(
       <Sidebar
         modules={props.modules}
-        strings={wagtailConfig.STRINGS}
         collapsedOnLoad={collapsed}
         currentPath={window.location.pathname}
         navigate={navigate}
@@ -53,6 +52,9 @@ export function initSidebar() {
       element,
       () => {
         document.body.classList.add('ready');
+        document
+          .querySelector('[data-wagtail-sidebar]')
+          ?.classList.remove('sidebar-loading');
       },
     );
   }

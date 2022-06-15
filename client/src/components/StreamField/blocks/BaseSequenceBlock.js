@@ -182,10 +182,22 @@ export class BaseSequenceChild extends EventEmitter {
     this.addActionButton(new DuplicateButton(this));
     this.addActionButton(new DeleteButton(this));
 
+    const capabilities = new Map();
+    capabilities.set('duplicate', {
+      enabled: true,
+      fn: this.duplicate,
+    });
+    capabilities.set('split', {
+      enabled: true,
+      fn: this.split.bind(this),
+    });
+
     this.block = this.blockDef.render(
       blockElement,
       this.prefix + '-value',
       initialState,
+      undefined,
+      capabilities,
     );
 
     if (this.collapsed) {
@@ -230,17 +242,37 @@ export class BaseSequenceChild extends EventEmitter {
 
     // Inform the comment app that the content path of this block is no longer valid
     // This will hide any comments that were previously on the block
-    const contentPath = window.comments?.getContentPath(this.element);
+    const contentPath = this.getContentPath();
     if (contentPath && window.comments.commentApp) {
       window.comments.commentApp.invalidateContentPath(contentPath);
     }
   }
 
+  getContentPath() {
+    return window.comments?.getContentPath(this.element);
+  }
+
   enableDuplication() {
     this.emit('enableDuplication');
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('duplicate', { enabled: true });
+    }
   }
   disableDuplication() {
     this.emit('disableDuplication');
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('duplicate', { enabled: false });
+    }
+  }
+  enableSplit() {
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('split', { enabled: true });
+    }
+  }
+  disableSplit() {
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('split', { enabled: false });
+    }
   }
   enableMoveUp() {
     this.emit('enableMoveUp');

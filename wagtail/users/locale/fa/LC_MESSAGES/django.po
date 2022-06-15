@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -101,24 +101,6 @@ msgstr "بله حذف شود"
 msgid "Delete group"
 msgstr "حذف گروه"
 
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"گروه «%(group_name)s» تعداد <strong>%(group_user_count)s</strong> عضو دارد."
-msgstr[1] ""
-"\n"
-"گروه «%(group_name)s» تعداد <strong>%(group_user_count)s</strong> عضو دارد."
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -159,12 +141,6 @@ msgstr "صفحه"
 
 msgid "Add a page permission"
 msgstr "افزودن مجوز صفحه"
-
-msgid "groups"
-msgstr "گروه ها"
-
-msgid "Add a group"
-msgstr "افزودن گروه"
 
 #, python-format
 msgid ""
@@ -223,6 +199,9 @@ msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» 
 
 msgid "Groups"
 msgstr "گروه ها"
+
+msgid "Add a group"
+msgstr "افزودن گروه"
 
 msgid "Search groups"
 msgstr "جستجوی گروه‌ها"

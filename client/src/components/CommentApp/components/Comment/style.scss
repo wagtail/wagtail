@@ -4,31 +4,21 @@
   width: calc(100vw - 40px);
   max-width: calc(100vw - 19%);
   display: block;
-  // Remove once we drop support for Safari 13.
-  transition: top 0.5s ease 0s, right 0.5s ease 0s,
-    inset-inline-end 0.5s ease 0s, height 0.5s ease 0s;
+  transition: top 0.5s ease 0s, inset-inline-end 0.5s ease 0s,
+    height 0.5s ease 0s;
   pointer-events: auto;
   box-sizing: border-box;
   padding-bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: -2000px;
   inset-inline-end: -2000px;
 
   @include media-breakpoint-up(sm) {
     width: calc(100vw - 40px);
     max-width: 400px;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: initial;
     inset-inline-start: initial;
   }
 
   @include media-breakpoint-up(md) {
     max-width: 200px;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
   }
 
@@ -37,15 +27,9 @@
   }
 
   &--focused {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 35px;
     inset-inline-end: 35px;
 
     @include media-breakpoint-up(md) {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 50px;
       inset-inline-end: 50px;
     }
   }

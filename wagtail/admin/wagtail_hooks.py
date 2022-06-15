@@ -55,8 +55,6 @@ from wagtail.whitelist import allow_without_attributes, attribute_rule, check_ur
 
 
 class ExplorerMenuItem(MenuItem):
-    template = "wagtailadmin/shared/explorer_menu_item.html"
-
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
 
@@ -97,8 +95,6 @@ def register_explorer_menu_item():
 
 
 class SettingsMenuItem(SubmenuMenuItem):
-    template = "wagtailadmin/shared/menu_settings_menu_item.html"
-
     def render_component(self, request):
         return SubMenuItemComponent(
             self.name,
@@ -354,7 +350,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=50,
         )
 
-    if is_parent:
+    if is_parent and page_perms.can_reorder_children():
         yield Button(
             _("Sort menu order"),
             "?ordering=ord",
@@ -372,6 +368,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Move"),
             reverse("wagtailadmin_pages:move", args=[page.id]),
+            icon_name="arrow-right-full",
             attrs={
                 "title": _("Move page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -386,6 +383,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Copy"),
             url,
+            icon_name="copy",
             attrs={
                 "title": _("Copy page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -396,6 +394,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Add child page"),
             reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
+            icon_name="circle-plus",
             attrs={
                 "aria-label": _("Add a child page to '%(title)s' ")
                 % {"title": page.get_admin_display_title()},
@@ -841,10 +840,6 @@ def register_core_features(features):
     )
 
 
-class ReportsMenuItem(SubmenuMenuItem):
-    template = "wagtailadmin/shared/menu_submenu_item.html"
-
-
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
         return UserPagePermissionsProxy(request.user).can_remove_locks()
@@ -917,7 +912,7 @@ def register_aging_pages_report_menu_item():
 
 @hooks.register("register_admin_menu_item")
 def register_reports_menu():
-    return ReportsMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)
+    return SubmenuMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)
 
 
 @hooks.register("register_icons")
@@ -927,6 +922,7 @@ def register_icons(icons):
         "angle-double-right.svg",
         "arrow-down-big.svg",
         "arrow-down.svg",
+        "arrow-right-full.svg",
         "arrow-left.svg",
         "arrow-right.svg",
         "arrow-up-big.svg",
@@ -935,13 +931,17 @@ def register_icons(icons):
         "bars.svg",
         "bin.svg",
         "bold.svg",
+        "breadcrumb-expand.svg",
         "chain-broken.svg",
         "check.svg",
         "chevron-down.svg",
+        "circle-check.svg",
+        "circle-plus.svg",
         "clipboard-list.svg",
         "code.svg",
         "cog.svg",
         "cogs.svg",
+        "copy.svg",
         "collapse-down.svg",
         "collapse-up.svg",
         "comment.svg",
@@ -951,11 +951,14 @@ def register_icons(icons):
         "comment-large-outline.svg",
         "comment-large-reversed.svg",
         "cross.svg",
+        "cut.svg",
         "date.svg",
         "doc-empty-inverse.svg",
         "doc-empty.svg",
         "doc-full-inverse.svg",
         "doc-full.svg",  # aka file-text-alt
+        "dots-vertical.svg",
+        "dots-horizontal.svg",
         "download-alt.svg",
         "download.svg",
         "draft.svg",
@@ -969,6 +972,7 @@ def register_icons(icons):
         "folder-open-inverse.svg",
         "folder.svg",
         "form.svg",
+        "globe.svg",
         "grip.svg",
         "group.svg",
         "help.svg",
@@ -988,6 +992,7 @@ def register_icons(icons):
         "logout.svg",
         "mail.svg",
         "media.svg",
+        "mobile-alt.svg",
         "no-view.svg",
         "openquote.svg",
         "order-down.svg",

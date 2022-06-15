@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-29 16:15+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -134,9 +134,9 @@ msgid "user profiles"
 msgstr "perfiles de usuario"
 
 #, python-format
-msgid "Assign role to 1 user "
+msgid "Assign role to 1 user"
 msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "Assignar rol a 1 usuario "
+msgstr[0] "Asignar rol a 1 usuario"
 msgstr[1] "Asignar rol a %(counter)s usuarios"
 
 msgid "Assign role"
@@ -157,9 +157,9 @@ msgid "No, don't assign"
 msgstr "No, no asignar"
 
 #, python-format
-msgid "Delete 1 user "
+msgid "Delete 1 user"
 msgid_plural "Delete %(counter)s users"
-msgstr[0] "Eliminar 1 usuario "
+msgstr[0] "Eliminar 1 usuario"
 msgstr[1] "Eliminar %(counter)s usuarios"
 
 msgid "Delete"
@@ -180,9 +180,9 @@ msgid "No, don't delete"
 msgstr "No, no eliminar"
 
 #, python-format
-msgid "Change active state for 1 user "
+msgid "Change active state for 1 user"
 msgid_plural "Change active state for %(counter)s users"
-msgstr[0] "Cambiar estado activo para 1 usuario "
+msgstr[0] "Cambiar estado activo para 1 usuario"
 msgstr[1] "Cambiar estado activo para %(counter)s usuarios"
 
 msgid "Set active state"
@@ -205,25 +205,15 @@ msgstr "Eliminar grupo"
 
 #, python-format
 msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
 msgstr[0] ""
-"\n"
-"                El grupo '%(group_name)s' tienes <strong>"
-"%(group_user_count)s</strong> miembro.\n"
-"            "
+"El grupo '%(group_name)s' tiene <strong>%(group_user_count)s</strong> "
+"miembro."
 msgstr[1] ""
-"\n"
-"                El grupo '%(group_name)s' tiene <strong>"
-"%(group_user_count)s</strong> miembros.\n"
-"            "
+"El grupo '%(group_name)s' tiene <strong>%(group_user_count)s</strong> "
+"miembros."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -276,12 +266,6 @@ msgstr "Página"
 
 msgid "Add a page permission"
 msgstr "Agregar un permiso de página"
-
-msgid "groups"
-msgstr "grupos"
-
-msgid "Add a group"
-msgstr "Agregar un grupo"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -345,22 +329,10 @@ msgid "%(time_period)s ago"
 msgstr "Hace %(time_period)s"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Hay %(counter)s coincidencia\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hay %(counter)s coincidencias\n"
-"        "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -417,6 +389,9 @@ msgstr[1] "%(num_parent_objects)d usuarios han sido marcados como inactivos"
 
 msgid "Groups"
 msgstr "Grupos"
+
+msgid "Add a group"
+msgstr "Agregar un grupo"
 
 msgid "Search groups"
 msgstr "Buscar grupos"

@@ -31,12 +31,28 @@ class StreamChild extends BaseSequenceChild {
     };
   }
 
+  setState({ type, value, id }) {
+    this.type = type;
+    this.block.setState(value);
+    this.id = id;
+  }
+
   getValue() {
     return {
       type: this.type,
       value: this.block.getValue(),
       id: this.id,
     };
+  }
+
+  split(valueBefore, valueAfter, shouldMoveCommentFn, opts) {
+    this.sequence.splitBlock(
+      this.index,
+      valueBefore,
+      valueAfter,
+      shouldMoveCommentFn,
+      opts,
+    );
   }
 }
 
@@ -283,8 +299,10 @@ export class StreamBlock extends BaseSequenceBlock {
 
       if (canDuplicate) {
         this.children[i].enableDuplication();
+        this.children[i].enableSplit();
       } else {
         this.children[i].disableDuplication();
+        this.children[i].disableSplit();
       }
     }
     for (let i = 0; i < this.inserters.length; i++) {
@@ -344,6 +362,40 @@ export class StreamBlock extends BaseSequenceBlock {
     const animate = opts && opts.animate;
     childState.id = null;
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
+    // focus the newly added field if we can do so without obtrusive UI behaviour
+    this.children[index + 1].focus({ soft: true });
+  }
+
+  splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
+    const child = this.children[index];
+    const animate = opts && opts.animate;
+    const initialState = child.getState();
+    const newChild = this.insert(
+      { type: initialState.type, id: uuidv4(), value: valueAfter },
+      index + 1,
+      { animate, collapsed: child.collapsed },
+    );
+    child.setState({
+      type: initialState.type,
+      id: initialState.id,
+      value: valueBefore,
+    });
+    const oldContentPath = child.getContentPath();
+    const newContentPath = newChild.getContentPath();
+    const commentApp = window.comments?.commentApp;
+    if (oldContentPath && newContentPath && commentApp) {
+      // Move comments from the old contentpath to the new
+      // We allow use of a custom function to determine whether to move each comment
+      // so it can be done based on intra-field position
+      const selector =
+        commentApp.utils.selectCommentsForContentPathFactory(oldContentPath);
+      const comments = selector(commentApp.store.getState());
+      comments.forEach((comment) => {
+        if (shouldMoveCommentFn(comment)) {
+          commentApp.updateContentPath(comment.localId, newContentPath);
+        }
+      });
+    }
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
   }

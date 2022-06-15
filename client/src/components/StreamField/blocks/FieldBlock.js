@@ -5,7 +5,14 @@ import React from 'react';
 import Icon from '../../Icon/Icon';
 
 export class FieldBlock {
-  constructor(blockDef, placeholder, prefix, initialState, initialError) {
+  constructor(
+    blockDef,
+    placeholder,
+    prefix,
+    initialState,
+    initialError,
+    parentCapabilities,
+  ) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
@@ -23,12 +30,17 @@ export class FieldBlock {
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
 
+    this.parentCapabilities = parentCapabilities || new Map();
+
+    this.prefix = prefix;
+
     try {
       this.widget = this.blockDef.widget.render(
         widgetElement,
         prefix,
         prefix,
         initialState,
+        this.parentCapabilities,
       );
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -82,6 +94,13 @@ export class FieldBlock {
 
     if (initialError) {
       this.setError(initialError);
+    }
+  }
+
+  setCapabilityOptions(capability, options) {
+    Object.assign(this.parentCapabilities.get(capability), options);
+    if (this.widget && this.widget.setCapabilityOptions) {
+      this.widget.setCapabilityOptions(capability, options);
     }
   }
 
@@ -139,13 +158,14 @@ export class FieldBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState, initialError) {
+  render(placeholder, prefix, initialState, initialError, parentCapabilities) {
     return new FieldBlock(
       this,
       placeholder,
       prefix,
       initialState,
       initialError,
+      parentCapabilities,
     );
   }
 }

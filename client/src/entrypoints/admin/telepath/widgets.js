@@ -1,11 +1,12 @@
 /* global $ */
 
 class BoundWidget {
-  constructor(element, name, idForLabel, initialState) {
+  constructor(element, name, idForLabel, initialState, parentCapabilities) {
     var selector = ':input[name="' + name + '"]';
     this.input = element.find(selector).addBack(selector); // find, including element itself
     this.idForLabel = idForLabel;
     this.setState(initialState);
+    this.parentCapabilities = parentCapabilities || new Map();
   }
   getValue() {
     return this.input.val();
@@ -28,6 +29,9 @@ class BoundWidget {
   focus() {
     this.input.focus();
   }
+  setCapabilityOptions(capability, options) {
+    Object.assign(this.parentCapabilities.get(capability), options);
+  }
 }
 
 class Widget {
@@ -38,13 +42,19 @@ class Widget {
 
   boundWidgetClass = BoundWidget;
 
-  render(placeholder, name, id, initialState) {
+  render(placeholder, name, id, initialState, parentCapabilities) {
     var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     var idForLabel = this.idPattern.replace(/__ID__/g, id);
     var dom = $(html);
     $(placeholder).replaceWith(dom);
     // eslint-disable-next-line new-cap
-    return new this.boundWidgetClass(dom, name, idForLabel, initialState);
+    return new this.boundWidgetClass(
+      dom,
+      name,
+      idForLabel,
+      initialState,
+      parentCapabilities,
+    );
   }
 }
 window.telepath.register('wagtail.widgets.Widget', Widget);
@@ -126,8 +136,14 @@ class PageChooser {
 window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
 
 class AdminAutoHeightTextInput extends Widget {
-  render(placeholder, name, id, initialState) {
-    const boundWidget = super.render(placeholder, name, id, initialState);
+  render(placeholder, name, id, initialState, parentCapabilities) {
+    const boundWidget = super.render(
+      placeholder,
+      name,
+      id,
+      initialState,
+      parentCapabilities,
+    );
     window.autosize($('#' + id));
     return boundWidget;
   }
@@ -142,26 +158,44 @@ class DraftailRichTextArea {
     this.options = options;
   }
 
-  render(container, name, id, initialState) {
-    const options = this.options;
+  render(container, name, id, initialState, parentCapabilities) {
+    const originalOptions = this.options;
+    const options = { ...originalOptions };
+    const capabilities = parentCapabilities || new Map();
+    const split = capabilities.get('split');
+    if (split) {
+      options.controls = options.controls ? [...options.controls] : [];
+      options.controls.push(
+        // eslint-disable-next-line no-undef
+        draftail.getSplitControl(split.fn, !!split.enabled),
+      );
+    }
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
     input.name = name;
-    input.value = initialState;
+
+    // If the initialState is an EditorState, rather than serialized rawContentState, it's
+    // easier for us to initialize the widget blank and then setState to the correct state
+    const initialiseBlank = !!initialState.getCurrentContent;
+    input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
     // eslint-disable-next-line no-undef
-    draftail.initEditor('#' + id, options, document.currentScript);
+    const [currentOptions, setOptions] = draftail.initEditor(
+      '#' + id,
+      options,
+      document.currentScript,
+    );
 
-    return {
+    const boundDraftail = {
       getValue() {
         return input.value;
       },
       getState() {
-        return input.value;
+        return input.draftailEditor.getEditorState();
       },
-      setState() {
-        throw new Error('DraftailRichTextArea.setState is not implemented');
+      setState(editorState) {
+        input.draftailEditor.onChange(editorState);
       },
       getTextLabel(opts) {
         const maxLength = opts && opts.maxLength;
@@ -185,7 +219,32 @@ class DraftailRichTextArea {
           input.draftailEditor.focus();
         }, 50);
       },
+      setCapabilityOptions(capability, capabilityOptions) {
+        const newCapability = Object.assign(
+          capabilities.get(capability),
+          capabilityOptions,
+        );
+        if (capability === 'split') {
+          setOptions({
+            ...currentOptions,
+            controls: [
+              ...(originalOptions || []),
+              // eslint-disable-next-line no-undef
+              draftail.getSplitControl(
+                newCapability.fn,
+                !!newCapability.enabled,
+              ),
+            ],
+          });
+        }
+      },
     };
+
+    if (initialiseBlank) {
+      boundDraftail.setState(initialState);
+    }
+
+    return boundDraftail;
   }
 }
 window.telepath.register(

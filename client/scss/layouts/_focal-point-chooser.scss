@@ -1,0 +1,20 @@
+.focal-point-chooser {
+  position: relative;
+  margin-bottom: 20px;
+
+  .current-focal-point-indicator {
+    @include transition(opacity 0.2s ease);
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 1);
+    position: absolute;
+    border: 3px solid $color-teal;
+    opacity: 0.7;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &:hover .current-focal-point-indicator {
+    opacity: 0;
+  }
+}

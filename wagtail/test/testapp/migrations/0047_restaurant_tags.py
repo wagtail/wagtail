@@ -4,6 +4,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
+from taggit import VERSION as TAGGIT_VERSION
 
 
 class Migration(migrations.Migration):
@@ -52,7 +53,12 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "slug",
-                    models.SlugField(max_length=100, unique=True, verbose_name="slug"),
+                    models.SlugField(
+                        max_length=100,
+                        unique=True,
+                        verbose_name="slug",
+                        allow_unicode=(TAGGIT_VERSION >= (3, 0, 0)),
+                    ),
                 ),
             ],
             options={

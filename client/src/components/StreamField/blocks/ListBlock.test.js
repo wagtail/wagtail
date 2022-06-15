@@ -71,13 +71,14 @@ class ParanoidFieldBlock extends FieldBlock {
 }
 
 class ParanoidFieldBlockDefinition extends FieldBlockDefinition {
-  render(placeholder, prefix, initialState, initialError) {
+  render(placeholder, prefix, initialState, initialError, capabilities) {
     return new ParanoidFieldBlock(
       this,
       placeholder,
       prefix,
       initialState,
       initialError,
+      capabilities,
     );
   }
 }
@@ -270,6 +271,25 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
+  test('blocks can be split', () => {
+    boundBlock.splitBlock(0, 'first', 'value');
+
+    expect(setState.mock.calls.length).toBe(1);
+    expect(constructor.mock.calls[0][0]).toBe('The widget');
+    expect(setState.mock.calls[0][1]).toBe('first');
+
+    expect(constructor.mock.calls.length).toBe(3);
+
+    expect(constructor.mock.calls[2][0]).toBe('The widget');
+    expect(constructor.mock.calls[2][1]).toEqual({
+      name: 'the-prefix-2-value',
+      id: 'the-prefix-2-value',
+      initialState: 'value',
+    });
+
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
   test('setError passes error messages to children', () => {
     boundBlock.setError([
       new ListBlockValidationError(
@@ -406,5 +426,55 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     boundBlock.deleteBlock(2);
 
     assertCanAddBlock();
+  });
+
+  test('initialising at maxNum disables split', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
+    ]);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(false);
+  });
+
+  test('insert disables split', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+    ]);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(true);
+
+    boundBlock.insert('Third value', 2);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(false);
+  });
+
+  test('delete enables split', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
+    ]);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(false);
+
+    boundBlock.deleteBlock(2);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(true);
   });
 });

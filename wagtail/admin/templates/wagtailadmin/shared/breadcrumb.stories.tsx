@@ -1,21 +1,15 @@
 import React from 'react';
-import TemplatePattern from '../../../../../client/storybook/TemplatePattern';
+import { Pattern, generateDocs } from 'storybook-django/src/react';
 
 import template from './breadcrumb.html';
-import docs from './breadcrumb.md';
+
+const { docs } = generateDocs(template);
 
 export default {
-  parameters: {
-    docs: {
-      source: { code: template },
-      extractComponentDescription: () => docs,
-    },
-  },
+  parameters: { docs },
 };
 
-const Template = (args) => (
-  <TemplatePattern filename={__filename} context={args} />
-);
+const Template = (args) => <Pattern filename={__filename} context={args} />;
 
 export const Base = Template.bind({});
 
@@ -35,6 +29,4 @@ Base.args = {
       get_admin_display_title: 'Third item',
     },
   ],
-  trailing_arrow: true,
-  show_header_buttons: false,
 };

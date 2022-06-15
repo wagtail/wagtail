@@ -1,4 +1,5 @@
 import itertools
+from typing import Any, Mapping, Union
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -8,18 +9,21 @@ from django.db.models import Max, Q
 from django.forms import Media
 from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy
+from django.views.generic.base import TemplateView
 
 from wagtail import hooks
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
+from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.models import (
     Page,
-    PageRevision,
+    Revision,
     TaskState,
     UserPagePermissionsProxy,
     WorkflowState,
+    get_default_page_content_type,
 )
 
 User = get_user_model()
@@ -33,9 +37,22 @@ class UpgradeNotificationPanel(Component):
     template_name = "wagtailadmin/home/upgrade_notification.html"
     order = 100
 
-    def render_html(self, parent_context):
-        if parent_context["request"].user.is_superuser and getattr(
-            settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True
+    def get_upgrade_check_setting(self) -> Union[bool, str]:
+        return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
+
+    def upgrade_check_lts_only(self) -> bool:
+        upgrade_check = self.get_upgrade_check_setting()
+        if isinstance(upgrade_check, str) and upgrade_check.lower() == "lts":
+            return True
+        return False
+
+    def get_context_data(self, parent_context: Mapping[str, Any]) -> Mapping[str, Any]:
+        return {"lts_only": self.upgrade_check_lts_only()}
+
+    def render_html(self, parent_context: Mapping[str, Any] = None) -> str:
+        if (
+            parent_context["request"].user.is_superuser
+            and self.get_upgrade_check_setting()
         ):
             return super().render_html(parent_context)
         else:
@@ -53,7 +70,7 @@ class PagesForModerationPanel(Component):
         user_perms = UserPagePermissionsProxy(request.user)
         context["page_revisions_for_moderation"] = (
             user_perms.revisions_for_moderation()
-            .select_related("page", "user")
+            .select_related("user")
             .order_by("-created_at")
         )
         context["request"] = request
@@ -102,7 +119,6 @@ class WorkflowPagesToModeratePanel(Component):
                 .select_related(
                     "page_revision",
                     "task",
-                    "page_revision__page",
                     "page_revision__user",
                 )
                 .order_by("-started_at")
@@ -111,7 +127,7 @@ class WorkflowPagesToModeratePanel(Component):
                 (
                     state,
                     state.task.specific.get_actions(
-                        page=state.page_revision.page, user=request.user
+                        page=state.page_revision.content_object, user=request.user
                     ),
                     state.workflow_state.all_tasks_with_status(),
                 )
@@ -162,74 +178,92 @@ class RecentEditsPanel(Component):
         if connection.vendor == "mysql":
             # MySQL can't handle the subselect created by the ORM version -
             # it fails with "This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'"
-            last_edits = PageRevision.objects.raw(
+            last_edits = Revision.objects.raw(
                 """
-                SELECT wp.* FROM
-                    wagtailcore_pagerevision wp JOIN (
-                        SELECT max(created_at) AS max_created_at, page_id FROM
-                            wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
-                    ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
+                SELECT wr.* FROM
+                    wagtailcore_revision wr JOIN (
+                        SELECT max(created_at) AS max_created_at, object_id FROM
+                            wagtailcore_revision WHERE user_id = %s AND base_content_type_id = %s GROUP BY object_id ORDER BY max_created_at DESC LIMIT %s
+                    ) AS max_rev ON max_rev.max_created_at = wr.created_at ORDER BY wr.created_at DESC
                  """,
                 [
                     User._meta.pk.get_db_prep_value(request.user.pk, connection),
+                    get_default_page_content_type().id,
                     edit_count,
                 ],
             )
         else:
             last_edits_dates = (
-                PageRevision.objects.filter(user=request.user)
-                .values("page_id")
+                Revision.page_revisions.filter(user=request.user)
+                .values("object_id")
                 .annotate(latest_date=Max("created_at"))
                 .order_by("-latest_date")
                 .values("latest_date")[:edit_count]
             )
-            last_edits = PageRevision.objects.filter(
+            last_edits = Revision.page_revisions.filter(
                 created_at__in=last_edits_dates
             ).order_by("-created_at")
 
-        page_keys = [pr.page_id for pr in last_edits]
+        # The revision's object_id is a string, so cast it to int first.
+        page_keys = [int(pr.object_id) for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
         context["last_edits"] = [
-            [revision, pages.get(revision.page_id)] for revision in last_edits
+            [revision, pages.get(int(revision.object_id))] for revision in last_edits
         ]
         context["request"] = request
         return context
 
 
-def home(request):
+class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
-    panels = [
-        SiteSummaryPanel(request),
-        UpgradeNotificationPanel(),
-        WorkflowPagesToModeratePanel(),
-        PagesForModerationPanel(),
-        UserPagesInWorkflowModerationPanel(),
-        RecentEditsPanel(),
-        LockedPagesPanel(),
-    ]
+    template_name = "wagtailadmin/home.html"
+    page_title = gettext_lazy("Dashboard")
 
-    for fn in hooks.get_hooks("construct_homepage_panels"):
-        fn(request, panels)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        panels = self.get_panels()
+        site_details = self.get_site_details()
 
-    media = Media()
+        context["media"] = self.get_media(panels)
+        context["panels"] = sorted(panels, key=lambda p: p.order)
+        context["user"] = self.request.user
 
-    for panel in panels:
-        media += panel.media
+        return {**context, **site_details}
 
-    site_details = get_site_for_user(request.user)
+    def get_media(self, panels=[]):
+        media = Media()
 
-    return TemplateResponse(
-        request,
-        "wagtailadmin/home.html",
-        {
-            "root_page": site_details["root_page"],
-            "root_site": site_details["root_site"],
-            "site_name": site_details["site_name"],
-            "panels": sorted(panels, key=lambda p: p.order),
-            "user": request.user,
-            "media": media,
-        },
-    )
+        for panel in panels:
+            media += panel.media
+
+        return media
+
+    def get_panels(self):
+        request = self.request
+        panels = [
+            SiteSummaryPanel(request),
+            UpgradeNotificationPanel(),
+            WorkflowPagesToModeratePanel(),
+            PagesForModerationPanel(),
+            UserPagesInWorkflowModerationPanel(),
+            RecentEditsPanel(),
+            LockedPagesPanel(),
+        ]
+
+        for fn in hooks.get_hooks("construct_homepage_panels"):
+            fn(request, panels)
+
+        return panels
+
+    def get_site_details(self):
+        request = self.request
+        site = get_site_for_user(request.user)
+
+        return {
+            "root_page": site["root_page"],
+            "root_site": site["root_site"],
+            "site_name": site["site_name"],
+        }
 
 
 def error_test(request):
@@ -258,10 +292,14 @@ def icons():
         all_icons = sorted(
             itertools.chain.from_iterable(hook([]) for hook in icon_hooks)
         )
-        _icons_html = render_to_string(
-            "wagtailadmin/shared/icons.html", {"icons": all_icons}
+        combined_icon_markup = ""
+        for icon in all_icons:
+            combined_icon_markup += render_to_string(icon).replace("svg", "symbol")
+
+        _full_sprite_html = render_to_string(
+            "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}
         )
-    return _icons_html
+    return _full_sprite_html
 
 
 def sprite(request):

@@ -9,8 +9,8 @@ _FORM_CONTENT_TYPES = None
 
 def get_field_clean_name(label):
     """
-    Converts a user entered field label to a template and JSON safe ascii value to be used
-    as the internal key (clean name) for the field.
+    Converts a user entered field label to a string that is safe to use for both a
+    HTML attribute (field's name) and a JSON key used internally to store the responses.
     """
     return safe_snake_case(label)
 

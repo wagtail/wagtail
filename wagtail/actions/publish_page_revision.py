@@ -37,7 +37,7 @@ class PublishPageRevisionAction:
         self, revision, user=None, changed=True, log_action=True, previous_revision=None
     ):
         self.revision = revision
-        self.page = self.revision.as_page_object()
+        self.page = self.revision.as_object()
         self.user = user
         self.changed = changed
         self.log_action = log_action
@@ -73,7 +73,7 @@ class PublishPageRevisionAction:
     def _publish_page_revision(
         self, revision, page, user, changed, log_action, previous_revision
     ):
-        from wagtail.models import COMMENTS_RELATION_NAME, PageRevision
+        from wagtail.models import COMMENTS_RELATION_NAME, Revision
 
         if page.go_live_at and page.go_live_at > timezone.now():
             page.has_unpublished_changes = True
@@ -110,7 +110,7 @@ class PublishPageRevisionAction:
                 page.first_published_at = now
 
             if previous_revision:
-                previous_revision_page = previous_revision.as_page_object()
+                previous_revision_page = previous_revision.as_object()
                 old_page_title = (
                     previous_revision_page.title
                     if page.title != previous_revision_page.title
@@ -119,11 +119,11 @@ class PublishPageRevisionAction:
             else:
                 try:
                     previous = revision.get_previous()
-                except PageRevision.DoesNotExist:
+                except Revision.DoesNotExist:
                     previous = None
                 old_page_title = (
-                    previous.page.title
-                    if previous and page.title != previous.page.title
+                    previous.content_object.title
+                    if previous and page.title != previous.content_object.title
                     else None
                 )
         else:

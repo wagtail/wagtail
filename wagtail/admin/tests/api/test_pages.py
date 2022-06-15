@@ -11,7 +11,13 @@ from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
-from wagtail.test.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
+from wagtail.test.testapp.models import (
+    EventIndex,
+    EventPage,
+    PageWithExcludedCopyField,
+    SimplePage,
+    StreamPage,
+)
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
@@ -846,7 +852,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
     def test_meta_status_live_draft(self):
         # Save revision without republish
-        Page.objects.get(id=16).save_revision()
+        Page.objects.get(id=16).specific.save_revision()
 
         response = self.get_response(16)
         content = json.loads(response.content.decode("UTF-8"))
@@ -861,7 +867,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Unpublish and save revision with go live date in the future
         Page.objects.get(id=16).unpublish()
         tomorrow = timezone.now() + datetime.timedelta(days=1)
-        Page.objects.get(id=16).save_revision(approved_go_live_at=tomorrow)
+        Page.objects.get(id=16).specific.save_revision(approved_go_live_at=tomorrow)
 
         response = self.get_response(16)
         content = json.loads(response.content.decode("UTF-8"))
@@ -1131,6 +1137,20 @@ class TestCopyPageAction(AdminAPITestCase):
 
         new_page = Page.objects.get(id=content["id"])
         self.assertEqual(new_page.slug, "new-slug")
+
+    def test_copy_page_with_exclude_fields_in_copy(self):
+        response = self.get_response(21, {})
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        original_page = PageWithExcludedCopyField.objects.get(pk=21)
+        new_page = PageWithExcludedCopyField.objects.get(id=content["id"])
+        self.assertEqual(new_page.content, original_page.content)
+        self.assertNotEqual(new_page.special_field, original_page.special_field)
+        self.assertEqual(
+            new_page.special_field, new_page._meta.get_field("special_field").default
+        )
 
     def test_copy_page_destination(self):
         response = self.get_response(3, {"destination_page_id": 3})
@@ -1454,7 +1474,7 @@ class TestPublishPageAction(AdminAPITestCase):
             content,
             {
                 "message": (
-                    "save_revision() was called on an alias page. "
+                    "page.save_revision() was called on an alias page. "
                     "Revisions are not required for alias pages as they are an exact copy of another page."
                 )
             },
@@ -1777,11 +1797,11 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         self.events_page = Page.objects.get(id=3)
 
         # Create revision to revert back to
-        self.first_revision = self.events_page.save_revision()
+        self.first_revision = self.events_page.specific.save_revision()
 
         # Change page title
         self.events_page.title = "Evenements"
-        self.events_page.save_revision().publish()
+        self.events_page.specific.save_revision().publish()
 
     def get_response(self, page_id, data):
         return self.client.post(
@@ -1838,9 +1858,7 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         self.assertEqual(response.status_code, 404)
 
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(
-            content, {"message": "No PageRevision matches the given query."}
-        )
+        self.assertEqual(content, {"message": "No Revision matches the given query."})
 
 
 # Overwrite imported test cases do Django doesn't run them

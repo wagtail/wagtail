@@ -1,0 +1,33 @@
+{% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block content %}
+    {% trans 'Page locking: ' as screen_reader_title_prefix %}
+
+    {% if page.locked %}
+        {% trans 'Locked' as title %}
+        {% trans 'Only you can edit this page. Unlock it to allow others to edit' as help_text %}
+        {% with icon_name='lock' %}
+            {{ block.super }}
+        {% endwith %}
+    {% else %}
+        {% trans 'Unlocked' as title %}
+        {% trans 'Anyone can edit this page. Lock it to prevent others from editing' as help_text %}
+        {% with icon_name='lock-open' %}
+            {{ block.super }}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block action %}
+    {% if user_can_unlock and page.locked %}
+        {% url 'wagtailadmin_pages:unlock' page.id as unlock_url %}
+        {% trans 'Unlock' as unlock_text %}
+        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=unlock_url text=unlock_text %}
+    {% endif %}
+    {% if user_can_lock and not page.locked %}
+        {% url 'wagtailadmin_pages:lock' page.id as lock_url %}
+        {% trans 'Lock' as lock_text %}
+        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=lock_url text=lock_text %}
+    {% endif %}
+{% endblock %}

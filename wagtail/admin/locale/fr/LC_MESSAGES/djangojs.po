@@ -1,0 +1,170 @@
+#
+# Translators:
+# nahuel, 2022
+# Karl Hobley <karl@torchbox.com>, 2022
+# Aurélien Debord <contact@aureliendebord.com>, 2022
+# Benoît Vogel <contact@spicy-informatique.com>, 2022
+# incognitae <pierre@onoffdesign.com>, 2022
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
+# Loic Teixeira, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Add a comment"
+msgstr "Ajouter un commentaire"
+
+msgid "Alt text"
+msgstr "Texte alternatif"
+
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr(e) ?"
+
+msgid "Broken link"
+msgstr "Lien mort"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Comment"
+msgstr "Commenter"
+
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+msgid "Decorative image"
+msgstr "Image décorative"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Delete error"
+msgstr "Supprimer l'erreur"
+
+msgid "Deleting"
+msgstr "Suppression…"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Edit '{title}'"
+msgstr "Modifier '{title}'"
+
+msgid "Edit your account"
+msgstr "Modifiez votre compte"
+
+msgid "Focus comment"
+msgstr "Mettre le commentaire au premier-plan"
+
+msgid "Horizontal line"
+msgstr "Ligne horizontale"
+
+msgid "Line break"
+msgstr "Retour à la ligne"
+
+msgid "Loading…"
+msgstr "Chargement…"
+
+msgid "Main menu"
+msgstr "Menu principal"
+
+msgid "Missing document"
+msgstr "Document manquant"
+
+msgid "More actions"
+msgstr "Plus d'actions"
+
+msgid "No results"
+msgstr "Aucun résultat"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Page explorer"
+msgstr "Explorateur"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Redo"
+msgstr "Rétablir"
+
+msgid "Reload saved content"
+msgstr "Recharger le contenu sauvegardé"
+
+msgid "Reload the page"
+msgstr "Recharger la page"
+
+msgid "Reply"
+msgstr "Répondre"
+
+msgid "Resolve"
+msgstr "Archiver"
+
+msgid "Retry"
+msgstr "Réessayer"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Save error"
+msgstr "Enregistrer l'erreur"
+
+msgid "Save the page to add this comment"
+msgstr "Enregistrer la page pour ajouter ce commentaire"
+
+msgid "Save the page to save this comment"
+msgstr "Enregistrer la page pour enregistrer ce commentaire"
+
+msgid "Save the page to save this reply"
+msgstr "Enregistrer la page pour enregistrer ce commentaire"
+
+msgid "Saving..."
+msgstr "Enregistrement…"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "See all"
+msgstr "Tout voir"
+
+msgid "Server Error"
+msgstr "Erreur de serveur"
+
+msgid "Show error"
+msgstr "Afficher l’erreur"
+
+msgid "Show latest content"
+msgstr "Montrer le dernier contenu"
+
+msgid "Split block"
+msgstr "Scinder le bloc"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
+"restauré."
+
+msgid "Toggle sidebar"
+msgstr "Afficher/masquer la barre latérale"
+
+msgid "Undo"
+msgstr "Annuler"
+
+msgid "Unfocus comment"
+msgstr "Mettre le commentaire en arrière-plan"
+
+msgid "View child pages of '{title}'"
+msgstr "Voir les sous-pages de '{title}'"
+
+msgid "Write here…"
+msgstr "Écrire ici..."

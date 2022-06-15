@@ -1,6 +1,8 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n modeladmin_tags wagtailadmin_tags %}
 
+{% block bodyclass %}modeladmin{% endblock %}
+
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block css %}
@@ -15,16 +17,16 @@
 
 {% block content %}
     {% block header %}
-        <header class="hasform">
+        <header class="header hasform">
             {% block breadcrumb %}{% endblock %}
-            <div class="row nice-padding">
+            <div class="row">
                 <div class="left header-left">
-                    <div class="col header-title">
+                    <div class="col">
                         {% block h1 %}
                             <h1>
-                                {% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                                {% if view.header_icon %}{% icon name=view.header_icon %}{% endif %}
                                 {{ view.get_page_title }}
-                                {% if view.get_page_subtitle %} <span>{{ view.get_page_subtitle }}</span> {% endif %}
+                                {% if view.get_page_subtitle %} <span class="header__subtitle">{{ view.get_page_subtitle }}</span> {% endif %}
                                 {% include 'modeladmin/includes/result_count.html' %}
                             </h1>
                         {% endblock %}
@@ -33,18 +35,20 @@
                 </div>
                 {% block header_extra %}
                     <div class="right header-right">
-                        {% if user_can_create %}
+                        {% if view.list_export or user_can_create %}
                             <div class="actionbutton">
-                                {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
-                            </div>
-                        {% endif %}
-                        {% if view.list_export %}
-                            <div class="dropdown dropdown-button match-width col">
-                                <a href="?export=xlsx&{{ request.GET.urlencode }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
-                                <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                                <ul>
-                                    <li><a  class="button bicolor button--icon" href="?export=csv&{{ request.GET.urlencode }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
-                                </ul>
+                                {% if user_can_create %}
+                                    {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
+                                {% endif %}
+                                {% if view.list_export %}
+                                    <div class="dropdown dropdown-button match-width col">
+                                        <a href="?export=xlsx&{{ request.GET.urlencode }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+                                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                                        <ul>
+                                            <li><a  class="button bicolor button--icon" href="?export=csv&{{ request.GET.urlencode }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
                             </div>
                         {% endif %}
                     </div>
@@ -73,14 +77,14 @@
                             {% if not all_count %}
                                 <div class="nice-padding" style="margin-top:30px;">
                                     {% if no_valid_parents %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
                                         <ul>
                                             {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
                                         </ul>
                                     {% else %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
                                             {% if user_can_create %}
-                                                {% blocktrans with view.create_url as url %}
+                                                {% blocktrans trimmed with view.create_url as url %}
                                                     Why not <a href="{{ url }}">add one</a>?
                                                 {% endblocktrans %}
                                             {% endif %}</p>
@@ -94,7 +98,7 @@
 
                     {% block pagination %}
                         <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" aria-label="{% trans 'Pagination' %}">
-                            <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
+                            <p>{% blocktrans trimmed with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
                             {% if paginator.num_pages > 1 %}
                                 <ul>
                                     {% pagination_link_previous page_obj view %}

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-06 06:05+0000\n"
-"Last-Translator: Vu Pham\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Luan Nguyen <lihavim@gmail.com>, 2015\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,9 @@ msgstr "Xoá"
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 
+msgid "No, don't delete"
+msgstr "Không xoá"
+
 msgid "Delete group"
 msgstr "Xoá nhóm"
 
@@ -91,12 +94,6 @@ msgstr "Quyền khác"
 msgid "Page"
 msgstr "Trang"
 
-msgid "groups"
-msgstr "Nhóm"
-
-msgid "Add a group"
-msgstr "Tạo nhóm"
-
 msgid "Add user"
 msgstr "Thêm người dùng"
 
@@ -121,6 +118,9 @@ msgstr "Xin lỗi, không tìm thấy user phù hợp với \"<em>%(query_string
 
 msgid "Groups"
 msgstr "Nhóm"
+
+msgid "Add a group"
+msgstr "Tạo nhóm"
 
 msgid "Search groups"
 msgstr "Tìm nhóm"

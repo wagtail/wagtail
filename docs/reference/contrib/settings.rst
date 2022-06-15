@@ -60,7 +60,7 @@ Settings use edit handlers much like the rest of Wagtail.  Add a ``panels`` sett
             FieldPanel('sign_up_page'),
         ]
 
-You can also customize the editor handlers :ref:`like you would do for Page model <customising_the_tabbed_interface>`
+You can also customise the editor handlers :ref:`like you would do for Page model <customising_the_tabbed_interface>`
 with a custom ``edit_handler`` attribute:
 
 .. code-block:: python

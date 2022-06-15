@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
-# Naglis Jonaitis, 2020-2021
+# Naglis Jonaitis, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail branduolys"
 
 msgid "Add Comment"
 msgstr "Pridėti komentarą"
@@ -38,6 +44,9 @@ msgstr "Perkelti aukštyn"
 
 msgid "Move down"
 msgstr "Perkelti žemyn"
+
+msgid "Duplicate"
+msgstr "Dubliuoti"
 
 msgid "Delete"
 msgstr "Ištrinti"
@@ -73,8 +82,8 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
-"Puslapio pavadinimas kuris bus atvaizduojamas URL pvz http://domain.com/blog/"
-"[my-slug]/"
+"Puslapio pavadinimas, kuris bus atvaizduojamas URL, pvz. http://domain.com/"
+"blog/[my-slug]/"
 
 msgid "content type"
 msgstr "turinio tipas"
@@ -91,6 +100,16 @@ msgstr "URL kelias"
 msgid "owner"
 msgstr "valdytojas"
 
+msgid "title tag"
+msgstr "pavadinimo žymė"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Puslapio pavadinimas, atvaizduojamas paieškos variklių rezultatuose kaip "
+"antraštė, kurią galima paspausti."
+
 msgid "show in menus"
 msgstr "rodyti meniu elementuose"
 
@@ -98,6 +117,15 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Ar nuoroda į šį puslapį bus atvaizduojama automatiškai sugeneruotose meniu"
+
+msgid "meta description"
+msgstr "metaduomenų aprašymas"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Aprašymo tekstas, atvaizduojamas po paieškos variklio rezultatų antrašte."
 
 msgid "go live date/time"
 msgstr "veikimo įjungimo data/laikas"
@@ -181,7 +209,7 @@ msgid "Publish any page"
 msgstr "Publikuoti bet kurį puslapį"
 
 msgid "Bulk delete"
-msgstr "Didelio kiekio trinimas"
+msgstr "Masinis trynimas"
 
 msgid "Delete pages with children"
 msgstr "Trinti puslapius su vidiniais puslapiais"
@@ -221,6 +249,15 @@ msgstr "grupės"
 
 msgid "Approve"
 msgstr "Patvirtinti"
+
+msgid "Approve with comment"
+msgstr "Patvirtinti su komentaru"
+
+msgid "current task state"
+msgstr "dabartinė užduoties būsena"
+
+msgid "Draft saved"
+msgstr "Juodraštis išsaugotas"
 
 msgid "comment"
 msgstr "komentaras"
@@ -347,8 +384,17 @@ msgstr "Anglų"
 msgid "French"
 msgstr "Prancūzų"
 
+msgid "You must log in first."
+msgstr "Pirma privalote prisijungti."
+
 msgid "German"
 msgstr "Vokiečių"
+
+msgid "Create"
+msgstr "Sukurti"
+
+msgid "Created"
+msgstr "Sukurtas"
 
 msgid "Edited"
 msgstr "Redaguotas"
@@ -368,6 +414,9 @@ msgstr "Atrakinta"
 msgid "Reject"
 msgstr "Atmesti"
 
+msgid "Rename"
+msgstr "Pervadinti"
+
 msgid "Copy"
 msgstr "Kopijuoti"
 
@@ -376,6 +425,33 @@ msgstr "Perkelti"
 
 msgid "Add comment"
 msgstr "Pridėti komentarą"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Pridėjo %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Pridėjo komentarą"
+
+msgid "Edit comment"
+msgstr "Redaguoti komentarą"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Redagavo %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Redagavo komentarą"
+
+msgid "Delete comment"
+msgstr "Ištrinti komentarą"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Ištrynė %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Ištrynė komentarą"
 
 msgid "Resolve comment"
 msgstr "Išspręsti komentarą"
@@ -386,3 +462,33 @@ msgstr "Išsprendė „%(field)s“ laukelio komentarą: „%(text)s“"
 
 msgid "Resolved a comment"
 msgstr "Išsprendė komentarą"
+
+msgid "Reply to comment"
+msgstr "Atsakyti į komentarą"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Atsakė į %(field)s laukelio komentarą: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Atsakė į komentarą"
+
+msgid "Edit reply to comment"
+msgstr "Redaguoti atsakymą į komentarą"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Redagavo %(field)s laukelio atsakymą į komentarą: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Redagavo atsakymą"
+
+msgid "Delete reply to comment"
+msgstr "Ištrinti atsakymą į komentarą"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Ištrynė %(field)s laukelio atsakymą į komentarą: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Ištrynė atsakymą"

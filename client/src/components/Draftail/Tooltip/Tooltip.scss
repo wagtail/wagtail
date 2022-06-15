@@ -16,9 +16,6 @@ $tooltip-color-no: #f48880;
 
   &::before {
     bottom: 100%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 50%;
     inset-inline-start: 50%;
     transform: translateX(-50%);
     border-bottom-color: $tooltip-chrome;
@@ -31,9 +28,6 @@ $tooltip-color-no: #f48880;
 
   &::before {
     top: 50%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 100%;
     inset-inline-end: 100%;
     transform: translateY(-50%);
     border-inline-end-color: $tooltip-chrome;
@@ -45,9 +39,6 @@ $tooltip-color-no: #f48880;
 
   &::before {
     bottom: 100%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: $tooltip-arrow-spacing;
     inset-inline-start: $tooltip-arrow-spacing;
     border-bottom-color: $tooltip-chrome;
   }

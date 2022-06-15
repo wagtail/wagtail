@@ -11,7 +11,7 @@ from wagtail.admin.userbar import (
     ExplorePageItem,
     RejectModerationEditPageItem,
 )
-from wagtail.models import PAGE_TEMPLATE_VAR, Page, PageRevision
+from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile
 
 register = template.Library()
@@ -62,13 +62,17 @@ def wagtailuserbar(context, position="bottom-right"):
             if revision_id:
                 items = [
                     AdminItem(),
-                    ExplorePageItem(PageRevision.objects.get(id=revision_id).page),
-                    EditPageItem(PageRevision.objects.get(id=revision_id).page),
+                    ExplorePageItem(
+                        Revision.page_revisions.get(id=revision_id).content_object
+                    ),
+                    EditPageItem(
+                        Revision.page_revisions.get(id=revision_id).content_object
+                    ),
                     ApproveModerationEditPageItem(
-                        PageRevision.objects.get(id=revision_id)
+                        Revision.page_revisions.get(id=revision_id)
                     ),
                     RejectModerationEditPageItem(
-                        PageRevision.objects.get(id=revision_id)
+                        Revision.page_revisions.get(id=revision_id)
                     ),
                 ]
             else:

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -122,21 +122,6 @@ msgstr "Lae, Labele hamoos"
 msgid "Delete group"
 msgstr "Hamoos grupu"
 
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"Grupu '%(group_name)s' iha %(group_user_count)s membru"
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -181,12 +166,6 @@ msgstr "Pajina"
 
 msgid "Add a page permission"
 msgstr "Hatama permisaun ba pajina"
-
-msgid "groups"
-msgstr "grupu sira"
-
-msgid "Add a group"
-msgstr "Hatama grupu"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -247,24 +226,14 @@ msgid "%(time_period)s ago"
 msgstr "1%(time_period)s liuba"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Iha neeba%(counter)s resultadu hanesan"
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Deskulpa, user sira la hanesan \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grupu sira"
+
+msgid "Add a group"
+msgstr "Hatama grupu"
 
 msgid "Search groups"
 msgstr "Buka grupu sira"

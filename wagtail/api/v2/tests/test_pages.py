@@ -1673,7 +1673,7 @@ class TestPageCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):
-        Page.objects.get(id=2).save_revision().publish()
+        Page.objects.get(id=2).specific.save_revision().publish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
@@ -1688,6 +1688,6 @@ class TestPageCacheInvalidation(TestCase):
         purge.assert_any_call("http://api.example.com/api/main/pages/16/")
 
     def test_save_draft_doesnt_purge(self, purge):
-        Page.objects.get(id=2).save_revision()
+        Page.objects.get(id=2).specific.save_revision()
 
         purge.assert_not_called()

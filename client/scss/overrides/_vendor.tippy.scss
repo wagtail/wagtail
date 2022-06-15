@@ -1,0 +1,31 @@
+@import '../../../node_modules/tippy.js/dist/tippy';
+
+.tippy-box {
+  // Special font size 12px for tooltips
+  @apply w-bg-primary w-text-white w-text-[0.75rem] w-rounded-sm w-font-medium;
+}
+
+.tippy-box[data-placement^='top'] > .tippy-arrow::before {
+  @apply w-border-t-primary;
+}
+
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+  @apply w-border-b-primary;
+}
+
+.tippy-box[data-placement^='left'] > .tippy-arrow::before {
+  @apply w-border-l-primary;
+}
+
+.tippy-box[data-placement^='right'] > .tippy-arrow::before {
+  @apply w-border-r-primary;
+}
+
+// Dropdown theme for tippy tooltips
+.tippy-box[data-theme='dropdown'] {
+  @apply w-rounded;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}

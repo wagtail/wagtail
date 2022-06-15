@@ -423,11 +423,12 @@ class ChildRelationComparison:
     is_field = False
     is_child_relation = True
 
-    def __init__(self, field, field_comparisons, obj_a, obj_b):
+    def __init__(self, field, field_comparisons, obj_a, obj_b, label=""):
         self.field = field
         self.field_comparisons = field_comparisons
         self.val_a = getattr(obj_a, field.related_name)
         self.val_b = getattr(obj_b, field.related_name)
+        self.label = label
 
     def field_label(self):
         """
@@ -437,7 +438,12 @@ class ChildRelationComparison:
 
         if verbose_name is None:
             # Relations don't have a verbose_name
-            verbose_name = self.field.name.replace("_", " ")
+            if self.label:
+                # If the panel has a label, we set it instead.
+                # See InlinePanel.get_comparision for usage
+                verbose_name = self.label
+            else:
+                verbose_name = self.field.name.replace("_", " ")
 
         return capfirst(verbose_name)
 

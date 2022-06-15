@@ -3,14 +3,16 @@ import unittest
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files import File
+from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models import Prefetch
 from django.db.utils import IntegrityError
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
-from wagtail.images.models import Rendition, SourceImageIOError
+from wagtail.images.models import Rendition, SourceImageIOError, get_rendition_storage
 from wagtail.images.rect import Rect
 from wagtail.models import Collection, GroupCollectionPermission, Page
 from wagtail.test.testapp.models import (
@@ -21,6 +23,11 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
+
+
+class CustomStorage(Storage):
+    def __init__(self):
+        super().__init__()
 
 
 class TestImage(TestCase):
@@ -265,6 +272,78 @@ class TestRenditions(TestCase):
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
 
+    def test_prefetched_rendition_found(self):
+        # Request a rendition that does not exist yet
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        # Refetch the same image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # get_rendition() should return the prefetched rendition
+        with self.assertNumQueries(0):
+            second_rendition = image.get_rendition("width-100")
+
+        # The renditions should match
+        self.assertEqual(original_rendition, second_rendition)
+
+    def test_prefetch_renditions_found(self):
+        # Same test as above but uses the `prefetch_renditions` method on the manager instead.
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        image = Image.objects.prefetch_renditions("width-100").get(pk=self.image.pk)
+
+        with self.assertNumQueries(0):
+            second_rendition = image.get_rendition("width-100")
+
+        self.assertEqual(original_rendition, second_rendition)
+
+    def test_prefetched_rendition_not_found(self):
+        # Request a rendition that does not exist yet
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        # Refetch the same image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # Request a different rendition from this object
+        with self.assertNumQueries(4):
+            # The number of queries is fewer than before, because the check for
+            # an existing rendition is skipped
+            second_rendition = image.get_rendition("height-66")
+
+        # The renditions should NOT match
+        self.assertNotEqual(original_rendition, second_rendition)
+
+        # Request the same rendition again
+        with self.assertNumQueries(0):
+            # Newly created renditions are appended to the prefetched
+            # rendition queryset, so that multiple requests for the same
+            # rendition can reuse the same value
+            third_rendition = image.get_rendition("height-66")
+
+        # The second and third renditions should be references to the
+        # exact same in-memory object
+        self.assertIs(second_rendition, third_rendition)
+
+    def test_prefetch_renditions_not_found(self):
+        # Same test as above but uses the `prefetch_renditions` method on the manager instead.
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        image = Image.objects.prefetch_renditions("width-100").get(pk=self.image.pk)
+
+        with self.assertNumQueries(4):
+            second_rendition = image.get_rendition("height-66")
+
+        self.assertNotEqual(original_rendition, second_rendition)
+
+        with self.assertNumQueries(0):
+            third_rendition = image.get_rendition("height-66")
+
+        self.assertIs(second_rendition, third_rendition)
+
     def test_alt_attribute(self):
         rendition = self.image.get_rendition("width-400")
         self.assertEqual(rendition.alt, "Test image")
@@ -300,6 +379,12 @@ class TestRenditions(TestCase):
         with self.assertNumQueries(0):
             new_rendition = self.image.get_rendition("width-500")
         self.assertEqual(new_rendition._from_cache, "original")
+
+        # But, not if the rendition has been prefetched
+        fresh_image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+        with self.assertNumQueries(0):
+            prefetched_rendition = fresh_image.get_rendition("width-500")
+        self.assertFalse(hasattr(prefetched_rendition, "_from_cache"))
 
         # changing the image file should invalidate the cache
         self.image.file = get_test_image_file(colour="green")
@@ -345,6 +430,95 @@ class TestRenditions(TestCase):
         self.assertEqual(
             rendition.background_position_style, "background-position: 50% 50%;"
         )
+
+    def test_custom_rendition_backend_setting(self):
+        """
+        Test the usage of WAGTAILIMAGES_RENDITION_STORAGE setting.
+        """
+        # when setting is not set, instance.get_storage() returns DefaultStorage
+        from django.conf import settings
+
+        bkp = settings
+
+        self.assertFalse(hasattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE"))
+        rendition1 = self.image.get_rendition("min-120x120")
+        self.assertIsInstance(rendition1.image.file.storage, DefaultStorage)
+
+        # when setting is set to a path
+        setattr(
+            settings,
+            "WAGTAILIMAGES_RENDITION_STORAGE",
+            "wagtail.images.tests.test_models.CustomStorage",
+        )
+        backend = get_rendition_storage()
+        self.assertIsInstance(backend, CustomStorage)
+
+        # when setting is set directly, get_rendition_storage() returns the custom storage backend
+        class CustomStorage2(Storage):
+            def __init__(self):
+                super().__init__()
+
+        setattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", CustomStorage2())
+        backend = get_rendition_storage()
+        self.assertIsInstance(backend, CustomStorage2)
+
+        # clean up
+        settings = bkp
+
+
+class TestPrefetchRenditions(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.images = []
+        self.event_pages_pks = []
+
+        event_pages = EventPage.objects.all()[:3]
+        for i, page in enumerate(event_pages):
+            page.feed_image = image = Image.objects.create(
+                title="Test image {i}",
+                file=get_test_image_file(),
+            )
+            page.save(update_fields=["feed_image"])
+            self.images.append(image)
+            self.event_pages_pks.append(page.pk)
+
+        # Generate renditions
+        self.small_renditions = [
+            image.get_rendition("max-100x100") for image in self.images
+        ]
+        self.large_renditions = [
+            image.get_rendition("min-300x600") for image in self.images
+        ]
+
+    def test_prefetch_renditions_on_non_image_querysets(self):
+        prefetch_images_and_small_renditions = Prefetch(
+            "feed_image", queryset=Image.objects.prefetch_renditions("max-100x100")
+        )
+        with self.assertNumQueries(3):
+            # One query to get the `EventPage`s, another one to fetch the feed images
+            # and a last one to select matching renditions.
+            pages = list(
+                EventPage.objects.prefetch_related(
+                    prefetch_images_and_small_renditions
+                ).filter(pk__in=self.event_pages_pks)
+            )
+
+        with self.assertNumQueries(0):
+            # No additional query since small renditions were prefetched.
+            small_renditions = [
+                page.feed_image.get_rendition("max-100x100") for page in pages
+            ]
+
+        self.assertListEqual(self.small_renditions, small_renditions)
+
+        with self.assertNumQueries(3):
+            # Additional queries since large renditions weren't prefetched.
+            large_renditions = [
+                page.feed_image.get_rendition("min-300x600") for page in pages
+            ]
+
+        self.assertListEqual(self.large_renditions, large_renditions)
 
 
 class TestUsageCount(TestCase):

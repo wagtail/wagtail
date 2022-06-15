@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Vu Pham, 2021-2022\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -33,12 +33,6 @@ msgstr "Thu hồi xuất bản"
 msgid "Delete"
 msgstr "Xoá"
 
-msgid "Lock"
-msgstr "Khóa"
-
-msgid "Unlock"
-msgstr "Mở khóa"
-
 msgid "Save Draft"
 msgstr "Lưu bản nháp"
 
@@ -48,9 +42,6 @@ msgstr "%(label)svà Xuất bản"
 
 msgid "Wagtail admin"
 msgstr "Quản trị viên Wagtail"
-
-msgid "Settings"
-msgstr "Tùy chỉnh"
 
 msgid "Date from"
 msgstr "Từ ngày"
@@ -86,6 +77,9 @@ msgstr "Nhập địa chỉ email của bạn để thiết lập lại mật kh
 msgid "URL"
 msgstr "URL"
 
+msgid "Collection"
+msgstr "Bộ sưu tập"
+
 msgid "Add"
 msgstr "Thêm"
 
@@ -101,69 +95,20 @@ msgstr "Tìm kiếm"
 msgid "Please select at least one group."
 msgstr "Hãy lựa chọn ít nhất một nhóm."
 
-msgid "Page"
-msgstr "Trang"
-
-msgid "Pages"
-msgstr "Trang"
-
-msgid "Loading…"
-msgstr "Đang tải..."
-
-msgid "Server Error"
-msgstr "Lỗi Hệ thống"
-
-msgid "Undo"
-msgstr "Hoàn tác"
-
-msgid "Show error"
-msgstr "Hiển thị lỗi"
-
-msgid "Close"
-msgstr "Đóng"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "Chỉnh sửa '{title}'"
-
-msgid "Save"
-msgstr "Lưu"
-
-msgid "Saving..."
-msgstr "Đang lưu..."
-
-msgid "Deleting..."
-msgstr "Đang xóa..."
-
-msgid "Add a comment"
-msgstr "Thêm bình luận"
-
-msgid "Show comments"
-msgstr "Hiển thị bình luận"
-
-msgid "Delete error"
-msgstr "Xóa lỗi"
-
-msgid "Are you sure?"
-msgstr "Bạn chắc chắn không?"
-
-msgid "Save error"
-msgstr "Lưu lỗi"
-
-msgid "Comment"
-msgstr "Bình luận"
-
-msgid "Dashboard"
-msgstr "Trang tổng quan"
-
-msgid "Edit your account"
-msgstr "Chỉnh sửa tài khoản của bạn"
-
 msgid "1 page selected"
 msgstr "1 trang được chọn"
 
 msgid "1 image selected"
 msgstr "1 hình ảnh được chọn"
+
+msgid "Settings"
+msgstr "Tùy chỉnh"
+
+msgid "Status"
+msgstr "Trạng thái"
+
+msgid "Preview"
+msgstr "Xem trước"
 
 msgid "Error 404"
 msgstr "Lỗi 404"
@@ -204,6 +149,12 @@ msgstr "Đường dẫn email"
 msgid "Choose"
 msgstr "Chọn"
 
+msgid "Choose a page"
+msgstr "Chọn một trang"
+
+msgid "Save"
+msgstr "Lưu"
+
 msgid "Public"
 msgstr "Công khai"
 
@@ -213,18 +164,17 @@ msgstr "Riêng tư"
 msgid "Name"
 msgstr "Tên"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "Thêm %(label)s"
-
-msgid "Add comment"
-msgstr "Thêm bình luận"
-
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 
+msgid "Dashboard"
+msgstr "Trang tổng quan"
+
 msgid "Title"
 msgstr "Tiêu đề"
+
+msgid "Unlock"
+msgstr "Mở khóa"
 
 msgid "Draft"
 msgstr "Bản nháp"
@@ -235,9 +185,6 @@ msgstr "Phê chuẩn"
 msgid "Reject"
 msgstr "Từ chối"
 
-msgid "Status"
-msgstr "Trạng thái"
-
 msgid "Date"
 msgstr "Ngày"
 
@@ -247,12 +194,24 @@ msgstr "Đang xuất bản..."
 msgid "Saving…"
 msgstr "Đang lưu..."
 
+msgid "No, don't delete"
+msgstr "Không xoá"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Xóa %(title)s"
 
+msgid "Cancel"
+msgstr "Hủy bỏ"
+
 msgid "Copy"
 msgstr "Sao chép"
+
+msgid "Comment"
+msgstr "Bình luận"
+
+msgid "Close"
+msgstr "Đóng"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -260,6 +219,15 @@ msgstr "So sánh %(title)s"
 
 msgid "Comparing"
 msgstr "So sánh"
+
+msgid "Locked"
+msgstr "Đã bị khóa"
+
+msgid "Unlocked"
+msgstr "Đã được mở khóa"
+
+msgid "Lock"
+msgstr "Khóa"
 
 #, python-format
 msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
@@ -271,14 +239,21 @@ msgstr "Luồng công việc đã bắt đầu"
 msgid "Edit page"
 msgstr "Sửa trang"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Thêm %(label)s"
+
+msgid "Add comment"
+msgstr "Thêm bình luận"
+
 msgid "Download XLSX"
 msgstr "Tải XLSX"
 
 msgid "Download CSV"
 msgstr "Tải CSV"
 
-msgid "Locked"
-msgstr "Đã bị khóa"
+msgid "Page"
+msgstr "Trang"
 
 msgid "Home"
 msgstr "Trang Chủ"
@@ -298,5 +273,30 @@ msgstr "Chỉnh sửa"
 msgid "View live"
 msgstr "Xem bản live"
 
+msgid "Earliest"
+msgstr "Sớm nhất"
+
 msgid "Date/Time"
 msgstr "Ngày/Giờ"
+
+msgid "Requested By"
+msgstr "Yêu cầu bởi"
+
+msgid "Add a workflow"
+msgstr "Thêm một luồng công việc"
+
+msgid "New workflow"
+msgstr "Luồng công việc mới"
+
+#, python-brace-format
+msgid "Workflow '{0}' created."
+msgstr "Luồng công việc '{0}' đã được tạo."
+
+msgid "Editing workflow"
+msgstr "Biên tập luồng công việc"
+
+msgid "Server Error"
+msgstr "Lỗi Hệ thống"
+
+msgid "Pages"
+msgstr "Trang"

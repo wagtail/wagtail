@@ -64,6 +64,11 @@ class FormPagesListView(SafePaginateListView):
     template_name = "wagtailforms/index.html"
     context_object_name = "form_pages"
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.locale = None
+
     def get_queryset(self):
         """Return the queryset of form pages for this view"""
         queryset = get_forms_for_user(self.request.user)
@@ -77,9 +82,7 @@ class FormPagesListView(SafePaginateListView):
         return queryset
 
     def get(self, request, *args, **kwargs):
-        self.locale = None
-        enable_locale_filter = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if enable_locale_filter:
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             if request.GET.get("locale"):
                 self.locale = get_object_or_404(
                     Locale, language_code=request.GET["locale"]

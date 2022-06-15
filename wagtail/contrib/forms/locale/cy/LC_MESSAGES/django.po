@@ -4,13 +4,14 @@
 #
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2017
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Adam Hughes <adamhughes31@gmail.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +21,27 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+msgid "Wagtail forms"
+msgstr "Ffurflen Wagtail"
+
 msgid "Date from"
 msgstr "Dyddiad o"
 
 msgid "Date to"
 msgstr "Dyddiad i"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "Mae maes arall gyda'r label %s, newidiwch un ohonyn nhw."
+
+msgid "Single line text"
+msgstr "Testun llinell sengl"
+
+msgid "Multi-line text"
+msgstr "Testun aml-linell"
+
+msgid "Email"
+msgstr "E-Bost"
 
 msgid "Number"
 msgstr "Rhif"
@@ -32,11 +49,94 @@ msgstr "Rhif"
 msgid "URL"
 msgstr "URL"
 
+msgid "Checkbox"
+msgstr "Blwch ticio"
+
+msgid "Checkboxes"
+msgstr "Blychau ticio"
+
+msgid "Drop down"
+msgstr "Dewislen Gollwng"
+
+msgid "Multiple select"
+msgstr "Dewis lluosog"
+
+msgid "Radio buttons"
+msgstr "Botymau radio"
+
 msgid "Date"
 msgstr "Dyddiad"
 
+msgid "Date/time"
+msgstr "Dyddiad/amser"
+
+msgid "Hidden field"
+msgstr "Maes cudd"
+
+msgid "submit time"
+msgstr "amser cyflwyno"
+
+msgid "form submission"
+msgstr "cyflwyno ffurflen"
+
+msgid "form submissions"
+msgstr "cyflwyniadau ffurflen"
+
+msgid "name"
+msgstr "enw"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Enw diogel y maes ffurflen, mae'r label yn trosi i ascii_snake_case"
+
+msgid "label"
+msgstr "label"
+
+msgid "The label of the form field"
+msgstr "Label maes y ffurflen"
+
+msgid "field type"
+msgstr "math o faes"
+
+msgid "required"
+msgstr "ofynnol"
+
+msgid "choices"
+msgstr "dewisiadau"
+
+msgid "default value"
+msgstr "gwerth rhagosodedig"
+
+msgid "help text"
+msgstr "testun cymorth"
+
+msgid "Submission date"
+msgstr "Dyddiad cyflwyno"
+
+msgid "Form"
+msgstr "Ffurflen"
+
+msgid "Landing page"
+msgstr "Tudalen lanio"
+
+msgid "to address"
+msgstr "i cyfeiriad"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Dewisol - bydd cyflwyniadau ffurflen yn cael eu e-bostio i'r cyfeiriadau "
+"hyn. Gwahanwch gyfeiriadau lluosog fesul coma."
+
+msgid "from address"
+msgstr "o cyfeiriad"
+
 msgid "subject"
 msgstr "Pwnc"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s cyflwyniadau"
 
 #, python-format
 msgid "Delete form data %(title)s"
@@ -51,8 +151,52 @@ msgstr "Dileu"
 msgid "Forms"
 msgstr "Ffurflenni"
 
+msgid "Pages"
+msgstr "Tudalennau"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Cyflwyniadau o %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Data ffurflen <span>%(form_title)s</span>"
+
 msgid "Filter"
 msgstr "Hidlydd"
 
+msgid "Download XLSX"
+msgstr "Lawrlwythwch XSLX"
+
+msgid "Download CSV"
+msgstr "Lawrlwythwch CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nid oes unrhyw gyflwyniad o'r ffurflen '%(title)s'."
+
 msgid "Title"
 msgstr "Teitl"
+
+msgid "Origin"
+msgstr "Gwraidd"
+
+msgid "Delete selected submissions"
+msgstr "Dileu cyflwyniadau dethol"
+
+msgid "Total submissions"
+msgstr "Cyfanswm y cyflwyniadau"
+
+msgid "Latest submission"
+msgstr "Y cyflwyniadau diweddaraf"
+
+msgid "No form pages have been created."
+msgstr "Nid oes unrhyw dudalennau ffurflen wedi'u creu."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Mae un cyflwyniad wedi'u dileu."
+msgstr[1] "Mae %(count)d cyflwyniad wedi'u dileu."
+msgstr[2] "Mae %(count)d cyflwyniad wedi'u dileu."
+msgstr[3] "Mae %(count)d cyflwyniad wedi'u dileu."

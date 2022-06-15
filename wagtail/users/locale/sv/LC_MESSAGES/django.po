@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-28 18:15+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -121,12 +121,6 @@ msgstr "användarprofil"
 msgid "user profiles"
 msgstr "användarprofiler"
 
-#, python-format
-msgid "Assign role to 1 user "
-msgid_plural "Assign role to %(counter)s users"
-msgstr[0] "Tilldela roll till 1 användare"
-msgstr[1] "Tilldela roll till %(counter)s användare"
-
 msgid "Assign role"
 msgstr "Tilldela roll"
 
@@ -143,12 +137,6 @@ msgstr "Ja, tilldela"
 
 msgid "No, don't assign"
 msgstr "Nej, tilldela inte"
-
-#, python-format
-msgid "Delete 1 user "
-msgid_plural "Delete %(counter)s users"
-msgstr[0] "Radera 1 användare"
-msgstr[1] "Radera %(counter)s användare"
 
 msgid "Delete"
 msgstr "Radera"
@@ -167,12 +155,6 @@ msgstr "Ja, radera"
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
-#, python-format
-msgid "Change active state for 1 user "
-msgid_plural "Change active state for %(counter)s users"
-msgstr[0] "Ändra aktiv status för 1 användare"
-msgstr[1] "Ändra aktiv status fö %(counter)s användare"
-
 msgid "Set active state"
 msgstr "Sätt aktiv status"
 
@@ -190,28 +172,6 @@ msgstr "Nej, ändra inte status"
 
 msgid "Delete group"
 msgstr "Radera grupp"
-
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Gruppen '%(group_name)s' har <strong>%(group_user_count)s</"
-"strong> medlem.\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Gruppen '%(group_name)s' har <strong>%(group_user_count)s</"
-"strong> medlemmar.\n"
-"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -264,12 +224,6 @@ msgstr "Sida"
 
 msgid "Add a page permission"
 msgstr "Lägg till en sidrättighet"
-
-msgid "groups"
-msgstr "grupper"
-
-msgid "Add a group"
-msgstr "Lägg till en grupp"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -333,24 +287,6 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s sedan"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Det finns %(counter)s matchning\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Det finns %(counter)s matchningar\n"
-"        "
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, inga användare matchar \"<em>%(query_string)s</em>\""
 
@@ -405,6 +341,9 @@ msgstr[1] "%(num_parent_objects)d användare har markerats som inaktiva"
 
 msgid "Groups"
 msgstr "Grupper"
+
+msgid "Add a group"
+msgstr "Lägg till en grupp"
 
 msgid "Search groups"
 msgstr "Sök grupper"

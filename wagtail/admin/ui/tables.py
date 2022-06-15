@@ -43,7 +43,10 @@ class Column(metaclass=MediaDefiningClass):
     ):
         self.name = name
         self.accessor = accessor or name
-        self.label = label or capfirst(name.replace("_", " "))
+        if label is None:
+            self.label = capfirst(name.replace("_", " "))
+        else:
+            self.label = label
         self.classname = classname
         self.sort_key = sort_key
         self.header = Column.Header(self)
@@ -128,17 +131,28 @@ class TitleColumn(Column):
     cell_template_name = "wagtailadmin/tables/title_cell.html"
 
     def __init__(
-        self, name, url_name=None, get_url=None, link_classname=None, **kwargs
+        self,
+        name,
+        url_name=None,
+        get_url=None,
+        link_classname=None,
+        link_attrs=None,
+        **kwargs,
     ):
         super().__init__(name, **kwargs)
         self.url_name = url_name
         self._get_url_func = get_url
+        self.link_attrs = link_attrs or {}
         self.link_classname = link_classname
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["link_url"] = self.get_link_url(instance, parent_context)
-        context["link_classname"] = self.link_classname
+        context["link_attrs"] = self.link_attrs.copy()
+        context["link_attrs"]["href"] = context["link_url"] = self.get_link_url(
+            instance, parent_context
+        )
+        if self.link_classname is not None:
+            context["link_attrs"]["class"] = self.link_classname
         return context
 
     def get_link_url(self, instance, parent_context):
@@ -218,7 +232,10 @@ class Table(Component):
     @property
     def rows(self):
         for instance in self.data:
-            yield Table.Row(self.columns, instance)
+            yield Table.Row(self, instance)
+
+    def get_row_classname(self, instance):
+        return ""
 
     def has_column_widths(self):
         return any(column.width for column in self.columns.values())
@@ -226,8 +243,9 @@ class Table(Component):
     class Row(Mapping):
         # behaves as an OrderedDict whose items are the rendered results of
         # the corresponding column's format_cell method applied to the instance
-        def __init__(self, columns, instance):
-            self.columns = columns
+        def __init__(self, table, instance):
+            self.table = table
+            self.columns = table.columns
             self.instance = instance
 
         def __len__(self):
@@ -242,3 +260,7 @@ class Table(Component):
 
         def __repr__(self):
             return repr([col.get_cell(self.instance) for col in self.columns.values()])
+
+        @cached_property
+        def classname(self):
+            return self.table.get_row_classname(self.instance)

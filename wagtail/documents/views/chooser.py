@@ -30,7 +30,7 @@ def get_document_chosen_response(request, document):
         None,
         None,
         json_data={
-            "step": "document_chosen",
+            "step": "chosen",
             "result": {
                 "id": document.id,
                 "title": document.title,
@@ -106,7 +106,7 @@ class BaseChooseView(View):
                 "title",
                 label=_("Title"),
                 url_name="wagtaildocs:document_chosen",
-                link_classname="document-choice",
+                link_attrs={"data-chooser-modal-choice": True},
             ),
             DownloadColumn("filename", label=_("File")),
             DateColumn("created_at", label=_("Created"), width="16%"),
@@ -144,11 +144,7 @@ class ChooseView(BaseChooseView):
             None,
             self.get_context_data(),
             json_data={
-                "step": "chooser",
-                "error_label": _("Server Error"),
-                "error_message": _(
-                    "Report this error to your website administrator with the following information:"
-                ),
+                "step": "choose",
                 "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
             },
         )
@@ -203,7 +199,7 @@ def chooser_upload(request):
         None,
         None,
         json_data={
-            "step": "reshow_upload_form",
+            "step": "reshow_creation_form",
             "htmlFragment": render_to_string(
                 "wagtaildocs/chooser/upload_form.html", {"form": form}, request
             ),

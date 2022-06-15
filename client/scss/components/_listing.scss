@@ -61,9 +61,6 @@ ul.listing {
 
       &.icon:after {
         opacity: 0.5;
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 0;
         inset-inline-end: 0;
       }
     }
@@ -115,6 +112,21 @@ ul.listing {
   }
 
   &.chooser {
+    tbody .parent-page {
+      font-size: 1.15em;
+      background-color: $color-grey-4;
+    }
+
+    tbody .parent-page .title {
+      a {
+        display: inline-block;
+      }
+
+      .status-tag--label {
+        border: 1px solid;
+      }
+    }
+
     tbody .title a {
       @include transition(none);
       display: block;
@@ -476,9 +488,6 @@ table.listing {
       font-size: 1em;
       opacity: 1;
       position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 10%;
       inset-inline-end: 10%;
       top: 2em;
     }
@@ -598,22 +607,22 @@ table.listing {
 @include media-breakpoint-up(sm) {
   .listing {
     &.horiz {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      align-items: flex-end;
+      justify-items: initial;
     }
 
     &.images {
-      border: 1px solid $color-grey-4;
-      border-width: 0 0 0 1px;
+      border: 0;
 
       > li {
         padding: 1.5em;
-        width: 200px;
+        width: auto;
         height: auto;
         text-align: center;
         margin-top: -1px;
-        border: 1px solid $color-grey-4;
-        border-width: 1px 1px 1px 0;
+        border: 0;
 
         .bulk-action-checkbox {
           float: left;

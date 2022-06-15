@@ -147,9 +147,23 @@ $(function () {
       var response = JSON.parse(data.result);
 
       if (response.success) {
-        itemElement.addClass('upload-success');
-
-        $('.right', itemElement).append(response.form);
+        if (response.duplicate) {
+          itemElement.addClass('upload-duplicate');
+          $('.right', itemElement).append(response.confirm_duplicate_upload);
+          $('.confirm-duplicate-upload', itemElement).on(
+            'click',
+            '.confirm-upload',
+            function (event) {
+              event.preventDefault();
+              var confirmUpload = $(this).closest('.confirm-duplicate-upload');
+              confirmUpload.remove();
+              $('.right', itemElement).append(response.form);
+            },
+          );
+        } else {
+          itemElement.addClass('upload-success');
+          $('.right', itemElement).append(response.form);
+        }
       } else {
         itemElement.addClass('upload-failure');
         $('.right .error_messages', itemElement).append(response.error_message);
@@ -171,14 +185,24 @@ $(function () {
     },
   });
 
-  // ajax-enhance forms added on done()
+  /**
+   * ajax-enhance forms added on done()
+   * allows the user to modify the title, collection, tags and delete after upload
+   */
   $('#upload-list').on('submit', 'form', function (e) {
     var form = $(this);
+    var formData = new FormData(this);
     var itemElement = form.closest('#upload-list > li');
 
     e.preventDefault();
 
-    $.post(this.action, form.serialize(), function (data) {
+    $.ajax({
+      contentType: false,
+      data: formData,
+      processData: false,
+      type: 'POST',
+      url: this.action,
+    }).done(function (data) {
       if (data.success) {
         var statusText = $('.status-msg.update-success').text();
         addMessage('success', statusText);

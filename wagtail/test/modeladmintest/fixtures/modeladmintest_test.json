@@ -80,6 +80,37 @@
     }
   },
   {
+    "pk": 1,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "fr"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "modeladmintest.translatablebook",
+    "fields": {
+      "title": "The Lord of the Rings",
+      "author_id": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "modeladmintest.translatablebook",
+    "fields": {
+      "title": "Le Seigneur des anneaux",
+      "author_id": 1,
+      "locale_id": 2
+    }
+  },
+  {
     "pk": "boom",
     "model": "modeladmintest.token",
     "fields": {

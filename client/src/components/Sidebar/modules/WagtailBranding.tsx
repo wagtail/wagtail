@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { ModuleDefinition, Strings } from '../Sidebar';
+
+import { gettext } from '../../../utils/gettext';
+import { ModuleDefinition } from '../Sidebar';
 import WagtailLogo from './WagtailLogo';
 
 interface WagtailBrandingProps {
   homeUrl: string;
-  strings: Strings;
+  slim: boolean;
   currentPath: string;
   navigate(url: string): void;
 }
 
 const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   homeUrl,
-  strings,
+  slim,
   currentPath,
   navigate,
 }) => {
@@ -41,7 +43,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
       <a
         className="sidebar-custom-branding"
         href={homeUrl}
-        aria-label={strings.DASHBOARD}
+        aria-label={gettext('Dashboard')}
         aria-current={currentPath === homeUrl ? 'page' : undefined}
         dangerouslySetInnerHTML={{
           __html: brandingLogo ? brandingLogo.innerHTML : '',
@@ -79,21 +81,21 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   };
 
   const desktopClassName =
-    'sidebar-wagtail-branding' +
+    'sidebar-wagtail-branding w-transition-all w-duration-150' +
     (isWagging ? ' sidebar-wagtail-branding--wagging' : '');
 
   return (
     <a
       className={desktopClassName}
       href={homeUrl}
-      aria-label={strings.DASHBOARD}
+      aria-label={gettext('Dashboard')}
       aria-current={currentPath === homeUrl ? 'page' : undefined}
       onClick={onClick}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      <div className="sidebar-wagtail-branding__icon-wrapper">
-        <WagtailLogo />
+      <div className="sidebar-wagtail-branding__icon-wrapper w-transition-all w-duration-150">
+        <WagtailLogo slim={slim} />
       </div>
     </a>
   );
@@ -106,12 +108,12 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
     this.homeUrl = homeUrl;
   }
 
-  render({ strings, key, navigate, currentPath }) {
+  render({ slim, key, navigate, currentPath }) {
     return (
       <WagtailBranding
         key={key}
         homeUrl={this.homeUrl}
-        strings={strings}
+        slim={slim}
         navigate={navigate}
         currentPath={currentPath}
       />

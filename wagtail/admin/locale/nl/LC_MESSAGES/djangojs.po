@@ -1,0 +1,168 @@
+#
+# Translators:
+# mahulst, 2022
+# Rob Moorman <rob@moori.nl>, 2022
+# benny_AT_it_digin.com <benny@it-digin.com>, 2022
+# Loic Teixeira, 2022
+# Thijs Kramer <thijskramer@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2022\n"
+"Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add a comment"
+msgstr "Voeg opmerking toe"
+
+msgid "Alt text"
+msgstr "Alt tekst"
+
+msgid "Are you sure?"
+msgstr "Weet je het zeker?"
+
+msgid "Broken link"
+msgstr "Defecte link"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Close"
+msgstr "Sluit"
+
+msgid "Comment"
+msgstr "Opmerking"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Decorative image"
+msgstr "Decoratieve afbeelding"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Delete error"
+msgstr "Verwijder fout"
+
+msgid "Deleting"
+msgstr "Bezig met verwijderen"
+
+msgid "Edit"
+msgstr "Bewerk"
+
+msgid "Edit '{title}'"
+msgstr "Wijzig '{title}'"
+
+msgid "Edit your account"
+msgstr "Wijzig je account"
+
+msgid "Focus comment"
+msgstr "Focus opmerking"
+
+msgid "Horizontal line"
+msgstr "Horizontale lijn"
+
+msgid "Line break"
+msgstr "Regel onderbreking"
+
+msgid "Loading…"
+msgstr "Laden..."
+
+msgid "Main menu"
+msgstr "Hoofdmenu"
+
+msgid "Missing document"
+msgstr "Ontbrekend document"
+
+msgid "More actions"
+msgstr "Meer acties"
+
+msgid "No results"
+msgstr "Geen resultaten"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Page explorer"
+msgstr "Paginaverkenner"
+
+msgid "Pages"
+msgstr "Pagina's"
+
+msgid "Redo"
+msgstr "Opnieuw doen"
+
+msgid "Reload saved content"
+msgstr "Herlaad opgeslagen inhoud"
+
+msgid "Reload the page"
+msgstr "Herlaad de pagina"
+
+msgid "Reply"
+msgstr "Reageer"
+
+msgid "Resolve"
+msgstr "Markeer als opgelost"
+
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Save error"
+msgstr "Opslaan mislukt"
+
+msgid "Save the page to add this comment"
+msgstr "Sla de pagina op om deze opmerking toe te voegen"
+
+msgid "Save the page to save this comment"
+msgstr "Sla de pagina op om deze opmerking te bewaren"
+
+msgid "Save the page to save this reply"
+msgstr "Sla de pagina op om deze reactie te bewaren"
+
+msgid "Saving..."
+msgstr "Bezig met opslaan..."
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "See all"
+msgstr "Toon"
+
+msgid "Server Error"
+msgstr "Server Error"
+
+msgid "Show error"
+msgstr "Toon fout"
+
+msgid "Show latest content"
+msgstr "Toon laatste inhoud"
+
+msgid "Split block"
+msgstr "Splits blok"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"De editor is zojuist vastgelopen. De inhoud is teruggezet naar de laatst "
+"opgeslagen versie."
+
+msgid "Toggle sidebar"
+msgstr "Toon/verberg zijbalk"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Unfocus comment"
+msgstr "Ontfocus opmerking"
+
+msgid "View child pages of '{title}'"
+msgstr "Toon onderliggende pagina's van '{title}'"
+
+msgid "Write here…"
+msgstr "Schrijf hier..."

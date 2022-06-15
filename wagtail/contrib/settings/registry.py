@@ -17,7 +17,7 @@ from .permissions import user_can_edit_setting_type
 class SettingMenuItem(MenuItem):
     def __init__(self, model, icon="cog", classnames="", **kwargs):
 
-        # Special-case FontAwesome icons to avoid the breaking changes for those customizations.
+        # Special-case FontAwesome icons to avoid the breaking changes for those customisations.
         if icon.startswith("fa-"):
             icon_name = ""
             icon_classes = "icon icon-" + icon

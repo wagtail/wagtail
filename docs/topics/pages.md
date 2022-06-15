@@ -132,7 +132,7 @@ These allow editing of model fields. The `FieldPanel` class will choose the corr
 - {class}`~wagtail.admin.panels.FieldPanel`
 - {class}`~wagtail.admin.panels.PageChooserPanel`
 
-```{versionchanged} 2.17
+```{versionchanged} 3.0
 Previously, certain field types required special-purpose panels: `StreamFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel` and `SnippetChooserPanel`. These are now all handled by `FieldPanel`.
 ```
 
@@ -162,6 +162,17 @@ Both take a list of model classes or model names. Model names are of the format 
 By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behaviour.
 
 Setting `parent_page_types` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
+
+(page_descriptions)=
+### Page descriptions
+
+With every Wagtail Page you are able to add a helpful description text, similar to a ``help_text`` model attribute. By adding ``page_description`` to your Page model you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
+
+```python
+class LandingPage(Page):
+
+    page_description = "Use this page for converting users"
+```
 
 (page_urls)=
 ### Page URLs
@@ -372,7 +383,7 @@ The first argument must match the value of the `related_name` attribute of the `
 
 Wagtail uses Django's [multi-table inheritance](https://docs.djangoproject.com/en/3.1/topics/db/models/#multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail's builtin {class}`~wagtail.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
+Each page is added to both Wagtail's built-in {class}`~wagtail.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
 
 Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
 

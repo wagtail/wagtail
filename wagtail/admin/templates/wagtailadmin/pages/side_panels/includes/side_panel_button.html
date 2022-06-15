@@ -1,0 +1,18 @@
+{% load wagtailadmin_tags %}
+{% comment %}
+    Variables this template accepts:
+
+    text - The text that shows up on the button
+    classes - custom css classes for styling or js
+    data_url - A url for javascript to use
+    has_toggle - Show toggle icon on the button
+    attr - custom attributes for the button
+{% endcomment %}
+{% if text %}
+    <button type="button" class="{{ classes }} w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-text-teal-600 w-inline-flex w-justify-center w-transition" {% if data_url %}data-url="{{ data_url }}" {% endif %}{% if has_toggle %}data-button-with-dropdown-toggle {% endif %}{{ attr }}>
+        {{ text }}
+        {% if has_toggle %}
+            {% icon name='arrow-down' class_name='w-w-4 w-h-4 w-transition motion-reduce:w-transition-none' %}
+        {% endif %}
+    </button>
+{% endif %}

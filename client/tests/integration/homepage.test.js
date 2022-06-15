@@ -19,7 +19,7 @@ describe('Homepage', () => {
 
   it('axe page explorer', async () => {
     const trigger = await page.$(
-      '.sidebar-page-explorer-item [aria-haspopup="menu"]',
+      '.sidebar-page-explorer-item [aria-haspopup="dialog"]',
     );
     await trigger.click();
     await expect(page).toPassAxeTests({

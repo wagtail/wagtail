@@ -6,6 +6,7 @@ import { renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import Tippy from '@tippyjs/react';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;
@@ -65,19 +66,21 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
 
   return (
     <li className={className}>
-      <button
-        onClick={onClick}
-        className={`sidebar-menu-item__link ${item.classNames}`}
-        aria-haspopup="menu"
-        aria-expanded={isOpen ? 'true' : 'false'}
-        type="button"
-      >
-        {item.iconName && (
-          <Icon name={item.iconName} className="icon--menuitem" />
-        )}
-        <span className="menuitem-label">{item.label}</span>
-        <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
-      </button>
+      <Tippy disabled={isOpen || !slim} content={item.label} placement="right">
+        <button
+          onClick={onClick}
+          className={`sidebar-menu-item__link ${item.classNames}`}
+          aria-haspopup="menu"
+          aria-expanded={isOpen ? 'true' : 'false'}
+          type="button"
+        >
+          {item.iconName && (
+            <Icon name={item.iconName} className="icon--menuitem" />
+          )}
+          <span className="menuitem-label">{item.label}</span>
+          <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
+        </button>
+      </Tippy>
       <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
         <div className="sidebar-sub-menu-panel">
           <h2

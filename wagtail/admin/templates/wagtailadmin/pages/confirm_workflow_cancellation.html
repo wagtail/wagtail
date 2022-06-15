@@ -5,11 +5,11 @@
 <div class="nice-padding">
     <p>
         {% if needs_changes %}
-            {% blocktrans %}
+            {% blocktrans trimmed %}
                 This page was marked as needing changes at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
             {% endblocktrans %}
         {% else %}
-            {% blocktrans %}
+            {% blocktrans trimmed %}
                 This page is currently at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
             {% endblocktrans %}
         {% endif %}

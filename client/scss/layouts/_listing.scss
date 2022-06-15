@@ -1,0 +1,29 @@
+@include media-breakpoint-up(sm) {
+  .fields--image-search {
+    max-width: 1000px;
+
+    .field-col {
+      padding-inline-start: 0;
+
+      .field {
+        display: flex;
+        flex-direction: column;
+
+        .field-content,
+        label {
+          width: auto;
+          max-width: 85%;
+          padding-top: 0;
+        }
+      }
+    }
+
+    > li {
+      padding-top: 0;
+    }
+
+    .tagfilter legend {
+      width: auto;
+    }
+  }
+}

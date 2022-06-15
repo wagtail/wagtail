@@ -3,10 +3,8 @@ import { shallow } from 'enzyme';
 import { Sidebar } from './Sidebar';
 
 describe('Sidebar', () => {
-  const strings = {};
-
   it('should render with the minimum required props', () => {
-    const wrapper = shallow(<Sidebar modules={[]} strings={strings} />);
+    const wrapper = shallow(<Sidebar modules={[]} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -15,11 +13,7 @@ describe('Sidebar', () => {
     const onExpandCollapse = jest.fn();
 
     const wrapper = shallow(
-      <Sidebar
-        modules={[]}
-        onExpandCollapse={onExpandCollapse}
-        strings={strings}
-      />,
+      <Sidebar modules={[]} onExpandCollapse={onExpandCollapse} />,
     );
 
     // default expanded (non-slim)
@@ -43,11 +37,7 @@ describe('Sidebar', () => {
     const onExpandCollapse = jest.fn();
 
     const wrapper = shallow(
-      <Sidebar
-        modules={[]}
-        onExpandCollapse={onExpandCollapse}
-        strings={strings}
-      />,
+      <Sidebar modules={[]} onExpandCollapse={onExpandCollapse} />,
     );
 
     // default not expanded

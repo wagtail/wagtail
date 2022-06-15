@@ -10,7 +10,7 @@ from difflib import unified_diff
 from django.core.management import ManagementUtility
 
 CURRENT_PYTHON = sys.version_info[:2]
-REQUIRED_PYTHON = (3, 5)
+REQUIRED_PYTHON = (3, 7)
 
 if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write(
@@ -152,6 +152,7 @@ class UpdateModulePaths(Command):
         ),
         # Added in Wagtail 3.0
         (re.compile(r"\bwagtail\.tests\b"), "wagtail.test"),
+        (re.compile(r"\bwagtail\.core\.utils\b"), "wagtail.coreutils"),
         (re.compile(r"\bwagtail\.core\b"), "wagtail"),
         (re.compile(r"\bwagtail\.admin\.edit_handlers\b"), "wagtail.admin.panels"),
         (
@@ -274,17 +275,33 @@ class UpdateModulePaths(Command):
 
     def _show_diff(self, filename, relative_path=None):
         change_count = 0
+        found_unicode_error = False
         original = []
         updated = []
 
-        with open(filename) as f:
-            for original_line in f:
-                original.append(original_line)
+        with open(filename, mode="rb") as f:
+            for raw_original_line in f:
+                try:
+                    original_line = raw_original_line.decode("utf-8")
+                except UnicodeDecodeError:
+                    found_unicode_error = True
+                    # retry decoding as utf-8, mangling invalid bytes so that we have a usable string to use the diff
+                    line = original_line = raw_original_line.decode(
+                        "utf-8", errors="replace"
+                    )
+                else:
+                    line = self._rewrite_line(original_line)
 
-                line = self._rewrite_line(original_line)
+                original.append(original_line)
                 updated.append(line)
                 if line != original_line:
                     change_count += 1
+
+        if found_unicode_error:
+            sys.stderr.write(
+                "Warning - %s is not a valid UTF-8 file. Lines with decode errors have been ignored\n"
+                % filename
+            )
 
         if change_count:
             relative_path = relative_path or filename
@@ -302,24 +319,49 @@ class UpdateModulePaths(Command):
 
     def _count_changes(self, filename):
         change_count = 0
+        found_unicode_error = False
 
-        with open(filename) as f:
-            for original_line in f:
-                line = self._rewrite_line(original_line)
-                if line != original_line:
-                    change_count += 1
+        with open(filename, mode="rb") as f:
+            for raw_original_line in f:
+                try:
+                    original_line = raw_original_line.decode("utf-8")
+                except UnicodeDecodeError:
+                    found_unicode_error = True
+                else:
+                    line = self._rewrite_line(original_line)
+                    if line != original_line:
+                        change_count += 1
+
+        if found_unicode_error:
+            sys.stderr.write(
+                "Warning - %s is not a valid UTF-8 file. Lines with decode errors have been ignored\n"
+                % filename
+            )
 
         return change_count
 
     def _rewrite_file(self, filename):
         change_count = 0
+        found_unicode_error = False
 
-        with fileinput.FileInput(filename, inplace=True) as f:
-            for original_line in f:
-                line = self._rewrite_line(original_line)
-                print(line, end="")  # NOQA
-                if line != original_line:
-                    change_count += 1
+        with fileinput.FileInput(filename, inplace=True, mode="rb") as f:
+            for raw_original_line in f:
+                try:
+                    original_line = raw_original_line.decode("utf-8")
+                except UnicodeDecodeError:
+                    sys.stdout.write(raw_original_line)
+                    found_unicode_error = True
+                else:
+                    line = self._rewrite_line(original_line)
+                    sys.stdout.write(line.encode("utf-8"))
+                    if line != original_line:
+                        change_count += 1
+
+        if found_unicode_error:
+            sys.stderr.write(
+                "Warning - %s is not a valid UTF-8 file. Lines with decode errors have been ignored\n"
+                % filename
+            )
 
         return change_count
 

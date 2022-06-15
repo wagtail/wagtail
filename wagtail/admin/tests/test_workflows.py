@@ -905,7 +905,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(task_state.task.specific, self.task_1)
         self.assertEqual(task_state.status, task_state.STATUS_IN_PROGRESS)
 
-    def test_submit_for_approval_changes_status_in_header_meta(self):
+    def test_submit_for_approval_changes_status_in_status_side_panel_meta(self):
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
 
         response = self.client.get(edit_url)
@@ -915,13 +915,9 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.submit()
 
         response = self.client.get(edit_url)
-        workflow_status_url = reverse(
-            "wagtailadmin_pages:workflow_status", args=(self.page.id,)
-        )
-        self.assertContains(response, workflow_status_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.page.current_workflow_task.name),
+            r"Sent to[\s|\n]+{}".format(self.page.current_workflow_task.name),
         )
         self.assertNotContains(response, "Draft")
 
@@ -2334,27 +2330,29 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         )
 
     def test_workflow_status_modal(self):
-        workflow_status_url = reverse(
-            "wagtailadmin_pages:workflow_status", args=(self.page.id,)
-        )
-
         # The page workflow status view should return permission denied when the page is but a draft
-        response = self.client.get(workflow_status_url)
-        self.assertRedirects(response, "/admin/")
+        response = self.client.get(self.edit_url)
+        html = response.content.decode("utf-8")
+        self.assertNotIn('id="workflow-status-dialog"', html)
 
         # Submit for moderation
         self.submit()
 
-        response = self.client.get(workflow_status_url)
-        self.assertEqual(response.status_code, 200)
-        html = response.json().get("html")
-        self.assertIn(self.task_1.name, html)
-        self.assertIn("{}: In progress".format(self.task_1.name), html)
-        self.assertIn(self.task_2.name, html)
-        self.assertIn("{}: Not started".format(self.task_2.name), html)
+        response = self.client.get(self.edit_url)
+        html = response.content.decode("utf-8")
+        self.assertIn(
+            "In progress\n        </span>\n                        {}".format(
+                self.task_1.name
+            ),
+            html,
+        )
+        self.assertIn(
+            "Not started\n        </span>\n                        {}".format(
+                self.task_2.name
+            ),
+            html,
+        )
         self.assertIn(reverse("wagtailadmin_pages:history", args=(self.page.id,)), html)
-
-        self.assertTemplateUsed(response, "wagtailadmin/workflows/workflow_status.html")
 
     def test_status_through_workflow_cycle(self):
         self.login(self.superuser)
@@ -2363,19 +2361,19 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
 
         self.page.save_revision()
         response = self.client.get(self.edit_url)
-        self.assertContains(response, "Draft saved", 1)
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
         self.submit()
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_1.name),
+            r"Sent to[\s|\n]+{}".format(self.task_1.name),
         )
 
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to[\s|\n]+{}".format(self.task_2.name),
         )
 
         response = self.workflow_action("reject")
@@ -2386,49 +2384,45 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to[\s|\n]+{}".format(self.task_2.name),
         )
 
         response = self.workflow_action("approve")
-        self.assertContains(response, "Published")
+        self.assertContains(response, 'id="status-sidebar-live"')
 
     def test_status_after_cancel(self):
         # start workflow, then cancel
         self.submit()
         self.submit("action-cancel-workflow")
         response = self.client.get(self.edit_url)
-        self.assertContains(response, "Draft saved")
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
     def test_status_after_restart(self):
         self.submit()
         response = self.workflow_action("approve")
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_2.name),
+            r"Sent to[\s|\n]+{}".format(self.task_2.name),
         )
         self.workflow_action("reject")
         self.submit("action-restart-workflow")
         response = self.client.get(self.edit_url)
         self.assertRegex(
             response.content.decode("utf-8"),
-            r"Awaiting[\s|\n]+{}".format(self.task_1.name),
+            r"Sent to[\s|\n]+{}".format(self.task_1.name),
         )
 
     def test_workflow_status_modal_task_comments(self):
-        workflow_status_url = reverse(
-            "wagtailadmin_pages:workflow_status", args=(self.page.id,)
-        )
-
         self.submit()
         self.workflow_action("reject")
 
-        response = self.client.get(workflow_status_url)
-        self.assertIn("needs some changes", response.json().get("html"))
+        response = self.client.get(self.edit_url)
+        self.assertIn("needs some changes", response.content.decode("utf-8"))
 
         self.submit()
         self.workflow_action("approve")
-        response = self.client.get(workflow_status_url)
-        self.assertIn("good work", response.json().get("html"))
+        response = self.client.get(self.edit_url)
+        self.assertIn("good work", response.content.decode("utf-8"))
 
     def test_workflow_edit_locked_message(self):
         self.submit()
@@ -2436,8 +2430,8 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
 
         needle = "This page is awaiting <b>'test_task_1'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page."
-        self.assertTagInHTML(needle, str(response.content), count=1)
+        self.assertContains(response, needle)
 
         self.login(self.moderator)
         response = self.client.get(self.edit_url)
-        self.assertNotInHTML(needle, str(response.content))
+        self.assertNotContains(response, needle)

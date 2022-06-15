@@ -80,18 +80,11 @@ class Create(CreateView):
 
     def get_edit_handler(self):
         if not self.edit_handler:
-            self.edit_handler = get_workflow_edit_handler().bind_to(
-                request=self.request
-            )
+            self.edit_handler = get_workflow_edit_handler()
         return self.edit_handler
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        self.edit_handler = self.edit_handler.bind_to(form=form)
-        return form
 
     def get_pages_formset(self):
         if self.request.method == "POST":
@@ -103,8 +96,15 @@ class Create(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["edit_handler"] = self.edit_handler
-        context["pages_formset"] = self.get_pages_formset()
+        form = context["form"]
+        bound_panel = self.edit_handler.get_bound_panel(
+            form=form, instance=form.instance, request=self.request
+        )
+        pages_formset = self.get_pages_formset()
+
+        context["edit_handler"] = bound_panel
+        context["pages_formset"] = pages_formset
+        context["media"] = form.media + bound_panel.media + pages_formset.media
         return context
 
     def form_valid(self, form):
@@ -156,18 +156,11 @@ class Edit(EditView):
 
     def get_edit_handler(self):
         if not self.edit_handler:
-            self.edit_handler = get_workflow_edit_handler().bind_to(
-                request=self.request
-            )
+            self.edit_handler = get_workflow_edit_handler()
         return self.edit_handler
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        self.edit_handler = self.edit_handler.bind_to(form=form)
-        return form
 
     def get_pages_formset(self):
         if self.request.method == "POST":
@@ -187,9 +180,14 @@ class Edit(EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["edit_handler"] = self.edit_handler
+        form = context["form"]
+        bound_panel = self.edit_handler.get_bound_panel(
+            form=form, instance=form.instance, request=self.request
+        )
+        pages_formset = self.get_pages_formset()
+        context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
-        context["pages_formset"] = self.get_pages_formset()
+        context["pages_formset"] = pages_formset
         context["can_disable"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "delete")
@@ -198,6 +196,7 @@ class Edit(EditView):
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "create")
         ) and not self.object.active
+        context["media"] = bound_panel.media + form.media + pages_formset.media
         return context
 
     @property
@@ -656,12 +655,7 @@ class BaseTaskChooserView(TemplateView):
         return task_type_choices
 
     def get_form_js_context(self):
-        return {
-            "error_label": _("Server Error"),
-            "error_message": _(
-                "Report this error to your website administrator with the following information:"
-            ),
-        }
+        return {}
 
     def get_task_listing_context_data(self):
         search_form = TaskChooserSearchForm(

@@ -1,0 +1,176 @@
+#
+# Translators:
+# Patrick Hebner <hebner.tec@gmail.com>, 2022
+# karlsander <karlsander@gmail.com>, 2022
+# Scriptim <Scriptim@gmx.de>, 2022
+# Norman Uekermann <nue@melexis.com>, 2022
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2022
+# Peter Dreuw <archandha@gmx.net>, 2022
+# Ettore Atalan <atalanttore@googlemail.com>, 2022
+# Henrik Kröger <hedwig@riseup.net>, 2022
+# Herbert Poul, 2022
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
+# oliverengel <codeangel@posteo.de>, 2022
+# aw.wunderweiss, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: aw.wunderweiss, 2022\n"
+"Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add a comment"
+msgstr "Einen Kommentar hinzufügen"
+
+msgid "Alt text"
+msgstr "Alternativtext"
+
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+msgid "Broken link"
+msgstr "Defekter Link"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Decorative image"
+msgstr "Dekoratives Bild"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Delete error"
+msgstr "Fehler löschen"
+
+msgid "Deleting"
+msgstr "Wird gelöscht"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit '{title}'"
+msgstr "‚{title}‘ bearbeiten"
+
+msgid "Edit your account"
+msgstr "Bearbeiten Sie Ihr Konto"
+
+msgid "Focus comment"
+msgstr "Kommentar fokussieren"
+
+msgid "Horizontal line"
+msgstr "Horizontale Linie"
+
+msgid "Line break"
+msgstr "Zeilenumbruch"
+
+msgid "Loading…"
+msgstr "Laden..."
+
+msgid "Main menu"
+msgstr "Hauptmenü"
+
+msgid "Missing document"
+msgstr "Fehlendes Dokument"
+
+msgid "More actions"
+msgstr "Mehr Aktionen"
+
+msgid "No results"
+msgstr "Keine Ergebnisse"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Page explorer"
+msgstr "Seitenübersicht"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Redo"
+msgstr "Wiederholen"
+
+msgid "Reload saved content"
+msgstr "Gespeicherten Inhalt erneut laden"
+
+msgid "Reload the page"
+msgstr "Seite erneut laden"
+
+msgid "Reply"
+msgstr "Antworten"
+
+msgid "Resolve"
+msgstr "Lösen"
+
+msgid "Retry"
+msgstr "Wiederholen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Save error"
+msgstr "Fehler speichern"
+
+msgid "Save the page to add this comment"
+msgstr "Speichere die Seite um den Kommentar hinzuzufügen"
+
+msgid "Save the page to save this comment"
+msgstr "Speichere die Seite um den Kommentar zu speichern"
+
+msgid "Save the page to save this reply"
+msgstr "Speichere die Seite um diese Antwort zu speichern"
+
+msgid "Saving..."
+msgstr "Speichern..."
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "See all"
+msgstr "Alles einsehen"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Show error"
+msgstr "Fehler anzeigen"
+
+msgid "Show latest content"
+msgstr "Aktuellen Inhalt anzeigen"
+
+msgid "Split block"
+msgstr "Block teilen"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
+"Version zurückgesetzt."
+
+msgid "Toggle sidebar"
+msgstr "Seitenleiste ein-/ausblenden"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "Unfocus comment"
+msgstr "Fokussierung des Kommentars aufheben"
+
+msgid "View child pages of '{title}'"
+msgstr "Unterseiten von ‚{title}‘ anzeigen"
+
+msgid "Write here…"
+msgstr "Hier schreiben..."

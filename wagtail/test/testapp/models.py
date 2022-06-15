@@ -1,18 +1,17 @@
 import hashlib
-import json
 import os
 import uuid
 
 from django import forms
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy as _
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -23,6 +22,7 @@ from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.mail import send_mail
 from wagtail.admin.panels import (
     FieldPanel,
+    HelpPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
@@ -162,6 +162,7 @@ class RelatedLink(LinkFields):
 # Simple page
 class SimplePage(Page):
     content = models.TextField()
+    page_description = "A simple page description"
 
     content_panels = [
         FieldPanel("title", classname="full title"),
@@ -187,6 +188,16 @@ class PageWithExcludedCopyField(Page):
     ]
 
 
+class RelatedGenericRelation(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+
+
+class PageWithGenericRelation(Page):
+    generic_relation = GenericRelation("tests.RelatedGenericRelation")
+
+
 class PageWithOldStyleRouteMethod(Page):
     """
     Prior to Wagtail 0.4, the route() method on Page returned an HttpResponse
@@ -207,6 +218,7 @@ class FilePage(Page):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
+        HelpPanel("remember to check for viruses"),
         FieldPanel("file_field"),
     ]
 
@@ -635,7 +647,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
     def process_form_submission(self, form):
         form_submission = self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self,
             user=form.user,
         )
@@ -761,7 +773,10 @@ EXTENDED_CHOICES = FORM_FIELD_CHOICES + (("ipaddress", "IP Address"),)
 
 
 class ExtendedFormField(AbstractFormField):
-    """Override the field_type field with extended choices."""
+    """
+    Override the field_type field with extended choices
+    and a custom clean_name override.
+    """
 
     page = ParentalKey(
         "FormPageWithCustomFormBuilder",
@@ -771,6 +786,19 @@ class ExtendedFormField(AbstractFormField):
     field_type = models.CharField(
         verbose_name="field type", max_length=16, choices=EXTENDED_CHOICES
     )
+
+    def get_field_clean_name(self):
+        clean_name = super().get_field_clean_name()
+
+        # scoping to field type to easily test behaviour in isolation
+        if self.field_type == "number":
+            return f"number_field--{clean_name}"
+
+        # scoping to field label to easily test duplicate behaviour in isolation
+        if "duplicate" in self.label:
+            return "test duplicate"
+
+        return clean_name
 
 
 class CustomFormBuilder(FormBuilder):
@@ -939,7 +967,12 @@ StandardChild.edit_handler = TabbedInterface(
         ObjectList(
             StandardChild.settings_panels, heading="Settings", classname="settings"
         ),
-        ObjectList([], heading="Dinosaurs"),
+        ObjectList(
+            [
+                HelpPanel("remember to check for asteroids"),
+            ],
+            heading="Dinosaurs",
+        ),
     ],
     base_form_class=WagtailAdminPageForm,
 )
@@ -965,6 +998,7 @@ class BusinessChild(Page):
 
     subpage_types = []
     parent_page_types = ["tests.BusinessIndex", BusinessSubIndex]
+    page_description = _("A lazy business child page description")
 
 
 class BusinessNowherePage(Page):
@@ -1103,7 +1137,19 @@ class StreamModel(models.Model):
             ("text", CharBlock()),
             ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
-        ]
+        ],
+        use_json_field=False,
+    )
+
+
+class JSONStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        use_json_field=True,
     )
 
 
@@ -1116,6 +1162,20 @@ class MinMaxCountStreamModel(models.Model):
         ],
         min_num=2,
         max_num=5,
+        use_json_field=False,
+    )
+
+
+class JSONMinMaxCountStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        min_num=2,
+        max_num=5,
+        use_json_field=True,
     )
 
 
@@ -1131,6 +1191,23 @@ class BlockCountsStreamModel(models.Model):
             "rich_text": {"max_num": 1},
             "image": {"min_num": 1, "max_num": 1},
         },
+        use_json_field=False,
+    )
+
+
+class JSONBlockCountsStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        block_counts={
+            "text": {"min_num": 1},
+            "rich_text": {"max_num": 1},
+            "image": {"min_num": 1, "max_num": 1},
+        },
+        use_json_field=True,
     )
 
 
@@ -1175,7 +1252,8 @@ class StreamPage(Page):
                     ]
                 ),
             ),
-        ]
+        ],
+        use_json_field=False,
     )
 
     api_fields = ("body",)
@@ -1196,6 +1274,7 @@ class DefaultStreamPage(Page):
             ("image", ImageChooserBlock()),
         ],
         default="",
+        use_json_field=False,
     )
 
     content_panels = [
@@ -1395,7 +1474,8 @@ class DefaultRichBlockFieldPage(Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock()),
-        ]
+        ],
+        use_json_field=False,
     )
 
     content_panels = Page.content_panels + [FieldPanel("body")]
@@ -1414,7 +1494,8 @@ class CustomRichBlockFieldPage(Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock(editor="custom")),
-        ]
+        ],
+        use_json_field=False,
     )
 
     content_panels = [
@@ -1459,7 +1540,8 @@ class InlineStreamPageSection(Orderable):
             ("text", CharBlock()),
             ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
-        ]
+        ],
+        use_json_field=False,
     )
     panels = [FieldPanel("body")]
 
@@ -1472,7 +1554,7 @@ class InlineStreamPage(Page):
 
 
 class TableBlockStreamPage(Page):
-    table = StreamField([("table", TableBlock())])
+    table = StreamField([("table", TableBlock())], use_json_field=False)
 
     content_panels = [FieldPanel("table")]
 
@@ -1502,15 +1584,15 @@ class AlwaysShowInMenusPage(Page):
 
 # test for AddField migrations on StreamFields using various default values
 class AddedStreamFieldWithoutDefaultPage(Page):
-    body = StreamField([("title", CharBlock())])
+    body = StreamField([("title", CharBlock())], use_json_field=False)
 
 
 class AddedStreamFieldWithEmptyStringDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], default="")
+    body = StreamField([("title", CharBlock())], default="", use_json_field=False)
 
 
 class AddedStreamFieldWithEmptyListDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], default=[])
+    body = StreamField([("title", CharBlock())], default=[], use_json_field=False)
 
 
 class SecretPage(Page):
@@ -1639,7 +1721,8 @@ class DeadlyStreamPage(Page):
     body = StreamField(
         [
             ("title", DeadlyCharBlock()),
-        ]
+        ],
+        use_json_field=False,
     )
     content_panels = Page.content_panels + [
         FieldPanel("body"),
@@ -1650,3 +1733,44 @@ class DeadlyStreamPage(Page):
 # (so that it's possible to use them in foreign key definitions, for example)
 ReimportedImageModel = get_image_model()
 ReimportedDocumentModel = get_document_model()
+
+
+# Custom document model with a custom tag field
+class TaggedRestaurantDocument(ItemBase):
+    tag = models.ForeignKey(
+        RestaurantTag, related_name="tagged_documents", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey(
+        to="tests.CustomRestaurantDocument",
+        on_delete=models.CASCADE,
+        related_name="tagged_items",
+    )
+
+
+class CustomRestaurantDocument(AbstractDocument):
+    tags = TaggableManager(
+        help_text=None,
+        blank=True,
+        verbose_name="tags",
+        through=TaggedRestaurantDocument,
+    )
+    admin_form_fields = Document.admin_form_fields
+
+
+# Custom image model with a custom tag field
+class TaggedRestaurantImage(ItemBase):
+    tag = models.ForeignKey(
+        RestaurantTag, related_name="tagged_images", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey(
+        to="tests.CustomRestaurantImage",
+        on_delete=models.CASCADE,
+        related_name="tagged_items",
+    )
+
+
+class CustomRestaurantImage(AbstractImage):
+    tags = TaggableManager(
+        help_text=None, blank=True, verbose_name="tags", through=TaggedRestaurantImage
+    )
+    admin_form_fields = Image.admin_form_fields

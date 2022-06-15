@@ -96,13 +96,16 @@ def _page_urls_for_sites(
 
         # use a `HttpRequest` to influence the return value
         request = get_dummy_request(site=site)
-        # resuse cached site root paths if available
+        # reuse cached site root paths if available
         if hasattr(cache_target, "_wagtail_cached_site_root_paths"):
             request._wagtail_cached_site_root_paths = (
                 cache_target._wagtail_cached_site_root_paths
             )
 
-        site_id, root_url, page_path = page.get_url_parts(request)
+        url_parts = page.get_url_parts(request)
+        if url_parts is None:
+            continue
+        site_id, root_url, page_path = url_parts
 
         if page_path:
             for route_path in page.get_route_paths():

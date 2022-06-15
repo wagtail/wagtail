@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy as __
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminModelForm
@@ -14,7 +14,7 @@ from wagtail.models import Page, Task, Workflow, WorkflowPage
 
 class TaskChooserSearchForm(forms.Form):
     q = forms.CharField(
-        label=__("Search term"), widget=forms.TextInput(), required=False
+        label=gettext_lazy("Search term"), widget=forms.TextInput(), required=False
     )
 
     def __init__(self, *args, task_type_choices=None, **kwargs):
@@ -216,4 +216,4 @@ def get_workflow_edit_handler():
         ),
     ]
     edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)
-    return edit_handler.bind_to(model=Workflow)
+    return edit_handler.bind_to_model(Workflow)

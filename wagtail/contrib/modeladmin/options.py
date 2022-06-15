@@ -1,3 +1,6 @@
+from warnings import warn
+
+from django.conf import settings
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
@@ -10,7 +13,9 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.models import Page
+from wagtail.coreutils import accepts_kwarg
+from wagtail.models import Page, TranslatableMixin
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .helpers import (
     AdminURLHelper,
@@ -137,6 +142,7 @@ class ModelAdmin(WagtailRegisterable):
     form_view_extra_css = []
     form_view_extra_js = []
     form_fields_exclude = []
+    base_url_path = None
 
     def __init__(self, parent=None):
         """
@@ -153,7 +159,18 @@ class ModelAdmin(WagtailRegisterable):
         self.permission_helper = self.get_permission_helper_class()(
             self.model, self.inspect_view_enabled
         )
-        self.url_helper = self.get_url_helper_class()(self.model)
+        url_helper_class = self.get_url_helper_class()
+        if accepts_kwarg(url_helper_class, "base_url_path"):
+            self.url_helper = url_helper_class(
+                self.model, base_url_path=self.base_url_path
+            )
+        else:
+            warn(
+                "%s.__init__ needs to be updated to accept a `base_url_path` keyword argument"
+                % url_helper_class.__name__,
+                category=RemovedInWagtail50Warning,
+            )
+            self.url_helper = url_helper_class(self.model)
 
         # Needed to support RelatedFieldListFilter
         # See: https://github.com/wagtail/wagtail/issues/5105
@@ -250,7 +267,16 @@ class ModelAdmin(WagtailRegisterable):
         Returns a sequence containing the fields to be displayed as filters in
         the right sidebar in the list view.
         """
-        return self.list_filter
+        list_filter = self.list_filter
+
+        if (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and issubclass(self.model, TranslatableMixin)
+            and "locale" not in list_filter
+        ):
+            list_filter += ("locale",)
+
+        return list_filter
 
     def get_ordering(self, request):
         """
@@ -330,16 +356,16 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.prepopulated_fields or {}
 
-    def get_form_fields_exclude(self, request):
+    # RemovedInWagtail50Warning - remove request arg, included here so that old-style super()
+    # calls will still work
+    def get_form_fields_exclude(self, request=None):
         """
         Returns a list or tuple of fields names to be excluded from Create/Edit pages.
         """
         return self.form_fields_exclude
 
     def get_index_view_extra_css(self):
-        css = ["wagtailmodeladmin/css/index.css"]
-        css.extend(self.index_view_extra_css)
-        return css
+        return self.index_view_extra_css
 
     def get_index_view_extra_js(self):
         return self.index_view_extra_js
@@ -446,7 +472,9 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.history_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def get_edit_handler(self, instance, request):
+    # RemovedInWagtail50Warning - remove instance and request args, included here so that
+    # old-style super() calls will still work
+    def get_edit_handler(self, instance=None, request=None):
         """
         Returns the appropriate edit_handler for this modeladmin class.
         edit_handlers can be defined either on the model itself or on the
@@ -464,7 +492,16 @@ class ModelAdmin(WagtailRegisterable):
             panels = self.model.panels
             edit_handler = ObjectList(panels)
         else:
-            fields_to_exclude = self.get_form_fields_exclude(request=request)
+            try:
+                fields_to_exclude = self.get_form_fields_exclude()
+            except TypeError:
+                fields_to_exclude = self.get_form_fields_exclude(request=None)
+                warn(
+                    "%s.get_form_fields_exclude should not accept a request argument"
+                    % type(self).__name__,
+                    category=RemovedInWagtail50Warning,
+                )
+
             panels = extract_panel_definitions_from_model_class(
                 self.model, exclude=fields_to_exclude
             )

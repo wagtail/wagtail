@@ -1,3 +1,6 @@
+from typing import List
+
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.urls import include, path, reverse
@@ -5,7 +8,7 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
-from wagtail.models import Locale, TranslatableMixin
+from wagtail.models import Locale, Page, TranslatableMixin
 from wagtail.snippets.widgets import SnippetListingButton
 
 from .views import SubmitPageTranslationView, SubmitSnippetTranslationView
@@ -89,3 +92,23 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
                 },
                 priority=100,
             )
+
+
+@hooks.register("construct_translated_pages_to_cascade_actions")
+def construct_translated_pages_to_cascade_actions(pages: List[Page], action: str):
+    if not getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+        return
+
+    page_list = {}
+    if action == "unpublish":
+        # Only return non-alias translations of the page
+        for page in pages:
+            page_list[page] = Page.objects.translation_of(page, inclusive=False).filter(
+                alias_of__isnull=True
+            )
+    elif action == "move" or action == "delete":
+        # Return all translations or aliases in other trees
+        for page in pages:
+            page_list[page] = Page.objects.translation_of(page, inclusive=False)
+
+    return page_list

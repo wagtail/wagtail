@@ -792,6 +792,21 @@ Hooks for customising the way users are directed through the process of creating
   The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
 
+.. _construct_translated_pages_to_cascade_actions:
+
+``construct_translated_pages_to_cascade_actions``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Return additional pages to process in a synced tree setup.
+
+  This hook is only triggered on unpublishing a page when ``WAGTAIL_I18N_ENABLED = True``.
+
+  The list of pages and the action are passed in as arguments to the hook.
+
+  The function should return a dictionary with the page from the pages list as key, and a list of additional pages to perform the action on.
+  We recommend they are non-aliased, direct translations of the pages from the function argument.
+
+
 .. _register_page_action_menu_item:
 
 ``register_page_action_menu_item``

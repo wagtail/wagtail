@@ -1,0 +1,21 @@
+.duplicate-upload {
+  &__figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      margin: 1rem auto;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2.5rem;
+
+    .use-existing-image {
+      margin-inline-start: 1rem;
+    }
+  }
+}

@@ -24,6 +24,7 @@ class InstagramOEmbedFinder(EmbedFinder):
     INSTAGRAM_URL_PATTERNS = [
         r"^https?://(?:www\.)?instagram\.com/p/.+$",
         r"^https?://(?:www\.)?instagram\.com/tv/.+$",
+        r"^https?://(?:www\.)?instagram\.com/reel/.+$",
     ]
 
     def __init__(self, omitscript=False, app_id=None, app_secret=None):

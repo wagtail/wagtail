@@ -1,18 +1,16 @@
 /* When a lock/unlock action button is clicked, make a POST request to the relevant view */
 
 function LockUnlockAction(csrfToken, next) {
-  const actionElements = document.querySelectorAll('[data-locking-action]');
+  const actionElements = document.querySelectorAll('[data-action-lock-unlock]');
   actionElements.forEach((buttonElement) => {
     buttonElement.addEventListener(
       'click',
       (e) => {
-        // Stop the button from submitting the form
-        e.preventDefault();
         e.stopPropagation();
 
         const formElement = document.createElement('form');
 
-        formElement.action = buttonElement.dataset.lockingAction;
+        formElement.action = buttonElement.dataset.url;
         formElement.method = 'POST';
 
         const csrftokenElement = document.createElement('input');

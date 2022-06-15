@@ -13,11 +13,22 @@ from .base import ViewSet
 
 
 class ModelViewSet(ViewSet):
-    icon = ""
+    """
+    A viewset to allow listing, creating, editing and deleting model instances.
+    """
 
+    icon = ""  #: The icon to use to represent the model within this viewset.
+
+    #: The view class to use for the index view; must be a subclass of ``wagtail.admin.views.generic.IndexView``.
     index_view_class = generic.IndexView
+
+    #: The view class to use for the create view; must be a subclass of ``wagtail.admin.views.generic.CreateView``.
     add_view_class = generic.CreateView
+
+    #: The view class to use for the edit view; must be a subclass of ``wagtail.admin.views.generic.EditView``.
     edit_view_class = generic.EditView
+
+    #: The view class to use for the delete view; must be a subclass of ``wagtail.admin.views.generic.DeleteView``.
     delete_view_class = generic.DeleteView
 
     @property
@@ -73,6 +84,9 @@ class ModelViewSet(ViewSet):
         return db_field.formfield(**kwargs)
 
     def get_form_class(self, for_update=False):
+        """
+        Returns the form class to use for the create / edit forms.
+        """
         fields = getattr(self, "form_fields", None)
         exclude = getattr(self, "exclude_form_fields", None)
 

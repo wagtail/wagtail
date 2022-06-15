@@ -10,9 +10,6 @@
 
 .u-arrow--tl:before {
   bottom: 100%;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 1rem;
   inset-inline-start: 1rem;
 }
 
@@ -46,12 +43,13 @@
 }
 
 .t-inverted .u-btn-current {
+  background-color: $color-teal-darker;
   border-color: rgba(0, 0, 0, 0.35);
   color: #fff;
 }
 
 .t-inverted .u-btn-current:hover {
-  background-color: $color-teal-darker;
+  background-color: $color-teal-dark;
   border-color: rgba(0, 0, 0, 0.35);
 }
 

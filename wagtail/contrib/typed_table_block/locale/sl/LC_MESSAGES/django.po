@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Andrej, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: Andrej, 2022\n"
+"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Add column"
+msgstr "Dodaj stolpec"
+
+msgid "Add row"
+msgstr "Dodaj vrstico"
+
+msgid "Column heading"
+msgstr "Naslov stolpca"
+
+msgid "Insert column"
+msgstr "Vstavi stolpec"
+
+msgid "Delete column"
+msgstr "Izbriši stolpec"
+
+msgid "Insert row"
+msgstr "Vstavi vrstico"
+
+msgid "Delete row"
+msgstr "Izbriši vrstico"

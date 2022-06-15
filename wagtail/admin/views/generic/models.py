@@ -1,4 +1,5 @@
 from django import VERSION as DJANGO_VERSION
+from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.forms import Form
 from django.http import HttpResponseRedirect
@@ -13,10 +14,13 @@ from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
+from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
+from .mixins import BeforeAfterHookMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
@@ -53,22 +57,66 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView):
+class IndexView(
+    LocaleMixin, PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView
+):
     model = None
     index_url_name = None
     add_url_name = None
+    add_item_label = _("Add")
     edit_url_name = None
     template_name = "wagtailadmin/generic/index.html"
     context_object_name = None
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
     default_ordering = None
+    is_searchable = None
+    search_kwarg = "q"
 
-    def get(self, request, *args, **kwargs):
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
         if not hasattr(self, "columns"):
             self.columns = self.get_columns()
+        self.setup_search()
 
-        return super().get(request, *args, **kwargs)
+    def setup_search(self):
+        self.is_searchable = self.get_is_searchable()
+        self.search_url = self.get_search_url()
+        self.search_form = self.get_search_form()
+        self.is_searching = False
+        self.search_query = None
+
+        if self.search_form and self.search_form.is_valid():
+            self.search_query = self.search_form.cleaned_data[self.search_kwarg]
+            self.is_searching = True
+
+    def get_is_searchable(self):
+        if self.model is None:
+            return False
+        if self.is_searchable is None:
+            return class_is_indexed(self.model)
+        return self.is_searchable
+
+    def get_search_url(self):
+        if not self.is_searchable:
+            return None
+        return self.get_index_url()
+
+    def get_search_form(self):
+        if self.model is None:
+            return None
+
+        if self.is_searchable and self.search_kwarg in self.request.GET:
+            return SearchForm(
+                self.request.GET,
+                placeholder=_("Search %(model_name)s")
+                % {"model_name": self.model._meta.verbose_name_plural},
+            )
+
+        return SearchForm(
+            placeholder=_("Search %(model_name)s")
+            % {"model_name": self.model._meta.verbose_name_plural}
+        )
 
     def get_columns(self):
         try:
@@ -90,6 +138,10 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     def get_edit_url(self, instance):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(instance.pk,))
+
+    def get_add_url(self):
+        if self.add_url_name:
+            return reverse(self.add_url_name)
 
     def get_valid_orderings(self):
         orderings = []
@@ -119,14 +171,30 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         )
+        if context["can_add"]:
+            context["add_url"] = self.get_add_url()
+            context["add_item_label"] = self.add_item_label
+
         context["table"] = table
         context["media"] = table.media
         context["index_url"] = index_url
         context["is_paginated"] = bool(self.paginate_by)
+        context["is_searchable"] = self.is_searchable
+        context["search_url"] = self.get_search_url()
+        context["search_form"] = self.search_form
+        context["is_searching"] = self.is_searching
+        context["query_string"] = self.search_query
         return context
 
 
-class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateView):
+class CreateView(
+    LocaleMixin,
+    PanelMixin,
+    PermissionCheckedMixin,
+    BeforeAfterHookMixin,
+    WagtailAdminTemplateMixin,
+    BaseCreateView,
+):
     model = None
     form_class = None
     index_url_name = None
@@ -139,15 +207,32 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
     submit_button_label = gettext_lazy("Create")
 
     def get_add_url(self):
+        if not self.add_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
+                "add_url_name attribute or a get_add_url method"
+            )
         return reverse(self.add_url_name)
 
     def get_success_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
+                "index_url_name attribute or a get_success_url method"
+            )
         return reverse(self.index_url_name)
 
     def get_success_message(self, instance):
         if self.success_message is None:
             return None
         return self.success_message.format(instance)
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+            )
+        ]
 
     def get_error_message(self):
         if self.error_message is None:
@@ -173,27 +258,30 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
             self.object = self.save_instance()
             log(instance=self.object, action="wagtail.create")
         success_message = self.get_success_message(self.object)
+        success_buttons = self.get_success_buttons()
         if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=[
-                    messages.button(
-                        reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
-                    )
-                ],
-            )
+            messages.success(self.request, success_message, buttons=success_buttons)
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         self.form = form
         error_message = self.get_error_message()
         if error_message is not None:
-            messages.error(self.request, error_message)
+            messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
 
-class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView):
+class EditView(
+    LocaleMixin,
+    PanelMixin,
+    PermissionCheckedMixin,
+    BeforeAfterHookMixin,
+    WagtailAdminTemplateMixin,
+    BaseUpdateView,
+):
     model = None
     form_class = None
     index_url_name = None
@@ -217,12 +305,23 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
         return str(self.object)
 
     def get_edit_url(self):
+        if not self.edit_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
+                "edit_url_name attribute or a get_edit_url method"
+            )
         return reverse(self.edit_url_name, args=(self.object.id,))
 
     def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.object.id,))
+        if self.delete_url_name:
+            return reverse(self.delete_url_name, args=(self.object.id,))
 
     def get_success_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
+                "index_url_name attribute or a get_success_url method"
+            )
         return reverse(self.index_url_name)
 
     def save_instance(self):
@@ -237,6 +336,13 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
             return None
         return self.success_message.format(self.object)
 
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+            )
+        ]
+
     def get_error_message(self):
         if self.error_message is None:
             return None
@@ -248,39 +354,47 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
             self.object = self.save_instance()
             log(instance=self.object, action="wagtail.edit")
         success_message = self.get_success_message()
+        success_buttons = self.get_success_buttons()
         if success_message is not None:
             messages.success(
                 self.request,
                 success_message,
-                buttons=[
-                    messages.button(
-                        reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
-                    )
-                ],
+                buttons=success_buttons,
             )
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         self.form = form
         error_message = self.get_error_message()
         if error_message is not None:
-            messages.error(self.request, error_message)
+            messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["action_url"] = self.get_edit_url()
         context["submit_button_label"] = self.submit_button_label
-        context["delete_url"] = self.get_delete_url()
-        context["delete_item_label"] = self.delete_item_label
         context["can_delete"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "delete")
         )
+        if context["can_delete"]:
+            context["delete_url"] = self.get_delete_url()
+            context["delete_item_label"] = self.delete_item_label
         return context
 
 
-class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteView):
+class DeleteView(
+    LocaleMixin,
+    PanelMixin,
+    PermissionCheckedMixin,
+    BeforeAfterHookMixin,
+    WagtailAdminTemplateMixin,
+    BaseDeleteView,
+):
     model = None
     index_url_name = None
     delete_url_name = None
@@ -295,12 +409,22 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
         return super().get_object(queryset)
 
     def get_success_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide an "
+                "index_url_name attribute or a get_success_url method"
+            )
         return reverse(self.index_url_name)
 
     def get_page_subtitle(self):
         return str(self.object)
 
     def get_delete_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide a "
+                "delete_url_name attribute or a get_delete_url method"
+            )
         return reverse(self.delete_url_name, args=(self.object.id,))
 
     def get_success_message(self):
@@ -317,4 +441,7 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
         success_url = self.get_success_url()
         self.delete_action()
         messages.success(self.request, self.get_success_message())
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
         return HttpResponseRedirect(success_url)

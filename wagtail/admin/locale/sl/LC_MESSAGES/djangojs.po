@@ -1,0 +1,168 @@
+#
+# Translators:
+# Matej Stavanja <matej.stavanja@zfm.si>, 2022
+# Mitja Pagon <mitja.pagon@inueni.com>, 2022
+# Andrej, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Andrej, 2022\n"
+"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
+"sl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Add a comment"
+msgstr "Dodaj komentar"
+
+msgid "Alt text"
+msgstr "Nadomestno besedilo"
+
+msgid "Are you sure?"
+msgstr "Ali ste prepričani?"
+
+msgid "Broken link"
+msgstr "Nepravilna povezava"
+
+msgid "Cancel"
+msgstr "Prekliči"
+
+msgid "Close"
+msgstr "Zapri"
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Dashboard"
+msgstr "Nadzorna plošča"
+
+msgid "Decorative image"
+msgstr "Okrasna slika"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Delete error"
+msgstr "Pobriši napako"
+
+msgid "Deleting"
+msgstr "Brišem"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit '{title}'"
+msgstr "Uredi '{title}'"
+
+msgid "Edit your account"
+msgstr "Uredite vaš račun"
+
+msgid "Focus comment"
+msgstr "Fokus komentarja"
+
+msgid "Horizontal line"
+msgstr "Vodoravna črta"
+
+msgid "Line break"
+msgstr "Prelom vrstice"
+
+msgid "Loading…"
+msgstr "Nalaganje ..."
+
+msgid "Main menu"
+msgstr "Glavni meni"
+
+msgid "Missing document"
+msgstr "Manjkajoči dokument"
+
+msgid "More actions"
+msgstr "Več dejanj"
+
+msgid "No results"
+msgstr "Ni zadetkov"
+
+msgid "Page"
+msgstr "Stran"
+
+msgid "Page explorer"
+msgstr "Raziskovalec strani"
+
+msgid "Pages"
+msgstr "Strani"
+
+msgid "Redo"
+msgstr "Ponovi"
+
+msgid "Reload saved content"
+msgstr "Ponovno naložite shranjeno vsebino"
+
+msgid "Reload the page"
+msgstr "Osveži stran"
+
+msgid "Reply"
+msgstr "Odgovori"
+
+msgid "Resolve"
+msgstr "Reši"
+
+msgid "Retry"
+msgstr "Poskusi ponovno"
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Save error"
+msgstr "Shrani napako"
+
+msgid "Save the page to add this comment"
+msgstr "Shranite stran, da dodate ta komentar"
+
+msgid "Save the page to save this comment"
+msgstr "Shranite stran, da shranite ta komentar"
+
+msgid "Save the page to save this reply"
+msgstr "Shranite stran, da shranite ta odgovor"
+
+msgid "Saving..."
+msgstr "Shranjevanje..."
+
+msgid "Search"
+msgstr "Iskanje"
+
+msgid "See all"
+msgstr "Poglej vse"
+
+msgid "Server Error"
+msgstr "Napaka na strežniku"
+
+msgid "Show error"
+msgstr "Pokaži napako"
+
+msgid "Show latest content"
+msgstr "Pokaži najnovejšo vsebino"
+
+msgid "Split block"
+msgstr "Razdeli blok"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Urejevalnik se je pravkar zrušil. Vsebina je bila ponastavljena na zadnjo "
+"shranjeno različico"
+
+msgid "Toggle sidebar"
+msgstr "Preklopi stransko vrstico"
+
+msgid "Undo"
+msgstr "Razveljavi"
+
+msgid "Unfocus comment"
+msgstr "Odstrani fokus komentarja"
+
+msgid "View child pages of '{title}'"
+msgstr "Ogled podrejenih strani za  '{title}'"
+
+msgid "Write here…"
+msgstr "Pišite tu..."

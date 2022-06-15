@@ -1,0 +1,16 @@
+{% load l10n %}
+<td class="{% if column.classname %}{{ column.classname }} {% endif %}title">
+    <div class="title-wrapper">
+        {% if page.can_choose %}
+            <a class="choose-page" href="#{{ page.id|unlocalize }}" data-id="{{ page.id|unlocalize }}" data-title="{{ page.title }}" data-admin-title="{{ page.get_admin_display_title }}" data-url="{{ page.url }}" data-parent-id="{{ page.get_parent.id|unlocalize }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">{{ value }}</a>
+        {% else %}
+            {{ value }}
+        {% endif %}
+        {% if show_locale_labels and page.depth == 2 %}
+            <span class="status-tag status-tag--label">{{ page.locale.get_display_name }}</span>
+        {% endif %}
+
+        {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+        {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+    </div>
+</td>

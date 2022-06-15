@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -120,21 +120,6 @@ msgstr "아니오, 지우지 않습니다"
 msgid "Delete group"
 msgstr "그룹 삭제"
 
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-"  %(group_name)s 그룹에는 %(group_user_count)s명의 구성원이 있습니다."
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -178,12 +163,6 @@ msgstr "페이지"
 
 msgid "Add a page permission"
 msgstr "페이지 권한 추가"
-
-msgid "groups"
-msgstr "그룹"
-
-msgid "Add a group"
-msgstr "그룹 추가"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -244,24 +223,14 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s 전"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            일치하는 %(counter)s개의 결과가 있습니다."
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자가 없습니다"
 
 msgid "Groups"
 msgstr "그룹"
+
+msgid "Add a group"
+msgstr "그룹 추가"
 
 msgid "Search groups"
 msgstr "그룹 검색"

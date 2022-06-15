@@ -16,13 +16,13 @@
 # Herbert Poul, 2015,2021
 # oliverengel <codeangel@posteo.de>, 2021
 # unicode_it <info@unicode-it.de>, 2021
-# Jannis Vajen, 2016
+# jnns, 2016
 # Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
-# M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matthias Martin, 2019
@@ -35,19 +35,19 @@
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
 # th3hamm0r <stefan@hammerworxx.com>, 2021
-# th3hamm0r <stefan@hammerworxx.com>, 2021
+# th3hamm0r <stefan@hammerworxx.com>, 2021-2022
 # Tibor <tibor@lpld.io>, 2020
 # Scriptim <Scriptim@gmx.de>, 2020
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
-# Vorlif <flori@vorlif.org>, 2016
+# Florian Vogt <flori@vorlif.org>, 2016
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-22 17:19+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2021-2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -69,25 +69,16 @@ msgid "Submit to {}"
 msgstr "In {} einreichen"
 
 msgid "Restart workflow "
-msgstr "Arbeitsablauf neustarten"
+msgstr "Workflow neustarten"
 
 msgid "Cancel workflow "
-msgstr "Arbeitsablauf abbrechen"
+msgstr "Workflow abbrechen"
 
 msgid "Unpublish"
 msgstr "Veröffentlichung aufheben"
 
 msgid "Delete"
 msgstr "Löschen"
-
-msgid "Lock"
-msgstr "Sperren"
-
-msgid "Apply editor lock"
-msgstr "Editor-Sperre anwenden"
-
-msgid "Unlock"
-msgstr "Entsperren"
 
 msgid "Save Draft"
 msgstr "Entwurf speichern"
@@ -110,27 +101,6 @@ msgstr "Sie haben nicht die nötige Berechtigung das Admin-Interface aufzurufen"
 
 msgid "None"
 msgstr "Nichts"
-
-msgid "Scheduled publishing"
-msgstr "Geplante Veröffentlichung"
-
-msgid "Privacy"
-msgstr "Privatsphäre"
-
-msgid "For search engines"
-msgstr "Für Suchmaschinen"
-
-msgid "For site menus"
-msgstr "Für Seitenmenü"
-
-msgid "Content"
-msgstr "Inhalt"
-
-msgid "Promote"
-msgstr "Veröffentlichung"
-
-msgid "Settings"
-msgstr "Einstellungen"
 
 msgid "Date from"
 msgstr "Datum von"
@@ -296,6 +266,11 @@ msgstr "Suche"
 msgid "Search term"
 msgstr "Suchbegriff"
 
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr ""
+"Das Schlagwort %(value_too_long)s ist %(max_tag_length)d Zeichen zu lang"
+
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
@@ -310,169 +285,16 @@ msgstr "Alle Arten"
 
 #, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
-msgstr "Dieser Seite wurde bereits Arbeitsablauf ‚{0}‘ zugewiesen."
+msgstr "Dieser Seite wurde bereits Workflow ‚{0}‘ zugewiesen."
 
 msgid "You cannot assign this workflow to the same page multiple times."
-msgstr ""
-"Sie können diesen Arbeitsablauf nicht mehrfach derselben Seite zuweisen."
+msgstr "Sie können diesen Workflow nicht mehrfach derselben Seite zuweisen."
 
 msgid "Give your workflow a name"
-msgstr "Geben Sie Ihrem Arbeitsablauf einen Namen"
+msgstr "Geben Sie Ihrem Workflow einen Namen"
 
 msgid "Add tasks to your workflow"
-msgstr "Fügen Sie Ihrem Arbeitsablauf Arbeitsschritte hinzu"
-
-msgid "Page"
-msgstr "Seite"
-
-msgid "Pages"
-msgstr "Seiten"
-
-msgid "Loading…"
-msgstr "Laden..."
-
-msgid "No results"
-msgstr "Keine Ergebnisse"
-
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "See all"
-msgstr "Alles einsehen"
-
-msgid "Close explorer"
-msgstr "Explorer schließen"
-
-msgid "Alt text"
-msgstr "Alternativtext"
-
-msgid "Decorative image"
-msgstr "Dekoratives Bild"
-
-msgid "Write here…"
-msgstr "Hier schreiben..."
-
-msgid "Horizontal line"
-msgstr "Horizontale Linie"
-
-msgid "Line break"
-msgstr "Zeilenumbruch"
-
-msgid "Undo"
-msgstr "Rückgängig"
-
-msgid "Redo"
-msgstr "Wiederholen"
-
-msgid "Reload the page"
-msgstr "Seite erneut laden"
-
-msgid "Reload saved content"
-msgstr "Gespeicherten Inhalt erneut laden"
-
-msgid "Show latest content"
-msgstr "Aktuellen Inhalt anzeigen"
-
-msgid "Show error"
-msgstr "Fehler anzeigen"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
-"Version zurückgesetzt."
-
-msgid "Broken link"
-msgstr "Defekter Link"
-
-msgid "Missing document"
-msgstr "Fehlendes Dokument"
-
-msgid "Close"
-msgstr "Schließen"
-
-#, python-brace-format
-msgid "Edit '{title}'"
-msgstr "‚{title}‘ bearbeiten"
-
-#, python-brace-format
-msgid "View child pages of '{title}'"
-msgstr "Unterseiten von ‚{title}‘ anzeigen"
-
-msgid "Page explorer"
-msgstr "Seitenübersicht"
-
-msgid "Save"
-msgstr "Speichern"
-
-msgid "Saving..."
-msgstr "Speichern..."
-
-msgid "Cancel"
-msgstr "Abbrechen"
-
-msgid "Deleting..."
-msgstr "Löschen…"
-
-msgid "Add a comment"
-msgstr "Ein Kommentar hinzufügen"
-
-msgid "Show comments"
-msgstr "Kommentare zeigen"
-
-msgid "Reply"
-msgstr "Antworten"
-
-msgid "Resolve"
-msgstr "Lösen"
-
-msgid "Retry"
-msgstr "Wiederholen"
-
-msgid "Delete error"
-msgstr "Fehler löschen"
-
-msgid "Are you sure?"
-msgstr "Sind Sie sicher?"
-
-msgid "Save error"
-msgstr "Fehler speichern"
-
-msgid "This will be saved when the page is saved"
-msgstr "Es wird gespeichert, wenn die Seite gespeichert wird"
-
-msgid "Focus comment"
-msgstr "Kommentar fokussieren"
-
-msgid "Unfocus comment"
-msgstr "Fokussierung des Kommentars aufheben"
-
-msgid "Comment"
-msgstr "Kommentar"
-
-msgid "More actions"
-msgstr "Mehr Aktionen"
-
-msgid "Save the page to add this comment"
-msgstr "Speichere die Seite um den Kommentar hinzuzufügen"
-
-msgid "Save the page to save this comment"
-msgstr "Speichere die Seite um den Kommentar zu speichern"
-
-msgid "Save the page to save this reply"
-msgstr "Speichere die Seite um diese Antwort zu speichern"
-
-msgid "Toggle sidebar"
-msgstr "Seitenleiste ein-/ausblenden"
-
-msgid "Main menu"
-msgstr "Hauptmenü"
-
-msgid "Dashboard"
-msgstr "Dashboard"
-
-msgid "Edit your account"
-msgstr "Bearbeiten Sie Ihr Konto"
+msgstr "Fügen Sie Ihrem Workflow Aufgaben hinzu"
 
 msgid "1 page selected"
 msgstr "1 Seite ausgewählt"
@@ -544,6 +366,45 @@ msgstr "Alle {0} Elemente auf dem Bildschirm ausgewählt"
 msgid "All items in listing selected"
 msgstr "Alle Elemente der Auflistung ausgewählt"
 
+msgid "Scheduled publishing"
+msgstr "Geplante Veröffentlichung"
+
+msgid "Privacy"
+msgstr "Privatsphäre"
+
+msgid "For search engines"
+msgstr "Für Suchmaschinen"
+
+msgid "For site menus"
+msgstr "Für Seitenmenü"
+
+msgid "Content"
+msgstr "Inhalt"
+
+msgid "Promote"
+msgstr "Veröffentlichung"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Toggle status"
+msgstr "Status umschalten"
+
+msgid "Comments"
+msgstr "Kommentare"
+
+msgid "Toggle comments"
+msgstr "Kommentare umschalten"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Toggle preview"
+msgstr "Vorschau umschalten"
+
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
 
@@ -558,6 +419,9 @@ msgstr "Zum Wagtail Admin-Interface"
 
 msgid "Account"
 msgstr "Benutzerkonto"
+
+msgid "More actions"
+msgstr "Mehr Aktionen"
 
 msgid "Save account details"
 msgstr "Accountdetails speichern"
@@ -625,6 +489,9 @@ msgstr "Ein Profilbild hochladen:"
 msgid "Reset to default"
 msgstr "Auf Standard zurücksetzen"
 
+msgid "Sidebar"
+msgstr "Seitenleiste"
+
 msgid "Go back"
 msgstr "Zurückgehen"
 
@@ -653,22 +520,10 @@ msgid "Anchor link"
 msgstr "Anker-Link"
 
 #, python-format
-msgid ""
-"\n"
-"        There is %(counter)s match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"        Es gibt %(counter)s Ergebnis\n"
-"    "
-msgstr[1] ""
-"\n"
-"        Es gibt %(counter)s Ergebnisse\n"
-"    "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
 
 msgid "Add an anchor link"
 msgstr "Anker-Link hinzufügen"
@@ -684,21 +539,15 @@ msgstr "Seite auswählen"
 
 #, python-format
 msgid ""
-"\n"
-"                Only pages of type \"%(type)s\" may be chosen for this "
-"field. Search results will exclude pages of other types.\n"
-"                "
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
 msgid_plural ""
-"\n"
-"                Only the following page types may be chosen for this field: "
-"%(type)s. Search results will exclude pages of other types.\n"
-"            "
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
 msgstr[0] ""
-"\n"
-"Es können nur Seiten des Typs \"%(type)s\" für dieses Feld ausgewählt "
-"werden. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
+"Nur Seiten des Typs \"%(type)s\" können hier ausgewählt werden. Andere Typen "
+"werden nicht im Suchergebnis angezeigt."
 msgstr[1] ""
-"\n"
 "Es können nur folgende Seitentypen für dieses Feld ausgewählt werden: "
 "%(type)s. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
 
@@ -707,37 +556,23 @@ msgstr "in internen Link umwandeln"
 
 #, python-format
 msgid ""
-"\n"
-"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                looks like it matches the internal page %(page)s, which has "
-"the URL\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>.\n"
-"            "
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"\n"
-"               Der eingegebene URL: <a target=\"_blank\" rel=\"noreferrer "
-"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
-"                zeigt offensichtlich auf die interne Seite %(page)s, mit dem "
-"URL\n"
-"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>.\n"
-"            "
+"Der eingegebene URL: <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, zeigt offensichtlich auf die "
+"interne Seite %(page)s, mit dem URL <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
-"\n"
-"                Converting this to an internal link to %(page)s would make "
-"the link more robust.\n"
-"                Would you like to do this?\n"
-"            "
+"Converting this to an internal link to %(page)s would make the link more "
+"robust. Would you like to do this?"
 msgstr ""
-"\n"
-"                Die Umwandlung in einen internen Link auf %(page)s wäre die "
-"zuverlässigere Methode \n"
-"Möchten sie den Link in einen internen umwandeln?\n"
-"            "
+"Die Umwandlung in einen internen Link auf %(page)s wäre die zuverlässigere "
+"Methode. Möchten sie den Link in einen internen umwandeln?"
 
 msgid "Use external link"
 msgstr "Externen Link benutzen"
@@ -771,6 +606,9 @@ msgstr ""
 "Die Privatsphäre-Einstellungen legen fest, wer Dokumente in dieser Sammlung "
 "einsehen darf."
 
+msgid "Save"
+msgstr "Speichern"
+
 msgid "Set collection privacy. Current status: Public"
 msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Öffentlich"
 
@@ -800,36 +638,14 @@ msgstr ""
 "Es wurden noch keine Sammlungen erstellt. Warum nicht <a href="
 "\"%(add_collection_url)s\">eine anlegen</a>?"
 
-#, python-format
-msgid "Add %(label)s"
-msgstr "%(label)s hinzufügen"
-
-msgid "Move up"
-msgstr "Nach oben"
-
-msgid "Move down"
-msgstr "Nach unten"
-
-msgid "Add comment"
-msgstr "Kommentar hinzufügen"
-
-msgid "Comments"
-msgstr "Kommentare"
-
-msgid "Toggle visibility of comment notifications dropdown"
-msgstr "Sichtbarkeit der Kommentar-Benachrichtigungen umschalten"
-
-msgid "Commenting on this page"
-msgstr "Auf dieser Seite kommentieren"
-
-msgid "Comment notifications"
-msgstr "Kommentarbenachichtigungen"
-
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
 
 msgid "Update"
 msgstr "Update"
+
+msgid "Dashboard"
+msgstr "Dashboard"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -853,6 +669,9 @@ msgstr "Gesperrt um"
 
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
+
+msgid "Unlock"
+msgstr "Entsperren"
 
 msgid "Draft"
 msgstr "Entwurf"
@@ -882,14 +701,8 @@ msgstr "Freigeben"
 msgid "Reject"
 msgstr "Ablehnen"
 
-msgid "Preview"
-msgstr "Vorschau"
-
 msgid "Your most recent edits"
 msgstr "Ihre letzten Änderungen"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Datum"
@@ -899,28 +712,20 @@ msgstr "Seitenzusammenfassung"
 
 #, python-format
 msgid ""
-"\n"
-"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgid_plural ""
-"\n"
-"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
-"\">created in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
 msgstr[0] ""
-"\n"
-"            <span>%(total)s</span> Seite <span class=\"visuallyhidden"
-"\">erstellt in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Seite <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
 msgstr[1] ""
-"\n"
-"            <span>%(total)s</span> Seiten <span class=\"visuallyhidden"
-"\">erstellt in %(site_name)s</span>\n"
-"        "
+"<span>%(total)s</span> Seiten <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
 
 msgid "Your pages in a workflow"
-msgstr "Ihre Seiten in einem Arbeitsablauf"
+msgstr "Ihre Seiten in einem Workflow"
 
 msgid "Task"
 msgstr "Arbeitsschritt"
@@ -1043,7 +848,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
-"\"%(task)s\" "
+"\"%(task)s\""
 msgstr ""
 "Die Seite „%(title)s“ wurde zur Freigabe in Moderationsphase „%(task)s“ "
 "eingereicht."
@@ -1085,8 +890,7 @@ msgstr "%(editor)s hat Kommentare in \"%(title)s\" aktualisiert."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
-msgstr ""
-"Die Seite „%(title)s“ wurde in Arbeitsablauf „%(workflow)s“ freigegeben."
+msgstr "Die Seite „%(title)s“ wurde im Workflow „%(workflow)s“ freigegeben."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1097,16 +901,16 @@ msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
 msgstr ""
-"Die Seite \"%(title)s\" wurde während \"%(task)s\" in Arbeitsablauf "
-"\"%(workflow)s\" von %(rejector)s abgelehnt."
+"Die Seite \"%(title)s\" wurde während \"%(task)s\" im Workflow \"%(workflow)s"
+"\" von %(rejector)s abgelehnt."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\"."
 msgstr ""
-"Die Seite \"%(title)s\" wurde während \"%(task)s\" in Arbeitsablauf "
-"\"%(workflow)s\" abgelehnt."
+"Die Seite \"%(title)s\" wurde während \"%(task)s\" im Workflow \"%(workflow)s"
+"\" abgelehnt."
 
 #, python-format
 msgid "The following comment was left: \"%(comment)s\""
@@ -1121,7 +925,7 @@ msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\" by %(requester)s."
 msgstr ""
-"Die Seite „%(title)s“ wurde von %(requester)szur Moderation in Arbeitsablauf "
+"Die Seite „%(title)s“ wurde von %(requester)szur Moderation in Workflow "
 "„%(workflow)s“ eingereicht."
 
 #, python-format
@@ -1129,13 +933,12 @@ msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
 msgstr ""
-"Die Seite „%(title)s“ wurde zur Moderation in Arbeitsablauf „%(workflow)s“ "
+"Die Seite „%(title)s“ wurde zur Moderation in Workflow „%(workflow)s“ "
 "eingereicht."
 
 #, python-format
-msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
-msgstr ""
-"Die Seite „%(title)s“ wurde in Arbeitsablauf „%(workflow)s“ eingereicht."
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr "Die Seite „%(title)s“ wurde in Workflow „%(workflow)s“ eingereicht."
 
 msgid "Page privacy"
 msgstr "Privatsphäre-Einstellungen der Seite"
@@ -1148,15 +951,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Die Privatsphäre-Einstellungen gelten ebenfalls für alle Unterseiten dieser "
 "Seite."
-
-msgid "Visit the live page"
-msgstr "Live-Seite besuchen"
-
-msgid "This page is live but only available to certain users"
-msgstr "Diese Seite ist öffentlich, aber nur für bestimmte Nutzer verfügbar."
-
-msgid "restricted"
-msgstr "eingeschränkt"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Öffentlich"
@@ -1213,7 +1007,7 @@ msgid "Pages using %(page_type)s"
 msgstr "Seiten, die %(page_type)s verwenden"
 
 #, python-format
-msgid "Delete 1 page "
+msgid "Delete 1 page"
 msgid_plural "Delete %(counter)s pages"
 msgstr[0] "1 Seite löschen"
 msgstr[1] " %(counter)s Seiten löschen"
@@ -1222,22 +1016,10 @@ msgid "Are you sure you want to delete these pages?"
 msgstr "Sind Sie sicher, dass Sie diese Seiten löschen möchten?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This will also delete %(counter)s more subpages.\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Es wird auch eine weitere Unterseite gelöscht.\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                  Es werden auch %(counter)s weitere Unterseiten gelöscht.\n"
-"                    "
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Damit wird auch eine weitere Unterseite gelöscht."
+msgstr[1] "Damit werden auch %(counter)s weitere Unterseiten gelöscht."
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -1260,21 +1042,10 @@ msgid "Are you sure you want to move these pages?"
 msgstr "Sind Sie sicher, dass Sie diese Seiten verschieben möchten?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one child page\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s child pages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"Diese Seite hat eine Unterseite"
-msgstr[1] ""
-"\n"
-"                    Diese Seite hat %(counter)s "
-"Unterseiten                    "
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Diese Seite hat eine Unterseite"
+msgstr[1] "Diese Seite hat %(counter)s Unterseiten"
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
@@ -1286,7 +1057,7 @@ msgstr[1] ""
 "verschieben"
 
 #, python-format
-msgid "The following page cannot be moved to %(dest_title)s "
+msgid "The following page cannot be moved to %(dest_title)s"
 msgid_plural "The following pages cannot be moved to %(dest_title)s"
 msgstr[0] "Die folgende Seite kann nicht nach %(dest_title)s verschoben werden"
 msgstr[1] ""
@@ -1310,7 +1081,7 @@ msgid "No, don't move"
 msgstr "Nein, nicht verschieben"
 
 #, python-format
-msgid "Publish 1 page "
+msgid "Publish 1 page"
 msgid_plural "Publish %(counter)s pages"
 msgstr[0] "1 Seite veröffentlichen"
 msgstr[1] "%(counter)s Seiten veröffentlichen"
@@ -1319,21 +1090,10 @@ msgid "Are you sure you want to publish these pages?"
 msgstr "Wollen Sie diese Seiten veröffentlichen?"
 
 #, python-format
-msgid ""
-"\n"
-"                This page has one unpublished subpage\n"
-"                "
-msgid_plural ""
-"\n"
-"                This page has %(counter)s unpublished subpages\n"
-"                "
-msgstr[0] ""
-"\n"
-"                 Diese Seite hat 1 unveröffentlichte Unterseite"
-msgstr[1] ""
-"\n"
-"                 Diese Seite hat %(counter)s unveröffentlichte "
-"Unterseiten                "
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Diese Seite hat eine unveröffentlichte Unterseite"
+msgstr[1] "Diese Seite hat %(counter)s unveröffentlichte Unterseiten"
 
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
@@ -1347,32 +1107,20 @@ msgid "No, don't publish"
 msgstr "Nein, nicht veröffentlichen"
 
 #, python-format
-msgid "Unpublish 1 page "
+msgid "Unpublish 1 page"
 msgid_plural "Unpublish %(counter)s pages"
-msgstr[0] "1 Seite veröffentlichen"
-msgstr[1] "%(counter)s Seiten veröffentlichen"
+msgstr[0] "1 Seite depublizieren"
+msgstr[1] "%(counter)s Seiten depublizieren"
 
 msgid "Are you sure you want to unpublish these pages?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Veröffentlichung dieser Seiten aufheben wollen?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one subpage\n"
-"                    "
-msgid_plural ""
-"\n"
-"                    This page has %(counter)s subpages\n"
-"                    "
-msgstr[0] ""
-"\n"
-"                    Diese Seite hat eine Unterseite\n"
-"                    "
-msgstr[1] ""
-"\n"
-"                    Diese Seite hat %(counter)s Unterseiten\n"
-"                    "
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Diese Seite hat eine Unterseite"
+msgstr[1] "Diese Seite hat %(counter)s Unterseiten"
 
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
@@ -1415,23 +1163,6 @@ msgstr "%(title)s löschen"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Sind Sie sicher, dass Sie diese Seite löschen möchten?"
-
-#, python-format
-msgid ""
-"\n"
-"                    This will also delete one more subpage.\n"
-"                "
-msgid_plural ""
-"\n"
-"                    This will also delete %(descendant_count)s more "
-"subpages.\n"
-"                "
-msgstr[0] ""
-"\n"
-"Eine weitere Unterseite wird auch gelöscht."
-msgstr[1] ""
-"\n"
-"%(descendant_count)s Unterseiten werden auch gelöscht."
 
 msgid "Yes, delete it"
 msgstr "Ja, löschen"
@@ -1479,25 +1210,15 @@ msgstr ""
 "Sind Sie sicher, dass Sie die Veröffentlichung der Seite aufheben wollen?"
 
 #, python-format
-msgid ""
-"\n"
-"                    This page has one subpage. Unpublish this too\n"
-"                "
+msgid "This page has one subpage. Unpublish this too"
 msgid_plural ""
-"\n"
-"                    This page has %(live_descendant_count)s subpages. "
-"Unpublish these too\n"
-"                "
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
 msgstr[0] ""
-"\n"
-"                    Diese Seite hat eine Unterseite. Diese Unterseite "
-"ebenfalls depublizieren\n"
-"                "
+"Diese Seite hat eine Unterseite. Die Veröffentlichung dieser Unterseite "
+"ebenfalls aufheben"
 msgstr[1] ""
-"\n"
-"                    Diese Seite hat %(live_descendant_count)s Unterseiten. "
-"Die Veröffentlichung dieser Unterseiten ebenfalls aufheben\n"
-"                "
+"Diese Seite hat %(live_descendant_count)s Unterseiten. Die Veröffentlichung "
+"dieser Unterseiten ebenfalls aufheben"
 
 msgid "Yes, unpublish it"
 msgstr "Ja, Veröffentlichung aufheben"
@@ -1507,35 +1228,29 @@ msgstr "Seite veröffentlichen"
 
 #, python-format
 msgid ""
-"\n"
-"            This page was marked as needing changes at <strong>%(task)s</"
-"strong> in <strong>%(workflow)s</strong>.\n"
-"        "
+"This page was marked as needing changes at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
-"\n"
 "Diese Seite wurde in <strong>%(task)s</strong> in <strong>%(workflow)s</"
-"strong> als änderungsbedürftig markiert.\n"
-" "
+"strong> als änderungsbedürftig markiert."
 
 #, python-format
 msgid ""
-"\n"
-"            This page is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-"        "
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
 msgstr ""
-"\n"
 "Diese Seite ist aktuell in <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>.\n"
-" "
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr ""
-"Beim Veröffentlichen dieser Seite wird der aktuelle Arbeitsablauf "
-"abgebrochen."
+"Beim Veröffentlichen dieser Seite wird der aktuelle Workflow abgebrochen."
 
 msgid "Would you still like to publish this page?"
 msgstr "Möchten Sie diese Seite dennoch veröffentlichen?"
+
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1558,9 +1273,6 @@ msgstr "Diese Seite kopieren"
 msgid "New %(page_type)s"
 msgstr "Neue %(page_type)s"
 
-msgid "New"
-msgstr "Neu"
-
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -1570,13 +1282,6 @@ msgstr "Diese Seite hat ungesicherte Änderungen."
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bearbeite %(page_type)s: %(title)s"
-
-#, python-format
-msgid "Editing %(page_type)s"
-msgstr "Bearbeite %(page_type)s"
-
-msgid "History"
-msgstr "Historie"
 
 msgid "This page is an alias of another page."
 msgstr "Diese Seite ist ein Alias einer anderen Seite."
@@ -1599,6 +1304,9 @@ msgstr "Benutzer"
 
 msgid "Date / Time"
 msgstr "Zeitpunkt"
+
+msgid "Comment"
+msgstr "Kommentar"
 
 msgid "Live version"
 msgstr "Live-Version"
@@ -1630,13 +1338,10 @@ msgid "Updated"
 msgstr "Aktualisiert"
 
 msgid ""
-"\n"
-"                            The root level is where you can add new sites to "
-"your Wagtail installation. Pages created here will not be accessible at any "
-"URL until they are associated with a site.\n"
-"                        "
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
 msgstr ""
-"\n"
 "Die Ursprungs-Ebene ist der Ort, an dem Sie neue Websites zu Ihrer Wagtail-"
 "Installation hinzufügen können. Seiten, die hier erstellt werden, sind über "
 "keine URL zu erreichen, solange sie nicht einer Website zugeordnet werden."
@@ -1645,46 +1350,32 @@ msgid "Configure a site now."
 msgstr "Konfigurieren Sie jetzt eine Website."
 
 msgid ""
-"\n"
-"                            If you just want to add pages to an existing "
-"site, create them as children of the homepage instead.\n"
-"                        "
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
 msgstr ""
-"\n"
 "Falls Sie zu einer existierenden Website Seiten hinzufügen möchten, müssen "
 "Sie diese als Unterseiten der Startseite erstellen."
 
 msgid ""
-"\n"
-"                        Pages created here will not be accessible at any "
-"URL. To add pages to an existing site, create them as children of the "
-"homepage.\n"
-"                    "
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
 msgstr ""
-"\n"
 "Seiten, die hier erstellt werden, sind über keine URL zu erreichen. Um "
 "Seiten zu einer existierenden Website hinzuzufügen, erstellen Sie sie als "
 "Unterseiten der Startseite."
 
 msgid ""
-"\n"
-"                        There is no site set up for this location. Pages "
-"created here will not be accessible at any URL until a site is associated "
-"with this location.\n"
-"                    "
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
 msgstr ""
-"\n"
 "Es ist keine Website für diesen Ort festgelegt. Seiten, die hier erstellt "
 "werden, sind über keine URL zu erreichen, solange keine Website für diesem "
 "Ort festgelegt wurde."
 
 msgid ""
-"\n"
-"                        There is no site record for this location. Pages "
-"created here will not be accessible at any URL.\n"
-"                    "
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
 msgstr ""
-"\n"
 "Es gibt keinen Website-Eintrag für diesen Ort. Seiten, die hier erstellt "
 "werden, sind über keine URL zu erreichen."
 
@@ -1720,14 +1411,8 @@ msgid "Pagination"
 msgstr "Seitennummerierung"
 
 #, python-format
-msgid ""
-"\n"
-"        Page %(page_number)s of %(num_pages)s.\n"
-"    "
-msgstr ""
-"\n"
-"        Seite %(page_number)s von %(num_pages)s.\n"
-"    "
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Seite %(page_number)s von %(num_pages)s."
 
 msgid "Previous"
 msgstr "Vorherige"
@@ -1759,18 +1444,15 @@ msgid "Preview error"
 msgstr "Vorschaufehler"
 
 msgid ""
-"\n"
-"                Impossible to preview this page, some errors are remaining.\n"
-"                Please close this tab, edit the page to fix these errors,\n"
-"                then use preview again.\n"
-"            "
+"Impossible to preview this page, some errors are remaining. Please close "
+"this tab, edit the page to fix these errors, then use preview again."
 msgstr ""
-"\n"
 "Eine Vorschau dieser Seite ist unmöglich, da einige Fehler übrig geblieben "
-"sind.\n"
-"Bitte schließen Sie diese Registerkarte, bearbeiten Sie die\n"
-"Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
-"erneut die Vorschau."
+"sind. Bitte schließen Sie diese Registerkarte, bearbeiten Sie die Seite, um "
+"die Fehler zu beheben, und verwenden Sie dann erneut die Vorschau."
+
+msgid "Close"
+msgstr "Schließen"
 
 msgid "Current status:"
 msgstr "Aktueller Status:"
@@ -1807,48 +1489,16 @@ msgid "Changes"
 msgstr "Änderungen"
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved down 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved down "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            Wurde um 1 "
-"Stelle nach unten verschoben.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            Wurde um "
-"%(counter)s Stellen nach unten verschoben.\n"
-"                                                        "
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "1 Platz nach unten bewegt."
+msgstr[1] "%(counter)s Plätze nach unten bewegt."
 
 #, python-format
-msgid ""
-"\n"
-"                                                            Moved up 1 "
-"place.\n"
-"                                                        "
-msgid_plural ""
-"\n"
-"                                                            Moved up "
-"%(counter)s places.\n"
-"                                                        "
-msgstr[0] ""
-"\n"
-"                                                            Wurde um 1 "
-"Stelle nach oben verschoben.\n"
-"                                                        "
-msgstr[1] ""
-"\n"
-"                                                            Wurde um "
-"%(counter)s Stellen nach oben verschoben.\n"
-"                                                        "
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "1 Platz nach oben bewegt."
+msgstr[1] "%(counter)s Plätze nach oben bewegt."
 
 msgid "There are no differences between these two versions"
 msgstr "Diese beiden Versionen sind identisch."
@@ -1873,22 +1523,10 @@ msgid "No, don't unschedule"
 msgstr "Nein, nicht aufheben"
 
 #, python-format
-msgid ""
-"\n"
-"                There is one matching page\n"
-"            "
-msgid_plural ""
-"\n"
-"                There are %(counter)s matching pages\n"
-"            "
-msgstr[0] ""
-"\n"
-"                Es gibt eine passende Seite\n"
-"            "
-msgstr[1] ""
-"\n"
-"                Es gibt %(counter)s passende Seiten\n"
-"            "
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Es gibt 1 passende Seite"
+msgstr[1] "Es gibt %(counter)spassende Seiten"
 
 msgid "Page types"
 msgstr "Seitentypen"
@@ -1900,17 +1538,91 @@ msgstr "Es gibt leider keine Seiten zum Suchbegriff <em>%(query_string)s</em>"
 msgid "Enter a search term above"
 msgstr "Geben Sie oben einen Suchbegriff ein"
 
+msgid "Page Locale: "
+msgstr "Seitenlocale"
+
+#, python-format
+msgid "Translated to %(count)s other locales"
+msgstr "Übersetzt in %(count)s andere Locales"
+
+msgid "No other translations"
+msgstr "Keine andere Übersetzungen"
+
+msgid "Switch locales"
+msgstr "Locales umschalten"
+
+msgid "Page locking: "
+msgstr "Seitensperre: "
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+msgid "Only you can edit this page. Unlock it to allow others to edit"
+msgstr ""
+"Nur du kannst diese Seite bearbeiten. Entsperre sie um Anderen das "
+"Bearbeiten zu erlauben"
+
+msgid "Unlocked"
+msgstr "Entsperrt"
+
+msgid "Anyone can edit this page. Lock it to prevent others from editing"
+msgstr ""
+"Jeder kann diese Seite bearbeiten. Sperre sie um Anderen das Bearbeiten zu "
+"verhindern"
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "Page visibility: "
+msgstr "Seitensichtbarkeit:"
+
+msgid "Visible to all"
+msgstr "Für alle sichtbar"
+
+msgid "Once live anyone can view"
+msgstr "Sobald veröffentlicht, für jeden sichtbar"
+
+msgid "Not visible to the public"
+msgstr "Nicht öffentlich sichtbar"
+
+msgid "Change privacy"
+msgstr "Privatsphäre ändern"
+
+msgid "Page status: "
+msgstr "Seitenstatus:"
+
+msgid "In Moderation"
+msgstr "In Moderation"
+
+msgid "View details"
+msgstr "Details anschauen"
+
+msgid "View history"
+msgstr "Historie anschauen"
+
+msgid " Changes requested"
+msgstr "Änderungen angefordert"
+
+msgid "since"
+msgstr "seit"
+
+msgid "This will publish at "
+msgstr "Dies wird veröffentlich am"
+
+msgid "First published"
+msgstr "Erstmals veröffentlicht"
+
 msgid "No pages use"
 msgstr "Keine Seite benutzt "
 
 msgid "Workflow progress"
-msgstr "Arbeitsablauf-Fortschritt"
+msgstr "Workflow-Fortschritt"
 
 msgid "Edit / Review"
 msgstr "Bearbeiten / Überprüfen"
 
 msgid "Workflow history"
-msgstr "Arbeitsablauf-Historie"
+msgstr "Workflow-Historie"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -1934,52 +1646,32 @@ msgid "Page edited"
 msgstr "Seite bearbeitet"
 
 #, python-format
-msgid ""
-"\n"
-"                                            %(action)s by <b>%(who)s</b> at "
-"<b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s von <b>%(who)s</b> am "
-"<b>%(at)s</b>\n"
-"                                        "
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s von <b>%(who)s</b> am <b>%(at)s</b>"
 
 #, python-format
-msgid ""
-"\n"
-"                                            %(action)s at <b>%(at)s</b>\n"
-"                                        "
-msgstr ""
-"\n"
-"                                            %(action)s am <b>%(at)s</b>\n"
-"                                        "
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s am <b>%(at)s</b>"
 
 msgid "with comment:"
 msgstr "mit Kommentar:"
 
 msgid "Workflow started"
-msgstr "Arbeitsablauf gestartet"
+msgstr "Workflow gestartet"
 
 msgid "Workflow completed"
-msgstr "Arbeitsablauf abgeschlossen"
+msgstr "Workflow abgeschlossen"
 
 #, python-format
-msgid ""
-"\n"
-"                                        %(action)s by <b>%(who)s</b>\n"
-"                                    "
-msgstr ""
-"\n"
-"                                        %(action)s von <b>%(who)s</b>\n"
-"                                    "
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s von <b>%(who)s</b>"
 
 #, python-format
 msgid "Workflow history for %(title)s"
-msgstr "Arbeitsablauf-Historie für %(title)s"
+msgstr "Workflow-Historie für %(title)s"
 
 msgid "Workflow history for"
-msgstr "Arbeitsablauf-Historie für"
+msgstr "Workflow-Historie für"
 
 msgid "Edit page"
 msgstr "Seite bearbeiten"
@@ -1999,6 +1691,22 @@ msgstr "Unvollständige Aufgabe"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Diese Seite wurde noch nicht zur Moderation eingereicht"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s hinzufügen"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Add comment"
+msgstr "Kommentar hinzufügen"
+
+msgid "Comment notifications"
+msgstr "Kommentarbenachichtigungen"
+
 msgid "Collection management permissions"
 msgstr "Berechtigungen für die Verwaltung einer Sammlung"
 
@@ -2010,16 +1718,6 @@ msgstr "Zuletzt veröffentlicht"
 
 msgid "Last published by"
 msgstr "Zuletzt veröffentlicht durch"
-
-#, python-format
-msgid ""
-"\n"
-"                                    %(time_period)s ago\n"
-"                                "
-msgstr ""
-"\n"
-"                                    %(time_period)s vorher\n"
-"                                "
 
 msgid "No pages found."
 msgstr "Keine Seiten gefunden"
@@ -2043,36 +1741,16 @@ msgid "Locking status"
 msgstr "Sperr-Status"
 
 #, python-format
-msgid ""
-"\n"
-"                                Locked by <b>you</b> at <b>%(locking_date)s</"
-"b>\n"
-"                            "
-msgstr ""
-"\n"
-"Gesperrt von <b>Ihnen</b> um <b>%(locking_date)s</b>"
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Gesperrt von <b>Ihnen</b> am <b>%(locking_date)s</b>"
 
 #, python-format
-msgid ""
-"\n"
-"                                Locked by <b>%(locked_by)s</b> at <b>"
-"%(locking_date)s</b>\n"
-"                            "
-msgstr ""
-"\n"
-"Gesperrt von <b>%(locked_by)s</b> um <b>%(locking_date)s</b>"
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "Gesperrt von <b>%(locked_by)s</b> am <b>%(locking_date)s</b>"
 
 #, python-format
-msgid ""
-"\n"
-"                            Locked at <b>%(locking_date)s</b>\n"
-"                        "
-msgstr ""
-"\n"
-"Gesperrt um <b>%(locking_date)s</b>"
-
-msgid "Locked"
-msgstr "Gesperrt"
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "Gesperrt am <b>%(locking_date)s</b>"
 
 msgid "No locked pages found."
 msgstr "Keine gesperrten Seiten gefunden"
@@ -2084,13 +1762,16 @@ msgid "By Task"
 msgstr "Nach Aufgabe"
 
 msgid "Workflow"
-msgstr "Arbeitsablauf"
+msgstr "Workflow"
+
+msgid "Page"
+msgstr "Seite"
 
 msgid "No pages have been submitted for moderation yet"
 msgstr "Es wurden noch keine Seiten zur Moderation eingereicht"
 
 msgid "By Workflow"
-msgstr "Von Arbeitsablauf"
+msgstr "Von Workflow"
 
 msgid "Completed at"
 msgstr "Vervollständigt am"
@@ -2098,6 +1779,9 @@ msgstr "Vervollständigt am"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Seite %(page_num)s von %(total_pages)s."
+
+msgid "Toggle breadcrumbs"
+msgstr "Breadcrumbs ein-/ausblenden"
 
 msgid "Breadcrumb"
 msgstr "Brotkrümel"
@@ -2111,63 +1795,47 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Alle Sammlungen"
 
-msgid "Account settings"
-msgstr "Kontoeinstellungen"
+msgid "New: "
+msgstr "Neu:"
 
-msgid "Log out"
-msgstr "Abmelden"
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "%(page_type)s%(title)swird bearbeitet"
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Toggle side panel"
+msgstr "Seitenleiste ein-/ausblenden"
+
+msgid "Visit the live page"
+msgstr "Live-Seite besuchen"
 
 msgid "Current page status:"
 msgstr "Status der aktuellen Seite"
 
+msgid "Visible to all. Visit the live page"
+msgstr "Für alle sichtbar. Live-Seite besuchen"
+
+msgid "Private. Visit the live page"
+msgstr "Privat. Live-Seite besuchen"
+
 msgid "Other searches"
 msgstr "Andere Suchbegriffe"
 
-msgid "Changes requested"
-msgstr "Änderungen angefordert"
-
-msgid "since"
-msgstr "seit"
-
-msgid "Published"
-msgstr "Veröffentlicht"
-
-msgid "Draft saved"
-msgstr "Entwurf gespeichert"
+msgid "Errors Count: "
+msgstr "Fehleranzahl: "
 
 msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
-"a>."
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
 msgstr ""
-"Sie verwenden einen <strong>veralteten</strong> Browser, der von dieser "
-"Software nicht unterstützt wird. Bitte <a href=\"https://browsehappy.com/"
-"\">aktualisieren Sie Ihren Browser</a>."
-
-msgid ""
-"\n"
-"            JavaScript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"          Zur Nutzung von Wagtail wird JavaScript benötigt, aber es is "
-"momentan deaktiviert.\n"
-"            Hier ist eine <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">Anleitung, wie man JavaScript "
-"in Ihrem Webbrowser aktiviert</a>.\n"
-"        "
-
-#, python-format
-msgid ""
-"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
-"IE11 alternatives</a>."
-msgstr ""
-"Wagtail hat den Support für IE11 eingestellt. <a href=\"%(url)s\"> Erfahren "
-"Sie mehr über alternative Browser </a>."
+"Zur Nutzung von Wagtail wird JavaScript benötigt, aber es ist momentan "
+"deaktiviert.<br /> Hier ist eine <a href=\"https://www.enable-javascript.com/"
+"\" target=\"_blank\" rel=\"noreferrer\">Anleitung, wie man JavaScript in "
+"Ihrem Webbrowser aktiviert</a>."
 
 msgid "Skip to main content"
 msgstr "Zum Hauptinhalt springen"
@@ -2181,8 +1849,22 @@ msgstr "Unterseite hinzufügen"
 msgid "Show in Explorer"
 msgstr "Im Explorer anzeigen"
 
+#, python-format
+msgid ""
+"This workflow is currently in progress on %(workflow_states_in_progress)s "
+"pages. Deleting this workflow will cancel moderation on these page. Are you "
+"sure you want to delete this workflow?"
+msgstr ""
+"Dieser Workflow ist gerade in Bearbeitung auf "
+"%(workflow_states_in_progress)s Seiten. Die Entfernung dieses Workflows wird "
+"die Moderation dieser Seiten abbrechen. Sind Sie sicher, dass Sie diesen "
+"Workflow entfernen möchten?"
+
+msgid "No"
+msgstr "Nein"
+
 msgid "Are you sure you want to disable this workflow?"
-msgstr "Sind Sie sicher, dass Sie diesen Arbeitsablauf deaktivieren möchten?"
+msgstr "Sind Sie sicher, dass Sie diesen Workflow deaktivieren möchten?"
 
 msgid "Yes, disable"
 msgstr "Ja, deaktivieren"
@@ -2191,7 +1873,7 @@ msgid "Are you sure you want to disable this task?"
 msgstr "Sind Sie sicher, dass Sie diese Aufgabe deaktivieren möchten?"
 
 msgid "Assign your workflow to pages"
-msgstr "Weisen Sie Ihren Arbeitsablauf den Seiten zu"
+msgstr "Weisen Sie Ihren Workflow den Seiten zu"
 
 msgid "Creating…"
 msgstr "Wird erstellt…"
@@ -2205,18 +1887,18 @@ msgid ""
 "child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
 "\">the list of the pages</a> your workflow applies to."
 msgstr ""
-"Arbeitsabläufe gelten auch für Unterseiten. Wenn Sie hier eine übergeordnete "
-"Seite auswählen, werden deren Unterseiten diesen Arbeitsablauf auch "
-"übernehmen. Siehe <a href=\"%(workflow_pages_url)s\">die Liste der Seiten</"
-"a> für die Ihr Arbeitsablauf gilt."
+"Workflows gelten auch für Unterseiten. Wenn Sie hier eine übergeordnete "
+"Seite auswählen, werden deren Unterseiten diesen Workflow auch übernehmen. "
+"Siehe <a href=\"%(workflow_pages_url)s\">die Liste der Seiten</a> für die "
+"Ihr Workflow gilt."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
-"Dieser Arbeitsablauf ist deaktiviert, so dass er keiner Seite zugewiesen "
-"werden kann."
+"Dieser Workflow ist deaktiviert, so dass er keiner Seite zugewiesen werden "
+"kann."
 
 msgid "Used on the following active workflows"
-msgstr "Wird bei den folgenden aktiven Arbeitsabläufen verwendet"
+msgstr "Wird bei den folgenden aktiven Workflows verwendet"
 
 msgid "Not used"
 msgstr "Nicht verwendet"
@@ -2228,31 +1910,19 @@ msgid "Assign to another page"
 msgstr "Einer anderen Seite zuweisen"
 
 msgid "Hide disabled workflows"
-msgstr "Deaktivierte Arbeitsabläufe ausblenden"
+msgstr "Deaktivierte Workflows ausblenden"
 
 msgid "Show disabled workflows"
-msgstr "Deaktivierte Arbeitsabläufe anzeigen"
+msgstr "Deaktivierte Workflows anzeigen"
 
 msgid "Used by"
 msgstr "Verwendet von"
 
 #, python-format
-msgid ""
-"\n"
-"                                            1 page\n"
-"                                        "
-msgid_plural ""
-"\n"
-"                                            %(counter)s pages\n"
-"                                        "
-msgstr[0] ""
-"\n"
-"                                            1 Seite\n"
-"                                        "
-msgstr[1] ""
-"\n"
-"                                            %(counter)s Seiten\n"
-"                                        "
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 Seite"
+msgstr[1] "%(counter)sSeiten"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -2268,15 +1938,15 @@ msgstr[1] "+%(counter)s weitere"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Es wurde kein Arbeitsablauf erstellt. Warum nicht <a href=\"%(add_url)s"
+"Es wurde noch kein Workflow erstellt. Warum nicht <a href=\"%(add_url)s"
 "\">einen hinzufügen</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Es gibt keine aktiven Arbeitsabläufe. Warum nicht <a href=\"%(add_url)s"
-"\">einen hinzufügen</a>?"
+"Es gibt keine aktiven Workflows. Warum nicht <a href=\"%(add_url)s\">einen "
+"hinzufügen</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Wählen Sie die Art der Aufgabe aus, die Sie erstellen möchten."
@@ -2284,29 +1954,14 @@ msgstr "Wählen Sie die Art der Aufgabe aus, die Sie erstellen möchten."
 msgid "Choose a task"
 msgstr "Wählen Sie eine Aufgabe aus"
 
+msgid "New"
+msgstr "Neu"
+
 msgid "Existing"
 msgstr "Vorhanden"
 
 msgid "Choose a different task type"
 msgstr "Wählen Sie einen anderen Aufgabentyp aus"
-
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Es gibt %(counter)s Treffer\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Es gibt %(counter)s Treffer\n"
-"        "
 
 msgid "Task type"
 msgstr "Aufgabentyp"
@@ -2323,15 +1978,11 @@ msgid "You haven't created any tasks."
 msgstr "Sie haben keine Aufgaben erstellt."
 
 msgid ""
-"\n"
-"                Why not <a class=\"create-one-now\" href=\"#\">create one "
-"now</a>?\n"
-"            "
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
 msgstr ""
-"\n"
-"                Warum nicht <a class=\"create-one-now\" href=\"#\">jetzt "
-"eine erstellen</a>?\n"
-"            "
+"Warum nicht <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>eine neue erstellen</a>?"
 
 msgid "Hide disabled tasks"
 msgstr "Deaktivierte Aufgaben ausblenden"
@@ -2355,10 +2006,10 @@ msgstr ""
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
-msgstr "Seiten die den Arbeitsablauf '%(name)s' nutzen"
+msgstr "Seiten die den Workflow '%(name)s' nutzen"
 
 msgid "Pages that use workflow"
-msgstr "Seiten die einen Arbeitsablauf nutzen"
+msgstr "Seiten die einen Workflow nutzen"
 
 #, python-format
 msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
@@ -2378,9 +2029,15 @@ msgstr "Nicht begonnen"
 msgid "Changes requested by %(requested_by)s"
 msgstr "Änderungen angefordert von %(requested_by)s"
 
+msgid "Changes requested"
+msgstr "Änderungen angefordert"
+
 #, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Freigegeben von %(approved_by)s"
+
+msgid "Published"
+msgstr "Veröffentlicht"
 
 msgid "See full history"
 msgstr "Vollständige Historie anzeigen"
@@ -2415,6 +2072,9 @@ msgstr "0 Minuten"
 
 msgid "Just now"
 msgstr "Jetzt gerade"
+
+msgid "Log out"
+msgstr "Abmelden"
 
 msgid "live"
 msgstr "Veröffentlicht"
@@ -2663,14 +2323,14 @@ msgid "This page is currently awaiting moderation."
 msgstr "Diese Seite wartet derzeit auf Moderation."
 
 msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Diese Seite erwartet <b>'{}'</b> in dem <b>'{}'</b> Arbeitsablauf."
+msgstr "Diese Seite erwartet <b>'{}'</b> in dem Workflow <b>'{}'</b>."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Nur Gutachter für diese Aufgabe können die Seite bearbeiten."
 
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Arbeitsablauf auf Seite ‚{0}‘ wurde abgebrochen."
+msgstr "Workflow auf Seite ‚{0}‘ wurde abgebrochen."
 
 #, python-brace-format
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
@@ -2700,7 +2360,7 @@ msgstr "Seite ‚{0}‘ wurde zur Moderation eingereicht."
 
 #, python-brace-format
 msgid "Workflow on page '{0}' has been restarted."
-msgstr "Arbeitsablauf auf Seite ‚{0}‘ wurde neu gestartet."
+msgstr "Workflow auf Seite ‚{0}‘ wurde neu gestartet."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Diese Seite konnte nicht gespeichert werden, da sie gesperrt ist."
@@ -2810,7 +2470,7 @@ msgid "Awaiting my review"
 msgstr "Überprüfung erwartet"
 
 msgid "Workflows"
-msgstr "Arbeitsabläufe"
+msgstr "Workflows"
 
 msgid "Page ID"
 msgstr "Seiten-ID"
@@ -2822,27 +2482,27 @@ msgid "Page Title"
 msgstr "Seitentitel"
 
 msgid "Workflow tasks"
-msgstr "Aufgaben des Arbeitsablaufes"
+msgstr "Workflow-Aufgaben"
 
 msgid "Requested By"
 msgstr "Angefordert von"
 
 msgid "Add a workflow"
-msgstr "Arbeitsablauf hinzufügen"
+msgstr "Workflow hinzufügen"
 
 msgid "New workflow"
-msgstr "Neuer Arbeitsablauf"
+msgstr "Neuer Workflow"
 
 #, python-brace-format
 msgid "Workflow '{0}' created."
-msgstr "Arbeitsablauf ‚{0}‘ erstellt."
+msgstr "Workflow ‚{0}‘ erstellt."
 
 msgid "Editing workflow"
-msgstr "Arbeitsablauf bearbeiten"
+msgstr "Workflow bearbeiten"
 
 #, python-brace-format
 msgid "Workflow '{0}' updated."
-msgstr "Arbeitsablauf ‚{0}‘ aktualisiert."
+msgstr "Workflow ‚{0}‘ aktualisiert."
 
 msgid "Disable"
 msgstr "Deaktivieren"
@@ -2851,11 +2511,11 @@ msgid "Enable"
 msgstr "Aktivieren"
 
 msgid "Disable workflow"
-msgstr "Arbeitsablauf deaktivieren"
+msgstr "Workflow deaktivieren"
 
 #, python-brace-format
 msgid "Workflow '{0}' disabled."
-msgstr "Arbeitsablauf ‚{0}‘ deaktiviert."
+msgstr "Workflow ‚{0}‘ deaktiviert."
 
 #, python-format
 msgid ""
@@ -2865,31 +2525,29 @@ msgid_plural ""
 "This workflow is in progress on %(states_in_progress)d pages. Disabling this "
 "workflow will cancel moderation on these pages."
 msgstr[0] ""
-"Dieser Arbeitsablauf ist in Bearbeitung auf %(states_in_progress)d Seite. "
-"Die Deaktivierung dieses Arbeitsablaufes wird die Moderation dieser Seite "
-"abbrechen."
+"Dieser Workflow ist in Bearbeitung auf %(states_in_progress)d Seite. Die "
+"Deaktivierung dieses Workflows wird die Moderation dieser Seite abbrechen."
 msgstr[1] ""
-"Dieser Arbeitsablauf ist in Bearbeitung auf %(states_in_progress)d Seiten. "
-"Die Deaktivierung dieses Arbeitsablaufes wird die Moderation diesen Seiten "
-"abbrechen. "
+"Dieser Workflow ist in Bearbeitung auf %(states_in_progress)d Seiten. Die "
+"Deaktivierung dieses Workflows wird die Moderation diesen Seiten abbrechen. "
 
 #, python-brace-format
 msgid "Workflow '{0}' enabled."
-msgstr "Arbeitsablauf ‚{0}‘ aktiviert."
+msgstr "Workflow ‚{0}‘ aktiviert."
 
 #, python-brace-format
 msgid "Workflow removed from Page '{0}'."
-msgstr "Arbeitsablauf von Seite ‚{0}‘ entfernt."
+msgstr "Workflow von Seite ‚{0}‘ entfernt."
 
 msgid "New workflow task"
-msgstr "Neue Aufgabe des Arbeitsablaufes"
+msgstr "Neue Workflow-Aufgabe"
 
 #, python-brace-format
 msgid "Task '{0}' created."
 msgstr "Aufgabe ‚{0}‘ erstellt."
 
 msgid "Editing workflow task"
-msgstr "Aufgabe des Arbeitsablaufes bearbeiten"
+msgstr "Workflow-Aufgabe bearbeiten"
 
 #, python-brace-format
 msgid "Task '{0}' updated."
@@ -2917,12 +2575,12 @@ msgid_plural ""
 "listed for selection when editing a workflow."
 msgstr[0] ""
 "Diese Aufgabe ist in Bearbeitung auf%(states_in_progress)d Seite. Die "
-"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Arbeitsablauf der "
+"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Workflow der "
 "Moderation übersprungen wird und nicht zur Auswahl bei der Bearbeitung eines "
 "Workflows zur Verfügung steht."
 msgstr[1] ""
 "Diese Aufgabe ist in Bearbeitung auf %(states_in_progress)d Seiten. Die "
-"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Arbeitsablauf der "
+"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Workflow der "
 "Moderation übersprungen wird und nicht zur Auswahl bei der Bearbeitung eines "
 "Workflows zur Verfügung steht."
 
@@ -2930,12 +2588,18 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Aufgabe ‚{0}‘ aktiviert."
 
+msgid "Server Error"
+msgstr "Server-Fehler"
+
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
 msgstr ""
 "Melden Sie diesen Fehler Ihrem Webseitenadministrator mit der folgenden "
 "Information:"
+
+msgid "Pages"
+msgstr "Seiten"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -3030,9 +2694,6 @@ msgstr "Berichte"
 msgid "Yes"
 msgstr "Ja"
 
-msgid "No"
-msgstr "Nein"
-
 msgid "Choose an item"
 msgstr "Eintrag wählen"
 
@@ -3044,6 +2705,18 @@ msgstr "Auswahl zurücksetzen"
 
 msgid "Choose another page"
 msgstr "Andere Seite auswählen"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"Schlagwörter aus mehreren durch Leerzeichen getrennten Wörtern werden "
+"automatisch unter Anführungszeichen (\") gestellt."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+"Schlagwörter dürfen nur aus einzelnen Wörtern bestehen, es sind keine "
+"Leerzeichen erlaubt."
 
 msgid "Choose another task"
 msgstr "Eine andere Aufgabe auswählen"

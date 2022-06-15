@@ -1,0 +1,160 @@
+#
+# Translators:
+# Laszlo Molnar <lazlowmiller@gmail.com>, 2022
+# Istvan Farkas <istvan.farkas@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2022\n"
+"Language-Team: Hungarian (https://www.transifex.com/torchbox/teams/8009/"
+"hu/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add a comment"
+msgstr "Megjegyzés hozzáadása"
+
+msgid "Alt text"
+msgstr "Alt szöveg"
+
+msgid "Are you sure?"
+msgstr "Biztos benne?"
+
+msgid "Broken link"
+msgstr "Törött link"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Close"
+msgstr "Bezár"
+
+msgid "Comment"
+msgstr "Megjegyzés"
+
+msgid "Dashboard"
+msgstr "Műszerfal"
+
+msgid "Decorative image"
+msgstr "Dekoratív kép"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Delete error"
+msgstr "Hiba a törlés közben"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' szerkesztése"
+
+msgid "Edit your account"
+msgstr "Fiók szerkesztése"
+
+msgid "Focus comment"
+msgstr "Megjegyzés fókuszba állítása"
+
+msgid "Horizontal line"
+msgstr "Vízszintes vonal"
+
+msgid "Line break"
+msgstr "Sortörés"
+
+msgid "Loading…"
+msgstr "Betöltés..."
+
+msgid "Main menu"
+msgstr "Főmenü"
+
+msgid "Missing document"
+msgstr "Hiányzó dokumentum"
+
+msgid "More actions"
+msgstr "További akciók"
+
+msgid "No results"
+msgstr "Nincs találat"
+
+msgid "Page"
+msgstr "Oldal"
+
+msgid "Page explorer"
+msgstr "Intéző"
+
+msgid "Pages"
+msgstr "Oldalak"
+
+msgid "Redo"
+msgstr "Újra"
+
+msgid "Reload saved content"
+msgstr "Mentett tartalom újratöltése"
+
+msgid "Reload the page"
+msgstr "Oldal újratöltése"
+
+msgid "Reply"
+msgstr "Válasz"
+
+msgid "Resolve"
+msgstr "Megoldás"
+
+msgid "Retry"
+msgstr "Újra"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Save error"
+msgstr "Hiba a mentés közben"
+
+msgid "Save the page to add this comment"
+msgstr "Mentse el az oldalt a megjegyzés hozzáadásához"
+
+msgid "Save the page to save this comment"
+msgstr "Mentse el az oldalt a megjegyzés rögzítéséhez"
+
+msgid "Save the page to save this reply"
+msgstr "Mentse el az oldalt a válasz rögzítéséhez"
+
+msgid "Saving..."
+msgstr "Mentés..."
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "See all"
+msgstr "Összes megjelenítése"
+
+msgid "Server Error"
+msgstr "Szerverhiba"
+
+msgid "Show error"
+msgstr "Hiba megtekintése"
+
+msgid "Show latest content"
+msgstr "Legfrissebb tartalom megtekintése"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"A szerkesztő összeomlott. A tartalom vissza lett állítva az utolsó mentett "
+"verzióra."
+
+msgid "Toggle sidebar"
+msgstr "Oldalsáv kapcsolása"
+
+msgid "Undo"
+msgstr "Visszavonás"
+
+msgid "Unfocus comment"
+msgstr "Megjegyzés kivétele a fókuszból"
+
+msgid "View child pages of '{title}'"
+msgstr "'{title}' gyerekoldalainak megtekintése"
+
+msgid "Write here…"
+msgstr "Írjon ide..."

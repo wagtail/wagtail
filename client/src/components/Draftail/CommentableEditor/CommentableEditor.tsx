@@ -1,3 +1,4 @@
+import { gettext } from '../../../utils/gettext';
 import type { CommentApp } from '../../CommentApp/main';
 import type { Annotation } from '../../CommentApp/utils/annotation';
 import type { Comment } from '../../CommentApp/state/comments';
@@ -32,7 +33,6 @@ import React, {
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
-import { STRINGS } from '../../../config/wagtailConfig';
 import Icon from '../../Icon/Icon';
 
 const { isOptionKeyCommand } = KeyBindingUtil;
@@ -108,7 +108,7 @@ export class DraftailInlineAnnotation implements Annotation {
     return null;
   }
   getTab() {
-    return this.field.closest('section[data-tab]')?.getAttribute('data-tab');
+    return this.field.closest('[role="tabpanel"]')?.getAttribute('id');
   }
   getAnchorNode(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
@@ -204,9 +204,158 @@ function addNewComment(
   );
 }
 
+function styleIsComment(style: string | undefined): style is string {
+  return style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER);
+}
+
+function getIdForCommentStyle(style: string) {
+  return parseInt(style.slice(COMMENT_STYLE_IDENTIFIER.length), 10);
+}
+
+function getCommentPositions(editorState: EditorState) {
+  // Construct a map of comment id -> array of style ranges
+  const commentPositions = new Map();
+
+  editorState
+    .getCurrentContent()
+    .getBlocksAsArray()
+    .forEach((block) => {
+      const key = block.getKey();
+      block.findStyleRanges(
+        (metadata) => metadata.getStyle().some(styleIsComment),
+        (start, end) => {
+          block
+            .getInlineStyleAt(start)
+            .filter(styleIsComment)
+            .forEach((style) => {
+              // We have already filtered out any undefined styles, so cast here
+              const id = getIdForCommentStyle(style as string);
+              let existingPosition = commentPositions.get(id);
+              if (!existingPosition) {
+                existingPosition = [];
+              }
+              existingPosition.push({
+                key: key,
+                start: start,
+                end: end,
+              });
+              commentPositions.set(id, existingPosition);
+            });
+        },
+      );
+    });
+  return commentPositions;
+}
+
+function createFromBlockArrayOrPlaceholder(blockArray: ContentBlock[]) {
+  // This is needed due to (similar) https://github.com/facebook/draft-js/issues/1660
+  // Causing empty block arrays in an editorState to crash the editor
+  // It is fixed in later versions of draft-js (~11.3?), but this upgrade needs
+  // more evaluation for impact on Draftail/Commenting/other Wagtail usages
+  // TODO: upgrade Draft.js
+  if (blockArray.length > 0) {
+    return ContentState.createFromBlockArray(blockArray);
+  }
+  return ContentState.createFromText(' ');
+}
+
 interface ControlProps {
   getEditorState: () => EditorState;
+  // eslint-disable-next-line react/no-unused-prop-types
   onChange: (editorState: EditorState) => void;
+}
+
+export function splitState(editorState: EditorState) {
+  const selection = editorState.getSelection();
+  const anchorKey = selection.getAnchorKey();
+  const currentContent = editorState.getCurrentContent();
+
+  // In order to use Modifier.splitBlock, we need a collapsed selection
+  // otherwise we will lose highlighted text
+  const collapsedSelection = selection.isCollapsed()
+    ? selection
+    : new SelectionState({
+        anchorKey: selection.getStartKey(),
+        anchorOffset: selection.getStartOffset(),
+        focusKey: selection.getStartKey(),
+        focusOffset: selection.getStartOffset(),
+      });
+
+  const multipleBlockContent = Modifier.splitBlock(
+    currentContent,
+    collapsedSelection,
+  ).getBlocksAsArray();
+  const index = multipleBlockContent.findIndex(
+    (block) => block.getKey() === anchorKey,
+  );
+  const blocksBefore = multipleBlockContent.slice(0, index + 1);
+  const blocksAfter = multipleBlockContent.slice(index + 1);
+  const stateBefore = EditorState.push(
+    editorState,
+    createFromBlockArrayOrPlaceholder(blocksBefore),
+    'remove-range',
+  );
+  const stateAfter = EditorState.push(
+    editorState,
+    createFromBlockArrayOrPlaceholder(blocksAfter),
+    'remove-range',
+  );
+
+  const commentIdsToMove = new Set(getCommentPositions(stateAfter).keys());
+  return {
+    stateBefore,
+    stateAfter,
+    shouldMoveCommentFn: (comment: Comment) =>
+      commentIdsToMove.has(comment.localId),
+  };
+}
+
+export function getSplitControl(
+  splitFn: (
+    stateBefore: EditorState,
+    stateAfter: EditorState,
+    shouldMoveCommentFn: (comment: Comment) => boolean,
+  ) => void,
+  enabled = true,
+) {
+  const title = gettext('Split block');
+  const name = 'split';
+  const icon = <Icon name="cut" />;
+  if (!enabled) {
+    // Taken from https://github.com/springload/draftail/blob/main/lib/components/ToolbarButton.js#L65
+    // as it doesn't take the disabled prop
+    return () => (
+      <button
+        name={name}
+        className={'Draftail-ToolbarButton'}
+        type="button"
+        aria-label={title}
+        data-draftail-balloon={title}
+        tabIndex={-1}
+        disabled={true}
+      >
+        {icon}
+      </button>
+    );
+  }
+  return ({ getEditorState }: ControlProps) => (
+    <ToolbarButton
+      name={name}
+      active={false}
+      title={title}
+      icon={icon}
+      onClick={() => {
+        const result = splitState(getEditorState());
+        if (result) {
+          splitFn(
+            result.stateBefore,
+            result.stateAfter,
+            result.shouldMoveCommentFn,
+          );
+        }
+      }}
+    />
+  );
 }
 
 function getCommentControl(
@@ -219,7 +368,7 @@ function getCommentControl(
       <ToolbarButton
         name="comment"
         active={false}
-        title={`${STRINGS.ADD_A_COMMENT}\n${
+        title={`${gettext('Add a comment')}\n${
           IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
         }`}
         icon={
@@ -236,14 +385,6 @@ function getCommentControl(
       />
     </span>
   );
-}
-
-function styleIsComment(style: string | undefined): style is string {
-  return style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER);
-}
-
-function getIdForCommentStyle(style: string) {
-  return parseInt(style.slice(COMMENT_STYLE_IDENTIFIER.length), 10);
 }
 
 function findCommentStyleRanges(
@@ -287,37 +428,7 @@ export function updateCommentPositions({
   comments: Array<Comment>;
   commentApp: CommentApp;
 }) {
-  // Construct a map of comment id -> array of style ranges
-  const commentPositions = new Map();
-
-  editorState
-    .getCurrentContent()
-    .getBlocksAsArray()
-    .forEach((block) => {
-      const key = block.getKey();
-      block.findStyleRanges(
-        (metadata) => metadata.getStyle().some(styleIsComment),
-        (start, end) => {
-          block
-            .getInlineStyleAt(start)
-            .filter(styleIsComment)
-            .forEach((style) => {
-              // We have already filtered out any undefined styles, so cast here
-              const id = getIdForCommentStyle(style as string);
-              let existingPosition = commentPositions.get(id);
-              if (!existingPosition) {
-                existingPosition = [];
-              }
-              existingPosition.push({
-                key: key,
-                start: start,
-                end: end,
-              });
-              commentPositions.set(id, existingPosition);
-            });
-        },
-      );
-    });
+  const commentPositions = getCommentPositions(editorState);
 
   comments
     .filter((comment) => comment.annotation)
@@ -452,7 +563,7 @@ function getCommentDecorator(commentApp: CommentApp) {
         role="button"
         ref={annotationNode}
         onClick={onClick}
-        aria-label={STRINGS.FOCUS_COMMENT}
+        aria-label={gettext('Focus comment')}
         data-annotation
       >
         {children}

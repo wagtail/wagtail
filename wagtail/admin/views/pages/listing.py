@@ -96,7 +96,6 @@ def index(request, parent_page_id=None):
     context = {
         "parent_page": parent_page.specific,
         "ordering": ordering,
-        "pagination_query_params": "ordering=%s" % ordering,
         "pages": pages,
         "do_paginate": do_paginate,
         "locale": None,

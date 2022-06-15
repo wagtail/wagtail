@@ -20,6 +20,7 @@ from .models import (
     Publisher,
     RelatedLink,
     Token,
+    TranslatableBook,
     VenuePage,
     Visitor,
 )
@@ -84,6 +85,7 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     inspect_view_enabled = True
     inspect_view_fields_exclude = ("title",)
     thumb_image_field_name = "cover_image"
+    thumb_col_header_text = "The cover"
     search_handler_class = WagtailBackendSearchHandler
     prepopulated_fields = {"title": ("author",)}
 
@@ -95,6 +97,10 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
 
     def author_date_of_birth(self, obj):
         return obj.author.date_of_birth
+
+
+class TranslatableBookModelAdmin(ModelAdmin):
+    model = TranslatableBook
 
 
 class TokenModelAdmin(ModelAdmin):
@@ -142,6 +148,7 @@ class PersonAdmin(ModelAdmin):
 
 class FriendAdmin(ModelAdmin):
     model = Friend
+    base_url_path = "friendadmin"
 
 
 class VisitorAdmin(ModelAdmin):
@@ -193,6 +200,7 @@ class PageAdmin(ModelAdmin):
 
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
+modeladmin_register(TranslatableBookModelAdmin)
 modeladmin_register(TokenModelAdmin)
 modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)

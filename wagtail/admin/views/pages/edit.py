@@ -18,6 +18,7 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
+from wagtail.admin.side_panels import PageSidePanels
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
@@ -351,9 +352,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
 
         self.edit_handler = self.page_class.get_edit_handler()
-        self.edit_handler = self.edit_handler.bind_to(
-            instance=self.page, request=self.request
-        )
         self.form_class = self.edit_handler.get_form_class()
 
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
@@ -389,7 +387,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 )
 
             lock_message += format_html(
-                '<span class="buttons"><button class="button button-small button-secondary" data-locking-action="{}">{}</button></span>',
+                '<span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
                 reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
                 _("Unlock"),
             )
@@ -414,7 +412,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
             if self.page_perms.can_unlock():
                 lock_message += format_html(
-                    '<span class="buttons"><button class="button button-small button-secondary" data-locking-action="{}">{}</button></span>',
+                    '<span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
                     reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
                     _("Unlock"),
                 )
@@ -456,7 +454,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
         self.has_unsaved_changes = False
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
@@ -860,7 +857,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
         self.has_unsaved_changes = True
 
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
@@ -868,16 +864,25 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        bound_panel = self.edit_handler.get_bound_panel(
+            instance=self.page, request=self.request, form=self.form
+        )
+        action_menu = PageActionMenu(self.request, view="edit", page=self.page)
+        side_panels = PageSidePanels(
+            self.request,
+            self.page_for_status,
+            comments_enabled=self.form.show_comments_toggle,
+        )
+
         context.update(
             {
                 "page": self.page,
                 "page_for_status": self.page_for_status,
                 "content_type": self.page_content_type,
-                "edit_handler": self.edit_handler,
+                "edit_handler": bound_panel,
                 "errors_debug": self.errors_debug,
-                "action_menu": PageActionMenu(
-                    self.request, view="edit", page=self.page
-                ),
+                "action_menu": action_menu,
+                "side_panels": side_panels,
                 "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
@@ -891,6 +896,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True),
                 "locale": None,
                 "translations": [],
+                "media": bound_panel.media
+                + self.form.media
+                + action_menu.media
+                + side_panels.media,
             }
         )
 

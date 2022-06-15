@@ -84,9 +84,6 @@
     border-radius: 0 6px 6px 0;
     z-index: 0;
     position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     top: 1px;
     bottom: 0;
@@ -192,24 +189,22 @@ label.required:after {
     &:before,
     &:after {
       font-family: $font-wagtail-icons;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
       position: absolute;
-      top: 0.5em;
+      top: 0;
+      height: 100%;
       line-height: 100%;
       font-size: 2em;
-      color: $color-grey-3;
+      color: theme('colors.grey.200');
     }
 
     &:before {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: 0.3em;
       inset-inline-start: 0.3em;
     }
 
     &:after {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0.5em;
       inset-inline-end: 0.5em;
     }
   }
@@ -227,20 +222,13 @@ label.required:after {
       &:before,
       &:after {
         font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
-        top: 0.3em;
       }
 
       &:before {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        left: 0.5em;
         inset-inline-start: 0.5em;
       }
 
       &:after {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 0.5em;
         inset-inline-end: 0.5em;
       }
     }
@@ -284,7 +272,11 @@ label.required:after {
 .model_multiple_choice_field .input li,
 .checkbox_select_multiple .input li,
 .multiple_choice_field .input li,
-.choice_field .input li {
+.choice_field .input li,
+.model_multiple_choice_field .input > div > div,
+.checkbox_select_multiple .input > div > div,
+.multiple_choice_field .input > div > div,
+.choice_field .input > div > div {
   label {
     display: inline-flex;
     align-items: center;
@@ -482,23 +474,14 @@ li.inline:first-child {
     position: absolute;
     display: block;
     top: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
     inset-inline-end: 0;
     height: 100%;
     line-height: 100%;
 
     &--object {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 20px;
       inset-inline-end: 20px;
 
       @include media-breakpoint-up(lg) {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 350px;
         inset-inline-end: 350px;
       }
     }
@@ -513,15 +496,9 @@ li.inline:first-child {
       border-radius: 3px;
       position: absolute;
       top: 50%;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0;
       inset-inline-end: 0;
 
       @include media-breakpoint-up(sm) {
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 10px;
         inset-inline-end: 10px;
       }
 
@@ -530,9 +507,6 @@ li.inline:first-child {
         opacity: 0;
         pointer-events: none;
         transform: translateY(-50%);
-        // Remove once we drop support for Safari 13.
-        // stylelint-disable-next-line property-disallowed-list
-        right: 0;
         inset-inline-end: 0;
       }
 
@@ -568,6 +542,11 @@ li.inline:first-child {
           border: 1px solid;
         }
       }
+
+      .icon-comment {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
@@ -595,9 +574,6 @@ li.inline:first-child {
 
   .object.model_choice_field {
     .object-help {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 153px;
       inset-inline-end: 153px;
     }
   }

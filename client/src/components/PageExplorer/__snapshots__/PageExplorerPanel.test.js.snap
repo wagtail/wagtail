@@ -1,239 +1,324 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PageExplorerPanel general rendering #isError 1`] = `
-<Transition
-  className="c-page-explorer"
-  component="nav"
-  duration={210}
-  label="Page explorer"
-  name="push"
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  focusTrapOptions={
+    Object {
+      "allowOutsideClick": true,
+      "clickOutsideDeactivates": false,
+      "onDeactivate": [MockFunction],
+    }
+  }
+  paused={false}
 >
   <div
-    className="c-transition-group"
-    key="1"
+    aria-label="Page explorer"
+    role="dialog"
   >
-    <PageExplorerHeader
-      depth={1}
-      gotoPage={[MockFunction]}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "isError": true,
-          "meta": Object {
-            "parent": null,
-          },
-        }
-      }
-    />
-    <div
-      className="c-page-explorer__drawer"
+    <Transition
+      className="c-page-explorer"
+      component="div"
+      duration={210}
+      name="push"
     >
       <div
-        key="children"
-      />
-      <div
-        className="c-page-explorer__placeholder"
-        key="error"
+        className="c-transition-group"
+        key="1"
       >
-        Server Error
+        <PageExplorerHeader
+          depth={1}
+          gotoPage={[MockFunction]}
+          onClick={[Function]}
+          page={
+            Object {
+              "children": Object {
+                "items": Array [],
+              },
+              "isError": true,
+              "meta": Object {
+                "parent": null,
+              },
+            }
+          }
+        />
+        <div
+          className="c-page-explorer__drawer"
+        >
+          <div
+            key="children"
+          />
+          <div
+            className="c-page-explorer__placeholder"
+            key="error"
+          >
+            Server Error
+          </div>
+        </div>
+        <PageCount
+          page={
+            Object {
+              "children": Object {
+                "items": Array [],
+              },
+              "isError": true,
+              "meta": Object {
+                "parent": null,
+              },
+            }
+          }
+        />
       </div>
-    </div>
-    <PageCount
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "isError": true,
-          "meta": Object {
-            "parent": null,
-          },
-        }
-      }
-    />
+    </Transition>
   </div>
-</Transition>
+</FocusTrap>
 `;
 
 exports[`PageExplorerPanel general rendering #isFetching 1`] = `
-<Transition
-  className="c-page-explorer"
-  component="nav"
-  duration={210}
-  label="Page explorer"
-  name="push"
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  focusTrapOptions={
+    Object {
+      "allowOutsideClick": true,
+      "clickOutsideDeactivates": false,
+      "onDeactivate": [MockFunction],
+    }
+  }
+  paused={false}
 >
   <div
-    className="c-transition-group"
-    key="1"
+    aria-label="Page explorer"
+    role="dialog"
   >
-    <PageExplorerHeader
-      depth={1}
-      gotoPage={[MockFunction]}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "isFetching": true,
-          "meta": Object {
-            "parent": null,
-          },
-        }
-      }
-    />
-    <div
-      className="c-page-explorer__drawer"
+    <Transition
+      className="c-page-explorer"
+      component="div"
+      duration={210}
+      name="push"
     >
       <div
-        key="children"
-      />
-    </div>
+        className="c-transition-group"
+        key="1"
+      >
+        <PageExplorerHeader
+          depth={1}
+          gotoPage={[MockFunction]}
+          onClick={[Function]}
+          page={
+            Object {
+              "children": Object {
+                "items": Array [],
+              },
+              "isFetching": true,
+              "meta": Object {
+                "parent": null,
+              },
+            }
+          }
+        />
+        <div
+          className="c-page-explorer__drawer"
+        >
+          <div
+            key="children"
+          />
+        </div>
+      </div>
+    </Transition>
   </div>
-</Transition>
+</FocusTrap>
 `;
 
 exports[`PageExplorerPanel general rendering #items 1`] = `
-<Transition
-  className="c-page-explorer"
-  component="nav"
-  duration={210}
-  label="Page explorer"
-  name="push"
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  focusTrapOptions={
+    Object {
+      "allowOutsideClick": true,
+      "clickOutsideDeactivates": false,
+      "onDeactivate": [MockFunction],
+    }
+  }
+  paused={false}
 >
   <div
-    className="c-transition-group"
-    key="1"
+    aria-label="Page explorer"
+    role="dialog"
   >
-    <PageExplorerHeader
-      depth={1}
-      gotoPage={[MockFunction]}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [
-              1,
-              2,
-            ],
-          },
-        }
-      }
-    />
-    <div
-      className="c-page-explorer__drawer"
+    <Transition
+      className="c-page-explorer"
+      component="div"
+      duration={210}
+      name="push"
     >
       <div
-        key="children"
+        className="c-transition-group"
+        key="1"
       >
-        <PageExplorerItem
-          item={
+        <PageExplorerHeader
+          depth={1}
+          gotoPage={[MockFunction]}
+          onClick={[Function]}
+          page={
             Object {
-              "admin_display_title": "Test",
-              "id": 1,
-              "meta": Object {
-                "status": Object {},
-                "type": "test",
+              "children": Object {
+                "items": Array [
+                  1,
+                  2,
+                ],
               },
             }
           }
-          key="1"
-          onClick={[Function]}
         />
-        <PageExplorerItem
-          item={
-            Object {
-              "admin_display_title": "Foo",
-              "id": 2,
-              "meta": Object {
-                "status": Object {},
-                "type": "foo",
-              },
-            }
-          }
-          key="2"
-          onClick={[Function]}
-        />
+        <div
+          className="c-page-explorer__drawer"
+        >
+          <div
+            key="children"
+          >
+            <PageExplorerItem
+              item={
+                Object {
+                  "admin_display_title": "Test",
+                  "id": 1,
+                  "meta": Object {
+                    "status": Object {},
+                    "type": "test",
+                  },
+                }
+              }
+              key="1"
+              onClick={[Function]}
+            />
+            <PageExplorerItem
+              item={
+                Object {
+                  "admin_display_title": "Foo",
+                  "id": 2,
+                  "meta": Object {
+                    "status": Object {},
+                    "type": "foo",
+                  },
+                }
+              }
+              key="2"
+              onClick={[Function]}
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
-</Transition>
+</FocusTrap>
 `;
 
 exports[`PageExplorerPanel general rendering no children 1`] = `
-<Transition
-  className="c-page-explorer"
-  component="nav"
-  duration={210}
-  label="Page explorer"
-  name="push"
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  focusTrapOptions={
+    Object {
+      "allowOutsideClick": true,
+      "clickOutsideDeactivates": false,
+      "onDeactivate": [MockFunction],
+    }
+  }
+  paused={false}
 >
   <div
-    className="c-transition-group"
-    key="1"
+    aria-label="Page explorer"
+    role="dialog"
   >
-    <PageExplorerHeader
-      depth={1}
-      gotoPage={[MockFunction]}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {},
-        }
-      }
-    />
-    <div
-      className="c-page-explorer__drawer"
+    <Transition
+      className="c-page-explorer"
+      component="div"
+      duration={210}
+      name="push"
     >
       <div
-        className="c-page-explorer__placeholder"
-        key="empty"
+        className="c-transition-group"
+        key="1"
       >
-        No results
+        <PageExplorerHeader
+          depth={1}
+          gotoPage={[MockFunction]}
+          onClick={[Function]}
+          page={
+            Object {
+              "children": Object {},
+            }
+          }
+        />
+        <div
+          className="c-page-explorer__drawer"
+        >
+          <div
+            className="c-page-explorer__placeholder"
+            key="empty"
+          >
+            No results
+          </div>
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
-</Transition>
+</FocusTrap>
 `;
 
 exports[`PageExplorerPanel general rendering renders 1`] = `
-<Transition
-  className="c-page-explorer"
-  component="nav"
-  duration={210}
-  label="Page explorer"
-  name="push"
+<FocusTrap
+  _createFocusTrap={[Function]}
+  active={true}
+  focusTrapOptions={
+    Object {
+      "allowOutsideClick": true,
+      "clickOutsideDeactivates": false,
+      "onDeactivate": [MockFunction],
+    }
+  }
+  paused={false}
 >
   <div
-    className="c-transition-group"
-    key="1"
+    aria-label="Page explorer"
+    role="dialog"
   >
-    <PageExplorerHeader
-      depth={1}
-      gotoPage={[MockFunction]}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "meta": Object {
-            "parent": null,
-          },
-        }
-      }
-    />
-    <div
-      className="c-page-explorer__drawer"
+    <Transition
+      className="c-page-explorer"
+      component="div"
+      duration={210}
+      name="push"
     >
       <div
-        key="children"
-      />
-    </div>
+        className="c-transition-group"
+        key="1"
+      >
+        <PageExplorerHeader
+          depth={1}
+          gotoPage={[MockFunction]}
+          onClick={[Function]}
+          page={
+            Object {
+              "children": Object {
+                "items": Array [],
+              },
+              "meta": Object {
+                "parent": null,
+              },
+            }
+          }
+        />
+        <div
+          className="c-page-explorer__drawer"
+        >
+          <div
+            key="children"
+          />
+        </div>
+      </div>
+    </Transition>
   </div>
-</Transition>
+</FocusTrap>
 `;

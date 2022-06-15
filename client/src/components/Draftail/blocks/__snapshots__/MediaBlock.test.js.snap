@@ -32,7 +32,7 @@ exports[`MediaBlock on click tooltip opens 1`] = `
   <div
     class="Tooltip Tooltip--top-left"
     role="tooltip"
-    style="top: 0px; left: 0px; inset-inline-start: 0;"
+    style="top: 0px; inset-inline-start: 0;"
   >
     <div
       style="max-width: 300px;"

@@ -1,20 +1,9 @@
-import {
-  ADMIN_API,
-  STRINGS,
-  ADMIN_URLS,
-  MAX_EXPLORER_PAGES,
-} from './wagtailConfig';
+import { ADMIN_API, ADMIN_URLS, MAX_EXPLORER_PAGES } from './wagtailConfig';
 
 describe('wagtailConfig', () => {
   describe('ADMIN_API', () => {
     it('exists', () => {
       expect(ADMIN_API).toBeDefined();
-    });
-  });
-
-  describe('STRINGS', () => {
-    it('exists', () => {
-      expect(STRINGS).toBeDefined();
     });
   });
 

@@ -1,0 +1,147 @@
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2022
+# Naglis Jonaitis, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Naglis Jonaitis, 2022\n"
+"Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/"
+"lt/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Add a comment"
+msgstr "Pridėti komentarą"
+
+msgid "Alt text"
+msgstr "Alternatyvus tekstas"
+
+msgid "Are you sure?"
+msgstr "Ar esate tikri?"
+
+msgid "Broken link"
+msgstr "Neveikianti nuoroda"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "Close"
+msgstr "Uždaryti"
+
+msgid "Comment"
+msgstr "Komentaras"
+
+msgid "Dashboard"
+msgstr "Prietaisų skydas"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Delete error"
+msgstr "Klaida ištrinant"
+
+msgid "Deleting"
+msgstr "Ištrinama"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Edit '{title}'"
+msgstr "Redaguoti '{title}'"
+
+msgid "Edit your account"
+msgstr "Redaguoti savo vartotoją"
+
+msgid "Horizontal line"
+msgstr "Horizontali linija"
+
+msgid "Line break"
+msgstr "Lūžis"
+
+msgid "Loading…"
+msgstr "Kraunama..."
+
+msgid "Main menu"
+msgstr "Pagrindinis meniu"
+
+msgid "Missing document"
+msgstr "Trūkstamas dokumentas"
+
+msgid "More actions"
+msgstr "Daugiau veiksmų"
+
+msgid "No results"
+msgstr "Nėra rezultatų"
+
+msgid "Page"
+msgstr "Puslapis"
+
+msgid "Page explorer"
+msgstr "Puslapių naršyklė"
+
+msgid "Pages"
+msgstr "Puslapiai"
+
+msgid "Redo"
+msgstr "Atgrąžinti"
+
+msgid "Reload saved content"
+msgstr "Įkelti išsaugotą turinį iš naujo"
+
+msgid "Reload the page"
+msgstr "Įkelti puslapį iš naujo"
+
+msgid "Reply"
+msgstr "Atsakyti"
+
+msgid "Resolve"
+msgstr "Išspręsti"
+
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Save error"
+msgstr "Klaida išsaugant"
+
+msgid "Save the page to add this comment"
+msgstr "Komentaras bus pridėtas išsaugojus puslapį"
+
+msgid "Save the page to save this comment"
+msgstr "Komentaras bus išsaugotas išsaugojus puslapį"
+
+msgid "Save the page to save this reply"
+msgstr "Išsaugokite puslapį, jei norite išsaugoti šį atsakymą"
+
+msgid "Saving..."
+msgstr "Saugojama..."
+
+msgid "Search"
+msgstr "Ieškoti"
+
+msgid "See all"
+msgstr "Žiūrėti viską"
+
+msgid "Server Error"
+msgstr "Serverio klaida"
+
+msgid "Show error"
+msgstr "Rodyti klaidą"
+
+msgid "Show latest content"
+msgstr "Rodyti naujausią turinį"
+
+msgid "Split block"
+msgstr "Skaidyti bloką"
+
+msgid "Undo"
+msgstr "Anuliuoti"
+
+msgid "Write here…"
+msgstr "Rašyti čia..."

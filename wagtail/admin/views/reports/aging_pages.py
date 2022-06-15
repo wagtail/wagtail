@@ -33,6 +33,7 @@ class AgingPagesReportFilterSet(WagtailFilterSet):
 class AgingPagesView(PageReportView):
     template_name = "wagtailadmin/reports/aging_pages.html"
     title = _("Aging pages")
+    header_icon = "time"
     filterset_class = AgingPagesReportFilterSet
     export_headings = {
         "status_string": _("Status"),

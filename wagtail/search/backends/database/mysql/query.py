@@ -244,7 +244,7 @@ class MatchExpression(Expression):
         compiled_query = compiler.compile(self.query)  # Compile the query to a string
         formatted_query = compiled_query[0] % tuple(
             compiled_query[1]
-        )  # Subsitute the params in the query
+        )  # Substitute the params in the query
         column_list = ", ".join(
             ["`{}`".format(column) for column in self.columns]
         )  #  ['title', 'body'] becomes '`title`, `body`'

@@ -2,6 +2,7 @@ import warnings
 from collections import OrderedDict
 
 from django import forms
+from django.conf import settings
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
@@ -43,6 +44,8 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
+from wagtail.models import Locale, TranslatableMixin
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .forms import ParentChooserForm
 
@@ -159,17 +162,22 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_form(self):
         form = super().get_form()
-        self.edit_handler = self.edit_handler.bind_to(form=form)
         return form
 
     def get_edit_handler(self):
-        instance = self.get_instance()
-        edit_handler = self.model_admin.get_edit_handler(
-            instance=instance, request=self.request
-        )
-        return edit_handler.bind_to(
-            model=self.model_admin.model, request=self.request, instance=instance
-        )
+        try:
+            edit_handler = self.model_admin.get_edit_handler()
+        except TypeError:
+            edit_handler = self.model_admin.get_edit_handler(
+                instance=None, request=None
+            )
+            warnings.warn(
+                "%s.get_edit_handler should not accept instance or request arguments"
+                % type(self.model_admin).__name__,
+                category=RemovedInWagtail50Warning,
+            )
+
+        return edit_handler.bind_to_model(self.model_admin.model)
 
     def get_form_class(self):
         return self.edit_handler.get_form_class()
@@ -196,12 +204,17 @@ class ModelFormView(WMABaseView, FormView):
         if form is None:
             form = self.get_form()
 
+        bound_panel = self.edit_handler.get_bound_panel(
+            form=form, instance=form.instance, request=self.request
+        )
+
         prepopulated_fields = self.get_prepopulated_fields(form)
         context = {
             "is_multipart": form.is_multipart(),
-            "edit_handler": self.edit_handler,
+            "edit_handler": bound_panel,
             "form": form,
             "prepopulated_fields": prepopulated_fields,
+            "media": self.media + bound_panel.media + form.media,
         }
         context.update(kwargs)
         return super().get_context_data(**context)
@@ -265,6 +278,7 @@ class InstanceSpecificView(WMABaseView):
     instance_pk = None
     pk_quoted = None
     instance = None
+    locale = None
 
     def __init__(self, model_admin, instance_pk):
         super().__init__(model_admin)
@@ -276,6 +290,11 @@ class InstanceSpecificView(WMABaseView):
             **filter_kwargs
         )
         self.instance = get_object_or_404(object_qs)
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            model_admin.model, TranslatableMixin
+        ):
+            self.locale = self.instance.locale
 
     def get_page_subtitle(self):
         return self.instance
@@ -738,6 +757,29 @@ class CreateView(ModelFormView):
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
             return redirect(self.url_helper.get_action_url("choose_parent"))
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                locale = get_object_or_404(Locale, language_code=selected_locale)
+            else:
+                locale = Locale.get_default()
+
+            kwargs.update(
+                {
+                    "locale": locale,
+                    "translations": [
+                        {
+                            "locale": locale,
+                            "url": self.create_url + "?locale=" + locale.language_code,
+                        }
+                        for locale in Locale.objects.all().exclude(id=locale.id)
+                    ],
+                }
+            )
+
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -754,6 +796,20 @@ class CreateView(ModelFormView):
     def get_template_names(self):
         return self.model_admin.get_create_template()
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                kwargs["instance"].locale = get_object_or_404(
+                    Locale, language_code=selected_locale
+                )
+
+        return kwargs
+
 
 class EditView(ModelFormView, InstanceSpecificView):
     page_title = gettext_lazy("Editing")
@@ -765,6 +821,30 @@ class EditView(ModelFormView, InstanceSpecificView):
     def dispatch(self, request, *args, **kwargs):
         if self.is_pagemodel:
             return redirect(self.url_helper.get_action_url("edit", self.pk_quoted))
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            translations = []
+            for translation in self.instance.get_translations().select_related(
+                "locale"
+            ):
+                locale = translation.locale
+                url = (
+                    self.url_helper.get_action_url("edit", translation.pk)
+                    + "?locale="
+                    + locale.language_code
+                )
+                translations.append({"locale": locale, "url": url})
+
+            if translations:
+                kwargs.update(
+                    {
+                        "locale": self.locale,
+                        "translations": translations,
+                    }
+                )
+
         return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
@@ -923,6 +1003,32 @@ class InspectView(InstanceSpecificView):
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_inspect_obj(user, self.instance)
+
+    def dispatch(self, request, *args, **kwargs):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model_admin.model, TranslatableMixin
+        ):
+            translations = []
+            for translation in self.instance.get_translations().select_related(
+                "locale"
+            ):
+                locale = translation.locale
+                url = (
+                    self.url_helper.get_action_url("inspect", translation.pk)
+                    + "?locale="
+                    + locale.language_code
+                )
+                translations.append({"locale": locale, "url": url})
+
+            if translations:
+                kwargs.update(
+                    {
+                        "locale": self.locale,
+                        "translations": translations,
+                    }
+                )
+
+        return super().dispatch(request, *args, **kwargs)
 
     @property
     def media(self):

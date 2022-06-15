@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrej, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: Andrej, 2022\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail Namizni blok"
+
+msgid "Row header"
+msgstr "Naslov vrstice"
+
+msgid "Display the first row as a header."
+msgstr "Prikaži prvo vrstico kot glavo."
+
+msgid "Column header"
+msgstr "Glava stolpca"
+
+msgid "Display the first column as a header."
+msgstr "Prikaži prvi stolpec kot glavo."
+
+msgid "Table caption"
+msgstr "Napis tabele"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Naslov, ki opredeljuje celotno temo tabele in je uporaben za uporabnike "
+"bralnika zaslona"
+
+msgid "Table"
+msgstr "Tabela"

@@ -5,15 +5,18 @@ import time
 from collections import OrderedDict
 from contextlib import contextmanager
 from io import BytesIO
+from typing import Union
 
 from django.conf import settings
 from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
+from django.core.files.storage import default_storage
 from django.db import models
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
@@ -22,7 +25,10 @@ from willow.image import Image as WillowImage
 from wagtail import hooks
 from wagtail.admin.models import get_object_usage
 from wagtail.coreutils import string_to_ascii
-from wagtail.images.exceptions import InvalidFilterSpecError
+from wagtail.images.exceptions import (
+    InvalidFilterSpecError,
+    UnknownOutputImageFormatError,
+)
 from wagtail.images.image_operations import (
     FilterOperation,
     ImageTransform,
@@ -36,6 +42,14 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 logger = logging.getLogger("wagtail.images")
 
 
+IMAGE_FORMAT_EXTENSIONS = {
+    "jpeg": ".jpg",
+    "png": ".png",
+    "gif": ".gif",
+    "webp": ".webp",
+}
+
+
 class SourceImageIOError(IOError):
     """
     Custom exception to distinguish IOErrors that were thrown while opening the source image
@@ -45,7 +59,29 @@ class SourceImageIOError(IOError):
 
 
 class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
-    pass
+    def prefetch_renditions(self, *filters):
+        """
+        Prefetches generated renditions for the given filters.
+        Returns all renditions when no filters are provided.
+        """
+        rendition_model = self.model.get_rendition_model()
+        queryset = rendition_model.objects.all()
+
+        if filters:
+            # Get a list of filter spec strings. The given value could contain Filter objects
+            filter_specs = [
+                filter.spec if isinstance(filter, Filter) else filter
+                for filter in filters
+            ]
+            queryset = queryset.filter(filter_spec__in=filter_specs)
+
+        return self.prefetch_related(
+            models.Prefetch(
+                "renditions",
+                queryset=queryset,
+                to_attr="prefetched_renditions",
+            )
+        )
 
 
 def get_upload_to(instance, filename):
@@ -68,6 +104,21 @@ def get_rendition_upload_to(instance, filename):
     subclasses can override it.
     """
     return instance.get_upload_to(filename)
+
+
+def get_rendition_storage():
+    """
+    Obtain the storage object for an image rendition file.
+    Returns custom storage (if defined), or the default storage.
+
+    This needs to be a module-level function, because we do not yet
+    have an instance when Django loads the models.
+    """
+    storage = getattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", default_storage)
+    if isinstance(storage, str):
+        module = import_string(storage)
+        storage = module()
+    return storage
 
 
 class ImageFileMixin:
@@ -167,7 +218,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
     # A SHA-1 hash of the file contents
-    file_hash = models.CharField(max_length=40, blank=True, editable=False)
+    file_hash = models.CharField(
+        max_length=40, blank=True, editable=False, db_index=True
+    )
 
     objects = ImageQuerySet.as_manager()
 
@@ -187,7 +240,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         folder_name = "original_images"
         filename = self.file.field.storage.get_valid_name(filename)
 
-        # do a unidecode in the filename and then
+        # convert the filename to simple ascii characters and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
         filename = "".join(
             (i if ord(i) < 128 else "_") for i in string_to_ascii(filename)
@@ -300,93 +353,173 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         """Get the Rendition model for this Image model"""
         return cls.renditions.rel.related_model
 
-    def get_rendition(self, filter):
+    def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
+        """
+        Returns a ``Rendition`` instance with a ``file`` field value (an
+        image) reflecting the supplied ``filter`` value and focal point values
+        from this object.
+
+        Note: If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
         if isinstance(filter, str):
             filter = Filter(spec=filter)
 
-        cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
 
         try:
-            rendition_caching = True
+            rendition = self.find_existing_rendition(filter)
+        except Rendition.DoesNotExist:
+            rendition = self.create_rendition(filter)
+            # Reuse this rendition if requested again from this object
+            if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
+                self._prefetched_objects_cache["renditions"]._result_cache.append(
+                    rendition
+                )
+            elif hasattr(self, "prefetched_renditions"):
+                self.prefetched_renditions.append(rendition)
+
+        try:
             cache = caches["renditions"]
-            rendition_cache_key = Rendition.construct_cache_key(
-                self.id, cache_key, filter.spec
+            key = Rendition.construct_cache_key(
+                self.id, filter.get_cache_key(self), filter.spec
             )
-            cached_rendition = cache.get(rendition_cache_key)
+            cache.set(key, rendition)
+        except InvalidCacheBackendError:
+            pass
+
+        return rendition
+
+    def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
+        """
+        Returns an existing ``Rendition`` instance with a ``file`` field value
+        (an image) reflecting the supplied ``filter`` value and focal point
+        values from this object.
+
+        If no such rendition exists, a ``DoesNotExist`` error is raised for the
+        relevant model.
+
+        Note: If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
+
+        Rendition = self.get_rendition_model()
+        cache_key = filter.get_cache_key(self)
+
+        # Interrogate prefetched values first (if available)
+        if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
+            prefetched_renditions = self.renditions.all()
+        else:
+            prefetched_renditions = getattr(self, "prefetched_renditions", None)
+
+        if prefetched_renditions is not None:
+            for rendition in prefetched_renditions:
+                if (
+                    rendition.filter_spec == filter.spec
+                    and rendition.focal_point_key == cache_key
+                ):
+                    return rendition
+
+            # If renditions were prefetched, assume that if a suitable match
+            # existed, it would have been present and already returned above
+            # (avoiding further cache/db lookups)
+            raise Rendition.DoesNotExist
+
+        # Next, query the cache (if configured)
+        try:
+            cache = caches["renditions"]
+            key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
+            cached_rendition = cache.get(key)
             if cached_rendition:
                 return cached_rendition
         except InvalidCacheBackendError:
-            rendition_caching = False
+            pass
+
+        # Resort to a get() lookup
+        return self.renditions.get(filter_spec=filter.spec, focal_point_key=cache_key)
+
+    def create_rendition(self, filter: "Filter") -> "AbstractRendition":
+        """
+        Creates and returns a ``Rendition`` instance with a ``file`` field
+        value (an image) reflecting the supplied ``filter`` value and focal
+        point values from this object.
+
+        This method is usually called by ``Image.get_rendition()``, after first
+        checking that a suitable rendition does not already exist.
+
+        Note: If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
+        # Because of unique constraints applied to the model, we use
+        # get_or_create() to guard against race conditions
+        rendition, created = self.renditions.get_or_create(
+            filter_spec=filter.spec,
+            focal_point_key=filter.get_cache_key(self),
+            defaults={"file": self.generate_rendition_file(filter)},
+        )
+        return rendition
+
+    def generate_rendition_file(self, filter: "Filter") -> File:
+        """
+        Generates an in-memory image matching the supplied ``filter`` value
+        and focal point value from this object, wraps it in a ``File`` object
+        with a suitable filename, and returns it. The return value is used
+        as the ``file`` field value for rendition objects saved by
+        ``AbstractImage.create_rendition()``.
+
+        NOTE: The responsibility of generating the new image from the original
+        falls to the supplied ``filter`` object. If you want to do anything
+        custom with rendition images (for example, to preserve metadata from
+        the original image), you might want to consider swapping out ``filter``
+        for an instance of a custom ``Filter`` subclass of your design.
+        """
+
+        cache_key = filter.get_cache_key(self)
+
+        logger.debug(
+            "Generating '%s' rendition for image %d",
+            filter.spec,
+            self.pk,
+        )
+
+        start_time = time.time()
 
         try:
-            rendition = self.renditions.get(
-                filter_spec=filter.spec,
-                focal_point_key=cache_key,
+            generated_image = filter.run(self, BytesIO())
+
+            logger.debug(
+                "Generated '%s' rendition for image %d in %.1fms",
+                filter.spec,
+                self.pk,
+                (time.time() - start_time) * 1000,
             )
-        except Rendition.DoesNotExist:
-            # Generate the rendition image
-            try:
-                logger.debug(
-                    "Generating '%s' rendition for image %d",
-                    filter.spec,
-                    self.pk,
-                )
-
-                start_time = time.time()
-                generated_image = filter.run(self, BytesIO())
-
-                logger.debug(
-                    "Generated '%s' rendition for image %d in %.1fms",
-                    filter.spec,
-                    self.pk,
-                    (time.time() - start_time) * 1000,
-                )
-            except:  # noqa:B901,E722
-                logger.debug(
-                    "Failed to generate '%s' rendition for image %d",
-                    filter.spec,
-                    self.pk,
-                )
-                raise
-
-            # Generate filename
-            input_filename = os.path.basename(self.file.name)
-            input_filename_without_extension, input_extension = os.path.splitext(
-                input_filename
+        except:  # noqa:B901,E722
+            logger.debug(
+                "Failed to generate '%s' rendition for image %d",
+                filter.spec,
+                self.pk,
             )
+            raise
 
-            # A mapping of image formats to extensions
-            FORMAT_EXTENSIONS = {
-                "jpeg": ".jpg",
-                "png": ".png",
-                "gif": ".gif",
-                "webp": ".webp",
-            }
+        # Generate filename
+        input_filename = os.path.basename(self.file.name)
+        input_filename_without_extension, input_extension = os.path.splitext(
+            input_filename
+        )
+        output_extension = (
+            filter.spec.replace("|", ".")
+            + IMAGE_FORMAT_EXTENSIONS[generated_image.format_name]
+        )
+        if cache_key:
+            output_extension = cache_key + "." + output_extension
 
-            output_extension = (
-                filter.spec.replace("|", ".")
-                + FORMAT_EXTENSIONS[generated_image.format_name]
-            )
-            if cache_key:
-                output_extension = cache_key + "." + output_extension
+        # Truncate filename to prevent it going over 60 chars
+        output_filename_without_extension = input_filename_without_extension[
+            : (59 - len(output_extension))
+        ]
+        output_filename = output_filename_without_extension + "." + output_extension
 
-            # Truncate filename to prevent it going over 60 chars
-            output_filename_without_extension = input_filename_without_extension[
-                : (59 - len(output_extension))
-            ]
-            output_filename = output_filename_without_extension + "." + output_extension
-
-            rendition, created = self.renditions.get_or_create(
-                filter_spec=filter.spec,
-                focal_point_key=cache_key,
-                defaults={"file": File(generated_image.f, name=output_filename)},
-            )
-
-        if rendition_caching:
-            cache.set(rendition_cache_key, rendition)
-
-        return rendition
+        return File(generated_image.f, name=output_filename)
 
     def is_portrait(self):
         return self.width < self.height
@@ -576,6 +709,9 @@ class Filter:
                     quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 85)
 
                 return willow.save_as_webp(output, quality=quality)
+            raise UnknownOutputImageFormatError(
+                f"Unknown output image format '{output_format}'"
+            )
 
     def get_cache_key(self, image):
         vary_parts = []
@@ -597,7 +733,10 @@ class Filter:
 class AbstractRendition(ImageFileMixin, models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(
-        upload_to=get_rendition_upload_to, width_field="width", height_field="height"
+        upload_to=get_rendition_upload_to,
+        storage=get_rendition_storage,
+        width_field="width",
+        height_field="height",
     )
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -638,8 +777,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
     @property
     def full_url(self):
         url = self.url
-        if hasattr(settings, "BASE_URL") and url.startswith("/"):
-            url = settings.BASE_URL + url
+        if hasattr(settings, "WAGTAILADMIN_BASE_URL") and url.startswith("/"):
+            url = settings.WAGTAILADMIN_BASE_URL + url
         return url
 
     @property

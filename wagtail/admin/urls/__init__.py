@@ -7,6 +7,7 @@ from django.urls import include, path, re_path
 from django.views.decorators.cache import never_cache
 from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
+from django.views.i18n import JavaScriptCatalog
 
 from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
@@ -22,7 +23,7 @@ from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 urlpatterns = [
-    path("", home.home, name="wagtailadmin_home"),
+    path("", home.HomeView.as_view(), name="wagtailadmin_home"),
     path("test404/", TemplateView.as_view(template_name="wagtailadmin/404.html")),
     path("api/", include(api_urls)),
     path("failwhale/", home.error_test, name="wagtailadmin_error_test"),
@@ -83,6 +84,11 @@ urlpatterns = [
     ),
     path("account/", account.account, name="wagtailadmin_account"),
     path("logout/", account.LogoutView.as_view(), name="wagtailadmin_logout"),
+    path(
+        "jsi18n/",
+        JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
+        name="wagtailadmin_javascript_catalog",
+    ),
 ]
 
 
@@ -134,14 +140,14 @@ urlpatterns += [
 # This must be the last URL in this file!
 
 if settings.APPEND_SLASH:
-    # Only catch unrecognized patterns with a trailing slash
+    # Only catch unrecognised patterns with a trailing slash
     # and let CommonMiddleware handle adding a slash to every other pattern
     urlpatterns += [
         re_path(r"^.*/$", home.default),
     ]
 
 else:
-    # Catch all unrecognized patterns
+    # Catch all unrecognised patterns
     urlpatterns += [
         re_path(r"^", home.default),
     ]

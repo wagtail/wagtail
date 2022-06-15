@@ -30,6 +30,24 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
       // Set alt="" on the image so its src is not read out loud to screen reader users.
       var $holderImage = $('img', jcropapi.ui.holder);
       $holderImage.attr('alt', '');
+
+      const labelContent = focalPointOriginal.label;
+      if (!labelContent) return;
+      // Create a label tag for the input for accessibility.
+
+      // set the id on the input
+      const id = 'jcrop-holder-input';
+      var $holderInput = $('input', jcropapi.ui.holder);
+      $holderInput.attr('id', id);
+
+      // create a label that references the id
+
+      const label = document.createElement('label');
+      label.setAttribute('for', id);
+      label.classList.add('visuallyhidden');
+      label.innerHTML = labelContent;
+      var holder = document.getElementsByClassName('jcrop-holder');
+      holder[0].prepend(label);
     },
   );
 }
@@ -45,6 +63,7 @@ $(function () {
   };
 
   var focalPointOriginal = {
+    label: $chooser.data('focalInputLabel'),
     x: $chooser.data('focalPointX'),
     y: $chooser.data('focalPointY'),
     width: $chooser.data('focalPointWidth'),

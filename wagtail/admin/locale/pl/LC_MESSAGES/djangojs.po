@@ -1,0 +1,157 @@
+#
+# Translators:
+# Łukasz Bołdys (Lukasz Boldys), 2022
+# Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2022
+# Mateusz <undefined5102@gmail.com>, 2022
+# Miłosz Miśkiewicz, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Miłosz Miśkiewicz, 2022\n"
+"Language-Team: Polish (https://www.transifex.com/torchbox/teams/8009/pl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Add a comment"
+msgstr "Dodaj komentarz"
+
+msgid "Alt text"
+msgstr "Tekst alternatywny"
+
+msgid "Are you sure?"
+msgstr "Czy jesteś pewny?"
+
+msgid "Broken link"
+msgstr "Zepsuty link"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "Comment"
+msgstr "Komentarz"
+
+msgid "Dashboard"
+msgstr "Kokpit"
+
+msgid "Decorative image"
+msgstr "Obrazek dekoracyjny"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Delete error"
+msgstr "Błąd usuwania"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit '{title}'"
+msgstr "Edytuj '{title}'"
+
+msgid "Edit your account"
+msgstr "Edytuj swoje konto"
+
+msgid "Focus comment"
+msgstr "Wyróżnij komentarz"
+
+msgid "Horizontal line"
+msgstr "Linia pozioma"
+
+msgid "Line break"
+msgstr "Nowa linia"
+
+msgid "Loading…"
+msgstr "Wczytywanie..."
+
+msgid "Missing document"
+msgstr "Brakujący dokument"
+
+msgid "More actions"
+msgstr "Więcej akcji"
+
+msgid "No results"
+msgstr "Brak wyników"
+
+msgid "Page"
+msgstr "Strona"
+
+msgid "Page explorer"
+msgstr "Przeglądarka stron"
+
+msgid "Pages"
+msgstr "Strony"
+
+msgid "Redo"
+msgstr "Ponów"
+
+msgid "Reload saved content"
+msgstr "Odśwież zapisaną zawartość"
+
+msgid "Reload the page"
+msgstr "Odśwież stronę"
+
+msgid "Reply"
+msgstr "Odpowiedz"
+
+msgid "Resolve"
+msgstr "Rozwiąż"
+
+msgid "Retry"
+msgstr "Ponów"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Save error"
+msgstr "Błąd zapisu"
+
+msgid "Save the page to add this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this reply"
+msgstr "Zapisz stronę aby zapisać odpowiedź"
+
+msgid "Saving..."
+msgstr "Zapisywanie..."
+
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "See all"
+msgstr "Zobacz wszystkie"
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Show error"
+msgstr "Pokaż błąd"
+
+msgid "Show latest content"
+msgstr "Pokaż ostatnią zawartość"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
+"wersji."
+
+msgid "Undo"
+msgstr "Cofnij"
+
+msgid "Unfocus comment"
+msgstr "Usuń wyróżnienie komentarza"
+
+msgid "View child pages of '{title}'"
+msgstr "Wyświetl podstrony dla '{title}'"
+
+msgid "Write here…"
+msgstr "Pisz tutaj..."

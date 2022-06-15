@@ -6,7 +6,7 @@ from wagtail.admin.panels import (
     ObjectList,
     TabbedInterface,
 )
-from wagtail.models import Page
+from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
 
 
@@ -50,6 +50,23 @@ class Book(models.Model, index.Indexed):
 class SoloBook(models.Model):
     author = models.OneToOneField(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
+class TranslatableBook(TranslatableMixin, models.Model, index.Indexed):
+    author = models.ForeignKey(Author, on_delete=models.PROTECT)
+    title = models.CharField(max_length=255)
+    cover_image = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    search_fields = [
+        index.SearchField("title"),
+        index.FilterField("title"),
+        index.FilterField("id"),
+    ]
 
     def __str__(self):
         return self.title

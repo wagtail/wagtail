@@ -4,7 +4,7 @@
 
 REFERENCE
 
-  * We organize our styles based on a combination of ITCSS and
+  * We organise our styles based on a combination of ITCSS and
     the Sass 7-1 pattern.
   * Classes should be written using BEM, which we modify to include a prefix.
   * Every BEM block should have its own file.
@@ -41,14 +41,11 @@ OTHER PREFIXES
 
 ==============================================================================*/
 
-/* TAILWIND BASE
-These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
-Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
-https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
-*/
-
-@tailwind base;
-@tailwind components;
+/* Legacy vendor styles. Do not add new styles here. */
+@use 'generic/normalize';
+@use 'vendor/jquery-ui-1.10.3.verdant';
+@use 'vendor/jquery.tagit' as tagit;
+@use 'vendor/jquery.Jcrop.min' as jcrop;
 
 /* SETTINGS
 These are variables, maps, and fonts.
@@ -76,6 +73,11 @@ These are base styles for bare HTML elements.
 * Changes to them should be very rare.
 */
 
+// These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
+// Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
+// https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+@tailwind base;
+@tailwind components;
 @import 'elements/elements';
 @import 'elements/typography';
 @import 'elements/forms';
@@ -100,12 +102,13 @@ These are classes for components.
 @import '../src/components/Transition/Transition';
 @import '../src/components/LoadingSpinner/LoadingSpinner';
 @import '../src/components/PublicationStatus/PublicationStatus';
-@import '../src/components/Explorer/Explorer';
+@import '../src/components/PageExplorer/PageExplorer';
 @import '../src/components/CommentApp/main';
 
 // Legacy
 @import 'components/icons';
 @import 'components/tabs';
+@import 'components/dialog';
 @import 'components/dropdown';
 @import 'components/dropdown.legacy';
 @import 'components/help-block';
@@ -120,9 +123,7 @@ These are classes for components.
 @import 'components/messages.status';
 @import 'components/header';
 @import 'components/progressbar';
-@import 'components/main-nav';
 @import 'components/tooltips';
-@import 'components/logo';
 @import 'components/grid.legacy';
 @import 'components/breadcrumb';
 @import 'components/footer';
@@ -135,10 +136,11 @@ These are classes for components.
 @import 'components/button-select';
 @import 'components/skiplink';
 @import 'components/workflow-tasks';
+@import 'components/workflow-timeline';
 @import 'components/switch';
-@import 'components/comments-controls';
-@import 'components/comments-notification-dropdown';
 @import 'components/bulk_actions';
+
+@import '../src/components/Sidebar/Sidebar';
 
 /* OVERRIDES
 These are classes that provide overrides.
@@ -148,9 +150,9 @@ These are classes that provide overrides.
 // VENDOR: overrides of vendor styles.
 @import 'overrides/vendor.datetimepicker';
 @import 'overrides/vendor.tagit';
+@import 'overrides/vendor.tippy';
 
 // UTILITIES: classes that do one simple thing.
-@import 'overrides/utilities.hidden';
 @import 'overrides/utilities.dropdowns';
 @import 'overrides/utilities.focus';
 @import 'overrides/utilities.visuallyhidden';
@@ -160,3 +162,23 @@ These are classes that provide overrides.
 
 // TAILWIND: This is at the bottom so it can take precedence over other css classes
 @tailwind utilities;
+
+/* Legacy layout-specific styles. Do not add new styles here. */
+
+@import 'layouts/404';
+@import 'layouts/compare-revisions';
+@import 'layouts/home';
+@import 'layouts/page-editor';
+@import 'layouts/login';
+@import 'layouts/account';
+@import 'layouts/workflow-edit';
+@import 'layouts/workflow-progress';
+@import 'layouts/report';
+@import 'layouts/groups-edit';
+@import 'layouts/add-multiple';
+@import 'layouts/chooser-duplicate-upload';
+@import 'layouts/focal-point-chooser';
+@import 'layouts/modeladmin';
+@import 'layouts/modeladmin-choose-parent-page';
+@import 'layouts/redirects';
+@import 'layouts/listing';

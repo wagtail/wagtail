@@ -2,8 +2,6 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block extra_rows %}
-    {% url 'wagtailsnippets:history' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote as history_url %}
-
     {% if latest_log_entry %}
         <div class="row last-updated">
             <ul>

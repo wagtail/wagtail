@@ -1,0 +1,167 @@
+#
+# Translators:
+# Eetu Häivälä, 2022
+# Aarni Koskela, 2022
+# Valter Maasalo <vmaasalo@gmail.com>, 2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2022\n"
+"Language-Team: Finnish (https://www.transifex.com/torchbox/teams/8009/fi/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add a comment"
+msgstr "Lisää kommentti"
+
+msgid "Alt text"
+msgstr "Vaihtoehtoinen teksti"
+
+msgid "Are you sure?"
+msgstr "Oletko varma?"
+
+msgid "Broken link"
+msgstr "Särkynyt linkki"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid "Comment"
+msgstr "Kommentti"
+
+msgid "Dashboard"
+msgstr "Kojelauta"
+
+msgid "Decorative image"
+msgstr "Koristeellinen kuva"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Delete error"
+msgstr "Poistamisvirhe"
+
+msgid "Deleting"
+msgstr "Poistetaan"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit '{title}'"
+msgstr "Muokkaa '{title}'"
+
+msgid "Edit your account"
+msgstr "Muokkaa tiliäsi"
+
+msgid "Focus comment"
+msgstr "Kohdista kommentti"
+
+msgid "Horizontal line"
+msgstr "Vaakaviiva"
+
+msgid "Line break"
+msgstr "Rivinvaihto"
+
+msgid "Loading…"
+msgstr "Ladataan…"
+
+msgid "Main menu"
+msgstr "Päävalikko"
+
+msgid "Missing document"
+msgstr "Puuttuva asiakirja"
+
+msgid "More actions"
+msgstr "Lisää toimintoja"
+
+msgid "No results"
+msgstr "Ei tuloksia"
+
+msgid "Page"
+msgstr "Sivu"
+
+msgid "Page explorer"
+msgstr "Sivuselain"
+
+msgid "Pages"
+msgstr "Sivut"
+
+msgid "Redo"
+msgstr "Tee uudestaan"
+
+msgid "Reload saved content"
+msgstr "Lataa tallennettu sisältö"
+
+msgid "Reload the page"
+msgstr "Lataa sivu uudestaan"
+
+msgid "Reply"
+msgstr "Vastaa"
+
+msgid "Resolve"
+msgstr "Selvitä"
+
+msgid "Retry"
+msgstr "Yritä uudelleen"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Save error"
+msgstr "Tallennusvirhe"
+
+msgid "Save the page to add this comment"
+msgstr "Tallenna sivu lisätäksesi tämän kommentin"
+
+msgid "Save the page to save this comment"
+msgstr "Tallenna sivu tallentaaksesi tämän kommentin"
+
+msgid "Save the page to save this reply"
+msgstr "Tallenna sivu tallentaaksesi tämän vastauksen"
+
+msgid "Saving..."
+msgstr "Tallennetaan..."
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "See all"
+msgstr "Katso kaikki"
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Show error"
+msgstr "Näytä virheilmoitus"
+
+msgid "Show latest content"
+msgstr "Näytä viimeisin sisältö"
+
+msgid "Split block"
+msgstr "Jaa lohko"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
+"tallennettu versio. "
+
+msgid "Toggle sidebar"
+msgstr "Sivupalkki päälle/pois"
+
+msgid "Undo"
+msgstr "Kumoa"
+
+msgid "Unfocus comment"
+msgstr "Poista kommentin kohdistus"
+
+msgid "View child pages of '{title}'"
+msgstr "Näytä sivun '{title}' alasivut"
+
+msgid "Write here…"
+msgstr "Kirjoita tähän…"

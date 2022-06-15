@@ -1,5 +1,8 @@
 import os.path
 
+from django.template.loader import render_to_string
+from django.urls import reverse
+
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import (
     CreateFromUploadView as BaseCreateFromUploadView,
@@ -13,12 +16,13 @@ from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
 from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.models import UploadedImage
-from wagtail.images.permissions import permission_policy
+from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
+from wagtail.images.utils import find_image_duplicates
 from wagtail.search.backends import get_search_backends
 
 
 class AddView(BaseAddView):
-    permission_policy = permission_policy
+    permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
     upload_model = UploadedImage
 
@@ -42,6 +46,37 @@ class AddView(BaseAddView):
 
     def get_edit_form_class(self):
         return get_image_multi_form(self.model)
+
+    def get_confirm_duplicate_upload_response(self, duplicates):
+        return render_to_string(
+            "wagtailimages/images/confirm_duplicate_upload.html",
+            {
+                "existing_image": duplicates[0],
+                "delete_action": reverse(
+                    self.delete_object_url_name, args=(self.object.id,)
+                ),
+            },
+            request=self.request,
+        )
+
+    def get_edit_object_response_data(self):
+        data = super().get_edit_object_response_data()
+        duplicates = find_image_duplicates(
+            image=self.object,
+            user=self.request.user,
+            permission_policy=self.permission_policy,
+        )
+        if not duplicates:
+            data.update(duplicate=False)
+        else:
+            data.update(
+                duplicate=True,
+                confirm_duplicate_upload=self.get_confirm_duplicate_upload_response(
+                    duplicates
+                ),
+            )
+
+        return data
 
     def save_object(self, form):
         image = form.save(commit=False)

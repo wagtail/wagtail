@@ -31,6 +31,8 @@ module.exports = function exports(env, argv) {
 
   const entrypoints = {
     'admin': [
+      'chooser-modal',
+      'chooser-widget',
       'collapsible',
       'comments',
       'core',
@@ -45,7 +47,6 @@ module.exports = function exports(env, argv) {
       'page-editor',
       'privacy-switch',
       'sidebar',
-      'sidebar-legacy',
       'task-chooser-modal',
       'task-chooser',
       'telepath/blocks',
@@ -57,14 +58,27 @@ module.exports = function exports(env, argv) {
       'workflow-status',
       'bulk-actions',
     ],
-    'images': ['image-chooser', 'image-chooser-telepath'],
-    'documents': ['document-chooser', 'document-chooser-telepath'],
-    'snippets': ['snippet-chooser', 'snippet-chooser-telepath'],
+    'images': [
+      'image-chooser',
+      'image-chooser-modal',
+      'image-chooser-telepath',
+    ],
+    'documents': [
+      'document-chooser',
+      'document-chooser-modal',
+      'document-chooser-telepath',
+    ],
+    'snippets': [
+      'snippet-chooser',
+      'snippet-chooser-modal',
+      'snippet-chooser-telepath',
+    ],
     'contrib/table_block': ['table'],
     'contrib/typed_table_block': ['typed_table_block'],
   };
 
   const entry = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach((moduleName) => {
       entry[moduleName] = {
@@ -83,92 +97,6 @@ module.exports = function exports(env, argv) {
     'scss',
     'core.scss',
   );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/404')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    '404.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/account')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'account.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/compare-revisions')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'compare-revisions.scss',
-    );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/home')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'home.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/login')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'login.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/page-editor')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'page-editor.scss',
-    );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/report')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'layouts',
-    'report.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/workflow-edit')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'workflow-edit.scss',
-    );
-  sassEntry[getOutputPath('admin', 'css', 'layouts/workflow-progress')] =
-    path.resolve(
-      'wagtail',
-      'admin',
-      'static_src',
-      'wagtailadmin',
-      'scss',
-      'layouts',
-      'workflow-progress.scss',
-    );
-  // sassEntry[getOutputPath('admin', 'css', 'normalize')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'css', 'normalize.css');
   sassEntry[getOutputPath('admin', 'css', 'panels/draftail')] = path.resolve(
     'wagtail',
     'admin',
@@ -187,14 +115,6 @@ module.exports = function exports(env, argv) {
     'panels',
     'streamfield.scss',
   );
-  sassEntry[getOutputPath('admin', 'css', 'sidebar')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'sidebar.scss',
-  );
   sassEntry[getOutputPath('admin', 'css', 'userbar')] = path.resolve(
     'wagtail',
     'admin',
@@ -202,39 +122,6 @@ module.exports = function exports(env, argv) {
     'wagtailadmin',
     'scss',
     'userbar.scss',
-  );
-  sassEntry[getOutputPath('documents', 'css', 'add-multiple')] = path.resolve(
-    'wagtail',
-    'documents',
-    'static_src',
-    'wagtaildocs',
-    'scss',
-    'add-multiple.scss',
-  );
-  sassEntry[getOutputPath('images', 'css', 'add-multiple')] = path.resolve(
-    'wagtail',
-    'images',
-    'static_src',
-    'wagtailimages',
-    'scss',
-    'add-multiple.scss',
-  );
-  sassEntry[getOutputPath('images', 'css', 'focal-point-chooser')] =
-    path.resolve(
-      'wagtail',
-      'images',
-      'static_src',
-      'wagtailimages',
-      'scss',
-      'focal-point-chooser.scss',
-    );
-  sassEntry[getOutputPath('users', 'css', 'groups_edit')] = path.resolve(
-    'wagtail',
-    'users',
-    'static_src',
-    'wagtailusers',
-    'scss',
-    'groups_edit.scss',
   );
   sassEntry[getOutputPath('contrib/styleguide', 'css', 'styleguide')] =
     path.resolve(
@@ -245,35 +132,6 @@ module.exports = function exports(env, argv) {
       'wagtailstyleguide',
       'scss',
       'styleguide.scss',
-    );
-  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'index')] = path.resolve(
-    'wagtail',
-    'contrib',
-    'modeladmin',
-    'static_src',
-    'wagtailmodeladmin',
-    'scss',
-    'index.scss',
-  );
-  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'breadcrumbs_page')] =
-    path.resolve(
-      'wagtail',
-      'contrib',
-      'modeladmin',
-      'static_src',
-      'wagtailmodeladmin',
-      'scss',
-      'breadcrumbs_page.scss',
-    );
-  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'choose_parent_page')] =
-    path.resolve(
-      'wagtail',
-      'contrib',
-      'modeladmin',
-      'static_src',
-      'wagtailmodeladmin',
-      'scss',
-      'choose_parent_page.scss',
     );
   sassEntry[
     getOutputPath('contrib/typed_table_block', 'css', 'typed_table_block')
@@ -389,7 +247,12 @@ module.exports = function exports(env, argv) {
           test: /\.(scss|css)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                url: false,
+              },
+            },
             {
               loader: 'postcss-loader',
               options: {

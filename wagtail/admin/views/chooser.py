@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls.base import reverse
 from django.utils.http import urlencode
+from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin.forms.choosers import (
@@ -17,6 +18,7 @@ from wagtail.admin.forms.choosers import (
 )
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.ui.tables import Column, DateColumn, Table
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Locale, Page, Site, UserPagePermissionsProxy
 
@@ -92,6 +94,67 @@ def can_choose_page(
     return True
 
 
+class PageChooserTable(Table):
+    classname = "listing chooser"
+
+    def get_row_classname(self, page):
+        classnames = []
+        if page.is_parent_page:
+            classnames.append("parent-page")
+        if not page.live:
+            classnames.append("unpublished")
+        if not page.can_choose:
+            classnames.append("disabled")
+
+        return " ".join(classnames)
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
+        return context
+
+
+class PageTitleColumn(Column):
+    cell_template_name = "wagtailadmin/chooser/tables/page_title_cell.html"
+
+    def get_value(self, instance):
+        return instance.get_admin_display_title()
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["page"] = instance
+        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
+        return context
+
+
+class ParentPageColumn(Column):
+    cell_template_name = "wagtailadmin/chooser/tables/parent_page_cell.html"
+
+    def get_value(self, instance):
+        return instance.get_parent()
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
+        return context
+
+
+class PageStatusColumn(Column):
+    cell_template_name = "wagtailadmin/chooser/tables/page_status_cell.html"
+
+    def get_value(self, instance):
+        return instance
+
+
+class PageNavigateToChildrenColumn(Column):
+    cell_template_name = (
+        "wagtailadmin/chooser/tables/page_navigate_to_children_cell.html"
+    )
+
+    def get_value(self, instance):
+        return instance
+
+
 def browse(request, parent_page_id=None):
     # A missing or empty page_type parameter indicates 'all page types'
     # (i.e. descendants of wagtailcore.page)
@@ -154,6 +217,8 @@ def browse(request, parent_page_id=None):
         target_pages=target_pages,
         match_subclass=match_subclass,
     )
+    parent_page.is_parent_page = True
+    parent_page.can_descend = False
 
     selected_locale = None
     locale_options = []
@@ -161,7 +226,7 @@ def browse(request, parent_page_id=None):
     if show_locale_labels:
         pages = pages.select_related("locale")
 
-        if parent_page_id is None:
+        if parent_page.is_root():
             # 'locale' is the current value of the "Locale" selector in the UI
             if request.GET.get("locale"):
                 selected_locale = get_object_or_404(
@@ -236,6 +301,25 @@ def browse(request, parent_page_id=None):
             match_subclass=match_subclass,
         )
         page.can_descend = page.get_children_count()
+        page.is_parent_page = False
+
+    table = PageChooserTable(
+        [
+            PageTitleColumn("title", label=_("Title")),
+            DateColumn(
+                "updated",
+                label=_("Updated"),
+                width="12%",
+                accessor="latest_revision_created_at",
+            ),
+            Column(
+                "type", label=_("Type"), width="12%", accessor="page_type_display_name"
+            ),
+            PageStatusColumn("status", label=_("Status"), width="12%"),
+            PageNavigateToChildrenColumn("children", label="", width="10%"),
+        ],
+        [parent_page] + list(pages),
+    )
 
     # Render
     context = shared_context(
@@ -243,7 +327,8 @@ def browse(request, parent_page_id=None):
         {
             "parent_page": parent_page,
             "parent_page_id": parent_page.pk,
-            "pages": pages,
+            "table": table,
+            "pagination_page": pages,
             "search_form": SearchForm(),
             "page_type_string": page_type_string,
             "page_type_names": [
@@ -297,6 +382,25 @@ def search(request, parent_page_id=None):
 
     for page in pages:
         page.can_choose = True
+        page.is_parent_page = False
+
+    table = PageChooserTable(
+        [
+            PageTitleColumn("title", label=_("Title")),
+            ParentPageColumn("parent", label=_("Parent")),
+            DateColumn(
+                "updated",
+                label=_("Updated"),
+                width="12%",
+                accessor="latest_revision_created_at",
+            ),
+            Column(
+                "type", label=_("Type"), width="12%", accessor="page_type_display_name"
+            ),
+            PageStatusColumn("status", label=_("Status"), width="12%"),
+        ],
+        pages,
+    )
 
     return TemplateResponse(
         request,
@@ -305,6 +409,7 @@ def search(request, parent_page_id=None):
             request,
             {
                 "searchform": search_form,
+                "table": table,
                 "pages": pages,
                 "page_type_string": page_type_string,
                 "show_locale_labels": show_locale_labels,

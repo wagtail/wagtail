@@ -32,6 +32,25 @@ class ListChild extends BaseSequenceChild {
   getValue() {
     return this.block.getValue();
   }
+
+  setState({ value, id }) {
+    this.block.setState(value);
+    this.id = id;
+  }
+
+  setValue(value) {
+    this.block.setState(value);
+  }
+
+  split(valueBefore, valueAfter, shouldMoveCommentFn, opts) {
+    this.sequence.splitBlock(
+      this.index,
+      valueBefore,
+      valueAfter,
+      shouldMoveCommentFn,
+      opts,
+    );
+  }
 }
 
 class InsertPosition extends BaseInsertionControl {
@@ -183,6 +202,7 @@ export class ListBlock extends BaseSequenceBlock {
         }
         for (let i = 0; i < this.children.length; i++) {
           this.children[i].disableDuplication();
+          this.children[i].disableSplit();
         }
       } else {
         /* allow adding new blocks */
@@ -191,6 +211,7 @@ export class ListBlock extends BaseSequenceBlock {
         }
         for (let i = 0; i < this.children.length; i++) {
           this.children[i].enableDuplication();
+          this.children[i].enableSplit();
         }
       }
     }
@@ -213,6 +234,34 @@ export class ListBlock extends BaseSequenceBlock {
     const childState = child.getState().value;
     const animate = opts && opts.animate;
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
+    this.children[index + 1].focus({ soft: true });
+  }
+
+  splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
+    const child = this.children[index];
+    const animate = opts && opts.animate;
+    child.setValue(valueBefore);
+    const newChild = this.insert(valueAfter, index + 1, {
+      animate,
+      collapsed: child.collapsed,
+    });
+    const oldContentPath = child.getContentPath();
+    const newContentPath = newChild.getContentPath();
+    const commentApp = window.comments?.commentApp;
+    if (oldContentPath && newContentPath && commentApp) {
+      // Move comments from the old contentpath to the new
+      // We allow use of a custom function to determine whether to move each comment
+      // so it can be done based on intra-field position
+      const selector =
+        commentApp.utils.selectCommentsForContentPathFactory(oldContentPath);
+      const comments = selector(commentApp.store.getState());
+      comments.forEach((comment) => {
+        if (shouldMoveCommentFn(comment)) {
+          commentApp.updateContentPath(comment.localId, newContentPath);
+        }
+      });
+    }
+    // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
   }
 

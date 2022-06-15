@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.http import urlencode
 from django.views.generic.base import View
 
 from wagtail import hooks
@@ -16,6 +16,7 @@ from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
+from wagtail.images.utils import find_image_duplicates
 from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -46,9 +47,14 @@ class BaseChooseView(View):
     def get(self, request):
         self.image_model = get_image_model()
 
-        images = permission_policy.instances_user_has_any_permission_for(
-            request.user, ["choose"]
-        ).order_by("-created_at")
+        images = (
+            permission_policy.instances_user_has_any_permission_for(
+                request.user, ["choose"]
+            )
+            .order_by("-created_at")
+            .select_related("collection")
+            .prefetch_renditions("max-165x165")
+        )
 
         # allow hooks to modify the queryset
         for hook in hooks.get_hooks("construct_image_chooser_queryset"):
@@ -128,10 +134,6 @@ class ChooseView(BaseChooseView):
             self.get_context_data(),
             json_data={
                 "step": "chooser",
-                "error_label": _("Server Error"),
-                "error_message": _(
-                    "Report this error to your website administrator with the following information:"
-                ),
                 "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
             },
         )
@@ -153,6 +155,42 @@ def image_chosen(request, image_id):
         None,
         None,
         json_data={"step": "image_chosen", "result": get_image_result_data(image)},
+    )
+
+
+def duplicate_found(request, new_image, existing_image):
+    next_step_url = (
+        "wagtailimages:chooser_select_format"
+        if request.GET.get("select_format")
+        else "wagtailimages:image_chosen"
+    )
+    choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
+    choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
+
+    cancel_duplicate_upload_action = (
+        f"{reverse('wagtailimages:delete', args=(new_image.id,))}?"
+        f"{urlencode({'next': choose_existing_image_url})}"
+    )
+
+    duplicate_upload_html = render_to_string(
+        "wagtailimages/chooser/confirm_duplicate_upload.html",
+        {
+            "new_image": new_image,
+            "existing_image": existing_image,
+            "confirm_duplicate_upload_action": choose_new_image_url,
+            "cancel_duplicate_upload_action": cancel_duplicate_upload_action,
+        },
+        request,
+    )
+    return render_modal_workflow(
+        request,
+        None,
+        None,
+        None,
+        json_data={
+            "step": "duplicate_found",
+            "htmlFragment": duplicate_upload_html,
+        },
     )
 
 
@@ -184,6 +222,15 @@ def chooser_upload(request):
 
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
+
+            duplicates = find_image_duplicates(
+                image=image,
+                user=request.user,
+                permission_policy=permission_policy,
+            )
+            existing_image = duplicates.first()
+            if existing_image:
+                return duplicate_found(request, image, existing_image)
 
             if request.GET.get("select_format"):
                 form = ImageInsertionForm(

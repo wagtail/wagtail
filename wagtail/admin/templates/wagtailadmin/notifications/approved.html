@@ -2,6 +2,6 @@
 {% load i18n %}
 
 {% block content %}
-    <p>{% blocktrans with title=revision.page.get_admin_display_title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}</p>
-    <p>{% trans "You can view the page here:" %} <a href="{{ revision.page.full_url }}">{{ revision.page.full_url }}</a></p>
+    <p>{% blocktrans trimmed with title=revision.content_object.get_admin_display_title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}</p>
+    <p>{% trans "You can view the page here:" %} <a href="{{ revision.content_object.full_url }}">{{ revision.content_object.full_url }}</a></p>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% load wagtailadmin_tags i18n %}
+
+{% comment %}
+    Variables accepted by this template:
+
+    - `tab_id` - {string} A unique tab id
+    - `title` - {string} Text that the tab button will display
+    - `active` - {boolean?} Force this to be active
+    - `classes` - {string?} Extra css classes to pass to this component
+    - `errors_count` - {number?} Show above the tab for errors count
+{% endcomment %}
+
+<a id="tab-label-{{ tab_id|cautious_slugify }}" href="#tab-{{ tab_id|cautious_slugify }}" class="w-tabs__tab {{ classes }}" role="tab" aria-selected="false" tabindex="-1">
+    <div data-tabs-errors class="w-tabs__errors {% if errors_count %}!w-flex{% endif %}">
+        <span class="w-sr-only">{% trans 'Errors Count: ' %}</span>
+        <span data-tabs-errors-count>{{ errors_count }}</span>
+    </div>
+    {{ title }}
+</a>

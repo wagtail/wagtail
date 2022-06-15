@@ -4,7 +4,7 @@
 
 <div class="nice-padding">
     {% if is_searchable or locale or locale_options %}
-        <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
+        <form data-chooser-modal-search class="search-bar" action="{% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
             {% if locale %}
                 <input type="hidden" name="locale" value="{{ locale.language_code }}">
             {% endif %}
@@ -22,7 +22,7 @@
                 <ul class="fields">
                     <li class="col">
                         <div class="field field-small">
-                            <select id="snippet-chooser-locale" name="locale_filter">
+                            <select data-chooser-modal-search-filter name="locale_filter">
                                 {% for locale_option in locale_options %}
                                     <option value="{{ locale_option.language_code }}"{% if locale_option == selected_locale %} selected{% endif %}>{{ locale_option.get_display_name }}</option>
                                 {% endfor %}

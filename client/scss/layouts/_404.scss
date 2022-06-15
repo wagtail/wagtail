@@ -1,0 +1,76 @@
+.page404__bg {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-teal-darker;
+  font-family: $font-sans;
+  color: $color-white;
+}
+
+.page404__wrapper {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page404__logo {
+  float: left;
+  width: 400px;
+  height: 500px;
+
+  // Media for Windows High Contrast mode
+  @media (forced-colors: $media-forced-colours) {
+    background-color: $system-color-link-text;
+  }
+}
+
+.page404__text-container {
+  float: right;
+  width: 600px;
+  height: 500px;
+  text-align: center;
+}
+
+.page404__header {
+  font-size: 6.8em;
+  margin-bottom: 0.2em;
+  color: inherit;
+}
+
+.page404__text {
+  font-size: 2.25em;
+  line-height: 1.25em;
+  color: inherit;
+}
+
+a.button.page404__button {
+  // more specific to override standard button styles
+  font-size: 1.5em;
+  line-height: 2em;
+  height: 2.5em;
+  padding: 0 0.5em;
+  background-color: $color-teal-darker;
+  border: 4px solid $color-teal;
+  color: inherit;
+
+  &:hover {
+    background-color: $color-teal;
+  }
+}
+
+// MOBILE CHANGES:
+@include media-breakpoint-down(xs) {
+  .page404__text-container {
+    width: 400px;
+  }
+
+  .page404__header {
+    font-size: 5em;
+  }
+}

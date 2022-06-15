@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
 "my/)\n"
 "MIME-Version: 1.0\n"
@@ -107,12 +107,6 @@ msgstr "ပြောင်းလဲပါ"
 msgid "Page"
 msgstr "စာမျက်နှာ"
 
-msgid "groups"
-msgstr "အဖွဲ့များ"
-
-msgid "Add a group"
-msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
-
 msgid "Delete user"
 msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
 
@@ -133,24 +127,14 @@ msgid "%(time_period)s ago"
 msgstr "လွန်ခဲ့သော %(time_period)sက"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"ကိုက်ညီမှု %(counter)s ခုရှိသည်"
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "စိတ်မကောင်းပါ၊ ဘယ်အသုံးပြုသူမှ \"<em>%(query_string)s</em>\"နှင့် မကိုက်ညီပါ"
 
 msgid "Groups"
 msgstr "အဖွဲ့များ"
+
+msgid "Add a group"
+msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
 
 msgid "Search groups"
 msgstr "အဖွဲ့များကို ရှာပါ"

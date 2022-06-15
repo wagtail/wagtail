@@ -110,7 +110,9 @@ class ModeratePageItem(BaseItem):
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
-        if not self.revision.page.permissions_for_user(request.user).can_publish():
+        if not self.revision.content_object.permissions_for_user(
+            request.user
+        ).can_publish():
             return ""
 
         return super().render(request)

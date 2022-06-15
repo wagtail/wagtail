@@ -1,0 +1,107 @@
+#
+# Translators:
+# Ahmed Miske Sidi Med <boutien321@gmail.com>, 2022
+# abdulaziz alfuhigi <abajall@gmail.com>, 2022
+# Mohammed Abdul gadir <weekmo@aol.com>, 2022
+# ultraify media <ultraify@gmail.com>, 2022
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/torchbox/teams/8009/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Alt text"
+msgstr "نص للمساعدة"
+
+msgid "Broken link"
+msgstr "رابط معطوب"
+
+msgid "Close"
+msgstr "اغلاق"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Edit '{title}'"
+msgstr "تحرير '{title}'"
+
+msgid "Edit your account"
+msgstr "تعديل حسابك"
+
+msgid "Horizontal line"
+msgstr "خط افقي"
+
+msgid "Line break"
+msgstr "خط فصل"
+
+msgid "Loading…"
+msgstr "تحميل..."
+
+msgid "Missing document"
+msgstr "مستند مفقود"
+
+msgid "No results"
+msgstr "لاتوجد نتائج"
+
+msgid "Page"
+msgstr "صفحة"
+
+msgid "Page explorer"
+msgstr "مستكشف الصفحة"
+
+msgid "Pages"
+msgstr "صفحات"
+
+msgid "Redo"
+msgstr "للامام"
+
+msgid "Reload saved content"
+msgstr "اعادة تحميل المحتوى المحفوظ"
+
+msgid "Reload the page"
+msgstr "اعادة تحميل الصفحه"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Saving..."
+msgstr "يتم الحفظ..."
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "See all"
+msgstr "مشاهدة الكل"
+
+msgid "Server Error"
+msgstr "خطأ في الخادم"
+
+msgid "Show error"
+msgstr "اعرض الخطء"
+
+msgid "Show latest content"
+msgstr "اظهر اخر محتوى"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
+
+msgid "Undo"
+msgstr "تراجع"
+
+msgid "View child pages of '{title}'"
+msgstr "أعرض الصفحات التابعة ل '{title}'"
+
+msgid "Write here…"
+msgstr "اكتب هنا..."

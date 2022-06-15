@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: yossi lalum <lyosefh@gmail.com>, 2017\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -137,12 +137,6 @@ msgstr "עמוד"
 msgid "Add a page permission"
 msgstr "הוספת הרשאת עמוד"
 
-msgid "groups"
-msgstr "קבוצות"
-
-msgid "Add a group"
-msgstr "הוספת קבוצה"
-
 msgid "Delete user"
 msgstr "מחק משתמש"
 
@@ -184,6 +178,9 @@ msgstr "כבוי"
 
 msgid "Groups"
 msgstr "קבוצות "
+
+msgid "Add a group"
+msgstr "הוספת קבוצה"
 
 msgid "Search groups"
 msgstr "חיפוש קבוצות"

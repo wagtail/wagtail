@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -118,22 +118,6 @@ msgstr "ใช่,ลบทิ้ง"
 msgid "Delete group"
 msgstr "ลบกลุ่มทิ้ง"
 
-#, python-format
-msgid ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> member.\n"
-"            "
-msgid_plural ""
-"\n"
-"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
-"strong> members.\n"
-"            "
-msgstr[0] ""
-"\n"
-" กลุ่มนี้ '%(group_name)s' มี <strong>%(group_user_count)s</strong> สมาชิก\n"
-" "
-
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
 "users."
@@ -174,12 +158,6 @@ msgstr "หน้า"
 
 msgid "Add a page permission"
 msgstr "เพิ่มการขออนุญาตของหน้า"
-
-msgid "groups"
-msgstr "หลายๆกลุ่ม"
-
-msgid "Add a group"
-msgstr "เพิ่มกลุ่ม"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
@@ -240,25 +218,14 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s ที่ผ่านมา"
 
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" มี %(counter)s ที่ตรงกัน\n"
-" "
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "ขออภัย,ไม่มีผู้ใช้ที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "หลายกลุ่ม"
+
+msgid "Add a group"
+msgstr "เพิ่มกลุ่ม"
 
 msgid "Search groups"
 msgstr "ค้นหากลุ่ม"

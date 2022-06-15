@@ -26,14 +26,8 @@ $zindex-modal-background: 500;
   overflow-y: scroll;
   position: fixed;
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
   z-index: $zindex-modal-background;
 }
@@ -75,14 +69,8 @@ $zindex-modal-background: 500;
 .modal-backdrop {
   position: fixed;
   top: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 0;
   inset-inline-end: 0;
   bottom: 0;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  left: 0;
   inset-inline-start: 0;
   z-index: ($zindex-modal-background - 10);
   background-color: $color-black;
@@ -98,14 +86,12 @@ $zindex-modal-background: 500;
 }
 
 .modal .close {
+  @apply w-bg-primary-200 hover:w-bg-black w-border-primary;
   padding: 0;
   position: absolute;
   width: 50px;
   height: 50px;
   top: 10px;
-  // Remove once we drop support for Safari 13.
-  // stylelint-disable-next-line property-disallowed-list
-  right: 10px;
   inset-inline-end: 10px;
   z-index: 1;
 }
@@ -116,34 +102,21 @@ $zindex-modal-background: 500;
   padding-bottom: 2em;
 
   header {
-    padding-inline-start: 2em;
-    padding-inline-end: 100px;
+    @apply w-bg-primary w-text-white;
 
-    &.tab-merged {
-      padding-inline-start: 1.6em;
+    h1 {
+      @apply w-text-white;
+
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 130%;
     }
-  }
-
-  .header-title {
-    // stylelint-disable-next-line declaration-no-important
-    padding-inline-start: 0 !important;
-    margin-inline-start: -36px;
-  }
-
-  .tab-merged .header-title {
-    margin-inline-start: 0;
   }
 }
 
 @include media-breakpoint-up(sm) {
   .modal-dialog {
     padding: 0 0 2em $menu-width;
-  }
-
-  .modal-body {
-    header.tab-merged {
-      padding-inline-start: $desktop-nice-padding;
-    }
   }
 }
 

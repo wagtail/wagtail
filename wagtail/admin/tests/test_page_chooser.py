@@ -46,8 +46,9 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_page_chooser_queryset", filter_pages):
             response = self.get()
-        self.assertEqual(len(response.context["pages"]), 1)
-        self.assertEqual(response.context["pages"][0].specific, page)
+        # 'results' in the template context consists of the parent page followed by the queryset
+        self.assertEqual(len(response.context["table"].data), 2)
+        self.assertEqual(response.context["table"].data[1].specific, page)
 
 
 class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
@@ -126,7 +127,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
         self.assertEqual(response.context["page_type_string"], "tests.simplepage")
 
-        pages = {page.id: page for page in response.context["pages"].object_list}
+        pages = {page.id: page for page in response.context["table"].data}
 
         # Child page is a simple page directly underneath root
         # so should appear in the list
@@ -160,7 +161,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
 
-        page_urls = [page.url for page in response.context["pages"]]
+        page_urls = [page.url for page in response.context["table"].data]
 
         self.assertIn("/foo/pointless-suffix/", page_urls)
 
@@ -190,7 +191,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
             response.context["page_type_string"], "tests.simplepage,tests.eventpage"
         )
 
-        pages = {page.id: page for page in response.context["pages"].object_list}
+        pages = {page.id: page for page in response.context["table"].data}
 
         # Simple page in results, as before
         self.assertIn(self.child_page.id, pages)
@@ -283,26 +284,26 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.setup_pagination_test_data()
 
         response = self.get()
-        self.assertEqual(response.context["pages"].paginator.num_pages, 5)
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.context["pagination_page"].paginator.num_pages, 5)
+        self.assertEqual(response.context["pagination_page"].number, 1)
 
     def test_pagination_another_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 2})
-        self.assertEqual(response.context["pages"].number, 2)
+        self.assertEqual(response.context["pagination_page"].number, 2)
 
     def test_pagination_invalid_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": "foo"})
-        self.assertEqual(response.context["pages"].number, 1)
+        self.assertEqual(response.context["pagination_page"].number, 1)
 
     def test_pagination_out_of_range_page(self):
         self.setup_pagination_test_data()
 
         response = self.get({"p": 100})
-        self.assertEqual(response.context["pages"].number, 5)
+        self.assertEqual(response.context["pagination_page"].number, 5)
 
 
 class TestChooserSearch(TestCase, WagtailTestUtils):
@@ -1024,7 +1025,7 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
 class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
-    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
+    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'
     LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
 
     def setUp(self):
@@ -1044,7 +1045,7 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         switch_to_french_url = self.get_choose_page_url(
             self.fr_locale, parent_page_id=self.child_page_fr.pk
         )
-        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">'
 
         self.login()
 
@@ -1075,7 +1076,7 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         self.assertIn(self.LOCALE_SELECTOR_HTML, html)
 
         switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
-        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live w-no-underline">'
         self.assertIn(fr_selector, html)
 
     def test_locale_selector(self):
@@ -1104,14 +1105,14 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         self.assertNotIn(f'data-title="{self.root_page.title}"', html)
         self.assertIn(self.root_page_fr.title, html)
         self.assertIn(
-            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">',
+            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button u-btn-current w-no-underline">',
             html,
         )
         switch_to_english_url = self.get_choose_page_url(
             locale=Locale.objects.get(language_code="en")
         )
         self.assertIn(
-            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live">',
+            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live w-no-underline">',
             html,
         )
 

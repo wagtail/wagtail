@@ -1,15 +1,12 @@
 import datetime
-import json
 import os
 
 from django.conf import settings
-from django.core.checks import Info
-from django.core.exceptions import FieldError
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import DatabaseError, models
+from django.core.validators import validate_email
+from django.db import models
 from django.template.response import TemplateResponse
 from django.utils.formats import date_format
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.mail import send_mail
@@ -44,7 +41,7 @@ class AbstractFormSubmission(models.Model):
     For example, if you need to save additional data or a reference to a user.
     """
 
-    form_data = models.TextField()
+    form_data = models.JSONField(encoder=DjangoJSONEncoder)
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
     submit_time = models.DateTimeField(verbose_name=_("submit time"), auto_now_add=True)
@@ -55,14 +52,11 @@ class AbstractFormSubmission(models.Model):
 
         You can override this method to add additional data.
         """
-        form_data = json.loads(self.form_data)
-        form_data.update(
-            {
-                "submit_time": self.submit_time,
-            }
-        )
 
-        return form_data
+        return {
+            **self.form_data,
+            "submit_time": self.submit_time,
+        }
 
     def __str__(self):
         return self.form_data
@@ -104,14 +98,15 @@ class AbstractFormField(Orderable):
         verbose_name=_("choices"),
         blank=True,
         help_text=_(
-            "Comma separated list of choices. Only applicable in checkboxes, radio and dropdown."
+            "Comma or new line separated list of choices. Only applicable in checkboxes, radio and dropdown."
         ),
     )
-    default_value = models.CharField(
+    default_value = models.TextField(
         verbose_name=_("default value"),
-        max_length=255,
         blank=True,
-        help_text=_("Default value. Comma separated values supported for checkboxes."),
+        help_text=_(
+            "Default value. Comma or new line separated values supported for checkboxes."
+        ),
     )
     help_text = models.CharField(
         verbose_name=_("help text"), max_length=255, blank=True
@@ -126,6 +121,16 @@ class AbstractFormField(Orderable):
         FieldPanel("default_value", classname="formbuilder-default"),
     ]
 
+    def get_field_clean_name(self):
+        """
+        Prepare an ascii safe lower_snake_case variant of the field name to use as the field key.
+        This key is used to reference the field responses in the JSON store and as the field name in forms.
+        Called for new field creation, validation of duplicate labels and form previews.
+        When called, does not have access to the Page, nor its own id as the record is not yet created.
+        """
+
+        return get_field_clean_name(self.label)
+
     def save(self, *args, **kwargs):
         """
         When new fields are created, generate a template safe ascii name to use as the
@@ -137,49 +142,10 @@ class AbstractFormField(Orderable):
 
         is_new = self.pk is None
         if is_new:
-            clean_name = get_field_clean_name(self.label)
+            clean_name = self.get_field_clean_name()
             self.clean_name = clean_name
 
         super().save(*args, **kwargs)
-
-    @classmethod
-    def _migrate_legacy_clean_name(cls):
-        """
-        Ensure that existing data stored will be accessible via the legacy clean_name.
-        When checks run, replace any blank clean_name values with the unidecode conversion.
-        """
-
-        try:
-            objects = cls.objects.filter(clean_name__exact="")
-            if objects.count() == 0:
-                return None
-
-        except (FieldError, DatabaseError):
-            # attempting to query on clean_name before field has been added
-            return None
-
-        try:
-            from unidecode import unidecode
-        except ImportError as error:
-            description = "You have form submission data that was created on an older version of Wagtail and requires the unidecode library to retrieve it correctly. Please install the unidecode package."
-            raise Exception(description) from error
-
-        for obj in objects:
-            legacy_clean_name = str(slugify(str(unidecode(obj.label))))
-            obj.clean_name = legacy_clean_name
-            obj.save()
-
-        return Info("Added `clean_name` on %s form field(s)" % objects.count(), obj=cls)
-
-    @classmethod
-    def check(cls, **kwargs):
-        errors = super().check(**kwargs)
-
-        messages = cls._migrate_legacy_clean_name()
-        if messages:
-            errors.append(messages)
-
-        return errors
 
     class Meta:
         abstract = True
@@ -271,7 +237,7 @@ class AbstractForm(Page):
         """
 
         return self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self,
         )
 
@@ -330,6 +296,11 @@ class AbstractForm(Page):
             return super().serve_preview(request, mode_name)
 
 
+def validate_to_address(value):
+    for address in value.split(","):
+        validate_email(address.strip())
+
+
 class AbstractEmailForm(AbstractForm):
     """
     A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
@@ -342,8 +313,9 @@ class AbstractEmailForm(AbstractForm):
         help_text=_(
             "Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma."
         ),
+        validators=[validate_to_address],
     )
-    from_address = models.CharField(
+    from_address = models.EmailField(
         verbose_name=_("from address"), max_length=255, blank=True
     )
     subject = models.CharField(verbose_name=_("subject"), max_length=255, blank=True)

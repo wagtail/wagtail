@@ -340,18 +340,18 @@ You can encode the image into lossless WebP format by using the ``format-webp-lo
 
 .. _image_background_color:
 
-Background color
-----------------
+Background colour
+-----------------
 
 The PNG and GIF image formats both support transparency, but if you want to
 convert images to JPEG format, the transparency will need to be replaced with a
-solid background color.
+solid background colour.
 
 By default, Wagtail will set the background to white. But if a white background
-doesn't fit your design, you can specify a color using the ``bgcolor`` filter.
+doesn't fit your design, you can specify a colour using the ``bgcolor`` filter.
 
 This filter takes a single argument, which is a CSS 3 or 6 digit hex code
-representing the color you would like to use:
+representing the colour you would like to use:
 
 .. code-block:: html+Django
 
@@ -389,6 +389,14 @@ done from the Django shell:
     # Replace this with your custom rendition model if you use one
     >>> from wagtail.images.models import Rendition
     >>> Rendition.objects.all().delete()
+
+You can also directly use the image management command from the console for regenerating the renditions:
+
+.. code-block:: console
+
+    $ ./manage.py wagtail_update_image_renditions --purge
+
+You can read more about this command from :ref:`wagtail_update_image_renditions`
 
 Changing per-tag
 ^^^^^^^^^^^^^^^^

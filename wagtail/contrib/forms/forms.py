@@ -6,7 +6,6 @@ from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.contrib.forms.utils import get_field_clean_name
 
 
 class BaseForm(django.forms.Form):
@@ -47,26 +46,20 @@ class FormBuilder:
         return django.forms.DecimalField(**options)
 
     def create_dropdown_field(self, field, options):
-        options["choices"] = map(
-            lambda x: (x.strip(), x.strip()), field.choices.split(",")
-        )
+        options["choices"] = self.get_formatted_field_choices(field)
         return django.forms.ChoiceField(**options)
 
     def create_multiselect_field(self, field, options):
-        options["choices"] = map(
-            lambda x: (x.strip(), x.strip()), field.choices.split(",")
-        )
+        options["choices"] = self.get_formatted_field_choices(field)
         return django.forms.MultipleChoiceField(**options)
 
     def create_radio_field(self, field, options):
-        options["choices"] = map(
-            lambda x: (x.strip(), x.strip()), field.choices.split(",")
-        )
+        options["choices"] = self.get_formatted_field_choices(field)
         return django.forms.ChoiceField(widget=django.forms.RadioSelect, **options)
 
     def create_checkboxes_field(self, field, options):
-        options["choices"] = [(x.strip(), x.strip()) for x in field.choices.split(",")]
-        options["initial"] = [x.strip() for x in field.default_value.split(",")]
+        options["choices"] = self.get_formatted_field_choices(field)
+        options["initial"] = self.get_formatted_field_initial(field)
         return django.forms.MultipleChoiceField(
             widget=django.forms.CheckboxSelectMultiple, **options
         )
@@ -101,6 +94,42 @@ class FormBuilder:
                 "Must be one of: " + ", ".join(method_list),
             )
 
+    def get_formatted_field_choices(self, field):
+        """
+        Returns a list of choices [(string, string),] for the field.
+        Split the provided choices into a list, separated by new lines.
+        If no new lines in the provided choices, split by commas.
+        """
+
+        if "\n" in field.choices:
+            choices = map(
+                lambda x: (
+                    x.strip().rstrip(",").strip(),
+                    x.strip().rstrip(",").strip(),
+                ),
+                field.choices.split("\r\n"),
+            )
+        else:
+            choices = map(lambda x: (x.strip(), x.strip()), field.choices.split(","))
+
+        return choices
+
+    def get_formatted_field_initial(self, field):
+        """
+        Returns a list of initial values [string,] for the field.
+        Split the supplied default values into a list, separated by new lines.
+        If no new lines in the provided default values, split by commas.
+        """
+
+        if "\n" in field.default_value:
+            values = [
+                x.strip().rstrip(",").strip() for x in field.default_value.split("\r\n")
+            ]
+        else:
+            values = [x.strip() for x in field.default_value.split(",")]
+
+        return values
+
     @property
     def formfields(self):
         formfields = OrderedDict()
@@ -112,7 +141,7 @@ class FormBuilder:
             # If the field hasn't been saved to the database yet (e.g. we are previewing
             # a FormPage with unsaved changes) it won't have a clean_name as this is
             # set in FormField.save.
-            clean_name = field.clean_name or get_field_clean_name(field.label)
+            clean_name = field.clean_name or field.get_field_clean_name()
             formfields[clean_name] = create_field(field, options)
 
         return formfields
@@ -157,12 +186,10 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
             for i, form in enumerate(_forms):
                 if "label" in form.changed_data:
                     label = form.cleaned_data.get("label")
-                    clean_name = get_field_clean_name(label)
+                    clean_name = form.instance.get_field_clean_name()
                     for idx, ff in enumerate(_forms):
                         # Exclude self
-                        ff_clean_name = get_field_clean_name(
-                            ff.cleaned_data.get("label")
-                        )
+                        ff_clean_name = ff.instance.get_field_clean_name()
                         if idx != i and clean_name == ff_clean_name:
                             form.add_error(
                                 "label",

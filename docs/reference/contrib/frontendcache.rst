@@ -65,7 +65,7 @@ To use an account-wide API key, find the key `as described in the Cloudflare doc
 
 To use a limited API token, `create a token <https://support.cloudflare.com/hc/en-us/articles/200167836-Managing-API-Tokens-and-Keys#12345680>`_ configured with the 'Zone, Cache Purge' permission and specify the ``BEARER_TOKEN`` parameter.
 
-A ``ZONEID`` parameter will need to be set for either option. To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_
+A ``ZONEID`` parameter will need to be set for either option. To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/>`_.
 
 With an API key:
 

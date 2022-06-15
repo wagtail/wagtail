@@ -101,25 +101,9 @@ $system-color-button-text: ButtonText;
 // Fonts
 // Our fonts are based off of a list of system fallbacks to ensure
 // that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.
-$font-sans:
-  // iOS Safari, macOS Safari, macOS Firefox
-  -apple-system,
-  // macOS Chrome
-  BlinkMacSystemFont,
-  // Windows - for all browsers on Windows 7+ (putting Segoe UI before system-ui ensures Segoe UI will be rendered for different languages)
-  'Segoe UI',
-  system-ui,
-  // Targets Android and newer Chrome OS'. (If Roboto is installed on your windows computer Segoe UI will take precedence.)
-  Roboto,
-  // A common fallback font for older macOS'
-  'Helvetica Neue',
-  // Very old Windows versions (special shout-out to whoever is using windows 95)
-  Arial,
-  // A last resort if all else fails, just give us something without serifs :)
-  sans-serif,
-  // All the emojis 👋🙂
-  'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$font-sans: theme('fontFamily.sans');
+$font-mono: theme('fontFamily.mono');
 
 // Legacy icon font, to be removed in the near future.
 $font-wagtail-icons: wagtail;
@@ -142,31 +126,7 @@ $menu-transition-duration: 150ms;
 
 $focus-outline-width: 3px;
 
-$nav-wrapper-inner-z-index: 26;
-$draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
-
 $object-title-height: 40px;
-
-// Nav
-$nav-grey-1: color.adjust($color-white, $lightness: -80%);
-$nav-grey-2: color.adjust($color-white, $lightness: -60%);
-$nav-grey-3: #262626;
-$nav-item-hover-bg: rgba(100, 100, 100, 0.15);
-$nav-item-active-bg: color.adjust($color-white, $lightness: -90%);
-$nav-submenu-bg: color.adjust($color-white, $lightness: -85%);
-$nav-footer-account-bg: $nav-item-active-bg;
-$nav-footer-submenu-bg: $nav-submenu-bg;
-$nav-footer-closed-height: 50px;
-$nav-footer-submenu-height: 85px;
-$nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
-
-// Nav search
-$nav-search-color: color.adjust($color-white, $lightness: -20%);
-$nav-search-border: color.adjust($color-white, $lightness: -40%);
-$nav-search-bg: $nav-grey-1;
-$nav-search-hover-bg: $nav-item-hover-bg;
-$nav-search-focus-color: $color-white;
-$nav-search-focus-bg: $nav-item-hover-bg;
 
 // Form Errors
 $color-text-error: color.change($color-red, $saturation: 69%, $lightness: 52%);

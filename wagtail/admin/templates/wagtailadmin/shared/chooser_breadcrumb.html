@@ -10,7 +10,7 @@
                     {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=page.locale only %}
                 {% endif %}
             {% else %}
-                <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;" data-dropdown>
+                <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;">
                     <div aria-label="{{ page.locale.get_display_name }}" class="c-dropdown__button u-btn-current">
                         {% icon name="site" class_name="default" %}
                         {{ page.locale.get_display_name }}

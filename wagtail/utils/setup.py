@@ -83,7 +83,7 @@ class check_bdist_egg(bdist_egg):
                         "************************************************************",
                         "The front end assets for Wagtail are missing.",
                         "To generate the assets, please refer to the documentation in",
-                        "docs/contributing/css_guidelines.rst",
+                        "docs/contributing/developing.md",
                         "************************************************************",
                     ]
                 )

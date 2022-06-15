@@ -1,0 +1,634 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:math';
+
+.page-editor {
+  .content-wrapper {
+    margin-bottom: 10em;
+    overflow-x: hidden;
+  }
+
+  .breadcrumb {
+    margin: -1.2em 0 2em; // sass linter complains about $desktop-nice-padding here because of unit mismatch
+    padding-inline-start: calc(#{$desktop-nice-padding} - 2em);
+
+    @include media-breakpoint-up(sm) {
+      margin-top: -1.8em;
+      margin-inline-start: -$desktop-nice-padding;
+      margin-inline-end: -$desktop-nice-padding;
+    }
+  }
+
+  .modal .breadcrumb {
+    margin: 0;
+    padding-inline-start: 0.5em;
+    background-color: transparent;
+
+    .breadcrumb-item {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+    }
+
+    a {
+      color: $color-grey-2;
+      padding-inline-start: 0.5em;
+      padding-inline-end: 0.5em;
+
+      &:hover {
+        color: $color-white;
+      }
+    }
+
+    li:hover {
+      background-color: transparent;
+    }
+
+    .home_icon {
+      margin-inline-start: 0;
+    }
+
+    div.c-dropdown__button.u-btn-current {
+      color: $color-grey-2;
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+
+    .status-tag {
+      margin-bottom: 0;
+    }
+
+    .u-link {
+      color: $color-white;
+    }
+  }
+
+  .header-meta {
+    list-style: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+
+    li {
+      border: 0;
+      float: left;
+      height: 1.5em;
+      line-height: 2em;
+      margin: 1em 0.75em 1.5em 0;
+
+      .icon {
+        @include svg-icon(1.25em, text-bottom);
+
+        margin-inline-end: 0.2em;
+      }
+
+      .icon-warning {
+        @include svg-icon();
+      }
+
+      &:first-child .button {
+        margin-inline-start: -0.8em;
+      }
+
+      .avatar {
+        margin-inline-start: 0;
+      }
+    }
+
+    .button {
+      font-size: 1em;
+      font-weight: 600;
+      margin-top: -0.25em; // Account for the button border
+      overflow: initial;
+      height: 2.5em;
+      line-height: 2.5em;
+    }
+
+    .human-readable-date {
+      display: inline;
+    }
+
+    &--status {
+      padding-inline-end: 0.8em;
+    }
+
+    &--type {
+      padding: 0 0.8em;
+    }
+  }
+
+  .form-side {
+    @apply w-absolute
+    w-z-[90]
+    w-right-0
+    w-top-full
+    w-w-full
+    w-h-screen
+    sm:w-max-w-[420px]
+    w-transform
+    w-translate-x-full
+    w-px-5
+    w-py-10
+    md:w-p-10
+    w-bg-white
+    w-box-border
+    w-transition
+    w-duration-300
+    w-border-l
+    w-border-grey-100
+    w-overflow-y-auto
+    w-scrollbar-thin;
+
+    &--open {
+      @apply w-translate-x-0;
+    }
+
+    &__close-button {
+      @apply w-text-primary w-absolute w-left-2 w-top-2 hover:w-text-primary-200 w-bg-white w-p-2.5 w-hidden w-transition;
+
+      .icon {
+        @apply w-w-4 w-h-4;
+      }
+    }
+
+    &--open .form-side__close-button,
+    &--open .form-side__panel {
+      @apply w-block;
+    }
+
+    &__panel {
+      @apply w-hidden w-pl-2.5;
+    }
+  }
+}
+
+.side-panel-open {
+  @apply w-overflow-y-hidden sm:w-overflow-y-auto;
+}
+
+// An object is the basic wrapper around any field or group of fields in the editor interface
+.object {
+  @include nice-padding();
+  position: relative;
+
+  &:first-child {
+    border: 0;
+  }
+
+  &.focused {
+    border-color: $color-input-focus-border;
+  }
+
+  fieldset,
+  .field-row {
+    padding-top: $object-title-height + 12px;
+  }
+
+  fieldset {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+
+    .field-row {
+      padding-top: 0;
+    }
+  }
+
+  .object-help {
+    display: block;
+    position: relative;
+    z-index: 1;
+    top: $object-title-height;
+    margin-top: 0;
+    margin-bottom: -1em;
+    padding: 1em math.div($grid-gutter-width, 2) 1em 3em;
+    opacity: 1;
+
+    .icon-help {
+      margin-inline-start: -1.75em;
+    }
+  }
+
+  &:hover .object-help {
+    opacity: 1;
+  }
+
+  > .title-wrapper {
+    box-sizing: border-box;
+    height: $object-title-height;
+    -webkit-font-smoothing: auto;
+    background: $color-salmon-light;
+    color: #200200;
+    padding: 0.9em 0 0.9em 5em;
+    font-size: 0.95em;
+    margin: 0;
+    line-height: 1.5em;
+    font-weight: normal;
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+    overflow: hidden;
+
+    label {
+      display: inline;
+      font-weight: inherit;
+      float: none;
+      width: auto;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    &:before {
+      @include font-smoothing;
+      text-shadow: none;
+      font-family: $font-wagtail-icons;
+      // UI Redesign: To be removed in page editor redesign
+      content: map.get($icons, 'arrow-down');
+      text-align: center;
+      display: block;
+      position: absolute;
+      z-index: 2;
+      font-size: 2em;
+      top: 0;
+      line-height: 1.8em;
+      inset-inline-start: 0;
+      width: $desktop-nice-padding;
+      color: $color-white;
+      padding: 0;
+      margin: 0;
+      background-color: $color-salmon;
+    }
+  }
+
+  &.required {
+    > .title-wrapper label:after {
+      content: '*';
+      color: $color-red;
+      font-weight: bold;
+      display: inline-block;
+      margin-inline-start: 0.5em;
+      line-height: 1em;
+      font-size: 13px;
+    }
+  }
+
+  // Special full-width, one-off fields i.e a single text or textarea input
+  &.full {
+    fieldset {
+      display: block;
+      float: none;
+    }
+
+    li {
+      padding: 0;
+    }
+
+    .error-message {
+      @include nice-padding();
+      padding-bottom: 2em;
+    }
+
+    .error,
+    .error input:not([type='submit']),
+    .error textarea {
+      background-color: $color-input-error-bg;
+    }
+  }
+
+  // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
+  &.block_field {
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+
+    .object-layout_big-part {
+      max-width: 100%;
+    }
+
+    fieldset {
+      padding-bottom: 0;
+      max-width: unset;
+      // Workaround to make sure blocks do not overflow horizontally.
+      min-width: 0;
+    }
+
+    .block_field > .field-content {
+      width: 100%;
+    }
+  }
+
+  // special panel for the publishing fields, requires a bit more pizzazz
+  &.publishing {
+    > .title-wrapper:before {
+      // UI Redesign: To be removed in page editor redesign
+      content: map.get($icons, 'date');
+      font-size: 1.8rem;
+      line-height: 1.4em;
+      width: 1.4em;
+    }
+  }
+
+  &.privacy {
+    > .title-wrapper:before {
+      // UI Redesign: To be removed in page editor redesign
+      content: map.get($icons, 'view');
+    }
+  }
+
+  .multiple {
+    padding: 4.5em 0 0;
+
+    fieldset {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .fields {
+    max-width: 100%;
+  }
+
+  // removes top padding from multiples used within another panel
+  .fields .multiple {
+    padding-top: 0;
+  }
+
+  .add {
+    padding-top: 1em;
+  }
+
+  &.empty {
+    border-bottom: 1px solid $color-white;
+
+    > h3 {
+      margin: 0;
+      border-bottom: 1px solid $color-white;
+    }
+
+    // wrapper around add button for multiple objects. Default version is wordless plus button for contracted groups of fields
+    .add {
+      @include transition(background-color 0.2s ease);
+      position: relative;
+      z-index: 2;
+      top: 0;
+      inset-inline-start: 0;
+      width: 3.3em;
+      padding: 0;
+      margin: 0 0 0 -20px;
+      cursor: pointer;
+
+      .button {
+        border-radius: 0;
+        overflow: visible;
+        background-color: $color-salmon-light;
+        font-size: 0; // helps fake the effect of t.ext-replace class, which can't be used here.
+        width: 2em;
+
+        // stylelint-disable max-nesting-depth
+        &:before {
+          position: relative;
+          padding: 0;
+          line-height: 1.8em; // specific height required as parent 'a' has no height
+          font-size: 1.4rem;
+          width: 1.8em;
+          background-color: $color-salmon;
+        }
+
+        &:hover:before {
+          background-color: color.adjust($color-salmon, $lightness: -5%);
+        }
+      }
+    }
+
+    .multiple {
+      padding: 0;
+    }
+  }
+
+  &.collapsible {
+    // li.collapsed gets its height from the fieldset only, which is now hidden
+    // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
+    min-height: 41px;
+
+    .title-wrapper {
+      &:before {
+        // UI Redesign: To be removed in page editor redesign
+        content: map.get($icons, 'collapse-up');
+        cursor: pointer;
+      }
+    }
+
+    &.collapsed {
+      .title-wrapper {
+        &:before {
+          // UI Redesign: To be removed in page editor redesign
+          content: map.get($icons, 'collapse-down');
+        }
+      }
+    }
+  }
+}
+
+// Custom styles that make some fields look more important
+.full {
+  input:not([type='submit']),
+  textarea {
+    @include nice-padding;
+    border-radius: 0;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    font-size: 1.2em;
+    line-height: 1.6em;
+  }
+}
+
+.title {
+  input:not([type='submit']),
+  textarea {
+    font-size: 2em;
+    font-family: $font-sans;
+    font-weight: 800;
+  }
+}
+
+// Footer control bar for performing actions on the page
+footer .actions,
+footer .preview {
+  .button {
+    @apply w-leading-none w-inline-flex w-items-center;
+
+    .icon {
+      margin-inline-end: theme('spacing.2');
+    }
+  }
+}
+
+footer .actions {
+  .button {
+    font-weight: 600;
+    text-overflow: ellipsis;
+  }
+}
+
+footer .preview {
+  button,
+  .button {
+    padding: 0 1em;
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      height: 3em;
+    }
+
+    background-color: color.adjust($color-grey-2, $lightness: 10%);
+    border-color: color.adjust($color-grey-2, $lightness: 10%);
+
+    &:hover {
+      background-color: $color-grey-2;
+      border-color: $color-grey-2;
+    }
+  }
+
+  .dropdown {
+    input[type='button'],
+    input[type='submit'],
+    button,
+    .button {
+      background-color: color.adjust($color-grey-2, $lightness: 10%);
+      border-color: color.adjust($color-grey-2, $lightness: 10%);
+
+      &:hover {
+        background-color: $color-grey-2;
+        border-color: $color-grey-2;
+      }
+    }
+
+    ul,
+    .dropdown-toggle {
+      background-color: color.adjust($color-grey-2, $lightness: 10%);
+    }
+
+    .dropdown-toggle:hover,
+    &.open > .button + .dropdown-toggle {
+      background-color: $color-grey-2;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .object {
+    fieldset {
+      // Override column mixin for column items.
+      display: block;
+      // Override column mixin for column items.
+      float: none;
+      max-width: 1024px;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+
+      fieldset {
+        width: 100%;
+      }
+    }
+
+    .object-layout {
+      display: flex;
+      flex-flow: row-reverse wrap;
+
+      &_small-part {
+        flex: 1 0 0;
+      }
+
+      &_big-part {
+        flex: 5 0 0;
+      }
+    }
+
+    .object-help {
+      padding-bottom: 40px;
+      margin-inline-start: 10px;
+      margin-bottom: 0;
+      opacity: 0;
+    }
+
+    &.block_field {
+      .object-help {
+        padding-inline-start: 6.4em;
+      }
+    }
+
+    &.full {
+      fieldset {
+        // Override column mixin for column items.
+        display: block;
+        // Override column mixin for column items.
+        float: none;
+        margin-inline-start: -51px;
+        padding: 0;
+        padding-top: $object-title-height;
+      }
+
+      input:not([type='submit']),
+      textarea {
+        border-width: 0 1px;
+      }
+
+      .field {
+        padding: 0;
+      }
+
+      .field-content {
+        display: block;
+        float: none;
+        width: auto;
+        padding: inherit;
+      }
+    }
+
+    .multiple {
+      @include column(10);
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+
+      > li {
+        padding: 1em 10em 1em 1.5em;
+      }
+    }
+
+    &.empty .add {
+      margin: 0 0 0 -50px;
+    }
+  }
+
+  // Make room for comments on the right when enabled
+  .tab-content--comments-enabled .object {
+    padding-inline-end: 27%;
+
+    &.full {
+      padding-inline-end: 36%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding-inline-end: 30%;
+
+      &.full {
+        padding-inline-end: 36%;
+      }
+    }
+  }
+}
+
+// Media for Windows High Contrast
+@media (forced-colors: $media-forced-colours) {
+  .object {
+    border-top: 1px solid GrayText;
+
+    .object-help {
+      margin-bottom: 0;
+    }
+  }
+}

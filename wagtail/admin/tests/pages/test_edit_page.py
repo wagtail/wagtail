@@ -22,8 +22,8 @@ from wagtail.models import (
     Locale,
     Page,
     PageLogEntry,
-    PageRevision,
     PageSubscription,
+    Revision,
     Site,
 )
 from wagtail.signals import page_published
@@ -114,9 +114,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
-        self.assertContains(
-            response, '<li class="header-meta--status">Published</li>', html=True
-        )
+        self.assertContains(response, 'id="status-sidebar-live"')
 
         # Test InlinePanel labels/headings
         self.assertContains(response, "<legend>Speaker lineup</legend>")
@@ -160,9 +158,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(
-            response, '<li class="header-meta--status">Draft</li>', html=True
-        )
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
     def test_edit_multipart(self):
         """
@@ -350,21 +346,21 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # A revision with approved_go_live_at should not exist
         self.assertFalse(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
 
         # But a revision with go_live_at and expire_at in their content json *should* exist
         self.assertTrue(
-            PageRevision.objects.filter(
-                page=child_page_new,
+            Revision.page_revisions.filter(
+                object_id=child_page_new.id,
                 content__go_live_at__startswith=str(go_live_at.date()),
             ).exists()
         )
         self.assertTrue(
-            PageRevision.objects.filter(
-                page=child_page_new,
+            Revision.page_revisions.filter(
+                object_id=child_page_new.id,
                 content__expire_at__startswith=str(expire_at.date()),
             ).exists()
         )
@@ -555,7 +551,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -601,7 +597,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -629,7 +625,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # And a revision with approved_go_live_at should not exist
         self.assertFalse(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -668,7 +664,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -723,7 +719,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Instead a revision with approved_go_live_at should now exist
         self.assertTrue(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -757,7 +753,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # And a revision with approved_go_live_at should not exist
         self.assertFalse(
-            PageRevision.objects.filter(page=child_page_new)
+            Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
@@ -862,7 +858,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(
             response, "<title>Wagtail - Preview error</title>", html=True
         )
-        self.assertContains(response, "<h1>Preview error</h1>", html=True)
+        self.assertContains(
+            response, '<h1 class="header__title">Preview error</h1>', html=True
+        )
 
     @override_settings(
         CACHES={
@@ -979,16 +977,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        link_to_live = (
-            '<a href="/hello-world/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
-            '<svg class="icon icon-link-external initial" aria-hidden="true"><use href="#icon-link-external"></use></svg>\n\n        '
-            'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
-        )
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
-        self.assertContains(response, link_to_live, html=True)
         self.assertNotContains(
             response, 'href="/revised-slug-in-draft-only/"', html=True
         )
@@ -1011,16 +1003,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        link_to_live = (
-            '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
-            '<svg class="icon icon-link-external initial" aria-hidden="true"><use href="#icon-link-external"></use></svg>\n\n        '
-            'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
-        )
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
-        self.assertContains(response, link_to_live, html=True)
         self.assertNotContains(
             response, 'href="/revised-slug-in-draft-only/pointless-suffix/"', html=True
         )
@@ -1190,10 +1176,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
 
-        # Should still have status in the header
-        self.assertContains(
-            response, '<li class="header-meta--status">Published</li>', html=True
-        )
+        # Should still have status in the sidebar
+        self.assertContains(response, 'id="status-sidebar-live"')
 
         # Check the edit_alias.html template was used instead
         self.assertTemplateUsed(response, "wagtailadmin/pages/edit_alias.html")
@@ -1262,7 +1246,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # (which is not a valid content language under the current configuration)
         Locale.objects.update(language_code="de")
 
-        PageRevision.objects.filter(page_id=self.child_page.id).delete()
+        Revision.page_revisions.filter(object_id=self.child_page.id).delete()
 
         # Tests that the edit page loads
         response = self.client.get(
@@ -1790,7 +1774,7 @@ class TestIssue3982(TestCase, WagtailTestUtils):
         )
         page = SimplePage.objects.get()
         self.assertFalse(page.live)
-        revision = PageRevision.objects.get(page=page)
+        revision = Revision.page_revisions.get(object_id=page.id)
         revision.submitted_for_moderation = True
         revision.save()
         response = self.client.post(
@@ -2278,15 +2262,12 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=[self.christmas_page.id])
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertContains(
-            response,
-            f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertContains(response, f'href="{edit_translation_url}"')
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -2294,15 +2275,12 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=[self.christmas_page.id])
         )
 
-        self.assertNotContains(response, '<li class="header-meta--locale">')
+        self.assertNotContains(response, "Page Locale:")
 
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{edit_translation_url}"')
 
     def test_locale_dropdown_not_present_without_permission_to_edit(self):
         # Remove user's permissions to edit French tree
@@ -2327,15 +2305,12 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=[self.christmas_page.id])
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{edit_translation_url}"')
 
 
 class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
@@ -2432,7 +2407,7 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=[self.child_page.id])
         )
-
+        self.assertNotContains(response, 'data-side-panel-toggle="comments"')
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(
             response,

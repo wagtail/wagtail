@@ -6,15 +6,15 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020-2021
+# Loic Teixeira, 2020-2022
 # Tom Dyson <tom@torchbox.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-26 06:15+0000\n"
-"Last-Translator: Loic Teixeira\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgid "Home"
 msgstr "Accueil"
 
 #, python-format
-msgid " By %(filter_title)s "
+msgid "By %(filter_title)s"
 msgstr "Par %(filter_title)s"
 
 msgid "Last updated"
@@ -171,16 +171,8 @@ msgid "No %(name)s have been created yet."
 msgstr "Aucun %(name)s n'a été créé(e) pour l'instant."
 
 #, python-format
-msgid ""
-"\n"
-"                                                Why not <a href=\"%(url)s"
-"\">add one</a>?\n"
-"                                            "
-msgstr ""
-"\n"
-"                                                Pourquoi ne pas <a href="
-"\"%(url)s\">en ajouter un(e)</a> ?\n"
-"                                            "
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Pourquoi ne pas en <a href=\"%(url)s\">ajouter un(e)</a> ?"
 
 msgid "Pagination"
 msgstr "Pagination"

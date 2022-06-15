@@ -30,12 +30,13 @@ class TestAdaptLinkMenuItem(TestCase):
                         "label": "Link",
                         "name": "link",
                         "url": "/link/",
+                        "attrs": None,
                     }
                 ],
             },
         )
 
-    def test_adapt_with_classnames_and_icon(self):
+    def test_adapt_with_optional_parameters(self):
         packed = JSContext().pack(
             LinkMenuItem(
                 "link",
@@ -43,6 +44,7 @@ class TestAdaptLinkMenuItem(TestCase):
                 "/link/",
                 icon_name="link-icon",
                 classnames="some classes",
+                attrs={"data-is-custom": "true"},
             )
         )
 
@@ -57,6 +59,7 @@ class TestAdaptLinkMenuItem(TestCase):
                         "label": "Link",
                         "name": "link",
                         "url": "/link/",
+                        "attrs": {"data-is-custom": "true"},
                     }
                 ],
             },
@@ -98,6 +101,7 @@ class TestAdaptSubMenuItem(TestCase):
                                     "icon_name": "link-icon",
                                     "classnames": "",
                                     "url": "/link/",
+                                    "attrs": None,
                                 }
                             ],
                         }
@@ -139,6 +143,7 @@ class TestAdaptSubMenuItem(TestCase):
                                     "icon_name": "link-icon",
                                     "classnames": "",
                                     "url": "/link/",
+                                    "attrs": None,
                                 }
                             ],
                         }
@@ -158,6 +163,7 @@ class TestAdaptPageExplorerMenuItem(TestCase):
                 "_type": "wagtail.sidebar.PageExplorerMenuItem",
                 "_args": [
                     {
+                        "attrs": None,
                         "classnames": "",
                         "icon_name": "",
                         "label": "Pages",
@@ -211,6 +217,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "icon_name": "",
                                     "classnames": "",
                                     "url": "/pages/",
+                                    "attrs": None,
                                 }
                             ],
                         }
@@ -225,6 +232,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "icon_name": "user",
                                     "classnames": "",
                                     "url": reverse("wagtailadmin_account"),
+                                    "attrs": None,
                                 }
                             ],
                         },
@@ -237,6 +245,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "icon_name": "logout",
                                     "classnames": "",
                                     "url": reverse("wagtailadmin_logout"),
+                                    "attrs": None,
                                 }
                             ],
                         },

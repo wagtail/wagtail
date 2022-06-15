@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string icon="pick"  %}
@@ -25,7 +25,6 @@
 
 {% block extra_css %}
     {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ form_media.css }}
 {% endblock %}
 {% block extra_js %}

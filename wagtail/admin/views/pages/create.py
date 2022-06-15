@@ -13,6 +13,7 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.side_panels import PageSidePanels
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
@@ -24,7 +25,12 @@ def add_subpage(request, parent_page_id):
         raise PermissionDenied
 
     page_types = [
-        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        (
+            model.get_verbose_name(),
+            model._meta.app_label,
+            model._meta.model_name,
+            model.get_page_description(),
+        )
         for model in type(parent_page).creatable_subpage_models()
         if model.can_create_at(parent_page)
     ]
@@ -34,7 +40,7 @@ def add_subpage(request, parent_page_id):
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
-        verbose_name, app_label, model_name = page_types[0]
+        verbose_name, app_label, model_name, description = page_types[0]
         return redirect("wagtailadmin_pages:add", app_label, model_name, parent_page.id)
 
     return TemplateResponse(
@@ -101,9 +107,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.page = self.page_class(owner=self.request.user)
         self.page.locale = self.locale
         self.edit_handler = self.page_class.get_edit_handler()
-        self.edit_handler = self.edit_handler.bind_to(
-            request=self.request, instance=self.page
-        )
         self.form_class = self.edit_handler.get_form_class()
 
         # Note: Comment notifications should be enabled by default for pages that a user creates
@@ -302,7 +305,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.form,
         )
         self.has_unsaved_changes = True
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         return self.render_to_response(self.get_context_data())
 
@@ -317,27 +319,39 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
         self.has_unsaved_changes = False
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        bound_panel = self.edit_handler.get_bound_panel(
+            request=self.request, instance=self.page, form=self.form
+        )
+        action_menu = PageActionMenu(
+            self.request, view="create", parent_page=self.parent_page
+        )
+        side_panels = PageSidePanels(
+            self.request, self.page, comments_enabled=self.form.show_comments_toggle
+        )
+
         context.update(
             {
                 "content_type": self.page_content_type,
                 "page_class": self.page_class,
                 "parent_page": self.parent_page,
-                "edit_handler": self.edit_handler,
-                "action_menu": PageActionMenu(
-                    self.request, view="create", parent_page=self.parent_page
-                ),
+                "edit_handler": bound_panel,
+                "action_menu": action_menu,
+                "side_panels": side_panels,
                 "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "locale": None,
                 "translations": [],
+                "media": bound_panel.media
+                + self.form.media
+                + action_menu.media
+                + side_panels.media,
             }
         )
 

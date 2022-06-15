@@ -1,31 +1,56 @@
 @use 'sass:math';
+@use 'sass:color';
 
 header {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  background-color: $color-header-bg;
-  margin-bottom: 2em;
-  color: $color-white;
+  @apply w-text-primary w-mb-8;
 
   a {
-    color: $color-white;
+    @apply w-text-primary w-underline;
   }
 
   h1,
   h2 {
+    @apply w-text-primary;
     margin: 0;
-    color: $color-white;
   }
 
   h1 {
-    padding: 0.2em 0;
+    @apply w-h1;
+    position: relative;
 
-    &.icon:before {
-      width: 1em;
-      display: none;
-      margin-inline-end: 0.4em;
-      font-size: 1.5em;
+    > svg.icon {
+      position: absolute;
+      inset-inline-start: -1.5em;
+      top: 0.125em;
+      max-width: 1em;
+      max-height: 1em;
+      vertical-align: text-top;
     }
+
+    span {
+      margin-inline-start: 0.3125rem;
+      font-weight: 400;
+    }
+  }
+
+  // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
+  // Use header--with-padding for headers that don't contain .row elements.
+  &.header--with-padding,
+  > .row {
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+    padding-inline-start: 110px;
+    padding-inline-end: 20px;
+  }
+
+  .breadcrumb + .row {
+    padding-inline-start: $mobile-nav-indent + 10px;
+  }
+
+  &.header--home {
+    @include nice-padding();
+    padding-top: 0.5rem;
+    margin-top: $mobile-nav-indent;
   }
 
   .col {
@@ -35,6 +60,9 @@ header {
 
   .left {
     float: left;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 
     .hasform &:first-child {
       padding-bottom: 0.5em;
@@ -48,69 +76,22 @@ header {
   }
 
   .search-form .icon {
-    @include svg-icon(1.3rem);
-    color: $nav-search-color;
+    @include svg-icon(1.2rem);
+    color: theme('colors.primary.DEFAULT');
     position: absolute;
-    top: 0.3em;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0.5em;
-    inset-inline-start: 0.5em;
+    top: 0;
+    height: 100%;
+    inset-inline-start: 0.7em;
   }
 
   // For case where content below header should merge with it
   &.merged {
     margin-bottom: 0;
+    padding-bottom: 1rem;
   }
 
-  &.tab-merged {
-    padding-inline-start: $desktop-nice-padding;
-    padding-inline-end: $desktop-nice-padding;
-
-    .right:last-child {
-      padding-inline-end: 0;
-    }
-
-    @include media-breakpoint-down(xs) {
-      .breadcrumb {
-        padding-inline-start: calc(#{$desktop-nice-padding} - 8px);
-      }
-    }
-    @include media-breakpoint-up(sm) {
-      .breadcrumb {
-        margin-inline-start: -$desktop-nice-padding;
-        margin-inline-end: -$desktop-nice-padding;
-        padding-inline-start: math.div($desktop-nice-padding, 2);
-      }
-    }
-  }
-
-  &.header-with-breadcrumb {
-    padding-top: 0;
-
-    .breadcrumb {
-      margin-bottom: 1rem;
-      padding-inline-start: math.div(
-        $desktop-nice-padding,
-        2
-      ); // rather than padding-inline-start: revert;
-    }
-  }
-
-  &.tab-merged,
   &.no-border {
     border: 0;
-
-    @include media-breakpoint-down(xs) {
-      // To all hamburger menu to be visible
-      padding-inline-start: 1.6em;
-      padding-inline-end: 1.6em;
-      padding-top: 11px;
-
-      .nice-padding {
-        margin-inline-start: -$desktop-nice-padding;
-      }
-    }
   }
 
   &.merged.no-border {
@@ -130,17 +111,13 @@ header {
     }
   }
 
-  label {
-    @include visuallyhidden();
+  .button-secondary {
+    color: $color-teal-darker;
+    background-color: transparent;
   }
 
-  input[type='text'],
-  select {
-    border-width: 0;
-
-    &:focus {
-      background-color: $color-white;
-    }
+  label {
+    @include visuallyhidden();
   }
 
   .error-message {
@@ -193,8 +170,20 @@ header {
 
 @include media-breakpoint-up(sm) {
   header {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    .row {
+      padding-top: 1.5rem;
+      padding-inline-start: 90px;
+      padding-inline-end: 90px;
+    }
+
+    .breadcrumb + .row {
+      padding-inline-start: 90px;
+    }
+
+    &.header--home {
+      padding-top: 1.5rem;
+      margin-top: 0;
+    }
 
     .left {
       float: left;
@@ -234,16 +223,5 @@ header {
     .col9 {
       @include column(9);
     }
-  }
-}
-
-.header-title {
-  @include media-breakpoint-down(xs) {
-    padding-inline-start: $mobile-nav-indent;
-  }
-
-  &-icon {
-    @include svg-icon();
-    margin-inline-end: 0.5em;
   }
 }

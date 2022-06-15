@@ -1,7 +1,0 @@
-{% extends "wagtailadmin/widgets/chooser.html" %}
-{% load wagtailadmin_tags %}
-
-{% block unchosen_icon %}{% icon name="snippet" %}{% endblock unchosen_icon %}
-{% block chosen_icon %}{% icon name="snippet" %}{% endblock chosen_icon %}
-{% block chooser_class %}snippet-chooser{% endblock %}
-{% block chooser_attributes %}data-chooser-url="{{ chooser_url }}"{% endblock %}

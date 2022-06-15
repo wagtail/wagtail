@@ -1,4 +1,5 @@
 // stylelint-disable declaration-no-important
+$logo-size: 110px;
 
 // Wagging animation
 @keyframes tail-wag {
@@ -18,20 +19,25 @@
   align-items: center;
   color: #aaa;
   -webkit-font-smoothing: auto;
-  margin: 1.8em auto 2.5em;
+  margin: 4rem auto;
   text-align: center;
-  width: 100px;
-  height: 100px;
+  width: $logo-size;
+  height: $logo-size;
   transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
     width $menu-transition-duration ease, height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
   box-sizing: border-box;
   border-radius: 100%;
 
+  @include media-breakpoint-up(sm) {
+    margin: 0.5rem auto 4rem auto;
+  }
+
   // Reduce overall size when in slim mode
   .sidebar--slim & {
-    width: 60px;
-    transform: none;
+    @include show-focus-outline-inside();
+    width: 40px;
+    height: 110px;
   }
 
   // Remove background on 404 page
@@ -63,30 +69,13 @@
 
   // Bird wrapper
   &__icon-wrapper {
-    @apply w-bg-white/15 w-overflow-hidden hover:w-overflow-visible;
+    @apply w-bg-white/15 w-relative w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
-    position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
-    inset-inline-start: 0;
-    top: 0;
-    width: 100px;
-    height: 100px;
+    width: $logo-size;
+    height: $logo-size;
     border-radius: 50%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    transition: left $menu-transition-duration ease,
-      inset-inline-start $menu-transition-duration ease,
-      top $menu-transition-duration ease, width $menu-transition-duration ease,
-      height $menu-transition-duration ease;
 
     .sidebar--slim & {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: 10px;
-      inset-inline-start: 10px;
-      top: 10px;
       width: 40px;
       height: 40px;
     }
@@ -95,28 +84,6 @@
       width: auto;
       height: auto;
       position: static;
-    }
-  }
-
-  // Bird icons
-  &__icon {
-    .sidebar--slim & {
-      width: 42px;
-      height: 51px;
-      top: 10px;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -9px;
-      inset-inline-start: -9px;
-    }
-
-    // TODO: Fix legacy specificity issues
-    &[data-part='eye--open'] {
-      display: inline !important;
-    }
-
-    &[data-part='eye--closed'] {
-      display: none !important;
     }
   }
 }

@@ -634,6 +634,16 @@ class TestInstagramOEmbed(TestCase):
                 "https://www.instagram.com/p/CHeRxmnDSYe/?utm_source=ig_embed"
             )
         )
+        self.assertTrue(
+            finder.accept(
+                "https://www.instagram.com/tv/CZMkxGaIXk3/?utm_source=ig_embed"
+            )
+        )
+        self.assertTrue(
+            finder.accept(
+                "https://www.instagram.com/reel/CZMs3O_I22w/?utm_source=ig_embed"
+            )
+        )
         self.assertFalse(
             finder.accept("https://instagr.am/p/CHeRxmnDSYe/?utm_source=ig_embed")
         )
@@ -657,8 +667,6 @@ class TestInstagramOEmbed(TestCase):
                 "html": '<blockquote class="instagram-media">Content</blockquote>',
             },
         )
-        # check that a request was made with the expected URL / authentication
-        request = urlopen.call_args[0][0]
         # check that a request was made with the expected URL / authentication
         request = urlopen.call_args[0][0]
         self.assertEqual(

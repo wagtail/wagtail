@@ -1,0 +1,35 @@
+{% load wagtailadmin_tags i18n %}
+
+<div class="w-divide-y w-divide-grey-100">
+    {% if page.id %}
+        {% include 'wagtailadmin/pages/side_panels/includes/page_workflow_status.html' %}
+    {% endif %}
+    {% if locale %}
+        {% include 'wagtailadmin/pages/side_panels/includes/page_locale_status.html' %}
+    {% endif %}
+    {% if page.id %}
+        {% include 'wagtailadmin/pages/side_panels/includes/page_locked_status.html' %}
+    {% endif %}
+    {% include 'wagtailadmin/pages/side_panels/includes/page_privacy_status.html' %}
+
+
+    {# Page type / First Published information #}
+    <div class="w-pt-5 w-space-y-1">
+        <div class="w-label-3">
+            {% with page_model=page.content_type.model_class %}
+                <strong>{{ page_model.get_verbose_name }}</strong>
+
+                {% with description=page_model.get_page_description %}
+                    {% if description %}
+                        ({{ description }})
+                    {% endif %}
+                {% endwith %}
+            {% endwith %}
+        </div>
+        {% if page.first_published_at %}
+            <div class="w-help-text">
+                {% trans 'First published ' %}{% timesince_last_update page.first_published_at use_shorthand=True %}
+            </div>
+        {% endif %}
+    </div>
+</div>

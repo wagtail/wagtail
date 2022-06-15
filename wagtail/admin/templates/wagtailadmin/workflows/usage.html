@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with name=workflow.name %}Pages that use workflow '{{ name }}'{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with name=workflow.name %}Pages that use workflow '{{ name }}'{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Pages that use workflow" as usage_str %}
     {% include "wagtailadmin/shared/header.html" with title=usage_str subtitle=workflow.name %}
@@ -31,7 +31,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {{ page.content_type.model_class.get_verbose_name }}
+                            {{ page.page_type_display_name }}
                         </td>
                         <td>
                             {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}

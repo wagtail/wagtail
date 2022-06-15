@@ -4,13 +4,13 @@
 {% block titletag %}{{ title }}{% endblock %}
 
 {% block content %}
-    <header role="banner">
-        <div class="row nice-padding">
+    <header class="header" role="banner">
+        <div class="row">
             <div class="left">
-                <div class="col header-title">
-                    <h1>
-                        {% if header_icon %}{% icon name=header_icon class_name="header-title-icon" %}{% endif %}
-                        {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}
+                <div class="col">
+                    <h1 class="header__title">
+                        {% if header_icon %}{% icon name=header_icon %}{% endif %}
+                        {{ title }}{% if subtitle %} <span class="header__subtitle">{{ subtitle }}</span>{% endif %}
                     </h1>
                 </div>
             </div>
@@ -57,8 +57,6 @@
 
 {% block extra_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/report.css' %}" type="text/css" />
-
     {{ filters.form.media.css }}
 {% endblock %}
 

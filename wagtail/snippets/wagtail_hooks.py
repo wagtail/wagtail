@@ -2,6 +2,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.urls import include, path, reverse
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
@@ -13,6 +14,7 @@ from wagtail.snippets.permissions import (
     user_can_edit_snippet_type,
     user_can_edit_snippets,
 )
+from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import SnippetListingButton
 
 
@@ -21,6 +23,24 @@ def register_admin_urls():
     return [
         path("snippets/", include(urls, namespace="wagtailsnippets")),
     ]
+
+
+@hooks.register("register_admin_viewset")
+def register_viewsets():
+    viewsets = []
+    for model in get_snippet_models():
+        admin_viewset = getattr(model, "admin_viewset", None) or SnippetViewSet
+        if isinstance(admin_viewset, str):
+            admin_viewset = import_string(admin_viewset)
+
+        viewsets += [
+            admin_viewset(
+                model.get_admin_url_namespace(),
+                model=model,
+                url_prefix=model.get_admin_base_path(),
+            )
+        ]
+    return viewsets
 
 
 class SnippetsMenuItem(MenuItem):
@@ -49,8 +69,8 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
         yield SnippetListingButton(
             _("Edit"),
             reverse(
-                "wagtailsnippets:edit",
-                args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)],
+                f"wagtailsnippets_{model._meta.app_label}_{model._meta.model_name}:edit",
+                args=[quote(snippet.pk)],
             ),
             attrs={"aria-label": _("Edit '%(title)s'") % {"title": str(snippet)}},
             priority=10,
@@ -60,8 +80,8 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
         yield SnippetListingButton(
             _("Delete"),
             reverse(
-                "wagtailsnippets:delete",
-                args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)],
+                f"wagtailsnippets_{model._meta.app_label}_{model._meta.model_name}:delete",
+                args=[quote(snippet.pk)],
             ),
             attrs={"aria-label": _("Delete '%(title)s'") % {"title": str(snippet)}},
             priority=20,

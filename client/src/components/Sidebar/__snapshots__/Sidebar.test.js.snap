@@ -2,36 +2,9 @@
 
 exports[`Sidebar should render with the minimum required props 1`] = `
 <Fragment>
-  <div
-    className="sidebar"
-  >
-    <div
-      className="sidebar__inner"
-    >
-      <button
-        aria-expanded="true"
-        className="button sidebar__collapse-toggle hover:w-bg-primary-200 hover:text-white hover:opacity-100"
-        onClick={[Function]}
-        type="button"
-      >
-        <Icon
-          className="w-transition motion-reduce:w-transition-none
-                -w-rotate-180
-                "
-          name="expand-right"
-        />
-      </button>
-      <div
-        className="sidebar__peek-hover-area"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-      />
-    </div>
-  </div>
   <button
     aria-expanded="false"
+    aria-label="Toggle sidebar"
     className="button sidebar-nav-toggle"
     onClick={[Function]}
     type="button"
@@ -40,5 +13,39 @@ exports[`Sidebar should render with the minimum required props 1`] = `
       name="bars"
     />
   </button>
+  <div
+    className="sidebar"
+  >
+    <div
+      className="sidebar__inner"
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      <div
+        className="sm:w-mt-2 w-justify-end w-flex  w-items-center"
+      >
+        <button
+          aria-expanded="true"
+          aria-label="Toggle sidebar"
+          className="w-mr-4
+                button
+                sidebar__collapse-toggle
+                w-flex
+                w-justify-center
+                w-items-center
+                hover:w-bg-primary-200
+                hover:text-white
+                hover:opacity-100"
+          onClick={[Function]}
+          type="button"
+        >
+          <Icon
+            className="-w-rotate-180"
+            name="expand-right"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
 </Fragment>
 `;

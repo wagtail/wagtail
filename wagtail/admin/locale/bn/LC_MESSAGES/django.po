@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2021\n"
 "Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
 "bn/)\n"
 "MIME-Version: 1.0\n"
@@ -44,15 +44,6 @@ msgstr "অপ্রকাশিত করুন "
 msgid "Delete"
 msgstr "মুছে ফেলুন "
 
-msgid "Lock"
-msgstr "লক করুন "
-
-msgid "Apply editor lock"
-msgstr "এডিটর লক প্রয়োগ করুন"
-
-msgid "Unlock"
-msgstr "আনলক"
-
 msgid "Save Draft"
 msgstr "খসড়া সংরক্ষণ"
 
@@ -70,27 +61,6 @@ msgstr "অ্যাডমিন অ্যাক্সেস করার অন
 
 msgid "None"
 msgstr "কোনটিই নয়"
-
-msgid "Scheduled publishing"
-msgstr "নির্ধারিত প্রকাশনা"
-
-msgid "Privacy"
-msgstr "গোপনীয়তা"
-
-msgid "For search engines"
-msgstr "সার্চ ইঞ্জিনের জন্য"
-
-msgid "For site menus"
-msgstr "সাইট মেনুগুলির জন্য"
-
-msgid "Content"
-msgstr "বিষয়বস্তু"
-
-msgid "Promote"
-msgstr "প্রচার করুন"
-
-msgid "Settings"
-msgstr "সেটিংস "
 
 msgid "Date from"
 msgstr "তারিখ হতে"
@@ -210,11 +180,38 @@ msgstr "মেয়াদ শেষ হওয়ার তারিখ/সম�
 msgid "Search"
 msgstr "সার্চ"
 
+msgid "Scheduled publishing"
+msgstr "নির্ধারিত প্রকাশনা"
+
+msgid "Privacy"
+msgstr "গোপনীয়তা"
+
+msgid "For search engines"
+msgstr "সার্চ ইঞ্জিনের জন্য"
+
+msgid "For site menus"
+msgstr "সাইট মেনুগুলির জন্য"
+
+msgid "Content"
+msgstr "বিষয়বস্তু"
+
+msgid "Promote"
+msgstr "প্রচার করুন"
+
+msgid "Settings"
+msgstr "সেটিংস "
+
 msgid "Save"
 msgstr "সংরক্ষণ"
 
+msgid "Unlock"
+msgstr "আনলক"
+
 msgid "Saving…"
 msgstr "সংরক্ষিত হচ্ছে..."
+
+msgid "Lock"
+msgstr "লক করুন "
 
 msgid "Editing"
 msgstr "সম্পাদিত হচ্ছে"

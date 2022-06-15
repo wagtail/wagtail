@@ -1,6 +1,8 @@
 import React from 'react';
+import FocusTrap from 'focus-trap-react';
 
-import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
+import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Transition, { PUSH, POP } from '../Transition/Transition';
@@ -79,7 +81,7 @@ class PageExplorerPanel extends React.Component<
     if (!page.isFetchingChildren && !page.children.items) {
       children = (
         <div key="empty" className="c-page-explorer__placeholder">
-          {STRINGS.NO_RESULTS}
+          {gettext('No results')}
         </div>
       );
     } else {
@@ -107,7 +109,7 @@ class PageExplorerPanel extends React.Component<
         ) : null}
         {page.isError ? (
           <div key="error" className="c-page-explorer__placeholder">
-            {STRINGS.SERVER_ERROR}
+            {gettext('Server Error')}
           </div>
         ) : null}
       </div>
@@ -115,33 +117,40 @@ class PageExplorerPanel extends React.Component<
   }
 
   render() {
-    const { page, depth, gotoPage } = this.props;
+    const { page, depth, gotoPage, onClose } = this.props;
     const { transition } = this.state;
 
     return (
-      <Transition
-        name={transition}
-        className="c-page-explorer"
-        component="nav"
-        label={STRINGS.PAGE_EXPLORER}
+      <FocusTrap
+        paused={!page || page.isFetchingChildren || page.isFetchingTranslations}
+        focusTrapOptions={{
+          onDeactivate: onClose,
+          clickOutsideDeactivates: false,
+          allowOutsideClick: true,
+        }}
       >
-        <div key={depth} className="c-transition-group">
-          <PageExplorerHeader
-            depth={depth}
-            page={page}
-            onClick={this.onHeaderClick}
-            gotoPage={gotoPage}
-            navigate={this.props.navigate}
-          />
+        <div role="dialog" aria-label={gettext('Page explorer')}>
+          <Transition name={transition} className="c-page-explorer">
+            <div key={depth} className="c-transition-group">
+              <PageExplorerHeader
+                depth={depth}
+                page={page}
+                onClick={this.onHeaderClick}
+                gotoPage={gotoPage}
+                navigate={this.props.navigate}
+              />
 
-          {this.renderChildren()}
+              {this.renderChildren()}
 
-          {page.isError ||
-          (page.children.items && page.children.count > MAX_EXPLORER_PAGES) ? (
-            <PageCount page={page} />
-          ) : null}
+              {page.isError ||
+              (page.children.items &&
+                page.children.count > MAX_EXPLORER_PAGES) ? (
+                <PageCount page={page} />
+              ) : null}
+            </div>
+          </Transition>
         </div>
-      </Transition>
+      </FocusTrap>
     );
   }
 }

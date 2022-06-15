@@ -1,0 +1,31 @@
+{% load i18n wagtailadmin_tags wagtailimages_tags %}
+
+<section id="tab-upload" class="duplicate-upload w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-upload">
+    <p class="help-block help-warning">
+        {% icon name='warning' %}
+        {% trans "Upload successful. However, your new image seems to be a duplicate of an existing image. You may delete it if it wasn't required." %}
+    </p>
+
+    <figure class="duplicate-upload__figure col6">
+        <figcaption>{% trans "Existing" %}</figcaption>
+        {% image existing_image max-800x600 class="show-transparency" %}
+        <a href="{% url 'wagtailimages:edit' existing_image.id %}">{{ existing_image.title }}</a>
+    </figure>
+    <figure class="duplicate-upload__figure col6">
+        <figcaption>{% trans "New" %}</figcaption>
+        {% image new_image max-800x600 class="show-transparency" %}
+        <a href="{% url 'wagtailimages:edit' new_image.id %}">{{ new_image.title }}</a>
+    </figure>
+
+    <div class="duplicate-upload__actions col12">
+        <a href="{{ confirm_duplicate_upload_action }}" class="use-new-image button button-secondary">
+            {% trans 'Use new image' %}
+        </a>
+        <form method="POST">
+            {% csrf_token %}
+            <a href="{{ cancel_duplicate_upload_action }}" class="use-existing-image button button-longrunning">
+                {% trans "Use existing and delete new" %}
+            </a>
+        </form>
+    </div>
+</section>

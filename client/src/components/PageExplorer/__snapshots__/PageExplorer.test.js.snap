@@ -6,7 +6,6 @@ exports[`PageExplorer renders 1`] = `
   depth={0}
   gotoPage={[Function]}
   nodes={Object {}}
-  onClose={[Function]}
   store={
     Object {
       "@@observable": [Function],
@@ -49,7 +48,6 @@ exports[`PageExplorer visible 1`] = `
       },
     }
   }
-  onClose={[Function]}
   store={
     Object {
       "@@observable": [Function],

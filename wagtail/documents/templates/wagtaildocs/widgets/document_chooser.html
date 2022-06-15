@@ -1,7 +1,0 @@
-{% extends "wagtailadmin/widgets/chooser.html" %}
-{% load wagtailadmin_tags %}
-
-{% block unchosen_icon %}{% icon name="doc-full-inverse" %}{% endblock unchosen_icon %}
-{% block chosen_icon %}{% icon name="doc-full-inverse" %}{% endblock chosen_icon %}
-{% block chooser_class %}document-chooser{% endblock %}
-{% block chooser_attributes %}data-chooser-url="{% url "wagtaildocs:chooser" %}"{% endblock %}

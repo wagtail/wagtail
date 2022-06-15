@@ -94,6 +94,7 @@ class TestTable(TestCase):
                     "hostname",
                     url_name="wagtailsites:edit",
                     link_classname="choose-site",
+                    link_attrs={"data-chooser": "yes"},
                 ),
                 Column("site_name", label="Site name"),
             ],
@@ -112,7 +113,7 @@ class TestTable(TestCase):
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="/admin/sites/%d/" class="choose-site">blog.example.com</a>
+                                <a href="/admin/sites/%d/" class="choose-site" data-chooser="yes">blog.example.com</a>
                             </div>
                         </td>
                         <td>My blog</td>
@@ -120,7 +121,7 @@ class TestTable(TestCase):
                     <tr>
                         <td class="title">
                             <div class="title-wrapper">
-                                <a href="/admin/sites/%d/" class="choose-site">gallery.example.com</a>
+                                <a href="/admin/sites/%d/" class="choose-site" data-chooser="yes">gallery.example.com</a>
                             </div>
                         </td>
                         <td>My gallery</td>
@@ -150,3 +151,50 @@ class TestTable(TestCase):
         )
 
         self.assertIn('src="/static/js/gradient-fill.js"', str(table.media["js"]))
+
+    def test_row_classname(self):
+        class SiteTable(Table):
+            def get_row_classname(self, instance):
+                return "default-site" if instance.is_default_site else ""
+
+        root_page = Page.objects.filter(depth=2).first()
+        blog = Site.objects.create(
+            hostname="blog.example.com",
+            site_name="My blog",
+            root_page=root_page,
+            is_default_site=True,
+        )
+        gallery = Site.objects.create(
+            hostname="gallery.example.com", site_name="My gallery", root_page=root_page
+        )
+        data = [blog, gallery]
+
+        table = SiteTable(
+            [
+                Column("hostname"),
+                Column("site_name", label="Site name"),
+            ],
+            data,
+        )
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(
+            html,
+            """
+            <table class="listing">
+                <thead>
+                    <tr><th>Hostname</th><th>Site name</th></tr>
+                </thead>
+                <tbody>
+                    <tr class="default-site">
+                        <td>blog.example.com</td>
+                        <td>My blog</td>
+                    </tr>
+                    <tr>
+                        <td>gallery.example.com</td>
+                        <td>My gallery</td>
+                    </tr>
+                </tbody>
+            </table>
+        """,
+        )
