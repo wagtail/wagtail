@@ -602,6 +602,7 @@ Contributors
 * Benedict Faw
 * Lucie Le Frapper
 * Jaspreet Singh
+* Yves Serrano
 
 Translators
 ===========

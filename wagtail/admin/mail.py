@@ -77,7 +77,7 @@ def send_moderation_notification(revision, notification, excluded_user=None):
         )
     elif notification in ["rejected", "approved"]:
         # Get submitter
-        recipient_users = [revision.user]
+        recipient_users = [revision.user] if revision.user else []
     else:
         return False
 

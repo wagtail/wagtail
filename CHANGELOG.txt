@@ -48,6 +48,7 @@ Changelog
  * Fix: Ensure non-square avatar images will correctly show throughout the admin (LB (Ben) Johnston)
  * Fix: Ignore translations in test files and re-include some translations that were accidentally ignored (Stefan Hammer)
  * Fix: Show alternative message when no page types are available to be created (Jaspreet Singh)
+ * Fix: Prevent error on sending notifications for the legacy moderation process when no user was specified (Yves Serrano)
 
 
 3.0.1 (16.06.2022)
