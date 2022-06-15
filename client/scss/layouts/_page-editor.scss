@@ -675,6 +675,37 @@ footer .preview {
   }
 }
 
+.preview-error {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: $color-white;
+
+  header {
+    @apply w-text-critical-200;
+    margin-bottom: 0.5rem;
+
+    .icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    h1 {
+      @apply w-h4 w-text-critical-200;
+    }
+  }
+
+  p {
+    @apply w-help-text;
+  }
+}
+
 // Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
   .object {

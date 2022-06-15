@@ -856,11 +856,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # We should have an error page because we are unable to
         # preview; the page key was not in the session.
         self.assertContains(
-            response, "<title>Wagtail - Preview error</title>", html=True
+            response, "<title>Wagtail - Preview not available</title>", html=True
         )
-        self.assertContains(
-            response, '<h1 class="w-header__title">Preview error</h1>', html=True
-        )
+        self.assertContains(response, "<h1>Preview not available</h1>", html=True)
 
     @override_settings(
         CACHES={
