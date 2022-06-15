@@ -168,14 +168,20 @@ Sometimes you want to group custom views together in a single menu item in the s
       current_year = timezone.now().year
       calendar_html = calendar.HTMLCalendar().formatyear(current_year)
 
-      return HttpResponse(calendar_html)
+      return render(request, 'wagtailcalendar/index.html', {
+          'current_year': current_year,
+          'calendar_html': calendar_html,
+      })
 
   def month(request):
       current_year = timezone.now().year
       current_month = timezone.now().month
-      calendar_html = calendar.HTMLCalendar().format_month(current_year, current_month)
+      calendar_html = calendar.HTMLCalendar().formatmonth(current_year, current_month)
 
-      return HttpResponse(calendar_html)
+      return render(request, 'wagtailcalendar/index.html', {
+          'current_year': current_year,
+          'calendar_html': calendar_html,
+      })
 
 We also need to update ``wagtail_hooks.py`` to register our URL in the admin interface:
 
