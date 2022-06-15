@@ -1,6 +1,8 @@
 {% load i18n wagtailadmin_tags %}
 
-<div id="preview-panel" data-active-preview-size="mobile" data-action="{{ preview_url }}">
+{% auto_update_preview as auto_update %}
+
+<div id="preview-panel" data-active-preview-size="mobile" data-action="{{ preview_url }}" data-auto-update="{{ auto_update|yesno:'true,false' }}">
     <div class="preview-buttons">
         <button data-preview-size="mobile" aria-label="{% trans "Preview in mobile size" %}" aria-current="true">
             {% icon name="mobile-alt" class_name="default" %}

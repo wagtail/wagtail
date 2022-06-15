@@ -314,24 +314,6 @@ $(() => {
     });
   }
 
-  $previewButton.one('click', () => {
-    if ($previewButton.data('auto-update')) {
-      // Form data is changed when field values are changed
-      // (change event), when HTML elements are added, modified, moved,
-      // and deleted (DOMSubtreeModified event), and we need to delay
-      // setPreviewData when typing to avoid useless extra AJAX requests
-      // (so we postpone setPreviewData when keyup occurs).
-
-      // TODO: Replace DOMSubtreeModified with a MutationObserver.
-      $form
-        .on('change keyup DOMSubtreeModified', () => {
-          clearTimeout(autoUpdatePreviewDataTimeout);
-          autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
-        })
-        .trigger('change');
-    }
-  });
-
   // eslint-disable-next-line func-names
   $previewButton.on('click', function (e) {
     e.preventDefault();
@@ -553,4 +535,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Make sure current preview data in session exists and is up-to-date.
   setPreviewData();
+
+  if (previewPanel.dataset.autoUpdate === 'true') {
+    // Form data is changed when field values are changed (change event),
+    // when HTML elements are added, modified, moved, and deleted
+    // (childList changes observed by MutationObserver), and we need to delay
+    // setPreviewData when typing to avoid useless extra AJAX requests
+    // (so we postpone setPreviewData when keyup occurs).
+
+    let autoUpdatePreviewDataTimeout = -1;
+    const autoUpdatePreview = () => {
+      clearTimeout(autoUpdatePreviewDataTimeout);
+      autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
+    };
+
+    const observer = new MutationObserver(autoUpdatePreview);
+    observer.observe(form, { subtree: true, childList: true });
+
+    ['change', 'keyup'].forEach((e) =>
+      form.addEventListener(e, autoUpdatePreview),
+    );
+  }
 });
