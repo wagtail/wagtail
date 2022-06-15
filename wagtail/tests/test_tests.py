@@ -12,7 +12,9 @@ from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     SectionedRichTextPage,
+    SimpleChildPage,
     SimplePage,
+    SimpleParentPage,
     StreamPage,
 )
 from wagtail.test.utils import WagtailPageTests, WagtailTestUtils
@@ -248,13 +250,13 @@ class TestWagtailPageTests(WagtailPageTests):
     def test_assert_allowed_subpage_types(self):
         self.assertAllowedSubpageTypes(BusinessIndex, {BusinessChild, BusinessSubIndex})
         self.assertAllowedSubpageTypes(BusinessChild, {})
-        # The only page types that have rules are the Business pages. As such,
-        # everything can be created under the Page model except some of the
-        # Business pages
+        # All page types can be created under the Page model, except those with a parent_page_types
+        # rule excluding it
         all_but_business = set(PAGE_MODEL_CLASSES) - {
             BusinessSubIndex,
             BusinessChild,
             BusinessNowherePage,
+            SimpleChildPage,
         }
         self.assertAllowedSubpageTypes(Page, all_but_business)
         with self.assertRaises(AssertionError):
@@ -267,13 +269,12 @@ class TestWagtailPageTests(WagtailPageTests):
             BusinessChild, {BusinessIndex, BusinessSubIndex}
         )
         self.assertAllowedParentPageTypes(BusinessSubIndex, {BusinessIndex})
-        # The only page types that have rules are the Business pages. As such,
-        # a BusinessIndex can be created everywhere except under the other
-        # Business pages.
+        # BusinessIndex can be created under all page types that do not have a subpage_types rule
         all_but_business = set(PAGE_MODEL_CLASSES) - {
             BusinessSubIndex,
             BusinessChild,
             BusinessIndex,
+            SimpleParentPage,
         }
         self.assertAllowedParentPageTypes(BusinessIndex, all_but_business)
         with self.assertRaises(AssertionError):

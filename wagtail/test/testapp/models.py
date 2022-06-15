@@ -1606,13 +1606,11 @@ class SecretPage(Page):
 
 
 class SimpleParentPage(Page):
-    # `BusinessIndex` has been added to bring it in line with other tests
-    subpage_types = ["tests.SimpleChildPage", BusinessIndex]
+    subpage_types = ["tests.SimpleChildPage"]
 
 
 class SimpleChildPage(Page):
-    # `Page` has been added to bring it in line with other tests
-    parent_page_types = ["tests.SimpleParentPage", Page]
+    parent_page_types = ["tests.SimpleParentPage"]
 
     max_count_per_parent = 1
 
