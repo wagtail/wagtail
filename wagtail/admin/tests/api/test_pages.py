@@ -10,7 +10,7 @@ from django.test.utils import override_settings
 
 from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry, Site
+from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
 
 from wagtail.test.testapp.models import (
