@@ -82,12 +82,15 @@ def can_choose_page(
     elif not can_choose_root and page.is_root():
         return False
 
-    if user_perm == "move_to":
+    if user_perm in ["move_to", "bulk_move_to"]:
         pages_to_move = target_pages
 
         for page_to_move in pages_to_move:
-            if page == page_to_move or page.is_descendant_of(page_to_move):
+            if page.pk == page_to_move.pk or page.is_descendant_of(page_to_move):
                 return False
+
+            if user_perm == "move_to":
+                return permission_proxy.for_page(page_to_move).can_move_to(page)
     if user_perm == "copy_to":
         return permission_proxy.for_page(page).can_add_subpage()
 
@@ -199,7 +202,7 @@ def browse(request, parent_page_id=None):
 
     can_choose_root = request.GET.get("can_choose_root", False)
     target_pages = Page.objects.filter(
-        pk__in=[int(pk) for pk in request.GET.get("target_pages", "").split(",") if pk]
+        pk__in=[int(pk) for pk in request.GET.getlist("target_pages[]", []) if pk]
     )
 
     match_subclass = request.GET.get("match_subclass", True)

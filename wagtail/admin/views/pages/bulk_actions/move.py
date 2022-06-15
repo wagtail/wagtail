@@ -8,29 +8,6 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 from wagtail.models import Page
 
 
-class BulkMovePageChooser(widgets.AdminPageChooser):
-    def __init__(
-        self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
-    ):
-        self.pages_to_move = kwargs.pop("pages_to_move", [])
-        super().__init__(
-            target_models=target_models,
-            can_choose_root=can_choose_root,
-            user_perms=user_perms,
-            **kwargs,
-        )
-
-    @widgets.AdminPageChooser.client_options.getter
-    def client_options(self):
-        return {
-            "model_names": self.model_names,
-            "can_choose_root": self.can_choose_root,
-            "user_perms": self.user_perms,
-            "target_pages": self.pages_to_move,
-            "match_subclass": False,
-        }
-
-
 class MoveForm(forms.Form):
     def __init__(self, *args, **kwargs):
         destination = kwargs.pop("destination")
@@ -40,9 +17,9 @@ class MoveForm(forms.Form):
         self.fields["chooser"] = forms.ModelChoiceField(
             initial=destination,
             queryset=Page.objects.all(),
-            widget=BulkMovePageChooser(
+            widget=widgets.AdminPageMoveChooser(
                 can_choose_root=True,
-                user_perms="move_to",
+                user_perms="bulk_move_to",
                 target_models=target_parent_models,
                 pages_to_move=pages_to_move,
             ),

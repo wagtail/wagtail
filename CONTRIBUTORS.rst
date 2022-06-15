@@ -606,6 +606,7 @@ Contributors
 * Hugh Rawlinson
 * Noble Mittal
 * Oliver Parker
+* Viggo de Vries
 
 Translators
 ===========
