@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 
-<div id="preview-panel" data-active-preview-size="mobile" data-action="{% url "wagtailadmin_pages:preview_on_edit" page.id %}">
+<div id="preview-panel" data-active-preview-size="mobile" data-action="{{ preview_url }}">
     <div class="preview-buttons">
         <button data-preview-size="mobile" aria-label="{% trans "Preview in mobile size" %}" aria-current="true">
             {% icon name="mobile-alt" class_name="default" %}
@@ -19,7 +19,7 @@
 
     <div class="preview-area">
         <div class="preview-wrapper">
-            <iframe src="{% url "wagtailadmin_pages:preview_on_edit" page.id %}"></iframe>
+            <iframe src="{{ preview_url }}"></iframe>
         </div>
     </div>
 </div>
