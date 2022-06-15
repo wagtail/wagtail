@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -9,45 +8,41 @@ from django.utils.translation import gettext as _
 from wagtail import hooks
 from wagtail.actions.move_page import MovePageAction
 from wagtail.admin import messages
+from wagtail.admin.forms.pages import MoveForm
 from wagtail.models import Page
 
 
-def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
+def move_choose_destination(request, page_to_move_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
     page_perms = page_to_move.permissions_for_user(request.user)
     if not page_perms.can_move():
         raise PermissionDenied
 
-    if viewed_page_id:
-        viewed_page = get_object_or_404(Page, id=viewed_page_id)
-    else:
-        viewed_page = page_to_move.get_parent()
+    target_parent_models = set(page_to_move.specific_class.allowed_parent_page_models())
 
-    viewed_page.can_choose = page_perms.can_move_to(viewed_page)
+    move_form = MoveForm(
+        request.POST or None,
+        page_to_move=page_to_move,
+        target_parent_models=target_parent_models,
+    )
 
-    child_pages = []
-    for target in viewed_page.get_children():
-        # can't move the page into itself or its descendants
-        target.can_choose = page_perms.can_move_to(target)
-
-        target.can_descend = (
-            not (target == page_to_move or target.is_child_of(page_to_move))
-            and target.get_children_count()
-        )
-
-        child_pages.append(target)
-
-    # Pagination
-    paginator = Paginator(child_pages, per_page=50)
-    child_pages = paginator.get_page(request.GET.get("p"))
+    if request.method == "POST":
+        if move_form.is_valid():
+            # Receive the new parent page (this should never be empty)
+            if move_form.cleaned_data["new_parent_page"]:
+                new_parent_page = move_form.cleaned_data["new_parent_page"]
+                return redirect(
+                    "wagtailadmin_pages:move_confirm",
+                    page_to_move.id,
+                    new_parent_page.id,
+                )
 
     return TemplateResponse(
         request,
         "wagtailadmin/pages/move_choose_destination.html",
         {
             "page_to_move": page_to_move,
-            "viewed_page": viewed_page,
-            "child_pages": child_pages,
+            "move_form": move_form,
         },
     )
 
@@ -65,9 +60,8 @@ def move_confirm(request, page_to_move_id, destination_id):
             ).format(page_to_move.slug),
         )
         return redirect(
-            "wagtailadmin_pages:move_choose_destination",
+            "wagtailadmin_pages:move",
             page_to_move.id,
-            destination.id,
         )
 
     for fn in hooks.get_hooks("before_move_page"):

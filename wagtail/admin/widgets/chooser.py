@@ -341,4 +341,27 @@ class PageChooserAdapter(WidgetAdapter):
         ]
 
 
+class AdminPageMoveChooser(AdminPageChooser):
+    def __init__(
+        self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
+    ):
+        self.pages_to_move = kwargs.pop("pages_to_move", [])
+        super().__init__(
+            target_models=target_models,
+            can_choose_root=can_choose_root,
+            user_perms=user_perms,
+            **kwargs,
+        )
+
+    @property
+    def client_options(self):
+        return {
+            "model_names": self.model_names,
+            "can_choose_root": self.can_choose_root,
+            "user_perms": self.user_perms,
+            "target_pages": self.pages_to_move,
+            "match_subclass": False,
+        }
+
+
 register(PageChooserAdapter(), AdminPageChooser)

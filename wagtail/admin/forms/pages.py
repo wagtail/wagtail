@@ -212,3 +212,24 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             del cleaned_data["first_published_at"]
 
         return cleaned_data
+
+
+class MoveForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.page_to_move = kwargs.pop("page_to_move")
+        self.target_parent_models = kwargs.pop("target_parent_models")
+
+        super().__init__(*args, **kwargs)
+
+        self.fields["new_parent_page"] = forms.ModelChoiceField(
+            initial=self.page_to_move.get_parent(),
+            queryset=Page.objects.all(),
+            widget=widgets.AdminPageMoveChooser(
+                can_choose_root=True,
+                user_perms="move_to",
+                target_models=self.target_parent_models,
+                pages_to_move=[self.page_to_move.pk],
+            ),
+            label=_("New parent page"),
+            help_text=_("Select a new parent for this page."),
+        )

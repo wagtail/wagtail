@@ -1021,6 +1021,85 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
         )
         self.assertFalse(result)
 
+    def test_move_to_same_page(self):
+        homepage = Page.objects.get(url_path="/home/")
+        result = can_choose_page(
+            homepage,
+            self.permission_proxy,
+            self.desired_classes,
+            user_perm="move_to",
+            target_pages=[homepage],
+        )
+        self.assertFalse(result)
+
+    def test_move_to_root(self):
+        homepage = Page.objects.get(url_path="/home/")
+        root = Page.objects.get(url_path="/")
+        result = can_choose_page(
+            root,
+            self.permission_proxy,
+            self.desired_classes,
+            user_perm="move_to",
+            target_pages=[homepage],
+        )
+        self.assertTrue(result)
+
+    def test_move_to_page_with_wrong_parent_types(self):
+        board_meetings = Page.objects.get(
+            url_path="/home/events/businessy-events/board-meetings/"
+        )
+        homepage = Page.objects.get(url_path="/home/")
+        result = can_choose_page(
+            homepage,
+            self.permission_proxy,
+            self.desired_classes,
+            user_perm="move_to",
+            target_pages=[board_meetings],
+        )
+        self.assertFalse(result)
+
+    def test_move_to_same_page_bulk(self):
+        homepage = Page.objects.get(url_path="/home/")
+        secret_plans = Page.objects.get(url_path="/home/secret-plans/")
+        result = can_choose_page(
+            homepage,
+            self.permission_proxy,
+            self.desired_classes,
+            user_perm="bulk_move_to",
+            target_pages=[homepage, secret_plans],
+        )
+        self.assertFalse(result)
+
+    def test_move_to_root_bulk(self):
+        homepage = Page.objects.get(url_path="/home/")
+        secret_plans = Page.objects.get(url_path="/home/secret-plans/")
+        root = Page.objects.get(url_path="/")
+        result = can_choose_page(
+            root,
+            self.permission_proxy,
+            self.desired_classes,
+            user_perm="bulk_move_to",
+            target_pages=[homepage, secret_plans],
+        )
+        self.assertTrue(result)
+
+    def test_move_to_page_with_wrong_parent_types_bulk(self):
+        board_meetings = Page.objects.get(
+            url_path="/home/events/businessy-events/board-meetings/"
+        )
+        steal_underpants = Page.objects.get(
+            url_path="/home/secret-plans/steal-underpants/"
+        )
+        homepage = Page.objects.get(url_path="/home/")
+        result = can_choose_page(
+            homepage,
+            self.permission_proxy,
+            self.desired_classes,
+            user_perm="bulk_move_to",
+            target_pages=[board_meetings, steal_underpants],
+        )
+        self.assertTrue(result)
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):

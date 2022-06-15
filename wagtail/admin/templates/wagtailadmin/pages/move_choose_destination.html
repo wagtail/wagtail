@@ -1,19 +1,30 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Move {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    <header class="header">
-        {% move_breadcrumb page_to_move viewed_page %}
-        <div class="row">
-            <h1 class="header__title">
-                {% icon name="doc-empty-inverse" %}
-                {% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}
-            </h1>
-        </div>
-    </header>
+    {% trans "Move" as header_title %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=page_to_move.specific_deferred.get_admin_display_title icon="doc-empty-inverse" %}
+
     <div class="nice-padding">
-        {% include "wagtailadmin/pages/listing/_list_move.html" with pages=child_pages parent_page=viewed_page %}
-        {% url 'wagtailadmin_pages:move_choose_destination' page_to_move.id viewed_page.id as pagination_base_url %}
-        {% paginate child_pages base_url=pagination_base_url %}
+        <form action="{% url 'wagtailadmin_pages:move' page_to_move.id %}" method="POST" novalidate>
+            {% csrf_token %}
+
+            <ul class="fields">
+                {% include "wagtailadmin/shared/field_as_li.html" with field=move_form.new_parent_page %}
+            </ul>
+
+            <input type="submit" value="{% trans 'Confirm' %}" class="button">
+        </form>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ move_form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ move_form.media.css }}
 {% endblock %}

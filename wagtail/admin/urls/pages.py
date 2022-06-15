@@ -55,11 +55,6 @@ urlpatterns = [
     path("search/", search.search, name="search"),
     path("<int:page_to_move_id>/move/", move.move_choose_destination, name="move"),
     path(
-        "<int:page_to_move_id>/move/<int:viewed_page_id>/",
-        move.move_choose_destination,
-        name="move_choose_destination",
-    ),
-    path(
         "<int:page_to_move_id>/move/<int:destination_id>/confirm/",
         move.move_confirm,
         name="move_confirm",
