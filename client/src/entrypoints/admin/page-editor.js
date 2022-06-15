@@ -386,6 +386,9 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
 
 function initPreview() {
   const previewPanel = document.getElementById('preview-panel');
+  // Preview panel is not shown if the page does not have any preview modes
+  if (!previewPanel) return;
+
   const previewButtons = previewPanel.querySelectorAll(
     'button[data-preview-size]',
   );

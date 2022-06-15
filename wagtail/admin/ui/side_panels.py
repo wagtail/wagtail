@@ -159,7 +159,6 @@ class BaseSidePanels:
 
         self.side_panels = [
             BaseStatusSidePanel(object, self.request),
-            PagePreviewSidePanel(object, self.request),
         ]
 
     def __iter__(self):
@@ -179,8 +178,12 @@ class PageSidePanels(BaseSidePanels):
 
         self.side_panels = [
             PageStatusSidePanel(page, self.request),
-            PagePreviewSidePanel(page, self.request),
         ]
+
+        if page.preview_modes:
+            self.side_panels += [
+                PagePreviewSidePanel(page, self.request),
+            ]
 
         if comments_enabled:
             self.side_panels += [
