@@ -462,19 +462,14 @@ function initPreview() {
 
   if (previewPanel.dataset.autoUpdate === 'true') {
     // Form data is changed when field values are changed (change event),
-    // when HTML elements are added, modified, moved, and deleted
-    // (childList changes observed by MutationObserver), and we need to delay
-    // setPreviewData when typing to avoid useless extra AJAX requests
-    // (so we postpone setPreviewData when keyup occurs).
+    // and we need to delay setPreviewData when typing to avoid useless extra
+    // AJAX requests (so we postpone setPreviewData when keyup occurs).
 
     let autoUpdatePreviewDataTimeout = -1;
     const autoUpdatePreview = () => {
       clearTimeout(autoUpdatePreviewDataTimeout);
       autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
     };
-
-    const observer = new MutationObserver(autoUpdatePreview);
-    observer.observe(form, { subtree: true, childList: true });
 
     ['change', 'keyup'].forEach((e) =>
       form.addEventListener(e, autoUpdatePreview),
