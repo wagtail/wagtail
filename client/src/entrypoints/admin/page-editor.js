@@ -439,16 +439,10 @@ function initPreview() {
     );
 
   const handlePreview = () =>
-    setPreviewData()
-      .then((valid) => {
-        // Submit the form to show the validation errors.
-        if (!valid) submitAction.click();
-        return valid;
-      })
-      .catch(() => {
-        // eslint-disable-next-line no-alert
-        alert('Error while sending preview data.');
-      });
+    setPreviewData().catch(() => {
+      // eslint-disable-next-line no-alert
+      alert('Error while sending preview data.');
+    });
 
   const handlePreviewInNewTab = () => {
     const previewWindow = window.open('', previewUrl);
