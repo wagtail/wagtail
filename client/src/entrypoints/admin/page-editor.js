@@ -385,29 +385,39 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
 };
 
 function initPreview() {
-  const previewPanel = document.getElementById('preview-panel');
+  const previewPanel = document.querySelector('.preview-panel');
   // Preview panel is not shown if the page does not have any preview modes
   if (!previewPanel) return;
 
-  const previewButtons = previewPanel.querySelectorAll(
-    'button[data-preview-size]',
-  );
+  const previewButtons = previewPanel.querySelectorAll('[data-preview-size]');
 
   const togglePreviewSize = (event) => {
     const currentButton = event.currentTarget;
+    const size = currentButton.dataset.previewSize;
+    const hasErrors = previewPanel.classList.contains(
+      'preview-panel--has-errors',
+    );
 
-    previewPanel.dataset.activePreviewSize = currentButton.dataset.previewSize;
     previewButtons.forEach((b) => b.setAttribute('aria-current', 'false'));
     currentButton.setAttribute('aria-current', 'true');
+    previewPanel.dataset.activePreviewSize = size;
+    previewPanel.className = `preview-panel preview-panel--${size}`;
+    if (hasErrors) {
+      previewPanel.classList.add('preview-panel--has-errors');
+    }
   };
 
   previewButtons.forEach((button) => {
     button.addEventListener('click', togglePreviewSize);
   });
 
-  const iframe = previewPanel.querySelector('iframe');
-  const refreshButton = previewPanel.querySelector('.refresh-button');
-  const openPreviewButton = previewPanel.querySelector('.open-preview-button');
+  const refreshButton = previewPanel.querySelector(
+    '.preview-panel__refresh-button',
+  );
+  const newTabButton = previewPanel.querySelector(
+    '.preview-panel__size-button--new-tab',
+  );
+  const iframe = previewPanel.querySelector('.preview-panel__iframe');
   const form = document.getElementById('page-edit-form');
   const previewUrl = previewPanel.dataset.action;
   const submitAction = document.querySelector('.action-save');
@@ -419,9 +429,9 @@ function initPreview() {
     }).then((response) =>
       response.json().then((data) => {
         if (data.is_valid) {
-          previewPanel.classList.remove('has-errors');
+          previewPanel.classList.remove('preview-panel--has-errors');
         } else {
-          previewPanel.classList.add('has-errors');
+          previewPanel.classList.add('preview-panel--has-errors');
         }
         iframe.contentWindow.location.reload();
         return data.is_valid;
@@ -455,7 +465,7 @@ function initPreview() {
   };
 
   refreshButton.addEventListener('click', handlePreview);
-  openPreviewButton.addEventListener('click', handlePreviewInNewTab);
+  newTabButton.addEventListener('click', handlePreviewInNewTab);
 
   // Make sure current preview data in session exists and is up-to-date.
   setPreviewData();

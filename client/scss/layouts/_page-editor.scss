@@ -569,104 +569,106 @@ footer .preview {
   }
 }
 
-#preview-panel {
+.preview-panel {
   margin-bottom: 2rem;
 
-  .preview-wrapper {
+  &__wrapper {
     overflow: hidden;
     width: 100%;
     height: 100%;
-
-    iframe {
-      transform-origin: 0 0;
-      width: 100%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
   }
 
-  &[data-active-preview-size='mobile'], &[data-active-preview-size].has-errors {
+  &__iframe {
+    transform-origin: 0 0;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &--mobile,
+  &--tablet.preview-panel--has-errors,
+  &--desktop.preview-panel--has-errors {
     // From DevTools: iPhone SE 375x667
-    .preview-wrapper {
+    .preview-panel__wrapper {
       height: 667px;
+    }
 
-      iframe {
-        width: 375px;
-        height: calc(667px / min(1, calc(446/375)));
-        zoom: min(1, calc(446/375));
-        transform: scale(min(1, calc(446/375)));
-      }
+    .preview-panel__iframe {
+      width: 375px;
+      height: calc(667px / min(1, calc(446 / 375)));
+      zoom: min(1, calc(446 / 375));
+      transform: scale(min(1, calc(446 / 375)));
     }
   }
 
-  &[data-active-preview-size='tablet'] {
+  &--tablet {
     // From DevTools: iPad Mini 768x1024
-    .preview-wrapper {
+    .preview-panel__wrapper {
       height: 1024px;
+    }
 
-      iframe {
-        width: 768px;
-        height: calc(1024px / min(1, calc(446/768)));
-        zoom: min(1, calc(446/768));
-        transform: scale(min(1, calc(446/768)));
-      }
+    .preview-panel__iframe {
+      width: 768px;
+      height: calc(1024px / min(1, calc(446 / 768)));
+      zoom: min(1, calc(446 / 768));
+      transform: scale(min(1, calc(446 / 768)));
     }
   }
 
-  &[data-active-preview-size='desktop'] {
+  &--desktop {
     // Desktop 1280x720
-    .preview-wrapper {
+    .preview-panel__wrapper {
       height: 720px;
+    }
 
-      iframe {
-        width: 1280px;
-        height: calc(720px/ min(1, calc(446/1280)));
-        zoom: min(1, calc(446/1280));
-        transform: scale(min(1, calc(446/1280)));
-      }
+    .preview-panel__iframe {
+      width: 1280px;
+      height: calc(720px / min(1, calc(446 / 1280)));
+      zoom: min(1, calc(446 / 1280));
+      transform: scale(min(1, calc(446 / 1280)));
     }
   }
 
   // Required for Safari and Chromium-based browsers
-  @media screen and (-webkit-min-device-pixel-ratio: 0) {
-    &[data-active-preview-size], {
-      .preview-wrapper {
-        iframe {
-          zoom: 1;
-        }
+  &--mobile,
+  &--tablet,
+  &--desktop {
+    @media screen and (-webkit-min-device-pixel-ratio: 0) {
+      .preview-panel__iframe {
+        zoom: 1;
       }
     }
   }
 
-  .preview-area {
+  &__area {
     width: 100%; // 446px
     overflow: scroll;
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
 
-  .preview-buttons {
+  &__sizes {
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 0.75rem;
     border-bottom: 1px solid $color-grey-4;
     padding-bottom: 1rem;
-
-    button {
-      @apply w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary;
-
-      width: 2rem;
-      height: 2rem;
-      background: transparent;
-      box-sizing: border-box;
-      padding: 0;
-      border-radius: 5px;
-    }
   }
 
-  .button.refresh-button {
+  &__size-button {
+    @apply w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary;
+
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 5px;
+  }
+
+  &__refresh-button.button--icon {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -679,9 +681,9 @@ footer .preview {
     }
   }
 
-  &[data-active-preview-size='mobile'] button[data-preview-size='mobile'],
-  &[data-active-preview-size='tablet'] button[data-preview-size='tablet'],
-  &[data-active-preview-size='desktop'] button[data-preview-size='desktop'] {
+  &--mobile &__size-button--mobile,
+  &--tablet &__size-button--tablet,
+  &--desktop &__size-button--desktop {
     @apply w-bg-primary w-text-white w-transform-none;
   }
 }
