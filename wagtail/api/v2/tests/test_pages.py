@@ -18,8 +18,14 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 def get_total_page_count():
-    # Need to take away 1 as the root page is invisible over the API
-    return Page.objects.live().public().count() - 1
+    return (
+        Page.objects.descendant_of(
+            Site.objects.get(is_default_site=True).root_page, inclusive=True
+        )
+        .live()
+        .public()
+        .count()
+    )
 
 
 class TestPageListing(TestCase, WagtailTestUtils):
@@ -30,6 +36,9 @@ class TestPageListing(TestCase, WagtailTestUtils):
 
     def get_page_id_list(self, content):
         return [page["id"] for page in content["items"]]
+
+    def get_homepage(self):
+        return Page.objects.get(slug="home-page")
 
     # BASIC TESTS
 
@@ -200,7 +209,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_locale_filter(self):
         french = Locale.objects.create(language_code="fr")
-        homepage = Page.objects.get(depth=2)
+        homepage = self.get_homepage()
         french_homepage = homepage.copy_for_translation(french)
         french_homepage.get_latest_revision().publish()
 
@@ -213,7 +222,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_locale_filter_with_search(self):
         french = Locale.objects.create(language_code="fr")
-        homepage = Page.objects.get(depth=2)
+        homepage = self.get_homepage()
         french_homepage = homepage.copy_for_translation(french)
         french_homepage.get_latest_revision().publish()
         events_index = Page.objects.get(url_path="/home-page/events-index/")
@@ -231,7 +240,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_translation_of_filter(self):
         french = Locale.objects.create(language_code="fr")
-        homepage = Page.objects.get(depth=2)
+        homepage = self.get_homepage()
         french_homepage = homepage.copy_for_translation(french)
         french_homepage.get_latest_revision().publish()
 
@@ -244,7 +253,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_translation_of_filter_with_search(self):
         french = Locale.objects.create(language_code="fr")
-        homepage = Page.objects.get(depth=2)
+        homepage = self.get_homepage()
         french_homepage = homepage.copy_for_translation(french)
         french_homepage.get_latest_revision().publish()
 
@@ -844,6 +853,27 @@ class TestPageListing(TestCase, WagtailTestUtils):
             {"message": "filtering by descendant_of with child_of is not supported"},
         )
 
+    # SITE FILTER
+
+    def test_site_filter_same_hostname_returns_error(self):
+        response = self.get_response(site="localhost")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(
+            content,
+            {
+                "message": "Your query returned multiple sites. Try adding a port number to your site filter."
+            },
+        )
+
+    def test_site_filter(self):
+        response = self.get_response(site="localhost:8001")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [24, 25])
+
     # ORDERING
 
     def test_ordering_default(self):
@@ -1031,7 +1061,6 @@ class TestPageListing(TestCase, WagtailTestUtils):
     def test_search_with_type(self):
         response = self.get_response(type="demosite.BlogEntryPage", search="blog")
         content = json.loads(response.content.decode("UTF-8"))
-
         page_id_list = self.get_page_id_list(content)
 
         self.assertEqual(set(page_id_list), {16, 18, 19})
