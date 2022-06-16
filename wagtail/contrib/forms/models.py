@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.mail import send_mail
 from wagtail.admin.panels import FieldPanel
+from wagtail.api import APIField
 from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Orderable, Page
 
@@ -119,6 +120,16 @@ class AbstractFormField(Orderable):
         FieldPanel("field_type", classname="formbuilder-type"),
         FieldPanel("choices", classname="formbuilder-choices"),
         FieldPanel("default_value", classname="formbuilder-default"),
+    ]
+
+    api_fields = [
+        APIField("clean_name"),
+        APIField("label"),
+        APIField("field_type"),
+        APIField("help_text"),
+        APIField("required"),
+        APIField("choices"),
+        APIField("default_value"),
     ]
 
     def get_field_clean_name(self):
