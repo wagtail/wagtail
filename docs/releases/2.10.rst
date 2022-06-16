@@ -2,6 +2,8 @@
 Wagtail 2.10 release notes
 ==========================
 
+*August 11, 2020*
+
 .. contents::
     :local:
     :depth: 1

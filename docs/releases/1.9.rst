@@ -2,6 +2,8 @@
 Wagtail 1.9 release notes
 =========================
 
+*February 16, 2017*
+
 .. contents::
     :local:
     :depth: 1
