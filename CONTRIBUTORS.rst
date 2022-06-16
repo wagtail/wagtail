@@ -603,6 +603,7 @@ Contributors
 * Lucie Le Frapper
 * Jaspreet Singh
 * Yves Serrano
+* Hugh Rawlinson
 
 Translators
 ===========

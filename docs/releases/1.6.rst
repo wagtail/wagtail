@@ -2,6 +2,8 @@
 Wagtail 1.6 release notes
 =========================
 
+*August 15, 2016*
+
 .. contents::
     :local:
     :depth: 1
