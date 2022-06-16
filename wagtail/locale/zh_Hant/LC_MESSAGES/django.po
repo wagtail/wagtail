@@ -40,6 +40,9 @@ msgstr "上移"
 msgid "Move down"
 msgstr "下移"
 
+msgid "Duplicate"
+msgstr "副本"
+
 msgid "Delete"
 msgstr "刪除"
 
@@ -127,6 +130,9 @@ msgstr "最後發佈於"
 
 msgid "latest revision created at"
 msgstr "最近修訂版本創建於"
+
+msgid "live revision"
+msgstr "上線版本"
 
 msgid "This slug is already in use"
 msgstr "此縮略名已被使用"
@@ -320,6 +326,9 @@ msgstr "要求者"
 msgid "current task state"
 msgstr "目前作業狀態"
 
+msgid "Not started"
+msgstr "尚未開始"
+
 msgid "Workflow state"
 msgstr "工作流程狀態"
 
@@ -339,7 +348,7 @@ msgid "started at"
 msgstr "開始於"
 
 msgid "finished at"
-msgstr "結束於"
+msgstr "完成於"
 
 msgid "Task state"
 msgstr "作業狀態"

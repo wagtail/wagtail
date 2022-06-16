@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,28 @@ msgstr "Dodaj promociju"
 
 msgid "Add search pick"
 msgstr "Dodaj promovirani rezultat"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Promovirani rezultati pretraživanja su način za preporuku određenih "
+"stranica koje se možda neće priordno pojaviti pri vrhu u rezultatima "
+"pretraživanja. Npr. preporuka glavne stranice za donacije korisniku koji "
+"pretražuje manje učestao pojam \"<em>davanje</em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Polje \"Pojam(ovi)/fraze\" mora sadržavati puni i točan pojam za koji se "
+"prepručuje rezultat, <em>uključujući</em> bilo kakve tipfelere/greške. Kao "
+"pomoć, možete izabrati pojam za pretraživanja koji je popularan među "
+"korisnicima vašeg sjedišta.</p>"
 
 msgid "Save"
 msgstr "Spremi"
@@ -115,6 +137,13 @@ msgid "None"
 msgstr "Prazno"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Pronađen je %(counter)s rezultat"
+msgstr[1] "Pronađeno je %(counter)s rezultata"
+msgstr[2] "Pronađeno je %(counter)s rezultata"
+
+#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Nažalost nisu pronađeni promovirani rezultati koji odgovaraju \"<em>"
@@ -125,8 +154,8 @@ msgid ""
 "No promoted results have been created. Why not <a href="
 "\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nema postavljenih promoviranih rezultata. Zašto ne biste <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">dodali jedan</a>?"
+"Nema postavljenih promoviranih rezultata. Zašto ne <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">dodate jedan</a>?"
 
 msgid "Search promoted results"
 msgstr "Pretraži promovirane rezultate"

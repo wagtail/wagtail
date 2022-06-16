@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020-2021
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2021\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -76,8 +76,22 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "preusmjeri na stranicu"
 
+msgid "target page route"
+msgstr "Putanja na odredišnoj stranici"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Po izboru možete odrediti putanju na odredišnoj stranici na koju će se "
+"stranica preusmjeriti. Ostavite prazno za preusmjeravanje na zadanu putanju "
+"stranice."
+
 msgid "redirect to any URL"
 msgstr "preusmjeri na URL"
+
+msgid "automatically created"
+msgstr "kreirano automatski"
 
 msgid "created at"
 msgstr "stvoreno u"
@@ -87,6 +101,9 @@ msgstr "privremeno"
 
 msgid "redirect"
 msgstr "preusmjeravanje"
+
+msgid "redirects"
+msgstr "preusmjeravanja"
 
 msgid "Add redirect"
 msgstr "Dodaj preusmjeravanje"
@@ -99,6 +116,17 @@ msgstr "Preusmjeravanja"
 
 msgid "Import redirects"
 msgstr "Uvezi preusmjeravanja"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Odaberite datoteku u kojoj se preusmjeravanja nalaze u retcima, a stupci "
+"sadrže <code>polaznu</code> i <code>odredišnu</code> točku (nazivi su "
+"proizvoljni).</p> <p>Nakon potvrde moći ćete prilagoditi preusmjeravanja "
+"prije nego ih uvezete.</p>"
 
 msgid "Import"
 msgstr "Uvezi"
@@ -173,6 +201,13 @@ msgid "No redirects found."
 msgstr "Nema pronađenih preusmjeravanja."
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Pronađen je %(counter)s rezultat"
+msgstr[1] "Pronađeno je %(counter)s rezultata"
+msgstr[2] "Pronađeno je %(counter)s rezultata"
+
+#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Nažalost nisu pronađena preusmjeravanja koja odgovaraju \"<em>"
@@ -183,8 +218,8 @@ msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Nema postavljenih preusmjeravanja. Zašto ne biste <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">dodali jedno</a>?"
+"Nema postavljenih preusmjeravanja. Zašto ne <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">dodate jedno</a>?"
 
 msgid "Search redirects"
 msgstr "Pretraži preusmjeravanja"

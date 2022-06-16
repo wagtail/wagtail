@@ -25,7 +25,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail search promotions"
 msgstr "Promociones de búsqueda Wagtail"
@@ -129,6 +130,7 @@ msgid "There is %(counter)s match"
 msgid_plural "There are %(counter)s matches"
 msgstr[0] "Hay %(counter)s coincidencia"
 msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

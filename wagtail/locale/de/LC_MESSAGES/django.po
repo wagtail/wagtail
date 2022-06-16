@@ -172,7 +172,7 @@ msgid "locked"
 msgstr "Gesperrt"
 
 msgid "locked at"
-msgstr "Gesperrt um"
+msgstr "Gesperrt am"
 
 msgid "locked by"
 msgstr "Gesperrt von"
@@ -628,7 +628,7 @@ msgid "The form is already filled."
 msgstr "Das Formular ist bereits ausgefüllt."
 
 msgid "You must log in first."
-msgstr "Du musst dich zuerst anmelden."
+msgstr "Sie müssen sich zuerst anmelden."
 
 msgid "German"
 msgstr "Deutsch"

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2020
-# Dino Aljević <dino8890@protonmail.com>, 2020-2021
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -124,8 +124,49 @@ msgstr "korisnički profil"
 msgid "user profiles"
 msgstr "korisnički profili"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Pridruži ulogu 1 korisniku"
+msgstr[1] "Pridruži ulogu %(counter)s korisnika"
+msgstr[2] "Dodijeli ulogu %(counter)s korisnika"
+
+msgid "Assign role"
+msgstr "Dodijeli ulogu"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Jeste li sigurni da želite dodijeliti ulogu ovim korisnicima?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nemate dozvolu za uređivanje korisnika"
+msgstr[1] "Nemate dozvolu za uređivanje ovih korisnika"
+msgstr[2] "Nemate dozvolu za uređivanje ovih korisnika"
+
+msgid "Yes, assign"
+msgstr "Da, dodijeli"
+
+msgid "No, don't assign"
+msgstr "Ne, nemoj dodijeliti"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Izbriši 1 korisnika"
+msgstr[1] "Izbriši %(counter)s korisnika"
+msgstr[2] "Izbriši %(counter)s korisnika"
+
 msgid "Delete"
 msgstr "Obriši"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Jeste li sigurni da želite izbrisati ove korisnike?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Nemate dozvolu za brisanje korisnika"
+msgstr[1] "Nemate dozvolu za brisanje ovih korisnika"
+msgstr[2] "Nemate dozvolu za brisanje ovih korisnika"
 
 msgid "Yes, delete"
 msgstr "Da, obriši"
@@ -133,8 +174,43 @@ msgstr "Da, obriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Promijeni aktivno stanje za 1 korisnika"
+msgstr[1] "Promijeni aktivno stanje za %(counter)s korisnika"
+msgstr[2] "Promijeni aktivno stanje za %(counter)s korisnika"
+
+msgid "Set active state"
+msgstr "Postavi aktivno stanje"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Jeste li sigurni da želite promijeniti aktivno stanje ovim korisnicima?"
+
+msgid "You cannot change your own active status"
+msgstr "Ne možete promjeniti vlastito aktivno stanje"
+
+msgid "Yes, change state"
+msgstr "Da, promijeni stanje"
+
+msgid "No, don't change state"
+msgstr "Ne, nemoj promijeniti stanje"
+
 msgid "Delete group"
 msgstr "Obriši grupu"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grupa '%(group_name)s' ima <strong>%(group_user_count)s</strong> člana."
+msgstr[1] ""
+"Grupa '%(group_name)s' ima <strong>%(group_user_count)s</strong> članova."
+msgstr[2] ""
+"Grupa '%(group_name)s' ima <strong>%(group_user_count)s</strong> članova."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -194,8 +270,8 @@ msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nema postavljenih grupa. Zašto ne biste <a href="
-"\"%(wagtailusers_create_group_url)s\">dodali neke</a>?"
+"Nema postavljenih grupa. Zašto ne <a href=\"%(wagtailusers_create_group_url)s"
+"\">dodate neke</a>?"
 
 msgid "Delete user"
 msgstr "Izbriši korisnika"
@@ -217,6 +293,9 @@ msgstr "Korisnici"
 
 msgid "Add a user"
 msgstr "Dodaj korisnika"
+
+msgid "Select all users in listing"
+msgstr "Odaberite sve korisnike iz popisa"
 
 msgid "Username"
 msgstr "Korisničko ime"
@@ -244,6 +323,13 @@ msgid "%(time_period)s ago"
 msgstr "Prije %(time_period)s"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Pronađen je %(counter)s rezultat"
+msgstr[1] "Pronađeno je %(counter)s rezultata"
+msgstr[2] "Pronađeno je %(counter)s rezultata"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Nažalost nisu pronađeni korisnici koji odgovaraju \"<em>%(query_string)s</em>"
@@ -254,16 +340,53 @@ msgid ""
 "The %(group_name)s group has no users configured. Why not <a href="
 "\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Grupa %(group_name)s nema postavljenih korisnika. Zašto ne biste <a href="
-"\"%(wagtailusers_add_url)s\">dodali neke</a>?"
+"Grupa %(group_name)s nema postavljenih korisnika. Zašto ne <a href="
+"\"%(wagtailusers_add_url)s\">dodate neke</a>?"
 
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Nema postavljenih korisnika. Zašto ne biste <a href="
-"\"%(wagtailusers_add_url)s\">dodali neke</a>?"
+"Nema postavljenih korisnika. Zašto ne <a href=\"%(wagtailusers_add_url)s"
+"\">dodate neke</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Dodijeli ulogu odabranim korisnicima"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d korisniku je dodijeljena uloga %(role)s"
+msgstr[1] "%(num_parent_objects)d korisnika je dodijeljena uloga %(role)s"
+msgstr[2] "%(num_parent_objects)d korisnika je dodijeljena uloga %(role)s"
+
+msgid "Delete selected users"
+msgstr "Izbriši odabrene korisnike"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d korisnik je izbrisan"
+msgstr[1] "%(num_parent_objects)d korisnika je izbrisano"
+msgstr[2] "%(num_parent_objects)d korisnika je izbrisano"
+
+msgid "Change the active state for selected users"
+msgstr "Promijeni aktivno stanje odabranim korisnicima"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d korisnik je označen kao aktivan"
+msgstr[1] "%(num_parent_objects)d korisnika je označeno kao aktivno"
+msgstr[2] "%(num_parent_objects)d korisnika je označeno kao aktivno"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d korisnik je označen kao neaktivan"
+msgstr[1] "%(num_parent_objects)d korisnika je označeno kao neaktivno"
+msgstr[2] "%(num_parent_objects)d korisnika je označeno kao neaktivno"
 
 msgid "Groups"
 msgstr "Grupe"

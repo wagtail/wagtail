@@ -20,7 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail ModelAdmin"
 msgstr "Amministrazione Modelli Wagtail"
@@ -120,6 +121,10 @@ msgstr "No, non eliminarlo"
 msgid "Home"
 msgstr "Home"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Per %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Ultima modifica"
 
@@ -163,6 +168,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "%(name)s non è stato ancora creata."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Perché non ne <a href=\"%(url)s\">aggiungi una</a>?"
 
 msgid "Pagination"
 msgstr "Paginazione"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020-2021
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2021\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,12 @@ msgstr "dokument"
 
 msgid "documents"
 msgstr "dokumenti"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, nemoj dodati"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -158,16 +164,16 @@ msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate dokumenata u ovoj zbirci. Zašto ne biste <a href="
-"\"%(wagtaildocs_add_document_url)s\">dodali jedan</a>?"
+"Nemate dokumenata u ovoj zbirci. Zašto ne <a href="
+"\"%(wagtaildocs_add_document_url)s\">dodate jedan</a>?"
 
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate dokumenata. Zašto ne biste <a href=\"%(wagtaildocs_add_document_url)s"
-"\">dodali jedan</a>?"
+"Nemate dokumenata. Zašto ne <a href=\"%(wagtaildocs_add_document_url)s"
+"\">dodate jedan</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -195,7 +201,7 @@ msgid "Add documents"
 msgstr "Dodaj dokumente"
 
 msgid "Drag and drop documents into this area to upload immediately."
-msgstr "Dovucite dokumente ovdje kako biste ih prenijeli."
+msgstr "Dovucite dokumente ovdje kako bi ih prenijeli."
 
 msgid "Or choose from your computer"
 msgstr "Ili odaberite sa vašeg računala"
@@ -218,7 +224,7 @@ msgid "Document updated."
 msgstr "Dokument je ažuriran."
 
 msgid "You need a password to access this document."
-msgstr "Potrebna je lozinka kako biste pristupili ovom dokumentu."
+msgstr "Potrebna je lozinka kako bi pristupili ovom dokumentu."
 
 msgid "Document permissions"
 msgstr "Dozvole dokumenta"

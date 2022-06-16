@@ -4,6 +4,7 @@
 #
 # Translators:
 # Andrej, 2022
+# andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -93,6 +94,10 @@ msgid "Title"
 msgstr "Naziv"
 
 #, python-format
+msgid "Select %(snippet)s"
+msgstr "Izberite %(snippet)s"
+
+#, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
@@ -144,6 +149,9 @@ msgstr "Uredi"
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."
 
+msgid "Snippet history"
+msgstr "Zgodovina odrezka"
+
 msgid "Action"
 msgstr "Dejanje"
 
@@ -153,6 +161,10 @@ msgstr "Datum"
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Izbriši '%(title)s'"
 
 #, python-format
 msgid "Choose %s"
