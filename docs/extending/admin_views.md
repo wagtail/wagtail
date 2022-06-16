@@ -187,15 +187,14 @@ The calendar will now be visible at the URL `/admin/calendar/month/`.
 
 ![A single calender month](../_static/images/adminviews_calendarmonth.png)
 
-Finally we can alter our `wagtail_hooks.py` to include a group of custom menu items. This is similar to adding a single item but involves importing two more classes, `SubMenu` and `SubmenuMenuItem`.
+Finally we can alter our `wagtail_hooks.py` to include a group of custom menu items. This is similar to adding a single item but involves importing two more classes, `Menu` and `SubmenuMenuItem`.
 
 ```{code-block} python
-:emphasize-lines: 3-4, 21-26
+:emphasize-lines: 3,20-25
 
 from django.urls import path, reverse
 
-from wagtail.admin.menu import MenuItem, SubmenuMenuItem
-from wagtail.contrib.modeladmin.menus import SubMenu
+from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
 from wagtail import hooks
 
 
@@ -212,12 +211,12 @@ def register_calendar_url():
 
 @hooks.register('register_admin_menu_item')
 def register_calendar_menu_item():
-    menu_items = [
+    submenu = Menu(items=[
         MenuItem('Calendar', reverse('calendar'), icon_name='date'),
         MenuItem('Current month', reverse('calendar-month'), icon_name='date'),
-    ]
+    ])
 
-    return SubmenuMenuItem('Calendar', SubMenu(menu_items), classnames='icon icon-date')
+    return SubmenuMenuItem('Calendar', submenu, classnames='icon icon-date')
 ```
 
 The 'Calendar' item will now appear as a group of menu items.

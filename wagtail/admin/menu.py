@@ -1,4 +1,6 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.forms import Media, MediaDefiningClass
+from django.utils.functional import cached_property
 
 from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
@@ -40,22 +42,34 @@ class MenuItem(metaclass=MediaDefiningClass):
 
 
 class Menu:
-    def __init__(self, register_hook_name, construct_hook_name=None):
+    def __init__(self, register_hook_name=None, construct_hook_name=None, items=None):
+        if register_hook_name is not None and not isinstance(register_hook_name, str):
+            raise ImproperlyConfigured(
+                "Expected a string or None as register_hook_name, got %r. "
+                "Did you mean to pass an `items` keyword argument instead?"
+                % register_hook_name
+            )
+
         self.register_hook_name = register_hook_name
         self.construct_hook_name = construct_hook_name
-        # _registered_menu_items will be populated on first access to the
-        # registered_menu_items property. We can't populate it in __init__ because
-        # we can't rely on all hooks modules to have been imported at the point that
-        # we create the admin_menu and settings_menu instances
-        self._registered_menu_items = None
+        self.initial_menu_items = items
 
-    @property
+    @cached_property
     def registered_menu_items(self):
-        if self._registered_menu_items is None:
-            self._registered_menu_items = [
-                fn() for fn in hooks.get_hooks(self.register_hook_name)
-            ]
-        return self._registered_menu_items
+        # Construct the list of menu items from the set passed to the constructor along with any
+        # registered through hooks. We can't do this in __init__ because we can't rely on all hooks
+        # modules to have been imported at the point that we create the admin_menu and
+        # settings_menu instances
+        if self.initial_menu_items:
+            items = self.initial_menu_items.copy()
+        else:
+            items = []
+
+        if self.register_hook_name:
+            for fn in hooks.get_hooks(self.register_hook_name):
+                items.append(fn())
+
+        return items
 
     def menu_items_for_request(self, request):
         items = [item for item in self.registered_menu_items if item.is_shown(request)]

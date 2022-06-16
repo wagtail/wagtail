@@ -47,6 +47,7 @@ Changelog
  * Updated `django-filter` version to support 23 (Yuekui)
  * Use `.iterator()` in a few more places in the admin, to make it more stable on sites with many pages (Andy Babic)
  * Migrate some simple React component files to TypeScript (LB (Ben) Johnston)
+ * Deprecate the usage and documentation of the `wagtail.contrib.modeladmin.menus.SubMenu` class, provide a warning if used directing developers to use `wagtail.admin.menu.Menu` instead (Matt Westcott)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
