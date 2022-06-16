@@ -701,21 +701,16 @@ footer .preview {
   background: $color-white;
 
   &__header {
-    @apply w-text-critical-200;
     margin-bottom: 0.5rem;
-
-    .icon {
-      width: 2rem;
-      height: 2rem;
-    }
   }
 
   &__title {
-    @apply w-h4 w-text-critical-200;
+    @apply w-h4 w-text-grey-600;
   }
 
   &__details {
     @apply w-help-text;
+    margin-bottom: 0;
   }
 }
 

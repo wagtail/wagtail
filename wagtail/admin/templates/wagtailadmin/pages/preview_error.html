@@ -1,18 +1,21 @@
 {% extends 'wagtailadmin/admin_base.html' %}
-{% load wagtailadmin_tags i18n %}
+{% load i18n %}
 
 {% block titletag %}{% trans 'Preview not available' %}{% endblock %}
 
 {% block furniture %}
     <div class="preview-error">
         <header class="preview-error__header">
-            {% icon name="warning" %}
             <h1 class="preview-error__title">{% trans 'Preview not available' %}</h1>
         </header>
         <p class="preview-error__details">
             {% blocktrans trimmed %}
-                The page could not be previewed due to validation errors.
-                Make sure all fields have been filled correctly, then refresh the preview.
+                Preview cannot display due to validation errors.
+            {% endblocktrans %}
+        </p>
+        <p class="preview-error__details">
+            {% blocktrans trimmed %}
+                Save a draft to highlight the relevant fields.
             {% endblocktrans %}
         </p>
     </div>
