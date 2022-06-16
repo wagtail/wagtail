@@ -90,7 +90,11 @@ class PreviewOnEdit(View):
         except IndexError:
             raise PermissionDenied
 
-        return page.make_preview_request(request, preview_mode)
+        extra_attrs = {
+            "in_preview_panel": request.GET.get("in_preview_panel") == "true"
+        }
+
+        return page.make_preview_request(request, preview_mode, extra_attrs)
 
 
 class PreviewOnCreate(PreviewOnEdit):
