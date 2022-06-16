@@ -796,6 +796,14 @@ Default is true, setting this to false will disable full text search on all endp
 
 Requires ``wagtailfrontendcache`` app to be installed, indicates the API should use the frontend cache.
 
+``WAGTAILAPI_RENDER_RICHTEXT``
+------------------------------
+
+.. code-block:: python
+    WAGTAILAPI_RENDER_RICHTEXT = False
+
+Default is true, setting this to false will disable the rendering from RichText
+
 Frontend cache
 ==============
 

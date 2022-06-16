@@ -5,6 +5,7 @@ from functools import lru_cache
 from importlib import import_module
 
 from django import forms
+from django.conf import settings
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
@@ -232,8 +233,11 @@ class Block(metaclass=BaseBlock):
 
     def get_api_representation(self, value, context=None):
         """
-        Can be used to customise the API response and defaults to the value returned by get_prep_value.
+        Can be used to customise the API response and defaults to the value returned by RichText as string.
         """
+        if getattr(settings, "WAGTAILAPI_RENDER_RICHTEXT", True):
+            return str(value)
+
         return self.get_prep_value(value)
 
     def render_basic(self, value, context=None):
