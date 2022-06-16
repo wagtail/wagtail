@@ -509,9 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `side-panel-${panelName}-title`,
       );
       if (panelName === 'preview') {
-        sidePanelWrapper.classList.add('preview');
+        sidePanelWrapper.classList.add('form-side--preview');
       } else {
-        sidePanelWrapper.classList.remove('preview');
+        sidePanelWrapper.classList.remove('form-side--preview');
       }
     }
 
