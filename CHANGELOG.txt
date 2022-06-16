@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+3.0.1 (16.06.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Add warning when `WAGTAILADMIN_BASE_URL` is not configured (Matt Westcott)
