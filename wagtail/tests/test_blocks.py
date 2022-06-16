@@ -8,6 +8,7 @@ from decimal import Decimal
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
@@ -411,6 +412,13 @@ class TestDecimalBlock(TestCase):
         block_val = block.value_from_form(Decimal("1.63"))
         self.assertEqual(type(block_val), Decimal)
 
+    def test_type_to_python(self):
+        block = blocks.DecimalBlock()
+        block_val = block.to_python(
+            "1.63"
+        )  # decimals get saved as string in JSON field
+        self.assertEqual(type(block_val), Decimal)
+
     def test_render(self):
         block = blocks.DecimalBlock()
         test_val = Decimal(1.63)
@@ -445,6 +453,16 @@ class TestDecimalBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean("3.0")
+
+    def test_round_trip_to_db_preserves_type(self):
+        block = blocks.DecimalBlock()
+        original_value = Decimal(1.63)
+        db_value = json.dumps(
+            block.get_prep_value(original_value), cls=DjangoJSONEncoder
+        )
+        restored_value = block.to_python(json.loads(db_value))
+        self.assertEqual(type(restored_value), Decimal)
+        self.assertEqual(original_value, restored_value)
 
 
 class TestRegexBlock(TestCase):

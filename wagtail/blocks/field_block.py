@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -244,6 +245,9 @@ class DecimalBlock(FieldBlock):
             validators=validators,
         )
         super().__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        return Decimal(value)
 
     class Meta:
         icon = "plus-inverse"
