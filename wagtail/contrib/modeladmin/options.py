@@ -12,6 +12,7 @@ from django.utils.safestring import mark_safe
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
+from wagtail.admin.menu import Menu
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Page, TranslatableMixin
@@ -27,7 +28,7 @@ from .helpers import (
     PagePermissionHelper,
     PermissionHelper,
 )
-from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
+from .menus import GroupMenuItem, ModelAdminMenuItem
 from .mixins import ThumbnailMixin  # NOQA
 from .views import (
     ChooseParentView,
@@ -591,7 +592,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         Utilised by Wagtail's 'register_menu_item' hook to create a menu item
         to access the listing view, or can be called by ModelAdminGroup
-        to create a SubMenu
+        to create a submenu
         """
         return ModelAdminMenuItem(self, order or self.get_menu_order())
 
@@ -692,7 +693,7 @@ class ModelAdmin(WagtailRegisterable):
 class ModelAdminGroup(WagtailRegisterable):
     """
     Acts as a container for grouping together mutltiple PageModelAdmin and
-    SnippetModelAdmin instances. Creates a menu item with a SubMenu for
+    SnippetModelAdmin instances. Creates a menu item with a submenu for
     accessing the listing pages of those instances
     """
 
@@ -728,11 +729,11 @@ class ModelAdminGroup(WagtailRegisterable):
     def get_menu_item(self):
         """
         Utilised by Wagtail's 'register_menu_item' hook to create a menu
-        for this group with a SubMenu linking to listing pages for any
+        for this group with a submenu linking to listing pages for any
         associated ModelAdmin instances
         """
         if self.modeladmin_instances:
-            submenu = SubMenu(self.get_submenu_items())
+            submenu = Menu(items=self.get_submenu_items())
             return GroupMenuItem(self, self.get_menu_order(), submenu)
 
     def get_submenu_items(self):

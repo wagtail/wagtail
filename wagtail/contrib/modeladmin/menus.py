@@ -1,4 +1,7 @@
+from warnings import warn
+
 from wagtail.admin.menu import Menu, MenuItem, SubmenuMenuItem
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class ModelAdminMenuItem(MenuItem):
@@ -52,24 +55,12 @@ class GroupMenuItem(SubmenuMenuItem):
             order=order,
         )
 
-    def is_shown(self, request):
-        """
-        If there aren't any visible items in the submenu, don't bother to show
-        this menu item
-        """
-        for menuitem in self.menu._registered_menu_items:
-            if menuitem.is_shown(request):
-                return True
-        return False
 
-
-class SubMenu(Menu):
-    """
-    A sub-class of wagtail's Menu, used by AppModelAdmin. We just want to
-    override __init__, so that we can specify the items to include on
-    initialisation
-    """
-
-    def __init__(self, menuitem_list):
-        self._registered_menu_items = menuitem_list
-        self.construct_hook_name = None
+def SubMenu(items):
+    warn(
+        "wagtail.contrib.modeladmin.menus.SubMenu is deprecated. Use wagtail.admin.menus.Menu and "
+        "pass the list of menu items as the 'items' keyword argument instead",
+        category=RemovedInWagtail50Warning,
+        stacklevel=2,
+    )
+    return Menu(items=items)
