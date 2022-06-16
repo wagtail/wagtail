@@ -335,10 +335,12 @@ to only include descendants of that page (children, grandchildren etc.).
 
 ### Filtering pages by site
 
+By default, the API will look for the site based on the hostname of the request.
+In some cases, you might want to query pages belonging to a different site.
 The `?site=` filter is used to filter the listing to only include pages that 
 belong to a specific site. The filter requires the configured hostname of the 
 site. If you have multiple sites using the same hostname but a different port 
-number, is possible to filter by port number using the format `hostname:port`.
+number, it's possible to filter by port number using the format `hostname:port`.
 For example:
 
 ```
