@@ -64,7 +64,7 @@
     w-right-0
     w-top-full
     w-w-full
-    w-h-screen
+    w-h-[calc(100vh-100%)]
     sm:w-max-w-[500px]
     w-transform
     w-translate-x-full
@@ -98,7 +98,7 @@
     }
 
     &__panel {
-      @apply w-hidden w-pl-3;
+      @apply w-hidden w-pl-3 w-h-full;
     }
 
     &--preview {
@@ -570,7 +570,9 @@ footer .preview {
 }
 
 .preview-panel {
-  margin-bottom: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   &__wrapper {
     overflow: hidden;
@@ -589,42 +591,30 @@ footer .preview {
   &--mobile,
   &--tablet.preview-panel--has-errors,
   &--desktop.preview-panel--has-errors {
-    // From DevTools: iPhone SE 375x667
-    .preview-panel__wrapper {
-      height: 667px;
-    }
-
     .preview-panel__iframe {
+      // From DevTools: iPhone SE 375x667
       width: 375px;
-      height: calc(667px / min(1, calc(446 / 375)));
+      height: calc(100% / min(1, calc(446 / 375)));
       zoom: min(1, calc(446 / 375));
       transform: scale(min(1, calc(446 / 375)));
     }
   }
 
   &--tablet {
-    // From DevTools: iPad Mini 768x1024
-    .preview-panel__wrapper {
-      height: 1024px;
-    }
-
     .preview-panel__iframe {
+      // From DevTools: iPad Mini 768x1024
       width: 768px;
-      height: calc(1024px / min(1, calc(446 / 768)));
+      height: calc(100% / min(1, calc(446 / 768)));
       zoom: min(1, calc(446 / 768));
       transform: scale(min(1, calc(446 / 768)));
     }
   }
 
   &--desktop {
-    // Desktop 1280x720
-    .preview-panel__wrapper {
-      height: 720px;
-    }
-
     .preview-panel__iframe {
+      // Desktop 1280x720
       width: 1280px;
-      height: calc(720px / min(1, calc(446 / 1280)));
+      height: calc(100% / min(1, calc(446 / 1280)));
       zoom: min(1, calc(446 / 1280));
       transform: scale(min(1, calc(446 / 1280)));
     }
@@ -643,9 +633,11 @@ footer .preview {
 
   &__area {
     width: 100%; // 446px
+    height: 100%;
     overflow: scroll;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__sizes {
@@ -655,6 +647,7 @@ footer .preview {
     column-gap: 0.75rem;
     border-bottom: 1px solid $color-grey-4;
     padding-bottom: 1rem;
+    margin-bottom: 1rem;
   }
 
   &__size-button {
