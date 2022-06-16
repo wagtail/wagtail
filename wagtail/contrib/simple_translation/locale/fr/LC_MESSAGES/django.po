@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Loic Teixeira, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
@@ -13,13 +13,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Loic Teixeira, 2021\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail simple translation"
 msgstr "Traduction Simple Wagtail"
@@ -37,6 +38,7 @@ msgid "Include subtree ({} page)"
 msgid_plural "Include subtree ({} pages)"
 msgstr[0] "Inclure le sous-arbre ({} page)"
 msgstr[1] "Inclure le sous-arbre ({} pages)"
+msgstr[2] "Inclure le sous-arbre ({} pages)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -45,11 +47,15 @@ msgstr[0] "Une région est désactivée car une page parente n'est pas traduite.
 msgstr[1] ""
 "Certaines régions sont désactivées car certaines pages parentes ne sont pas "
 "traduites."
+msgstr[2] ""
+"Certaines régions sont désactivées car certaines pages parentes ne sont pas "
+"traduites."
 
 msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] "Traduire la page parente."
 msgstr[1] "Traduire les pages parentes."
+msgstr[2] "Traduire les pages parentes."
 
 msgid "Submit"
 msgstr "Soumettre"

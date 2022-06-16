@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
@@ -13,13 +13,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2021\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 msgid "Wagtail simple translation"
 msgstr "Traducción simple de Wagtail"
@@ -37,6 +38,7 @@ msgid "Include subtree ({} page)"
 msgid_plural "Include subtree ({} pages)"
 msgstr[0] "Incluir subárbol ({} página)"
 msgstr[1] "Incluir subárbol ({} páginas)"
+msgstr[2] "Incluir subárbol ({} páginas)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
@@ -46,11 +48,15 @@ msgstr[0] ""
 msgstr[1] ""
 "Algunas regiones están deshabilitadas porque algunas páginas padre no están "
 "traducidas."
+msgstr[2] ""
+"Algunas regiones están deshabilitadas porque algunas páginas padre no están "
+"traducidas."
 
 msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] "Traduce la página padre."
 msgstr[1] "Traduce las páginas padre."
+msgstr[2] "Traduce las páginas padre."
 
 msgid "Submit"
 msgstr "Enviar"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -36,9 +36,29 @@ msgid "Search"
 msgstr "Pretraži"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Pronađen je %(counter)s rezultat"
+msgstr[1] "Pronađeno je %(counter)s"
+msgstr[2] "Pronađeno je %(counter)s rezultata"
+
+#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Nažalost nisu pronađeni izresci koji odgovaraju \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Nemate %(snippet_type_name)s izrezaka. Zašto ne <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">stvorite jedan</a>?"
+
+msgid "Last updated"
+msgstr "Zadnji put ažurirano"
 
 msgid "History"
 msgstr "Povijest"
@@ -113,8 +133,8 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nema %(snippet_type_name_plural)s. Zašto ne biste <a href="
-"\"%(wagtailsnippets_create_url)s\">dodali jedan</a>?"
+"Nema %(snippet_type_name_plural)s. Zašto ne <a href="
+"\"%(wagtailsnippets_create_url)s\">dodate jedan</a>?"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -178,6 +198,12 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s je izbrisan."
 msgstr[1] "%(count)d %(snippet_type)s je izbrisano."
 msgstr[2] "%(count)d %(snippet_type)s je izbrisano."
+
+msgid "Snippet history"
+msgstr "Povijest izreska"
+
+msgid "Action"
+msgstr "Radnja"
 
 msgid "Date"
 msgstr "Datum"

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2020
-# Dino Aljević <dino8890@protonmail.com>, 2020-2021
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Marko Burazin <marko.burazin1@gmail.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2021
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -132,8 +132,17 @@ msgstr "Zbirka"
 msgid "Add"
 msgstr "Dodaj"
 
+msgid "Add collections"
+msgstr "Dodaj zbirke"
+
 msgid "Edit"
 msgstr "Uredi"
+
+msgid "Edit collections"
+msgstr "Uredi zbirke"
+
+msgid "Delete collections"
+msgstr "Izbriši zbirke"
 
 msgid "New title"
 msgstr "Novi naslov"
@@ -216,6 +225,10 @@ msgstr "Pretraga"
 msgid "Search term"
 msgstr "Pojam za pretraživanje"
 
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Oznaka(e) %(value_too_long)s su dulje od %(max_tag_length)d znakova"
+
 msgid "Visibility"
 msgstr "Vidljivost"
 
@@ -241,6 +254,40 @@ msgstr "Nazovite vaš tijek rada"
 msgid "Add tasks to your workflow"
 msgstr "Dodajte zadatke u vaš tijek rada"
 
+msgid "1 page selected"
+msgstr "1 stranica odabrana"
+
+#, python-brace-format
+msgid "{0} pages selected"
+msgstr "{0} stranica odabrano"
+
+#, python-brace-format
+msgid "All {0} pages on this screen selected"
+msgstr "Svih {0} stranica na zaslonu je odabrano"
+
+msgid "1 document selected"
+msgstr "1 dokument odabran"
+
+#, python-brace-format
+msgid "{0} documents selected"
+msgstr "{0} dokumenata odabrano"
+
+#, python-brace-format
+msgid "All {0} documents on this screen selected"
+msgstr "Svih {0} dokumenata na zaslonu je odabrano"
+
+#, python-brace-format
+msgid "All {0} images on this screen selected"
+msgstr "Svih {0} slika na zaslonu je odabrano"
+
+#, python-brace-format
+msgid "All {0} users on this screen selected"
+msgstr "Svih {0} korisnika na zaslonu je odabrano"
+
+#, python-brace-format
+msgid "All {0} items on this screen selected"
+msgstr "Svih {0} stavki na zaslonu je odabrano"
+
 msgid "Scheduled publishing"
 msgstr "Planirano objavljivanje"
 
@@ -258,6 +305,9 @@ msgstr "Postavke"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Comments"
+msgstr "Komentari"
 
 msgid "Preview"
 msgstr "Pregled"
@@ -332,6 +382,9 @@ msgstr "Ponovno postavljanje lozinke"
 
 msgid "Reset your password"
 msgstr "Ponovno postavite vašu lozinku"
+
+msgid "Select all"
+msgstr "Odaberi sve"
 
 msgid "Internal link"
 msgstr "Unutarnja poveznica"
@@ -410,8 +463,8 @@ msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
 "\">add one</a>?"
 msgstr ""
-"Nema postavljenih zbirki. Zašto ne biste <a href=\"%(add_collection_url)s"
-"\">dodali jednu</a>?"
+"Nema postavljenih zbirki. Zašto ne <a href=\"%(add_collection_url)s\">dodate "
+"jednu</a>?"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -509,8 +562,14 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Prijavite se na Wagtail"
 
+msgid "Remember me"
+msgstr "Zapamti me"
+
 msgid "Signing in…"
 msgstr "Prijava u tijeku..."
+
+msgid "Forgotten password?"
+msgstr "Zaboravljena lozinka?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -565,6 +624,31 @@ msgstr "Stranica \"%(title)s\" je odbijena u fazi moderacije \"%(task)s\"."
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr "Stranica \"%(title)s\" je odbijena tijekom \"%(task)s\"."
 
+msgid "New comments"
+msgstr "Novi komentari"
+
+msgid "Deleted comments"
+msgstr "Izbrisani komentari"
+
+msgid "New replies"
+msgstr "Novi odgovori"
+
+msgid "New replies to:"
+msgstr "Novi odgovori na:"
+
+msgid "New comments:"
+msgstr "Novi komentari:"
+
+msgid "Deleted comments:"
+msgstr "Izbrisani komentari:"
+
+msgid "New replies:"
+msgstr "Novi odgovori:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s je ažurirao/la komentare na \"%(title)s\"."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr "Stranica \"%(title)s\" je odobrena u tijeku rada \"%(workflow)s\"."
@@ -596,6 +680,14 @@ msgstr "Ostavljen je sljedeći komentar: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Stranica \"%(title)s\" je odbijena tijekom \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Stranica \"%(title)s\" je poslana na moderiranje u tijek rada \"%(workflow)s"
+"\" od strane korisnika %(requester)s."
 
 #, python-format
 msgid ""
@@ -783,6 +875,9 @@ msgstr "Uredi originalnu stranicu"
 msgid "Page history for %(subtitle)s"
 msgstr "Povijest stranice za %(subtitle)s"
 
+msgid "Action"
+msgstr "Radnja"
+
 msgid "User"
 msgstr "Korisnik"
 
@@ -823,7 +918,7 @@ msgstr "Na ovome mjestu nema stvorenih stranica."
 
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
-msgstr "Zašto ne biste <a href=\"%(add_page_url)s\">stvorili jednu</a>?"
+msgstr "Zašto ne <a href=\"%(add_page_url)s\">stvorite jednu</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Ova stranica je zaključana za daljnje uređivanje"
@@ -1164,14 +1259,14 @@ msgstr[2] "+%(counter)s dodatnih"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nema postavljenih tijekova rada. Zašto ne biste <a href=\"%(add_url)s"
-"\">dodali jedan</a>?"
+"Nema postavljenih tijekova rada. Zašto ne <a href=\"%(add_url)s\">dodate "
+"jedan</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nema omogućenih tijekova rada. Zašto ne biste <a href=\"%(add_url)s\">dodali "
+"Nema omogućenih tijekova rada. Zašto ne <a href=\"%(add_url)s\">dodate "
 "jedan</a>?"
 
 msgid "Choose which type of task you'd like to create."
@@ -1213,15 +1308,14 @@ msgstr "Prikaži onemogućene zadatke"
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nema postavljenih zadataka. Zašto ne biste <a href=\"%(add_url)s\">dodali "
-"jedan</a>?"
+"Nema postavljenih zadataka. Zašto ne <a href=\"%(add_url)s\">dodate jedan</"
+"a>?"
 
 #, python-format
 msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nema uključenih zadataka. Zašto ne biste <a href=\"%(add_url)s\">dodali "
-"jedan</a>?"
+"Nema uključenih zadataka. Zašto ne <a href=\"%(add_url)s\">dodate jedan</a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -1458,6 +1552,12 @@ msgstr "Verzija {0} od \"{1}\" je otkazana."
 msgid "Page '{0}' unpublished."
 msgstr "Stranica '{0}' je odjavljena."
 
+msgid "Last published before"
+msgstr "Zadnji put objavljeno prije"
+
+msgid "Last published at"
+msgstr "Zadnji put objavljeno"
+
 msgid "Site history"
 msgstr "Povijest sjedišta"
 
@@ -1611,6 +1711,9 @@ msgstr "Odjavi stranicu '%(title)s'"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Pogledaj povijest stranice '%(title)s'"
+
+msgid "Sort menu order"
+msgstr "Sortiraj poredak izbornika"
 
 #, python-format
 msgid "Heading %(level)d"

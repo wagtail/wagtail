@@ -7,7 +7,7 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021
+# Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
@@ -16,14 +16,18 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail API v2"
+msgstr "API Wagtail v2"
 
 msgid "Wagtail core"
 msgstr "Base Wagtail"
@@ -63,6 +67,9 @@ msgstr "Questo blocco non ha opzioni"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtail cache frontend"
 
 msgid "Password"
 msgstr "Password"
@@ -574,6 +581,12 @@ msgstr "Inglese"
 msgid "French"
 msgstr "Francese"
 
+msgid "Wagtail snippets tests"
+msgstr "Test Wagtail snippets"
+
+msgid "The form is already filled."
+msgstr "Il form è già compilato."
+
 msgid "German"
 msgstr "Tedesco"
 
@@ -582,6 +595,7 @@ msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s raccolta discendente"
 msgstr[1] "%(count)s raccolte discendenti"
+msgstr[2] "%(count)s raccolte discendenti"
 
 msgid "Create"
 msgstr "Crea"
