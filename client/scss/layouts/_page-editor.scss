@@ -578,21 +578,25 @@ footer .preview {
     overflow: hidden;
     width: 100%;
     height: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   &__iframe {
     transform-origin: 0 0;
     width: 100%;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
 
+  // From DevTools: iPhone SE 375x667
   &--mobile,
   &--tablet.preview-panel--has-errors,
   &--desktop.preview-panel--has-errors {
+    .preview-panel__wrapper {
+      width: calc(375px * min(1, calc(446 / 375)));
+    }
+
     .preview-panel__iframe {
-      // From DevTools: iPhone SE 375x667
       width: 375px;
       height: calc(100% / min(1, calc(446 / 375)));
       zoom: min(1, calc(446 / 375));
@@ -600,9 +604,13 @@ footer .preview {
     }
   }
 
+  // From DevTools: iPad Mini 768x1024
   &--tablet {
+    .preview-panel__wrapper {
+      width: calc(768px * min(1, calc(446 / 768)));
+    }
+
     .preview-panel__iframe {
-      // From DevTools: iPad Mini 768x1024
       width: 768px;
       height: calc(100% / min(1, calc(446 / 768)));
       zoom: min(1, calc(446 / 768));
@@ -610,9 +618,13 @@ footer .preview {
     }
   }
 
+  // Desktop 1280x720
   &--desktop {
+    .preview-panel__wrapper {
+      width: calc(1280px * min(1, calc(446 / 1280)));
+    }
+
     .preview-panel__iframe {
-      // Desktop 1280x720
       width: 1280px;
       height: calc(100% / min(1, calc(446 / 1280)));
       zoom: min(1, calc(446 / 1280));
