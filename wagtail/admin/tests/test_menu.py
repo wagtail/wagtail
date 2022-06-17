@@ -4,8 +4,6 @@ from django.urls import reverse
 from wagtail import hooks
 from wagtail.admin.menu import AdminOnlyMenuItem, Menu, MenuItem, SubmenuMenuItem
 from wagtail.admin.ui import sidebar
-from wagtail.contrib.modeladmin.menus import ModelAdminMenuItem
-from wagtail.test.modeladmintest.wagtail_hooks import EnemyAdmin, FriendAdmin
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -53,34 +51,6 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
             [
                 sidebar.LinkMenuItem("pages", "Pages", "/pages/"),
                 sidebar.LinkMenuItem("images", "Images", "/images/"),
-            ],
-        )
-
-    def test_model_admin_add_to_admin(self):
-        menu = Menu(register_hook_name="register_menu_item")
-
-        # Only the friend admin should show, enemy admin is excluded from the menu.
-        with hooks.register_temporarily(
-            [
-                (
-                    "register_menu_item",
-                    menu_item_hook(EnemyAdmin(), 100, cls=ModelAdminMenuItem),
-                ),
-                (
-                    "register_menu_item",
-                    menu_item_hook(FriendAdmin(), 100, cls=ModelAdminMenuItem),
-                ),
-            ]
-        ):
-            rendered = menu.render_component(self.request)
-
-        self.assertIsInstance(rendered, list)
-        self.assertListEqual(
-            rendered,
-            [
-                sidebar.LinkMenuItem(
-                    "friends", "Friends", "/admin/friendadmin/", "snippet"
-                ),
             ],
         )
 

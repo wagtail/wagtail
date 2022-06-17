@@ -203,6 +203,7 @@ class EnemyAdmin(ModelAdmin):
     model = Enemy
     add_to_admin_menu = False
     menu_icon = "snippet"
+    base_url_path = "enemyadmin"
 
 
 modeladmin_register(AuthorModelAdmin)
