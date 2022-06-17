@@ -1,10 +1,8 @@
-Generic views
-=============
+# Generic views
 
 Wagtail provides a number of generic views for handling common tasks such as creating / editing model instances, and chooser modals. Since these often involve several related views with shared properties (such as the model that we're working with, and its associated icon) Wagtail also implements the concept of a _viewset_, which allows a bundle of views to be defined collectively, and their URLs to be registered with the admin app as a single operation through the `register_admin_viewset` hook.
 
-ModelViewSet
-------------
+## ModelViewSet
 
 The `wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing and deleting model instances. For example, if we have the following model:
 
@@ -47,9 +45,7 @@ def register_viewset():
 
 Various additional attributes are available to customise the viewset - see [](../reference/viewsets).
 
-
-ChooserViewSet
---------------
+## ChooserViewSet
 
 The `wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views that make up a modal chooser interface, allowing users to select from a list of model instances to populate a ForeignKey field. Using the same `Person` model, the following definition (to be placed in `views.py`) will generate the views for a person chooser modal:
 

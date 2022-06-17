@@ -209,7 +209,7 @@ TEMPLATES = [
 You should now be able to use the `amp_mode_active` variable in templates.
 For example:
 
-```html+Django
+```html+django
 {% if amp_mode_active %}
     AMP MODE IS ACTIVE!
 {% endif %}

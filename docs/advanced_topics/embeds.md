@@ -50,7 +50,7 @@ You can nest embeds into a template by passing the URL and an optional
 
 The `max_width` argument is sent to the provider when fetching the embed code.
 
-```html+Django
+```html+django
 {% load wagtailembeds_tags %}
 
 {# Embed a YouTube video #}

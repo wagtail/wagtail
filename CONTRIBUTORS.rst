@@ -604,6 +604,7 @@ Contributors
 * Jaspreet Singh
 * Yves Serrano
 * Hugh Rawlinson
+* Noble Mittal
 
 Translators
 ===========

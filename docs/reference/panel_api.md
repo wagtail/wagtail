@@ -2,10 +2,11 @@
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
+```
 
-Panel
------
+## `Panel`
 
+```{eval-rst}
 .. autoclass:: Panel
 
    .. automethod:: bind_to_model
@@ -15,9 +16,11 @@ Panel
    .. automethod:: get_form_options
    .. automethod:: get_form_class
    .. automethod:: get_bound_panel
+```
 
-BoundPanel
-----------
+## `BoundPanel`
+
+```{eval-rst}
 
 .. autoclass:: wagtail.admin.panels.Panel.BoundPanel
 
