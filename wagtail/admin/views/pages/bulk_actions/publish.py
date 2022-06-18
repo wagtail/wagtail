@@ -48,7 +48,11 @@ class PublishBulkAction(PageBulkAction):
 
             if include_descendants:
                 for draft_descendant_page in (
-                    page.get_descendants().not_live().defer_streamfields().specific()
+                    page.get_descendants()
+                    .not_live()
+                    .defer_streamfields()
+                    .specific()
+                    .iterator()
                 ):
                     if (
                         user is None

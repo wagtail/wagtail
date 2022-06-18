@@ -33,7 +33,7 @@ class DeletePageAction:
         # works around a bug in treebeard <= 3.0 where calling SpecificPage.delete() fails to delete
         # child pages that are not instances of SpecificPage
         if type(page) is Page:
-            for child in page.get_descendants().specific():
+            for child in page.get_descendants().specific().iterator():
                 self.log_deletion(child)
             self.log_deletion(page.specific)
 
