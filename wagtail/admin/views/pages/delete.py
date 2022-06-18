@@ -67,13 +67,17 @@ def delete(request, page_id):
                 return redirect(next_url)
             return redirect("wagtailadmin_explore", parent_id)
 
+    descendant_count = page.get_descendant_count()
     return TemplateResponse(
         request,
         "wagtailadmin/pages/confirm_delete.html",
         {
             "page": page,
-            "descendant_count": page.get_descendant_count(),
+            "descendant_count": descendant_count,
             "next": next_url,
+            # if the number of pages ( child pages + current page) exceeds this limit, then confirm before delete.
+            "confirm_before_delete": (descendant_count + 1)
+            >= getattr(settings, "WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT", 10),
             # note that while pages_to_delete may contain a mix of translated pages
             # and aliases, we count the "translations" only, as aliases are similar
             # to symlinks, so they should just follow the source
