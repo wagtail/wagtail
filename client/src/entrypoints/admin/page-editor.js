@@ -421,6 +421,9 @@ function initPreview() {
   const form = document.getElementById('page-edit-form');
   const previewUrl = previewPanel.dataset.action;
   const submitAction = document.querySelector('.action-save');
+  const previewModeSelect = document.querySelector(
+    '.preview-panel__mode-select',
+  );
 
   const setPreviewData = () =>
     fetch(previewUrl, {
@@ -450,7 +453,11 @@ function initPreview() {
 
     handlePreview().then((success) => {
       if (success) {
-        previewWindow.document.location = previewUrl;
+        const url = new URL(previewUrl, window.location.origin);
+        if (previewModeSelect && previewModeSelect.value) {
+          url.searchParams.set('mode', previewModeSelect.value);
+        }
+        previewWindow.document.location = url.toString();
       } else {
         window.focus();
         previewWindow.close();
@@ -460,6 +467,18 @@ function initPreview() {
 
   refreshButton.addEventListener('click', handlePreview);
   newTabButton.addEventListener('click', handlePreviewInNewTab);
+
+  const handlePreviewModeChange = (event) => {
+    const mode = event.target.value;
+    const url = new URL(iframe.src);
+    url.searchParams.set('mode', mode);
+    // Make sure data is up-to-date before changing the preview mode.
+    handlePreview().then(() => (iframe.src = url.toString()));
+  };
+
+  if (previewModeSelect) {
+    previewModeSelect.addEventListener('change', handlePreviewModeChange);
+  }
 
   // Make sure current preview data in session exists and is up-to-date.
   setPreviewData();

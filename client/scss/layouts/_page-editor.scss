@@ -704,6 +704,21 @@ footer .preview {
   &--desktop &__size-button--desktop {
     @apply w-bg-primary w-text-white w-transform-none;
   }
+
+  &__modes {
+    @apply w-text-grey-400;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  &__mode-select {
+    @apply w-outline-offset-inside;
+    font-size: 1em;
+    padding: 0.25rem 0.5rem;
+    width: auto;
+  }
 }
 
 .preview-error {

@@ -23,5 +23,16 @@
         <div class="preview-panel__wrapper">
             <iframe title="Preview" class="preview-panel__iframe" src="{{ preview_url }}?in_preview_panel=true"></iframe>
         </div>
+
+        {% if page.preview_modes|length > 1 %}
+            <div class="preview-panel__modes">
+                {% trans "Preview mode:" %}
+                <select name="preview_mode" class="preview-panel__mode-select">
+                    {% for internal_name, display_name in page.preview_modes %}
+                        <option value="{{ internal_name }}">{{ display_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
     </div>
 </div>
