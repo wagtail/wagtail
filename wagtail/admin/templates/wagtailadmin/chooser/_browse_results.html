@@ -1,6 +1,26 @@
 {% load i18n wagtailadmin_tags %}
 
-{% include "wagtailadmin/shared/chooser_breadcrumb.html" with page=parent_page show_locale_labels=show_locale_labels %}
+{% if show_locale_labels %}
+    <div class="locale-options">
+        {% if locale_options %}
+            {% if selected_locale %}
+                {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=selected_locale only %}
+            {% else %}
+                {% include "wagtailadmin/shared/locale_selector.html" with translations=locale_options locale=parent_page.locale only %}
+            {% endif %}
+        {% else %}
+            <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;">
+                <div class="c-dropdown__button u-btn-current">
+                    {% icon name="site" class_name="default" %}
+                    {{ parent_page.locale.get_display_name }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% querystring p=None as querystring_value %}
+{% explorer_breadcrumb parent_page 'wagtailadmin_choose_page_child' include_self=False use_next_template=True is_expanded=True querystring_value=querystring_value %}
 
 {% component table %}
 
