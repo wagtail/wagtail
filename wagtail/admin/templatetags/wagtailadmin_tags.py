@@ -60,10 +60,14 @@ register.filter("naturaltime", naturaltime)
 def explorer_breadcrumb(
     context,
     page,
-    page_perms=None,
+    url_name,
+    url_root_name=None,
     include_self=True,
-    use_next_template=False,
+    is_expanded=False,
+    page_perms=None,
+    querystring_value=None,
     trailing_breadcrumb_title=None,
+    use_next_template=False,
 ):
     user = context["request"].user
 
@@ -78,9 +82,13 @@ def explorer_breadcrumb(
         .descendant_of(cca, inclusive=True)
         .specific(),
         "current_page": page,
+        "is_expanded": is_expanded,
         "page_perms": page_perms,
-        "use_next_template": use_next_template,
+        "querystring_value": querystring_value or "",
         "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
+        "url_name": url_name,
+        "url_root_name": url_root_name,
+        "use_next_template": use_next_template,
     }
 
 
