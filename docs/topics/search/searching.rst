@@ -216,8 +216,12 @@ For example:
 
 If you are looking to implement phrase queries using the double-quote syntax, see :ref:`wagtailsearch_query_string_parsing`.
 
+.. _fuzzy_matching:
+
 Fuzzy matching
 ^^^^^^^^^^^^^^
+
+.. versionadded:: 4.0
 
 Fuzzy matching will return documents which contain terms similar to the search term, as measured by a `Levenshtein edit distance <https://en.wikipedia.org/wiki/Levenshtein_distance>`.
 

@@ -36,6 +36,7 @@ Changelog
  * Enhance new Breadcrumbs so they can be added to any header or container element and adopt on the page explorer (listing) view (Paarth Agarwal)
  * Added multi-site support to the API (Sævar Öfjörð Magnússon)
  * Add `add_to_admin_menu` option for ModelAdmin (Oliver Parker)
+ * Implement Fuzzy matching for Elasticsearch (Nick Smith)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
