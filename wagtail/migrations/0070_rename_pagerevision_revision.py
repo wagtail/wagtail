@@ -4,6 +4,12 @@ from django.conf import settings
 from django.db import migrations, models
 
 
+def disable_sqlite_legacy_alter_table(apps, schema_editor):
+    # Fix for https://github.com/wagtail/wagtail/issues/8635
+    if schema_editor.connection.vendor == "sqlite":
+        schema_editor.execute("PRAGMA legacy_alter_table = OFF")
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -12,6 +18,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            disable_sqlite_legacy_alter_table,
+            migrations.RunPython.noop,
+        ),
         migrations.RenameModel(
             old_name="PageRevision",
             new_name="Revision",
