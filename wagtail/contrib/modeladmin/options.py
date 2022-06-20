@@ -47,6 +47,7 @@ class WagtailRegisterable:
     """
 
     add_to_settings_menu = False
+    add_to_admin_menu = True
     exclude_from_explorer = False
 
     def register_with_wagtail(self):
@@ -58,15 +59,18 @@ class WagtailRegisterable:
         def register_admin_urls():
             return self.get_admin_urls_for_registration()
 
-        menu_hook = (
-            "register_settings_menu_item"
-            if self.add_to_settings_menu
-            else "register_admin_menu_item"
-        )
+        if self.add_to_settings_menu:
+            menu_hook = "register_settings_menu_item"
+        elif self.add_to_admin_menu:
+            menu_hook = "register_admin_menu_item"
+        else:
+            menu_hook = None
 
-        @hooks.register(menu_hook)
-        def register_admin_menu_item():
-            return self.get_menu_item()
+        if menu_hook:
+
+            @hooks.register(menu_hook)
+            def register_admin_menu_item():
+                return self.get_menu_item()
 
         # Overriding the explorer page queryset is a somewhat 'niche' / experimental
         # operation, so only attach that hook if we specifically opt into it

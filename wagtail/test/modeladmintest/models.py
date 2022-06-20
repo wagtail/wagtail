@@ -156,6 +156,15 @@ class Friend(models.Model):
         return self.first_name
 
 
+class Enemy(models.Model):
+    """model used to test add_to_admin_menu usage in ModelAdminMenuItem"""
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+
 class RelatedLink(models.Model):
     title = models.CharField(
         max_length=255,
