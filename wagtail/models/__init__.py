@@ -23,7 +23,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    PermissionDenied,
+    ValidationError,
+)
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
@@ -541,7 +545,203 @@ class DraftStateMixin(models.Model):
         self.save(update_fields=update_fields)
 
 
+class PreviewableMixin:
+    """A mixin that allows a model to have previews."""
+
+    def make_preview_request(
+        self, original_request=None, preview_mode=None, extra_request_attrs=None
+    ):
+        """
+        Simulate a request to this object, by constructing a fake HttpRequest object that is (as far
+        as possible) representative of a real request to this object's front-end URL, and invoking
+        serve_preview with that request (and the given preview_mode).
+
+        Used for previewing / moderation and any other place where we
+        want to display a view of this object in the admin interface without going through the regular
+        page routing logic.
+
+        If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
+        will be included in the dummy request.
+        """
+        dummy_meta = self._get_dummy_headers(original_request)
+        request = WSGIRequest(dummy_meta)
+
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
+
+        if extra_request_attrs:
+            for k, v in extra_request_attrs.items():
+                setattr(request, k, v)
+
+        obj = self
+
+        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
+        # the eventual view function called at the end of the middleware chain, rather than going
+        # through the URL resolver
+        class Handler(BaseHandler):
+            def _get_response(self, request):
+                response = obj.serve_preview(request, preview_mode)
+                if hasattr(response, "render") and callable(response.render):
+                    response = response.render()
+                return response
+
+        # Invoke this custom handler.
+        handler = Handler()
+        handler.load_middleware()
+        return handler.get_response(request)
+
+    def _get_dummy_headers(self, original_request=None):
+        """
+        Return a dict of META information to be included in a faked HttpRequest object to pass to
+        serve_preview.
+        """
+        url = self._get_dummy_header_url(original_request)
+        if url:
+            url_info = urlparse(url)
+            hostname = url_info.hostname
+            path = url_info.path
+            port = url_info.port or (443 if url_info.scheme == "https" else 80)
+            scheme = url_info.scheme
+        else:
+            # Cannot determine a URL to this object - cobble one together based on
+            # whatever we find in ALLOWED_HOSTS
+            try:
+                hostname = settings.ALLOWED_HOSTS[0]
+                if hostname == "*":
+                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
+                    # So we pretend it isn't there.
+                    raise IndexError
+            except IndexError:
+                hostname = "localhost"
+            path = "/"
+            port = 80
+            scheme = "http"
+
+        http_host = hostname
+        if port != (443 if scheme == "https" else 80):
+            http_host = "%s:%s" % (http_host, port)
+        dummy_values = {
+            "REQUEST_METHOD": "GET",
+            "PATH_INFO": path,
+            "SERVER_NAME": hostname,
+            "SERVER_PORT": port,
+            "SERVER_PROTOCOL": "HTTP/1.1",
+            "HTTP_HOST": http_host,
+            "wsgi.version": (1, 0),
+            "wsgi.input": StringIO(),
+            "wsgi.errors": StringIO(),
+            "wsgi.url_scheme": scheme,
+            "wsgi.multithread": True,
+            "wsgi.multiprocess": True,
+            "wsgi.run_once": False,
+        }
+
+        # Add important values from the original request object, if it was provided.
+        HEADERS_FROM_ORIGINAL_REQUEST = [
+            "REMOTE_ADDR",
+            "HTTP_X_FORWARDED_FOR",
+            "HTTP_COOKIE",
+            "HTTP_USER_AGENT",
+            "HTTP_AUTHORIZATION",
+            "wsgi.version",
+            "wsgi.multithread",
+            "wsgi.multiprocess",
+            "wsgi.run_once",
+        ]
+        if settings.SECURE_PROXY_SSL_HEADER:
+            HEADERS_FROM_ORIGINAL_REQUEST.append(settings.SECURE_PROXY_SSL_HEADER[0])
+        if original_request:
+            for header in HEADERS_FROM_ORIGINAL_REQUEST:
+                if header in original_request.META:
+                    dummy_values[header] = original_request.META[header]
+
+        return dummy_values
+
+    def _get_dummy_header_url(self, original_request=None):
+        """
+        Return the URL that _get_dummy_headers() should use to set META headers
+        for the faked HttpRequest.
+        """
+        return self.full_url
+
+    def get_full_url(self):
+        return None
+
+    full_url = property(get_full_url)
+
+    DEFAULT_PREVIEW_MODES = [("", _("Default"))]
+
+    @property
+    def preview_modes(self):
+        """
+        A list of (internal_name, display_name) tuples for the modes in which
+        this object can be displayed for preview/moderation purposes. Ordinarily an object
+        will only have one display mode, but subclasses can override this -
+        for example, a page containing a form might have a default view of the form,
+        and a post-submission 'thank you' page
+        """
+        return PreviewableMixin.DEFAULT_PREVIEW_MODES
+
+    @property
+    def default_preview_mode(self):
+        """
+        The preview mode to use in workflows that do not give the user the option of selecting a
+        mode explicitly, e.g. moderator approval. Will raise IndexError if preview_modes is empty
+        """
+        return self.preview_modes[0][0]
+
+    def is_previewable(self):
+        """Returns True if at least one preview mode is specified"""
+        return bool(self.preview_modes)
+
+    def serve_preview(self, request, mode_name):
+        """
+        Return an HTTP response for use in object previews. Normally this would be equivalent
+        to self.serve(request), since we obviously want the preview to be indicative of how
+        it looks on the live site. However, there are a couple of cases where this is not
+        appropriate, and custom behaviour is required:
+
+        1) The page has custom routing logic that derives some additional required
+        args/kwargs to be passed to serve(). The routing mechanism is bypassed when
+        previewing, so there's no way to know what args we should pass. In such a case,
+        the page model needs to implement its own version of serve_preview.
+
+        2) The object has several different renderings that we would like to be able to see
+        when previewing - for example, a form page might have one rendering that displays
+        the form, and another rendering to display a landing page when the form is posted.
+        This can be done by setting a custom preview_modes list on the page model -
+        Wagtail will allow the user to specify one of those modes when previewing, and
+        pass the chosen mode_name to serve_preview so that the page model can decide how
+        to render it appropriately. (Models that do not specify their own preview_modes
+        list will always receive an empty string as mode_name.)
+
+        Any templates rendered during this process should use the 'request' object passed
+        here - this ensures that request.user and other properties are set appropriately for
+        the wagtail user bar to be displayed. This request will always be a GET.
+        """
+        request.is_preview = True
+        request.preview_mode = mode_name
+
+        response = TemplateResponse(
+            request,
+            self.get_preview_template(request, mode_name),
+            self.get_preview_context(request, mode_name),
+        )
+        patch_cache_control(response, private=True)
+        return response
+
+    def get_preview_context(self, request, *args, **kwargs):
+        return {"object": self, "request": request}
+
+    def get_preview_template(self, request, *args, **kwargs):
+        raise ImproperlyConfigured(
+            "%s (subclass of PreviewableMixin) must override get_preview_template"
+            % type(self).__name__
+        )
+
+
 class AbstractPage(
+    PreviewableMixin,
     DraftStateMixin,
     RevisionMixin,
     TranslatableMixin,
@@ -1468,11 +1668,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return context
 
+    def get_preview_context(self, request, *args, **kwargs):
+        return self.get_context(request, *args, **kwargs)
+
     def get_template(self, request, *args, **kwargs):
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
             return self.ajax_template or self.template
         else:
             return self.template
+
+    def get_preview_template(self, request, *args, **kwargs):
+        return self.get_template(request, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
         request.is_preview = getattr(request, "is_preview", False)
@@ -1968,143 +2174,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def make_preview_request(
-        self, original_request=None, preview_mode=None, extra_request_attrs=None
-    ):
-        """
-        Simulate a request to this page, by constructing a fake HttpRequest object that is (as far
-        as possible) representative of a real request to this page's front-end URL, and invoking
-        serve_preview with that request (and the given preview_mode).
-
-        Used for previewing / moderation and any other place where we
-        want to display a view of this page in the admin interface without going through the regular
-        page routing logic.
-
-        If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
-        will be included in the dummy request.
-        """
-        dummy_meta = self._get_dummy_headers(original_request)
-        request = WSGIRequest(dummy_meta)
-
-        # Add a flag to let middleware know that this is a dummy request.
-        request.is_dummy = True
-
-        if extra_request_attrs:
-            for k, v in extra_request_attrs.items():
-                setattr(request, k, v)
-
-        page = self
-
-        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
-        # the eventual view function called at the end of the middleware chain, rather than going
-        # through the URL resolver
-        class Handler(BaseHandler):
-            def _get_response(self, request):
-                response = page.serve_preview(request, preview_mode)
-                if hasattr(response, "render") and callable(response.render):
-                    response = response.render()
-                return response
-
-        # Invoke this custom handler.
-        handler = Handler()
-        handler.load_middleware()
-        return handler.get_response(request)
-
-    def _get_dummy_headers(self, original_request=None):
-        """
-        Return a dict of META information to be included in a faked HttpRequest object to pass to
-        serve_preview.
-        """
-        url = self._get_dummy_header_url(original_request)
-        if url:
-            url_info = urlparse(url)
-            hostname = url_info.hostname
-            path = url_info.path
-            port = url_info.port or (443 if url_info.scheme == "https" else 80)
-            scheme = url_info.scheme
-        else:
-            # Cannot determine a URL to this page - cobble one together based on
-            # whatever we find in ALLOWED_HOSTS
-            try:
-                hostname = settings.ALLOWED_HOSTS[0]
-                if hostname == "*":
-                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
-                    # So we pretend it isn't there.
-                    raise IndexError
-            except IndexError:
-                hostname = "localhost"
-            path = "/"
-            port = 80
-            scheme = "http"
-
-        http_host = hostname
-        if port != (443 if scheme == "https" else 80):
-            http_host = "%s:%s" % (http_host, port)
-        dummy_values = {
-            "REQUEST_METHOD": "GET",
-            "PATH_INFO": path,
-            "SERVER_NAME": hostname,
-            "SERVER_PORT": port,
-            "SERVER_PROTOCOL": "HTTP/1.1",
-            "HTTP_HOST": http_host,
-            "wsgi.version": (1, 0),
-            "wsgi.input": StringIO(),
-            "wsgi.errors": StringIO(),
-            "wsgi.url_scheme": scheme,
-            "wsgi.multithread": True,
-            "wsgi.multiprocess": True,
-            "wsgi.run_once": False,
-        }
-
-        # Add important values from the original request object, if it was provided.
-        HEADERS_FROM_ORIGINAL_REQUEST = [
-            "REMOTE_ADDR",
-            "HTTP_X_FORWARDED_FOR",
-            "HTTP_COOKIE",
-            "HTTP_USER_AGENT",
-            "HTTP_AUTHORIZATION",
-            "wsgi.version",
-            "wsgi.multithread",
-            "wsgi.multiprocess",
-            "wsgi.run_once",
-        ]
-        if settings.SECURE_PROXY_SSL_HEADER:
-            HEADERS_FROM_ORIGINAL_REQUEST.append(settings.SECURE_PROXY_SSL_HEADER[0])
-        if original_request:
-            for header in HEADERS_FROM_ORIGINAL_REQUEST:
-                if header in original_request.META:
-                    dummy_values[header] = original_request.META[header]
-
-        return dummy_values
-
-    def _get_dummy_header_url(self, original_request=None):
-        """
-        Return the URL that _get_dummy_headers() should use to set META headers
-        for the faked HttpRequest.
-        """
-        return self.full_url
-
-    DEFAULT_PREVIEW_MODES = [("", _("Default"))]
-
-    @property
-    def preview_modes(self):
-        """
-        A list of (internal_name, display_name) tuples for the modes in which
-        this page can be displayed for preview/moderation purposes. Ordinarily a page
-        will only have one display mode, but subclasses of Page can override this -
-        for example, a page containing a form might have a default view of the form,
-        and a post-submission 'thank you' page
-        """
-        return Page.DEFAULT_PREVIEW_MODES
-
-    @property
-    def default_preview_mode(self):
-        """
-        The preview mode to use in workflows that do not give the user the option of selecting a
-        mode explicitly, e.g. moderator approval. Will raise IndexError if preview_modes is empty
-        """
-        return self.preview_modes[0][0]
-
     def is_previewable(self):
         """Returns True if at least one preview mode is specified"""
         # It's possible that this will be called from a listing page using a plain Page queryset -
@@ -2118,38 +2187,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             page = page.specific
 
         return bool(page.preview_modes)
-
-    def serve_preview(self, request, mode_name):
-        """
-        Return an HTTP response for use in page previews. Normally this would be equivalent
-        to self.serve(request), since we obviously want the preview to be indicative of how
-        it looks on the live site. However, there are a couple of cases where this is not
-        appropriate, and custom behaviour is required:
-
-        1) The page has custom routing logic that derives some additional required
-        args/kwargs to be passed to serve(). The routing mechanism is bypassed when
-        previewing, so there's no way to know what args we should pass. In such a case,
-        the page model needs to implement its own version of serve_preview.
-
-        2) The page has several different renderings that we would like to be able to see
-        when previewing - for example, a form page might have one rendering that displays
-        the form, and another rendering to display a landing page when the form is posted.
-        This can be done by setting a custom preview_modes list on the page model -
-        Wagtail will allow the user to specify one of those modes when previewing, and
-        pass the chosen mode_name to serve_preview so that the page model can decide how
-        to render it appropriately. (Page models that do not specify their own preview_modes
-        list will always receive an empty string as mode_name.)
-
-        Any templates rendered during this process should use the 'request' object passed
-        here - this ensures that request.user and other properties are set appropriately for
-        the wagtail user bar to be displayed. This request will always be a GET.
-        """
-        request.is_preview = True
-        request.preview_mode = mode_name
-
-        response = self.serve(request)
-        patch_cache_control(response, private=True)
-        return response
 
     def get_route_paths(self):
         """
