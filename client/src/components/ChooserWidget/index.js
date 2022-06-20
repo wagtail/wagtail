@@ -2,6 +2,8 @@ import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
+  titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
+  chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
     this.chooserElement = document.getElementById(`${id}-chooser`);
@@ -37,7 +39,7 @@ export class Chooser {
       return {
         id: this.input.value,
         edit_link: this.editLink.getAttribute('href'),
-        title: this.titleElement.innerText,
+        [this.titleStateKey]: this.titleElement.innerText,
       };
     } else {
       return null;
@@ -72,14 +74,14 @@ export class Chooser {
 
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
-    this.titleElement.innerText = newState.title;
+    this.titleElement.innerText = newState[this.titleStateKey];
     this.chooserElement.classList.remove('blank');
     this.editLink.setAttribute('href', newState.edit_link);
   }
 
   getTextLabel(opts) {
     if (!this.state) return null;
-    const result = this.state.title;
+    const result = this.state[this.titleStateKey];
     if (opts && opts.maxLength && result.length > opts.maxLength) {
       return result.substring(0, opts.maxLength - 1) + '…';
     }
@@ -90,13 +92,17 @@ export class Chooser {
     this.chooserElement.querySelector('.action-choose').focus();
   }
 
+  getModalUrl() {
+    return this.chooserBaseUrl;
+  }
+
   openChooserModal() {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
-      url: this.chooserBaseUrl,
+      url: this.getModalUrl(),
       onload: this.modalOnloadHandlers,
       responses: {
-        chosen: (result) => {
+        [this.chosenResponseName]: (result) => {
           this.setState(result);
         },
       },
