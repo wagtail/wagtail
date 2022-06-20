@@ -23,10 +23,3 @@
     padding-inline-end: 1em;
   }
 }
-
-//Progress Bar for Windows high contrast mode
-@media (forced-colors: active) {
-  .progress .bar {
-    forced-color-adjust: none;
-  }
-}
