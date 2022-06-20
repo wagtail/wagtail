@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     <header class="header">
-        {% move_breadcrumb page_to_move viewed_page %}
+        {% move_breadcrumb page_to_move viewed_page url_name="wagtailadmin_pages:move_choose_destination" %}
         <div class="row">
             <h1 class="header__title">
                 {% icon name="doc-empty-inverse" %}

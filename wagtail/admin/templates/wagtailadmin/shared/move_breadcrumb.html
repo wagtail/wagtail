@@ -1,4 +1,5 @@
 {% load i18n wagtailadmin_tags %}
+{% url 'wagtailadmin_pages:move_choose_destination' page_to_move_id page.id as rasengan%}
 
 <nav aria-label="{% trans 'Breadcrumb' %}">
     <ul class="breadcrumb">
@@ -19,3 +20,39 @@
         {% endfor %}
     </ul>
 </nav>
+
+{% with breadcrumb_link_classes='breadcrumb-link w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold' icon_classes='w-w-4 w-h-4 w-ml-3' %}
+    <div class="w-breadcrumb w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin">
+        <div class="w-relative w-h-[50px] w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
+            <nav class="w-flex w-items-center w-flex-row w-h-full"
+                aria-label="{% trans 'Breadcrumb' %}">
+                <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
+                    {% for page in pages %}
+                        {% if page.is_root %}
+                            <li class="{{ breadcrumb_item_classes }} w-max-w-0 w-max-w-4xl" data-breadcrumb-item>
+                                <a class="navigate-pages {{ breadcrumb_link_classes }}" href="{% url url_name page_to_move_id page.id %}{{ querystring_value }}">
+                                    {% trans "Root" %}
+                                </a>
+                                {% icon name="arrow-right" class_name=icon_classes %}
+                            </li>
+                        {% elif forloop.last %}
+                            <li class="{{ breadcrumb_item_classes }} w-max-w-4xl" data-breadcrumb-item>
+                                <a class="navigate-pages {{ breadcrumb_link_classes }}"
+                                    href="{% url url_name page_to_move_id page.id %}{{ querystring_value }}">
+                                    {{ page.get_admin_display_title }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="{{ breadcrumb_item_classes }} w-max-w-0 w-max-w-4xl" data-breadcrumb-item>
+                                <a class="navigate-pages {{ breadcrumb_link_classes }}" href="{% url url_name page_to_move_id page.id %}{{ querystring_value }}">
+                                    {{ page.get_admin_display_title }}
+                                </a>
+                                {% icon name="arrow-right" class_name=icon_classes %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endwith %}
