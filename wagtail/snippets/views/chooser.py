@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.generic.base import View
+from django.views.generic.base import ContextMixin, View
 
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -34,7 +34,7 @@ class SnippetTitleColumn(TitleColumn):
         )
 
 
-class BaseChooseView(View):
+class BaseChooseView(ContextMixin, View):
     def get_object_list(self):
         objects = self.model.objects.all()
 
@@ -114,35 +114,52 @@ class BaseChooseView(View):
 
         return self.render_to_response()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
+        context.update(
+            {
+                "model_opts": self.model._meta,
+                "items": self.results,
+                "table": self.table,
+                "query_string": self.search_query,
+                "is_searching": self.is_searching,
+                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
+            }
+        )
+        return context
+
     def render_to_response(self):
         raise NotImplementedError()
 
 
 class ChooseView(BaseChooseView):
-    # Return the choose view as a ModalWorkflow response
-    def render_to_response(self):
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
-        return render_modal_workflow(
-            self.request,
-            "wagtailsnippets/chooser/choose.html",
-            None,
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context.update(
             {
-                "model_opts": self.model._meta,
-                "items": self.results,
-                "table": self.table,
                 "is_searchable": self.is_searchable,
                 "search_form": self.search_form,
-                "query_string": self.search_query,
-                "is_searching": self.is_searching,
                 "locale": self.locale,
                 "locale_filter": self.locale_filter,
                 "selected_locale": self.selected_locale,
                 "locale_options": Locale.objects.all()
                 if issubclass(self.model, TranslatableMixin)
                 else [],
-                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
-            },
+            }
+        )
+        return context
+
+    # Return the choose view as a ModalWorkflow response
+    def render_to_response(self):
+        return render_modal_workflow(
+            self.request,
+            "wagtailsnippets/chooser/choose.html",
+            None,
+            self.get_context_data(),
             json_data={"step": "choose"},
         )
 
@@ -150,19 +167,10 @@ class ChooseView(BaseChooseView):
 class ChooseResultsView(BaseChooseView):
     # Return just the HTML fragment for the results
     def render_to_response(self):
-        app_label = self.model._meta.app_label
-        model_name = self.model._meta.model_name
         return TemplateResponse(
             self.request,
             "wagtailsnippets/chooser/results.html",
-            {
-                "model_opts": self.model._meta,
-                "items": self.results,
-                "table": self.table,
-                "query_string": self.search_query,
-                "is_searching": self.is_searching,
-                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
-            },
+            self.get_context_data(),
         )
 
 
