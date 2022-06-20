@@ -116,6 +116,8 @@ class BaseChooseView(View):
 class ChooseView(BaseChooseView):
     # Return the choose view as a ModalWorkflow response
     def render_to_response(self):
+        app_label = self.model._meta.app_label
+        model_name = self.model._meta.model_name
         return render_modal_workflow(
             self.request,
             "wagtailsnippets/chooser/choose.html",
@@ -134,6 +136,7 @@ class ChooseView(BaseChooseView):
                 "locale_options": Locale.objects.all()
                 if issubclass(self.model, TranslatableMixin)
                 else [],
+                "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
             },
             json_data={"step": "choose"},
         )

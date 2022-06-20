@@ -1736,6 +1736,13 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
             response.json()["html"],
         )
 
+    def test_no_results(self):
+        Advert.objects.all().delete()
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
+        response_html = response.json()["html"]
+        self.assertIn('href="/admin/snippets/tests/advert/add/"', response_html)
+
     def test_ordering(self):
         """
         Listing should be ordered by PK if no ordering has been set on the model
@@ -1784,6 +1791,32 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
         self.assertEqual(len(response.context["items"]), 1)
         self.assertEqual(response.context["items"][0].text, "English snippet")
+
+
+class TestSnippetChooseResults(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.login()
+        self.url_args = ["tests", "advert"]
+
+    def get(self, params=None):
+        return self.client.get(
+            reverse("wagtailsnippets:choose_results", args=self.url_args), params or {}
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailsnippets/chooser/results.html")
+
+    def test_no_results(self):
+        Advert.objects.all().delete()
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailsnippets/chooser/results.html")
+        self.assertContains(
+            response,
+            'href="/admin/snippets/tests/advert/add/"',
+        )
 
 
 class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
