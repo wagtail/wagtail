@@ -1,42 +1,45 @@
-import $ from 'jquery';
-
 /* global wagtailConfig */
 
 class SnippetChooser {
+  // eslint-disable-next-line no-undef
+  modalOnloadHandlers = SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS;
+
   constructor(id) {
-    this.chooserElement = $('#' + id + '-chooser');
-    this.docTitle = this.chooserElement.find('.title');
-    this.input = $('#' + id);
-    this.editLink = this.chooserElement.find('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.data('chooserUrl');
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.titleElement = this.chooserElement.querySelector('.title');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
 
     this.state = this.getStateFromHtml();
 
-    $('.action-choose', this.chooserElement).on('click', () => {
-      this.openChooserModal();
-    });
-
-    $('.action-clear', this.chooserElement).on('click', () => {
-      this.clear();
-    });
+    for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
+      btn.addEventListener('click', () => {
+        this.openChooserModal();
+      });
+    }
+    for (const btn of this.chooserElement.querySelectorAll('.action-clear')) {
+      btn.addEventListener('click', () => {
+        this.clear();
+      });
+    }
   }
 
   getStateFromHtml() {
     /*
-    Construct initial state of the chooser from the rendered (static) HTML
-    and arguments passed to createSnippetChooser.
-    State is either null (= no document chosen) or a dict of id, string and
+    Construct initial state of the chooser from the rendered (static) HTML.
+    State is either null (= no snippet chosen) or a dict of id, string and
     edit_link.
 
     The result returned from the snippet chooser modal (see wagtail.snippets.views.chooser.chosen)
     is a superset of this, and can therefore be passed directly to chooser.setState.
     */
 
-    if (this.input.val()) {
+    if (this.input.value) {
       return {
-        id: this.input.val(),
-        edit_link: this.editLink.attr('href'),
-        string: this.docTitle.text(),
+        id: this.input.value,
+        edit_link: this.editLink.getAttribute('href'),
+        string: this.titleElement.innerText,
       };
     } else {
       return null;
@@ -61,14 +64,14 @@ class SnippetChooser {
     this.setState(null);
   }
   renderEmptyState() {
-    this.input.val('');
-    this.chooserElement.addClass('blank');
+    this.input.setAttribute('value', '');
+    this.chooserElement.classList.add('blank');
   }
   renderState(newState) {
-    this.input.val(newState.id);
-    this.docTitle.text(newState.string);
-    this.chooserElement.removeClass('blank');
-    this.editLink.attr('href', newState.edit_link);
+    this.input.setAttribute('value', newState.id);
+    this.titleElement.innerText = newState.string;
+    this.chooserElement.classList.remove('blank');
+    this.editLink.setAttribute('href', newState.edit_link);
   }
   getTextLabel(opts) {
     if (!this.state) return null;
@@ -79,7 +82,7 @@ class SnippetChooser {
     return result;
   }
   focus() {
-    $('.action-choose', this.chooserElement).focus();
+    this.chooserElement.querySelector('.action-choose').focus();
   }
 
   openChooserModal() {
@@ -95,8 +98,7 @@ class SnippetChooser {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.chooserBaseUrl + urlQuery,
-      // eslint-disable-next-line no-undef
-      onload: SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      onload: this.modalOnloadHandlers,
       responses: {
         snippetChosen: (result) => {
           this.setState(result);
