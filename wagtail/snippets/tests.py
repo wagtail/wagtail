@@ -1763,7 +1763,8 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
             self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
 
     def test_not_searchable(self):
-        self.assertFalse(self.get().context["is_searchable"])
+        # filter_form should not have a search field
+        self.assertFalse(self.get().context["filter_form"].fields.get("q"))
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_filter_by_locale(self):
@@ -1776,10 +1777,9 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         response = self.get()
 
         # Check the filter is added
-        self.assertIn(
-            '<select data-chooser-modal-search-filter name="locale_filter">',
-            response.json()["html"],
-        )
+        response_html = response.json()["html"]
+        self.assertIn("data-chooser-modal-search-filter", response_html)
+        self.assertIn('name="locale"', response_html)
 
         # Check both snippets are shown
         self.assertEqual(len(response.context["items"]), 2)
@@ -1847,7 +1847,8 @@ class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
         self.assertIn(self.snippet_c, items)
 
     def test_is_searchable(self):
-        self.assertTrue(self.get().context["is_searchable"])
+        # filter_form should have a search field
+        self.assertTrue(self.get().context["filter_form"].fields.get("q"))
 
     def test_search_hello(self):
         response = self.get({"q": "Hello"})

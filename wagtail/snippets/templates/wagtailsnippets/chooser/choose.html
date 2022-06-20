@@ -3,14 +3,10 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=model_opts.verbose_name icon="snippet" %}
 
 <div class="nice-padding">
-    {% if filter_form.fields or locale or locale_options %}
+    {% if filter_form.fields %}
         <form data-chooser-modal-search class="search-bar" action="{% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
             {% if filter_form.hidden_fields %}
                 {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-            {% endif %}
-
-            {% if locale %}
-                <input type="hidden" name="locale" value="{{ locale.language_code }}">
             {% endif %}
 
             {% if filter_form.visible_fields %}
@@ -19,20 +15,6 @@
                         {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                     {% endfor %}
                     <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
-                </ul>
-            {% endif %}
-
-            {% if locale_options %}
-                <ul class="fields">
-                    <li class="col">
-                        <div class="field field-small">
-                            <select data-chooser-modal-search-filter name="locale_filter">
-                                {% for locale_option in locale_options %}
-                                    <option value="{{ locale_option.language_code }}"{% if locale_option == selected_locale %} selected{% endif %}>{{ locale_option.get_display_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </li>
                 </ul>
             {% endif %}
         </form>
