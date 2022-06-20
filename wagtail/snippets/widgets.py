@@ -53,7 +53,7 @@ class AdminSnippetChooser(BaseChooser):
     def media(self):
         return forms.Media(
             js=[
-                versioned_static("wagtailsnippets/js/snippet-chooser-modal.js"),
+                versioned_static("wagtailadmin/js/chooser-modal.js"),
                 versioned_static("wagtailsnippets/js/snippet-chooser.js"),
             ]
         )

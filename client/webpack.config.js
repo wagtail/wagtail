@@ -68,11 +68,7 @@ module.exports = function exports(env, argv) {
       'document-chooser-modal',
       'document-chooser-telepath',
     ],
-    'snippets': [
-      'snippet-chooser',
-      'snippet-chooser-modal',
-      'snippet-chooser-telepath',
-    ],
+    'snippets': ['snippet-chooser', 'snippet-chooser-telepath'],
     'contrib/table_block': ['table'],
     'contrib/typed_table_block': ['typed_table_block'],
   };

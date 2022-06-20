@@ -3,10 +3,7 @@ import { Chooser } from '../../components/ChooserWidget';
 /* global wagtailConfig */
 
 class SnippetChooser extends Chooser {
-  // eslint-disable-next-line no-undef
-  modalOnloadHandlers = SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS;
   titleStateKey = 'string';
-  chosenResponseName = 'snippetChosen';
 
   getModalUrl() {
     let urlQuery = '';
