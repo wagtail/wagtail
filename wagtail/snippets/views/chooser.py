@@ -62,6 +62,20 @@ class BaseChooseView(ContextMixin, View):
                     required=False,
                 )
 
+            if issubclass(self.model, TranslatableMixin):
+                locales = Locale.objects.all()
+                if locales:
+                    fields["locale"] = forms.ChoiceField(
+                        choices=[
+                            (locale.language_code, locale.get_display_name())
+                            for locale in locales
+                        ],
+                        required=False,
+                        widget=forms.Select(
+                            attrs={"data-chooser-modal-search-filter": True}
+                        ),
+                    )
+
             return type(
                 "FilterForm",
                 (forms.Form,),
@@ -73,6 +87,13 @@ class BaseChooseView(ContextMixin, View):
         return FilterForm(self.request.GET)
 
     def filter_object_list(self, objects, form):
+        selected_locale_code = form.cleaned_data.get("locale")
+        if selected_locale_code:
+            selected_locale = get_object_or_404(
+                Locale, language_code=selected_locale_code
+            )
+            objects = objects.filter(locale=selected_locale)
+
         self.search_query = form.cleaned_data.get("q")
         if self.search_query:
             search_backend = get_search_backend()
@@ -85,28 +106,6 @@ class BaseChooseView(ContextMixin, View):
         self.model = get_snippet_model_from_url_params(app_label, model_name)
 
         objects = self.get_object_list()
-
-        # Filter by locale
-        self.locale = None
-        self.locale_filter = None
-        self.selected_locale = None
-        if issubclass(self.model, TranslatableMixin):
-            # 'locale' is the Locale of the object that this snippet is being chosen for
-            if request.GET.get("locale"):
-                self.locale = get_object_or_404(
-                    Locale, language_code=request.GET["locale"]
-                )
-
-            # 'locale_filter' is the current value of the "Locale" selector in the UI
-            if request.GET.get("locale_filter"):
-                self.locale_filter = get_object_or_404(
-                    Locale, language_code=request.GET["locale_filter"]
-                )
-
-            self.selected_locale = self.locale_filter or self.locale
-
-            if self.selected_locale:
-                objects = objects.filter(locale=self.selected_locale)
 
         # Search
         self.is_searchable = class_is_indexed(self.model)
@@ -159,19 +158,7 @@ class BaseChooseView(ContextMixin, View):
 class ChooseView(BaseChooseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "is_searchable": self.is_searchable,
-                "filter_form": self.filter_form,
-                "locale": self.locale,
-                "locale_filter": self.locale_filter,
-                "selected_locale": self.selected_locale,
-                "locale_options": Locale.objects.all()
-                if issubclass(self.model, TranslatableMixin)
-                else [],
-            }
-        )
+        context["filter_form"] = self.filter_form
         return context
 
     # Return the choose view as a ModalWorkflow response
