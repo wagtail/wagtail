@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.admin.utils import quote, unquote
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
@@ -6,7 +7,6 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, View
 
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.models import Locale, TranslatableMixin
@@ -35,6 +35,8 @@ class SnippetTitleColumn(TitleColumn):
 
 
 class BaseChooseView(ContextMixin, View):
+    filter_form_class = None
+
     def get_object_list(self):
         objects = self.model.objects.all()
 
@@ -42,6 +44,40 @@ class BaseChooseView(ContextMixin, View):
         # (to ensure pagination is consistent)
         if not objects.ordered:
             objects = objects.order_by("pk")
+
+        return objects
+
+    def get_filter_form_class(self):
+        if self.filter_form_class:
+            return self.filter_form_class
+        else:
+            fields = {}
+            if class_is_indexed(self.model):
+                placeholder = _("Search %(snippet_type_name)s") % {
+                    "snippet_type_name": self.model._meta.verbose_name
+                }
+                fields["q"] = forms.CharField(
+                    label=_("Search term"),
+                    widget=forms.TextInput(attrs={"placeholder": placeholder}),
+                    required=False,
+                )
+
+            return type(
+                "FilterForm",
+                (forms.Form,),
+                fields,
+            )
+
+    def get_filter_form(self):
+        FilterForm = self.get_filter_form_class()
+        return FilterForm(self.request.GET)
+
+    def filter_object_list(self, objects, form):
+        self.search_query = form.cleaned_data.get("q")
+        if self.search_query:
+            search_backend = get_search_backend()
+            objects = search_backend.search(self.search_query, objects)
+            self.is_searching = True
 
         return objects
 
@@ -76,25 +112,10 @@ class BaseChooseView(ContextMixin, View):
         self.is_searchable = class_is_indexed(self.model)
         self.is_searching = False
         self.search_query = None
-        if self.is_searchable and "q" in request.GET:
-            self.search_form = SearchForm(
-                request.GET,
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name},
-            )
 
-            if self.search_form.is_valid():
-                self.search_query = self.search_form.cleaned_data["q"]
-
-                search_backend = get_search_backend()
-                objects = search_backend.search(self.search_query, objects)
-                self.is_searching = True
-
-        else:
-            self.search_form = SearchForm(
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name}
-            )
+        self.filter_form = self.get_filter_form()
+        if self.filter_form.is_valid():
+            objects = self.filter_object_list(objects, self.filter_form)
 
         # Pagination
         paginator = Paginator(objects, per_page=25)
@@ -142,7 +163,7 @@ class ChooseView(BaseChooseView):
         context.update(
             {
                 "is_searchable": self.is_searchable,
-                "search_form": self.search_form,
+                "filter_form": self.filter_form,
                 "locale": self.locale,
                 "locale_filter": self.locale_filter,
                 "selected_locale": self.selected_locale,
