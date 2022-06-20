@@ -20,8 +20,10 @@ class SnippetChooser extends Chooser {
     return this.chooserBaseUrl + urlQuery;
   }
 }
+window.SnippetChooser = SnippetChooser;
 
 function createSnippetChooser(id) {
+  /* RemovedInWagtail50Warning */
   return new SnippetChooser(id);
 }
 window.createSnippetChooser = createSnippetChooser;

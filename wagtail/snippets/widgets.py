@@ -47,7 +47,7 @@ class AdminSnippetChooser(BaseChooser):
                 raise
 
     def render_js_init(self, id_, name, value_data):
-        return "createSnippetChooser({id});".format(id=json.dumps(id_))
+        return "new SnippetChooser({id});".format(id=json.dumps(id_))
 
     @cached_property
     def media(self):
