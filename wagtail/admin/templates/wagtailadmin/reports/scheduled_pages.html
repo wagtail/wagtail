@@ -1,0 +1,18 @@
+{% extends 'wagtailadmin/reports/base_page_report.html' %}
+{% load i18n %}
+{% block listing %}
+    {% include "wagtailadmin/reports/listing/_list_publish.html" %}
+{% endblock %}
+
+{% block no_results %}
+    <p>{% trans "No pages scheduled for publishing were found." %}</p>
+{% endblock %}
+
+{% block actions %}
+    {% if object_list.count > 0 %}
+    <div class="addbutton">
+        <a href="{% url 'wagtailadmin_scheduled_pages:publish_all_confirm' %}" class="button">{% trans 'Publish all scheduled pages' %}</a>
+    </div>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}

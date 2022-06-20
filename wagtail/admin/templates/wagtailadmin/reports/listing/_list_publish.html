@@ -1,0 +1,32 @@
+{% extends "wagtailadmin/reports/listing/_list_page_report.html" %}
+
+{% load i18n wagtailadmin_tags %}
+
+{% block extra_columns %}
+    <th>{% trans 'Scheduled by' %}</th>
+    <th>{% trans 'Scheduled to be published' %}</th>
+{% endblock %}
+
+
+{% block extra_page_data%}
+    <td valign="top">
+        {{ page.get_latest_revision.user }}
+    </td>
+    <td valign="top">
+        {% page_permissions page as perms %}
+        <p>
+            {% with page.get_latest_revision.approved_go_live_at|date:"DATETIME_FORMAT" as locking_date %}
+                {% blocktrans %}
+                    <b>{{ locking_date }}</b>
+                {% endblocktrans %}
+            {% endwith %}
+        </p>
+        {% if perms.can_publish %}
+            <form action="{% url 'wagtailadmin_scheduled_pages:publish' page.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="button button-secondary button-small">{% trans 'Publish now' %}</button>
+            </form>
+        {% endif %}
+    </td>
+{% endblock %}

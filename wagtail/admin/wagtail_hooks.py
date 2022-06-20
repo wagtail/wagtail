@@ -50,6 +50,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     PublishBulkAction,
     UnpublishBulkAction,
 )
+from wagtail.admin.views.scheduled_pages import ScheduledPagesPanel
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.models import Collection, Page, Task, Workflow
@@ -933,6 +934,11 @@ class AgingPagesReportMenuItem(MenuItem):
         return getattr(settings, "WAGTAIL_AGING_PAGES_ENABLED", True)
 
 
+class ScheduledPagesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return UserPagePermissionsProxy(request.user).can_publish_pages()
+
+
 @hooks.register("register_reports_menu_item")
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(
@@ -985,6 +991,16 @@ def register_aging_pages_report_menu_item():
         name="aging-pages",
         icon_name="time",
         order=1100,
+    )
+
+
+@hooks.register("register_reports_menu_item")
+def register_scheduled_pages_menu_item():
+    return ScheduledPagesMenuItem(
+        _("Scheduled pages"),
+        reverse("wagtailadmin_reports:scheduled_pages"),
+        icon_name="time",
+        order=700,
     )
 
 
@@ -1171,6 +1187,11 @@ def register_icons(icons):
 @hooks.register("construct_homepage_summary_items")
 def add_pages_summary_item(request, items):
     items.insert(0, PagesSummaryItem(request))
+
+
+@hooks.register("construct_homepage_panels")
+def register_scheduled_pages_panel(request, panels):
+    panels.append(ScheduledPagesPanel())
 
 
 class PageAdminURLFinder:

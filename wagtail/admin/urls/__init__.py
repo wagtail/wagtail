@@ -16,6 +16,7 @@ from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
+from wagtail.admin.urls import scheduled_pages as wagtailadmin_scheduled_pages_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, dismissibles, home, tags, userbar
 from wagtail.admin.views.bulk_action import index as bulk_actions
@@ -94,6 +95,12 @@ urlpatterns = [
     ),
     path(
         "reports/", include(wagtailadmin_reports_urls, namespace="wagtailadmin_reports")
+    ),
+    path(
+        "scheduled_pages/",
+        include(
+            wagtailadmin_scheduled_pages_urls, namespace="wagtailadmin_scheduled_pages"
+        ),
     ),
     path("account/", account.account, name="wagtailadmin_account"),
     path("logout/", account.LogoutView.as_view(), name="wagtailadmin_logout"),

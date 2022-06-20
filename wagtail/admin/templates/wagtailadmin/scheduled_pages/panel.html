@@ -1,0 +1,66 @@
+{% load i18n wagtailadmin_tags %}
+{% if pages_to_be_scheduled %}
+    <section class="object">
+        <h2 class="title-wrapper">{% trans 'Next pages scheduled to be published' %}<a class="button button-small button-secondary" style="margin-left: 15px; margin-top: -5px;" href="{% url 'wagtailadmin_reports:scheduled_pages' %}" title="All scheduled pages">Go to report</a></h2>
+        <div class="object-layout">
+            <table class="listing">
+                <col />
+                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>{# Note: the header is visually hidden behind .title-wrapper #}
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans 'Scheduled by' %}</th>
+                        <th>{% trans 'Scheduled to be published' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for page in pages_to_be_scheduled %}
+                        {% page_permissions page as page_perms %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <div class="title-wrapper">
+                                    {% if page_perms.can_publish %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.specific_deferred.get_admin_display_title }}</a>
+                                    {% elif page.is_previewable %}
+                                        <a href="{% url 'wagtailadmin_pages:preview_for_moderation' id %}" title="{% trans 'Preview this page' %}">{{ page.specific_deferred.get_admin_display_title }}</a>
+                                    {% else %}
+                                        {{ page.specific_deferred.get_admin_display_title }}
+                                    {% endif %}
+
+                                    {% i18n_enabled as show_locale_labels %}
+                                    {# if show_locale_labels and page.locale_id #}
+                                        {# locale_label_from_id page.locale_id as locale_label #}
+                                        <span class="status-tag status-tag--label">{# locale_label #}</span>
+                                    {# endif #}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                                </div>
+                                <ul class="actions">
+                                    {% if page_perms.can_publish %}
+                                    <form action="{% url 'wagtailadmin_scheduled_pages:publish' page.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next" value="{{ request.path }}">
+                                        <button type="submit" class="button button-secondary button-small">{% trans 'Publish now' %}</button>
+                                    </form>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                            <td class="type" valign="top">
+                                {{ page.content_type.model_class.get_verbose_name }}
+                            </td>
+                            <td class="type" valign="top">
+                                {{ page.get_latest_revision.user }}
+                            </td>
+                            <td class="type" valign="top">
+                                {{ page.get_latest_revision.approved_go_live_at }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endif %}
