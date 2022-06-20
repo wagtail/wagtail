@@ -605,6 +605,7 @@ Contributors
 * Yves Serrano
 * Hugh Rawlinson
 * Noble Mittal
+* Oliver Parker
 
 Translators
 ===========
