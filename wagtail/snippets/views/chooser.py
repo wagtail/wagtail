@@ -35,15 +35,20 @@ class SnippetTitleColumn(TitleColumn):
 
 
 class BaseChooseView(View):
-    def get(self, request, app_label, model_name):
-        self.model = get_snippet_model_from_url_params(app_label, model_name)
-
-        items = self.model.objects.all()
+    def get_object_list(self):
+        objects = self.model.objects.all()
 
         # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
-        if not items.ordered:
-            items = items.order_by("pk")
+        if not objects.ordered:
+            objects = objects.order_by("pk")
+
+        return objects
+
+    def get(self, request, app_label, model_name):
+        self.model = get_snippet_model_from_url_params(app_label, model_name)
+
+        objects = self.get_object_list()
 
         # Filter by locale
         self.locale = None
@@ -65,7 +70,7 @@ class BaseChooseView(View):
             self.selected_locale = self.locale_filter or self.locale
 
             if self.selected_locale:
-                items = items.filter(locale=self.selected_locale)
+                objects = objects.filter(locale=self.selected_locale)
 
         # Search
         self.is_searchable = class_is_indexed(self.model)
@@ -82,7 +87,7 @@ class BaseChooseView(View):
                 self.search_query = self.search_form.cleaned_data["q"]
 
                 search_backend = get_search_backend()
-                items = search_backend.search(self.search_query, items)
+                objects = search_backend.search(self.search_query, objects)
                 self.is_searching = True
 
         else:
@@ -92,8 +97,8 @@ class BaseChooseView(View):
             )
 
         # Pagination
-        paginator = Paginator(items, per_page=25)
-        self.paginated_items = paginator.get_page(request.GET.get("p"))
+        paginator = Paginator(objects, per_page=25)
+        self.results = paginator.get_page(request.GET.get("p"))
 
         self.table = Table(
             [
@@ -104,7 +109,7 @@ class BaseChooseView(View):
                     link_attrs={"data-chooser-modal-choice": True},
                 ),
             ],
-            self.paginated_items,
+            self.results,
         )
 
         return self.render_to_response()
@@ -124,7 +129,7 @@ class ChooseView(BaseChooseView):
             None,
             {
                 "model_opts": self.model._meta,
-                "items": self.paginated_items,
+                "items": self.results,
                 "table": self.table,
                 "is_searchable": self.is_searchable,
                 "search_form": self.search_form,
@@ -152,7 +157,7 @@ class ChooseResultsView(BaseChooseView):
             "wagtailsnippets/chooser/results.html",
             {
                 "model_opts": self.model._meta,
-                "items": self.paginated_items,
+                "items": self.results,
                 "table": self.table,
                 "query_string": self.search_query,
                 "is_searching": self.is_searching,
