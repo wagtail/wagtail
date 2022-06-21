@@ -48,7 +48,14 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     results_template_name = "wagtailadmin/generic/chooser/results.html"
 
     def get_object_list(self):
-        return self.model.objects.all()
+        objects = self.model.objects.all()
+
+        # Preserve the model-level ordering if specified, but fall back on PK if not
+        # (to ensure pagination is consistent)
+        if not objects.ordered:
+            objects = objects.order_by("pk")
+
+        return objects
 
     def get_filter_form_class(self):
         if self.filter_form_class:
