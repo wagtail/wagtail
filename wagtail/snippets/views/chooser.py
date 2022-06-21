@@ -41,6 +41,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     page_title = _("Choose")
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtailsnippets/chooser/results.html"
+    per_page = 25
 
     @property
     def page_subtitle(self):
@@ -117,6 +118,17 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             args=(self.model._meta.app_label, self.model._meta.model_name),
         )
 
+    @property
+    def columns(self):
+        return [
+            SnippetTitleColumn(
+                "title",
+                self.model,
+                label=_("Title"),
+                link_attrs={"data-chooser-modal-choice": True},
+            ),
+        ]
+
     def get(self, request, app_label, model_name):
         self.model = get_snippet_model_from_url_params(app_label, model_name)
 
@@ -132,18 +144,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             objects = self.filter_object_list(objects, self.filter_form)
 
         # Pagination
-        paginator = Paginator(objects, per_page=25)
+        paginator = Paginator(objects, per_page=self.per_page)
         self.results = paginator.get_page(request.GET.get("p"))
 
         self.table = Table(
-            [
-                SnippetTitleColumn(
-                    "title",
-                    self.model,
-                    label=_("Title"),
-                    link_attrs={"data-chooser-modal-choice": True},
-                ),
-            ],
+            self.columns,
             self.results,
         )
 
