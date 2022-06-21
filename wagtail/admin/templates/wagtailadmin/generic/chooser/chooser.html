@@ -13,7 +13,7 @@
             {% if filter_form.fields %}
                 <form data-chooser-modal-search class="search-bar" action="{% url results_url_name %}" method="GET" novalidate>
                     {% if filter_form.hidden_fields %}
-                        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                        {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
                     {% endif %}
 
                     {% if filter_form.visible_fields %}
@@ -28,7 +28,7 @@
             {% endif %}
 
             <div id="search-results" class="listing">
-                {% include "wagtailadmin/generic/chooser/results.html" %}
+                {% include view.results_template_name %}
             </div>
         </section>
     </div>

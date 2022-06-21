@@ -41,6 +41,8 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     icon = "snippet"
     page_title = _("Choose")
     filter_form_class = None
+    template_name = "wagtailadmin/generic/chooser/chooser.html"
+    results_template_name = "wagtailadmin/generic/chooser/results.html"
 
     def get_object_list(self):
         return self.model.objects.all()
@@ -70,10 +72,15 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if search_query:
             search_backend = get_search_backend()
             objects = search_backend.search(search_query, objects)
+            self.is_searching = True
+            self.search_query = search_query
         return objects
 
     def get(self, request):
         objects = self.get_object_list()
+        self.is_searching = False
+        self.search_query = None
+
         self.filter_form = self.get_filter_form()
         if self.filter_form.is_valid():
             objects = self.filter_object_list(objects, self.filter_form)
@@ -102,6 +109,8 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results": self.results,
                 "table": self.table,
                 "results_url_name": self.results_url_name,
+                "is_searching": self.is_searching,
+                "search_query": self.search_query,
             }
         )
         return context
@@ -119,7 +128,7 @@ class ChooseView(BaseChooseView):
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
-            "wagtailadmin/generic/chooser/chooser.html",
+            self.template_name,
             None,
             self.get_context_data(),
             json_data={
@@ -132,7 +141,7 @@ class ChooseResultsView(BaseChooseView):
     def render_to_response(self):
         return TemplateResponse(
             self.request,
-            "wagtailadmin/generic/chooser/results.html",
+            self.results_template_name,
             self.get_context_data(),
         )
 
