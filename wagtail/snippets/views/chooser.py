@@ -14,12 +14,13 @@ from wagtail.admin.views.generic.chooser import (
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
-from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 
 class SnippetTitleColumn(TitleColumn):
     def __init__(self, name, model, **kwargs):
-        self.model_opts = model._meta
+        self.namespace = (
+            f"wagtailsnippetchoosers_{model._meta.app_label}_{model._meta.model_name}"
+        )
         super().__init__(name, **kwargs)
 
     def get_value(self, instance):
@@ -27,10 +28,8 @@ class SnippetTitleColumn(TitleColumn):
 
     def get_link_url(self, instance, parent_context):
         return reverse(
-            "wagtailsnippets:chosen",
+            f"{self.namespace}:chosen",
             args=[
-                self.model_opts.app_label,
-                self.model_opts.model_name,
                 quote(instance.pk),
             ],
         )
@@ -101,8 +100,7 @@ class BaseSnippetChooseView(BaseChooseView):
 
     def get_results_url(self):
         return reverse(
-            "wagtailsnippets:choose_results",
-            args=(self.model._meta.app_label, self.model._meta.model_name),
+            f"wagtailsnippetchoosers_{self.model._meta.app_label}_{self.model._meta.model_name}:choose_results"
         )
 
     @property
@@ -115,10 +113,6 @@ class BaseSnippetChooseView(BaseChooseView):
                 link_attrs={"data-chooser-modal-choice": True},
             ),
         ]
-
-    def get(self, request, app_label, model_name):
-        self.model = get_snippet_model_from_url_params(app_label, model_name)
-        return super().get(request)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -144,7 +138,3 @@ class ChooseResultsView(ChooseResultsViewMixin, BaseSnippetChooseView):
 
 class SnippetChosenView(ChosenView):
     response_data_title_key = "string"
-
-    def get(self, request, *args, app_label, model_name, pk, **kwargs):
-        self.model = get_snippet_model_from_url_params(app_label, model_name)
-        return super().get(request, *args, pk, **kwargs)

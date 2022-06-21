@@ -274,9 +274,7 @@ class TestModelOrdering(TestCase, WagtailTestUtils):
 
     def test_chooser_respects_model_ordering(self):
         response = self.client.get(
-            reverse(
-                "wagtailsnippets:choose", args=("tests", "advertwithtabbedinterface")
-            )
+            reverse("wagtailsnippetchoosers_tests_advertwithtabbedinterface:choose")
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["items"][0].text, "aaaadvert")
@@ -1722,8 +1720,10 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         self.url_args = ["tests", "advert"]
 
     def get(self, params=None):
+        app_label, model_name = self.url_args
         return self.client.get(
-            reverse("wagtailsnippets:choose", args=self.url_args), params or {}
+            reverse(f"wagtailsnippetchoosers_{app_label}_{model_name}:choose"),
+            params or {},
         )
 
     def test_simple(self):
@@ -1800,11 +1800,10 @@ class TestSnippetChooseResults(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.login()
-        self.url_args = ["tests", "advert"]
 
     def get(self, params=None):
         return self.client.get(
-            reverse("wagtailsnippets:choose_results", args=self.url_args), params or {}
+            reverse("wagtailsnippetchoosers_tests_advert:choose_results"), params or {}
         )
 
     def test_simple(self):
@@ -1832,9 +1831,7 @@ class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
 
     def get(self, params=None):
         return self.client.get(
-            reverse(
-                "wagtailsnippets:choose", args=("snippetstests", "searchablesnippet")
-            ),
+            reverse("wagtailsnippetchoosers_snippetstests_searchablesnippet:choose"),
             params or {},
         )
 
@@ -1879,7 +1876,7 @@ class TestSnippetChosen(TestCase, WagtailTestUtils):
 
     def get(self, pk, params=None):
         return self.client.get(
-            reverse("wagtailsnippets:chosen", args=("tests", "advert", pk)),
+            reverse("wagtailsnippetchoosers_tests_advert:chosen", args=(pk,)),
             params or {},
         )
 
@@ -2528,9 +2525,7 @@ class TestSnippetChooseWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def get(self, params=None):
         return self.client.get(
-            reverse(
-                "wagtailsnippets:choose", args=("tests", "advertwithcustomprimarykey")
-            ),
+            reverse("wagtailsnippetchoosers_tests_advertwithcustomprimarykey:choose"),
             params or {},
         )
 
@@ -2559,8 +2554,8 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def get(self, pk, params=None):
         return self.client.get(
             reverse(
-                "wagtailsnippets:chosen",
-                args=("tests", "advertwithcustomprimarykey", quote(pk)),
+                "wagtailsnippetchoosers_tests_advertwithcustomprimarykey:chosen",
+                args=(quote(pk),),
             ),
             params or {},
         )
@@ -2580,8 +2575,8 @@ class TestSnippetChosenWithCustomUUIDPrimaryKey(TestCase, WagtailTestUtils):
     def get(self, pk, params=None):
         return self.client.get(
             reverse(
-                "wagtailsnippets:chosen",
-                args=("tests", "advertwithcustomuuidprimarykey", quote(pk)),
+                "wagtailsnippetchoosers_tests_advertwithcustomuuidprimarykey:chosen",
+                args=(quote(pk),),
             ),
             params or {},
         )
