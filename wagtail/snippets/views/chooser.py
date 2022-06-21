@@ -1,10 +1,7 @@
 from django import forms
-from django.contrib.admin.utils import quote
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
@@ -15,25 +12,6 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
-
-
-class SnippetTitleColumn(TitleColumn):
-    def __init__(self, name, model, **kwargs):
-        self.namespace = (
-            f"wagtailsnippetchoosers_{model._meta.app_label}_{model._meta.model_name}"
-        )
-        super().__init__(name, **kwargs)
-
-    def get_value(self, instance):
-        return str(instance)
-
-    def get_link_url(self, instance, parent_context):
-        return reverse(
-            f"{self.namespace}:chosen",
-            args=[
-                quote(instance.pk),
-            ],
-        )
 
 
 class BaseSnippetChooseView(BaseChooseView):
@@ -98,22 +76,6 @@ class BaseSnippetChooseView(BaseChooseView):
             self.is_searching = True
 
         return objects
-
-    def get_results_url(self):
-        return reverse(
-            f"wagtailsnippetchoosers_{self.model._meta.app_label}_{self.model._meta.model_name}:choose_results"
-        )
-
-    @property
-    def columns(self):
-        return [
-            SnippetTitleColumn(
-                "title",
-                self.model,
-                label=_("Title"),
-                link_attrs={"data-chooser-modal-choice": True},
-            ),
-        ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

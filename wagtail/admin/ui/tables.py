@@ -3,6 +3,7 @@
 from collections import OrderedDict
 from collections.abc import Mapping
 
+from django.contrib.admin.utils import quote
 from django.forms import MediaDefiningClass
 from django.template.loader import get_template
 from django.urls import reverse
@@ -159,7 +160,7 @@ class TitleColumn(Column):
         if self._get_url_func:
             return self._get_url_func(instance)
         else:
-            return reverse(self.url_name, args=(instance.pk,))
+            return reverse(self.url_name, args=(quote(instance.pk),))
 
 
 class StatusFlagColumn(Column):
