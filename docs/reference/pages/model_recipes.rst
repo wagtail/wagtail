@@ -9,7 +9,7 @@ Overriding the :meth:`~wagtail.models.Page.serve` Method
 
 Wagtail defaults to serving :class:`~wagtail.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.models.Page.serve` method provided by the :class:`~wagtail.models.Page` class and handle the Django request and response more directly.
 
-Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request:
+Consider this example of an ``EventPage`` object which is served as an iCal file if the ``format`` variable is set in the request:
 
 .. code-block:: python
 
