@@ -4,11 +4,12 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.admin.views.generic.chooser import ModalPageFurnitureMixin
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -34,8 +35,14 @@ class SnippetTitleColumn(TitleColumn):
         )
 
 
-class BaseChooseView(ContextMixin, View):
+class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     filter_form_class = None
+    icon = "snippet"
+    page_title = _("Choose")
+
+    @property
+    def page_subtitle(self):
+        return self.model._meta.verbose_name
 
     def get_object_list(self):
         objects = self.model.objects.all()
