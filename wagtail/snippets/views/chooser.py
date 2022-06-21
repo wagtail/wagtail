@@ -1,15 +1,14 @@
 from django import forms
 from django.contrib.admin.utils import quote, unquote
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import ContextMixin, View
+from django.views.generic.base import View
 
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Table, TitleColumn
-from wagtail.admin.views.generic.chooser import ModalPageFurnitureMixin
+from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.views.generic.chooser import BaseChooseView
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -35,7 +34,7 @@ class SnippetTitleColumn(TitleColumn):
         )
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+class BaseSnippetChooseView(BaseChooseView):
     filter_form_class = None
     icon = "snippet"
     page_title = _("Choose")
@@ -46,16 +45,6 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     @property
     def page_subtitle(self):
         return self.model._meta.verbose_name
-
-    def get_object_list(self):
-        objects = self.model.objects.all()
-
-        # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
-        # (to ensure pagination is consistent)
-        if not objects.ordered:
-            objects = objects.order_by("pk")
-
-        return objects
 
     def get_filter_form_class(self):
         if self.filter_form_class:
@@ -92,10 +81,6 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 fields,
             )
 
-    def get_filter_form(self):
-        FilterForm = self.get_filter_form_class()
-        return FilterForm(self.request.GET)
-
     def filter_object_list(self, objects, form):
         selected_locale_code = form.cleaned_data.get("locale")
         if selected_locale_code:
@@ -131,28 +116,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     def get(self, request, app_label, model_name):
         self.model = get_snippet_model_from_url_params(app_label, model_name)
-
-        objects = self.get_object_list()
-
-        # Search
-        self.is_searchable = class_is_indexed(self.model)
-        self.is_searching = False
-        self.search_query = None
-
-        self.filter_form = self.get_filter_form()
-        if self.filter_form.is_valid():
-            objects = self.filter_object_list(objects, self.filter_form)
-
-        # Pagination
-        paginator = Paginator(objects, per_page=self.per_page)
-        self.results = paginator.get_page(request.GET.get("p"))
-
-        self.table = Table(
-            self.columns,
-            self.results,
-        )
-
-        return self.render_to_response()
+        return super().get(request)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -162,21 +126,13 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         context.update(
             {
                 "snippet_type_name": self.model._meta.verbose_name,
-                "results": self.results,
-                "table": self.table,
-                "results_url": self.get_results_url(),
-                "query_string": self.search_query,
-                "is_searching": self.is_searching,
                 "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
             }
         )
         return context
 
-    def render_to_response(self):
-        raise NotImplementedError()
 
-
-class ChooseView(BaseChooseView):
+class ChooseView(BaseSnippetChooseView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filter_form"] = self.filter_form
@@ -193,7 +149,7 @@ class ChooseView(BaseChooseView):
         )
 
 
-class ChooseResultsView(BaseChooseView):
+class ChooseResultsView(BaseSnippetChooseView):
     # Return just the HTML fragment for the results
     def render_to_response(self):
         return TemplateResponse(

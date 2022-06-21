@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block no_search_results_message %}
-    <p role="alert">{% blocktrans trimmed %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    <p role="alert">{% blocktrans trimmed %}Sorry, no snippets match "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
 {% endblock %}
 
 {% block no_items_message %}
