@@ -33,7 +33,11 @@ class PermissionHelper:
 
     @cached_property
     def all_permission_codenames(self):
-        return self.get_all_model_permissions().values_list("codename", flat=True)
+        return list(
+            self.get_all_model_permissions()
+            .values_list("codename", flat=True)
+            .distinct()
+        )
 
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
