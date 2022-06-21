@@ -155,7 +155,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         context.update(
             {
                 "model_opts": self.model._meta,
-                "items": self.results,
+                "results": self.results,
                 "table": self.table,
                 "results_url": self.get_results_url(),
                 "query_string": self.search_query,
