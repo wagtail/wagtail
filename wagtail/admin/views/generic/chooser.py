@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
+from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -134,9 +135,39 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
 
 class ChooseViewMixin:
+    creation_form_class = None
+    form_fields = None
+    exclude_form_fields = None
+    search_tab_label = _("Search")
+    creation_tab_label = None
+    create_action_label = _("Create")
+    create_action_clicked_label = None
+
+    def get_creation_form_class(self):
+        if self.creation_form_class:
+            return self.creation_form_class
+        elif self.form_fields is not None or self.exclude_form_fields is not None:
+            return modelform_factory(
+                self.model, fields=self.form_fields, exclude=self.exclude_form_fields
+            )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["filter_form"] = self.filter_form
+        context.update(
+            {
+                "filter_form": self.filter_form,
+                "create_action_label": self.create_action_label,
+                "create_action_clicked_label": self.create_action_clicked_label,
+                "search_tab_label": self.search_tab_label,
+                "creation_tab_label": self.creation_tab_label
+                or self.create_action_label,
+            }
+        )
+
+        creation_form_class = self.get_creation_form_class()
+        if creation_form_class:
+            context["creation_form"] = creation_form_class()
+
         return context
 
     # Return the choose view as a ModalWorkflow response

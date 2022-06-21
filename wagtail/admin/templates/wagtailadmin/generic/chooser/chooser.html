@@ -1,7 +1,17 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle merged=1 icon=header_icon %}
 
 <div class="w-tabs" data-tabs data-tabs-disable-url>
+    {% if creation_form %}
+        <div class="w-tabs__wrapper w-overflow-hidden">
+            {# Using nice-padding and full width class until the modal header is restyled #}
+            <div role="tablist" class="w-tabs__list w-w-full nice-padding">
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_tab_label %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='create' title=creation_tab_label %}
+            </div>
+        </div>
+    {% endif %}
+
     <div class="tab-content nice-padding">
         <section
             id="tab-search"
@@ -12,9 +22,7 @@
 
             {% if filter_form.fields %}
                 <form data-chooser-modal-search class="search-bar" action="{{ results_url }}" method="GET" novalidate>
-                    {% if filter_form.hidden_fields %}
-                        {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
-                    {% endif %}
+                    {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
 
                     {% if filter_form.visible_fields %}
                         <ul class="fields">
@@ -31,5 +39,34 @@
                 {% include view.results_template_name %}
             </div>
         </section>
+
+        {% if creation_form %}
+            <section
+                id="tab-create"
+                class="w-tabs__panel"
+                role="tabpanel"
+                hidden
+                aria-labelledby="tab-label-create"
+            >
+                {% include "wagtailadmin/shared/non_field_errors.html" with form=creation_form %}
+                <form data-chooser-modal-creation-form action="" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
+                    {% csrf_token %}
+                    {% for field in creation_form.hidden_fields %}{{ field }}{% endfor %}
+
+                    <ul class="fields">
+                        {% for field in creation_form.visible_fields %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% endfor %}
+                        <li>
+                            {% if create_action_clicked_label %}
+                                <button type="submit" class="button button-longrunning" data-clicked-text="{{ create_action_clicked_label }}">{% icon name="spinner" %}<em>{{ create_action_label }}</em></button>
+                            {% else %}
+                                <button type="submit" class="button">{{ create_action_label }}</button>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </form>
+            </section>
+        {% endif %}
     </div>
 </div>

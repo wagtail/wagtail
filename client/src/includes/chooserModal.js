@@ -169,7 +169,7 @@ class ChooserModalOnloadHandlerFactory {
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
     this.searchInputDelay = opts?.searchInputDelay || 200;
     this.creationFormSelector =
-      opts?.creationFormSelector || 'form[data-chooser-modal-create]';
+      opts?.creationFormSelector || 'form[data-chooser-modal-creation-form]';
     this.creationFormTabSelector =
       opts?.creationFormTabSelector || '#tab-create';
     this.creationFormFileFieldSelector = opts?.creationFormFileFieldSelector;
