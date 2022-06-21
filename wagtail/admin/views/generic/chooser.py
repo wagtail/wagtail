@@ -16,11 +16,12 @@ from wagtail.search.index import class_is_indexed
 
 class ModalPageFurnitureMixin(ContextMixin):
     """
-    Add icon and page title to the template context
+    Add icon, page title and page subtitle to the template context
     """
 
     icon = None
     page_title = None
+    page_subtitle = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -28,6 +29,7 @@ class ModalPageFurnitureMixin(ContextMixin):
             {
                 "header_icon": self.icon,
                 "page_title": self.page_title,
+                "page_subtitle": self.page_subtitle,
             }
         )
         return context
