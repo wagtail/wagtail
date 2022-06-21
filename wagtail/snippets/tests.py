@@ -1728,7 +1728,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-        self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
 
         # Check locale filter doesn't exist normally
         self.assertNotIn(
@@ -1739,7 +1739,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
     def test_no_results(self):
         Advert.objects.all().delete()
         response = self.get()
-        self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_html = response.json()["html"]
         self.assertIn('href="/admin/snippets/tests/advert/add/"', response_html)
 
@@ -1760,7 +1760,9 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         for page in pages:
             response = self.get({"p": page})
             self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
+            self.assertTemplateUsed(
+                response, "wagtailadmin/generic/chooser/chooser.html"
+            )
 
     def test_not_searchable(self):
         # filter_form should not have a search field
@@ -1838,7 +1840,7 @@ class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-        self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
 
         # All snippets should be in items
         items = list(response.context["items"].object_list)
@@ -2534,7 +2536,7 @@ class TestSnippetChooseWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-        self.assertTemplateUsed(response, "wagtailsnippets/chooser/choose.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
 
     def test_ordering(self):
         """
