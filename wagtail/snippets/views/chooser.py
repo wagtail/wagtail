@@ -1,14 +1,17 @@
 from django import forms
 from django.contrib.admin.utils import quote, unquote
 from django.shortcuts import get_object_or_404
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import TitleColumn
-from wagtail.admin.views.generic.chooser import BaseChooseView
+from wagtail.admin.views.generic.chooser import (
+    BaseChooseView,
+    ChooseResultsViewMixin,
+    ChooseViewMixin,
+)
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -132,31 +135,12 @@ class BaseSnippetChooseView(BaseChooseView):
         return context
 
 
-class ChooseView(BaseSnippetChooseView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["filter_form"] = self.filter_form
-        return context
-
-    # Return the choose view as a ModalWorkflow response
-    def render_to_response(self):
-        return render_modal_workflow(
-            self.request,
-            self.template_name,
-            None,
-            self.get_context_data(),
-            json_data={"step": "choose"},
-        )
+class ChooseView(ChooseViewMixin, BaseSnippetChooseView):
+    pass
 
 
-class ChooseResultsView(BaseSnippetChooseView):
-    # Return just the HTML fragment for the results
-    def render_to_response(self):
-        return TemplateResponse(
-            self.request,
-            self.results_template_name,
-            self.get_context_data(),
-        )
+class ChooseResultsView(ChooseResultsViewMixin, BaseSnippetChooseView):
+    pass
 
 
 class ChosenView(View):

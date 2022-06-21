@@ -133,12 +133,13 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class ChooseView(BaseChooseView):
+class ChooseViewMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filter_form"] = self.filter_form
         return context
 
+    # Return the choose view as a ModalWorkflow response
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
@@ -151,13 +152,22 @@ class ChooseView(BaseChooseView):
         )
 
 
-class ChooseResultsView(BaseChooseView):
+class ChooseView(ChooseViewMixin, BaseChooseView):
+    pass
+
+
+class ChooseResultsViewMixin:
+    # Return just the HTML fragment for the results
     def render_to_response(self):
         return TemplateResponse(
             self.request,
             self.results_template_name,
             self.get_context_data(),
         )
+
+
+class ChooseResultsView(ChooseResultsViewMixin, BaseChooseView):
+    pass
 
 
 class ChosenView(View):
