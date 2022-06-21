@@ -129,8 +129,8 @@ Here's a summary of the `Panel` classes that Wagtail provides out of the box. Se
 
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, such as a rich text editor for `RichTextField`, or an image chooser for a `ForeignKey` to an image model. `FieldPanel` also provides a page chooser interface for `ForeignKey`s to page models, but for more fine-grained control over which page types can be chosen, `PageChooserPanel` provides additional configuration options.
 
-- {class}`~wagtail.admin.panels.FieldPanel`
-- {class}`~wagtail.admin.panels.PageChooserPanel`
+-   {class}`~wagtail.admin.panels.FieldPanel`
+-   {class}`~wagtail.admin.panels.PageChooserPanel`
 
 ```{versionchanged} 3.0
 Previously, certain field types required special-purpose panels: `StreamFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel` and `SnippetChooserPanel`. These are now all handled by `FieldPanel`.
@@ -140,16 +140,16 @@ Previously, certain field types required special-purpose panels: `StreamFieldPan
 
 These are used for structuring fields in the interface.
 
-- {class}`~wagtail.admin.panels.MultiFieldPanel`
-- {class}`~wagtail.admin.panels.InlinePanel`
-- {class}`~wagtail.admin.panels.FieldRowPanel`
-
+-   {class}`~wagtail.admin.panels.MultiFieldPanel`
+-   {class}`~wagtail.admin.panels.InlinePanel`
+-   {class}`~wagtail.admin.panels.FieldRowPanel`
 
 #### Customising the page editor interface
 
 The page editor can be customised further. See [Customising the editing interface](/advanced_topics/customisation/page_editing_interface).
 
 (page_type_business_rules)=
+
 ### Parent page / subpage type rules
 
 These two attributes allow you to control where page types may be used in your site. It allows you to define rules like "blog entries may only be created under a blog index".
@@ -164,9 +164,10 @@ By default, any page type can be created under any page type and it is not neces
 Setting `parent_page_types` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
 (page_descriptions)=
+
 ### Page descriptions
 
-With every Wagtail Page you are able to add a helpful description text, similar to a ``help_text`` model attribute. By adding ``page_description`` to your Page model you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
+With every Wagtail Page you are able to add a helpful description text, similar to a `help_text` model attribute. By adding `page_description` to your Page model you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
 
 ```python
 class LandingPage(Page):
@@ -175,6 +176,7 @@ class LandingPage(Page):
 ```
 
 (page_urls)=
+
 ### Page URLs
 
 The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it's called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [pageurl](pageurl_tag).
@@ -335,18 +337,19 @@ Wagtail can nest the content of other models within the page. This is useful for
 
 Each inline model requires the following:
 
-- It must inherit from {class}`wagtail.models.Orderable`
-- It must have a `ParentalKey` to the parent model
+-   It must inherit from {class}`wagtail.models.Orderable`
+-   It must have a `ParentalKey` to the parent model
 
-```{note} django-modelcluster and ParentalKey
+````{note} django-modelcluster and ParentalKey
 The model inlining feature is provided by [django-modelcluster](https://github.com/torchbox/django-modelcluster) and the `ParentalKey` field type must be imported from there:
 
 ```python
     from modelcluster.fields import ParentalKey
-```
+````
 
 `ParentalKey` is a subclass of Django's `ForeignKey`, and takes the same arguments.
-```
+
+````
 
 For example, the following inline model can be used to add related links (a list of name, url pairs) to the `BlogPage` model:
 
@@ -365,7 +368,7 @@ class BlogPageRelatedLink(Orderable):
         FieldPanel('name'),
         FieldPanel('url'),
     ]
-```
+````
 
 To add this to the admin interface, use the {class}`~wagtail.admin.panels.InlinePanel` edit panel class:
 
@@ -435,7 +438,7 @@ When users are given a choice of pages to create, the list of page types is gene
 
 ### Page QuerySet ordering
 
-`Page`-derived models *cannot* be given a default ordering by using the standard Django approach of adding an `ordering` attribute to the internal `Meta` class.
+`Page`-derived models _cannot_ be given a default ordering by using the standard Django approach of adding an `ordering` attribute to the internal `Meta` class.
 
 ```python
 class NewsItemPage(Page):
@@ -453,6 +456,7 @@ news_items = NewsItemPage.objects.live().order_by('-publication_date')
 ```
 
 (custom_page_managers)=
+
 ### Custom Page managers
 
 You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from `wagtail.models.PageManager`:
