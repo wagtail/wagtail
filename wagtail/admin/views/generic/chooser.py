@@ -82,6 +82,18 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     def get_results_url(self):
         return reverse(self.results_url_name)
 
+    @property
+    def columns(self):
+        return [
+            TitleColumn(
+                "title",
+                label=_("Title"),
+                accessor=str,
+                url_name=self.chosen_url_name,
+                link_attrs={"data-chooser-modal-choice": True},
+            ),
+        ]
+
     def get(self, request):
         objects = self.get_object_list()
         self.is_searching = False
@@ -93,18 +105,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         paginator = Paginator(objects, per_page=self.per_page)
         self.results = paginator.get_page(request.GET.get("p"))
-
-        columns = [
-            TitleColumn(
-                "title",
-                label=_("Title"),
-                accessor=str,
-                url_name=self.chosen_url_name,
-                link_attrs={"data-chooser-modal-choice": True},
-            ),
-        ]
-
-        self.table = Table(columns, self.results)
+        self.table = Table(self.columns, self.results)
 
         return self.render_to_response()
 
