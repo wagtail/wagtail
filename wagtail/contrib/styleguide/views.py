@@ -20,13 +20,25 @@ from wagtail.models import Page
 from wagtail.snippets.widgets import AdminSnippetChooser
 
 
+class FakeAdminSnippetChooser(AdminSnippetChooser):
+    """
+    AdminSnippetChooser can't be used on non-snippet models (because it fails when constructing the
+    URL to the chooser modal), and we can't guarantee that any given Wagtail installation using
+    this style guide will have any snippet models registered. We therefore override the
+    get_chooser_modal_url method so that we can use it with Page as a stand-in for a real snippet.
+    """
+
+    def get_chooser_modal_url(self):
+        return "/"
+
+
 class ExampleForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["page_chooser"].widget = AdminPageChooser()
         self.fields["image_chooser"].widget = AdminImageChooser()
         self.fields["document_chooser"].widget = AdminDocumentChooser()
-        self.fields["snippet_chooser"].widget = AdminSnippetChooser(Page)
+        self.fields["snippet_chooser"].widget = FakeAdminSnippetChooser(Page)
         self.fields["date"].widget = AdminDateInput()
         self.fields["time"].widget = AdminTimeInput()
         self.fields["datetime"].widget = AdminDateTimeInput()

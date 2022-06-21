@@ -1,7 +1,9 @@
 import json
 
 from django import forms
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -27,13 +29,22 @@ class AdminSnippetChooser(BaseChooser):
         super().__init__(**kwargs)
 
     def get_chooser_modal_url(self):
-        return reverse(
-            "wagtailsnippets:choose",
-            args=[
-                self.model._meta.app_label,
-                self.model._meta.model_name,
-            ],
-        )
+        try:
+            return reverse(
+                f"wagtailsnippetchoosers_{self.model._meta.app_label}_{self.model._meta.model_name}:choose"
+            )
+        except NoReverseMatch:
+            # This most likely failed because the model is not registered as a snippet.
+            # Check whether this is the case, and if so, output a more helpful error message
+            from .models import get_snippet_models
+
+            if self.model not in get_snippet_models():
+                raise ImproperlyConfigured(
+                    "AdminSnippetChooser cannot be used on non-snippet model %r"
+                    % self.model
+                )
+            else:
+                raise
 
     def render_js_init(self, id_, name, value_data):
         return "createSnippetChooser({id});".format(id=json.dumps(id_))
