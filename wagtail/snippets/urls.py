@@ -17,7 +17,7 @@ urlpatterns = [
     ),
     path(
         "choose/<slug:app_label>/<slug:model_name>/chosen/<str:pk>/",
-        chooser.ChosenView.as_view(),
+        chooser.SnippetChosenView.as_view(),
         name="chosen",
     ),
 ]
