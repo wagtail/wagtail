@@ -39,6 +39,8 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     filter_form_class = None
     icon = "snippet"
     page_title = _("Choose")
+    template_name = "wagtailadmin/generic/chooser/chooser.html"
+    results_template_name = "wagtailsnippets/chooser/results.html"
 
     @property
     def page_subtitle(self):
@@ -179,7 +181,7 @@ class ChooseView(BaseChooseView):
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
-            "wagtailsnippets/chooser/choose.html",
+            self.template_name,
             None,
             self.get_context_data(),
             json_data={"step": "choose"},
@@ -191,7 +193,7 @@ class ChooseResultsView(BaseChooseView):
     def render_to_response(self):
         return TemplateResponse(
             self.request,
-            "wagtailsnippets/chooser/results.html",
+            self.results_template_name,
             self.get_context_data(),
         )
 
