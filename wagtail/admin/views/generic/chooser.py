@@ -172,6 +172,7 @@ class ChooseResultsView(ChooseResultsViewMixin, BaseChooseView):
 
 class ChosenView(View):
     model = None
+    response_data_title_key = "title"
 
     def get(self, request, pk):
         try:
@@ -202,7 +203,7 @@ class ChosenView(View):
         """
         return {
             "id": str(self.get_object_id(item)),
-            "title": self.get_display_title(item),
+            self.response_data_title_key: self.get_display_title(item),
             "edit_link": self.get_edit_item_url(item),
         }
 

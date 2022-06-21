@@ -1,16 +1,15 @@
 from django import forms
-from django.contrib.admin.utils import quote, unquote
+from django.contrib.admin.utils import quote
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import View
 
-from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
     ChooseViewMixin,
+    ChosenView,
 )
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
@@ -143,23 +142,9 @@ class ChooseResultsView(ChooseResultsViewMixin, BaseSnippetChooseView):
     pass
 
 
-class ChosenView(View):
-    def get(request, *args, app_label, model_name, pk, **kwargs):
-        model = get_snippet_model_from_url_params(app_label, model_name)
-        item = get_object_or_404(model, pk=unquote(pk))
+class SnippetChosenView(ChosenView):
+    response_data_title_key = "string"
 
-        snippet_data = {
-            "id": str(item.pk),
-            "string": str(item),
-            "edit_link": reverse(
-                f"wagtailsnippets_{app_label}_{model_name}:edit", args=[quote(item.pk)]
-            ),
-        }
-
-        return render_modal_workflow(
-            request,
-            None,
-            None,
-            None,
-            json_data={"step": "chosen", "result": snippet_data},
-        )
+    def get(self, request, *args, app_label, model_name, pk, **kwargs):
+        self.model = get_snippet_model_from_url_params(app_label, model_name)
+        return super().get(request, *args, pk, **kwargs)
