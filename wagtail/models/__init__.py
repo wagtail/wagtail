@@ -580,9 +580,12 @@ class PreviewableMixin:
         # through the URL resolver
         class Handler(BaseHandler):
             def _get_response(self, request):
+                request.is_preview = True
+                request.preview_mode = preview_mode
                 response = obj.serve_preview(request, preview_mode)
                 if hasattr(response, "render") and callable(response.render):
                     response = response.render()
+                patch_cache_control(response, private=True)
                 return response
 
         # Invoke this custom handler.
@@ -719,16 +722,11 @@ class PreviewableMixin:
         here - this ensures that request.user and other properties are set appropriately for
         the wagtail user bar to be displayed. This request will always be a GET.
         """
-        request.is_preview = True
-        request.preview_mode = mode_name
-
-        response = TemplateResponse(
+        return TemplateResponse(
             request,
             self.get_preview_template(request, mode_name),
             self.get_preview_context(request, mode_name),
         )
-        patch_cache_control(response, private=True)
-        return response
 
     def get_preview_context(self, request, *args, **kwargs):
         return {"object": self, "request": request}
@@ -1681,7 +1679,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.get_template(request, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
-        request.is_preview = getattr(request, "is_preview", False)
+        request.is_preview = False
 
         return TemplateResponse(
             request,
