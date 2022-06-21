@@ -27,38 +27,9 @@ def register_admin_urls():
         "wagtailsnippets",
     )
 
-    urls = [
+    return [
         path("snippets/", include(snippet_index_patterns)),
     ]
-
-    for model in get_snippet_models():
-        namespace = (
-            f"wagtailsnippetchoosers_{model._meta.app_label}_{model._meta.model_name}"
-        )
-        base_path = f"snippets/choose/{model._meta.app_label}/{model._meta.model_name}"
-        snippet_chooser_patterns = (
-            [
-                path(
-                    "",
-                    chooser_views.ChooseView.as_view(model=model),
-                    name="choose",
-                ),
-                path(
-                    "results/",
-                    chooser_views.ChooseResultsView.as_view(model=model),
-                    name="choose_results",
-                ),
-                path(
-                    "chosen/<str:pk>/",
-                    chooser_views.SnippetChosenView.as_view(model=model),
-                    name="chosen",
-                ),
-            ],
-            namespace,
-        )
-        urls.append(path(base_path, include(snippet_chooser_patterns)))
-
-    return urls
 
 
 @hooks.register("register_admin_viewset")
@@ -76,7 +47,12 @@ def register_viewsets():
                 model.get_admin_url_namespace(),
                 model=model,
                 url_prefix=model.get_admin_base_path(),
-            )
+            ),
+            chooser_views.SnippetChooserViewSet(
+                f"wagtailsnippetchoosers_{model._meta.app_label}_{model._meta.model_name}",
+                model=model,
+                url_prefix=f"snippets/choose/{model._meta.app_label}/{model._meta.model_name}",
+            ),
         ]
     return viewsets
 

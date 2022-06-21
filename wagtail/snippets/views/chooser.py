@@ -11,6 +11,7 @@ from wagtail.admin.views.generic.chooser import (
     ChooseViewMixin,
     ChosenView,
 )
+from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -138,3 +139,10 @@ class ChooseResultsView(ChooseResultsViewMixin, BaseSnippetChooseView):
 
 class SnippetChosenView(ChosenView):
     response_data_title_key = "string"
+
+
+class SnippetChooserViewSet(ChooserViewSet):
+    register_widget = False  # registering the snippet chooser widget for a given model is done in register_snippet
+    choose_view_class = ChooseView
+    choose_results_view_class = ChooseResultsView
+    chosen_view_class = SnippetChosenView
