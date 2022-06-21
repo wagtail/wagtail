@@ -156,7 +156,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         model_name = self.model._meta.model_name
         context.update(
             {
-                "model_opts": self.model._meta,
+                "snippet_type_name": self.model._meta.verbose_name,
                 "results": self.results,
                 "table": self.table,
                 "results_url": self.get_results_url(),
