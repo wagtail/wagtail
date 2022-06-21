@@ -55,7 +55,7 @@ from .models import Person
 
 
 class PersonChooserViewSet(ChooserViewSet):
-    model = People
+    model = Person
     icon = "user"
     choose_one_text = "Choose a person"
     choose_another_text = "Choose another person"
