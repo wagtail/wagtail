@@ -14,7 +14,7 @@
     {% endif %}
 
     {% component table %}
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_url_name %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_url %}
 {% else %}
     {% if is_searching %}
         {% block no_search_results_message %}

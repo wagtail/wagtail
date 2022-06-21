@@ -11,7 +11,7 @@
         >
 
             {% if filter_form.fields %}
-                <form data-chooser-modal-search class="search-bar" action="{% url results_url_name %}" method="GET" novalidate>
+                <form data-chooser-modal-search class="search-bar" action="{{ results_url }}" method="GET" novalidate>
                     {% if filter_form.hidden_fields %}
                         {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
                     {% endif %}
