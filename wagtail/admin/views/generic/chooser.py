@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
@@ -78,6 +79,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             self.search_query = search_query
         return objects
 
+    def get_results_url(self):
+        return reverse(self.results_url_name)
+
     def get(self, request):
         objects = self.get_object_list()
         self.is_searching = False
@@ -110,7 +114,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             {
                 "results": self.results,
                 "table": self.table,
-                "results_url_name": self.results_url_name,
+                "results_url": self.get_results_url(),
                 "is_searching": self.is_searching,
                 "search_query": self.search_query,
             }

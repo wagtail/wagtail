@@ -109,6 +109,12 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         return objects
 
+    def get_results_url(self):
+        return reverse(
+            "wagtailsnippets:choose_results",
+            args=(self.model._meta.app_label, self.model._meta.model_name),
+        )
+
     def get(self, request, app_label, model_name):
         self.model = get_snippet_model_from_url_params(app_label, model_name)
 
@@ -151,6 +157,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "model_opts": self.model._meta,
                 "items": self.results,
                 "table": self.table,
+                "results_url": self.get_results_url(),
                 "query_string": self.search_query,
                 "is_searching": self.is_searching,
                 "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
