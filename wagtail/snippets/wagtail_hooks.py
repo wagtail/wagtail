@@ -7,21 +7,43 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
-from wagtail.snippets import urls
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import (
     get_permission_name,
     user_can_edit_snippet_type,
     user_can_edit_snippets,
 )
-from wagtail.snippets.views.snippets import SnippetViewSet
+from wagtail.snippets.views import chooser as chooser_views
+from wagtail.snippets.views import snippets as snippet_views
 from wagtail.snippets.widgets import SnippetListingButton
 
 
 @hooks.register("register_admin_urls")
 def register_admin_urls():
+    snippet_patterns = (
+        [
+            path("", snippet_views.Index.as_view(), name="index"),
+            path(
+                "choose/<slug:app_label>/<slug:model_name>/",
+                chooser_views.ChooseView.as_view(),
+                name="choose",
+            ),
+            path(
+                "choose/<slug:app_label>/<slug:model_name>/results/",
+                chooser_views.ChooseResultsView.as_view(),
+                name="choose_results",
+            ),
+            path(
+                "choose/<slug:app_label>/<slug:model_name>/chosen/<str:pk>/",
+                chooser_views.SnippetChosenView.as_view(),
+                name="chosen",
+            ),
+        ],
+        "wagtailsnippets",
+    )
+
     return [
-        path("snippets/", include(urls, namespace="wagtailsnippets")),
+        path("snippets/", include(snippet_patterns)),
     ]
 
 
@@ -29,7 +51,9 @@ def register_admin_urls():
 def register_viewsets():
     viewsets = []
     for model in get_snippet_models():
-        admin_viewset = getattr(model, "admin_viewset", None) or SnippetViewSet
+        admin_viewset = (
+            getattr(model, "admin_viewset", None) or snippet_views.SnippetViewSet
+        )
         if isinstance(admin_viewset, str):
             admin_viewset = import_string(admin_viewset)
 
