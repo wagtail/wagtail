@@ -8,7 +8,7 @@ def css_install_check(app_configs, **kwargs):
     errors = []
 
     css_path = os.path.join(
-        os.path.dirname(__file__), "static", "wagtailadmin", "css", "normalize.css"
+        os.path.dirname(__file__), "static", "wagtailadmin", "css", "core.css"
     )
 
     if not os.path.isfile(css_path):
@@ -162,5 +162,24 @@ There are no default tabs on non-Page models so there will be no \
         error = Warning(error_title, hint=error_hint, obj=cls, id="wagtailadmin.W002")
 
         errors.append(error)
+
+    return errors
+
+
+@register("wagtailadmin_base_url")
+def wagtail_admin_base_url_check(app_configs, **kwargs):
+    from django.conf import settings
+
+    errors = []
+
+    if getattr(settings, "WAGTAILADMIN_BASE_URL", None) is None:
+        errors.append(
+            Warning(
+                "The WAGTAILADMIN_BASE_URL setting is not defined",
+                hint="This should be the base URL used to access the Wagtail admin site. "
+                "Without this, URLs in notification emails will not display correctly.",
+                id="wagtailadmin.W003",
+            )
+        )
 
     return errors

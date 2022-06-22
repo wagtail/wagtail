@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load static wagtailadmin_tags %}
 
+{% block bodyclass %}redirects{% endblock %}
+
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
 {% block extra_js %}
@@ -16,8 +18,6 @@
 {% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'wagtailredirects/css/index.css' %}">
-
     {% trans "Redirects" as redirects_str %}
     {% if user_can_add %}
         {% url "wagtailredirects:add" as add_link %}

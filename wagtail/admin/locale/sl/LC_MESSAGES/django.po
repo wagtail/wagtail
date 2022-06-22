@@ -5,6 +5,7 @@
 # Translators:
 # Andrej, 2022
 # Andrej, 2022
+# andrej55 <andrej.marsetic@gmail.com>, 2022
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -349,6 +350,9 @@ msgstr "Nastavitve"
 msgid "Status"
 msgstr "Status"
 
+msgid "Toggle status"
+msgstr "Preklopi stanje"
+
 msgid "Comments"
 msgstr "Komentrarji"
 
@@ -437,6 +441,9 @@ msgstr "Naloži profilno sliko:"
 
 msgid "Reset to default"
 msgstr "Ponastavi na privzeto"
+
+msgid "Sidebar"
+msgstr "Stranska vrstica"
 
 msgid "Go back"
 msgstr "Pojdi nazaj"
@@ -1001,8 +1008,40 @@ msgstr "Povleci"
 msgid "Updated"
 msgstr "Posodobljeno"
 
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"Na korenski ravni lahko svoji namestitvi Wagtail dodate nova mesta. Tu "
+"ustvarjene strani ne bodo dostopne na nobenem URL-ju, dokler niso povezane s "
+"spletnim mestom."
+
 msgid "Configure a site now."
 msgstr "Nastavite spletno mesto sedaj."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"Tu ustvarjene strani ne bodo dostopne na nobenem URL-ju. Če želite dodati "
+"strani obstoječemu spletnemu mestu, jih ustvarite kot podrejene domače "
+"strani."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"Za to lokacijo ni nastavljeno nobeno spletno mesto. Tu ustvarjene strani ne "
+"bodo dostopne na nobenem URL-ju, dokler spletno mesto ni povezano s to "
+"lokacijo."
 
 msgid "No pages have been created at this location."
 msgstr "Na tej lokaciji še ni bila dodana nobena stran."
@@ -1116,6 +1155,19 @@ msgstr "Vrsta strani"
 msgid "Enter a search term above"
 msgstr "Vnesite iskalni niz v zgornje polje"
 
+msgid "Page Locale: "
+msgstr "Jezik strani:"
+
+#, python-format
+msgid "Translated to %(count)s other locales"
+msgstr "Prevedeno v %(count)s drugih jezikov"
+
+msgid "No other translations"
+msgstr "Ni drugih prevodov"
+
+msgid "Switch locales"
+msgstr "Preklopite jezik"
+
 msgid "Locked"
 msgstr "Zaklenjeno"
 
@@ -1125,8 +1177,35 @@ msgstr "Odklenjeno"
 msgid "Lock"
 msgstr "Zakleni"
 
+msgid "Page visibility: "
+msgstr "Vidljivost strani:"
+
+msgid "Visible to all"
+msgstr "Vidno vsem"
+
+msgid "Change privacy"
+msgstr "Spremeni zasebnost"
+
+msgid "Page status: "
+msgstr "Stanje strani:"
+
+msgid "View details"
+msgstr "Ogled podrobnosti"
+
+msgid "View history"
+msgstr "Ogled zgodovine"
+
+msgid " Changes requested"
+msgstr "Zahtevane spremembe"
+
 msgid "since"
 msgstr "od"
+
+msgid "This will publish at "
+msgstr "To bo objavljeno ob"
+
+msgid "First published"
+msgstr "Prvič objavljeno"
 
 msgid "No pages use"
 msgstr "Nobena stran ne uporablja"
@@ -1142,6 +1221,9 @@ msgstr "Stran urejena"
 
 msgid "Edit page"
 msgstr "Uredi stran"
+
+msgid "Requested by"
+msgstr "Zahtevano od"
 
 msgid "Started at"
 msgstr "Začeto ob"
@@ -1261,6 +1343,14 @@ msgstr "Dodeli na drugo stran"
 
 msgid "Used by"
 msgstr "Uporablja"
+
+#, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 stran"
+msgstr[1] "%(counter)s strani"
+msgstr[2] "%(counter)s strani"
+msgstr[3] "%(counter)s strani"
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -1615,6 +1705,10 @@ msgstr "Počisti izbiro"
 
 msgid "Choose another page"
 msgstr "Izberite drugo stran"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+"Oznake so lahko sestavljene samo iz ene besede, presledki niso dovoljeni."
 
 msgid "Choose another task"
 msgstr "Izberite drugo nalogo"

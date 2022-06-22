@@ -43,7 +43,10 @@ class Column(metaclass=MediaDefiningClass):
     ):
         self.name = name
         self.accessor = accessor or name
-        self.label = label or capfirst(name.replace("_", " "))
+        if label is None:
+            self.label = capfirst(name.replace("_", " "))
+        else:
+            self.label = label
         self.classname = classname
         self.sort_key = sort_key
         self.header = Column.Header(self)
@@ -229,7 +232,10 @@ class Table(Component):
     @property
     def rows(self):
         for instance in self.data:
-            yield Table.Row(self.columns, instance)
+            yield Table.Row(self, instance)
+
+    def get_row_classname(self, instance):
+        return ""
 
     def has_column_widths(self):
         return any(column.width for column in self.columns.values())
@@ -237,8 +243,9 @@ class Table(Component):
     class Row(Mapping):
         # behaves as an OrderedDict whose items are the rendered results of
         # the corresponding column's format_cell method applied to the instance
-        def __init__(self, columns, instance):
-            self.columns = columns
+        def __init__(self, table, instance):
+            self.table = table
+            self.columns = table.columns
             self.instance = instance
 
         def __len__(self):
@@ -253,3 +260,7 @@ class Table(Component):
 
         def __repr__(self):
             return repr([col.get_cell(self.instance) for col in self.columns.values()])
+
+        @cached_property
+        def classname(self):
+            return self.table.get_row_classname(self.instance)

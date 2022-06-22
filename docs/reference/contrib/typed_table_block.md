@@ -1,11 +1,8 @@
-Typed table block
-=================
+# Typed table block
 
 The `typed_table_block` module provides a StreamField block type for building tables consisting of mixed data types. Developers can specify a set of block types (such as `RichTextBlock` or `FloatBlock`) to be available as column types; page authors can then build up tables of any size by choosing column types from that list, in much the same way that they would insert blocks into a StreamField. Within each column, authors enter data using the standard editing control for that field (such as the Draftail editor for rich text cells).
 
-
-Installation
-------------
+## Installation
 
 Add `"wagtail.contrib.typed_table_block"` to your INSTALLED_APPS:
 
@@ -16,9 +13,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-
-Usage
------
+## Usage
 
 `TypedTableBlock` can be imported from the module `wagtail.contrib.typed_table_block.blocks` and used within a StreamField definition. Just like `StructBlock` and `StreamBlock`, it accepts a list of `(name, block_type)` tuples to use as child blocks:
 

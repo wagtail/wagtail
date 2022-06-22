@@ -5,7 +5,7 @@
     "fields": {
       "title": "Root",
       "draft_title": "Root",
-      "numchild": 1,
+      "numchild": 2,
       "show_in_menus": false,
       "live": true,
       "seo_title": "",
@@ -397,6 +397,66 @@
       "path": "00010002000300080002",
       "url_path": "/home-page/standard-index/a-deeper-menu-level/another-grandchild-page/",
       "slug": "another-grandchild-page"
+    }
+  },
+  {
+    "pk": 24,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Home page multi site",
+      "draft_title": "Home page multi site",
+      "numchild": 1,
+      "show_in_menus": true,
+      "live": true,
+      "seo_title": "",
+      "depth": 2,
+      "search_description": "",
+      "content_type": ["demosite", "homepage"],
+      "has_unpublished_changes": false,
+      "owner": null,
+      "path": "00010003",
+      "url_path": "/home-page-multi-site/",
+      "slug": "home-page-page-multi-site"
+    }
+  },
+  {
+    "pk": 25,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Events index multi site",
+      "draft_title": "Events index multi site",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "seo_title": "",
+      "depth": 3,
+      "search_description": "",
+      "content_type": ["demosite", "eventindexpage"],
+      "has_unpublished_changes": false,
+      "owner": null,
+      "path": "000100030001",
+      "url_path": "/home-page-multi-site/events-index-multi-site/",
+      "slug": "events-index-multi-site"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 2,
+      "hostname": "localhost",
+      "port": 80,
+      "is_default_site": true
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 24,
+      "hostname": "localhost",
+      "port": 8001,
+      "is_default_site": false
     }
   },
   {

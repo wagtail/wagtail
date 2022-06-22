@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020-2021
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2021\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -156,6 +156,18 @@ msgstr "slika"
 msgid "images"
 msgstr "slike"
 
+msgid "Add tags to images"
+msgstr "Dodaj oznake slikama"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, nemoj dodati"
+
+msgid "Add images to collection"
+msgstr "Dodaj slike u zbirku"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -276,16 +288,16 @@ msgid ""
 "You haven't uploaded any images in this collection. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate slika u ovoj zbirci. Zašto ne biste <a href="
-"\"%(wagtailimages_add_image_url)s\">dodali jednu</a>?"
+"Nemate slika u ovoj zbirci. Zašto ne <a href="
+"\"%(wagtailimages_add_image_url)s\">dodate jednu</a>?"
 
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nemate slika. Zašto ne biste <a href=\"%(wagtailimages_add_image_url)s"
-"\">dodali jednu</a>?"
+"Nemate slika. Zašto ne <a href=\"%(wagtailimages_add_image_url)s\">dodate "
+"jednu</a>?"
 
 msgid "Generating URL"
 msgstr "Generiranje URL-a"
@@ -332,7 +344,7 @@ msgid "Add images"
 msgstr "Dodaj slike"
 
 msgid "Drag and drop images into this area to upload immediately."
-msgstr "Dovucite slike ovdje kako biste ih prenijeli."
+msgstr "Dovucite slike ovdje kako bi ih prenijeli."
 
 msgid "Or choose from your computer"
 msgstr "Ili odaberite sa vašeg računala"

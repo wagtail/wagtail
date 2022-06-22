@@ -41,14 +41,11 @@ OTHER PREFIXES
 
 ==============================================================================*/
 
-/* TAILWIND BASE
-These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
-Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
-https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
-*/
-
-@tailwind base;
-@tailwind components;
+/* Legacy vendor styles. Do not add new styles here. */
+@use 'generic/normalize';
+@use 'vendor/jquery-ui-1.10.3.verdant';
+@use 'vendor/jquery.tagit' as tagit;
+@use 'vendor/jquery.Jcrop.min' as jcrop;
 
 /* SETTINGS
 These are variables, maps, and fonts.
@@ -76,6 +73,11 @@ These are base styles for bare HTML elements.
 * Changes to them should be very rare.
 */
 
+// These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
+// Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
+// https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+@tailwind base;
+@tailwind components;
 @import 'elements/elements';
 @import 'elements/typography';
 @import 'elements/forms';
@@ -160,3 +162,23 @@ These are classes that provide overrides.
 
 // TAILWIND: This is at the bottom so it can take precedence over other css classes
 @tailwind utilities;
+
+/* Legacy layout-specific styles. Do not add new styles here. */
+
+@import 'layouts/404';
+@import 'layouts/compare-revisions';
+@import 'layouts/home';
+@import 'layouts/page-editor';
+@import 'layouts/login';
+@import 'layouts/account';
+@import 'layouts/workflow-edit';
+@import 'layouts/workflow-progress';
+@import 'layouts/report';
+@import 'layouts/groups-edit';
+@import 'layouts/add-multiple';
+@import 'layouts/chooser-duplicate-upload';
+@import 'layouts/focal-point-chooser';
+@import 'layouts/modeladmin';
+@import 'layouts/modeladmin-choose-parent-page';
+@import 'layouts/redirects';
+@import 'layouts/listing';

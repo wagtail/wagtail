@@ -432,6 +432,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
             "descendant_of",
             "translation_of",
             "locale",
+            "site",
         ]
     )
     body_fields = BaseAPIViewSet.body_fields + [
@@ -494,6 +495,9 @@ class PagesAPIViewSet(BaseAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
+
+        request = self.request
+
         # Get all live pages
         queryset = Page.objects.all().live()
 
@@ -508,8 +512,29 @@ class PagesAPIViewSet(BaseAPIViewSet):
         for restricted_page in restricted_pages:
             queryset = queryset.not_descendant_of(restricted_page, inclusive=True)
 
-        # Filter by site
-        site = Site.find_for_request(self.request)
+        # Check if we have a specific site to look for
+        if "site" in request.GET:
+            # Optionally allow querying by port
+            if ":" in request.GET["site"]:
+                (hostname, port) = request.GET["site"].split(":", 1)
+                query = {
+                    "hostname": hostname,
+                    "port": port,
+                }
+            else:
+                query = {
+                    "hostname": request.GET["site"],
+                }
+            try:
+                site = Site.objects.get(**query)
+            except Site.MultipleObjectsReturned:
+                raise BadRequestError(
+                    "Your query returned multiple sites. Try adding a port number to your site filter."
+                )
+        else:
+            # Otherwise, find the site from the request
+            site = Site.find_for_request(self.request)
+
         if site:
             base_queryset = queryset
             queryset = base_queryset.descendant_of(site.root_page, inclusive=True)

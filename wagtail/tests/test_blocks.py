@@ -12,7 +12,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.safestring import SafeData, mark_safe
-from django.utils.translation import gettext_lazy as __
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.blocks.field_block import FieldBlockAdapter
@@ -926,8 +926,8 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.ChoiceBlock(
             choices=[
-                ("choice-1", __("Choice 1")),
-                ("choice-2", __("Choice 2")),
+                ("choice-1", _("Choice 1")),
+                ("choice-2", _("Choice 2")),
             ]
         )
         result = block.get_searchable_content("choice-1")
@@ -940,17 +940,17 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.ChoiceBlock(
             choices=[
                 (
-                    __("Section 1"),
+                    _("Section 1"),
                     [
-                        ("1-1", __("Block 1")),
-                        ("1-2", __("Block 2")),
+                        ("1-1", _("Block 1")),
+                        ("1-2", _("Block 2")),
                     ],
                 ),
                 (
-                    __("Section 2"),
+                    _("Section 2"),
                     [
-                        ("2-1", __("Block 1")),
-                        ("2-2", __("Block 2")),
+                        ("2-1", _("Block 1")),
+                        ("2-2", _("Block 2")),
                     ],
                 ),
             ]
@@ -1303,8 +1303,8 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def test_searchable_content_with_lazy_translation(self):
         block = blocks.MultipleChoiceBlock(
             choices=[
-                ("choice-1", __("Choice 1")),
-                ("choice-2", __("Choice 2")),
+                ("choice-1", _("Choice 1")),
+                ("choice-2", _("Choice 2")),
             ]
         )
         result = block.get_searchable_content("choice-1")
@@ -1317,17 +1317,17 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.MultipleChoiceBlock(
             choices=[
                 (
-                    __("Section 1"),
+                    _("Section 1"),
                     [
-                        ("1-1", __("Block 1")),
-                        ("1-2", __("Block 2")),
+                        ("1-1", _("Block 1")),
+                        ("1-2", _("Block 2")),
                     ],
                 ),
                 (
-                    __("Section 2"),
+                    _("Section 2"),
                     [
-                        ("2-1", __("Block 1")),
-                        ("2-2", __("Block 2")),
+                        ("2-1", _("Block 1")),
+                        ("2-2", _("Block 2")),
                     ],
                 ),
             ]

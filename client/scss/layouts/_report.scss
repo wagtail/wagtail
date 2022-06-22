@@ -1,0 +1,69 @@
+.report {
+  display: grid;
+  grid-template-columns: auto;
+  grid-column-gap: 50px;
+  margin-inline-start: 50px;
+  margin-inline-end: 50px;
+
+  &--has-filters {
+    grid-template-columns: auto 300px;
+  }
+
+  &__results {
+    grid-column-start: col-start 1 col-end 2;
+
+    &--text {
+      margin: 0 0.5em 0.5em 0;
+
+      + .status-tag {
+        margin-inline-start: 0;
+      }
+    }
+
+    &--comment {
+      display: block;
+    }
+  }
+
+  &__filters {
+    grid-column-start: col-start -2 col-end -1;
+
+    button[type='submit'] {
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    input[type='checkbox'] {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    // Get rid of Wagtail's overrides
+    label {
+      float: unset;
+      display: block;
+      width: unset;
+      padding-top: 1.2em;
+    }
+  }
+
+  &__actions > div {
+    float: right;
+    display: block;
+    margin-inline-end: 10px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    &--has-filters {
+      grid-template-columns: auto;
+    }
+
+    &__filters {
+      grid-row: 1;
+    }
+
+    form {
+      margin-bottom: 1em;
+    }
+  }
+}

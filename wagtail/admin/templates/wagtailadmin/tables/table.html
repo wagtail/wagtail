@@ -15,7 +15,7 @@
     </thead>
     <tbody>
         {% for row in table.rows %}
-            <tr>
+            <tr {% if row.classname %}class="{{ row.classname }}"{% endif %}>
                 {% for cell in row.values %}
                     {% component cell %}
                 {% endfor %}

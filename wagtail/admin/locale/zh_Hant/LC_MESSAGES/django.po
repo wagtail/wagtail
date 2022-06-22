@@ -143,10 +143,10 @@ msgid "New slug"
 msgstr "新增短標題"
 
 msgid "New parent page"
-msgstr "新父頁面"
+msgstr "新上階頁面"
 
 msgid "This copy will be a child of this given parent page."
-msgstr "此副本將成為指定父頁面的子頁面。"
+msgstr "此副本將設為指定頁面的子頁。"
 
 msgid "Copy subpages"
 msgstr "複製子頁面"
@@ -184,7 +184,7 @@ msgstr "你沒有權限複製到頁面“%(page_title)s”"
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
-msgstr "此縮略名在其父頁面\"%s\"上下文中已被使用。"
+msgstr "此短標題已被其上階頁面 \"%s\" 使用。"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在複製子頁面時不能複製當前頁面本身"
@@ -205,13 +205,13 @@ msgid "Search term"
 msgstr "搜索條件"
 
 msgid "Visibility"
-msgstr "是否可見"
+msgstr "可見"
 
 msgid "This field is required."
 msgstr "必要欄位"
 
 msgid "Please select at least one group."
-msgstr "請至少選擇一個組。"
+msgstr "請至少選擇一群組。"
 
 msgid "All types"
 msgstr "所有類型"
@@ -234,7 +234,11 @@ msgstr "已選擇 1 頁面"
 
 #, python-brace-format
 msgid "{0} pages selected"
-msgstr "已選擇{0}頁面"
+msgstr "已選擇 {0} 頁面"
+
+#, python-brace-format
+msgid "All {0} pages on this screen selected"
+msgstr "已選擇顯示範圍內所有 {0} 項頁面"
 
 msgid "All pages in listing selected"
 msgstr "已選擇列表中的所有頁面"
@@ -246,6 +250,10 @@ msgstr "已選擇 1 項文件"
 msgid "{0} documents selected"
 msgstr "已選擇 {0} 項文件"
 
+#, python-brace-format
+msgid "All {0} documents on this screen selected"
+msgstr "已選擇顯示範圍內所有 {0} 項文件"
+
 msgid "All documents in listing selected"
 msgstr "已選擇列表中的所有文件"
 
@@ -255,6 +263,10 @@ msgstr "已選擇 1 項圖片"
 #, python-brace-format
 msgid "{0} images selected"
 msgstr "已選擇 {0} 項圖片"
+
+#, python-brace-format
+msgid "All {0} images on this screen selected"
+msgstr "已選擇顯示範圍內所有 {0} 項圖片"
 
 msgid "All images in listing selected"
 msgstr "已選擇列表中的所有圖片"
@@ -266,6 +278,10 @@ msgstr "已選擇 1 位使用者"
 msgid "{0} users selected"
 msgstr "已選擇 {0} 位使用者"
 
+#, python-brace-format
+msgid "All {0} users on this screen selected"
+msgstr "已選擇顯示範圍內所有 {0} 位使用者"
+
 msgid "All users in listing selected"
 msgstr "已選擇列表中的所有使用者"
 
@@ -275,6 +291,10 @@ msgstr "已選擇 1 個項目"
 #, python-brace-format
 msgid "{0} items selected"
 msgstr "已選擇 {0} 個項目"
+
+#, python-brace-format
+msgid "All {0} items on this screen selected"
+msgstr "已選擇顯示範圍內所有 {0} 個項目"
 
 msgid "All items in listing selected"
 msgstr "已選擇列表中的所有項目"
@@ -328,7 +348,7 @@ msgid "Account"
 msgstr "帳號"
 
 msgid "More actions"
-msgstr "更多動作"
+msgstr "更多操作"
 
 msgid "Save account details"
 msgstr "儲存帳戶詳細資料"
@@ -386,11 +406,14 @@ msgstr "重置密碼"
 msgid "Reset to default"
 msgstr "重置為預設值"
 
+msgid "Sidebar"
+msgstr "側邊欄"
+
 msgid "Go back"
 msgstr "返回"
 
 msgid "Bulk actions"
-msgstr "批次動作"
+msgstr "批次操作"
 
 msgid "Select row"
 msgstr "選擇列"
@@ -432,7 +455,7 @@ msgid "Collection privacy"
 msgstr "集合隱蔽設置"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "這個集合已經被父集合設為隱蔽。"
+msgstr "此集合已經被上階集合設為隱蔽。"
 
 msgid "You can edit the privacy settings on:"
 msgstr "你可以在此修改隱蔽設置："
@@ -565,6 +588,9 @@ msgstr "帳戶 %(username_field)s 密碼不正確，請重試。"
 msgid "Sign in to Wagtail"
 msgstr "登錄Wagtail"
 
+msgid "Remember me"
+msgstr "記住我"
+
 msgid "Signing in…"
 msgstr "正在登錄..."
 
@@ -641,6 +667,12 @@ msgid ""
 "\"%(task)s\"."
 msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
 msgid "New comments"
 msgstr "新增評論"
 
@@ -708,7 +740,7 @@ msgid "Page privacy"
 msgstr "頁面隱蔽設置"
 
 msgid "This page has been made private by a parent page."
-msgstr "此頁面已被父節點設置為隱蔽。"
+msgstr "此頁面已被上階頁面設置為隱蔽。"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "隱蔽設置也會套用至所有子頁面。"
@@ -725,6 +757,18 @@ msgstr "頁面隱蔽。目前狀態：公開"
 msgid "Page privacy. Current status: Private"
 msgstr "頁面隱蔽。目前狀態：隱蔽"
 
+msgid "You have <span>unsaved edits</span>"
+msgstr "你有<span>尚未儲存的編輯內容</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "你有<span>尚未儲存的評論內容</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "你有<span>尚未儲存的編輯</span>以及<span>評論內容</span>"
+
+msgid "Save the page before leaving"
+msgstr "離開前儲存頁面"
+
 msgid "Publishing…"
 msgstr "正在發佈..."
 
@@ -732,13 +776,13 @@ msgid "Publish this version"
 msgstr "發佈此版本"
 
 msgid "Saving…"
-msgstr "正在保存..."
+msgstr "儲存中..."
 
 msgid "Replace current draft"
 msgstr "替換當前的草稿"
 
 msgid "Save draft"
-msgstr "保存草稿"
+msgstr "儲存草稿"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -948,7 +992,7 @@ msgid "Updated"
 msgstr "已更新"
 
 msgid "Configure a site now."
-msgstr "現在配置一個站點。"
+msgstr "立即設定一個網站。"
 
 msgid "No pages have been created at this location."
 msgstr "這個位置還沒有創建頁面。"
@@ -976,7 +1020,7 @@ msgid "Add a child page to '%(title)s'"
 msgstr "為'%(title)s'新增子頁面"
 
 msgid "Sites menu"
-msgstr "站點菜單"
+msgstr "網站選單"
 
 msgid "Pagination"
 msgstr "分頁"
@@ -1001,11 +1045,11 @@ msgstr "啟用子頁面排序"
 
 #, python-format
 msgid "Select a new parent page for %(title)s"
-msgstr "為 %(title)s選擇新父節點"
+msgstr "為 %(title)s選擇上階頁面"
 
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "為<span>%(title)s</span>選擇新的父節點"
+msgstr "為<span>%(title)s</span>選擇上階頁面"
 
 msgid "Preview error"
 msgstr "預覽錯誤"
@@ -1303,6 +1347,9 @@ msgstr "由%(modified_by)s"
 msgid "Submitted"
 msgstr "已提交"
 
+msgid "Not started"
+msgstr "尚未開始"
+
 msgid "Changes requested"
 msgstr "已要求變更"
 
@@ -1325,7 +1372,7 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "live"
-msgstr "在用"
+msgstr "上線"
 
 msgid "draft"
 msgstr "草稿"
@@ -1363,7 +1410,7 @@ msgid "Collection '{0}' updated."
 msgstr "集合 '{0}' 已更新"
 
 msgid "The collection could not be saved due to errors."
-msgstr "無法保存集合，出現錯誤。"
+msgstr "發生錯誤，無法儲存集合。"
 
 msgid "Delete collection"
 msgstr "刪除集合"
@@ -1390,7 +1437,7 @@ msgid "View draft"
 msgstr "查看草稿"
 
 msgid "View live"
-msgstr "即時查看"
+msgstr "檢視線上版本"
 
 #, python-brace-format
 msgid "Page '{0}' created."
@@ -1449,10 +1496,10 @@ msgid "Workflow on page '{0}' has been restarted."
 msgstr "已重啟頁面  '{0}' 之工作流程"
 
 msgid "The page could not be saved as it is locked"
-msgstr "頁面無法保存，已被鎖定。"
+msgstr "頁面已被鎖定，無法儲存。"
 
 msgid "The page could not be saved due to validation errors"
-msgstr "頁面無法保存。出現驗證錯誤。"
+msgstr "驗證錯誤，無法儲存頁面。"
 
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
@@ -1493,6 +1540,9 @@ msgstr " \"{1}\"的修訂版本{0}"
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "頁面'{0}'已取消發佈。"
+
+msgid "Site history"
+msgstr "網站歷史"
 
 msgid "ID"
 msgstr "ID"
@@ -1627,6 +1677,9 @@ msgstr "取消發佈頁面 '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "檢視 '%(title)s' 歷史頁面"
 
+msgid "Sort menu order"
+msgstr "排列選單順序"
+
 msgid "Bulleted list"
 msgstr "項目列表"
 
@@ -1661,7 +1714,7 @@ msgid "Locked Pages"
 msgstr "已被鎖定頁面"
 
 msgid "Reports"
-msgstr "報告"
+msgstr "報表"
 
 msgid "Yes"
 msgstr "是"

@@ -3,12 +3,6 @@
 {% block titletag %}{% trans "Reset password" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
-{% endblock %}
-
 {% block furniture %}
     <main class="content-wrapper">
         <h1>{% trans "Check your email" %}</h1>

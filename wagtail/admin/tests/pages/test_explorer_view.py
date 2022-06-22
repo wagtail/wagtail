@@ -377,6 +377,17 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
 class TestBreadcrumb(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
+    def test_breadcrumb_next_present(self):
+        self.user = self.login()
+
+        # get the explorer view for a subpage of a SimplePage
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+
+        # The data-breadcrumb-next should be present
+        self.assertContains(response, "data-breadcrumb-next")
+
     def test_breadcrumb_uses_specific_titles(self):
         self.user = self.login()
 
@@ -389,18 +400,21 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
             "wagtailadmin_explore",
             args=(Page.objects.get(url_path="/home/secret-plans/").id,),
         )
+
         expected = (
             """
-            <li class="breadcrumb-item">
-                <a class="breadcrumb-link" href="%s"><span class="title">Secret plans (simple page)</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="%s">
+                                    Secret plans (simple page)
                 </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
             </li>
         """
             % expected_url
         )
+
         self.assertContains(response, expected, html=True)
 
 
@@ -621,38 +635,36 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtailadmin_explore", args=[6]))
         self.assertEqual(response.status_code, 200)
         expected = """
-            <li class="home breadcrumb-item">
-                <a class="breadcrumb-link" href="/admin/pages/">
-                    <svg class="icon icon-site home_icon" aria-hidden="true">
-                        <use href="#icon-site"></use>
-                    </svg>
-                    <span class="visuallyhidden">Root</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/">
+                                    Root
                 </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
+            </li>
+
+        """
+        self.assertContains(response, expected, html=True)
+        expected = """
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/4/">
+                                    Welcome to example.com!
+                </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
             </li>
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li class="breadcrumb-item">
-                <a class="breadcrumb-link" href="/admin/pages/4/">
-                    <span class="title">Welcome to example.com!</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/5/">
+                                    Content
                 </a>
-            </li>
-        """
-        self.assertContains(response, expected, html=True)
-        expected = """
-            <li class="breadcrumb-item">
-                <a class="breadcrumb-link" href="/admin/pages/5/">
-                    <span class="title">Content</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
-                </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
             </li>
         """
         self.assertContains(response, expected, html=True)
@@ -664,27 +676,24 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
         expected = """
-            <li class="home breadcrumb-item">
-                <a class="breadcrumb-link" href="/admin/pages/4/">
-                    <svg class="icon icon-site home_icon" aria-hidden="true">
-                        <use href="#icon-site"></use>
-                    </svg>
-                    <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/4/">
+                                    Root
                 </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
             </li>
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li class="breadcrumb-item">
-                <a class="breadcrumb-link" href="/admin/pages/5/">
-                    <span class="title">Content</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
+            <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/5/">
+                                    Content
                 </a>
+                <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
             </li>
         """
         self.assertContains(response, expected, html=True)

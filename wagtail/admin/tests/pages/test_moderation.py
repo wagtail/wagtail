@@ -370,3 +370,62 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
             headers.issubset(msg_headers),
             msg="Message is missing the Auto-Submitted header.",
         )
+
+
+class TestApproveRejectModerationWithoutUser(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.submitter = self.create_superuser(
+            username="submitter",
+            email="submitter@email.com",
+            password="password",
+        )
+
+        self.user = self.login()
+
+        # Create a page and submit it for moderation
+        root_page = Page.objects.get(id=2)
+        self.page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+            live=False,
+            has_unpublished_changes=True,
+        )
+        root_page.add_child(instance=self.page)
+
+        # save_revision without user
+        self.page.save_revision(submitted_for_moderation=True)
+        self.revision = self.page.get_latest_revision()
+
+    def test_approve_moderation_view_without_user(self):
+        """
+        This posts to the approve moderation view and checks that the page was approved
+        """
+        # Connect a mock signal handler to page_published signal
+        mock_handler = mock.MagicMock()
+        page_published.connect(mock_handler)
+
+        # Post
+        response = self.client.post(
+            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
+        )
+
+        # Check that the user was redirected to the dashboard
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        page = Page.objects.get(id=self.page.id)
+        # Page must be live
+        self.assertTrue(page.live, "Approving moderation failed to set live=True")
+        # Page should now have no unpublished changes
+        self.assertFalse(
+            page.has_unpublished_changes,
+            "Approving moderation failed to set has_unpublished_changes=False",
+        )
+
+        # Check that the page_published signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], self.page.specific_class)
+        self.assertEqual(mock_call["instance"], self.page)
+        self.assertIsInstance(mock_call["instance"], self.page.specific_class)

@@ -8,7 +8,7 @@ from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
-from wagtail.search.query import MATCH_ALL, Phrase
+from wagtail.search.query import MATCH_ALL, Fuzzy, Phrase
 from wagtail.test.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
@@ -559,6 +559,61 @@ class TestElasticsearch5SearchQuery(TestCase):
         # Check it
         expected_result = {"match_phrase": {"title": "Hello world"}}
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
+    def test_fuzzy_query(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(
+            models.Book.objects.all(),
+            Fuzzy("Hello world"),
+            partial_match=False,
+        )
+
+        # Check it
+        expected_result = {
+            "match": {"_all": {"query": "Hello world", "fuzziness": "AUTO"}}
+        }
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
+    def test_fuzzy_query_single_field(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(
+            models.Book.objects.all(),
+            Fuzzy("Hello world"),
+            fields=["title"],
+            partial_match=False,
+        )
+
+        # Check it
+        expected_result = {
+            "match": {"title": {"query": "Hello world", "fuzziness": "AUTO"}}
+        }
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
+    def test_fuzzy_query_multiple_fields_disallowed(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(
+            models.Book.objects.all(),
+            Fuzzy("Hello world"),
+            fields=["title", "body"],
+            partial_match=False,
+        )
+
+        # Check it
+        with self.assertRaises(NotImplementedError):
+            query_compiler.get_inner_query()
+
+    def test_fuzzy_query_partial_match_disallowed(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(
+            models.Book.objects.all(),
+            Fuzzy("Hello world"),
+            fields=["_all"],
+            partial_match=True,
+        )
+
+        # Check it
+        with self.assertRaises(NotImplementedError):
+            query_compiler.get_inner_query()
 
     def test_year_filter(self):
         # Create a query

@@ -236,7 +236,7 @@ class CopyPageAction:
         # * It makes sure update_attrs gets applied to the latest revision
         # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
         # * It sets the user of the new revision so it's possible to see who copied the page by looking at its history
-        latest_revision = page_copy.get_latest_revision_as_page()
+        latest_revision = page_copy.get_latest_revision_as_object()
 
         if update_attrs:
             for field, value in update_attrs.items():

@@ -17,6 +17,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 # Scriptim <Scriptim@gmx.de>, 2020
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
@@ -26,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -67,9 +68,9 @@ msgid ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">create one now</a>?"
 msgstr ""
-"Du hast keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">ein neuen erstellen</a>?"
+"Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">ein neues erstellen</a>?"
 
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"

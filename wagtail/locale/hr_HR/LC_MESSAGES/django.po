@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +20,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
 msgid "Wagtail core"
 msgstr "Wagtail jezgra"
+
+msgid "Add Comment"
+msgstr "Dodaj Komentar"
 
 #, python-format
 msgid "The minimum number of items is %d"
@@ -93,6 +99,16 @@ msgstr "URL putanja"
 msgid "owner"
 msgstr "vlasnik"
 
+msgid "title tag"
+msgstr "Oznaka naslova"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Naziv stranice prikazan u rezultatima tražilica kao naslov koji se može "
+"kliknuti."
+
 msgid "show in menus"
 msgstr "prikaži u izborniku"
 
@@ -100,6 +116,15 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Hoće li se poveznica na ovu stranicu pojavljivati u generiranim izbornicima"
+
+msgid "meta description"
+msgstr "meta opis"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Tekstualni opis prikazan ispod naslova stranice u rezultatima tražilica."
 
 msgid "go live date/time"
 msgstr "Objavi u datum/vrijeme"
@@ -394,6 +419,10 @@ msgstr "zapis"
 msgid "log entries"
 msgstr "zapisi"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "korisnik %(id)s (izbrisan)"
+
 msgid "system"
 msgstr "sustav"
 
@@ -507,7 +536,7 @@ msgid "Password required"
 msgstr "Potrebna je lozinka."
 
 msgid "You need a password to access this page."
-msgstr "Potrebna je lozinka kako biste pristupili ovoj stranici."
+msgstr "Potrebna je lozinka kako bi pristupili ovoj stranici."
 
 msgid "Continue"
 msgstr "Nastavi"
@@ -665,6 +694,9 @@ msgstr "Uklonjeno je ograničenje pogleda"
 
 msgid "Add comment"
 msgstr "Dodaj komentar"
+
+msgid "Delete comment"
+msgstr "Izbriši komentar"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

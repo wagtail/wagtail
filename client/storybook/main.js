@@ -22,7 +22,12 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: false,
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {

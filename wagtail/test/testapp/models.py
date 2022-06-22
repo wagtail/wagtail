@@ -11,7 +11,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
-from django.utils.functional import lazystr
+from django.utils.translation import gettext_lazy as _
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -58,6 +58,7 @@ from wagtail.models import (
     Page,
     PageManager,
     PageQuerySet,
+    RevisionMixin,
     Task,
     TranslatableMixin,
 )
@@ -938,6 +939,19 @@ class AdvertWithTabbedInterface(models.Model):
 register_snippet(AdvertWithTabbedInterface)
 
 
+# Models with RevisionMixin
+class RevisableModel(RevisionMixin, models.Model):
+    text = models.TextField()
+
+
+class RevisableChildModel(RevisableModel):
+    pass
+
+
+class RevisableGrandChildModel(RevisableChildModel):
+    pass
+
+
 class StandardIndex(Page):
     """Index for the site"""
 
@@ -998,7 +1012,7 @@ class BusinessChild(Page):
 
     subpage_types = []
     parent_page_types = ["tests.BusinessIndex", BusinessSubIndex]
-    page_description = lazystr("A lazy business child page description")
+    page_description = _("A lazy business child page description")
 
 
 class BusinessNowherePage(Page):
@@ -1606,13 +1620,11 @@ class SecretPage(Page):
 
 
 class SimpleParentPage(Page):
-    # `BusinessIndex` has been added to bring it in line with other tests
-    subpage_types = ["tests.SimpleChildPage", BusinessIndex]
+    subpage_types = ["tests.SimpleChildPage"]
 
 
 class SimpleChildPage(Page):
-    # `Page` has been added to bring it in line with other tests
-    parent_page_types = ["tests.SimpleParentPage", Page]
+    parent_page_types = ["tests.SimpleParentPage"]
 
     max_count_per_parent = 1
 

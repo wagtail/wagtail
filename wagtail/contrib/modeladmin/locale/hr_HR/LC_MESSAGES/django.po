@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -118,8 +118,19 @@ msgstr "Ne, nemoj izbrisati"
 msgid "Home"
 msgstr "Naslovna"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Po %(filter_title)s"
+
+msgid "Last updated"
+msgstr "Zadnji put ažurirano"
+
 msgid "History"
 msgstr "Povijest"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s od %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -153,6 +164,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Nema stvorenih %(name)s."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Zašto ne <a href=\"%(url)s\">dodate jedan</a>?"
 
 msgid "Pagination"
 msgstr "Numeriranje stranica"
@@ -223,6 +238,9 @@ msgstr "Pregled"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Pregled %s"
+
+msgid "Action"
+msgstr "Radnja"
 
 msgid "Date"
 msgstr "Datum"

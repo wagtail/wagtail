@@ -1,0 +1,26 @@
+.workflow-pages-listing {
+  max-width: 1024px - 50px;
+
+  .field label {
+    @include visuallyhidden;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 1em;
+  }
+
+  select + span:after {
+    // stylelint-disable-next-line declaration-no-important
+    font-size: 2.5em !important;
+  }
+
+  .admin_page_chooser .field-content {
+    width: 100%; // so that 'choose another page' button displays in its entirety
+  }
+}
+
+.top-padding {
+  padding-top: $object-title-height + 12px;
+}

@@ -43,12 +43,13 @@
 }
 
 .t-inverted .u-btn-current {
+  background-color: $color-teal-darker;
   border-color: rgba(0, 0, 0, 0.35);
   color: #fff;
 }
 
 .t-inverted .u-btn-current:hover {
-  background-color: $color-teal-darker;
+  background-color: $color-teal-dark;
   border-color: rgba(0, 0, 0, 0.35);
 }
 

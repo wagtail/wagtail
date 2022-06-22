@@ -4,6 +4,7 @@
 #
 # Translators:
 # Andrej, 2022
+# andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail jedro"
@@ -60,6 +64,9 @@ msgstr "Ta blok nima možnosti."
 
 msgid "This field is required."
 msgstr "Polje je obvezno."
+
+msgid "Wagtail sitemaps"
+msgstr "Zemljevidi strani Wagtail"
 
 msgid "Password"
 msgstr "Geslo"
@@ -320,6 +327,9 @@ msgstr "zaključil"
 msgid "Draft saved"
 msgstr "Osnutek je shranjen"
 
+msgid "timestamp (UTC)"
+msgstr "časovni žig (UTC)"
+
 msgid "log entry"
 msgstr "vnos v dnevnik"
 
@@ -351,6 +361,15 @@ msgstr "ime strežnika"
 
 msgid "port"
 msgstr "vrata"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"To nastavite na nekaj drugega kot na 80, če potrebujete določeno številko "
+"vrat, da se prikaže v URL-jih (npr. razvoj na vratih 8000). Ne vpliva na "
+"obdelavo zahtev (zato posredovanje vrat še vedno deluje)."
 
 msgid "site name"
 msgstr "ime spletnega mesta"
@@ -399,6 +418,16 @@ msgstr "geslo"
 msgid "Log in"
 msgstr "Prijava"
 
+msgid "Your username and password didn't match. Please try again."
+msgstr "Vaše uporabniško ime in geslo se ne ujemata. Prosim poskusite ponovno."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Vaš račun nima dostopa do te strani. Če želite nadaljevati, se prijavite z "
+"računom, ki ima dostop."
+
 msgid "Password required"
 msgstr "Geslo zahtevano"
 
@@ -408,11 +437,20 @@ msgstr "Za dostop do te strani potrebujete geslo."
 msgid "Continue"
 msgstr "Nadaljuj"
 
+msgid "Test Wagtail Model Admin"
+msgstr "Testni skrbnik modela Wagtail"
+
 msgid "English"
 msgstr "angleščina"
 
 msgid "French"
 msgstr "francoski"
+
+msgid "The form is already filled."
+msgstr "Obrazec je že izpolnjen."
+
+msgid "You must log in first."
+msgstr "Najprej se morate prijaviti."
 
 msgid "German"
 msgstr "nemški"
@@ -494,11 +532,27 @@ msgstr "Preuredite"
 msgid "Reordered"
 msgstr "Preurejeno"
 
+msgid "Schedule publication"
+msgstr "Načrtujte objavo"
+
 msgid "Page scheduled for publishing"
 msgstr "Stran je načrtovana za objavo"
 
 msgid "Unschedule publication"
 msgstr "Prekliči objavo"
+
+msgid "Page unscheduled from publishing"
+msgstr "Načrtovana objava strani odstranjena"
+
+msgid "Add view restrictions"
+msgstr "Dodajte omejitve za ogled"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Odstranjen '%(restriction)s'  omejen pogled"
+
+msgid "Removed view restriction"
+msgstr "Odstranjena omejitev ogleda"
 
 msgid "Add comment"
 msgstr "Dodaj komentar"

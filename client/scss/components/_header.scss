@@ -47,6 +47,10 @@ header {
     padding-inline-start: $mobile-nav-indent + 10px;
   }
 
+  &.merged .w-breadcrumb {
+    padding-inline-start: $mobile-nav-indent;
+  }
+
   &.header--home {
     @include nice-padding();
     padding-top: 0.5rem;
@@ -178,6 +182,10 @@ header {
 
     .breadcrumb + .row {
       padding-inline-start: 90px;
+    }
+
+    &.merged .w-breadcrumb {
+      padding-inline-start: 0;
     }
 
     &.header--home {

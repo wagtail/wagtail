@@ -965,14 +965,14 @@ msgid "Page privacy. Current status: Private"
 msgstr "Seiten-Privatsphäre. Aktueller Status: Privat"
 
 msgid "You have <span>unsaved edits</span>"
-msgstr "Du hast <span>ungespeicherte Bearbeitung</span>"
+msgstr "Sie haben <span>ungespeicherte Änderungen</span>"
 
 msgid "You have <span>unsaved comments</span>"
-msgstr "Du hast <span>ungespeicherte Kommentare</span>"
+msgstr "Sie haben <span>ungespeicherte Kommentare</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
 msgstr ""
-"Du hast <span>ungespeicherte Bearbeitung</span> und <span>Kommentare</span>"
+"Sie haben <span>ungespeicherte Änderungen</span> und <span>Kommentare</span>"
 
 msgid "Save the page before leaving"
 msgstr "Speichere die Seite vor dem Verlassen"
@@ -1387,7 +1387,7 @@ msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Warum nicht <a href=\"%(add_page_url)s\">eine anlegen</a>?"
 
 msgid "This page is locked to further editing"
-msgstr "Diese Seite ist gesperrt für weiteres Bearbeiten"
+msgstr "Diese Seite ist für weiteres Bearbeiten gesperrt"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -1526,7 +1526,7 @@ msgstr "Nein, nicht aufheben"
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
 msgstr[0] "Es gibt 1 passende Seite"
-msgstr[1] "Es gibt %(counter)spassende Seiten"
+msgstr[1] "Es gibt %(counter)s passende Seiten"
 
 msgid "Page types"
 msgstr "Seitentypen"
@@ -1559,7 +1559,7 @@ msgstr "Gesperrt"
 
 msgid "Only you can edit this page. Unlock it to allow others to edit"
 msgstr ""
-"Nur du kannst diese Seite bearbeiten. Entsperre sie um Anderen das "
+"Nur Sie können diese Seite bearbeiten. Entsperren Sie sie um Anderen das "
 "Bearbeiten zu erlauben"
 
 msgid "Unlocked"
@@ -1784,7 +1784,7 @@ msgid "Toggle breadcrumbs"
 msgstr "Breadcrumbs ein-/ausblenden"
 
 msgid "Breadcrumb"
-msgstr "Brotkrümel"
+msgstr "Breadcrumb"
 
 msgid "Root"
 msgstr "Ursprung"
@@ -2308,13 +2308,13 @@ msgid "Page '{0}' has been updated."
 msgstr "Seite ‚{0}‘ wurde aktualisiert."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Die Seite '{}'</b> wurde von <b>Ihnen</b> um <b>{} </b>gesperrt."
+msgstr "<b>Die Seite '{}'</b> wurde von <b>Ihnen</b> am <b>{} </b>gesperrt."
 
 msgid "<b>Page '{}' is locked</b> by <b>you</b>."
 msgstr "<b>Die Seite '{}'</b> ist von <b>Ihnen</b> gesperrt."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Die Seite '{}'</b> wurde von <b>{}</b>um <b>{}</b> gesperrt."
+msgstr "<b>Die Seite '{}'</b> wurde von <b>{}</b>am <b>{}</b> gesperrt."
 
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Die Seite '{}' ist gesperrt</b>."

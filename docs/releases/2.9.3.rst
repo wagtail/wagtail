@@ -2,6 +2,8 @@
 Wagtail 2.9.3 release notes
 ===========================
 
+*July 20, 2020*
+
 CVE-2020-15118: HTML injection through form field help text
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

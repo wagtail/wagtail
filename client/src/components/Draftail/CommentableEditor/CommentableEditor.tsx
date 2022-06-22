@@ -247,20 +247,43 @@ function getCommentPositions(editorState: EditorState) {
   return commentPositions;
 }
 
+function createFromBlockArrayOrPlaceholder(blockArray: ContentBlock[]) {
+  // This is needed due to (similar) https://github.com/facebook/draft-js/issues/1660
+  // Causing empty block arrays in an editorState to crash the editor
+  // It is fixed in later versions of draft-js (~11.3?), but this upgrade needs
+  // more evaluation for impact on Draftail/Commenting/other Wagtail usages
+  // TODO: upgrade Draft.js
+  if (blockArray.length > 0) {
+    return ContentState.createFromBlockArray(blockArray);
+  }
+  return ContentState.createFromText(' ');
+}
+
 interface ControlProps {
   getEditorState: () => EditorState;
   // eslint-disable-next-line react/no-unused-prop-types
   onChange: (editorState: EditorState) => void;
 }
 
-function splitState(editorState: EditorState) {
+export function splitState(editorState: EditorState) {
   const selection = editorState.getSelection();
   const anchorKey = selection.getAnchorKey();
   const currentContent = editorState.getCurrentContent();
 
+  // In order to use Modifier.splitBlock, we need a collapsed selection
+  // otherwise we will lose highlighted text
+  const collapsedSelection = selection.isCollapsed()
+    ? selection
+    : new SelectionState({
+        anchorKey: selection.getStartKey(),
+        anchorOffset: selection.getStartOffset(),
+        focusKey: selection.getStartKey(),
+        focusOffset: selection.getStartOffset(),
+      });
+
   const multipleBlockContent = Modifier.splitBlock(
     currentContent,
-    selection,
+    collapsedSelection,
   ).getBlocksAsArray();
   const index = multipleBlockContent.findIndex(
     (block) => block.getKey() === anchorKey,
@@ -269,12 +292,12 @@ function splitState(editorState: EditorState) {
   const blocksAfter = multipleBlockContent.slice(index + 1);
   const stateBefore = EditorState.push(
     editorState,
-    ContentState.createFromBlockArray(blocksBefore),
+    createFromBlockArrayOrPlaceholder(blocksBefore),
     'remove-range',
   );
   const stateAfter = EditorState.push(
     editorState,
-    ContentState.createFromBlockArray(blocksAfter),
+    createFromBlockArrayOrPlaceholder(blocksAfter),
     'remove-range',
   );
 

@@ -1497,11 +1497,11 @@ class TestCopyPage(TestCase):
         )
 
         # Check that the attributes were updated in the latest revision
-        latest_revision = new_christmas_event.get_latest_revision_as_page()
+        latest_revision = new_christmas_event.get_latest_revision_as_object()
         self.assertEqual(latest_revision.title, "New christmas event")
         self.assertEqual(latest_revision.slug, "new-christmas-event")
 
-        # get_latest_revision_as_page might bypass the revisions table if it determines
+        # get_latest_revision_as_object might bypass the revisions table if it determines
         # that there are no draft edits since publish - so retrieve it explicitly from the
         # revision data, to ensure it's been updated there too
         latest_revision = new_christmas_event.get_latest_revision().as_object()

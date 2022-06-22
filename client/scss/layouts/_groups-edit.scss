@@ -1,0 +1,32 @@
+.listing {
+  .field label {
+    @include visuallyhidden;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 1em;
+  }
+
+  select + span:after {
+    // stylelint-disable-next-line declaration-no-important
+    font-size: 2.5em !important;
+  }
+
+  .custom-permissions {
+    padding-bottom: 0;
+  }
+
+  .custom-permissions-item {
+    font-weight: inherit;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.page-permissions-listing {
+  .admin_page_chooser .field-content {
+    width: 100%; // so that 'choose another page' button displays in its entirety
+  }
+}

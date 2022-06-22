@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/cleanForSlug';
-import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]
@@ -290,7 +289,6 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
-  initCollapsibleBreadcrumbs();
 
   //
   // Preview

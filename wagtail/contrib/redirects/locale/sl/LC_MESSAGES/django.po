@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
@@ -10,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
+"Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +21,14 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "Wagtail redirects"
+msgstr "Wagtail preusmeritve"
+
 msgid "Type"
 msgstr "Tip"
+
+msgid "Permanent"
+msgstr "Stalna"
 
 msgid "All"
 msgstr "Vse"
@@ -35,9 +42,18 @@ msgstr "Vsa spletna mesta"
 msgid "A redirect with this path already exists."
 msgstr "Preusmeritev za to pot že obstaja."
 
+msgid "File to import"
+msgstr "Datoteka za uvoz"
+
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Podprte oblike zapisa: %(supported_formats)s."
+
+msgid "From field"
+msgstr "S polja"
+
+msgid "To field"
+msgstr "Na polje"
 
 msgid "redirect from"
 msgstr "Preusmeritev iz"
@@ -58,14 +74,33 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "preusmeri na stran"
 
+msgid "target page route"
+msgstr "pot ciljne strani"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Po želji določite pot na ciljni strani, na katero želite preusmeriti. "
+"Pustite prazno za preusmeritev na privzeto pot strani."
+
 msgid "redirect to any URL"
 msgstr "preusmeri na katerikoli URL"
+
+msgid "automatically created"
+msgstr "samodejno ustvarjena"
 
 msgid "created at"
 msgstr "ustvarjeno"
 
+msgid "temporary"
+msgstr "začasno"
+
 msgid "redirect"
 msgstr "preusmeritev"
+
+msgid "redirects"
+msgstr "preusmeritve"
 
 msgid "Add redirect"
 msgstr "Dodaj preusmeritev"
@@ -75,6 +110,9 @@ msgstr "Shrani"
 
 msgid "Redirects"
 msgstr "Preusmeritve"
+
+msgid "Import"
+msgstr "preusmeri"
 
 #, python-format
 msgid "Delete redirect %(title)s"
@@ -88,6 +126,9 @@ msgstr "Ali ste prepričani, da želite izbrisati preusmeritev?"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
+
+msgid "Confirm"
+msgstr "Potrdi"
 
 msgid "Cancel"
 msgstr "Prekliči"

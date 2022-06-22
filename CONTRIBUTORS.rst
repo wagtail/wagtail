@@ -599,6 +599,13 @@ Contributors
 * Christian Franke
 * Tom Hu
 * Thiago Costa de Souza
+* Benedict Faw
+* Lucie Le Frapper
+* Jaspreet Singh
+* Yves Serrano
+* Hugh Rawlinson
+* Noble Mittal
+* Oliver Parker
 
 Translators
 ===========

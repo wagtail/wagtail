@@ -24,7 +24,7 @@ from wagtail.search.index import (
     SearchField,
     class_is_indexed,
 )
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
+from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.utils.utils import deep_update
 
 
@@ -445,6 +445,26 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return {"multi_match": match_query}
 
+    def _compile_fuzzy_query(self, query, fields):
+        if self.partial_match:
+            raise NotImplementedError(
+                "Fuzzy search is not supported with partial matches. Pass "
+                "partial_match=False into the search method."
+            )
+        elif len(fields) > 1:
+            raise NotImplementedError(
+                "Fuzzy search on multiple fields is not supported by the "
+                "Elasticsearch search backend."
+            )
+        return {
+            "match": {
+                fields[0]: {
+                    "query": query.query_string,
+                    "fuzziness": "AUTO",
+                }
+            }
+        }
+
     def _compile_phrase_query(self, query, fields):
         if len(fields) == 1:
             return {"match_phrase": {fields[0]: query.query_string}}
@@ -494,6 +514,9 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
         elif isinstance(query, PlainText):
             return self._compile_plaintext_query(query, [field], boost)
 
+        elif isinstance(query, Fuzzy):
+            return self._compile_fuzzy_query(query, [field])
+
         elif isinstance(query, Phrase):
             return self._compile_phrase_query(query, [field])
 
@@ -529,6 +552,9 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(self.query, Phrase):
             return self._compile_phrase_query(self.query, fields)
+
+        elif isinstance(self.query, Fuzzy):
+            return self._compile_fuzzy_query(self.query, fields)
 
         else:
             if len(fields) == 1:
