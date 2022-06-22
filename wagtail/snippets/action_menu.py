@@ -54,6 +54,7 @@ class ActionMenuItem(Component):
                 "classname": self.classname,
                 "icon_name": self.icon_name,
                 "request": parent_context["request"],
+                "is_revision": parent_context["view"] == "revisions_revert",
             }
         )
         return context

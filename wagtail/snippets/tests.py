@@ -14,7 +14,8 @@ from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, now
+from freezegun import freeze_time
 from taggit.models import Tag
 
 from wagtail import hooks
@@ -1387,6 +1388,139 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
     def test_get_with_i18n_enabled(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+
+class TestSnippetRevisions(TestCase, WagtailTestUtils):
+    @property
+    def revert_url(self):
+        return self.get_url(
+            "revisions_revert", args=[quote(self.snippet.pk), self.initial_revision.pk]
+        )
+
+    def get(self):
+        return self.client.get(self.revert_url)
+
+    def post(self, post_data={}):
+        return self.client.post(self.revert_url, post_data)
+
+    def get_url(self, url_name, args=None):
+        app_label = self.snippet._meta.app_label
+        model_name = self.snippet._meta.model_name
+        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
+        if args is None:
+            args = [quote(self.snippet.pk)]
+        return reverse(view_name, args=args)
+
+    def setUp(self):
+        self.user = self.login()
+
+        with freeze_time("2022-05-10 11:00:00"):
+            self.snippet = RevisableModel.objects.create(text="The original text")
+            self.initial_revision = self.snippet.save_revision(user=self.user)
+            ModelLogEntry.objects.create(
+                content_type=ContentType.objects.get_for_model(RevisableModel),
+                label="The original text",
+                action="wagtail.create",
+                timestamp=now(),
+                object_id=self.snippet.pk,
+                revision=self.initial_revision,
+                content_changed=True,
+            )
+
+        self.snippet.text = "The edited text"
+        self.snippet.save()
+        self.edit_revision = self.snippet.save_revision(user=self.user, log_action=True)
+
+    def test_get_revert_revision(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        # Message should be shown
+        self.assertContains(
+            response,
+            "You are viewing a previous version of this Revisable model from <b>10 May 2022 11:00</b> by",
+            count=1,
+        )
+
+        # Form should show the content of the revision, not the current draft
+        self.assertContains(response, "The original text", count=1)
+
+        # Form action url should point to the revisions_revert view
+        form_tag = f'<form action="{self.revert_url}" method="POST">'
+        html = response.content.decode()
+        self.assertTagInHTML(form_tag, html, count=1, allow_extra_attrs=True)
+
+        # Buttons should be relabelled
+        self.assertContains(response, "Replace current revision", count=1)
+
+    def test_get_revert_revision_with_non_revisable_snippet(self):
+        snippet = Advert.objects.create(text="foo")
+        response = self.client.get(
+            f"/admin/snippets/tests/advert/history/{snippet.pk}/revisions/1/revert/"
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+
+    def test_replace_revision(self):
+        get_response = self.get()
+        text_from_revision = get_response.context["form"].initial["text"]
+
+        post_response = self.post(
+            post_data={
+                "text": text_from_revision + " reverted",
+                "revision": self.initial_revision.pk,
+            }
+        )
+        self.assertRedirects(post_response, self.get_url("list", args=[]))
+
+        self.snippet.refresh_from_db()
+        latest_revision = self.snippet.get_latest_revision()
+        log_entry = ModelLogEntry.objects.filter(revision=latest_revision).first()
+
+        # The instance should be updated
+        self.assertEqual(self.snippet.text, "The original text reverted")
+        # The initial revision, edited revision, and revert revision
+        self.assertEqual(self.snippet.revisions.count(), 3)
+        # The latest revision should be the revert revision
+        self.assertEqual(latest_revision.content["text"], "The original text reverted")
+
+        # A new log entry with "wagtail.revert" action should be created
+        self.assertIsNotNone(log_entry)
+        self.assertEqual(log_entry.action, "wagtail.revert")
+
+    def test_replace_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.post(
+            post_data={
+                "text": "test text",
+                "revision": self.initial_revision.pk,
+            }
+        )
+        self.assertEqual(response.status_code, 302)
+
+        self.snippet.refresh_from_db()
+        self.assertNotEqual(self.snippet.text, "test text")
+
+        # Only the initial revision and edited revision, no revert revision
+        self.assertEqual(self.snippet.revisions.count(), 2)
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):
