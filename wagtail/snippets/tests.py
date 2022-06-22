@@ -1354,19 +1354,20 @@ class TestUsedBy(TestCase):
 class TestSnippetHistory(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
-    def get(self, params={}):
-        snippet = self.test_snippet
+    def get(self, snippet, params={}):
+        return self.client.get(self.get_url(snippet, "history"), params)
+
+    def get_url(self, snippet, url_name, args=None):
         app_label = snippet._meta.app_label
         model_name = snippet._meta.model_name
-        args = [quote(snippet.pk)]
-        return self.client.get(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:history", args=args),
-            params,
-        )
+        view_name = f"wagtailsnippets_{app_label}_{model_name}:{url_name}"
+        if args is None:
+            args = [quote(snippet.pk)]
+        return reverse(view_name, args=args)
 
     def setUp(self):
         self.user = self.login()
-        self.test_snippet = Advert.objects.get(pk=1)
+        self.non_revisable_snippet = Advert.objects.get(pk=1)
         ModelLogEntry.objects.create(
             content_type=ContentType.objects.get_for_model(Advert),
             label="Test Advert",
@@ -1374,9 +1375,31 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
             timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
             object_id="1",
         )
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Advert),
+            label="Test Advert Updated",
+            action="wagtail.edit",
+            timestamp=make_aware(datetime.datetime(2022, 5, 10, 12, 34, 0)),
+            object_id="1",
+        )
+        self.revisable_snippet = RevisableModel.objects.create(text="Foo")
+        self.initial_revision = self.revisable_snippet.save_revision(user=self.user)
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(RevisableModel),
+            label="Foo",
+            action="wagtail.create",
+            timestamp=make_aware(datetime.datetime(2022, 5, 10, 20, 22, 0)),
+            object_id=self.revisable_snippet.pk,
+            revision=self.initial_revision,
+            content_changed=True,
+        )
+        self.revisable_snippet.text = "Bar"
+        self.edit_revision = self.revisable_snippet.save_revision(
+            user=self.user, log_action=True
+        )
 
     def test_simple(self):
-        response = self.get()
+        response = self.get(self.non_revisable_snippet)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<td>Created</td>", html=True)
         self.assertContains(
@@ -1384,9 +1407,50 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
             '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">',
         )
 
+    def test_filters(self):
+        # Should work on both non-revisable and revisable snippets
+        snippets = [self.non_revisable_snippet, self.revisable_snippet]
+        for snippet in snippets:
+            with self.subTest(snippet=snippet):
+                response = self.get(snippet, {"action": "wagtail.edit"})
+                self.assertEqual(response.status_code, 200)
+                self.assertContains(response, "Edited", count=1)
+                self.assertNotContains(response, "Created")
+
+    def test_should_not_show_actions_on_non_revisable_snippet(self):
+        response = self.get(self.non_revisable_snippet)
+        edit_url = self.get_url(self.non_revisable_snippet, "edit")
+        self.assertNotContains(
+            response,
+            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+        )
+
+    def test_should_show_actions_on_revisable_snippet(self):
+        response = self.get(self.revisable_snippet)
+        edit_url = self.get_url(self.revisable_snippet, "edit")
+        revert_url = self.get_url(
+            self.revisable_snippet,
+            "revisions_revert",
+            args=[self.revisable_snippet.pk, self.initial_revision.pk],
+        )
+
+        # The latest revision should have an "Edit" action instead of "Review"
+        self.assertContains(
+            response,
+            f'<a href="{edit_url}" class="button button-small button-secondary">Edit</a>',
+            count=1,
+        )
+
+        # Any other revision should have a "Review" action
+        self.assertContains(
+            response,
+            f'<a href="{revert_url}" class="button button-small button-secondary">Review this version</a>',
+            count=1,
+        )
+
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_get_with_i18n_enabled(self):
-        response = self.get()
+        response = self.get(self.non_revisable_snippet)
         self.assertEqual(response.status_code, 200)
 
 
