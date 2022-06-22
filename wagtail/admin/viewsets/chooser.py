@@ -34,6 +34,9 @@ class ChooserViewSet(ViewSet):
     #: The view class used after an item has been chosen; must be a subclass of ``wagtail.admin.views.generic.chooser.ChosenView``.
     chosen_view_class = chooser_views.ChosenView
 
+    #: The view class used to handle submissions of the 'create' form; must be a subclass of ``wagtail.admin.views.generic.chooser.CreateView``.
+    create_view_class = chooser_views.CreateView
+
     #: The base Widget class that the chooser widget will be derived from.
     base_widget_class = BaseChooser
 
@@ -93,6 +96,17 @@ class ChooserViewSet(ViewSet):
             model=self.model,
         )
 
+    @property
+    def create_view(self):
+        return self.create_view_class.as_view(
+            model=self.model,
+            creation_form_class=self.creation_form_class,
+            form_fields=self.form_fields,
+            exclude_form_fields=self.exclude_form_fields,
+            create_action_label=self.create_action_label,
+            create_action_clicked_label=self.create_action_clicked_label,
+        )
+
     @cached_property
     def widget_class(self):
         """
@@ -116,6 +130,7 @@ class ChooserViewSet(ViewSet):
             path("", self.choose_view, name="choose"),
             path("results/", self.choose_results_view, name="choose_results"),
             path("chosen/<str:pk>/", self.chosen_view, name="chosen"),
+            path("create/", self.create_view, name="create"),
         ]
 
     def on_register(self):
