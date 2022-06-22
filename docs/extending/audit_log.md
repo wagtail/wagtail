@@ -15,7 +15,7 @@ The audit log does not replace revisions.
 
 The `wagtail.log_actions.log` function can be used to add logging to your own code.
 
-```{eval-rest}
+```{eval-rst}
 .. function:: log(instance, action, user=None, uuid=None, title=None, data=None)
 
    Adds an entry to the audit log.

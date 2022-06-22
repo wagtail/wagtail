@@ -55,7 +55,7 @@ For more information, please see :meth:`~wagtail.models.Page.get_route_paths`.
 Disabling automatic redirect creation
 -------------------------------------
 
-.. versionupdated:: 4.0
+.. versionchanged:: 4.0
   When generating redirects, custom field values are now fetched as part of the
   initial database query, so using custom field values in overridden url methods
   will no longer trigger additional per-object queries.

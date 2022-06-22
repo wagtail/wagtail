@@ -122,4 +122,4 @@ parent for the new page. So, this isn't something you need to check or cater for
 your own code.
 ```
 
-To customise `url_helper` behaviour, see :ref:`modeladmin_url_helper_class`.
+To customise `url_helper` behaviour, see [](modeladmin_url_helper_class).
