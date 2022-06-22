@@ -6,7 +6,7 @@ Wagtail comes with some utilities that simplify writing tests for your site.
 
 ## WagtailPageTests
 
-**_class_ wagtail.test.utils.WagtailPageTests**  
+**_class_ wagtail.test.utils.WagtailPageTests**
 `WagtailPageTests` extends `django.test.TestCase`, adding a few new `assert` methods. You should extend this class to make use of its methods:
 
 ```python
@@ -18,7 +18,7 @@ class MyPageTests(WagtailPageTests):
         ...
 ```
 
-**assertCanCreateAt(_parent_model, child_model, msg=None_)**  
+**assertCanCreateAt(_parent_model, child_model, msg=None_)**
 Assert a particular child Page type can be created under a parent Page type. `parent_model` and `child_model` should be the Page classes being tested.
 
 ```python
@@ -27,7 +27,7 @@ def test_can_create_under_home_page(self):
     self.assertCanCreateAt(HomePage, ContentPage)
 ```
 
-**assertCanNotCreateAt(_parent_model, child_model, msg=None_)**  
+**assertCanNotCreateAt(_parent_model, child_model, msg=None_)**
 Assert a particular child Page type can not be created under a parent Page type. `parent_model` and `child_model` should be the Page classes being tested.
 
 ```python
@@ -36,7 +36,7 @@ def test_cant_create_under_event_page(self):
     self.assertCanNotCreateAt(EventPage, ContentPage)
 ```
 
-**assertCanCreate(_parent, child_model, data, msg=None_)**  
+**assertCanCreate(_parent, child_model, data, msg=None_)**
 Assert that a child of the given Page type can be created under the parent, using the supplied POST data.
 
 `parent` should be a Page instance, and `child_model` should be a Page subclass. `data` should be a dict that will be POSTed at the Wagtail admin Page creation method.
@@ -59,7 +59,7 @@ def test_can_create_content_page(self):
 
 See [](form_data_test_helpers) for a set of functions useful for constructing POST data.
 
-**assertAllowedParentPageTypes(_child_model, parent_models, msg=None_)**  
+**assertAllowedParentPageTypes(_child_model, parent_models, msg=None_)**
 Test that the only page types that `child_model` can be created under are `parent_models`.
 
 The list of allowed parent models may differ from those set in `Page.parent_page_types`, if the parent models have set `Page.subpage_types`.
@@ -76,7 +76,7 @@ def test_content_page_parent_pages(self):
         EventPage, {EventIndex})
 ```
 
-**assertAllowedSubpageTypes(_parent_model, child_models, msg=None_)**  
+**assertAllowedSubpageTypes(_parent_model, child_models, msg=None_)**
 Test that the only page types that can be created under `parent_model` are `child_models`.
 
 The list of allowed child models may differ from those set in `Page.subpage_types`, if the child models have set `Page.parent_page_types`.
@@ -88,7 +88,7 @@ def test_content_page_subpages(self):
         ContentPage, {ContentPage})
 
     # A HomePage can have ContentPage and EventIndex children
-    self.assertAllowedParentPageTypes(
+    self.assertAllowedSubpageTypes(
         HomePage, {ContentPage, EventIndex})
 ```
 
