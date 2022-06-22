@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.forms.models import modelform_factory
 from django.http import Http404
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -38,6 +39,11 @@ class ModalPageFurnitureMixin(ContextMixin):
 
 
 class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+    """
+    Provides common functionality for views that present a (possibly searchable / filterable) list
+    of objects to choose from
+    """
+
     model = None
     per_page = 10
     chosen_url_name = None
@@ -134,12 +140,15 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class ChooseViewMixin:
+class CreationFormMixin:
+    """
+    Provides a form class for creating new objects
+    """
+
     creation_form_class = None
     form_fields = None
     exclude_form_fields = None
-    search_tab_label = _("Search")
-    creation_tab_label = None
+    creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
     create_action_label = _("Create")
     create_action_clicked_label = None
 
@@ -151,13 +160,30 @@ class ChooseViewMixin:
                 self.model, fields=self.form_fields, exclude=self.exclude_form_fields
             )
 
+    def get_creation_form_context_data(self):
+        # don't include the actual form object here, as different views will instantiate it
+        # differently (e.g. unbound for the initial GET, bound for a POST)
+        return {
+            "create_action_label": self.create_action_label,
+            "create_action_clicked_label": self.create_action_clicked_label,
+        }
+
+
+class ChooseViewMixin(CreationFormMixin):
+    """
+    A view that renders a complete modal response for the chooser, including a tab for the object
+    listing and (optionally) a 'create' form
+    """
+
+    search_tab_label = _("Search")
+    creation_tab_label = None
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update(self.get_creation_form_context_data())
         context.update(
             {
                 "filter_form": self.filter_form,
-                "create_action_label": self.create_action_label,
-                "create_action_clicked_label": self.create_action_clicked_label,
                 "search_tab_label": self.search_tab_label,
                 "creation_tab_label": self.creation_tab_label
                 or self.create_action_label,
@@ -188,6 +214,11 @@ class ChooseView(ChooseViewMixin, BaseChooseView):
 
 
 class ChooseResultsViewMixin:
+    """
+    A view that renders just the object listing as an HTML fragment, used to replace the listing
+    when paginating or searching
+    """
+
     # Return just the HTML fragment for the results
     def render_to_response(self):
         return TemplateResponse(
@@ -201,20 +232,12 @@ class ChooseResultsView(ChooseResultsViewMixin, BaseChooseView):
     pass
 
 
-class ChosenView(View):
-    model = None
+class ChosenResponseMixin:
+    """
+    Provides methods for returning the chosen object from the modal workflow.
+    """
+
     response_data_title_key = "title"
-
-    def get(self, request, pk):
-        try:
-            item = self.get_object(unquote(pk))
-        except ObjectDoesNotExist:
-            raise Http404
-
-        return self.get_chosen_response(item)
-
-    def get_object(self, pk):
-        return self.model.objects.get(pk=pk)
 
     def get_object_id(self, instance):
         return instance.pk
@@ -250,4 +273,56 @@ class ChosenView(View):
             None,
             None,
             json_data={"step": "chosen", "result": response_data},
+        )
+
+
+class ChosenView(ChosenResponseMixin, View):
+    """
+    A view that takes an object ID in the URL and returns a modal workflow response indicating
+    that object has been chosen
+    """
+
+    model = None
+
+    def get_object(self, pk):
+        return self.model.objects.get(pk=pk)
+
+    def get(self, request, pk):
+        try:
+            item = self.get_object(unquote(pk))
+        except ObjectDoesNotExist:
+            raise Http404
+
+        return self.get_chosen_response(item)
+
+
+class CreateView(CreationFormMixin, ChosenResponseMixin, View):
+    """
+    A view that handles submissions of the 'create' form
+    """
+
+    model = None
+
+    def get(self, request):
+        form_class = self.get_creation_form_class()
+        self.form = form_class()
+        return self.render_reshow_creation_form_response()
+
+    def render_reshow_creation_form_response(self):
+        context = {
+            "creation_form": self.form,
+        }
+        context.update(self.get_creation_form_context_data())
+        response_html = render_to_string(
+            self.creation_form_template_name, context, self.request
+        )
+        return render_modal_workflow(
+            self.request,
+            None,
+            None,
+            None,
+            json_data={
+                "step": "reshow_creation_form",
+                "htmlFragment": response_html,
+            },
         )
