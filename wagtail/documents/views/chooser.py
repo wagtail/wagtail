@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.generic.base import View
+from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -51,7 +51,7 @@ class DownloadColumn(Column):
         return context
 
 
-class BaseChooseView(View):
+class BaseChooseView(ContextMixin, View):
     def get_object_list(self):
         documents = permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["choose"]
@@ -123,24 +123,36 @@ class BaseChooseView(View):
 
         return self.render_to_response()
 
-    def get_context_data(self):
-        return {
-            "documents": self.documents,
-            "documents_exist": self.documents_exist,
-            "table": self.table,
-            "uploadform": self.uploadform,
-            "query_string": self.q,
-            "searchform": self.searchform,
-            "collections": self.collections,
-            "is_searching": self.is_searching,
-            "collection_id": self.collection_id,
-        }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "documents": self.documents,
+                "documents_exist": self.documents_exist,
+                "table": self.table,
+                "query_string": self.q,
+                "searchform": self.searchform,
+                "is_searching": self.is_searching,
+                "collection_id": self.collection_id,
+            }
+        )
+        return context
 
     def render_to_response(self):
         raise NotImplementedError()
 
 
 class ChooseView(BaseChooseView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "uploadform": self.uploadform,
+                "collections": self.collections,
+            }
+        )
+        return context
+
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
