@@ -157,7 +157,9 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
     # change, so we can use in-memory manipulation of `url_path` to figure out what
     # the old URLS were
 
-    for descendant in page.get_descendants().live().specific(defer=True).iterator():
+    for descendant in (
+        page.get_descendants().live().defer_streamfields().specific().iterator()
+    ):
         new_urls = _page_urls_for_sites(descendant, sites, cache_target=page)
 
         # Restore old 'url_path' value on in-memory instance
