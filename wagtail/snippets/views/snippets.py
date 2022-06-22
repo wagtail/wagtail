@@ -18,10 +18,11 @@ from wagtail.admin import messages
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import Locale
+from wagtail.models import Locale, RevisionMixin
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -99,6 +100,7 @@ class Index(TemplateView):
 
 
 class List(IndexView):
+    view_name = "list"
     index_results_url_name = None
     delete_multiple_url_name = None
     any_permission_required = ["add", "change", "delete"]
@@ -175,6 +177,7 @@ class List(IndexView):
 
 
 class Create(CreateView):
+    view_name = "create"
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
@@ -219,7 +222,7 @@ class Create(CreateView):
         ]
 
     def _get_action_menu(self):
-        return SnippetActionMenu(self.request, view="create", model=self.model)
+        return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
 
     def _get_initial_form_instance(self):
         instance = self.model()
@@ -266,6 +269,7 @@ class Create(CreateView):
 
 
 class Edit(EditView):
+    view_name = "edit"
     history_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
@@ -328,7 +332,9 @@ class Edit(EditView):
         ]
 
     def _get_action_menu(self):
-        return SnippetActionMenu(self.request, view="edit", instance=self.object)
+        return SnippetActionMenu(
+            self.request, view=self.view_name, instance=self.object
+        )
 
     def _get_latest_log_entry(self):
         return log_registry.get_logs_for_instance(self.object).first()
@@ -372,6 +378,7 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
+    view_name = "delete"
     delete_multiple_url_name = None
     permission_required = "delete"
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
@@ -451,6 +458,7 @@ class Delete(DeleteView):
 
 
 class Usage(IndexView):
+    view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     paginate_by = 20
     page_kwarg = "p"
@@ -542,6 +550,15 @@ class SnippetViewSet(ViewSet):
     history_view_class = HistoryView
 
     @property
+    def revisions_revert_view_class(self):
+        revisions_revert_view_class = type(
+            "_RevisionsRevert",
+            (RevisionsRevertMixin, self.edit_view_class),
+            {"view_name": "revisions_revert"},
+        )
+        return revisions_revert_view_class
+
+    @property
     def permission_policy(self):
         return ModelPermissionPolicy(self.model)
 
@@ -612,7 +629,18 @@ class SnippetViewSet(ViewSet):
         return self.history_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
+        )
+
+    @property
+    def revisions_revert(self):
+        return self.revisions_revert_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("list"),
+            edit_url_name=self.get_url_name("edit"),
+            delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
+            revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
     @property
@@ -640,7 +668,7 @@ class SnippetViewSet(ViewSet):
         )
 
     def get_urlpatterns(self):
-        return super().get_urlpatterns() + [
+        urlpatterns = super().get_urlpatterns() + [
             path("", self.index_view, name="list"),
             path("results/", self.index_results_view, name="list_results"),
             path("add/", self.add_view, name="add"),
@@ -649,9 +677,23 @@ class SnippetViewSet(ViewSet):
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
+        ]
+
+        if issubclass(self.model, RevisionMixin):
+            urlpatterns += [
+                path(
+                    "history/<str:pk>/revisions/<int:revision_id>/revert/",
+                    self.revisions_revert,
+                    name="revisions_revert",
+                ),
+            ]
+
+        legacy_redirects = [
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
             path("<str:pk>/", self.redirect_to_edit),
             path("<str:pk>/delete/", self.redirect_to_delete),
             path("<str:pk>/usage/", self.redirect_to_usage),
         ]
+
+        return urlpatterns + legacy_redirects
