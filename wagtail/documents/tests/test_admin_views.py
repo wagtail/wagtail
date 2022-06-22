@@ -1453,7 +1453,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             reverse("wagtaildocs:chooser_results"), {"q": "Hello"}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertEqual(response.context["search_query"], "Hello")
 
     def make_docs(self):
         for i in range(50):
@@ -1470,7 +1470,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
 
         # Check that we got the correct page
-        self.assertEqual(response.context["documents"].number, 2)
+        self.assertEqual(response.context["results"].number, 2)
 
     def test_pagination_invalid(self):
         self.make_docs()
@@ -1484,7 +1484,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
 
         # Check that we got page one
-        self.assertEqual(response.context["documents"].number, 1)
+        self.assertEqual(response.context["results"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
@@ -1497,8 +1497,8 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check that we got the last page
         self.assertEqual(
-            response.context["documents"].number,
-            response.context["documents"].paginator.num_pages,
+            response.context["results"].number,
+            response.context["results"].paginator.num_pages,
         )
 
     def test_construct_queryset_hook_browse(self):
@@ -1519,8 +1519,8 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             "construct_document_chooser_queryset", filter_documents
         ):
             response = self.client.get(reverse("wagtaildocs:chooser"))
-        self.assertEqual(len(response.context["documents"]), 1)
-        self.assertEqual(response.context["documents"][0], document)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], document)
 
     def test_construct_queryset_hook_search(self):
         document = models.Document.objects.create(
@@ -1542,8 +1542,8 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             response = self.client.get(
                 reverse("wagtaildocs:chooser_results"), {"q": "Test"}
             )
-        self.assertEqual(len(response.context["documents"]), 1)
-        self.assertEqual(response.context["documents"][0], document)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], document)
 
     def test_index_without_collections(self):
         self.make_docs()
