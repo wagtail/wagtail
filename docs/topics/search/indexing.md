@@ -8,18 +8,17 @@ If you have created some extra fields in a subclass of Page or Image, you may wa
 
 If you have a custom model that you would like to make searchable, see {ref}`wagtailsearch_indexing_models`.
 
-
 (wagtailsearch_indexing_update)=
 
 ## Updating the index
 
-If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. There are two ways to do this: using the search signal handlers, or calling the ``update_index`` command periodically. For best speed and reliability, it's best to use both if possible.
+If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. There are two ways to do this: using the search signal handlers, or calling the `update_index` command periodically. For best speed and reliability, it's best to use both if possible.
 
 ### Signal handlers
 
-``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.search`` app is loaded.
+`wagtailsearch` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in `WAGTAILSEARCH_BACKENDS`. These signal handlers are automatically registered when the `wagtail.search` app is loaded.
 
-In some cases, you may not want your content to be automatically reindexed and instead rely on the ``update_index`` command for indexing. If you need to disable these signal handlers, use one of the following methods:
+In some cases, you may not want your content to be automatically reindexed and instead rely on the `update_index` command for indexing. If you need to disable these signal handlers, use one of the following methods:
 
 #### Disabling auto update signal handlers for a model
 
@@ -33,7 +32,6 @@ If all search backends have `AUTO_UPDATE` set to `False`, the signal handlers wi
 
 For documentation on the `AUTO_UPDATE` setting, see {ref}`wagtailsearch_backends_auto_update`.
 
-
 ### The `update_index` command
 
 Wagtail also provides a command for rebuilding the index from scratch.
@@ -42,8 +40,8 @@ Wagtail also provides a command for rebuilding the index from scratch.
 
 It is recommended to run this command once a week and at the following times:
 
-- whenever any pages have been created through a script (after an import, for example)
-- whenever any changes have been made to models or search configuration
+-   whenever any pages have been created through a script (after an import, for example)
+-   whenever any changes have been made to models or search configuration
 
 The search may not return any results while this command is running, so avoid running it at peak times.
 
@@ -57,11 +55,9 @@ The `update_index` command is also aliased as `wagtail_update_index`, for use wh
 
 Fields must be explicitly added to the `search_fields` property of your `Page`-derived model, in order for you to be able to search/filter on them. This is done by overriding `search_fields` to append a list of extra `SearchField`/`FilterField` objects to it.
 
-
 ### Example
 
 This creates an `EventPage` model with two fields: `description` and `date`. `description` is indexed as a `SearchField` and `date` is indexed as a `FilterField`.
-
 
 ```python
 from wagtail.search import index
@@ -89,10 +85,21 @@ These are used for performing full-text searches on your models, usually for tex
 
 #### Options
 
-- **partial_match** (`boolean`) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default, so a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
-- **boost** (`int/float`) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
-- **es_extra** (`dict`) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
+-   **partial_match** (`boolean`) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default, so a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
+-   **boost** (`int/float`) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
 
+    ```{note}
+    The PostgresSQL full text search only supports [four weight levels (A, B, C, D)](https://www.postgresql.org/docs/current/textsearch-features.html).
+    When the database search backend `wagtail.search.backends.database` is used on a PostgreSQL database, it will take all boost values in the project into consideration and group them into the four available weights.
+
+    This means that in this configuration there are effectively only four boost levels used for ranking the search results, even if more boost values have been used.
+
+    You can find out roughly which boost thresholds map to which weight in PostgresSQL by starting an new Django shell with `./manage.py shell` and inspecting `wagtail.search.backends.database.postgres.weights.BOOST_WEIGHTS`.
+    You should see something like `[(10.0, 'A'), (7.166666666666666, 'B'), (4.333333333333333, 'C'), (1.5, 'D')]`.
+    Boost values above each threshold will be treated with the respective weight.
+    ```
+
+-   **es_extra** (`dict`) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
 
 (wagtailsearch_index_filterfield)=
 
@@ -102,7 +109,6 @@ These are used for autocomplete queries which match partial words. For example, 
 
 This takes the exact same options as `index.SearchField` (with the exception of `partial_match`, which has no effect).
 
-
 ```{note}
 Only index fields that are displayed in the search results with ``index.AutocompleteField``. This allows users to see any words that were partial-matched on.
 ```
@@ -110,7 +116,6 @@ Only index fields that are displayed in the search results with ``index.Autocomp
 ### `index.FilterField`
 
 These are added to the search index but are not used for full-text searches. Instead, they allow you to run filters on your search results.
-
 
 (wagtailsearch_index_relatedfields)=
 
