@@ -2,6 +2,7 @@ import warnings
 from functools import lru_cache, partial
 from urllib.parse import urlencode
 
+import django_filters
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
@@ -15,14 +16,17 @@ from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
+from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
+from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, RevisionMixin
+from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -510,17 +514,48 @@ def redirect_to_usage(request, app_label, model_name, pk):
     )
 
 
-class HistoryView(IndexView):
-    history_url_name = None
-    template_name = "wagtailadmin/generic/index.html"
-    page_title = gettext_lazy("Snippet history")
+class SnippetHistoryReportFilterSet(WagtailFilterSet):
+    action = django_filters.ChoiceFilter(choices=log_registry.get_choices)
+    user = django_filters.ModelChoiceFilter(
+        field_name="user",
+        queryset=lambda request: ModelLogEntry.objects.all().get_users(),
+    )
+    timestamp = django_filters.DateFromToRangeFilter(
+        label=_("Date"), widget=DateRangePickerWidget
+    )
+
+    class Meta:
+        model = ModelLogEntry
+        fields = ["action", "user", "timestamp"]
+
+
+class ActionColumn(Column):
+    cell_template_name = "wagtailsnippets/snippets/revisions/_actions.html"
+
+    def __init__(self, *args, object=None, view=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.object = object
+        self.view = view
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["revision_enabled"] = isinstance(self.object, RevisionMixin)
+        context["object"] = self.object
+        context["view"] = self.view
+        return context
+
+
+class History(ReportView):
+    view_name = "history"
+    edit_url_name = None
+    revisions_revert_url_name = None
+    any_permission_required = ["add", "change", "delete"]
+    template_name = "wagtailsnippets/snippets/history.html"
+    title = gettext_lazy("Snippet history")
     header_icon = "history"
-    paginate_by = 50
-    columns = [
-        Column("message", label=gettext_lazy("Action")),
-        UserColumn("user", blank_display_name="system"),
-        DateColumn("timestamp", label=gettext_lazy("Date")),
-    ]
+    paginate_by = 20
+    filterset_class = SnippetHistoryReportFilterSet
+    table_class = InlineActionsTable
 
     def setup(self, request, *args, pk, **kwargs):
         self.object = get_object_or_404(self.model, pk=unquote(pk))
@@ -529,15 +564,22 @@ class HistoryView(IndexView):
     def get_page_subtitle(self):
         return str(self.object)
 
-    def get_index_url(self):
-        return reverse(
-            self.history_url_name,
-            args=[quote(self.object.pk)],
-        )
+    def get_columns(self):
+        return [
+            ActionColumn("message", object=self.object, view=self, label=_("Action")),
+            UserColumn("user", blank_display_name="system"),
+            DateColumn("timestamp", label=_("Date")),
+        ]
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        context = super().get_context_data(*args, object_list=object_list, **kwargs)
+        context["object"] = self.object
+        context["subtitle"] = self.get_page_subtitle()
+        return context
 
     def get_queryset(self):
-        return log_registry.get_logs_for_instance(self.object).prefetch_related(
-            "user__wagtail_userprofile"
+        return log_registry.get_logs_for_instance(self.object).select_related(
+            "revision", "user", "user__wagtail_userprofile"
         )
 
 
@@ -547,7 +589,7 @@ class SnippetViewSet(ViewSet):
     edit_view_class = Edit
     delete_view_class = Delete
     usage_view_class = Usage
-    history_view_class = HistoryView
+    history_view_class = History
 
     @property
     def revisions_revert_view_class(self):
@@ -629,6 +671,8 @@ class SnippetViewSet(ViewSet):
         return self.history_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
+            edit_url_name=self.get_url_name("edit"),
+            revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
     @property

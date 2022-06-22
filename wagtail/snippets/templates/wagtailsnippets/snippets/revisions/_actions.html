@@ -1,0 +1,19 @@
+{% load i18n wagtailadmin_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if revision_enabled and instance.revision %}
+        <span class="report__results--text">{{ value }}</span>
+        {% if instance.revision == object.get_latest_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
+        {% if instance.content_changed %}
+            <ul class="actions">
+                {% if instance.revision == object.get_latest_revision %}
+                    <li><a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                {% else %}
+                    <li><a href="{% url view.revisions_revert_url_name object.pk instance.revision.pk %}" class="button button-small button-secondary">{% trans 'Review this version' %}</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% else %}
+        {{ value }}
+    {% endif %}
+</td>
