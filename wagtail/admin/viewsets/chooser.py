@@ -60,6 +60,8 @@ class ChooserViewSet(ViewSet):
     create_action_clicked_label = None  #: Alternative text to display on the submit button after it has been clicked
     creation_tab_label = None  #: Label for the 'create' tab in the chooser modal (defaults to the same as create_action_label)
 
+    permission_policy = None
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.page_title is None:
@@ -81,6 +83,7 @@ class ChooserViewSet(ViewSet):
             creation_tab_label=self.creation_tab_label,
             create_action_label=self.create_action_label,
             create_action_clicked_label=self.create_action_clicked_label,
+            permission_policy=self.permission_policy,
         )
 
     @property
@@ -107,6 +110,7 @@ class ChooserViewSet(ViewSet):
             exclude_form_fields=self.exclude_form_fields,
             create_action_label=self.create_action_label,
             create_action_clicked_label=self.create_action_clicked_label,
+            permission_policy=self.permission_policy,
         )
 
     @cached_property

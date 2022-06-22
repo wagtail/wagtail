@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib.admin.utils import unquote
-from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    ObjectDoesNotExist,
+    PermissionDenied,
+)
 from django.core.paginator import Paginator
 from django.forms.models import modelform_factory
 from django.http import Http404
@@ -13,6 +17,7 @@ from django.views.generic.base import ContextMixin, View
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
@@ -152,6 +157,20 @@ class CreationFormMixin:
     create_action_label = _("Create")
     create_action_clicked_label = None
     create_url_name = None
+    permission_policy = None
+
+    def get_permission_policy(self):
+        if self.permission_policy:
+            return self.permission_policy
+        elif self.model:
+            return ModelPermissionPolicy(self.model)
+        else:
+            return BlanketPermissionPolicy(None)
+
+    def can_create(self):
+        return self.get_permission_policy().user_has_permission(
+            self.request.user, "add"
+        )
 
     def get_creation_form_class(self):
         if self.creation_form_class:
@@ -200,7 +219,7 @@ class ChooseViewMixin(CreationFormMixin):
         )
 
         creation_form_class = self.get_creation_form_class()
-        if creation_form_class:
+        if creation_form_class and self.can_create():
             context.update(self.get_creation_form_context_data())
             context["creation_form"] = creation_form_class()
 
@@ -312,6 +331,11 @@ class CreateView(CreationFormMixin, ChosenResponseMixin, View):
     """
 
     model = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.can_create():
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
         form_class = self.get_creation_form_class()
