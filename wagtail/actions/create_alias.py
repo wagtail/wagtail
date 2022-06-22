@@ -217,7 +217,7 @@ class CreatePageAliasAction:
 
             numchild = 0
 
-            for child_page in page.get_children().specific():
+            for child_page in page.get_children().specific().iterator():
                 newdepth = _mpnode_attrs[1] + 1
                 child_mpnode_attrs = (
                     Page._get_path(_mpnode_attrs[0], newdepth, numchild),

@@ -55,9 +55,12 @@ For more information, please see :meth:`~wagtail.models.Page.get_route_paths`.
 Disabling automatic redirect creation
 -------------------------------------
 
-Wagtail's default implementation works best for small-to-medium sized projects (5000 pages or fewer) that mostly use Wagtail's built-in methods for URL generation.
+.. versionupdated:: 4.0
+  When generating redirects, custom field values are now fetched as part of the
+  initial database query, so using custom field values in overridden url methods
+  will no longer trigger additional per-object queries.
 
-Overrides to the following ``Page`` methods are respected when generating redirects, but use of specific page fields in those overrides will trigger additional database queries.
+Wagtail's default implementation works best for small-to-medium sized projects (5000 pages or fewer) that mostly use Wagtail's built-in methods for URL generation. However, overrides to the following ``Page`` methods are respected when generating redirects.
 
 * :meth:`~wagtail.models.Page.get_url_parts()`
 * :meth:`~wagtail.models.Page.get_route_paths()`

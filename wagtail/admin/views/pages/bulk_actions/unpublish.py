@@ -52,7 +52,11 @@ class UnpublishBulkAction(PageBulkAction):
 
             if include_descendants:
                 for live_descendant_page in (
-                    page.get_descendants().live().defer_streamfields().specific()
+                    page.get_descendants()
+                    .live()
+                    .defer_streamfields()
+                    .specific()
+                    .iterator()
                 ):
                     if user is None or permission_checker(live_descendant_page):
                         live_descendant_page.unpublish()

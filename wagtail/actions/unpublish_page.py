@@ -96,7 +96,11 @@ class UnpublishPageAction:
 
             user_perms = UserPagePermissionsProxy(self.user)
             for live_descendant_page in (
-                self.page.get_descendants().live().defer_streamfields().specific()
+                self.page.get_descendants()
+                .live()
+                .defer_streamfields()
+                .specific()
+                .iterator()
             ):
                 action = UnpublishPageAction(live_descendant_page)
                 if user_perms.for_page(live_descendant_page).can_unpublish():
