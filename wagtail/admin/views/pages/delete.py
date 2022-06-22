@@ -17,6 +17,7 @@ def delete(request, page_id):
     if not page.permissions_for_user(request.user).can_delete():
         raise PermissionDenied
 
+    wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME", "wagtail")
     with transaction.atomic():
         for fn in hooks.get_hooks("before_delete_page"):
             result = fn(request, page)
@@ -39,33 +40,44 @@ def delete(request, page_id):
         pages_to_delete = list(pages_to_delete)
 
         if request.method == "POST":
-            parent_id = page.get_parent().id
-            # Delete the source page.
-            action = DeletePageAction(page, user=request.user)
-            # Permission checks are done above, so skip them in execute.
-            action.execute(skip_permission_checks=True)
+            continue_deleting = True
+            if (
+                request.POST.get("confirm_site_name")
+                and request.POST.get("confirm_site_name") != wagtail_site_name
+            ):
+                messages.error(
+                    request, f"Please type '{wagtail_site_name}' to confirm."
+                )
+                continue_deleting = False
+            if continue_deleting:
+                parent_id = page.get_parent().id
+                # Delete the source page.
+                action = DeletePageAction(page, user=request.user)
+                # Permission checks are done above, so skip them in execute.
+                action.execute(skip_permission_checks=True)
 
-            # Delete translation and alias pages if they have the same parent page.
-            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                parent_page_translations = page.get_parent().get_translations()
-                for page_or_alias in pages_to_delete:
-                    if page_or_alias.get_parent() in parent_page_translations:
-                        action = DeletePageAction(page_or_alias, user=request.user)
-                        # Permission checks are done above, so skip them in execute.
-                        action.execute(skip_permission_checks=True)
+                # Delete translation and alias pages if they have the same parent page.
+                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                    parent_page_translations = page.get_parent().get_translations()
+                    for page_or_alias in pages_to_delete:
+                        if page_or_alias.get_parent() in parent_page_translations:
+                            action = DeletePageAction(page_or_alias, user=request.user)
+                            # Permission checks are done above, so skip them in execute.
+                            action.execute(skip_permission_checks=True)
 
-            messages.success(
-                request, _("Page '{0}' deleted.").format(page.get_admin_display_title())
-            )
+                messages.success(
+                    request,
+                    _("Page '{0}' deleted.").format(page.get_admin_display_title()),
+                )
 
-            for fn in hooks.get_hooks("after_delete_page"):
-                result = fn(request, page)
-                if hasattr(result, "status_code"):
-                    return result
+                for fn in hooks.get_hooks("after_delete_page"):
+                    result = fn(request, page)
+                    if hasattr(result, "status_code"):
+                        return result
 
-            if next_url:
-                return redirect(next_url)
-            return redirect("wagtailadmin_explore", parent_id)
+                if next_url:
+                    return redirect(next_url)
+                return redirect("wagtailadmin_explore", parent_id)
 
     descendant_count = page.get_descendant_count()
     return TemplateResponse(
@@ -78,6 +90,7 @@ def delete(request, page_id):
             # if the number of pages ( child pages + current page) exceeds this limit, then confirm before delete.
             "confirm_before_delete": (descendant_count + 1)
             >= getattr(settings, "WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT", 10),
+            "wagtail_site_name": wagtail_site_name,
             # note that while pages_to_delete may contain a mix of translated pages
             # and aliases, we count the "translations" only, as aliases are similar
             # to symlinks, so they should just follow the source
