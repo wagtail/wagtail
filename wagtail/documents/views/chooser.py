@@ -52,24 +52,28 @@ class DownloadColumn(Column):
 
 
 class BaseChooseView(View):
+    def get_object_list(self):
+        documents = permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ["choose"]
+        )
+        # allow hooks to modify the queryset
+        for hook in hooks.get_hooks("construct_document_chooser_queryset"):
+            documents = hook(documents, self.request)
+
+        return documents
+
     def get(self, request):
-        Document = get_document_model()
+        self.model = get_document_model()
 
         if permission_policy.user_has_permission(request.user, "add"):
-            DocumentForm = get_document_form(Document)
+            DocumentForm = get_document_form(self.model)
             self.uploadform = DocumentForm(
                 user=request.user, prefix="document-chooser-upload"
             )
         else:
             self.uploadform = None
 
-        documents = permission_policy.instances_user_has_any_permission_for(
-            request.user, ["choose"]
-        )
-
-        # allow hooks to modify the queryset
-        for hook in hooks.get_hooks("construct_document_chooser_queryset"):
-            documents = hook(documents, request)
+        documents = self.get_object_list()
 
         self.q = None
         self.is_searching = False
