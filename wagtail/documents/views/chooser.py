@@ -52,6 +52,8 @@ class DownloadColumn(Column):
 
 
 class BaseChooseView(ContextMixin, View):
+    results_url_name = "wagtaildocs:chooser_results"
+
     def get_object_list(self):
         documents = permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["choose"]
@@ -61,6 +63,9 @@ class BaseChooseView(ContextMixin, View):
             documents = hook(documents, self.request)
 
         return documents
+
+    def get_results_url(self):
+        return reverse(self.results_url_name)
 
     def get(self, request):
         self.model = get_document_model()
@@ -81,7 +86,6 @@ class BaseChooseView(ContextMixin, View):
         self.collection_id = request.GET.get("collection_id")
         if self.collection_id:
             documents = documents.filter(collection=self.collection_id)
-        self.documents_exist = documents.exists()
 
         if "q" in request.GET:
             self.searchform = SearchForm(request.GET)
@@ -127,13 +131,17 @@ class BaseChooseView(ContextMixin, View):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "documents": self.documents,
-                "documents_exist": self.documents_exist,
+                "results": self.documents,
                 "table": self.table,
-                "query_string": self.q,
+                "results_url": self.get_results_url(),
+                "search_query": self.q,
                 "searchform": self.searchform,
                 "is_searching": self.is_searching,
                 "collection_id": self.collection_id,
+                # FIXME: make a 'can_create' flag available to ChooseResultsView
+                # so that we don't have to construct a redundant form object just to
+                # test for its presence
+                "uploadform": self.uploadform,
             }
         )
         return context
@@ -147,7 +155,6 @@ class ChooseView(BaseChooseView):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "uploadform": self.uploadform,
                 "collections": self.collections,
             }
         )

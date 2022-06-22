@@ -11,6 +11,8 @@
                 {% endblocktrans %}
             </h2>
         {% endblock %}
+    {% else %}
+        {% block listing_title %}{% endblock %}
     {% endif %}
 
     {% component table %}
