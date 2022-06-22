@@ -42,6 +42,7 @@ Changelog
  * Cache model permission codenames in PermissionHelper (Tidiane Dia)
  * Selecting a new parent page for moving a page now uses the chooser modal which allows searching (Viggo de Vries)
  * Move `get_snippet_edit_handler` function to `wagtail.admin.panels.get_edit_handler` (Sage Abdullah)
+ * Add clarity to the search indexing documentation for how `boost` works when using Postgres with the database search backend (Tibor Leupold)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
