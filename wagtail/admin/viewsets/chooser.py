@@ -71,6 +71,7 @@ class ChooserViewSet(ViewSet):
             model=self.model,
             chosen_url_name=self.get_url_name("chosen"),
             results_url_name=self.get_url_name("choose_results"),
+            create_url_name=self.get_url_name("create"),
             icon=self.icon,
             page_title=self.page_title,
             creation_form_class=self.creation_form_class,
@@ -100,6 +101,7 @@ class ChooserViewSet(ViewSet):
     def create_view(self):
         return self.create_view_class.as_view(
             model=self.model,
+            create_url_name=self.get_url_name("create"),
             creation_form_class=self.creation_form_class,
             form_fields=self.form_fields,
             exclude_form_fields=self.exclude_form_fields,
