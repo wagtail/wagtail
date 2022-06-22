@@ -1,5 +1,6 @@
 from unittest import mock
 
+from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
@@ -41,10 +42,10 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
     @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=10)
-    def test_confirm_before_delete_scenario_1(self):
+    def test_confirm_delete_scenario_1(self):
         # If the number of pages to be deleted are less than
-        # WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT then don't show
-        # confirmation checkbox.
+        # WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT then don't need
+        # for confirmation
         child_1 = SimplePage(title="child 1", slug="child-1", content="hello")
         self.child_page.add_child(instance=child_1)
         child_2 = SimplePage(title="child 2", slug="child-2", content="hello")
@@ -53,27 +54,95 @@ class TestPageDelete(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "This will also delete all the child pages.")
+        self.assertNotContains(
+            response, '<input type="text" name="confirm_site_name" required>'
+        )
+        # deletion should not actually happen on GET
+        self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
+
+        # And admin should be able to delete page without any confirmation
+        response = self.client.post(
+            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+        )
+        # Check that page is deleted
+        self.assertFalse(SimplePage.objects.filter(id=self.child_page.id).exists())
+
+    @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=3)
+    @override_settings(WAGTAIL_SITE_NAME="mysite")
+    def test_confirm_delete_scenario_2(self):
+        # If the number of pages to be deleted are greater than or equal to
+        # WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT then show input box
+        # to input wagtail_site_name.
+        wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME")
+        child_1 = SimplePage(title="child 1", slug="child-1", content="hello")
+        self.child_page.add_child(instance=child_1)
+        child_2 = SimplePage(title="child 2", slug="child-2", content="hello")
+        self.child_page.add_child(instance=child_2)
+        response = self.client.get(
+            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This action will delete total <b>3</b> pages.")
+        self.assertContains(
+            response, f"Please type <b>{wagtail_site_name}</b> to confirm."
+        )
+        self.assertContains(
+            response, '<input type="text" name="confirm_site_name" required>'
+        )
         # deletion should not actually happen on GET
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
     @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=3)
-    def test_confirm_before_delete_scenario_2(self):
-        # If the number of pages to be deleted are greater than or equal to
-        # WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT then show
-        # confirmation checkbox.
+    @override_settings(WAGTAIL_SITE_NAME="mysite")
+    def test_confirm_delete_scenario_3(self):
+        # If admin entered the incorrect site name and submit
+        # the form, then site should not be deleted and same
+        # form should be displayed again.
+        wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME")
         child_1 = SimplePage(title="child 1", slug="child-1", content="hello")
         self.child_page.add_child(instance=child_1)
         child_2 = SimplePage(title="child 2", slug="child-2", content="hello")
         self.child_page.add_child(instance=child_2)
-        response = self.client.get(
-            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,)),
+            data={"confirm_site_name": "random"},
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "This will also delete all the child pages.")
-        self.assertContains(response, '<input type="checkbox" required>')
-        # deletion should not actually happen on GET
+        # One error messages should be returned
+        messages = [m.message for m in response.context["messages"]]
+        self.assertEqual(len(messages), 1)
+        self.assertContains(response, "This action will delete total <b>3</b> pages.")
+        self.assertContains(
+            response, f"Please type <b>{wagtail_site_name}</b> to confirm."
+        )
+        self.assertContains(
+            response, '<input type="text" name="confirm_site_name" required>'
+        )
+        # Site should not be deleted
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
+
+    @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=3)
+    @override_settings(WAGTAIL_SITE_NAME="mysite")
+    def test_confirm_delete_scenario_4(self):
+        # If admin entered the correct site name and submit the form
+        # then the site should be deleted
+        child_1 = SimplePage(title="child 1", slug="child-1", content="hello")
+        self.child_page.add_child(instance=child_1)
+        child_2 = SimplePage(title="child 2", slug="child-2", content="hello")
+        self.child_page.add_child(instance=child_2)
+        response = self.client.post(
+            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,)),
+            data={"confirm_site_name": "mysite"},
+        )
+        # Should be redirected to explorer page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        # Check that the page is deleted
+        self.assertFalse(SimplePage.objects.filter(id=self.child_page.id).exists())
+        # Check that the subpage is also deleted
+        self.assertFalse(SimplePage.objects.filter(id=child_1.id).exists())
+        self.assertFalse(SimplePage.objects.filter(id=child_2.id).exists())
 
     def test_page_delete_specific_admin_title(self):
         response = self.client.get(

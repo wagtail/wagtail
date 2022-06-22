@@ -69,9 +69,18 @@
         <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}
             {% if confirm_before_delete %}
-                <input type="checkbox" required>
-                {% trans "This will also delete all the child pages." %}
-                <br><br>
+                <div style="color:#b4191f;">
+                    {% blocktrans with total_pages=descendant_count|add:1 %}
+                        This action will delete total <b>{{total_pages}}</b> pages.
+                    {% endblocktrans %}
+                </div>
+                <div>
+                    {% blocktrans %}
+                        Please type <b>{{wagtail_site_name}}</b> to confirm.
+                    {% endblocktrans %}
+                    <input type="text" name="confirm_site_name" required>
+                </div>
+                <br>
             {% endif %}
             <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
