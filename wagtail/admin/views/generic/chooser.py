@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.admin.utils import unquote
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.forms.models import modelform_factory
 from django.http import Http404
@@ -151,6 +151,7 @@ class CreationFormMixin:
     creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
     create_action_label = _("Create")
     create_action_clicked_label = None
+    create_url_name = None
 
     def get_creation_form_class(self):
         if self.creation_form_class:
@@ -160,10 +161,19 @@ class CreationFormMixin:
                 self.model, fields=self.form_fields, exclude=self.exclude_form_fields
             )
 
+    def get_create_url(self):
+        if not self.create_url_name:
+            raise ImproperlyConfigured(
+                "%r must provide a create_url_name attribute or a get_create_url method"
+                % type(self)
+            )
+        return reverse(self.create_url_name)
+
     def get_creation_form_context_data(self):
         # don't include the actual form object here, as different views will instantiate it
         # differently (e.g. unbound for the initial GET, bound for a POST)
         return {
+            "create_action_url": self.get_create_url(),
             "create_action_label": self.create_action_label,
             "create_action_clicked_label": self.create_action_clicked_label,
         }
@@ -180,7 +190,6 @@ class ChooseViewMixin(CreationFormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_creation_form_context_data())
         context.update(
             {
                 "filter_form": self.filter_form,
@@ -192,6 +201,7 @@ class ChooseViewMixin(CreationFormMixin):
 
         creation_form_class = self.get_creation_form_class()
         if creation_form_class:
+            context.update(self.get_creation_form_context_data())
             context["creation_form"] = creation_form_class()
 
         return context
@@ -306,13 +316,20 @@ class CreateView(CreationFormMixin, ChosenResponseMixin, View):
     def get(self, request):
         form_class = self.get_creation_form_class()
         self.form = form_class()
-        return self.render_reshow_creation_form_response()
+        return self.get_reshow_creation_form_response()
 
-    def render_reshow_creation_form_response(self):
-        context = {
-            "creation_form": self.form,
-        }
-        context.update(self.get_creation_form_context_data())
+    def post(self, request):
+        form_class = self.get_creation_form_class()
+        self.form = form_class(request.POST, request.FILES)
+        if self.form.is_valid():
+            object = self.form.save()
+            return self.get_chosen_response(object)
+        else:
+            return self.get_reshow_creation_form_response()
+
+    def get_reshow_creation_form_response(self):
+        context = self.get_creation_form_context_data()
+        context["creation_form"] = self.form
         response_html = render_to_string(
             self.creation_form_template_name, context, self.request
         )

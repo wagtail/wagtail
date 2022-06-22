@@ -7,7 +7,7 @@
     aria-labelledby="tab-label-create"
 >
     {% include "wagtailadmin/shared/non_field_errors.html" with form=creation_form %}
-    <form data-chooser-modal-creation-form action="" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
+    <form data-chooser-modal-creation-form action="{{ create_action_url }}" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
         {% csrf_token %}
         {% for field in creation_form.hidden_fields %}{{ field }}{% endfor %}
 
