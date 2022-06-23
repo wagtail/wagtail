@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
     const middleware = (next) => (action) => {
       let result;
 
-      if (!!console.time) {
+      if (console.time) {
         console.time(action.type);
         result = next(action);
         console.timeEnd(action.type);
