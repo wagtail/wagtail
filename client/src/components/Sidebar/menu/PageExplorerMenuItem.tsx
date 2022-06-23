@@ -1,9 +1,10 @@
 import * as React from 'react';
 
+import { Provider } from 'react-redux';
+import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
 import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
-import { Provider } from 'react-redux';
 import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import {
   openPageExplorer,
@@ -11,7 +12,6 @@ import {
 } from '../../PageExplorer/actions';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-import Tippy from '@tippyjs/react';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
   MenuItemProps<PageExplorerMenuItemDefinition>

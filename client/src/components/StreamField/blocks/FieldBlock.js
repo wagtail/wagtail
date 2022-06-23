@@ -1,7 +1,7 @@
 /* global $ */
-import { escapeHtml as h } from '../../../utils/text';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
 
 export class FieldBlock {

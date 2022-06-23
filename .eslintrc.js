@@ -8,7 +8,6 @@ const legacyCode = {
   'import/no-cycle': 'off',
   'import/no-extraneous-dependencies': 'off',
   'import/no-useless-path-segments': 'off',
-  'import/order': 'off',
   'jsx-a11y/alt-text': 'off',
   'jsx-a11y/anchor-is-valid': 'off',
   'jsx-a11y/click-events-have-key-events': 'off',
