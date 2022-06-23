@@ -14,7 +14,6 @@ const legacyCode = {
   'no-await-in-loop': 'off',
   'no-continue': 'off',
   'no-else-return': 'off',
-  'no-import-assign': 'off',
   'no-plusplus': 'off',
   'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
