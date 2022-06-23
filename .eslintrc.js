@@ -94,7 +94,6 @@ module.exports = {
         'react/destructuring-assignment': 'off',
         'react/forbid-prop-types': 'off',
         'react/function-component-definition': 'off',
-        'react/jsx-filename-extension': 'off',
         'react/jsx-no-useless-fragment': 'off',
         'react/jsx-props-no-spreading': 'off',
         'react/no-danger': 'off',
