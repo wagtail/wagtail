@@ -5,7 +5,6 @@ const legacyCode = {
   'constructor-super': 'off',
   'default-param-last': 'off',
   'import/no-cycle': 'off',
-  'import/no-extraneous-dependencies': 'off',
   'jsx-a11y/alt-text': 'off',
   'jsx-a11y/anchor-is-valid': 'off',
   'jsx-a11y/click-events-have-key-events': 'off',
