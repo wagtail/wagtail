@@ -4,6 +4,7 @@
 {% block content %}
     <header class="header">
         {% move_breadcrumb page_to_move viewed_page %}
+        {% explorer_breadcrumb parent_page 'wagtailadmin_pages:move_choose_destination' use_next_template=True is_expanded=True page_to_move querystring_value=querystring_value %}
         <div class="row">
             <h1 class="header__title">
                 {% icon name="doc-empty-inverse" %}

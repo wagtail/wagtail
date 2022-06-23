@@ -24,6 +24,11 @@
                 aria-label="{% trans 'Breadcrumb' %}">
                 <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
                     {% for page in pages %}
+                        {% if page.is_root and url_root_name %}
+                            {% url url_root_name as breadcrumb_url %}
+                        {% else %}
+                            {% if page_to_move_id %}{% url url_name page_to_move_id page.id as breadcrumb_url %}{% else %}{% url url_name page.id as breadcrumb_url %}{% endif %}
+                        {% endif %}
                         {% if page.is_root %}
                             <li
                                 class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
