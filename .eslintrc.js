@@ -6,7 +6,6 @@ const legacyCode = {
   'default-param-last': 'off',
   'import/first': 'off',
   'import/newline-after-import': 'off',
-  'import/no-cycle': 'off',
   'import/no-useless-path-segments': 'off',
   'import/order': 'off',
   'jsx-a11y/alt-text': 'off',
