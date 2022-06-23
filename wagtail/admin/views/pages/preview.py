@@ -1,16 +1,10 @@
-from time import time
-
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, JsonResponse
-from django.http.request import QueryDict
+from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.template.response import TemplateResponse
-from django.utils.decorators import method_decorator
-from django.views.generic import View
 
+from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
 from wagtail.models import Page
-from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 
 def view_draft(request, page_id):
@@ -27,89 +21,25 @@ def view_draft(request, page_id):
     return page.make_preview_request(request, preview_mode)
 
 
-class PreviewOnEdit(View):
-    http_method_names = ("post", "get")
-    preview_expiration_timeout = 60 * 60 * 24  # seconds
-    session_key_prefix = "wagtail-preview-"
-
-    def remove_old_preview_data(self):
-        expiration = time() - self.preview_expiration_timeout
-        expired_keys = [
-            k
-            for k, v in self.request.session.items()
-            if k.startswith(self.session_key_prefix) and v[1] < expiration
-        ]
-        # Removes the session key gracefully
-        for k in expired_keys:
-            self.request.session.pop(k)
-
+class PreviewOnEdit(GenericPreviewOnEdit):
     @property
     def session_key(self):
         return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
 
-    def get_page(self):
+    def get_object(self):
         return get_object_or_404(
             Page, id=self.kwargs["page_id"]
         ).get_latest_revision_as_object()
 
-    def get_form(self, page, query_dict):
-        form_class = page.get_edit_handler().get_form_class()
-        parent_page = page.get_parent().specific
+    def get_form(self, query_dict):
+        form_class = self.object.get_edit_handler().get_form_class()
+        parent_page = self.object.get_parent().specific
 
         if not query_dict:
             # Query dict is empty, return null form
-            return form_class(instance=page, parent_page=parent_page)
+            return form_class(instance=self.object, parent_page=parent_page)
 
-        return form_class(query_dict, instance=page, parent_page=parent_page)
-
-    def _get_data_from_session(self):
-        post_data, _ = self.request.session.get(self.session_key, (None, None))
-        if not isinstance(post_data, str):
-            post_data = ""
-        return QueryDict(post_data)
-
-    def post(self, request, *args, **kwargs):
-        self.remove_old_preview_data()
-        page = self.get_page()
-        form = self.get_form(page, request.POST)
-        is_valid = form.is_valid()
-
-        if is_valid:
-            # TODO: Handle request.FILES.
-            request.session[self.session_key] = request.POST.urlencode(), time()
-            is_available = True
-        else:
-            # Check previous data in session to determine preview availability
-            form = self.get_form(page, self._get_data_from_session())
-            is_available = form.is_valid()
-
-        return JsonResponse({"is_valid": is_valid, "is_available": is_available})
-
-    def error_response(self, page):
-        return TemplateResponse(
-            self.request, "wagtailadmin/pages/preview_error.html", {"page": page}
-        )
-
-    @method_decorator(xframe_options_sameorigin_override)
-    def get(self, request, *args, **kwargs):
-        page = self.get_page()
-        form = self.get_form(page, self._get_data_from_session())
-
-        if not form.is_valid():
-            return self.error_response(page)
-
-        form.save(commit=False)
-
-        try:
-            preview_mode = request.GET.get("mode", page.default_preview_mode)
-        except IndexError:
-            raise PermissionDenied
-
-        extra_attrs = {
-            "in_preview_panel": request.GET.get("in_preview_panel") == "true"
-        }
-
-        return page.make_preview_request(request, preview_mode, extra_attrs)
+        return form_class(query_dict, instance=self.object, parent_page=parent_page)
 
 
 class PreviewOnCreate(PreviewOnEdit):
@@ -122,7 +52,7 @@ class PreviewOnCreate(PreviewOnEdit):
             self.kwargs["parent_page_id"],
         )
 
-    def get_page(self):
+    def get_object(self):
         content_type_app_name = self.kwargs["content_type_app_name"]
         content_type_model_name = self.kwargs["content_type_model_name"]
         parent_page_id = self.kwargs["parent_page_id"]
@@ -154,8 +84,8 @@ class PreviewOnCreate(PreviewOnEdit):
 
         return page
 
-    def get_form(self, page, query_dict):
-        form = super().get_form(page, query_dict)
+    def get_form(self, query_dict):
+        form = super().get_form(query_dict)
         if form.is_valid():
             # Ensures our unsaved page has a suitable url.
             form.instance.set_url_path(form.parent_page)
