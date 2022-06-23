@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-expressions
 require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify')
   .default;
+
 import { cleanForSlug } from './cleanForSlug';
 
 describe('page-editor tests', () => {

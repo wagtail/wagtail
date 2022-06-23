@@ -5,6 +5,7 @@ import { TypedTableBlockDefinition } from './typed_table_block';
 import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
 
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {

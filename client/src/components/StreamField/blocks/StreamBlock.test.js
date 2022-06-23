@@ -7,6 +7,7 @@ import {
 } from './StreamBlock';
 
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {
