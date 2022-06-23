@@ -41,6 +41,7 @@ Changelog
  * Rename `Page.get_latest_revision_as_page` to `Page.get_latest_revision_as_object` (Sage Abdullah)
  * Cache model permission codenames in PermissionHelper (Tidiane Dia)
  * Selecting a new parent page for moving a page now uses the chooser modal which allows searching (Viggo de Vries)
+ * Move `get_snippet_edit_handler` function to `wagtail.admin.panels.get_edit_handler` (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

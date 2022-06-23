@@ -1,5 +1,5 @@
 import warnings
-from functools import lru_cache, partial
+from functools import partial
 from urllib.parse import urlencode
 
 import django_filters
@@ -17,7 +17,7 @@ from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import Column, DateColumn, InlineActionsTable, UserColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
@@ -52,26 +52,13 @@ def get_snippet_model_from_url_params(app_name, model_name):
     return model
 
 
-@lru_cache(maxsize=None)
-def get_snippet_panel(model):
-    if hasattr(model, "edit_handler"):
-        # use the edit handler specified on the snippet class
-        panel = model.edit_handler
-    else:
-        panels = extract_panel_definitions_from_model_class(model)
-        panel = ObjectList(panels)
-
-    return panel.bind_to_model(model)
-
-
 def get_snippet_edit_handler(model):
-    get_snippet_panel(model)
-
     warnings.warn(
-        "The get_snippet_edit_handler function has been renamed to get_snippet_panel",
+        "The get_snippet_edit_handler function has been moved to wagtail.admin.panels.get_edit_handler",
         category=RemovedInWagtail50Warning,
         stacklevel=2,
     )
+    return get_edit_handler(model)
 
 
 # == Views ==
@@ -193,7 +180,7 @@ class Create(CreateView):
         return self.run_hook("after_create_snippet", self.request, self.object)
 
     def get_panel(self):
-        return get_snippet_panel(self.model)
+        return get_edit_handler(self.model)
 
     def get_add_url(self):
         url = reverse(self.add_url_name)
@@ -291,7 +278,7 @@ class Edit(EditView):
         super().setup(request, *args, **kwargs)
 
     def get_panel(self):
-        return get_snippet_panel(self.model)
+        return get_edit_handler(self.model)
 
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=unquote(self.pk))
