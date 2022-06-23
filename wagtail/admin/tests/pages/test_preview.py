@@ -141,7 +141,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # The preview should be unavailable
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/preview_error.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
             "<title>Wagtail - Preview not available</title>",
@@ -180,7 +180,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # The preview should still be unavailable
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/preview_error.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
             "<title>Wagtail - Preview not available</title>",
