@@ -61,6 +61,7 @@ def explorer_breadcrumb(
     context,
     page,
     url_name,
+    page_to_move=None,
     url_root_name=None,
     include_self=True,
     is_expanded=False,
@@ -68,7 +69,6 @@ def explorer_breadcrumb(
     querystring_value=None,
     trailing_breadcrumb_title=None,
     use_next_template=False,
-    page_to_move=None,
 ):
     user = context["request"].user
 
@@ -90,7 +90,7 @@ def explorer_breadcrumb(
         "url_name": url_name,
         "url_root_name": url_root_name,
         "use_next_template": use_next_template,
-        "page_to_move_id": page_to_move.id,
+        "page_to_move": page_to_move,
     }
 
 
