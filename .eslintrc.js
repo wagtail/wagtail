@@ -4,7 +4,6 @@ const legacyCode = {
   'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
-  'import/no-cycle': 'off',
   'jsx-a11y/alt-text': 'off',
   'jsx-a11y/anchor-is-valid': 'off',
   'jsx-a11y/click-events-have-key-events': 'off',
