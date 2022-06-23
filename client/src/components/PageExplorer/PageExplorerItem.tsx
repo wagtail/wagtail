@@ -2,9 +2,9 @@ import React from 'react';
 
 import { gettext } from '../../utils/gettext';
 import { ADMIN_URLS, LOCALE_NAMES } from '../../config/wagtailConfig';
-import Icon from '../../components/Icon/Icon';
-import Button from '../../components/Button/Button';
-import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
+import Icon from '../Icon/Icon';
+import Button from '../Button/Button';
+import PublicationStatus from '../PublicationStatus/PublicationStatus';
 import { PageState } from './reducers/nodes';
 
 // Hoist icons in the explorer item, as it is re-rendered many times.

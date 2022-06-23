@@ -4,7 +4,7 @@ import React from 'react';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
-import TooltipEntity from '../decorators/TooltipEntity';
+import TooltipEntity from './TooltipEntity';
 
 const LINK_ICON = <Icon name="link" />;
 const BROKEN_LINK_ICON = <Icon name="warning" />;

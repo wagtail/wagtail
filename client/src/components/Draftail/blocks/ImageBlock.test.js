@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ImageBlock from '../blocks/ImageBlock';
+import ImageBlock from './ImageBlock';
 
 describe('ImageBlock', () => {
   it('renders', () => {
