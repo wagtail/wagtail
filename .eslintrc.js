@@ -19,7 +19,6 @@ const legacyCode = {
   'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
-  'operator-assignment': 'off',
   'prefer-destructuring': 'off',
   'prefer-object-spread': 'off',
   'prefer-promise-reject-errors': 'off',

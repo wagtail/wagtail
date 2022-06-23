@@ -21,7 +21,7 @@ var updateDeleteButton = function (anySelected, newState) {
     // hide button and add url
     $deleteButton.removeClass('u-hidden');
     var url = $deleteButton.data('url');
-    url = url + $.param({ id: ids }, true);
+    url += $.param({ id: ids }, true);
     $deleteButton.attr('href', url);
   } else {
     // show button and remove url
