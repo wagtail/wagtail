@@ -23,11 +23,12 @@ from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexV
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
 from wagtail.admin.views.generic.models import RevisionsCompareView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
+from wagtail.admin.views.generic.preview import PreviewOnCreate, PreviewOnEdit
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, Locale, RevisionMixin
+from wagtail.models import DraftStateMixin, Locale, PreviewableMixin, RevisionMixin
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -142,6 +143,7 @@ class List(IndexView):
 
 class Create(CreateView):
     view_name = "create"
+    preview_url_name = None
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
@@ -211,12 +213,8 @@ class Create(CreateView):
         context = super().get_context_data(**kwargs)
 
         action_menu = self._get_action_menu()
-        media = context.get("media") + action_menu.media
-
-        side_panels = None
-        if self.locale:
-            side_panels = SnippetSidePanels(self.request, self.model())
-            media += side_panels.media
+        side_panels = SnippetSidePanels(self.request, self.model(), self)
+        media = context.get("media") + action_menu.media + side_panels.media
 
         context.update(
             {
@@ -244,6 +242,7 @@ class Create(CreateView):
 class Edit(EditView):
     view_name = "edit"
     history_url_name = None
+    preview_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = _("The snippet could not be saved due to errors.")
@@ -323,16 +322,16 @@ class Edit(EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        media = context.get("media")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(self.request, self.object)
+        side_panels = SnippetSidePanels(self.request, self.object, self)
+        media = context.get("media") + action_menu.media + side_panels.media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "media": media + action_menu.media + side_panels.media,
+                "media": media,
             }
         )
 
@@ -600,6 +599,8 @@ class SnippetViewSet(ViewSet):
     usage_view_class = Usage
     history_view_class = History
     revisions_compare_view_class = RevisionsCompare
+    preview_on_add_view_class = PreviewOnCreate
+    preview_on_edit_view_class = PreviewOnEdit
 
     @property
     def revisions_revert_view_class(self):
@@ -647,6 +648,7 @@ class SnippetViewSet(ViewSet):
             index_url_name=self.get_url_name("list"),
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
+            preview_url_name=self.get_url_name("preview_on_add"),
         )
 
     @property
@@ -658,6 +660,7 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
+            preview_url_name=self.get_url_name("preview_on_edit"),
         )
 
     @property
@@ -711,6 +714,14 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
+    def preview_on_add(self):
+        return self.preview_on_add_view_class.as_view(model=self.model)
+
+    @property
+    def preview_on_edit(self):
+        return self.preview_on_edit_view_class.as_view(model=self.model)
+
+    @property
     def redirect_to_edit(self):
         return partial(
             redirect_to_edit,
@@ -745,6 +756,12 @@ class SnippetViewSet(ViewSet):
             path("usage/<str:pk>/", self.usage_view, name="usage"),
             path("history/<str:pk>/", self.history_view, name="history"),
         ]
+
+        if issubclass(self.model, PreviewableMixin):
+            urlpatterns += [
+                path("preview/", self.preview_on_add, name="preview_on_add"),
+                path("preview/<str:pk>/", self.preview_on_edit, name="preview_on_edit"),
+            ]
 
         if issubclass(self.model, RevisionMixin):
             urlpatterns += [
