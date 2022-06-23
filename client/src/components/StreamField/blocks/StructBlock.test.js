@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import $ from 'jquery';
 import { FieldBlockDefinition } from './FieldBlock';
 import {
   StructBlockDefinition,
   StructBlockValidationError,
 } from './StructBlock';
-
-import $ from 'jquery';
 
 window.$ = $;
 

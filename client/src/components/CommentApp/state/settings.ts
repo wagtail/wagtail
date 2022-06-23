@@ -1,7 +1,7 @@
+import produce from 'immer';
 import * as actions from '../actions/settings';
 import type { Author } from './comments';
 import { update } from './utils';
-import produce from 'immer';
 
 export interface SettingsState {
   user: Author | null;

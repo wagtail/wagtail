@@ -1,12 +1,12 @@
 import * as React from 'react';
 
+import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
 
 import { renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
-import Tippy from '@tippyjs/react';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;

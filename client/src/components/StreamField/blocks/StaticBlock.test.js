@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { StaticBlockDefinition } from './StaticBlock';
-
 import $ from 'jquery';
+import { StaticBlockDefinition } from './StaticBlock';
 
 window.$ = $;
 

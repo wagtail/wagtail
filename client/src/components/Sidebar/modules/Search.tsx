@@ -1,10 +1,9 @@
 import * as React from 'react';
 
+import Tippy from '@tippyjs/react';
 import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 import { ModuleDefinition, SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
-
-import Tippy from '@tippyjs/react';
 
 interface SearchInputProps {
   slim: boolean;
