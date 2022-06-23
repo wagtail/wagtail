@@ -425,7 +425,7 @@ describe('ModalWorkflowSource', () => {
             block: () => {},
           }}
           entity={entity}
-          entityKey={'first'}
+          entityKey="first"
           onComplete={onComplete}
           onClose={() => {}}
         />,
