@@ -5,7 +5,6 @@ const legacyCode = {
   'default-param-last': 'off',
   'no-await-in-loop': 'off',
   'no-continue': 'off',
-  'no-else-return': 'off',
   'no-plusplus': 'off',
   'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
@@ -55,6 +54,8 @@ module.exports = {
     ],
     // does not align with preference for allowing multiple items per file
     'max-classes-per-file': 'off',
+    // sometimes code just naturally reads as an equal choice between two alternatives, also allows for easier refactoring between return in branches or return at end if off
+    'no-else-return': 'off',
     // allow for one specific edge case
     'no-underscore-dangle': [
       'error',
