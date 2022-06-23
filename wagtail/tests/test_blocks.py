@@ -411,6 +411,13 @@ class TestDecimalBlock(TestCase):
         block_val = block.value_from_form(Decimal("1.63"))
         self.assertEqual(type(block_val), Decimal)
 
+    def test_type_to_python(self):
+        block = blocks.DecimalBlock()
+        block_val = block.to_python(
+            "1.63"
+        )  # decimals get saved as string in JSON field
+        self.assertEqual(type(block_val), Decimal)
+
     def test_render(self):
         block = blocks.DecimalBlock()
         test_val = Decimal(1.63)
