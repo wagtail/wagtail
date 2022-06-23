@@ -89,6 +89,12 @@ class TestPageMove(TestCase, WagtailTestUtils):
             )
             self.assertContains(response, move_url)
 
+    def test_breadcrumb(self):
+        response = self.client.get(
+            reverse("wagtailadmin_pages:move", args=(self.test_page_a.id,))
+        )
+        self.assertContains(response, "data-breadcrumb-next")
+
     def test_page_move_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False

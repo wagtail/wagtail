@@ -93,6 +93,7 @@ def explorer_breadcrumb(
         "page_to_move": page_to_move,
     }
 
+
 @register.inclusion_tag("wagtailadmin/shared/search_other.html", takes_context=True)
 def search_other(context, current=None):
     request = context["request"]
