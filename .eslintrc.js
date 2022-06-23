@@ -5,7 +5,6 @@ const legacyCode = {
   'constructor-super': 'off',
   'default-param-last': 'off',
   'import/first': 'off',
-  'import/newline-after-import': 'off',
   'import/no-cycle': 'off',
   'import/no-extraneous-dependencies': 'off',
   'import/no-useless-path-segments': 'off',

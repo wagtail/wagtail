@@ -7,6 +7,7 @@ import {
 } from './StructBlock';
 
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {

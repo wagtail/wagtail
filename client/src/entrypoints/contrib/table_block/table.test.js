@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 window.$ = $;
 
 import '../../admin/telepath/telepath';

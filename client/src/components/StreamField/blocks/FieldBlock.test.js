@@ -3,6 +3,7 @@
 import { FieldBlockDefinition } from './FieldBlock';
 
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {

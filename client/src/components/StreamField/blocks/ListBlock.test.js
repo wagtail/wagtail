@@ -4,6 +4,7 @@ import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
 
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {

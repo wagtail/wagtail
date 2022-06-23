@@ -3,6 +3,7 @@
 import { StaticBlockDefinition } from './StaticBlock';
 
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {
