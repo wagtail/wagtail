@@ -167,18 +167,16 @@ function onSelectIndividualCheckbox(e) {
     let numObjectsSelected = '';
     if (numCheckedObjects === 1) {
       numObjectsSelected = getStringForListing('SINGULAR');
+    } else if (numCheckedObjects === checkedState.numObjects) {
+      numObjectsSelected = getStringForListing('ALL').replace(
+        '{0}',
+        numCheckedObjects,
+      );
     } else {
-      if (numCheckedObjects === checkedState.numObjects) {
-        numObjectsSelected = getStringForListing('ALL').replace(
-          '{0}',
-          numCheckedObjects,
-        );
-      } else {
-        numObjectsSelected = getStringForListing('PLURAL').replace(
-          '{0}',
-          numCheckedObjects,
-        );
-      }
+      numObjectsSelected = getStringForListing('PLURAL').replace(
+        '{0}',
+        numCheckedObjects,
+      );
     }
     document.querySelector(BULK_ACTION_NUM_OBJECTS).textContent =
       numObjectsSelected;
