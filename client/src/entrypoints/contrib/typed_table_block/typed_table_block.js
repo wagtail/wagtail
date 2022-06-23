@@ -153,10 +153,12 @@ export class TypedTableBlock {
     this.addColumnMenu.show();
     this.addColumnCallback = callback;
   }
+
   hideAddColumnMenu() {
     this.addColumnMenu.hide();
     this.addColumnMenuBaseElement = null;
   }
+
   toggleAddColumnMenu(baseElement, callback) {
     if (this.addColumnMenuBaseElement === baseElement) {
       this.hideAddColumnMenu();
@@ -164,6 +166,7 @@ export class TypedTableBlock {
       this.showAddColumnMenu(baseElement, callback);
     }
   }
+
   clear() {
     // reset to initial empty state with no rows or columns
     this.columns = [];
@@ -192,6 +195,7 @@ export class TypedTableBlock {
     this.tbody.replaceChildren();
     this.addRowButton.hide();
   }
+
   insertColumn(index, blockDef, opts) {
     const column = {
       blockDef,

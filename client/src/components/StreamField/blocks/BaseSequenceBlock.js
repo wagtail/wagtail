@@ -51,6 +51,7 @@ class ActionButton {
   enable() {
     this.dom.removeAttr('disabled');
   }
+
   disable() {
     this.dom.attr('disabled', 'true');
   }
@@ -258,31 +259,38 @@ export class BaseSequenceChild extends EventEmitter {
       this.block.setCapabilityOptions('duplicate', { enabled: true });
     }
   }
+
   disableDuplication() {
     this.emit('disableDuplication');
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('duplicate', { enabled: false });
     }
   }
+
   enableSplit() {
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('split', { enabled: true });
     }
   }
+
   disableSplit() {
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('split', { enabled: false });
     }
   }
+
   enableMoveUp() {
     this.emit('enableMoveUp');
   }
+
   disableMoveUp() {
     this.emit('disableMoveUp');
   }
+
   enableMoveDown() {
     this.emit('enableMoveDown');
   }
+
   disableMoveDown() {
     this.emit('disableMoveDown');
   }

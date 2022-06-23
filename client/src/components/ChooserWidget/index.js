@@ -47,9 +47,11 @@ export class Chooser {
   getState() {
     return this.state;
   }
+
   getValue() {
     return this.state && this.state.id;
   }
+
   setState(newState) {
     this.state = newState;
     if (newState) {
@@ -58,13 +60,16 @@ export class Chooser {
       this.renderEmptyState();
     }
   }
+
   clear() {
     this.setState(null);
   }
+
   renderEmptyState() {
     this.input.setAttribute('value', '');
     this.chooserElement.classList.add('blank');
   }
+
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
     this.titleElement.innerText = newState.title;
@@ -80,6 +85,7 @@ export class Chooser {
     }
     return result;
   }
+
   focus() {
     this.chooserElement.querySelector('.action-choose').focus();
   }

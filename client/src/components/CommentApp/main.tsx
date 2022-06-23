@@ -105,11 +105,14 @@ function renderCommentsUi(
 
 export class CommentApp {
   store: Store;
+
   layout: LayoutController;
+
   utils = {
     selectCommentsForContentPathFactory,
     selectCommentFactory,
   };
+
   selectors = {
     selectComments,
     selectEnabled,
@@ -117,6 +120,7 @@ export class CommentApp {
     selectIsDirty,
     selectCommentCount,
   };
+
   actions = commentActionFunctions;
 
   constructor() {
@@ -136,19 +140,23 @@ export class CommentApp {
       }),
     );
   }
+
   updateAnnotation(annotation: Annotation, commentId: number) {
     this.attachAnnotationLayout(annotation, commentId);
     this.store.dispatch(updateComment(commentId, { annotation: annotation }));
   }
+
   attachAnnotationLayout(annotation: Annotation, commentId: number) {
     // Attach an annotation to an existing comment in the layout
 
     // const layout engine know the annotation so it would position the comment correctly
     this.layout.setCommentAnnotation(commentId, annotation);
   }
+
   setCurrentTab(tab: string | null) {
     this.store.dispatch(updateGlobalSettings({ currentTab: tab }));
   }
+
   makeComment(annotation: Annotation, contentpath: string, position = '') {
     const commentId = getNextCommentId();
 
@@ -180,6 +188,7 @@ export class CommentApp {
     );
     return commentId;
   }
+
   setVisible(visible: boolean) {
     this.store.dispatch(
       updateGlobalSettings({
@@ -187,15 +196,18 @@ export class CommentApp {
       }),
     );
   }
+
   invalidateContentPath(contentPath: string) {
     // Called when a given content path on the form is no longer valid (eg, a block has been deleted)
     this.store.dispatch(invalidateContentPath(contentPath));
   }
+
   updateContentPath(commentId: number, newContentPath: string) {
     this.store.dispatch(
       updateComment(commentId, { contentpath: newContentPath }),
     );
   }
+
   renderApp(
     element: HTMLElement,
     outputElement: HTMLElement,

@@ -173,6 +173,7 @@ class StreamBlockMenu extends BaseInsertionControl {
       this.open({ animate: true });
     }
   }
+
   open(opts) {
     if (!this.canAddBlock) {
       return;
@@ -188,6 +189,7 @@ class StreamBlockMenu extends BaseInsertionControl {
     this.outerContainer.attr('aria-hidden', 'false');
     this.isOpen = true;
   }
+
   close(opts) {
     if (opts && opts.animate) {
       this.outerContainer.slideUp();

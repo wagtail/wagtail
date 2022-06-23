@@ -75,27 +75,32 @@ export class DraftailInlineAnnotation implements Annotation {
     this.focusedBlockKey = '';
     this.cachedMedianRef = null;
   }
+
   addDecoratorRef(ref: DecoratorRef, blockKey: BlockKey) {
     this.decoratorRefs.set(ref, blockKey);
 
     // We're adding a ref, so remove the cached median refs - this needs to be recalculated
     this.cachedMedianRef = null;
   }
+
   removeDecoratorRef(ref: DecoratorRef) {
     this.decoratorRefs.delete(ref);
 
     // We're deleting a ref, so remove the cached median refs - this needs to be recalculated
     this.cachedMedianRef = null;
   }
+
   setFocusedBlockKey(blockKey: BlockKey) {
     this.focusedBlockKey = blockKey;
   }
+
   static getHeightForRef(ref: DecoratorRef) {
     if (ref.current) {
       return ref.current.getBoundingClientRect().top;
     }
     return 0;
   }
+
   static getMedianRef(refArray: Array<DecoratorRef>) {
     const refs = refArray.sort(
       (firstRef, secondRef) =>
@@ -107,9 +112,11 @@ export class DraftailInlineAnnotation implements Annotation {
     }
     return null;
   }
+
   getTab() {
     return this.field.closest('[role="tabpanel"]')?.getAttribute('id');
   }
+
   getAnchorNode(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
     // so calculate which annotation is the median one by height and float the comment by that
