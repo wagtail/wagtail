@@ -1,10 +1,8 @@
 // Rules which have been enforced in configuration upgrades and flag issues in existing code.
 // We need to consider whether to disable those rules permanently, or fix the issues.
 const legacyCode = {
-  'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
-  'max-classes-per-file': 'off',
   'no-await-in-loop': 'off',
   'no-continue': 'off',
   'no-else-return': 'off',
@@ -33,6 +31,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    // ignoring as it is often convenient to move logic into a class method and static methods are not inherited
+    'class-methods-use-this': 'off',
     'import/extensions': [
       'error',
       'always',
@@ -54,13 +54,17 @@ module.exports = {
       'always',
       { exceptAfterSingleLine: true },
     ],
-    // note you must disable the base rule as it can report incorrect errors
-    'no-use-before-define': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
+    // does not align with preference for allowing multiple items per file
+    'max-classes-per-file': 'off',
+    // allow for one specific edge case
     'no-underscore-dangle': [
       'error',
       { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
     ],
+    // note you must disable the base rule as it can report incorrect errors
+    'no-use-before-define': 'off',
+    // using .tsx instead of .jsx for Typescript React components
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
   },
   settings: {
     'import/core-modules': ['jquery'],
