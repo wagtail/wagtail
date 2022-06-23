@@ -16,7 +16,6 @@ const legacyCode = {
   'no-else-return': 'off',
   'no-extra-boolean-cast': 'off',
   'no-import-assign': 'off',
-  'no-lonely-if': 'off',
   'no-plusplus': 'off',
   'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
