@@ -19,7 +19,6 @@ const legacyCode = {
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
   'prefer-destructuring': 'off',
-  'prefer-object-spread': 'off',
   'prefer-promise-reject-errors': 'off',
   'react-hooks/exhaustive-deps': 'off',
   'react-hooks/rules-of-hooks': 'off',

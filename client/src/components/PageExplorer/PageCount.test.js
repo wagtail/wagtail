@@ -22,7 +22,7 @@ describe('PageCount', () => {
   });
 
   it('plural', () => {
-    const props = Object.assign({}, mockProps);
+    const props = { ...mockProps };
     props.page.children.count = 5;
     expect(shallow(<PageCount {...props} />)).toMatchSnapshot();
   });

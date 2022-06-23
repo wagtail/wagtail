@@ -50,7 +50,7 @@ export interface MenuState {
 }
 
 function menuReducer(state: MenuState, action: MenuAction) {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
 
   if (action.type === 'set-active-path') {
     newState.activePath = action.path;
