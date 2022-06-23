@@ -59,8 +59,8 @@ register.filter("naturaltime", naturaltime)
 @register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
 def explorer_breadcrumb(
     context,
-    page,
     url_name,
+    page=None,
     page_to_move=None,
     url_root_name=None,
     include_self=True,
@@ -92,22 +92,6 @@ def explorer_breadcrumb(
         "use_next_template": use_next_template,
         "page_to_move": page_to_move,
     }
-
-
-@register.inclusion_tag("wagtailadmin/shared/move_breadcrumb.html", takes_context=True)
-def move_breadcrumb(context, page_to_move, viewed_page):
-    user = context["request"].user
-    cca = get_explorable_root_page(user)
-    if not cca:
-        return {"pages": Page.objects.none()}
-
-    return {
-        "pages": viewed_page.get_ancestors(inclusive=True)
-        .descendant_of(cca, inclusive=True)
-        .specific(),
-        "page_to_move_id": page_to_move.id,
-    }
-
 
 @register.inclusion_tag("wagtailadmin/shared/search_other.html", takes_context=True)
 def search_other(context, current=None):

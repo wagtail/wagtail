@@ -2,9 +2,8 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    <header class="header">
-        {% move_breadcrumb page_to_move viewed_page %}
-        {% explorer_breadcrumb page_to_move parent_page 'wagtailadmin_pages:move_choose_destination' use_next_template=True is_expanded=True querystring_value=querystring_value %}
+    <header class="header merged">
+        {% explorer_breadcrumb 'wagtailadmin_pages:move_choose_destination' page=viewed_page page_to_move=page_to_move use_next_template=True is_expanded=True querystring_value=querystring_value %}
         <div class="row">
             <h1 class="header__title">
                 {% icon name="doc-empty-inverse" %}
