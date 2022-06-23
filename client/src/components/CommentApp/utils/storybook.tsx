@@ -10,7 +10,7 @@ import {
   newCommentReply,
   NewReplyOptions,
 } from '../state/comments';
-import { LayoutController } from '../utils/layout';
+import { LayoutController } from './layout';
 import { getNextCommentId } from './sequences';
 
 import CommentComponent from '../components/Comment/index';
