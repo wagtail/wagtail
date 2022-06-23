@@ -540,7 +540,7 @@ function getCommentDecorator(commentApp: CommentApp) {
     }, [commentId, annotationNode, blockKey]);
 
     if (!enabled) {
-      return <>{children}</>;
+      return children;
     }
 
     const onClick = () => {
