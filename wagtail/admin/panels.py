@@ -1082,7 +1082,7 @@ set_default_page_edit_handlers(Page)
 
 
 @cached_classmethod
-def get_edit_handler(cls):
+def _get_page_edit_handler(cls):
     """
     Get the panel to use in the Wagtail admin when editing this page type.
     """
@@ -1111,11 +1111,26 @@ def get_edit_handler(cls):
     return edit_handler.bind_to_model(cls)
 
 
-Page.get_edit_handler = get_edit_handler
+Page.get_edit_handler = _get_page_edit_handler
+
+
+@functools.lru_cache(maxsize=None)
+def get_edit_handler(model):
+    """
+    Get the panel to use in the Wagtail admin when editing this model.
+    """
+    if hasattr(model, "edit_handler"):
+        # use the edit handler specified on the model class
+        panel = model.edit_handler
+    else:
+        panels = extract_panel_definitions_from_model_class(model)
+        panel = ObjectList(panels)
+
+    return panel.bind_to_model(model)
 
 
 @receiver(setting_changed)
-def reset_page_edit_handler_cache(**kwargs):
+def reset_edit_handler_cache(**kwargs):
     """
     Clear page edit handler cache when global WAGTAILADMIN_COMMENTS_ENABLED settings are changed
     """
@@ -1124,6 +1139,7 @@ def reset_page_edit_handler_cache(**kwargs):
         for model in apps.get_models():
             if issubclass(model, Page):
                 model.get_edit_handler.cache_clear()
+        get_edit_handler.cache_clear()
 
 
 class StreamFieldPanel(FieldPanel):

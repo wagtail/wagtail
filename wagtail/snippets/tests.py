@@ -21,7 +21,7 @@ from taggit.models import Tag
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.admin.panels import FieldPanel, ObjectList
+from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page
 from wagtail.snippets.action_menu import (
@@ -30,7 +30,7 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import get_snippet_panel
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -59,6 +59,7 @@ from wagtail.test.testapp.models import (
     SnippetChooserModelWithCustomPrimaryKey,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
@@ -1256,7 +1257,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             advert=Advert.objects.create(text=self.advert_text)
         )
 
-        self.edit_handler = get_snippet_panel(model)
+        self.edit_handler = get_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.get_bound_panel(
@@ -1915,16 +1916,26 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
 class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
     def test_standard_edit_handler(self):
-        edit_handler = get_snippet_panel(StandardSnippet)
+        edit_handler = get_edit_handler(StandardSnippet)
         form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertFalse(issubclass(form_class, FancySnippetForm))
 
     def test_fancy_edit_handler(self):
-        edit_handler = get_snippet_panel(FancySnippet)
+        edit_handler = get_edit_handler(FancySnippet)
         form_class = edit_handler.get_form_class()
         self.assertTrue(issubclass(form_class, WagtailAdminModelForm))
         self.assertTrue(issubclass(form_class, FancySnippetForm))
+
+    def test_get_snippet_edit_handler(self):
+        # TODO: Remove in Wagtail 5.0
+        with self.assertWarnsMessage(
+            RemovedInWagtail50Warning,
+            "The get_snippet_edit_handler function has been moved to wagtail.admin.panels.get_edit_handler",
+        ):
+            edit_handler = get_snippet_edit_handler(StandardSnippet)
+        self.assertIsNotNone(edit_handler)
+        self.assertIsInstance(edit_handler, Panel)
 
 
 class TestInlinePanelMedia(TestCase, WagtailTestUtils):
@@ -2294,7 +2305,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             )
         )
 
-        self.edit_handler = get_snippet_panel(model)
+        self.edit_handler = get_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
         edit_handler = self.edit_handler.get_bound_panel(
