@@ -1,7 +1,7 @@
+import produce, { enableMapSet, enableES5 } from 'immer';
 import type { Annotation } from '../utils/annotation';
 import * as actions from '../actions/comments';
 import { update } from './utils';
-import produce, { enableMapSet, enableES5 } from 'immer';
 
 enableES5();
 enableMapSet();

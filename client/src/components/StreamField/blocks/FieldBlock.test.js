@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import $ from 'jquery';
 import { FieldBlockDefinition } from './FieldBlock';
 
-import $ from 'jquery';
 window.$ = $;
 
 window.comments = {

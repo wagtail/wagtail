@@ -1,5 +1,6 @@
 /* global buildExpandingFormset */
 import $ from 'jquery';
+
 window.$ = $;
 
 import './expanding-formset';

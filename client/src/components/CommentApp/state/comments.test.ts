@@ -1,3 +1,4 @@
+import { createStore } from 'redux';
 import { basicCommentsState } from '../__fixtures__/state';
 import {
   Comment,
@@ -6,7 +7,6 @@ import {
   CommentUpdate,
   reducer,
 } from './comments';
-import { createStore } from 'redux';
 
 import * as actions from '../actions/comments';
 

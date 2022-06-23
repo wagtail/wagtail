@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { gettext } from '../../../utils/gettext';
-import MediaBlock from '../blocks/MediaBlock';
+import MediaBlock from './MediaBlock';
 
 /**
  * Editor block to display media and edit content.

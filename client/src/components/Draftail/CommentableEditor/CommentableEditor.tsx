@@ -1,7 +1,3 @@
-import { gettext } from '../../../utils/gettext';
-import type { CommentApp } from '../../CommentApp/main';
-import type { Annotation } from '../../CommentApp/utils/annotation';
-import type { Comment } from '../../CommentApp/state/comments';
 import {
   DraftailEditor,
   ToolbarButton,
@@ -32,6 +28,10 @@ import React, {
   useState,
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
+import type { Comment } from '../../CommentApp/state/comments';
+import type { Annotation } from '../../CommentApp/utils/annotation';
+import type { CommentApp } from '../../CommentApp/main';
+import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';
 

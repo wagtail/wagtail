@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import MediaBlock from '../blocks/MediaBlock';
 import { EditorState } from 'draft-js';
+import MediaBlock from './MediaBlock';
 
 describe('MediaBlock', () => {
   it('renders', () => {
