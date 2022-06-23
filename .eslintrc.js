@@ -4,7 +4,6 @@ const legacyCode = {
   'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
-  'import/first': 'off',
   'import/no-cycle': 'off',
   'import/no-extraneous-dependencies': 'off',
   'jsx-a11y/alt-text': 'off',
@@ -119,6 +118,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        'import/first': 'off',
         'import/no-extraneous-dependencies': 'off',
         'react/function-component-definition': 'off',
         'react/jsx-props-no-spreading': 'off',
