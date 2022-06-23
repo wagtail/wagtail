@@ -53,6 +53,7 @@ exports[`Link works 1`] = `
     }
   }
   entityKey="1"
+  href="#test"
   icon={
     <Icon
       name="link"
