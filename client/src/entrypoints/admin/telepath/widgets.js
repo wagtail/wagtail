@@ -8,15 +8,19 @@ class BoundWidget {
     this.setState(initialState);
     this.parentCapabilities = parentCapabilities || new Map();
   }
+
   getValue() {
     return this.input.val();
   }
+
   getState() {
     return this.input.val();
   }
+
   setState(state) {
     this.input.val(state);
   }
+
   getTextLabel(opts) {
     const val = this.getValue();
     if (typeof val !== 'string') return null;
@@ -26,9 +30,11 @@ class BoundWidget {
     }
     return val;
   }
+
   focus() {
     this.input.focus();
   }
+
   setCapabilityOptions(capability, options) {
     Object.assign(this.parentCapabilities.get(capability), options);
   }
@@ -63,9 +69,11 @@ class BoundCheckboxInput extends BoundWidget {
   getValue() {
     return this.input.is(':checked');
   }
+
   getState() {
     return this.input.is(':checked');
   }
+
   setState(state) {
     // if false, set attribute value to null to remove it
     this.input.attr('checked', state || null);
@@ -85,15 +93,19 @@ class BoundRadioSelect {
     this.selector = 'input[name="' + name + '"]:checked';
     this.setState(initialState);
   }
+
   getValue() {
     return this.element.find(this.selector).val();
   }
+
   getState() {
     return this.element.find(this.selector).val();
   }
+
   setState(state) {
     this.element.find('input[name="' + this.name + '"]').val([state]);
   }
+
   focus() {
     this.element.find('input[name="' + this.name + '"]').focus();
   }

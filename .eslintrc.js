@@ -10,7 +10,6 @@ const legacyCode = {
   'jsx-a11y/interactive-supports-focus': 'off',
   'jsx-a11y/no-noninteractive-element-interactions': 'off',
   'jsx-a11y/role-supports-aria-props': 'off',
-  'lines-between-class-members': 'off',
   'max-classes-per-file': 'off',
   'no-await-in-loop': 'off',
   'no-continue': 'off',
@@ -73,6 +72,12 @@ module.exports = {
     ],
     // does not align with the majority of legacy and newer code, some use named others use default exports
     'import/prefer-default-export': 'off',
+    // allow no lines between single line members (e.g. static declarations)
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
     // note you must disable the base rule as it can report incorrect errors
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
