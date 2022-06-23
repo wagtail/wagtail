@@ -34,6 +34,7 @@ describe('Link', () => {
         <Link
           contentState={content}
           entityKey="1"
+          href="#test"
           onEdit={() => {}}
           onRemove={() => {}}
         >
