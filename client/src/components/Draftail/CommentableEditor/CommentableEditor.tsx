@@ -482,7 +482,7 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
       findCommentStyleRanges(
         block,
         () => {
-          counter = counter + 1;
+          counter += 1;
         },
         (metadata) =>
           metadata.getStyle().some((rangeStyle) => rangeStyle === style),
