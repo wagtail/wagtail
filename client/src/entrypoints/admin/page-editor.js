@@ -418,7 +418,7 @@ function initPreview() {
     '.preview-panel__size-button--new-tab',
   );
   const iframe = previewPanel.querySelector('.preview-panel__iframe');
-  const form = document.getElementById('page-edit-form');
+  const form = document.querySelector('.edit-form');
   const previewUrl = previewPanel.dataset.action;
   const submitAction = document.querySelector('.action-save');
   const previewModeSelect = document.querySelector(
