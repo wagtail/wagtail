@@ -334,7 +334,7 @@ export function getSplitControl(
     return () => (
       <button
         name={name}
-        className={'Draftail-ToolbarButton'}
+        className="Draftail-ToolbarButton"
         type="button"
         aria-label={title}
         data-draftail-balloon={title}
