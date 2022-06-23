@@ -134,22 +134,17 @@ export type Action =
 const node = (state = defaultPageState, action: Action): PageState => {
   switch (action.type) {
     case GET_PAGE_SUCCESS:
-      return Object.assign({}, state, action.payload.data, {
-        isError: false,
-      });
+      return { ...state, ...action.payload.data, isError: false };
 
     case GET_CHILDREN_START:
-      return Object.assign({}, state, {
-        isFetchingChildren: true,
-      });
+      return { ...state, isFetchingChildren: true };
 
     case GET_TRANSLATIONS_START:
-      return Object.assign({}, state, {
-        isFetchingTranslations: true,
-      });
+      return { ...state, isFetchingTranslations: true };
 
     case GET_CHILDREN_SUCCESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetchingChildren: false,
         isError: false,
         children: {
@@ -158,7 +153,7 @@ const node = (state = defaultPageState, action: Action): PageState => {
             .concat(action.payload.items.map((item) => item.id)),
           count: action.payload.meta.total_count,
         },
-      });
+      };
 
     case GET_TRANSLATIONS_SUCCESS:
       // eslint-disable-next-line no-case-declarations
@@ -168,20 +163,22 @@ const node = (state = defaultPageState, action: Action): PageState => {
         translations.set(item.meta.locale, item.id);
       });
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetchingTranslations: false,
         isError: false,
         translations,
-      });
+      };
 
     case GET_PAGE_FAILURE:
     case GET_CHILDREN_FAILURE:
     case GET_TRANSLATIONS_FAILURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetchingChildren: false,
         isFetchingTranslations: true,
         isError: true,
-      });
+      };
 
     default:
       return state;
@@ -200,9 +197,7 @@ const defaultState: State = {};
 export default function nodes(state = defaultState, action: Action) {
   switch (action.type) {
     case OPEN_EXPLORER: {
-      return Object.assign({}, state, {
-        [action.payload.id]: Object.assign({}, defaultPageState),
-      });
+      return { ...state, [action.payload.id]: { ...defaultPageState } };
     }
 
     case GET_PAGE_SUCCESS:
@@ -211,20 +206,21 @@ export default function nodes(state = defaultState, action: Action) {
     case GET_PAGE_FAILURE:
     case GET_CHILDREN_FAILURE:
     case GET_TRANSLATIONS_FAILURE:
-      return Object.assign({}, state, {
-        // Delegate logic to single-node reducer.
+      return {
+        ...state, // Delegate logic to single-node reducer.
         [action.payload.id]: node(state[action.payload.id], action),
-      });
+      };
 
     case GET_CHILDREN_SUCCESS:
     case GET_TRANSLATIONS_SUCCESS:
       // eslint-disable-next-line no-case-declarations
-      const newState = Object.assign({}, state, {
+      const newState = {
+        ...state,
         [action.payload.id]: node(state[action.payload.id], action),
-      });
+      };
 
       action.payload.items.forEach((item) => {
-        newState[item.id] = Object.assign({}, defaultPageState, item);
+        newState[item.id] = { ...defaultPageState, ...item };
       });
 
       return newState;

@@ -102,7 +102,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       const plugin = PLUGINS[type.type];
 
       // Override the properties defined in the JS plugin: Python should be the source of truth.
-      return Object.assign({}, plugin, type);
+      return { ...plugin, ...type };
     });
     return {
       rawContentState: rawContentState,

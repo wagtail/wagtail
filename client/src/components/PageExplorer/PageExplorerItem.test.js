@@ -35,19 +35,19 @@ describe('PageExplorerItem', () => {
   });
 
   it('children', () => {
-    const props = Object.assign({}, mockProps);
+    const props = { ...mockProps };
     props.item.meta.children.count = 5;
     expect(shallow(<PageExplorerItem {...props} />)).toMatchSnapshot();
   });
 
   it('should show a publication status with unpublished changes', () => {
-    const props = Object.assign({}, mockProps);
+    const props = { ...mockProps };
     props.item.meta.status.has_unpublished_changes = true;
     expect(shallow(<PageExplorerItem {...props} />)).toMatchSnapshot();
   });
 
   it('should show a publication status if not live', () => {
-    const props = Object.assign({}, mockProps);
+    const props = { ...mockProps };
     props.item.meta.status.live = false;
     expect(shallow(<PageExplorerItem {...props} />)).toMatchSnapshot();
   });
