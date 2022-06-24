@@ -677,6 +677,13 @@ footer .preview {
       height: 1rem;
     }
 
+    &--new-tab {
+      .icon {
+        width: 0.9rem;
+        height: 0.9rem;
+      }
+    }
+
     &--tablet,
     &--desktop {
       .icon {
@@ -706,18 +713,31 @@ footer .preview {
   }
 
   &__modes {
-    @apply w-text-grey-400;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 1rem;
+    border-top: 1px solid $color-grey-4;
+    padding-top: 1rem;
     margin-top: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   &__mode-select {
-    @apply w-outline-offset-inside;
     font-size: 1em;
-    padding: 0.25rem 0.5rem;
+    padding: 0.6rem 0.75rem;
+    padding-inline-end: 2.5rem;
     width: auto;
+    background-color: $color-white;
+  }
+
+  &__modes.choice_field &__mode-select ~ span:after {
+    @apply w-text-grey-400;
+    border: none;
+    font-size: 1.5em;
+    line-height: 1.65em;
+    top: auto;
+    width: 2.5rem;
   }
 }
 

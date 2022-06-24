@@ -25,13 +25,17 @@
         </div>
 
         {% if object.preview_modes|length > 1 %}
-            <div class="preview-panel__modes">
-                {% trans "Preview mode:" %}
-                <select name="preview_mode" class="preview-panel__mode-select">
-                    {% for internal_name, display_name in object.preview_modes %}
-                        <option value="{{ internal_name }}">{{ display_name }}</option>
-                    {% endfor %}
-                </select>
+            <div class="preview-panel__modes choice_field">
+                {% trans "Preview mode" %}
+                <div class="input">
+                    <select name="preview_mode" class="preview-panel__mode-select">
+                        {% for internal_name, display_name in object.preview_modes %}
+                            <option value="{{ internal_name }}">{{ display_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span>
+                    </span>
+                </div>
             </div>
         {% endif %}
     </div>
