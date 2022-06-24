@@ -161,6 +161,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 # so that we don't have to construct a redundant form object just to
                 # test for its presence
                 "creation_form": self.creation_form,
+                "create_action_url": reverse("wagtaildocs:chooser_upload"),
+                "create_action_label": _("Upload"),
+                "create_action_clicked_label": _("Uploading…"),
             }
         )
         return context
@@ -173,7 +176,7 @@ class ChooseView(BaseChooseView):
     search_tab_label = _("Search")
     create_action_label = _("Upload")
     creation_tab_label = None
-    creation_form_template_name = "wagtaildocs/chooser/upload_form.html"
+    creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -252,7 +255,14 @@ def chooser_upload(request):
         json_data={
             "step": "reshow_creation_form",
             "htmlFragment": render_to_string(
-                "wagtaildocs/chooser/upload_form.html", {"creation_form": form}, request
+                "wagtailadmin/generic/chooser/creation_form.html",
+                {
+                    "creation_form": form,
+                    "create_action_url": reverse("wagtaildocs:chooser_upload"),
+                    "create_action_label": _("Upload"),
+                    "create_action_clicked_label": _("Uploading…"),
+                },
+                request,
             ),
         },
     )
