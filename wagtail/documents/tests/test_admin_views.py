@@ -1586,7 +1586,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse("wagtaildocs:chooser_upload"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "reshow_creation_form")
 
@@ -1630,7 +1632,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # The form should have an error
         self.assertContains(
@@ -1668,7 +1672,9 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
     def test_simple(self):
         response = self.client.get(reverse("wagtaildocs:chooser_upload"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "reshow_creation_form")
 

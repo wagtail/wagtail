@@ -22,7 +22,6 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
     searchFilterSelectors: ['#collection_chooser_collection_id'],
     searchInputDelay: 50,
     chosenResponseName: 'documentChosen',
-    creationFormSelector: 'form.document-upload',
     creationFormFileFieldSelector: '#id_document-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
     creationFormEventName: 'wagtail:documents-upload',
