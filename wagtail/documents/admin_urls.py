@@ -35,6 +35,6 @@ urlpatterns = [
         chooser.DocumentChosenView.as_view(),
         name="document_chosen",
     ),
-    path("chooser/upload/", chooser.chooser_upload, name="chooser_upload"),
+    path("chooser/upload/", chooser.ChooserUploadView.as_view(), name="chooser_upload"),
     path("usage/<int:document_id>/", documents.usage, name="document_usage"),
 ]
