@@ -1,16 +1,16 @@
 {% load i18n wagtailadmin_tags %}
 <section
-    id="tab-upload"
+    id="tab-create"
     class="w-tabs__panel"
     role="tabpanel"
     hidden
-    aria-labelledby="tab-label-upload"
+    aria-labelledby="tab-label-create"
 >
-    {% include "wagtailadmin/shared/non_field_errors.html" with form=form %}
+    {% include "wagtailadmin/shared/non_field_errors.html" with form=creation_form %}
     <form class="document-upload" action="{% url 'wagtaildocs:chooser_upload' %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <ul class="fields">
-            {% for field in form %}
+            {% for field in creation_form %}
                 {% if field.is_hidden %}
                     {{ field }}
                 {% else %}
