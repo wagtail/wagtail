@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
@@ -11,6 +11,7 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
+from wagtail.admin.views.generic.chooser import ModalPageFurnitureMixin
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -51,8 +52,11 @@ class DownloadColumn(Column):
         return context
 
 
-class BaseChooseView(ContextMixin, View):
+class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+    icon = "doc-full-inverse"
+    page_title = _("Choose a document")
     results_url_name = "wagtaildocs:chooser_results"
+    results_template_name = "wagtaildocs/chooser/results.html"
 
     def get_object_list(self):
         documents = permission_policy.instances_user_has_any_permission_for(
@@ -72,11 +76,11 @@ class BaseChooseView(ContextMixin, View):
 
         if permission_policy.user_has_permission(request.user, "add"):
             DocumentForm = get_document_form(self.model)
-            self.uploadform = DocumentForm(
+            self.creation_form = DocumentForm(
                 user=request.user, prefix="document-chooser-upload"
             )
         else:
-            self.uploadform = None
+            self.creation_form = None
 
         documents = self.get_object_list()
 
@@ -88,14 +92,14 @@ class BaseChooseView(ContextMixin, View):
             documents = documents.filter(collection=self.collection_id)
 
         if "q" in request.GET:
-            self.searchform = SearchForm(request.GET)
-            if self.searchform.is_valid():
-                self.q = self.searchform.cleaned_data["q"]
+            self.filter_form = SearchForm(request.GET)
+            if self.filter_form.is_valid():
+                self.q = self.filter_form.cleaned_data["q"]
 
                 documents = documents.search(self.q)
                 self.is_searching = True
         else:
-            self.searchform = SearchForm()
+            self.filter_form = SearchForm()
 
         if not self.is_searching:
             documents = documents.order_by("-created_at")
@@ -135,13 +139,13 @@ class BaseChooseView(ContextMixin, View):
                 "table": self.table,
                 "results_url": self.get_results_url(),
                 "search_query": self.q,
-                "searchform": self.searchform,
+                "filter_form": self.filter_form,
                 "is_searching": self.is_searching,
                 "collection_id": self.collection_id,
                 # FIXME: make a 'can_create' flag available to ChooseResultsView
                 # so that we don't have to construct a redundant form object just to
                 # test for its presence
-                "uploadform": self.uploadform,
+                "creation_form": self.creation_form,
             }
         )
         return context
@@ -151,11 +155,19 @@ class BaseChooseView(ContextMixin, View):
 
 
 class ChooseView(BaseChooseView):
+    search_tab_label = _("Search")
+    create_action_label = _("Upload")
+    creation_tab_label = None
+    creation_form_template_name = "wagtaildocs/chooser/upload_form.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             {
                 "collections": self.collections,
+                "search_tab_label": self.search_tab_label,
+                "creation_tab_label": self.creation_tab_label
+                or self.create_action_label,
             }
         )
         return context
@@ -176,7 +188,7 @@ class ChooseView(BaseChooseView):
 class ChooseResultsView(BaseChooseView):
     def render_to_response(self):
         return TemplateResponse(
-            self.request, "wagtaildocs/chooser/results.html", self.get_context_data()
+            self.request, self.results_template_name, self.get_context_data()
         )
 
 
@@ -224,7 +236,7 @@ def chooser_upload(request):
         json_data={
             "step": "reshow_creation_form",
             "htmlFragment": render_to_string(
-                "wagtaildocs/chooser/upload_form.html", {"form": form}, request
+                "wagtaildocs/chooser/upload_form.html", {"creation_form": form}, request
             ),
         },
     )
