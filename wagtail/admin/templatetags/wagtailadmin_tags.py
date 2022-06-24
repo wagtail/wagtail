@@ -92,21 +92,6 @@ def explorer_breadcrumb(
     }
 
 
-@register.inclusion_tag("wagtailadmin/shared/move_breadcrumb.html", takes_context=True)
-def move_breadcrumb(context, page_to_move, viewed_page):
-    user = context["request"].user
-    cca = get_explorable_root_page(user)
-    if not cca:
-        return {"pages": Page.objects.none()}
-
-    return {
-        "pages": viewed_page.get_ancestors(inclusive=True)
-        .descendant_of(cca, inclusive=True)
-        .specific(),
-        "page_to_move_id": page_to_move.id,
-    }
-
-
 @register.inclusion_tag("wagtailadmin/shared/search_other.html", takes_context=True)
 def search_other(context, current=None):
     request = context["request"]
