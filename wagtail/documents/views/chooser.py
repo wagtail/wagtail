@@ -15,6 +15,7 @@ from wagtail.admin.views.generic.chooser import (
     ChosenViewMixin,
     ModalPageFurnitureMixin,
 )
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -216,14 +217,22 @@ class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-@permission_checker.require("add")
-def chooser_upload(request):
-    Document = get_document_model()
-    DocumentForm = get_document_form(Document)
+class ChooserUploadView(PermissionCheckedMixin, View):
+    permission_policy = permission_policy
+    permission_required = "add"
 
-    if request.method == "POST":
+    def get(self, request):
+        Document = get_document_model()
+        DocumentForm = get_document_form(Document)
+        self.form = DocumentForm(user=request.user, prefix="document-chooser-upload")
+        return self.get_reshow_creation_form_response()
+
+    def post(self, request):
+        Document = get_document_model()
+        DocumentForm = get_document_form(Document)
+
         document = Document(uploaded_by_user=request.user)
-        form = DocumentForm(
+        self.form = DocumentForm(
             request.POST,
             request.FILES,
             instance=document,
@@ -231,7 +240,7 @@ def chooser_upload(request):
             prefix="document-chooser-upload",
         )
 
-        if form.is_valid():
+        if self.form.is_valid():
             document.file_size = document.file.size
 
             # Set new document file hash
@@ -239,30 +248,31 @@ def chooser_upload(request):
             document._set_file_hash(document.file.read())
             document.file.seek(0)
 
-            form.save()
+            self.form.save()
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(document)
             return get_document_chosen_response(request, document)
-    else:
-        form = DocumentForm(user=request.user, prefix="document-chooser-upload")
 
-    return render_modal_workflow(
-        request,
-        None,
-        None,
-        None,
-        json_data={
-            "step": "reshow_creation_form",
-            "htmlFragment": render_to_string(
-                "wagtailadmin/generic/chooser/creation_form.html",
-                {
-                    "creation_form": form,
-                    "create_action_url": reverse("wagtaildocs:chooser_upload"),
-                    "create_action_label": _("Upload"),
-                    "create_action_clicked_label": _("Uploading…"),
-                },
-                request,
-            ),
-        },
-    )
+        return self.get_reshow_creation_form_response()
+
+    def get_reshow_creation_form_response(self):
+        return render_modal_workflow(
+            self.request,
+            None,
+            None,
+            None,
+            json_data={
+                "step": "reshow_creation_form",
+                "htmlFragment": render_to_string(
+                    "wagtailadmin/generic/chooser/creation_form.html",
+                    {
+                        "creation_form": self.form,
+                        "create_action_url": reverse("wagtaildocs:chooser_upload"),
+                        "create_action_label": _("Upload"),
+                        "create_action_clicked_label": _("Uploading…"),
+                    },
+                    self.request,
+                ),
+            },
+        )
