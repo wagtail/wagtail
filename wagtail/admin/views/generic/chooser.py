@@ -305,7 +305,7 @@ class ChosenResponseMixin:
         )
 
 
-class ChosenView(ChosenResponseMixin, View):
+class ChosenViewMixin:
     """
     A view that takes an object ID in the URL and returns a modal workflow response indicating
     that object has been chosen
@@ -325,7 +325,11 @@ class ChosenView(ChosenResponseMixin, View):
         return self.get_chosen_response(item)
 
 
-class CreateView(CreationFormMixin, ChosenResponseMixin, View):
+class ChosenView(ChosenViewMixin, ChosenResponseMixin, View):
+    pass
+
+
+class CreateViewMixin:
     """
     A view that handles submissions of the 'create' form
     """
@@ -367,3 +371,7 @@ class CreateView(CreationFormMixin, ChosenResponseMixin, View):
                 "htmlFragment": response_html,
             },
         )
+
+
+class CreateView(CreateViewMixin, CreationFormMixin, ChosenResponseMixin, View):
+    pass

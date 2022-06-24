@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -11,7 +10,11 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
-from wagtail.admin.views.generic.chooser import ModalPageFurnitureMixin
+from wagtail.admin.views.generic.chooser import (
+    ChosenResponseMixin,
+    ChosenViewMixin,
+    ModalPageFurnitureMixin,
+)
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -41,6 +44,18 @@ def get_document_chosen_response(request, document):
             },
         },
     )
+
+
+class DocumentChosenResponseMixin(ChosenResponseMixin):
+    def get_chosen_response_data(self, document):
+        response_data = super().get_chosen_response_data(document)
+        response_data.update(
+            {
+                "url": document.url,
+                "filename": document.filename,
+            }
+        )
+        return response_data
 
 
 class DownloadColumn(Column):
@@ -192,9 +207,10 @@ class ChooseResultsView(BaseChooseView):
         )
 
 
-def document_chosen(request, document_id):
-    document = get_object_or_404(get_document_model(), id=document_id)
-    return get_document_chosen_response(request, document)
+class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
+    def get(self, request, *args, pk, **kwargs):
+        self.model = get_document_model()
+        return super().get(request, *args, pk, **kwargs)
 
 
 @permission_checker.require("add")
