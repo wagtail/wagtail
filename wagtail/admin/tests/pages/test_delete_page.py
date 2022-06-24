@@ -54,10 +54,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(
-            response,
-            '<input class="w-mb-4" type="text" name="confirm_site_name" id="id_confirm_site_name" required>',
-        )
+        self.assertNotContains(response, '<input type="text" name="confirm_site_name"')
         # deletion should not actually happen on GET
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
@@ -87,10 +84,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertContains(
             response, f"Please type <b>{wagtail_site_name}</b> to confirm."
         )
-        self.assertContains(
-            response,
-            '<input class="w-mb-4" type="text" name="confirm_site_name" id="id_confirm_site_name" required>',
-        )
+        self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # deletion should not actually happen on GET
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
@@ -117,10 +111,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertContains(
             response, f"Please type <b>{wagtail_site_name}</b> to confirm."
         )
-        self.assertContains(
-            response,
-            '<input class="w-mb-4" type="text" name="confirm_site_name" id="id_confirm_site_name" required>',
-        )
+        self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # Site should not be deleted
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
 
