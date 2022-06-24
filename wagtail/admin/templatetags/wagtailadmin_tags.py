@@ -57,7 +57,7 @@ register.filter("naturaltime", naturaltime)
 
 
 @register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
-def explorer_breadcrumb(
+def breadcrumbs(
     context,
     page,
     url_name,

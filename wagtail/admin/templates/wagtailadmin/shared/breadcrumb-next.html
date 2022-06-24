@@ -24,6 +24,11 @@
                 aria-label="{% trans 'Breadcrumb' %}">
                 <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
                     {% for page in pages %}
+                        {% if page.is_root and url_root_name %}
+                            {% url url_root_name as breadcrumb_url %}
+                        {% else %}
+                            {% url url_name page.id as breadcrumb_url %}
+                        {% endif %}
                         {% if page.is_root %}
                             <li
                                 class="{{ breadcrumb_item_classes }} {% if not is_expanded %}w-max-w-0{% endif %}"
@@ -32,7 +37,7 @@
                             >
                                 <a
                                     class="{{ breadcrumb_link_classes }}"
-                                    href="{% if url_root_name %}{% url url_root_name %}{% else %}{% url url_name page.id %}{% endif %}{{ querystring_value }}"
+                                    href="{{ breadcrumb_url }}{{ querystring_value }}"
                                 >
                                     {% trans "Root" %}
                                 </a>
@@ -45,7 +50,7 @@
                                 data-breadcrumb-item
                                 {% if not is_expanded %}hidden{% endif %}
                             >
-                                <a class="{{ breadcrumb_link_classes }}" href="{% url url_name page.id %}{{ querystring_value }}">
+                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
                                     {% trans "Root" %}
                                 </a>
                                 {% icon name="arrow-right" class_name=icon_classes %}
@@ -57,7 +62,7 @@
                                 {% if trailing_breadcrumb_title and not is_expanded %}hidden{% endif %}
                             >
                                 <a class="{{ breadcrumb_link_classes }}"
-                                    href="{% url url_name page.id %}{{ querystring_value }}">
+                                    href="{{ breadcrumb_url }}{{ querystring_value }}">
                                     {{ page.get_admin_display_title }}
                                 </a>
                                 {% if trailing_breadcrumb_title %}
@@ -70,7 +75,7 @@
                                 data-breadcrumb-item
                                 {% if not is_expanded %}hidden{% endif %}
                             >
-                                <a class="{{ breadcrumb_link_classes }}" href="{% url url_name page.id %}{{ querystring_value }}">
+                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
                                     {{ page.get_admin_display_title }}
                                 </a>
                                 {% icon name="arrow-right" class_name=icon_classes %}
