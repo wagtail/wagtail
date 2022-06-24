@@ -74,13 +74,12 @@
                         This action will delete total <b>{{ total_pages }}</b> pages.
                     {% endblocktrans %}
                 </p>
-                <p>
-                    {% blocktrans %}
+                <label class="no-float w-font-normal" for="id_confirm_site_name">
+                    {% blocktrans trimmed %}
                         Please type <b>{{ wagtail_site_name }}</b> to confirm.
                     {% endblocktrans %}
-                    <input type="text" name="confirm_site_name" required>
-                </p>
-                <br>
+                </label>
+                <input class="w-mb-4" type="text" name="confirm_site_name" id="id_confirm_site_name" required>
             {% endif %}
             <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
