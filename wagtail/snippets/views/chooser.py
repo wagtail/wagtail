@@ -7,6 +7,7 @@ from wagtail.admin.views.generic.chooser import (
     ChooseResultsViewMixin,
     ChooseViewMixin,
     ChosenView,
+    CreationFormMixin,
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale, TranslatableMixin
@@ -91,7 +92,7 @@ class BaseSnippetChooseView(BaseChooseView):
         return context
 
 
-class ChooseView(ChooseViewMixin, BaseSnippetChooseView):
+class ChooseView(ChooseViewMixin, CreationFormMixin, BaseSnippetChooseView):
     pass
 
 
