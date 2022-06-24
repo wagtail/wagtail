@@ -180,6 +180,24 @@ class CreationFormMixin:
                 self.model, fields=self.form_fields, exclude=self.exclude_form_fields
             )
 
+    def get_creation_form_kwargs(self):
+        kwargs = {}
+        if self.request.method in ("POST", "PUT"):
+            kwargs.update(
+                {
+                    "data": self.request.POST,
+                    "files": self.request.FILES,
+                }
+            )
+        return kwargs
+
+    def get_creation_form(self):
+        form_class = self.get_creation_form_class()
+        if not form_class:
+            return None
+
+        return form_class(**self.get_creation_form_kwargs())
+
     def get_create_url(self):
         if not self.create_url_name:
             raise ImproperlyConfigured(
@@ -188,17 +206,16 @@ class CreationFormMixin:
             )
         return reverse(self.create_url_name)
 
-    def get_creation_form_context_data(self):
-        # don't include the actual form object here, as different views will instantiate it
-        # differently (e.g. unbound for the initial GET, bound for a POST)
+    def get_creation_form_context_data(self, form):
         return {
+            "creation_form": form,
             "create_action_url": self.get_create_url(),
             "create_action_label": self.create_action_label,
             "create_action_clicked_label": self.create_action_clicked_label,
         }
 
 
-class ChooseViewMixin(CreationFormMixin):
+class ChooseViewMixin:
     """
     A view that renders a complete modal response for the chooser, including a tab for the object
     listing and (optionally) a 'create' form
@@ -218,10 +235,10 @@ class ChooseViewMixin(CreationFormMixin):
             }
         )
 
-        creation_form_class = self.get_creation_form_class()
-        if creation_form_class and self.can_create():
-            context.update(self.get_creation_form_context_data())
-            context["creation_form"] = creation_form_class()
+        if self.can_create():
+            creation_form = self.get_creation_form()
+            if creation_form:
+                context.update(self.get_creation_form_context_data(creation_form))
 
         return context
 
@@ -238,7 +255,7 @@ class ChooseViewMixin(CreationFormMixin):
         )
 
 
-class ChooseView(ChooseViewMixin, BaseChooseView):
+class ChooseView(ChooseViewMixin, CreationFormMixin, BaseChooseView):
     pass
 
 
@@ -342,22 +359,22 @@ class CreateViewMixin:
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        form_class = self.get_creation_form_class()
-        self.form = form_class()
+        self.form = self.get_creation_form()
         return self.get_reshow_creation_form_response()
 
+    def save_form(self, form):
+        return form.save()
+
     def post(self, request):
-        form_class = self.get_creation_form_class()
-        self.form = form_class(request.POST, request.FILES)
+        self.form = self.get_creation_form()
         if self.form.is_valid():
-            object = self.form.save()
+            object = self.save_form(self.form)
             return self.get_chosen_response(object)
         else:
             return self.get_reshow_creation_form_response()
 
     def get_reshow_creation_form_response(self):
-        context = self.get_creation_form_context_data()
-        context["creation_form"] = self.form
+        context = self.get_creation_form_context_data(self.form)
         response_html = render_to_string(
             self.creation_form_template_name, context, self.request
         )
