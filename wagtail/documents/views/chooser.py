@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
@@ -20,31 +19,6 @@ from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
-
-permission_checker = PermissionPolicyChecker(permission_policy)
-
-
-def get_document_chosen_response(request, document):
-    """
-    helper function: given a document, return the modal workflow response that returns that
-    document back to the calling page
-    """
-    return render_modal_workflow(
-        request,
-        None,
-        None,
-        None,
-        json_data={
-            "step": "chosen",
-            "result": {
-                "id": document.id,
-                "title": document.title,
-                "url": document.url,
-                "filename": document.filename,
-                "edit_link": reverse("wagtaildocs:edit", args=(document.id,)),
-            },
-        },
-    )
 
 
 class DocumentChosenResponseMixin(ChosenResponseMixin):
@@ -217,7 +191,7 @@ class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-class ChooserUploadView(PermissionCheckedMixin, View):
+class ChooserUploadView(DocumentChosenResponseMixin, PermissionCheckedMixin, View):
     permission_policy = permission_policy
     permission_required = "add"
 
@@ -252,7 +226,7 @@ class ChooserUploadView(PermissionCheckedMixin, View):
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(document)
-            return get_document_chosen_response(request, document)
+            return self.get_chosen_response(document)
 
         return self.get_reshow_creation_form_response()
 
