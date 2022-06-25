@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -12,10 +11,10 @@ from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
 from wagtail.admin.views.generic.chooser import (
     ChosenResponseMixin,
     ChosenViewMixin,
+    CreateViewMixin,
     CreationFormMixin,
     ModalPageFurnitureMixin,
 )
-from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -208,52 +207,24 @@ class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
 
 
 class ChooserUploadView(
-    DocumentCreationFormMixin, DocumentChosenResponseMixin, PermissionCheckedMixin, View
+    CreateViewMixin, DocumentCreationFormMixin, DocumentChosenResponseMixin, View
 ):
-    permission_policy = permission_policy
-    permission_required = "add"
-
     def dispatch(self, request, *args, **kwargs):
         self.model = get_document_model()
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request):
-        self.form = self.get_creation_form()
-        return self.get_reshow_creation_form_response()
+    def save_form(self, form):
+        document = form.instance
+        document.file_size = document.file.size
 
-    def post(self, request):
-        self.form = self.get_creation_form()
+        # Set new document file hash
+        document.file.seek(0)
+        document._set_file_hash(document.file.read())
+        document.file.seek(0)
 
-        if self.form.is_valid():
-            document = self.form.instance
-            document.file_size = document.file.size
+        form.save()
 
-            # Set new document file hash
-            document.file.seek(0)
-            document._set_file_hash(document.file.read())
-            document.file.seek(0)
+        # Reindex the document to make sure all tags are indexed
+        search_index.insert_or_update_object(document)
 
-            self.form.save()
-
-            # Reindex the document to make sure all tags are indexed
-            search_index.insert_or_update_object(document)
-            return self.get_chosen_response(document)
-
-        return self.get_reshow_creation_form_response()
-
-    def get_reshow_creation_form_response(self):
-        context = self.get_creation_form_context_data(self.form)
-        response_html = render_to_string(
-            self.creation_form_template_name, context, self.request
-        )
-
-        return render_modal_workflow(
-            self.request,
-            None,
-            None,
-            None,
-            json_data={
-                "step": "reshow_creation_form",
-                "htmlFragment": response_html,
-            },
-        )
+        return document
