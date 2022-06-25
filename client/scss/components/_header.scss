@@ -43,10 +43,6 @@ header {
     padding-inline-end: 20px;
   }
 
-  .breadcrumb + .row {
-    padding-inline-start: $mobile-nav-indent + 10px;
-  }
-
   &.merged .w-breadcrumb {
     padding-inline-start: $mobile-nav-indent;
   }
@@ -178,10 +174,6 @@ header {
       padding-top: 1.5rem;
       padding-inline-start: 90px;
       padding-inline-end: 90px;
-    }
-
-    .breadcrumb + .row {
-      padding-inline-start: 90px;
     }
 
     &.merged .w-breadcrumb {
