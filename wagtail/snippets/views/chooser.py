@@ -96,7 +96,9 @@ class ChooseView(ChooseViewMixin, CreationFormMixin, BaseSnippetChooseView):
     pass
 
 
-class ChooseResultsView(ChooseResultsViewMixin, BaseSnippetChooseView):
+class ChooseResultsView(
+    ChooseResultsViewMixin, CreationFormMixin, BaseSnippetChooseView
+):
     pass
 
 

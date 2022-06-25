@@ -92,6 +92,12 @@ class ChooserViewSet(ViewSet):
             model=self.model,
             chosen_url_name=self.get_url_name("chosen"),
             results_url_name=self.get_url_name("choose_results"),
+            creation_form_class=self.creation_form_class,
+            form_fields=self.form_fields,
+            exclude_form_fields=self.exclude_form_fields,
+            create_action_label=self.create_action_label,
+            create_action_clicked_label=self.create_action_clicked_label,
+            permission_policy=self.permission_policy,
         )
 
     @property
