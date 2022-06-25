@@ -1,7 +1,4 @@
-// Returns the value of the first argument. All others are ignored.
-function identity<T extends any[]>(...func: T): T[0] {
-  return func[0];
-}
+import { identity } from './identity';
 
 interface Action<N, P, M> {
   type: N;
