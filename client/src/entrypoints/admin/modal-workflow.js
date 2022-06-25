@@ -5,6 +5,7 @@ possibly after several navigation steps
 
 import $ from 'jquery';
 
+import { noop } from '../../utils/noop';
 import { gettext } from '../../utils/gettext';
 
 /* eslint-disable */
@@ -20,7 +21,7 @@ function ModalWorkflow(opts) {
 
   const self = {};
   const responseCallbacks = opts.responses || {};
-  const errorCallback = opts.onError || function () {};
+  const errorCallback = opts.onError || noop;
 
   /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
   $('body > .modal').remove();

@@ -7,6 +7,7 @@ import { EditorState, SelectionState } from 'draft-js';
 import { CommentApp } from '../../CommentApp/main';
 import { updateGlobalSettings } from '../../CommentApp/actions/settings';
 import { newComment } from '../../CommentApp/state/comments';
+import { noop } from '../../../utils/noop';
 
 import CommentableEditor, {
   updateCommentPositions,
@@ -119,9 +120,9 @@ describe('CommentableEditor', () => {
           fieldNode={fieldNode}
           contentPath={contentpath}
           rawContentState={content}
-          onSave={() => {}}
+          onSave={noop}
           inlineStyles={[]}
-          editorRef={() => {}}
+          editorRef={noop}
           colorConfig={{
             standardHighlight: '#FF0000',
             overlappingHighlight: '#00FF00',
