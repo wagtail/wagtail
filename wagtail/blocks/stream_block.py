@@ -4,6 +4,7 @@ from collections import OrderedDict, defaultdict
 from collections.abc import MutableSequence
 
 from django import forms
+from django.conf import settings
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
@@ -21,6 +22,16 @@ __all__ = [
     "StreamValue",
     "StreamBlockValidationError",
 ]
+
+
+def preserve_unrecognised_block_values() -> bool:
+    from wagtail.signal_handlers import MIGRATIONS_CURRENTLY_RUNNING
+
+    return MIGRATIONS_CURRENTLY_RUNNING and getattr(
+        settings,
+        "WAGTAIL_STREAMFIELD_PRESERVE_UNRECOGNISED_BLOCK_VALUES_IN_MIGRATIONS",
+        False,
+    )
 
 
 class StreamBlockValidationError(ValidationError):
@@ -215,12 +226,13 @@ class BaseStreamBlock(Block):
         # (and possibly an 'id' too).
         # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
         # block types from the list
+        preserve_unrecognised = preserve_unrecognised_block_values()
         return StreamValue(
             self,
             [
                 child_data
                 for child_data in value
-                if child_data["type"] in self.child_blocks
+                if child_data["type"] in self.child_blocks or preserve_unrecognised
             ],
             is_lazy=True,
         )
@@ -236,13 +248,14 @@ class BaseStreamBlock(Block):
 
         child_inputs = defaultdict(list)
         block_maps = []
+        preserve_unrecognised = preserve_unrecognised_block_values()
 
         for stream in values:
             block_map = []
             for block_dict in stream:
                 block_type = block_dict["type"]
 
-                if block_type not in self.child_blocks:
+                if not preserve_unrecognised and block_type not in self.child_blocks:
                     # skip any blocks with an unrecognised type
                     continue
 
