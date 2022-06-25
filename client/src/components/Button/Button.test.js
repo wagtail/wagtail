@@ -35,8 +35,8 @@ describe('Button', () => {
   it('is clickable', () => {
     const onClick = jest.fn();
     shallow(<Button onClick={onClick} />).simulate('click', {
-      preventDefault() {},
-      stopPropagation() {},
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
     });
     expect(onClick).toHaveBeenCalledTimes(1);
   });
@@ -46,7 +46,7 @@ describe('Button', () => {
     const preventDefault = jest.fn();
     shallow(<Button />).simulate('click', {
       preventDefault,
-      stopPropagation() {},
+      stopPropagation: jest.fn(),
     });
     expect(preventDefault).toHaveBeenCalledTimes(1);
   });
@@ -55,7 +55,7 @@ describe('Button', () => {
     const preventDefault = jest.fn();
     shallow(<Button href="/admin/" />).simulate('click', {
       preventDefault,
-      stopPropagation() {},
+      stopPropagation: jest.fn(),
     });
     expect(preventDefault).toHaveBeenCalledTimes(0);
   });
@@ -67,7 +67,7 @@ describe('Button', () => {
 
     shallow(<Button href="/admin/" navigate={navigate} />).simulate('click', {
       preventDefault,
-      stopPropagation() {},
+      stopPropagation: jest.fn(),
     });
     expect(preventDefault).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledTimes(1);

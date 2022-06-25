@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie';
 
 import { Sidebar } from './Sidebar';
+import { noop } from '../../utils/noop';
 
 export const SIDEBAR_COLLAPSED_COOKIE_NAME = 'wagtail_sidebar_collapsed';
 
@@ -18,8 +19,7 @@ export function initSidebar() {
     // This promise is used to indicate to any open submenus that the next page has loaded and it should close.
     // As all navigation from the menu at the moment takes the user to another page, we don't need to close the menus.
     // We will need to update this if we later add the ability to render views on the client side.
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return new Promise<void>(() => {});
+    return new Promise<void>(noop);
   };
 
   if (element && rawProps?.textContent) {
