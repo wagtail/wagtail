@@ -343,3 +343,23 @@ jobs:
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+
+  test-streamfield-settings:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_ENGINE: django.db.backends.sqlite3
+      USE_EMAIL_USER_MODEL: true
+      DISABLE_TIMEZONE: true
+      PRESERVE_UNRECOGNISED_BLOCK_VALUES_IN_MIGRATIONS: true
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[testing]
+      - name: Test
+        run: ./runtests.py wagtail.tests.test_streamfield

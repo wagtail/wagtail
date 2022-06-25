@@ -239,6 +239,10 @@ REST_FRAMEWORK = {
 # Disable redirect autocreation for the majority of tests (to improve efficiency)
 WAGTAILREDIRECTS_AUTO_CREATE = False
 
+WAGTAIL_STREAMFIELD_PRESERVE_UNRECOGNISED_BLOCK_VALUES_IN_MIGRATIONS = (
+    os.environ.get("PRESERVE_UNRECOGNISED_BLOCK_VALUES_IN_MIGRATIONS", "false").lower()
+    == "true"
+)
 
 # https://github.com/wagtail/wagtail/issues/2551 - projects should be able to set
 # MESSAGE_TAGS for their own purposes without them leaking into Wagtail admin styles.
