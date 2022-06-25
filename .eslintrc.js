@@ -73,7 +73,6 @@ module.exports = {
         'client/src/entrypoints/admin/page-editor.js',
         'client/src/entrypoints/admin/telepath/widgets.js',
         'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
-        'client/src/utils/actions.ts',
         'client/src/utils/version.js',
       ],
       rules: legacyCode,
