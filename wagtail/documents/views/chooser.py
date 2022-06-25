@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
@@ -9,6 +8,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
 from wagtail.admin.views.generic.chooser import (
+    ChooseResultsViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
@@ -193,11 +193,10 @@ class ChooseView(DocumentCreationFormMixin, BaseChooseView):
         )
 
 
-class ChooseResultsView(DocumentCreationFormMixin, BaseChooseView):
-    def render_to_response(self):
-        return TemplateResponse(
-            self.request, self.results_template_name, self.get_context_data()
-        )
+class ChooseResultsView(
+    ChooseResultsViewMixin, DocumentCreationFormMixin, BaseChooseView
+):
+    pass
 
 
 class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
