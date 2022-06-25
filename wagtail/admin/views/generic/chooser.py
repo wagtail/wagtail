@@ -274,7 +274,7 @@ class ChooseResultsViewMixin:
         )
 
 
-class ChooseResultsView(ChooseResultsViewMixin, BaseChooseView):
+class ChooseResultsView(ChooseResultsViewMixin, CreationFormMixin, BaseChooseView):
     pass
 
 
