@@ -9,7 +9,6 @@ const legacyCode = {
   'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
-  'prefer-promise-reject-errors': 'off',
 };
 
 module.exports = {
