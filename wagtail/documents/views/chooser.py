@@ -12,6 +12,7 @@ from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
 from wagtail.admin.views.generic.chooser import (
     ChosenResponseMixin,
     ChosenViewMixin,
+    CreationFormMixin,
     ModalPageFurnitureMixin,
 )
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
@@ -31,6 +32,29 @@ class DocumentChosenResponseMixin(ChosenResponseMixin):
             }
         )
         return response_data
+
+
+class DocumentCreationFormMixin(CreationFormMixin):
+    create_action_label = _("Upload")
+    create_action_clicked_label = _("Uploading…")
+    create_url_name = "wagtaildocs:chooser_upload"
+    permission_policy = permission_policy
+
+    def get_creation_form_class(self):
+        return get_document_form(self.model)
+
+    def get_creation_form_kwargs(self):
+        kwargs = super().get_creation_form_kwargs()
+        kwargs.update(
+            {
+                "user": self.request.user,
+                "prefix": "document-chooser-upload",
+            }
+        )
+        if self.request.method in ("POST", "PUT"):
+            kwargs["instance"] = self.model(uploaded_by_user=self.request.user)
+
+        return kwargs
 
 
 class DownloadColumn(Column):
@@ -63,14 +87,6 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     def get(self, request):
         self.model = get_document_model()
-
-        if permission_policy.user_has_permission(request.user, "add"):
-            DocumentForm = get_document_form(self.model)
-            self.creation_form = DocumentForm(
-                user=request.user, prefix="document-chooser-upload"
-            )
-        else:
-            self.creation_form = None
 
         documents = self.get_object_list()
 
@@ -132,26 +148,26 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "filter_form": self.filter_form,
                 "is_searching": self.is_searching,
                 "collection_id": self.collection_id,
-                # FIXME: make a 'can_create' flag available to ChooseResultsView
-                # so that we don't have to construct a redundant form object just to
-                # test for its presence
-                "creation_form": self.creation_form,
-                "create_action_url": reverse("wagtaildocs:chooser_upload"),
-                "create_action_label": _("Upload"),
-                "create_action_clicked_label": _("Uploading…"),
             }
         )
+
+        if self.can_create():
+            context["can_create"] = True
+            context.update(
+                self.get_creation_form_context_data(self.get_creation_form())
+            )
+        else:
+            context["can_create"] = False
+
         return context
 
     def render_to_response(self):
         raise NotImplementedError()
 
 
-class ChooseView(BaseChooseView):
+class ChooseView(DocumentCreationFormMixin, BaseChooseView):
     search_tab_label = _("Search")
-    create_action_label = _("Upload")
     creation_tab_label = None
-    creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -178,7 +194,7 @@ class ChooseView(BaseChooseView):
         )
 
 
-class ChooseResultsView(BaseChooseView):
+class ChooseResultsView(DocumentCreationFormMixin, BaseChooseView):
     def render_to_response(self):
         return TemplateResponse(
             self.request, self.results_template_name, self.get_context_data()
@@ -191,30 +207,25 @@ class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-class ChooserUploadView(DocumentChosenResponseMixin, PermissionCheckedMixin, View):
+class ChooserUploadView(
+    DocumentCreationFormMixin, DocumentChosenResponseMixin, PermissionCheckedMixin, View
+):
     permission_policy = permission_policy
     permission_required = "add"
 
+    def dispatch(self, request, *args, **kwargs):
+        self.model = get_document_model()
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
-        Document = get_document_model()
-        DocumentForm = get_document_form(Document)
-        self.form = DocumentForm(user=request.user, prefix="document-chooser-upload")
+        self.form = self.get_creation_form()
         return self.get_reshow_creation_form_response()
 
     def post(self, request):
-        Document = get_document_model()
-        DocumentForm = get_document_form(Document)
-
-        document = Document(uploaded_by_user=request.user)
-        self.form = DocumentForm(
-            request.POST,
-            request.FILES,
-            instance=document,
-            user=request.user,
-            prefix="document-chooser-upload",
-        )
+        self.form = self.get_creation_form()
 
         if self.form.is_valid():
+            document = self.form.instance
             document.file_size = document.file.size
 
             # Set new document file hash
@@ -231,6 +242,11 @@ class ChooserUploadView(DocumentChosenResponseMixin, PermissionCheckedMixin, Vie
         return self.get_reshow_creation_form_response()
 
     def get_reshow_creation_form_response(self):
+        context = self.get_creation_form_context_data(self.form)
+        response_html = render_to_string(
+            self.creation_form_template_name, context, self.request
+        )
+
         return render_modal_workflow(
             self.request,
             None,
@@ -238,15 +254,6 @@ class ChooserUploadView(DocumentChosenResponseMixin, PermissionCheckedMixin, Vie
             None,
             json_data={
                 "step": "reshow_creation_form",
-                "htmlFragment": render_to_string(
-                    "wagtailadmin/generic/chooser/creation_form.html",
-                    {
-                        "creation_form": self.form,
-                        "create_action_url": reverse("wagtaildocs:chooser_upload"),
-                        "create_action_label": _("Upload"),
-                        "create_action_clicked_label": _("Uploading…"),
-                    },
-                    self.request,
-                ),
+                "htmlFragment": response_html,
             },
         )
