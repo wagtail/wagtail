@@ -2,7 +2,7 @@ import React from 'react';
 import { Pattern, generateDocs } from 'storybook-django/src/react';
 
 import initCollapsibleBreadcrumbs from '../../../../../client/src/includes/breadcrumbs';
-import template from './breadcrumb-next.html';
+import template from './breadcrumbs.html';
 
 const { docs, argTypes } = generateDocs(template);
 
