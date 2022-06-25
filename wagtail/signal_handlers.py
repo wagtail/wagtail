@@ -1,12 +1,20 @@
 import logging
 
 from django.core.cache import cache
-from django.db.models.signals import post_delete, post_save, pre_delete
+from django.db.models.signals import (
+    post_delete,
+    post_migrate,
+    post_save,
+    pre_delete,
+    pre_migrate,
+)
 
 from wagtail.coreutils import get_locales_display_names
 from wagtail.models import Locale, Page, Site
 
 logger = logging.getLogger("wagtail")
+
+MIGRATIONS_CURRENTLY_RUNNING = False
 
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated.
@@ -33,7 +41,20 @@ def reset_locales_display_names_cache(sender, instance, **kwargs):
     get_locales_display_names.cache_clear()
 
 
+def indicate_migrations_running(sender, **kwargs):
+    global MIGRATIONS_CURRENTLY_RUNNING
+    MIGRATIONS_CURRENTLY_RUNNING = True
+
+
+def indicate_migrations_not_running(sender, **kwargs):
+    global MIGRATIONS_CURRENTLY_RUNNING
+    MIGRATIONS_CURRENTLY_RUNNING = False
+
+
 def register_signal_handlers():
+    pre_migrate.connect(indicate_migrations_running)
+    post_migrate.connect(indicate_migrations_not_running)
+
     post_save.connect(post_save_site_signal_handler, sender=Site)
     post_delete.connect(post_delete_site_signal_handler, sender=Site)
 
