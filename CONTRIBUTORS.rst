@@ -611,6 +611,7 @@ Contributors
 * Igor Strapko
 * Sandeep M A
 * Bernd de Ridder
+* Stefano Silvestri
 
 Translators
 ===========

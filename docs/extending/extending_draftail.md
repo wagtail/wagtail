@@ -335,7 +335,7 @@ document.querySelectorAll('[data-stock]').forEach((elt) => {
 });
 ```
 
-Custom block entities can also be created (have a look at the separate [Draftail documentation](https://www.draftail.org/docs/blocks)), but these are not detailed here since [StreamField](streamfield) is the go-to way to create block-level rich text in Wagtail.
+Custom block entities can also be created (have a look at the separate [Draftail documentation](https://www.draftail.org/docs/blocks)), but these are not detailed here since [StreamField](streamfield_topic) is the go-to way to create block-level rich text in Wagtail.
 
 ## Integration of the Draftail widgets
 

@@ -1,3 +1,5 @@
+(custom_account_settings)=
+
 # Customising the user account settings form
 
 This document describes how to customise the user account settings form that can be found by clicking "Account settings"

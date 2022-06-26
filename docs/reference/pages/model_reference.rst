@@ -6,7 +6,7 @@ Model Reference
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
-.. _page-model-ref:
+.. _page_model_ref:
 
 ``Page``
 ========
@@ -486,7 +486,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
     .. autoattribute:: localized
 
 
-.. _revision-model-ref:
+.. _revision_model_ref:
 
 ``Revision``
 ============

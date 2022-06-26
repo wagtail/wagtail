@@ -21,7 +21,7 @@ Rich text data (as handled by [RichTextField](rich-text), and `RichTextBlock` wi
 <p><a linktype="page" id="3">Contact us</a> for more information.</p>
 ```
 
-Here, the `linktype` attribute identifies a rule that shall be used to rewrite the tag. When rendered on a template through the `|richtext` filter (see [rich text filter](rich-text-filter)), this is converted into valid HTML:
+Here, the `linktype` attribute identifies a rule that shall be used to rewrite the tag. When rendered on a template through the `|richtext` filter (see [rich text filter](rich_text_filter)), this is converted into valid HTML:
 
 ```html
 <p><a href="/contact-us/">Contact us</a> for more information.</p>
