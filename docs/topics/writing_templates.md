@@ -98,7 +98,7 @@ For example:
 
 See [](image_tag) for full documentation.
 
-(rich-text-filter)=
+(rich_text_filter)=
 
 ## Rich text (filter)
 
@@ -112,7 +112,7 @@ Only fields using `RichTextField` need this applied in the template.
 {{ page.body|richtext }}
 ```
 
-(responsive-embeds)=
+(responsive_embeds)=
 
 ### Responsive Embeds
 

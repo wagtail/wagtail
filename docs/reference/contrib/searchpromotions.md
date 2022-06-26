@@ -1,4 +1,4 @@
-(editors-picks)=
+(editors_picks)=
 
 # Promoted search results
 
