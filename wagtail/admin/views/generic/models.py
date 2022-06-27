@@ -163,7 +163,7 @@ class IndexView(
         # Preserve the object's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by("pk")
+            queryset = queryset.order_by("-updated_at", "-pk")
 
         # Search
         if self.search_query:
