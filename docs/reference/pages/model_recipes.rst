@@ -1,5 +1,5 @@
 
-.. _model_recipes:
+.. _page_model_recipes:
 
 Recipes
 =======
