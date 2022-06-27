@@ -1,3 +1,4 @@
+/* eslint-disable react/static-property-placement */
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
@@ -7,7 +8,32 @@ import { createPortal } from 'react-dom';
  * when certain events happen outside.
  * See https://reactjs.org/docs/portals.html.
  */
-class Portal extends Component {
+class Portal extends Component<{
+  closeOnClick: boolean;
+  closeOnResize: boolean;
+  closeOnType: boolean;
+  node: Element;
+  onClose: () => void;
+}> {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    node: PropTypes.instanceOf(Element),
+    children: PropTypes.node,
+    closeOnClick: PropTypes.bool,
+    closeOnType: PropTypes.bool,
+    closeOnResize: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    node: document.body,
+    children: null,
+    closeOnClick: false,
+    closeOnType: false,
+    closeOnResize: false,
+  };
+
+  portal: HTMLElement;
+
   constructor(props) {
     super(props);
 
@@ -16,10 +42,11 @@ class Portal extends Component {
     this.onCloseEvent = this.onCloseEvent.bind(this);
   }
 
-  onCloseEvent(e) {
+  onCloseEvent(event: MouseEvent) {
     const { onClose } = this.props;
+    const target = event.target as Element;
 
-    if (!this.portal.contains(e.target)) {
+    if (!this.portal.contains(target)) {
       onClose();
     }
   }
@@ -59,22 +86,5 @@ class Portal extends Component {
     return createPortal(children, this.portal);
   }
 }
-
-Portal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  node: PropTypes.instanceOf(Element),
-  children: PropTypes.node,
-  closeOnClick: PropTypes.bool,
-  closeOnType: PropTypes.bool,
-  closeOnResize: PropTypes.bool,
-};
-
-Portal.defaultProps = {
-  node: document.body,
-  children: null,
-  closeOnClick: false,
-  closeOnType: false,
-  closeOnResize: false,
-};
 
 export default Portal;
