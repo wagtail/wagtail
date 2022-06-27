@@ -34,7 +34,7 @@ class TestDraftStateMixin(TestCase):
                     "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
                     hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
                     obj=DraftStateWithoutRevisionModel,
-                    id="wagtail.EXXX",
+                    id="wagtailcore.E004",
                 )
             ],
         )
@@ -52,7 +52,7 @@ class TestDraftStateMixin(TestCase):
                     "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
                     hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
                     obj=DraftStateIncorrectRevisionModel,
-                    id="wagtail.EXXX",
+                    id="wagtailcore.E004",
                 )
             ],
         )

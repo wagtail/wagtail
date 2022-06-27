@@ -440,7 +440,7 @@ class DraftStateMixin(models.Model):
             "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
             hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
             obj=cls,
-            id="wagtail.EXXX",
+            id="wagtailcore.E004",
         )
 
         try:
