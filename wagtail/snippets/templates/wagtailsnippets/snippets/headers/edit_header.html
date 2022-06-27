@@ -17,10 +17,6 @@
         {% blocktrans trimmed with title=object snippet_type=model_opts.verbose_name %}Editing {{ snippet_type }} {{ title }}{% endblocktrans %}
     </h1>
 
-    {# Actions divider #}
-    <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-grey-100"></div>
-    {# Page actions dropdown #}
-
     {% include "wagtailadmin/shared/page_side_panels.html" %}
 {% endblock %}
 
