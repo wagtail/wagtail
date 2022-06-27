@@ -429,6 +429,8 @@ class StreamValue(MutableSequence):
             else:
                 self.data = stream_value._data
                 self.is_raw = False
+            self._initial_data_hash = hash(repr(self.data))
+            self._has_changed = False
 
         def __getitem__(self, i):
             item = self.data[i]
@@ -443,12 +445,14 @@ class StreamValue(MutableSequence):
             return len(self.data)
 
         def __setitem__(self, i, item):
+            self._has_changed = True
             self.data[i] = item
             if not self.is_raw:
                 # clear the cached bound_block for this item
                 self.stream_value._bound_blocks[i] = None
 
         def __delitem__(self, i):
+            self._has_changed = True
             if self.is_raw:
                 del self.data[i]
             else:
@@ -456,12 +460,18 @@ class StreamValue(MutableSequence):
                 del self.stream_value[i]
 
         def insert(self, i, item):
+            self._has_changed = True
             self.data.insert(i, item)
             if not self.is_raw:
                 self.stream_value._bound_blocks.insert(i, None)
 
         def __repr__(self):
             return repr(list(self))
+
+        def has_changed(self) -> bool:
+            # Use the internal boolean flag when set, as that is much
+            # cheaper than generating a new hash
+            return self._has_changed or hash(repr(self.data)) != self._initial_data_hash
 
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
