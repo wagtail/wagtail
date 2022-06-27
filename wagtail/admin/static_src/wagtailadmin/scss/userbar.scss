@@ -151,7 +151,6 @@ $positions: (
   transition-duration: 0.15s;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
-  // stylelint-disable-next-line scss/media-feature-value-dollar-variable
   @media (prefers-reduced-motion: reduce) {
     transition: none !important;
   }
@@ -186,7 +185,6 @@ $positions: (
   font-size: 16px !important;
   text-decoration: none !important;
 
-  // stylelint-disable-next-line scss/media-feature-value-dollar-variable
   @media (prefers-reduced-motion: reduce) {
     transition: none !important;
 
@@ -324,8 +322,6 @@ $positions: (
 
     &.is-active .#{$namespace}-userbar__item {
       @for $i from 1 through $max-items {
-        // stylelint-disable max-nesting-depth
-
         @if $vertical == 'bottom' {
           &:nth-last-child(#{$i}) {
             transition-delay: 0.05s * $i;
