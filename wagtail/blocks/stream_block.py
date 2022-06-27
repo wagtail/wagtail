@@ -574,7 +574,7 @@ class StreamValue(MutableSequence):
         only modifies the raw value).
         """
         if self._raw_data is None:
-            self._raw_data = [v for v in self.data]
+            self._raw_data = [v for v in self.data]  # noqa: C416
         return StreamValue.RawDataView(self, use_raw=True)
 
     @cached_property
@@ -623,7 +623,7 @@ class StreamValue(MutableSequence):
 
         # If self.raw_data has been accessed and changed, prefer that value
         if "raw_data" in self.__dict__ and self.raw_data.has_changed():
-            return [raw_item for raw_item in self._raw_data]
+            return [raw_item for raw_item in self._raw_data]  # noqa: C416
 
         # Continue to generate a value from _bound_blocks / _data
         prep_value = []
