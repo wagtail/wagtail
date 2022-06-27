@@ -1,4 +1,3 @@
-// stylelint-disable declaration-no-important
 .sidebar-menu-item {
   $root: &;
   @include transition(border-color $menu-transition-duration ease);

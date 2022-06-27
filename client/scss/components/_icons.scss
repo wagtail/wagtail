@@ -27,7 +27,6 @@
   @include icon(); // from _mixins.scss
 }
 
-// stylelint-disable-next-line no-duplicate-selectors
 .icon:after {
   text-align: end;
 }

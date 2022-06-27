@@ -50,7 +50,6 @@ $logo-size: 110px;
     &:hover {
       transition: transform 1.2s ease;
 
-      // stylelint-disable max-nesting-depth
       [data-part='tail'] {
         animation: tail-wag 0.1s alternate;
         animation-iteration-count: infinite;
