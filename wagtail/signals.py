@@ -1,5 +1,14 @@
 from django.dispatch import Signal
 
+# Generic object signals
+
+# provides args: instance, revision
+published = Signal()
+
+# provides args: instance
+unpublished = Signal()
+
+
 # Page signals
 
 # provides args: instance, revision

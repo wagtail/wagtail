@@ -57,6 +57,8 @@ from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
+from wagtail.actions.publish_revision import PublishRevisionAction
+from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
@@ -309,6 +311,10 @@ class RevisionMixin(models.Model):
 
         return obj
 
+    def _update_from_revision(self, revision, changed=True):
+        self.latest_revision = revision
+        self.save(update_fields=["latest_revision"])
+
     def save_revision(
         self,
         user=None,
@@ -344,8 +350,7 @@ class RevisionMixin(models.Model):
             object_str=str(self),
         )
 
-        self.latest_revision = revision
-        self.save(update_fields=["latest_revision"])
+        self._update_from_revision(revision, changed)
 
         logger.info(
             'Edited: "%s" pk=%d revision_id=%d', str(self), self.pk, revision.id
@@ -386,7 +391,164 @@ class RevisionMixin(models.Model):
         abstract = True
 
 
-class AbstractPage(RevisionMixin, TranslatableMixin, TreebeardPathFixMixin, MP_Node):
+class DraftStateMixin(models.Model):
+    live = models.BooleanField(verbose_name=_("live"), default=True, editable=False)
+    has_unpublished_changes = models.BooleanField(
+        verbose_name=_("has unpublished changes"), default=False, editable=False
+    )
+
+    first_published_at = models.DateTimeField(
+        verbose_name=_("first published at"), blank=True, null=True, db_index=True
+    )
+    last_published_at = models.DateTimeField(
+        verbose_name=_("last published at"), null=True, editable=False
+    )
+    live_revision = models.ForeignKey(
+        "wagtailcore.Revision",
+        related_name="+",
+        verbose_name=_("live revision"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+    )
+
+    go_live_at = models.DateTimeField(
+        verbose_name=_("go live date/time"), blank=True, null=True
+    )
+    expire_at = models.DateTimeField(
+        verbose_name=_("expiry date/time"), blank=True, null=True
+    )
+    expired = models.BooleanField(
+        verbose_name=_("expired"), default=False, editable=False
+    )
+
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def check(cls, **kwargs):
+        return [
+            *super().check(**kwargs),
+            *cls._check_revision_mixin(),
+        ]
+
+    @classmethod
+    def _check_revision_mixin(cls):
+        mro = cls.mro()
+        error = checks.Error(
+            "DraftStateMixin requires RevisionMixin to be applied after DraftStateMixin.",
+            hint="Add RevisionMixin to the model's base classes after DraftStateMixin.",
+            obj=cls,
+            id="wagtailcore.E004",
+        )
+
+        try:
+            if mro.index(RevisionMixin) < mro.index(DraftStateMixin):
+                return [error]
+        except ValueError:
+            return [error]
+
+        return []
+
+    @property
+    def status_string(self):
+        if not self.live:
+            if self.expired:
+                return _("expired")
+            else:
+                return _("draft")
+        else:
+            if self.has_unpublished_changes:
+                return _("live + draft")
+            else:
+                return _("live")
+
+    def publish(
+        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+    ):
+        return PublishRevisionAction(
+            revision,
+            user=user,
+            changed=changed,
+            log_action=log_action,
+            previous_revision=previous_revision,
+        ).execute()
+
+    def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
+        return UnpublishAction(
+            self,
+            set_expired=set_expired,
+            commit=commit,
+            user=user,
+            log_action=log_action,
+        ).execute()
+
+    def with_content_json(self, content):
+        """
+        Returns a new version of the object with field values updated to reflect changes
+        in the provided ``content`` (which usually comes from a previously-saved revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        object is saved, such as ``id``. The following field values are also preserved,
+        as they are considered to be meaningful to the object as a whole, rather than
+        to a specific revision:
+
+        * ``latest_revision``
+        * ``live``
+        * ``has_unpublished_changes``
+        * ``first_published_at``
+
+        If ``TranslatableMixin`` is applied, the following field values are also preserved:
+
+        * ``translation_key``
+        * ``locale``
+        """
+        obj = super().with_content_json(content)
+
+        # Ensure other values that are meaningful for the object as a whole (rather than
+        # to a specific revision) are preserved
+        obj.live = self.live
+        obj.has_unpublished_changes = self.has_unpublished_changes
+        obj.first_published_at = self.first_published_at
+
+        return obj
+
+    def get_latest_revision_as_object(self):
+        if not self.has_unpublished_changes:
+            # Use the live database copy in preference to the revision record, as:
+            # 1) this will pick up any changes that have been made directly to the model,
+            #    such as automated data imports;
+            # 2) it ensures that inline child objects pick up real database IDs even if
+            #    those are absent from the revision data. (If this wasn't the case, the child
+            #    objects would be recreated with new IDs on next publish - see #1853)
+            return self
+
+        latest_revision = self.get_latest_revision()
+
+        if latest_revision:
+            return latest_revision.as_object()
+        else:
+            return self
+
+    def _update_from_revision(self, revision, changed=True):
+        update_fields = ["latest_revision"]
+        self.latest_revision = revision
+
+        if changed:
+            self.has_unpublished_changes = True
+            update_fields.append("has_unpublished_changes")
+
+        self.save(update_fields=update_fields)
+
+
+class AbstractPage(
+    DraftStateMixin,
+    RevisionMixin,
+    TranslatableMixin,
+    TreebeardPathFixMixin,
+    MP_Node,
+):
     """
     Abstract superclass for Page. According to Django's inheritance rules, managers set on
     abstract models are inherited by subclasses, but managers set on concrete models that are extended
@@ -421,10 +583,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("content type"),
         related_name="pages",
         on_delete=models.SET(get_default_page_content_type),
-    )
-    live = models.BooleanField(verbose_name=_("live"), default=True, editable=False)
-    has_unpublished_changes = models.BooleanField(
-        verbose_name=_("has unpublished changes"), default=False, editable=False
     )
     url_path = models.TextField(verbose_name=_("URL path"), blank=True, editable=False)
     owner = models.ForeignKey(
@@ -462,16 +620,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ),
     )
 
-    go_live_at = models.DateTimeField(
-        verbose_name=_("go live date/time"), blank=True, null=True
-    )
-    expire_at = models.DateTimeField(
-        verbose_name=_("expiry date/time"), blank=True, null=True
-    )
-    expired = models.BooleanField(
-        verbose_name=_("expired"), default=False, editable=False
-    )
-
     locked = models.BooleanField(
         verbose_name=_("locked"), default=False, editable=False
     )
@@ -488,24 +636,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         related_name="locked_pages",
     )
 
-    first_published_at = models.DateTimeField(
-        verbose_name=_("first published at"), blank=True, null=True, db_index=True
-    )
-    last_published_at = models.DateTimeField(
-        verbose_name=_("last published at"), null=True, editable=False
-    )
     latest_revision_created_at = models.DateTimeField(
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
-    live_revision = models.ForeignKey(
-        "wagtailcore.Revision",
-        related_name="+",
-        verbose_name=_("live revision"),
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        editable=False,
-    )
+
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
 
     # If non-null, this page is an alias of the linked page
@@ -1005,42 +1139,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             return self.specific_class.get_verbose_name()
 
-    @property
-    def localized_draft(self):
-        """
-        Finds the translation in the current active language.
-
-        If there is no translation in the active language, self is returned.
-
-        Note: This will return translations that are in draft. If you want to exclude
-        these, use the ``.localized`` attribute.
-        """
-        try:
-            locale = Locale.get_active()
-        except (LookupError, Locale.DoesNotExist):
-            return self
-
-        if locale.id == self.locale_id:
-            return self
-
-        return self.get_translation_or_none(locale) or self
-
-    @property
-    def localized(self):
-        """
-        Finds the translation in the current active language.
-
-        If there is no translation in the active language, self is returned.
-
-        Note: This will not return the translation if it is in draft.
-        If you want to include drafts, use the ``.localized_draft`` attribute instead.
-        """
-        localized = self.localized_draft
-        if not localized.live:
-            return self
-
-        return localized
-
     def route(self, request, path_components):
         if path_components:
             # request is for a child of this page
@@ -1337,6 +1435,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
 
     update_aliases.alters_data = True
+
+    def publish(
+        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+    ):
+        return PublishPageRevisionAction(
+            revision,
+            user=user,
+            changed=changed,
+            log_action=log_action,
+            previous_revision=previous_revision,
+        ).execute()
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         return UnpublishPageAction(
@@ -2580,13 +2689,13 @@ class Revision(models.Model):
         return super().delete()
 
     def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
-        return PublishPageRevisionAction(
+        return self.content_object.publish(
             self,
             user=user,
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
-        ).execute()
+        )
 
     def get_previous(self):
         return self.get_previous_by_created_at(
