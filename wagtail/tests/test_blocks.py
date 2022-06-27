@@ -3936,6 +3936,41 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
 
+    def test_streamvalue_raw_data(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python(
+            [
+                {"type": "heading", "value": "goodbye", "id": "0001"},
+                {"type": "unknown", "value": "cruel", "id": "0002"},
+                {"type": "paragraph", "value": "world", "id": "0003"},
+            ]
+        )
+
+        self.assertEqual(
+            stream.raw_data[0], {"type": "heading", "value": "goodbye", "id": "0001"}
+        )
+        stream.raw_data[0]["value"] = "farewell"
+        self.assertEqual(
+            stream.raw_data[0], {"type": "heading", "value": "farewell", "id": "0001"}
+        )
+        # changes made via raw_data are not reflected in data
+        self.assertEqual(stream.data[0]["value"], "goodbye")
+
+        # changes to raw_data will be written back via get_prep_value...
+        data = block.get_prep_value(stream)
+        self.assertEqual(
+            data,
+            [
+                {"type": "heading", "value": "farewell", "id": "0001"},
+                {"type": "unknown", "value": "cruel", "id": "0002"},
+                {"type": "paragraph", "value": "world", "id": "0003"},
+            ],
+        )
+
     def test_adapt_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 
