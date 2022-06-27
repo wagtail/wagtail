@@ -160,10 +160,10 @@ class IndexView(
             )
             queryset = queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-        # Preserve the model-level ordering if specified, but fall back on PK if not
-        # (to ensure pagination is consistent)
+        # Preserve the model-level ordering if specified, but fall back on
+        # updated_at and PK if not (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by("pk")
+            queryset = queryset.order_by("-_updated_at", "-pk")
 
         return queryset
 
