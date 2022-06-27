@@ -620,6 +620,12 @@ class StreamValue(MutableSequence):
             )
 
     def get_prep_value(self):
+
+        # If self.raw_data has been accessed and changed, prefer that value
+        if "raw_data" in self.__dict__ and self.raw_data.has_changed():
+            return [raw_item for raw_item in self._raw_data]
+
+        # Continue to generate a value from _bound_blocks / _data
         prep_value = []
 
         for i, item in enumerate(self._bound_blocks):
