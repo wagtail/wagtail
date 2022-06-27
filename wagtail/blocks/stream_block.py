@@ -560,7 +560,37 @@ class StreamValue(MutableSequence):
         self._data.insert(i, None)
 
     @cached_property
-    def raw_data(self):
+    def raw_data(self) -> "StreamValue.RawDataView":
+        """
+        Returns an instance of ``RawDataView`` that can be used to interact with the block's
+        complete raw data value, as retrieved from the database.
+
+        Any changes made via this interface will be saved back to the database when
+        get_prep_value() is called.
+
+        Unlike ``self.data``, changes made via this interface will NOT be reflected in the
+        block's ``BoundBlock`` representation, so is better used in situations where that
+        representation is not really needed (for example, in Django data migrations that
+        only modifies the raw value).
+        """
+        if self._raw_data is None:
+            self._raw_data = [v for v in self.data]
+        return StreamValue.RawDataView(self, use_raw=True)
+
+    @cached_property
+    def data(self) -> "StreamValue.RawDataView":
+        """
+        Returns an instance of ``RawDataView`` that can be used to interact with a sanitized
+        version of the block's data, that only contains data for block types that are
+        present in the block's ``child_blocks`` - meaning they can be turned successfully
+        into ``BoundBlock`` objects for rendering.
+
+        If the BoundBlock representation has not yet been accessed, any changes made via this
+        interface will also be reflected in the final ``BoundBlock`` representation.
+
+        If no changes are made via the ``self.raw_data`` interface, changes made via this one
+        will be saved back to the database when get_prep_value() is called.
+        """
         return StreamValue.RawDataView(self)
 
     def _prefetch_blocks(self, type_name):
