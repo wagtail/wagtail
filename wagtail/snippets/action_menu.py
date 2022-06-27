@@ -64,6 +64,17 @@ class ActionMenuItem(Component):
         return None
 
 
+class PublishMenuItem(ActionMenuItem):
+    name = "action-publish"
+    label = _("Publish")
+    icon_name = "upload"
+    template_name = "wagtailsnippets/snippets/action_menu/publish.html"
+
+    def is_shown(self, context):
+        publish_permission = get_permission_name("publish", context["model"])
+        return context["request"].user.has_perm(publish_permission)
+
+
 class DeleteMenuItem(ActionMenuItem):
     name = "action-delete"
     label = _("Delete")
@@ -89,6 +100,7 @@ class DeleteMenuItem(ActionMenuItem):
 class SaveMenuItem(ActionMenuItem):
     name = "action-save"
     label = _("Save")
+    icon_name = "download-alt"
     template_name = "wagtailsnippets/snippets/action_menu/save.html"
 
 
@@ -100,8 +112,10 @@ def get_base_snippet_action_menu_items(model):
     """
     menu_items = [
         SaveMenuItem(order=0),
-        DeleteMenuItem(order=10),
+        DeleteMenuItem(order=20),
     ]
+    if issubclass(model, DraftStateMixin):
+        menu_items += [PublishMenuItem(order=10)]
 
     for hook in hooks.get_hooks("register_snippet_action_menu_item"):
         action_menu_item = hook(model)

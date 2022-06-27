@@ -27,7 +27,7 @@ from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import Locale, RevisionMixin
+from wagtail.models import DraftStateMixin, Locale, RevisionMixin
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
@@ -290,7 +290,11 @@ class Edit(EditView):
         return get_edit_handler(self.model)
 
     def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
+        object = get_object_or_404(self.model, pk=unquote(self.pk))
+
+        if issubclass(self.model, DraftStateMixin):
+            return object.get_latest_revision_as_object()
+        return object
 
     def get_edit_url(self):
         return reverse(
