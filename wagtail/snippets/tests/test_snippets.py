@@ -121,13 +121,13 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
 
     def test_ordering(self):
         """
-        Listing should be ordered by PK if no ordering has been set on the model
+        Listing should be ordered descending by PK if no ordering has been set on the model
         """
-        for i in range(10, 0, -1):
+        for i in range(1, 11):
             Advert.objects.create(pk=i, text="advert %d" % i)
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["items"][0].text, "advert 1")
+        self.assertEqual(response.context["items"][0].text, "advert 10")
 
     def test_simple_pagination(self):
 
