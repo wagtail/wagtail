@@ -44,6 +44,9 @@ Changelog
  * Move `get_snippet_edit_handler` function to `wagtail.admin.panels.get_edit_handler` (Sage Abdullah)
  * Add clarity to the search indexing documentation for how `boost` works when using Postgres with the database search backend (Tibor Leupold)
  * Rename `explorer_breadcrumb` template tag to `breadcrumbs` as it is now used in multiple locations (Paarth Agarwal)
+ * Updated `django-filter` version to support 23 (Yuekui)
+ * Use `.iterator()` in a few more places in the admin, to make it more stable on sites with many pages (Andy Babic)
+ * Migrate some simple React component files to TypeScript (LB (Ben) Johnston)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
@@ -62,6 +65,7 @@ Changelog
  * Fix: Revise the `ModelAdmin` title column behaviour to only link to 'edit' if the user has the correct permissions, fallback to the 'inspect' view or a non-clickable title if needed (Stefan Hammer)
  * Fix: Ensure that `DecimalBlock` preserves the `Decimal` type when retrieving from the database (Yves Serrano)
  * Fix: When no snippets are added, ensure the snippet chooser modal would have the correct URL for creating a new snippet (Matt Westcott)
+ * Fix: `ngettext` in Wagtail's internal JavaScript internationalisation utilities now works (LB (Ben) Johnston)
 
 
 3.0.1 (16.06.2022)

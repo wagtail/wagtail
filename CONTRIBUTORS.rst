@@ -607,6 +607,8 @@ Contributors
 * Noble Mittal
 * Oliver Parker
 * Viggo de Vries
+* Yuekui
+* Igor Strapko
 
 Translators
 ===========
