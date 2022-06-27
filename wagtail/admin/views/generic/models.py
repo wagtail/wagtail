@@ -1,7 +1,9 @@
 from django import VERSION as DJANGO_VERSION
 from django.contrib.admin.utils import quote, unquote
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
-from django.db import transaction
+from django.db import models, transaction
+from django.db.models.functions import Cast
 from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -133,11 +135,30 @@ class IndexView(
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
+        # Annotate the objects' updated_at
         if issubclass(queryset.model, RevisionMixin):
+            # Use the latest revision's created_at
             queryset.select_related(
                 "latest_revision__object_str",
                 "latest_revision__created_at",
             )
+            queryset = queryset.annotate(
+                updated_at=models.F("latest_revision__created_at")
+            )
+        else:
+            # Use the latest log entry's timestamp
+            log_model = log_registry.get_log_model_for_model(self.model)
+            latest_log = (
+                log_model.objects.filter(
+                    content_type=ContentType.objects.get_for_model(
+                        self.model, for_concrete_model=False
+                    ),
+                    object_id=Cast(models.OuterRef("pk"), models.CharField()),
+                )
+                .order_by("-timestamp", "-pk")
+                .values("timestamp")[:1]
+            )
+            queryset = queryset.annotate(updated_at=models.Subquery(latest_log))
 
         # Preserve the object's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
@@ -188,28 +209,10 @@ class IndexView(
         )
 
     def _get_updated_at_column(self):
-        def updated_at_accessor(obj):
-            revision_enabled = self.model and issubclass(self.model, RevisionMixin)
-
-            if revision_enabled and obj.latest_revision:
-                return obj.latest_revision.created_at
-
-            latest_log_entry = log_registry.get_logs_for_instance(obj).first()
-            if latest_log_entry:
-                return latest_log_entry.timestamp
-            return None
-
-        return DateColumn(
-            "updated_at",
-            label=_("Updated"),
-            accessor=updated_at_accessor,
-        )
+        return DateColumn("updated_at", label=_("Updated"))
 
     def _get_status_tag_column(self):
-        return StatusTagColumn(
-            "status_string",
-            label=_("Status"),
-        )
+        return StatusTagColumn("status_string", label=_("Status"))
 
     def _get_default_columns(self):
         columns = [
