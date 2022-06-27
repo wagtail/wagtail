@@ -421,33 +421,44 @@ class StreamValue(MutableSequence):
         and will not be saved back when calling get_prep_value.
         """
 
-        def __init__(self, stream_value):
+        def __init__(self, stream_value, use_raw=False):
             self.stream_value = stream_value
+            if use_raw:
+                self.data = stream_value._raw_data
+                self.is_raw = True
+            else:
+                self.data = stream_value._data
+                self.is_raw = False
 
         def __getitem__(self, i):
-            item = self.stream_value._raw_data[i]
+            item = self.data[i]
             if item is None:
                 # reconstruct raw data from the bound block
                 item = self.stream_value._bound_blocks[i].get_prep_value()
-                self.stream_value._raw_data[i] = item
+                self.data[i] = item
 
             return item
 
         def __len__(self):
-            return len(self.stream_value._raw_data)
+            return len(self.data)
 
         def __setitem__(self, i, item):
-            self.stream_value._raw_data[i] = item
-            # clear the cached bound_block for this item
-            self.stream_value._bound_blocks[i] = None
+            self.data[i] = item
+            if not self.is_raw:
+                # clear the cached bound_block for this item
+                self.stream_value._bound_blocks[i] = None
 
         def __delitem__(self, i):
-            # same as deletion on the stream itself - delete both the raw and bound_block data
-            del self.stream_value[i]
+            if self.is_raw:
+                del self.data[i]
+            else:
+                # same as deletion on the stream itself - delete both the raw and bound_block data
+                del self.stream_value[i]
 
         def insert(self, i, item):
-            self.stream_value._raw_data.insert(i, item)
-            self.stream_value._bound_blocks.insert(i, None)
+            self.data.insert(i, item)
+            if not self.is_raw:
+                self.stream_value._bound_blocks.insert(i, None)
 
         def __repr__(self):
             return repr(list(self))
