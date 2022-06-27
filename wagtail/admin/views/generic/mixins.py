@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.models import Locale, TranslatableMixin
+from wagtail.models import DraftStateMixin, Locale, TranslatableMixin
 
 
 class HookResponseMixin:
@@ -192,9 +192,12 @@ class RevisionsRevertMixin:
         return self.revision.as_object()
 
     def save_instance(self):
-        instance = self.form.save()
+        commit = not issubclass(self.model, DraftStateMixin)
+        instance = self.form.save(commit=commit)
 
-        instance.save_revision(
+        self.has_content_changes = self.form.has_changed()
+
+        self.new_revision = instance.save_revision(
             user=self.request.user,
             log_action=True,
             previous_revision=self.revision,
@@ -203,13 +206,19 @@ class RevisionsRevertMixin:
         return instance
 
     def get_success_message(self):
-        return _(
-            "%(model_name)s '%(instance)s' has been replaced with version from %(timestamp)s."
-        ) % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "instance": self.object,
-            "timestamp": self.revision.created_at.strftime("%d %b %Y %H:%M"),
-        }
+        message = _(
+            "{model_name} '{instance}' has been replaced with version from {timestamp}."
+        )
+        if self.action == "publish":
+            message = _(
+                "Version from {timestamp} of {model_name} '{instance}' has been published."
+            )
+
+        return message.format(
+            model_name=capfirst(self.model._meta.verbose_name),
+            instance=self.object,
+            timestamp=self.revision.created_at.strftime("%d %b %Y %H:%M"),
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
