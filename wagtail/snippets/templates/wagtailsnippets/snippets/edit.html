@@ -21,7 +21,7 @@
                     <nav aria-label="{% trans 'Actions' %}">
                         <ul>
                             <li class="actions actions--primary footer__container">
-                                <div class="dropdown dropup dropdown-button match-width">
+                                <div class="dropdown dropup dropdown-button match-width {% if view.view_name == 'revisions_revert' %}warning{% endif %}">
                                     {{ action_menu.render_html }}
                                 </div>
                             </li>
