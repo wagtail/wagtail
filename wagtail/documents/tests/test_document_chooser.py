@@ -91,7 +91,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # and document is displayed
         self.assertContains(response, doc_title)
         # and no hints are displayed
@@ -117,7 +117,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # Confirm that the chooser opened successfully.
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the bun recipe is visible, but the payroll is not.
         self.assertContains(response, bun_recipe_title)
         self.assertNotContains(response, payroll_title)
@@ -133,7 +133,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # Confirm that the chooser opened successfully.
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the Collection chooser is not visible, because the Baker cannot
         # choose from multiple Collections.
         self.assertNotContains(response, "Collection:")
@@ -152,7 +152,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # Confirm that the chooser opened successfully.
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
         self.assertContains(response, "Collection:")
@@ -166,7 +166,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # and hint "You haven't uploaded any documents. Why not upload one now?" is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
         self.assertContains(response, self._UPLOAD_ONE_TEXT)
@@ -181,7 +181,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # and the following hint is displayed:
         # "You haven't uploaded any documents in this collection. Why not upload one now?"
         self.assertContains(response, self._NO_DOCS_TEXT)
