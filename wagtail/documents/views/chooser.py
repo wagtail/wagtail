@@ -1,3 +1,4 @@
+from django import forms
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -65,6 +66,20 @@ class DownloadColumn(Column):
         return context
 
 
+class DocumentFilterForm(SearchForm):
+    def __init__(self, *args, collections, **kwargs):
+        super().__init__(*args, **kwargs)
+        if collections:
+            collection_choices = [
+                ("", _("All collections"))
+            ] + collections.get_indented_choices()
+            self.fields["collection_id"] = forms.ChoiceField(
+                label=_("Collection"),
+                choices=collection_choices,
+                required=False,
+            )
+
+
 class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     icon = "doc-full-inverse"
     page_title = _("Choose a document")
@@ -96,27 +111,29 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if self.collection_id:
             documents = documents.filter(collection=self.collection_id)
 
+        self.collections = permission_policy.collections_user_has_permission_for(
+            request.user, "choose"
+        )
+        if len(self.collections) < 2:
+            self.collections = None
+
         if "q" in request.GET:
-            self.filter_form = SearchForm(request.GET)
+            self.filter_form = DocumentFilterForm(
+                request.GET, collections=self.collections
+            )
             if self.filter_form.is_valid():
                 self.q = self.filter_form.cleaned_data["q"]
 
                 documents = documents.search(self.q)
                 self.is_searching = True
         else:
-            self.filter_form = SearchForm()
+            self.filter_form = DocumentFilterForm(collections=self.collections)
 
         if not self.is_searching:
             documents = documents.order_by("-created_at")
 
         paginator = Paginator(documents, per_page=10)
         self.documents = paginator.get_page(request.GET.get("p"))
-
-        self.collections = permission_policy.collections_user_has_permission_for(
-            request.user, "choose"
-        )
-        if len(self.collections) < 2:
-            self.collections = None
 
         columns = [
             TitleColumn(
