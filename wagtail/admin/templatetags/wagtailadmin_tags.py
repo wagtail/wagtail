@@ -27,6 +27,7 @@ from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
+from wagtail.admin.templatetags.util import SplitTemplateTag
 from wagtail.admin.ui import sidebar
 from wagtail.admin.utils import get_admin_base_url
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
@@ -940,6 +941,25 @@ def dialog(
 @register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
 def enddialog():
     return
+
+
+class HeaderSplitTemplateTag(SplitTemplateTag):
+    """
+    Sets up the config for adding a start/end template tag
+    {% header %}Additional buttons{% endheader %}
+    """
+
+    name = "header"
+    filename = "wagtailadmin/shared/header.html"
+
+    @staticmethod
+    def start(title):
+        return {
+            "title": title,
+        }
+
+
+HeaderSplitTemplateTag(register).register_tags()
 
 
 # Button used to open dialogs
