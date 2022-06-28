@@ -609,6 +609,7 @@ Contributors
 * Viggo de Vries
 * Yuekui
 * Igor Strapko
+* Sandeep M A
 
 Translators
 ===========
