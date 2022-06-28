@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/text';
+import { gettext } from '../../utils/gettext';
 
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]
@@ -389,7 +390,7 @@ function initPreview() {
   const handlePreview = () =>
     setPreviewData().catch(() => {
       // eslint-disable-next-line no-alert
-      alert('Error while sending preview data.');
+      window.alert(gettext('Error while sending preview data.'));
     });
 
   const handlePreviewInNewTab = () => {
