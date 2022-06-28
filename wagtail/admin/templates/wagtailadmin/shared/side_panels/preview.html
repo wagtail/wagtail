@@ -4,17 +4,17 @@
 
 <div class="preview-panel preview-panel--mobile" data-active-preview-size="mobile" data-action="{{ preview_url }}" data-auto-update="{{ auto_update|yesno:'true,false' }}">
     <div class="preview-panel__sizes">
-        <button class="preview-panel__size-button preview-panel__size-button--mobile" data-preview-size="mobile" aria-label="{% trans "Preview in mobile size" %}" aria-current="true">
+        <button class="preview-panel__size-button preview-panel__size-button--mobile" data-preview-size="mobile" aria-label="{% trans 'Preview in mobile size' %}" aria-current="true">
             {% icon name="mobile-alt" class_name="default" %}
         </button>
-        <button class="preview-panel__size-button preview-panel__size-button--tablet" data-preview-size="tablet" aria-label="{% trans "Preview in tablet size" %}" aria-current="false">
+        <button class="preview-panel__size-button preview-panel__size-button--tablet" data-preview-size="tablet" aria-label="{% trans 'Preview in tablet size' %}" aria-current="false">
             {% icon name="tablet-alt" class_name="default" %}
         </button>
-        <button class="preview-panel__size-button preview-panel__size-button--desktop" data-preview-size="desktop" aria-label="{% trans "Preview in desktop size" %}" aria-current="false">
+        <button class="preview-panel__size-button preview-panel__size-button--desktop" data-preview-size="desktop" aria-label="{% trans 'Preview in desktop size' %}" aria-current="false">
             {% icon name="desktop" class_name="default" %}
         </button>
 
-        <button class="preview-panel__size-button preview-panel__size-button--new-tab" aria-label="{% trans "Preview in new tab" %}">{% icon name="link-external" class_name="default" %}</button>
+        <button class="preview-panel__size-button preview-panel__size-button--new-tab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" class_name="default" %}</button>
     </div>
 
     <button class="button button-small button-secondary button--icon preview-panel__refresh-button">{% icon name="rotate" %} Refresh</button>
@@ -26,7 +26,7 @@
 
         {% if object.preview_modes|length > 1 %}
             <div class="preview-panel__modes choice_field">
-                {% trans "Preview mode" %}
+                {% trans 'Preview mode' %}
                 <div class="input">
                     <select name="preview_mode" class="preview-panel__mode-select">
                         {% for internal_name, display_name in object.preview_modes %}
