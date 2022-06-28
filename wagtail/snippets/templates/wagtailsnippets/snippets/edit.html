@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ object }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-editor {% if object.live %}page-is-live{% endif %} model-{{ model_opts.model_name }} {% endblock %}
 {% block content %}
     <div class="w-sticky w-top-0 w-z-header">
@@ -8,7 +8,7 @@
         {% include "wagtailadmin/shared/page_side_panels.html" %}
     </div>
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" merged=1 only %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=object icon="snippet" merged=1 only %}
 
     <div class="row row-flush">
 
@@ -36,7 +36,7 @@
                 <dl>
                     <dt>{% trans "Usage" %}</dt>
                     <dd>
-                        <a href="{{ instance.usage_url }}">{% blocktrans trimmed count usage_count=instance.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                        <a href="{{ object.usage_url }}">{% blocktrans trimmed count usage_count=object.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                     </dd>
                 </dl>
             </div>

@@ -349,7 +349,6 @@ class Edit(EditView):
         context.update(
             {
                 "model_opts": self.model._meta,
-                "instance": self.object,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "latest_log_entry": latest_log_entry,
