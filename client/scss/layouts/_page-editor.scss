@@ -647,18 +647,15 @@ footer .preview {
     border-radius: 5px;
 
     .icon {
-      width: 1rem;
-      height: 1rem;
+      @include svg-icon(1rem);
 
       &.icon-tablet-alt,
       &.icon-desktop {
-        width: 1.25rem;
-        height: 1.25rem;
+        @include svg-icon(1.25rem);
       }
 
       &.icon-link-external {
-        width: 0.9rem;
-        height: 0.9rem;
+        @include svg-icon(0.9rem);
       }
     }
   }
