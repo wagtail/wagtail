@@ -645,6 +645,8 @@ footer .preview {
     box-sizing: border-box;
     padding: 0;
     border-radius: 5px;
+    display: grid;
+    place-items: center;
 
     .icon {
       @include svg-icon(1rem);

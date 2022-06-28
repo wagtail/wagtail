@@ -393,7 +393,8 @@ function initPreview() {
       window.alert(gettext('Error while sending preview data.'));
     });
 
-  const handlePreviewInNewTab = () => {
+  const handlePreviewInNewTab = (event) => {
+    event.preventDefault();
     const previewWindow = window.open('', previewUrl);
     previewWindow.focus();
 
@@ -421,6 +422,8 @@ function initPreview() {
     // Make sure data is up-to-date before changing the preview mode.
     handlePreview().then(() => {
       iframe.src = url.toString();
+      url.searchParams.delete('in_preview_panel');
+      newTabButton.href = url.toString();
     });
   };
 
