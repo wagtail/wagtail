@@ -702,7 +702,7 @@ footer .preview {
 
   &__modes.choice_field &__mode-select ~ span:after {
     @apply w-text-grey-400;
-    border: none;
+    border: 0;
     font-size: 1.5em;
     line-height: 1.65em;
     top: auto;
@@ -712,7 +712,7 @@ footer .preview {
 
 .preview-error {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   width: 100%;
   display: grid;
   min-height: 100vh;
