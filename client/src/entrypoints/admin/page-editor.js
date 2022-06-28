@@ -350,7 +350,7 @@ function initPreview() {
       'preview-panel--has-errors',
     );
 
-    previewButtons.forEach((b) => b.setAttribute('aria-current', 'false'));
+    previewButtons.forEach((btn) => btn.setAttribute('aria-current', 'false'));
     currentButton.setAttribute('aria-current', 'true');
     previewPanel.dataset.activePreviewSize = size;
     previewPanel.className = `preview-panel preview-panel--${size}`;
@@ -372,7 +372,6 @@ function initPreview() {
   const iframe = previewPanel.querySelector('.preview-panel__iframe');
   const form = document.querySelector('.edit-form');
   const previewUrl = previewPanel.dataset.action;
-  const submitAction = document.querySelector('.action-save');
   const previewModeSelect = document.querySelector(
     '.preview-panel__mode-select',
   );
@@ -425,7 +424,9 @@ function initPreview() {
     const url = new URL(iframe.src);
     url.searchParams.set('mode', mode);
     // Make sure data is up-to-date before changing the preview mode.
-    handlePreview().then(() => (iframe.src = url.toString()));
+    handlePreview().then(() => {
+      iframe.src = url.toString();
+    });
   };
 
   if (previewModeSelect) {
