@@ -7,9 +7,19 @@ from wagtail.admin.ui.components import Component
 
 class BaseSidePanel(Component):
     def get_context_data(self, parent_context):
-        # Parent context is a RequestContext, flatten into a plain dictionary
-        context = parent_context.flatten()
-        context["panel"] = self
+        context = {"panel": self}
+
+        # Gather necessary context data from parent_context
+        parent_context_data = [
+            "object",
+            "model_opts",
+            "revision_enabled",
+            "draftstate_enabled",
+            "latest_log_entry",
+            "view",
+        ]
+        for key in parent_context_data:
+            context[key] = parent_context.get(key)
         return context
 
 
@@ -23,11 +33,8 @@ class StatusSidePanel(BaseSidePanel):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        translations = context.get("translations")
-
-        if translations:
-            context["translations_total"] = len(translations) + 1
-
+        context["locale"] = parent_context.get("locale")
+        context["translations"] = parent_context.get("translations")
         return context
 
 

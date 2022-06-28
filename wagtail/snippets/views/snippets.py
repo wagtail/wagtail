@@ -352,7 +352,6 @@ class Edit(EditView):
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "latest_log_entry": latest_log_entry,
-                "history_url": self.get_history_url(),
                 "media": media + action_menu.media + side_panels.media,
             }
         )

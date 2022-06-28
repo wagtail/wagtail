@@ -54,7 +54,7 @@
 {% endblock %}
 
 {% block action %}
-    {% with action_url=history_url %}
+    {% with action_url=view.get_history_url %}
         {% trans 'View history' as action_text %}
         {{ block.super }}
     {% endwith %}

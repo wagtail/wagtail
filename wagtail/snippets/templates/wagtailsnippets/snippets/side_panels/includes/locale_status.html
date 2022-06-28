@@ -5,7 +5,7 @@
     {% trans 'Object Locale: ' as screen_reader_title_prefix %}
 
     {% if translations and object %}
-        {% blocktrans trimmed asvar help_text %}
+        {% blocktrans trimmed with translations_total=translations|length|add:1 asvar help_text %}
             Available in {{ translations_total }} locales
         {% endblocktrans %}
     {% elif locale %}
@@ -26,7 +26,7 @@
             {% trans 'Switch locales' as action_text %}
             {% include 'wagtailsnippets/snippets/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
 
-            <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
+            <div class="w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
                 {% for translation in translations %}
                     <a href="{{ translation.url }}"
                         lang="{{ translation.locale.language_code }}"
