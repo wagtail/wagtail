@@ -154,6 +154,7 @@ class CreationFormMixin:
     form_fields = None
     exclude_form_fields = None
     creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
+    creation_tab_id = "create"
     create_action_label = _("Create")
     create_action_clicked_label = None
     create_url_name = None
@@ -374,7 +375,8 @@ class CreateViewMixin:
             return self.get_reshow_creation_form_response()
 
     def get_reshow_creation_form_response(self):
-        context = self.get_creation_form_context_data(self.form)
+        context = {"view": self}
+        context.update(self.get_creation_form_context_data(self.form))
         response_html = render_to_string(
             self.creation_form_template_name, context, self.request
         )
