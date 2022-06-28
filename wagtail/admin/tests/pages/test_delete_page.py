@@ -1,6 +1,5 @@
 from unittest import mock
 
-from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
@@ -71,7 +70,6 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         # If the number of pages to be deleted are greater than or equal to
         # WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT then show input box
         # to input wagtail_site_name.
-        wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME")
         child_1 = SimplePage(title="child 1", slug="child-1", content="hello")
         self.child_page.add_child(instance=child_1)
         child_2 = SimplePage(title="child 2", slug="child-2", content="hello")
@@ -81,9 +79,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "This action will delete total <b>3</b> pages.")
-        self.assertContains(
-            response, f"Please type <b>{wagtail_site_name}</b> to confirm."
-        )
+        self.assertContains(response, "Please type <b>mysite</b> to confirm.")
         self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # deletion should not actually happen on GET
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
@@ -94,7 +90,6 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         # If admin entered the incorrect site name and submit
         # the form, then site should not be deleted and same
         # form should be displayed again.
-        wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME")
         child_1 = SimplePage(title="child 1", slug="child-1", content="hello")
         self.child_page.add_child(instance=child_1)
         child_2 = SimplePage(title="child 2", slug="child-2", content="hello")
@@ -108,9 +103,7 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         messages = [m.message for m in response.context["messages"]]
         self.assertEqual(len(messages), 1)
         self.assertContains(response, "This action will delete total <b>3</b> pages.")
-        self.assertContains(
-            response, f"Please type <b>{wagtail_site_name}</b> to confirm."
-        )
+        self.assertContains(response, "Please type <b>mysite</b> to confirm.")
         self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # Site should not be deleted
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
