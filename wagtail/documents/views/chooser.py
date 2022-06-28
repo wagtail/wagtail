@@ -1,22 +1,21 @@
 import json
 
 from django import forms
-from django.core.paginator import Paginator
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import ContextMixin, View
+from django.views.generic.base import View
 
 from wagtail import hooks
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
+from wagtail.admin.ui.tables import Column, DateColumn, TitleColumn
 from wagtail.admin.views.generic.chooser import (
+    BaseChooseView,
     ChooseResultsViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
     CreationFormMixin,
-    ModalPageFurnitureMixin,
 )
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
@@ -90,11 +89,10 @@ class DocumentFilterForm(forms.Form):
             )
 
 
-class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+class BaseDocumentChooseView(BaseChooseView):
     icon = "doc-full-inverse"
     page_title = _("Choose a document")
     results_url_name = "wagtaildocs:chooser_results"
-    template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtaildocs/chooser/results.html"
     filter_form_class = DocumentFilterForm
     per_page = 10
@@ -108,9 +106,6 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             documents = hook(documents, self.request)
 
         return documents
-
-    def get_filter_form_class(self):
-        return self.filter_form_class
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
@@ -129,9 +124,6 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             documents = documents.order_by("-created_at")
 
         return documents
-
-    def get_results_url(self):
-        return reverse(self.results_url_name)
 
     @cached_property
     def collections(self):
@@ -165,42 +157,12 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         self.model = get_document_model()
         self.collection_id = None
 
-        documents = self.get_object_list()
-        self.is_searching = False
-        self.search_query = None
-
-        self.filter_form = self.get_filter_form()
-        if self.filter_form.is_valid():
-            documents = self.filter_object_list(documents, self.filter_form)
-
-        paginator = Paginator(documents, per_page=self.per_page)
-        self.documents = paginator.get_page(request.GET.get("p"))
-        self.table = Table(self.columns, self.documents)
-
-        return self.render_to_response()
+        return super().get(request)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "results": self.documents,
-                "table": self.table,
-                "results_url": self.get_results_url(),
-                "is_searching": self.is_searching,
-                "search_query": self.search_query,
-                "can_create": self.can_create(),
-                "collection_id": self.collection_id,
-            }
-        )
-
-        if context["can_create"]:
-            creation_form = self.get_creation_form()
-            context.update(self.get_creation_form_context_data(creation_form))
-
+        context["collection_id"] = self.collection_id
         return context
-
-    def render_to_response(self):
-        raise NotImplementedError()
 
 
 class DocumentChooseViewMixin:
@@ -218,6 +180,11 @@ class DocumentChooseViewMixin:
                 or self.create_action_label,
             }
         )
+
+        if context["can_create"]:
+            creation_form = self.get_creation_form()
+            context.update(self.get_creation_form_context_data(creation_form))
+
         return context
 
     def get_response_json_data(self):
