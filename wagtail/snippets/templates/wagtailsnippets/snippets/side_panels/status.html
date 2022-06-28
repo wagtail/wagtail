@@ -10,7 +10,7 @@
         <div class="w-label-3">
             <strong>{{ model_opts.verbose_name|capfirst }}</strong>
 
-            {% with description=model_opts.description %}
+            {% with description=object.get_description %}
                 {% if description %}
                     ({{ description }})
                 {% endif %}
