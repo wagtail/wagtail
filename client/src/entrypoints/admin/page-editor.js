@@ -473,10 +473,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'aria-labelledby',
         `side-panel-${panelName}-title`,
       );
-      sidePanelWrapper.classList.toggle(
-        'form-side--preview',
-        panelName === 'preview',
-      );
     }
 
     document.querySelectorAll('[data-side-panel]').forEach((panel) => {

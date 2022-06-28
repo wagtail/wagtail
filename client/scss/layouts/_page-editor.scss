@@ -68,9 +68,8 @@
     sm:w-max-w-[500px]
     w-transform
     w-translate-x-full
-    w-px-5
-    w-py-10
-    md:w-p-10
+    w-px-6
+    w-py-4
     w-bg-white
     w-box-border
     w-transition
@@ -98,15 +97,7 @@
     }
 
     &__panel {
-      @apply w-hidden w-pl-3 w-h-full;
-    }
-
-    &--preview {
-      @apply w-px-6 w-py-4;
-
-      .form-side__panel {
-        @apply w-pl-0;
-      }
+      @apply w-hidden w-h-full;
     }
   }
 }
