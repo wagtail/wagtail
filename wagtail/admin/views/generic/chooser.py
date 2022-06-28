@@ -137,6 +137,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results_url": self.get_results_url(),
                 "is_searching": self.is_searching,
                 "search_query": self.search_query,
+                "can_create": self.can_create(),
             }
         )
         return context
@@ -236,7 +237,7 @@ class ChooseViewMixin:
             }
         )
 
-        if self.can_create():
+        if context["can_create"]:
             creation_form = self.get_creation_form()
             if creation_form:
                 context.update(self.get_creation_form_context_data(creation_form))
