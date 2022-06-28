@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { initTooltips } from '../../includes/initTooltips';
 
 /* global wagtail */
 
@@ -137,6 +138,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       wagtail.ui.initDropDowns();
     }
     ajaxifyBrowseResults();
+    initTooltips();
 
     /*
     Focus on the search box when opening the modal.

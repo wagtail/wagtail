@@ -1,0 +1,10 @@
+{% load wagtailadmin_tags i18n %}
+
+<button type="button" class="w-human-readable-date" data-tippy-content="{{ date|date:"DATETIME_FORMAT" }}">
+    <time class="w-human-readable-date__date" datetime="{{ date|date:"c" }}">
+        {{ date|timesince_simple }}
+    </time>
+    {% if description %}
+        <span class="w-human-readable-date__description">{{ description }}</span>
+    {% endif %}
+</button>

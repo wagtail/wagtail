@@ -73,9 +73,7 @@
                                 <td valign="top">
                                     {% if revision.user %}{{ revision.user|user_display_name }}{% endif %}
                                 </td>
-                                <td valign="top">
-                                    <div class="human-readable-date" title="{{ task_state.started_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div>
-                                </td>
+                                <td valign="top">{% human_readable_date task_state.started_at %}</td>
                             </tr>
                         {% endwith %}
                     {% endfor %}

@@ -999,7 +999,7 @@ class TestHistoryView(TestCase, WagtailTestUtils):
         self.assertContains(response, "<td>Created</td>", html=True)
         self.assertContains(
             response,
-            '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">',
+            'data-tippy-content="Sept. 30, 2021, 10:01 a.m."',
         )
 
 
