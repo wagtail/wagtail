@@ -20,10 +20,6 @@
     <button class="button button-small button-secondary button--icon preview-panel__refresh-button" data-refresh-preview>{% icon name="rotate" %} Refresh</button>
 
     <div class="preview-panel__area">
-        <div class="preview-panel__wrapper">
-            <iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true"></iframe>
-        </div>
-
         {% if object.preview_modes|length > 1 %}
             <div class="preview-panel__modes choice_field">
                 {% trans 'Preview mode' %}
@@ -38,5 +34,9 @@
                 </div>
             </div>
         {% endif %}
+
+        <div class="preview-panel__wrapper">
+            <iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true"></iframe>
+        </div>
     </div>
 </div>
