@@ -382,11 +382,10 @@ function initPreview() {
       body: new FormData(form),
     }).then((response) =>
       response.json().then((data) => {
-        if (data.is_valid) {
-          previewPanel.classList.remove('preview-panel--has-errors');
-        } else {
-          previewPanel.classList.add('preview-panel--has-errors');
-        }
+        previewPanel.classList.toggle(
+          'preview-panel--has-errors',
+          !data.is_valid,
+        );
         iframe.contentWindow.location.reload();
         return data.is_valid;
       }),
@@ -474,11 +473,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'aria-labelledby',
         `side-panel-${panelName}-title`,
       );
-      if (panelName === 'preview') {
-        sidePanelWrapper.classList.add('form-side--preview');
-      } else {
-        sidePanelWrapper.classList.remove('form-side--preview');
-      }
+      sidePanelWrapper.classList.toggle(
+        'form-side--preview',
+        panelName === 'preview',
+      );
     }
 
     document.querySelectorAll('[data-side-panel]').forEach((panel) => {
