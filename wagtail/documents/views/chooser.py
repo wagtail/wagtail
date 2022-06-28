@@ -7,11 +7,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail import hooks
-from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, TitleColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
+    ChooseViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
     CreateViewMixin,
@@ -165,42 +165,16 @@ class BaseDocumentChooseView(BaseChooseView):
         return context
 
 
-class DocumentChooseViewMixin:
-    search_tab_label = _("Search")
-    creation_tab_label = None
-
+class DocumentChooseViewMixin(ChooseViewMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "collections": self.collections,
-                "filter_form": self.filter_form,
-                "search_tab_label": self.search_tab_label,
-                "creation_tab_label": self.creation_tab_label
-                or self.create_action_label,
-            }
-        )
-
-        if context["can_create"]:
-            creation_form = self.get_creation_form()
-            context.update(self.get_creation_form_context_data(creation_form))
-
+        context["collections"] = self.collections
         return context
 
     def get_response_json_data(self):
-        return {
-            "step": "choose",
-            "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
-        }
-
-    def render_to_response(self):
-        return render_modal_workflow(
-            self.request,
-            self.template_name,
-            None,
-            self.get_context_data(),
-            json_data=self.get_response_json_data(),
-        )
+        json_data = super().get_response_json_data()
+        json_data["tag_autocomplete_url"] = reverse("wagtailadmin_tag_autocomplete")
+        return json_data
 
 
 class ChooseView(
