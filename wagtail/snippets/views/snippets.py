@@ -332,9 +332,6 @@ class Edit(EditView):
             self.request, view=self.view_name, instance=self.object
         )
 
-    def _get_latest_log_entry(self):
-        return log_registry.get_logs_for_instance(self.object).first()
-
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
@@ -343,7 +340,6 @@ class Edit(EditView):
 
         media = context.get("media")
         action_menu = self._get_action_menu()
-        latest_log_entry = self._get_latest_log_entry()
         side_panels = SnippetSidePanels()
 
         context.update(
@@ -351,7 +347,6 @@ class Edit(EditView):
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "latest_log_entry": latest_log_entry,
                 "media": media + action_menu.media + side_panels.media,
             }
         )

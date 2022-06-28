@@ -15,7 +15,8 @@ class BaseSidePanel(Component):
             "model_opts",
             "revision_enabled",
             "draftstate_enabled",
-            "latest_log_entry",
+            "live_last_updated_info",
+            "draft_last_updated_info",
             "view",
         ]
         for key in parent_context_data:

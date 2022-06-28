@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags i18n %}
 
 <div class="w-divide-y w-divide-grey-100">
-    {% if object.pk %}
+    {% if live_last_updated_info or draft_last_updated_info %}
         {% include 'wagtailsnippets/snippets/side_panels/includes/workflow_status.html' %}
     {% endif %}
     {% include 'wagtailsnippets/snippets/side_panels/includes/locale_status.html' %}
