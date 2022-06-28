@@ -239,7 +239,7 @@ def allow_unicode_slugs():
 
 @register.simple_tag
 def auto_update_preview():
-    return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", False)
+    return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", True)
 
 
 class EscapeScriptNode(template.Node):
