@@ -11,12 +11,26 @@ from wagtail.search import index
 from .view_restrictions import BaseViewRestriction
 
 
+class CollectionQuerySet(TreeQuerySet):
+    def get_indented_choices(self):
+        """
+        Return a list of (id, label) tuples for use as a list of choices in a collection chooser
+        dropdown, where the label is formatted with get_indented_name to provide a tree layout.
+        The indent level is chosen to place the minimum-depth collection at indent 0.
+        """
+        min_depth = self.aggregate(models.Min("depth"))["depth__min"] or 2
+        return [
+            (collection.pk, collection.get_indented_name(min_depth, html=True))
+            for collection in self
+        ]
+
+
 class BaseCollectionManager(models.Manager):
     def get_queryset(self):
-        return TreeQuerySet(self.model).order_by("path")
+        return CollectionQuerySet(self.model).order_by("path")
 
 
-CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+CollectionManager = BaseCollectionManager.from_queryset(CollectionQuerySet)
 
 
 class CollectionViewRestriction(BaseViewRestriction):

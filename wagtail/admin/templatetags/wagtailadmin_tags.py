@@ -7,7 +7,6 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
-from django.db.models import Min, QuerySet
 from django.shortcuts import resolve_url as resolve_url_func
 from django.template.defaultfilters import stringfilter
 from django.templatetags.static import static
@@ -40,7 +39,6 @@ from wagtail.coreutils import (
     get_locales_display_names,
 )
 from wagtail.models import (
-    Collection,
     CollectionViewRestriction,
     Locale,
     Page,
@@ -727,30 +725,6 @@ def timesince_last_update(
         if use_shorthand:
             return timesince_simple(last_update)
         return _("%(time_period)s ago") % {"time_period": timesince(last_update)}
-
-
-@register.simple_tag
-def format_collection(coll: Collection, min_depth: int = 2) -> str:
-    """
-    Renders a given Collection's name as a formatted string that displays its
-    hierarchical depth via indentation. If min_depth is supplied, the
-    Collection's depth is rendered relative to that depth. min_depth defaults
-    to 2, the depth of the first non-Root Collection.
-
-    Example usage: {% format_collection collection min_depth %}
-    Example output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Child Collection"
-    """
-    return coll.get_indented_name(min_depth, html=True)
-
-
-@register.simple_tag
-def minimum_collection_depth(collections: QuerySet) -> int:
-    """
-    Returns the minimum depth of the Collections in the given queryset.
-    Call this before beginning a loop through Collections that will
-    use {% format_collection collection min_depth %}.
-    """
-    return collections.aggregate(Min("depth"))["depth__min"] or 2
 
 
 @register.filter
