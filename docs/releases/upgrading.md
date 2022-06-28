@@ -39,7 +39,7 @@ To upgrade:
 - Update the `wagtail` line in your project's `requirements.txt` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 1.8.x, the line should read:
 
 ```console
-      wagtail>=1.8,<1.9
+wagtail>=1.8,<1.9
 ```
 
 - Run:
