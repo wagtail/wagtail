@@ -17,3 +17,7 @@
         </p>
     </div>
 {% endblock %}
+
+{# Avoid loading all of Wagtail’s JavaScript for a fully static page. #}
+{% block js %}
+{% endblock %}
