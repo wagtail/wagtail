@@ -15,7 +15,7 @@ class AdminDocumentChooser(BaseChooser):
     choose_one_text = _("Choose a document")
     choose_another_text = _("Choose another document")
     link_to_chosen_text = _("Edit this document")
-    chooser_modal_url_name = "wagtaildocs:chooser"
+    chooser_modal_url_name = "wagtaildocs_chooser:choose"
     icon = "doc-full-inverse"
     classname = "document-chooser"
 

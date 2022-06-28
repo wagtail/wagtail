@@ -30,6 +30,7 @@ from wagtail.documents.views.bulk_actions import (
     AddToCollectionBulkAction,
     DeleteBulkAction,
 )
+from wagtail.documents.views.chooser import DocumentChooserViewSet
 from wagtail.models import BaseViewRestriction
 from wagtail.wagtail_hooks import require_wagtail_login
 
@@ -72,7 +73,7 @@ def editor_js():
             window.chooserUrls.documentChooser = '{0}';
         </script>
         """,
-        reverse("wagtaildocs:chooser"),
+        reverse("wagtaildocs_chooser:choose"),
     )
 
 
@@ -212,3 +213,12 @@ register_admin_url_finder(get_document_model(), DocumentAdminURLFinder)
 
 for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
     hooks.register("register_bulk_action", action_class)
+
+
+@hooks.register("register_admin_viewset")
+def register_document_chooser_viewset():
+    return DocumentChooserViewSet(
+        "wagtaildocs_chooser",
+        model=get_document_model(),
+        url_prefix="documents/chooser",
+    )

@@ -13,7 +13,7 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestChooser(TestCase, WagtailTestUtils):
-    """Test chooser panel rendered by `wagtaildocs:chooser` view"""
+    """Test chooser panel rendered by `wagtaildocs_chooser:choose` view"""
 
     _NO_DOCS_TEXT = "You haven't uploaded any documents."
     _NO_COLLECTION_DOCS_TEXT = "You haven't uploaded any documents in this collection."
@@ -77,7 +77,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.login(user)
 
     def get(self, params=None):
-        return self.client.get(reverse("wagtaildocs:chooser"), params or {})
+        return self.client.get(reverse("wagtaildocs_chooser:choose"), params or {})
 
     def test_chooser_docs_exist(self):
         # given an editor with access to admin panel
