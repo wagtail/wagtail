@@ -1,11 +1,13 @@
+import json
+
 from django import forms
 from django.core.paginator import Paginator
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
 from wagtail.admin.views.generic.chooser import (
@@ -67,9 +69,16 @@ class DownloadColumn(Column):
         return context
 
 
-class DocumentFilterForm(SearchForm):
+class DocumentFilterForm(forms.Form):
+    q = forms.CharField(
+        label=_("Search term"),
+        widget=forms.TextInput(attrs={"placeholder": _("Search")}),
+        required=False,
+    )
+
     def __init__(self, *args, collections, **kwargs):
         super().__init__(*args, **kwargs)
+
         if collections:
             collection_choices = [
                 ("", _("All collections"))
@@ -86,6 +95,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     page_title = _("Choose a document")
     results_url_name = "wagtaildocs:chooser_results"
     results_template_name = "wagtaildocs/chooser/results.html"
+    filter_form_class = DocumentFilterForm
 
     def get_object_list(self):
         documents = permission_policy.instances_user_has_any_permission_for(
@@ -97,41 +107,52 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         return documents
 
+    def get_filter_form_class(self):
+        return self.filter_form_class
+
+    def get_filter_form(self):
+        FilterForm = self.get_filter_form_class()
+        return FilterForm(self.request.GET, collections=self.collections)
+
+    def filter_object_list(self, documents, form):
+        self.collection_id = form.cleaned_data.get("collection_id")
+        if self.collection_id:
+            documents = documents.filter(collection=self.collection_id)
+
+        self.search_query = form.cleaned_data.get("q")
+        if self.search_query:
+            documents = documents.search(self.search_query)
+            self.is_searching = True
+        else:
+            documents = documents.order_by("-created_at")
+
+        return documents
+
     def get_results_url(self):
         return reverse(self.results_url_name)
+
+    @cached_property
+    def collections(self):
+        collections = permission_policy.collections_user_has_permission_for(
+            self.request.user, "choose"
+        )
+        if len(collections) < 2:
+            return None
+
+        return collections
 
     def get(self, request):
         self.model = get_document_model()
 
         documents = self.get_object_list()
 
-        self.q = None
         self.is_searching = False
+        self.search_query = None
+        self.collection_id = None
 
-        self.collection_id = request.GET.get("collection_id")
-        if self.collection_id:
-            documents = documents.filter(collection=self.collection_id)
-
-        self.collections = permission_policy.collections_user_has_permission_for(
-            request.user, "choose"
-        )
-        if len(self.collections) < 2:
-            self.collections = None
-
-        if "q" in request.GET:
-            self.filter_form = DocumentFilterForm(
-                request.GET, collections=self.collections
-            )
-            if self.filter_form.is_valid():
-                self.q = self.filter_form.cleaned_data["q"]
-
-                documents = documents.search(self.q)
-                self.is_searching = True
-        else:
-            self.filter_form = DocumentFilterForm(collections=self.collections)
-
-        if not self.is_searching:
-            documents = documents.order_by("-created_at")
+        self.filter_form = self.get_filter_form()
+        if self.filter_form.is_valid():
+            documents = self.filter_object_list(documents, self.filter_form)
 
         paginator = Paginator(documents, per_page=10)
         self.documents = paginator.get_page(request.GET.get("p"))
@@ -161,7 +182,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results": self.documents,
                 "table": self.table,
                 "results_url": self.get_results_url(),
-                "search_query": self.q,
+                "search_query": self.search_query,
                 "filter_form": self.filter_form,
                 "is_searching": self.is_searching,
                 "collection_id": self.collection_id,
