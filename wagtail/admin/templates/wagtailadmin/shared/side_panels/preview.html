@@ -2,7 +2,7 @@
 
 {% auto_update_preview as auto_update %}
 
-<div class="preview-panel preview-panel--mobile" data-preview-panel data-active-preview-size="mobile" data-action="{{ preview_url }}" data-auto-update="{{ auto_update|yesno:'true,false' }}">
+<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}" data-auto-update="{{ auto_update|yesno:'true,false' }}">
     <div class="preview-panel__sizes">
         <button class="preview-panel__size-button preview-panel__size-button--mobile" data-preview-size="mobile" aria-label="{% trans 'Preview in mobile size' %}" aria-current="true">
             {% icon name="mobile-alt" class_name="default" %}

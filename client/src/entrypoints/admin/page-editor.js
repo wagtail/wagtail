@@ -352,7 +352,6 @@ function initPreview() {
 
     previewButtons.forEach((btn) => btn.setAttribute('aria-current', 'false'));
     currentButton.setAttribute('aria-current', 'true');
-    previewPanel.dataset.activePreviewSize = size;
     previewPanel.className = `preview-panel preview-panel--${size}`;
     if (hasErrors) {
       previewPanel.classList.add('preview-panel--has-errors');
