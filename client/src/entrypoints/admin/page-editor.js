@@ -289,63 +289,6 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
-
-  //
-  // Preview
-  //
-  // In order to make the preview truly reliable, the preview page needs
-  // to be perfectly independent from the edit page,
-  // from the browser perspective. To pass data from the edit page
-  // to the preview page, we send the form after each change
-  // and save it inside the user session.
-
-  const $previewButton = $('.action-preview');
-  const $form = $('#page-edit-form');
-  const previewUrl = $previewButton.data('action');
-  let autoUpdatePreviewDataTimeout = -1;
-
-  function setPreviewData() {
-    return $.ajax({
-      url: previewUrl,
-      method: 'POST',
-      data: new FormData($form[0]),
-      processData: false,
-      contentType: false,
-    });
-  }
-
-  // eslint-disable-next-line func-names
-  $previewButton.on('click', function (e) {
-    e.preventDefault();
-    const $this = $(this);
-    const $icon = $this.filter('.icon');
-    const thisPreviewUrl = $this.data('action');
-    $icon.addClass('icon-spinner').removeClass('icon-view');
-    const previewWindow = window.open('', thisPreviewUrl);
-    previewWindow.focus();
-
-    setPreviewData()
-      .done((data) => {
-        if (data.is_valid) {
-          previewWindow.document.location = thisPreviewUrl;
-        } else {
-          window.focus();
-          previewWindow.close();
-
-          // TODO: Stop sending the form, as it removes file data.
-          $form.trigger('submit');
-        }
-      })
-      .fail(() => {
-        // eslint-disable-next-line no-alert
-        alert('Error while sending preview data.');
-        window.focus();
-        previewWindow.close();
-      })
-      .always(() => {
-        $icon.addClass('icon-view').removeClass('icon-spinner');
-      });
-  });
 });
 
 let updateFooterTextTimeout = -1;
@@ -388,6 +331,15 @@ function initPreview() {
   const previewPanel = document.querySelector('.preview-panel');
   // Preview panel is not shown if the page does not have any preview modes
   if (!previewPanel) return;
+
+  //
+  // Preview
+  //
+  // In order to make the preview truly reliable, the preview page needs
+  // to be perfectly independent from the edit page,
+  // from the browser perspective. To pass data from the edit page
+  // to the preview page, we send the form after each change
+  // and save it inside the user session.
 
   const previewButtons = previewPanel.querySelectorAll('[data-preview-size]');
 

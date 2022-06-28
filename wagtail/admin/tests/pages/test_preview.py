@@ -229,7 +229,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
             "wagtailadmin_pages:preview_on_add",
             args=("tests", "simplepage", self.root_page.id),
         )
-        self.assertContains(response, '<li class="preview">')
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
 
         # StreamPage has preview_modes = []
@@ -245,7 +246,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
             "wagtailadmin_pages:preview_on_add",
             args=("tests", "streampage", self.root_page.id),
         )
-        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-side-panel-toggle="preview"')
+        self.assertNotContains(response, 'data-side-panel="preview"')
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
 
     def test_disable_preview_on_edit(self):
@@ -261,7 +263,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(simple_page.id,)
         )
-        self.assertContains(response, '<li class="preview">')
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
 
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
@@ -276,7 +279,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(stream_page.id,)
         )
-        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-side-panel-toggle="preview"')
+        self.assertNotContains(response, 'data-side-panel="preview"')
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
 
     def test_disable_preview_on_revisions_list(self):
