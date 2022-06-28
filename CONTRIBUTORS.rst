@@ -610,6 +610,7 @@ Contributors
 * Yuekui
 * Igor Strapko
 * Sandeep M A
+* Bernd de Ridder
 
 Translators
 ===========

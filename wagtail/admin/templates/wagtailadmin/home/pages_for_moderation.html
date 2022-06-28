@@ -66,10 +66,8 @@
                                 {{ revision.content_object.page_type_display_name }}
                             </td>
                             <td valign="top">
-                                <div class="human-readable-date" title="{{ revision.created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=revision.created_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
-                                {% if revision.user %}
-                                    by {{ revision.user|user_display_name }}
-                                {% endif %}
+                                {% blocktrans with name=revision.user|user_display_name asvar description %}by {{ name }}{% endblocktrans %}
+                                {% human_readable_date revision.created_at description %}
                             </td>
                         </tr>
                     {% endfor %}

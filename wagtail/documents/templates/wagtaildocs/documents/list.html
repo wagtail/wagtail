@@ -1,4 +1,4 @@
-{% load i18n l10n %}
+{% load i18n l10n wagtailadmin_tags %}
 <table class="listing">
     <col width="10px" />
     <col />
@@ -46,11 +46,7 @@
                 {% if collections %}
                     <td>{{ doc.collection.name }}</td>
                 {% endif %}
-                <td>
-                    <div class="human-readable-date" title="{{ doc.created_at|date:"DATETIME_FORMAT" }}">
-                        {% blocktrans trimmed with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
-                    </div>
-                </td>
+                <td>{% human_readable_date doc.created_at %}</td>
             </tr>
         {% endfor %}
     </tbody>

@@ -43,11 +43,7 @@
                         {% endfor %}
                     </td>
                     <td>{{ workflow_state.requested_by|user_display_name }}</td>
-                    <td>
-                        <div class="human-readable-date" title="{{ workflow_state.created_at|date:"DATETIME_FORMAT" }}">
-                            {% blocktrans trimmed with time_period=workflow_state.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
-                        </div>
-                    </td>
+                    <td>{% human_readable_date workflow_state.created_at %}</td>
                 </tr>
             {% endfor %}
         {% else %}

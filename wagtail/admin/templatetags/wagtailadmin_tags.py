@@ -972,3 +972,11 @@ def workflow_status_with_date(workflow_state):
         return _("Sent to %(task_name)s %(started_at)s") % translation_context
 
     return _("%(status_display)s %(task_name)s %(started_at)s") % translation_context
+
+
+@register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
+def human_readable_date(date, description=None):
+    return {
+        "date": date,
+        "description": description,
+    }
