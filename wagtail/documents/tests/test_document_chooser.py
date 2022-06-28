@@ -242,12 +242,14 @@ class TestChooser(TestCase, WagtailTestUtils):
         # and a document in a collection
         root_id = get_root_collection_id()
         root = Collection.objects.get(id=root_id)
+        empty_collection = Collection(name="Nothing to see here")
+        root.add_child(instance=empty_collection)
+
         doc_title = "document.pdf"
         Document.objects.create(title=doc_title, collection=root)
 
         # when searching for documents in another collection at chooser panel
-        non_root_id = root_id + 10**10
-        response = self.get({"q": "", "collection_id": non_root_id})
+        response = self.get({"q": "", "collection_id": empty_collection.id})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
@@ -263,11 +265,12 @@ class TestChooser(TestCase, WagtailTestUtils):
         # and a document in a collection
         root_id = get_root_collection_id()
         root = Collection.objects.get(id=root_id)
+        empty_collection = Collection(name="Nothing to see here")
+        root.add_child(instance=empty_collection)
         Document.objects.create(collection=root)
 
         # when searching for documents in another collection at chooser panel
-        non_root_id = root_id + 10**10
-        response = self.get({"q": "", "collection_id": non_root_id})
+        response = self.get({"q": "", "collection_id": empty_collection.id})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
