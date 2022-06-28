@@ -59,7 +59,6 @@ Remember that the JavaScript and CSS files used in the Wagtail admin may have ch
 
 ## Compatible Django / Python versions
 
-...
 
 New feature releases frequently add support for newer versions of Django and Python, and drop support for older ones. We recommend always carrying out upgrades to Django and Python as a separate step from upgrading Wagtail.
 
