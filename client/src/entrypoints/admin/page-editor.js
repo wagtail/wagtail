@@ -328,7 +328,7 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
 };
 
 function initPreview() {
-  const previewPanel = document.querySelector('.preview-panel');
+  const previewPanel = document.querySelector('[data-preview-panel]');
   // Preview panel is not shown if the page does not have any preview modes
   if (!previewPanel) return;
 
@@ -363,17 +363,13 @@ function initPreview() {
     button.addEventListener('click', togglePreviewSize);
   });
 
-  const refreshButton = previewPanel.querySelector(
-    '.preview-panel__refresh-button',
-  );
-  const newTabButton = previewPanel.querySelector(
-    '.preview-panel__size-button--new-tab',
-  );
-  const iframe = previewPanel.querySelector('.preview-panel__iframe');
-  const form = document.querySelector('.edit-form');
+  const refreshButton = previewPanel.querySelector('[data-refresh-preview]');
+  const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
+  const iframe = previewPanel.querySelector('[data-preview-iframe]');
+  const form = document.querySelector('[data-edit-form]');
   const previewUrl = previewPanel.dataset.action;
   const previewModeSelect = document.querySelector(
-    '.preview-panel__mode-select',
+    '[data-preview-mode-select]',
   );
 
   const setPreviewData = () =>
