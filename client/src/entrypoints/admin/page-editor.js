@@ -436,7 +436,7 @@ function initPreview() {
     // and we need to delay setPreviewData when typing to avoid useless extra
     // AJAX requests (so we postpone setPreviewData when keyup occurs).
 
-    let autoUpdatePreviewDataTimeout = -1;
+    let autoUpdatePreviewDataTimeout;
     const autoUpdatePreview = () => {
       clearTimeout(autoUpdatePreviewDataTimeout);
       autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
