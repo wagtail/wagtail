@@ -1,6 +1,6 @@
 from django.urls import path
 
-from wagtail.documents.views import chooser, documents, multiple
+from wagtail.documents.views import documents, multiple
 
 app_name = "wagtaildocs"
 urlpatterns = [
@@ -26,15 +26,5 @@ urlpatterns = [
         multiple.DeleteUploadView.as_view(),
         name="delete_upload_multiple",
     ),
-    path("chooser/", chooser.ChooseView.as_view(), name="chooser"),
-    path(
-        "chooser/results/", chooser.ChooseResultsView.as_view(), name="chooser_results"
-    ),
-    path(
-        "chooser/chosen/<str:pk>/",
-        chooser.DocumentChosenView.as_view(),
-        name="document_chosen",
-    ),
-    path("chooser/upload/", chooser.ChooserUploadView.as_view(), name="chooser_upload"),
     path("usage/<int:document_id>/", documents.usage, name="document_usage"),
 ]

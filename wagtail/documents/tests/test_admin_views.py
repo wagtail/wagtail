@@ -1414,7 +1414,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.user = self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
@@ -1428,13 +1428,13 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         evil_plans = root_collection.add_child(name="Evil plans")
         evil_plans.add_child(name="Eviler plans")
 
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
 
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
     def test_with_custom_document_model(self):
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
@@ -1450,7 +1450,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
     def test_search(self):
         response = self.client.get(
-            reverse("wagtaildocs:chooser_results"), {"q": "Hello"}
+            reverse("wagtaildocs_chooser:choose_results"), {"q": "Hello"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["search_query"], "Hello")
@@ -1463,7 +1463,9 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse("wagtaildocs:chooser_results"), {"p": 2})
+        response = self.client.get(
+            reverse("wagtaildocs_chooser:choose_results"), {"p": 2}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1476,7 +1478,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.make_docs()
 
         response = self.client.get(
-            reverse("wagtaildocs:chooser_results"), {"p": "Hello World!"}
+            reverse("wagtaildocs_chooser:choose_results"), {"p": "Hello World!"}
         )
 
         # Check response
@@ -1489,7 +1491,9 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse("wagtaildocs:chooser_results"), {"p": 99999})
+        response = self.client.get(
+            reverse("wagtaildocs_chooser:choose_results"), {"p": 99999}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1518,7 +1522,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         with self.register_hook(
             "construct_document_chooser_queryset", filter_documents
         ):
-            response = self.client.get(reverse("wagtaildocs:chooser"))
+            response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], document)
 
@@ -1540,7 +1544,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             "construct_document_chooser_queryset", filter_documents
         ):
             response = self.client.get(
-                reverse("wagtaildocs:chooser_results"), {"q": "Test"}
+                reverse("wagtaildocs_chooser:choose_results"), {"q": "Test"}
             )
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0], document)
@@ -1572,7 +1576,7 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.client.get(
-            reverse("wagtaildocs:document_chosen", args=(self.document.id,))
+            reverse("wagtaildocs_chooser:chosen", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
@@ -1584,7 +1588,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse("wagtaildocs:chooser_upload"))
+        response = self.client.get(reverse("wagtaildocs_chooser:create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailadmin/generic/chooser/creation_form.html"
@@ -1601,7 +1605,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
             "document-chooser-upload-title": "Test document",
             "document-chooser-upload-file": fake_file,
         }
-        response = self.client.post(reverse("wagtaildocs:chooser_upload"), post_data)
+        response = self.client.post(reverse("wagtaildocs_chooser:create"), post_data)
 
         # Check that the response is the 'chosen' step
         response_json = json.loads(response.content.decode())
@@ -1622,7 +1626,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         response = self.client.post(
-            reverse("wagtaildocs:chooser_upload"),
+            reverse("wagtaildocs_chooser:create"),
             {
                 "document-chooser-upload-title": "Test document",
                 "document-chooser-upload-file": get_test_document_file(),
@@ -1670,7 +1674,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         self.login(username="moriarty", password="password")
 
     def test_simple(self):
-        response = self.client.get(reverse("wagtaildocs:chooser_upload"))
+        response = self.client.get(reverse("wagtaildocs_chooser:create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailadmin/generic/chooser/creation_form.html"
@@ -1683,7 +1687,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 
     def test_chooser_view(self):
         # The main chooser view also includes the form, so need to test there too
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
@@ -1701,7 +1705,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
             "document-chooser-upload-title": "Test document",
             "document-chooser-upload-file": fake_file,
         }
-        response = self.client.post(reverse("wagtaildocs:chooser_upload"), post_data)
+        response = self.client.post(reverse("wagtaildocs_chooser:create"), post_data)
 
         # Check that the response is the 'chosen' step
         response_json = json.loads(response.content.decode())

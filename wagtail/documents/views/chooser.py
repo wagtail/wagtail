@@ -17,6 +17,7 @@ from wagtail.admin.views.generic.chooser import (
     CreateViewMixin,
     CreationFormMixin,
 )
+from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -39,7 +40,7 @@ class DocumentCreationFormMixin(CreationFormMixin):
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
     creation_tab_id = "upload"
-    create_url_name = "wagtaildocs:chooser_upload"
+    create_url_name = "wagtaildocs_chooser:create"
     permission_policy = permission_policy
 
     def get_creation_form_class(self):
@@ -92,7 +93,7 @@ class DocumentFilterForm(forms.Form):
 class BaseDocumentChooseView(BaseChooseView):
     icon = "doc-full-inverse"
     page_title = _("Choose a document")
-    results_url_name = "wagtaildocs:chooser_results"
+    results_url_name = "wagtaildocs_chooser:choose_results"
     results_template_name = "wagtaildocs/chooser/results.html"
     filter_form_class = DocumentFilterForm
     per_page = 10
@@ -141,7 +142,7 @@ class BaseDocumentChooseView(BaseChooseView):
             TitleColumn(
                 "title",
                 label=_("Title"),
-                url_name="wagtaildocs:document_chosen",
+                url_name="wagtaildocs_chooser:chosen",
                 link_attrs={"data-chooser-modal-choice": True},
             ),
             DownloadColumn("filename", label=_("File")),
@@ -217,3 +218,12 @@ class ChooserUploadView(
         search_index.insert_or_update_object(document)
 
         return document
+
+
+class DocumentChooserViewSet(ChooserViewSet):
+    register_widget = False
+    choose_view_class = ChooseView
+    choose_results_view_class = ChooseResultsView
+    chosen_view_class = DocumentChosenView
+    create_view_class = ChooserUploadView
+    permission_policy = permission_policy
