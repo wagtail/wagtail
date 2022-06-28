@@ -90,7 +90,7 @@ class DocumentFilterForm(forms.Form):
             )
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     icon = "doc-full-inverse"
     page_title = _("Choose a document")
     results_url_name = "wagtaildocs:chooser_results"
@@ -142,6 +142,24 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         return collections
 
+    @property
+    def columns(self):
+        columns = [
+            TitleColumn(
+                "title",
+                label=_("Title"),
+                url_name="wagtaildocs:document_chosen",
+                link_attrs={"data-chooser-modal-choice": True},
+            ),
+            DownloadColumn("filename", label=_("File")),
+            DateColumn("created_at", label=_("Created"), width="16%"),
+        ]
+
+        if self.collections:
+            columns.insert(2, Column("collection", label=_("Collection")))
+
+        return columns
+
     def get(self, request):
         self.model = get_document_model()
 
@@ -158,21 +176,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         paginator = Paginator(documents, per_page=10)
         self.documents = paginator.get_page(request.GET.get("p"))
 
-        columns = [
-            TitleColumn(
-                "title",
-                label=_("Title"),
-                url_name="wagtaildocs:document_chosen",
-                link_attrs={"data-chooser-modal-choice": True},
-            ),
-            DownloadColumn("filename", label=_("File")),
-            DateColumn("created_at", label=_("Created"), width="16%"),
-        ]
-
-        if self.collections:
-            columns.insert(2, Column("collection", label=_("Collection")))
-
-        self.table = Table(columns, self.documents)
+        self.table = Table(self.columns, self.documents)
 
         return self.render_to_response()
 
@@ -204,7 +208,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class ChooseView(DocumentCreationFormMixin, BaseChooseView):
+class ChooseView(DocumentCreationFormMixin, BaseDocumentChooseView):
     search_tab_label = _("Search")
     creation_tab_label = None
 
@@ -234,7 +238,7 @@ class ChooseView(DocumentCreationFormMixin, BaseChooseView):
 
 
 class ChooseResultsView(
-    ChooseResultsViewMixin, DocumentCreationFormMixin, BaseChooseView
+    ChooseResultsViewMixin, DocumentCreationFormMixin, BaseDocumentChooseView
 ):
     pass
 
