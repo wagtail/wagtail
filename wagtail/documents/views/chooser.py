@@ -94,6 +94,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     icon = "doc-full-inverse"
     page_title = _("Choose a document")
     results_url_name = "wagtaildocs:chooser_results"
+    template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtaildocs/chooser/results.html"
     filter_form_class = DocumentFilterForm
 
@@ -222,7 +223,7 @@ class ChooseView(DocumentCreationFormMixin, BaseChooseView):
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
-            "wagtaildocs/chooser/chooser.html",
+            self.template_name,
             None,
             self.get_context_data(),
             json_data={

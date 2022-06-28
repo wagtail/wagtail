@@ -1416,7 +1416,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse("wagtaildocs:chooser"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
 
@@ -1438,7 +1438,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
 
         # custom form fields should be present
         self.assertIn(
@@ -1685,7 +1685,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         # The main chooser view also includes the form, so need to test there too
         response = self.client.get(reverse("wagtaildocs:chooser"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
 
