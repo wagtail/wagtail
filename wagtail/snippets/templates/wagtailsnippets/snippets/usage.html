@@ -3,12 +3,6 @@
 {% block titletag %}{% blocktrans trimmed with title=object %}Usage of {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
 
-{% block extra_js %}
-    {# Needed for the new breadcrumbs #}
-    <script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
-    <script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
-{% endblock %}
-
 {% block content %}
     {% include 'wagtailsnippets/snippets/headers/usage_header.html' %}
 

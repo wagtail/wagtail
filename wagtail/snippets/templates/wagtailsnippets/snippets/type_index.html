@@ -4,10 +4,6 @@
 {% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
 
 {% block extra_js %}
-    {# Needed for the new breadcrumbs #}
-    <script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
-    <script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
-
     <script>
         window.headerSearch = {
             url: "{% url view.index_results_url_name %}",
