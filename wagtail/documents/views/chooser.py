@@ -37,6 +37,7 @@ class DocumentChosenResponseMixin(ChosenResponseMixin):
 class DocumentCreationFormMixin(CreationFormMixin):
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
+    creation_tab_id = "upload"
     create_url_name = "wagtaildocs:chooser_upload"
     permission_policy = permission_policy
 
