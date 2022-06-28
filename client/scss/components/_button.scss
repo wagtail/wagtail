@@ -603,3 +603,13 @@ button {
   padding-bottom: 2em;
   clear: both;
 }
+
+@media (forced-colors: active) {
+  .no,
+  .serious {
+    forced-color-adjust: none;
+  }
+  .button {
+    forced-color-adjust: none;
+  }
+}
