@@ -33,7 +33,6 @@
                 <li><a href="#forms">Forms</a></li>
                 <li><a href="#editor">Page editor</a></li>
                 <li><a href="#tabs">Tabs</a></li>
-                <li><a href="#breadcrumbs">Breadcrumbs</a></li>
                 <li><a href="#progress">Progress indicators</a></li>
                 <li><a href="#misc">Misc formatters</a></li>
                 <li><a href="#icons">Icons</a></li>
@@ -743,19 +742,6 @@
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}
                 </div>
             </div>
-        </section>
-
-        <section id="breadcrumbs">
-            <h2>Breadcrumbs</h2>
-
-            <ul class="breadcrumb">
-                {% trans 'Home' as home %}
-                <li class="breadcrumb-item home"><a href="{% url 'wagtailadmin_home' %}" class="breadcrumb-link">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-            </ul>
-
         </section>
 
         <section id="progress">
