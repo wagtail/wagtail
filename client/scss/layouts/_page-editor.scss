@@ -575,11 +575,9 @@ footer .preview {
   flex-direction: column;
 
   &__wrapper {
-    overflow: hidden;
-    width: 100%;
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
   }
 
   &__iframe {
@@ -599,7 +597,6 @@ footer .preview {
     .preview-panel__iframe {
       width: 375px;
       height: calc(100% / min(1, calc(446 / 375)));
-      zoom: min(1, calc(446 / 375));
       transform: scale(min(1, calc(446 / 375)));
     }
   }
@@ -613,7 +610,6 @@ footer .preview {
     .preview-panel__iframe {
       width: 768px;
       height: calc(100% / min(1, calc(446 / 768)));
-      zoom: min(1, calc(446 / 768));
       transform: scale(min(1, calc(446 / 768)));
     }
   }
@@ -627,26 +623,13 @@ footer .preview {
     .preview-panel__iframe {
       width: 1280px;
       height: calc(100% / min(1, calc(446 / 1280)));
-      zoom: min(1, calc(446 / 1280));
       transform: scale(min(1, calc(446 / 1280)));
-    }
-  }
-
-  // Required for Safari and Chromium-based browsers
-  &--mobile,
-  &--tablet,
-  &--desktop {
-    @media screen and (-webkit-min-device-pixel-ratio: 0) {
-      .preview-panel__iframe {
-        zoom: 1;
-      }
     }
   }
 
   &__area {
     width: 100%; // 446px
     height: 100%;
-    overflow: scroll;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -656,7 +639,7 @@ footer .preview {
     display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: 0.75rem;
+    gap: 0.75rem;
     border-bottom: 1px solid $color-grey-4;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
@@ -675,20 +658,16 @@ footer .preview {
     .icon {
       width: 1rem;
       height: 1rem;
-    }
 
-    &--new-tab {
-      .icon {
-        width: 0.9rem;
-        height: 0.9rem;
-      }
-    }
-
-    &--tablet,
-    &--desktop {
-      .icon {
+      &.icon-tablet-alt,
+      &.icon-desktop {
         width: 1.25rem;
         height: 1.25rem;
+      }
+
+      &.icon-link-external {
+        width: 0.9rem;
+        height: 0.9rem;
       }
     }
   }
@@ -699,7 +678,7 @@ footer .preview {
     gap: 0.5rem;
     position: absolute;
     top: 1.25rem;
-    right: 1.5rem;
+    inset-inline-end: 1.5rem;
 
     .icon {
       @include svg-icon(0.9rem);
@@ -709,7 +688,7 @@ footer .preview {
   &--mobile &__size-button--mobile,
   &--tablet &__size-button--tablet,
   &--desktop &__size-button--desktop {
-    @apply w-bg-primary w-text-white w-transform-none;
+    @apply w-bg-primary w-text-white w-transform-none w-border w-border-transparent;
   }
 
   &__modes {
@@ -745,11 +724,9 @@ footer .preview {
   position: absolute;
   left: 0;
   width: 100%;
+  display: grid;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-content: center;
   text-align: center;
   background: $color-white;
 
