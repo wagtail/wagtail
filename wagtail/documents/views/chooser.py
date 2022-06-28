@@ -97,6 +97,7 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtaildocs/chooser/results.html"
     filter_form_class = DocumentFilterForm
+    per_page = 10
 
     def get_object_list(self):
         documents = permission_policy.instances_user_has_any_permission_for(
@@ -162,20 +163,18 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     def get(self, request):
         self.model = get_document_model()
+        self.collection_id = None
 
         documents = self.get_object_list()
-
         self.is_searching = False
         self.search_query = None
-        self.collection_id = None
 
         self.filter_form = self.get_filter_form()
         if self.filter_form.is_valid():
             documents = self.filter_object_list(documents, self.filter_form)
 
-        paginator = Paginator(documents, per_page=10)
+        paginator = Paginator(documents, per_page=self.per_page)
         self.documents = paginator.get_page(request.GET.get("p"))
-
         self.table = Table(self.columns, self.documents)
 
         return self.render_to_response()
@@ -187,20 +186,16 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results": self.documents,
                 "table": self.table,
                 "results_url": self.get_results_url(),
-                "search_query": self.search_query,
-                "filter_form": self.filter_form,
                 "is_searching": self.is_searching,
+                "search_query": self.search_query,
+                "can_create": self.can_create(),
                 "collection_id": self.collection_id,
             }
         )
 
-        if self.can_create():
-            context["can_create"] = True
-            context.update(
-                self.get_creation_form_context_data(self.get_creation_form())
-            )
-        else:
-            context["can_create"] = False
+        if context["can_create"]:
+            creation_form = self.get_creation_form()
+            context.update(self.get_creation_form_context_data(creation_form))
 
         return context
 
@@ -208,7 +203,7 @@ class BaseDocumentChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class ChooseView(DocumentCreationFormMixin, BaseDocumentChooseView):
+class DocumentChooseViewMixin:
     search_tab_label = _("Search")
     creation_tab_label = None
 
@@ -217,6 +212,7 @@ class ChooseView(DocumentCreationFormMixin, BaseDocumentChooseView):
         context.update(
             {
                 "collections": self.collections,
+                "filter_form": self.filter_form,
                 "search_tab_label": self.search_tab_label,
                 "creation_tab_label": self.creation_tab_label
                 or self.create_action_label,
@@ -235,6 +231,12 @@ class ChooseView(DocumentCreationFormMixin, BaseDocumentChooseView):
                 "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
             },
         )
+
+
+class ChooseView(
+    DocumentChooseViewMixin, DocumentCreationFormMixin, BaseDocumentChooseView
+):
+    pass
 
 
 class ChooseResultsView(
