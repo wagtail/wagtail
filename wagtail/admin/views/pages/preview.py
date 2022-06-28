@@ -72,7 +72,7 @@ class PreviewOnEdit(View):
             self.request, "wagtailadmin/pages/preview_error.html", {"page": page}
         )
 
-    def get(self, request, *args, **kwargs):
+    def _get(self, request, *args, **kwargs):
         page = self.get_page()
 
         post_data, timestamp = self.request.session.get(self.session_key, (None, None))
@@ -95,6 +95,12 @@ class PreviewOnEdit(View):
         }
 
         return page.make_preview_request(request, preview_mode, extra_attrs)
+
+    def get(self, request, *args, **kwargs):
+        response = self._get(request, *args, **kwargs)
+        # Allow page to be rendered in an iframe for the preview panel
+        response["X-Frame-Options"] = "SAMEORIGIN"
+        return response
 
 
 class PreviewOnCreate(PreviewOnEdit):
