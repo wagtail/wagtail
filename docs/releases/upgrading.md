@@ -31,7 +31,7 @@ We recommend upgrading one feature release at a time, even if your project is se
 Before upgrading to a new feature release:
 
 - Check your project's console output for any deprecation warnings, and fix them where necessary;
-- Check the new version's release notes, and the [Compatible Django / Python versions](compatible_django_python_versions) table below, for any dependencies that need upgrading first;
+- Check the new version's release notes, and the [](compatible_django_python_versions) table below, for any dependencies that need upgrading first;
 - Make a backup of your database.
 
 To upgrade:
