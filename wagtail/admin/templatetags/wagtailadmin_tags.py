@@ -64,7 +64,6 @@ def breadcrumbs(
     url_root_name=None,
     include_self=True,
     is_expanded=False,
-    page_perms=None,
     querystring_value=None,
     trailing_breadcrumb_title=None,
 ):
@@ -82,10 +81,28 @@ def breadcrumbs(
         .specific(),
         "current_page": page,
         "is_expanded": is_expanded,
-        "page_perms": page_perms,
         "querystring_value": querystring_value or "",
         "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
         "url_name": url_name,
+        "url_root_name": url_root_name,
+    }
+
+
+@register.inclusion_tag("wagtailadmin/shared/breadcrumbs.html")
+def breadcrumbs_admin(
+    label,
+    url,
+    is_expanded=True,
+    querystring_value=None,
+    root_label=_("Home"),
+    trailing_breadcrumb_title=None,
+    url_root_name="wagtailadmin_home",
+):
+    return {
+        "is_expanded": is_expanded,
+        "pages": [{"label": root_label, "is_root": True}, {"label": label, "url": url}],
+        "querystring_value": querystring_value or "",
+        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
         "url_root_name": url_root_name,
     }
 

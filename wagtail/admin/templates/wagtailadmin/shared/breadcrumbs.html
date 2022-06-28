@@ -8,7 +8,7 @@
 {% endcomment %}
 {% with breadcrumb_link_classes='w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold' icon_classes='w-w-4 w-h-4 w-ml-3' %}
     {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
-    <div class="w-breadcrumb w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin" data-breadcrumb-next{% if not pages %} hidden{% endif %}>
+    <div class="w-breadcrumb w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin{% if is_expanded %} w-pl-4{% endif %}" data-breadcrumb-next{% if not pages %} hidden{% endif %}>
         {% if not is_expanded %}
             <button
                 type="button"
@@ -28,7 +28,7 @@
                         {% if page.is_root and url_root_name %}
                             {% url url_root_name as breadcrumb_url %}
                         {% else %}
-                            {% url url_name page.id as breadcrumb_url %}
+                            {% if page.id %}{% url url_name page.id as breadcrumb_url %}{% else %}{% firstof page.url as breadcrumb_url %}{% endif %}
                         {% endif %}
                         {% if page.is_root %}
                             <li
@@ -40,7 +40,7 @@
                                     class="{{ breadcrumb_link_classes }}"
                                     href="{{ breadcrumb_url }}{{ querystring_value }}"
                                 >
-                                    {% trans "Root" %}
+                                    {% if page.id %}{% trans "Root" %}{% else %}{{ page.label }}{% endif %}
                                 </a>
                                 {% icon name="arrow-right" class_name=icon_classes %}
                             </li>
@@ -62,9 +62,8 @@
                                 {% if trailing_breadcrumb_title or is_expanded %}data-breadcrumb-item{% endif %}
                                 {% if trailing_breadcrumb_title and not is_expanded %}hidden{% endif %}
                             >
-                                <a class="{{ breadcrumb_link_classes }}"
-                                    href="{{ breadcrumb_url }}{{ querystring_value }}">
-                                    {{ page.get_admin_display_title }}
+                                <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
+                                    {% if page.id %}{{ page.get_admin_display_title }}{% else %}{{ page.label }}{% endif %}
                                 </a>
                                 {% if trailing_breadcrumb_title %}
                                     {% icon name="arrow-right" class_name=icon_classes %}
@@ -77,7 +76,7 @@
                                 {% if not is_expanded %}hidden{% endif %}
                             >
                                 <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
-                                    {{ page.get_admin_display_title }}
+                                    {% if page.id %}{{ page.get_admin_display_title }}{% else %}{{ page.label }}{% endif %}
                                 </a>
                                 {% icon name="arrow-right" class_name=icon_classes %}
                             </li>
