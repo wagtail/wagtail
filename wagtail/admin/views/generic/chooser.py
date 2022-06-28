@@ -244,6 +244,11 @@ class ChooseViewMixin:
 
         return context
 
+    def get_response_json_data(self):
+        return {
+            "step": "choose",
+        }
+
     # Return the choose view as a ModalWorkflow response
     def render_to_response(self):
         return render_modal_workflow(
@@ -251,9 +256,7 @@ class ChooseViewMixin:
             self.template_name,
             None,
             self.get_context_data(),
-            json_data={
-                "step": "choose",
-            },
+            json_data=self.get_response_json_data(),
         )
 
 

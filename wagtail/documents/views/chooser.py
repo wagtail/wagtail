@@ -220,16 +220,19 @@ class DocumentChooseViewMixin:
         )
         return context
 
+    def get_response_json_data(self):
+        return {
+            "step": "choose",
+            "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
+        }
+
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
             self.template_name,
             None,
             self.get_context_data(),
-            json_data={
-                "step": "choose",
-                "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
-            },
+            json_data=self.get_response_json_data(),
         )
 
 
