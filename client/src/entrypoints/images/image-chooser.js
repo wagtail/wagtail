@@ -1,23 +1,24 @@
-import $ from 'jquery';
-
 class ImageChooser {
   constructor(id) {
-    this.chooserElement = $('#' + id + '-chooser');
-    this.previewImage = this.chooserElement.find('.preview-image img');
-    this.input = $('#' + id);
-    this.editLink = this.chooserElement.find('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.data('chooserUrl');
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.previewImage = this.chooserElement.querySelector('.preview-image img');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
 
     this.state = this.getStateFromHTML();
 
     /* hook up chooser API to the buttons */
-    $('.action-choose', this.chooserElement).on('click', () => {
-      this.openChooserModal();
-    });
-
-    $('.action-clear', this.chooserElement).on('click', () => {
-      this.clear();
-    });
+    for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
+      btn.addEventListener('click', () => {
+        this.openChooserModal();
+      });
+    }
+    for (const btn of this.chooserElement.querySelectorAll('.action-clear')) {
+      btn.addEventListener('click', () => {
+        this.clear();
+      });
+    }
   }
 
   getStateFromHTML() {
@@ -30,15 +31,15 @@ class ImageChooser {
     wagtail.images.views.chooser) is a superset of this, and can therefore be passed directly to
     chooser.setState.
     */
-    if (this.input.val()) {
+    if (this.input.value) {
       return {
-        id: this.input.val(),
-        edit_link: this.editLink.attr('href'),
-        title: this.previewImage.attr('alt'),
+        id: this.input.value,
+        edit_link: this.editLink.getAttribute('href'),
+        title: this.previewImage.getAttribute('alt'),
         preview: {
-          url: this.previewImage.attr('src'),
-          width: this.previewImage.attr('width'),
-          height: this.previewImage.attr('height'),
+          url: this.previewImage.getAttribute('src'),
+          width: this.previewImage.getAttribute('width'),
+          height: this.previewImage.getAttribute('height'),
         },
       };
     } else {
@@ -68,21 +69,18 @@ class ImageChooser {
   }
 
   renderEmptyState() {
-    this.input.val('');
-    this.chooserElement.addClass('blank');
+    this.input.setAttribute('value', '');
+    this.chooserElement.classList.add('blank');
   }
 
   renderState(newState) {
-    this.input.val(newState.id);
-    this.previewImage.attr({
-      src: newState.preview.url,
-      width: newState.preview.width,
-      height: newState.preview.height,
-      alt: newState.title,
-      title: newState.title,
-    });
-    this.chooserElement.removeClass('blank');
-    this.editLink.attr('href', newState.edit_link);
+    this.input.setAttribute('value', newState.id);
+    this.previewImage.setAttribute('src', newState.preview.url);
+    this.previewImage.setAttribute('width', newState.preview.width);
+    this.previewImage.setAttribute('alt', newState.title);
+    this.previewImage.setAttribute('title', newState.title);
+    this.chooserElement.classList.remove('blank');
+    this.editLink.setAttribute('href', newState.edit_link);
   }
 
   getTextLabel(opts) {
@@ -95,7 +93,7 @@ class ImageChooser {
   }
 
   focus() {
-    $('.action-choose', this.chooserElement).focus();
+    this.chooserElement.querySelector('.action-choose').focus();
   }
 
   getModalUrl() {
