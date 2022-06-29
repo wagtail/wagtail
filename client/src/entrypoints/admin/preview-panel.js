@@ -53,12 +53,54 @@ function initPreview() {
 
   const refreshButton = previewPanel.querySelector('[data-refresh-preview]');
   const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
-  const iframe = previewPanel.querySelector('[data-preview-iframe]');
   const form = document.querySelector('[data-edit-form]');
   const previewUrl = previewPanel.dataset.action;
   const previewModeSelect = document.querySelector(
     '[data-preview-mode-select]',
   );
+  let iframe = previewPanel.querySelector('[data-preview-iframe]');
+  const iframeLastScroll = { top: 0, left: 0 };
+
+  const updateIframeLastScroll = () => {
+    if (!iframe.contentWindow) return;
+    iframeLastScroll.top = iframe.contentWindow.scrollY;
+    iframeLastScroll.left = iframe.contentWindow.scrollX;
+  };
+
+  const reloadIframe = () => {
+    // Instead of reloading the iframe, we're replacing it with a new iframe to
+    // prevent flashing
+
+    // Create a new invisible iframe element
+    const newIframe = document.createElement('iframe');
+    newIframe.style.width = 0;
+    newIframe.style.height = 0;
+    newIframe.style.opacity = 0;
+    newIframe.style.position = 'absolute';
+    newIframe.src = iframe.src;
+
+    // Put it in the DOM so it loads the page
+    iframe.insertAdjacentElement('afterend', newIframe);
+
+    newIframe.onload = () => {
+      // Copy all attributes from the old iframe to the new one,
+      // except src as that will cause the iframe to be reloaded
+      Array.from(iframe.attributes).forEach((key) => {
+        if (key.nodeName === 'src') return;
+        newIframe.setAttribute(key.nodeName, key.nodeValue);
+      });
+
+      // Restore scroll position
+      newIframe.contentWindow.scroll(iframeLastScroll);
+
+      // Remove the old iframe and swap it with the new one
+      iframe.remove();
+      iframe = newIframe;
+
+      // Make the new iframe visible
+      newIframe.style = null;
+    };
+  };
 
   const setPreviewData = () =>
     fetch(previewUrl, {
@@ -67,13 +109,17 @@ function initPreview() {
     }).then((response) =>
       response.json().then((data) => {
         if (data.is_valid) {
+          if (!previewPanel.hasAttribute('data-preview-error')) {
+            // Update only if it's previously not in an error state
+            updateIframeLastScroll();
+          }
           previewPanel.removeAttribute('data-preview-error');
         } else {
           previewPanel.setAttribute('data-preview-error', '');
           setPreviewWidth(); // Reset to default size
         }
 
-        iframe.contentWindow.location.reload();
+        reloadIframe();
         return data.is_valid;
       }),
     );
@@ -127,12 +173,16 @@ function initPreview() {
     const mode = event.target.value;
     const url = new URL(iframe.src);
     url.searchParams.set('mode', mode);
-    // Make sure data is up-to-date before changing the preview mode.
-    handlePreview().then(() => {
-      iframe.src = url.toString();
-      url.searchParams.delete('in_preview_panel');
-      newTabButton.href = url.toString();
-    });
+
+    // Remember the last scroll position
+    // because setting the src attribute will reload the iframe
+    updateIframeLastScroll();
+    iframe.src = url.toString();
+    url.searchParams.delete('in_preview_panel');
+    newTabButton.href = url.toString();
+
+    // Make sure data is updated
+    handlePreview();
   };
 
   if (previewModeSelect) {
