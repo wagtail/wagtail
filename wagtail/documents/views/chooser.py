@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail import hooks
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
@@ -18,6 +19,7 @@ from wagtail.admin.views.generic.chooser import (
     CreationFormMixin,
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
+from wagtail.admin.widgets import BaseChooser
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -207,15 +209,44 @@ class ChooserUploadView(
         return document
 
 
+class BaseAdminDocumentChooser(BaseChooser):
+    classname = "document-chooser"
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.model = get_document_model()
+
+    def render_js_init(self, id_, name, value_data):
+        return "createDocumentChooser({0});".format(json.dumps(id_))
+
+    @property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtaildocs/js/document-chooser-modal.js"),
+                versioned_static("wagtaildocs/js/document-chooser.js"),
+            ]
+        )
+
+
 class DocumentChooserViewSet(ChooserViewSet):
-    register_widget = False
     choose_view_class = ChooseView
     choose_results_view_class = ChooseResultsView
     chosen_view_class = DocumentChosenView
     create_view_class = ChooserUploadView
+    base_widget_class = BaseAdminDocumentChooser
     permission_policy = permission_policy
 
     icon = "doc-full-inverse"
-    page_title = _("Choose a document")
+    choose_one_text = _("Choose a document")
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
+    choose_another_text = _("Choose another document")
+    edit_item_text = _("Edit this document")
+
+
+viewset = DocumentChooserViewSet(
+    "wagtaildocs_chooser",
+    model=get_document_model(),
+    url_prefix="documents/chooser",
+)
