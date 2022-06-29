@@ -911,13 +911,13 @@ def dialog(
 
 
 # Closing tag for dialog tag {% enddialog %}
-@register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
+@register.inclusion_tag("wagtailadmin/shared/dialog/end_dialog.html")
 def enddialog():
     return
 
 
 # Button used to open dialogs
-@register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog_toggle.html")
 def dialog_toggle(dialog_id, class_name="", text=None):
     if not dialog_id:
         raise ValueError("You must supply the dialog ID")
