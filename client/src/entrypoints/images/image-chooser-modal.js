@@ -79,7 +79,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     initTabs();
   },
   image_chosen: (modal, jsonData) => {
-    modal.respond('imageChosen', jsonData.result);
+    modal.respond('chosen', jsonData.result);
     modal.close();
   },
   duplicate_found: (modal, jsonData) => {
