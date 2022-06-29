@@ -79,6 +79,7 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@stable/4.1.x#egg=Django'
             experimental: true
+            postgres: 'postgres:12'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
