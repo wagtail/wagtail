@@ -410,10 +410,7 @@ function initPreview() {
 
     handlePreview().then((success) => {
       if (success) {
-        const url = new URL(previewUrl, window.location.origin);
-        if (previewModeSelect && previewModeSelect.value) {
-          url.searchParams.set('mode', previewModeSelect.value);
-        }
+        const url = new URL(newTabButton.href);
         previewWindow.document.location = url.toString();
       } else {
         window.focus();

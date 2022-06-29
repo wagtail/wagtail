@@ -14,7 +14,7 @@
             {% icon name="desktop" %}
         </button>
 
-        <a href="{{ preview_url }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-preview-new-tab aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+        <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-preview-new-tab aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
     </div>
 
     <button class="button button-small button-secondary button--icon preview-panel__refresh-button" data-refresh-preview>{% icon name="rotate" %} Refresh</button>
@@ -26,7 +26,7 @@
                 <div class="input">
                     <select name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>
                         {% for internal_name, display_name in object.preview_modes %}
-                            <option value="{{ internal_name }}">{{ display_name }}</option>
+                            <option value="{{ internal_name }}"{% if internal_name == object.default_preview_mode %} selected{% endif %}>{{ display_name }}</option>
                         {% endfor %}
                     </select>
                     <span>
@@ -36,7 +36,7 @@
         {% endif %}
 
         <div class="preview-panel__wrapper">
-            <iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true"></iframe>
+            <iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true&mode={{ object.default_preview_mode|urlencode }}"></iframe>
         </div>
     </div>
 </div>
