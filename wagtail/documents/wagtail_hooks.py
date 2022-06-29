@@ -30,7 +30,7 @@ from wagtail.documents.views.bulk_actions import (
     AddToCollectionBulkAction,
     DeleteBulkAction,
 )
-from wagtail.documents.views.chooser import DocumentChooserViewSet
+from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
 from wagtail.wagtail_hooks import require_wagtail_login
 
@@ -217,8 +217,4 @@ for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAct
 
 @hooks.register("register_admin_viewset")
 def register_document_chooser_viewset():
-    return DocumentChooserViewSet(
-        "wagtaildocs_chooser",
-        model=get_document_model(),
-        url_prefix="documents/chooser",
-    )
+    return chooser_viewset
