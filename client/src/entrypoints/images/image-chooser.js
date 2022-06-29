@@ -36,8 +36,10 @@ class ImageChooser extends Chooser {
     this.previewImage.setAttribute('title', newState.title);
   }
 }
+window.ImageChooser = ImageChooser;
 
 function createImageChooser(id) {
+  /* RemovedInWagtail50Warning */
   return new ImageChooser(id);
 }
 

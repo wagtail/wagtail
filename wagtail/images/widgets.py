@@ -41,7 +41,7 @@ class AdminImageChooser(BaseChooser):
         return context
 
     def render_js_init(self, id_, name, value_data):
-        return "createImageChooser({0});".format(json.dumps(id_))
+        return "new ImageChooser({0});".format(json.dumps(id_))
 
     @property
     def media(self):
