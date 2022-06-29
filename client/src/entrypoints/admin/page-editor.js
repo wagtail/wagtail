@@ -342,26 +342,24 @@ function initPreview() {
   // to the preview page, we send the form after each change
   // and save it inside the user session.
 
-  const previewButtons = previewPanel.querySelectorAll('[data-preview-size]');
+  const sizeInputs = previewPanel.querySelectorAll('[data-preview-size]');
 
   const togglePreviewSize = (event) => {
-    const currentButton = event.currentTarget;
-    const size = currentButton.dataset.previewSize;
+    const size = event.target.value;
     const hasErrors = previewPanel.classList.contains(
       'preview-panel--has-errors',
     );
 
-    previewButtons.forEach((btn) => btn.setAttribute('aria-current', 'false'));
-    currentButton.setAttribute('aria-current', 'true');
+    // Ensure only one size class is applied
     previewPanel.className = `preview-panel preview-panel--${size}`;
     if (hasErrors) {
       previewPanel.classList.add('preview-panel--has-errors');
     }
   };
 
-  previewButtons.forEach((button) => {
-    button.addEventListener('click', togglePreviewSize);
-  });
+  sizeInputs.forEach((input) =>
+    input.addEventListener('change', togglePreviewSize),
+  );
 
   const previewArea = previewPanel.querySelector('[data-preview-panel-area]');
   const resizeObserver = new ResizeObserver((entries) => {
