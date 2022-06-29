@@ -565,12 +565,11 @@ footer .preview {
   display: flex;
   flex-direction: column;
 
-  --preview-device-width: 375; // Default to mobile
   --preview-width-ratio: min(
     1,
-    calc(var(--preview-area-width, 450) / var(--preview-device-width))
+    calc(var(--preview-area-width, 450) / var(--preview-device-width, 375))
   );
-  --preview-iframe-width: calc(1px * var(--preview-device-width));
+  --preview-iframe-width: calc(1px * var(--preview-device-width, 375));
 
   &__area {
     height: 100%;

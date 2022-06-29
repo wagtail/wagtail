@@ -445,6 +445,7 @@ function initPreview() {
 
   // Make sure current preview data in session exists and is up-to-date.
   setPreviewData();
+  setPreviewWidth();
 
   if (previewPanel.dataset.autoUpdate === 'true') {
     // Form data is changed when field values are changed (change event),
