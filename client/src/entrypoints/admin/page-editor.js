@@ -342,19 +342,23 @@ function initPreview() {
   // to the preview page, we send the form after each change
   // and save it inside the user session.
 
-  const sizeInputs = previewPanel.querySelectorAll('[data-preview-size]');
+  const sizeInputs = previewPanel.querySelectorAll('[data-device-width]');
+  const defaultSizeInput = previewPanel.querySelector('[data-default-size]');
+
+  const setPreviewWidth = (width) => {
+    const deviceWidth = width || defaultSizeInput.dataset.deviceWidth;
+    previewPanel.style.setProperty('--preview-device-width', deviceWidth);
+  };
 
   const togglePreviewSize = (event) => {
-    const size = event.target.value;
-    const hasErrors = previewPanel.classList.contains(
-      'preview-panel--has-errors',
-    );
+    const device = event.target.value;
+    const hasErrors = previewPanel.hasAttribute('data-preview-error');
+    const deviceWidth = hasErrors ? null : event.target.dataset.deviceWidth;
 
-    // Ensure only one size class is applied
-    previewPanel.className = `preview-panel preview-panel--${size}`;
-    if (hasErrors) {
-      previewPanel.classList.add('preview-panel--has-errors');
-    }
+    setPreviewWidth(deviceWidth);
+
+    // Ensure only one device class is applied
+    previewPanel.className = `preview-panel preview-panel--${device}`;
   };
 
   sizeInputs.forEach((input) =>
@@ -386,10 +390,13 @@ function initPreview() {
       body: new FormData(form),
     }).then((response) =>
       response.json().then((data) => {
-        previewPanel.classList.toggle(
-          'preview-panel--has-errors',
-          !data.is_valid,
-        );
+        if (data.is_valid) {
+          previewPanel.removeAttribute('data-preview-error');
+        } else {
+          previewPanel.setAttribute('data-preview-error', '');
+          setPreviewWidth(); // Reset to default size
+        }
+
         iframe.contentWindow.location.reload();
         return data.is_valid;
       }),

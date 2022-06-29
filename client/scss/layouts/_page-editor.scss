@@ -594,23 +594,6 @@ footer .preview {
     display: block;
   }
 
-  // From DevTools: iPhone SE 375x667
-  &--mobile,
-  &--tablet.preview-panel--has-errors,
-  &--desktop.preview-panel--has-errors {
-    --preview-device-width: 375;
-  }
-
-  // From DevTools: iPad Mini 768x1024
-  &--tablet {
-    --preview-device-width: 768;
-  }
-
-  // Desktop 1280x720
-  &--desktop {
-    --preview-device-width: 1280;
-  }
-
   &__sizes {
     display: flex;
     align-items: center;

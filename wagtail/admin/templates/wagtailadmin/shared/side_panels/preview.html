@@ -6,15 +6,15 @@
     <div class="preview-panel__sizes">
         <label class="preview-panel__size-button preview-panel__size-button--mobile" aria-label="{% trans 'Preview in mobile size' %}">
             {% icon name="mobile-alt" %}
-            <input type="radio" name="preview-size" value="mobile" data-preview-size checked />
+            <input type="radio" name="preview-size" value="mobile" data-device-width="375" data-default-size checked />
         </label>
         <label class="preview-panel__size-button preview-panel__size-button--tablet" aria-label="{% trans 'Preview in tablet size' %}">
             {% icon name="tablet-alt" %}
-            <input type="radio" name="preview-size" value="tablet" data-preview-size />
+            <input type="radio" name="preview-size" value="tablet" data-device-width="768" />
         </label>
         <label class="preview-panel__size-button preview-panel__size-button--desktop" aria-label="{% trans 'Preview in desktop size' %}">
             {% icon name="desktop" %}
-            <input type="radio" name="preview-size" value="desktop" data-preview-size />
+            <input type="radio" name="preview-size" value="desktop" data-device-width="1280" />
         </label>
 
         <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="preview-panel__size-button preview-panel__size-button--new-tab" data-preview-new-tab aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
