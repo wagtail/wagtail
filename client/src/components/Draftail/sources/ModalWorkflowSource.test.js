@@ -49,7 +49,7 @@ describe('ModalWorkflowSource', () => {
       expect(imageSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
         urlParams: {},
-        responses: { imageChosen: imageSource.onChosen },
+        responses: { chosen: imageSource.onChosen },
         onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
@@ -62,7 +62,7 @@ describe('ModalWorkflowSource', () => {
           format: 'left',
           alt_text: 'alt',
         },
-        responses: { imageChosen: imageSource.onChosen },
+        responses: { chosen: imageSource.onChosen },
         onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });

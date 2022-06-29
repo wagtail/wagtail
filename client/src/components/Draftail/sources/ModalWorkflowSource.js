@@ -190,7 +190,7 @@ class ImageModalWorkflowSource extends ModalWorkflowSource {
       urlParams,
       onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
-        imageChosen: this.onChosen,
+        chosen: this.onChosen,
       },
     };
   }
