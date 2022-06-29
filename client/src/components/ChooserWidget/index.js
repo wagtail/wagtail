@@ -2,16 +2,12 @@ import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
+
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
   chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
-    this.chooserElement = document.getElementById(`${id}-chooser`);
-    this.titleElement = this.chooserElement.querySelector('.title');
-    this.input = document.getElementById(id);
-    this.editLink = this.chooserElement.querySelector('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
-
+    this.initHTMLElements(id);
     this.state = this.getStateFromHTML();
 
     for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
@@ -26,6 +22,14 @@ export class Chooser {
     }
   }
 
+  initHTMLElements(id) {
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.titleElement = this.chooserElement.querySelector('.title');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
+  }
+
   getStateFromHTML() {
     /*
         Construct initial state of the chooser from the rendered (static) HTML.
@@ -36,11 +40,14 @@ export class Chooser {
         passed directly to chooser.setState.
         */
     if (this.input.value) {
-      return {
+      const state = {
         id: this.input.value,
         edit_link: this.editLink.getAttribute('href'),
-        [this.titleStateKey]: this.titleElement.innerText,
       };
+      if (this.titleElement && this.titleStateKey) {
+        state[this.titleStateKey] = this.titleElement.innerText;
+      }
+      return state;
     } else {
       return null;
     }
@@ -74,7 +81,9 @@ export class Chooser {
 
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
-    this.titleElement.innerText = newState[this.titleStateKey];
+    if (this.titleElement && this.titleStateKey) {
+      this.titleElement.innerText = newState[this.titleStateKey];
+    }
     this.chooserElement.classList.remove('blank');
     this.editLink.setAttribute('href', newState.edit_link);
   }
