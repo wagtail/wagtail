@@ -217,7 +217,7 @@ class BaseAdminDocumentChooser(BaseChooser):
         self.model = get_document_model()
 
     def render_js_init(self, id_, name, value_data):
-        return "createDocumentChooser({0});".format(json.dumps(id_))
+        return "new DocumentChooser({0});".format(json.dumps(id_))
 
     @property
     def media(self):
