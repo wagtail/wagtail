@@ -25,9 +25,9 @@
     <div class="preview-panel__area" data-preview-panel-area>
         {% if object.preview_modes|length > 1 %}
             <div class="preview-panel__modes choice_field">
-                {% trans 'Preview mode' %}
+                <label class="preview-panel__mode-label w-label-3" for="id_preview_mode">{% trans 'Preview mode' %}</label>
                 <div class="input">
-                    <select name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>
+                    <select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>
                         {% for internal_name, display_name in object.preview_modes %}
                             <option value="{{ internal_name }}"{% if internal_name == object.default_preview_mode %} selected{% endif %}>{{ display_name }}</option>
                         {% endfor %}

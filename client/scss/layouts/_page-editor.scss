@@ -689,6 +689,11 @@ footer .preview {
     margin-bottom: 0.5rem;
   }
 
+  &__mode-label {
+    padding: 0;
+    width: auto;
+  }
+
   &__mode-select {
     font-size: 1em;
     padding: 0.6rem 0.75rem;
