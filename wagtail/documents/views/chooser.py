@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail import hooks
-from wagtail.admin.ui.tables import Column, DateColumn, TitleColumn
+from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
@@ -37,11 +37,7 @@ class DocumentChosenResponseMixin(ChosenResponseMixin):
 
 
 class DocumentCreationFormMixin(CreationFormMixin):
-    create_action_label = _("Upload")
-    create_action_clicked_label = _("Uploading…")
     creation_tab_id = "upload"
-    create_url_name = "wagtaildocs_chooser:create"
-    permission_policy = permission_policy
 
     def get_creation_form_class(self):
         return get_document_form(self.model)
@@ -91,15 +87,12 @@ class DocumentFilterForm(forms.Form):
 
 
 class BaseDocumentChooseView(BaseChooseView):
-    icon = "doc-full-inverse"
-    page_title = _("Choose a document")
-    results_url_name = "wagtaildocs_chooser:choose_results"
     results_template_name = "wagtaildocs/chooser/results.html"
     filter_form_class = DocumentFilterForm
     per_page = 10
 
     def get_object_list(self):
-        documents = permission_policy.instances_user_has_any_permission_for(
+        documents = self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["choose"]
         )
         # allow hooks to modify the queryset
@@ -128,7 +121,7 @@ class BaseDocumentChooseView(BaseChooseView):
 
     @cached_property
     def collections(self):
-        collections = permission_policy.collections_user_has_permission_for(
+        collections = self.permission_policy.collections_user_has_permission_for(
             self.request.user, "choose"
         )
         if len(collections) < 2:
@@ -138,13 +131,7 @@ class BaseDocumentChooseView(BaseChooseView):
 
     @property
     def columns(self):
-        columns = [
-            TitleColumn(
-                "title",
-                label=_("Title"),
-                url_name="wagtaildocs_chooser:chosen",
-                link_attrs={"data-chooser-modal-choice": True},
-            ),
+        columns = super().columns + [
             DownloadColumn("filename", label=_("File")),
             DateColumn("created_at", label=_("Created"), width="16%"),
         ]
@@ -227,3 +214,8 @@ class DocumentChooserViewSet(ChooserViewSet):
     chosen_view_class = DocumentChosenView
     create_view_class = ChooserUploadView
     permission_policy = permission_policy
+
+    icon = "doc-full-inverse"
+    page_title = _("Choose a document")
+    create_action_label = _("Upload")
+    create_action_clicked_label = _("Uploading…")
