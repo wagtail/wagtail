@@ -1,22 +1,27 @@
-import $ from 'jquery';
-
 class DocumentChooser {
+  // eslint-disable-next-line no-undef
+  modalOnloadHandlers = DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS;
+
   constructor(id) {
-    this.chooserElement = $('#' + id + '-chooser');
-    this.docTitle = this.chooserElement.find('.title');
-    this.input = $('#' + id);
-    this.editLink = this.chooserElement.find('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.data('chooserUrl');
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.titleElement = this.chooserElement.querySelector('.title');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
 
     this.state = this.getStateFromHTML();
 
-    $('.action-choose', this.chooserElement).on('click', () => {
-      this.openChooserModal();
-    });
+    for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
+      btn.addEventListener('click', () => {
+        this.openChooserModal();
+      });
+    }
 
-    $('.action-clear', this.chooserElement).on('click', () => {
-      this.clear();
-    });
+    for (const btn of this.chooserElement.querySelectorAll('.action-clear')) {
+      btn.addEventListener('click', () => {
+        this.clear();
+      });
+    }
   }
 
   getStateFromHTML() {
@@ -28,11 +33,11 @@ class DocumentChooser {
     wagtail.documents.views.chooser) is a superset of this, and can therefore be passed directly to
     chooser.setState.
     */
-    if (this.input.val()) {
+    if (this.input.value) {
       return {
-        id: this.input.val(),
-        edit_link: this.editLink.attr('href'),
-        title: this.docTitle.text(),
+        id: this.input.value,
+        edit_link: this.editLink.getAttribute('href'),
+        title: this.titleElement.innerText,
       };
     } else {
       return null;
@@ -61,15 +66,15 @@ class DocumentChooser {
   }
 
   renderEmptyState() {
-    this.input.val('');
-    this.chooserElement.addClass('blank');
+    this.input.setAttribute('value', '');
+    this.chooserElement.classList.add('blank');
   }
 
   renderState(newState) {
-    this.input.val(newState.id);
-    this.docTitle.text(newState.title);
-    this.chooserElement.removeClass('blank');
-    this.editLink.attr('href', newState.edit_link);
+    this.input.setAttribute('value', newState.id);
+    this.titleElement.innerText = newState.title;
+    this.chooserElement.classList.remove('blank');
+    this.editLink.setAttribute('href', newState.edit_link);
   }
 
   getTextLabel(opts) {
@@ -82,7 +87,7 @@ class DocumentChooser {
   }
 
   focus() {
-    $('.action-choose', this.chooserElement).focus();
+    this.chooserElement.querySelector('.action-choose').focus();
   }
 
   getModalUrl() {
@@ -93,8 +98,7 @@ class DocumentChooser {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.chooserBaseUrl,
-      // eslint-disable-next-line no-undef
-      onload: DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      onload: this.modalOnloadHandlers,
       responses: {
         documentChosen: (result) => {
           this.setState(result);
