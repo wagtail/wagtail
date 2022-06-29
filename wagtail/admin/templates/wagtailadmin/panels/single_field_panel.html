@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 <div data-contentpath="{{ self.field_name }}">
     <fieldset>
@@ -13,8 +13,8 @@
     {% if show_add_comment_button %}
         <div class="field-comment-control field-comment-control--object">
             <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{% trans 'Add comment' %}">
-                <svg class="icon icon-comment-add initial icon-default" aria-hidden="true"><use href="#icon-comment-add"></use></svg>
-                <svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true"><use href="#icon-comment-add-reversed"></use></svg>
+                {% icon name="comment-add" class_name="initial icon-default" %}
+                {% icon name="comment-add-reversed" class_name="initial icon-reversed" %}
             </button>
         </div>
     {% endif %}

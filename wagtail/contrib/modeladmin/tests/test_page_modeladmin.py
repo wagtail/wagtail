@@ -182,7 +182,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
         expected = """
             <p class="back">
                     <a href="/admin/modeladmintest/author/">
-                        <svg class="icon default" aria-hidden="true">
+                        <svg class="icon icon-arrow-left default" aria-hidden="true">
                             <use href="#icon-arrow-left"></use>
                         </svg>
                         Back to author list
@@ -277,7 +277,7 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
         expected = """
             <p class="back">
                     <a href="/admin/tests/eventpage/">
-                        <svg class="icon default" aria-hidden="true">
+                        <svg class="icon icon-arrow-left default" aria-hidden="true">
                             <use href="#icon-arrow-left"></use>
                         </svg>
                         Back to event page list
