@@ -363,6 +363,16 @@ function initPreview() {
     button.addEventListener('click', togglePreviewSize);
   });
 
+  const previewArea = previewPanel.querySelector('[data-preview-panel-area]');
+  const resizeObserver = new ResizeObserver((entries) => {
+    const area = entries[0];
+    if (!area) return;
+    const areaRect = area.contentRect;
+    previewPanel.style.setProperty('--preview-area-width', areaRect.width);
+  });
+
+  resizeObserver.observe(previewArea);
+
   const refreshButton = previewPanel.querySelector('[data-refresh-preview]');
   const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
   const iframe = previewPanel.querySelector('[data-preview-iframe]');
