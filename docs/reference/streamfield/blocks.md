@@ -2,12 +2,12 @@
 
 # StreamField block reference
 
-This document details the block types provided by Wagtail for use in [StreamField](../../topics/streamfield.rst), and how they can be combined into new block types.
+This document details the block types provided by Wagtail for use in [StreamField](streamfield), and how they can be combined into new block types.
 
 ```{eval-rst}
 .. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
-   A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield`.
+   A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield_topic`.
 
    :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
    :param use_json_field: When true, the field uses :class:`~django.db.models.JSONField` as its internal type, allowing the use of ``JSONField`` lookups and transforms. When false, it uses :class:`~django.db.models.TextField` instead. This argument **must** be set to ``True``/``False``.
