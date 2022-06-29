@@ -12,7 +12,7 @@ export class Chooser {
     this.editLink = this.chooserElement.querySelector('.edit-link');
     this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
 
-    this.state = this.getStateFromHtml();
+    this.state = this.getStateFromHTML();
 
     for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
       btn.addEventListener('click', () => {
@@ -26,7 +26,7 @@ export class Chooser {
     }
   }
 
-  getStateFromHtml() {
+  getStateFromHTML() {
     /*
         Construct initial state of the chooser from the rendered (static) HTML.
         State is either null (= no item chosen) or a dict of id, title and edit_link.
