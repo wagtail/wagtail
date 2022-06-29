@@ -595,11 +595,11 @@ footer .preview {
   }
 
   &__sizes {
+    @apply w-border-grey-100 w-border-b;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    border-bottom: 1px solid $color-grey-4;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
   }
@@ -662,11 +662,11 @@ footer .preview {
   }
 
   &__modes {
+    @apply w-border-grey-100 w-border-t;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    border-top: 1px solid $color-grey-4;
     padding-top: 1rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
@@ -678,11 +678,11 @@ footer .preview {
   }
 
   &__mode-select {
+    @apply w-bg-white;
     font-size: 1em;
     padding: 0.6rem 0.75rem;
     padding-inline-end: 2.5rem;
     width: auto;
-    background-color: $color-white;
   }
 
   &__modes.choice_field &__mode-select ~ span:after {
@@ -696,6 +696,7 @@ footer .preview {
 }
 
 .preview-error {
+  @apply w-bg-white;
   position: absolute;
   inset-inline-start: 0;
   width: 100%;
@@ -703,7 +704,6 @@ footer .preview {
   min-height: 100vh;
   align-content: center;
   text-align: center;
-  background: $color-white;
 
   &__header {
     margin-bottom: 0.5rem;
