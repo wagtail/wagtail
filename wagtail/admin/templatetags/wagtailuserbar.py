@@ -38,14 +38,6 @@ def wagtailuserbar(context, position="bottom-right"):
     except KeyError:
         return ""
 
-    # Don't render if request is a preview. This is to avoid confusion that
-    # might arise when the user clicks edit on a preview.
-    try:
-        if request.is_preview:
-            return ""
-    except AttributeError:
-        pass
-
     # Don't render without a user because we can't check their permissions
     try:
         user = request.user
