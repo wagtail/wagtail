@@ -14,6 +14,7 @@ from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.views.generic.chooser import ChosenResponseMixin
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
@@ -26,23 +27,21 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 CHOOSER_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
 
 
-def get_image_result_data(image):
-    """
-    helper function: given an image, return the json data to pass back to the
-    image chooser panel
-    """
-    preview_image = image.get_rendition("max-165x165")
+class ImageChosenResponseMixin(ChosenResponseMixin):
+    chosen_response_name = "image_chosen"
 
-    return {
-        "id": image.id,
-        "edit_link": reverse("wagtailimages:edit", args=(image.id,)),
-        "title": image.title,
-        "preview": {
+    def get_chosen_response_data(self, image):
+        """
+        Given an image, return the json data to pass back to the image chooser panel
+        """
+        response_data = super().get_chosen_response_data(image)
+        preview_image = image.get_rendition("max-165x165")
+        response_data["preview"] = {
             "url": preview_image.url,
             "width": preview_image.width,
             "height": preview_image.height,
-        },
-    }
+        }
+        return response_data
 
 
 class ImageFilterForm(forms.Form):
@@ -183,17 +182,10 @@ class ChooseResultsView(BaseChooseView):
         )
 
 
-class ImageChosenView(View):
+class ImageChosenView(ImageChosenResponseMixin, View):
     def get(self, request, image_id):
         image = get_object_or_404(get_image_model(), id=image_id)
-
-        return render_modal_workflow(
-            request,
-            None,
-            None,
-            None,
-            json_data={"step": "image_chosen", "result": get_image_result_data(image)},
-        )
+        return self.get_chosen_response(image)
 
 
 def duplicate_found(request, new_image, existing_image):
@@ -232,7 +224,7 @@ def duplicate_found(request, new_image, existing_image):
     )
 
 
-class ChooserUploadView(PermissionCheckedMixin, View):
+class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
     permission_policy = permission_policy
     permission_required = "add"
 
@@ -281,16 +273,7 @@ class ChooserUploadView(PermissionCheckedMixin, View):
                 )
             else:
                 # not specifying a format; return the image details now
-                return render_modal_workflow(
-                    request,
-                    None,
-                    None,
-                    None,
-                    json_data={
-                        "step": "image_chosen",
-                        "result": get_image_result_data(image),
-                    },
-                )
+                return self.get_chosen_response(image)
 
         else:  # form is invalid
             return self.get_reshow_creation_form_response()

@@ -289,6 +289,7 @@ class ChosenResponseMixin:
     """
 
     response_data_title_key = "title"
+    chosen_response_name = "chosen"
 
     def get_object_id(self, instance):
         return instance.pk
@@ -323,7 +324,7 @@ class ChosenResponseMixin:
             None,
             None,
             None,
-            json_data={"step": "chosen", "result": response_data},
+            json_data={"step": self.chosen_response_name, "result": response_data},
         )
 
 
