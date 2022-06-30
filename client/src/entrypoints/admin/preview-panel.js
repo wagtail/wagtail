@@ -19,8 +19,7 @@ function initPreview() {
 
   const togglePreviewSize = (event) => {
     const device = event.target.value;
-    const hasErrors = previewPanel.hasAttribute('data-preview-error');
-    const deviceWidth = hasErrors ? null : event.target.dataset.deviceWidth;
+    const deviceWidth = event.target.dataset.deviceWidth;
 
     setPreviewWidth(deviceWidth);
 
@@ -109,15 +108,12 @@ function initPreview() {
     }).then((response) =>
       response.json().then((data) => {
         if (data.is_valid) {
-          if (!previewPanel.hasAttribute('data-preview-error')) {
-            // Update only if it's previously not in an error state
-            updateIframeLastScroll();
-          }
           previewPanel.removeAttribute('data-preview-error');
         } else {
           previewPanel.setAttribute('data-preview-error', '');
-          setPreviewWidth(); // Reset to default size
         }
+
+        updateIframeLastScroll();
         reloadIframe();
         return data.is_valid;
       }),
