@@ -40,11 +40,9 @@ can hook into the rest of your project.
 
 Wagtail provides three endpoint classes you can use:
 
-```{eval-rst}
-- Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
-- Images :class:`wagtail.images.api.v2.views.ImagesAPIViewSet`
-- Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
-```
+-   Pages {class}`wagtail.api.v2.views.PagesAPIViewSet`
+-   Images {class}`wagtail.images.api.v2.views.ImagesAPIViewSet`
+-   Documents {class}`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
 
 You can subclass any of these endpoint classes to customize their functionality.
 Additionally, there is a base endpoint class you can use for adding different

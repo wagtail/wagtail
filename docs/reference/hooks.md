@@ -137,7 +137,7 @@ def add_another_welcome_panel(request, panels):
 
 ### `construct_homepage_summary_items`
 
-Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a `request` object and a list of summary item objects, and should modify this list in-place as required. Summary item objects are instances of `wagtail.admin.site_summary.SummaryItem`, which extends :ref:`the Component class <creating_template_components>` with the following additional methods and properties:
+Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a `request` object and a list of summary item objects, and should modify this list in-place as required. Summary item objects are instances of `wagtail.admin.site_summary.SummaryItem`, which extends [the Component class](creating_template_components) with the following additional methods and properties:
 
 ```{eval-rst}
   .. method:: SummaryItem(request)

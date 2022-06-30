@@ -35,7 +35,7 @@ For more information, see the Django documentation for the [application director
 
 The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. e.g the page title `{{ page.title }}` or another field `{{ page.author }}`.
 
-A custom variable name can be :attr:`configured on the page model <wagtail.models.Page.context_object_name>`. If a custom name is defined, `page` is still available for use in shared templates.
+A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
 Additionally `request.` is available and contains Django's request object.
 
