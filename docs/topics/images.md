@@ -241,7 +241,7 @@ For example, to use the `<picture>` tag:
 </picture>
 ```
 
-And to use the `<amp-img>` tag (based on the `Mountains example <https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image>`\_ from the AMP docs):
+And to use the `<amp-img>` tag (based on the [Mountains example](https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image) from the AMP docs):
 
 ```html+django
 {% image image width-550 format-webp as webp_image %}
