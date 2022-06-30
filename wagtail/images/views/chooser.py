@@ -1,15 +1,17 @@
+from django import forms
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.images import get_image_model
@@ -42,7 +44,40 @@ def get_image_result_data(image):
     }
 
 
+class ImageFilterForm(forms.Form):
+    q = forms.CharField(
+        label=_("Search term"),
+        widget=forms.TextInput(attrs={"placeholder": _("Search")}),
+        required=False,
+    )
+
+    def __init__(self, *args, collections, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if collections:
+            collection_choices = [
+                ("", _("All collections"))
+            ] + collections.get_indented_choices()
+            self.fields["collection_id"] = forms.ChoiceField(
+                label=_("Collection"),
+                choices=collection_choices,
+                required=False,
+            )
+
+
 class BaseChooseView(View):
+    permission_policy = permission_policy
+
+    @cached_property
+    def collections(self):
+        collections = self.permission_policy.collections_user_has_permission_for(
+            self.request.user, "choose"
+        )
+        if len(collections) < 2:
+            return None
+
+        return collections
+
     def get(self, request):
         self.image_model = get_image_model()
 
@@ -59,21 +94,19 @@ class BaseChooseView(View):
         for hook in hooks.get_hooks("construct_image_chooser_queryset"):
             images = hook(images, request)
 
-        collection_id = request.GET.get("collection_id")
-        if collection_id:
-            images = images.filter(collection=collection_id)
-
         self.is_searching = False
-        self.q = None
+        self.search_query = None
 
-        if "q" in request.GET:
-            self.search_form = SearchForm(request.GET)
-            if self.search_form.is_valid():
-                self.q = self.search_form.cleaned_data["q"]
+        self.filter_form = ImageFilterForm(request.GET, collections=self.collections)
+        if self.filter_form.is_valid():
+            collection_id = self.filter_form.cleaned_data.get("collection_id")
+            if collection_id:
+                images = images.filter(collection=collection_id)
+
+            self.search_query = self.filter_form.cleaned_data["q"]
+            if self.search_query:
                 self.is_searching = True
-                images = images.search(self.q)
-        else:
-            self.search_form = SearchForm()
+                images = images.search(self.search_query)
 
         if not self.is_searching:
             tag_name = request.GET.get("tag")
@@ -89,7 +122,7 @@ class BaseChooseView(View):
         return {
             "images": self.images,
             "is_searching": self.is_searching,
-            "query_string": self.q,
+            "query_string": self.search_query,
             "will_select_format": self.request.GET.get("select_format"),
         }
 
@@ -109,17 +142,11 @@ class ChooseView(BaseChooseView):
         else:
             uploadform = None
 
-        collections = permission_policy.collections_user_has_permission_for(
-            self.request.user, "choose"
-        )
-        if len(collections) < 2:
-            collections = None
-
         context.update(
             {
-                "searchform": self.search_form,
+                "searchform": self.filter_form,
                 "popular_tags": popular_tags_for_model(self.image_model),
-                "collections": collections,
+                "collections": self.collections,
                 "uploadform": uploadform,
             }
         )
