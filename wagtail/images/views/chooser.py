@@ -68,6 +68,34 @@ class ImageFilterForm(forms.Form):
 class BaseChooseView(View):
     permission_policy = permission_policy
 
+    def get_object_list(self):
+        images = (
+            permission_policy.instances_user_has_any_permission_for(
+                self.request.user, ["choose"]
+            )
+            .order_by("-created_at")
+            .select_related("collection")
+            .prefetch_renditions("max-165x165")
+        )
+
+        # allow hooks to modify the queryset
+        for hook in hooks.get_hooks("construct_image_chooser_queryset"):
+            images = hook(images, self.request)
+
+        return images
+
+    def filter_object_list(self, images, form):
+        collection_id = form.cleaned_data.get("collection_id")
+        if collection_id:
+            images = images.filter(collection=collection_id)
+
+        self.search_query = form.cleaned_data["q"]
+        if self.search_query:
+            self.is_searching = True
+            images = images.search(self.search_query)
+
+        return images
+
     @cached_property
     def collections(self):
         collections = self.permission_policy.collections_user_has_permission_for(
@@ -81,32 +109,14 @@ class BaseChooseView(View):
     def get(self, request):
         self.image_model = get_image_model()
 
-        images = (
-            permission_policy.instances_user_has_any_permission_for(
-                request.user, ["choose"]
-            )
-            .order_by("-created_at")
-            .select_related("collection")
-            .prefetch_renditions("max-165x165")
-        )
-
-        # allow hooks to modify the queryset
-        for hook in hooks.get_hooks("construct_image_chooser_queryset"):
-            images = hook(images, request)
+        images = self.get_object_list()
 
         self.is_searching = False
         self.search_query = None
 
         self.filter_form = ImageFilterForm(request.GET, collections=self.collections)
         if self.filter_form.is_valid():
-            collection_id = self.filter_form.cleaned_data.get("collection_id")
-            if collection_id:
-                images = images.filter(collection=collection_id)
-
-            self.search_query = self.filter_form.cleaned_data["q"]
-            if self.search_query:
-                self.is_searching = True
-                images = images.search(self.search_query)
+            images = self.filter_object_list(images, self.filter_form)
 
         if not self.is_searching:
             tag_name = request.GET.get("tag")
