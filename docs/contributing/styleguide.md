@@ -1,19 +1,18 @@
-.. _styleguide:
+(styleguide)=
 
-UI Styleguide
-=============
+# UI Styleguide
 
 Developers working on the Wagtail UI or creating new UI components may wish to test their work against our Styleguide, which is provided as the contrib module "wagtailstyleguide".
 
-To install the styleguide module on your site, add it to the list of ``INSTALLED_APPS`` in your settings:
+To install the styleguide module on your site, add it to the list of `INSTALLED_APPS` in your settings:
 
-.. code-block:: python
-
-    INSTALLED_APPS = (
-        ...
-        'wagtail.contrib.styleguide',
-        ...
-    )
+```python
+INSTALLED_APPS = (
+    # ...
+    'wagtail.contrib.styleguide',
+    # ...
+)
+```
 
 This will add a 'Styleguide' item to the Settings menu in the admin.
 
