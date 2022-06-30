@@ -14,6 +14,7 @@ from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
@@ -231,14 +232,22 @@ def duplicate_found(request, new_image, existing_image):
     )
 
 
-@permission_checker.require("add")
-def chooser_upload(request):
-    Image = get_image_model()
-    ImageForm = get_image_form(Image)
+class ChooserUploadView(PermissionCheckedMixin, View):
+    permission_policy = permission_policy
+    permission_required = "add"
 
-    if request.method == "POST":
+    def get(self, request):
+        Image = get_image_model()
+        ImageForm = get_image_form(Image)
+        self.form = ImageForm(user=request.user, prefix="image-chooser-upload")
+        return self.get_reshow_creation_form_response()
+
+    def post(self, request):
+        Image = get_image_model()
+        ImageForm = get_image_form(Image)
+
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(
+        self.form = ImageForm(
             request.POST,
             request.FILES,
             instance=image,
@@ -246,8 +255,8 @@ def chooser_upload(request):
             prefix="image-chooser-upload",
         )
 
-        if form.is_valid():
-            form.save()
+        if self.form.is_valid():
+            self.form.save()
 
             duplicates = find_image_duplicates(
                 image=image,
@@ -259,7 +268,7 @@ def chooser_upload(request):
                 return duplicate_found(request, image, existing_image)
 
             if request.GET.get("select_format"):
-                form = ImageInsertionForm(
+                insertion_form = ImageInsertionForm(
                     initial={"alt_text": image.default_alt_text},
                     prefix="image-chooser-insertion",
                 )
@@ -267,7 +276,7 @@ def chooser_upload(request):
                     request,
                     "wagtailimages/chooser/select_format.html",
                     None,
-                    {"image": image, "form": form},
+                    {"image": image, "form": insertion_form},
                     json_data={"step": "select_format"},
                 )
             else:
@@ -282,25 +291,27 @@ def chooser_upload(request):
                         "result": get_image_result_data(image),
                     },
                 )
-    else:
-        form = ImageForm(user=request.user, prefix="image-chooser-upload")
 
-    upload_form_html = render_to_string(
-        "wagtailimages/chooser/upload_form.html",
-        {
-            "form": form,
-            "will_select_format": request.GET.get("select_format"),
-        },
-        request,
-    )
+        else:  # form is invalid
+            return self.get_reshow_creation_form_response()
 
-    return render_modal_workflow(
-        request,
-        None,
-        None,
-        None,
-        json_data={"step": "reshow_upload_form", "htmlFragment": upload_form_html},
-    )
+    def get_reshow_creation_form_response(self):
+        upload_form_html = render_to_string(
+            "wagtailimages/chooser/upload_form.html",
+            {
+                "form": self.form,
+                "will_select_format": self.request.GET.get("select_format"),
+            },
+            self.request,
+        )
+
+        return render_modal_workflow(
+            self.request,
+            None,
+            None,
+            None,
+            json_data={"step": "reshow_upload_form", "htmlFragment": upload_form_html},
+        )
 
 
 def chooser_select_format(request, image_id):
