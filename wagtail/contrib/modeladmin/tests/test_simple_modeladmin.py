@@ -595,6 +595,21 @@ class TestInspectView(TestCase, WagtailTestUtils):
         response = self.get_for_book(100)
         self.assertEqual(response.status_code, 404)
 
+    def test_back_to_listing(self):
+        response = self.client.get("/admin/modeladmintest/author/inspect/1/")
+        # check that back to listing link exists
+        expected = """
+            <p class="back">
+                    <a href="/admin/modeladmintest/author/">
+                        <svg class="icon default" aria-hidden="true">
+                            <use href="#icon-arrow-left"></use>
+                        </svg>
+                        Back to author list
+                    </a>
+            </p>
+        """
+        self.assertContains(response, expected, html=True)
+
 
 class TestEditView(TestCase, WagtailTestUtils):
     fixtures = ["modeladmintest_test.json"]
@@ -1019,48 +1034,6 @@ class TestQuoting(TestCase, WagtailTestUtils):
             "/admin/modeladmintest/token/delete/Irregular_5FName/"
         )
         self.assertEqual(response.status_code, 200)
-
-
-class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
-    """
-    Test that the <ul class="breadcrumbs">... is inserted within the
-    <header> tag for potential future regression.
-    See https://github.com/wagtail/wagtail/issues/3889
-    """
-
-    fixtures = ["modeladmintest_test.json"]
-
-    def setUp(self):
-        self.login()
-
-    def test_choose_inspect_model(self):
-        response = self.client.get("/admin/modeladmintest/author/inspect/1/")
-
-        # check correct templates were used
-        self.assertTemplateUsed(response, "modeladmin/includes/breadcrumb.html")
-        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
-
-        # check that home breadcrumb link exists
-        expected = """
-            <li class="breadcrumb-item home">
-                <a href="/admin/" class="breadcrumb-link">
-                    <svg class="icon icon-home home_icon" aria-hidden="true">
-                        <use href="#icon-home"></use>
-                    </svg>
-                    <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
-                </a>
-            </li>
-        """
-        self.assertContains(response, expected, html=True)
-
-        # check that the breadcrumbs are before the first header closing tag
-        content_str = str(response.content)
-        position_of_header_close = content_str.index("</header>")
-        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
-        self.assertGreater(position_of_header_close, position_of_breadcrumbs)
 
 
 class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):

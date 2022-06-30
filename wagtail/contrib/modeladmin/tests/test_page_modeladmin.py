@@ -176,6 +176,21 @@ class TestInspectView(TestCase, WagtailTestUtils):
         self.assertContains(response, "Birth information")
         self.assertNotContains(response, "author_birth_string")
 
+    def test_back_to_listing(self):
+        response = self.client.get("/admin/modeladmintest/author/inspect/1/")
+        # check that back to listing link exists
+        expected = """
+            <p class="back">
+                    <a href="/admin/modeladmintest/author/">
+                        <svg class="icon default" aria-hidden="true">
+                            <use href="#icon-arrow-left"></use>
+                        </svg>
+                        Back to author list
+                    </a>
+            </p>
+        """
+        self.assertContains(response, expected, html=True)
+
 
 class TestEditView(TestCase, WagtailTestUtils):
     fixtures = ["test_specific.json"]
@@ -256,6 +271,21 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
             response, "%s?next=%s" % (expected_path, expected_next_path)
         )
 
+    def test_back_to_listing(self):
+        response = self.client.post("/admin/tests/eventpage/choose_parent/")
+        # check that back to listing link exists
+        expected = """
+            <p class="back">
+                    <a href="/admin/tests/eventpage/">
+                        <svg class="icon default" aria-hidden="true">
+                            <use href="#icon-arrow-left"></use>
+                        </svg>
+                        Back to event page list
+                    </a>
+            </p>
+        """
+        self.assertContains(response, expected, html=True)
+
 
 class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
     fixtures = ["test_specific.json"]
@@ -334,81 +364,6 @@ class TestModeratorAccess(TestCase, WagtailTestUtils):
         self.assertRedirects(
             response, "/admin/pages/4/delete/?next=/admin/tests/eventpage/"
         )
-
-
-class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
-    """
-    Test that the <ul class="breadcrumbs">... is inserted within the
-    <header> tag for potential future regression.
-    See https://github.com/wagtail/wagtail/issues/3889
-    """
-
-    fixtures = ["test_specific.json"]
-
-    def setUp(self):
-        self.login()
-
-    def test_choose_parent_page(self):
-        response = self.client.get("/admin/tests/eventpage/choose_parent/")
-
-        # check correct templates were used
-        self.assertTemplateUsed(response, "modeladmin/includes/breadcrumb.html")
-        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
-
-        # check that home breadcrumb link exists
-        expected = """
-            <li class="breadcrumb-item home">
-                <a href="/admin/" class="breadcrumb-link">
-                    <svg class="icon icon-home home_icon" aria-hidden="true">
-                        <use href="#icon-home"></use>
-                    </svg>
-                    <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
-                </a>
-            </li>
-        """
-        self.assertContains(response, expected, html=True)
-
-        # check that the breadcrumbs are after the header opening tag
-        content_str = str(response.content)
-        position_of_header = content_str.index(
-            "<header"
-        )  # intentionally not closing tag
-        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
-        self.assertLess(position_of_header, position_of_breadcrumbs)
-
-    def test_choose_inspect_page(self):
-        response = self.client.get("/admin/tests/eventpage/inspect/4/")
-
-        # check correct templates were used
-        self.assertTemplateUsed(response, "modeladmin/includes/breadcrumb.html")
-        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
-
-        # check that home breadcrumb link exists
-        expected = """
-            <li class="breadcrumb-item home">
-                <a href="/admin/" class="breadcrumb-link">
-                    <svg class="icon icon-home home_icon" aria-hidden="true">
-                        <use href="#icon-home"></use>
-                    </svg>
-                    <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
-                        <use href="#icon-arrow-right"></use>
-                    </svg>
-                </a>
-            </li>
-        """
-        self.assertContains(response, expected, html=True)
-
-        # check that the breadcrumbs are after the header opening tag
-        content_str = str(response.content)
-        position_of_header = content_str.index(
-            "<header"
-        )  # intentionally not closing tag
-        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
-        self.assertLess(position_of_header, position_of_breadcrumbs)
 
 
 class TestSearch(TestCase, WagtailTestUtils):
