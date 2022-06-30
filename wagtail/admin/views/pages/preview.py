@@ -62,10 +62,14 @@ class PreviewOnEdit(View):
 
     def post(self, request, *args, **kwargs):
         # TODO: Handle request.FILES.
-        request.session[self.session_key] = request.POST.urlencode(), time()
         self.remove_old_preview_data()
         form = self.get_form(self.get_page(), request.POST)
-        return JsonResponse({"is_valid": form.is_valid()})
+        is_valid = form.is_valid()
+
+        if is_valid:
+            request.session[self.session_key] = request.POST.urlencode(), time()
+
+        return JsonResponse({"is_valid": is_valid})
 
     def error_response(self, page):
         return TemplateResponse(
