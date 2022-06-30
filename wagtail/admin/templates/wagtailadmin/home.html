@@ -12,14 +12,8 @@
         {% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}
     {% endfragment %}
 
-    <header class="header merged header--home">
-        <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
-
-        <div class="sm:w-ml-4">
-            <h1 class="header__title">{{ header_title }}</h1>
-            <div class="user-name">{{ user|user_display_name }}</div>
-        </div>
-    </header>
+    {% avatar_url user as avatar %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=user|user_display_name avatar=avatar merged=1 %}
 
     {% if panels %}
         {% for panel in panels %}

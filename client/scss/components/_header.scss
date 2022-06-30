@@ -17,20 +17,28 @@ header {
   h1 {
     @apply w-h1;
     position: relative;
+  }
 
-    > svg.icon {
-      position: absolute;
-      inset-inline-start: -1.5em;
+  h1 > svg.icon, // can remove once all headers use shared include
+  .w-header__glpyh {
+    position: absolute;
+    inset-inline-start: -1.5em;
+    vertical-align: text-top;
+
+    &.icon {
       top: 0.125em;
       max-width: 1em;
       max-height: 1em;
-      vertical-align: text-top;
     }
 
-    span {
-      margin-inline-start: 0.3125rem;
-      font-weight: 400;
+    &.avatar {
+      inset-inline-start: -1.75em;
     }
+  }
+
+  .w-header__subtitle {
+    margin-inline-start: 0.3125rem;
+    font-weight: 400;
   }
 
   // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
@@ -45,12 +53,6 @@ header {
 
   &.merged .w-breadcrumb {
     padding-inline-start: $mobile-nav-indent;
-  }
-
-  &.header--home {
-    @include nice-padding();
-    padding-top: 0.5rem;
-    margin-top: $mobile-nav-indent;
   }
 
   .col {
@@ -180,11 +182,6 @@ header {
       padding-inline-start: 0;
     }
 
-    &.header--home {
-      padding-top: 1.5rem;
-      margin-top: 0;
-    }
-
     .left {
       float: left;
       margin-inline-end: 0;
@@ -202,10 +199,6 @@ header {
       .left {
         float: right;
       }
-    }
-
-    h1.icon:before {
-      display: inline-block;
     }
 
     .col3 {
