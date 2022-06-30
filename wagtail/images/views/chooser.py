@@ -72,6 +72,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     icon = "image"
     page_title = _("Choose an image")
     permission_policy = permission_policy
+    results_url_name = "wagtailimages:chooser_results"
+    results_template_name = "wagtailimages/chooser/results.html"
+    creation_form_template_name = "wagtailimages/chooser/upload_form.html"
 
     def get_object_list(self):
         images = (
@@ -111,6 +114,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         return collections
 
+    def get_results_url(self):
+        return reverse(self.results_url_name)
+
     def get(self, request):
         self.image_model = get_image_model()
 
@@ -141,6 +147,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "is_searching": self.is_searching,
                 "query_string": self.search_query,
                 "will_select_format": self.request.GET.get("select_format"),
+                "results_url": self.get_results_url(),
             }
         )
         return context
@@ -155,18 +162,20 @@ class ChooseView(BaseChooseView):
 
         if permission_policy.user_has_permission(self.request.user, "add"):
             ImageForm = get_image_form(self.image_model)
-            uploadform = ImageForm(
+            creation_form = ImageForm(
                 user=self.request.user, prefix="image-chooser-upload"
             )
         else:
-            uploadform = None
+            creation_form = None
 
         context.update(
             {
                 "searchform": self.filter_form,
                 "popular_tags": popular_tags_for_model(self.image_model),
                 "collections": self.collections,
-                "uploadform": uploadform,
+                "creation_form": creation_form,
+                "search_tab_label": _("Search"),
+                "creation_tab_label": _("Upload"),
             }
         )
         return context
@@ -187,7 +196,7 @@ class ChooseView(BaseChooseView):
 class ChooseResultsView(BaseChooseView):
     def render_to_response(self):
         return TemplateResponse(
-            self.request, "wagtailimages/chooser/results.html", self.get_context_data()
+            self.request, self.results_template_name, self.get_context_data()
         )
 
 

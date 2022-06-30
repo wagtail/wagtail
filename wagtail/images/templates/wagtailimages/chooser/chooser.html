@@ -1,18 +1,17 @@
-{% load wagtailimages_tags wagtailadmin_tags %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags wagtailimages_tags %}
 {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle merged=1 icon=header_icon %}
 
-{{ uploadform.media.js }}
-{{ uploadform.media.css }}
+{% if creation_form %}
+    {{ creation_form.media.js }}
+    {{ creation_form.media.css }}
+{% endif %}
 
 <div class="w-tabs" data-tabs data-tabs-disable-url>
-    {% if uploadform %}
+    {% if creation_form %}
         {# Using nice-padding and full width class until the modal header is restyled #}
         <div role="tablist" class="w-tabs__list w-w-full nice-padding">
-            {% trans "Search" as search_text %}
-            {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_text active=uploadform.errors %}
-            {% trans "Upload" as upload_text %}
-            {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='upload' title=upload_text active=uploadform.errors %}
+            {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_tab_label %}
+            {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='upload' title=creation_tab_label %}
         </div>
     {% endif %}
 
@@ -23,27 +22,29 @@
             role="tabpanel"
             aria-labelledby="tab-label-search"
         >
-            <form class="image-search search-bar" action="{% url 'wagtailimages:chooser_results' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
-                <ul class="fields">
-                    {% for field in searchform %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                    {% endfor %}
-                    {% if popular_tags %}
-                        <li class="taglist">
-                            <h3>{% trans 'Popular tags' %}</h3>
-                            {% for tag in popular_tags %}
-                                <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
-                            {% endfor %}
-                        </li>
-                    {% endif %}
-                </ul>
-            </form>
+            {% block filter_form %}
+                <form class="image-search search-bar" action="{{ results_url }}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
+                    <ul class="fields">
+                        {% for field in searchform %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                        {% endfor %}
+                        {% if popular_tags %}
+                            <li class="taglist">
+                                <h3>{% trans 'Popular tags' %}</h3>
+                                {% for tag in popular_tags %}
+                                    <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                                {% endfor %}
+                            </li>
+                        {% endif %}
+                    </ul>
+                </form>
+            {% endblock %}
             <div id="image-results">
-                {% include "wagtailimages/chooser/results.html" %}
+                {% include view.results_template_name %}
             </div>
         </section>
-        {% if uploadform %}
-            {% include "wagtailimages/chooser/upload_form.html" with form=uploadform will_select_format=will_select_format %}
+        {% if creation_form %}
+            {% include view.creation_form_template_name with form=creation_form will_select_format=will_select_format %}
         {% endif %}
     </div>
 </div>
