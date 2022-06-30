@@ -7,12 +7,17 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel, InlinePanel,
+    MultiFieldPanel, FieldRowPanel,
+    )
 from wagtail.api import APIField
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
+from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
 
 # ABSTRACT MODELS
 # =============================
@@ -139,6 +144,7 @@ class ContactFieldsMixin(models.Model):
 
     class Meta:
         abstract = True
+
 
 
 # PAGE MODELS
@@ -677,3 +683,30 @@ ContactPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     FieldPanel("feed_image"),
 ]
+
+class FormField(AbstractFormField):
+    page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
+
+class FormPage(AbstractEmailForm):
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name="+", on_delete=models.CASCADE
+    )
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+    api_fields = [
+        APIField('form_fields'),
+    ]
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+        FormSubmissionsPanel(),
+        FieldPanel('intro', classname="full"),
+    ]

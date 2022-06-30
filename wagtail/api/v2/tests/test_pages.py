@@ -1,6 +1,7 @@
 import collections
 import json
 from unittest import mock
+from attr import fields
 
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -597,6 +598,10 @@ class TestPageListing(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "'title' does not support nested fields"})
+
+    def test_form_fields_added_in_api_fields(self):
+        # TODO: Add a test case here for form_fields
+        pass
 
     # FILTERING
 

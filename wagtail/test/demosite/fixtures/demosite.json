@@ -440,6 +440,26 @@
     }
   },
   {
+    "pk": 26,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Form Page",
+      "draft_title": "Form Page",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "seo_title": "",
+      "depth": 2,
+      "search_description": "The origin of the genus appears to be in the general area of Eastern Siberia/Mongolia. Wagtails spread rapidly across Eurasia and dispersed to Africa in the Zanclean...",
+      "content_type": ["demosite", "formpage"],
+      "has_unpublished_changes": false,
+      "owner": null,
+      "path": "000100020006",
+      "url_path": "/home-page/form-page/",
+      "slug": "form-page"
+    }
+  },
+  {
     "pk": 1,
     "model": "wagtailcore.site",
     "fields": {
@@ -722,6 +742,17 @@
       "address_2": "3 Bird Lane",
       "email": "foo@example.com",
       "feed_image": 7
+    }
+  },
+  {
+    "pk": 26,
+    "model": "demosite.formpage",
+    "fields": {
+      "to_address": "test2@gmail.com",
+      "from_address": "test1@gmail.com",
+      "subject": "Welcome to Test Event!",
+      "intro": "<p data-block-key=\"31pp2\">Form Page</p>",
+      "thank_you_text": "<p data-block-key=\"wqn8h\">Thank You!</p>"
     }
   },
   {
