@@ -574,7 +574,7 @@ class StreamValue(MutableSequence):
         only modifies the raw value).
         """
         if self._raw_data is None:
-            self._raw_data = [v for v in self.data]  # noqa: C416
+            self._raw_data = [copy.deepcopy(v) for v in self.data]  # noqa: C416
         return StreamValue.RawDataView(self, use_raw=True)
 
     @cached_property
