@@ -182,16 +182,17 @@ class ChooseResultsView(BaseChooseView):
         )
 
 
-def image_chosen(request, image_id):
-    image = get_object_or_404(get_image_model(), id=image_id)
+class ImageChosenView(View):
+    def get(self, request, image_id):
+        image = get_object_or_404(get_image_model(), id=image_id)
 
-    return render_modal_workflow(
-        request,
-        None,
-        None,
-        None,
-        json_data={"step": "image_chosen", "result": get_image_result_data(image)},
-    )
+        return render_modal_workflow(
+            request,
+            None,
+            None,
+            None,
+            json_data={"step": "image_chosen", "result": get_image_result_data(image)},
+        )
 
 
 def duplicate_found(request, new_image, existing_image):
