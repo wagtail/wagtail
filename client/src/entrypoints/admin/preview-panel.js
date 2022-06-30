@@ -146,17 +146,24 @@ function initPreview() {
 
   if (previewPanel.dataset.autoUpdate === 'true') {
     let lastDirty = false;
+    let hasPendingRequest = false;
     const dirtyFormCallback = (formDirty) => {
       // The callback may be fired multiple times with the same value,
       // so only update if the value changes from false to true
       if (formDirty && lastDirty === false) {
-        setPreviewData();
+        hasPendingRequest = true;
+        setPreviewData().then(() => {
+          hasPendingRequest = false;
+        });
       }
       lastDirty = formDirty;
     };
 
     // Use dirty form check logic to check when the preview should be updated
     setInterval(() => {
+      // Do not check for preview update if an update request is still pending
+      if (hasPendingRequest) return;
+
       window.enableDirtyFormCheck('[data-edit-form]', {
         eagerCheck: true,
         callback: dirtyFormCallback,
