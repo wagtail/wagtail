@@ -54,8 +54,8 @@ class PreviewOnEdit(View):
         form_class = page.get_edit_handler().get_form_class()
         parent_page = page.get_parent().specific
 
-        if self.session_key not in self.request.session:
-            # Session key not in session, returning null form
+        if not query_dict:
+            # Query dict is empty, return null form
             return form_class(instance=page, parent_page=parent_page)
 
         return form_class(query_dict, instance=page, parent_page=parent_page)
