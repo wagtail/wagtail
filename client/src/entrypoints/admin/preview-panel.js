@@ -118,7 +118,6 @@ function initPreview() {
           previewPanel.setAttribute('data-preview-error', '');
           setPreviewWidth(); // Reset to default size
         }
-
         reloadIframe();
         return data.is_valid;
       }),
@@ -150,19 +149,23 @@ function initPreview() {
   newTabButton.addEventListener('click', handlePreviewInNewTab);
 
   if (previewPanel.dataset.autoUpdate === 'true') {
-    // Form data is changed when field values are changed (change event),
-    // and we need to delay setPreviewData when typing to avoid useless extra
-    // AJAX requests (so we postpone setPreviewData when keyup occurs).
-
-    let autoUpdatePreviewDataTimeout;
-    const autoUpdatePreview = () => {
-      clearTimeout(autoUpdatePreviewDataTimeout);
-      autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
+    let lastDirty = false;
+    const dirtyFormCallback = (formDirty) => {
+      // The callback may be fired multiple times with the same value,
+      // so only update if the value changes from false to true
+      if (formDirty && lastDirty === false) {
+        setPreviewData();
+      }
+      lastDirty = formDirty;
     };
 
-    ['change', 'keyup'].forEach((e) =>
-      form.addEventListener(e, autoUpdatePreview),
-    );
+    // Use dirty form check logic to check when the preview should be updated
+    setInterval(() => {
+      window.enableDirtyFormCheck('[data-edit-form]', {
+        eagerCheck: true,
+        callback: dirtyFormCallback,
+      });
+    }, 500);
   }
 
   //
