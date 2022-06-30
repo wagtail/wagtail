@@ -23,6 +23,14 @@
     <button class="button button-small button-secondary button--icon preview-panel__refresh-button" data-refresh-preview>{% icon name="rotate" %} Refresh</button>
 
     <div class="preview-panel__area" data-preview-panel-area>
+        <div class="preview-panel__error-banner">
+            <p class="preview-panel__error-title">
+                {% trans 'This preview is not up-to-date due to validation errors.' %}
+            </p>
+            <p class="preview-panel__error-details">
+                {% trans 'Fix the errors to see the updated preview, or click save to highlight the relevant fields.' %}
+            </p>
+        </div>
         {% if object.preview_modes|length > 1 %}
             <div class="preview-panel__modes choice_field">
                 <label class="preview-panel__mode-label w-label-3" for="id_preview_mode">{% trans 'Preview mode' %}</label>

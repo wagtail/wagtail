@@ -25,6 +25,10 @@ function initPreview() {
 
     // Ensure only one device class is applied
     previewPanel.className = `preview-panel preview-panel--${device}`;
+    previewPanel.classList.toggle(
+      'preview-panel--has-errors',
+      previewPanel.hasAttribute('data-preview-error'),
+    );
   };
 
   sizeInputs.forEach((input) =>
@@ -114,6 +118,11 @@ function initPreview() {
         }
 
         updateIframeLastScroll();
+        previewPanel.classList.toggle(
+          'preview-panel--has-errors',
+          !data.is_valid,
+        );
+
         reloadIframe();
         return data.is_valid;
       }),

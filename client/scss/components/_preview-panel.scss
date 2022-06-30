@@ -11,9 +11,31 @@
 
   &__area {
     height: 100%;
+    position: relative;
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
+  }
+
+  &__error-banner {
+    @apply w-bg-warning-50 w-rounded-md;
+    position: absolute;
+    display: none;
+    top: 0;
+    z-index: 1;
+    padding: 1rem;
+  }
+
+  &--has-errors &__error-banner {
+    display: block;
+  }
+
+  &__error-title {
+    @apply w-label-2;
+  }
+
+  &__error-details {
+    margin: 0;
   }
 
   &__wrapper {
