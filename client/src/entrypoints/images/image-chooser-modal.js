@@ -61,7 +61,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       },
     });
     searchController.attachSearchInput('#id_q');
-    searchController.attachSearchFilter('#collection_chooser_collection_id');
+    searchController.attachSearchFilter('#id_collection_id');
 
     ajaxifyLinks(modal.body);
     ajaxifyImageUploadForm(modal);
@@ -70,7 +70,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       $('#id_q').val('');
       searchController.search({
         tag: $(event.currentTarget).text(),
-        collection_id: $('#collection_chooser_collection_id').val(),
+        collection_id: $('#id_collection_id').val(),
       });
       return false;
     });
