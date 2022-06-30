@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import View
+from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -65,7 +65,7 @@ class ImageFilterForm(forms.Form):
             )
 
 
-class BaseChooseView(View):
+class BaseChooseView(ContextMixin, View):
     permission_policy = permission_policy
 
     def get_object_list(self):
@@ -128,21 +128,25 @@ class BaseChooseView(View):
         self.images = paginator.get_page(request.GET.get("p"))
         return self.render_to_response()
 
-    def get_context_data(self):
-        return {
-            "images": self.images,
-            "is_searching": self.is_searching,
-            "query_string": self.search_query,
-            "will_select_format": self.request.GET.get("select_format"),
-        }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "images": self.images,
+                "is_searching": self.is_searching,
+                "query_string": self.search_query,
+                "will_select_format": self.request.GET.get("select_format"),
+            }
+        )
+        return context
 
     def render_to_response(self):
         raise NotImplementedError()
 
 
 class ChooseView(BaseChooseView):
-    def get_context_data(self):
-        context = super().get_context_data()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         if permission_policy.user_has_permission(self.request.user, "add"):
             ImageForm = get_image_form(self.image_model)
