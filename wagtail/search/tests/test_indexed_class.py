@@ -107,6 +107,7 @@ class TestSearchFields(TestCase):
                 checks.Warning(
                     "Book.search_fields contains non-existent field 'foo'",
                     obj=models.Book,
+                    id="wagtailsearch.W004",
                 )
             ]
             errors = models.Book.check()
