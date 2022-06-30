@@ -14,7 +14,10 @@ from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
-from wagtail.admin.views.generic.chooser import ChosenResponseMixin
+from wagtail.admin.views.generic.chooser import (
+    ChosenResponseMixin,
+    ModalPageFurnitureMixin,
+)
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
@@ -65,7 +68,9 @@ class ImageFilterForm(forms.Form):
             )
 
 
-class BaseChooseView(ContextMixin, View):
+class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+    icon = "image"
+    page_title = _("Choose an image")
     permission_policy = permission_policy
 
     def get_object_list(self):

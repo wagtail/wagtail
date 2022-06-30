@@ -1,7 +1,6 @@
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
-{% trans "Choose an image" as choose_str %}
-{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 icon="image" %}
+{% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle merged=1 icon=header_icon %}
 
 {{ uploadform.media.js }}
 {{ uploadform.media.css }}
