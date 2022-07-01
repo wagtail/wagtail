@@ -85,10 +85,11 @@
                 {% include 'wagtailadmin/workflows/workflow_status.html' %}
             {% enddialog %}
         {% endif %}
-    {% else %}
-        {% url 'wagtailadmin_pages:history' object.id as action_url %}
-        {% trans 'View history' as action_text %}
-        {{ block.super }}
+    {% elif history_url %}
+        {% with action_url=history_url %}
+            {% trans 'View history' as action_text %}
+            {{ block.super }}
+        {% endwith %}
     {% endif %}
 {% endblock %}
 

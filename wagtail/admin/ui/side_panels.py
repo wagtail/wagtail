@@ -45,6 +45,9 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if page.id:
             context.update(
                 {
+                    "history_url": reverse(
+                        "wagtailadmin_pages:history", args=(page.id,)
+                    ),
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
                     "user_can_lock": user_perms.for_page(page).can_lock(),
