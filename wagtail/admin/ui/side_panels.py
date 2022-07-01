@@ -2,6 +2,7 @@ from django.conf import settings
 from django.forms import Media
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.ui.components import Component
@@ -12,10 +13,11 @@ class BaseSidePanel(Component):
     def __init__(self, object, request):
         self.object = object
         self.request = request
+        self.model = type(self.object)
 
     def get_context_data(self, parent_context):
         context = {"panel": self, "object": self.object, "request": self.request}
-        if isinstance(self.object, Page):
+        if issubclass(self.model, Page):
             context["page"] = self.object
         return context
 
@@ -27,6 +29,11 @@ class BaseStatusSidePanel(BaseSidePanel):
     order = 100
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "info-circle"
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["model_name"] = capfirst(self.model._meta.verbose_name)
+        return context
 
 
 class PageStatusSidePanel(BaseStatusSidePanel):
@@ -74,6 +81,13 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "translations_total": page.get_translations().count() + 1,
                 }
             )
+
+        context.update(
+            {
+                "model_name": self.model.get_verbose_name(),
+                "model_description": self.model.get_page_description(),
+            }
+        )
 
         return context
 
