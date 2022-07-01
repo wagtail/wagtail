@@ -102,7 +102,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       return false;
     });
   },
-  reshow_upload_form: (modal, jsonData) => {
+  reshow_creation_form: (modal, jsonData) => {
     $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
     initTabs();
     ajaxifyImageUploadForm(modal);
