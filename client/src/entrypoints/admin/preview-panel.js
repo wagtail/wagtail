@@ -54,7 +54,6 @@ function initPreview() {
   // to the preview page, we send the form after each change
   // and save it inside the user session.
 
-  const refreshButton = previewPanel.querySelector('[data-refresh-preview]');
   const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
   const form = document.querySelector('[data-edit-form]');
   const previewUrl = previewPanel.dataset.action;
@@ -150,7 +149,6 @@ function initPreview() {
     });
   };
 
-  refreshButton.addEventListener('click', handlePreview);
   newTabButton.addEventListener('click', handlePreviewInNewTab);
 
   if (previewPanel.dataset.autoUpdate === 'true') {
