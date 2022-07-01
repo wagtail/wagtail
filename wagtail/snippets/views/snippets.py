@@ -237,16 +237,20 @@ class Create(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        media = context.get("media")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels()
+        media = context.get("media") + action_menu.media
+
+        side_panels = None
+        if self.locale:
+            side_panels = SnippetSidePanels(self.request, self.model())
+            media += side_panels.media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "media": media + action_menu.media + side_panels.media,
+                "media": media,
             }
         )
 
@@ -340,7 +344,7 @@ class Edit(EditView):
 
         media = context.get("media")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels()
+        side_panels = SnippetSidePanels(self.request, self.object)
 
         context.update(
             {

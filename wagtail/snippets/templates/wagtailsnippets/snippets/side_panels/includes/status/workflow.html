@@ -1,4 +1,4 @@
-{% extends 'wagtailsnippets/snippets/side_panels/includes/action_list_item.html' %}
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
 {% load wagtailadmin_tags i18n %}
 
 {% comment %}
@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="w-space-y-3">
-        {% trans 'Object status: ' as screen_reader_title_prefix %}
+        {% trans 'Status: ' as screen_reader_title_prefix %}
 
         {# Live section #}
         {% if live_last_updated_info %}

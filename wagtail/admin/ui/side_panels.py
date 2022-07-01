@@ -15,10 +15,15 @@ class BaseSidePanel(Component):
         self.request = request
         self.model = type(self.object)
 
-    def get_context_data(self, parent_context):
+    def get_context_data(self, parent_context, inherit=None):
         context = {"panel": self, "object": self.object, "request": self.request}
         if issubclass(self.model, Page):
             context["page"] = self.object
+
+        # Gather necessary context data from parent_context
+        inherit = inherit or []
+        for key in inherit:
+            context[key] = parent_context.get(key)
         return context
 
 
@@ -31,17 +36,20 @@ class BaseStatusSidePanel(BaseSidePanel):
     toggle_icon_name = "info-circle"
 
     def get_status_templates(self, context):
-        templates = [
-            "wagtailadmin/shared/side_panels/includes/status/workflow.html",
-        ]
+        templates = []
+
+        if self.object.pk:
+            templates += [
+                "wagtailadmin/shared/side_panels/includes/status/workflow.html",
+            ]
 
         if context.get("locale"):
             templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
 
         return templates
 
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
+    def get_context_data(self, parent_context, inherit=None):
+        context = super().get_context_data(parent_context, inherit)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["status_templates"] = self.get_status_templates(context)
         return context
@@ -50,13 +58,13 @@ class BaseStatusSidePanel(BaseSidePanel):
 class PageStatusSidePanel(BaseStatusSidePanel):
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
-        if self.object.id:
+        if self.object.pk:
             templates += ["wagtailadmin/shared/side_panels/includes/status/locked.html"]
         templates += ["wagtailadmin/shared/side_panels/includes/status/privacy.html"]
         return templates
 
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
+    def get_context_data(self, parent_context, inherit=None):
+        context = super().get_context_data(parent_context, inherit)
         user_perms = UserPagePermissionsProxy(self.request.user)
         page = self.object
 
