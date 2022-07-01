@@ -72,7 +72,6 @@ function enableDirtyFormCheck(formSelector, options) {
   const $form = $(formSelector);
   const confirmationMessage = options.confirmationMessage || ' ';
   const alwaysDirty = options.alwaysDirty || false;
-  const eagerCheck = options.eagerCheck || false;
   const commentApp = options.commentApp || null;
   const callback = options.callback || null;
   let initialData = null;
@@ -159,8 +158,6 @@ function enableDirtyFormCheck(formSelector, options) {
   // Delay snapshotting the form’s data to avoid race conditions with form widgets that might process the values.
   // User interaction with the form within that delay also won’t trigger the confirmation message.
   if (!alwaysDirty) {
-    const delay = eagerCheck ? 0 : 1000 * 10;
-
     setTimeout(() => {
       const initialFormData = new FormData($form[0]);
       initialData = new Map();
@@ -207,7 +204,7 @@ function enableDirtyFormCheck(formSelector, options) {
         attributes: false,
         subtree: true,
       });
-    }, delay);
+    }, 1000 * 10);
   }
 
   // eslint-disable-next-line consistent-return
