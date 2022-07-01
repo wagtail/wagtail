@@ -17,6 +17,7 @@ from wagtail.admin.views.generic.chooser import (
     ChooseResultsViewMixin,
     ChooseViewMixin,
     ChosenResponseMixin,
+    ChosenViewMixin,
     CreationFormMixin,
 )
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
@@ -187,10 +188,10 @@ class ChooseResultsView(
     pass
 
 
-class ImageChosenView(ImageChosenResponseMixin, View):
-    def get(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
-        return self.get_chosen_response(image)
+class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
+    def get(self, request, *args, pk, **kwargs):
+        self.model = get_image_model()
+        return super().get(request, *args, pk, **kwargs)
 
 
 def duplicate_found(request, new_image, existing_image):
