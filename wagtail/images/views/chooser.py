@@ -75,6 +75,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     results_url_name = "wagtailimages:chooser_results"
     results_template_name = "wagtailimages/chooser/results.html"
     creation_form_template_name = "wagtailimages/chooser/upload_form.html"
+    creation_tab_id = "upload"
 
     def get_object_list(self):
         images = (
@@ -300,7 +301,7 @@ class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
         upload_form_html = render_to_string(
             "wagtailimages/chooser/upload_form.html",
             {
-                "form": self.form,
+                "creation_form": self.form,
                 "will_select_format": self.request.GET.get("select_format"),
             },
             self.request,

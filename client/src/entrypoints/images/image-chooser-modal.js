@@ -41,7 +41,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     let searchController;
 
     function ajaxifyLinks(context) {
-      $('.listing a', context).on('click', (event) => {
+      $('a.image-choice', context).on('click', (event) => {
         modal.loadUrl(event.currentTarget.href);
         return false;
       });
@@ -55,7 +55,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     searchController = new SearchController({
       form: $('form.image-search', modal.body),
       containerElement: modal.body,
-      resultsContainerSelector: '#image-results',
+      resultsContainerSelector: '#search-results',
       onLoadResults: (context) => {
         ajaxifyLinks(context);
       },
