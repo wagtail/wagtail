@@ -3,23 +3,28 @@
 
 {% comment %}
     This template is used to show Live, Draft, Live and Draft, In Moderation or Live and In Moderation.
-    Sometimes {{ block.super }} will be called two times in the instances where the page is in multiple states eg. Live + Draft
+    Sometimes {{ block.super }} will be called two times in the instances where the object is in multiple states e.g. Live + Draft
 {% endcomment %}
 
 {% block content %}
     <div class="w-space-y-3">
-        {% trans 'Page status: ' as screen_reader_title_prefix %}
-        {% with workflow_state=page.current_workflow_state draft_revision=page.get_latest_revision live_revision=page.live_revision %}
+        {% if page %}
+            {% trans 'Page status: ' as screen_reader_title_prefix %}
+        {% else %}
+            {% trans 'Status: ' as screen_reader_title_prefix %}
+        {% endif %}
+
+        {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision live_revision=object.live_revision %}
 
             {# Live section #}
-            {% if page.live %}
+            {% if object.live %}
                 {% trans 'Live' as title %}
                 {% if live_revision %}
                     {% timesince_last_update live_revision.created_at user_display_name=live_revision.user|user_display_name use_shorthand=True as help_text %}
                 {% endif %}
 
                 {% with icon_name='doc-full-inverse' %}
-                    {% if page.has_unpublished_changes or workflow_state %}
+                    {% if object.has_unpublished_changes or workflow_state %}
                         {% with hide_action=True %}
                             {{ block.super }}
                         {% endwith %}
@@ -46,7 +51,7 @@
                 {% endwith %}
 
                 {# Draft Settings #}
-            {% elif page.has_unpublished_changes %}
+            {% elif object.has_unpublished_changes %}
                 {% trans 'Draft' as title %}
                 {% if draft_revision.created_at %}
                     {% timesince_last_update draft_revision.created_at user_display_name=draft_revision.user|user_display_name use_shorthand=True as help_text %}
@@ -67,7 +72,7 @@
         {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-text-teal-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
 
         {# info subtitle #}
-        {% if page.get_latest_revision %}
+        {% if object.get_latest_revision %}
             {% workflow_status_with_date workflow_state as message_heading %}
             {% if workflow_state.requested_by %}
                 {% blocktrans trimmed with user=workflow_state.requested_by|user_display_name asvar modified_by %}by {{ user }}{% endblocktrans %}
@@ -81,7 +86,7 @@
             {% enddialog %}
         {% endif %}
     {% else %}
-        {% url 'wagtailadmin_pages:history' page.id as action_url %}
+        {% url 'wagtailadmin_pages:history' object.id as action_url %}
         {% trans 'View history' as action_text %}
         {{ block.super }}
     {% endif %}
@@ -89,7 +94,7 @@
 
 {% block bottom %}
     {# Workflow Status #}
-    {% with workflow_state=page.current_workflow_state draft_revision=page.get_latest_revision %}
+    {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision %}
         {% if workflow_state %}
             <div class="w-flex w-space-x-3 w-mt-3">
                 {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
