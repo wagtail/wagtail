@@ -85,7 +85,7 @@ function initPreview() {
     // Put it in the DOM so it loads the page
     iframe.insertAdjacentElement('afterend', newIframe);
 
-    newIframe.onload = () => {
+    const handleLoad = () => {
       // Copy all attributes from the old iframe to the new one,
       // except src as that will cause the iframe to be reloaded
       Array.from(iframe.attributes).forEach((key) => {
@@ -105,7 +105,12 @@ function initPreview() {
 
       // Hide loading spinner
       loadingSpinner.classList.add('w-hidden');
+
+      // Remove the load event listener so it doesn't fire when switching modes
+      newIframe.removeEventListener('load', handleLoad);
     };
+
+    newIframe.addEventListener('load', handleLoad);
   };
 
   const setPreviewData = () => {
