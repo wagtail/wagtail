@@ -4,7 +4,7 @@
 {% block filter_form %}
     <form class="image-search search-bar" action="{{ results_url }}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
         <ul class="fields">
-            {% for field in searchform %}
+            {% for field in filter_form %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
             {% endfor %}
             {% if popular_tags %}

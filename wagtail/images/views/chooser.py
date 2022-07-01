@@ -1,6 +1,5 @@
 from django import forms
 from django.conf import settings
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
@@ -8,16 +7,16 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import ContextMixin, View
+from django.views.generic.base import View
 
 from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.views.generic.chooser import (
+    BaseChooseView,
     ChosenResponseMixin,
     CreationFormMixin,
-    ModalPageFurnitureMixin,
 )
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.images import get_image_model
@@ -27,8 +26,6 @@ from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import find_image_duplicates
 
 permission_checker = PermissionPolicyChecker(permission_policy)
-
-CHOOSER_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
 
 
 class ImageChosenResponseMixin(ChosenResponseMixin):
@@ -92,11 +89,13 @@ class ImageCreationFormMixin(CreationFormMixin):
         return kwargs
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+class BaseImageChooseView(BaseChooseView):
     icon = "image"
     page_title = _("Choose an image")
     results_url_name = "wagtailimages:chooser_results"
     results_template_name = "wagtailimages/chooser/results.html"
+    filter_form_class = ImageFilterForm
+    per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
 
     def get_object_list(self):
         images = (
@@ -112,7 +111,15 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         for hook in hooks.get_hooks("construct_image_chooser_queryset"):
             images = hook(images, self.request)
 
+        tag_name = self.request.GET.get("tag")
+        if tag_name:
+            images = images.filter(tags__name=tag_name)
+
         return images
+
+    def get_filter_form(self):
+        FilterForm = self.get_filter_form_class()
+        return FilterForm(self.request.GET, collections=self.collections)
 
     def get_create_url(self):
         url = reverse(self.create_url_name)
@@ -142,49 +149,22 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         return collections
 
-    def get_results_url(self):
-        return reverse(self.results_url_name)
-
     def get(self, request):
         self.model = get_image_model()
-
-        images = self.get_object_list()
-
-        self.is_searching = False
-        self.search_query = None
-
-        self.filter_form = ImageFilterForm(request.GET, collections=self.collections)
-        if self.filter_form.is_valid():
-            images = self.filter_object_list(images, self.filter_form)
-
-        if not self.is_searching:
-            tag_name = request.GET.get("tag")
-            if tag_name:
-                images = images.filter(tags__name=tag_name)
-
-        # Pagination
-        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-        self.results = paginator.get_page(request.GET.get("p"))
-        return self.render_to_response()
+        return super().get(request)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "results": self.results,
-                "is_searching": self.is_searching,
-                "search_query": self.search_query,
                 "will_select_format": self.request.GET.get("select_format"),
-                "results_url": self.get_results_url(),
+                "collections": self.collections,
             }
         )
         return context
 
-    def render_to_response(self):
-        raise NotImplementedError()
 
-
-class ChooseView(ImageCreationFormMixin, BaseChooseView):
+class ChooseView(ImageCreationFormMixin, BaseImageChooseView):
     permission_policy = permission_policy
 
     def get_context_data(self, **kwargs):
@@ -198,9 +178,8 @@ class ChooseView(ImageCreationFormMixin, BaseChooseView):
         context.update(self.get_creation_form_context_data(creation_form))
         context.update(
             {
-                "searchform": self.filter_form,
+                "filter_form": self.filter_form,
                 "popular_tags": popular_tags_for_model(self.model),
-                "collections": self.collections,
                 "search_tab_label": _("Search"),
                 "creation_tab_label": _("Upload"),
             }
@@ -220,7 +199,7 @@ class ChooseView(ImageCreationFormMixin, BaseChooseView):
         )
 
 
-class ChooseResultsView(ImageCreationFormMixin, BaseChooseView):
+class ChooseResultsView(ImageCreationFormMixin, BaseImageChooseView):
     permission_policy = permission_policy
 
     def render_to_response(self):
