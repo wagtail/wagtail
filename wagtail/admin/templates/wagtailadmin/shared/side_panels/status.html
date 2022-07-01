@@ -16,15 +16,11 @@
     {# Object type / First Published information #}
     <div class="w-pt-5 w-space-y-1">
         <div class="w-label-3">
-            {% with page_model=object.content_type.model_class %}
-                <strong>{{ page_model.get_verbose_name }}</strong>
+            <strong>{{ model_name }}</strong>
 
-                {% with description=page_model.get_page_description %}
-                    {% if description %}
-                        ({{ description }})
-                    {% endif %}
-                {% endwith %}
-            {% endwith %}
+            {% if model_description %}
+                ({{ model_description }})
+            {% endif %}
         </div>
         {% if object.first_published_at %}
             <div class="w-help-text">
