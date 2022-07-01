@@ -132,20 +132,14 @@ class PreviewSidePanel(BaseSidePanel):
     toggle_icon_name = "mobile-alt"
 
 
-class PageSidePanels:
-    def __init__(self, request, page, *, comments_enabled):
+class BaseSidePanels:
+    def __init__(self, request, object):
         self.request = request
-        self.page = page
+        self.object = object
 
         self.side_panels = [
-            PageStatusSidePanel(page, self.request),
-            # PreviewSidePanel(page),
+            BaseStatusSidePanel(object, self.request),
         ]
-
-        if comments_enabled:
-            self.side_panels = self.side_panels + [
-                CommentsSidePanel(page, self.request)
-            ]
 
     def __iter__(self):
         return iter(self.side_panels)
@@ -156,3 +150,18 @@ class PageSidePanels:
         for panel in self.side_panels:
             media += panel.media
         return media
+
+
+class PageSidePanels(BaseSidePanels):
+    def __init__(self, request, page, *, comments_enabled):
+        super().__init__(request, page)
+
+        self.side_panels = [
+            PageStatusSidePanel(page, self.request),
+            # PreviewSidePanel(page),
+        ]
+
+        if comments_enabled:
+            self.side_panels += [
+                CommentsSidePanel(page, self.request),
+            ]
