@@ -76,6 +76,12 @@ class ImageCreationFormMixin(CreationFormMixin):
     def get_creation_form_class(self):
         return get_image_form(self.model)
 
+    def get_create_url(self):
+        url = super().get_create_url()
+        if self.request.GET.get("select_format"):
+            url += "?select_format=true"
+        return url
+
     def get_creation_form_kwargs(self):
         kwargs = super().get_creation_form_kwargs()
         kwargs.update(
@@ -122,12 +128,6 @@ class BaseImageChooseView(BaseChooseView):
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET, collections=self.collections)
-
-    def get_create_url(self):
-        url = reverse(self.create_url_name)
-        if self.request.GET.get("select_format"):
-            url += "?select_format=true"
-        return url
 
     def filter_object_list(self, images, form):
         collection_id = form.cleaned_data.get("collection_id")
@@ -198,10 +198,6 @@ class ChooserUploadView(
     PermissionCheckedMixin, ImageCreationFormMixin, ImageChosenResponseMixin, View
 ):
     permission_required = "add"
-    creation_tab_id = "upload"
-    create_url_name = "wagtailimages:chooser_upload"
-    create_action_label = _("Upload")
-    create_action_clicked_label = _("Uploading…")
 
     def get(self, request):
         self.model = get_image_model()
@@ -280,12 +276,6 @@ class ChooserUploadView(
                 "htmlFragment": duplicate_upload_html,
             },
         )
-
-    def get_create_url(self):
-        url = reverse(self.create_url_name)
-        if self.request.GET.get("select_format"):
-            url += "?select_format=true"
-        return url
 
     def get_reshow_creation_form_response(self):
         context = self.get_creation_form_context_data(self.form)
