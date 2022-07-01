@@ -84,7 +84,6 @@ from wagtail.signals import (
     workflow_rejected,
     workflow_submitted,
 )
-from wagtail.treebeard import TreebeardPathFixMixin
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
@@ -546,7 +545,6 @@ class AbstractPage(
     DraftStateMixin,
     RevisionMixin,
     TranslatableMixin,
-    TreebeardPathFixMixin,
     MP_Node,
 ):
     """
