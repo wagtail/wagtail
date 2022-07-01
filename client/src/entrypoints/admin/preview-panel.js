@@ -55,6 +55,7 @@ function initPreview() {
   // and save it inside the user session.
 
   const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
+  const loadingSpinner = previewPanel.querySelector('[data-preview-spinner]');
   const form = document.querySelector('[data-edit-form]');
   const previewUrl = previewPanel.dataset.action;
   const previewModeSelect = document.querySelector(
@@ -101,15 +102,21 @@ function initPreview() {
 
       // Make the new iframe visible
       newIframe.style = null;
+
+      // Hide loading spinner
+      loadingSpinner.classList.add('w-hidden');
     };
   };
 
-  const setPreviewData = () =>
-    fetch(previewUrl, {
+  const setPreviewData = () => {
+    loadingSpinner.classList.remove('w-hidden');
+
+    return fetch(previewUrl, {
       method: 'POST',
       body: new FormData(form),
-    }).then((response) =>
-      response.json().then((data) => {
+    })
+      .then((response) => response.json())
+      .then((data) => {
         if (data.is_valid) {
           previewPanel.removeAttribute('data-preview-error');
         } else {
@@ -124,8 +131,13 @@ function initPreview() {
 
         reloadIframe();
         return data.is_valid;
-      }),
-    );
+      })
+      .catch((error) => {
+        loadingSpinner.classList.add('w-hidden');
+        // Re-throw error so it can be handled by handlePreview
+        throw error;
+      });
+  };
 
   const handlePreview = () =>
     setPreviewData().catch(() => {
