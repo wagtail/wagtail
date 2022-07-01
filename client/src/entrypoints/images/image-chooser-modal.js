@@ -7,27 +7,32 @@ import {
 } from '../../includes/chooserModal';
 
 function ajaxifyImageUploadForm(modal) {
-  $('form.image-upload', modal.body).on('submit', (event) => {
-    if (!$('#id_image-chooser-upload-title', modal.body).val()) {
-      const li = $('#id_image-chooser-upload-title', modal.body).closest('li');
-      if (!li.hasClass('error')) {
-        li.addClass('error');
-        $('#id_image-chooser-upload-title', modal.body)
-          .closest('.field-content')
-          .append(
-            '<p class="error-message"><span>This field is required.</span></p>',
-          );
+  $('form[data-chooser-modal-creation-form]', modal.body).on(
+    'submit',
+    (event) => {
+      if (!$('#id_image-chooser-upload-title', modal.body).val()) {
+        const li = $('#id_image-chooser-upload-title', modal.body).closest(
+          'li',
+        );
+        if (!li.hasClass('error')) {
+          li.addClass('error');
+          $('#id_image-chooser-upload-title', modal.body)
+            .closest('.field-content')
+            .append(
+              '<p class="error-message"><span>This field is required.</span></p>',
+            );
+        }
+        // eslint-disable-next-line no-undef
+        setTimeout(cancelSpinner, 500);
+      } else {
+        submitCreationForm(modal, event.currentTarget, {
+          errorContainerSelector: '#tab-upload',
+        });
       }
-      // eslint-disable-next-line no-undef
-      setTimeout(cancelSpinner, 500);
-    } else {
-      submitCreationForm(modal, event.currentTarget, {
-        errorContainerSelector: '#tab-upload',
-      });
-    }
 
-    return false;
-  });
+      return false;
+    },
+  );
 
   initPrefillTitleFromFilename(modal, {
     fileFieldSelector: '#id_image-chooser-upload-file',
