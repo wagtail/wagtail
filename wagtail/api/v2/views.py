@@ -5,6 +5,7 @@ from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import path, reverse
+from django.utils import translation
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -12,7 +13,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import Locale, Page, PageViewRestriction, Site
 
 from .filters import (
     AncestorOfFilter,
@@ -541,8 +542,10 @@ class PagesAPIViewSet(BaseAPIViewSet):
 
             # If internationalisation is enabled, include pages from other language trees
             if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                for translation in site.root_page.get_translations():
-                    queryset |= base_queryset.descendant_of(translation, inclusive=True)
+                for page_translation in site.root_page.get_translations():
+                    queryset |= base_queryset.descendant_of(
+                        page_translation, inclusive=True
+                    )
 
         else:
             # No sites configured
@@ -578,19 +581,49 @@ class PagesAPIViewSet(BaseAPIViewSet):
         base = super().get_object()
         return base.specific
 
+    def _find_object(self, queryset, request, site, path):
+        path_components = [component for component in path.split("/") if component]
+
+        try:
+            page, _, _ = site.root_page.specific.route(request, path_components)
+        except Http404:
+            return
+
+        if queryset.filter(id=page.id).exists():
+            return page
+
+    def _find_object_with_i18n(self, queryset, request, site, path):
+        language_code, *path_components = [
+            component for component in path.split("/") if component
+        ]
+
+        if language_code not in dict(getattr(settings, "LANGUAGES", [])).keys():
+            return self._find_object(request, site, path)
+
+        try:
+            locale = Locale.objects.get(language_code=language_code)
+        except Locale.DoesNotExist:
+            return
+
+        try:
+            page, _, _ = site.root_page.get_translation(locale).specific.route(
+                request, path_components
+            )
+        except Http404:
+            return
+
+        if queryset.filter(id=page.id).exists():
+            with translation.override(language_code):
+                return page.localized
+
     def find_object(self, queryset, request):
         site = Site.find_for_request(request)
         if "html_path" in request.GET and site is not None:
-            path = request.GET["html_path"]
-            path_components = [component for component in path.split("/") if component]
-
-            try:
-                page, _, _ = site.root_page.specific.route(request, path_components)
-            except Http404:
-                return
-
-            if queryset.filter(id=page.id).exists():
-                return page
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                path = request.GET["html_path"]
+                return self._find_object_with_i18n(queryset, request, site, path)
+            else:
+                return self._find_object(queryset, request, site, path)
 
         return super().find_object(queryset, request)
 
