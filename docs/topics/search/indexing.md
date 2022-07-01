@@ -173,10 +173,6 @@ Filtering on `index.RelatedFields` with the `QuerySet` API is planned for a futu
 
 ### Indexing callables and other attributes
 
-```{note}
-This is not supported in the {ref}`wagtailsearch_backends_database`
-```
-
 Search/filter fields do not need to be Django model fields. They can also be any method or attribute on your model class.
 
 One use for this is indexing the `get_*_display` methods Django creates automatically for fields with choices.
