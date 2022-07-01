@@ -17,7 +17,7 @@ class BaseSidePanel(Component):
         return {"panel": self, "page": self.page, "request": self.request}
 
 
-class StatusSidePanel(BaseSidePanel):
+class BaseStatusSidePanel(BaseSidePanel):
     name = "status"
     title = gettext_lazy("Status")
     template_name = "wagtailadmin/shared/side_panels/status.html"
@@ -25,6 +25,8 @@ class StatusSidePanel(BaseSidePanel):
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "info-circle"
 
+
+class PageStatusSidePanel(BaseStatusSidePanel):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
@@ -100,7 +102,7 @@ class PageSidePanels:
         self.page = page
 
         self.side_panels = [
-            StatusSidePanel(page, self.request),
+            PageStatusSidePanel(page, self.request),
             # PreviewSidePanel(page),
         ]
 
