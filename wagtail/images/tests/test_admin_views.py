@@ -1096,7 +1096,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
         # draftail should NOT be a standard JS include on this page
@@ -1189,7 +1189,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "chooser")
+        self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
         # custom form fields should be present
@@ -1313,7 +1313,7 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "image_chosen")
+        self.assertEqual(response_json["step"], "chosen")
 
 
 class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
@@ -1373,7 +1373,7 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         self.assertEqual(response["Content-Type"], "application/json")
 
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "image_chosen")
+        self.assertEqual(response_json["step"], "chosen")
         result = response_json["result"]
 
         self.assertEqual(result["id"], self.image.id)

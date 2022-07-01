@@ -30,8 +30,6 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 class ImageChosenResponseMixin(ChosenResponseMixin):
-    chosen_response_name = "image_chosen"
-
     def get_chosen_response_data(self, image):
         """
         Given an image, return the json data to pass back to the image chooser panel
@@ -175,7 +173,6 @@ class ImageChooseViewMixin(ChooseViewMixin):
 
     def get_response_json_data(self):
         json_data = super().get_response_json_data()
-        json_data["step"] = "chooser"
         json_data["tag_autocomplete_url"] = reverse("wagtailadmin_tag_autocomplete")
         return json_data
 
@@ -340,7 +337,7 @@ def chooser_select_format(request, image_id):
                 None,
                 None,
                 None,
-                json_data={"step": "image_chosen", "result": image_data},
+                json_data={"step": "chosen", "result": image_data},
             )
     else:
         initial = {"alt_text": image.default_alt_text}

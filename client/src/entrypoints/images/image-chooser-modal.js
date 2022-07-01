@@ -42,7 +42,7 @@ function ajaxifyImageUploadForm(modal) {
 }
 
 window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  chooser: (modal) => {
+  choose: (modal) => {
     let searchController;
 
     function ajaxifyLinks(context) {
@@ -83,7 +83,7 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     // Reinitialize tabs to hook up tab event listeners in the modal
     initTabs();
   },
-  image_chosen: (modal, jsonData) => {
+  chosen: (modal, jsonData) => {
     modal.respond('chosen', jsonData.result);
     modal.close();
   },
