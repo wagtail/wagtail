@@ -20,7 +20,7 @@ class BaseSidePanel(Component):
 class StatusSidePanel(BaseSidePanel):
     name = "status"
     title = gettext_lazy("Status")
-    template_name = "wagtailadmin/pages/side_panels/status.html"
+    template_name = "wagtailadmin/shared/side_panels/status.html"
     order = 100
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "info-circle"
@@ -79,7 +79,7 @@ class StatusSidePanel(BaseSidePanel):
 class CommentsSidePanel(BaseSidePanel):
     name = "comments"
     title = gettext_lazy("Comments")
-    template_name = "wagtailadmin/pages/side_panels/comments.html"
+    template_name = "wagtailadmin/shared/side_panels/comments.html"
     order = 300
     toggle_aria_label = gettext_lazy("Toggle comments")
     toggle_icon_name = "comment"
@@ -88,7 +88,7 @@ class CommentsSidePanel(BaseSidePanel):
 class PreviewSidePanel(BaseSidePanel):
     name = "preview"
     title = gettext_lazy("Preview")
-    template_name = "wagtailadmin/pages/side_panels/preview.html"
+    template_name = "wagtailadmin/shared/side_panels/preview.html"
     order = 400
     toggle_aria_label = gettext_lazy("Toggle preview")
     toggle_icon_name = "mobile-alt"

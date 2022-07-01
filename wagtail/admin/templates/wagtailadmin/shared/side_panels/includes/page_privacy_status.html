@@ -1,4 +1,4 @@
-{% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
@@ -27,7 +27,7 @@
     {% if page.id and page_perms.can_set_view_restrictions %}
         {% trans 'Change privacy' as set_privacy_text %}
         {% url 'wagtailadmin_pages:set_privacy' page.id as privacy_url %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-set-privacy' data_url=privacy_url text=set_privacy_text %}
+        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with attr='data-action-set-privacy' data_url=privacy_url text=set_privacy_text %}
     {% else %}
         {# Empty actions block because of lack of permissions #}
     {% endif %}

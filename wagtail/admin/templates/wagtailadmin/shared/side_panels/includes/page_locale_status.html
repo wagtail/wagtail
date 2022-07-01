@@ -1,4 +1,4 @@
-{% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
@@ -21,7 +21,7 @@
     {% if translations %}
         <div data-button-with-dropdown>
             {% trans 'Switch locales' as action_text %}
-            {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
+            {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with text=action_text has_toggle=True %}
 
             <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
                 {% for translation in translations %}
