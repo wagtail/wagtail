@@ -278,10 +278,20 @@ class ImageUploadView(
     pass
 
 
-def chooser_select_format(request, image_id):
-    image = get_object_or_404(get_image_model(), id=image_id)
+class ImageSelectFormatView(View):
+    def get(self, request, image_id):
+        image = get_object_or_404(get_image_model(), id=image_id)
+        initial = {"alt_text": image.default_alt_text}
+        initial.update(request.GET.dict())
+        # If you edit an existing image, and there is no alt text, ensure that
+        # "image is decorative" is ticked when you open the form
+        initial["image_is_decorative"] = initial["alt_text"] == ""
+        form = ImageInsertionForm(initial=initial, prefix="image-chooser-insertion")
+        return self.render_select_format_response(image, form)
 
-    if request.method == "POST":
+    def post(self, request, image_id):
+        image = get_object_or_404(get_image_model(), id=image_id)
+
         form = ImageInsertionForm(
             request.POST,
             initial={"alt_text": image.default_alt_text},
@@ -315,18 +325,14 @@ def chooser_select_format(request, image_id):
                 None,
                 json_data={"step": "chosen", "result": image_data},
             )
-    else:
-        initial = {"alt_text": image.default_alt_text}
-        initial.update(request.GET.dict())
-        # If you edit an existing image, and there is no alt text, ensure that
-        # "image is decorative" is ticked when you open the form
-        initial["image_is_decorative"] = initial["alt_text"] == ""
-        form = ImageInsertionForm(initial=initial, prefix="image-chooser-insertion")
+        else:
+            return self.render_select_format_response(image, form)
 
-    return render_modal_workflow(
-        request,
-        "wagtailimages/chooser/select_format.html",
-        None,
-        {"image": image, "form": form},
-        json_data={"step": "select_format"},
-    )
+    def render_select_format_response(self, image, form):
+        return render_modal_workflow(
+            self.request,
+            "wagtailimages/chooser/select_format.html",
+            None,
+            {"image": image, "form": form},
+            json_data={"step": "select_format"},
+        )
