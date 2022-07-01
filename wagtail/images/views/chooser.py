@@ -2,7 +2,6 @@ from django import forms
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
@@ -15,6 +14,8 @@ from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
+    ChooseResultsViewMixin,
+    ChooseViewMixin,
     ChosenResponseMixin,
     CreationFormMixin,
 )
@@ -71,6 +72,7 @@ class ImageCreationFormMixin(CreationFormMixin):
     create_url_name = "wagtailimages:chooser_upload"
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
+    permission_policy = permission_policy
 
     def get_creation_form_class(self):
         return get_image_form(self.model)
@@ -93,6 +95,7 @@ class BaseImageChooseView(BaseChooseView):
     icon = "image"
     page_title = _("Choose an image")
     results_url_name = "wagtailimages:chooser_results"
+    template_name = "wagtailimages/chooser/chooser.html"
     results_template_name = "wagtailimages/chooser/results.html"
     filter_form_class = ImageFilterForm
     per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
@@ -164,48 +167,27 @@ class BaseImageChooseView(BaseChooseView):
         return context
 
 
-class ChooseView(ImageCreationFormMixin, BaseImageChooseView):
-    permission_policy = permission_policy
-
+class ImageChooseViewMixin(ChooseViewMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        if permission_policy.user_has_permission(self.request.user, "add"):
-            creation_form = self.get_creation_form()
-        else:
-            creation_form = None
-
-        context.update(self.get_creation_form_context_data(creation_form))
-        context.update(
-            {
-                "filter_form": self.filter_form,
-                "popular_tags": popular_tags_for_model(self.model),
-                "search_tab_label": _("Search"),
-                "creation_tab_label": _("Upload"),
-            }
-        )
+        context["popular_tags"] = popular_tags_for_model(self.model)
         return context
 
-    def render_to_response(self):
-        return render_modal_workflow(
-            self.request,
-            "wagtailimages/chooser/chooser.html",
-            None,
-            self.get_context_data(),
-            json_data={
-                "step": "chooser",
-                "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
-            },
-        )
+    def get_response_json_data(self):
+        json_data = super().get_response_json_data()
+        json_data["step"] = "chooser"
+        json_data["tag_autocomplete_url"] = reverse("wagtailadmin_tag_autocomplete")
+        return json_data
 
 
-class ChooseResultsView(ImageCreationFormMixin, BaseImageChooseView):
-    permission_policy = permission_policy
+class ChooseView(ImageChooseViewMixin, ImageCreationFormMixin, BaseImageChooseView):
+    pass
 
-    def render_to_response(self):
-        return TemplateResponse(
-            self.request, self.results_template_name, self.get_context_data()
-        )
+
+class ChooseResultsView(
+    ChooseResultsViewMixin, ImageCreationFormMixin, BaseImageChooseView
+):
+    pass
 
 
 class ImageChosenView(ImageChosenResponseMixin, View):
@@ -253,7 +235,6 @@ def duplicate_found(request, new_image, existing_image):
 class ChooserUploadView(
     PermissionCheckedMixin, ImageCreationFormMixin, ImageChosenResponseMixin, View
 ):
-    permission_policy = permission_policy
     permission_required = "add"
     creation_tab_id = "upload"
     create_url_name = "wagtailimages:chooser_upload"
