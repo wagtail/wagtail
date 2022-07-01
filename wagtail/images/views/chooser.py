@@ -194,42 +194,6 @@ class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-def duplicate_found(request, new_image, existing_image):
-    next_step_url = (
-        "wagtailimages:chooser_select_format"
-        if request.GET.get("select_format")
-        else "wagtailimages:image_chosen"
-    )
-    choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
-    choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
-
-    cancel_duplicate_upload_action = (
-        f"{reverse('wagtailimages:delete', args=(new_image.id,))}?"
-        f"{urlencode({'next': choose_existing_image_url})}"
-    )
-
-    duplicate_upload_html = render_to_string(
-        "wagtailimages/chooser/confirm_duplicate_upload.html",
-        {
-            "new_image": new_image,
-            "existing_image": existing_image,
-            "confirm_duplicate_upload_action": choose_new_image_url,
-            "cancel_duplicate_upload_action": cancel_duplicate_upload_action,
-        },
-        request,
-    )
-    return render_modal_workflow(
-        request,
-        None,
-        None,
-        None,
-        json_data={
-            "step": "duplicate_found",
-            "htmlFragment": duplicate_upload_html,
-        },
-    )
-
-
 class ChooserUploadView(
     PermissionCheckedMixin, ImageCreationFormMixin, ImageChosenResponseMixin, View
 ):
@@ -259,7 +223,9 @@ class ChooserUploadView(
             )
             existing_image = duplicates.first()
             if existing_image:
-                return duplicate_found(request, image, existing_image)
+                return self.render_duplicate_found_response(
+                    request, image, existing_image
+                )
 
             if request.GET.get("select_format"):
                 insertion_form = ImageInsertionForm(
@@ -279,6 +245,41 @@ class ChooserUploadView(
 
         else:  # form is invalid
             return self.get_reshow_creation_form_response()
+
+    def render_duplicate_found_response(self, request, new_image, existing_image):
+        next_step_url = (
+            "wagtailimages:chooser_select_format"
+            if request.GET.get("select_format")
+            else "wagtailimages:image_chosen"
+        )
+        choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
+        choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
+
+        cancel_duplicate_upload_action = (
+            f"{reverse('wagtailimages:delete', args=(new_image.id,))}?"
+            f"{urlencode({'next': choose_existing_image_url})}"
+        )
+
+        duplicate_upload_html = render_to_string(
+            "wagtailimages/chooser/confirm_duplicate_upload.html",
+            {
+                "new_image": new_image,
+                "existing_image": existing_image,
+                "confirm_duplicate_upload_action": choose_new_image_url,
+                "cancel_duplicate_upload_action": cancel_duplicate_upload_action,
+            },
+            request,
+        )
+        return render_modal_workflow(
+            request,
+            None,
+            None,
+            None,
+            json_data={
+                "step": "duplicate_found",
+                "htmlFragment": duplicate_upload_html,
+            },
+        )
 
     def get_create_url(self):
         url = reverse(self.create_url_name)
