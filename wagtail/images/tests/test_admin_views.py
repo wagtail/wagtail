@@ -1425,7 +1425,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             response, "wagtailadmin/generic/chooser/creation_form.html"
         )
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json["step"], "reshow_upload_form")
+        self.assertEqual(response_json["step"], "reshow_creation_form")
 
     def test_upload(self):
         response = self.client.post(

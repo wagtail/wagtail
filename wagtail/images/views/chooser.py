@@ -18,9 +18,9 @@ from wagtail.admin.views.generic.chooser import (
     ChooseViewMixin,
     ChosenResponseMixin,
     ChosenViewMixin,
+    CreateViewMixin,
     CreationFormMixin,
 )
-from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
@@ -194,23 +194,17 @@ class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-class ChooserUploadView(
-    PermissionCheckedMixin, ImageCreationFormMixin, ImageChosenResponseMixin, View
-):
-    permission_required = "add"
-
+class ImageUploadViewMixin(CreateViewMixin):
     def get(self, request):
         self.model = get_image_model()
-        self.form = self.get_creation_form()
-        return self.get_reshow_creation_form_response()
+        return super().get(request)
 
     def post(self, request):
         self.model = get_image_model()
         self.form = self.get_creation_form()
-        image = self.form.instance
 
         if self.form.is_valid():
-            self.form.save()
+            image = self.save_form(self.form)
 
             duplicates = find_image_duplicates(
                 image=image,
@@ -277,21 +271,11 @@ class ChooserUploadView(
             },
         )
 
-    def get_reshow_creation_form_response(self):
-        context = self.get_creation_form_context_data(self.form)
-        upload_form_html = render_to_string(
-            self.creation_form_template_name,
-            context,
-            self.request,
-        )
 
-        return render_modal_workflow(
-            self.request,
-            None,
-            None,
-            None,
-            json_data={"step": "reshow_upload_form", "htmlFragment": upload_form_html},
-        )
+class ImageUploadView(
+    ImageUploadViewMixin, ImageCreationFormMixin, ImageChosenResponseMixin, View
+):
+    pass
 
 
 def chooser_select_format(request, image_id):
