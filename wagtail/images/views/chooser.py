@@ -16,6 +16,7 @@ from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.views.generic.chooser import (
     ChosenResponseMixin,
+    CreationFormMixin,
     ModalPageFurnitureMixin,
 )
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
@@ -68,17 +69,34 @@ class ImageFilterForm(forms.Form):
             )
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
-    icon = "image"
-    page_title = _("Choose an image")
-    permission_policy = permission_policy
-    results_url_name = "wagtailimages:chooser_results"
-    results_template_name = "wagtailimages/chooser/results.html"
-    creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
+class ImageCreationFormMixin(CreationFormMixin):
     creation_tab_id = "upload"
     create_url_name = "wagtailimages:chooser_upload"
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
+
+    def get_creation_form_class(self):
+        return get_image_form(self.model)
+
+    def get_creation_form_kwargs(self):
+        kwargs = super().get_creation_form_kwargs()
+        kwargs.update(
+            {
+                "user": self.request.user,
+                "prefix": "image-chooser-upload",
+            }
+        )
+        if self.request.method in ("POST", "PUT"):
+            kwargs["instance"] = self.model(uploaded_by_user=self.request.user)
+
+        return kwargs
+
+
+class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+    icon = "image"
+    page_title = _("Choose an image")
+    results_url_name = "wagtailimages:chooser_results"
+    results_template_name = "wagtailimages/chooser/results.html"
 
     def get_object_list(self):
         images = (
@@ -128,7 +146,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         return reverse(self.results_url_name)
 
     def get(self, request):
-        self.image_model = get_image_model()
+        self.model = get_image_model()
 
         images = self.get_object_list()
 
@@ -166,29 +184,25 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class ChooseView(BaseChooseView):
+class ChooseView(ImageCreationFormMixin, BaseChooseView):
+    permission_policy = permission_policy
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if permission_policy.user_has_permission(self.request.user, "add"):
-            ImageForm = get_image_form(self.image_model)
-            creation_form = ImageForm(
-                user=self.request.user, prefix="image-chooser-upload"
-            )
+            creation_form = self.get_creation_form()
         else:
             creation_form = None
 
+        context.update(self.get_creation_form_context_data(creation_form))
         context.update(
             {
                 "searchform": self.filter_form,
-                "popular_tags": popular_tags_for_model(self.image_model),
+                "popular_tags": popular_tags_for_model(self.model),
                 "collections": self.collections,
-                "creation_form": creation_form,
                 "search_tab_label": _("Search"),
                 "creation_tab_label": _("Upload"),
-                "create_action_url": self.get_create_url(),
-                "create_action_label": self.create_action_label,
-                "create_action_clicked_label": self.create_action_clicked_label,
             }
         )
         return context
@@ -206,7 +220,9 @@ class ChooseView(BaseChooseView):
         )
 
 
-class ChooseResultsView(BaseChooseView):
+class ChooseResultsView(ImageCreationFormMixin, BaseChooseView):
+    permission_policy = permission_policy
+
     def render_to_response(self):
         return TemplateResponse(
             self.request, self.results_template_name, self.get_context_data()
@@ -255,7 +271,9 @@ def duplicate_found(request, new_image, existing_image):
     )
 
 
-class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
+class ChooserUploadView(
+    PermissionCheckedMixin, ImageCreationFormMixin, ImageChosenResponseMixin, View
+):
     permission_policy = permission_policy
     permission_required = "add"
     creation_tab_id = "upload"
@@ -264,23 +282,14 @@ class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
     create_action_clicked_label = _("Uploading…")
 
     def get(self, request):
-        Image = get_image_model()
-        ImageForm = get_image_form(Image)
-        self.form = ImageForm(user=request.user, prefix="image-chooser-upload")
+        self.model = get_image_model()
+        self.form = self.get_creation_form()
         return self.get_reshow_creation_form_response()
 
     def post(self, request):
-        Image = get_image_model()
-        ImageForm = get_image_form(Image)
-
-        image = Image(uploaded_by_user=request.user)
-        self.form = ImageForm(
-            request.POST,
-            request.FILES,
-            instance=image,
-            user=request.user,
-            prefix="image-chooser-upload",
-        )
+        self.model = get_image_model()
+        self.form = self.get_creation_form()
+        image = self.form.instance
 
         if self.form.is_valid():
             self.form.save()
@@ -320,15 +329,10 @@ class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
         return url
 
     def get_reshow_creation_form_response(self):
+        context = self.get_creation_form_context_data(self.form)
         upload_form_html = render_to_string(
-            "wagtailadmin/generic/chooser/creation_form.html",
-            {
-                "creation_form": self.form,
-                "will_select_format": self.request.GET.get("select_format"),
-                "create_action_url": self.get_create_url(),
-                "create_action_label": self.create_action_label,
-                "create_action_clicked_label": self.create_action_clicked_label,
-            },
+            self.creation_form_template_name,
+            context,
             self.request,
         )
 
@@ -351,7 +355,6 @@ def chooser_select_format(request, image_id):
             prefix="image-chooser-insertion",
         )
         if form.is_valid():
-
             format = get_image_format(form.cleaned_data["format"])
             preview_image = image.get_rendition(format.filter_spec)
 
