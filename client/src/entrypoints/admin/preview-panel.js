@@ -61,8 +61,9 @@ function initPreview() {
   const previewModeSelect = document.querySelector(
     '[data-preview-mode-select]',
   );
-  let iframe = previewPanel.querySelector('[data-preview-iframe]');
   const iframeLastScroll = { top: 0, left: 0 };
+  let iframe = previewPanel.querySelector('[data-preview-iframe]');
+  let hasPendingUpdate = false;
 
   const updateIframeLastScroll = () => {
     if (!iframe.contentWindow) return;
@@ -103,8 +104,9 @@ function initPreview() {
       // Make the new iframe visible
       newIframe.style = null;
 
-      // Hide loading spinner
+      // Ready for another update
       loadingSpinner.classList.add('w-hidden');
+      hasPendingUpdate = false;
 
       // Remove the load event listener so it doesn't fire when switching modes
       newIframe.removeEventListener('load', handleLoad);
@@ -114,6 +116,7 @@ function initPreview() {
   };
 
   const setPreviewData = () => {
+    hasPendingUpdate = true;
     loadingSpinner.classList.remove('w-hidden');
 
     return fetch(previewUrl, {
@@ -139,6 +142,7 @@ function initPreview() {
       })
       .catch((error) => {
         loadingSpinner.classList.add('w-hidden');
+        hasPendingUpdate = false;
         // Re-throw error so it can be handled by handlePreview
         throw error;
       });
@@ -179,16 +183,11 @@ function initPreview() {
       return oldPayload !== newPayload;
     };
 
-    let hasPendingRequest = false;
     setInterval(() => {
       // Do not check for preview update if an update request is still pending
       // and don't send a new request if the form hasn't changed
-      if (hasPendingRequest || !hasChanges()) return;
-
-      hasPendingRequest = true;
-      setPreviewData().finally(() => {
-        hasPendingRequest = false;
-      });
+      if (hasPendingUpdate || !hasChanges()) return;
+      setPreviewData();
     }, 500);
   }
 
