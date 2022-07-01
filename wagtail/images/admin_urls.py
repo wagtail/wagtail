@@ -46,7 +46,7 @@ urlpatterns = [
     path("chooser/upload/", chooser.ImageUploadView.as_view(), name="chooser_upload"),
     path(
         "chooser/<int:image_id>/select_format/",
-        chooser.chooser_select_format,
+        chooser.ImageSelectFormatView.as_view(),
         name="chooser_select_format",
     ),
 ]
