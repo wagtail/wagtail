@@ -5,16 +5,19 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.ui.components import Component
-from wagtail.models import UserPagePermissionsProxy
+from wagtail.models import Page, UserPagePermissionsProxy
 
 
 class BaseSidePanel(Component):
-    def __init__(self, page, request):
-        self.page = page
+    def __init__(self, object, request):
+        self.object = object
         self.request = request
 
     def get_context_data(self, parent_context):
-        return {"panel": self, "page": self.page, "request": self.request}
+        context = {"panel": self, "object": self.object, "request": self.request}
+        if isinstance(self.object, Page):
+            context["page"] = self.object
+        return context
 
 
 class BaseStatusSidePanel(BaseSidePanel):
@@ -30,18 +33,15 @@ class PageStatusSidePanel(BaseStatusSidePanel):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
+        page = self.object
 
-        if self.page.id:
+        if page.id:
             context.update(
                 {
-                    "lock_url": reverse(
-                        "wagtailadmin_pages:lock", args=(self.page.id,)
-                    ),
-                    "unlock_url": reverse(
-                        "wagtailadmin_pages:unlock", args=(self.page.id,)
-                    ),
-                    "user_can_lock": user_perms.for_page(self.page).can_lock(),
-                    "user_can_unlock": user_perms.for_page(self.page).can_unlock(),
+                    "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
+                    "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
+                    "user_can_lock": user_perms.for_page(page).can_lock(),
+                    "user_can_unlock": user_perms.for_page(page).can_unlock(),
                     "locale": None,
                     "translations": [],
                 }
@@ -57,7 +57,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             context.update(
                 {
-                    "locale": self.page.locale,
+                    "locale": page.locale,
                     "translations": [
                         {
                             "locale": translation.locale,
@@ -65,13 +65,13 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                                 "wagtailadmin_pages:edit", args=[translation.id]
                             ),
                         }
-                        for translation in self.page.get_translations()
+                        for translation in page.get_translations()
                         .only("id", "locale", "depth")
                         .select_related("locale")
                         if user_perms.for_page(translation).can_edit()
                     ],
                     # The sum of translated pages plus 1 to account for the current page
-                    "translations_total": self.page.get_translations().count() + 1,
+                    "translations_total": page.get_translations().count() + 1,
                 }
             )
 
