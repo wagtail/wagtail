@@ -142,12 +142,12 @@ class BaseSidePanels:
         ]
 
     def __iter__(self):
-        return iter(self.side_panels)
+        return iter(sorted(self.side_panels, key=lambda p: p.order))
 
     @cached_property
     def media(self):
         media = Media()
-        for panel in self.side_panels:
+        for panel in self:
             media += panel.media
         return media
 
