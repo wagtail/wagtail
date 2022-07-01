@@ -30,13 +30,31 @@ class BaseStatusSidePanel(BaseSidePanel):
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "info-circle"
 
+    def get_status_templates(self, context):
+        templates = [
+            "wagtailadmin/shared/side_panels/includes/status/workflow.html",
+        ]
+
+        if context.get("locale"):
+            templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
+
+        return templates
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
+        context["status_templates"] = self.get_status_templates(context)
         return context
 
 
 class PageStatusSidePanel(BaseStatusSidePanel):
+    def get_status_templates(self, context):
+        templates = super().get_status_templates(context)
+        if self.object.id:
+            templates += ["wagtailadmin/shared/side_panels/includes/status/locked.html"]
+        templates += ["wagtailadmin/shared/side_panels/includes/status/privacy.html"]
+        return templates
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
@@ -89,6 +107,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
             {
                 "model_name": self.model.get_verbose_name(),
                 "model_description": self.model.get_page_description(),
+                "status_templates": self.get_status_templates(context),
             }
         )
 
