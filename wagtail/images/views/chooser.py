@@ -74,8 +74,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     permission_policy = permission_policy
     results_url_name = "wagtailimages:chooser_results"
     results_template_name = "wagtailimages/chooser/results.html"
-    creation_form_template_name = "wagtailimages/chooser/upload_form.html"
+    creation_form_template_name = "wagtailadmin/generic/chooser/creation_form.html"
     creation_tab_id = "upload"
+    create_url_name = "wagtailimages:chooser_upload"
+    create_action_label = _("Upload")
+    create_action_clicked_label = _("Uploading…")
 
     def get_object_list(self):
         images = (
@@ -92,6 +95,12 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             images = hook(images, self.request)
 
         return images
+
+    def get_create_url(self):
+        url = reverse(self.create_url_name)
+        if self.request.GET.get("select_format"):
+            url += "?select_format=true"
+        return url
 
     def filter_object_list(self, images, form):
         collection_id = form.cleaned_data.get("collection_id")
@@ -177,6 +186,9 @@ class ChooseView(BaseChooseView):
                 "creation_form": creation_form,
                 "search_tab_label": _("Search"),
                 "creation_tab_label": _("Upload"),
+                "create_action_url": self.get_create_url(),
+                "create_action_label": self.create_action_label,
+                "create_action_clicked_label": self.create_action_clicked_label,
             }
         )
         return context
@@ -246,6 +258,10 @@ def duplicate_found(request, new_image, existing_image):
 class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
     permission_policy = permission_policy
     permission_required = "add"
+    creation_tab_id = "upload"
+    create_url_name = "wagtailimages:chooser_upload"
+    create_action_label = _("Upload")
+    create_action_clicked_label = _("Uploading…")
 
     def get(self, request):
         Image = get_image_model()
@@ -297,12 +313,21 @@ class ChooserUploadView(PermissionCheckedMixin, ImageChosenResponseMixin, View):
         else:  # form is invalid
             return self.get_reshow_creation_form_response()
 
+    def get_create_url(self):
+        url = reverse(self.create_url_name)
+        if self.request.GET.get("select_format"):
+            url += "?select_format=true"
+        return url
+
     def get_reshow_creation_form_response(self):
         upload_form_html = render_to_string(
-            "wagtailimages/chooser/upload_form.html",
+            "wagtailadmin/generic/chooser/creation_form.html",
             {
                 "creation_form": self.form,
                 "will_select_format": self.request.GET.get("select_format"),
+                "create_action_url": self.get_create_url(),
+                "create_action_label": self.create_action_label,
+                "create_action_clicked_label": self.create_action_clicked_label,
             },
             self.request,
         )

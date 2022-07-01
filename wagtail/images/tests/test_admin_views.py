@@ -1421,7 +1421,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "reshow_upload_form")
 
@@ -1462,7 +1464,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # The form should have an error
         self.assertFormError(response, "form", "file", "This field is required.")
@@ -1587,7 +1591,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         self.assertFormError(
             response,
             "form",
@@ -1616,7 +1622,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         self.assertFormError(
             response,
             "form",
@@ -1673,7 +1681,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # The form should have an error
         self.assertContains(
@@ -1711,7 +1721,9 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
     def test_get(self):
         response = self.client.get(reverse("wagtailimages:chooser_upload"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailimages/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
