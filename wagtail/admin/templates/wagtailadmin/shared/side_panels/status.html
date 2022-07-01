@@ -1,17 +1,9 @@
 {% load wagtailadmin_tags i18n %}
 
 <div class="w-divide-y w-divide-grey-100">
-    {% if object.id %}
-        {% include 'wagtailadmin/shared/side_panels/includes/status/workflow.html' %}
-    {% endif %}
-    {% if locale %}
-        {% include 'wagtailadmin/shared/side_panels/includes/status/locale.html' %}
-    {% endif %}
-    {% if object.id %}
-        {% include 'wagtailadmin/shared/side_panels/includes/status/locked.html' %}
-    {% endif %}
-    {% include 'wagtailadmin/shared/side_panels/includes/status/privacy.html' %}
-
+    {% for template in status_templates %}
+        {% include template %}
+    {% endfor %}
 
     {# Object type / First Published information #}
     <div class="w-pt-5 w-space-y-1">
