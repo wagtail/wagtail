@@ -137,16 +137,16 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
         # Pagination
         paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-        self.images = paginator.get_page(request.GET.get("p"))
+        self.results = paginator.get_page(request.GET.get("p"))
         return self.render_to_response()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "images": self.images,
+                "results": self.results,
                 "is_searching": self.is_searching,
-                "query_string": self.search_query,
+                "search_query": self.search_query,
                 "will_select_format": self.request.GET.get("select_format"),
                 "results_url": self.get_results_url(),
             }

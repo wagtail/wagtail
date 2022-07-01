@@ -1203,7 +1203,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
     def test_search(self):
         response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertEqual(response.context["search_query"], "Hello")
 
     def test_pagination(self):
         pages = ["0", "1", "-1", "9999", "Not a page"]
@@ -1247,8 +1247,8 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_image_chooser_queryset", filter_images):
             response = self.get()
-        self.assertEqual(len(response.context["images"]), 1)
-        self.assertEqual(response.context["images"][0], image)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], image)
 
     def test_construct_queryset_hook_search(self):
         image = Image.objects.create(
@@ -1268,8 +1268,8 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         with self.register_hook("construct_image_chooser_queryset", filter_images):
             response = self.get({"q": "Test"})
-        self.assertEqual(len(response.context["images"]), 1)
-        self.assertEqual(response.context["images"][0], image)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], image)
 
     def test_num_queries(self):
         # Initial number of queries.

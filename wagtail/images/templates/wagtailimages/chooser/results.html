@@ -1,20 +1,11 @@
-{% load wagtailimages_tags wagtailadmin_tags %}
-{% load i18n %}
-{% if images %}
-    {% if is_searching %}
-        <h2 role="alert">
-            {% blocktrans trimmed count counter=images.paginator.count %}
-                There is {{ counter }} match
-            {% plural %}
-                There are {{ counter }} matches
-            {% endblocktrans %}
-        </h2>
-    {% else %}
-        <h2>{% trans "Latest images" %}</h2>
-    {% endif %}
+{% extends "wagtailadmin/generic/chooser/results.html" %}
+{% load i18n wagtailimages_tags wagtailadmin_tags %}
 
+{% block listing_title %}<h2>{% trans "Latest images" %}</h2>{% endblock %}
+
+{% block results_listing %}
     <ul class="listing horiz images chooser">
-        {% for image in images %}
+        {% for image in results %}
             <li>
                 <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% if will_select_format %}{% url 'wagtailimages:chooser_select_format' image.id %}{% else %}{% url 'wagtailimages:image_chosen' image.id %}{% endif %}">
                     <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
@@ -23,6 +14,8 @@
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images linkurl=results_url %}
-{% endif %}
+{% block no_items_message %}
+    <p>{% trans "No images have been uploaded." %}</p>
+{% endblock %}
