@@ -4,12 +4,10 @@
 {% block bodyclass %}page-explorer {% if ordering == 'ord' %}reordering{% endif %}{% endblock %}
 
 {% block content %}
-    <header class="header merged no-border">
-        <h1 class="visuallyhidden">Explorer</h1>
-
-        {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
-    </header>
-
+    {% page_permissions parent_page as page_perms %}
+    <div class="w-sticky w-top-0 w-z-header">
+        {% include 'wagtailadmin/pages/page_listing_header.html' with title=parent_page.get_admin_display_title %}
+    </div>
     <form id="page-reorder-form">
         {% csrf_token %}
 
