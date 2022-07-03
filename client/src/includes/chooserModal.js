@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import $ from 'jquery';
 import { initTabs } from './tabs';
+import { initTooltips } from './initTooltips';
 import { gettext } from '../utils/gettext';
 
 const submitCreationForm = (modal, form, { errorContainerSelector }) => {
@@ -197,6 +198,9 @@ class ChooserModalOnloadHandlerFactory {
 
     // Reinitialize tabs to hook up tab event listeners in the modal
     if (this.modalHasTabs(modal)) initTabs();
+
+    // Reinitialise any tooltips
+    initTooltips();
   }
 
   // eslint-disable-next-line class-methods-use-this
