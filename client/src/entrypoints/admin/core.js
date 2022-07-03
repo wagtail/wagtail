@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { initTooltips } from '../../includes/initTooltips';
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
@@ -331,6 +332,8 @@ $(() => {
           },
           complete() {
             window.wagtail.ui.initDropDowns();
+            // Reinitialise any tooltips
+            initTooltips();
             $inputContainer.removeClass(workingClasses);
           },
         });
