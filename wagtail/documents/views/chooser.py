@@ -167,13 +167,13 @@ class DocumentChooseViewMixin(ChooseViewMixin):
         return json_data
 
 
-class ChooseView(
+class DocumentChooseView(
     DocumentChooseViewMixin, DocumentCreationFormMixin, BaseDocumentChooseView
 ):
     pass
 
 
-class ChooseResultsView(
+class DocumentChooseResultsView(
     ChooseResultsViewMixin, DocumentCreationFormMixin, BaseDocumentChooseView
 ):
     pass
@@ -185,7 +185,7 @@ class DocumentChosenView(ChosenViewMixin, DocumentChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-class ChooserUploadView(
+class DocumentChooserUploadView(
     CreateViewMixin, DocumentCreationFormMixin, DocumentChosenResponseMixin, View
 ):
     def dispatch(self, request, *args, **kwargs):
@@ -230,10 +230,10 @@ class BaseAdminDocumentChooser(BaseChooser):
 
 
 class DocumentChooserViewSet(ChooserViewSet):
-    choose_view_class = ChooseView
-    choose_results_view_class = ChooseResultsView
+    choose_view_class = DocumentChooseView
+    choose_results_view_class = DocumentChooseResultsView
     chosen_view_class = DocumentChosenView
-    create_view_class = ChooserUploadView
+    create_view_class = DocumentChooserUploadView
     base_widget_class = BaseAdminDocumentChooser
     permission_policy = permission_policy
 
