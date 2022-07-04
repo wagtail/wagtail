@@ -2,43 +2,20 @@ import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
 import {
   submitCreationForm,
+  validateCreationForm,
   initPrefillTitleFromFilename,
   SearchController,
 } from '../../includes/chooserModal';
-import { gettext } from '../../utils/gettext';
 
 function ajaxifyImageUploadForm(modal) {
   $('form[data-chooser-modal-creation-form]', modal.body).on(
     'submit',
     (event) => {
-      let hasErrors = false;
-      for (const input of event.currentTarget.querySelectorAll(
-        'input[required]',
-      )) {
-        if (!input.value) {
-          hasErrors = true;
-          const li = input.closest('li');
-          if (!li.classList.contains('error')) {
-            li.classList.add('error');
-            const container = input.closest('.field-content');
-            const errorPara = document.createElement('p');
-            errorPara.className = 'error-message';
-            container.appendChild(errorPara);
-            const errorSpan = document.createElement('span');
-            errorPara.appendChild(errorSpan);
-            errorSpan.innerText = gettext('This field is required.');
-          }
-        }
-      }
-      if (hasErrors) {
-        // eslint-disable-next-line no-undef
-        setTimeout(cancelSpinner, 500);
-      } else {
+      if (validateCreationForm(event.currentTarget)) {
         submitCreationForm(modal, event.currentTarget, {
           errorContainerSelector: '#tab-upload',
         });
       }
-
       return false;
     },
   );
