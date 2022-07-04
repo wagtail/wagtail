@@ -60,16 +60,28 @@ class PreviewOnEdit(View):
 
         return form_class(query_dict, instance=page, parent_page=parent_page)
 
+    def _get_data_from_session(self):
+        post_data, _ = self.request.session.get(self.session_key, (None, None))
+        if not isinstance(post_data, str):
+            post_data = ""
+        return QueryDict(post_data)
+
     def post(self, request, *args, **kwargs):
         # TODO: Handle request.FILES.
         self.remove_old_preview_data()
-        form = self.get_form(self.get_page(), request.POST)
+        page = self.get_page()
+        form = self.get_form(page, request.POST)
         is_valid = form.is_valid()
 
         if is_valid:
             request.session[self.session_key] = request.POST.urlencode(), time()
+            is_available = True
+        else:
+            # Check previous data in session to determine preview availability
+            form = self.get_form(page, self._get_data_from_session())
+            is_available = form.is_valid()
 
-        return JsonResponse({"is_valid": is_valid})
+        return JsonResponse({"is_valid": is_valid, "is_available": is_available})
 
     def error_response(self, page):
         return TemplateResponse(
@@ -78,11 +90,7 @@ class PreviewOnEdit(View):
 
     def _get(self, request, *args, **kwargs):
         page = self.get_page()
-
-        post_data, timestamp = self.request.session.get(self.session_key, (None, None))
-        if not isinstance(post_data, str):
-            post_data = ""
-        form = self.get_form(page, QueryDict(post_data))
+        form = self.get_form(page, self._get_data_from_session())
 
         if not form.is_valid():
             return self.error_response(page)
