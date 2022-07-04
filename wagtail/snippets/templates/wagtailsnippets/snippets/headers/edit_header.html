@@ -16,8 +16,6 @@
     <h1 class="w-sr-only">
         {% blocktrans trimmed with title=object snippet_type=model_opts.verbose_name %}Editing {{ snippet_type }} {{ title }}{% endblocktrans %}
     </h1>
-
-    {% include "wagtailadmin/shared/page_side_panels.html" %}
 {% endblock %}
 
 {% block actions %}
