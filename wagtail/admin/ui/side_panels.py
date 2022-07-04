@@ -15,15 +15,10 @@ class BaseSidePanel(Component):
         self.request = request
         self.model = type(self.object)
 
-    def get_context_data(self, parent_context, inherit=None):
+    def get_context_data(self, parent_context):
         context = {"panel": self, "object": self.object, "request": self.request}
         if issubclass(self.model, Page):
             context["page"] = self.object
-
-        # Gather necessary context data from parent_context
-        inherit = inherit or []
-        for key in inherit:
-            context[key] = parent_context.get(key)
         return context
 
 
@@ -48,8 +43,8 @@ class BaseStatusSidePanel(BaseSidePanel):
 
         return templates
 
-    def get_context_data(self, parent_context, inherit=None):
-        context = super().get_context_data(parent_context, inherit)
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["status_templates"] = self.get_status_templates(context)
         return context
@@ -63,8 +58,8 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         templates += ["wagtailadmin/shared/side_panels/includes/status/privacy.html"]
         return templates
 
-    def get_context_data(self, parent_context, inherit=None):
-        context = super().get_context_data(parent_context, inherit)
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
         page = self.object
 

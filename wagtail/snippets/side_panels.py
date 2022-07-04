@@ -16,6 +16,7 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
         return templates
 
     def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
         inherit = [
             "view",
             "revision_enabled",
@@ -25,7 +26,7 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
             "locale",
             "translations",
         ]
-        context = super().get_context_data(parent_context, inherit=inherit)
+        context.update({k: parent_context.get(k) for k in inherit})
 
         translations = context.get("translations")
         if translations:
