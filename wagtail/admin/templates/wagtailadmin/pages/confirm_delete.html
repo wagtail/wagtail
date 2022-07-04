@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags wagtailcore_tags %}
 {% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
@@ -9,62 +9,55 @@
     <div class="nice-padding">
         <p>
             {% trans 'Are you sure you want to delete this page?' %}
-
-            {% if descendant_count %}
-                {% blocktrans trimmed count counter=descendant_count %}
-                    Deleting this page will also delete {{ descendant_count }} child page.
-                {% plural %}
-                    Deleting this page will also delete {{ descendant_count }} more child pages.
-                {% endblocktrans %}
-
-                {% if translation_count %} {# has translations #}
-                    {% if translation_descendant_count %} {# has translations with descendants #}
-                        {% if translation_count == 1 %}
-                            {% blocktrans trimmed count counter=translation_descendant_count %}
-                                It will also delete 1 translation and its combined {{ translation_descendant_count }} translated child page.
-                            {% plural %}
-                                It will also delete 1 translation and its combined {{ translation_descendant_count }} translated child pages.
-                            {% endblocktrans %}
-                        {% else %}
-                            {% blocktrans trimmed count counter=translation_descendant_count %}
-                                It will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child page.
-                            {% plural %}
-                                It will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child pages.
-                            {% endblocktrans %}
-                        {% endif %}
-                    {% else %}
-                        {% blocktrans trimmed count counter=translation_count %}
-                            It will also delete {{ translation_count }} translation.
-                        {% plural %}
-                            It will also delete {{ translation_count }} translations.
-                        {% endblocktrans %}
-                    {% endif %}
-                {% endif %}
-            {% elif translation_count %} {# no descendants #}
-                {% if translation_descendant_count %} {# has translations with descendants #}
-                    {% if translation_count == 1 %}
-                        {% blocktrans trimmed count counter=translation_descendant_count %}
-                            Deleting this page will also delete 1 translation and its combined {{ translation_descendant_count }} translated child page.
-                        {% plural %}
-                            Deleting this page will also delete 1 translation and its combined {{ translation_descendant_count }} translated child pages.
-                        {% endblocktrans %}
-                    {% else %}
-                        {% blocktrans trimmed count counter=translation_descendant_count %}
-                            Deleting this page will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child page.
-                        {% plural %}
-                            Deleting this page will also delete {{ translation_count }} translations and their combined {{ translation_descendant_count }} translated child pages.
-                        {% endblocktrans %}
-                    {% endif %}
-                {% else %}
-                    {% blocktrans trimmed count counter=translation_count %}
-                        Deleting this page will also delete {{ translation_count }} translation of this page.
-                    {% plural %}
-                        This will also delete {{ descendant_count }} more child pages.
-                        Deleting this page will also delete {{ translation_count }} translations of this page.
-                    {% endblocktrans %}
-                {% endif %}
+            {% if descendant_count or translation_count or translation_descendant_count %}
+                {% trans "This will also delete:" %}
             {% endif %}
         </p>
+
+        {% if descendant_count %}
+            <p>
+                {% blocktrans trimmed count counter=descendant_count %}
+                    {{ descendant_count }} subpage:
+                {% plural %}
+                    {{ descendant_count }} subpages:
+                {% endblocktrans %}
+            </p>
+            <ul>
+                {% for descendant in descendants.iterator %}
+                    <li><a href="{% url 'wagtailadmin_pages:edit' descendant.id %}">{{ descendant.title }}</a> ({{ descendant.specific_class.get_verbose_name }})</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if translation_count %}
+            <p>
+                {% blocktrans trimmed count counter=translation_count %}
+                    {{ translation_count }} translation:
+                {% plural %}
+                    {{ translation_count }} translations:
+                {% endblocktrans %}
+            </p>
+            <ul>
+                {% for translation in translations %}
+                    <li><a href="{% url 'wagtailadmin_pages:edit' translation.id %}">{{ translation.title }}</a> ({{ translation.specific_class.get_verbose_name }})</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if translation_count and translation_descendant_count %}
+            <p>
+                {% blocktrans trimmed count counter=translation_descendant_count %}
+                    {{ translation_descendant_count }} translated subpage:
+                {% plural %}
+                    {{ translation_descendant_count }} translated subpages:
+                {% endblocktrans %}
+            </p>
+            <ul>
+                {% for descendant in translation_descendants.iterator %}
+                    <li><a href="{% url 'wagtailadmin_pages:edit' descendant.id %}">{{ descendant.title }}</a> ({{ descendant.specific_class.get_verbose_name }})</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
         <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}

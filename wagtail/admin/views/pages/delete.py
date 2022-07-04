@@ -1,6 +1,10 @@
+import operator
+from functools import reduce
+
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
+from django.db.models.functions import Lower
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
@@ -67,28 +71,40 @@ def delete(request, page_id):
                 return redirect(next_url)
             return redirect("wagtailadmin_explore", parent_id)
 
+    # note that while pages_to_delete may contain a mix of translated pages
+    # and aliases, we count the "translations" only, as aliases are similar
+    # to symlinks, so they should just follow the source
+    translations_to_delete = sorted(
+        [
+            translation
+            for translation in pages_to_delete
+            if not translation.alias_of_id and translation.id != page.id
+        ],
+        key=lambda p: p.title.lower(),
+    )
+    translation_descendants_to_delete = reduce(
+        operator.or_,
+        (
+            translation.get_descendants().filter(alias_of__isnull=True)
+            for translation in pages_to_delete
+        ),
+    ).distinct()
+
     return TemplateResponse(
         request,
         "wagtailadmin/pages/confirm_delete.html",
         {
             "page": page,
             "descendant_count": page.get_descendant_count(),
+            "descendants": page.get_descendants()
+            .order_by(Lower("title"))
+            .only("id", "title"),
             "next": next_url,
-            # note that while pages_to_delete may contain a mix of translated pages
-            # and aliases, we count the "translations" only, as aliases are similar
-            # to symlinks, so they should just follow the source
-            "translation_count": len(
-                [
-                    translation.id
-                    for translation in pages_to_delete
-                    if not translation.alias_of_id and translation.id != page.id
-                ]
-            ),
-            "translation_descendant_count": sum(
-                [
-                    translation.get_descendants().filter(alias_of__isnull=True).count()
-                    for translation in pages_to_delete
-                ]
-            ),
+            "translation_count": len(translations_to_delete),
+            "translations": translations_to_delete,
+            "translation_descendant_count": translation_descendants_to_delete.count(),
+            "translation_descendants": translation_descendants_to_delete.order_by(
+                Lower("title")
+            ).only("id", "title"),
         },
     )
