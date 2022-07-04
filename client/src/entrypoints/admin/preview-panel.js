@@ -71,6 +71,7 @@ function initPreview() {
   );
   const iframeLastScroll = { top: 0, left: 0 };
   let iframe = previewPanel.querySelector('[data-preview-iframe]');
+  let spinnerTimeout;
   let hasPendingUpdate = false;
 
   const updateIframeLastScroll = () => {
@@ -113,6 +114,7 @@ function initPreview() {
       newIframe.style = null;
 
       // Ready for another update
+      clearTimeout(spinnerTimeout);
       loadingSpinner.classList.add('w-hidden');
       hasPendingUpdate = false;
 
@@ -125,7 +127,10 @@ function initPreview() {
 
   const setPreviewData = () => {
     hasPendingUpdate = true;
-    loadingSpinner.classList.remove('w-hidden');
+    spinnerTimeout = setTimeout(
+      () => loadingSpinner.classList.remove('w-hidden'),
+      2000,
+    );
 
     return fetch(previewUrl, {
       method: 'POST',
@@ -147,6 +152,7 @@ function initPreview() {
         return data.is_valid;
       })
       .catch((error) => {
+        clearTimeout(spinnerTimeout);
         loadingSpinner.classList.add('w-hidden');
         hasPendingUpdate = false;
         // Re-throw error so it can be handled by handlePreview
