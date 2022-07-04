@@ -90,19 +90,27 @@ def delete(request, page_id):
         ),
     ).distinct()
 
+    descendant_count = page.get_descendant_count()
+    translation_descendant_count = translation_descendants_to_delete.count()
+
+    object_delete_count = (
+        len(translations_to_delete) + descendant_count + translation_descendant_count
+    )
+
     return TemplateResponse(
         request,
         "wagtailadmin/pages/confirm_delete.html",
         {
             "page": page,
-            "descendant_count": page.get_descendant_count(),
+            "object_delete_count": object_delete_count,
+            "descendant_count": descendant_count,
             "descendants": page.get_descendants()
             .order_by(Lower("title"))
             .only("id", "title"),
             "next": next_url,
             "translation_count": len(translations_to_delete),
             "translations": translations_to_delete,
-            "translation_descendant_count": translation_descendants_to_delete.count(),
+            "translation_descendant_count": translation_descendant_count,
             "translation_descendants": translation_descendants_to_delete.order_by(
                 Lower("title")
             ).only("id", "title"),

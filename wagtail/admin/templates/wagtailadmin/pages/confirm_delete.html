@@ -17,9 +17,9 @@
         {% if descendant_count %}
             <p>
                 {% blocktrans trimmed count counter=descendant_count %}
-                    {{ descendant_count }} subpage:
+                    {{ counter }} subpage:
                 {% plural %}
-                    {{ descendant_count }} subpages:
+                    {{ counter }} subpages:
                 {% endblocktrans %}
             </p>
             <ul>
@@ -32,9 +32,9 @@
         {% if translation_count %}
             <p>
                 {% blocktrans trimmed count counter=translation_count %}
-                    {{ translation_count }} translation:
+                    {{ counter }} translation:
                 {% plural %}
-                    {{ translation_count }} translations:
+                    {{ counter }} translations:
                 {% endblocktrans %}
             </p>
             <ul>
@@ -47,9 +47,9 @@
         {% if translation_count and translation_descendant_count %}
             <p>
                 {% blocktrans trimmed count counter=translation_descendant_count %}
-                    {{ translation_descendant_count }} translated subpage:
+                    {{ counter }} translated subpage:
                 {% plural %}
-                    {{ translation_descendant_count }} translated subpages:
+                    {{ counter }} translated subpages:
                 {% endblocktrans %}
             </p>
             <ul>
@@ -62,8 +62,15 @@
         <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
-            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't delete it" %}</a>
+
+            {% blocktranslate trimmed count counter=object_delete_count asvar delete_text %}
+                Yes, delete {{ counter }} page
+            {% plural %}
+                Yes, delete {{ counter }} pages
+            {% endblocktranslate %}
+            <input type="submit" value="{{ delete_text }}" class="button serious">
+
+            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't delete" %}</a>
         </form>
 
         {% page_permissions page as page_perms %}
