@@ -13,7 +13,16 @@ function initPreview() {
   const defaultSizeInput = previewPanel.querySelector('[data-default-size]');
 
   const setPreviewWidth = (width) => {
-    const deviceWidth = width || defaultSizeInput.dataset.deviceWidth;
+    const isUnavailable = previewPanel.classList.contains(
+      'preview-panel--unavailable',
+    );
+
+    let deviceWidth = width;
+    // Reset to default size if width is falsy or preview is unavailable
+    if (!width || isUnavailable) {
+      deviceWidth = defaultSizeInput.dataset.deviceWidth;
+    }
+
     previewPanel.style.setProperty('--preview-device-width', deviceWidth);
   };
 
@@ -24,11 +33,12 @@ function initPreview() {
     setPreviewWidth(deviceWidth);
 
     // Ensure only one device class is applied
-    previewPanel.className = `preview-panel preview-panel--${device}`;
-    previewPanel.classList.toggle(
-      'preview-panel--has-errors',
-      previewPanel.hasAttribute('data-preview-error'),
-    );
+    sizeInputs.forEach((input) => {
+      previewPanel.classList.toggle(
+        `preview-panel--${input.value}`,
+        input.value === device,
+      );
+    });
   };
 
   sizeInputs.forEach((input) =>
@@ -125,18 +135,16 @@ function initPreview() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.is_valid) {
-          previewPanel.removeAttribute('data-preview-error');
-        } else {
-          previewPanel.setAttribute('data-preview-error', '');
-        }
-
-        updateIframeLastScroll();
         previewPanel.classList.toggle(
           'preview-panel--has-errors',
           !data.is_valid,
         );
+        previewPanel.classList.toggle(
+          'preview-panel--unavailable',
+          !data.is_available,
+        );
 
+        updateIframeLastScroll();
         reloadIframe();
         return data.is_valid;
       })
