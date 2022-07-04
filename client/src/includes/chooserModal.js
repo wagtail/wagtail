@@ -4,6 +4,31 @@ import { initTabs } from './tabs';
 import { initTooltips } from './initTooltips';
 import { gettext } from '../utils/gettext';
 
+const validateCreationForm = (form) => {
+  let hasErrors = false;
+  form.querySelectorAll('input[required]').forEach((input) => {
+    if (!input.value) {
+      hasErrors = true;
+      const li = input.closest('li');
+      if (!li.classList.contains('error')) {
+        li.classList.add('error');
+        const container = input.closest('.field-content');
+        const errorPara = document.createElement('p');
+        errorPara.className = 'error-message';
+        container.appendChild(errorPara);
+        const errorSpan = document.createElement('span');
+        errorPara.appendChild(errorSpan);
+        errorSpan.innerText = gettext('This field is required.');
+      }
+    }
+  });
+  if (hasErrors) {
+    // eslint-disable-next-line no-undef
+    setTimeout(cancelSpinner, 500);
+  }
+  return !hasErrors;
+};
+
 const submitCreationForm = (modal, form, { errorContainerSelector }) => {
   const formdata = new FormData(form);
 
@@ -211,10 +236,11 @@ class ChooserModalOnloadHandlerFactory {
   ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
-      submitCreationForm(modal, event.currentTarget, {
-        errorContainerSelector: this.creationFormTabSelector,
-      });
-
+      if (validateCreationForm(event.currentTarget)) {
+        submitCreationForm(modal, event.currentTarget, {
+          errorContainerSelector: this.creationFormTabSelector,
+        });
+      }
       return false;
     });
 
@@ -287,6 +313,7 @@ const chooserModalOnloadHandlers =
   new ChooserModalOnloadHandlerFactory().getOnLoadHandlers();
 
 export {
+  validateCreationForm,
   submitCreationForm,
   initPrefillTitleFromFilename,
   SearchController,
