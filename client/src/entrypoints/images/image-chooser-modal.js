@@ -92,8 +92,6 @@ class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFac
 
 window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS =
   new ImageChooserModalOnloadHandlerFactory({
-    chosenLinkSelector: 'a.image-choice',
-    searchFormSelector: 'form.image-search',
     searchFilterSelectors: ['#id_collection_id'],
     creationFormFileFieldSelector: '#id_image-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_image-chooser-upload-title',
