@@ -5,7 +5,7 @@
 
   --preview-width-ratio: min(
     1,
-    calc(var(--preview-area-width, 450) / var(--preview-device-width, 375))
+    calc(var(--preview-panel-width, 450) / var(--preview-device-width, 375))
   );
   --preview-iframe-width: calc(1px * var(--preview-device-width, 375));
 

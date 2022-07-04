@@ -45,15 +45,13 @@ function initPreview() {
     input.addEventListener('change', togglePreviewSize),
   );
 
-  const previewArea = previewPanel.querySelector('[data-preview-panel-area]');
-  const resizeObserver = new ResizeObserver((entries) => {
-    const area = entries[0];
-    if (!area) return;
-    const areaRect = area.contentRect;
-    previewPanel.style.setProperty('--preview-area-width', areaRect.width);
-  });
-
-  resizeObserver.observe(previewArea);
+  const resizeObserver = new ResizeObserver((entries) =>
+    previewPanel.style.setProperty(
+      '--preview-panel-width',
+      entries[0].contentRect.width,
+    ),
+  );
+  resizeObserver.observe(previewPanel);
 
   //
   // Preview data handling
