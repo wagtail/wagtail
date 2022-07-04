@@ -33,9 +33,10 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.user = self.login()
 
     def test_page_delete(self):
-        response = self.client.get(
-            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
-        )
+        with self.assertNumQueries(29):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+            )
         self.assertEqual(response.status_code, 200)
         # deletion should not actually happen on GET
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())
@@ -76,9 +77,10 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         page_unpublished.connect(mock_handler)
 
         # Post
-        response = self.client.post(
-            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
-        )
+        with self.assertNumQueries(180):
+            response = self.client.post(
+                reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+            )
 
         # Should be redirected to explorer page
         self.assertRedirects(
