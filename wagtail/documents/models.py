@@ -134,6 +134,15 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
         return self.file_hash
 
+    def _set_document_file_metadata(self):
+        # Set new document file size
+        self.file_size = self.file.size
+
+        # Set new document file hash
+        self.file.seek(0)
+        self._set_file_hash(self.file.read())
+        self.file.seek(0)
+
     def __str__(self):
         return self.title
 

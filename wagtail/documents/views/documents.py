@@ -133,13 +133,7 @@ def add(request):
             request.POST, request.FILES, instance=doc, user=request.user
         )
         if form.is_valid():
-            doc.file_size = doc.file.size
-
-            # Set new document file hash
-            doc.file.seek(0)
-            doc._set_file_hash(doc.file.read())
-            doc.file.seek(0)
-
+            doc._set_document_file_metadata()
             form.save()
 
             # Reindex the document to make sure all tags are indexed
@@ -191,12 +185,7 @@ def edit(request, document_id):
         if form.is_valid():
             if "file" in form.changed_data:
                 doc = form.save(commit=False)
-                doc.file_size = doc.file.size
-
-                # Set new document file hash
-                doc.file.seek(0)
-                doc._set_file_hash(doc.file.read())
-                doc.file.seek(0)
+                doc._set_document_file_metadata()
                 doc.save()
                 form.save_m2m()
 
