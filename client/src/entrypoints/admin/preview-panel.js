@@ -69,16 +69,9 @@ function initPreview() {
   const previewModeSelect = document.querySelector(
     '[data-preview-mode-select]',
   );
-  const iframeLastScroll = { top: 0, left: 0 };
   let iframe = previewPanel.querySelector('[data-preview-iframe]');
   let spinnerTimeout;
   let hasPendingUpdate = false;
-
-  const updateIframeLastScroll = () => {
-    if (!iframe.contentWindow) return;
-    iframeLastScroll.top = iframe.contentWindow.scrollY;
-    iframeLastScroll.left = iframe.contentWindow.scrollX;
-  };
 
   const reloadIframe = () => {
     // Instead of reloading the iframe, we're replacing it with a new iframe to
@@ -104,7 +97,10 @@ function initPreview() {
       });
 
       // Restore scroll position
-      newIframe.contentWindow.scroll(iframeLastScroll);
+      newIframe.contentWindow.scroll(
+        iframe.contentWindow.scrollX,
+        iframe.contentWindow.scrollY,
+      );
 
       // Remove the old iframe and swap it with the new one
       iframe.remove();
@@ -147,7 +143,6 @@ function initPreview() {
           !data.is_available,
         );
 
-        updateIframeLastScroll();
         reloadIframe();
         return data.is_valid;
       })
@@ -212,9 +207,6 @@ function initPreview() {
     const url = new URL(iframe.src);
     url.searchParams.set('mode', mode);
 
-    // Remember the last scroll position
-    // because setting the src attribute will reload the iframe
-    updateIframeLastScroll();
     iframe.src = url.toString();
     url.searchParams.delete('in_preview_panel');
     newTabButton.href = url.toString();
