@@ -46,13 +46,7 @@ class AddView(BaseAddView):
     def save_object(self, form):
         doc = form.save(commit=False)
         doc.uploaded_by_user = self.request.user
-        doc.file_size = doc.file.size
-
-        # Set new document file hash
-        doc.file.seek(0)
-        doc._set_file_hash(doc.file.read())
-        doc.file.seek(0)
-
+        doc._set_document_file_metadata()
         doc.save()
 
         return doc
@@ -124,11 +118,8 @@ class CreateFromUploadedDocumentView(BaseCreateFromUploadView):
             os.path.basename(self.upload.file.name), self.upload.file.file, save=False
         )
         self.object.uploaded_by_user = self.request.user
-        self.object.file_size = self.object.file.size
         self.object.file.open()
-        self.object.file.seek(0)
-        self.object._set_file_hash(self.object.file.read())
-        self.object.file.seek(0)
+        self.object._set_document_file_metadata()
         form.save()
 
         # Reindex the document to make sure all tags are indexed
