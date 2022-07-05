@@ -25,7 +25,6 @@ from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.models import Collection, Site
-from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -194,9 +193,6 @@ def edit(request, image_id):
         original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            if "file" in form.changed_data:
-                image._set_image_file_metadata()
-
             form.save()
 
             if "file" in form.changed_data:
@@ -205,9 +201,6 @@ def edit(request, image_id):
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
-
-            # Reindex the image to make sure all tags are indexed
-            search_index.insert_or_update_object(image)
 
             edit_url = reverse("wagtailimages:edit", args=(image.id,))
             redirect_url = "wagtailimages:index"
@@ -385,11 +378,7 @@ def add(request):
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            image._set_image_file_metadata()
             form.save()
-
-            # Reindex the image to make sure all tags are indexed
-            search_index.insert_or_update_object(image)
 
             messages.success(
                 request,

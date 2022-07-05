@@ -17,7 +17,6 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import find_image_duplicates
-from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -210,11 +209,7 @@ def chooser_upload(request):
         )
 
         if form.is_valid():
-            image._set_image_file_metadata()
             form.save()
-
-            # Reindex the image to make sure all tags are indexed
-            search_index.insert_or_update_object(image)
 
             duplicates = find_image_duplicates(
                 image=image,
