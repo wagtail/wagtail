@@ -8,6 +8,7 @@ from django.core.exceptions import (
 from django.core.paginator import Paginator
 from django.forms.models import modelform_factory
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -15,10 +16,14 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.forms.choosers import CollectionFilterMixin, SearchFilterMixin
+from wagtail.admin.forms.choosers import (
+    CollectionFilterMixin,
+    LocaleFilterMixin,
+    SearchFilterMixin,
+)
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
-from wagtail.models import CollectionMember
+from wagtail.models import CollectionMember, Locale, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -88,6 +93,8 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 bases.insert(0, SearchFilterMixin)
             if issubclass(self.model, CollectionMember):
                 bases.insert(0, CollectionFilterMixin)
+            if issubclass(self.model, TranslatableMixin):
+                bases.insert(0, LocaleFilterMixin)
 
             return type(
                 "FilterForm",
@@ -104,6 +111,13 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if collection_id:
             self.is_filtering_by_collection = True
             objects = objects.filter(collection=collection_id)
+
+        selected_locale_code = form.cleaned_data.get("locale")
+        if selected_locale_code:
+            selected_locale = get_object_or_404(
+                Locale, language_code=selected_locale_code
+            )
+            objects = objects.filter(locale=selected_locale)
 
         search_query = form.cleaned_data.get("q")
         if search_query:
