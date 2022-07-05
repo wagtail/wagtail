@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms.choosers import (
     BaseFilterForm,
@@ -64,6 +65,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     filter_form_class = None
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtailadmin/generic/chooser/results.html"
+    construct_queryset_hook_name = None
 
     def get_object_list(self):
         return self.model.objects.all()
@@ -105,6 +107,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         return FilterForm(self.request.GET)
 
     def filter_object_list(self, objects):
+        if self.construct_queryset_hook_name:
+            # allow hooks to modify the queryset
+            for hook in hooks.get_hooks(self.construct_queryset_hook_name):
+                objects = hook(objects, self.request)
+
         self.filter_form = self.get_filter_form()
         if self.filter_form.is_valid():
             objects = self.filter_form.filter(objects)

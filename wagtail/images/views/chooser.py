@@ -7,7 +7,6 @@ from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
-from wagtail import hooks
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
@@ -82,6 +81,7 @@ class BaseImageChooseView(BaseChooseView):
     results_template_name = "wagtailimages/chooser/results.html"
     per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
     ordering = "-created_at"
+    construct_queryset_hook_name = "construct_image_chooser_queryset"
 
     def get_object_list(self):
         return (
@@ -93,10 +93,6 @@ class BaseImageChooseView(BaseChooseView):
         )
 
     def filter_object_list(self, objects):
-        # allow hooks to modify the queryset
-        for hook in hooks.get_hooks("construct_image_chooser_queryset"):
-            objects = hook(objects, self.request)
-
         tag_name = self.request.GET.get("tag")
         if tag_name:
             objects = objects.filter(tags__name=tag_name)
