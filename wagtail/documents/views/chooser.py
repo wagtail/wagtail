@@ -66,30 +66,8 @@ class DownloadColumn(Column):
         return context
 
 
-class DocumentFilterForm(forms.Form):
-    q = forms.CharField(
-        label=_("Search term"),
-        widget=forms.TextInput(attrs={"placeholder": _("Search")}),
-        required=False,
-    )
-
-    def __init__(self, *args, collections, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        if collections:
-            collection_choices = [
-                ("", _("All collections"))
-            ] + collections.get_indented_choices()
-            self.fields["collection_id"] = forms.ChoiceField(
-                label=_("Collection"),
-                choices=collection_choices,
-                required=False,
-            )
-
-
 class BaseDocumentChooseView(BaseChooseView):
     results_template_name = "wagtaildocs/chooser/results.html"
-    filter_form_class = DocumentFilterForm
     per_page = 10
 
     def get_object_list(self):

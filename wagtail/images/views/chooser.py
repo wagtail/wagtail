@@ -1,4 +1,3 @@
-from django import forms
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -45,27 +44,6 @@ class ImageChosenResponseMixin(ChosenResponseMixin):
         return response_data
 
 
-class ImageFilterForm(forms.Form):
-    q = forms.CharField(
-        label=_("Search term"),
-        widget=forms.TextInput(attrs={"placeholder": _("Search")}),
-        required=False,
-    )
-
-    def __init__(self, *args, collections, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        if collections:
-            collection_choices = [
-                ("", _("All collections"))
-            ] + collections.get_indented_choices()
-            self.fields["collection_id"] = forms.ChoiceField(
-                label=_("Collection"),
-                choices=collection_choices,
-                required=False,
-            )
-
-
 class ImageCreationFormMixin(CreationFormMixin):
     creation_tab_id = "upload"
     create_url_name = "wagtailimages:chooser_upload"
@@ -102,7 +80,6 @@ class BaseImageChooseView(BaseChooseView):
     results_url_name = "wagtailimages:chooser_results"
     template_name = "wagtailimages/chooser/chooser.html"
     results_template_name = "wagtailimages/chooser/results.html"
-    filter_form_class = ImageFilterForm
     per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
 
     def get_object_list(self):

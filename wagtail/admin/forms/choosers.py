@@ -44,3 +44,35 @@ class EmailLinkChooserForm(forms.Form):
 class PhoneLinkChooserForm(forms.Form):
     phone_number = forms.CharField(required=True)
     link_text = forms.CharField(required=False)
+
+
+class SearchFilterMixin(forms.Form):
+    """
+    Mixin for a chooser listing filter form, to provide a search field
+    """
+
+    q = forms.CharField(
+        label=_("Search term"),
+        widget=forms.TextInput(attrs={"placeholder": _("Search")}),
+        required=False,
+    )
+
+
+class CollectionFilterMixin(forms.Form):
+    """
+    Mixin for a chooser listing filter form, to provide a collection filter field.
+    The view must pass a `collections` keyword argument when constructing the form
+    """
+
+    def __init__(self, *args, collections=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if collections:
+            collection_choices = [
+                ("", _("All collections"))
+            ] + collections.get_indented_choices()
+            self.fields["collection_id"] = forms.ChoiceField(
+                label=_("Collection"),
+                choices=collection_choices,
+                required=False,
+            )
