@@ -77,9 +77,6 @@ class EditView(BaseEditView):
     def get_edit_form_class(self):
         return get_document_multi_form(self.model)
 
-    def save_object(self, form):
-        form.save()
-
 
 class DeleteView(BaseDeleteView):
     permission_policy = permission_policy
