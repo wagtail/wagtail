@@ -75,4 +75,5 @@ class CollectionFilterMixin(forms.Form):
                 label=_("Collection"),
                 choices=collection_choices,
                 required=False,
+                widget=forms.Select(attrs={"data-chooser-modal-search-filter": True}),
             )

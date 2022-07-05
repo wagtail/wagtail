@@ -92,7 +92,6 @@ class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFac
 
 window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS =
   new ImageChooserModalOnloadHandlerFactory({
-    searchFilterSelectors: ['#id_collection_id'],
     creationFormFileFieldSelector: '#id_image-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_image-chooser-upload-title',
     creationFormEventName: 'wagtail:images-upload',
