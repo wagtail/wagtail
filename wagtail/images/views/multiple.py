@@ -160,7 +160,6 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
             os.path.basename(self.upload.file.name), self.upload.file.file, save=False
         )
         self.object.uploaded_by_user = self.request.user
-        self.object.file.open()
         self.object._set_image_file_metadata()
         form.save()
 
