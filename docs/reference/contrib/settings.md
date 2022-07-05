@@ -137,24 +137,24 @@ Settings can be used in both Python code and in templates.
 #### Generic settings
 
 If you require access to a generic setting in a view, the
-`BaseGenericSetting.get_or_create` method allows you to retrieve the generic
+`BaseGenericSetting.load()` method allows you to retrieve the generic
 settings:
 
 ```python
 def view(request):
-    social_media_settings = GenericSocialMediaSettings.get_or_create()
+    social_media_settings = GenericSocialMediaSettings.load(request_or_site=request)
     ...
 ```
 
 #### Site-specific settings
 
 If you require access to a site-specific setting in a view, the
-`BaseSiteSetting.for_request` method allows you to retrieve the site-specific
+`BaseSiteSetting.for_request()` method allows you to retrieve the site-specific
 settings for the current request:
 
 ```python
 def view(request):
-    social_media_settings = SiteSpecificSocialMediaSettings.for_request(request)
+    social_media_settings = SiteSpecificSocialMediaSettings.for_request(request=request)
     ...
 ```
 
@@ -164,7 +164,7 @@ retrieve settings for, you can use
 
 ```python
 def view(request):
-    social_media_settings = SiteSpecificSocialMediaSettings.for_site(user.origin_site)
+    social_media_settings = SiteSpecificSocialMediaSettings.for_site(site=user.origin_site)
     ...
 ```
 
