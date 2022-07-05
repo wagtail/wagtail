@@ -29,12 +29,12 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 class ImageChosenResponseMixin(ChosenResponseMixin):
-    def get_chosen_response_data(self, image):
+    def get_chosen_response_data(self, image, preview_image_filter="max-165x165"):
         """
         Given an image, return the json data to pass back to the image chooser panel
         """
         response_data = super().get_chosen_response_data(image)
-        preview_image = image.get_rendition("max-165x165")
+        preview_image = image.get_rendition(preview_image_filter)
         response_data["preview"] = {
             "url": preview_image.url,
             "width": preview_image.width,
@@ -245,7 +245,7 @@ class ImageUploadView(
     pass
 
 
-class ImageSelectFormatView(SelectFormatResponseMixin, View):
+class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin, View):
     def get(self, request, image_id):
         image = get_object_or_404(get_image_model(), id=image_id)
         initial = {"alt_text": image.default_alt_text}
@@ -256,41 +256,31 @@ class ImageSelectFormatView(SelectFormatResponseMixin, View):
         form = ImageInsertionForm(initial=initial, prefix="image-chooser-insertion")
         return self.render_select_format_response(image, form)
 
+    def get_chosen_response_data(self, image):
+        format = get_image_format(self.form.cleaned_data["format"])
+        alt_text = self.form.cleaned_data["alt_text"]
+        response_data = super().get_chosen_response_data(
+            image, preview_image_filter=format.filter_spec
+        )
+        response_data.update(
+            {
+                "format": format.name,
+                "alt": alt_text,
+                "class": format.classnames,
+                "html": format.image_to_editor_html(image, alt_text),
+            }
+        )
+        return response_data
+
     def post(self, request, image_id):
         image = get_object_or_404(get_image_model(), id=image_id)
 
-        form = ImageInsertionForm(
+        self.form = ImageInsertionForm(
             request.POST,
             initial={"alt_text": image.default_alt_text},
             prefix="image-chooser-insertion",
         )
-        if form.is_valid():
-            format = get_image_format(form.cleaned_data["format"])
-            preview_image = image.get_rendition(format.filter_spec)
-
-            image_data = {
-                "id": image.id,
-                "title": image.title,
-                "format": format.name,
-                "alt": form.cleaned_data["alt_text"],
-                "class": format.classnames,
-                "edit_link": reverse("wagtailimages:edit", args=(image.id,)),
-                "preview": {
-                    "url": preview_image.url,
-                    "width": preview_image.width,
-                    "height": preview_image.height,
-                },
-                "html": format.image_to_editor_html(
-                    image, form.cleaned_data["alt_text"]
-                ),
-            }
-
-            return render_modal_workflow(
-                request,
-                None,
-                None,
-                None,
-                json_data={"step": "chosen", "result": image_data},
-            )
+        if self.form.is_valid():
+            return self.get_chosen_response(image)
         else:
-            return self.render_select_format_response(image, form)
+            return self.render_select_format_response(image, self.form)
