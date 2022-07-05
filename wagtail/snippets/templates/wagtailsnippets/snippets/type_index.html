@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
 
 {% block extra_js %}
-    {{ block.super }}
     <script>
         window.headerSearch = {
             url: "{% url view.index_results_url_name %}",
@@ -17,17 +17,17 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'wagtailsnippets/snippets/headers/list_header.html' %}
 
     <header class="header">
         <div class="row">
             <div class="left">
                 <div class="col">
                     <h1 class="header__title">
-                        {% icon name="snippet" %}
-                        {% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}
+                        {% icon name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
                     </h1>
                     {% if is_searchable and search_url %}
-                        <form class="col search-form" action="{{ search_url }}" method="get" novalidate>
+                        <form class="col search-form" action="{% url search_url %}" method="get" novalidate>
                             <ul class="fields">
                                 {% for field in search_form %}
                                     {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}

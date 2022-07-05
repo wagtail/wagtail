@@ -1,0 +1,43 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{# TODO: Replace this with wagtailadmin/shared/breadcrumbs.html once it's possible #}
+
+{% block header_content %}
+    {% with breadcrumb_link_classes='w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-text-14' icon_classes='w-w-4 w-h-4 w-ml-3' %}
+        {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
+        <div class="w-breadcrumb w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin" data-breadcrumb-next>
+            <button
+                type="button"
+                data-toggle-breadcrumbs
+                class="w-flex w-items-center w-justify-center w-box-border w-ml-0 w-p-4 w-w-[50px] w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary w-outline-offset-inside"
+                aria-label="{% trans 'Toggle breadcrumbs' %}"
+                aria-expanded="false"
+            >
+                {% icon name="breadcrumb-expand" class_name="w-w-4 w-h-4" %}
+            </button>
+
+            <div class="w-relative w-h-[50px] w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
+                <nav class="w-flex w-items-center w-flex-row w-h-full"
+                    aria-label="{% trans 'Breadcrumb' %}">
+                    <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
+                        {% block breadcrumb_items %}
+                            <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
+                                <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailsnippets:index' %}">
+                                    {% trans "Snippets" %}
+                                </a>
+                                {% icon name="arrow-right" class_name=icon_classes %}
+                            </li>
+                            <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
+                                <a class="{{ breadcrumb_link_classes }}" href="{% url view.index_url_name %}">
+                                    {{ model_opts.verbose_name_plural|capfirst }}
+                                </a>
+                                {% icon name="arrow-right" class_name=icon_classes %}
+                            </li>
+                        {% endblock %}
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    {% endwith %}
+{% endblock %}

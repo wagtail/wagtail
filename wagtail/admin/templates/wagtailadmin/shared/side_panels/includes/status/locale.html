@@ -8,7 +8,7 @@
         {% trans 'Locale: ' as screen_reader_title_prefix %}
     {% endif %}
 
-    {% if translations %}
+    {% if object.pk and translations %}
         {% blocktrans trimmed asvar help_text %}
             Available in {{ translations_total }} locales
         {% endblocktrans %}
@@ -16,7 +16,7 @@
         {% trans 'No other translations' as help_text %}
     {% endif %}
 
-    {% with icon_name='globe' title=object.locale.get_display_name %}
+    {% with icon_name='globe' title=locale.get_display_name %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% comment %}
+    This template is used to show Live, Draft, Live and Draft, In Moderation or Live and In Moderation.
+    Sometimes {{ block.super }} will be called two times in the instances where the object is in multiple states eg. Live + Draft
+{% endcomment %}
+
+{% block content %}
+    <div class="w-space-y-3">
+        {% trans 'Status: ' as screen_reader_title_prefix %}
+
+        {# Live section #}
+        {% if live_last_updated_info %}
+            {% trans 'Live' as title %}
+            {% with icon_name='snippet' timestamp=live_last_updated_info.timestamp user_display_name=live_last_updated_info.user_display_name %}
+                {% timesince_last_update timestamp user_display_name=user_display_name use_shorthand=True as help_text %}
+                {% if draft_last_updated_info %}
+                    {% with hide_action=True %}
+                        {{ block.super }}
+                    {% endwith %}
+                {% else %}
+                    {{ block.super }}
+                {% endif %}
+            {% endwith %}
+        {% endif %}
+
+        {# Draft section #}
+        {% if draft_last_updated_info %}
+            {% trans 'Draft' as title %}
+            {% timesince_last_update draft_last_updated_info.timestamp user_display_name=draft_last_updated_info.user_display_name use_shorthand=True as help_text %}
+
+            {# Icon #}
+            {% with icon_name='draft' %}
+                {{ block.super }}
+            {% endwith %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block action %}
+    {% with action_url=view.get_history_url %}
+        {% trans 'View history' as action_text %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block bottom %}
+    {# Workflow Status #}
+    {% with latest_revision=object.get_latest_revision %}
+        {# Scheduled publishing #}
+        {% if draftstate_enabled and latest_revision and latest_revision.approved_go_live_at %}
+            <div class="w-flex w-space-x-3">
+                {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
+                <div class="w-label-3 w-flex-1">
+                    {% trans 'This will publish at ' %}{{ latest_revision.approved_go_live_at }}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

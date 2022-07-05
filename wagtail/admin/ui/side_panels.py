@@ -31,9 +31,12 @@ class BaseStatusSidePanel(BaseSidePanel):
     toggle_icon_name = "info-circle"
 
     def get_status_templates(self, context):
-        templates = [
-            "wagtailadmin/shared/side_panels/includes/status/workflow.html",
-        ]
+        templates = []
+
+        if self.object.pk:
+            templates += [
+                "wagtailadmin/shared/side_panels/includes/status/workflow.html",
+            ]
 
         if context.get("locale"):
             templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
@@ -50,7 +53,7 @@ class BaseStatusSidePanel(BaseSidePanel):
 class PageStatusSidePanel(BaseStatusSidePanel):
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
-        if self.object.id:
+        if self.object.pk:
             templates += ["wagtailadmin/shared/side_panels/includes/status/locked.html"]
         templates += ["wagtailadmin/shared/side_panels/includes/status/privacy.html"]
         return templates

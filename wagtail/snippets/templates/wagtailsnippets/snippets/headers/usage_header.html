@@ -1,0 +1,17 @@
+{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block breadcrumb_items %}
+    {{ block.super }}
+    <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
+        <a class="{{ breadcrumb_link_classes }}" href="{% url view.edit_url_name object.pk|admin_urlquote %}">
+            {{ object }}
+        </a>
+        {% icon name="arrow-right" class_name=icon_classes %}
+    </li>
+    <li class="{{ breadcrumb_item_classes }}">
+        <div class="w-flex w-justify-start w-items-center">
+            {% trans "Usage" %}
+        </div>
+    </li>
+{% endblock %}
