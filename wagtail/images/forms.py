@@ -38,6 +38,10 @@ def formfield_for_dbfield(db_field, **kwargs):
 class BaseImageForm(BaseCollectionMemberForm):
     permission_policy = images_permission_policy
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.original_file = self.instance.file
+
     def save(self, commit=True):
         if "file" in self.changed_data:
             self.instance._set_image_file_metadata()
@@ -45,6 +49,13 @@ class BaseImageForm(BaseCollectionMemberForm):
         super().save(commit=commit)
 
         if commit:
+            if "file" in self.changed_data and self.original_file:
+                # if providing a new image file, delete the old one and all renditions.
+                # NB Doing this via original_file.delete() clears the file field,
+                # which definitely isn't what we want...
+                self.original_file.storage.delete(self.original_file.name)
+                self.instance.renditions.all().delete()
+
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(self.instance)
 
