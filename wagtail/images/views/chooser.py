@@ -84,7 +84,7 @@ class BaseImageChooseView(BaseChooseView):
     ordering = "-created_at"
 
     def get_object_list(self):
-        images = (
+        return (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["choose"]
             )
@@ -92,15 +92,16 @@ class BaseImageChooseView(BaseChooseView):
             .prefetch_renditions("max-165x165")
         )
 
+    def filter_object_list(self, objects):
         # allow hooks to modify the queryset
         for hook in hooks.get_hooks("construct_image_chooser_queryset"):
-            images = hook(images, self.request)
+            objects = hook(objects, self.request)
 
         tag_name = self.request.GET.get("tag")
         if tag_name:
-            images = images.filter(tags__name=tag_name)
+            objects = objects.filter(tags__name=tag_name)
 
-        return images
+        return super().filter_object_list(objects)
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()

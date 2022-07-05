@@ -72,14 +72,16 @@ class BaseDocumentChooseView(BaseChooseView):
     ordering = "-created_at"
 
     def get_object_list(self):
-        documents = self.permission_policy.instances_user_has_any_permission_for(
+        return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["choose"]
         )
+
+    def filter_object_list(self, objects):
         # allow hooks to modify the queryset
         for hook in hooks.get_hooks("construct_document_chooser_queryset"):
-            documents = hook(documents, self.request)
+            objects = hook(objects, self.request)
 
-        return documents
+        return super().filter_object_list(objects)
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
