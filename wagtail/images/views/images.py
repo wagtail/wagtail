@@ -195,13 +195,7 @@ def edit(request, image_id):
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             if "file" in form.changed_data:
-                # Set new image file size
-                image.file_size = image.file.size
-
-                # Set new image file hash
-                image.file.seek(0)
-                image._set_file_hash(image.file.read())
-                image.file.seek(0)
+                image._set_image_file_metadata()
 
             form.save()
 
@@ -391,14 +385,7 @@ def add(request):
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            # Set image file size
-            image.file_size = image.file.size
-
-            # Set image file hash
-            image.file.seek(0)
-            image._set_file_hash(image.file.read())
-            image.file.seek(0)
-
+            image._set_image_file_metadata()
             form.save()
 
             # Reindex the image to make sure all tags are indexed

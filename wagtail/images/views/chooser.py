@@ -210,14 +210,7 @@ def chooser_upload(request):
         )
 
         if form.is_valid():
-            # Set image file size
-            image.file_size = image.file.size
-
-            # Set image file hash
-            image.file.seek(0)
-            image._set_file_hash(image.file.read())
-            image.file.seek(0)
-
+            image._set_image_file_metadata()
             form.save()
 
             # Reindex the image to make sure all tags are indexed

@@ -81,10 +81,7 @@ class AddView(BaseAddView):
     def save_object(self, form):
         image = form.save(commit=False)
         image.uploaded_by_user = self.request.user
-        image.file_size = image.file.size
-        image.file.seek(0)
-        image._set_file_hash(image.file.read())
-        image.file.seek(0)
+        image._set_image_file_metadata()
         image.save()
         return image
 
@@ -163,11 +160,8 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
             os.path.basename(self.upload.file.name), self.upload.file.file, save=False
         )
         self.object.uploaded_by_user = self.request.user
-        self.object.file_size = self.object.file.size
         self.object.file.open()
-        self.object.file.seek(0)
-        self.object._set_file_hash(self.object.file.read())
-        self.object.file.seek(0)
+        self.object._set_image_file_metadata()
         form.save()
 
         # Reindex the image to make sure all tags are indexed
