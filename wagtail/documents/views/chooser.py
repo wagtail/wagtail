@@ -6,7 +6,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
-from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.views.generic.chooser import (
@@ -70,18 +69,12 @@ class BaseDocumentChooseView(BaseChooseView):
     results_template_name = "wagtaildocs/chooser/results.html"
     per_page = 10
     ordering = "-created_at"
+    construct_queryset_hook_name = "construct_document_chooser_queryset"
 
     def get_object_list(self):
         return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["choose"]
         )
-
-    def filter_object_list(self, objects):
-        # allow hooks to modify the queryset
-        for hook in hooks.get_hooks("construct_document_chooser_queryset"):
-            objects = hook(objects, self.request)
-
-        return super().filter_object_list(objects)
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
