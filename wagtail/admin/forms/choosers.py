@@ -3,6 +3,8 @@ from django.core import validators
 from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.models import Locale
+
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
     @staticmethod
@@ -74,6 +76,25 @@ class CollectionFilterMixin(forms.Form):
             self.fields["collection_id"] = forms.ChoiceField(
                 label=_("Collection"),
                 choices=collection_choices,
+                required=False,
+                widget=forms.Select(attrs={"data-chooser-modal-search-filter": True}),
+            )
+
+
+class LocaleFilterMixin(forms.Form):
+    """
+    Mixin for a chooser listing filter form, to provide a locale filter field.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        locales = Locale.objects.all()
+        if locales:
+            self.fields["locale"] = forms.ChoiceField(
+                choices=[
+                    (locale.language_code, locale.get_display_name())
+                    for locale in locales
+                ],
                 required=False,
                 widget=forms.Select(attrs={"data-chooser-modal-search-filter": True}),
             )
