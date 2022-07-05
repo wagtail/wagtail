@@ -156,7 +156,18 @@ class ImageChosenView(ChosenViewMixin, ImageChosenResponseMixin, View):
         return super().get(request, *args, pk, **kwargs)
 
 
-class ImageUploadViewMixin(CreateViewMixin):
+class SelectFormatResponseMixin:
+    def render_select_format_response(self, image, form):
+        return render_modal_workflow(
+            self.request,
+            "wagtailimages/chooser/select_format.html",
+            None,
+            {"image": image, "form": form},
+            json_data={"step": "select_format"},
+        )
+
+
+class ImageUploadViewMixin(SelectFormatResponseMixin, CreateViewMixin):
     def get(self, request):
         self.model = get_image_model()
         return super().get(request)
@@ -184,13 +195,7 @@ class ImageUploadViewMixin(CreateViewMixin):
                     initial={"alt_text": image.default_alt_text},
                     prefix="image-chooser-insertion",
                 )
-                return render_modal_workflow(
-                    request,
-                    "wagtailimages/chooser/select_format.html",
-                    None,
-                    {"image": image, "form": insertion_form},
-                    json_data={"step": "select_format"},
-                )
+                return self.render_select_format_response(image, insertion_form)
             else:
                 # not specifying a format; return the image details now
                 return self.get_chosen_response(image)
@@ -240,7 +245,7 @@ class ImageUploadView(
     pass
 
 
-class ImageSelectFormatView(View):
+class ImageSelectFormatView(SelectFormatResponseMixin, View):
     def get(self, request, image_id):
         image = get_object_or_404(get_image_model(), id=image_id)
         initial = {"alt_text": image.default_alt_text}
@@ -289,12 +294,3 @@ class ImageSelectFormatView(View):
             )
         else:
             return self.render_select_format_response(image, form)
-
-    def render_select_format_response(self, image, form):
-        return render_modal_workflow(
-            self.request,
-            "wagtailimages/chooser/select_format.html",
-            None,
-            {"image": image, "form": form},
-            json_data={"step": "select_format"},
-        )
