@@ -26,7 +26,7 @@
     </div>
 
     <div class="preview-panel__area">
-        <div class="preview-panel__controls">
+        <div class="preview-panel__controls{% if has_multiple_modes %} preview-panel__controls--multiple{% endif %}">
             <div class="preview-panel__error-banner">
                 {% icon name='warning' class_name='default' %}
                 <div>
@@ -38,7 +38,7 @@
                     </p>
                 </div>
             </div>
-            {% if object.preview_modes|length > 1 %}
+            {% if has_multiple_modes %}
                 <div class="preview-panel__modes choice_field">
                     <label class="preview-panel__mode-label w-label-3" for="id_preview_mode">{% trans 'Preview mode' %}</label>
                     <div class="input">

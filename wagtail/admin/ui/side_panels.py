@@ -134,6 +134,11 @@ class BasePreviewSidePanel(BaseSidePanel):
     toggle_aria_label = gettext_lazy("Toggle preview")
     toggle_icon_name = "mobile-alt"
 
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["has_multiple_modes"] = len(self.object.preview_modes) > 1
+        return context
+
 
 class PagePreviewSidePanel(BasePreviewSidePanel):
     def get_context_data(self, parent_context):

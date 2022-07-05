@@ -11,7 +11,7 @@
 
   &__area {
     height: 100%;
-    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
@@ -93,26 +93,42 @@
     @apply w-bg-primary w-text-white w-transform-none w-border w-border-transparent;
   }
 
-  &--has-errors &__controls > :first-child,
-  &:not(&--has-errors) &__controls > :nth-child(2) {
-    @apply w-border-grey-100 w-border-t;
-    padding-top: 1rem;
-    margin-top: 1rem;
+  &__controls {
+    @apply w-border-t w-border-transparent w-duration-500 w-ease-in-out;
+    transition-property: border-color, margin-top, padding-top;
+    margin-top: 0;
+    padding-top: 0;
+
+    // Show the border only if there's an error,
+    // but always show it if there are multiple preview modes
+    .preview-panel--has-errors &:not(&--multiple),
+    &--multiple {
+      @apply w-border-grey-100 w-border-t;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
   }
 
   &__error-banner {
-    display: none;
-  }
-
-  &--has-errors &__error-banner {
-    @apply w-text-grey-600;
+    @apply w-text-grey-600 w-duration-1000 w-ease-in-out w-translate-y-20;
+    transition-property: max-height, transform, visibility;
+    visibility: hidden;
+    max-height: 0;
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
+    z-index: -1;
 
     .icon {
       @apply w-text-warning-100;
     }
+  }
+
+  &--has-errors &__error-banner {
+    @apply w-translate-y-0;
+    visibility: visible;
+    max-height: 6rem;
   }
 
   &__error-title {
@@ -123,16 +139,14 @@
 
   &__error-details {
     color: inherit;
-    margin: 0;
   }
 
   &__modes {
+    @apply w-bg-white;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding-top: 1rem;
-    margin-bottom: 0.5rem;
   }
 
   &__mode-label {
@@ -141,7 +155,7 @@
   }
 
   &__mode-select {
-    @apply w-bg-white;
+    @apply w-bg-white w-outline-offset-inside;
     font-size: 1em;
     padding: 0.6rem 0.75rem;
     padding-inline-end: 2.5rem;
