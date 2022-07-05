@@ -3,6 +3,7 @@
 
     Variables accepted by this template:
 
+    - `classname` - if present, adds classname to the header class list. This will be the class/classes added to the header class list
     - `title` - Displayed as `h1`
     - `subtitle` - Within the `h1` tag but smaller
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
@@ -14,7 +15,7 @@
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
 
 {% endcomment %}
-<header class="header {% if merged %}merged{% endif %} {% if search_form %}hasform{% endif %}">
+<header class="{% classnames "header" classname merged|yesno:"merged," search_form|yesno:"hasform," %}">
     {% block breadcrumb %}{% endblock %}
     <div class="row">
         <div class="left">
