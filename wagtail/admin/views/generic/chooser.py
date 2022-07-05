@@ -15,8 +15,10 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.forms.choosers import CollectionFilterMixin, SearchFilterMixin
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.models import CollectionMember
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -73,16 +75,16 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if self.filter_form_class:
             return self.filter_form_class
         else:
-            fields = {}
+            bases = [forms.Form]
             if class_is_indexed(self.model):
-                fields["q"] = forms.CharField(
-                    label=_("Search term"), widget=forms.TextInput(), required=False
-                )
+                bases.insert(0, SearchFilterMixin)
+            if issubclass(self.model, CollectionMember):
+                bases.insert(0, CollectionFilterMixin)
 
             return type(
                 "FilterForm",
-                (forms.Form,),
-                fields,
+                tuple(bases),
+                {},
             )
 
     def get_filter_form(self):
