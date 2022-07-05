@@ -56,6 +56,7 @@ Changelog
  * Introduce new template fragment and block level enclosure tags for easier template composition (Thibaud Colas)
  * Add a `classnames` template tag to easily build up classes from variables provided to a template (Paarth Agarwal)
  * Migrate the dashboard (home) view header to the shared header template and update designs (Paarth Agarwal)
+ * Update classes and styles for the shared header templates to align with UI guidelines (Paarth Agarwal)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

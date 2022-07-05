@@ -3,14 +3,14 @@
 {% block titletag %}{% blocktrans trimmed %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
-    <header class="header merged">
+    <header class="w-header w-header--merged">
         <div class="row">
             <div class="left">
                 <div class="col">
-                    <h1 class="header__title">
-                        {% icon name="cogs" %}
+                    <h1 class="w-header__title">
+                        {% icon class_name="w-header__glpyh" name="cogs" %}
                         {% trans "Editing" %}
-                        <span class="header__subtitle">{{ setting_type_name|capfirst }}</span>
+                        <span class="w-header__subtitle">{{ setting_type_name|capfirst }}</span>
                     </h1>
                 </div>
             </div>

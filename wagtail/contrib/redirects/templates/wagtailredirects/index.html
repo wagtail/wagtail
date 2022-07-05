@@ -27,12 +27,15 @@
         {% trans "Import redirects" as import_str %}
         {% trans "Export redirects" as export_str %}
 
-        <header class="header hasform">
+        <header class="w-header w-header--hasform">
             {% block breadcrumb %}{% endblock %}
             <div class="row">
                 <div class="left">
                     <div class="col">
-                        <h1>{% icon name="redirect" %}{{ redirects_str }}</h1>
+                        <h1 class="w-header__title">
+                            {% icon class_name="w-header__glpyh" name="redirect" %}
+                            {{ redirects_str }}
+                        </h1>
                     </div>
                     <form class="col search-form" action="{% url "wagtailredirects:index" %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
                         <ul class="fields">

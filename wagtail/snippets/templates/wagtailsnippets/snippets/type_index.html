@@ -19,12 +19,12 @@
 {% block content %}
     {% include 'wagtailsnippets/snippets/headers/list_header.html' %}
 
-    <header class="header">
+    <header class="w-header">
         <div class="row">
             <div class="left">
                 <div class="col">
-                    <h1 class="header__title">
-                        {% icon name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
+                    <h1 class="w-header__title">
+                        {% icon class_name="w-header__glpyh" name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
                     </h1>
                     {% if is_searchable and search_url %}
                         <form class="col search-form" action="{% url search_url %}" method="get" novalidate>
