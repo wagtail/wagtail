@@ -1376,7 +1376,7 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         self.assertEqual(response_json["step"], "chosen")
         result = response_json["result"]
 
-        self.assertEqual(result["id"], self.image.id)
+        self.assertEqual(result["id"], str(self.image.id))
         self.assertEqual(result["title"], "Test image")
         self.assertEqual(result["format"], "left")
         self.assertEqual(result["alt"], 'Arthur "two sheds" Jackson')
