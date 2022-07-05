@@ -73,6 +73,12 @@ function initPreview() {
   let spinnerTimeout;
   let hasPendingUpdate = false;
 
+  const finishUpdate = () => {
+    clearTimeout(spinnerTimeout);
+    loadingSpinner.classList.add('w-hidden');
+    hasPendingUpdate = false;
+  };
+
   const reloadIframe = () => {
     // Instead of reloading the iframe, we're replacing it with a new iframe to
     // prevent flashing
@@ -110,9 +116,7 @@ function initPreview() {
       newIframe.style = null;
 
       // Ready for another update
-      clearTimeout(spinnerTimeout);
-      loadingSpinner.classList.add('w-hidden');
-      hasPendingUpdate = false;
+      finishUpdate();
 
       // Remove the load event listener so it doesn't fire when switching modes
       newIframe.removeEventListener('load', handleLoad);
@@ -143,13 +147,16 @@ function initPreview() {
           !data.is_available,
         );
 
-        reloadIframe();
+        if (data.is_valid) {
+          reloadIframe();
+        } else {
+          finishUpdate();
+        }
+
         return data.is_valid;
       })
       .catch((error) => {
-        clearTimeout(spinnerTimeout);
-        loadingSpinner.classList.add('w-hidden');
-        hasPendingUpdate = false;
+        finishUpdate();
         // Re-throw error so it can be handled by handlePreview
         throw error;
       });
