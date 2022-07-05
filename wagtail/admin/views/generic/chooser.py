@@ -53,6 +53,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     model = None
     per_page = 10
+    ordering = None
     chosen_url_name = None
     results_url_name = None
     icon = "snippet"
@@ -62,11 +63,18 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     results_template_name = "wagtailadmin/generic/chooser/results.html"
 
     def get_object_list(self):
-        objects = self.model.objects.all()
+        return self.model.objects.all()
 
-        # Preserve the model-level ordering if specified, but fall back on PK if not
-        # (to ensure pagination is consistent)
-        if not objects.ordered:
+    def apply_object_list_ordering(self, objects):
+        if isinstance(self.ordering, (list, tuple)):
+            objects = objects.order_by(*self.ordering)
+        elif self.ordering:
+            objects = objects.order_by(self.ordering)
+        elif objects.ordered:
+            # Preserve the model-level ordering if specified
+            pass
+        else:
+            # fall back on PK to ensure pagination is consistent
             objects = objects.order_by("pk")
 
         return objects
@@ -122,6 +130,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     def get(self, request):
         objects = self.get_object_list()
+        objects = self.apply_object_list_ordering(objects)
         self.is_searching = False
         self.search_query = None
         self.is_filtering_by_collection = False
