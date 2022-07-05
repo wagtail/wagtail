@@ -81,13 +81,13 @@ class BaseImageChooseView(BaseChooseView):
     template_name = "wagtailimages/chooser/chooser.html"
     results_template_name = "wagtailimages/chooser/results.html"
     per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
+    ordering = "-created_at"
 
     def get_object_list(self):
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["choose"]
             )
-            .order_by("-created_at")
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )

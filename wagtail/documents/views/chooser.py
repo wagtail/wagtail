@@ -69,6 +69,7 @@ class DownloadColumn(Column):
 class BaseDocumentChooseView(BaseChooseView):
     results_template_name = "wagtaildocs/chooser/results.html"
     per_page = 10
+    ordering = "-created_at"
 
     def get_object_list(self):
         documents = self.permission_policy.instances_user_has_any_permission_for(
@@ -94,8 +95,6 @@ class BaseDocumentChooseView(BaseChooseView):
         if self.search_query:
             documents = documents.search(self.search_query)
             self.is_searching = True
-        else:
-            documents = documents.order_by("-created_at")
 
         return documents
 
