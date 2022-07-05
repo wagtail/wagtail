@@ -104,8 +104,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET)
 
-    def filter_object_list(self, objects, form):
-        return form.filter(objects)
+    def filter_object_list(self, objects):
+        self.filter_form = self.get_filter_form()
+        if self.filter_form.is_valid():
+            objects = self.filter_form.filter(objects)
+        return objects
 
     def get_results_url(self):
         return reverse(self.results_url_name)
@@ -125,10 +128,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     def get(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
-
-        self.filter_form = self.get_filter_form()
-        if self.filter_form.is_valid():
-            objects = self.filter_object_list(objects, self.filter_form)
+        objects = self.filter_object_list(objects)
 
         paginator = Paginator(objects, per_page=self.per_page)
         self.results = paginator.get_page(request.GET.get("p"))
