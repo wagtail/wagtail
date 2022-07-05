@@ -85,9 +85,10 @@ class BaseDocumentChooseView(BaseChooseView):
         return FilterForm(self.request.GET, collections=self.collections)
 
     def filter_object_list(self, documents, form):
-        self.collection_id = form.cleaned_data.get("collection_id")
-        if self.collection_id:
-            documents = documents.filter(collection=self.collection_id)
+        collection_id = form.cleaned_data.get("collection_id")
+        if collection_id:
+            self.is_filtering_by_collection = True
+            documents = documents.filter(collection=collection_id)
 
         self.search_query = form.cleaned_data.get("q")
         if self.search_query:
@@ -122,14 +123,7 @@ class BaseDocumentChooseView(BaseChooseView):
 
     def get(self, request):
         self.model = get_document_model()
-        self.collection_id = None
-
         return super().get(request)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["collection_id"] = self.collection_id
-        return context
 
 
 class DocumentChooseViewMixin(ChooseViewMixin):
