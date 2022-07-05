@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
@@ -19,6 +19,7 @@ from wagtail.admin.views.generic.chooser import (
     CreateViewMixin,
     CreationFormMixin,
 )
+from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
@@ -45,7 +46,6 @@ class ImageChosenResponseMixin(ChosenResponseMixin):
 
 class ImageCreationFormMixin(CreationFormMixin):
     creation_tab_id = "upload"
-    create_url_name = "wagtailimages:chooser_upload"
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
     permission_policy = permission_policy
@@ -74,9 +74,6 @@ class ImageCreationFormMixin(CreationFormMixin):
 
 
 class BaseImageChooseView(BaseChooseView):
-    icon = "image"
-    page_title = _("Choose an image")
-    results_url_name = "wagtailimages:chooser_results"
     template_name = "wagtailimages/chooser/chooser.html"
     results_template_name = "wagtailimages/chooser/results.html"
     per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 12)
@@ -140,11 +137,13 @@ class ImageChooseViewMixin(ChooseViewMixin):
         return json_data
 
 
-class ChooseView(ImageChooseViewMixin, ImageCreationFormMixin, BaseImageChooseView):
+class ImageChooseView(
+    ImageChooseViewMixin, ImageCreationFormMixin, BaseImageChooseView
+):
     pass
 
 
-class ChooseResultsView(
+class ImageChooseResultsView(
     ChooseResultsViewMixin, ImageCreationFormMixin, BaseImageChooseView
 ):
     pass
@@ -205,9 +204,9 @@ class ImageUploadViewMixin(SelectFormatResponseMixin, CreateViewMixin):
 
     def render_duplicate_found_response(self, request, new_image, existing_image):
         next_step_url = (
-            "wagtailimages:chooser_select_format"
+            "wagtailimages_chooser:select_format"
             if request.GET.get("select_format")
-            else "wagtailimages:image_chosen"
+            else "wagtailimages_chooser:chosen"
         )
         choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
         choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
@@ -246,8 +245,10 @@ class ImageUploadView(
 
 
 class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin, View):
+    model = None
+
     def get(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+        image = get_object_or_404(self.model, id=image_id)
         initial = {"alt_text": image.default_alt_text}
         initial.update(request.GET.dict())
         # If you edit an existing image, and there is no alt text, ensure that
@@ -284,3 +285,42 @@ class ImageSelectFormatView(SelectFormatResponseMixin, ImageChosenResponseMixin,
             return self.get_chosen_response(image)
         else:
             return self.render_select_format_response(image, self.form)
+
+
+class ImageChooserViewSet(ChooserViewSet):
+    choose_view_class = ImageChooseView
+    choose_results_view_class = ImageChooseResultsView
+    chosen_view_class = ImageChosenView
+    create_view_class = ImageUploadView
+    select_format_view_class = ImageSelectFormatView
+    permission_policy = permission_policy
+    register_widget = False
+
+    icon = "image"
+    choose_one_text = _("Choose an image")
+    create_action_label = _("Upload")
+    create_action_clicked_label = _("Uploading…")
+    choose_another_text = _("Choose another image")
+    edit_item_text = _("Edit this image")
+
+    @property
+    def select_format_view(self):
+        return self.select_format_view_class.as_view(
+            model=self.model,
+        )
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            path(
+                "<int:image_id>/select_format/",
+                self.select_format_view,
+                name="select_format",
+            ),
+        ]
+
+
+viewset = ImageChooserViewSet(
+    "wagtailimages_chooser",
+    model=get_image_model(),
+    url_prefix="images/chooser",
+)

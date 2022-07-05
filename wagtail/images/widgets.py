@@ -17,7 +17,7 @@ class AdminImageChooser(BaseChooser):
     choose_another_text = _("Change image")
     link_to_chosen_text = _("Edit this image")
     template_name = "wagtailimages/widgets/image_chooser.html"
-    chooser_modal_url_name = "wagtailimages:chooser"
+    chooser_modal_url_name = "wagtailimages_chooser:choose"
     icon = "image"
     classname = "image-chooser"
 

@@ -1090,7 +1090,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         self.user = self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailimages:chooser"), params)
+        return self.client.get(reverse("wagtailimages_chooser:choose"), params)
 
     def test_simple(self):
         response = self.get()
@@ -1305,7 +1305,7 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
 
     def get(self, params={}):
         return self.client.get(
-            reverse("wagtailimages:image_chosen", args=(self.image.id,)), params
+            reverse("wagtailimages_chooser:chosen", args=(self.image.id,)), params
         )
 
     def test_simple(self):
@@ -1328,13 +1328,13 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
 
     def get(self, params={}):
         return self.client.get(
-            reverse("wagtailimages:chooser_select_format", args=(self.image.id,)),
+            reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             params,
         )
 
     def post(self, post_data={}):
         return self.client.post(
-            reverse("wagtailimages:chooser_select_format", args=(self.image.id,)),
+            reverse("wagtailimages_chooser:select_format", args=(self.image.id,)),
             post_data,
         )
 
@@ -1416,7 +1416,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailimages:chooser_upload"), params)
+        return self.client.get(reverse("wagtailimages_chooser:create"), params)
 
     def test_simple(self):
         response = self.get()
@@ -1429,7 +1429,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_upload(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1456,7 +1456,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_upload_no_file_selected(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
             },
@@ -1474,7 +1474,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_upload_duplicate(self):
         def post_image(title="Test image"):
             return self.client.post(
-                reverse("wagtailimages:chooser_upload"),
+                reverse("wagtailimages_chooser:create"),
                 {
                     "image-chooser-upload-title": title,
                     "image-chooser-upload-file": SimpleUploadedFile(
@@ -1501,7 +1501,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["existing_image"], existing_image)
 
         choose_new_image_action = reverse(
-            "wagtailimages:image_chosen", args=(new_image.id,)
+            "wagtailimages_chooser:chosen", args=(new_image.id,)
         )
         self.assertEqual(
             response.context["confirm_duplicate_upload_action"], choose_new_image_action
@@ -1513,7 +1513,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             + urlencode(
                 {
                     "next": reverse(
-                        "wagtailimages:image_chosen", args=(existing_image.id,)
+                        "wagtailimages_chooser:chosen", args=(existing_image.id,)
                     )
                 }
             )
@@ -1530,7 +1530,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_upload_duplicate_select_format(self):
         def post_image(title="Test image"):
             return self.client.post(
-                reverse("wagtailimages:chooser_upload") + "?select_format=true",
+                reverse("wagtailimages_chooser:create") + "?select_format=true",
                 {
                     "image-chooser-upload-title": title,
                     "image-chooser-upload-file": SimpleUploadedFile(
@@ -1552,7 +1552,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         existing_image = Image.objects.get(title="Test image")
 
         choose_new_image_action = reverse(
-            "wagtailimages:chooser_select_format", args=(new_image.id,)
+            "wagtailimages_chooser:select_format", args=(new_image.id,)
         )
         self.assertEqual(
             response.context["confirm_duplicate_upload_action"], choose_new_image_action
@@ -1564,7 +1564,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             + urlencode(
                 {
                     "next": reverse(
-                        "wagtailimages:chooser_select_format", args=(existing_image.id,)
+                        "wagtailimages_chooser:select_format", args=(existing_image.id,)
                     )
                 }
             )
@@ -1579,7 +1579,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertEqual(response_json["step"], "duplicate_found")
 
     def test_select_format_flag_after_upload_form_error(self):
-        submit_url = reverse("wagtailimages:chooser_upload") + "?select_format=true"
+        submit_url = reverse("wagtailimages_chooser:create") + "?select_format=true"
         response = self.client.post(
             submit_url,
             {
@@ -1610,7 +1610,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         """
         Check the error message is accruate for a valid imate bug invalid file extension.
         """
-        submit_url = reverse("wagtailimages:chooser_upload") + "?select_format=true"
+        submit_url = reverse("wagtailimages_chooser:create") + "?select_format=true"
         response = self.client.post(
             submit_url,
             {
@@ -1642,7 +1642,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     )
     def test_upload_with_external_storage(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1669,7 +1669,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
@@ -1719,7 +1719,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
         self.login(username="moriarty", password="password")
 
     def test_get(self):
-        response = self.client.get(reverse("wagtailimages:chooser_upload"))
+        response = self.client.get(reverse("wagtailimages_chooser:create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailadmin/generic/chooser/creation_form.html"
@@ -1730,7 +1730,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
         self.assertNotContains(response, '<label for="id_collection">')
 
     def test_get_chooser(self):
-        response = self.client.get(reverse("wagtailimages:chooser"))
+        response = self.client.get(reverse("wagtailimages_chooser:choose"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
@@ -1740,7 +1740,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
 
     def test_add(self):
         response = self.client.post(
-            reverse("wagtailimages:chooser_upload"),
+            reverse("wagtailimages_chooser:create"),
             {
                 "image-chooser-upload-title": "Test image",
                 "image-chooser-upload-file": SimpleUploadedFile(
