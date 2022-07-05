@@ -106,18 +106,6 @@ class BaseImageChooseView(BaseChooseView):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET, collections=self.collections)
 
-    def filter_object_list(self, images, form):
-        collection_id = form.cleaned_data.get("collection_id")
-        if collection_id:
-            images = images.filter(collection=collection_id)
-
-        self.search_query = form.cleaned_data["q"]
-        if self.search_query:
-            self.is_searching = True
-            images = images.search(self.search_query)
-
-        return images
-
     @cached_property
     def collections(self):
         collections = self.permission_policy.collections_user_has_permission_for(

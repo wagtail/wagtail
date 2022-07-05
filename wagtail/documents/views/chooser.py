@@ -85,19 +85,6 @@ class BaseDocumentChooseView(BaseChooseView):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET, collections=self.collections)
 
-    def filter_object_list(self, documents, form):
-        collection_id = form.cleaned_data.get("collection_id")
-        if collection_id:
-            self.is_filtering_by_collection = True
-            documents = documents.filter(collection=collection_id)
-
-        self.search_query = form.cleaned_data.get("q")
-        if self.search_query:
-            documents = documents.search(self.search_query)
-            self.is_searching = True
-
-        return documents
-
     @cached_property
     def collections(self):
         collections = self.permission_policy.collections_user_has_permission_for(
