@@ -190,17 +190,9 @@ def edit(request, image_id):
     next_url = get_valid_next_url_from_request(request)
 
     if request.method == "POST":
-        original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
             form.save()
-
-            if "file" in form.changed_data:
-                # if providing a new image file, delete the old one and all renditions.
-                # NB Doing this via original_file.delete() clears the file field,
-                # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
-                image.renditions.all().delete()
 
             edit_url = reverse("wagtailimages:edit", args=(image.id,))
             redirect_url = "wagtailimages:index"
