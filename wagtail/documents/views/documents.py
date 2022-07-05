@@ -19,7 +19,6 @@ from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.models import Collection
-from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -133,11 +132,7 @@ def add(request):
             request.POST, request.FILES, instance=doc, user=request.user
         )
         if form.is_valid():
-            doc._set_document_file_metadata()
             form.save()
-
-            # Reindex the document to make sure all tags are indexed
-            search_index.insert_or_update_object(doc)
 
             messages.success(
                 request,
@@ -183,21 +178,12 @@ def edit(request, document_id):
             request.POST, request.FILES, instance=doc, user=request.user
         )
         if form.is_valid():
+            doc = form.save()
             if "file" in form.changed_data:
-                doc = form.save(commit=False)
-                doc._set_document_file_metadata()
-                doc.save()
-                form.save_m2m()
-
                 # If providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
                 original_file.storage.delete(original_file.name)
-            else:
-                doc = form.save()
-
-            # Reindex the document to make sure all tags are indexed
-            search_index.insert_or_update_object(doc)
 
             edit_url = reverse("wagtaildocs:edit", args=(doc.id,))
             redirect_url = "wagtaildocs:index"

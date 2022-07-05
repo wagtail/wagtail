@@ -23,7 +23,6 @@ from wagtail.admin.widgets import BaseChooser
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
-from wagtail.search import index as search_index
 
 
 class DocumentChosenResponseMixin(ChosenResponseMixin):
@@ -191,16 +190,6 @@ class DocumentChooserUploadView(
     def dispatch(self, request, *args, **kwargs):
         self.model = get_document_model()
         return super().dispatch(request, *args, **kwargs)
-
-    def save_form(self, form):
-        document = form.instance
-        document._set_document_file_metadata()
-        form.save()
-
-        # Reindex the document to make sure all tags are indexed
-        search_index.insert_or_update_object(document)
-
-        return document
 
 
 class BaseAdminDocumentChooser(BaseChooser):

@@ -9,7 +9,6 @@ from wagtail.admin.views.generic.multiple_upload import (
 )
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
-from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
@@ -81,10 +80,6 @@ class EditView(BaseEditView):
     def save_object(self, form):
         form.save()
 
-        # Reindex the doc to make sure all tags are indexed
-        for backend in get_search_backends():
-            backend.add(self.object)
-
 
 class DeleteView(BaseDeleteView):
     permission_policy = permission_policy
@@ -118,12 +113,11 @@ class CreateFromUploadedDocumentView(BaseCreateFromUploadView):
             os.path.basename(self.upload.file.name), self.upload.file.file, save=False
         )
         self.object.uploaded_by_user = self.request.user
+
+        # form.save() would normally handle writing the image file metadata, but in this case the
+        # file handling happens outside the form, so we need to do that manually
         self.object._set_document_file_metadata()
         form.save()
-
-        # Reindex the document to make sure all tags are indexed
-        for backend in get_search_backends():
-            backend.add(self.object)
 
 
 class DeleteUploadView(BaseDeleteUploadView):
