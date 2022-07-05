@@ -19,7 +19,6 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
 
 window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
   new DocumentChooserModalOnloadHandlerFactory({
-    searchFilterSelectors: ['#id_collection_id'],
     searchInputDelay: 50,
     creationFormFileFieldSelector: '#id_document-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
