@@ -859,7 +859,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             response, "<title>Wagtail - Preview error</title>", html=True
         )
         self.assertContains(
-            response, '<h1 class="header__title">Preview error</h1>', html=True
+            response, '<h1 class="w-header__title">Preview error</h1>', html=True
         )
 
     @override_settings(

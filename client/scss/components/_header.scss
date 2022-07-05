@@ -1,12 +1,8 @@
 @use 'sass:math';
 @use 'sass:color';
 
-header {
+.w-header {
   @apply w-text-primary w-mb-8;
-
-  a {
-    @apply w-text-primary w-underline;
-  }
 
   h1,
   h2 {
@@ -19,7 +15,6 @@ header {
     position: relative;
   }
 
-  h1 > svg.icon, // can remove once all headers use shared include
   .w-header__glpyh {
     position: absolute;
     inset-inline-start: -1.5em;
@@ -42,8 +37,8 @@ header {
   }
 
   // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
-  // Use header--with-padding for headers that don't contain .row elements.
-  &.header--with-padding,
+  // Use w-header--with-padding for headers that don't contain .row elements.
+  &.w-header--with-padding,
   > .row {
     padding-top: 0.5rem;
     padding-bottom: 1.5rem;
@@ -51,7 +46,7 @@ header {
     padding-inline-end: 20px;
   }
 
-  &.merged .w-breadcrumb {
+  &.w-header--merged .w-breadcrumb {
     padding-inline-start: $mobile-nav-indent;
   }
 
@@ -65,11 +60,6 @@ header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-
-    .hasform &:first-child {
-      padding-bottom: 0.5em;
-      float: none;
-    }
   }
 
   .right {
@@ -87,21 +77,16 @@ header {
   }
 
   // For case where content below header should merge with it
-  &.merged {
+  &.w-header--merged {
     margin-bottom: 0;
     padding-bottom: 1rem;
   }
 
-  &.no-border {
+  &.w-header--no-border {
     border: 0;
   }
 
-  &.merged.no-border {
-    padding-bottom: 0;
-  }
-
-  &.no-v-padding {
-    padding-top: 0;
+  &.w-header--merged.w-header--no-border {
     padding-bottom: 0;
   }
 
@@ -165,20 +150,20 @@ header {
 
 // Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
-  header .field-content {
+  .w-header .field-content {
     border: 0.1em solid $system-color-link-text;
   }
 }
 
 @include media-breakpoint-up(sm) {
-  header {
+  .w-header {
     .row {
       padding-top: 1.5rem;
       padding-inline-start: 90px;
       padding-inline-end: 90px;
     }
 
-    &.merged .w-breadcrumb {
+    &.w-header--merged .w-breadcrumb {
       padding-inline-start: 0;
     }
 
