@@ -92,6 +92,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         return FilterForm(self.request.GET)
 
     def filter_object_list(self, objects, form):
+        collection_id = form.cleaned_data.get("collection_id")
+        if collection_id:
+            self.is_filtering_by_collection = True
+            objects = objects.filter(collection=collection_id)
+
         search_query = form.cleaned_data.get("q")
         if search_query:
             search_backend = get_search_backend()
@@ -119,6 +124,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         objects = self.get_object_list()
         self.is_searching = False
         self.search_query = None
+        self.is_filtering_by_collection = False
 
         self.filter_form = self.get_filter_form()
         if self.filter_form.is_valid():
@@ -138,6 +144,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "table": self.table,
                 "results_url": self.get_results_url(),
                 "is_searching": self.is_searching,
+                "is_filtering_by_collection": self.is_filtering_by_collection,
                 "search_query": self.search_query,
                 "can_create": self.can_create(),
             }
