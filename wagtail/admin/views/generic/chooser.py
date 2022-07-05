@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -8,7 +7,6 @@ from django.core.exceptions import (
 from django.core.paginator import Paginator
 from django.forms.models import modelform_factory
 from django.http import Http404
-from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -17,15 +15,15 @@ from django.views.generic.base import ContextMixin, View
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms.choosers import (
+    BaseFilterForm,
     CollectionFilterMixin,
     LocaleFilterMixin,
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
-from wagtail.models import CollectionMember, Locale, TranslatableMixin
+from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
-from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 
@@ -88,7 +86,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if self.filter_form_class:
             return self.filter_form_class
         else:
-            bases = [forms.Form]
+            bases = [BaseFilterForm]
             if class_is_indexed(self.model):
                 bases.insert(0, SearchFilterMixin)
             if issubclass(self.model, CollectionMember):
@@ -107,25 +105,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         return FilterForm(self.request.GET)
 
     def filter_object_list(self, objects, form):
-        collection_id = form.cleaned_data.get("collection_id")
-        if collection_id:
-            self.is_filtering_by_collection = True
-            objects = objects.filter(collection=collection_id)
-
-        selected_locale_code = form.cleaned_data.get("locale")
-        if selected_locale_code:
-            selected_locale = get_object_or_404(
-                Locale, language_code=selected_locale_code
-            )
-            objects = objects.filter(locale=selected_locale)
-
-        search_query = form.cleaned_data.get("q")
-        if search_query:
-            search_backend = get_search_backend()
-            objects = search_backend.search(search_query, objects)
-            self.is_searching = True
-            self.search_query = search_query
-        return objects
+        return form.filter(objects)
 
     def get_results_url(self):
         return reverse(self.results_url_name)
@@ -145,9 +125,6 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     def get(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
-        self.is_searching = False
-        self.search_query = None
-        self.is_filtering_by_collection = False
 
         self.filter_form = self.get_filter_form()
         if self.filter_form.is_valid():
@@ -166,9 +143,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results": self.results,
                 "table": self.table,
                 "results_url": self.get_results_url(),
-                "is_searching": self.is_searching,
-                "is_filtering_by_collection": self.is_filtering_by_collection,
-                "search_query": self.search_query,
+                "is_searching": self.filter_form.is_searching,
+                "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
+                "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
             }
         )
