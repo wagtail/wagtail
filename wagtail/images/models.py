@@ -237,6 +237,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return self.file_hash
 
     def _set_image_file_metadata(self):
+        self.file.open()
+
         # Set new image file size
         self.file_size = self.file.size
 
