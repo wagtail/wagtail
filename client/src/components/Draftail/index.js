@@ -20,7 +20,7 @@ import CommentableEditor, {
   getSplitControl,
 } from './CommentableEditor/CommentableEditor';
 
-export { default as Link } from './decorators/Link';
+export { default as Link, onPasteLink } from './decorators/Link';
 export { default as Document } from './decorators/Document';
 export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
