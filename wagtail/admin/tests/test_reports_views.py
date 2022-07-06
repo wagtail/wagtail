@@ -142,6 +142,9 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         )
         self.assertEqual(len(cell_array), 2)
 
+        self.assertEqual(worksheet["B2"].number_format, ExcelDateFormatter().get())
+        self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
+
 
 class TestFilteredLockedPagesView(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
@@ -406,6 +409,8 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
             ],
         )
         self.assertEqual(len(cell_array), 2)
+
+        self.assertEqual(worksheet["C2"].number_format, ExcelDateFormatter().get())
 
 
 class TestFilteredAgingPagesView(TestCase, WagtailTestUtils):
