@@ -130,3 +130,10 @@ $draftail-editor-font-family: $font-sans;
   margin: 1em 0;
   padding: 1em 2em;
 }
+
+// Temporary workaround for Firefox bug where the placeholder hides the list item markers.
+@supports (-moz-appearance: none) {
+  .Draftail-Placeholder {
+    display: none;
+  }
+}
