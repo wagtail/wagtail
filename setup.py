@@ -33,8 +33,7 @@ install_requires = [
     "Willow>=1.4,<1.5",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
-    "xlsxwriter>=1.2.8,<4.0",
-    "tablib[xlsx]>=0.14.0",
+    "openpyxl>=3.0.10,<4.0",
     "anyascii>=0.1.5",
     "telepath>=0.1.1,<1",
 ]
@@ -48,7 +47,6 @@ testing_extras = [
     "Jinja2>=3.0,<3.2",
     "boto3>=1.16,<1.17",
     "freezegun>=0.3.8",
-    "openpyxl>=2.6.4",
     "azure-mgmt-cdn>=5.1,<6.0",
     "azure-mgmt-frontdoor>=0.3,<0.4",
     "django-pattern-library>=0.7,<0.8",
