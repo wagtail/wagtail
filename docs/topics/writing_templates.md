@@ -18,7 +18,7 @@ For each page model in `models.py`, Wagtail assumes an HTML template file exists
 
 To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a `BlogPage`, a template `blog_page.html` will be expected. The name of the template file can be overridden per model if necessary.
 
-Template files are assumed to exist here::
+Template files are assumed to exist here:
 
 ```
 name_of_project/
@@ -41,7 +41,7 @@ Additionally `request.` is available and contains Django's request object.
 
 ## Static assets
 
-Static files e.g CSS, JS and images are typically stored here::
+Static files e.g CSS, JS and images are typically stored here:
 
 ```
 name_of_project/

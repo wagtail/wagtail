@@ -16,9 +16,11 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         )
         self.homepage = Page.objects.get(id=2)
 
-    def dummy_request(self, user=None):
+    def dummy_request(self, user=None, is_preview=False):
         request = RequestFactory().get("/")
         request.user = user or AnonymousUser()
+        if is_preview:
+            request.is_preview = True
         return request
 
     def test_userbar_tag(self):
@@ -81,6 +83,32 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         )
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
+    def test_edit_link(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(
+            Context(
+                {
+                    PAGE_TEMPLATE_VAR: self.homepage,
+                    "request": self.dummy_request(self.user, is_preview=False),
+                }
+            )
+        )
+        self.assertIn("<!-- Wagtail user bar embed code -->", content)
+        self.assertIn("Edit this page", content)
+
+    def test_userbar_not_in_preview(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(
+            Context(
+                {
+                    PAGE_TEMPLATE_VAR: self.homepage,
+                    "request": self.dummy_request(self.user, is_preview=True),
+                }
+            )
+        )
+        self.assertIn("<!-- Wagtail user bar embed code -->", content)
+        self.assertNotIn("Edit this page", content)
 
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):

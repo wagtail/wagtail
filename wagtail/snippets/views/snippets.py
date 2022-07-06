@@ -34,6 +34,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
+from wagtail.snippets.side_panels import SnippetSidePanels
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
@@ -236,14 +237,20 @@ class Create(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        media = context.get("media")
         action_menu = self._get_action_menu()
+        media = context.get("media") + action_menu.media
+
+        side_panels = None
+        if self.locale:
+            side_panels = SnippetSidePanels(self.request, self.model())
+            media += side_panels.media
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
-                "media": media + action_menu.media,
+                "side_panels": side_panels,
+                "media": media,
             }
         )
 
@@ -329,9 +336,6 @@ class Edit(EditView):
             self.request, view=self.view_name, instance=self.object
         )
 
-    def _get_latest_log_entry(self):
-        return log_registry.get_logs_for_instance(self.object).first()
-
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
@@ -340,16 +344,14 @@ class Edit(EditView):
 
         media = context.get("media")
         action_menu = self._get_action_menu()
-        latest_log_entry = self._get_latest_log_entry()
+        side_panels = SnippetSidePanels(self.request, self.object)
 
         context.update(
             {
                 "model_opts": self.model._meta,
-                "instance": self.object,
                 "action_menu": action_menu,
-                "latest_log_entry": latest_log_entry,
-                "history_url": self.get_history_url(),
-                "media": media + action_menu.media,
+                "side_panels": side_panels,
+                "media": media + action_menu.media + side_panels.media,
             }
         )
 
@@ -455,17 +457,18 @@ class Usage(IndexView):
     template_name = "wagtailsnippets/snippets/usage.html"
     paginate_by = 20
     page_kwarg = "p"
+    is_searchable = False
 
     def setup(self, request, *args, pk, **kwargs):
         super().setup(request, *args, **kwargs)
         self.pk = pk
-        self.instance = self._get_instance()
+        self.object = self.get_object()
 
-    def _get_instance(self):
+    def get_object(self):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get_queryset(self):
-        return self.instance.get_usage()
+        return self.object.get_usage()
 
     def paginate_queryset(self, queryset, page_size):
         paginator = self.get_paginator(
@@ -481,7 +484,13 @@ class Usage(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"instance": self.instance, "used_by": context.get("page_obj")})
+        context.update(
+            {
+                "object": self.object,
+                "used_by": context.get("page_obj"),
+                "model_opts": self.model._meta,
+            }
+        )
         return context
 
 
@@ -536,6 +545,7 @@ class ActionColumn(Column):
 
 class History(ReportView):
     view_name = "history"
+    index_url_name = None
     edit_url_name = None
     revisions_revert_url_name = None
     revisions_compare_url_name = None
@@ -565,6 +575,7 @@ class History(ReportView):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
         context["subtitle"] = self.get_page_subtitle()
+        context["model_opts"] = self.model._meta
         return context
 
     def get_queryset(self):
@@ -672,6 +683,8 @@ class SnippetViewSet(ViewSet):
         return self.usage_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("list"),
+            edit_url_name=self.get_url_name("edit"),
         )
 
     @property
@@ -679,6 +692,7 @@ class SnippetViewSet(ViewSet):
         return self.history_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),

@@ -1,9 +1,4 @@
 {% load i18n %}
-{% comment  "text/markdown" %}
-    Variables this template accepts:
-
-    `page` - A wagtail page object
-{% endcomment %}
 {% if page.live %}
     {% with page_url=page.url %}
         {% if page_url is not None %}

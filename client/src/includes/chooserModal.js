@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import $ from 'jquery';
 import { initTabs } from './tabs';
+import { initTooltips } from './initTooltips';
 import { gettext } from '../utils/gettext';
 
 const submitCreationForm = (modal, form, { errorContainerSelector }) => {
@@ -168,7 +169,7 @@ class ChooserModalOnloadHandlerFactory {
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
     this.searchInputDelay = opts?.searchInputDelay || 200;
     this.creationFormSelector =
-      opts?.creationFormSelector || 'form[data-chooser-modal-create]';
+      opts?.creationFormSelector || 'form[data-chooser-modal-creation-form]';
     this.creationFormTabSelector =
       opts?.creationFormTabSelector || '#tab-create';
     this.creationFormFileFieldSelector = opts?.creationFormFileFieldSelector;
@@ -197,6 +198,9 @@ class ChooserModalOnloadHandlerFactory {
 
     // Reinitialize tabs to hook up tab event listeners in the modal
     if (this.modalHasTabs(modal)) initTabs();
+
+    // Reinitialise any tooltips
+    initTooltips();
   }
 
   // eslint-disable-next-line class-methods-use-this

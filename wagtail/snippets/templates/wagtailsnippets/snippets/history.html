@@ -2,9 +2,16 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{% blocktrans trimmed with title=subtitle %}Snippet history for {{ subtitle }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
 
 {% block actions %}
     <a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button bicolor icon icon-edit">{% trans "Edit this snippet" %}</a>
+{% endblock %}
+
+{% block content %}
+    {% include 'wagtailsnippets/snippets/headers/history_header.html' %}
+
+    {{ block.super }}
 {% endblock %}
 
 {% block results %}

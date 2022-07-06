@@ -1,4 +1,4 @@
-{% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
 {% load wagtailadmin_tags i18n %}
 
 {% block content %}
@@ -23,11 +23,11 @@
     {% if user_can_unlock and page.locked %}
         {% url 'wagtailadmin_pages:unlock' page.id as unlock_url %}
         {% trans 'Unlock' as unlock_text %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=unlock_url text=unlock_text %}
+        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=unlock_url text=unlock_text %}
     {% endif %}
     {% if user_can_lock and not page.locked %}
         {% url 'wagtailadmin_pages:lock' page.id as lock_url %}
         {% trans 'Lock' as lock_text %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=lock_url text=lock_text %}
+        {% include 'wagtailadmin/shared/side_panels/includes/side_panel_button.html' with attr='data-action-lock-unlock' data_url=lock_url text=lock_text %}
     {% endif %}
 {% endblock %}

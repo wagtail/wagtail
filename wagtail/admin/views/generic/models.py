@@ -18,9 +18,11 @@ from django.views.generic.list import BaseListView
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
+from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
-from wagtail.models import RevisionMixin
+from wagtail.log_actions import registry as log_registry
+from wagtail.models import DraftStateMixin, RevisionMixin
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
@@ -105,7 +107,7 @@ class IndexView(
     def get_search_url(self):
         if not self.is_searchable:
             return None
-        return self.get_index_url()
+        return self.index_url_name
 
     def get_search_form(self):
         if self.model is None:
@@ -314,6 +316,11 @@ class EditView(
     error_message = None
     submit_button_label = gettext_lazy("Save")
 
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
+        self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+
     def get_object(self, queryset=None):
         if "pk" not in self.kwargs:
             self.kwargs["pk"] = self.args[0]
@@ -353,7 +360,7 @@ class EditView(
         self.has_content_changes = self.form.has_changed()
 
         # Save revision if the model inherits from RevisionMixin
-        if isinstance(instance, RevisionMixin):
+        if self.revision_enabled:
             revision = instance.save_revision(
                 user=self.request.user,
                 changed=self.has_content_changes,
@@ -384,6 +391,38 @@ class EditView(
         if self.error_message is None:
             return None
         return self.error_message
+
+    def get_live_last_updated_info(self):
+        # DraftStateMixin is applied but object is not live
+        if self.draftstate_enabled and not self.object.live:
+            return None
+
+        revision = None
+        # DraftStateMixin is applied and object is live
+        if self.draftstate_enabled and self.object.live_revision:
+            revision = self.object.live_revision
+        # RevisionMixin is applied, so object is assumed to be live
+        elif self.revision_enabled and self.object.latest_revision:
+            revision = self.object.latest_revision
+
+        # No mixin is applied or no revision exists, fall back to latest log entry
+        if not revision:
+            return log_registry.get_logs_for_instance(self.object).first()
+
+        return {
+            "timestamp": revision.created_at,
+            "user_display_name": user_display_name(revision.user),
+        }
+
+    def get_draft_last_updated_info(self):
+        if not (self.draftstate_enabled and self.object.has_unpublished_changes):
+            return None
+
+        revision = self.object.latest_revision
+        return {
+            "timestamp": revision.created_at,
+            "user_display_name": user_display_name(revision.user),
+        }
 
     def form_valid(self, form):
         self.form = form
@@ -420,6 +459,12 @@ class EditView(
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label
+
+        context["revision_enabled"] = self.revision_enabled
+        context["draftstate_enabled"] = self.draftstate_enabled
+
+        context["live_last_updated_info"] = self.get_live_last_updated_info()
+        context["draft_last_updated_info"] = self.get_draft_last_updated_info()
         return context
 
 

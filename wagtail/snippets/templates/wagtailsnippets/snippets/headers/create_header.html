@@ -1,0 +1,28 @@
+{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block breadcrumb_items %}
+    {{ block.super }}
+    <li class="{{ breadcrumb_item_classes }}">
+        <div class="w-flex w-justify-start w-items-center">
+            {{ title }}
+        </div>
+    </li>
+{% endblock %}
+
+{% block header_content %}
+    {% with model_opts.verbose_name|capfirst as model_name %}
+        {% trans 'New: '|add:model_name as title %}
+        {{ block.super }}
+
+        <h1 class="w-sr-only">
+            {{ title }}
+        </h1>
+    {% endwith %}
+{% endblock %}
+
+{% block actions %}
+    {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-h-[50px] w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary' %}
+        {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+    {% endwith %}
+{% endblock %}

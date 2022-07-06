@@ -256,21 +256,18 @@
                 Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
             </p>
 
-            <div class="help-block help-info">
-                {% icon name='help' %}
+            {% help_block status="info" %}
                 <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
                 <p>It could be multiple lines</p>
-            </div>
+            {% endhelp_block %}
 
-            <p class="help-block help-warning">
-                {% icon name='warning' %}
+            {% help_block status="warning" %}
                 A warning message might be output in cases where a user's action could have serious consequences
-            </p>
+            {% endhelp_block %}
 
-            <div class="help-block help-critical">
-                {% icon name='warning' %}
+            {% help_block status="critical" %}
                 A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
-            </div>
+            {% endhelp_block %}
 
         </section>
 

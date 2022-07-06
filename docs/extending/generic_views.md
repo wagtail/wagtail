@@ -60,6 +60,7 @@ class PersonChooserViewSet(ChooserViewSet):
     choose_one_text = "Choose a person"
     choose_another_text = "Choose another person"
     edit_item_text = "Edit this person"
+    form_fields = ["first_name", "last_name"]  # fields to show in the "Create" tab
 ```
 
 Again this can be registered with the `register_admin_viewset` hook:
