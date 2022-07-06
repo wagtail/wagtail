@@ -115,11 +115,6 @@ const initEditor = (selector, originalOptions, currentScript) => {
       return { ...plugin, ...type };
     });
 
-    controls.push({
-      type: 'MaxLength',
-      meta: MaxLength,
-    });
-
     return {
       rawContentState: rawContentState,
       onSave: serialiseInputValue,
@@ -151,7 +146,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
-      controls,
+      controls: controls.concat([{ meta: MaxLength }]),
       commands,
       enableHorizontalRule,
     };
