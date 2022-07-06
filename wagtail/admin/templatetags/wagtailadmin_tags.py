@@ -153,6 +153,14 @@ def page_permissions(context, page):
     return _get_user_page_permissions(context).for_page(page)
 
 
+@register.simple_tag
+def classnames(*classes):
+    """
+    Returns any args as a space-separated joined string for using in HTML class names.
+    """
+    return " ".join([classname.strip() for classname in classes if classname])
+
+
 @register.simple_tag(takes_context=True)
 def test_collection_is_public(context, collection):
     """
