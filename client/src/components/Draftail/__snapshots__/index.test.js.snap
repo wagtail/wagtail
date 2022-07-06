@@ -12,10 +12,15 @@ Object {
   "autoComplete": null,
   "autoCorrect": null,
   "blockTypes": Array [],
-  "bottomToolbar": null,
+  "bottomToolbar": [Function],
   "commandToolbar": [Function],
   "commands": false,
-  "controls": Array [],
+  "controls": Array [
+    Object {
+      "meta": [Function],
+      "type": "MaxLength",
+    },
+  ],
   "decorators": Array [],
   "editorState": null,
   "enableHorizontalRule": Object {

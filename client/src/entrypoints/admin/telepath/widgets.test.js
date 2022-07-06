@@ -544,7 +544,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: false }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(inputElement.draftailEditor.props.controls).toHaveLength(2);
     expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
       parentCapabilities.get('split').fn,
       false,
@@ -552,7 +552,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: true }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(inputElement.draftailEditor.props.controls).toHaveLength(2);
     expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
       parentCapabilities.get('split').fn,
       true,
