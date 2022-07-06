@@ -222,17 +222,6 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             },
             priority=20,
         )
-    if page.live and page.url:
-        yield PageListingButton(
-            _("View live"),
-            page.url,
-            attrs={
-                "rel": "noreferrer",
-                "aria-label": _("View live version of '%(title)s'")
-                % {"title": page.get_admin_display_title()},
-            },
-            priority=30,
-        )
     if page_perms.can_add_subpage():
         if is_parent:
             yield Button(

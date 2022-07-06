@@ -476,8 +476,7 @@ table.listing {
   position: relative;
 
   .index {
-    color: $color-white;
-    background-color: $color-header-bg;
+    background-color: $color-white;
 
     td {
       padding-top: 1.5em;
@@ -498,18 +497,18 @@ table.listing {
 
     .title {
       h2 {
-        color: $color-white;
+        color: theme('colors.primary.DEFAULT');
         font-size: 1.8em;
-        font-weight: 500;
+        font-weight: 800;
 
         a:hover {
-          color: $color-white;
+          color: theme('colors.primary.DEFAULT');
         }
       }
     }
 
     .button {
-      background-color: transparent;
+      background-color: $color-teal-darker;
       color: $color-white;
       border-color: rgba(0, 0, 0, 0.35);
 
