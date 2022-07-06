@@ -1,7 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans trimmed %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
+
+{% block titletag %}{% blocktrans trimmed %}Editing {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
+
 {% block content %}
     <header class="w-header w-header--merged">
         <div class="row">
@@ -32,7 +34,7 @@
         </div>
     </header>
 
-    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name form_id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 

@@ -1,22 +1,22 @@
 from django.http import HttpRequest
 
 from wagtail.models import Page, Site
-from wagtail.test.testapp.models import TestSetting
+from wagtail.test.testapp.models import TestSiteSetting
 
 
-class SettingsTestMixin:
+class SiteSettingsTestMixin:
     def setUp(self):
         root = Page.objects.first()
         other_home = Page(title="Other Root")
         root.add_child(instance=other_home)
 
         self.default_site = Site.objects.get(is_default_site=True)
-        self.default_site_settings = TestSetting.objects.create(
+        self.default_settings = TestSiteSetting.objects.create(
             title="Site title", email="initial@example.com", site=self.default_site
         )
 
         self.other_site = Site.objects.create(hostname="other", root_page=other_home)
-        self.other_site_settings = TestSetting.objects.create(
+        self.other_settings = TestSiteSetting.objects.create(
             title="Other title", email="other@other.com", site=self.other_site
         )
 
