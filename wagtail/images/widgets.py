@@ -5,11 +5,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets import BaseChooser
+from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.images import get_image_model
 from wagtail.images.shortcuts import get_rendition_or_not_found
 from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminImageChooser(BaseChooser):
@@ -53,14 +52,8 @@ class AdminImageChooser(BaseChooser):
         )
 
 
-class ImageChooserAdapter(WidgetAdapter):
+class ImageChooserAdapter(BaseChooserAdapter):
     js_constructor = "wagtail.images.widgets.ImageChooser"
-
-    def js_args(self, widget):
-        return [
-            widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
-            widget.id_for_label("__ID__"),
-        ]
 
     @cached_property
     def media(self):
