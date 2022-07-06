@@ -190,6 +190,11 @@ class DraftailRichTextArea {
           type: 'entityTypes',
         },
         {
+          type: 'hr',
+          // The horizontal rule isn’t included in entityTypes by default.
+          items: [{ type: 'HORIZONTAL_RULE' }],
+        },
+        {
           label: 'Actions',
           type: 'custom-actions',
           items: [
