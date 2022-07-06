@@ -151,6 +151,10 @@ $draftail-editor-font-family: $font-sans;
   padding: 0;
   margin-inline-end: 0.625rem;
 
+  .Draftail-ToolbarGroup:last-of-type &:last-of-type {
+    margin-inline-end: 0;
+  }
+
   &[disabled] {
     opacity: 0.3;
   }

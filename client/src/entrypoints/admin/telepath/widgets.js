@@ -179,7 +179,7 @@ class DraftailRichTextArea {
     if (split) {
       options.controls = options.controls ? [...options.controls] : [];
       options.controls.push({
-        block: window.draftail.getSplitControl(split.fn, !!split.enabled),
+        meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
       });
       options.commands = [
         {
@@ -194,7 +194,7 @@ class DraftailRichTextArea {
           type: 'custom-actions',
           items: [
             {
-              icon: 'cut',
+              icon: '#icon-cut',
               description: gettext('Split block'),
               type: 'split',
               onSelect: ({ editorState }) => {
@@ -275,7 +275,7 @@ class DraftailRichTextArea {
             controls: [
               ...(originalOptions || []),
               {
-                block: window.draftail.getSplitControl(
+                meta: window.draftail.getSplitControl(
                   newCapability.fn,
                   !!newCapability.enabled,
                 ),

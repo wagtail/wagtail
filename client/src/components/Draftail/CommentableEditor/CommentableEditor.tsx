@@ -361,32 +361,31 @@ export function getSplitControl(
   );
 }
 
+const addCommentTitle = `${gettext('Add a comment')}\n${
+  IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
+}`;
+
 function getCommentControl(
   commentApp: CommentApp,
   contentPath: string,
   fieldNode: Element,
 ) {
   return ({ getEditorState, onChange }: ControlComponentProps) => (
-    <span className="Draftail-CommentControl" data-comment-add>
-      <ToolbarButton
-        name="comment"
-        active={false}
-        title={`${gettext('Add a comment')}\n${
-          IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
-        }`}
-        icon={
-          <>
-            <Icon name="comment-large-outline" />{' '}
-            <Icon name="comment-large-reversed" />
-          </>
-        }
-        onClick={() => {
-          onChange(
-            addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
-          );
-        }}
-      />
-    </span>
+    <ToolbarButton
+      name="comment"
+      title={addCommentTitle}
+      icon={
+        <>
+          <Icon name="comment-add" />
+          <Icon name="comment-add-reversed" />
+        </>
+      }
+      onClick={() => {
+        onChange(
+          addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
+        );
+      }}
+    />
   );
 }
 

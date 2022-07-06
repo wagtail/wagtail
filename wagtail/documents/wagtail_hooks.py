@@ -87,7 +87,7 @@ def register_document_feature(features):
         draftail_features.EntityFeature(
             {
                 "type": "DOCUMENT",
-                "icon": "doc-full",
+                "icon": "doc-full-inverse",
                 "description": gettext("Document"),
             },
             js=["wagtaildocs/js/document-chooser-modal.js"],

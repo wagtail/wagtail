@@ -336,7 +336,9 @@ export class CommentApp {
       if (e.target instanceof HTMLElement) {
         // ignore if click target is a comment or an annotation
         if (
-          !e.target.closest('#comments, [data-annotation], [data-comment-add]')
+          !e.target.closest(
+            '#comments, [data-annotation], [data-comment-add], .Draftail-ToolbarButton[name="comment"]',
+          )
         ) {
           // Running store.dispatch directly here seems to prevent the event from being handled anywhere else
           setTimeout(() => {
