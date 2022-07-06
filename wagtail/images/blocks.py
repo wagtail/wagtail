@@ -27,7 +27,7 @@ class ImageChooserBlock(ChooserBlock):
         else:
             return {
                 "id": value_data["id"],
-                "edit_link": value_data["edit_url"],
+                "edit_url": value_data["edit_url"],
                 "title": value_data["title"],
                 "preview": value_data["preview"],
             }

@@ -12,7 +12,7 @@ class ImageChooser extends Chooser {
   getStateFromHTML() {
     /*
     Construct initial state of the chooser from the rendered (static) HTML.
-    State is either null (= no image chosen) or a dict of id, edit_link, title
+    State is either null (= no image chosen) or a dict of id, edit_url, title
     and preview (= a dict of url, width, height).
     */
     const state = super.getStateFromHTML();

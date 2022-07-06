@@ -4,7 +4,7 @@ export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
 
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
-  editLinkStateKey = 'edit_link'; // key used in the 'state' dictionary to hold the URL of the edit page
+  editUrlStateKey = 'edit_url'; // key used in the 'state' dictionary to hold the URL of the edit page
   chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
@@ -34,7 +34,7 @@ export class Chooser {
   getStateFromHTML() {
     /*
         Construct initial state of the chooser from the rendered (static) HTML.
-        State is either null (= no item chosen) or a dict of id, title and edit_link.
+        State is either null (= no item chosen) or a dict of id, title and edit_url.
 
         The result returned from the chooser modal (see get_chosen_response_data in
         wagtail.admin.views.generic.chooser.ChosenView) is a superset of this, and can therefore be
@@ -47,8 +47,8 @@ export class Chooser {
       if (this.titleElement && this.titleStateKey) {
         state[this.titleStateKey] = this.titleElement.textContent;
       }
-      if (this.editLink && this.editLinkStateKey) {
-        state[this.editLinkStateKey] = this.editLink.getAttribute('href');
+      if (this.editLink && this.editUrlStateKey) {
+        state[this.editUrlStateKey] = this.editLink.getAttribute('href');
       }
       return state;
     } else {
@@ -89,7 +89,7 @@ export class Chooser {
     }
     this.chooserElement.classList.remove('blank');
     if (this.editLink) {
-      const editUrl = newState[this.editLinkStateKey];
+      const editUrl = newState[this.editUrlStateKey];
       if (editUrl) {
         this.editLink.setAttribute('href', editUrl);
         this.editLink.classList.remove('u-hidden');
