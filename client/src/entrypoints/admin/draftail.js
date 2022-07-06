@@ -1,6 +1,7 @@
 import * as Draftail from 'draftail';
 import draftail, {
   Link,
+  onPasteLink,
   Document,
   ImageBlock,
   EmbedBlock,
@@ -26,6 +27,7 @@ const plugins = [
     type: 'LINK',
     source: draftail.LinkModalWorkflowSource,
     decorator: Link,
+    onPaste: onPasteLink,
   },
   {
     type: 'IMAGE',
