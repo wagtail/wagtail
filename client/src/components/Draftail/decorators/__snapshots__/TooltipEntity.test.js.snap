@@ -11,7 +11,6 @@ exports[`TooltipEntity #openTooltip 1`] = `
   <Icon
     className="TooltipEntity__icon"
     icon="#icon-test"
-    title={null}
   />
   test
   <Portal
@@ -84,7 +83,6 @@ exports[`TooltipEntity works 1`] = `
   <Icon
     className="TooltipEntity__icon"
     icon="#icon-test"
-    title={null}
   />
   test
 </a>

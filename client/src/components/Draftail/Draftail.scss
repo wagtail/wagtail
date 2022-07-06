@@ -13,7 +13,7 @@ $draftail-toolbar-icon-size: 1em;
 $draftail-editor-font-family: $font-sans;
 
 @import '../../../../node_modules/draft-js/dist/Draft';
-@import '../../../../node_modules/draftail/lib/index';
+@import '../../../../node_modules/draftail/src/index';
 
 @import './Tooltip/Tooltip';
 @import './CommentableEditor/CommentableEditor';
