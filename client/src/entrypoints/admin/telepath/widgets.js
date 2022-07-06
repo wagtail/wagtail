@@ -181,6 +181,26 @@ class DraftailRichTextArea {
       options.controls.push({
         meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
       });
+
+      /**
+       * For demo purposes only.
+       */
+      // const addHR = (editorState) => {
+      //   const contentState = editorState.getCurrentContent();
+      //   const contentStateWithEntity = contentState.createEntity(
+      //     'HORIZONTAL_RULE',
+      //     'IMMUTABLE',
+      //     {},
+      //   );
+      //   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
+      //   return window.DraftJS.AtomicBlockUtils.insertAtomicBlock(
+      //     editorState,
+      //     entityKey,
+      //     ' ',
+      //   );
+      // };
+
       options.commands = [
         {
           label: gettext('Rich text'),
@@ -194,6 +214,40 @@ class DraftailRichTextArea {
           // The horizontal rule isn’t included in entityTypes by default.
           items: [{ type: 'HORIZONTAL_RULE' }],
         },
+        // {
+        //   label: gettext('Blocks'),
+        //   // The type is arbitrary, just needs to be unique.
+        //   type: 'custom-streamfield',
+        //   items: [
+        //     {
+        //       icon: '#icon-title',
+        //       description: 'Heading',
+        //       type: 'heading',
+        //       onSelect: ({ editorState }) => {
+        //         const nextState = addHR(editorState);
+        //         return nextState;
+        //       },
+        //     },
+        //     {
+        //       icon: '#icon-placeholder',
+        //       description: 'Paragraph',
+        //       type: 'paragraph',
+        //       onSelect: ({ editorState }) => {
+        //         const nextState = addHR(editorState);
+        //         return nextState;
+        //       },
+        //     },
+        //     {
+        //       icon: '#icon-media',
+        //       description: 'Embed',
+        //       type: 'embed',
+        //       onSelect: ({ editorState }) => {
+        //         const nextState = addHR(editorState);
+        //         return nextState;
+        //       },
+        //     },
+        //   ],
+        // },
         {
           label: 'Actions',
           type: 'custom-actions',
