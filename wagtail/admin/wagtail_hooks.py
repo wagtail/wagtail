@@ -223,107 +223,9 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=20,
         )
 
-    yield ButtonWithDropdownFromHook(
-        _("More"),
-        hook_name="register_page_listing_more_buttons",
-        page=page,
-        page_perms=page_perms,
-        is_parent=is_parent,
-        next_url=next_url,
-        attrs={
-            "target": "_blank",
-            "rel": "noreferrer",
-            "title": _("View more options for '%(title)s'")
-            % {"title": page.get_admin_display_title()},
-        },
-        priority=50,
-    )
-
-
-@hooks.register("register_page_listing_more_buttons")
-def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
-    if page_perms.can_move():
-        yield Button(
-            _("Move"),
-            reverse("wagtailadmin_pages:move", args=[page.id]),
-            attrs={
-                "title": _("Move page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=10,
-        )
-    if page_perms.can_copy():
-        url = reverse("wagtailadmin_pages:copy", args=[page.id])
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
-        yield Button(
-            _("Copy"),
-            url,
-            attrs={
-                "title": _("Copy page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=20,
-        )
-    if page_perms.can_delete():
-        url = reverse("wagtailadmin_pages:delete", args=[page.id])
-
-        # After deleting the page, it is impossible to redirect to it.
-        if next_url == reverse("wagtailadmin_explore", args=[page.id]):
-            next_url = None
-
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
-        yield Button(
-            _("Delete"),
-            url,
-            attrs={
-                "title": _("Delete page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=30,
-        )
-    if page_perms.can_unpublish():
-        url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
-        if next_url:
-            url += "?" + urlencode({"next": next_url})
-
-        yield Button(
-            _("Unpublish"),
-            url,
-            attrs={
-                "title": _("Unpublish page '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=40,
-        )
-    if page_perms.can_view_revisions():
-        yield Button(
-            _("History"),
-            reverse("wagtailadmin_pages:history", args=[page.id]),
-            attrs={
-                "title": _("View page history for '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=50,
-        )
-
-    if is_parent and page_perms.can_reorder_children():
-        yield Button(
-            _("Sort menu order"),
-            "?ordering=ord",
-            attrs={
-                "title": _("Change ordering of child pages of '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=60,
-        )
-
 
 @hooks.register("register_page_header_buttons")
-def page_header_buttons(page, page_perms, next_url=None):
+def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_move():
         yield Button(
             _("Move"),
@@ -360,6 +262,49 @@ def page_header_buttons(page, page_perms, next_url=None):
                 % {"title": page.get_admin_display_title()},
             },
             priority=30,
+        )
+    if page_perms.can_delete():
+        url = reverse("wagtailadmin_pages:delete", args=[page.id])
+
+        # After deleting the page, it is impossible to redirect to it.
+        if next_url == reverse("wagtailadmin_explore", args=[page.id]):
+            next_url = None
+
+        if next_url:
+            url += "?" + urlencode({"next": next_url})
+
+        yield Button(
+            _("Delete"),
+            url,
+            attrs={
+                "title": _("Delete page '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=30,
+        )
+    if page_perms.can_unpublish():
+        url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
+        if next_url:
+            url += "?" + urlencode({"next": next_url})
+
+        yield Button(
+            _("Unpublish"),
+            url,
+            attrs={
+                "title": _("Unpublish page '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=40,
+        )
+    if is_parent and page_perms.can_reorder_children():
+        yield Button(
+            _("Sort menu order"),
+            "?ordering=ord",
+            attrs={
+                "title": _("Change ordering of child pages of '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=60,
         )
 
 
