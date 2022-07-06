@@ -90,10 +90,6 @@ export const onPasteLink = (text, html, editorState, { setEditorState }) => {
     return 'not-handled';
   }
 
-  if (new URL(url).hostname === 'www.youtube.com') {
-    return 'not-handled';
-  }
-
   const selection = editorState.getSelection();
   let content = editorState.getCurrentContent();
   content = content.createEntity('LINK', 'MUTABLE', { url });
