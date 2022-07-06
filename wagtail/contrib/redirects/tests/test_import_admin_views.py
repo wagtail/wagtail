@@ -209,36 +209,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             self.assertEqual(Redirect.objects.count(), 2)
             self.assertEqual(Redirect.objects.first().site, new_site)
 
-    def test_import_xls(self):
-        f = "{}/files/example.xls".format(TEST_ROOT)
-        (_, filename) = os.path.split(f)
-
-        with open(f, "rb") as infile:
-            upload_file = SimpleUploadedFile(filename, infile.read())
-
-            self.assertEqual(Redirect.objects.all().count(), 0)
-
-            response = self.post(
-                {
-                    "import_file": upload_file,
-                }
-            )
-
-            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
-
-            import_response = self.post_import(
-                {
-                    **response.context["form"].initial,
-                    "from_index": 0,
-                    "to_index": 1,
-                    "permanent": True,
-                },
-                follow=True,
-            )
-
-            self.assertTemplateUsed(import_response, "wagtailredirects/index.html")
-            self.assertEqual(Redirect.objects.all().count(), 3)
-
     def test_import_xlsx(self):
         f = "{}/files/example.xlsx".format(TEST_ROOT)
         (_, filename) = os.path.split(f)

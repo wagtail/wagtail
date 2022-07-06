@@ -142,53 +142,12 @@ class CSV(TextFormat):
         return super().create_dataset(in_stream, **kwargs)
 
 
-class JSON(TextFormat):
-    TABLIB_MODULE = "tablib.formats._json"
-    CONTENT_TYPE = "application/json"
-
-
-class YAML(TextFormat):
-    TABLIB_MODULE = "tablib.formats._yaml"
-    # See https://stackoverflow.com/questions/332129/yaml-mime-type
-    CONTENT_TYPE = "text/yaml"
-
-
 class TSV(TextFormat):
     TABLIB_MODULE = "tablib.formats._tsv"
     CONTENT_TYPE = "text/tab-separated-values"
 
     def create_dataset(self, in_stream, **kwargs):
         return super().create_dataset(in_stream, **kwargs)
-
-
-class ODS(TextFormat):
-    TABLIB_MODULE = "tablib.formats._ods"
-    CONTENT_TYPE = "application/vnd.oasis.opendocument.spreadsheet"
-
-
-class HTML(TextFormat):
-    TABLIB_MODULE = "tablib.formats._html"
-    CONTENT_TYPE = "text/html"
-
-
-class XLS(TablibFormat):
-    TABLIB_MODULE = "tablib.formats._xls"
-    CONTENT_TYPE = "application/vnd.ms-excel"
-
-    def create_dataset(self, in_stream):
-        """
-        Create dataset from first sheet.
-        """
-        import xlrd
-
-        xls_book = xlrd.open_workbook(file_contents=in_stream)
-        dataset = tablib.Dataset()
-        sheet = xls_book.sheets()[0]
-
-        dataset.headers = sheet.row_values(0)
-        for i in range(1, sheet.nrows):
-            dataset.append(sheet.row_values(i))
-        return dataset
 
 
 class XLSX(TablibFormat):
@@ -224,13 +183,8 @@ DEFAULT_FORMATS = [
     fmt
     for fmt in (
         CSV,
-        XLS,
         XLSX,
         TSV,
-        ODS,
-        JSON,
-        YAML,
-        HTML,
     )
     if fmt.is_available()
 ]
