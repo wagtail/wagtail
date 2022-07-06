@@ -12,7 +12,7 @@ from wagtail.models import Site
 
 
 class Command(BaseCommand):
-    help = "Imports redirects from .csv, .xls, .xlsx"
+    help = "Imports redirects from a .csv, .tsv or .xlsx file"
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -61,7 +61,7 @@ class Command(BaseCommand):
         )
         parser.add_argument(
             "--format",
-            help="Source file format (example: .csv, .xls etc)",
+            help="Source file format (csv, tsv or xlsx)",
             choices=get_supported_extensions(),
             type=str,
         )

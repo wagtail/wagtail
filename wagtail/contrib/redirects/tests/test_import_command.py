@@ -25,9 +25,9 @@ class TestImportCommand(TestCase):
             call_command("import_redirects", src="random", stdout=out)
 
     def test_invalid_extension_raises_error(self):
-        f = "{}/files/example.numbers".format(TEST_ROOT)
+        f = "{}/files/example.yaml".format(TEST_ROOT)
 
-        with self.assertRaisesMessage(Exception, "Invalid format 'numbers'"):
+        with self.assertRaisesMessage(Exception, "Invalid format 'yaml'"):
             out = StringIO()
             call_command("import_redirects", src=f, stdout=out)
 
@@ -60,7 +60,7 @@ class TestImportCommand(TestCase):
         self.assertEqual(Redirect.objects.count(), 2)
 
     def test_binary_formats_are_supported(self):
-        f = "{}/files/example.xls".format(TEST_ROOT)
+        f = "{}/files/example.xlsx".format(TEST_ROOT)
 
         out = StringIO()
         call_command("import_redirects", src=f, stdout=out)
