@@ -1,8 +1,8 @@
 import os
 
-import tablib
 from django.core.management.base import BaseCommand
 
+from wagtail.contrib.redirects.base_formats import Dataset
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.utils import (
     get_format_cls_by_extension,
@@ -106,8 +106,10 @@ class Command(BaseCommand):
         if not format_:
             format_ = extension
 
-        if not get_format_cls_by_extension(format_):
+        import_format_cls = get_format_cls_by_extension(format_)
+        if import_format_cls is None:
             raise Exception("Invalid format '{0}'".format(extension))
+        input_format = import_format_cls()
 
         if extension in ["xls", "xlsx"]:
             mode = "rb"
@@ -115,18 +117,11 @@ class Command(BaseCommand):
             mode = "r"
 
         with open(src, mode) as fh:
-            imported_data = tablib.Dataset().load(fh.read(), format=format_)
+            imported_data = input_format.create_dataset(fh.read())
+            sample_data = Dataset(imported_data[:4], imported_data.headers)
 
-            sample_data = tablib.Dataset(
-                *imported_data[: min(len(imported_data), 4)],
-                headers=imported_data.headers,
-            )
-
-            try:
-                self.stdout.write("Sample data:")
-                self.stdout.write(str(sample_data))
-            except Exception:
-                self.stdout.write("Warning: Cannot display sample data")
+            self.stdout.write("Sample data:")
+            self.stdout.write(str(sample_data))
 
             self.stdout.write("--------------")
 
