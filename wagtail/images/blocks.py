@@ -20,18 +20,6 @@ class ImageChooserBlock(ChooserBlock):
 
         return AdminImageChooser()
 
-    def get_form_state(self, value):
-        value_data = self.widget.get_value_data(value)
-        if value_data is None:
-            return None
-        else:
-            return {
-                "id": value_data["id"],
-                "edit_url": value_data["edit_url"],
-                "title": value_data["title"],
-                "preview": value_data["preview"],
-            }
-
     def render_basic(self, value, context=None):
         if value:
             return get_rendition_or_not_found(value, "original").img_tag()
