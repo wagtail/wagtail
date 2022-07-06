@@ -411,9 +411,9 @@ class RedirectsReportView(ReportView):
 
     list_export = [
         "old_path",
-        "site",
         "link",
         "get_is_permanent_display",
+        "site",
     ]
 
     export_headings = {

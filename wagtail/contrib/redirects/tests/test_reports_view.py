@@ -63,9 +63,9 @@ class TestRedirectReport(TestCase, WagtailTestUtils):
         csv_entries = csv_data[1:]
         csv_entries = csv_entries[:-1]  # Drop empty last line
 
-        self.assertEqual(csv_header, "From,Site,To,Type\r")
+        self.assertEqual(csv_header, "From,To,Type,Site\r")
         self.assertEqual(len(csv_entries), 1)
-        self.assertEqual(csv_entries[0], "/from,None,/to,temporary\r")
+        self.assertEqual(csv_entries[0], "/from,/to,temporary,None\r")
 
     def test_xlsx_export(self):
         Redirect.add_redirect("/from", "/to", True)
@@ -77,6 +77,6 @@ class TestRedirectReport(TestCase, WagtailTestUtils):
         worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
 
-        self.assertEqual(cell_array[0], ["From", "Site", "To", "Type"])
+        self.assertEqual(cell_array[0], ["From", "To", "Type", "Site"])
         self.assertEqual(len(cell_array), 2)
-        self.assertEqual(cell_array[1], ["/from", "None", "/to", "permanent"])
+        self.assertEqual(cell_array[1], ["/from", "/to", "permanent", "None"])
