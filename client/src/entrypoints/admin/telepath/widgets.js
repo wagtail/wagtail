@@ -1,4 +1,5 @@
 /* global $ */
+import { gettext } from '../../../utils/gettext';
 
 class BoundWidget {
   constructor(element, name, idForLabel, initialState, parentCapabilities) {
@@ -177,10 +178,42 @@ class DraftailRichTextArea {
     const split = capabilities.get('split');
     if (split) {
       options.controls = options.controls ? [...options.controls] : [];
-      options.controls.push(
-        // eslint-disable-next-line no-undef
-        draftail.getSplitControl(split.fn, !!split.enabled),
-      );
+      options.controls.push({
+        block: window.draftail.getSplitControl(split.fn, !!split.enabled),
+      });
+      options.commands = [
+        {
+          label: gettext('Rich text'),
+          type: 'blockTypes',
+        },
+        {
+          type: 'entityTypes',
+        },
+        {
+          label: 'Actions',
+          type: 'custom-actions',
+          items: [
+            {
+              icon: 'cut',
+              description: gettext('Split block'),
+              type: 'split',
+              onSelect: ({ editorState }) => {
+                const result = window.draftail.splitState(editorState);
+                // Run the split after a timeout to circumvent potential race condition.
+                setTimeout(() => {
+                  if (result) {
+                    split.fn(
+                      result.stateBefore,
+                      result.stateAfter,
+                      result.shouldMoveCommentFn,
+                    );
+                  }
+                }, 50);
+              },
+            },
+          ],
+        },
+      ];
     }
     const input = document.createElement('input');
     input.type = 'hidden';
@@ -242,8 +275,7 @@ class DraftailRichTextArea {
             controls: [
               ...(originalOptions || []),
               {
-                // eslint-disable-next-line no-undef
-                block: draftail.getSplitControl(
+                block: window.draftail.getSplitControl(
                   newCapability.fn,
                   !!newCapability.enabled,
                 ),

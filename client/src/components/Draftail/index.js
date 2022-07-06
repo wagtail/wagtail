@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DraftailEditor, MetaToolbar } from 'draftail';
+import {
+  DraftailEditor,
+  BlockToolbar,
+  InlineToolbar,
+  MetaToolbar,
+  CommandPalette,
+} from 'draftail';
 import { Provider } from 'react-redux';
 
 import { gettext } from '../../utils/gettext';
@@ -19,6 +25,7 @@ import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor, {
   getSplitControl,
+  splitState,
 } from './CommentableEditor/CommentableEditor';
 
 export { default as Link, onPasteLink } from './decorators/Link';
@@ -98,6 +105,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
     const blockTypes = newOptions.blockTypes || [];
     const inlineStyles = newOptions.inlineStyles || [];
     const controls = newOptions.controls || [];
+    const commands = newOptions.commands || true;
     let entityTypes = newOptions.entityTypes || [];
 
     entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
@@ -115,15 +123,28 @@ const initEditor = (selector, originalOptions, currentScript) => {
     return {
       rawContentState: rawContentState,
       onSave: serialiseInputValue,
-      placeholder: gettext('Write here…'),
+      placeholder: gettext('Write something or type ‘/’ to insert a block'),
       spellCheck: true,
       enableLineBreak: {
         description: gettext('Line break'),
         icon: BR_ICON,
       },
-      bottomToolbar: MetaToolbar,
-      showUndoControl: { description: gettext('Undo') },
-      showRedoControl: { description: gettext('Redo') },
+      topToolbar: (props) => (
+        <BlockToolbar
+          {...props}
+          noResultsText={gettext('No results')}
+          comboPlaceholder={gettext('Choose a block')}
+        />
+      ),
+      bottomToolbar: (props) => (
+        <>
+          <InlineToolbar {...props} />
+          <MetaToolbar {...props} />
+        </>
+      ),
+      commandPalette: (props) => (
+        <CommandPalette {...props} noResultsText={gettext('No results')} />
+      ),
       maxListNesting: 4,
       stripPastedStyles: false,
       ...newOptions,
@@ -131,6 +152,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
       controls,
+      commands,
       enableHorizontalRule,
     };
   };
@@ -192,6 +214,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
 export default {
   initEditor,
   getSplitControl,
+  splitState,
   registerPlugin,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,

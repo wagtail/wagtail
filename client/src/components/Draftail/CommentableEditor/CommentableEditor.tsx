@@ -852,7 +852,7 @@ function CommentableEditor({
       }}
       editorState={editorState}
       controls={
-        enabled ? controls.concat([{ block: CommentControl }]) : controls
+        enabled ? controls.concat([{ inline: CommentControl }]) : controls
       }
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={plugins.concat([
