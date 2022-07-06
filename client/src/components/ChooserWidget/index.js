@@ -138,3 +138,22 @@ export class Chooser {
     });
   }
 }
+
+export class ChooserFactory {
+  widgetClass = Chooser;
+
+  constructor(html, idPattern) {
+    this.html = html;
+    this.idPattern = idPattern;
+  }
+
+  render(placeholder, name, id, initialState) {
+    const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
+    // eslint-disable-next-line no-param-reassign
+    placeholder.outerHTML = html;
+    // eslint-disable-next-line new-cap
+    const chooser = new this.widgetClass(id);
+    chooser.setState(initialState);
+    return chooser;
+  }
+}

@@ -1,19 +1,8 @@
-class SnippetChooserFactory {
-  constructor(html, idPattern) {
-    this.html = html;
-    this.idPattern = idPattern;
-  }
+import { ChooserFactory } from '../../components/ChooserWidget';
 
-  render(placeholder, name, id, initialState) {
-    const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
-    // eslint-disable-next-line no-param-reassign
-    placeholder.outerHTML = html;
-    /* the SnippetChooser object also serves as the JS widget representation */
-    // eslint-disable-next-line no-undef
-    const chooser = new SnippetChooser(id);
-    chooser.setState(initialState);
-    return chooser;
-  }
+class SnippetChooserFactory extends ChooserFactory {
+  // eslint-disable-next-line no-undef
+  widgetClass = SnippetChooser;
 }
 window.telepath.register(
   'wagtail.snippets.widgets.SnippetChooser',
