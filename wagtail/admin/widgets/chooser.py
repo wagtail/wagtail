@@ -234,10 +234,34 @@ class BaseChooser(widgets.Input):
     def render_js_init(self, id_, name, value_data):
         return "new Chooser({0});".format(json.dumps(id_))
 
-    class Media:
-        js = [
-            "wagtailadmin/js/chooser-widget.js",
+    @cached_property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtailadmin/js/chooser-widget.js"),
+            ]
+        )
+
+
+class BaseChooserAdapter(WidgetAdapter):
+    js_constructor = "wagtail.admin.widgets.Chooser"
+
+    def js_args(self, widget):
+        return [
+            widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
+            widget.id_for_label("__ID__"),
         ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtailadmin/js/chooser-widget-telepath.js"),
+            ]
+        )
+
+
+register(BaseChooserAdapter(), BaseChooser)
 
 
 class AdminPageChooser(BaseChooser):
