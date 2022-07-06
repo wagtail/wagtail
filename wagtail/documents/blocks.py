@@ -17,17 +17,6 @@ class DocumentChooserBlock(ChooserBlock):
 
         return AdminDocumentChooser()
 
-    def get_form_state(self, value):
-        value_data = self.widget.get_value_data(value)
-        if value_data is None:
-            return None
-        else:
-            return {
-                "id": value_data["id"],
-                "edit_url": value_data["edit_url"],
-                "title": value_data["title"],
-            }
-
     def render_basic(self, value, context=None):
         if value:
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)

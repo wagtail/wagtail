@@ -803,6 +803,9 @@ class ChooserBlock(FieldBlock):
             except self.target_model.DoesNotExist:
                 return None
 
+    def get_form_state(self, value):
+        return self.widget.get_value_data(value)
+
     def clean(self, value):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
         # want to work with when doing front-end templating), but ModelChoiceField.clean expects an ID
