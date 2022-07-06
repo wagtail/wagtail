@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { createEditorStateFromRaw } from 'draftail';
-import { EditorState, SelectionState } from 'draft-js';
+import { DraftInlineStyleType, EditorState, SelectionState } from 'draft-js';
 
 import { CommentApp } from '../../CommentApp/main';
 import { updateGlobalSettings } from '../../CommentApp/actions/settings';
@@ -41,7 +41,7 @@ describe('CommentableEditor', () => {
           {
             offset: 0,
             length: 1,
-            style: 'COMMENT-1',
+            style: 'COMMENT-1' as DraftInlineStyleType,
           },
         ],
         text: 'test',
@@ -60,12 +60,12 @@ describe('CommentableEditor', () => {
           {
             offset: 0,
             length: 10,
-            style: 'COMMENT-2',
+            style: 'COMMENT-2' as DraftInlineStyleType,
           },
           {
             offset: 0,
             length: 20,
-            style: 'COMMENT-1',
+            style: 'COMMENT-1' as DraftInlineStyleType,
           },
         ],
         text: 'test_test_test_test_test_test_test',
@@ -84,12 +84,12 @@ describe('CommentableEditor', () => {
           {
             offset: 21,
             length: 4,
-            style: 'COMMENT-2',
+            style: 'COMMENT-2' as DraftInlineStyleType,
           },
           {
             offset: 0,
             length: 20,
-            style: 'COMMENT-1',
+            style: 'COMMENT-1' as DraftInlineStyleType,
           },
         ],
         text: 'test_test_test_test_test_test_test',
