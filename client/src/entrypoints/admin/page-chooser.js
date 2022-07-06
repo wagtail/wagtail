@@ -4,7 +4,7 @@ class PageChooser extends Chooser {
   // eslint-disable-next-line no-undef
   modalOnloadHandlers = PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
   titleStateKey = 'adminTitle';
-  editLinkStateKey = 'editUrl';
+  editUrlStateKey = 'editUrl';
   chosenResponseName = 'pageChosen';
 
   constructor(id, parentId, options) {

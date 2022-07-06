@@ -347,7 +347,7 @@ class ChosenResponseMixin:
         return {
             "id": str(self.get_object_id(item)),
             self.response_data_title_key: self.get_display_title(item),
-            "edit_link": self.get_edit_item_url(item),
+            "edit_url": self.get_edit_item_url(item),
         }
 
     def get_chosen_response(self, item):
