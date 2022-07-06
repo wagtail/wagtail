@@ -218,8 +218,10 @@ input[type='checkbox']:checked:before {
   height: 1rem;
   top: 2px;
   inset-inline-start: 2px;
-  filter: contrast(0);
-  fill: currentColor;
+
+  @media (forced-colors: active) {
+    background: ButtonText;
+  }
 }
 
 input[type='checkbox'][disabled]:before {
