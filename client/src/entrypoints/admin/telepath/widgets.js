@@ -241,11 +241,13 @@ class DraftailRichTextArea {
             ...currentOptions,
             controls: [
               ...(originalOptions || []),
-              // eslint-disable-next-line no-undef
-              draftail.getSplitControl(
-                newCapability.fn,
-                !!newCapability.enabled,
-              ),
+              {
+                // eslint-disable-next-line no-undef
+                block: draftail.getSplitControl(
+                  newCapability.fn,
+                  !!newCapability.enabled,
+                ),
+              },
             ],
           });
         }
