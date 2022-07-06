@@ -24,144 +24,39 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 # https://raw.githubusercontent.com/django-import-export/django-import-export/main/import_export/formats/base_formats.py
-from importlib import import_module
+from io import BytesIO
 
+import openpyxl
 import tablib
 
 
-class Format:
-    def get_title(self):
-        return type(self)
-
-    def create_dataset(self, in_stream):
-        """
-        Create dataset from given string.
-        """
-        raise NotImplementedError()
-
-    def export_data(self, dataset, **kwargs):
-        """
-        Returns format representation for given dataset.
-        """
-        raise NotImplementedError()
-
+class CSV:
     def is_binary(self):
-        """
-        Returns if this format is binary.
-        """
-        return True
-
-    def get_read_mode(self):
-        """
-        Returns mode for opening files.
-        """
-        return "rb"
-
-    def get_extension(self):
-        """
-        Returns extension for this format files.
-        """
-        return ""
-
-    def get_content_type(self):
-        # For content types see
-        # https://www.iana.org/assignments/media-types/media-types.xhtml
-        return "application/octet-stream"
-
-    @classmethod
-    def is_available(cls):
-        return True
-
-    def can_import(self):
         return False
 
-    def can_export(self):
-        return False
-
-
-class TablibFormat(Format):
-    TABLIB_MODULE = None
-    CONTENT_TYPE = "application/octet-stream"
-
-    def get_format(self):
-        """
-        Import and returns tablib module.
-        """
-        try:
-            # Available since tablib 1.0
-            from tablib.formats import registry
-        except ImportError:
-            return import_module(self.TABLIB_MODULE)
-        else:
-            key = self.TABLIB_MODULE.split(".")[-1].replace("_", "")
-            return registry.get_format(key)
-
-    @classmethod
-    def is_available(cls):
-        try:
-            cls().get_format()
-        except (tablib.core.UnsupportedFormat, ImportError):
-            return False
-        return True
-
-    def get_title(self):
-        return self.get_format().title
-
-    def create_dataset(self, in_stream, **kwargs):
-        return tablib.import_set(in_stream, format=self.get_title())
-
-    def export_data(self, dataset, **kwargs):
-        return dataset.export(self.get_title(), **kwargs)
-
-    def get_extension(self):
-        return self.get_format().extensions[0]
-
-    def get_content_type(self):
-        return self.CONTENT_TYPE
-
-    def can_import(self):
-        return hasattr(self.get_format(), "import_set")
-
-    def can_export(self):
-        return hasattr(self.get_format(), "export_set")
-
-
-class TextFormat(TablibFormat):
     def get_read_mode(self):
         return "r"
 
+    def create_dataset(self, in_stream):
+        return tablib.import_set(in_stream, format="csv")
+
+
+class TSV(CSV):
+    def create_dataset(self, in_stream):
+        return tablib.import_set(in_stream, format="tsv")
+
+
+class XLSX:
     def is_binary(self):
-        return False
+        return True
 
-
-class CSV(TextFormat):
-    TABLIB_MODULE = "tablib.formats._csv"
-    CONTENT_TYPE = "text/csv"
-
-    def create_dataset(self, in_stream, **kwargs):
-        return super().create_dataset(in_stream, **kwargs)
-
-
-class TSV(TextFormat):
-    TABLIB_MODULE = "tablib.formats._tsv"
-    CONTENT_TYPE = "text/tab-separated-values"
-
-    def create_dataset(self, in_stream, **kwargs):
-        return super().create_dataset(in_stream, **kwargs)
-
-
-class XLSX(TablibFormat):
-    TABLIB_MODULE = "tablib.formats._xlsx"
-    CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    def get_read_mode(self):
+        return "rb"
 
     def create_dataset(self, in_stream):
         """
         Create dataset from first sheet.
         """
-        from io import BytesIO
-
-        import openpyxl
-
         xlsx_book = openpyxl.load_workbook(BytesIO(in_stream), read_only=True)
 
         dataset = tablib.Dataset()
@@ -177,14 +72,8 @@ class XLSX(TablibFormat):
         return dataset
 
 
-#: These are the default formats for import and export. Whether they can be
-#: used or not is depending on their implementation in the tablib library.
 DEFAULT_FORMATS = [
-    fmt
-    for fmt in (
-        CSV,
-        XLSX,
-        TSV,
-    )
-    if fmt.is_available()
+    CSV,
+    XLSX,
+    TSV,
 ]
