@@ -3,6 +3,7 @@ import json
 from django import forms
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
@@ -19,8 +20,8 @@ from wagtail.admin.views.generic.chooser import (
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.widgets import BaseChooser
+from wagtail.blocks import ChooserBlock
 from wagtail.documents import get_document_model
-from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 
 
@@ -40,6 +41,8 @@ class DocumentCreationFormMixin(CreationFormMixin):
     creation_tab_id = "upload"
 
     def get_creation_form_class(self):
+        from wagtail.documents.forms import get_document_form
+
         return get_document_form(self.model)
 
     def get_creation_form_kwargs(self):
@@ -165,12 +168,21 @@ class BaseAdminDocumentChooser(BaseChooser):
         )
 
 
+class BaseDocumentChooserBlock(ChooserBlock):
+    def render_basic(self, value, context=None):
+        if value:
+            return format_html('<a href="{0}">{1}</a>', value.url, value.title)
+        else:
+            return ""
+
+
 class DocumentChooserViewSet(ChooserViewSet):
     choose_view_class = DocumentChooseView
     choose_results_view_class = DocumentChooseResultsView
     chosen_view_class = DocumentChosenView
     create_view_class = DocumentChooserUploadView
     base_widget_class = BaseAdminDocumentChooser
+    base_block_class = BaseDocumentChooserBlock
     permission_policy = permission_policy
 
     icon = "doc-full-inverse"
