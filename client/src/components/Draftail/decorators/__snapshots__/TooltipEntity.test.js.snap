@@ -13,62 +13,41 @@ exports[`TooltipEntity #openTooltip 1`] = `
     icon="#icon-test"
   />
   test
-  <Portal
-    closeOnClick={true}
-    closeOnResize={true}
-    closeOnType={true}
-    node={
-      <body
-        data-draftail-editor-wrapper="true"
+  <Tooltip
+    content={
+      <div
+        className="Draftail-InlineToolbar"
+        role="toolbar"
       >
-        <div
-          data-draftail-trigger="true"
-        />
-      </body>
+        <a
+          className="Tooltip__link"
+          href="https://www.example.com/"
+          rel="noreferrer"
+          target="_blank"
+          title="https://www.example.com/"
+        >
+          www.example.com
+        </a>
+        <button
+          className="button Tooltip__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Edit
+        </button>
+        <button
+          className="button button-secondary no Tooltip__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
     }
-    onClose={[Function]}
-  >
-    <Tooltip
-      direction="top"
-      target={
-        Object {
-          "container": <body
-            data-draftail-editor-wrapper="true"
-          >
-            <div
-              data-draftail-trigger="true"
-            />
-          </body>,
-          "height": 0,
-          "left": 0,
-          "top": 0,
-          "width": 0,
-        }
-      }
-    >
-      <a
-        className="Tooltip__link"
-        href="https://www.example.com/"
-        rel="noreferrer"
-        target="_blank"
-        title="https://www.example.com/"
-      >
-        www.example.com
-      </a>
-      <button
-        className="button Tooltip__button"
-        onClick={[Function]}
-      >
-        Edit
-      </button>
-      <button
-        className="button button-secondary no Tooltip__button"
-        onClick={[Function]}
-      >
-        Remove
-      </button>
-    </Tooltip>
-  </Portal>
+    getTargetPosition={[Function]}
+    onHide={[Function]}
+    shouldOpen={true}
+  />
 </a>
 `;
 
@@ -85,5 +64,40 @@ exports[`TooltipEntity works 1`] = `
     icon="#icon-test"
   />
   test
+  <Tooltip
+    content={
+      <div
+        className="Draftail-InlineToolbar"
+        role="toolbar"
+      >
+        <a
+          className="Tooltip__link"
+          href="https://www.example.com/"
+          rel="noreferrer"
+          target="_blank"
+          title="https://www.example.com/"
+        >
+          www.example.com
+        </a>
+        <button
+          className="button Tooltip__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Edit
+        </button>
+        <button
+          className="button button-secondary no Tooltip__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
+    }
+    getTargetPosition={[Function]}
+    onHide={[Function]}
+    shouldOpen={false}
+  />
 </a>
 `;

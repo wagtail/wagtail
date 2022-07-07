@@ -35,9 +35,44 @@ class TooltipEntity extends Component {
     });
   }
 
+  renderTooltip() {
+    const { label, url, onEdit, onRemove, entityKey } = this.props;
+
+    return (
+      <div className="Draftail-InlineToolbar" role="toolbar">
+        {label ? (
+          <a
+            href={url}
+            title={url}
+            target="_blank"
+            rel="noreferrer"
+            className="Tooltip__link"
+          >
+            {shortenLabel(label)}
+          </a>
+        ) : null}
+
+        <button
+          type="button"
+          className="button Tooltip__button"
+          onClick={onEdit.bind(null, entityKey)}
+        >
+          Edit
+        </button>
+
+        <button
+          type="button"
+          className="button button-secondary no Tooltip__button"
+          onClick={onRemove.bind(null, entityKey)}
+        >
+          Remove
+        </button>
+      </div>
+    );
+  }
+
   render() {
-    const { children, icon, label, url, onEdit, onRemove, entityKey } =
-      this.props;
+    const { children, icon, url } = this.props;
     const { showTooltipAt } = this.state;
 
     return (
@@ -66,37 +101,7 @@ class TooltipEntity extends Component {
               top: 0,
             };
           }}
-          content={
-            <div className="Draftail-InlineToolbar" role="toolbar">
-              {label ? (
-                <a
-                  href={url}
-                  title={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="Tooltip__link"
-                >
-                  {shortenLabel(label)}
-                </a>
-              ) : null}
-
-              <button
-                type="button"
-                className="button Tooltip__button"
-                onClick={onEdit.bind(null, entityKey)}
-              >
-                Edit
-              </button>
-
-              <button
-                type="button"
-                className="button button-secondary no Tooltip__button"
-                onClick={onRemove.bind(null, entityKey)}
-              >
-                Remove
-              </button>
-            </div>
-          }
+          content={this.renderTooltip()}
         />
       </a>
     );
