@@ -376,8 +376,8 @@ function getCommentControl(
         }`}
         icon={
           <>
-            <Icon name="comment-large-outline" />{' '}
-            <Icon name="comment-large-reversed" />
+            <Icon name="comment-add" />
+            <Icon name="comment-add-reversed" />
           </>
         }
         onClick={() => {
