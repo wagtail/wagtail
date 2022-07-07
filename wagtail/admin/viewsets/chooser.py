@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.views.generic import chooser as chooser_views
 from wagtail.admin.widgets.chooser import BaseChooser
+from wagtail.blocks import ChooserBlock
 
 from .base import ViewSet
 
@@ -43,6 +44,9 @@ class ChooserViewSet(ViewSet):
 
     #: The base Widget class that the chooser widget will be derived from.
     base_widget_class = BaseChooser
+
+    #: The base ChooserBlock class that the StreamField chooser block will be derived from.
+    base_block_class = ChooserBlock
 
     #: Defaults to True; if False, the chooser widget will not automatically be registered for use in admin forms.
     register_widget = True
@@ -126,6 +130,13 @@ class ChooserViewSet(ViewSet):
         )
 
     @cached_property
+    def model_name(self):
+        if isinstance(self.model, str):
+            return self.model.split(".")[-1]
+        else:
+            return self.model.__name__
+
+    @cached_property
     def widget_class(self):
         """
         Returns the form widget class for this chooser.
@@ -149,6 +160,28 @@ class ChooserViewSet(ViewSet):
                 "link_to_chosen_text": self.edit_item_text,
                 "chooser_modal_url_name": self.get_url_name("choose"),
                 "icon": self.icon,
+            },
+        )
+
+    @cached_property
+    def block_class(self):
+        """
+        Returns a StreamField ChooserBlock class using this chooser.
+        """
+        meta = type(
+            "Meta",
+            (self.base_block_class._meta_class,),
+            {
+                "icon": self.icon,
+            },
+        )
+        return type(
+            "%sChooserBlock" % self.model_name,
+            (self.base_block_class,),
+            {
+                "target_model": self.model,
+                "widget": self.widget_class(),
+                "Meta": meta,
             },
         )
 
