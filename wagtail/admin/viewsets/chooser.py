@@ -124,8 +124,13 @@ class ChooserViewSet(ViewSet):
         """
         Returns the form widget class for this chooser.
         """
+        if isinstance(self.model, str):
+            model_name = self.model.split(".")[-1]
+        else:
+            model_name = self.model.__name__
+
         return type(
-            "%sChooserWidget" % self.model.__name__,
+            "%sChooserWidget" % model_name,
             (self.base_widget_class,),
             {
                 "model": self.model,

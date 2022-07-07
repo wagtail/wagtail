@@ -10,6 +10,7 @@ from django.http import Http404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
@@ -23,6 +24,7 @@ from wagtail.admin.forms.choosers import (
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
 from wagtail.search.index import class_is_indexed
@@ -49,13 +51,25 @@ class ModalPageFurnitureMixin(ContextMixin):
         return context
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+class ModelLookupMixin:
+    """
+    Allows a class to have a `model` attribute, which can be set as either a model class or a string,
+    and then retrieve it as `model_class` to consistently get back a model class
+    """
+
+    model = None
+
+    @cached_property
+    def model_class(self):
+        return resolve_model_string(self.model)
+
+
+class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, View):
     """
     Provides common functionality for views that present a (possibly searchable / filterable) list
     of objects to choose from
     """
 
-    model = None
     per_page = 10
     ordering = None
     chosen_url_name = None
@@ -68,7 +82,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     construct_queryset_hook_name = None
 
     def get_object_list(self):
-        return self.model.objects.all()
+        return self.model_class.objects.all()
 
     def apply_object_list_ordering(self, objects):
         if isinstance(self.ordering, (list, tuple)):
@@ -89,11 +103,11 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             return self.filter_form_class
         else:
             bases = [BaseFilterForm]
-            if class_is_indexed(self.model):
+            if class_is_indexed(self.model_class):
                 bases.insert(0, SearchFilterMixin)
-            if issubclass(self.model, CollectionMember):
+            if issubclass(self.model_class, CollectionMember):
                 bases.insert(0, CollectionFilterMixin)
-            if issubclass(self.model, TranslatableMixin):
+            if issubclass(self.model_class, TranslatableMixin):
                 bases.insert(0, LocaleFilterMixin)
 
             return type(
@@ -162,7 +176,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class CreationFormMixin:
+class CreationFormMixin(ModelLookupMixin):
     """
     Provides a form class for creating new objects
     """
@@ -180,8 +194,8 @@ class CreationFormMixin:
     def get_permission_policy(self):
         if self.permission_policy:
             return self.permission_policy
-        elif self.model:
-            return ModelPermissionPolicy(self.model)
+        elif self.model_class:
+            return ModelPermissionPolicy(self.model_class)
         else:
             return BlanketPermissionPolicy(None)
 
@@ -195,7 +209,9 @@ class CreationFormMixin:
             return self.creation_form_class
         elif self.form_fields is not None or self.exclude_form_fields is not None:
             return modelform_factory(
-                self.model, fields=self.form_fields, exclude=self.exclude_form_fields
+                self.model_class,
+                fields=self.form_fields,
+                exclude=self.exclude_form_fields,
             )
 
     def get_creation_form_kwargs(self):
@@ -344,16 +360,14 @@ class ChosenResponseMixin:
         )
 
 
-class ChosenViewMixin:
+class ChosenViewMixin(ModelLookupMixin):
     """
     A view that takes an object ID in the URL and returns a modal workflow response indicating
     that object has been chosen
     """
 
-    model = None
-
     def get_object(self, pk):
-        return self.model.objects.get(pk=pk)
+        return self.model_class.objects.get(pk=pk)
 
     def get(self, request, pk):
         try:
