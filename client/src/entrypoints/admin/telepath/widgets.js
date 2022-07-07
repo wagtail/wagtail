@@ -201,6 +201,12 @@ class DraftailRichTextArea {
       //   );
       // };
 
+      const hrCommand = {
+        type: 'hr',
+        // The horizontal rule isn’t included in entityTypes by default.
+        items: [{ type: 'HORIZONTAL_RULE' }],
+      };
+
       options.commands = [
         {
           label: gettext('Rich text'),
@@ -209,11 +215,7 @@ class DraftailRichTextArea {
         {
           type: 'entityTypes',
         },
-        {
-          type: 'hr',
-          // The horizontal rule isn’t included in entityTypes by default.
-          items: [{ type: 'HORIZONTAL_RULE' }],
-        },
+        ...(options.enableHorizontalRule ? [hrCommand] : []),
         // {
         //   label: gettext('Blocks'),
         //   // The type is arbitrary, just needs to be unique.
