@@ -23,7 +23,7 @@
         {% include "wagtailadmin/shared/side_panel_toggles.html" %}
 
         {# Object history #}
-        <a href="{{ history_url }}"
+        <a href="{{ view.get_history_url }}"
             class="{{ nav_icon_button_classes }}"
             data-tippy-content="{% trans 'History' %}"
             data-tippy-offset="[0, 0]"
