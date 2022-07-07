@@ -28,6 +28,9 @@ class PersonViewSet(ModelViewSet):
     model = Person
     form_fields = ["first_name", "last_name"]
     icon = "user"
+
+
+person_viewset = PersonViewSet("person")  # defines /admin/person/ as the base URL
 ```
 
 This viewset can then be registered with the Wagtail admin to make it available under the URL `/admin/person/`, by adding the following to `wagtail_hooks.py`:
@@ -35,12 +38,12 @@ This viewset can then be registered with the Wagtail admin to make it available 
 ```python
 from wagtail import hooks
 
-from .views import PersonViewSet
+from .views import person_viewset
 
 
 @hooks.register("register_admin_viewset")
 def register_viewset():
-    return PersonViewSet("person")
+    return person_viewset
 ```
 
 Various additional attributes are available to customise the viewset - see [](../reference/viewsets).
@@ -51,16 +54,21 @@ The `wagtail.admin.viewsets.chooser.ChooserViewSet` class provides the views tha
 
 ```python
 from wagtail.admin.viewsets.chooser import ChooserViewSet
-from .models import Person
 
 
 class PersonChooserViewSet(ChooserViewSet):
-    model = Person
+    # The model can be specified as either the model class or an "app_label.model_name" string;
+    # using a string avoids circular imports when accessing the StreamField block class (see below)
+    model = "myapp.Person"
+
     icon = "user"
     choose_one_text = "Choose a person"
     choose_another_text = "Choose another person"
     edit_item_text = "Edit this person"
     form_fields = ["first_name", "last_name"]  # fields to show in the "Create" tab
+
+
+person_chooser_viewset = PersonChooserViewSet("person_chooser")
 ```
 
 Again this can be registered with the `register_admin_viewset` hook:
@@ -68,15 +76,29 @@ Again this can be registered with the `register_admin_viewset` hook:
 ```python
 from wagtail import hooks
 
-from .views import PersonChooserViewSet
+from .views import person_chooser_viewset
 
 
 @hooks.register("register_admin_viewset")
 def register_viewset():
-    return PersonChooserViewSet("person_chooser")
+    return person_chooser_viewset
 ```
 
-Registering a chooser viewset will also set up a chooser widget to be used whenever a ForeignKey field to that model appears in a `WagtailAdminModelForm` - see [](./forms). In particular, this means that a panel definition such as `FieldPanel("author")`, where `author` is a foreign key to the `Person` model, will automatically use this chooser interface.
+Registering a chooser viewset will also set up a chooser widget to be used whenever a ForeignKey field to that model appears in a `WagtailAdminModelForm` - see [](./forms). In particular, this means that a panel definition such as `FieldPanel("author")`, where `author` is a foreign key to the `Person` model, will automatically use this chooser interface. The chooser widget class can also be retrieved directly (for use in ordinary Django forms, for example) as the `widget_class` property on the viewset. For example, placing the following code in `widgets.py` will make the chooser widget available to be imported with `from myapp.widgets import PersonChooserWidget`:
+
+```python
+from .views import person_chooser_viewset
+
+PersonChooserWidget = person_chooser_viewset.widget_class
+```
+
+The viewset also makes a StreamField chooser block class available, as the property `block_class`. Placing the following code in `blocks.py` will make a chooser block available for use in StreamField definitions by importing `from myapp.blocks import PersonChooserBlock`:
+
+```python
+from .views import person_chooser_viewset
+
+PersonChooserBlock = person_chooser_viewset.block_class
+```
 
 ## Chooser viewsets for non-model datasources
 
@@ -247,4 +269,3 @@ class BaseUserChooseView(BaseChooseView):
         paginator = APIPaginator(result['meta']['total_count'], self.per_page)
         page = Page(result['items'], page_number, paginator)
         return page
-```
