@@ -2487,6 +2487,9 @@ class RevisionQuerySet(models.QuerySet):
 
 
 class RevisionsManager(models.Manager):
+    def get_queryset(self):
+        return RevisionQuerySet(self.model, using=self._db)
+
     def for_instance(self, instance):
         return self.get_queryset().for_instance(instance)
 
