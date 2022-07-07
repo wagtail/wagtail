@@ -254,6 +254,11 @@ class Site(models.Model):
                 version=SITE_ROOT_PATHS_CACHE_VERSION,
             )
 
+        else:
+            # Convert the cache result to a list of SiteRootPath tuples, as some
+            # cache backends (e.g. Redis) don't support named tuples.
+            result = [SiteRootPath(*result) for result in result]
+
         return result
 
     @staticmethod

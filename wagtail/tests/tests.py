@@ -1,3 +1,5 @@
+import json
+
 from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
@@ -231,6 +233,36 @@ class TestSiteRootPathsCache(TestCase):
                 )
             ],
         )
+
+    def test_cache_backend_uses_json_serialization(self):
+        """
+        This tests that, even if the cache backend uses JSON serialization,
+        get_site_root_paths() returns a list of SiteRootPath objects.
+        """
+        result = Site.get_site_root_paths()
+
+        self.assertEqual(
+            result,
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
+
+        # Go through JSON (de)serialisation to check that the result is
+        # still a list of named tuples.
+        cache.set(
+            SITE_ROOT_PATHS_CACHE_KEY,
+            json.loads(json.dumps(result)),
+            version=SITE_ROOT_PATHS_CACHE_VERSION,
+        )
+
+        result = Site.get_site_root_paths()
+        self.assertIsInstance(result[0], SiteRootPath)
 
     def test_cache_clears_when_site_saved(self):
         """
