@@ -222,6 +222,16 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             },
             priority=20,
         )
+    if is_parent and page_perms.can_reorder_children():
+        yield PageListingButton(
+            _("Sort menu order"),
+            "?ordering=ord",
+            attrs={
+                "aria-label": _("Change ordering of child pages of '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=30,
+        )
 
 
 @hooks.register("register_page_header_buttons")
@@ -276,6 +286,7 @@ def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
         yield Button(
             _("Delete"),
             url,
+            icon_name="bin",
             attrs={
                 "title": _("Delete page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -290,21 +301,12 @@ def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
         yield Button(
             _("Unpublish"),
             url,
+            icon_name="download-alt",
             attrs={
                 "title": _("Unpublish page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
             priority=40,
-        )
-    if is_parent and page_perms.can_reorder_children():
-        yield Button(
-            _("Sort menu order"),
-            "?ordering=ord",
-            attrs={
-                "title": _("Change ordering of child pages of '%(title)s'")
-                % {"title": page.get_admin_display_title()}
-            },
-            priority=60,
         )
 
 
