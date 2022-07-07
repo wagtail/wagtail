@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Icon } from 'draftail';
-
-import Tooltip from '../Tooltip/Tooltip';
-import Portal from '../../Portal/Portal';
+import { Icon, Tooltip } from 'draftail';
 
 const shortenLabel = (label) => {
   let shortened = label;
@@ -22,26 +19,7 @@ class TooltipEntity extends Component {
       showTooltipAt: null,
     };
 
-    this.onEdit = this.onEdit.bind(this);
-    this.onRemove = this.onRemove.bind(this);
     this.openTooltip = this.openTooltip.bind(this);
-    this.closeTooltip = this.closeTooltip.bind(this);
-  }
-
-  onEdit(e) {
-    const { onEdit, entityKey } = this.props;
-
-    e.preventDefault();
-    e.stopPropagation();
-    onEdit(entityKey);
-  }
-
-  onRemove(e) {
-    const { onRemove, entityKey } = this.props;
-
-    e.preventDefault();
-    e.stopPropagation();
-    onRemove(entityKey);
   }
 
   openTooltip(e) {
@@ -52,33 +30,14 @@ class TooltipEntity extends Component {
       return;
     }
 
-    const container = trigger.closest('[data-draftail-editor-wrapper]');
-    const containerRect = container.getBoundingClientRect();
-    const rect = trigger.getBoundingClientRect();
-
     this.setState({
-      showTooltipAt: {
-        container: container,
-        top:
-          rect.top -
-          containerRect.top -
-          (document.documentElement.scrollTop || document.body.scrollTop),
-        left:
-          rect.left -
-          containerRect.left -
-          (document.documentElement.scrollLeft || document.body.scrollLeft),
-        width: rect.width,
-        height: rect.height,
-      },
+      showTooltipAt: trigger.getBoundingClientRect(),
     });
   }
 
-  closeTooltip() {
-    this.setState({ showTooltipAt: null });
-  }
-
   render() {
-    const { children, icon, label, url } = this.props;
+    const { children, icon, label, url, onEdit, onRemove, entityKey } =
+      this.props;
     const { showTooltipAt } = this.state;
 
     return (
@@ -92,15 +51,23 @@ class TooltipEntity extends Component {
       >
         <Icon icon={icon} className="TooltipEntity__icon" />
         {children}
-        {showTooltipAt && (
-          <Portal
-            node={showTooltipAt.container}
-            onClose={this.closeTooltip}
-            closeOnClick
-            closeOnType
-            closeOnResize
-          >
-            <Tooltip target={showTooltipAt} direction="top">
+        <Tooltip
+          shouldOpen={Boolean(showTooltipAt)}
+          onHide={() => this.setState({ showTooltipAt: null })}
+          getTargetPosition={(editorRect) => {
+            if (!showTooltipAt) {
+              return null;
+            }
+
+            return {
+              left: `calc(${
+                showTooltipAt.left - editorRect.left
+              }px + var(--draftail-offset-inline-start, 0))`,
+              top: 0,
+            };
+          }}
+          content={
+            <div className="Draftail-InlineToolbar" role="toolbar">
               {label ? (
                 <a
                   href={url}
@@ -113,19 +80,24 @@ class TooltipEntity extends Component {
                 </a>
               ) : null}
 
-              <button className="button Tooltip__button" onClick={this.onEdit}>
+              <button
+                type="button"
+                className="button Tooltip__button"
+                onClick={onEdit.bind(null, entityKey)}
+              >
                 Edit
               </button>
 
               <button
+                type="button"
                 className="button button-secondary no Tooltip__button"
-                onClick={this.onRemove}
+                onClick={onRemove.bind(null, entityKey)}
               >
                 Remove
               </button>
-            </Tooltip>
-          </Portal>
-        )}
+            </div>
+          }
+        />
       </a>
     );
   }
