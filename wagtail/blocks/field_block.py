@@ -757,9 +757,13 @@ class ChooserBlock(FieldBlock):
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
 
     @cached_property
+    def model_class(self):
+        return resolve_model_string(self.target_model)
+
+    @cached_property
     def field(self):
         return forms.ModelChoiceField(
-            queryset=self.target_model.objects.all(),
+            queryset=self.model_class.objects.all(),
             widget=self.widget,
             required=self._required,
             validators=self._validators,
@@ -772,8 +776,8 @@ class ChooserBlock(FieldBlock):
             return value
         else:
             try:
-                return self.target_model.objects.get(pk=value)
-            except self.target_model.DoesNotExist:
+                return self.model_class.objects.get(pk=value)
+            except self.model_class.DoesNotExist:
                 return None
 
     def bulk_to_python(self, values):
@@ -781,7 +785,7 @@ class ChooserBlock(FieldBlock):
 
         The instances must be returned in the same order as the values and keep None values.
         """
-        objects = self.target_model.objects.in_bulk(values)
+        objects = self.model_class.objects.in_bulk(values)
         return [
             objects.get(id) for id in values
         ]  # Keeps the ordering the same as in values.
@@ -795,12 +799,12 @@ class ChooserBlock(FieldBlock):
 
     def value_from_form(self, value):
         # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance
-        if value is None or isinstance(value, self.target_model):
+        if value is None or isinstance(value, self.model_class):
             return value
         else:
             try:
-                return self.target_model.objects.get(pk=value)
-            except self.target_model.DoesNotExist:
+                return self.model_class.objects.get(pk=value)
+            except self.model_class.DoesNotExist:
                 return None
 
     def get_form_state(self, value):
@@ -814,7 +818,7 @@ class ChooserBlock(FieldBlock):
         # type) so we convert our instance back to an ID here. It means we have a wasted round-trip to
         # the database when ModelChoiceField.clean promptly does its own lookup, but there's no easy way
         # around that...
-        if isinstance(value, self.target_model):
+        if isinstance(value, self.model_class):
             value = value.pk
         return super().clean(value)
 
