@@ -44,7 +44,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
+from wagtail.admin.widgets import Button, PageListingButton
 from wagtail.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
 from wagtail.permissions import (
     collection_permission_policy,
