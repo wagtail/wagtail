@@ -6,12 +6,7 @@
         <col />
         <thead>
             <tr>
-                <th colspan="{{ data_headings|length|add:1 }}">
-                    <button class="button no" id="delete-submissions" style="visibility: hidden">{% trans "Delete selected submissions" %}</button>
-                </th>
-            </tr>
-            <tr>
-                <th><input type="checkbox" id="select-all" /></th>
+                {% include 'wagtailadmin/bulk_actions/select_all_checkbox_cell.html' %}
                 {% for heading in data_headings %}
                     <th id="{{ heading.name }}" class="{% if heading.order %}ordered {{ heading.order }}{% endif %}">
                         {% if heading.order %}<a href="?order_by={% if heading.order == 'ascending' %}-{% endif %}{{ heading.name }}">{{ heading.label }}</a>{% else %}{{ heading.label }}{% endif %}
@@ -20,11 +15,10 @@
             </tr>
         </thead>
         <tbody>
+            {% trans "Select response" as checkbox_aria_label %}
             {% for row in data_rows %}
                 <tr>
-                    <td>
-                        <input type="checkbox" name="selected-submissions" class="select-submission" value="{{ row.model_id }}" />
-                    </td>
+                    {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="data_rows" obj=row aria_labelledby_prefix="form_" aria_labelledby=row.model_id aria_labelledby_suffix="_title" %}
                     {% for cell in row.fields %}
                         <td>
                             {{ cell }}

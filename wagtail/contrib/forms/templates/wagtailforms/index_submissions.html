@@ -79,6 +79,10 @@
             updateActions();
         });
     </script>
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'FORMSUBMISSION';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 {% block content %}
     <header class="w-header w-header--hasform">
@@ -116,12 +120,12 @@
     </header>
     <div class="nice-padding">
         {% if submissions %}
-            <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
-                {% include "wagtailforms/list_submissions.html" %}
-                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
-            </form>
+            {% include "wagtailforms/list_submissions.html" %}
+            {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
         {% else %}
             <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
         {% endif %}
     </div>
+    {% trans "Select all documents in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=data_rows %}
 {% endblock %}

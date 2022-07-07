@@ -6,10 +6,11 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.translation import ngettext
 from django.views.generic import ListView, TemplateView
-
 from wagtail.admin import messages
+from django.utils.translation import ngettext
+
+
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
@@ -314,7 +315,9 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
                     if isinstance(val, list):
                         val = ", ".join(val)
                     data_row.append(val)
-                data_rows.append({"model_id": submission.id, "fields": data_row})
+                data_rows.append(
+                    {"model_id": submission.id, "id": submission.id, "fields": data_row}
+                )
             # Build data_headings as list of dicts containing model_id and fields
             ordering_by_field = self.get_validated_ordering()
             orderable_fields = self.orderable_fields
@@ -341,6 +344,8 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
                     "select_date_form": self.select_date_form,
                     "data_headings": data_headings,
                     "data_rows": data_rows,
+                    "app_label": "wagtailforms",
+                    "model_name": "formsubmission",
                 }
             )
 
