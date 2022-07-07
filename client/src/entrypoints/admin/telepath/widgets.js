@@ -258,6 +258,13 @@ class DraftailRichTextArea {
               icon: '#icon-cut',
               description: gettext('Split block'),
               type: 'split',
+              render: ({ option, getEditorState }) => {
+                const editorState = getEditorState();
+                const content = editorState.getCurrentContent();
+                const blocks = content.getBlockMap();
+                const text = `${option.description} (will split ${blocks.size} blocks)`;
+                return text;
+              },
               onSelect: ({ editorState }) => {
                 const result = window.draftail.splitState(editorState);
                 // Run the split after a timeout to circumvent potential race condition.
