@@ -767,9 +767,7 @@ class TestServeView(TestCase):
         # Explicitly clear the cache of site root paths. Normally this would be kept
         # in sync by the Site.save logic, but this is bypassed when the database is
         # rolled back between tests using transactions.
-        from django.core.cache import cache
-
-        cache.delete("wagtail_site_root_paths")
+        Site.clear_site_root_paths_cache()
 
         # also need to clear urlresolver caches before/after tests, because we override
         # ROOT_URLCONF in some tests here

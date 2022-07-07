@@ -8,6 +8,10 @@ from django.utils.safestring import SafeString
 
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Locale, Page, Site, SiteRootPath
+from wagtail.models.sites import (
+    SITE_ROOT_PATHS_CACHE_KEY,
+    SITE_ROOT_PATHS_CACHE_VERSION,
+)
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
 
@@ -217,7 +221,7 @@ class TestSiteRootPathsCache(TestCase):
 
         # Check that the cache has been set correctly
         self.assertEqual(
-            cache.get("wagtail_site_root_paths"),
+            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION),
             [
                 SiteRootPath(
                     site_id=1,
@@ -239,13 +243,17 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set
-        self.assertTrue(cache.get("wagtail_site_root_paths"))
+        self.assertTrue(
+            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        )
 
         # Save the site
         Site.objects.get(is_default_site=True).save()
 
         # Check that the cache has been cleared
-        self.assertFalse(cache.get("wagtail_site_root_paths"))
+        self.assertFalse(
+            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        )
 
     def test_cache_clears_when_site_deleted(self):
         """
@@ -258,13 +266,17 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set
-        self.assertTrue(cache.get("wagtail_site_root_paths"))
+        self.assertTrue(
+            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        )
 
         # Delete the site
         Site.objects.get(is_default_site=True).delete()
 
         # Check that the cache has been cleared
-        self.assertFalse(cache.get("wagtail_site_root_paths"))
+        self.assertFalse(
+            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        )
 
     def test_cache_clears_when_site_root_moves(self):
         """

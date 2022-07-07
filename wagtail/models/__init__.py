@@ -22,7 +22,6 @@ from django.contrib.auth.models import Group
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.core.cache import cache
 from django.core.exceptions import (
     ImproperlyConfigured,
     PermissionDenied,
@@ -1192,7 +1191,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Note: New translations of existing site roots are considered site roots as well, so we must
         # always check if this page is a site root, even if it's new.
         if self.is_site_root():
-            cache.delete("wagtail_site_root_paths")
+            Site.clear_site_root_paths_cache()
 
         # Log
         if is_new:
