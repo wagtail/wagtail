@@ -262,6 +262,17 @@ class TestExcelDateFormatter(TestCase):
             with self.subTest(lang), translation.override(lang):
                 self.assertNotEqual(formatter.get(), "")
 
+    def test_format(self):
+        formatter = ExcelDateFormatter()
+
+        with self.subTest(format="r"):
+            # Format code for RFC 5322 formatted date, e.g. 'Thu, 21 Dec 2000 16:01:07'
+            self.assertEqual(formatter.format("r"), "ddd, d mmm yyyy hh:mm:ss")
+
+        with self.subTest(format="m/d/Y g:i A"):
+            # Format code for e.g. '12/21/2000 4:01 PM'
+            self.assertEqual(formatter.format("m/d/Y g:i A"), "mm/dd/yyyy h:mm AM/PM")
+
 
 class TestAgingPagesView(TestCase, WagtailTestUtils):
     def setUp(self):
