@@ -71,6 +71,10 @@ class SiteManager(models.Manager):
 
 SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
 
+SITE_ROOT_PATHS_CACHE_KEY = "wagtail_site_root_paths"
+# Increase the cache version whenever the structure SiteRootPath tuple changes
+SITE_ROOT_PATHS_CACHE_VERSION = 2
+
 
 class Site(models.Model):
     hostname = models.CharField(
@@ -209,13 +213,11 @@ class Site(models.Model):
         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
         - `language_code` - The language code of the site (for example 'en')
         """
-        result = cache.get("wagtail_site_root_paths")
+        result = cache.get(
+            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
+        )
 
-        # Wagtail 2.11 changed the way site root paths were stored. This can cause an upgraded 2.11
-        # site to break when loading cached site root paths that were cached with 2.10.2 or older
-        # versions of Wagtail. The line below checks if the any of the cached site urls is consistent
-        # with an older version of Wagtail and invalidates the cache.
-        if result is None or any(len(site_record) == 3 for site_record in result):
+        if result is None:
             result = []
 
             for site in Site.objects.select_related(
@@ -245,6 +247,20 @@ class Site(models.Model):
                         )
                     )
 
-            cache.set("wagtail_site_root_paths", result, 3600)
+            cache.set(
+                SITE_ROOT_PATHS_CACHE_KEY,
+                result,
+                3600,
+                version=SITE_ROOT_PATHS_CACHE_VERSION,
+            )
+
+        else:
+            # Convert the cache result to a list of SiteRootPath tuples, as some
+            # cache backends (e.g. Redis) don't support named tuples.
+            result = [SiteRootPath(*result) for result in result]
 
         return result
+
+    @staticmethod
+    def clear_site_root_paths_cache():
+        cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)

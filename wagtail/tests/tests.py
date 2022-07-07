@@ -1,3 +1,5 @@
+import json
+
 from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
@@ -8,6 +10,10 @@ from django.utils.safestring import SafeString
 
 from wagtail.coreutils import get_dummy_request, resolve_model_string
 from wagtail.models import Locale, Page, Site, SiteRootPath
+from wagtail.models.sites import (
+    SITE_ROOT_PATHS_CACHE_KEY,
+    SITE_ROOT_PATHS_CACHE_VERSION,
+)
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
 
@@ -268,6 +274,11 @@ class TestWagtailSiteTag(TestCase):
 class TestSiteRootPathsCache(TestCase):
     fixtures = ["test.json"]
 
+    def get_cached_site_root_paths(self):
+        return cache.get(
+            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
+        )
+
     def test_cache(self):
         """
         This tests that the cache is populated when building URLs
@@ -280,7 +291,7 @@ class TestSiteRootPathsCache(TestCase):
 
         # Check that the cache has been set correctly
         self.assertEqual(
-            cache.get("wagtail_site_root_paths"),
+            self.get_cached_site_root_paths(),
             [
                 SiteRootPath(
                     site_id=1,
@@ -290,6 +301,36 @@ class TestSiteRootPathsCache(TestCase):
                 )
             ],
         )
+
+    def test_cache_backend_uses_json_serialization(self):
+        """
+        This tests that, even if the cache backend uses JSON serialization,
+        get_site_root_paths() returns a list of SiteRootPath objects.
+        """
+        result = Site.get_site_root_paths()
+
+        self.assertEqual(
+            result,
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
+
+        # Go through JSON (de)serialisation to check that the result is
+        # still a list of named tuples.
+        cache.set(
+            SITE_ROOT_PATHS_CACHE_KEY,
+            json.loads(json.dumps(result)),
+            version=SITE_ROOT_PATHS_CACHE_VERSION,
+        )
+
+        result = Site.get_site_root_paths()
+        self.assertIsInstance(result[0], SiteRootPath)
 
     def test_cache_clears_when_site_saved(self):
         """
@@ -302,13 +343,23 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set
-        self.assertTrue(cache.get("wagtail_site_root_paths"))
+        self.assertEqual(
+            self.get_cached_site_root_paths(),
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
 
         # Save the site
         Site.objects.get(is_default_site=True).save()
 
         # Check that the cache has been cleared
-        self.assertFalse(cache.get("wagtail_site_root_paths"))
+        self.assertIsNone(self.get_cached_site_root_paths())
 
     def test_cache_clears_when_site_deleted(self):
         """
@@ -321,13 +372,23 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set
-        self.assertTrue(cache.get("wagtail_site_root_paths"))
+        self.assertEqual(
+            self.get_cached_site_root_paths(),
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
+        )
 
         # Delete the site
         Site.objects.get(is_default_site=True).delete()
 
         # Check that the cache has been cleared
-        self.assertFalse(cache.get("wagtail_site_root_paths"))
+        self.assertIsNone(self.get_cached_site_root_paths())
 
     def test_cache_clears_when_site_root_moves(self):
         """

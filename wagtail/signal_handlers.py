@@ -2,7 +2,6 @@ import logging
 from contextlib import contextmanager
 
 from asgiref.local import Local
-from django.core.cache import cache
 from django.db import transaction
 from django.db.models.signals import (
     post_delete,
@@ -21,11 +20,11 @@ logger = logging.getLogger("wagtail")
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated.
 def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
-    cache.delete("wagtail_site_root_paths")
+    Site.clear_site_root_paths_cache()
 
 
 def post_delete_site_signal_handler(instance, **kwargs):
-    cache.delete("wagtail_site_root_paths")
+    Site.clear_site_root_paths_cache()
 
 
 def pre_delete_page_unpublish(sender, instance, **kwargs):
