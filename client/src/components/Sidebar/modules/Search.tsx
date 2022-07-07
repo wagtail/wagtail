@@ -41,7 +41,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   return (
     <form
       role="search"
-      className={`w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0`}
+      className="w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0"
       action={searchUrl}
       method="get"
       onSubmit={onSubmitForm}

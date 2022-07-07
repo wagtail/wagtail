@@ -334,7 +334,7 @@ export function getSplitControl(
     return () => (
       <button
         name={name}
-        className={'Draftail-ToolbarButton'}
+        className="Draftail-ToolbarButton"
         type="button"
         aria-label={title}
         data-draftail-balloon={title}
@@ -540,7 +540,7 @@ function getCommentDecorator(commentApp: CommentApp) {
     }, [commentId, annotationNode, blockKey]);
 
     if (!enabled) {
-      return <>{children}</>;
+      return children;
     }
 
     const onClick = () => {

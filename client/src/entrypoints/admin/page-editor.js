@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { cleanForSlug } from '../../utils/cleanForSlug';
+import { cleanForSlug } from '../../utils/text';
 
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]

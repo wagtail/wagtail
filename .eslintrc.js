@@ -4,12 +4,6 @@ const legacyCode = {
   'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
-  'jsx-a11y/alt-text': 'off',
-  'jsx-a11y/anchor-is-valid': 'off',
-  'jsx-a11y/click-events-have-key-events': 'off',
-  'jsx-a11y/interactive-supports-focus': 'off',
-  'jsx-a11y/no-noninteractive-element-interactions': 'off',
-  'jsx-a11y/role-supports-aria-props': 'off',
   'max-classes-per-file': 'off',
   'no-await-in-loop': 'off',
   'no-continue': 'off',
@@ -20,19 +14,6 @@ const legacyCode = {
   'no-this-before-super': 'off',
   'prefer-destructuring': 'off',
   'prefer-promise-reject-errors': 'off',
-  'react-hooks/exhaustive-deps': 'off',
-  'react-hooks/rules-of-hooks': 'off',
-  'react/button-has-type': 'off',
-  'react/destructuring-assignment': 'off',
-  'react/forbid-prop-types': 'off',
-  'react/function-component-definition': 'off',
-  'react/jsx-curly-brace-presence': 'off',
-  'react/jsx-filename-extension': 'off',
-  'react/jsx-no-useless-fragment': 'off',
-  'react/jsx-props-no-spreading': 'off',
-  'react/no-danger': 'off',
-  'react/no-deprecated': 'off',
-  'react/require-default-props': 'off',
 };
 
 module.exports = {
@@ -89,7 +70,6 @@ module.exports = {
     // Legacy Code - remove from `files` when adopting desired rules in new code progressively
     {
       files: [
-        'client/src/components/**',
         'client/src/entrypoints/**',
         'client/src/utils/**',
         '**/documents/static_src/wagtaildocs/js/add-multiple.js',
@@ -98,6 +78,27 @@ module.exports = {
         '**/snippets/static_src/wagtailsnippets/js/snippet-multiple-select.js',
       ],
       rules: legacyCode,
+    },
+    // Rules that we are ignoring currently due to legacy code in React components only
+    {
+      files: ['client/src/components/**'],
+      rules: {
+        ...legacyCode,
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/interactive-supports-focus': 'off',
+        'jsx-a11y/no-noninteractive-element-interactions': 'off',
+        'jsx-a11y/role-supports-aria-props': 'off',
+        'react-hooks/exhaustive-deps': 'off',
+        'react-hooks/rules-of-hooks': 'off',
+        'react/button-has-type': 'off',
+        'react/destructuring-assignment': 'off',
+        'react/forbid-prop-types': 'off',
+        'react/function-component-definition': 'off',
+        'react/jsx-props-no-spreading': 'off',
+        'react/no-danger': 'off',
+        'react/no-deprecated': 'off',
+        'react/require-default-props': 'off',
+      },
     },
     // Rules we don’t want to enforce for test and tooling code.
     {
@@ -115,9 +116,12 @@ module.exports = {
       ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        'global-require': 'off',
         'import/first': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'no-unused-expressions': 'off',
         'react/function-component-definition': 'off',
         'react/jsx-props-no-spreading': 'off',
       },

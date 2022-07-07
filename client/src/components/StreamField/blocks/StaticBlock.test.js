@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import $ from 'jquery';
 import { StaticBlockDefinition } from './StaticBlock';
 
@@ -28,6 +26,10 @@ describe('telepath: wagtail.blocks.StaticBlock', () => {
   test('it renders correctly', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
+
+  test('boundblock matches the snapshot', () => {
+    expect(boundBlock).toMatchSnapshot();
+  });
 });
 
 describe('telepath: wagtail.blocks.StaticBlock HTML escaping', () => {
@@ -55,6 +57,10 @@ describe('telepath: wagtail.blocks.StaticBlock HTML escaping', () => {
   test("javascript can't execute", () => {
     expect(window.somethingBad.mock.calls.length).toBe(0);
   });
+
+  test('boundblock matches the snapshot', () => {
+    expect(boundBlock).toMatchSnapshot();
+  });
 });
 
 describe('telepath: wagtail.blocks.StaticBlock allows safe HTML', () => {
@@ -81,5 +87,9 @@ describe('telepath: wagtail.blocks.StaticBlock allows safe HTML', () => {
 
   test('javascript can execute', () => {
     expect(window.somethingBad.mock.calls.length).toBe(1);
+  });
+
+  test('boundblock matches the snapshot', () => {
+    expect(boundBlock).toMatchSnapshot();
   });
 });

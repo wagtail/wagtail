@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.contrib.settings.registry import Registry
-from wagtail.test.testapp.models import NotYetRegisteredSetting
+from wagtail.test.testapp.models import NotYetRegisteredSiteSetting
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -12,10 +12,12 @@ class TestRegister(TestCase, WagtailTestUtils):
         self.login()
 
     def test_register(self):
-        self.assertNotIn(NotYetRegisteredSetting, self.registry)
-        NowRegisteredSetting = self.registry.register_decorator(NotYetRegisteredSetting)
-        self.assertIn(NotYetRegisteredSetting, self.registry)
-        self.assertIs(NowRegisteredSetting, NotYetRegisteredSetting)
+        self.assertNotIn(NotYetRegisteredSiteSetting, self.registry)
+        NowRegisteredSetting = self.registry.register_decorator(
+            NotYetRegisteredSiteSetting
+        )
+        self.assertIn(NotYetRegisteredSiteSetting, self.registry)
+        self.assertIs(NowRegisteredSetting, NotYetRegisteredSiteSetting)
 
     def test_icon(self):
         admin = self.client.get(reverse("wagtailadmin_home"))

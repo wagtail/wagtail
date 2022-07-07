@@ -6,11 +6,11 @@ from django.test.utils import override_settings
 from wagtail.models import Site
 from wagtail.test.utils import WagtailTestUtils
 
-from .base import SettingsTestMixin
+from .base import SiteSettingsTestMixin
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "other"])
-class TemplateTestCase(SettingsTestMixin, TestCase, WagtailTestUtils):
+class TemplateTestCase(SiteSettingsTestMixin, TestCase, WagtailTestUtils):
     def render(self, request, string, context=None, site=None):
         template = Template(string)
         context = RequestContext(request, context)
@@ -22,49 +22,49 @@ class TestContextProcessor(TemplateTestCase):
         """Check that the context processor works"""
         request = self.get_request()
         self.assertEqual(
-            self.render(request, "{{ settings.tests.TestSetting.title }}"),
-            self.default_site_settings.title,
+            self.render(request, "{{ settings.tests.TestSiteSetting.title }}"),
+            self.default_settings.title,
         )
 
     def test_multisite(self):
         """Check that the correct setting for the current site is returned"""
         request = self.get_request(site=self.default_site)
         self.assertEqual(
-            self.render(request, "{{ settings.tests.TestSetting.title }}"),
-            self.default_site_settings.title,
+            self.render(request, "{{ settings.tests.TestSiteSetting.title }}"),
+            self.default_settings.title,
         )
 
         request = self.get_request(site=self.other_site)
         self.assertEqual(
-            self.render(request, "{{ settings.tests.TestSetting.title }}"),
-            self.other_site_settings.title,
+            self.render(request, "{{ settings.tests.TestSiteSetting.title }}"),
+            self.other_settings.title,
         )
 
     def test_model_case_insensitive(self):
         """Model names should be case insensitive"""
         request = self.get_request()
         self.assertEqual(
-            self.render(request, "{{ settings.tests.testsetting.title }}"),
-            self.default_site_settings.title,
+            self.render(request, "{{ settings.tests.testsitesetting.title }}"),
+            self.default_settings.title,
         )
         self.assertEqual(
-            self.render(request, "{{ settings.tests.TESTSETTING.title }}"),
-            self.default_site_settings.title,
+            self.render(request, "{{ settings.tests.TESTSITESETTING.title }}"),
+            self.default_settings.title,
         )
         self.assertEqual(
-            self.render(request, "{{ settings.tests.TestSetting.title }}"),
-            self.default_site_settings.title,
+            self.render(request, "{{ settings.tests.TestSiteSetting.title }}"),
+            self.default_settings.title,
         )
         self.assertEqual(
-            self.render(request, "{{ settings.tests.tEstsEttIng.title }}"),
-            self.default_site_settings.title,
+            self.render(request, "{{ settings.tests.tEstSiTesEttIng.title }}"),
+            self.default_settings.title,
         )
 
     def test_models_cached(self):
         """Accessing a setting should only hit the DB once per request instance,
         even if using that request to rendering multiple times"""
         request = self.get_request()
-        get_title = "{{ settings.tests.testsetting.title }}"
+        get_title = "{{ settings.tests.testsitesetting.title }}"
 
         # force site query beforehand
         Site.find_for_request(request)
@@ -74,7 +74,7 @@ class TestContextProcessor(TemplateTestCase):
                 with self.subTest(attempt=i):
                     self.assertEqual(
                         self.render(request, get_title * i),
-                        self.default_site_settings.title * i,
+                        self.default_settings.title * i,
                     )
 
 
@@ -84,7 +84,7 @@ class TestTemplateTag(TemplateTestCase):
         Assert that not running the context processor means settings are not in
         the context, as expected.
         """
-        template = Template("{{ settings.tests.TestSetting.title }}")
+        template = Template("{{ settings.tests.TestSiteSetting.title }}")
         context = Context()
         self.assertEqual(template.render(context), "")
 
@@ -97,10 +97,10 @@ class TestTemplateTag(TemplateTestCase):
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings %}"
-            "{{ settings.tests.testsetting.title}}"
+            "{{ settings.tests.testsitesetting.title }}"
         )
 
-        self.assertEqual(template.render(context), self.other_site_settings.title)
+        self.assertEqual(template.render(context), self.other_settings.title)
 
     def test_get_settings_request_context_use_default(self):
         """
@@ -114,10 +114,10 @@ class TestTemplateTag(TemplateTestCase):
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings use_default_site=True %}"
-            "{{ settings.tests.testsetting.title}}"
+            "{{ settings.tests.testsitesetting.title }}"
         )
 
-        self.assertEqual(template.render(context), self.default_site_settings.title)
+        self.assertEqual(template.render(context), self.default_settings.title)
 
     def test_get_settings_use_default(self):
         """
@@ -129,10 +129,10 @@ class TestTemplateTag(TemplateTestCase):
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings use_default_site=True %}"
-            "{{ settings.tests.testsetting.title}}"
+            "{{ settings.tests.testsitesetting.title }}"
         )
 
-        self.assertEqual(template.render(context), self.default_site_settings.title)
+        self.assertEqual(template.render(context), self.default_settings.title)
 
     def test_get_settings_no_request_no_default(self):
         """
@@ -146,7 +146,7 @@ class TestTemplateTag(TemplateTestCase):
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings %}"
-            "{{ settings.tests.testsetting.title}}"
+            "{{ settings.tests.testsitesetting.title }}"
         )
         with self.assertRaises(RuntimeError):
             template.render(context)
@@ -161,15 +161,15 @@ class TestTemplateTag(TemplateTestCase):
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings as wagtail_settings %}"
-            "{{ wagtail_settings.tests.testsetting.title}}"
+            "{{ wagtail_settings.tests.testsitesetting.title }}"
         )
 
-        self.assertEqual(template.render(context), self.other_site_settings.title)
+        self.assertEqual(template.render(context), self.other_settings.title)
         # Also check that the default 'settings' variable hasn't been set
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings as wagtail_settings %}"
-            "{{ settings.tests.testsetting.title}}"
+            "{{ settings.tests.testsitesetting.title }}"
         )
 
         self.assertEqual(template.render(context), "")
@@ -183,13 +183,13 @@ class TestTemplateTag(TemplateTestCase):
         template = Template(
             "{% load wagtailsettings_tags %}"
             "{% get_settings use_default_site=True as wagtail_settings %}"
-            "{{ wagtail_settings.tests.testsetting.title }}"
+            "{{ wagtail_settings.tests.testsitesetting.title }}"
         )
 
-        self.assertEqual(template.render(context), self.default_site_settings.title)
+        self.assertEqual(template.render(context), self.default_settings.title)
 
 
-class TestSettingsJinja(TemplateTestCase):
+class TestSiteSettingsJinja(TemplateTestCase):
     def setUp(self):
         super().setUp()
         self.engine = engines["jinja2"]
@@ -215,46 +215,52 @@ class TestSettingsJinja(TemplateTestCase):
     def test_accessing_setting(self):
         """Check that the context processor works"""
         self.assertEqual(
-            self.render('{{ settings("tests.TestSetting").title }}'),
-            self.default_site_settings.title,
+            self.render('{{ settings("tests.TestSiteSetting").title }}'),
+            self.default_settings.title,
         )
 
     def test_multisite(self):
         """Check that the correct setting for the current site is returned"""
         context = {"site": self.default_site}
         self.assertEqual(
-            self.render('{{ settings("tests.TestSetting").title }}', context),
-            self.default_site_settings.title,
+            self.render(
+                '{{ settings("tests.TestSiteSetting").title }}',
+                context,
+            ),
+            self.default_settings.title,
         )
 
         context = {"site": self.other_site}
         self.assertEqual(
-            self.render('{{ settings("tests.TestSetting").title }}', context),
-            self.other_site_settings.title,
+            self.render(
+                '{{ settings("tests.TestSiteSetting").title }}',
+                context,
+            ),
+            self.other_settings.title,
         )
 
     def test_model_case_insensitive(self):
         """Model names should be case insensitive"""
         self.assertEqual(
-            self.render('{{ settings("tests.testsetting").title }}'),
-            self.default_site_settings.title,
+            self.render('{{ settings("tests.testsitesetting").title }}'),
+            self.default_settings.title,
         )
         self.assertEqual(
-            self.render('{{ settings("tests.TESTSETTING").title }}'),
-            self.default_site_settings.title,
+            self.render('{{ settings("tests.TESTSITESETTING").title }}'),
+            self.default_settings.title,
         )
         self.assertEqual(
-            self.render('{{ settings("tests.TestSetting").title }}'),
-            self.default_site_settings.title,
+            self.render('{{ settings("tests.TestSiteSetting").title }}'),
+            self.default_settings.title,
         )
         self.assertEqual(
-            self.render('{{ settings("tests.tEstsEttIng").title }}'),
-            self.default_site_settings.title,
+            self.render('{{ settings("tests.tEstSiTesEttIng").title }}'),
+            self.default_settings.title,
         )
 
     def test_models_cached(self):
         """Accessing a setting should only hit the DB once per render"""
-        get_title = '{{ settings("tests.testsetting").title }}'
+        get_title = '{{ settings("tests.testsitesetting").title }}'
 
         request = self.get_request()
         # run extra query before hand
@@ -265,7 +271,7 @@ class TestSettingsJinja(TemplateTestCase):
                 context = {"request": request}
                 template = self.engine.from_string(get_title * i)
                 self.assertEqual(
-                    template.render(context), self.default_site_settings.title * i
+                    template.render(context), self.default_settings.title * i
                 )
 
     def test_settings_use_default_site_override(self):
@@ -277,11 +283,11 @@ class TestSettingsJinja(TemplateTestCase):
         context = {"request": request}
 
         # This should use the default site, ignoring the site in the request
-        template = '{{ settings("tests.testsetting", use_default_site=True).title }}'
-
-        self.assertEqual(
-            self.render(template, context), self.default_site_settings.title
+        template = (
+            '{{ settings("tests.testsitesetting", use_default_site=True).title }}'
         )
+
+        self.assertEqual(self.render(template, context), self.default_settings.title)
 
     def test_settings_use_default_site(self):
         """
@@ -291,11 +297,13 @@ class TestSettingsJinja(TemplateTestCase):
         context = {}
 
         # This should use the default site
-        template = '{{ settings("tests.testsetting", use_default_site=True).title}}'
+        template = (
+            '{{ settings("tests.testsitesetting", use_default_site=True).title }}'
+        )
 
         self.assertEqual(
             self.render(template, context, request_context=False),
-            self.default_site_settings.title,
+            self.default_settings.title,
         )
 
     def test_settings_no_request_no_use_default(self):
@@ -307,6 +315,6 @@ class TestSettingsJinja(TemplateTestCase):
 
         # Without a request in the context, and without use_default_site, this
         # should bail with an error
-        template = '{{ settings("tests.testsetting").title}}'
+        template = '{{ settings("tests.testsitesetting").title }}'
         with self.assertRaises(RuntimeError):
             self.render(template, context, request_context=False)

@@ -1,31 +1,31 @@
 from django.test import TestCase, override_settings
 
 from wagtail.models import Site
-from wagtail.test.testapp.models import ImportantPages, TestSetting
+from wagtail.test.testapp.models import ImportantPagesSiteSetting, TestSiteSetting
 
-from .base import SettingsTestMixin
+from .base import SiteSettingsTestMixin
 
 
 @override_settings(ALLOWED_HOSTS=["localhost", "other"])
-class SettingModelTestCase(SettingsTestMixin, TestCase):
+class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
     def test_for_site_returns_expected_settings(self):
-        for site, expected_site_settings in (
-            (self.default_site, self.default_site_settings),
-            (self.other_site, self.other_site_settings),
+        for site, expected_settings in (
+            (self.default_site, self.default_settings),
+            (self.other_site, self.other_settings),
         ):
             with self.subTest(site=site):
-                self.assertEqual(TestSetting.for_site(site), expected_site_settings)
+                self.assertEqual(TestSiteSetting.for_site(site), expected_settings)
 
     def test_for_request_returns_expected_settings(self):
         default_site_request = self.get_request()
         other_site_request = self.get_request(site=self.other_site)
-        for request, expected_site_settings in (
-            (default_site_request, self.default_site_settings),
-            (other_site_request, self.other_site_settings),
+        for request, expected_settings in (
+            (default_site_request, self.default_settings),
+            (other_site_request, self.other_settings),
         ):
             with self.subTest(request=request):
                 self.assertEqual(
-                    TestSetting.for_request(request), expected_site_settings
+                    TestSiteSetting.for_request(request), expected_settings
                 )
 
     def test_for_request_result_caching(self):
@@ -40,11 +40,11 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
                 # only the first lookup should result in a query
                 with self.assertNumQueries(1):
                     for i in range(4):
-                        TestSetting.for_request(request)
+                        TestSiteSetting.for_request(request)
 
-    def _create_importantpages_object(self):
+    def _create_importantpagessitesetting_object(self):
         site = self.default_site
-        return ImportantPages.objects.create(
+        return ImportantPagesSiteSetting.objects.create(
             site=site,
             sign_up_page=site.root_page,
             general_terms_page=site.root_page,
@@ -55,14 +55,14 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
         """The `select_related` attribute on setting models is `None` by default, so fetching foreign keys values requires additional queries"""
         request = self.get_request()
 
-        self._create_importantpages_object()
+        self._create_importantpagessitesetting_object()
 
         # force site query beforehand
         Site.find_for_request(request)
 
         # fetch settings and access foreiegn keys
         with self.assertNumQueries(expected_queries):
-            settings = ImportantPages.for_request(request)
+            settings = ImportantPagesSiteSetting.for_request(request)
             settings.sign_up_page
             settings.general_terms_page
             settings.privacy_policy_page
@@ -71,7 +71,7 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
         """But, `select_related` can be used to reduce the number of queries needed to fetch foreign keys"""
         try:
             # set class attribute temporarily
-            ImportantPages.select_related = [
+            ImportantPagesSiteSetting.select_related = [
                 "sign_up_page",
                 "general_terms_page",
                 "privacy_policy_page",
@@ -79,17 +79,17 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
             self.test_select_related(expected_queries=1)
         finally:
             # undo temporary change
-            ImportantPages.select_related = None
+            ImportantPagesSiteSetting.select_related = None
 
     def test_get_page_url_when_settings_fetched_via_for_request(self):
-        """Using ImportantPages.for_request() makes the setting
+        """Using ImportantPagesSiteSetting.for_request() makes the setting
         object request-aware, improving efficiency and allowing
         site-relative URLs to be returned"""
 
-        self._create_importantpages_object()
+        self._create_importantpagessitesetting_object()
 
         request = self.get_request()
-        settings = ImportantPages.for_request(request)
+        settings = ImportantPagesSiteSetting.for_request(request)
 
         # Force site root paths query beforehand
         self.default_site.root_page._get_site_root_paths(request)
@@ -120,12 +120,12 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
                     )
 
     def test_get_page_url_when_for_settings_fetched_via_for_site(self):
-        """ImportantPages.for_site() cannot make the settings object
+        """ImportantPagesSiteSetting.for_site() cannot make the settings object
         request-aware, so things are a little less efficient, and the
         URLs returned will not be site-relative"""
-        self._create_importantpages_object()
+        self._create_importantpagessitesetting_object()
 
-        settings = ImportantPages.for_site(self.default_site)
+        settings = ImportantPagesSiteSetting.for_site(self.default_site)
 
         # Force site root paths query beforehand
         self.default_site.root_page._get_site_root_paths()
@@ -160,7 +160,7 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
                     )
 
     def test_get_page_url_raises_attributeerror_if_attribute_name_invalid(self):
-        settings = self._create_importantpages_object()
+        settings = self._create_importantpagessitesetting_object()
         # when called directly
         with self.assertRaises(AttributeError):
             settings.get_page_url("not_an_attribute")
@@ -169,7 +169,7 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
             settings.page_url.not_an_attribute
 
     def test_get_page_url_returns_empty_string_if_attribute_value_not_a_page(self):
-        settings = self._create_importantpages_object()
+        settings = self._create_importantpagessitesetting_object()
         for value in (None, self.default_site):
             with self.subTest(attribute_value=value):
                 settings.test_attribute = value

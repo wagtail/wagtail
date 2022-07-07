@@ -16,12 +16,12 @@
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
 
 {% endcomment %}
-<header class="{% classnames "header" classname merged|yesno:"merged," search_form|yesno:"hasform," %}">
+<header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
     {% block breadcrumb %}{% endblock %}
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1 class="header__title">
+                <h1 class="w-header__title">
                     {% if icon %}
                         {% icon class_name="w-header__glpyh" name=icon %}
                     {% elif avatar %}

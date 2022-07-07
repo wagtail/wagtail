@@ -4,6 +4,7 @@ import jinja2
 from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
+from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting
 from wagtail.contrib.settings.registry import registry
 from wagtail.models import Site
 
@@ -13,26 +14,17 @@ from wagtail.models import Site
 settings_cache = WeakKeyDictionary()
 
 
-class ContextCache(dict):
+class SettingContextCache(dict):
     """
-    A cache of Sites and their Settings for a template Context
+    Settings cache for a template Context
     """
 
     def __missing__(self, key):
-        """
-        Make a SiteSetting for a new Site
-        """
-        if not (isinstance(key, Site)):
-            raise TypeError
-        out = self[key] = SiteSettings(key)
+        out = self[key] = Setting(key)
         return out
 
 
-class SiteSettings(dict):
-    """
-    A cache of Settings for a specific Site
-    """
-
+class Setting(dict):
     def __init__(self, site):
         super().__init__()
         self.site = site
@@ -43,39 +35,48 @@ class SiteSettings(dict):
 
     def __missing__(self, key):
         """
-        Get the settings instance for this site, and store it for later
+        Get the settings instance and store it for later
         """
         try:
             app_label, model_name = key.split(".", 1)
         except ValueError:
-            raise KeyError("Invalid model name: {}".format(key))
+            raise KeyError(f"Invalid model name: `{key}`")
+
         Model = registry.get_by_natural_key(app_label, model_name)
         if Model is None:
-            raise KeyError("Unknown setting: {}".format(key))
+            raise RuntimeError(f"Could not find model matching `{key}`.")
 
-        out = self[key] = Model.for_site(self.site)
+        if issubclass(Model, BaseGenericSetting):
+            out = self[key] = Model.load(request_or_site=self.site)
+        elif issubclass(Model, BaseSiteSetting):
+            if self.site is None or not isinstance(self.site, Site):
+                raise RuntimeError(
+                    "Site-specific settings cannot be identified because "
+                    "`self.site` is not a Site."
+                )
+            out = self[key] = Model.for_site(self.site)
+        else:
+            raise NotImplementedError
+
         return out
 
 
 @jinja2.pass_context
 def get_setting(context, model_string, use_default_site=False):
+    cache_key = None
     if use_default_site:
-        site = Site.objects.get(is_default_site=True)
+        cache_key = Site.objects.get(is_default_site=True)
     elif "request" in context:
-        site = Site.find_for_request(context["request"])
-    else:
-        raise RuntimeError(
-            "No request found in context, and use_default_site " "flag not set"
-        )
+        cache_key = Site.find_for_request(context["request"])
 
     # Sadly, WeakKeyDictionary can not implement __missing__, so we have to do
     # this one manually
     try:
         context_cache = settings_cache[context]
     except KeyError:
-        context_cache = settings_cache[context] = ContextCache()
+        context_cache = settings_cache[context] = SettingContextCache()
     # These ones all implement __missing__ in a useful way though
-    return context_cache[site][model_string]
+    return context_cache[cache_key][model_string]
 
 
 class SettingsExtension(Extension):

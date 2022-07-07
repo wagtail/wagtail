@@ -151,11 +151,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
         )}
       </div>
       {author && author.avatarUrl && (
-        <img
-          className="comment-header__avatar"
-          src={author.avatarUrl}
-          role="presentation"
-        />
+        <img className="comment-header__avatar" src={author.avatarUrl} alt="" />
       )}
       <span id={descriptionId}>
         <p className="comment-header__author">{author ? author.name : ''}</p>

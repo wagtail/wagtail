@@ -44,7 +44,11 @@ from wagtail.contrib.forms.models import (
     AbstractFormSubmission,
 )
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import (
+    BaseGenericSetting,
+    BaseSiteSetting,
+    register_setting,
+)
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.documents import get_document_model
@@ -1326,13 +1330,32 @@ class AbstractPage(Page):
 
 
 @register_setting
-class TestSetting(BaseSetting):
+class TestSiteSetting(BaseSiteSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
 
 
 @register_setting
-class ImportantPages(BaseSetting):
+class TestGenericSetting(BaseGenericSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+
+@register_setting
+class ImportantPagesSiteSetting(BaseSiteSetting):
+    sign_up_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+    general_terms_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+    privacy_policy_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+
+
+@register_setting
+class ImportantPagesGenericSetting(BaseGenericSetting):
     sign_up_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
     )
@@ -1345,16 +1368,30 @@ class ImportantPages(BaseSetting):
 
 
 @register_setting(icon="icon-setting-tag")
-class IconSetting(BaseSetting):
+class IconSiteSetting(BaseSiteSetting):
     pass
 
 
-class NotYetRegisteredSetting(BaseSetting):
+@register_setting(icon="icon-setting-tag")
+class IconGenericSetting(BaseGenericSetting):
+    pass
+
+
+class NotYetRegisteredSiteSetting(BaseSiteSetting):
+    pass
+
+
+class NotYetRegisteredGenericSetting(BaseGenericSetting):
     pass
 
 
 @register_setting
-class FileUploadSetting(BaseSetting):
+class FileSiteSetting(BaseSiteSetting):
+    file = models.FileField()
+
+
+@register_setting
+class FileGenericSetting(BaseGenericSetting):
     file = models.FileField()
 
 
@@ -1590,11 +1627,24 @@ class UserProfile(models.Model):
     favourite_colour = models.CharField(max_length=255)
 
 
-class PanelSettings(TestSetting):
+class PanelSiteSettings(TestSiteSetting):
     panels = [FieldPanel("title")]
 
 
-class TabbedSettings(TestSetting):
+class PanelGenericSettings(TestGenericSetting):
+    panels = [FieldPanel("title")]
+
+
+class TabbedSiteSettings(TestSiteSetting):
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("title")], heading="First tab"),
+            ObjectList([FieldPanel("email")], heading="Second tab"),
+        ]
+    )
+
+
+class TabbedGenericSettings(TestGenericSetting):
     edit_handler = TabbedInterface(
         [
             ObjectList([FieldPanel("title")], heading="First tab"),
