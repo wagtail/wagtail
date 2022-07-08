@@ -27,12 +27,12 @@
 
     <div class="preview-panel__area">
         <div class="preview-panel__controls{% if has_multiple_modes %} preview-panel__controls--multiple{% endif %}">
-            <div class="preview-panel__error-banner">
+            <div id="preview-panel-error-banner" class="preview-panel__error-banner">
                 {% icon name='warning' class_name='default' %}
                 <div>
-                    <p class="preview-panel__error-title">
+                    <h3 class="preview-panel__error-title">
                         {% trans 'Preview is out of date' %}
-                    </p>
+                    </h3>
                     <p class="preview-panel__error-details">
                         {% trans 'Correct the validation errors to resume preview (saving will highlight errors)' %}
                     </p>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="preview-panel__wrapper">
-            <iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true&mode={{ object.default_preview_mode|urlencode }}"></iframe>
+            <iframe title="{% trans 'Preview' %}" class="preview-panel__iframe" data-preview-iframe src="{{ preview_url }}?in_preview_panel=true&mode={{ object.default_preview_mode|urlencode }}" aria-describedby="preview-panel-error-banner"></iframe>
         </div>
     </div>
 </div>
