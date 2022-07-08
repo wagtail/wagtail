@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
@@ -8,7 +9,8 @@ from wagtail.rich_text import RichText, expand_db_html
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
-from wagtail.test.testapp.models import EventPage
+from wagtail.test.testapp.models import EventIndex, EventPage
+from wagtail.test.utils.form_data import rich_text
 
 
 class TestPageLinktypeHandler(TestCase):
@@ -247,3 +249,29 @@ class TestRichTextField(TestCase):
         value = body_field.value_from_object(christmas_page)
         result = body_field.get_searchable_content(value)
         self.assertEqual(result, ["buttery mashed potatoes"])
+
+    def test_max_length_validation(self):
+        EventIndexForm = modelform_factory(model=EventIndex, fields=["intro"])
+
+        form = EventIndexForm(
+            {"intro": rich_text("<p><i>less</i> than 50 characters</p>")}
+        )
+        self.assertTrue(form.is_valid())
+
+        form = EventIndexForm(
+            {
+                "intro": rich_text(
+                    "<p>a piece of text that is considerably longer than the limit of fifty characters of text</p>"
+                )
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+        form = EventIndexForm(
+            {
+                "intro": rich_text(
+                    '<p><a href="http://a-domain-name-that-would-put-us-over-the-limit-if-we-were-counting-it.example.com/">less</a> than 50 characters</p>'
+                )
+            }
+        )
+        self.assertTrue(form.is_valid())
