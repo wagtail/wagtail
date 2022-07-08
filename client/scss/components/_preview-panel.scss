@@ -11,10 +11,11 @@
 
   &__area {
     height: 100%;
-    overflow: hidden;
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
+    // Needed for the warning message when the data is not valid.
+    overflow: hidden;
   }
 
   &__wrapper {

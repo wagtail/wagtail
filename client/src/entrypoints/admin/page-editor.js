@@ -266,12 +266,6 @@ window.initErrorDetection = initErrorDetection;
 
 function initKeyboardShortcuts() {
   // eslint-disable-next-line no-undef
-  Mousetrap.bind(['mod+p'], () => {
-    $('.action-preview').trigger('click');
-    return false;
-  });
-
-  // eslint-disable-next-line no-undef
   Mousetrap.bind(['mod+s'], () => {
     $('.action-save').trigger('click');
     return false;

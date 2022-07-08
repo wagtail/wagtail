@@ -67,13 +67,13 @@ class PreviewOnEdit(View):
         return QueryDict(post_data)
 
     def post(self, request, *args, **kwargs):
-        # TODO: Handle request.FILES.
         self.remove_old_preview_data()
         page = self.get_page()
         form = self.get_form(page, request.POST)
         is_valid = form.is_valid()
 
         if is_valid:
+            # TODO: Handle request.FILES.
             request.session[self.session_key] = request.POST.urlencode(), time()
             is_available = True
         else:

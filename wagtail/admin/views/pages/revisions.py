@@ -78,7 +78,6 @@ def revisions_revert(request, page_id, revision_id):
             "errors_debug": None,
             "action_menu": action_menu,
             "side_panels": side_panels,
-            "preview_modes": page.preview_modes,
             "form": form,  # Used in unit tests
             "media": edit_handler.media
             + form.media

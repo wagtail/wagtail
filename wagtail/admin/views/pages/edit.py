@@ -885,7 +885,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "errors_debug": self.errors_debug,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
