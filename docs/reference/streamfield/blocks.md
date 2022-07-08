@@ -205,6 +205,7 @@ All block definitions accept the following optional keyword arguments:
    :param editor: The rich text editor to be used (see :ref:`WAGTAILADMIN_RICH_TEXT_EDITORS`).
    :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
    :param required: If true (the default), the field cannot be left blank.
+   :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting and embedded content does not count towards the limit.
    :param help_text: Help text to display alongside the field.
    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.

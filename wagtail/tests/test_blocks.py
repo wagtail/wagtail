@@ -629,6 +629,20 @@ class TestRichTextBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean(RichText("<p>bar</p>"))
 
+    def test_validate_max_length(self):
+        block = blocks.RichTextBlock(max_length=20)
+
+        block.clean(RichText("<p>short</p>"))
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText("<p>this exceeds the 20 character limit</p>"))
+
+        block.clean(
+            RichText(
+                '<p><a href="http://really-long-domain-name.example.com">also</a> short</p>'
+            )
+        )
+
     def test_get_searchable_content(self):
         block = blocks.RichTextBlock()
         value = RichText(
