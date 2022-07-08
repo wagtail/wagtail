@@ -873,6 +873,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         side_panels = PageSidePanels(
             self.request,
             self.page_for_status,
+            preview_enabled=True,
             comments_enabled=self.form.show_comments_toggle,
         )
 

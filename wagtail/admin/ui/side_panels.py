@@ -178,14 +178,14 @@ class BaseSidePanels:
 
 
 class PageSidePanels(BaseSidePanels):
-    def __init__(self, request, page, *, comments_enabled):
+    def __init__(self, request, page, *, preview_enabled, comments_enabled):
         super().__init__(request, page)
 
         self.side_panels = [
             PageStatusSidePanel(page, self.request),
         ]
 
-        if page.preview_modes:
+        if preview_enabled and page.preview_modes:
             self.side_panels += [
                 PagePreviewSidePanel(page, self.request),
             ]
