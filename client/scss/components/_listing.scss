@@ -75,10 +75,6 @@ ul.listing {
     margin-bottom: -3em; // this negates the padding added to the bottom of .content
   }
 
-  &.full-width th {
-    background-color: $color-thead-bg;
-  }
-
   .table-headers {
     border-bottom: 1px solid $color-grey-4;
   }
