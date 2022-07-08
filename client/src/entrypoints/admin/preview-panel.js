@@ -187,14 +187,13 @@ function initPreview() {
   newTabButton.addEventListener('click', handlePreviewInNewTab);
 
   if (previewPanel.dataset.autoUpdate === 'true') {
-    let oldData = new FormData(form);
+    let oldPayload = new URLSearchParams(new FormData(form)).toString();
     const hasChanges = () => {
-      const newData = new FormData(form);
-      const oldPayload = new URLSearchParams(oldData).toString();
-      const newPayload = new URLSearchParams(newData).toString();
+      const newPayload = new URLSearchParams(new FormData(form)).toString();
+      const changed = oldPayload !== newPayload;
 
-      oldData = newData;
-      return oldPayload !== newPayload;
+      oldPayload = newPayload;
+      return changed;
     };
 
     setInterval(() => {
