@@ -336,54 +336,6 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
             )
         )
 
-    def test_explorer_public(self):
-        """
-        This tests that the privacy indicator on the public pages explore view is set to "PUBLIC"
-        """
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.public_page.id,))
-        )
-
-        # Check the response
-        self.assertEqual(response.status_code, 200)
-
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
-        self.assertContains(response, '<div class="privacy-indicator public">')
-        self.assertNotContains(response, '<div class="privacy-indicator private">')
-
-    def test_explorer_private(self):
-        """
-        This tests that the privacy indicator on the private pages explore view is set to "PRIVATE"
-        """
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.private_page.id,))
-        )
-
-        # Check the response
-        self.assertEqual(response.status_code, 200)
-
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
-
-    def test_explorer_private_child(self):
-        """
-        This tests that the privacy indicator on the private child pages explore view is set to "PRIVATE"
-        """
-        response = self.client.get(
-            reverse("wagtailadmin_explore", args=(self.private_child_page.id,))
-        )
-
-        # Check the response
-        self.assertEqual(response.status_code, 200)
-
-        # Check the privacy indicator is public
-        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
-
     def test_explorer_list_homepage(self):
         """
         This tests that there is a padlock displayed next to the private page in the homepages explorer listing
