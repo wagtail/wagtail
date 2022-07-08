@@ -448,7 +448,7 @@ class EventSitemap(Sitemap):
 
 # Event index (has a separate AJAX template, and a custom template context)
 class EventIndex(Page):
-    intro = RichTextField(blank=True)
+    intro = RichTextField(blank=True, max_length=50)
     ajax_template = "tests/includes/event_listing.html"
 
     def get_events(self):

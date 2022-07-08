@@ -1,6 +1,7 @@
 import re
 from html import unescape
 
+from django.core.validators import MaxLengthValidator
 from django.db.models import Model
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -126,3 +127,12 @@ class LinkHandler(EntityHandler):
 
 class EmbedHandler(EntityHandler):
     pass
+
+
+class RichTextMaxLengthValidator(MaxLengthValidator):
+    """
+    A variant of MaxLengthValidator that only counts text (not HTML tags) towards the limit
+    """
+
+    def clean(self, x):
+        return len(strip_tags(x))
