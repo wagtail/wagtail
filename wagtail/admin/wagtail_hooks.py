@@ -448,9 +448,11 @@ def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=60,
         )
     if is_parent and page_perms.can_reorder_children():
+        url = reverse("wagtailadmin_explore", args=[page.id])
+        url += "?ordering=ord"
         yield Button(
             _("Sort menu order"),
-            "?ordering=ord",
+            url,
             icon_name="list-ul",
             attrs={
                 "title": _("Change ordering of child pages of '%(title)s'")
