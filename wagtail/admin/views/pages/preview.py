@@ -6,9 +6,11 @@ from django.http import Http404, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from wagtail.models import Page
+from wagtail.utils.decorators import xframe_options_sameorigin
 
 
 def view_draft(request, page_id):
@@ -88,7 +90,8 @@ class PreviewOnEdit(View):
             self.request, "wagtailadmin/pages/preview_error.html", {"page": page}
         )
 
-    def _get(self, request, *args, **kwargs):
+    @method_decorator(xframe_options_sameorigin)
+    def get(self, request, *args, **kwargs):
         page = self.get_page()
         form = self.get_form(page, self._get_data_from_session())
 
@@ -107,12 +110,6 @@ class PreviewOnEdit(View):
         }
 
         return page.make_preview_request(request, preview_mode, extra_attrs)
-
-    def get(self, request, *args, **kwargs):
-        response = self._get(request, *args, **kwargs)
-        # Allow page to be rendered in an iframe for the preview panel
-        response["X-Frame-Options"] = "SAMEORIGIN"
-        return response
 
 
 class PreviewOnCreate(PreviewOnEdit):

@@ -57,3 +57,26 @@ class _cache:
         """Clear the cached value."""
         # Named after lru_cache.cache_clear
         self.cache.pop(self.cls, None)
+
+
+def xframe_options_sameorigin(view_func):
+    """
+    Modify a view function so its response has the X-Frame-Options HTTP header
+    set to 'SAMEORIGIN'.
+
+    Adapted from Django's version so that it's always applied even if the
+    response already has that header set:
+    https://github.com/django/django/blob/3.2/django/views/decorators/clickjacking.py#L22-L37
+
+    Usage:
+    @xframe_options_sameorigin
+    def some_view(request):
+        ...
+    """
+
+    def wrapped_view(*args, **kwargs):
+        resp = view_func(*args, **kwargs)
+        resp["X-Frame-Options"] = "SAMEORIGIN"
+        return resp
+
+    return functools.wraps(view_func)(wrapped_view)
