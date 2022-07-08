@@ -451,7 +451,6 @@ def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
         yield Button(
             _("Sort menu order"),
             "?ordering=ord",
-            url,
             icon_name="list-ul",
             attrs={
                 "title": _("Change ordering of child pages of '%(title)s'")
