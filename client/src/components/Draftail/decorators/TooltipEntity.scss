@@ -8,7 +8,7 @@ $icon-size: 1em;
   }
 
   .icon-warning {
-    color: $color-red;
+    color: theme('colors.critical.200');
   }
 
   .icon {

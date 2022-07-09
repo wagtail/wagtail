@@ -37,15 +37,16 @@
   }
 
   .error {
-    background-color: $color-red-dark;
+    background-color: theme('colors.critical.200');
   }
 
   .warning {
-    background-color: $color-orange-dark;
+    color: $color-grey-1;
+    background-color: theme('colors.warning.100');
   }
 
   .success {
-    background-color: $color-green-dark;
+    background-color: theme('colors.positive.100');
   }
 
   .success .button:hover {
@@ -53,11 +54,12 @@
   }
 
   .button-secondary {
-    border-color: rgba(255, 255, 255, 0.5);
-    color: $color-white;
+    border-color: currentColor;
+    color: inherit;
 
     &:hover {
       border-color: transparent;
+      color: $color-white;
     }
   }
 

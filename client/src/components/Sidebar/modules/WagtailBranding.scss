@@ -17,7 +17,6 @@ $logo-size: 110px;
   position: relative;
   display: block;
   align-items: center;
-  color: #aaa;
   -webkit-font-smoothing: auto;
   margin: 4rem auto;
   text-align: center;
@@ -68,7 +67,7 @@ $logo-size: 110px;
 
   // Bird wrapper
   &__icon-wrapper {
-    @apply w-bg-white/15 w-relative w-overflow-hidden hover:w-overflow-visible;
+    @apply w-bg-white-15 w-relative w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
     width: $logo-size;
     height: $logo-size;
@@ -90,7 +89,6 @@ $logo-size: 110px;
 .sidebar-custom-branding {
   display: block;
   align-items: center;
-  color: #aaa;
   -webkit-font-smoothing: auto;
   position: relative;
   margin: 2em auto;

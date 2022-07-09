@@ -61,7 +61,7 @@
   }
 
   .progress {
-    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 5px 2px theme('colors.white-50');
     z-index: 4;
     top: 60%;
     inset-inline-start: 20%;
@@ -94,7 +94,7 @@
     width: 1em;
     font-size: 10em;
     line-height: 1.4em;
-    color: color.adjust($color-grey-4, $lightness: 4%);
+    color: theme('colors.grey.100');
   }
 
   canvas,
@@ -134,7 +134,7 @@
   }
 
   .upload-failure {
-    border-color: $color-red;
+    border-color: theme('colors.critical.200');
 
     .preview {
       display: none;
@@ -146,7 +146,7 @@
   }
 
   .upload-server-error {
-    border-color: $color-red;
+    border-color: theme('colors.critical.200');
 
     .preview {
       display: none;

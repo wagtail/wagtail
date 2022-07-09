@@ -34,7 +34,7 @@
     &:hover,
     &:focus {
       color: $color-white;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+      text-shadow: -1px -1px 0 theme('colors.black-35');
     }
 
     &:before {
@@ -68,7 +68,7 @@
 
   &--active {
     @apply w-bg-primary-200;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    text-shadow: -1px -1px 0 theme('colors.black-35');
 
     > a {
       border-inline-start-color: $color-salmon;

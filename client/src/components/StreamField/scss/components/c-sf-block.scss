@@ -13,7 +13,7 @@
   margin: $block-margin-vertical $block-margin-horizontal;
   border: 1px solid $block-border-color;
   border-radius: $border-radius;
-  background: #fff;
+  background: $color-white;
   transition: border-color $hover-transition-duration ease-in-out;
   transition-property: border-color, box-shadow;
 
@@ -36,7 +36,7 @@
     min-height: 30px;
     background: $header-background;
 
-    @media (min-width: $screen-sm-min) {
+    @include media-breakpoint-up(sm) {
       padding-inline-start: $content-padding-horizontal - $header-gutter;
     }
 
@@ -108,8 +108,8 @@
 
       &:focus,
       &:hover {
-        color: #333;
-        background-color: rgba(0, 0, 0, 0.05);
+        color: $color-grey-1;
+        background-color: $color-grey-4;
       }
 
       svg.icon {
@@ -145,7 +145,7 @@
 
     &:hover,
     &:focus {
-      border-color: $error-border-color-focus;
+      border-color: $error-border-color;
 
       > .c-sf-block__header {
         background: $error-background-color;
@@ -155,7 +155,7 @@
     // Duplicated because of
     // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
     &:focus-within {
-      border-color: $error-border-color-focus;
+      border-color: $error-border-color;
 
       > .c-sf-block__header {
         background: $error-background-color;
@@ -166,15 +166,10 @@
   &:hover,
   &:focus {
     border-color: $block-border-color-focus;
-    box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 2px 3px -1px theme('colors.black-10');
 
     > .c-sf-block__header {
       background: $block-hover-background;
-
-      .c-sf-block__header__title,
-      .c-sf-block__actions__single {
-        color: $header-text-color-focus;
-      }
     }
   }
 
@@ -182,15 +177,10 @@
   // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
   &:focus-within {
     border-color: $block-border-color-focus;
-    box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 2px 3px -1px theme('colors.black-10');
 
     > .c-sf-block__header {
       background: $block-hover-background;
-
-      .c-sf-block__header__title,
-      .c-sf-block__actions__single {
-        color: $header-text-color-focus;
-      }
     }
   }
 }

@@ -66,11 +66,11 @@
   &__footer-link {
     @include transition(color 0.15s ease);
     font-size: theme('fontSize.14');
-    color: theme('colors.teal.200');
+    color: theme('colors.secondary.DEFAULT');
     text-decoration: none;
 
     &:hover {
-      color: theme('colors.teal.600');
+      color: theme('colors.secondary.600');
     }
   }
 }

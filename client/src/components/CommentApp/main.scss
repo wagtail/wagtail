@@ -1,23 +1,15 @@
 @import '../../../scss/settings/variables';
 
-$color-red-very-dark: #901419;
-$color-amber-0: #e9b04d;
-$color-amber-1: #faecd5;
-
-$color-grey-25: #626262;
-$color-grey-7: #f2f2f2;
-$color-grey-8: #fbfbfb;
-
-$color-comment-separator: #e6e6e6;
+$color-comment-separator: theme('colors.grey.100');
 
 $color-box-background: $color-white;
 $color-box-border: $color-grey-3;
 $color-box-border-focused: $color-grey-2;
 $color-box-text: $color-black;
-$color-textarea-background: $color-grey-8;
-$color-textarea-background-focused: #f2fcfc;
-$color-textarea-border: #ccc;
-$color-textarea-border-focused: #00b0b1;
+$color-textarea-background: theme('colors.grey.50');
+$color-textarea-background-focused: $color-input-focus;
+$color-textarea-border: $color-input-border;
+$color-textarea-border-focused: $color-input-focus-border;
 $color-textarea-placeholder-text: $color-grey-2;
 $box-border-radius: 5px;
 $box-padding: 10px;
@@ -35,8 +27,7 @@ $box-padding: 10px;
   color: $color-box-text;
 
   &--focused {
-    border-color: #bbb;
-    box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 2px 3px -1px theme('colors.black-10');
   }
 
   textarea {
@@ -72,7 +63,7 @@ $box-padding: 10px;
   }
 
   &__notice {
-    background-color: $color-amber-1;
+    background-color: theme('colors.warning.50');
     position: absolute;
     inset-inline-start: -$box-padding;
     bottom: 0;
@@ -81,7 +72,7 @@ $box-padding: 10px;
     box-sizing: border-box;
 
     svg.icon {
-      color: $color-amber-0;
+      color: theme('colors.warning.100');
       width: 14px;
       height: 14px;
       margin-inline-end: 10px;
@@ -123,8 +114,8 @@ $box-padding: 10px;
 
   &--red {
     color: $color-white;
-    border: 1px solid $color-red-very-dark;
-    background-color: $color-red-very-dark;
+    border: 1px solid theme('colors.critical.200');
+    background-color: theme('colors.critical.200');
   }
 
   &:disabled {

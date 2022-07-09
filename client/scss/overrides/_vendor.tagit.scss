@@ -42,6 +42,6 @@
   }
 
   .ui-icon-close:hover:before {
-    color: $color-red;
+    color: theme('colors.critical.200');
   }
 }

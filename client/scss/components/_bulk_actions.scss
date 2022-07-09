@@ -85,7 +85,7 @@
     }
 
     .num-objects-in-listing {
-      color: $color-teal-light;
+      color: theme('colors.secondary.100');
       background-color: transparent;
       border: 0;
       font-family: $font-sans;

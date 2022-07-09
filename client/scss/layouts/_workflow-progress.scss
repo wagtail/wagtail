@@ -5,8 +5,8 @@
 
 .workflow-progress-table {
   width: 100%;
-  border-top: 1px solid rgb(229, 229, 229);
-  border-bottom: 1px solid rgb(229, 229, 229);
+  border-top: 1px solid $color-grey-3;
+  border-bottom: 1px solid $color-grey-3;
   font-size: 0.8em;
 
   td,
@@ -21,18 +21,18 @@
   &__left-column {
     font-size: 1.2em;
     font-weight: bold;
-    color: #555;
+    color: $color-text-base;
   }
 
   &--tasks {
-    background-color: rgb(250, 250, 250);
+    background-color: $color-grey-5;
 
     .workflow-progress-table__left-column {
-      background-color: rgb(245, 245, 245);
+      background-color: $color-grey-4;
     }
   }
 
   &--timeline tr {
-    border-bottom: 1px solid rgb(229, 229, 229);
+    border-bottom: 1px solid $color-grey-3;
   }
 }

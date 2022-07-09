@@ -1,5 +1,32 @@
-@use './scss/index' with (
-  $teal: $color-teal,
-  $error-color: $color-red,
-  $font-sans: $font-sans
-);
+$grid-gutter-width: 30px;
+$header-padding-horizontal: 4px;
+$header-padding-vertical: 6px;
+$header-gutter: 8px;
+$header-background: $color-grey-5;
+$block-margin-vertical: 4px;
+$block-margin-horizontal: 0;
+$add-button-size: 34px;
+$add-button-font-size: 1.5rem;
+$type-button-padding-vertical: 10px;
+$type-button-padding-horizontal: 10px;
+$children-container-padding: $add-button-size * 0.5;
+$content-padding-horizontal: 24px;
+$content-padding-vertical: 16px;
+$action-font-size: 1.125rem;
+$add-transition-duration: 0.3s;
+$hover-transition-duration: 0.3s;
+$bounce-transition-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$border-radius: 3px;
+$header-text-color: $color-grey-2;
+$block-border-color: $color-grey-4;
+$block-border-color-focus: $color-grey-3;
+$block-hover-background: $color-grey-5;
+$error-border-color: theme('colors.critical.100');
+$error-background-color: $color-input-error-bg;
+$add-panel-gutter: 8px;
+
+@import 'scss/components/c-sf-add-button';
+@import 'scss/components/c-sf-add-panel';
+@import 'scss/components/c-sf-button';
+@import 'scss/components/c-sf-block';
+@import 'scss/components/c-sf-container';

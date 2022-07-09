@@ -60,7 +60,6 @@ ul.listing {
       position: relative;
 
       &.icon:after {
-        opacity: 0.5;
         inset-inline-end: 0;
       }
     }
@@ -90,16 +89,12 @@ ul.listing {
       }
 
       &:hover {
-        background-color: #fcfcfc;
+        background-color: theme('colors.grey.50');
       }
     }
 
     tr.selected {
-      background-color: #c8eae9;
-
-      &:hover {
-        background-color: #b5e3e2;
-      }
+      background-color: theme('colors.secondary.100');
     }
   }
 
@@ -245,12 +240,12 @@ ul.listing {
   }
 
   .button-secondary {
-    border-color: $color-grey-3;
+    border-color: $color-grey-4;
     background: $color-white;
 
     &.no:hover {
-      border-color: $color-button-no-hover;
-      background-color: $color-button-no-hover;
+      border-color: $color-button-no;
+      background-color: $color-button-no;
       color: $color-white;
     }
 
@@ -471,7 +466,7 @@ table.listing {
 
 .listing.full-width + .pagination {
   margin-top: 3em;
-  border-top: 1px dashed #d9d9d9;
+  border-top: 1px dashed theme('colors.grey.100');
   padding: 2em 50px 0;
 }
 
@@ -560,8 +555,6 @@ table.listing {
         }
 
         &:hover {
-          background-color: #fdfdfd;
-
           img {
             border-color: $color-teal;
           }

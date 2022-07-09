@@ -25,7 +25,7 @@
   color: $color-text-base;
 
   &[readonly] {
-    color: color.adjust($color-text-base, $alpha: -0.5);
+    color: $color-grey-3;
   }
 }
 

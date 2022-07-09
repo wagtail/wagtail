@@ -122,11 +122,10 @@
 .error-message {
   font-size: 1em;
   font-weight: bold;
-  color: $color-text-error;
+  color: theme('colors.critical.200');
 
   @media (forced-colors: $media-forced-colours) {
     forced-color-adjust: none;
-    color: $color-text-error-forced-color;
   }
 
   // UI-Redesign: to be added via js and styled here
@@ -152,7 +151,7 @@ li.focused > .help {
 .required .field > label:after,
 label.required:after {
   content: '*';
-  color: $color-red;
+  color: theme('colors.critical.200');
   font-weight: bold;
   display: inline-block;
   margin-inline-start: 0.5em;
@@ -164,7 +163,7 @@ label.required:after {
 .error textarea,
 .error select,
 .error .tagit {
-  border-color: $color-red;
+  border-color: theme('colors.critical.200');
   background-color: $color-input-error-bg;
 }
 

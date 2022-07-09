@@ -36,26 +36,26 @@
 }
 
 .help-info {
-  background-color: color.adjust($color-blue, $lightness: 30%);
+  background-color: theme('colors.info.50');
 
   .icon-help {
-    color: $color-blue;
+    color: theme('colors.info.100');
   }
 }
 
 .help-warning {
-  background-color: color.adjust($color-orange, $lightness: 30%);
+  background-color: theme('colors.warning.50');
 
   .icon-warning {
-    color: $color-orange;
+    color: theme('colors.warning.100');
   }
 }
 
 .help-critical {
-  background-color: color.adjust($color-red, $lightness: 40%);
+  background-color: theme('colors.critical.50');
 
   .icon-warning {
-    color: $color-red;
+    color: theme('colors.critical.200');
   }
 }
 
