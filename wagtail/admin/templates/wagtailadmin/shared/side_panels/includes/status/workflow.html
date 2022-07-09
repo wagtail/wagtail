@@ -69,7 +69,7 @@
 {% block action %}
     {% if workflow_state and not hide_action %}
         {% trans 'Moderators approval' as workflow_dialog_title %}
-        {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-text-teal-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
+        {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
 
         {# info subtitle #}
         {% if object.get_latest_revision %}
