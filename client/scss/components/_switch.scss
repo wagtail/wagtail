@@ -8,9 +8,6 @@ $switch-outline: 3px;
 $switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
 $switch-outline-radius: $switch-border-radius + $switch-outline;
 
-// All the greys in Wagtail are really dark or really bright
-$switch-color-middle-grey: #777;
-
 .switch {
   display: inline-flex;
   align-items: center;
@@ -36,8 +33,8 @@ $switch-color-middle-grey: #777;
       height: $switch-height;
       width: $switch-width;
       border-radius: $switch-border-radius;
-      background: $switch-color-middle-grey;
-      border: $switch-border solid $switch-color-middle-grey;
+      background: theme('colors.grey.400');
+      border: $switch-border solid theme('colors.grey.400');
     }
 
     &::after {
@@ -86,29 +83,5 @@ $switch-color-middle-grey: #777;
     pointer-events: none;
     width: 100%;
     height: 100%;
-  }
-
-  // Colour changes for when displaying on teal background
-  &--teal-background {
-    $background: #03b0b1;
-
-    .switch__toggle {
-      &::before {
-        background-color: #b9b9b9;
-        border: $switch-border solid #b9b9b9;
-        opacity: 0.6;
-      }
-
-      &::after {
-        background-color: $color-white;
-      }
-    }
-
-    [type='checkbox']:checked + .switch__toggle::before {
-      // Override the white-background styling
-      background-color: $background;
-      border-color: $background;
-      opacity: 1;
-    }
   }
 }
