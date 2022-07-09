@@ -81,7 +81,6 @@ These are base styles for bare HTML elements.
 @import 'elements/elements';
 @import 'elements/typography';
 @import 'elements/forms';
-@import 'elements/root';
 
 /* OBJECTS
 These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
@@ -127,7 +126,6 @@ These are classes for components.
 @import 'components/grid.legacy';
 @import 'components/footer';
 @import 'components/loading-mask';
-@import 'components/media-placeholder';
 @import 'components/human-readable-date';
 @import 'components/link.legacy';
 @import 'components/privacy-indicator';
