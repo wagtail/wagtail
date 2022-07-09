@@ -21,5 +21,9 @@
     background-color: $color-teal;
     height: 1.2em;
     padding-inline-end: 1em;
+
+    @media (forced-colors: active) {
+      background-color: ButtonText;
+    }
   }
 }
