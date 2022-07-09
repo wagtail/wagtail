@@ -46,7 +46,7 @@
     &:hover {
       color: $color-white;
       border-color: transparent;
-      background-color: $color-button-yes-hover;
+      background-color: $color-button-yes;
     }
   }
 
@@ -63,7 +63,7 @@
     &:hover {
       color: $color-white;
       border-color: transparent;
-      background-color: $color-button-warning-hover;
+      background-color: $color-button-warning;
     }
   }
 
@@ -81,7 +81,7 @@
     &:hover {
       color: $color-white;
       border-color: transparent;
-      background-color: $color-button-no-hover;
+      background-color: $color-button-no;
     }
   }
 
@@ -99,7 +99,7 @@
       line-height: 1.85em;
       height: 100%;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: theme('colors.black-20');
       display: block;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
@@ -112,7 +112,7 @@
     }
 
     .icon-wrapper {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: theme('colors.black-20');
       display: flex;
       align-items: center;
       justify-content: center;
@@ -145,7 +145,7 @@
     }
 
     &.button-secondary {
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      border: 1px solid theme('colors.black-20');
     }
   }
 
@@ -422,7 +422,7 @@ button.button.bicolor .icon-wrapper {
   &:hover {
     color: $color-white;
     border-color: transparent;
-    background-color: $color-button-yes-hover;
+    background-color: $color-button-yes;
   }
 }
 
@@ -440,7 +440,7 @@ button.button.bicolor .icon-wrapper {
   &:hover {
     color: $color-white;
     border-color: transparent;
-    background-color: $color-button-no-hover;
+    background-color: $color-button-no;
   }
 }
 
@@ -457,7 +457,7 @@ button.button.bicolor .icon-wrapper {
     line-height: 1.85em;
     height: 100%;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: theme('colors.black-20');
     display: block;
   }
 }
@@ -512,7 +512,7 @@ button {
     background-color: $color-white;
     padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
     margin-bottom: 1em;
-    border: 1px solid color.adjust($color-grey-4, $lightness: 3%); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
+    border: 1px solid theme('colors.grey.100');
   }
 
   &.moving {

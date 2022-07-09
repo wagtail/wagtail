@@ -110,7 +110,7 @@
 
   &__error {
     color: $color-white;
-    background-color: $color-red-dark;
+    background-color: theme('colors.critical.200');
     border-radius: 3px;
     padding: 5px;
     padding-inline-start: 10px;
@@ -123,8 +123,8 @@
       float: right;
       margin-inline-start: 5px;
       color: $color-white;
-      background-color: $color-red-very-dark;
-      border-color: $color-red-very-dark;
+      background-color: theme('colors.critical.200');
+      border-color: $color-white;
       padding: 2px;
       padding-inline-start: 10px;
       padding-inline-end: 10px;

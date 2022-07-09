@@ -2,15 +2,15 @@
   flex: 1 1 200px;
   margin: $add-panel-gutter;
   appearance: none;
-  color: #333;
+  color: $color-grey-1;
   line-height: 1.833;
   font-weight: 600;
   font-size: 12px;
   font-family: $font-sans;
   text-align: start;
-  background: #eee;
+  background: $color-grey-5;
   padding: $type-button-padding-vertical $type-button-padding-horizontal;
-  border: 1px solid #e6e6e6;
+  border: 1px solid $color-grey-4;
   border-radius: $border-radius;
   outline: none;
   cursor: pointer;
@@ -20,8 +20,8 @@
 
   &:hover,
   &:focus {
-    color: #fff;
-    background-color: $teal;
+    color: $color-white;
+    background-color: $color-teal;
   }
 
   &[disabled] {

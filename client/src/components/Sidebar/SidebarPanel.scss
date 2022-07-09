@@ -27,7 +27,7 @@
 
   &--visible {
     visibility: visible;
-    box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
+    box-shadow: 2px 0 2px theme('colors.black-35');
   }
 
   // Showing the submenu options panel in mobile mode

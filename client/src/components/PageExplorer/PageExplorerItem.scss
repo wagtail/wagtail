@@ -12,7 +12,7 @@
 }
 
 .c-page-explorer__item__link .icon {
-  @apply w-text-white/85;
+  @apply w-text-white-80;
   width: 2em;
   height: 2em;
   margin-inline-end: 0.75rem;
@@ -25,7 +25,7 @@
 }
 
 .c-page-explorer__item__action {
-  @apply w-text-white/85 w-transition hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
+  @apply w-text-white-80 w-transition hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -51,6 +51,6 @@
 }
 
 .c-page-explorer__meta {
-  @apply w-flex w-gap-2 w-text-white/85;
+  @apply w-flex w-gap-2 w-text-white-80;
   font-size: 12px;
 }

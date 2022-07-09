@@ -26,76 +26,44 @@
 
 // }
 .t-default .u-btn-current {
-  border-color: rgba(0, 0, 0, 0.15);
+  border-color: $color-grey-4;
   color: $color-teal;
 }
 
 .t-default .u-btn-current:hover {
   background: $color-teal;
-  color: #fff;
+  color: $color-white;
   border-color: $color-teal;
-}
-
-.t-default .u-btn-current:active {
-  background: #333;
-  color: #fff;
-  border-color: #333;
 }
 
 .t-inverted .u-btn-current {
   background-color: $color-teal-darker;
-  border-color: rgba(0, 0, 0, 0.35);
-  color: #fff;
+  border-color: theme('colors.black-35');
+  color: $color-white;
 }
 
 .t-inverted .u-btn-current:hover {
   background-color: $color-teal-dark;
-  border-color: rgba(0, 0, 0, 0.35);
-}
-
-.t-inverted .u-btn-current:active {
-  border-color: rgba(0, 0, 0, 0.35);
-  background: #333;
-  color: #fff;
+  border-color: theme('colors.black-35');
 }
 
 // =============================================================================
 // Dark theme
 // =============================================================================
 .t-dark .u-link {
-  color: #fff;
+  color: $color-white;
 }
 
 .t-dark .u-link:hover {
-  color: #aaa;
+  color: $color-white;
 }
 
 .t-dark .u-background {
-  background: #333;
+  background: $color-grey-1;
 }
 
 .t-dark .u-arrow:before {
-  border-bottom-color: #333;
-}
-
-// =============================================================================
-// Light theme
-// =============================================================================
-.t-light .u-link {
-  color: #333;
-}
-
-.t-light .u-link:hover {
-  color: #aaa;
-}
-
-.t-light .u-background {
-  background: #fff;
-  border-color: #ccc;
-}
-
-.t-light .u-arrow:before {
-  border-bottom-color: #fff;
+  border-bottom-color: $color-grey-1;
 }
 
 // =============================================================================

@@ -4,13 +4,13 @@
     width: 100%;
     margin-bottom: 10px;
 
-    background-color: #fff;
+    background-color: $color-white;
     border-color: $color-teal;
-    color: #262626;
+    color: $color-grey-1;
 
     &--selected {
       background-color: $color-teal;
-      color: #fff;
+      color: $color-white;
     }
   }
 }

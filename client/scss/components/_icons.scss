@@ -1,7 +1,7 @@
 @use 'sass:string';
 
 @font-face {
-  font-family: 'wagtail';
+  font-family: $font-wagtail-icons;
   src: url('../fonts/wagtail.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -15,11 +15,11 @@
 }
 
 .icon.teal {
-  color: $color-teal;
+  color: $color-teal-darker;
 }
 
 .icon.white {
-  color: #fff;
+  color: $color-white;
 }
 
 .icon:before,
@@ -163,5 +163,5 @@ svg.icon-spinner {
   margin-inline-end: 0.5em;
   width: 1.5em;
   height: 1.5em;
-  color: $color-red;
+  color: theme('colors.critical.200');
 }

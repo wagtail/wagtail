@@ -6,7 +6,7 @@
   border-radius: $border-radius;
   user-select: none;
 
-  @media (min-width: $screen-l-min) {
+  @include media-breakpoint-up(lg) {
     padding: $grid-gutter-width * 0.25 $grid-gutter-width * 2 $add-button-size -
       math.div($grid-gutter-width, 2);
   }

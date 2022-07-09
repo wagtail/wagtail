@@ -1,7 +1,7 @@
 @use 'sass:map';
 
 .xdsoft_datetimepicker {
-  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 10px -5px theme('colors.black-35');
   background: $color-white;
   border: 1px solid $color-input-focus-border;
   padding: 8px;
@@ -137,15 +137,14 @@
 
     .xdsoft_time_box {
       position: relative;
-      border: 1px solid #ccc;
+      border: 1px solid $color-grey-4;
       height: 170px;
       overflow: hidden;
-      border-bottom: 1px solid #ddd;
 
       > div > div {
-        background: #f5f5f5;
-        border-top: 1px solid #ddd;
-        color: #666;
+        background: $color-grey-5;
+        border-top: 1px solid $color-grey-4;
+        color: $color-grey-1;
         font-size: 1em;
         text-align: center;
         border-collapse: collapse;
@@ -184,7 +183,7 @@
     }
 
     > .xdsoft_select {
-      border: 1px solid #ccc;
+      border: 1px solid $color-grey-4;
       position: absolute;
       inset-inline-end: 0;
       top: 30px;
@@ -204,17 +203,11 @@
 
       > div > .xdsoft_option:hover {
         color: $color-white;
-        background: #ff8000;
+        background: $color-salmon;
       }
 
       > div > .xdsoft_option {
         padding: 2px 15px 2px 5px;
-      }
-
-      > div > .xdsoft_option.xdsoft_current {
-        background: #3af;
-        color: $color-white;
-        font-weight: 700;
       }
     }
   }
@@ -242,8 +235,8 @@
     td,
     th {
       width: 14.285%;
-      border: 1px solid #ddd;
-      color: #666;
+      border: 1px solid $color-grey-4;
+      color: $color-grey-1;
       font-size: 12px;
       text-align: end;
       padding: 5px 7px;
@@ -257,7 +250,7 @@
     }
 
     th {
-      background: #f1f1f1;
+      background: $color-grey-5;
       font-weight: 700;
       font-size: 0.85em;
       text-align: center;
@@ -327,7 +320,7 @@
 
   > .xdsoft_scroller {
     // stylelint-disable-next-line declaration-no-important
-    background: #ccc !important;
+    background: $color-grey-3 !important;
     height: 20px;
     border-radius: 3px;
   }

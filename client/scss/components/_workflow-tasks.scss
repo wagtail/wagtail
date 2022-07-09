@@ -6,10 +6,10 @@
 
   &__task {
     display: inline-block;
-    background-color: #f8ffff;
-    border: 2px solid #7ebebe;
+    background-color: theme('colors.secondary.50');
+    border: 2px solid theme('colors.secondary.100');
     border-radius: 5px;
-    color: #007d7e;
+    color: $color-teal;
     box-sizing: border-box;
     width: $task-width;
     height: $task-height;

@@ -57,7 +57,6 @@ module.exports = {
       'white-15': 'rgba(255, 255, 255, 0.15)',
       'white-50': 'rgba(255, 255, 255, 0.50)',
       'white-80': 'rgba(255, 255, 255, 0.80)',
-      'white-85': 'rgba(255, 255, 255, 0.85)',
       'black-10': 'rgba(0, 0, 0, 0.10)',
       'black-20': 'rgba(0, 0, 0, 0.20)',
       'black-35': 'rgba(0, 0, 0, 0.35)',
@@ -86,10 +85,6 @@ module.exports = {
     },
     spacing,
     extend: {
-      opacity: {
-        15: '0.15',
-        85: '0.85',
-      },
       outlineOffset: {
         inside: '-3px',
       },

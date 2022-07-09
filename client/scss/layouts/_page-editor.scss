@@ -64,7 +64,7 @@
     height: $object-title-height;
     -webkit-font-smoothing: auto;
     background: $color-salmon-light;
-    color: #200200;
+    color: $color-text-base;
     padding: 0.9em 0 0.9em 5em;
     font-size: 0.95em;
     margin: 0;
@@ -111,7 +111,7 @@
   &.required {
     > .title-wrapper label:after {
       content: '*';
-      color: $color-red;
+      color: theme('colors.critical.200');
       font-weight: bold;
       display: inline-block;
       margin-inline-start: 0.5em;
@@ -233,10 +233,6 @@
           width: 1.8em;
           background-color: $color-salmon;
         }
-
-        &:hover:before {
-          background-color: color.adjust($color-salmon, $lightness: -5%);
-        }
       }
     }
 
@@ -322,13 +318,8 @@ footer .preview {
       height: 3em;
     }
 
-    background-color: color.adjust($color-grey-2, $lightness: 10%);
-    border-color: color.adjust($color-grey-2, $lightness: 10%);
-
-    &:hover {
-      background-color: $color-grey-2;
-      border-color: $color-grey-2;
-    }
+    background-color: $color-grey-2;
+    border-color: $color-grey-2;
   }
 
   .dropdown {
@@ -336,21 +327,15 @@ footer .preview {
     input[type='submit'],
     button,
     .button {
-      background-color: color.adjust($color-grey-2, $lightness: 10%);
-      border-color: color.adjust($color-grey-2, $lightness: 10%);
-
-      &:hover {
-        background-color: $color-grey-2;
-        border-color: $color-grey-2;
-      }
+      background-color: $color-grey-2;
+      border-color: $color-grey-2;
     }
 
     ul,
     .dropdown-toggle {
-      background-color: color.adjust($color-grey-2, $lightness: 10%);
+      background-color: $color-grey-2;
     }
 
-    .dropdown-toggle:hover,
     &.open > .button + .dropdown-toggle {
       background-color: $color-grey-2;
     }

@@ -1,7 +1,9 @@
 $draftail-editor-text: $color-text-input;
 $draftail-editor-chrome: theme('colors.primary.DEFAULT');
 $draftail-editor-chrome-text: $color-white;
-$draftail-editor-chrome-active: $color-white;
+// This needs to remain a Sass value due to a limitation in Draftail.
+// $draftail-editor-chrome-active: $color-white;
+$draftail-editor-chrome-active: #fff;
 $draftail-editor-chrome-accent: transparent;
 
 $draftail-base-spacing: 0.375rem;

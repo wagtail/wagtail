@@ -108,39 +108,38 @@ To customise the primary colour used in the admin user interface, inject a CSS f
 
 ```css
 :root {
-    --color-primary-hue: 25;
+    --w-color-primary-hue: 25;
 }
 ```
 
-`color-primary` is an [hsl colour](https://en.wikipedia.org/wiki/HSL_and_HSV) composed of 3 CSS variables - `--color-primary-hue` (0-360 with no unit), `--color-primary-saturation` (a percentage), and `--color-primary-lightness` (also a percentage). Separating the colour into 3 allows us to calculate variations on the colour to use alongside the primary colour. If needed, you can also control those variations manually by setting `hue`, `saturation`, and `lightness` variables for the following colours: `color-primary-darker`, `color-primary-dark`, `color-primary-lighter`, `color-primary-light`, `color-input-focus`, and `color-input-focus-border`:
+`w-color-primary` is an [HSL colour](https://en.wikipedia.org/wiki/HSL_and_HSV) composed of 3 CSS variables - `--w-color-primary-hue` (0-360 with no unit), `--w-color-primary-saturation` (a percentage), and `--w-color-primary-lightness` (also a percentage). Separating the colour into 3 allows us to calculate variations on the colour to use alongside the primary colour. If needed, you can also control those variations manually by setting `hue`, `saturation`, and `lightness` variables:
 
 ```css
 :root {
-    --color-primary-hue: 25;
-    --color-primary-saturation: 100%;
-    --color-primary-lightness: 25%;
-    --color-primary-darker-hue: 24;
-    --color-primary-darker-saturation: 100%;
-    --color-primary-darker-lightness: 20%;
-    --color-primary-dark-hue: 23;
-    --color-primary-dark-saturation: 100%;
-    --color-primary-dark-lightness: 15%;
+    --w-color-primary-hue: 25;
+    --w-color-primary-saturation: 100%;
+    --w-color-primary-lightness: 25%;
+    --w-color-primary-darker-hue: 24;
+    --w-color-primary-darker-saturation: 100%;
+    --w-color-primary-darker-lightness: 20%;
+    --w-color-primary-dark-hue: 23;
+    --w-color-primary-dark-saturation: 100%;
+    --w-color-primary-dark-lightness: 15%;
 }
 ```
 
-If instead you intend to set all available colours, you can use any valid css colours:
+If instead you intend to set all available colours within a given hue, you can use any valid css colours:
 
 ```css
 :root {
-    --color-primary: mediumaquamarine;
-    --color-primary-darker: rebeccapurple;
-    --color-primary-dark: hsl(330, 100%, 70%);
-    --color-primary-lighter: azure;
-    --color-primary-light: aliceblue;
-    --color-input-focus: rgb(204, 0, 102);
-    --color-input-focus-border: #4d0026;
+    --w-color-primary: mediumaquamarine;
+    --w-color-primary-200: rebeccapurple;
 }
 ```
+
+Color customisation is available for the following colors:
+
+
 
 ## Specifying a site or page in the branding
 
