@@ -145,9 +145,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
   const styles = getComputedStyle(document.documentElement);
   const colors = {
-    standardHighlight: styles.getPropertyValue('--color-primary-light'),
-    overlappingHighlight: styles.getPropertyValue('--color-primary-lighter'),
-    focusedHighlight: styles.getPropertyValue('--color-primary'),
+    standardHighlight: styles.getPropertyValue('--w-color-secondary-100'),
+    overlappingHighlight: styles.getPropertyValue('--w-color-secondary-50'),
+    focusedHighlight: styles.getPropertyValue('--w-color-secondary'),
   };
 
   let options;

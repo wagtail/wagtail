@@ -1,4 +1,3 @@
-@use 'sass:color';
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:string';
@@ -16,6 +15,9 @@ $width-arrow: 0.6em;
 $box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1);
 $max-items: 12;
 $userbar-radius: 6px;
+$color-black: #000;
+$color-white: #fff;
+$color-grey-1: #262626;
 
 // Classnames will start with this parameter, eg .wagtail-
 $namespace: 'wagtail';
@@ -215,12 +217,12 @@ $positions: (
   }
 
   & + & {
-    border-top: 1px solid color.adjust($color-grey-1, $lightness: -3%);
+    border-top: 1px solid $color-black;
   }
 
   a,
   .#{$namespace}-action {
-    color: #aaa;
+    color: $color-white;
     display: block;
     text-decoration: none !important;
     transform: none !important;
