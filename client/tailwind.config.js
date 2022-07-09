@@ -4,6 +4,7 @@ const vanillaRTL = require('tailwindcss-vanilla-rtl');
  * Design Tokens
  */
 const colors = require('./src/tokens/colors');
+const { generateColorVariables } = require('./src/tokens/colorVariables');
 const {
   fontFamily,
   fontSize,
@@ -32,7 +33,10 @@ const scrollbarThin = require('./src/plugins/scrollbarThin');
 const themeColors = Object.fromEntries(
   Object.entries(colors).map(([key, hues]) => {
     const shades = Object.fromEntries(
-      Object.entries(hues).map(([k, shade]) => [k, shade.hex]),
+      Object.entries(hues).map(([k, shade]) => [
+        k,
+        `var(${shade.cssVariable})`,
+      ]),
     );
     return [key, shades];
   }),
@@ -49,12 +53,22 @@ module.exports = {
     },
     colors: {
       ...themeColors,
-      inherit: 'inherit',
-      current: 'currentColor',
-      transparent: 'transparent',
+      // Fades of white and black are not customisable.
+      'white-15': 'rgba(255, 255, 255, 0.15)',
+      'white-50': 'rgba(255, 255, 255, 0.50)',
+      'white-80': 'rgba(255, 255, 255, 0.80)',
+      'white-85': 'rgba(255, 255, 255, 0.85)',
+      'black-10': 'rgba(0, 0, 0, 0.10)',
+      'black-20': 'rgba(0, 0, 0, 0.20)',
+      'black-35': 'rgba(0, 0, 0, 0.35)',
+      'black-50': 'rgba(0, 0, 0, 0.50)',
+      // Color keywords.
+      'inherit': 'inherit',
+      'current': 'currentColor',
+      'transparent': 'transparent',
       /* allow system colours https://www.w3.org/TR/css-color-4/#css-system-colors */
-      LinkText: 'LinkText',
-      ButtonText: 'ButtonText',
+      'LinkText': 'LinkText',
+      'ButtonText': 'ButtonText',
     },
     fontFamily: {
       sans: 'var(--w-font-sans)',
@@ -135,6 +149,7 @@ module.exports = {
         ':root': {
           '--w-font-sans': fontFamily.sans.join(', '),
           '--w-font-mono': fontFamily.mono.join(', '),
+          ...generateColorVariables(colors),
         },
       });
     }),
