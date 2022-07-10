@@ -272,7 +272,11 @@ function rebindBulkActionsEventListeners() {
 
 document.addEventListener('DOMContentLoaded', addBulkActionListeners);
 if (window.headerSearch) {
-  document
-    .querySelector(window.headerSearch.termInput)
-    .addEventListener('search-success', rebindBulkActionsEventListeners);
+  const termInput = document.querySelector(window.headerSearch.termInput);
+  if (termInput) {
+    termInput.addEventListener(
+      'search-success',
+      rebindBulkActionsEventListeners,
+    );
+  }
 }
