@@ -15,6 +15,8 @@ class ChooserViewSet(ViewSet):
     A viewset that creates a chooser modal interface for choosing model instances.
     """
 
+    model = None
+
     icon = "snippet"  #: The icon to use in the header of the chooser modal, and on the chooser widget
     choose_one_text = _(
         "Choose"
@@ -124,13 +126,17 @@ class ChooserViewSet(ViewSet):
         """
         Returns the form widget class for this chooser.
         """
-        if isinstance(self.model, str):
-            model_name = self.model.split(".")[-1]
+        if self.model is None:
+            widget_class_name = "ChooserWidget"
         else:
-            model_name = self.model.__name__
+            if isinstance(self.model, str):
+                model_name = self.model.split(".")[-1]
+            else:
+                model_name = self.model.__name__
+            widget_class_name = "%sChooserWidget" % model_name
 
         return type(
-            "%sChooserWidget" % model_name,
+            widget_class_name,
             (self.base_widget_class,),
             {
                 "model": self.model,
@@ -151,7 +157,7 @@ class ChooserViewSet(ViewSet):
         ]
 
     def on_register(self):
-        if self.register_widget:
+        if self.model and self.register_widget:
             register_form_field_override(
                 ForeignKey, to=self.model, override={"widget": self.widget_class}
             )
