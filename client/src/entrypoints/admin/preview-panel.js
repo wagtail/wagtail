@@ -68,6 +68,7 @@ function initPreview() {
   // and save it inside the user session.
 
   const newTabButton = previewPanel.querySelector('[data-preview-new-tab]');
+  const refreshButton = previewPanel.querySelector('[data-refresh-preview]');
   const loadingSpinner = previewPanel.querySelector('[data-preview-spinner]');
   const form = document.querySelector('[data-edit-form]');
   const previewUrl = previewPanel.dataset.action;
@@ -190,6 +191,10 @@ function initPreview() {
   };
 
   newTabButton.addEventListener('click', handlePreviewInNewTab);
+
+  if (refreshButton) {
+    refreshButton.addEventListener('click', handlePreview);
+  }
 
   if (settings.WAGTAIL_AUTO_UPDATE_PREVIEW) {
     let oldPayload = new URLSearchParams(new FormData(form)).toString();

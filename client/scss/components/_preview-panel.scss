@@ -82,6 +82,19 @@
     }
   }
 
+  &__refresh-button.button--icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1.5rem;
+
+    .icon {
+      @include svg-icon(0.9rem);
+    }
+  }
+
   &__spinner {
     position: absolute;
     top: 1.25rem;
