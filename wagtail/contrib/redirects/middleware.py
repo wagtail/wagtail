@@ -15,12 +15,15 @@ def _get_redirect(request, path):
         return None
 
     site = Site.find_for_request(request)
-    try:
-        return models.Redirect.get_for_site(site).get(old_path=path)
-    except models.Redirect.MultipleObjectsReturned:
+    redirects = models.Redirect.get_for_site(site).filter(old_path=path)
+    if len(redirects) == 1:
+        return redirects[0]
+    elif len(redirects) > 1:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
-        return models.Redirect.objects.get(site=site, old_path=path)
-    except models.Redirect.DoesNotExist:
+        for redirect in redirects:
+            if redirect.site == site:
+                return redirect
+    else:
         return None
 
 
