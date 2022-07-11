@@ -5,6 +5,11 @@ function initPreview() {
   // Preview panel is not shown if the object does not have any preview modes
   if (!previewPanel) return;
 
+  // Get settings from the preview_settings template tag
+  const settings = JSON.parse(
+    document.getElementById('wagtail-preview-settings').textContent,
+  );
+
   //
   // Preview size handling
   //
@@ -186,7 +191,7 @@ function initPreview() {
 
   newTabButton.addEventListener('click', handlePreviewInNewTab);
 
-  if (previewPanel.dataset.autoUpdate === 'true') {
+  if (settings.WAGTAIL_AUTO_UPDATE_PREVIEW) {
     let oldPayload = new URLSearchParams(new FormData(form)).toString();
     const hasChanges = () => {
       const newPayload = new URLSearchParams(new FormData(form)).toString();
@@ -201,7 +206,7 @@ function initPreview() {
       // and don't send a new request if the form hasn't changed
       if (hasPendingUpdate || !hasChanges()) return;
       setPreviewData();
-    }, 500);
+    }, settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL);
   }
 
   //

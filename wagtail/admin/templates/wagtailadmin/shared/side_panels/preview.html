@@ -1,8 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 
-{% auto_update_preview as auto_update %}
+{% preview_settings as settings %}
+{{ settings|json_script:"wagtail-preview-settings" }}
 
-<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}" data-auto-update="{{ auto_update|yesno:'true,false' }}">
+<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
     <div class="preview-panel__sizes">
         <label class="preview-panel__size-button preview-panel__size-button--mobile">
             {% icon name="mobile-alt" %}
