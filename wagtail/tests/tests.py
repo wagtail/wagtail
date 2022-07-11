@@ -211,6 +211,11 @@ class TestWagtailSiteTag(TestCase):
 class TestSiteRootPathsCache(TestCase):
     fixtures = ["test.json"]
 
+    def get_cached_site_root_paths(self):
+        return cache.get(
+            SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION
+        )
+
     def test_cache(self):
         """
         This tests that the cache is populated when building URLs
@@ -223,7 +228,7 @@ class TestSiteRootPathsCache(TestCase):
 
         # Check that the cache has been set correctly
         self.assertEqual(
-            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION),
+            self.get_cached_site_root_paths(),
             [
                 SiteRootPath(
                     site_id=1,
@@ -275,17 +280,23 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set
-        self.assertTrue(
-            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        self.assertEqual(
+            self.get_cached_site_root_paths(),
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
         )
 
         # Save the site
         Site.objects.get(is_default_site=True).save()
 
         # Check that the cache has been cleared
-        self.assertFalse(
-            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
-        )
+        self.assertIsNone(self.get_cached_site_root_paths())
 
     def test_cache_clears_when_site_deleted(self):
         """
@@ -298,17 +309,23 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set
-        self.assertTrue(
-            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+        self.assertEqual(
+            self.get_cached_site_root_paths(),
+            [
+                SiteRootPath(
+                    site_id=1,
+                    root_path="/home/",
+                    root_url="http://localhost",
+                    language_code="en",
+                )
+            ],
         )
 
         # Delete the site
         Site.objects.get(is_default_site=True).delete()
 
         # Check that the cache has been cleared
-        self.assertFalse(
-            cache.get(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
-        )
+        self.assertIsNone(self.get_cached_site_root_paths())
 
     def test_cache_clears_when_site_root_moves(self):
         """
