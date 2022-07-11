@@ -13,7 +13,6 @@ from django.urls import path, re_path, reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
-from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
@@ -78,8 +77,10 @@ def get_snippet_edit_handler(model):
 # == Views ==
 
 
-class Index(TemplateView):
-    template_name = "wagtailsnippets/snippets/index.html"
+class Index(IndexView):
+    template_name = "wagtailadmin/generic/index.html"
+    page_title = gettext_lazy("Snippets")
+    header_icon = "snippet"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -87,7 +88,7 @@ class Index(TemplateView):
 
     def _get_snippet_types(self):
         return [
-            {"model_opts": model._meta, "model": model}
+            model
             for model in get_snippet_models()
             if user_can_edit_snippet_type(self.request.user, model)
         ]
@@ -97,11 +98,33 @@ class Index(TemplateView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
+    def get_list_url(self, model):
+        return reverse(model.get_admin_url_namespace() + ":list")
+
+    def get_queryset(self):
+        return None
+
+    def get_columns(self):
+        return [
+            TitleColumn(
+                "name",
+                label=_("Name"),
+                accessor=lambda model: capfirst(model._meta.verbose_name_plural),
+                get_url=self.get_list_url,
+            ),
+            Column(
+                "count",
+                label=_("Instances"),
+                accessor=lambda model: model.objects.all().count(),
+            ),
+        ]
+
     def get_context_data(self, **kwargs):
         snippet_types = sorted(
-            self.snippet_types, key=lambda x: x["model_opts"].verbose_name.lower()
+            self.snippet_types,
+            key=lambda model: model._meta.verbose_name.lower(),
         )
-        return super().get_context_data(snippet_types=snippet_types, **kwargs)
+        return super().get_context_data(object_list=snippet_types)
 
 
 class SnippetTitleColumn(TitleColumn):
@@ -578,7 +601,13 @@ class History(ReportView):
 
     def get_columns(self):
         return [
-            ActionColumn("message", object=self.object, view=self, label=_("Action")),
+            ActionColumn(
+                "message",
+                object=self.object,
+                view=self,
+                classname="title",
+                label=_("Action"),
+            ),
             UserColumn("user", blank_display_name="system"),
             DateColumn("timestamp", label=_("Date")),
         ]
