@@ -61,7 +61,8 @@ class ModelLookupMixin:
 
     @cached_property
     def model_class(self):
-        return resolve_model_string(self.model)
+        if self.model:
+            return resolve_model_string(self.model)
 
 
 class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, View):
@@ -103,12 +104,13 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
             return self.filter_form_class
         else:
             bases = [BaseFilterForm]
-            if class_is_indexed(self.model_class):
-                bases.insert(0, SearchFilterMixin)
-            if issubclass(self.model_class, CollectionMember):
-                bases.insert(0, CollectionFilterMixin)
-            if issubclass(self.model_class, TranslatableMixin):
-                bases.insert(0, LocaleFilterMixin)
+            if self.model_class:
+                if class_is_indexed(self.model_class):
+                    bases.insert(0, SearchFilterMixin)
+                if issubclass(self.model_class, CollectionMember):
+                    bases.insert(0, CollectionFilterMixin)
+                if issubclass(self.model_class, TranslatableMixin):
+                    bases.insert(0, LocaleFilterMixin)
 
             return type(
                 "FilterForm",
