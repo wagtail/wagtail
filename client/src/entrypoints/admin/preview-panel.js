@@ -1,14 +1,21 @@
 import { gettext } from '../../utils/gettext';
 
 function initPreview() {
-  const previewPanel = document.querySelector('[data-preview-panel]');
-  // Preview panel is not shown if the object does not have any preview modes
-  if (!previewPanel) return;
+  const previewSidePanel = document.querySelector(
+    '[data-side-panel="preview"]',
+  );
+
+  // Preview side panel is not shown if the object does not have any preview modes
+  if (!previewSidePanel) return;
 
   // Get settings from the preview_settings template tag
   const settings = JSON.parse(
     document.getElementById('wagtail-preview-settings').textContent,
   );
+
+  // The previewSidePanel is a generic container for side panels,
+  // the content of the preview panel itself is in a child element
+  const previewPanel = previewSidePanel.querySelector('[data-preview-panel]');
 
   //
   // Preview size handling
@@ -198,6 +205,8 @@ function initPreview() {
 
   if (settings.WAGTAIL_AUTO_UPDATE_PREVIEW) {
     let oldPayload = new URLSearchParams(new FormData(form)).toString();
+    let updateInterval;
+
     const hasChanges = () => {
       const newPayload = new URLSearchParams(new FormData(form)).toString();
       const changed = oldPayload !== newPayload;
@@ -206,12 +215,27 @@ function initPreview() {
       return changed;
     };
 
-    setInterval(() => {
+    const checkAndUpdatePreview = () => {
       // Do not check for preview update if an update request is still pending
       // and don't send a new request if the form hasn't changed
       if (hasPendingUpdate || !hasChanges()) return;
       setPreviewData();
-    }, settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL);
+    };
+
+    previewSidePanel.addEventListener('show', () => {
+      // Immediately update the preview when the panel is opened
+      checkAndUpdatePreview();
+
+      // Only set the interval while the panel is shown
+      updateInterval = setInterval(
+        checkAndUpdatePreview,
+        settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+      );
+    });
+
+    previewSidePanel.addEventListener('hide', () => {
+      clearInterval(updateInterval);
+    });
   }
 
   //
