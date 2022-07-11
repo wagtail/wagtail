@@ -176,30 +176,44 @@ class DraftailRichTextArea {
     const options = { ...originalOptions };
     const capabilities = parentCapabilities || new Map();
     const split = capabilities.get('split');
+    const addSibling = capabilities.get('addSibling');
     if (split) {
       options.controls = options.controls ? [...options.controls] : [];
       options.controls.push({
         meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
       });
 
-      /**
-       * For demo purposes only.
-       */
-      // const addHR = (editorState) => {
-      //   const contentState = editorState.getCurrentContent();
-      //   const contentStateWithEntity = contentState.createEntity(
-      //     'HORIZONTAL_RULE',
-      //     'IMMUTABLE',
-      //     {},
-      //   );
-      //   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-
-      //   return window.DraftJS.AtomicBlockUtils.insertAtomicBlock(
-      //     editorState,
-      //     entityKey,
-      //     ' ',
-      //   );
-      // };
+      const blockGroups = addSibling ? addSibling.blockGroups : [];
+      const blockCommands = blockGroups.map(([group, blocks]) => {
+        const blockControls = blocks.map(
+          (blockDef) => (
+            {
+              icon: `#icon-${blockDef.meta.icon}`,
+              description: blockDef.meta.label,
+              type: blockDef.name,
+              onSelect: ({ editorState }) => {
+                const result = window.draftail.splitState(editorState);
+                // Run the split after a timeout to circumvent potential race condition.
+                setTimeout(() => {
+                  if (result) {
+                    split.fn(
+                      result.stateBefore,
+                      result.stateAfter,
+                      result.shouldMoveCommentFn,
+                    );
+                  }
+                  addSibling.fn({type: blockDef.name})
+                }, 50);
+              },
+              }
+            )
+        )
+        return {
+            label: group || gettext('Blocks'),
+            type: `streamfield-${group}`,
+            items: blockControls
+        }
+      });
 
       const hrCommand = {
         type: 'hr',
@@ -216,40 +230,7 @@ class DraftailRichTextArea {
           type: 'entityTypes',
         },
         ...(options.enableHorizontalRule ? [hrCommand] : []),
-        // {
-        //   label: gettext('Blocks'),
-        //   // The type is arbitrary, just needs to be unique.
-        //   type: 'custom-streamfield',
-        //   items: [
-        //     {
-        //       icon: '#icon-title',
-        //       description: 'Heading',
-        //       type: 'heading',
-        //       onSelect: ({ editorState }) => {
-        //         const nextState = addHR(editorState);
-        //         return nextState;
-        //       },
-        //     },
-        //     {
-        //       icon: '#icon-placeholder',
-        //       description: 'Paragraph',
-        //       type: 'paragraph',
-        //       onSelect: ({ editorState }) => {
-        //         const nextState = addHR(editorState);
-        //         return nextState;
-        //       },
-        //     },
-        //     {
-        //       icon: '#icon-media',
-        //       description: 'Embed',
-        //       type: 'embed',
-        //       onSelect: ({ editorState }) => {
-        //         const nextState = addHR(editorState);
-        //         return nextState;
-        //       },
-        //     },
-        //   ],
-        // },
+        ...blockCommands,
         {
           label: 'Actions',
           type: 'custom-actions',

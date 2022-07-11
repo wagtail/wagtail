@@ -259,6 +259,10 @@ export class StreamBlock extends BaseSequenceBlock {
     }
   }
 
+  getBlockGroups() {
+    return this.blockDef.groupedChildBlockDefs;
+  }
+
   /*
    * Called whenever a block is added or removed
    *
