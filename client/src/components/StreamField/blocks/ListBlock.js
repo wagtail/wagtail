@@ -296,6 +296,10 @@ export class ListBlock extends BaseSequenceBlock {
       }
     });
   }
+
+  getBlockGroups() {
+    return ['', [this.childBlockDef]];
+  }
 }
 
 export class ListBlockDefinition {

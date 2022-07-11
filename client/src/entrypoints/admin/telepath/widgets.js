@@ -175,12 +175,89 @@ class DraftailRichTextArea {
     const options = { ...originalOptions };
     const capabilities = parentCapabilities || new Map();
     const split = capabilities.get('split');
+    const addSibling = capabilities.get('addSibling');
     if (split) {
       options.controls = options.controls ? [...options.controls] : [];
-      options.controls.push(
-        // eslint-disable-next-line no-undef
-        draftail.getSplitControl(split.fn, !!split.enabled),
-      );
+      options.controls.push({
+        meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
+      });
+
+      const blockGroups = addSibling ? addSibling.blockGroups : [];
+      const blockCommands = blockGroups.map(([group, blocks]) => {
+        const blockControls = blocks.map((blockDef) => ({
+          icon: `#icon-${blockDef.meta.icon}`,
+          description: blockDef.meta.label,
+          type: blockDef.name,
+          onSelect: ({ editorState }) => {
+            const result = window.draftail.splitState(editorState);
+            // Run the split after a timeout to circumvent potential race condition.
+            setTimeout(() => {
+              if (result) {
+                split.fn(
+                  result.stateBefore,
+                  result.stateAfter,
+                  result.shouldMoveCommentFn,
+                );
+              }
+              addSibling.fn({ type: blockDef.name });
+            }, 50);
+          },
+        }));
+        return {
+          label: group || gettext('Blocks'),
+          type: `streamfield-${group}`,
+          items: blockControls,
+        };
+      });
+
+      const hrCommand = {
+        type: 'hr',
+        // The horizontal rule isn’t included in entityTypes by default.
+        items: [{ type: 'HORIZONTAL_RULE' }],
+      };
+
+      options.commands = [
+        {
+          label: gettext('Rich text'),
+          type: 'blockTypes',
+        },
+        {
+          type: 'entityTypes',
+        },
+        ...(options.enableHorizontalRule ? [hrCommand] : []),
+        ...blockCommands,
+        {
+          label: 'Actions',
+          type: 'custom-actions',
+          items: [
+            {
+              icon: '#icon-cut',
+              description: gettext('Split block'),
+              type: 'split',
+              render: ({ option, getEditorState }) => {
+                const editorState = getEditorState();
+                const content = editorState.getCurrentContent();
+                const blocks = content.getBlockMap();
+                const text = `${option.description} (will split ${blocks.size} blocks)`;
+                return text;
+              },
+              onSelect: ({ editorState }) => {
+                const result = window.draftail.splitState(editorState);
+                // Run the split after a timeout to circumvent potential race condition.
+                setTimeout(() => {
+                  if (result) {
+                    split.fn(
+                      result.stateBefore,
+                      result.stateAfter,
+                      result.shouldMoveCommentFn,
+                    );
+                  }
+                }, 50);
+              },
+            },
+          ],
+        },
+      ];
     }
     const input = document.createElement('input');
     input.type = 'hidden';
