@@ -14,6 +14,7 @@
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
+    - `extra_actions` - extra action buttons for the header. This is the html to be used as the html for the extra buttons
 
 {% endcomment %}
 <header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
@@ -52,6 +53,7 @@
                         {% endwith %}
                     </div>
                 {% endif %}
+                {{ extra_actions }}
             {% endblock %}
         </div>
     </div>
