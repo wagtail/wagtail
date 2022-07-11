@@ -87,7 +87,7 @@ class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/index.html")
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
@@ -1904,7 +1904,7 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get(self.non_revisable_snippet)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "<td>Created</td>", html=True)
+        self.assertContains(response, '<td class="title">Created</td>', html=True)
         self.assertContains(
             response,
             'data-tippy-content="Sept. 30, 2021, 10:01 a.m."',
