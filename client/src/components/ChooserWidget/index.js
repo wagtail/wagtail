@@ -89,7 +89,13 @@ export class Chooser {
     }
     this.chooserElement.classList.remove('blank');
     if (this.editLink) {
-      this.editLink.setAttribute('href', newState[this.editLinkStateKey]);
+      const editUrl = newState[this.editLinkStateKey];
+      if (editUrl) {
+        this.editLink.setAttribute('href', editUrl);
+        this.editLink.classList.remove('u-hidden');
+      } else {
+        this.editLink.classList.add('u-hidden');
+      }
     }
   }
 
