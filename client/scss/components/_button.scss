@@ -499,45 +499,6 @@ button {
   }
 }
 
-.button-group {
-  @include clearfix;
-
-  input[type='submit'],
-  input[type='reset'],
-  input[type='button'],
-  .button,
-  button {
-    border-radius: 0;
-    float: left;
-    margin-inline-end: 1px;
-    margin-inline-start: 0;
-
-    &:only-child {
-      border-radius: 3px;
-    }
-
-    &:first-child {
-      border-radius: 3px 0 0 3px;
-    }
-
-    &:last-child {
-      border-radius: 0 3px 3px 0;
-      margin-inline-end: 0;
-    }
-  }
-
-  &.button-group-square {
-    &,
-    input[type='submit'],
-    input[type='reset'],
-    input[type='button'],
-    .button,
-    button {
-      border-radius: 0;
-    }
-  }
-}
-
 .multiple {
   padding: 0;
   max-width: 1024px - 50px;
