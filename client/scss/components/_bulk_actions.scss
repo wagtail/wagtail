@@ -31,6 +31,11 @@
     input[type='checkbox'] {
       margin: 0;
     }
+
+    + th,
+    + td {
+      padding-inline-start: 0;
+    }
   }
 }
 
