@@ -140,6 +140,7 @@ class List(IndexView):
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
+    table_class = InlineActionsTable
 
     def _get_title_column(self, column_class=SnippetTitleColumn):
         return super()._get_title_column(column_class)

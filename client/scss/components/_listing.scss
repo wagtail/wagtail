@@ -196,11 +196,8 @@ ul.listing {
 
     .title-wrapper,
     h2 {
+      @apply w-label-1;
       margin: 0;
-      font-size: 1.15em;
-      font-weight: 600;
-      color: $color-text-base;
-      line-height: 1.5em;
 
       a {
         color: inherit;
@@ -233,20 +230,48 @@ ul.listing {
     }
   }
 
+  &--inline-actions td.title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .title-wrapper {
+      margin-inline-end: 2.5em;
+    }
+
+    .status-tag {
+      margin: 0;
+    }
+  }
+
   &--inline-actions .actions {
     display: inline-block;
     margin-top: 0;
     vertical-align: inherit;
+
+    li {
+      margin-bottom: 0;
+    }
+
+    .button {
+      vertical-align: inherit;
+    }
   }
 
   .button-secondary {
     border-color: $color-grey-4;
     background: $color-white;
 
-    &.no:hover {
-      border-color: $color-button-no;
-      background-color: $color-button-no;
-      color: $color-white;
+    &.no {
+      // Override `background-color: transparent;` from _buttons.scss
+      background: $color-white;
+
+      &:hover {
+        border-color: $color-button-no;
+        background-color: $color-button-no;
+        color: $color-white;
+      }
     }
 
     &:hover {
@@ -387,6 +412,11 @@ ul.listing {
     margin-inline-end: 0;
     font-size: 1em;
     opacity: 0.7;
+  }
+
+  .status-tag {
+    margin: 0;
+    margin-inline: 0;
   }
 
   &.images img {
