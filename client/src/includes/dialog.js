@@ -58,7 +58,7 @@ export const dialog = (
                 );
 
                 // Rehookup event listeners
-                modal.create();
+                // modal.create();
               },
               set_privacy_done(modal, jsonData) {
                 modal.respond('setPermission', jsonData.is_public);
