@@ -375,6 +375,12 @@ class EventPage(Page):
         FieldPanel("feed_image"),
     ]
 
+    class Meta:
+        permissions = [
+            ("custom_see_panel_setting", "Can see the panel."),
+            ("other_custom_see_panel_setting", "Can see the panel."),
+        ]
+
 
 class HeadCountRelatedModelUsingPK(models.Model):
     """Related model that uses a custom primary key (pk) not id"""

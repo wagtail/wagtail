@@ -5,7 +5,7 @@ from unittest import mock
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Permission
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
@@ -373,6 +373,9 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
         user = self.create_superuser(username="admin")
         self.request.user = user
         self.user = self.login()
+        permission_name = "custom_see_panel_setting"
+        p = Permission.objects.get(codename=permission_name)
+        self.user.user_permissions.add(p)
         # a custom tabbed interface for EventPage
         self.event_page_tabbed_interface = TabbedInterface(
             [
@@ -396,6 +399,20 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
                         FieldPanel("cost", permission="superuser"),
                     ],
                     heading="Secret",
+                ),
+                ObjectList(
+                    [
+                        FieldPanel("cost"),
+                    ],
+                    heading="Custom Setting",
+                    permission=permission_name,
+                ),
+                ObjectList(
+                    [
+                        FieldPanel("cost"),
+                    ],
+                    heading="Other Custom Setting",
+                    permission="other_custom_see_panel_setting",
                 ),
             ]
         ).bind_to_model(EventPage)
@@ -493,6 +510,14 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
         )
         self.assertIn(
             '<a id="tab-label-secret" href="#tab-secret" ',
+            result,
+        )
+        self.assertIn(
+            '<a id="tab-label-custom-setting" href="#tab-custom-setting" ',
+            result,
+        )
+        self.assertIn(
+            '<a id="tab-label-other-custom-setting" href="#tab-other-custom-setting" ',
             result,
         )
 
