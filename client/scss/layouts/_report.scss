@@ -47,10 +47,14 @@
     }
   }
 
-  &__actions > div {
-    float: right;
-    display: block;
-    margin-inline-end: 10px;
+  &__actions {
+    display: flex;
+
+    > div {
+      float: right;
+      display: block;
+      margin-inline-end: 10px;
+    }
   }
 
   @include media-breakpoint-down(sm) {

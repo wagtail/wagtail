@@ -28,12 +28,10 @@
         </div>
     {% endif %}
     {% if can_add_snippet %}
-        <div>
-            <a href="{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" class="button bicolor button--icon">
-                {% icon name="plus" wrapped=1 %}
-                {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
-            {# TODO: figure out a way of saying "Add a/an [foo]" #}
-        </div>
+        <a href="{% url view.add_url_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" class="button bicolor button--icon">
+            {% icon name="plus" wrapped=1 %}
+            {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
+        {# TODO: figure out a way of saying "Add a/an [foo]" #}
     {% endif %}
 {% endblock %}
 

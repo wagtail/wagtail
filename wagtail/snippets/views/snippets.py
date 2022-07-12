@@ -136,6 +136,7 @@ class List(ReportView):
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
+    table_class = InlineActionsTable
 
     def _get_title_column(self):
         def title_accessor(obj):
