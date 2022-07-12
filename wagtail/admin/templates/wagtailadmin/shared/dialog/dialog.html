@@ -32,7 +32,9 @@
                     <p class="w-dialog__subtitle w-help-text">{{ subtitle }}</p>
                 {% endif %}
 
-                {{ children }}
+                <div data-dialog-content>
+                    {{ children }}
+                </div>
             </div>
         </div>
     </div>
