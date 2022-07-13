@@ -486,7 +486,7 @@ def register_core_features(features):
         "h1",
         draftail_features.BlockFeature(
             {
-                "label": "H1",
+                "icon": "h1",
                 "type": "header-one",
                 "description": gettext("Heading %(level)d") % {"level": 1},
             }
@@ -507,7 +507,7 @@ def register_core_features(features):
         "h2",
         draftail_features.BlockFeature(
             {
-                "label": "H2",
+                "icon": "h2",
                 "type": "header-two",
                 "description": gettext("Heading %(level)d") % {"level": 2},
             }
@@ -528,7 +528,7 @@ def register_core_features(features):
         "h3",
         draftail_features.BlockFeature(
             {
-                "label": "H3",
+                "icon": "h3",
                 "type": "header-three",
                 "description": gettext("Heading %(level)d") % {"level": 3},
             }
@@ -549,7 +549,7 @@ def register_core_features(features):
         "h4",
         draftail_features.BlockFeature(
             {
-                "label": "H4",
+                "icon": "h4",
                 "type": "header-four",
                 "description": gettext("Heading %(level)d") % {"level": 4},
             }
@@ -570,7 +570,7 @@ def register_core_features(features):
         "h5",
         draftail_features.BlockFeature(
             {
-                "label": "H5",
+                "icon": "h5",
                 "type": "header-five",
                 "description": gettext("Heading %(level)d") % {"level": 5},
             }
@@ -591,7 +591,7 @@ def register_core_features(features):
         "h6",
         draftail_features.BlockFeature(
             {
-                "label": "H6",
+                "icon": "h6",
                 "type": "header-six",
                 "description": gettext("Heading %(level)d") % {"level": 6},
             }
@@ -947,9 +947,6 @@ def register_icons(icons):
         "comment.svg",
         "comment-add.svg",
         "comment-add-reversed.svg",
-        "comment-large.svg",
-        "comment-large-outline.svg",
-        "comment-large-reversed.svg",
         "cross.svg",
         "cut.svg",
         "date.svg",
@@ -975,6 +972,12 @@ def register_icons(icons):
         "globe.svg",
         "grip.svg",
         "group.svg",
+        "h1.svg",
+        "h2.svg",
+        "h3.svg",
+        "h4.svg",
+        "h5.svg",
+        "h6.svg",
         "help.svg",
         "history.svg",
         "home.svg",

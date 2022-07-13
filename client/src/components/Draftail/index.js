@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DraftailEditor, MetaToolbar } from 'draftail';
+import {
+  DraftailEditor,
+  InlineToolbar,
+  MetaToolbar,
+  CommandPalette,
+} from 'draftail';
 import { Provider } from 'react-redux';
 
 import { gettext } from '../../utils/gettext';
@@ -98,6 +103,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
     const blockTypes = newOptions.blockTypes || [];
     const inlineStyles = newOptions.inlineStyles || [];
     const controls = newOptions.controls || [];
+    const commands = newOptions.commands || true;
     let entityTypes = newOptions.entityTypes || [];
 
     entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
@@ -107,30 +113,32 @@ const initEditor = (selector, originalOptions, currentScript) => {
       return { ...plugin, ...type };
     });
 
-    controls.push({
-      type: 'MaxLength',
-      meta: MaxLength,
-    });
-
     return {
       rawContentState: rawContentState,
       onSave: serialiseInputValue,
-      placeholder: gettext('Write here…'),
+      placeholder: gettext('Write something or type ‘/’ to insert a block'),
       spellCheck: true,
       enableLineBreak: {
         description: gettext('Line break'),
         icon: BR_ICON,
       },
-      bottomToolbar: MetaToolbar,
-      showUndoControl: { description: gettext('Undo') },
-      showRedoControl: { description: gettext('Redo') },
+      bottomToolbar: (props) => (
+        <>
+          <InlineToolbar {...props} />
+          <MetaToolbar {...props} />
+        </>
+      ),
+      commandPalette: (props) => (
+        <CommandPalette {...props} noResultsText={gettext('No results')} />
+      ),
       maxListNesting: 4,
       stripPastedStyles: false,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
-      controls,
+      controls: controls.concat([{ meta: MaxLength }]),
+      commands,
       enableHorizontalRule,
     };
   };

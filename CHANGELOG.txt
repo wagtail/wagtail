@@ -58,6 +58,8 @@ Changelog
  * Migrate the dashboard (home) view header to the shared header template and update designs (Paarth Agarwal)
  * Update classes and styles for the shared header templates to align with UI guidelines (Paarth Agarwal)
  * Clean up multiple eslint rules usage and configs to align better with the Wagtail coding guidelines (LB (Ben Johnston))
+ * Add inline toolbar for Draftail, to avoid clashing with the page’s header (Thibaud Colas)
+ * Add command palette in rich text editor to change text format with the keyboard only (Thibaud Colas)
  * Add a live-updating character count to the Draftail rich text editor (Thibaud Colas)
  * Add rich text editor paste to auto-create links (Thibaud Colas)
  * Add rich text editor text shortcuts undo, to allow typing text normally detected as a shortcut (Thibaud Colas)
