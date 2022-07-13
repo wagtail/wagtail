@@ -4,32 +4,23 @@
 {% block titletag %}{{ title }}{% endblock %}
 
 {% block content %}
-    <header class="w-header" role="banner">
-        <div class="row">
-            <div class="left">
-                <div class="col">
-                    <h1 class="w-header__title">
-                        {% if header_icon %}{% icon class_name="w-header__glyph" name=header_icon %}{% endif %}
-                        {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
-                    </h1>
-                </div>
-            </div>
-            <div class="right report__actions">
-                {% block actions %}
-                    {% if view.list_export %}
-                        <div class="dropdown dropdown-button match-width">
-                            <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
-                            <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                            <ul>
-                                <li><a  class="button bicolor button--icon" href="{{ view.csv_export_url }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
-                            </ul>
-                        </div>
-                    {% endif %}
-                {% endblock %}
-            </div>
+    {% fragment as report_actions %}
+        <div class="report__actions">
+            {% block actions %}
+                {% if view.list_export %}
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><a  class="button bicolor button--icon" href="{{ view.csv_export_url }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endblock %}
         </div>
-    </header>
+    {% endfragment %}
 
+    {% include "wagtailadmin/shared/header.html" with title=title icon=header_icon merged=1 extra_actions=report_actions %}
     <div class="report{% if filters %} report--has-filters{% endif %}">
         <div class="report__results">
             {% block results %}
