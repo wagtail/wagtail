@@ -96,6 +96,7 @@ Changelog
  * Fix: Make progress bars’ progress visible in forced colors mode (Anuja Verma)
  * Fix: Make checkboxes visible in forced colors mode (Anuja Verma)
  * Fix: Display the correct color for icons in forced colors mode (Anuja Verma)
+ * Fix: Remove outdated reference to 30-character limit on usernames in help text (minusf)
 
 
 3.0.1 (16.06.2022)
