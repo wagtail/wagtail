@@ -46,8 +46,7 @@ class UsernameForm(forms.ModelForm):
             field = self.fields["username"]
             field.regex = r"^[\w.@+-]+$"
             field.help_text = _(
-                "Required. 30 characters or fewer. Letters, "
-                "digits and @/./+/-/_ only."
+                "Required. Letters, digits and @/./+/-/_ only."
             )
             field.error_messages = field.error_messages.copy()
             field.error_messages.update(
