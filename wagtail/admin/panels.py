@@ -1069,7 +1069,6 @@ def set_default_page_edit_handlers(cls):
 
     cls.settings_panels = [
         PublishingPanel(),
-        PrivacyModalPanel(),
     ]
 
     if getattr(settings, "WAGTAILADMIN_COMMENTS_ENABLED", True):
