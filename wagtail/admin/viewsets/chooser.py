@@ -27,6 +27,8 @@ class ChooserViewSet(ViewSet):
     )  #: Label for the 'choose' button in the chooser widget, when an item has already been chosen
     edit_item_text = _("Edit")  #: Label for the 'edit' button in the chooser widget
 
+    per_page = 10  #: Number of results to show per page
+
     #: The view class to use for the overall chooser modal; must be a subclass of ``wagtail.admin.views.generic.chooser.ChooseView``.
     choose_view_class = chooser_views.ChooseView
 
@@ -78,6 +80,7 @@ class ChooserViewSet(ViewSet):
             create_url_name=self.get_url_name("create"),
             icon=self.icon,
             page_title=self.page_title,
+            per_page=self.per_page,
             creation_form_class=self.creation_form_class,
             form_fields=self.form_fields,
             exclude_form_fields=self.exclude_form_fields,
@@ -94,6 +97,7 @@ class ChooserViewSet(ViewSet):
             model=self.model,
             chosen_url_name=self.get_url_name("chosen"),
             results_url_name=self.get_url_name("choose_results"),
+            per_page=self.per_page,
             creation_form_class=self.creation_form_class,
             form_fields=self.form_fields,
             exclude_form_fields=self.exclude_form_fields,
