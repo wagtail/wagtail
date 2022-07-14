@@ -6,9 +6,11 @@ from django.http import Http404, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from wagtail.models import Page
+from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 
 def view_draft(request, page_id):
@@ -54,31 +56,44 @@ class PreviewOnEdit(View):
         form_class = page.get_edit_handler().get_form_class()
         parent_page = page.get_parent().specific
 
-        if self.session_key not in self.request.session:
-            # Session key not in session, returning null form
+        if not query_dict:
+            # Query dict is empty, return null form
             return form_class(instance=page, parent_page=parent_page)
 
         return form_class(query_dict, instance=page, parent_page=parent_page)
 
+    def _get_data_from_session(self):
+        post_data, _ = self.request.session.get(self.session_key, (None, None))
+        if not isinstance(post_data, str):
+            post_data = ""
+        return QueryDict(post_data)
+
     def post(self, request, *args, **kwargs):
-        # TODO: Handle request.FILES.
-        request.session[self.session_key] = request.POST.urlencode(), time()
         self.remove_old_preview_data()
-        form = self.get_form(self.get_page(), request.POST)
-        return JsonResponse({"is_valid": form.is_valid()})
+        page = self.get_page()
+        form = self.get_form(page, request.POST)
+        is_valid = form.is_valid()
+
+        if is_valid:
+            # TODO: Handle request.FILES.
+            request.session[self.session_key] = request.POST.urlencode(), time()
+            is_available = True
+        else:
+            # Check previous data in session to determine preview availability
+            form = self.get_form(page, self._get_data_from_session())
+            is_available = form.is_valid()
+
+        return JsonResponse({"is_valid": is_valid, "is_available": is_available})
 
     def error_response(self, page):
         return TemplateResponse(
             self.request, "wagtailadmin/pages/preview_error.html", {"page": page}
         )
 
+    @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
         page = self.get_page()
-
-        post_data, timestamp = self.request.session.get(self.session_key, (None, None))
-        if not isinstance(post_data, str):
-            post_data = ""
-        form = self.get_form(page, QueryDict(post_data))
+        form = self.get_form(page, self._get_data_from_session())
 
         if not form.is_valid():
             return self.error_response(page)
@@ -90,7 +105,11 @@ class PreviewOnEdit(View):
         except IndexError:
             raise PermissionDenied
 
-        return page.make_preview_request(request, preview_mode)
+        extra_attrs = {
+            "in_preview_panel": request.GET.get("in_preview_panel") == "true"
+        }
+
+        return page.make_preview_request(request, preview_mode, extra_attrs)
 
 
 class PreviewOnCreate(PreviewOnEdit):

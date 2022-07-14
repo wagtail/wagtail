@@ -68,6 +68,7 @@ Changelog
  * Add rich text editor empty block highlight by showing their block type (Thibaud Colas)
  * Make ModelAdmin InspectView footer actions consistent with other parts of the UI (Thibaud Colas)
  * Switch all report views to use Wagtail’s reusable header component (Paarth Agarwal)
+ * Introduce a new auto-updating preview panel inside the page editor (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

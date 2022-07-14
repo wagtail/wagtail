@@ -527,18 +527,24 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
-(WAGTAIL_AUTO_UPDATE_PREVIEW)=
-
 ## Auto update preview
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW`
 
 ```python
-WAGTAIL_AUTO_UPDATE_PREVIEW = False
+WAGTAIL_AUTO_UPDATE_PREVIEW = True
 ```
 
-When enabled, data from an edited page is automatically sent to the server on each change, even without saving. That way, users don’t have to click on “Preview” to update the content of the preview page. However, the preview page tab is not refreshed automatically, users have to do it manually.
-This behaviour is disabled by default.
+When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
+This behaviour is enabled by default.
+
+### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
+
+```python
+WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
+```
+
+The interval (in milliseconds) to check for changes made in the page editor before updating the preview. The default value is `500`.
 
 ## Custom User Edit Forms
 

@@ -267,7 +267,10 @@ window.initErrorDetection = initErrorDetection;
 function initKeyboardShortcuts() {
   // eslint-disable-next-line no-undef
   Mousetrap.bind(['mod+p'], () => {
-    $('.action-preview').trigger('click');
+    const previewToggle = document.querySelector(
+      '[data-side-panel-toggle="preview"]',
+    );
+    if (previewToggle) previewToggle.click();
     return false;
   });
 
@@ -289,81 +292,6 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
-
-  //
-  // Preview
-  //
-  // In order to make the preview truly reliable, the preview page needs
-  // to be perfectly independent from the edit page,
-  // from the browser perspective. To pass data from the edit page
-  // to the preview page, we send the form after each change
-  // and save it inside the user session.
-
-  const $previewButton = $('.action-preview');
-  const $form = $('#page-edit-form');
-  const previewUrl = $previewButton.data('action');
-  let autoUpdatePreviewDataTimeout = -1;
-
-  function setPreviewData() {
-    return $.ajax({
-      url: previewUrl,
-      method: 'POST',
-      data: new FormData($form[0]),
-      processData: false,
-      contentType: false,
-    });
-  }
-
-  $previewButton.one('click', () => {
-    if ($previewButton.data('auto-update')) {
-      // Form data is changed when field values are changed
-      // (change event), when HTML elements are added, modified, moved,
-      // and deleted (DOMSubtreeModified event), and we need to delay
-      // setPreviewData when typing to avoid useless extra AJAX requests
-      // (so we postpone setPreviewData when keyup occurs).
-
-      // TODO: Replace DOMSubtreeModified with a MutationObserver.
-      $form
-        .on('change keyup DOMSubtreeModified', () => {
-          clearTimeout(autoUpdatePreviewDataTimeout);
-          autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
-        })
-        .trigger('change');
-    }
-  });
-
-  // eslint-disable-next-line func-names
-  $previewButton.on('click', function (e) {
-    e.preventDefault();
-    const $this = $(this);
-    const $icon = $this.filter('.icon');
-    const thisPreviewUrl = $this.data('action');
-    $icon.addClass('icon-spinner').removeClass('icon-view');
-    const previewWindow = window.open('', thisPreviewUrl);
-    previewWindow.focus();
-
-    setPreviewData()
-      .done((data) => {
-        if (data.is_valid) {
-          previewWindow.document.location = thisPreviewUrl;
-        } else {
-          window.focus();
-          previewWindow.close();
-
-          // TODO: Stop sending the form, as it removes file data.
-          $form.trigger('submit');
-        }
-      })
-      .fail(() => {
-        // eslint-disable-next-line no-alert
-        alert('Error while sending preview data.');
-        window.focus();
-        previewWindow.close();
-      })
-      .always(() => {
-        $icon.addClass('icon-view').removeClass('icon-spinner');
-      });
-  });
 });
 
 let updateFooterTextTimeout = -1;

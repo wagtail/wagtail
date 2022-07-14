@@ -1,22 +1,23 @@
-{% extends 'wagtailadmin/base.html' %}
+{% extends 'wagtailadmin/admin_base.html' %}
 {% load i18n %}
 
-{% block titletag %}{% trans 'Preview error' %}{% endblock %}
+{% block titletag %}{% trans 'Preview not available' %}{% endblock %}
 
-{% block content %}
-    <header class="w-header w-header--with-padding">
-        <h1 class="w-header__title">{% trans 'Preview error' %}</h1>
-    </header>
-    <div class="nice-padding">
-        <p>
+{% block furniture %}
+    <div class="preview-error">
+        <header class="preview-error__header">
+            <h1 class="preview-error__title">{% trans 'Preview not available' %}</h1>
+        </header>
+        <p class="preview-error__details">
             {% blocktrans trimmed %}
-                Impossible to preview this page, some errors are remaining.
-                Please close this tab, edit the page to fix these errors,
-                then use preview again.
+                Preview cannot display due to validation errors.
+                <br />
+                Save a draft to highlight the relevant fields.
             {% endblocktrans %}
         </p>
-        <a class="button" href="javascript:window.close()">
-            {% trans 'Close' %}
-        </a>
     </div>
+{% endblock %}
+
+{# Avoid loading all of Wagtail’s JavaScript for a fully static page. #}
+{% block js %}
 {% endblock %}

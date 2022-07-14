@@ -833,7 +833,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         response = self.client.get(preview_url)
 
@@ -856,10 +859,12 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # We should have an error page because we are unable to
         # preview; the page key was not in the session.
         self.assertContains(
-            response, "<title>Wagtail - Preview error</title>", html=True
+            response, "<title>Wagtail - Preview not available</title>", html=True
         )
         self.assertContains(
-            response, '<h1 class="w-header__title">Preview error</h1>', html=True
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
         )
 
     @override_settings(
@@ -915,7 +920,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         response = self.client.get(preview_url)
 
