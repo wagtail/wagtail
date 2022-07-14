@@ -59,17 +59,17 @@ class _cache:
         self.cache.pop(self.cls, None)
 
 
-def xframe_options_sameorigin(view_func):
+def xframe_options_sameorigin_override(view_func):
     """
     Modify a view function so its response has the X-Frame-Options HTTP header
     set to 'SAMEORIGIN'.
 
-    Adapted from Django's version so that it's always applied even if the
-    response already has that header set:
+    Adapted from Django's xframe_options_sameorigin so that it's always applied
+    even if the response already has that header set:
     https://github.com/django/django/blob/3.2/django/views/decorators/clickjacking.py#L22-L37
 
     Usage:
-    @xframe_options_sameorigin
+    @xframe_options_sameorigin_override
     def some_view(request):
         ...
     """

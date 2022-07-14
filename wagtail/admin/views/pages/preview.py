@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from wagtail.models import Page
-from wagtail.utils.decorators import xframe_options_sameorigin
+from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 
 def view_draft(request, page_id):
@@ -90,7 +90,7 @@ class PreviewOnEdit(View):
             self.request, "wagtailadmin/pages/preview_error.html", {"page": page}
         )
 
-    @method_decorator(xframe_options_sameorigin)
+    @method_decorator(xframe_options_sameorigin_override)
     def get(self, request, *args, **kwargs):
         page = self.get_page()
         form = self.get_form(page, self._get_data_from_session())
