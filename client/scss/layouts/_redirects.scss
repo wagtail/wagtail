@@ -4,14 +4,14 @@
   white-space: nowrap;
 }
 
-.redirects header .has-multiple-actions {
+.redirects header .right {
   display: flex;
 }
 
-.redirects header .has-multiple-actions .actionbutton {
+.redirects header .right .actionbutton {
   margin-inline-start: 10px;
 }
 
-.redirects header .has-multiple-actions .dropdown {
+.redirects header .right .dropdown {
   margin-inline-start: 10px;
 }
