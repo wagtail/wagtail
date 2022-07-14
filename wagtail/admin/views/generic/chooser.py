@@ -128,7 +128,6 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
             for hook in hooks.get_hooks(self.construct_queryset_hook_name):
                 objects = hook(objects, self.request)
 
-        self.filter_form = self.get_filter_form()
         if self.filter_form.is_valid():
             objects = self.filter_form.filter(objects)
         return objects
@@ -148,13 +147,17 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
             ),
         ]
 
-    def get(self, request):
+    def get_results_page(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
         objects = self.filter_object_list(objects)
 
         paginator = Paginator(objects, per_page=self.per_page)
-        self.results = paginator.get_page(request.GET.get("p"))
+        return paginator.get_page(request.GET.get("p"))
+
+    def get(self, request):
+        self.filter_form = self.get_filter_form()
+        self.results = self.get_results_page(request)
         self.table = Table(self.columns, self.results)
 
         return self.render_to_response()
