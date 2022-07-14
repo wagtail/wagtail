@@ -75,6 +75,7 @@ Changelog
  * Add `menu_item_name` to modify MenuItem's name for ModelAdmin (Alexander Rogovskyy, Vu Pham)
  * Add an extra confirmation prompt when deleting pages with a large number of child pages (Jaspreet Singh)
  * Adopt the slim header in page listing views, with buttons moved under the "Actions" dropdown (Paarth Agarwal)
+ * Improve help block styles in Windows High Contrast Mode with less reliance on communication via colour alone (Anuja Verma)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

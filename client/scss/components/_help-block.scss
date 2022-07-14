@@ -60,25 +60,16 @@
 }
 
 // Media for Windows High Contrast
-@media (forced-colors: $media-forced-colours) {
+@media (forced-colors: active) {
   .help-block {
-    forced-color-adjust: none;
-    border: 1px solid $system-color-link-text; // ensure visible separation in Windows High Contrast mode
-    background-color: transparent;
-    color: $color-white;
-
-    &:before {
-      color: currentColor;
-    }
+    border: 3px solid currentColor; // ensure visible separation in Windows High Contrast mode
   }
 
   .help-warning {
-    color: $color-text-warning-forced-color;
-    border-color: $color-text-warning-forced-color;
+    border-style: dotted;
   }
 
   .help-critical {
-    color: $color-text-error-forced-color;
-    border-color: $color-text-error-forced-color;
+    border-style: dashed;
   }
 }
