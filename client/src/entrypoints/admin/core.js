@@ -318,15 +318,21 @@ $(() => {
         $inputContainer.addClass(workingClasses);
         searchNextIndex++;
         const index = searchNextIndex;
+
+        // Update q, reset to first page, and keep other query params
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('q', newQuery);
+        searchParams.delete('p');
+        const queryString = searchParams.toString();
+
         $.ajax({
           url: window.headerSearch.url,
-          // eslint-disable-next-line id-length
-          data: { q: newQuery },
+          data: queryString,
           success(data) {
             if (index > searchCurrentIndex) {
               searchCurrentIndex = index;
               $(window.headerSearch.targetOutput).html(data).slideDown(800);
-              window.history.replaceState(null, null, '?q=' + newQuery);
+              window.history.replaceState(null, null, '?' + queryString);
               $input[0].dispatchEvent(new Event('search-success'));
             }
           },
