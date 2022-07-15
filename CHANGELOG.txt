@@ -56,7 +56,7 @@ Changelog
  * Introduce new template fragment and block level enclosure tags for easier template composition (Thibaud Colas)
  * Add a `classnames` template tag to easily build up classes from variables provided to a template (Paarth Agarwal)
  * Migrate the dashboard (home) view header to the shared header template and update designs (Paarth Agarwal)
- * Switch all report views and workflow and redirects listing views to use Wagtail’s reusable header component (Paarth Agarwal)
+ * Switch all report workflow, redirects, site settings views to use Wagtail’s reusable header component (Paarth Agarwal)
  * Update classes and styles for the shared header templates to align with UI guidelines (Paarth Agarwal)
  * Clean up multiple eslint rules usage and configs to align better with the Wagtail coding guidelines (LB (Ben Johnston))
  * Add inline toolbar for Draftail, to avoid clashing with the page’s header (Thibaud Colas)
