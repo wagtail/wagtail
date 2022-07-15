@@ -12,7 +12,7 @@
         </a>
         <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>
     {% endfragment %}
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 extra_actions=workflow_actions %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon extra_actions=workflow_actions %}
 
     <div class="nice-padding">
         {% if tasks %}
