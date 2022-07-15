@@ -3,6 +3,9 @@ import {
   ToolbarButton,
   createEditorStateFromRaw,
   serialiseEditorStateToRaw,
+  InlineStyleControl,
+  ControlComponentProps,
+  DraftailEditorProps,
 } from 'draftail';
 import {
   CharacterMetadata,
@@ -21,7 +24,6 @@ import { filterInlineStyles } from 'draftjs-filters';
 import React, {
   MutableRefObject,
   ReactNode,
-  ReactText,
   useEffect,
   useMemo,
   useRef,
@@ -266,12 +268,6 @@ function createFromBlockArrayOrPlaceholder(blockArray: ContentBlock[]) {
   return ContentState.createFromText(' ');
 }
 
-interface ControlProps {
-  getEditorState: () => EditorState;
-  // eslint-disable-next-line react/no-unused-prop-types
-  onChange: (editorState: EditorState) => void;
-}
-
 export function splitState(editorState: EditorState) {
   const selection = editorState.getSelection();
   const anchorKey = selection.getAnchorKey();
@@ -345,7 +341,7 @@ export function getSplitControl(
       </button>
     );
   }
-  return ({ getEditorState }: ControlProps) => (
+  return ({ getEditorState }: ControlComponentProps) => (
     <ToolbarButton
       name={name}
       active={false}
@@ -370,7 +366,7 @@ function getCommentControl(
   contentPath: string,
   fieldNode: Element,
 ) {
-  return ({ getEditorState, onChange }: ControlProps) => (
+  return ({ getEditorState, onChange }: ControlComponentProps) => (
     <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
@@ -380,8 +376,8 @@ function getCommentControl(
         }`}
         icon={
           <>
-            <Icon name="comment-large-outline" />{' '}
-            <Icon name="comment-large-reversed" />
+            <Icon name="comment-add" />
+            <Icon name="comment-add-reversed" />
           </>
         }
         onClick={() => {
@@ -666,14 +662,6 @@ function handleArrowAtContentEnd(
   );
 }
 
-interface InlineStyle {
-  label?: string;
-  description?: string;
-  icon?: string | string[] | Node;
-  type: string;
-  style?: Record<string, string | number | ReactText | undefined>;
-}
-
 interface ColorConfigProp {
   standardHighlight: string;
   overlappingHighlight: string;
@@ -685,14 +673,14 @@ interface CommentableEditorProps {
   fieldNode: Element;
   contentPath: string;
   rawContentState: RawDraftContentState;
-  onSave: (rawContent: RawDraftContentState) => void;
-  inlineStyles: Array<InlineStyle>;
+  onSave: (rawContent: RawDraftContentState | null) => void;
+  inlineStyles: InlineStyleControl[];
   editorRef: (editor: ReactNode) => void;
   colorConfig: ColorConfigProp;
   isCommentShortcut: (e: React.KeyboardEvent) => boolean;
   // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
   plugins?: Record<string, unknown>[];
-  controls?: Array<(props: ControlProps) => JSX.Element>;
+  controls?: DraftailEditorProps['controls'];
 }
 
 function CommentableEditor({
@@ -733,7 +721,7 @@ function CommentableEditor({
     [comments],
   );
 
-  const commentStyles: Array<InlineStyle> = useMemo(
+  const commentStyles: InlineStyleControl[] = useMemo(
     () =>
       ids.map((id) => ({
         type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
@@ -863,7 +851,9 @@ function CommentableEditor({
         setEditorState(newEditorState);
       }}
       editorState={editorState}
-      controls={enabled ? controls.concat([CommentControl]) : controls}
+      controls={
+        enabled ? controls.concat([{ block: CommentControl }]) : controls
+      }
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={plugins.concat([
         {

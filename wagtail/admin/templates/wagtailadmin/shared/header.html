@@ -14,6 +14,7 @@
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
+    - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
 
 {% endcomment %}
 <header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
@@ -23,9 +24,9 @@
             <div class="col">
                 <h1 class="w-header__title">
                     {% if icon %}
-                        {% icon class_name="w-header__glpyh" name=icon %}
+                        {% icon class_name="w-header__glyph" name=icon %}
                     {% elif avatar %}
-                        <div class="w-header__glpyh avatar"><img src="{{ avatar }}" alt="" /></div>
+                        <div class="w-header__glyph avatar"><img src="{{ avatar }}" alt="" /></div>
                     {% endif %}
                     {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
                 </h1>
@@ -53,6 +54,7 @@
                     </div>
                 {% endif %}
             {% endblock %}
+            {{ extra_actions }}
         </div>
     </div>
     {% block extra_rows %}{% endblock %}

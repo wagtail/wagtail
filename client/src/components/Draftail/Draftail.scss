@@ -1,19 +1,20 @@
 $draftail-editor-text: $color-text-input;
-$draftail-editor-chrome: $color-white;
-$draftail-editor-chrome-text: $color-grey-2;
-$draftail-editor-chrome-active: $color-grey-2;
+$draftail-editor-chrome: theme('colors.primary.DEFAULT');
+$draftail-editor-chrome-text: $color-white;
+$draftail-editor-chrome-active: $color-white;
 $draftail-editor-chrome-accent: transparent;
 
+$draftail-base-spacing: 0.375rem;
 $draftail-editor-border: 0;
 $draftail-editor-padding: 0.75rem;
-$draftail-editor-background: transparent;
-$draftail-toolbar-radius: 3px;
+$draftail-editor-background: $color-white;
+$draftail-toolbar-radius: 5px;
 $draftail-toolbar-icon-size: 1em;
 
 $draftail-editor-font-family: $font-sans;
 
 @import '../../../../node_modules/draft-js/dist/Draft';
-@import '../../../../node_modules/draftail/lib/index';
+@import '../../../../node_modules/draftail/src/index';
 
 @import './Tooltip/Tooltip';
 @import './CommentableEditor/CommentableEditor';
@@ -74,10 +75,22 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-.Draftail-ToolbarButton .icon {
-  width: $draftail-toolbar-icon-size;
-  height: $draftail-toolbar-icon-size;
-  vertical-align: middle;
+.Draftail-ToolbarButton,
+.Draftail-ComboBox__option {
+  .icon {
+    width: $draftail-toolbar-icon-size;
+    height: $draftail-toolbar-icon-size;
+    vertical-align: middle;
+  }
+
+  .icon-h1,
+  .icon-h2,
+  .icon-h3,
+  .icon-h4,
+  .icon-h5,
+  .icon-h6 {
+    width: 1.5 * $draftail-toolbar-icon-size;
+  }
 }
 
 // When in a .full container, the editor has a specific appearance
@@ -108,7 +121,40 @@ $draftail-editor-font-family: $font-sans;
   border: 1px solid $color-grey-3;
 }
 
+.Draftail-MetaToolbar {
+  visibility: hidden;
+
+  .Draftail-Editor:focus-within &,
+  .Draftail-Editor:hover & {
+    visibility: visible;
+  }
+}
+
+.Draftail-ComboBox__option-text {
+  @apply w-label-3;
+}
+
+.Draftail-ToolbarGroup::before {
+  display: none;
+}
+
+.Draftail-ToolbarGroup--controls::before {
+  display: inline-block;
+  height: 1.875rem;
+  background-color: $color-white;
+  opacity: 0.2;
+}
+
 .Draftail-ToolbarButton {
+  height: 1.875rem;
+  min-width: 1.875rem;
+  padding: 0;
+  margin-inline-end: 0.625rem;
+
+  .Draftail-ToolbarGroup:last-of-type &:last-of-type {
+    margin-inline-end: 0;
+  }
+
   &[disabled] {
     opacity: 0.3;
   }

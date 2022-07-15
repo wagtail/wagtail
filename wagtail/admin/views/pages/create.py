@@ -331,7 +331,10 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.request, view="create", parent_page=self.parent_page
         )
         side_panels = PageSidePanels(
-            self.request, self.page, comments_enabled=self.form.show_comments_toggle
+            self.request,
+            self.page,
+            preview_enabled=True,
+            comments_enabled=self.form.show_comments_toggle,
         )
 
         context.update(
@@ -342,7 +345,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "edit_handler": bound_panel,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,

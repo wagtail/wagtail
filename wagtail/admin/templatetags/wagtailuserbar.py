@@ -48,6 +48,10 @@ def wagtailuserbar(context, position="bottom-right"):
     if not user.has_perm("wagtailadmin.access_admin"):
         return ""
 
+    # Don't render if page is loaded in page editor's preview panel iframe
+    if getattr(request, "in_preview_panel", False):
+        return ""
+
     # Render the userbar using the user's preferred admin language
     userprofile = UserProfile.get_for_user(user)
     with translation.override(userprofile.get_preferred_language()):

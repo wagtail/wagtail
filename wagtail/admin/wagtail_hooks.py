@@ -545,7 +545,7 @@ def register_core_features(features):
         "h1",
         draftail_features.BlockFeature(
             {
-                "label": "H1",
+                "icon": "h1",
                 "type": "header-one",
                 "description": gettext("Heading %(level)d") % {"level": 1},
             }
@@ -566,7 +566,7 @@ def register_core_features(features):
         "h2",
         draftail_features.BlockFeature(
             {
-                "label": "H2",
+                "icon": "h2",
                 "type": "header-two",
                 "description": gettext("Heading %(level)d") % {"level": 2},
             }
@@ -587,7 +587,7 @@ def register_core_features(features):
         "h3",
         draftail_features.BlockFeature(
             {
-                "label": "H3",
+                "icon": "h3",
                 "type": "header-three",
                 "description": gettext("Heading %(level)d") % {"level": 3},
             }
@@ -608,7 +608,7 @@ def register_core_features(features):
         "h4",
         draftail_features.BlockFeature(
             {
-                "label": "H4",
+                "icon": "h4",
                 "type": "header-four",
                 "description": gettext("Heading %(level)d") % {"level": 4},
             }
@@ -629,7 +629,7 @@ def register_core_features(features):
         "h5",
         draftail_features.BlockFeature(
             {
-                "label": "H5",
+                "icon": "h5",
                 "type": "header-five",
                 "description": gettext("Heading %(level)d") % {"level": 5},
             }
@@ -650,7 +650,7 @@ def register_core_features(features):
         "h6",
         draftail_features.BlockFeature(
             {
-                "label": "H6",
+                "icon": "h6",
                 "type": "header-six",
                 "description": gettext("Heading %(level)d") % {"level": 6},
             }
@@ -792,7 +792,7 @@ def register_core_features(features):
                 # We want to enforce constraints on which links can be pasted into rich text.
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["url", "id", "parentId"],
-                "whitelist": {
+                "allowlist": {
                     # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
                     "href": "^(http:|https:|undefined$)",
                 },
@@ -1006,12 +1006,10 @@ def register_icons(icons):
         "comment.svg",
         "comment-add.svg",
         "comment-add-reversed.svg",
-        "comment-large.svg",
-        "comment-large-outline.svg",
-        "comment-large-reversed.svg",
         "cross.svg",
         "cut.svg",
         "date.svg",
+        "desktop.svg",
         "doc-empty-inverse.svg",
         "doc-empty.svg",
         "doc-full-inverse.svg",
@@ -1034,6 +1032,12 @@ def register_icons(icons):
         "globe.svg",
         "grip.svg",
         "group.svg",
+        "h1.svg",
+        "h2.svg",
+        "h3.svg",
+        "h4.svg",
+        "h5.svg",
+        "h6.svg",
         "help.svg",
         "history.svg",
         "home.svg",
@@ -1069,6 +1073,7 @@ def register_icons(icons):
         "repeat.svg",
         "reset.svg",
         "resubmit.svg",
+        "rotate.svg",
         "search.svg",
         "site.svg",
         "snippet.svg",
@@ -1078,6 +1083,7 @@ def register_icons(icons):
         "subscript.svg",
         "superscript.svg",
         "table.svg",
+        "tablet-alt.svg",
         "tag.svg",
         "tasks.svg",
         "thumbtack.svg",

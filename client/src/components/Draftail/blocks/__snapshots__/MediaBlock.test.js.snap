@@ -15,7 +15,6 @@ exports[`MediaBlock no data 1`] = `
     <Icon
       className="MediaBlock__icon"
       icon="#icon-test"
-      title={null}
     />
   </span>
   <img
@@ -62,7 +61,6 @@ exports[`MediaBlock renders 1`] = `
     <Icon
       className="MediaBlock__icon"
       icon="#icon-test"
-      title={null}
     />
   </span>
   <img

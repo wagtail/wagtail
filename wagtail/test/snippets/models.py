@@ -66,6 +66,9 @@ class SearchableSnippet(index.Indexed, models.Model):
 class StandardSnippet(models.Model):
     text = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.text
+
 
 @register_snippet
 class FancySnippet(models.Model):

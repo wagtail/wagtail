@@ -126,13 +126,35 @@ class CommentsSidePanel(BaseSidePanel):
     toggle_icon_name = "comment"
 
 
-class PreviewSidePanel(BaseSidePanel):
+class BasePreviewSidePanel(BaseSidePanel):
     name = "preview"
     title = gettext_lazy("Preview")
     template_name = "wagtailadmin/shared/side_panels/preview.html"
     order = 400
     toggle_aria_label = gettext_lazy("Toggle preview")
     toggle_icon_name = "mobile-alt"
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["has_multiple_modes"] = len(self.object.preview_modes) > 1
+        return context
+
+
+class PagePreviewSidePanel(BasePreviewSidePanel):
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        if self.object.id:
+            context["preview_url"] = reverse(
+                "wagtailadmin_pages:preview_on_edit", args=[self.object.id]
+            )
+        else:
+            content_type = parent_context["content_type"]
+            parent_page = parent_context["parent_page"]
+            context["preview_url"] = reverse(
+                "wagtailadmin_pages:preview_on_add",
+                args=[content_type.app_label, content_type.model, parent_page.id],
+            )
+        return context
 
 
 class BaseSidePanels:
@@ -156,13 +178,17 @@ class BaseSidePanels:
 
 
 class PageSidePanels(BaseSidePanels):
-    def __init__(self, request, page, *, comments_enabled):
+    def __init__(self, request, page, *, preview_enabled, comments_enabled):
         super().__init__(request, page)
 
         self.side_panels = [
             PageStatusSidePanel(page, self.request),
-            # PreviewSidePanel(page),
         ]
+
+        if preview_enabled and page.preview_modes:
+            self.side_panels += [
+                PagePreviewSidePanel(page, self.request),
+            ]
 
         if comments_enabled:
             self.side_panels += [

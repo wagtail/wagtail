@@ -1,0 +1,5 @@
+{% load i18n wagtailadmin_tags %}
+<button type="submit" name="{{ name }}" value="{{ name }}" class="button action-save button-longrunning{% if is_revision %} warning{% endif %}" data-clicked-text="{% trans 'Publishing…' %}">
+    {% icon name=icon_name class_name="button-longrunning__icon" %}
+    {% icon name="spinner" %}<em>{% if is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
+</button>

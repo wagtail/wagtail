@@ -13,7 +13,7 @@
         {% include "wagtailadmin/shared/side_panels.html" %}
     </div>
 
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
 
@@ -36,26 +36,6 @@
                                 </div>
                             </li>
 
-                            {% if preview_modes %}
-                                <li class="preview">
-                                    {% trans 'Preview' as preview_label %}
-                                    {% if preview_modes|length > 1 %}
-                                        <div class="dropdown dropup dropdown-button match-width">
-                                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                                            <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                                            <ul>
-                                                {% for mode_name, mode_display_name in preview_modes %}
-                                                    <li>
-                                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    {% else %}
-                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                                    {% endif %}
-                                </li>
-                            {% endif %}
                             {% block extra_footer_actions %}
                             {% endblock %}
                         </ul>

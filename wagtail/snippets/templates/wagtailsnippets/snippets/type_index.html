@@ -10,10 +10,9 @@
             termInput: "#id_q",
             targetOutput: "#snippet-results"
         }
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'SNIPPET';
     </script>
-    {% if can_delete_snippets %}
-        <script src="{% versioned_static 'wagtailsnippets/js/snippet-multiple-select.js' %}"></script>
-    {% endif %}
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +23,7 @@
             <div class="left">
                 <div class="col">
                     <h1 class="w-header__title">
-                        {% icon class_name="w-header__glpyh" name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
+                        {% icon class_name="w-header__glyph" name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
                     </h1>
                     {% if is_searchable and search_url %}
                         <form class="col search-form" action="{% url search_url %}" method="get" novalidate>
@@ -46,14 +45,6 @@
             <div class="right col">
                 <form>  {# HACK Removes list-style-type #}
                     <ul class="fields row rowflush">
-                        {% if can_delete_snippets %}
-                            <li class="col">
-                                <a class="button bicolor button--icon serious delete-button u-hidden" data-url="{% url view.delete_multiple_url_name %}?">
-                                    {% icon name="bin" wrapped=1 %}
-                                    {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}
-                                </a>
-                            </li>
-                        {% endif %}
                         {% if locale %}
                             <li class="col">
                                 <div class="field">
@@ -79,5 +70,7 @@
         <div id="snippet-results" class="snippets">
             {% include "wagtailsnippets/snippets/results.html" %}
         </div>
+        {% trans "Select all snippets in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=items %}
     </div>
 {% endblock %}

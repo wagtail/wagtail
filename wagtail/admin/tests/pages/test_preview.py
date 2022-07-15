@@ -45,7 +45,10 @@ class TestIssue2599(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         response = self.client.get(preview_url)
 
@@ -123,6 +126,72 @@ class TestPreview(TestCase, WagtailTestUtils):
             "comments-MAX_NUM_FORMS": 1000,
         }
 
+    def test_preview_on_create_with_no_session_data(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertNotIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # The preview should be unavailable
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/preview_error.html")
+        self.assertContains(
+            response,
+            "<title>Wagtail - Preview not available</title>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
+        )
+
+    def test_preview_on_create_with_invalid_data(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertNotIn(preview_session_key, self.client.session)
+
+        response = self.client.post(preview_url, {**self.post_data, "title": ""})
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": False, "is_available": False},
+        )
+
+        # The invalid data should not be saved in the session
+        self.assertNotIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # The preview should still be unavailable
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/preview_error.html")
+        self.assertContains(
+            response,
+            "<title>Wagtail - Preview not available</title>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
+        )
+
     def test_preview_on_create_with_m2m_field(self):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_add",
@@ -132,7 +201,10 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         # Check the user can refresh the preview
         preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
@@ -157,9 +229,46 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         # Check the user can refresh the preview
+        preview_session_key = "wagtail-preview-{}".format(self.event_page.id)
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Beach party")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_valid_then_invalid_data(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+        response = self.client.post(preview_url, self.post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Send an invalid update request
+        response = self.client.post(preview_url, {**self.post_data, "title": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": False, "is_available": True},
+        )
+
+        # Check the user can still see the preview with the last valid data
         preview_session_key = "wagtail-preview-{}".format(self.event_page.id)
         self.assertIn(preview_session_key, self.client.session)
 
@@ -229,7 +338,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
             "wagtailadmin_pages:preview_on_add",
             args=("tests", "simplepage", self.root_page.id),
         )
-        self.assertContains(response, '<li class="preview">')
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
 
         # StreamPage has preview_modes = []
@@ -245,7 +355,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
             "wagtailadmin_pages:preview_on_add",
             args=("tests", "streampage", self.root_page.id),
         )
-        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-side-panel-toggle="preview"')
+        self.assertNotContains(response, 'data-side-panel="preview"')
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
 
     def test_disable_preview_on_edit(self):
@@ -261,7 +372,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(simple_page.id,)
         )
-        self.assertContains(response, '<li class="preview">')
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
         self.assertContains(response, 'data-action="%s"' % preview_url)
 
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
@@ -276,7 +388,8 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(stream_page.id,)
         )
-        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-side-panel-toggle="preview"')
+        self.assertNotContains(response, 'data-side-panel="preview"')
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
 
     def test_disable_preview_on_revisions_list(self):

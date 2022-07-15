@@ -416,7 +416,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
                 icon: 'link',
                 description: 'Link',
                 attributes: ['url', 'id', 'parentId'],
-                whitelist: {
+                allowlist: {
                   href: '^(http:|https:|undefined$)',
                 },
               },
@@ -427,7 +427,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
                 icon: 'image',
                 description: 'Image',
                 attributes: ['id', 'src', 'alt', 'format'],
-                whitelist: {
+                allowlist: {
                   id: true,
                 },
               },
@@ -544,7 +544,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: false }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(inputElement.draftailEditor.props.controls).toHaveLength(2);
     expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
       parentCapabilities.get('split').fn,
       false,
@@ -552,7 +552,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: true }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(inputElement.draftailEditor.props.controls).toHaveLength(2);
     expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
       parentCapabilities.get('split').fn,
       true,

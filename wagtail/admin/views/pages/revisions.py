@@ -46,6 +46,7 @@ def revisions_revert(request, page_id, revision_id):
     side_panels = PageSidePanels(
         request,
         page,
+        preview_enabled=True,
         comments_enabled=form.show_comments_toggle,
     )
 
@@ -78,7 +79,6 @@ def revisions_revert(request, page_id, revision_id):
             "errors_debug": None,
             "action_menu": action_menu,
             "side_panels": side_panels,
-            "preview_modes": page.preview_modes,
             "form": form,  # Used in unit tests
             "media": edit_handler.media
             + form.media
