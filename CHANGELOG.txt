@@ -57,7 +57,7 @@ Changelog
  * Introduce new template fragment and block level enclosure tags for easier template composition (Thibaud Colas)
  * Add a `classnames` template tag to easily build up classes from variables provided to a template (Paarth Agarwal)
  * Migrate the dashboard (home) view header to the shared header template and update designs (Paarth Agarwal)
- * Switch all report workflow, redirects, site settings views to use Wagtail’s reusable header component (Paarth Agarwal)
+ * Switch all report workflow, redirects, form submissions, site settings views to use Wagtail’s reusable header component (Paarth Agarwal)
  * Update classes and styles for the shared header templates to align with UI guidelines (Paarth Agarwal)
  * Clean up multiple eslint rules usage and configs to align better with the Wagtail coding guidelines (LB (Ben Johnston))
  * Add inline toolbar for Draftail, to avoid clashing with the page’s header (Thibaud Colas)
@@ -100,6 +100,7 @@ Changelog
  * Fix: Make checkboxes visible in forced colors mode (Anuja Verma)
  * Fix: Display the correct color for icons in forced colors mode (Anuja Verma)
  * Fix: Remove outdated reference to 30-character limit on usernames in help text (minusf)
+ * Fix: Resolve multiple form submissions index listing page layout issues including title not being visible on mobile and interaction with large tables (Paarth Agarwal)
 
 
 3.0.1 (16.06.2022)
