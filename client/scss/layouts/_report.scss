@@ -2,8 +2,11 @@
   display: grid;
   grid-template-columns: auto;
   grid-column-gap: 50px;
-  margin-inline-start: 50px;
-  margin-inline-end: 50px;
+
+  &:not(&--no-margin) {
+    margin-inline-start: 50px;
+    margin-inline-end: 50px;
+  }
 
   &--has-filters {
     grid-template-columns: auto 300px;

@@ -377,7 +377,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 2)
 
         # check display of list values within form submissions
@@ -394,7 +394,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # An user can see form submissions without the hook
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 2)
 
         with self.register_hook(
@@ -415,7 +415,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
 
     def test_list_submissions_filtering_date_to(self):
@@ -426,7 +426,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
 
     def test_list_submissions_filtering_range(self):
@@ -437,7 +437,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
 
     def test_list_submissions_pagination(self):
@@ -450,7 +450,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
@@ -465,7 +465,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # Check that we got page one
         self.assertEqual(response.context["page_obj"].number, 1)
@@ -480,7 +480,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # Check that we got the last page
         self.assertEqual(
@@ -1082,7 +1082,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
@@ -1100,7 +1100,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
@@ -1117,7 +1117,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
@@ -1134,7 +1134,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
@@ -1153,7 +1153,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
@@ -1174,7 +1174,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # Check that we got page one
         self.assertEqual(response.context["page_obj"].number, 1)
@@ -1189,7 +1189,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # Check that we got the last page
         self.assertEqual(
@@ -1472,7 +1472,7 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 2)
 
         # check display of list values within form submissions
@@ -1490,7 +1490,7 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
 
         # test that paginate by 50 is working, should be 3 max pages (~120 values)
         self.assertContains(response, "Page 2 of 3")
@@ -1603,7 +1603,7 @@ class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 20)
 
         # check display of list values within form submissions
