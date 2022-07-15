@@ -83,6 +83,7 @@ Changelog
  * Add HTML-aware max_length validation on RichTextField and RichTextBlock (Matt Westcott)
  * Remove undocumented `SearchableListMixin` (Sage Abdullah)
  * Extract filtering code from ReportView to generic IndexView (Sage Abdullah)
+ * Retain other query params in header search behaviour (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
