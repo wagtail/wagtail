@@ -16,11 +16,11 @@
 
     <nav id="pagination" class="pagination" aria-label="pagination" hidden="true" >
         <button class="pagination-previous" id="pagination-previous">
-            <span><b>← Previous</b></span>
+            ← Previous
         </button>
         <ul class="pagination-list"></ul>
         <button class="pagination-next" id="pagination-next">
-            <span><b>Next →</b></span>
+            Next →
         </button>
     </nav>
 {% endblock %}
@@ -29,7 +29,7 @@
     {{ super() }}
     <script>
 
-        function runSearchPageSearch(event,page=0) {
+        function runSearchPageSearch(page) {
             const urlParams = new URLSearchParams(window.location.search)
             const query = urlParams.get('q')
 
@@ -45,7 +45,7 @@
             index.search(
                 query,
                 {
-                    hitsPerPage: 50,
+                    hitsPerPage: 100,
                     page: page,
                     facetFilters: [getVersionFacetFilter()]
                 }
@@ -54,7 +54,7 @@
                 // Display pagination if more than 1 page returned
                 let nbPages = result["nbPages"]
                 if (nbPages > 1) {
-                    document.querySelector("#pagination").hidden= false;
+                    document.querySelector("#pagination").hidden = false;
                     displayPagination(page, nbPages)
                 }
 
@@ -70,9 +70,9 @@
             const paginationList = pagination.querySelector(".pagination-list")
 
             // Hide previous/next button if showing first/last page
-            pagination.querySelector(".pagination-previous").hidden= false;
-            pagination.querySelector(".pagination-previous").hidden = page == 0;
-            pagination.querySelector(".pagination-next").hidden = page == totalPages -1;
+            pagination.querySelector(".pagination-previous").hidden = false;
+            pagination.querySelector(".pagination-previous").hidden = page === 0;
+            pagination.querySelector(".pagination-next").hidden = page === totalPages -1;
 
             // Display at most "toBeDisplayed" page links in the paginator
             const toBeDisplayed = 7
@@ -85,20 +85,20 @@
                 newPaginationbutton.innerHTML = i + 1
                 if (i == page) {
                     newPaginationbutton.setAttribute("aria-label", `page ${i+1}`)
-                    newPaginationbutton.setAttribute("aria-current", `page`)
+                    newPaginationbutton.setAttribute("aria-current", "page")
                 } else {
                     newPaginationbutton.setAttribute("aria-label", `Go to page ${i+1}`)
                 }
 
                 // Register event handlers
-                newPaginationbutton.onclick = function(event) {
-                    runSearchPageSearch(event, page=i)
+                newPaginationbutton.onclick = function() {
+                    runSearchPageSearch(i)
                 };
-                pagination.querySelector(".pagination-previous").onclick = function(event) {
-                    runSearchPageSearch(event, page=page - 1)
+                pagination.querySelector(".pagination-previous").onclick = function() {
+                    runSearchPageSearch(page - 1)
                 };
-                pagination.querySelector(".pagination-next").onclick = function(event) {
-                    runSearchPageSearch(event, page=page + 1)
+                pagination.querySelector(".pagination-next").onclick = function() {
+                    runSearchPageSearch(page + 1)
                 };
 
                 newPaginationItem.append(newPaginationbutton)
@@ -182,6 +182,6 @@
             return hitListElement
         }
 
-        window.addEventListener('DOMContentLoaded', runSearchPageSearch)
+        window.addEventListener('DOMContentLoaded', () => runSearchPageSearch(0));
     </script>
 {% endblock %}
