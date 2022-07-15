@@ -66,10 +66,13 @@
         </div>
     </header>
 
-    <div class="nice-padding">
+    <div class="nice-padding{% if filters %} filterable{% endif %}">
         <div id="snippet-results" class="snippets">
             {% include "wagtailsnippets/snippets/results.html" %}
         </div>
+        {% if filters %}
+            {% include "wagtailadmin/shared/filters.html" %}
+        {% endif %}
         {% trans "Select all snippets in listing" as select_all_text %}
         {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=items %}
     </div>
