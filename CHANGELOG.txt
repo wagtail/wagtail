@@ -69,6 +69,7 @@ Changelog
  * Make ModelAdmin InspectView footer actions consistent with other parts of the UI (Thibaud Colas)
  * Switch all report views to use Wagtail’s reusable header component (Paarth Agarwal)
  * Introduce a new auto-updating preview panel inside the page editor (Sage Abdullah)
+ * Add support for Twitter and other text-only embeds in Draftail embed previews (Iman Syed, Paarth Agarwal)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
