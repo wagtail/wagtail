@@ -13,7 +13,6 @@ export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
 
 import ModalWorkflowSource from './sources/ModalWorkflowSource';
-import singleLinePlugin from './plugins/singleLinePlugin';
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
@@ -153,12 +152,10 @@ const initEditor = (selector, options, currentScript) => {
  * @param {Element} currentScript
  */
 const initInlineEditor = (selector, options, currentScript) => {
-  const inlinePlugins = [singleLinePlugin()];
-  const plugins = options.plugins ? [...options.plugins] : [];
   const inlineOptions = {
     ...options,
     enableLineBreak: false,
-    plugins: plugins.concat(inlinePlugins),
+    multiline: false,
   };
   return initEditor(selector, inlineOptions, currentScript);
 };
