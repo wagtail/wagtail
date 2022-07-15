@@ -7,56 +7,6 @@
     margin-bottom: 10em;
     overflow-x: hidden;
   }
-
-  .header-meta {
-    list-style: none;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 0;
-
-    li {
-      border: 0;
-      float: left;
-      height: 1.5em;
-      line-height: 2em;
-      margin: 1em 0.75em 1.5em 0;
-
-      .icon {
-        @include svg-icon(1.25em, text-bottom);
-
-        margin-inline-end: 0.2em;
-      }
-
-      .icon-warning {
-        @include svg-icon();
-      }
-
-      &:first-child .button {
-        margin-inline-start: -0.8em;
-      }
-
-      .avatar {
-        margin-inline-start: 0;
-      }
-    }
-
-    .button {
-      font-size: 1em;
-      font-weight: 600;
-      margin-top: -0.25em; // Account for the button border
-      overflow: initial;
-      height: 2.5em;
-      line-height: 2.5em;
-    }
-
-    &--status {
-      padding-inline-end: 0.8em;
-    }
-
-    &--type {
-      padding: 0 0.8em;
-    }
-  }
 }
 
 .side-panel-open {
