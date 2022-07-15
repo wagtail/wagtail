@@ -11,7 +11,7 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
-          fallbackText={['Example Author', 'Example Provider']}
+          fallbackText="Fallback text"
           block={{}}
           blockProps={{
             editorState: {},
@@ -21,7 +21,6 @@ describe('MediaBlock', () => {
             entity: {
               getData: () => ({
                 src: 'example.png',
-                fallbackText: ['Example Author', 'Example Provider'],
               }),
             },
             onChange: () => {},
@@ -33,13 +32,38 @@ describe('MediaBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('no data', () => {
+  it('no data, with fallback', () => {
     expect(
       shallow(
         <MediaBlock
           src=""
           alt=""
-          fallbackText={['Example Author', 'Example Provider']}
+          fallbackText="Fallback text"
+          block={{}}
+          blockProps={{
+            editorState: {},
+            entityType: {
+              icon: '#icon-test',
+            },
+            entity: {
+              getData: () => ({}),
+            },
+            onChange: () => {},
+          }}
+        >
+          Test
+        </MediaBlock>,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it('no data, no fallback', () => {
+    expect(
+      shallow(
+        <MediaBlock
+          src=""
+          alt=""
+          fallbackText={null}
           block={{}}
           blockProps={{
             editorState: {},
@@ -84,7 +108,7 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
-          fallbackText={['Example Author', 'Example Provider']}
+          fallbackText="Fallback text"
           block={{
             getKey: () => 'abcde',
             getLength: () => 1,

@@ -1,6 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MediaBlock no data 1`] = `
+exports[`MediaBlock no data, no fallback 1`] = `
+<button
+  className="MediaBlock"
+  data-draftail-trigger={true}
+  onClick={[Function]}
+  tabIndex={-1}
+  type="button"
+>
+  <span
+    aria-hidden={true}
+    className="MediaBlock__icon-wrapper"
+  >
+    <Icon
+      className="MediaBlock__icon"
+      icon="#icon-test"
+    />
+  </span>
+  <img
+    alt=""
+    className="MediaBlock__img"
+    src=""
+    width="256"
+  />
+  <span
+    className="MediaBlock__fallback"
+  />
+</button>
+`;
+
+exports[`MediaBlock no data, with fallback 1`] = `
 <button
   className="MediaBlock"
   data-draftail-trigger={true}
@@ -26,8 +55,7 @@ exports[`MediaBlock no data 1`] = `
   <span
     className="MediaBlock__fallback"
   >
-    Example Author
-    Example Provider
+    Fallback text
   </span>
 </button>
 `;
