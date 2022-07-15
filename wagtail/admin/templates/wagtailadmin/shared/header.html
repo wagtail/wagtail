@@ -15,6 +15,7 @@
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
     - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
+    - `extra_rows` - extra form rows for the header. This is the HTML to be used for the extra rows
 
 {% endcomment %}
 <header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
@@ -57,5 +58,7 @@
             {{ extra_actions }}
         </div>
     </div>
-    {% block extra_rows %}{% endblock %}
+    {% block extra_rows %}
+        {{ extra_rows }}
+    {% endblock %}
 </header>

@@ -81,39 +81,29 @@
     </script>
 {% endblock %}
 {% block content %}
-    <header class="w-header w-header--hasform">
-        <form action="" method="get" novalidate>
-            <div class="row">
-                <div class="left">
-                    <div class="col">
-                        <h1 class="w-header__title">
-                            {% icon class_name="w-header__glyph" name="form" %}
-                            {% blocktrans trimmed with form_title=form_page.title|capfirst %}Form data <span class="w-header__subtitle">{{ form_title }}</span>{% endblocktrans %}
-                        </h1>
-                    </div>
-                    <div class="col search-bar">
-                        <ul class="fields row rowflush">
-                            {% for field in select_date_form %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small" li_classes="col4" %}
-                            {% endfor %}
-                            <li class="submit col2">
-                                <button type="submit" name="action" value="filter" class="button button-filter">{% trans 'Filter' %}</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="dropdown dropdown-button match-width">
-                        <a href="?export=xlsx" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
-                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                        <ul>
-                            <li><a  class="button bicolor button--icon" href="?export=csv">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </header>
+
+    {% fragment as form_actions %}
+        <div class="dropdown dropdown-button match-width">
+            <a href="?export=xlsx" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+            <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+            <ul>
+                <li><a  class="button bicolor button--icon" href="?export=csv">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+            </ul>
+        </div>
+    {% endfragment %}
+
+    {% fragment as form_rows %}
+        <ul class="fields row rowflush">
+            {% for field in select_date_form %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small" li_classes="col4" %}
+            {% endfor %}
+            <li class="submit col2">
+                <button type="submit" name="action" value="filter" class="button button-filter">{% trans 'Filter' %}</button>
+            </li>
+        </ul>
+    {% endfragment %}
+
+    {% include "wagtailadmin/shared/header.html" with title="Form data" subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions extra_rows=form_rows %}
     <div class="nice-padding">
         {% if submissions %}
             <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
