@@ -97,7 +97,7 @@ def index(request, parent_page_id=None):
     side_panels = PageSidePanels(
         request,
         parent_page.specific,
-        preview_enabled=True,
+        preview_enabled=False,
         comments_enabled=False,
     )
 
