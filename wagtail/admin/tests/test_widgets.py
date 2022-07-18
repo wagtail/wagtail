@@ -350,7 +350,7 @@ class TestAdminDateTimeInput(TestCase):
 class TestAdminTagWidget(TestCase):
     def get_js_init_params(self, html):
         """Returns a list of the params passed in to initTagField from the supplied HTML"""
-        # Eg. ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
+        # example - ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
         start = "initTagField("
         end = ");"
         items_after_init = html.split(start)[1]

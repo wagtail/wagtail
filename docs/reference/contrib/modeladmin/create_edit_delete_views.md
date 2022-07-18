@@ -1,7 +1,7 @@
 # Customising `CreateView`, `EditView` and `DeleteView`
 
 ```{note}
-**NOTE:** `modeladmin` only provides 'create', 'edit' and 'delete' functionality for non page type models (i.e. models that do not extend `wagtailcore.models.Page`). If your model is a 'page type' model, customising any of the following will not have any effect:
+**NOTE:** `modeladmin` only provides 'create', 'edit' and 'delete' functionality for non page type models (models that do not extend `wagtailcore.models.Page`). If your model is a 'page type' model, customising any of the following will not have any effect:
 ```
 
 (modeladmin_edit_handler_customisation)=
@@ -157,7 +157,7 @@ When using CreateView or EditView to create or update model instances, this valu
 
 **Expected value**: A dict mapping prepopulated fields to a tuple of fields to prepopulate from
 
-When using CreateView or EditView to create or update model instances, the fields corresponding to the keys in the dict are prepopulated using the fields in the corresponding tuple. The main use for this functionality is to automatically generate the value for SlugField fields from one or more other fields. The generated value is produced by concatenating the values of the source fields, and then by transforming that result into a valid slug (e.g. substituting dashes for spaces; lowercasing ASCII letters; and removing various English stop words such as ‘a’, ‘an’, ‘as’, and similar).
+When using CreateView or EditView to create or update model instances, the fields corresponding to the keys in the dict are prepopulated using the fields in the corresponding tuple. The main use for this functionality is to automatically generate the value for SlugField fields from one or more other fields. The generated value is produced by concatenating the values of the source fields, and then by transforming that result into a valid slug (for example substituting dashes for spaces; lowercasing ASCII letters; and removing various English stop words such as ‘a’, ‘an’, ‘as’, and similar).
 
 Prepopulated fields aren’t modified by JavaScript after a value has been saved. It’s usually undesired that slugs change (which would cause an object’s URL to change if the slug is used in it).
 

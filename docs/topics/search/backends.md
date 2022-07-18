@@ -101,7 +101,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 ```
 
-Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as case-sensitive keyword argument (e.g. `'max_retries': 1`).
+Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as case-sensitive keyword argument (for example `'max_retries': 1`).
 
 A username and password may be optionally be supplied to the `URL` field to provide authentication credentials for the Elasticsearch service:
 

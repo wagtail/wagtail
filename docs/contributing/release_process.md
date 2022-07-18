@@ -199,10 +199,10 @@ in the `A.B+1` cycle.
 
 ### Bug-fix releases
 
-After a feature release (e.g. A.B), the previous release will go into bugfix
+After a feature release `A.B`, the previous release will go into bugfix
 mode.
 
-The branch for the previous feature release (e.g. `stable/A.B-1.x`) will
+The branch for the previous feature release `stable/A.B-1.x` will
 include bugfixes. Critical bugs fixed on `main` must _also_ be fixed on the
 bugfix branch; this means that commits need to cleanly separate bug fixes from
 feature additions. The developer who commits a fix to `main` will be

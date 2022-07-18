@@ -25,7 +25,7 @@ Alternatively, `hooks.register` can be called as an ordinary function, passing i
 hooks.register('name_of_hook', my_hook_function)
 ```
 
-If you need your hooks to run in a particular order, you can pass the `order` parameter. If order is not specified then the hooks proceed in the order given by `INSTALLED_APPS`. Wagtail uses hooks internally, too, so you need to be aware of order when overriding built-in Wagtail functionality (i.e. removing default summary items):
+If you need your hooks to run in a particular order, you can pass the `order` parameter. If order is not specified then the hooks proceed in the order given by `INSTALLED_APPS`. Wagtail uses hooks internally, too, so you need to be aware of order when overriding built-in Wagtail functionality (such as removing default summary items):
 
 ```python
 @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core

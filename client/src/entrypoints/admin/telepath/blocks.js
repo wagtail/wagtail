@@ -47,11 +47,11 @@ wagtailStreamField.blocks = {
 function initBlockWidget(id) {
   /*
   Initialises the top-level element of a BlockWidget
-  (i.e. the form widget for a StreamField).
+  (the form widget for a StreamField).
   Receives the ID of a DOM element with the attributes:
     data-block: JSON-encoded block definition to be passed to telepath.unpack
       to obtain a Javascript representation of the block
-      (i.e. an instance of one of the Block classes below)
+      (an instance of one of the Block classes below)
     data-value: JSON-encoded value for this block
   */
 

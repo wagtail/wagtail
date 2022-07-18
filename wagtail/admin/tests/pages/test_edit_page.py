@@ -972,7 +972,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_editor_page_shows_live_url_in_status_when_draft_edits_exist(self):
         # If a page has draft edits (ie. page has unpublished changes)
-        # that affect the URL (eg. slug) we  should still ensure the
+        # that affect the URL (slug) we  should still ensure the
         # status button at the top of the page links to the live URL
 
         self.child_page.content = "Some content with a draft edit"

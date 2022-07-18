@@ -46,7 +46,7 @@ All block definitions accept the following optional keyword arguments:
 -   `template`
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
-    -   The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+    -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
 ## Field block types
 
@@ -413,7 +413,7 @@ All block definitions accept the following optional keyword arguments:
    :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
    :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
    :param label_format:
-     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - e.g. ``label_format = "Profile for {first_name} {surname}"``
+     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
 
 
 .. class:: wagtail.blocks.ListBlock
