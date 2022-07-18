@@ -41,6 +41,7 @@ from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
+    FilterableSnippet,
     RegisterDecorator,
     RegisterFunction,
     SearchableSnippet,
@@ -349,6 +350,107 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
         self.assertNotIn(self.snippet_a, items)
         self.assertIn(self.snippet_b, items)
         self.assertIn(self.snippet_c, items)
+
+
+class TestSnippetListViewWithFilterSet(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse("wagtailsnippets_snippetstests_filterablesnippet:list"),
+            params,
+        )
+
+    def create_test_snippets(self):
+        FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
+        FilterableSnippet.objects.create(text="From the UK", country_code="UK")
+
+    def test_unfiltered_no_results(self):
+        response = self.get()
+        add_url = reverse("wagtailsnippets_snippetstests_filterablesnippet:add")
+        self.assertContains(
+            response,
+            f'No filterable snippets have been created. Why not <a href="{add_url}">add one</a>',
+        )
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            html=True,
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+
+    def test_unfiltered_with_results(self):
+        self.create_test_snippets()
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "From the UK")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            html=True,
+        )
+
+    def test_empty_filter_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": ""})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "From the UK")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            html=True,
+        )
+
+    def test_filtered_no_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "PH"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Sorry, no filterable snippets match your query")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="PH">Philippines</button>',
+            html=True,
+        )
+
+    def test_filtered_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "ID"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="ID">Indonesia</button>',
+            html=True,
+        )
+
+    def test_filtered_searched_no_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "ID", "q": "the"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Sorry, no filterable snippets match your query")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="ID">Indonesia</button>',
+            html=True,
+        )
+
+    def test_filtered_searched_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "UK", "q": "the"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From the UK")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="UK">United Kingdom</button>',
+            html=True,
+        )
 
 
 class TestSnippetCreateView(TestCase, WagtailTestUtils):
