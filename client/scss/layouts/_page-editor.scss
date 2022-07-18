@@ -175,13 +175,6 @@
     }
   }
 
-  &.privacy {
-    > .title-wrapper:before {
-      // UI Redesign: To be removed in page editor redesign
-      content: map.get($icons, 'view');
-    }
-  }
-
   .multiple {
     padding: 4.5em 0 0;
 

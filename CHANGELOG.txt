@@ -56,6 +56,7 @@ Changelog
  * Introduce new template fragment and block level enclosure tags for easier template composition (Thibaud Colas)
  * Add a `classnames` template tag to easily build up classes from variables provided to a template (Paarth Agarwal)
  * Migrate the dashboard (home) view header to the shared header template and update designs (Paarth Agarwal)
+ * Switch all report workflow, redirects, site settings views to use Wagtail’s reusable header component (Paarth Agarwal)
  * Update classes and styles for the shared header templates to align with UI guidelines (Paarth Agarwal)
  * Clean up multiple eslint rules usage and configs to align better with the Wagtail coding guidelines (LB (Ben Johnston))
  * Add inline toolbar for Draftail, to avoid clashing with the page’s header (Thibaud Colas)
@@ -67,8 +68,9 @@ Changelog
  * Change rich text editor placeholder to follow the user’s focus on empty blocks (Thibaud Colas)
  * Add rich text editor empty block highlight by showing their block type (Thibaud Colas)
  * Make ModelAdmin InspectView footer actions consistent with other parts of the UI (Thibaud Colas)
- * Switch all report views to use Wagtail’s reusable header component (Paarth Agarwal)
  * Introduce a new auto-updating preview panel inside the page editor (Sage Abdullah)
+ * Add support for Twitter and other text-only embeds in Draftail embed previews (Iman Syed, Paarth Agarwal)
+ * Use new modal dialog component for privacy settings modal (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
@@ -92,6 +94,7 @@ Changelog
  * Fix: Fix display of dates in exported xlsx files on macOS Preview and Numbers (Jaap Roes)
  * Fix: Make progress bars’ progress visible in forced colors mode (Anuja Verma)
  * Fix: Make checkboxes visible in forced colors mode (Anuja Verma)
+ * Fix: Display the correct color for icons in forced colors mode (Anuja Verma)
 
 
 3.0.1 (16.06.2022)
