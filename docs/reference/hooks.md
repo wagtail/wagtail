@@ -501,7 +501,7 @@ def global_admin_js():
 
 ### `register_page_header_buttons`
 
-Add buttons to the secondary dropdown menu in the page edit view. This works similarly to the `register_page_listing_buttons` hook.
+Add buttons to the secondary dropdown menu in the page header. This works similarly to the `register_page_listing_buttons` hook.
 
 This example will add a simple button to the secondary dropdown menu:
 

@@ -5,6 +5,7 @@ import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
 import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
+import initSidePanel from '../../includes/sidePanel';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -31,4 +32,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkipLink();
   dialog();
   initCollapsibleBreadcrumbs();
+  initSidePanel();
 });

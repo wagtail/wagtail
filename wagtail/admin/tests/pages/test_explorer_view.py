@@ -404,7 +404,7 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         expected = (
             """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="%s">
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="%s">
                                     Secret plans (simple page)
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -636,7 +636,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/">
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/">
                                     Root
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -648,7 +648,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/4/">
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/4/">
                                     Welcome to example.com!
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -659,7 +659,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/5/">
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/5/">
                                     Content
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -677,7 +677,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # since it's his Closest Common Ancestor.
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/4/">
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/4/">
                                     Root
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -688,7 +688,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/5/">
+                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/5/">
                                     Content
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
@@ -736,15 +736,8 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_explore", args=[self.events_page.id])
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
-
-        add_translation_url = reverse(
-            "wagtailadmin_explore", args=[self.translated_events_page.id]
-        )
-        self.assertContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live w-no-underline">',
-        )
+        self.assertContains(response, 'id="status-sidebar-english"')
+        self.assertContains(response, "Switch locales")
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -752,12 +745,4 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_explore", args=[self.events_page.id])
         )
 
-        self.assertNotContains(response, '<li class="header-meta--locale">')
-
-        add_translation_url = reverse(
-            "wagtailadmin_explore", args=[self.translated_events_page.id]
-        )
-        self.assertNotContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live w-no-underline">',
-        )
+        self.assertNotContains(response, "Switch locales")

@@ -75,10 +75,6 @@ ul.listing {
     margin-bottom: -3em; // this negates the padding added to the bottom of .content
   }
 
-  &.full-width th {
-    background-color: $color-thead-bg;
-  }
-
   .table-headers {
     border-bottom: 1px solid $color-grey-4;
   }
@@ -472,12 +468,20 @@ table.listing {
 }
 
 // explorer specific tweaks
+.page-explorer .w-breadcrumb {
+  li[hidden] ~ li:last-child,
+  li:only-child {
+    a {
+      font-size: theme('fontSize.18');
+    }
+  }
+}
+
 .page-explorer .listing {
   position: relative;
 
   .index {
-    color: $color-white;
-    background-color: $color-header-bg;
+    background-color: $color-white;
 
     td {
       padding-top: 1.5em;
@@ -498,18 +502,18 @@ table.listing {
 
     .title {
       h2 {
-        color: $color-white;
+        color: theme('colors.primary.DEFAULT');
         font-size: 1.8em;
-        font-weight: 500;
+        font-weight: 800;
 
         a:hover {
-          color: $color-white;
+          color: theme('colors.primary.DEFAULT');
         }
       }
     }
 
     .button {
-      background-color: transparent;
+      background-color: $color-teal-darker;
       color: $color-white;
       border-color: rgba(0, 0, 0, 0.35);
 
