@@ -4,6 +4,7 @@ Changelog
 4.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+* Added a new `BaseGenericSetting` base model class that allows defining a settings model that applies to all sites rather than just a single site (Kyle Bayliss)
  * Add clarity to confirmation when being asked to convert an external link to an internal one (Thijs Kramer)
  * Convert various pages in the documentation to Markdown (Khanh Hoang, Vu Pham, Daniel Kirkham, LB (Ben) Johnston, Thiago Costa de Souza, Benedict Faw, Noble Mittal, Sævar Öfjörð Magnússon, Sandeep M A, Stefano Silvestri)
  * Add `base_url_path` to `ModelAdmin` so that the default URL structure of app_label/model_name can be overridden (Vu Pham, Khanh Hoang)
