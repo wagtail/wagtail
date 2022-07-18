@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from wagtail import hooks
 from wagtail.admin.tests.pages.timestamps import local_datetime
-from wagtail.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission, Locale, Page
 from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 
@@ -717,3 +717,32 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
             response,
             """<li class="home breadcrumb-item"><a class="breadcrumb-link" href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""",
         )
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestLocaleSelector(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.events_page = Page.objects.get(url_path="/home/events/")
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        self.translated_events_page = self.events_page.copy_for_translation(
+            self.fr_locale, copy_parents=True
+        )
+        self.user = self.login()
+
+    def test_locale_selector(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=[self.events_page.id])
+        )
+
+        self.assertContains(response, 'id="status-sidebar-english"')
+        self.assertContains(response, "Switch locales")
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=[self.events_page.id])
+        )
+
+        self.assertNotContains(response, "Switch locales")
