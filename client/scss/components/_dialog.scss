@@ -63,6 +63,7 @@
     overflow: auto;
     padding: theme('spacing.8');
     max-height: calc(100vh - 180px);
+    min-height: min(100vh - 180px, 320px);
 
     @include media-breakpoint-up(sm) {
       padding: theme('spacing.12');
