@@ -3,6 +3,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.widgets import ButtonSelect
+from wagtail.contrib.redirects.models import Redirect
 from wagtail.models import Site
 
 
@@ -26,3 +27,7 @@ class RedirectsReportFilterSet(WagtailFilterSet):
         if value and self.request and self.request.user:
             queryset = queryset.filter(is_permanent=value)
         return queryset
+
+    class Meta:
+        model = Redirect
+        exclude = []
