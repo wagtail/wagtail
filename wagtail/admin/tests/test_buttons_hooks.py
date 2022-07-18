@@ -6,6 +6,7 @@ from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.wagtail_hooks import page_listing_more_buttons
 from wagtail.models import Page
+from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -41,8 +42,16 @@ class ReorderOnlyPagePerms(BasePagePerms):
 
 class TestButtonsHooks(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.root_page = Page.objects.get(id=2)
         self.login()
+
+        self.root_page = Page.objects.get(id=2)
+        self.child_page = self.root_page.add_child(
+            instance=SimplePage(
+                title="Public page",
+                content="hello",
+                live=True,
+            )
+        )
 
     def test_register_page_listing_buttons(self):
         def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
