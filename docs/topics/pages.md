@@ -193,7 +193,7 @@ When overriding `get_url_parts()`, you should accept `*args, **kwargs`:
 def get_url_parts(self, *args, **kwargs):
 ```
 
-and pass those through at the point where you are calling `get_url_parts` on `super` (if applicable), e.g.:
+and pass those through at the point where you are calling `get_url_parts` on `super` (if applicable), for example:
 
 ```python
 super().get_url_parts(*args, **kwargs)
@@ -424,7 +424,7 @@ You can convert a `Page` object to its more specific user-defined equivalent usi
 
 ### Friendly model names
 
-You can make your model names more friendly to users of Wagtail by using Django's internal `Meta` class with a `verbose_name`, e.g.:
+You can make your model names more friendly to users of Wagtail by using Django's internal `Meta` class with a `verbose_name`, for example:
 
 ```python
 class HomePage(Page):

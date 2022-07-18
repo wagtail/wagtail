@@ -23,7 +23,7 @@ The `wagtail.log_actions.log` function can be used to add logging to your own co
    :param instance: The model instance that the action is performed on
    :param action: The code name for the action being performed. This can be one of the names listed below, or a custom action defined through the :ref:`register_log_actions` hook.
    :param user: Optional - the user initiating the action. For actions logged within an admin view, this defaults to the logged-in user.
-   :param uuid: Optional - log entries given the same UUID indicates that they occurred as part of the same user action (e.g. a page being immediately published on creation).
+   :param uuid: Optional - log entries given the same UUID indicates that they occurred as part of the same user action (for example a page being immediately published on creation).
    :param title: The string representation of the instance being logged. By default, Wagtail will attempt to use the instance's ``str`` representation, or ``get_admin_display_title`` for page objects.
    :param data: Optional - a dictionary of additional JSON-serialisable data to store against the log entry
 ```

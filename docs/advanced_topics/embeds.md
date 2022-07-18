@@ -298,7 +298,7 @@ class ExampleFinder(EmbedFinder):
         return {
             'title': "Title of the content",
             'author_name': "Author name",
-            'provider_name': "Provider name (eg. YouTube, Vimeo, etc)",
+            'provider_name': "Provider name (such as YouTube, Vimeo, etc)",
             'type': "Either 'photo', 'video', 'link' or 'rich'",
             'thumbnail_url': "URL to thumbnail image",
             'width': width_in_pixels,

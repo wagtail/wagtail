@@ -260,7 +260,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
             class HiddenPage(Page):
                 parent_page_types = []
 
-        To allow for a page to be only created under the root page (e.g. for ``HomePage`` models) set the ``parent_page_type`` to ``['wagtailcore.Page']``.
+        To allow for a page to be only created under the root page (for example for ``HomePage`` models) set the ``parent_page_type`` to ``['wagtailcore.Page']``.
 
         .. code-block:: python
 
@@ -401,7 +401,7 @@ Methods and properties
 
         - 80 = ``http://``
         - 443 = ``https://``
-        - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
+        - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (for example ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
 
@@ -1045,7 +1045,7 @@ Database fields
         (dict)
 
         The JSON representation of any additional details for each action.
-        e.g. source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
+        For example source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
 
         .. versionchanged:: 3.0
 

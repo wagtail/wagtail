@@ -146,7 +146,7 @@ This would mean that your site will respond on the `https://www.mysite.com/es/` 
 ```{note}
 ``WAGTAIL_CONTENT_LANGUAGES`` must be a subset of ``LANGUAGES``
 
-Note that all languages that exist in ``WAGTAIL_CONTENT_LANGUAGES`` must also exist in your ``LANGUAGES`` setting. This is so that Wagtail can generate a live URL to these pages from an untranslated context (e.g. the admin interface).
+Note that all languages that exist in ``WAGTAIL_CONTENT_LANGUAGES`` must also exist in your ``LANGUAGES`` setting. This is so that Wagtail can generate a live URL to these pages from an untranslated context (such as the admin interface).
 ```
 
 ## Embeds
@@ -219,7 +219,7 @@ You can use it to specify or override the widgets to use in the admin form.
 ### `WAGTAILIMAGES_MAX_UPLOAD_SIZE`
 
 ```python
-WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # i.e. 20MB
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # 20MB
 ```
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
@@ -227,7 +227,7 @@ This setting lets you override the maximum upload size for images (in bytes). If
 ### `WAGTAILIMAGES_MAX_IMAGE_PIXELS`
 
 ```python
-WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # 128 megapixels
 ```
 
 This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value. The pixel count takes animation frames into account - for example, a 25-frame animation of size 100x100 is considered to have 100 _ 100 _ 25 = 250000 pixels.
@@ -307,11 +307,11 @@ Determines how document downloads will be linked to and served. Normally, reques
 
 For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
 
--   `'direct'` - links to documents point directly to the URL provided by the underlying storage, bypassing the Django view that provides the permission check. This is most useful when deploying sites as fully static HTML (e.g. using [wagtail-bakery](https://github.com/wagtail/wagtail-bakery) or [Gatsby](https://www.gatsbyjs.org/)).
+-   `'direct'` - links to documents point directly to the URL provided by the underlying storage, bypassing the Django view that provides the permission check. This is most useful when deploying sites as fully static HTML (for example using [wagtail-bakery](https://github.com/wagtail/wagtail-bakery) or [Gatsby](https://www.gatsbyjs.org/)).
 -   `'redirect'` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user is able to guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
 -   `'serve_view'` - links to documents point to a Django view which both checks the user's permission, and serves the document. Serving will be handled by [django-sendfile](https://github.com/johnsensible/django-sendfile), if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to _disallow_ serving documents directly from their location under `MEDIA_ROOT`, as this would provide a way to bypass the permission check.
 
-If `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, the default method is `'redirect'` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and `'serve_view'` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for `'serve_view'`.
+If `WAGTAILDOCS_SERVE_METHOD` is unspecified or set to `None`, the default method is `'redirect'` when a remote storage backend is in use (one that exposes a URL but not a local filesystem path), and `'serve_view'` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for `'serve_view'`.
 
 (wagtaildocs_content_types)=
 
@@ -740,7 +740,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 }
 ```
 
-Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, e.g. `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
+Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
 
 -   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
 -   `OPTIONS`: Configuration options to pass to the widget. Recognised options are widget-specific, but `DraftailRichTextArea` accept a `features` list indicating the active rich text features (see [](rich_text_features)).

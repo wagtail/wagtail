@@ -49,7 +49,7 @@ If you have successfully installed Wagtail on your platform or infrastructure, p
 ### Static files
 
 As with all Django projects, static files are not served by the Django application server in production
-(i.e. outside of the `manage.py runserver` command); these need to be handled separately at the web server level.
+Outside of the `manage.py runserver` command these need to be handled separately at the web server level.
 See [Django's documentation on deploying static files](django:howto/static-files/deployment).
 
 The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues.

@@ -47,6 +47,6 @@ Here is how to create an alias to an existing page:
 
 ![The aliased page appearing under the new parent page in the Explorer page.](../_static/images/screen12.7_3_alias_page_new_parent.png)
 
--   When you try to edit the aliased page, you are notified that it is an alias of another page. You will then be offered two options: edit the original page (with changes appearing in both places) or convert the alias page into an ordinary page (i.e. a conventional copy, not updated when the original changes).
+-   When you try to edit the aliased page, you are notified that it is an alias of another page. You will then be offered two options: edit the original page (with changes appearing in both places) or convert the alias page into an ordinary page (a conventional copy, not updated when the original changes).
 
 ![Editing an alias page notifies it is an alias and offers to either edit the original page or change the alias to an ordinary page.](../_static/images/screen12.7_4_alias_page_edit_notification.png)

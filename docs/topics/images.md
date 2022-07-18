@@ -25,7 +25,7 @@ For example:
 {% image page.photo fill-80x80 %}
 ```
 
-In the above syntax example `[image]` is the Django object referring to the image. If your page model defined a field called "photo" then `[image]` would probably be `page.photo`. The `[resize-rule]` defines how the image is to be resized when inserted into the page. Various resizing methods are supported, to cater to different use cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
+In the above syntax example `[image]` is the Django object referring to the image. If your page model defined a field called "photo" then `[image]` would probably be `page.photo`. The `[resize-rule]` defines how the image is to be resized when inserted into the page. Various resizing methods are supported, to cater to different use cases (for example lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
 
 Note that a space separates `[image]` and `[resize-rule]`, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the `fill` rule is used, which may result in some pixels being cropped.
 
@@ -59,7 +59,7 @@ Example: The image will keep its proportions but fit within the max (green line)
 
 **Cover** the given dimensions.
 
-This may result in an image slightly **larger** than the dimensions you specify. A square image of width 2000 and height 2000, treated with the `min-500x200` rule would have its height and width changed to 500, i.e matching the _width_ of the resize-rule, but greater than the height.
+This may result in an image slightly **larger** than the dimensions you specify. A square image of width 2000 and height 2000, treated with the `min-500x200` rule would have its height and width changed to 500, that is matching the _width_ of the resize-rule, but greater than the height.
 
 ![Example of min filter on an image](../_static/images/image_filter_min.png)
 
@@ -115,13 +115,13 @@ Example: The image is scaled and also cropped (red line) to fit as much of the i
 
 **On images that won't upscale**
 
-It's possible to request an image with `fill` dimensions that the image can't support without upscaling. e.g. an image of width 400 and height 200 requested with `fill-400x400`. In this situation the _ratio of the requested fill_ will be matched, but the dimension will not. So that example 400x200 image (a 2:1 ratio) could become 200x200 (a 1:1 ratio, matching the resize-rule).
+It's possible to request an image with `fill` dimensions that the image can't support without upscaling. For example an image of width 400 and height 200 requested with `fill-400x400`. In this situation the _ratio of the requested fill_ will be matched, but the dimension will not. So that example 400x200 image (a 2:1 ratio) could become 200x200 (a 1:1 ratio, matching the resize-rule).
 
 **Cropping closer to the focal point**
 
 By default, Wagtail will only crop enough to change the aspect ratio of the image to match the ratio in the resize-rule.
 
-In some cases (e.g. thumbnails), it may be preferable to crop closer to the focal point, so that the subject of the image is more prominent.
+In some cases (for example thumbnails), it may be preferable to crop closer to the focal point, so that the subject of the image is more prominent.
 
 You can do this by appending `-c<percentage>` at the end of the resize-rule. For example, if you would like the image to be cropped as closely as possible to its focal point, add `-c100`:
 
@@ -186,7 +186,7 @@ Wagtail can assign the image data to another variable using Django's `as` syntax
 The image property used for the `src` attribute is `image.url`, not `image.src`.
 ```
 
-This syntax exposes the underlying image Rendition (`tmp_photo`) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, i.e. dimensions and source URL. The following properties are available:
+This syntax exposes the underlying image Rendition (`tmp_photo`) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, dimensions and source URL. The following properties are available:
 
 ### `url`
 
@@ -222,7 +222,7 @@ This is useful for images that will be re-used outside of the current site, such
 <meta name="twitter:image" content="{{ tmp_photo.full_url }}">
 ```
 
-If your site defines a custom image model using `AbstractImage`, any additional fields you add to an image (e.g. a copyright holder) are **not** included in the rendition.
+If your site defines a custom image model using `AbstractImage`, any additional fields you add to an image (such as a copyright holder) are **not** included in the rendition.
 
 Therefore, if you'd added the field `author` to your AbstractImage in the above example, you'd access it using `{{ page.photo.author }}` rather than `{{ tmp_photo.author }}`.
 
@@ -280,7 +280,7 @@ Creates an image rendition using `width-500`, giving the <img> tag the CSS class
 Creates an image rendition using `width-500`, giving the <img> tag the CSS class `right`.
 
 ```{note}
-The CSS classes added to images do **not** come with any accompanying stylesheets, or inline styles. e.g. the `left` class will do nothing, by default. The developer is expected to add these classes to their front end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
+The CSS classes added to images do **not** come with any accompanying stylesheets, or inline styles. For example the `left` class will do nothing, by default. The developer is expected to add these classes to their front end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
 ```
 
 For more information about image formats, including creating your own, see [](rich_text_image_formats).

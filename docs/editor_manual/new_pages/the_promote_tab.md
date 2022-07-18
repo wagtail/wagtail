@@ -8,7 +8,7 @@ The Promote tab is where you can configure a page's metadata, to help search eng
 
 **For Search Engines**
 
--   **Slug:** The section of the URL that appears after your website's domain e.g. `http://domain.com/blog/[my-slug]/`. This is automatically generated from the main page title, which is set in the Content tab. Slugs should be entirely lowercase, with words separated by hyphens (-). It is recommended that you don't change a page's slug once a page is published.
+-   **Slug:** The section of the URL that appears after your website's domain, for example `http://domain.com/blog/[my-slug]/`. This is automatically generated from the main page title, which is set in the Content tab. Slugs should be entirely lowercase, with words separated by hyphens (-). It is recommended that you don't change a page's slug once a page is published.
 -   **Title tag:** This is the bold headline that often shows up search engine results. This is one of the most significant elements of how search engines rank the page. The keywords used here should align with the keywords you wish to be found for. If you don't think this field is working, ask your developers to check they have configured the site to output the appropriate tags on the frontend.
 -   **Meta description:** This is the descriptive text displayed underneath a headline in search engine results. It is designed to explain what this page is about. It has no impact on how search engines rank your content, but it can impact on the likelihood that a user will click your result. Ideally 140 to 155 characters in length. If you don't think this field is working, ask your developers to check they have configured the site to output the appropriate tags on the frontend.
 

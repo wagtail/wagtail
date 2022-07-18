@@ -53,7 +53,7 @@ A number of additional constraints apply to `<a linktype="...">` and `<embed emb
 
 -   The tag name and attributes must be lower-case
 -   Attribute values must be quoted with double-quotes
--   `embed` elements must use XML self-closing tag syntax (i.e. end in `/>` instead of a closing `</embed>` tag)
+-   `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
 -   The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
 
 ## The feature registry
@@ -178,7 +178,7 @@ def register_external_link(features):
     features.register_link_type(NoFollowExternalLinkHandler)
 ```
 
-Similarly you can use `email` linktype to add a custom rewrite handler for email links (e.g. to obfuscate emails in rich text).
+Similarly you can use `email` linktype to add a custom rewrite handler for email links (for example to obfuscate emails in rich text).
 
 ```{eval-rst}
 .. method:: FeatureRegistry.register_embed_type(handler)

@@ -37,7 +37,7 @@ The image below demonstrates finding and inserting an image that is already pres
 
 1. You must include an image title for your uploaded image
 2. Click the _Choose file_ button to choose an image from your computer.
-3. _Tags_ allows you to associate tags with the image you are uploading. This allows them to be more easily found when searching. Each tag should be separated by a space. Good practice for creating multiple word tags is to use an underscore between each word (e.g. western_yellow_wagtail).
+3. _Tags_ allows you to associate tags with the image you are uploading. This allows them to be more easily found when searching. Each tag should be separated by a space. Good practice for creating multiple word tags is to use an underscore between each word (for example western_yellow_wagtail).
 4. Click _Upload_ to insert the uploaded image into the carousel. The image will also be added to the main CMS image library for reuse in other content.
 
 ## Inserting images using the rich text field

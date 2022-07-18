@@ -613,6 +613,7 @@ Contributors
 * Bernd de Ridder
 * Stefano Silvestri
 * Alexander Rogovskyy
+* Dominik Lech
 
 
 Translators

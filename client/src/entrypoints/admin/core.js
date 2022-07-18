@@ -313,7 +313,7 @@ $(() => {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       const currentQuery = getURLParam('q');
       // only do the query if it has changed for trimmed queries
-      // eg. " " === "" and "firstword " ==== "firstword"
+      // for example - " " === "" and "firstword " ==== "firstword"
       if (currentQuery.trim() !== newQuery.trim()) {
         $inputContainer.addClass(workingClasses);
         searchNextIndex++;
