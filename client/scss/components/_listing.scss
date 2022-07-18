@@ -468,6 +468,15 @@ table.listing {
 }
 
 // explorer specific tweaks
+.page-explorer .w-breadcrumb {
+  li[hidden] ~ li:last-child,
+  li:only-child {
+    a {
+      font-size: theme('fontSize.18');
+    }
+  }
+}
+
 .page-explorer .listing {
   position: relative;
 
