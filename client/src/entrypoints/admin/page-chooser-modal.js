@@ -21,17 +21,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       return false;
     });
 
-    /*
-    Set up submissions of the search form to open in the modal.
-
-    FIXME: wagtailadmin.views.chooser.browse doesn't actually return a modal-workflow
-    response for search queries, so this just fails with a JS error.
-    Luckily, the search-as-you-type logic below means that we never actually need to
-    submit the form to get search results, so this has the desired effect of preventing
-    plain vanilla form submissions from completing (which would clobber the entire
-    calling page, not just the modal). It would be nice to do that without throwing
-    a JS error, that's all...
-    */
+    /* Set up submissions of the search form to open in the modal. */
     modal.ajaxifyForm($('form.search-form', modal.body));
 
     /* Set up search-as-you-type behaviour on the search box */
@@ -50,7 +40,6 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
           data: {
             // eslint-disable-next-line id-length
             q: query,
-            results_only: true,
           },
           success(data) {
             request = null;
