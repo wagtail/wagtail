@@ -20,7 +20,6 @@ from modelcluster.models import get_serializable_data_for_fields
 
 from wagtail.admin import compare
 from wagtail.admin.forms.comments import CommentForm
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
@@ -952,26 +951,6 @@ class PublishingPanel(MultiFieldPanel):
         super().__init__(**updated_kwargs)
 
 
-class PrivacyModalPanel(Panel):
-    def __init__(self, **kwargs):
-        updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
-        updated_kwargs.update(kwargs)
-        super().__init__(**updated_kwargs)
-
-    class BoundPanel(Panel.BoundPanel):
-        template_name = "wagtailadmin/pages/privacy_switch_panel.html"
-
-        def get_context_data(self, parent_context=None):
-            context = super().get_context_data(parent_context)
-            context["page"] = self.instance
-            context["request"] = self.request
-            return context
-
-        @cached_property
-        def media(self):
-            return Media(js=[versioned_static("wagtailadmin/js/privacy-switch.js")])
-
-
 class CommentPanel(Panel):
     def get_form_options(self):
         # add the comments formset
@@ -1069,7 +1048,6 @@ def set_default_page_edit_handlers(cls):
 
     cls.settings_panels = [
         PublishingPanel(),
-        PrivacyModalPanel(),
     ]
 
     if getattr(settings, "WAGTAILADMIN_COMMENTS_ENABLED", True):
