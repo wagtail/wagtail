@@ -17,5 +17,15 @@ export const dialog = (
       .on('hide', () => {
         html.style.overflowY = '';
       });
+
+    // Attach event listeners to the dialog root (element with id), so it's
+    // possible to show/close the dialog somewhere else with no access to the
+    // A11yDialog instance.
+    templateContent.addEventListener('wagtail:show', () =>
+      dialogTemplate.show(),
+    );
+    templateContent.addEventListener('wagtail:hide', () =>
+      dialogTemplate.hide(),
+    );
   });
 };

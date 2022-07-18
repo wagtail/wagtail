@@ -26,41 +26,18 @@
         {% url "wagtailredirects:report" as report_link %}
         {% trans "Import redirects" as import_str %}
         {% trans "Export redirects" as export_str %}
-
-        <header class="w-header w-header--hasform">
-            {% block breadcrumb %}{% endblock %}
-            <div class="row">
-                <div class="left">
-                    <div class="col">
-                        <h1 class="w-header__title">
-                            {% icon class_name="w-header__glyph" name="redirect" %}
-                            {{ redirects_str }}
-                        </h1>
-                    </div>
-                    <form class="col search-form" action="{% url "wagtailredirects:index" %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
-                        <ul class="fields">
-                            {% for field in search_form %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}
-                            {% endfor %}
-                            <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
-                        </ul>
-                    </form>
-                </div>
-                <div class="right has-multiple-actions">
-                    <div class="actionbutton">
-                        <a href="{{ add_link }}" class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{{ add_str }}</a>
-                    </div>
-
-                    <div class="dropdown dropdown-button match-width">
-                        <a href="{{ import_link }}" class="button bicolor button--icon">{% icon name="doc-full-inverse" wrapped=1 %}{{ import_str }}</a>
-                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-                        <ul>
-                            <li><a class="button bicolor button--icon" href="{{ report_link }}">{% icon name="download" wrapped=1 %}{{ export_str }}</a></li>
-                        </ul>
-                    </div>
-                </div>
+        {% fragment as redirect_actions %}
+            <div class="dropdown dropdown-button match-width">
+                <a href="{{ import_link }}" class="button bicolor button--icon">{% icon name="doc-full-inverse" wrapped=1 %}{{ import_str }}</a>
+                <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                <ul>
+                    <li><a class="button bicolor button--icon" href="{{ report_link }}">{% icon name="download" wrapped=1 %}{{ export_str }}</a></li>
+                </ul>
             </div>
-        </header>
+        {% endfragment %}
+        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" query_parameters=query_parameters action_url=add_link action_text=add_str action_icon="plus" extra_actions=redirect_actions %}
+
+
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" %}
     {% endif %}

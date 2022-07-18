@@ -3,16 +3,22 @@ import React from 'react';
 
 import { gettext } from '../../../utils/gettext';
 import MediaBlock from './MediaBlock';
-
+import { shortenLabel } from '../decorators/TooltipEntity';
 /**
  * Editor block to display media and edit content.
  */
 const EmbedBlock = (props) => {
   const { entity, onEditEntity, onRemoveEntity } = props.blockProps;
-  const { url, title, thumbnail } = entity.getData();
+  const { url, title, thumbnail, providerName, authorName } = entity.getData();
+  // Fallback text is used when there is no image available for the embed.
+  // In those cases, it seems like author and provider name will always be present.
+  const fallbackText = [authorName, providerName]
+    .filter((text) => !!text)
+    .map(shortenLabel)
+    .join('\n');
 
   return (
-    <MediaBlock {...props} src={thumbnail} alt="">
+    <MediaBlock {...props} src={thumbnail} alt="" fallbackText={fallbackText}>
       {url ? (
         <a
           className="Tooltip__link EmbedBlock__link"

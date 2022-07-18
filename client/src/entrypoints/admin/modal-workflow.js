@@ -11,7 +11,9 @@ import { gettext } from '../../utils/gettext';
 /* eslint-disable */
 function ModalWorkflow(opts) {
   /* options passed in 'opts':
-    'url' (required): initial
+    'url' (required): URL to the view that will be loaded into the dialog.
+      If not provided and dialogId is given, the dialog component's data-url attribute is used instead.
+    'dialogId' (optional): the id of the dialog component to use instead of the Bootstrap modal
     'responses' (optional): dict of callbacks to be called when the modal content
       calls modal.respond(callbackName, params)
     'onload' (optional): dict of callbacks to be called when loading a step of the workflow.
@@ -22,40 +24,51 @@ function ModalWorkflow(opts) {
   const self = {};
   const responseCallbacks = opts.responses || {};
   const errorCallback = opts.onError || noop;
+  const useDialog = !!opts.dialogId;
 
-  /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
-  $('body > .modal').remove();
+  if (useDialog) {
+    self.dialog = document.getElementById(opts.dialogId);
+    self.url = opts.url || self.dialog.dataset.url;
+    self.body = self.dialog.querySelector('[data-dialog-body]');
 
-  // disable the trigger element so it cannot be clicked twice while modal is loading
-  self.triggerElement = document.activeElement;
-  self.triggerElement.setAttribute('disabled', true);
+    // Clear the dialog body as it may have been populated previously
+    self.body.innerHTML = '';
+  } else {
+    /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
+    $('body > .modal').remove();
 
-  // set default contents of container
-  const iconClose =
-    '<svg class="icon icon-cross" aria-hidden="true"><use href="#icon-cross"></use></svg>';
-  const container = $(
-    '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' +
-      iconClose +
-      gettext('Close') +
-      '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>',
-  );
+    // disable the trigger element so it cannot be clicked twice while modal is loading
+    self.triggerElement = document.activeElement;
+    self.triggerElement.setAttribute('disabled', true);
 
-  // add container to body and hide it, so content can be added to it before display
-  $('body').append(container);
-  container.modal('hide');
+    // set default contents of container
+    const iconClose =
+      '<svg class="icon icon-cross" aria-hidden="true"><use href="#icon-cross"></use></svg>';
+    self.container = $(
+      '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' +
+        iconClose +
+        gettext('Close') +
+        '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>',
+    );
 
-  // add listener - once modal is about to be hidden, re-enable the trigger
-  container.on('hide.bs.modal', () => {
-    self.triggerElement.removeAttribute('disabled');
-  });
+    // add container to body and hide it, so content can be added to it before display
+    $('body').append(self.container);
+    self.container.modal('hide');
 
-  // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
-  container.on('hidden.bs.modal', function () {
-    self.triggerElement.focus();
-    container.remove();
-  });
+    // add listener - once modal is about to be hidden, re-enable the trigger
+    self.container.on('hide.bs.modal', () => {
+      self.triggerElement.removeAttribute('disabled');
+    });
 
-  self.body = container.find('.modal-body');
+    // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
+    self.container.on('hidden.bs.modal', function () {
+      self.triggerElement.focus();
+      self.container.remove();
+    });
+
+    self.url = opts.url;
+    self.body = self.container.find('.modal-body');
+  }
 
   self.loadUrl = function (url, urlParams) {
     $.get(url, urlParams, self.loadResponseText, 'text').fail(errorCallback);
@@ -90,8 +103,12 @@ function ModalWorkflow(opts) {
   self.loadBody = function (response) {
     if (response.html) {
       // if response contains an 'html' item, replace modal body with it
-      self.body.html(response.html);
-      container.modal('show');
+      if (useDialog) {
+        self.body.innerHTML = response.html;
+      } else {
+        self.body.html(response.html);
+        self.container.modal('show');
+      }
     }
 
     /* If response contains a 'step' identifier, and that identifier is found in
@@ -109,10 +126,14 @@ function ModalWorkflow(opts) {
   };
 
   self.close = function () {
-    container.modal('hide');
+    if (useDialog) {
+      self.dialog.dispatchEvent(new CustomEvent('wagtail:hide'));
+    } else {
+      self.container.modal('hide');
+    }
   };
 
-  self.loadUrl(opts.url, opts.urlParams);
+  self.loadUrl(self.url, opts.urlParams);
 
   return self;
 }

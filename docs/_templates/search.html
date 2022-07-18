@@ -13,17 +13,31 @@
 
     <div id="search-results">
     </div>
+
+    <nav id="pagination" class="pagination" aria-label="pagination" hidden="true" >
+        <button class="pagination-previous" id="pagination-previous">
+            ← Previous
+        </button>
+        <ul class="pagination-list"></ul>
+        <button class="pagination-next" id="pagination-next">
+            Next →
+        </button>
+    </nav>
 {% endblock %}
 
 {% block footer %}
     {{ super() }}
     <script>
 
-        function runSearchPageSearch() {
+        function runSearchPageSearch(page) {
             const urlParams = new URLSearchParams(window.location.search)
             const query = urlParams.get('q')
 
             const searchResultsContainer = document.getElementById('search-results')
+
+            // Erase previous results
+            searchResultsContainer.innerHTML = ""
+            document.querySelector('.pagination-list').innerHTML = ""
             addHeadingForQuery(query, searchResultsContainer)
 
             const docSearch = docSearchReady()
@@ -31,12 +45,84 @@
             index.search(
                 query,
                 {
-                    hitsPerPage: 50,
+                    hitsPerPage: 100,
+                    page: page,
                     facetFilters: [getVersionFacetFilter()]
                 }
             )
-                .then(({ hits }) => addResultsList(hits, query, searchResultsContainer))
+                .then(result => {
+                // Display pagination if more than 1 page returned
+                let nbPages = result["nbPages"]
+                if (nbPages > 1) {
+                    document.querySelector("#pagination").hidden = false;
+                    displayPagination(page, nbPages)
+                }
+
+                // Display hits
+                let hits = result["hits"]
+                addResultsList(hits, query, searchResultsContainer)
+            })
                 .catch((error) => console.log(error))
+        }
+
+        function displayPagination(page, totalPages) {
+            const pagination = document.querySelector("#pagination")
+            const paginationList = pagination.querySelector(".pagination-list")
+
+            // Hide previous/next button if showing first/last page
+            pagination.querySelector(".pagination-previous").hidden = false;
+            pagination.querySelector(".pagination-previous").hidden = page === 0;
+            pagination.querySelector(".pagination-next").hidden = page === totalPages -1;
+
+            // Display at most "toBeDisplayed" page links in the paginator
+            const toBeDisplayed = 7
+            let [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed)
+
+            for (let i = start; i < end; i++) {
+                let newPaginationItem = document.createElement("li")
+                let newPaginationbutton = document.createElement("button")
+                newPaginationbutton.classList.add("pagination-button")
+                newPaginationbutton.innerHTML = i + 1
+                if (i == page) {
+                    newPaginationbutton.setAttribute("aria-label", `page ${i+1}`)
+                    newPaginationbutton.setAttribute("aria-current", "page")
+                } else {
+                    newPaginationbutton.setAttribute("aria-label", `Go to page ${i+1}`)
+                }
+
+                // Register event handlers
+                newPaginationbutton.onclick = function() {
+                    runSearchPageSearch(i)
+                };
+                pagination.querySelector(".pagination-previous").onclick = function() {
+                    runSearchPageSearch(page - 1)
+                };
+                pagination.querySelector(".pagination-next").onclick = function() {
+                    runSearchPageSearch(page + 1)
+                };
+
+                newPaginationItem.append(newPaginationbutton)
+                paginationList.append(newPaginationItem)
+            }
+        }
+
+        function setStartEndForPaginator(currentPage, totalPages, nbPagesLinkToDisplay) {
+            let start = 0
+            let end = totalPages
+
+            if (totalPages > nbPagesLinkToDisplay) {
+                start = currentPage
+
+                if (totalPages - currentPage < nbPagesLinkToDisplay) {
+                    start = totalPages - nbPagesLinkToDisplay
+                }
+
+                if (totalPages - start > nbPagesLinkToDisplay) {
+                    end = currentPage + nbPagesLinkToDisplay
+                }
+            }
+
+            return [start, end]
         }
 
         function addHeadingForQuery(query, parentElement) {
@@ -96,6 +182,6 @@
             return hitListElement
         }
 
-        window.addEventListener('DOMContentLoaded', runSearchPageSearch)
+        window.addEventListener('DOMContentLoaded', () => runSearchPageSearch(0));
     </script>
 {% endblock %}

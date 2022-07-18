@@ -839,3 +839,13 @@ WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the workflow continues to provide less urgent feedback.
+
+## Page deletion
+
+### `WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT`
+
+```python
+WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
+```
+
+This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.

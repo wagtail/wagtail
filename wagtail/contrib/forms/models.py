@@ -289,8 +289,6 @@ class AbstractForm(Page):
 
     def serve_preview(self, request, mode_name):
         if mode_name == "landing":
-            request.is_preview = True
-            request.preview_mode = mode_name
             return self.render_landing_page(request)
         else:
             return super().serve_preview(request, mode_name)
