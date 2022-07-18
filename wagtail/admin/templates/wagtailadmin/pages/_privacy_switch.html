@@ -1,0 +1,40 @@
+{% load i18n wagtailadmin_tags %}
+
+{% test_page_is_public page as is_public %}
+{% if not page_perms %}
+    {% page_permissions page as page_perms %}
+{% endif %}
+
+{% if not page.is_root %}
+    {% trans 'Change privacy' as set_privacy_title %}
+    {% trans 'Choose who can view the live version of this page' as set_privacy_message %}
+    {% trans 'Privacy changes apply to all children of this page too.' as privacy_message_text %}
+    {% url 'wagtailadmin_pages:set_privacy' page.id as privacy_url %}
+    {% dialog icon_name='view' id='set-privacy' data_url=privacy_url title=set_privacy_title subtitle=set_privacy_message message_status='warning' message_heading=privacy_message_text %}
+    {% enddialog %}
+
+    <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+        {% trans "Privacy" %}
+        {% if page_perms.can_set_view_restrictions %}
+            <button data-a11y-dialog-show="set-privacy" class="status-tag primary">
+                {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+                <span class="label-public icon icon-view" aria-label="{% trans 'Set page privacy. Current status: Public' %}">
+                    {% trans "Public" %}
+                </span>
+                <span class="label-private icon icon-no-view" aria-label="{% trans 'Set page privacy. Current status: Private' %}">
+                    {% trans "Private" %}
+                </span>
+            </button>
+        {% else %}
+            {% if is_public %}
+                <span class="label-public status-tag primary icon icon-view" aria-label="{% trans 'Page privacy. Current status: Public' %}">
+                    {% trans "Public" %}
+                </span>
+            {% else %}
+                <span class="label-private status-tag primary icon icon-no-view" aria-label="{% trans 'Page privacy. Current status: Private' %}">
+                    {% trans "Private" %}
+                </span>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
