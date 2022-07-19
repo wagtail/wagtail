@@ -43,10 +43,12 @@ export class Chooser {
     if (this.input.value) {
       const state = {
         id: this.input.value,
-        [this.editLinkStateKey]: this.editLink.getAttribute('href'),
       };
       if (this.titleElement && this.titleStateKey) {
         state[this.titleStateKey] = this.titleElement.innerText;
+      }
+      if (this.editLink && this.editLinkStateKey) {
+        state[this.editLinkStateKey] = this.editLink.getAttribute('href');
       }
       return state;
     } else {
@@ -86,7 +88,9 @@ export class Chooser {
       this.titleElement.innerText = newState[this.titleStateKey];
     }
     this.chooserElement.classList.remove('blank');
-    this.editLink.setAttribute('href', newState[this.editLinkStateKey]);
+    if (this.editLink) {
+      this.editLink.setAttribute('href', newState[this.editLinkStateKey]);
+    }
   }
 
   getTextLabel(opts) {
