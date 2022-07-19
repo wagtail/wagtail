@@ -30,6 +30,10 @@ class BaseStatusSidePanel(BaseSidePanel):
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "info-circle"
 
+    def __init__(self, *args, in_explorer=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.in_explorer = in_explorer
+
     def get_status_templates(self, context):
         templates = []
 
@@ -86,15 +90,17 @@ class PageStatusSidePanel(BaseStatusSidePanel):
             )
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            url_name = "wagtailadmin_pages:edit"
+            if self.in_explorer:
+                url_name = "wagtailadmin_explore"
+
             context.update(
                 {
                     "locale": page.locale,
                     "translations": [
                         {
                             "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailadmin_pages:edit", args=[translation.id]
-                            ),
+                            "url": reverse(url_name, args=[translation.id]),
                         }
                         for translation in page.get_translations()
                         .only("id", "locale", "depth")
@@ -178,11 +184,13 @@ class BaseSidePanels:
 
 
 class PageSidePanels(BaseSidePanels):
-    def __init__(self, request, page, *, preview_enabled, comments_enabled):
+    def __init__(
+        self, request, page, *, preview_enabled, comments_enabled, in_explorer=False
+    ):
         super().__init__(request, page)
 
         self.side_panels = [
-            PageStatusSidePanel(page, self.request),
+            PageStatusSidePanel(page, self.request, in_explorer=in_explorer),
         ]
 
         if preview_enabled and page.preview_modes:
