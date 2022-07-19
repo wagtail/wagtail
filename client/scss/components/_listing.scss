@@ -388,55 +388,6 @@ ul.listing {
     opacity: 0.7;
   }
 
-  .index {
-    background-color: $color-grey-4;
-
-    .title .title-wrapper {
-      font-size: 1.2em;
-      opacity: 1;
-
-      a {
-        @include transition(opacity 0.2s ease);
-      }
-
-      a:hover {
-        opacity: 0.7;
-      }
-    }
-
-    .actions {
-      margin-top: 1em;
-    }
-
-    .button {
-      background-color: $color-white;
-      color: $color-teal;
-      border-color: rgba(0, 0, 0, 0.35);
-
-      &:hover {
-        color: $color-white;
-        background: $color-teal-darker;
-        border-color: $color-teal-darker;
-      }
-
-      &:active {
-        color: $color-white;
-        background: #333;
-        border-color: #333;
-      }
-
-      &.bicolor {
-        background: $color-teal-darker;
-
-        &:active {
-          color: $color-white;
-          background: #484848;
-          border-color: #333;
-        }
-      }
-    }
-  }
-
   .indicator {
     margin-inline-end: 0;
     font-size: 1em;
@@ -479,54 +430,6 @@ table.listing {
 
 .page-explorer .listing {
   position: relative;
-
-  .index {
-    background-color: $color-white;
-
-    td {
-      padding-top: 1.5em;
-      padding-bottom: 1.5em;
-    }
-
-    .privacy-indicator {
-      font-size: 1em;
-      opacity: 1;
-      position: absolute;
-      inset-inline-end: 10%;
-      top: 2em;
-    }
-
-    .locked-indicator {
-      font-size: 0.8em;
-    }
-
-    .title {
-      h2 {
-        color: theme('colors.primary.DEFAULT');
-        font-size: 1.8em;
-        font-weight: 800;
-
-        a:hover {
-          color: theme('colors.primary.DEFAULT');
-        }
-      }
-    }
-
-    .button {
-      background-color: $color-teal-darker;
-      color: $color-white;
-      border-color: rgba(0, 0, 0, 0.35);
-
-      &:hover {
-        color: $color-white;
-        background: $color-teal-darker;
-      }
-
-      &.bicolor {
-        background: $color-teal-darker;
-      }
-    }
-  }
 
   .table-headers {
     height: 35px;

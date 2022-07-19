@@ -140,6 +140,7 @@ These are classes for components.
 @import 'components/bulk_actions';
 @import 'components/preview-panel';
 @import 'components/preview-error';
+@import 'components/form-side';
 
 @import '../src/components/Sidebar/Sidebar';
 
@@ -170,7 +171,6 @@ These are classes that provide overrides.
 @import 'layouts/compare-revisions';
 @import 'layouts/home';
 @import 'layouts/page-editor';
-@import 'layouts/form-side';
 @import 'layouts/login';
 @import 'layouts/account';
 @import 'layouts/workflow-edit';
