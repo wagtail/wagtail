@@ -161,7 +161,7 @@ class BrowseView(View):
     def columns(self):
         return [
             PageTitleColumn(
-                "title", label=_("Title"), show_locale_labels=self.show_locale_labels
+                "title", label=_("Title"), show_locale_labels=self.i18n_enabled
             ),
             DateColumn(
                 "updated",
@@ -182,7 +182,7 @@ class BrowseView(View):
     def get_object_list(self):
         # Get children of parent page (without streamfields)
         pages = self.parent_page.get_children().defer_streamfields().specific()
-        if self.show_locale_labels:
+        if self.i18n_enabled:
             pages = pages.select_related("locale")
         return pages
 
@@ -203,7 +203,7 @@ class BrowseView(View):
         return pages
 
     def get(self, request, parent_page_id=None):
-        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
         # A missing or empty page_type parameter indicates 'all page types'
         # (i.e. descendants of wagtailcore.page)
@@ -258,7 +258,7 @@ class BrowseView(View):
 
         selected_locale = None
         locale_options = []
-        if self.show_locale_labels:
+        if self.i18n_enabled:
             if self.parent_page.is_root():
                 # 'locale' is the current value of the "Locale" selector in the UI
                 if request.GET.get("locale"):
@@ -359,7 +359,7 @@ class BrowseView(View):
                     for desired_class in self.desired_classes
                 ],
                 "page_types_restricted": (page_type_string != "wagtailcore.page"),
-                "show_locale_labels": self.show_locale_labels,
+                "show_locale_labels": self.i18n_enabled,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
             },
@@ -379,10 +379,10 @@ class SearchView(View):
     def columns(self):
         return [
             PageTitleColumn(
-                "title", label=_("Title"), show_locale_labels=self.show_locale_labels
+                "title", label=_("Title"), show_locale_labels=self.i18n_enabled
             ),
             ParentPageColumn(
-                "parent", label=_("Parent"), show_locale_labels=self.show_locale_labels
+                "parent", label=_("Parent"), show_locale_labels=self.i18n_enabled
             ),
             DateColumn(
                 "updated",
@@ -400,7 +400,7 @@ class SearchView(View):
         ]
 
     def get(self, request):
-        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
         page_type_string = request.GET.get("page_type") or "wagtailcore.page"
 
@@ -410,7 +410,7 @@ class SearchView(View):
             raise Http404
 
         pages = Page.objects.all()
-        if self.show_locale_labels:
+        if self.i18n_enabled:
             pages = pages.select_related("locale")
 
         # allow hooks to modify the queryset
@@ -448,7 +448,7 @@ class SearchView(View):
                     "table": table,
                     "pages": pages,
                     "page_type_string": page_type_string,
-                    "show_locale_labels": self.show_locale_labels,
+                    "show_locale_labels": self.i18n_enabled,
                 },
             ),
         )
