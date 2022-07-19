@@ -179,6 +179,29 @@ class BrowseView(View):
             PageNavigateToChildrenColumn("children", label="", width="10%"),
         ]
 
+    def get_object_list(self):
+        # Get children of parent page (without streamfields)
+        pages = self.parent_page.get_children().defer_streamfields().specific()
+        if self.show_locale_labels:
+            pages = pages.select_related("locale")
+        return pages
+
+    def filter_object_list(self, pages):
+        # allow hooks to modify the queryset
+        for hook in hooks.get_hooks("construct_page_chooser_queryset"):
+            pages = hook(pages, self.request)
+
+        # Filter them by page type
+        if self.desired_classes != (Page,):
+            # restrict the page listing to just those pages that:
+            # - are of the given content type (taking into account class inheritance)
+            # - or can be navigated into (i.e. have children)
+            choosable_pages = pages.type(*self.desired_classes)
+            descendable_pages = pages.filter(numchild__gt=0)
+            pages = choosable_pages | descendable_pages
+
+        return pages
+
     def get(self, request, parent_page_id=None):
         self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
@@ -188,40 +211,27 @@ class BrowseView(View):
         user_perm = request.GET.get("user_perms", False)
 
         try:
-            desired_classes = page_models_from_string(page_type_string)
+            self.desired_classes = page_models_from_string(page_type_string)
         except (ValueError, LookupError):
             raise Http404
 
         # Find parent page
         if parent_page_id:
-            parent_page = get_object_or_404(Page, id=parent_page_id)
-        elif desired_classes == (Page,):
+            self.parent_page = get_object_or_404(Page, id=parent_page_id)
+        elif self.desired_classes == (Page,):
             # Just use the root page
-            parent_page = Page.get_first_root_node()
+            self.parent_page = Page.get_first_root_node()
         else:
             # Find the highest common ancestor for the specific classes passed in
             # In many cases, such as selecting an EventPage under an EventIndex,
             # this will help the administrator find their page quicker.
-            all_desired_pages = Page.objects.all().type(*desired_classes)
-            parent_page = all_desired_pages.first_common_ancestor()
+            all_desired_pages = Page.objects.all().type(*self.desired_classes)
+            self.parent_page = all_desired_pages.first_common_ancestor()
 
-        parent_page = parent_page.specific
+        self.parent_page = self.parent_page.specific
 
-        # Get children of parent page (without streamfields)
-        pages = parent_page.get_children().defer_streamfields().specific()
-
-        # allow hooks to modify the queryset
-        for hook in hooks.get_hooks("construct_page_chooser_queryset"):
-            pages = hook(pages, request)
-
-        # Filter them by page type
-        if desired_classes != (Page,):
-            # restrict the page listing to just those pages that:
-            # - are of the given content type (taking into account class inheritance)
-            # - or can be navigated into (i.e. have children)
-            choosable_pages = pages.type(*desired_classes)
-            descendable_pages = pages.filter(numchild__gt=0)
-            pages = choosable_pages | descendable_pages
+        pages = self.get_object_list()
+        pages = self.filter_object_list(pages)
 
         can_choose_root = request.GET.get("can_choose_root", False)
         target_pages = Page.objects.filter(
@@ -234,24 +244,22 @@ class BrowseView(View):
         permission_proxy = UserPagePermissionsProxy(request.user)
 
         # Parent page can be chosen if it is a instance of desired_classes
-        parent_page.can_choose = can_choose_page(
-            parent_page,
+        self.parent_page.can_choose = can_choose_page(
+            self.parent_page,
             permission_proxy,
-            desired_classes,
+            self.desired_classes,
             can_choose_root,
             user_perm,
             target_pages=target_pages,
             match_subclass=match_subclass,
         )
-        parent_page.is_parent_page = True
-        parent_page.can_descend = False
+        self.parent_page.is_parent_page = True
+        self.parent_page.can_descend = False
 
         selected_locale = None
         locale_options = []
         if self.show_locale_labels:
-            pages = pages.select_related("locale")
-
-            if parent_page.is_root():
+            if self.parent_page.is_root():
                 # 'locale' is the current value of the "Locale" selector in the UI
                 if request.GET.get("locale"):
                     selected_locale = get_object_or_404(
@@ -281,15 +289,15 @@ class BrowseView(View):
                 ]
             else:
                 # We have a parent page (that is not the root page). Use its locale as the selected localer
-                selected_locale = parent_page.locale
+                selected_locale = self.parent_page.locale
                 # and get the locales based on its available translations
                 locales_and_parent_pages = {
                     item["locale"]: item["pk"]
-                    for item in Page.objects.translation_of(parent_page).values(
+                    for item in Page.objects.translation_of(self.parent_page).values(
                         "locale", "pk"
                     )
                 }
-                locales_and_parent_pages[selected_locale.pk] = parent_page.pk
+                locales_and_parent_pages[selected_locale.pk] = self.parent_page.pk
                 for locale in Locale.objects.filter(
                     pk__in=list(locales_and_parent_pages.keys())
                 ).exclude(pk=selected_locale.pk):
@@ -322,7 +330,7 @@ class BrowseView(View):
             page.can_choose = can_choose_page(
                 page,
                 permission_proxy,
-                desired_classes,
+                self.desired_classes,
                 can_choose_root,
                 user_perm,
                 target_pages=target_pages,
@@ -333,22 +341,22 @@ class BrowseView(View):
 
         table = PageChooserTable(
             self.columns,
-            [parent_page] + list(pages),
+            [self.parent_page] + list(pages),
         )
 
         # Render
         context = shared_context(
             request,
             {
-                "parent_page": parent_page,
-                "parent_page_id": parent_page.pk,
+                "parent_page": self.parent_page,
+                "parent_page_id": self.parent_page.pk,
                 "table": table,
                 "pagination_page": pages,
                 "search_form": SearchForm(),
                 "page_type_string": page_type_string,
                 "page_type_names": [
                     desired_class.get_verbose_name()
-                    for desired_class in desired_classes
+                    for desired_class in self.desired_classes
                 ],
                 "page_types_restricted": (page_type_string != "wagtailcore.page"),
                 "show_locale_labels": self.show_locale_labels,
