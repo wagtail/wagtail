@@ -1,25 +1,26 @@
-import $ from 'jquery';
-
 class PageChooser {
   constructor(id, parentId, options) {
-    this.chooserElement = $('#' + id + '-chooser');
-    this.pageTitle = this.chooserElement.find('.title');
-    this.input = $('#' + id);
-    this.editLink = this.chooserElement.find('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.data('chooserUrl');
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.pageTitle = this.chooserElement.querySelector('.title');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
     this.initialParentId = parentId;
     this.options = options;
 
     this.state = this.getStateFromHTML();
 
     /* hook up chooser API to the buttons */
-    $('.action-choose', this.chooserElement).on('click', () => {
-      this.openChooserModal();
-    });
-
-    $('.action-clear', this.chooserElement).on('click', () => {
-      this.clear();
-    });
+    for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
+      btn.addEventListener('click', () => {
+        this.openChooserModal();
+      });
+    }
+    for (const btn of this.chooserElement.querySelectorAll('.action-clear')) {
+      btn.addEventListener('click', () => {
+        this.clear();
+      });
+    }
   }
 
   getStateFromHTML() {
@@ -31,12 +32,12 @@ class PageChooser {
     attributes in wagtailadmin/chooser/tables/page_title_cell.html) is a superset of this, and can
     therefore be passed directly to chooser.setState.
     */
-    if (this.input.val()) {
+    if (this.input.value) {
       return {
-        id: this.input.val(),
+        id: this.input.value,
         parentId: this.initialParentId,
-        adminTitle: this.pageTitle.text(),
-        editUrl: this.editLink.attr('href'),
+        adminTitle: this.pageTitle.innerText,
+        editUrl: this.editLink.getAttribute('href'),
       };
     } else {
       return null;
@@ -65,15 +66,15 @@ class PageChooser {
   }
 
   renderEmptyState() {
-    this.input.val('');
-    this.chooserElement.addClass('blank');
+    this.input.setAttribute('value', '');
+    this.chooserElement.classList.add('blank');
   }
 
   renderState(newState) {
-    this.input.val(newState.id);
-    this.pageTitle.text(newState.adminTitle);
-    this.chooserElement.removeClass('blank');
-    this.editLink.attr('href', newState.editUrl);
+    this.input.setAttribute('value', newState.id);
+    this.pageTitle.innerText = newState.adminTitle;
+    this.chooserElement.classList.remove('blank');
+    this.editLink.setAttribute('href', newState.editUrl);
   }
 
   getTextLabel(opts) {
@@ -86,7 +87,7 @@ class PageChooser {
   }
 
   focus() {
-    $('.action-choose', this.chooserElement).focus();
+    this.chooserElement.querySelector('.action-choose').focus();
   }
 
   getModalUrl() {
