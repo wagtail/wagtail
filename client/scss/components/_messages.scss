@@ -20,6 +20,7 @@
     // @include nice-padding;
     padding: 1.6em 3em 1.6em 1.6em;
     color: $color-white;
+    border-bottom: 1px solid transparent;
   }
 
   > ul > li:before {
