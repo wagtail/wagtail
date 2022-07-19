@@ -434,46 +434,92 @@ class SearchView(View):
         )
 
 
+class BaseLinkFormView(View):
+    def get_initial_data(self):
+        return {
+            self.link_url_field_name: self.request.GET.get("link_url", ""),
+            "link_text": self.request.GET.get("link_text", ""),
+        }
+
+    def get_url_from_field_value(self, value):
+        return value
+
+    def get_result_data(self):
+        url_field_value = self.form.cleaned_data[self.link_url_field_name]
+        return {
+            "url": self.get_url_from_field_value(url_field_value),
+            "title": self.form.cleaned_data["link_text"].strip() or url_field_value,
+            # If the user has explicitly entered / edited something in the link_text field,
+            # always use that text. If not, we should favour keeping the existing link/selection
+            # text, where applicable.
+            # (Normally this will match the link_text passed in the URL here anyhow,
+            # but that won't account for non-text content such as images.)
+            "prefer_this_title_as_link_text": ("link_text" in self.form.changed_data),
+        }
+
+    def get(self, request):
+        self.form = self.form_class(
+            initial=self.get_initial_data(), prefix=self.form_prefix
+        )
+        return self.render_form_response()
+
+    def post(self, request):
+        self.form = self.form_class(
+            request.POST, initial=self.get_initial_data(), prefix=self.form_prefix
+        )
+
+        if self.form.is_valid():
+            result = self.get_result_data()
+            return self.render_chosen_response(result)
+        else:  # form invalid
+            return self.render_form_response()
+
+    def render_form_response(self):
+        return render_modal_workflow(
+            self.request,
+            self.template_name,
+            None,
+            shared_context(
+                self.request,
+                {
+                    "form": self.form,
+                },
+            ),
+            json_data={"step": self.step_name},
+        )
+
+    def render_chosen_response(self, result):
+        return render_modal_workflow(
+            self.request,
+            None,
+            None,
+            None,
+            json_data={"step": "external_link_chosen", "result": result},
+        )
+
+
 LINK_CONVERSION_ALL = "all"
 LINK_CONVERSION_EXACT = "exact"
 LINK_CONVERSION_CONFIRM = "confirm"
 
 
-class ExternalLinkView(View):
-    def get_initial_data(self):
-        return {
-            "url": self.request.GET.get("link_url", ""),
-            "link_text": self.request.GET.get("link_text", ""),
-        }
-
-    def get(self, request):
-        self.form = ExternalLinkChooserForm(
-            initial=self.get_initial_data(), prefix="external-link-chooser"
-        )
-        return self.render_form_response()
+class ExternalLinkView(BaseLinkFormView):
+    form_prefix = "external-link-chooser"
+    form_class = ExternalLinkChooserForm
+    template_name = "wagtailadmin/chooser/external_link.html"
+    step_name = "external_link"
+    link_url_field_name = "url"
 
     def post(self, request):
-        self.form = ExternalLinkChooserForm(
+        self.form = self.form_class(
             request.POST,
             initial=self.get_initial_data(),
-            prefix="external-link-chooser",
+            prefix=self.form_prefix,
         )
 
         if self.form.is_valid():
-            submitted_url = self.form.cleaned_data["url"]
-            result = {
-                "url": submitted_url,
-                "title": self.form.cleaned_data["link_text"].strip()
-                or self.form.cleaned_data["url"],
-                # If the user has explicitly entered / edited something in the link_text field,
-                # always use that text. If not, we should favour keeping the existing link/selection
-                # text, where applicable.
-                # (Normally this will match the link_text passed in the URL here anyhow,
-                # but that won't account for non-text content such as images.)
-                "prefer_this_title_as_link_text": (
-                    "link_text" in self.form.changed_data
-                ),
-            }
+            result = self.get_result_data()
+            submitted_url = result["url"]
 
             link_conversion = getattr(
                 settings,
@@ -487,13 +533,7 @@ class ExternalLinkView(View):
                 LINK_CONVERSION_CONFIRM,
             ]:
                 # We should not attempt to convert external urls to page links
-                return render_modal_workflow(
-                    request,
-                    None,
-                    None,
-                    None,
-                    json_data={"step": "external_link_chosen", "result": result},
-                )
+                return self.render_chosen_response(result)
 
             # Next, we should check if the url matches an internal page
             # Strip the url of its query/fragment link parameters - these won't match a page
@@ -554,16 +594,7 @@ class ExternalLinkView(View):
                         normal_url == submitted_url
                         and link_conversion != LINK_CONVERSION_CONFIRM
                     ):
-                        return render_modal_workflow(
-                            request,
-                            None,
-                            None,
-                            None,
-                            json_data={
-                                "step": "external_link_chosen",
-                                "result": internal_data,
-                            },
-                        )
+                        return self.render_chosen_response(internal_data)
                     # If not, they might lose query parameters or routable page information
 
                     if link_conversion == LINK_CONVERSION_EXACT:
@@ -592,188 +623,39 @@ class ExternalLinkView(View):
                     continue
 
             # Otherwise, with no internal matches, fall back to an external url
-            return render_modal_workflow(
-                request,
-                None,
-                None,
-                None,
-                json_data={"step": "external_link_chosen", "result": result},
-            )
+            return self.render_chosen_response(result)
         else:  # form invalid
             return self.render_form_response()
 
-    def render_form_response(self):
-        return render_modal_workflow(
-            self.request,
-            "wagtailadmin/chooser/external_link.html",
-            None,
-            shared_context(
-                self.request,
-                {
-                    "form": self.form,
-                },
-            ),
-            json_data={"step": "external_link"},
-        )
+
+class AnchorLinkView(BaseLinkFormView):
+    form_prefix = "anchor-link-chooser"
+    form_class = AnchorLinkChooserForm
+    template_name = "wagtailadmin/chooser/anchor_link.html"
+    step_name = "anchor_link"
+    link_url_field_name = "url"
+
+    def get_url_from_field_value(self, value):
+        return "#" + value
 
 
-class AnchorLinkView(View):
-    def get_initial_data(self):
-        return {
-            "link_text": self.request.GET.get("link_text", ""),
-            "url": self.request.GET.get("link_url", ""),
-        }
+class EmailLinkView(BaseLinkFormView):
+    form_prefix = "email-link-chooser"
+    form_class = EmailLinkChooserForm
+    template_name = "wagtailadmin/chooser/email_link.html"
+    step_name = "email_link"
+    link_url_field_name = "email_address"
 
-    def get(self, request):
-        self.form = AnchorLinkChooserForm(
-            initial=self.get_initial_data(), prefix="anchor-link-chooser"
-        )
-        return self.render_form_response()
-
-    def post(self, request):
-        self.form = AnchorLinkChooserForm(
-            request.POST, initial=self.get_initial_data(), prefix="anchor-link-chooser"
-        )
-
-        if self.form.is_valid():
-            result = {
-                "url": "#" + self.form.cleaned_data["url"],
-                "title": self.form.cleaned_data["link_text"].strip()
-                or self.form.cleaned_data["url"],
-                "prefer_this_title_as_link_text": (
-                    "link_text" in self.form.changed_data
-                ),
-            }
-            return render_modal_workflow(
-                request,
-                None,
-                None,
-                None,
-                json_data={"step": "external_link_chosen", "result": result},
-            )
-        else:  # form invalid
-            return self.render_form_response()
-
-    def render_form_response(self):
-        return render_modal_workflow(
-            self.request,
-            "wagtailadmin/chooser/anchor_link.html",
-            None,
-            shared_context(
-                self.request,
-                {
-                    "form": self.form,
-                },
-            ),
-            json_data={"step": "anchor_link"},
-        )
+    def get_url_from_field_value(self, value):
+        return "mailto:" + value
 
 
-class EmailLinkView(View):
-    def get_initial_data(self):
-        return {
-            "link_text": self.request.GET.get("link_text", ""),
-            "email_address": self.request.GET.get("link_url", ""),
-        }
+class PhoneLinkView(BaseLinkFormView):
+    form_prefix = "phone-link-chooser"
+    form_class = PhoneLinkChooserForm
+    template_name = "wagtailadmin/chooser/phone_link.html"
+    step_name = "phone_link"
+    link_url_field_name = "phone_number"
 
-    def get(self, request):
-        self.form = EmailLinkChooserForm(
-            initial=self.get_initial_data(), prefix="email-link-chooser"
-        )
-        return self.render_form_response()
-
-    def post(self, request):
-        self.form = EmailLinkChooserForm(
-            request.POST, initial=self.get_initial_data(), prefix="email-link-chooser"
-        )
-
-        if self.form.is_valid():
-            result = {
-                "url": "mailto:" + self.form.cleaned_data["email_address"],
-                "title": self.form.cleaned_data["link_text"].strip()
-                or self.form.cleaned_data["email_address"],
-                # If the user has explicitly entered / edited something in the link_text field,
-                # always use that text. If not, we should favour keeping the existing link/selection
-                # text, where applicable.
-                "prefer_this_title_as_link_text": (
-                    "link_text" in self.form.changed_data
-                ),
-            }
-            return render_modal_workflow(
-                request,
-                None,
-                None,
-                None,
-                json_data={"step": "external_link_chosen", "result": result},
-            )
-        else:  # form invalid
-            return self.render_form_response()
-
-    def render_form_response(self):
-        return render_modal_workflow(
-            self.request,
-            "wagtailadmin/chooser/email_link.html",
-            None,
-            shared_context(
-                self.request,
-                {
-                    "form": self.form,
-                },
-            ),
-            json_data={"step": "email_link"},
-        )
-
-
-class PhoneLinkView(View):
-    def get_initial_data(self):
-        return {
-            "link_text": self.request.GET.get("link_text", ""),
-            "phone_number": self.request.GET.get("link_url", ""),
-        }
-
-    def get(self, request):
-        self.form = PhoneLinkChooserForm(
-            initial=self.get_initial_data(), prefix="phone-link-chooser"
-        )
-        return self.render_form_response()
-
-    def post(self, request):
-        self.form = PhoneLinkChooserForm(
-            request.POST, initial=self.get_initial_data(), prefix="phone-link-chooser"
-        )
-
-        if self.form.is_valid():
-            result = {
-                "url": "tel:" + self.form.cleaned_data["phone_number"],
-                "title": self.form.cleaned_data["link_text"].strip()
-                or self.form.cleaned_data["phone_number"],
-                # If the user has explicitly entered / edited something in the link_text field,
-                # always use that text. If not, we should favour keeping the existing link/selection
-                # text, where applicable.
-                "prefer_this_title_as_link_text": (
-                    "link_text" in self.form.changed_data
-                ),
-            }
-            return render_modal_workflow(
-                request,
-                None,
-                None,
-                None,
-                json_data={"step": "external_link_chosen", "result": result},
-            )
-        else:  # form invalid
-            return self.render_form_response()
-
-    def render_form_response(self):
-        return render_modal_workflow(
-            self.request,
-            "wagtailadmin/chooser/phone_link.html",
-            None,
-            shared_context(
-                self.request,
-                {
-                    "form": self.form,
-                },
-            ),
-            json_data={"step": "phone_link"},
-        )
+    def get_url_from_field_value(self, value):
+        return "tel:" + value
