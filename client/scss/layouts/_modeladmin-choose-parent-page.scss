@@ -7,3 +7,18 @@
 .modeladmin #id_parent_page li label {
   float: none;
 }
+
+// stylelint-disable-next-line selector-max-id
+.modeladmin #id_parent_page div {
+  margin: 15px 0;
+}
+
+// stylelint-disable-next-line selector-max-id
+.modeladmin #id_parent_page div label {
+  float: none;
+}
+
+// stylelint-disable-next-line selector-max-id
+.modeladmin #id_parent_page div label input {
+  transform: translateY(8px);
+}
