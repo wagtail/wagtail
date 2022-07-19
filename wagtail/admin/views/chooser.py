@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls.base import reverse
 from django.utils.http import urlencode
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail import hooks
@@ -112,14 +112,13 @@ class PageChooserTable(Table):
 
         return " ".join(classnames)
 
-    def get_context_data(self, parent_context):
-        context = super().get_context_data(parent_context)
-        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
-        return context
-
 
 class PageTitleColumn(Column):
     cell_template_name = "wagtailadmin/chooser/tables/page_title_cell.html"
+
+    def __init__(self, *args, show_locale_labels=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.show_locale_labels = show_locale_labels
 
     def get_value(self, instance):
         return instance.get_admin_display_title()
@@ -127,20 +126,18 @@ class PageTitleColumn(Column):
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["page"] = instance
-        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
         return context
 
 
 class ParentPageColumn(Column):
     cell_template_name = "wagtailadmin/chooser/tables/parent_page_cell.html"
 
+    def __init__(self, *args, show_locale_labels=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.show_locale_labels = show_locale_labels
+
     def get_value(self, instance):
         return instance.get_parent()
-
-    def get_cell_context_data(self, instance, parent_context):
-        context = super().get_cell_context_data(instance, parent_context)
-        context["show_locale_labels"] = parent_context.get("show_locale_labels", False)
-        return context
 
 
 class PageStatusColumn(Column):
@@ -160,7 +157,31 @@ class PageNavigateToChildrenColumn(Column):
 
 
 class BrowseView(View):
+    @property
+    def columns(self):
+        return [
+            PageTitleColumn(
+                "title", label=_("Title"), show_locale_labels=self.show_locale_labels
+            ),
+            DateColumn(
+                "updated",
+                label=_("Updated"),
+                width="12%",
+                accessor="latest_revision_created_at",
+            ),
+            Column(
+                "type",
+                label=_("Type"),
+                width="12%",
+                accessor="page_type_display_name",
+            ),
+            PageStatusColumn("status", label=_("Status"), width="12%"),
+            PageNavigateToChildrenColumn("children", label="", width="10%"),
+        ]
+
     def get(self, request, parent_page_id=None):
+        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+
         # A missing or empty page_type parameter indicates 'all page types'
         # (i.e. descendants of wagtailcore.page)
         page_type_string = request.GET.get("page_type") or "wagtailcore.page"
@@ -227,8 +248,7 @@ class BrowseView(View):
 
         selected_locale = None
         locale_options = []
-        show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if show_locale_labels:
+        if self.show_locale_labels:
             pages = pages.select_related("locale")
 
             if parent_page.is_root():
@@ -312,23 +332,7 @@ class BrowseView(View):
             page.is_parent_page = False
 
         table = PageChooserTable(
-            [
-                PageTitleColumn("title", label=_("Title")),
-                DateColumn(
-                    "updated",
-                    label=_("Updated"),
-                    width="12%",
-                    accessor="latest_revision_created_at",
-                ),
-                Column(
-                    "type",
-                    label=_("Type"),
-                    width="12%",
-                    accessor="page_type_display_name",
-                ),
-                PageStatusColumn("status", label=_("Status"), width="12%"),
-                PageNavigateToChildrenColumn("children", label="", width="10%"),
-            ],
+            self.columns,
             [parent_page] + list(pages),
         )
 
@@ -347,7 +351,7 @@ class BrowseView(View):
                     for desired_class in desired_classes
                 ],
                 "page_types_restricted": (page_type_string != "wagtailcore.page"),
-                "show_locale_labels": show_locale_labels,
+                "show_locale_labels": self.show_locale_labels,
                 "locale_options": locale_options,
                 "selected_locale": selected_locale,
             },
@@ -363,7 +367,32 @@ class BrowseView(View):
 
 
 class SearchView(View):
+    @property
+    def columns(self):
+        return [
+            PageTitleColumn(
+                "title", label=_("Title"), show_locale_labels=self.show_locale_labels
+            ),
+            ParentPageColumn(
+                "parent", label=_("Parent"), show_locale_labels=self.show_locale_labels
+            ),
+            DateColumn(
+                "updated",
+                label=_("Updated"),
+                width="12%",
+                accessor="latest_revision_created_at",
+            ),
+            Column(
+                "type",
+                label=_("Type"),
+                width="12%",
+                accessor="page_type_display_name",
+            ),
+            PageStatusColumn("status", label=_("Status"), width="12%"),
+        ]
+
     def get(self, request):
+        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         # A missing or empty page_type parameter indicates 'all page types' (i.e. descendants of wagtailcore.page)
         page_type_string = request.GET.get("page_type") or "wagtailcore.page"
 
@@ -373,8 +402,7 @@ class SearchView(View):
             raise Http404
 
         pages = Page.objects.all()
-        show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if show_locale_labels:
+        if self.show_locale_labels:
             pages = pages.select_related("locale")
 
         # allow hooks to modify the queryset
@@ -398,23 +426,7 @@ class SearchView(View):
             page.is_parent_page = False
 
         table = PageChooserTable(
-            [
-                PageTitleColumn("title", label=_("Title")),
-                ParentPageColumn("parent", label=_("Parent")),
-                DateColumn(
-                    "updated",
-                    label=_("Updated"),
-                    width="12%",
-                    accessor="latest_revision_created_at",
-                ),
-                Column(
-                    "type",
-                    label=_("Type"),
-                    width="12%",
-                    accessor="page_type_display_name",
-                ),
-                PageStatusColumn("status", label=_("Status"), width="12%"),
-            ],
+            self.columns,
             pages,
         )
 
@@ -428,7 +440,7 @@ class SearchView(View):
                     "table": table,
                     "pages": pages,
                     "page_type_string": page_type_string,
-                    "show_locale_labels": show_locale_labels,
+                    "show_locale_labels": self.show_locale_labels,
                 },
             ),
         )
