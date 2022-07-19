@@ -440,151 +440,53 @@ LINK_CONVERSION_CONFIRM = "confirm"
 
 
 class ExternalLinkView(View):
-    def dispatch(self, request):
-        initial_data = {
-            "url": request.GET.get("link_url", ""),
-            "link_text": request.GET.get("link_text", ""),
+    def get_initial_data(self):
+        return {
+            "url": self.request.GET.get("link_url", ""),
+            "link_text": self.request.GET.get("link_text", ""),
         }
 
-        if request.method == "POST":
-            form = ExternalLinkChooserForm(
-                request.POST, initial=initial_data, prefix="external-link-chooser"
-            )
+    def get(self, request):
+        self.form = ExternalLinkChooserForm(
+            initial=self.get_initial_data(), prefix="external-link-chooser"
+        )
+        return self.render_form_response()
 
-            if form.is_valid():
-                submitted_url = form.cleaned_data["url"]
-                result = {
-                    "url": submitted_url,
-                    "title": form.cleaned_data["link_text"].strip()
-                    or form.cleaned_data["url"],
-                    # If the user has explicitly entered / edited something in the link_text field,
-                    # always use that text. If not, we should favour keeping the existing link/selection
-                    # text, where applicable.
-                    # (Normally this will match the link_text passed in the URL here anyhow,
-                    # but that won't account for non-text content such as images.)
-                    "prefer_this_title_as_link_text": (
-                        "link_text" in form.changed_data
-                    ),
-                }
+    def post(self, request):
+        self.form = ExternalLinkChooserForm(
+            request.POST,
+            initial=self.get_initial_data(),
+            prefix="external-link-chooser",
+        )
 
-                link_conversion = getattr(
-                    settings,
-                    "WAGTAILADMIN_EXTERNAL_LINK_CONVERSION",
-                    LINK_CONVERSION_ALL,
-                ).lower()
+        if self.form.is_valid():
+            submitted_url = self.form.cleaned_data["url"]
+            result = {
+                "url": submitted_url,
+                "title": self.form.cleaned_data["link_text"].strip()
+                or self.form.cleaned_data["url"],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                # (Normally this will match the link_text passed in the URL here anyhow,
+                # but that won't account for non-text content such as images.)
+                "prefer_this_title_as_link_text": (
+                    "link_text" in self.form.changed_data
+                ),
+            }
 
-                if link_conversion not in [
-                    LINK_CONVERSION_ALL,
-                    LINK_CONVERSION_EXACT,
-                    LINK_CONVERSION_CONFIRM,
-                ]:
-                    # We should not attempt to convert external urls to page links
-                    return render_modal_workflow(
-                        request,
-                        None,
-                        None,
-                        None,
-                        json_data={"step": "external_link_chosen", "result": result},
-                    )
+            link_conversion = getattr(
+                settings,
+                "WAGTAILADMIN_EXTERNAL_LINK_CONVERSION",
+                LINK_CONVERSION_ALL,
+            ).lower()
 
-                # Next, we should check if the url matches an internal page
-                # Strip the url of its query/fragment link parameters - these won't match a page
-                url_without_query = re.split(r"\?|#", submitted_url)[0]
-
-                # Start by finding any sites the url could potentially match
-                sites = getattr(request, "_wagtail_cached_site_root_paths", None)
-                if sites is None:
-                    sites = Site.get_site_root_paths()
-
-                match_relative_paths = submitted_url.startswith("/") and len(sites) == 1
-                # We should only match relative urls if there's only a single site
-                # Otherwise this could get very annoying accidentally matching coincidentally
-                # named pages on different sites
-
-                if match_relative_paths:
-                    possible_sites = [
-                        (pk, url_without_query)
-                        for pk, path, url, language_code in sites
-                    ]
-                else:
-                    possible_sites = [
-                        (pk, url_without_query[len(url) :])
-                        for pk, path, url, language_code in sites
-                        if submitted_url.startswith(url)
-                    ]
-
-                # Loop over possible sites to identify a page match
-                for pk, url in possible_sites:
-                    try:
-                        route = Site.objects.get(pk=pk).root_page.specific.route(
-                            request,
-                            [component for component in url.split("/") if component],
-                        )
-
-                        matched_page = route.page.specific
-
-                        internal_data = {
-                            "id": matched_page.pk,
-                            "parentId": matched_page.get_parent().pk,
-                            "adminTitle": matched_page.draft_title,
-                            "editUrl": reverse(
-                                "wagtailadmin_pages:edit", args=(matched_page.pk,)
-                            ),
-                            "url": matched_page.url,
-                        }
-
-                        # Let's check what this page's normal url would be
-                        normal_url = (
-                            matched_page.get_url_parts(request=request)[-1]
-                            if match_relative_paths
-                            else matched_page.get_full_url(request=request)
-                        )
-
-                        # If that's what the user provided, great. Let's just convert the external
-                        # url to an internal link automatically unless we're set up tp manually check
-                        # all conversions
-                        if (
-                            normal_url == submitted_url
-                            and link_conversion != LINK_CONVERSION_CONFIRM
-                        ):
-                            return render_modal_workflow(
-                                request,
-                                None,
-                                None,
-                                None,
-                                json_data={
-                                    "step": "external_link_chosen",
-                                    "result": internal_data,
-                                },
-                            )
-                        # If not, they might lose query parameters or routable page information
-
-                        if link_conversion == LINK_CONVERSION_EXACT:
-                            # We should only convert exact matches
-                            continue
-
-                        # Let's confirm the conversion with them explicitly
-                        else:
-                            return render_modal_workflow(
-                                request,
-                                "wagtailadmin/chooser/confirm_external_to_internal.html",
-                                None,
-                                {
-                                    "submitted_url": submitted_url,
-                                    "internal_url": normal_url,
-                                    "page": matched_page.draft_title,
-                                },
-                                json_data={
-                                    "step": "confirm_external_to_internal",
-                                    "external": result,
-                                    "internal": internal_data,
-                                },
-                            )
-
-                    except Http404:
-                        continue
-
-                # Otherwise, with no internal matches, fall back to an external url
+            if link_conversion not in [
+                LINK_CONVERSION_ALL,
+                LINK_CONVERSION_EXACT,
+                LINK_CONVERSION_CONFIRM,
+            ]:
+                # We should not attempt to convert external urls to page links
                 return render_modal_workflow(
                     request,
                     None,
@@ -592,19 +494,123 @@ class ExternalLinkView(View):
                     None,
                     json_data={"step": "external_link_chosen", "result": result},
                 )
-        else:
-            form = ExternalLinkChooserForm(
-                initial=initial_data, prefix="external-link-chooser"
-            )
 
+            # Next, we should check if the url matches an internal page
+            # Strip the url of its query/fragment link parameters - these won't match a page
+            url_without_query = re.split(r"\?|#", submitted_url)[0]
+
+            # Start by finding any sites the url could potentially match
+            sites = getattr(request, "_wagtail_cached_site_root_paths", None)
+            if sites is None:
+                sites = Site.get_site_root_paths()
+
+            match_relative_paths = submitted_url.startswith("/") and len(sites) == 1
+            # We should only match relative urls if there's only a single site
+            # Otherwise this could get very annoying accidentally matching coincidentally
+            # named pages on different sites
+
+            if match_relative_paths:
+                possible_sites = [
+                    (pk, url_without_query) for pk, path, url, language_code in sites
+                ]
+            else:
+                possible_sites = [
+                    (pk, url_without_query[len(url) :])
+                    for pk, path, url, language_code in sites
+                    if submitted_url.startswith(url)
+                ]
+
+            # Loop over possible sites to identify a page match
+            for pk, url in possible_sites:
+                try:
+                    route = Site.objects.get(pk=pk).root_page.specific.route(
+                        request,
+                        [component for component in url.split("/") if component],
+                    )
+
+                    matched_page = route.page.specific
+
+                    internal_data = {
+                        "id": matched_page.pk,
+                        "parentId": matched_page.get_parent().pk,
+                        "adminTitle": matched_page.draft_title,
+                        "editUrl": reverse(
+                            "wagtailadmin_pages:edit", args=(matched_page.pk,)
+                        ),
+                        "url": matched_page.url,
+                    }
+
+                    # Let's check what this page's normal url would be
+                    normal_url = (
+                        matched_page.get_url_parts(request=request)[-1]
+                        if match_relative_paths
+                        else matched_page.get_full_url(request=request)
+                    )
+
+                    # If that's what the user provided, great. Let's just convert the external
+                    # url to an internal link automatically unless we're set up tp manually check
+                    # all conversions
+                    if (
+                        normal_url == submitted_url
+                        and link_conversion != LINK_CONVERSION_CONFIRM
+                    ):
+                        return render_modal_workflow(
+                            request,
+                            None,
+                            None,
+                            None,
+                            json_data={
+                                "step": "external_link_chosen",
+                                "result": internal_data,
+                            },
+                        )
+                    # If not, they might lose query parameters or routable page information
+
+                    if link_conversion == LINK_CONVERSION_EXACT:
+                        # We should only convert exact matches
+                        continue
+
+                    # Let's confirm the conversion with them explicitly
+                    else:
+                        return render_modal_workflow(
+                            request,
+                            "wagtailadmin/chooser/confirm_external_to_internal.html",
+                            None,
+                            {
+                                "submitted_url": submitted_url,
+                                "internal_url": normal_url,
+                                "page": matched_page.draft_title,
+                            },
+                            json_data={
+                                "step": "confirm_external_to_internal",
+                                "external": result,
+                                "internal": internal_data,
+                            },
+                        )
+
+                except Http404:
+                    continue
+
+            # Otherwise, with no internal matches, fall back to an external url
+            return render_modal_workflow(
+                request,
+                None,
+                None,
+                None,
+                json_data={"step": "external_link_chosen", "result": result},
+            )
+        else:  # form invalid
+            return self.render_form_response()
+
+    def render_form_response(self):
         return render_modal_workflow(
-            request,
+            self.request,
             "wagtailadmin/chooser/external_link.html",
             None,
             shared_context(
-                request,
+                self.request,
                 {
-                    "form": form,
+                    "form": self.form,
                 },
             ),
             json_data={"step": "external_link"},
@@ -612,46 +618,51 @@ class ExternalLinkView(View):
 
 
 class AnchorLinkView(View):
-    def dispatch(self, request):
-        initial_data = {
-            "link_text": request.GET.get("link_text", ""),
-            "url": request.GET.get("link_url", ""),
+    def get_initial_data(self):
+        return {
+            "link_text": self.request.GET.get("link_text", ""),
+            "url": self.request.GET.get("link_url", ""),
         }
 
-        if request.method == "POST":
-            form = AnchorLinkChooserForm(
-                request.POST, initial=initial_data, prefix="anchor-link-chooser"
-            )
+    def get(self, request):
+        self.form = AnchorLinkChooserForm(
+            initial=self.get_initial_data(), prefix="anchor-link-chooser"
+        )
+        return self.render_form_response()
 
-            if form.is_valid():
-                result = {
-                    "url": "#" + form.cleaned_data["url"],
-                    "title": form.cleaned_data["link_text"].strip()
-                    or form.cleaned_data["url"],
-                    "prefer_this_title_as_link_text": (
-                        "link_text" in form.changed_data
-                    ),
-                }
-                return render_modal_workflow(
-                    request,
-                    None,
-                    None,
-                    None,
-                    json_data={"step": "external_link_chosen", "result": result},
-                )
-        else:
-            form = AnchorLinkChooserForm(
-                initial=initial_data, prefix="anchor-link-chooser"
-            )
+    def post(self, request):
+        self.form = AnchorLinkChooserForm(
+            request.POST, initial=self.get_initial_data(), prefix="anchor-link-chooser"
+        )
 
+        if self.form.is_valid():
+            result = {
+                "url": "#" + self.form.cleaned_data["url"],
+                "title": self.form.cleaned_data["link_text"].strip()
+                or self.form.cleaned_data["url"],
+                "prefer_this_title_as_link_text": (
+                    "link_text" in self.form.changed_data
+                ),
+            }
+            return render_modal_workflow(
+                request,
+                None,
+                None,
+                None,
+                json_data={"step": "external_link_chosen", "result": result},
+            )
+        else:  # form invalid
+            return self.render_form_response()
+
+    def render_form_response(self):
         return render_modal_workflow(
-            request,
+            self.request,
             "wagtailadmin/chooser/anchor_link.html",
             None,
             shared_context(
-                request,
+                self.request,
                 {
-                    "form": form,
+                    "form": self.form,
                 },
             ),
             json_data={"step": "anchor_link"},
@@ -659,49 +670,54 @@ class AnchorLinkView(View):
 
 
 class EmailLinkView(View):
-    def dispatch(self, request):
-        initial_data = {
-            "link_text": request.GET.get("link_text", ""),
-            "email_address": request.GET.get("link_url", ""),
+    def get_initial_data(self):
+        return {
+            "link_text": self.request.GET.get("link_text", ""),
+            "email_address": self.request.GET.get("link_url", ""),
         }
 
-        if request.method == "POST":
-            form = EmailLinkChooserForm(
-                request.POST, initial=initial_data, prefix="email-link-chooser"
-            )
+    def get(self, request):
+        self.form = EmailLinkChooserForm(
+            initial=self.get_initial_data(), prefix="email-link-chooser"
+        )
+        return self.render_form_response()
 
-            if form.is_valid():
-                result = {
-                    "url": "mailto:" + form.cleaned_data["email_address"],
-                    "title": form.cleaned_data["link_text"].strip()
-                    or form.cleaned_data["email_address"],
-                    # If the user has explicitly entered / edited something in the link_text field,
-                    # always use that text. If not, we should favour keeping the existing link/selection
-                    # text, where applicable.
-                    "prefer_this_title_as_link_text": (
-                        "link_text" in form.changed_data
-                    ),
-                }
-                return render_modal_workflow(
-                    request,
-                    None,
-                    None,
-                    None,
-                    json_data={"step": "external_link_chosen", "result": result},
-                )
-        else:
-            form = EmailLinkChooserForm(
-                initial=initial_data, prefix="email-link-chooser"
-            )
+    def post(self, request):
+        self.form = EmailLinkChooserForm(
+            request.POST, initial=self.get_initial_data(), prefix="email-link-chooser"
+        )
 
+        if self.form.is_valid():
+            result = {
+                "url": "mailto:" + self.form.cleaned_data["email_address"],
+                "title": self.form.cleaned_data["link_text"].strip()
+                or self.form.cleaned_data["email_address"],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                "prefer_this_title_as_link_text": (
+                    "link_text" in self.form.changed_data
+                ),
+            }
+            return render_modal_workflow(
+                request,
+                None,
+                None,
+                None,
+                json_data={"step": "external_link_chosen", "result": result},
+            )
+        else:  # form invalid
+            return self.render_form_response()
+
+    def render_form_response(self):
         return render_modal_workflow(
-            request,
+            self.request,
             "wagtailadmin/chooser/email_link.html",
             None,
             shared_context(
-                request,
+                self.request,
                 {
-                    "form": form,
+                    "form": self.form,
                 },
             ),
             json_data={"step": "email_link"},
@@ -709,49 +725,54 @@ class EmailLinkView(View):
 
 
 class PhoneLinkView(View):
-    def dispatch(self, request):
-        initial_data = {
-            "link_text": request.GET.get("link_text", ""),
-            "phone_number": request.GET.get("link_url", ""),
+    def get_initial_data(self):
+        return {
+            "link_text": self.request.GET.get("link_text", ""),
+            "phone_number": self.request.GET.get("link_url", ""),
         }
 
-        if request.method == "POST":
-            form = PhoneLinkChooserForm(
-                request.POST, initial=initial_data, prefix="phone-link-chooser"
-            )
+    def get(self, request):
+        self.form = PhoneLinkChooserForm(
+            initial=self.get_initial_data(), prefix="phone-link-chooser"
+        )
+        return self.render_form_response()
 
-            if form.is_valid():
-                result = {
-                    "url": "tel:" + form.cleaned_data["phone_number"],
-                    "title": form.cleaned_data["link_text"].strip()
-                    or form.cleaned_data["phone_number"],
-                    # If the user has explicitly entered / edited something in the link_text field,
-                    # always use that text. If not, we should favour keeping the existing link/selection
-                    # text, where applicable.
-                    "prefer_this_title_as_link_text": (
-                        "link_text" in form.changed_data
-                    ),
-                }
-                return render_modal_workflow(
-                    request,
-                    None,
-                    None,
-                    None,
-                    json_data={"step": "external_link_chosen", "result": result},
-                )
-        else:
-            form = PhoneLinkChooserForm(
-                initial=initial_data, prefix="phone-link-chooser"
-            )
+    def post(self, request):
+        self.form = PhoneLinkChooserForm(
+            request.POST, initial=self.get_initial_data(), prefix="phone-link-chooser"
+        )
 
+        if self.form.is_valid():
+            result = {
+                "url": "tel:" + self.form.cleaned_data["phone_number"],
+                "title": self.form.cleaned_data["link_text"].strip()
+                or self.form.cleaned_data["phone_number"],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                "prefer_this_title_as_link_text": (
+                    "link_text" in self.form.changed_data
+                ),
+            }
+            return render_modal_workflow(
+                request,
+                None,
+                None,
+                None,
+                json_data={"step": "external_link_chosen", "result": result},
+            )
+        else:  # form invalid
+            return self.render_form_response()
+
+    def render_form_response(self):
         return render_modal_workflow(
-            request,
+            self.request,
             "wagtailadmin/chooser/phone_link.html",
             None,
             shared_context(
-                request,
+                self.request,
                 {
-                    "form": form,
+                    "form": self.form,
                 },
             ),
             json_data={"step": "phone_link"},
