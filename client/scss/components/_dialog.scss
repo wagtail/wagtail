@@ -37,6 +37,9 @@
     @include media-breakpoint-up(sm) {
       width: 600px;
     }
+    @media (forced-colors: $media-forced-colours) {
+      border: 5px solid currentColor;
+    }
   }
 
   &__close-button {
