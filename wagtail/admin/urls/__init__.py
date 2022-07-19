@@ -38,31 +38,35 @@ urlpatterns = [
     ),
     path("pages/", include(wagtailadmin_pages_urls, namespace="wagtailadmin_pages")),
     # TODO: Move into wagtailadmin_pages namespace
-    path("choose-page/", chooser.browse, name="wagtailadmin_choose_page"),
+    path("choose-page/", chooser.BrowseView.as_view(), name="wagtailadmin_choose_page"),
     path(
         "choose-page/<int:parent_page_id>/",
-        chooser.browse,
+        chooser.BrowseView.as_view(),
         name="wagtailadmin_choose_page_child",
     ),
-    path("choose-page/search/", chooser.search, name="wagtailadmin_choose_page_search"),
+    path(
+        "choose-page/search/",
+        chooser.SearchView.as_view(),
+        name="wagtailadmin_choose_page_search",
+    ),
     path(
         "choose-external-link/",
-        chooser.external_link,
+        chooser.ExternalLinkView.as_view(),
         name="wagtailadmin_choose_page_external_link",
     ),
     path(
         "choose-email-link/",
-        chooser.email_link,
+        chooser.EmailLinkView.as_view(),
         name="wagtailadmin_choose_page_email_link",
     ),
     path(
         "choose-phone-link/",
-        chooser.phone_link,
+        chooser.PhoneLinkView.as_view(),
         name="wagtailadmin_choose_page_phone_link",
     ),
     path(
         "choose-anchor-link/",
-        chooser.anchor_link,
+        chooser.AnchorLinkView.as_view(),
         name="wagtailadmin_choose_page_anchor_link",
     ),
     path("tag-autocomplete/", tags.autocomplete, name="wagtailadmin_tag_autocomplete"),
