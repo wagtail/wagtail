@@ -1,3 +1,4 @@
+import copy
 import itertools
 import uuid
 from collections import OrderedDict, defaultdict
@@ -213,17 +214,8 @@ class BaseStreamBlock(Block):
     def to_python(self, value):
         # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field
         # (and possibly an 'id' too).
-        # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
-        # block types from the list
-        return StreamValue(
-            self,
-            [
-                child_data
-                for child_data in value
-                if child_data["type"] in self.child_blocks
-            ],
-            is_lazy=True,
-        )
+        # This is passed to StreamValue to be expanded lazily
+        return StreamValue(self, value, is_lazy=True)
 
     def bulk_to_python(self, values):
         # 'values' is a list of streams, each stream being a list of dicts with 'type', 'value' and
@@ -429,36 +421,57 @@ class StreamValue(MutableSequence):
         and will not be saved back when calling get_prep_value.
         """
 
-        def __init__(self, stream_value):
+        def __init__(self, stream_value, use_raw=False):
             self.stream_value = stream_value
+            if use_raw:
+                self.data = stream_value._raw_data
+                self.is_raw = True
+            else:
+                self.data = stream_value._data
+                self.is_raw = False
+            self._initial_data_hash = hash(repr(self.data))
+            self._has_changed = False
 
         def __getitem__(self, i):
-            item = self.stream_value._raw_data[i]
+            item = self.data[i]
             if item is None:
                 # reconstruct raw data from the bound block
                 item = self.stream_value._bound_blocks[i].get_prep_value()
-                self.stream_value._raw_data[i] = item
+                self.data[i] = item
 
             return item
 
         def __len__(self):
-            return len(self.stream_value._raw_data)
+            return len(self.data)
 
         def __setitem__(self, i, item):
-            self.stream_value._raw_data[i] = item
-            # clear the cached bound_block for this item
-            self.stream_value._bound_blocks[i] = None
+            self._has_changed = True
+            self.data[i] = item
+            if not self.is_raw:
+                # clear the cached bound_block for this item
+                self.stream_value._bound_blocks[i] = None
 
         def __delitem__(self, i):
-            # same as deletion on the stream itself - delete both the raw and bound_block data
-            del self.stream_value[i]
+            self._has_changed = True
+            if self.is_raw:
+                del self.data[i]
+            else:
+                # same as deletion on the stream itself - delete both the raw and bound_block data
+                del self.stream_value[i]
 
         def insert(self, i, item):
-            self.stream_value._raw_data.insert(i, item)
-            self.stream_value._bound_blocks.insert(i, None)
+            self._has_changed = True
+            self.data.insert(i, item)
+            if not self.is_raw:
+                self.stream_value._bound_blocks.insert(i, None)
 
         def __repr__(self):
             return repr(list(self))
+
+        def has_changed(self) -> bool:
+            # Use the internal boolean flag when set, as that is much
+            # cheaper than generating a new hash
+            return self._has_changed or hash(repr(self.data)) != self._initial_data_hash
 
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
@@ -485,16 +498,24 @@ class StreamValue(MutableSequence):
         )
         self.is_lazy = is_lazy
         self.raw_text = raw_text
+        self._raw_data = None
 
         if is_lazy:
-            # store raw stream data in _raw_data; on retrieval it will be converted to a native
-            # value (via block.to_python) and wrapped as a StreamValue, and cached in _bound_blocks.
+            # the raw JSONish data as it is stored in the database
             self._raw_data = stream_data
-            self._bound_blocks = [None] * len(stream_data)
+            # a copy of the supplied data, with values for unrecognised block types removed.
+            # On retrieval, this data will be converted to a native value (via block.to_python),
+            # wrapped in a StreamValue, and cached in _bound_blocks.
+            self._data = [
+                copy.deepcopy(item)
+                for item in stream_data
+                if item["type"] in stream_block.child_blocks
+            ]
+            self._bound_blocks = [None] * len(self._data)
         else:
             # store native stream data in _bound_blocks; on serialization it will be converted to
             # a JSON-ish representation via block.get_prep_value.
-            self._raw_data = [None] * len(stream_data)
+            self._data = [None] * len(stream_data)
             self._bound_blocks = [
                 self._construct_stream_child(item) for item in stream_data
             ]
@@ -522,7 +543,7 @@ class StreamValue(MutableSequence):
             return [self[j] for j in range(start, stop, step)]
 
         if self._bound_blocks[i] is None:
-            raw_value = self._raw_data[i]
+            raw_value = self._data[i]
             self._prefetch_blocks(raw_value["type"])
 
         return self._bound_blocks[i]
@@ -532,14 +553,44 @@ class StreamValue(MutableSequence):
 
     def __delitem__(self, i):
         del self._bound_blocks[i]
-        del self._raw_data[i]
+        del self._data[i]
 
     def insert(self, i, item):
         self._bound_blocks.insert(i, self._construct_stream_child(item))
-        self._raw_data.insert(i, None)
+        self._data.insert(i, None)
 
     @cached_property
-    def raw_data(self):
+    def raw_data(self) -> "StreamValue.RawDataView":
+        """
+        Returns an instance of ``RawDataView`` that can be used to interact with the block's
+        complete raw data value, as retrieved from the database.
+
+        Any changes made via this interface will be saved back to the database when
+        get_prep_value() is called.
+
+        Unlike ``self.data``, changes made via this interface will NOT be reflected in the
+        block's ``BoundBlock`` representation, so is better used in situations where that
+        representation is not really needed (for example, in Django data migrations that
+        only modifies the raw value).
+        """
+        if self._raw_data is None:
+            self._raw_data = [copy.deepcopy(v) for v in self.data]  # noqa: C416
+        return StreamValue.RawDataView(self, use_raw=True)
+
+    @cached_property
+    def data(self) -> "StreamValue.RawDataView":
+        """
+        Returns an instance of ``RawDataView`` that can be used to interact with a sanitized
+        version of the block's data, that only contains data for block types that are
+        present in the block's ``child_blocks`` - meaning they can be turned successfully
+        into ``BoundBlock`` objects for rendering.
+
+        If the BoundBlock representation has not yet been accessed, any changes made via this
+        interface will also be reflected in the final ``BoundBlock`` representation.
+
+        If no changes are made via the ``self.raw_data`` interface, changes made via this one
+        will be saved back to the database when get_prep_value() is called.
+        """
         return StreamValue.RawDataView(self)
 
     def _prefetch_blocks(self, type_name):
@@ -555,7 +606,7 @@ class StreamValue(MutableSequence):
         # mapping (index within the stream) => (raw block value)
         raw_values = OrderedDict(
             (i, raw_item["value"])
-            for i, raw_item in enumerate(self._raw_data)
+            for i, raw_item in enumerate(self._data)
             if raw_item["type"] == type_name and self._bound_blocks[i] is None
         )
         # pass the raw block values to bulk_to_python as a list
@@ -565,10 +616,16 @@ class StreamValue(MutableSequence):
         # if one exists
         for i, value in zip(raw_values.keys(), converted_values):
             self._bound_blocks[i] = StreamValue.StreamChild(
-                child_block, value, id=self._raw_data[i].get("id")
+                child_block, value, id=self._data[i].get("id")
             )
 
     def get_prep_value(self):
+
+        # If self.raw_data has been accessed and changed, prefer that value
+        if "raw_data" in self.__dict__ and self.raw_data.has_changed():
+            return [raw_item for raw_item in self._raw_data]  # noqa: C416
+
+        # Continue to generate a value from _bound_blocks / _data
         prep_value = []
 
         for i, item in enumerate(self._bound_blocks):
@@ -579,10 +636,10 @@ class StreamValue(MutableSequence):
 
                 prep_value.append(item.get_prep_value())
             else:
-                # item has not been converted to a BoundBlock, so its _raw_data entry is
+                # item has not been converted to a BoundBlock, so its _data entry is
                 # still usable (but ensure it has an ID before returning it)
 
-                raw_item = self._raw_data[i]
+                raw_item = self._data[i]
                 if not raw_item.get("id"):
                     raw_item["id"] = str(uuid.uuid4())
 
@@ -598,7 +655,7 @@ class StreamValue(MutableSequence):
         for i in range(0, len(self)):
             if self._bound_blocks[i] is None and other._bound_blocks[i] is None:
                 # compare raw values as a shortcut to save the conversion step
-                if self._raw_data[i] != other._raw_data[i]:
+                if self._data[i] != other._data[i]:
                     return False
             else:
                 this_item = self[i]

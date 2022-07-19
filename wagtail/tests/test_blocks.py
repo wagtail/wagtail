@@ -3743,9 +3743,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         stream[1].id = "0003"
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "hello", "id": "0001"},
                 {"type": "paragraph", "value": "world", "id": "0003"},
@@ -3765,9 +3765,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         stream[1].value = "earth"
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "hello", "id": "0001"},
                 {"type": "paragraph", "value": "earth", "id": "0002"},
@@ -3787,9 +3787,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         stream[1] = ("heading", "goodbye", "0003")
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "hello", "id": "0001"},
                 {"type": "heading", "value": "goodbye", "id": "0003"},
@@ -3809,9 +3809,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         del stream[0]
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "paragraph", "value": "world", "id": "0002"},
             ],
@@ -3830,9 +3830,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         stream.insert(1, ("paragraph", "mutable", "0003"))
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "hello", "id": "0001"},
                 {"type": "paragraph", "value": "mutable", "id": "0003"},
@@ -3853,9 +3853,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ]
         )
         stream.append(("paragraph", "of warcraft", "0003"))
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "hello", "id": "0001"},
                 {"type": "paragraph", "value": "world", "id": "0002"},
@@ -3863,7 +3863,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
 
-    def test_streamvalue_raw_data(self):
+    def test_streamvalue_data(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
@@ -3877,17 +3877,19 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
 
         self.assertEqual(
-            stream.raw_data[0], {"type": "heading", "value": "hello", "id": "0001"}
+            stream.data[0], {"type": "heading", "value": "hello", "id": "0001"}
         )
-        stream.raw_data[0]["value"] = "bonjour"
+        stream.data[0]["value"] = "bonjour"
         self.assertEqual(
-            stream.raw_data[0], {"type": "heading", "value": "bonjour", "id": "0001"}
+            stream.data[0], {"type": "heading", "value": "bonjour", "id": "0001"}
         )
+        # changes made via data are not reflected in raw_data
+        self.assertEqual(stream.raw_data[0]["value"], "hello")
 
-        # changes to raw_data will be written back via get_prep_value...
-        raw_data = block.get_prep_value(stream)
+        # changes to data will be written back via get_prep_value...
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "bonjour", "id": "0001"},
                 {"type": "paragraph", "value": "world", "id": "0002"},
@@ -3896,23 +3898,23 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         # ...but once the bound-block representation has been accessed, that takes precedence
         self.assertEqual(stream[0].value, "bonjour")
-        stream.raw_data[0]["value"] = "guten tag"
-        self.assertEqual(stream.raw_data[0]["value"], "guten tag")
+        stream.data[0]["value"] = "guten tag"
+        self.assertEqual(stream.data[0]["value"], "guten tag")
         self.assertEqual(stream[0].value, "bonjour")
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "bonjour", "id": "0001"},
                 {"type": "paragraph", "value": "world", "id": "0002"},
             ],
         )
 
-        # Replacing a raw_data entry outright will propagate to the bound block, though
-        stream.raw_data[0] = {"type": "heading", "value": "konnichiwa", "id": "0003"}
-        raw_data = block.get_prep_value(stream)
+        # Replacing a data entry outright will propagate to the bound block, though
+        stream.data[0] = {"type": "heading", "value": "konnichiwa", "id": "0003"}
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "heading", "value": "konnichiwa", "id": "0003"},
                 {"type": "paragraph", "value": "world", "id": "0002"},
@@ -3920,17 +3922,52 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertEqual(stream[0].value, "konnichiwa")
 
-        # deletions / insertions on raw_data will also propagate to the bound block representation
-        del stream.raw_data[1]
-        stream.raw_data.insert(
+        # deletions / insertions on data will also propagate to the bound block representation
+        del stream.data[1]
+        stream.data.insert(
             0, {"type": "paragraph", "value": "hello kitty says", "id": "0004"}
         )
-        raw_data = block.get_prep_value(stream)
+        data = block.get_prep_value(stream)
         self.assertEqual(
-            raw_data,
+            data,
             [
                 {"type": "paragraph", "value": "hello kitty says", "id": "0004"},
                 {"type": "heading", "value": "konnichiwa", "id": "0003"},
+            ],
+        )
+
+    def test_streamvalue_raw_data(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python(
+            [
+                {"type": "heading", "value": "goodbye", "id": "0001"},
+                {"type": "unknown", "value": "cruel", "id": "0002"},
+                {"type": "paragraph", "value": "world", "id": "0003"},
+            ]
+        )
+
+        self.assertEqual(
+            stream.raw_data[0], {"type": "heading", "value": "goodbye", "id": "0001"}
+        )
+        stream.raw_data[0]["value"] = "farewell"
+        self.assertEqual(
+            stream.raw_data[0], {"type": "heading", "value": "farewell", "id": "0001"}
+        )
+        # changes made via raw_data are not reflected in data
+        self.assertEqual(stream.data[0]["value"], "goodbye")
+
+        # changes to raw_data will be written back via get_prep_value...
+        data = block.get_prep_value(stream)
+        self.assertEqual(
+            data,
+            [
+                {"type": "heading", "value": "farewell", "id": "0001"},
+                {"type": "unknown", "value": "cruel", "id": "0002"},
+                {"type": "paragraph", "value": "world", "id": "0003"},
             ],
         )
 
