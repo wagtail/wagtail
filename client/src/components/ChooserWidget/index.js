@@ -105,10 +105,15 @@ export class Chooser {
     return this.chooserBaseUrl;
   }
 
+  getModalUrlParams() {
+    return null;
+  }
+
   openChooserModal() {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getModalUrl(),
+      urlParams: this.getModalUrlParams(),
       onload: this.modalOnloadHandlers,
       responses: {
         [this.chosenResponseName]: (result) => {
