@@ -735,14 +735,35 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse("wagtailadmin_explore", args=[self.events_page.id])
         )
+        html = response.content.decode()
 
         self.assertContains(response, 'id="status-sidebar-english"')
         self.assertContains(response, "Switch locales")
+
+        add_translation_url = reverse(
+            "wagtailadmin_explore", args=[self.translated_events_page.id]
+        )
+        self.assertTagInHTML(
+            f'<a href="{add_translation_url}" lang="fr">French</a>',
+            html,
+            allow_extra_attrs=True,
+        )
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.client.get(
             reverse("wagtailadmin_explore", args=[self.events_page.id])
         )
+        html = response.content.decode()
 
         self.assertNotContains(response, "Switch locales")
+
+        add_translation_url = reverse(
+            "wagtailadmin_explore", args=[self.translated_events_page.id]
+        )
+        self.assertTagInHTML(
+            f'<a href="{add_translation_url}" lang="fr">French</a>',
+            html,
+            allow_extra_attrs=True,
+            count=0,
+        )
