@@ -4,6 +4,7 @@ export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
 
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
+  editLinkStateKey = 'edit_link'; // key used in the 'state' dictionary to hold the URL of the edit page
   chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
@@ -42,7 +43,7 @@ export class Chooser {
     if (this.input.value) {
       const state = {
         id: this.input.value,
-        edit_link: this.editLink.getAttribute('href'),
+        [this.editLinkStateKey]: this.editLink.getAttribute('href'),
       };
       if (this.titleElement && this.titleStateKey) {
         state[this.titleStateKey] = this.titleElement.innerText;
@@ -85,7 +86,7 @@ export class Chooser {
       this.titleElement.innerText = newState[this.titleStateKey];
     }
     this.chooserElement.classList.remove('blank');
-    this.editLink.setAttribute('href', newState.edit_link);
+    this.editLink.setAttribute('href', newState[this.editLinkStateKey]);
   }
 
   getTextLabel(opts) {
