@@ -45,7 +45,7 @@ export class Chooser {
         id: this.input.value,
       };
       if (this.titleElement && this.titleStateKey) {
-        state[this.titleStateKey] = this.titleElement.innerText;
+        state[this.titleStateKey] = this.titleElement.textContent;
       }
       if (this.editLink && this.editLinkStateKey) {
         state[this.editLinkStateKey] = this.editLink.getAttribute('href');
@@ -85,7 +85,7 @@ export class Chooser {
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
     if (this.titleElement && this.titleStateKey) {
-      this.titleElement.innerText = newState[this.titleStateKey];
+      this.titleElement.textContent = newState[this.titleStateKey];
     }
     this.chooserElement.classList.remove('blank');
     if (this.editLink) {
