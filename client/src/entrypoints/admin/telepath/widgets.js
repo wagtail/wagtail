@@ -127,7 +127,7 @@ class Select extends Widget {
 }
 window.telepath.register('wagtail.widgets.Select', Select);
 
-class PageChooser {
+class PageChooserFactory {
   constructor(html, idPattern, config) {
     this.html = html;
     this.idPattern = idPattern;
@@ -138,14 +138,14 @@ class PageChooser {
     var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     var dom = $(html);
     $(placeholder).replaceWith(dom);
-    /* the chooser object returned by createPageChooser also serves as the JS widget representation */
+    /* the PageChooser object also serves as the JS widget representation */
     // eslint-disable-next-line no-undef
-    const chooser = createPageChooser(id, null, this.config);
+    const chooser = new PageChooser(id, null, this.config);
     chooser.setState(initialState);
     return chooser;
   }
 }
-window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
+window.telepath.register('wagtail.widgets.PageChooser', PageChooserFactory);
 
 class AdminAutoHeightTextInput extends Widget {
   render(placeholder, name, id, initialState, parentCapabilities) {

@@ -314,7 +314,7 @@ class AdminPageChooser(BaseChooser):
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}
-        return "createPageChooser({id}, {parent}, {options});".format(
+        return "new PageChooser({id}, {parent}, {options});".format(
             id=json.dumps(id_),
             parent=json.dumps(value_data.get("parent_id")),
             options=json.dumps(self.client_options),
