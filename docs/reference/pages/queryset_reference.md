@@ -1,36 +1,31 @@
-=======================
-Page QuerySet reference
-=======================
+# Page QuerySet reference
 
-All models that inherit from :class:`~wagtail.models.Page` are given some extra QuerySet methods accessible from their ``.objects`` attribute.
+All models that inherit from {class}`~wagtail.models.Page` are given some extra QuerySet methods accessible from their `.objects` attribute.
 
+## Examples
 
-Examples
-========
+### Selecting only live pages
 
-- Selecting only live pages
+```python
+live_pages = Page.objects.live()
+```
 
-  .. code-block:: python
+### Selecting published EventPages that are descendants of events_index
 
-      live_pages = Page.objects.live()
+```python
+events = EventPage.objects.live().descendant_of(events_index)
+```
 
-- Selecting published EventPages that are descendants of events_index
+### Getting a list of menu items
 
-  .. code-block:: python
+```python
+# This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
+menu_items = homepage.get_children().live().in_menu()
+```
 
-      events = EventPage.objects.live().descendant_of(events_index)
+## Reference
 
-- Getting a list of menu items
-
-  .. code-block:: python
-
-      # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
-      menu_items = homepage.get_children().live().in_menu()
-
-
-Reference
-=========
-
+```{eval-rst}
 .. automodule:: wagtail.query
 .. autoclass:: PageQuerySet
 
@@ -285,3 +280,4 @@ Reference
             homepage.get_children().defer_streamfields().specific()
 
     .. automethod:: first_common_ancestor
+```
