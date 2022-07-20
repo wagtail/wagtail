@@ -542,6 +542,7 @@ class History(ReportView):
     template_name = "wagtailsnippets/snippets/history.html"
     title = gettext_lazy("Snippet history")
     header_icon = "history"
+    is_searchable = False
     paginate_by = 20
     filterset_class = SnippetHistoryReportFilterSet
     table_class = InlineActionsTable
