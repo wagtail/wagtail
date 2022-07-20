@@ -23,7 +23,11 @@ from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexV
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
 from wagtail.admin.views.generic.models import RevisionsCompareView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.generic.preview import PreviewOnCreate, PreviewOnEdit
+from wagtail.admin.views.generic.preview import (
+    PreviewOnCreate,
+    PreviewOnEdit,
+    PreviewRevision,
+)
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
@@ -521,6 +525,7 @@ class ActionColumn(Column):
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["revision_enabled"] = isinstance(self.object, RevisionMixin)
+        context["preview_enabled"] = isinstance(self.object, PreviewableMixin)
         context["object"] = self.object
         context["view"] = self.view
         return context
@@ -530,6 +535,7 @@ class History(ReportView):
     view_name = "history"
     index_url_name = None
     edit_url_name = None
+    revisions_view_url_name = None
     revisions_revert_url_name = None
     revisions_compare_url_name = None
     any_permission_required = ["add", "change", "delete"]
@@ -574,6 +580,10 @@ class History(ReportView):
         )
 
 
+class RevisionsView(PermissionCheckedMixin, PreviewRevision):
+    permission_required = "change"
+
+
 class RevisionsCompare(PermissionCheckedMixin, RevisionsCompareView):
     permission_required = "change"
     header_icon = "snippet"
@@ -598,6 +608,7 @@ class SnippetViewSet(ViewSet):
     delete_view_class = Delete
     usage_view_class = Usage
     history_view_class = History
+    revisions_view_class = RevisionsView
     revisions_compare_view_class = RevisionsCompare
     preview_on_add_view_class = PreviewOnCreate
     preview_on_edit_view_class = PreviewOnEdit
@@ -688,8 +699,16 @@ class SnippetViewSet(ViewSet):
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
+            revisions_view_url_name=self.get_url_name("revisions_view"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
+        )
+
+    @property
+    def revisions_view(self):
+        return self.revisions_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
         )
 
     @property
@@ -764,6 +783,15 @@ class SnippetViewSet(ViewSet):
             ]
 
         if issubclass(self.model, RevisionMixin):
+            if issubclass(self.model, PreviewableMixin):
+                urlpatterns += [
+                    path(
+                        "history/<str:pk>/revisions/<int:revision_id>/view/",
+                        self.revisions_view,
+                        name="revisions_view",
+                    )
+                ]
+
             urlpatterns += [
                 path(
                     "history/<str:pk>/revisions/<int:revision_id>/revert/",
