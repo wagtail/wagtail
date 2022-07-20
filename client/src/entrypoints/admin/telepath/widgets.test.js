@@ -301,10 +301,17 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
     expect(document.querySelector('input').value).toBe('');
   });
 
-  test('focus() focuses the input', () => {
+  test('focus() focuses the choose-another-page button when widget is populated', () => {
     boundWidget.focus();
 
-    // Note: This widget always focuses the unchosen button, even if it has a value
+    expect(document.activeElement).toBe(
+      document.querySelector('.chosen button'),
+    );
+  });
+  test('focus() focuses the choose-a-page button when widget is blank', () => {
+    boundWidget.setState(null);
+    boundWidget.focus();
+
     expect(document.activeElement).toBe(
       document.querySelector('.unchosen button'),
     );

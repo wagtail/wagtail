@@ -103,7 +103,11 @@ export class Chooser {
   }
 
   focus() {
-    this.chooserElement.querySelector('.action-choose').focus();
+    if (this.state) {
+      this.chooserElement.querySelector('.chosen .action-choose').focus();
+    } else {
+      this.chooserElement.querySelector('.unchosen .action-choose').focus();
+    }
   }
 
   getModalUrl() {
