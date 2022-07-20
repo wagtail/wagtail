@@ -37,6 +37,9 @@
     @include media-breakpoint-up(sm) {
       width: 600px;
     }
+    @media (forced-colors: $media-forced-colours) {
+      border: 5px solid currentColor;
+    }
   }
 
   &__close-button {
@@ -104,6 +107,10 @@
     display: flex;
     align-items: center;
     padding: theme('spacing.5');
+
+    @media (forced-colors: $media-forced-colours) {
+      border-bottom: 1px solid currentColor;
+    }
 
     &--info {
       background: theme('colors.info.50');
