@@ -121,3 +121,34 @@ class PreviewOnCreate(PreviewOnEdit):
 
     def get_object(self):
         return self.model()
+
+
+class PreviewRevision(View):
+    model = None
+    http_method_names = ("get",)
+
+    def setup(self, request, pk, revision_id, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = pk
+        self.revision_id = revision_id
+        self.object = self.get_object()
+        self.revision_object = self.get_revision_object()
+
+    def get_object(self):
+        if not issubclass(self.model, RevisionMixin):
+            raise Http404
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_revision_object(self):
+        revision = get_object_or_404(self.object.revisions, id=self.revision_id)
+        return revision.as_object()
+
+    def get(self, request, *args, **kwargs):
+        try:
+            preview_mode = request.GET.get(
+                "mode", self.revision_object.default_preview_mode
+            )
+        except IndexError:
+            raise PermissionDenied
+
+        return self.revision_object.make_preview_request(request, preview_mode)
