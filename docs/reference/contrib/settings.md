@@ -1,3 +1,5 @@
+(site_settings)=
+
 # Settings
 
 The `wagtail.contrib.settings` module allows you to define models that hold
@@ -83,7 +85,7 @@ class SiteSpecificImportantPages(BaseSiteSetting):
     ]
 ```
 
-You can also customise the edit handlers [like you would do for `Page` model](/advanced_topics/customisation/page_editing_interface.html#customising-the-tabbed-interface) with a custom `edit_handler` attribute:
+You can also customise the edit handlers [like you would do for `Page` model](customising_the_tabbed_interface) with a custom `edit_handler` attribute:
 
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList
@@ -126,7 +128,7 @@ class SiteSpecificSocialMediaSettings(BaseSiteSetting):
         verbose_name = "Site-specific social media settings"
 ```
 
-For a list of all available icons, please see the [styleguide](/contributing//styleguide.html).
+For a list of all available icons, please see the [styleguide](styleguide).
 
 ## Using the settings
 
