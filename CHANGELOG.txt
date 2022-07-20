@@ -76,6 +76,7 @@ Changelog
  * Add an extra confirmation prompt when deleting pages with a large number of child pages (Jaspreet Singh)
  * Adopt the slim header in page listing views, with buttons moved under the "Actions" dropdown (Paarth Agarwal)
  * Improve help block styles in Windows High Contrast Mode with less reliance on communication via colour alone (Anuja Verma)
+ * Add a bottom border to top messages so they stand out from the header (Anuja Verma)
  * Replace latin abbreviations (i.e. / e.g.) with common English phrases so that documentation is easier to understand (Dominik Lech)
  * Add shortcut for accessing StreamField blocks by block name with new `blocks_by_name` and `first_block_by_name` methods on `StreamValue` (Tidiane Dia, Matt Westcott)
  * Extend support for custom user interface colours across almost all admin colours (Thibaud Colas)
