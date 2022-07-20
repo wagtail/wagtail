@@ -66,7 +66,7 @@ class SnippetSidePanels(BaseSidePanels):
                 SnippetStatusSidePanel(object, request),
             ]
 
-        if isinstance(object, PreviewableMixin) and object.preview_modes:
+        if isinstance(object, PreviewableMixin) and object.is_previewable():
             self.side_panels += [
                 SnippetPreviewSidePanel(object, request),
             ]

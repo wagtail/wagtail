@@ -193,7 +193,7 @@ class PageSidePanels(BaseSidePanels):
             PageStatusSidePanel(page, self.request, in_explorer=in_explorer),
         ]
 
-        if preview_enabled and page.preview_modes:
+        if preview_enabled and page.is_previewable():
             self.side_panels += [
                 PagePreviewSidePanel(page, self.request),
             ]
