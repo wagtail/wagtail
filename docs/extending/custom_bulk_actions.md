@@ -206,3 +206,33 @@ from wagtail import hooks
 class CustomUserBulkAction(UserBulkAction):
     ...
 ```
+
+## Adding bulk actions to the snippets listing
+
+When creating a custom bulk action class for snippets, subclass from `wagtail.snippets.bulk_actions.snippet_bulk_action.SnippetBulkAction`
+instead of `wagtail.admin.views.bulk_action.BulkAction`
+
+### Basic example
+
+```python
+from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
+from wagtail import hooks
+
+
+@hooks.register('register_bulk_action')
+class CustomSnippetBulkAction(SnippetBulkAction):
+    # ...
+```
+
+If you want to apply an action only to certain snippets, override the `models` list in the action class
+
+```python
+from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
+from wagtail import hooks
+
+
+@hooks.register('register_bulk_action')
+class CustomSnippetBulkAction(SnippetBulkAction):
+    models = [SnippetA, SnippetB]
+    # ...
+```
