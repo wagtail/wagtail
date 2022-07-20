@@ -440,12 +440,12 @@ database queries making them unable to be edited or viewed.
     .. automethod:: get_display_name
 ```
 
-### Translatable Mixin
+## Translatable Mixin
 
 `TranslatableMixin` is an abstract model that can be added to any non-page Django model to make it translatable.
 Pages already include this mixin, so there is no need to add it.
 
-#### Methods and properties
+### Methods and properties
 
 The `locale` and `translation_key` fields have a unique key constraint to prevent the object being translated into a language more than once.
 
@@ -667,7 +667,7 @@ The model has been renamed from ``PageRevision`` to ``Revision`` and it now refe
         (text)
 ```
 
-##`Orderable` (abstract)
+## `Orderable` (abstract)
 
 ### Database fields
 

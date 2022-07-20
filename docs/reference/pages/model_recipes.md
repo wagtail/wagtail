@@ -40,7 +40,7 @@ With this strategy, you could use Django or Python utilities to render your mode
 ### Adding Endpoints with Custom {meth}`~wagtail.models.Page.route` Methods
 
 ```{note}
-A much simpler way of adding more endpoints to pages is provided by the :mod:`~wagtail.contrib.routable_page` module.
+A much simpler way of adding more endpoints to pages is provided by the :py:mod:`routable_page <wagtail.contrib.routable_page>` module.
 ```
 
 Wagtail routes requests by iterating over the path components (separated with a forward slash `/`), finding matching objects based on their slug, and delegating further routing to that object's model class. The Wagtail source is very instructive in figuring out what's happening. This is the default `route()` method of the `Page` class:
@@ -194,7 +194,7 @@ Here, `blog_entries.filter(tags__name=tag)` follows the `tags` relation on `Blog
 
 Iterating through `page.tags.all` will display each tag associated with `page`, while the links back to the index make use of the filter option added to the `BlogIndexPage` model. A Django query could also use the `tagged_items` related name field to get `BlogPage` objects associated with a tag.
 
-The same approach can be used to add tagging to non-page models managed through :ref:`snippets` and :doc:`/reference/contrib/modeladmin/index`. In this case, the model must inherit from `modelcluster.models.ClusterableModel` to be compatible with `ClusterTaggableManager`.
+The same approach can be used to add tagging to non-page models managed through [](snippets) and :doc:`../contrib/modeladmin/index`. In this case, the model must inherit from `modelcluster.models.ClusterableModel` to be compatible with `ClusterTaggableManager`.
 
 ### Custom tag models
 
