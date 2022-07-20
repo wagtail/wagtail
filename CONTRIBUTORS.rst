@@ -516,7 +516,7 @@ Contributors
 * Kevin Breen
 * Ihor Marhitych
 * Andre Fonseca
-* Tidjani Dia
+* Tidiane Dia
 * Jan Seifert
 * hardcodd
 * Chris Pollard
