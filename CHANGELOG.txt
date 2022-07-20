@@ -105,6 +105,7 @@ Changelog
  * Fix: Make progress bars’ progress visible in forced colors mode (Anuja Verma)
  * Fix: Make checkboxes visible in forced colors mode (Anuja Verma)
  * Fix: Display the correct color for icons in forced colors mode (Anuja Verma)
+ * Fix: Add a border around modal dialogs so they can be identified in forced colors mode (Anuja Verma)
  * Fix: Remove outdated reference to 30-character limit on usernames in help text (minusf)
  * Fix: Resolve multiple form submissions index listing page layout issues including title not being visible on mobile and interaction with large tables (Paarth Agarwal)
  * Fix: Ensure ModelAdmin single selection lists show correctly with Django 4.0 form template changes (Coen van der Kamp)
