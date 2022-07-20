@@ -63,6 +63,7 @@ from wagtail.models import (
     Page,
     PageManager,
     PageQuerySet,
+    PreviewableMixin,
     RevisionMixin,
     Task,
     TranslatableMixin,
@@ -981,6 +982,58 @@ class DraftStateModel(DraftStateMixin, RevisionMixin, models.Model):
 
 
 register_snippet(DraftStateModel)
+
+
+# Models with PreviewableMixin
+class PreviewableModel(PreviewableMixin, ClusterableModel):
+    text = models.TextField()
+    categories = ParentalManyToManyField(EventCategory, blank=True)
+
+    def __str__(self):
+        return self.text
+
+    def get_preview_template(self, request, mode_name, *args, **kwargs):
+        return "tests/previewable_model.html"
+
+
+register_snippet(PreviewableModel)
+
+
+class MultiPreviewModesModel(PreviewableMixin, RevisionMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    @property
+    def preview_modes(self):
+        return [("", "Normal"), ("alt#1", "Alternate")]
+
+    @property
+    def default_preview_mode(self):
+        return "alt#1"
+
+    def get_preview_template(self, request, mode_name, *args, **kwargs):
+        templates = {
+            "": "tests/previewable_model.html",
+            "alt#1": "tests/previewable_model_alt.html",
+        }
+        return templates.get(mode_name, templates[""])
+
+
+register_snippet(MultiPreviewModesModel)
+
+
+class NonPreviewableModel(PreviewableMixin, RevisionMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    preview_modes = []
+
+
+register_snippet(NonPreviewableModel)
 
 
 class StandardIndex(Page):
