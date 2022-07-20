@@ -1,19 +1,18 @@
-===============
-Model Reference
-===============
+# Model Reference
 
+```{eval-rst}
 .. automodule:: wagtail.models
+```
 
-This document contains reference information for the model classes inside the ``wagtailcore`` module.
+This document contains reference information for the model classes inside the `wagtailcore` module.
 
-.. _page_model_ref:
+(page_model_ref)=
 
-``Page``
-========
+## `Page`
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: Page
 
     .. attribute:: title
@@ -145,18 +144,17 @@ Database fields
         when a new page is created and copied when a translation of a page is made.
 
         A translation_key value can only be used on one page in each locale.
+```
 
+### Methods and properties
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+In addition to the model fields provided, `Page` has many properties and methods that you may wish to reference, use, or override in creating your own models.
 
-In addition to the model fields provided, ``Page`` has many properties and methods that you may wish to reference, use, or override in creating your own models.
+```{note}
+See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/index.html)'s `node API [https://django-treebeard.readthedocs.io/en/latest/api.html](https://django-treebeard.readthedocs.io/en/latest/api.html). ``Page`` is a subclass of [materialized path tree](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) nodes.
+```
 
-.. note::
-
-    See also `django-treebeard <https://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <https://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
-
-
+```{eval-rst}
 .. class:: Page
     :noindex:
 
@@ -329,20 +327,19 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. autoattribute:: current_workflow_task_state
 
     .. autoattribute:: current_workflow_task
+```
 
-.. _site-model-ref:
+(site_model_ref)=
 
-``Site``
-========
+## `Site`
 
-The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
+The `Site` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
 
-The :meth:`~wagtail.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
+The {meth}`~wagtail.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
 
+### Database fields
 
-Database fields
-~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: Site
 
     .. attribute:: hostname
@@ -384,10 +381,11 @@ Database fields
         This is set to ``True`` if the site is the default. Only one site can be the default.
 
         The default site is used as a fallback in situations where a site with the required hostname/port couldn't be found.
+```
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+### Methods and properties
 
+```{eval-rst}
 .. class:: Site
     :noindex:
 
@@ -404,34 +402,32 @@ Methods and properties
         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (for example ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
+```
 
+## Locale
 
-Locale
-======
+The `Locale` model defines the set of languages and/or locales that can be used on a site.
+Each `Locale` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
 
-The ``Locale`` model defines the set of languages and/or locales that can be used on a site.
-Each ``Locale`` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
+Wagtail will initially set up one `Locale` to act as the default language for all existing content.
+This first locale will automatically pick the value from `WAGTAIL_CONTENT_LANGUAGES` that most closely matches the site primary language code defined in `LANGUAGE_CODE`.
+If the primary language code is changed later, Wagtail will **not** automatically create a new `Locale` record or update an existing one.
 
-Wagtail will initially set up one ``Locale`` to act as the default language for all existing content.
-This first locale will automatically pick the value from ``WAGTAIL_CONTENT_LANGUAGES`` that most closely matches the site primary language code defined in ``LANGUAGE_CODE``.
-If the primary language code is changed later, Wagtail will **not** automatically create a new ``Locale`` record or update an existing one.
-
-Before internationalisation is enabled, all pages use this primary ``Locale`` record.
+Before internationalisation is enabled, all pages use this primary `Locale` record.
 This is to satisfy the database constraints, and makes it easier to switch internationalisation on at a later date.
 
-Changing ``WAGTAIL_CONTENT_LANGUAGES``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Changing `WAGTAIL_CONTENT_LANGUAGES`
 
-Languages can be added or removed from ``WAGTAIL_CONTENT_LANGUAGES`` over time.
+Languages can be added or removed from `WAGTAIL_CONTENT_LANGUAGES` over time.
 
-Before removing an option from ``WAGTAIL_CONTENT_LANGUAGES``, it's important that the ``Locale``
+Before removing an option from `WAGTAIL_CONTENT_LANGUAGES`, it's important that the `Locale`
 record is updated to a use a different content language or is deleted.
-Any ``Locale`` instances that have invalid content languages are automatically filtered out from all
+Any `Locale` instances that have invalid content languages are automatically filtered out from all
 database queries making them unable to be edited or viewed.
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+### Methods and properties
 
+```{eval-rst}
 .. class:: Locale
     :noindex:
 
@@ -442,19 +438,18 @@ Methods and properties
     .. automethod:: get_active
 
     .. automethod:: get_display_name
+```
 
+### Translatable Mixin
 
-Translatable Mixin
-==================
-
-``TranslatableMixin`` is an abstract model that can be added to any non-page Django model to make it translatable.
+`TranslatableMixin` is an abstract model that can be added to any non-page Django model to make it translatable.
 Pages already include this mixin, so there is no need to add it.
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+#### Methods and properties
 
-The ``locale`` and ``translation_key`` fields have a unique key constraint to prevent the object being translated into a language more than once.
+The `locale` and `translation_key` fields have a unique key constraint to prevent the object being translated into a language more than once.
 
+```{eval-rst}
 .. class:: TranslatableMixin
     :noindex:
 
@@ -484,26 +479,25 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
     .. automethod:: get_translation_model
 
     .. autoattribute:: localized
+```
 
+(revision_model_ref)=
 
-.. _revision_model_ref:
+## `Revision`
 
-``Revision``
-============
+Every time a page is edited, a new `Revision` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
-Every time a page is edited, a new ``Revision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
+-   Revisions can be created from any {class}`~wagtail.models.Page` object by calling its {meth}`~Page.save_revision` method
+-   The content of the page is JSON-serialisable and stored in the {attr}`~Revision.content` field
+-   You can retrieve a `Revision` as a {class}`~wagtail.models.Page` object by calling the {meth}`~Revision.as_object` method
 
-- Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
-- The content of the page is JSON-serialisable and stored in the :attr:`~Revision.content` field
-- You can retrieve a ``Revision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~Revision.as_object` method
+```{versionchanged} 4.0
+The model has been renamed from ``PageRevision`` to ``Revision`` and it now references the ``Page`` model using a {class}`~django.contrib.contenttypes.fields.GenericForeignKey`.
+```
 
-.. versionchanged:: 4.0
+### Database fields
 
-    The model has been renamed from ``PageRevision`` to ``Revision`` and it now references the ``Page`` model using a :class:`~django.contrib.contenttypes.fields.GenericForeignKey`.
-
-Database fields
-~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: Revision
 
     .. attribute:: content_object
@@ -558,10 +552,11 @@ Database fields
 
           The field has been renamed from ``content_json`` to ``content`` and it now uses :class:`~django.db.models.JSONField` instead of
           :class:`~django.db.models.TextField`.
+```
 
-Managers
-~~~~~~~~
+### Managers
 
+```{eval-rst}
 .. class:: Revision
     :noindex:
 
@@ -599,10 +594,11 @@ Managers
         .. code-block:: python
 
             Revision.submitted_revisions.all()
+```
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+### Methods and properties
 
+```{eval-rst}
 .. class:: Revision
     :noindex:
 
@@ -633,13 +629,13 @@ Methods and properties
     .. autoattribute:: base_content_object
 
         This property returns the object this revision belongs to as an instance of the base class.
+```
 
-``GroupPagePermission``
-=======================
+## `GroupPagePermission`
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: GroupPagePermission
 
     .. attribute:: group
@@ -653,13 +649,13 @@ Database fields
     .. attribute:: permission_type
 
         (choice list)
+```
 
-``PageViewRestriction``
-=======================
+## `PageViewRestriction`
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: PageViewRestriction
 
     .. attribute:: page
@@ -669,28 +665,27 @@ Database fields
     .. attribute:: password
 
         (text)
+```
 
-``Orderable`` (abstract)
-========================
+##`Orderable` (abstract)
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: Orderable
 
     .. attribute:: sort_order
 
         (number)
+```
 
-
-``Workflow``
-============
+## `Workflow`
 
 Workflows represent sequences of tasks which much be approved for an action to be performed on a page - typically publication.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: Workflow
 
     .. attribute:: name
@@ -704,11 +699,11 @@ Database fields
         (boolean)
 
         Whether or not the workflow is active: active workflows can be added to pages, and started. Inactive workflows cannot.
+```
 
+### Methods and properties
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: Workflow
     :noindex:
 
@@ -719,16 +714,15 @@ Methods and properties
     .. automethod:: deactivate
 
     .. automethod:: all_pages
+```
 
-
-``WorkflowState``
-=================
+## `WorkflowState`
 
 Workflow states represent the status of a started workflow on a page.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: WorkflowState
 
     .. attribute:: page
@@ -766,10 +760,11 @@ Database fields
         (foreign key to ``TaskState``)
 
         The ``TaskState`` model for the task the workflow is currently at: either completing (if in progress) or the final task state (if finished)
+```
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+### Methods and properties
 
+```{eval-rst}
 .. class:: WorkflowState
     :noindex:
 
@@ -793,16 +788,15 @@ Methods and properties
     .. automethod:: all_tasks_with_status
 
     .. automethod:: revisions
+```
 
-
-``Task``
-========
+## `Task`
 
 Tasks represent stages in a workflow which must be approved for the workflow to complete successfully.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: Task
 
     .. attribute:: name
@@ -823,11 +817,11 @@ Database fields
         (foreign key to ``django.contrib.contenttypes.models.ContentType``)
 
         A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this task.
+```
 
+### Methods and properties
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: Task
     :noindex:
 
@@ -866,16 +860,15 @@ Methods and properties
     .. automethod:: get_template_for_action
 
     .. automethod:: get_description
+```
 
-
-``TaskState``
-=============
+## `TaskState`
 
 Task states store state information about the progress of a task on a particular page revision.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: TaskState
 
     .. attribute:: workflow_state
@@ -931,11 +924,11 @@ Database fields
         (text)
 
         A text comment, typically added by a user when the task is completed.
+```
 
+### Methods and properties
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: TaskState
     :noindex:
 
@@ -961,15 +954,15 @@ Methods and properties
     .. automethod:: copy
 
     .. automethod:: get_comment
+```
 
-``WorkflowTask``
-================
+## `WorkflowTask`
 
 Represents the ordering of a task in a specific workflow.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: WorkflowTask
 
     .. attribute:: workflow
@@ -985,15 +978,15 @@ Database fields
         (number)
 
         The ordering of the task in the workflow.
+```
 
-``WorkflowPage``
-================
+## `WorkflowPage`
 
 Represents the assignment of a workflow to a page and its descendants.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: WorkflowPage
 
     .. attribute:: workflow
@@ -1003,15 +996,15 @@ Database fields
     .. attribute:: page
 
         (foreign key to ``Page``)
+```
 
-``BaseLogEntry``
-================
+## `BaseLogEntry`
 
 An abstract base class that represents a record of an action performed on an object.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: BaseLogEntry
 
     .. attribute:: content_type
@@ -1069,10 +1062,11 @@ Database fields
         (boolean)
 
         A boolean that can set to ``True`` when the object is deleted. Used to filter entries in the Site History report.
+```
 
-Methods and properties
-~~~~~~~~~~~~~~~~~~~~~~
+### Methods and properties
 
+```{eval-rst}
 .. class:: BaseLogEntry
     :noindex:
 
@@ -1083,17 +1077,15 @@ Methods and properties
     .. autoattribute:: object_verbose_name
 
     .. automethod:: object_id
+```
 
+## `PageLogEntry`
 
+Represents a record of an action performed on an {class}`Page`, subclasses {class}`BaseLogEntry`.
 
-``PageLogEntry``
-================
+### Database fields
 
-Represents a record of an action performed on an :class:`Page`, subclasses :class:`BaseLogEntry`.
-
-Database fields
-~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: PageLogEntry
 
     .. attribute:: page
@@ -1101,17 +1093,15 @@ Database fields
         (foreign key to :class:`Page`)
 
         A foreign key to the page the action is performed on.
+```
 
-
-
-``Comment``
-===========
+## `Comment`
 
 Represents a comment on a page.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: Comment
 
     .. attribute:: page
@@ -1175,17 +1165,15 @@ Database fields
         (foreign key to user model)
 
         A foreign key to the user who resolved this comment, if any.
+```
 
-
-
-``CommentReply``
-================
+## `CommentReply`
 
 Represents a reply to a comment thread.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: CommentReply
 
     .. attribute:: comment
@@ -1217,18 +1205,16 @@ Database fields
         (date/time)
 
         The date/time when the comment was updated.
+```
 
-
-
-``PageSubscription``
-====================
+## `PageSubscription`
 
 Represents a user's subscription to email notifications about page events.
 Currently only used for comment notifications.
 
-Database fields
-~~~~~~~~~~~~~~~
+### Database fields
 
+```{eval-rst}
 .. class:: PageSubscription
 
     .. attribute:: page
@@ -1245,3 +1231,4 @@ Database fields
 
         Whether the user should receive comment notifications for all comments,
         or just comments in threads they participate in.
+```
