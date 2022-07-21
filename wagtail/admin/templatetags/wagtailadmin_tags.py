@@ -444,7 +444,7 @@ def pagination_querystring(context, page_number, page_key="p"):
 @register.inclusion_tag(
     "wagtailadmin/pages/listing/_pagination.html", takes_context=True
 )
-def paginate(context, page, base_url="", page_key="p", classnames=""):
+def paginate(context, page, base_url="", page_key="p", classname=""):
     """
     Print pagination previous/next links, and the page count. Take the
     following arguments:
@@ -461,13 +461,13 @@ def paginate(context, page, base_url="", page_key="p", classnames=""):
     page_key
         The name of the page variable in the query string. Defaults to 'p'.
 
-    classnames
+    classname
         Extra classes to add to the next/previous links.
     """
     request = context["request"]
     return {
         "base_url": base_url,
-        "classnames": classnames,
+        "classname": classname,
         "request": request,
         "page": page,
         "page_key": page_key,
