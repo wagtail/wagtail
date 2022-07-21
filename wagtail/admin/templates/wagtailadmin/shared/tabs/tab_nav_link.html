@@ -1,15 +1,15 @@
 {% load i18n %}
 
-{% comment %}
+{% comment "text/markdown" %}
     Variables accepted by this template:
 
     - `tab_id` - {string} A unique tab id consisting only of ASCII alphanumerics, dashes and underscores
     - `title` - {string} Text that the tab button will display
     - `active` - {boolean?} Force this to be active
-    - `classes` - {string?} Extra css classes to pass to this component
+    - `classname` - {string?} Extra css classes to pass to this component
 {% endcomment %}
 
-<a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classes }}" role="tab" aria-selected="false" tabindex="-1">
+<a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classname }}" role="tab" aria-selected="false" tabindex="-1">
     {{ title }}
     <div data-tabs-errors class="w-tabs__errors">
         <span data-tabs-errors-count aria-hidden="true"></span>
