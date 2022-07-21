@@ -25,3 +25,51 @@ Examples:
 
 -   Django templates - `lower_snake_case.html`
 -   Documentation - `lower_snake_case.md`
+
+## Naming conventions
+
+### Use `classname` in Python / HTML template tag variables
+
+`classname` is preferred for any API / interface or Django template variables that need to output an HTML class.
+
+#### Django template tag
+
+```django+html
+{% dialog_toggle classname='button button-primary' %}
+```
+
+```django+html
+<button type="button" class="{{ classname }}" data-a11y-dialog-show="{{ dialog_id }}">
+    {{ text }}
+</button>
+```
+
+```python
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog_toggle.html")
+def dialog_toggle(dialog_id, classname="", text=None):
+    return {
+        "classname": classname,
+        "text": text,
+    }
+```
+
+### Python / Django class driven content
+
+```python
+class Panel:
+    def __init__(self, heading="", classname="", help_text="", base_form_class=None):
+        self.heading = heading
+        self.classname = classname
+```
+
+#### Details
+
+| Convention    | Usage                                                                                                               |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `classname`   | ✅ Preferred for any new code.                                                                                      |
+| `class`       | ✳️ Only if used as part of a generic `attrs`-like dict; however avoid due to conflicts with Python `class` keyword. |
+| `classnames`  | ❌ Avoid for new code.                                                                                              |
+| `class_name`  | ✳️ Some existing code may use this; avoid for new code.                                                             |
+| `class_names` | ❌ Avoid for new code.                                                                                              |
+| `className`   | ❌ Avoid for new code.                                                                                              |
+| `classNames`  | ❌ Avoid for new code.                                                                                              |
