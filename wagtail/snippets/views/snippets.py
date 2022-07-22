@@ -81,6 +81,8 @@ class Index(IndexView):
     template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
+    index_url_name = "wagtailsnippets:index"
+    default_ordering = "name"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -88,7 +90,11 @@ class Index(IndexView):
 
     def _get_snippet_types(self):
         return [
-            model
+            {
+                "name": capfirst(model._meta.verbose_name_plural),
+                "count": model.objects.all().count(),
+                "model": model,
+            }
             for model in get_snippet_models()
             if user_can_edit_snippet_type(self.request.user, model)
         ]
@@ -98,8 +104,8 @@ class Index(IndexView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
-    def get_list_url(self, model):
-        return reverse(model.get_admin_url_namespace() + ":list")
+    def get_list_url(self, type):
+        return reverse(type["model"].get_admin_url_namespace() + ":list")
 
     def get_queryset(self):
         return None
@@ -109,21 +115,33 @@ class Index(IndexView):
             TitleColumn(
                 "name",
                 label=_("Name"),
-                accessor=lambda model: capfirst(model._meta.verbose_name_plural),
                 get_url=self.get_list_url,
+                sort_key="name",
             ),
             Column(
                 "count",
                 label=_("Instances"),
-                accessor=lambda model: model.objects.all().count(),
+                sort_key="count",
             ),
         ]
 
     def get_context_data(self, **kwargs):
-        snippet_types = sorted(
-            self.snippet_types,
-            key=lambda model: model._meta.verbose_name.lower(),
-        )
+        ordering = self.get_ordering()
+        reverse = ordering[0] == "-"
+
+        if ordering in ["count", "-count"]:
+            snippet_types = sorted(
+                self.snippet_types,
+                key=lambda type: type["count"],
+                reverse=reverse,
+            )
+        else:
+            snippet_types = sorted(
+                self.snippet_types,
+                key=lambda type: type["name"].lower(),
+                reverse=reverse,
+            )
+
         return super().get_context_data(object_list=snippet_types)
 
 
