@@ -713,7 +713,7 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
-    def revisions_revert(self):
+    def revisions_revert_view(self):
         return self.revisions_revert_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
@@ -725,7 +725,7 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
-    def revisions_compare(self):
+    def revisions_compare_view(self):
         return self.revisions_compare_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
@@ -734,15 +734,15 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
-    def preview_on_add(self):
+    def preview_on_add_view(self):
         return self.preview_on_add_view_class.as_view(model=self.model)
 
     @property
-    def preview_on_edit(self):
+    def preview_on_edit_view(self):
         return self.preview_on_edit_view_class.as_view(model=self.model)
 
     @property
-    def redirect_to_edit(self):
+    def redirect_to_edit_view(self):
         return partial(
             redirect_to_edit,
             app_label=self.model._meta.app_label,
@@ -750,7 +750,7 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
-    def redirect_to_delete(self):
+    def redirect_to_delete_view(self):
         return partial(
             redirect_to_delete,
             app_label=self.model._meta.app_label,
@@ -758,7 +758,7 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
-    def redirect_to_usage(self):
+    def redirect_to_usage_view(self):
         return partial(
             redirect_to_usage,
             app_label=self.model._meta.app_label,
@@ -779,8 +779,12 @@ class SnippetViewSet(ViewSet):
 
         if issubclass(self.model, PreviewableMixin):
             urlpatterns += [
-                path("preview/", self.preview_on_add, name="preview_on_add"),
-                path("preview/<str:pk>/", self.preview_on_edit, name="preview_on_edit"),
+                path("preview/", self.preview_on_add_view, name="preview_on_add"),
+                path(
+                    "preview/<str:pk>/",
+                    self.preview_on_edit_view,
+                    name="preview_on_edit",
+                ),
             ]
 
         if issubclass(self.model, RevisionMixin):
@@ -796,12 +800,12 @@ class SnippetViewSet(ViewSet):
             urlpatterns += [
                 path(
                     "history/<str:pk>/revisions/<int:revision_id>/revert/",
-                    self.revisions_revert,
+                    self.revisions_revert_view,
                     name="revisions_revert",
                 ),
                 re_path(
                     r"history/(?P<pk>.+)/revisions/compare/(?P<revision_id_a>live|earliest|\d+)\.\.\.(?P<revision_id_b>live|latest|\d+)/$",
-                    self.revisions_compare,
+                    self.revisions_compare_view,
                     name="revisions_compare",
                 ),
             ]
@@ -809,9 +813,9 @@ class SnippetViewSet(ViewSet):
         legacy_redirects = [
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
             # ('add', 'edit' etc) - redirect to the unambiguous version
-            path("<str:pk>/", self.redirect_to_edit),
-            path("<str:pk>/delete/", self.redirect_to_delete),
-            path("<str:pk>/usage/", self.redirect_to_usage),
+            path("<str:pk>/", self.redirect_to_edit_view),
+            path("<str:pk>/delete/", self.redirect_to_delete_view),
+            path("<str:pk>/usage/", self.redirect_to_usage_view),
         ]
 
         return urlpatterns + legacy_redirects
