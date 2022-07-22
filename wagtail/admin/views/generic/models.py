@@ -132,7 +132,25 @@ class IndexView(
         )
 
     def get_queryset(self):
-        self.filters, queryset = self.filter_queryset(super().get_queryset())
+        # Instead of calling super().get_queryset(), we copy the initial logic
+        # from Django's MultipleObjectMixin, because we need to annotate the
+        # updated_at before using it for ordering.
+        # https://github.com/django/django/blob/stable/4.1.x/django/views/generic/list.py#L22-L47
+
+        if self.queryset is not None:
+            queryset = self.queryset
+            if isinstance(queryset, models.QuerySet):
+                queryset = queryset.all()
+        elif self.model is not None:
+            queryset = self.model._default_manager.all()
+        else:
+            raise ImproperlyConfigured(
+                "%(cls)s is missing a QuerySet. Define "
+                "%(cls)s.model, %(cls)s.queryset, or override "
+                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
+            )
+
+        self.filters, queryset = self.filter_queryset(queryset)
 
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
@@ -159,6 +177,12 @@ class IndexView(
                 .values("timestamp")[:1]
             )
             queryset = queryset.annotate(_updated_at=models.Subquery(latest_log))
+
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
 
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
@@ -224,10 +248,10 @@ class IndexView(
         )
 
     def _get_updated_at_column(self, column_class=DateColumn):
-        return column_class("_updated_at", label=_("Updated"))
+        return column_class("_updated_at", label=_("Updated"), sort_key="_updated_at")
 
     def _get_status_tag_column(self, column_class=StatusTagColumn):
-        return column_class("status_string", label=_("Status"))
+        return column_class("status_string", label=_("Status"), sort_key="live")
 
     def _get_default_columns(self):
         columns = [
