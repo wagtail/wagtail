@@ -207,7 +207,7 @@ class Create(CreateView):
     preview_url_name = None
     permission_required = "add"
     template_name = "wagtailsnippets/snippets/create.html"
-    error_message = _("The snippet could not be created due to errors.")
+    error_message = gettext_lazy("The snippet could not be created due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_create_snippet", self.request, self.model)
@@ -306,7 +306,7 @@ class Edit(EditView):
     preview_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
-    error_message = _("The snippet could not be saved due to errors.")
+    error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
     def run_before_hook(self):
         return self.run_hook("before_edit_snippet", self.request, self.object)
