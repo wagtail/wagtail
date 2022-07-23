@@ -19,6 +19,7 @@ Changelog
  * Add better handling and informative developer errors for cross linking URLS (e.g. success after add) in generic views `wagtail.admin.views.generic` (Matt Westcott)
  * Introduce `wagtail.admin.widgets.chooser.BaseChooser` to make it easier to build custom chooser inputs (Matt Westcott)
  * Introduce JavaScript chooser module, including a SearchController class which encapsulates the standard pattern of re-rendering the results panel in response to search queries and pagination (Matt Westcott)
+ * Migrate Image and Document choosers to ne JavaScript chooser module (Matt Westcott)
  * Add ability to select multiple items at once within bulk actions selections when holding shift on subsequent clicks (Hitansh Shah)
  * Upgrade notification, shown to admins on the dashboard if Wagtail is out of date, will now link to the release notes for the closest minor branch instead of the latest patch (Tibor Leupold)
  * Upgrade notification can now be configured to only show updates when there is a new LTS available via `WAGTAIL_ENABLE_UPDATE_CHECK = 'lts'` (Tibor Leupold)
