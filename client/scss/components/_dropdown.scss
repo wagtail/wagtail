@@ -74,6 +74,10 @@
   // Override any right alignment that might've been set by a parent element
   // (such as the snippets header)
   text-align: start;
+
+  @media (forced-colors: active) {
+    border: 2px solid transparent;
+  }
 }
 
 .c-dropdown__item {
