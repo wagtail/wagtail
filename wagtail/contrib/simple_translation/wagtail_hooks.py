@@ -48,7 +48,7 @@ def register_submit_translation_permission():
 
 
 @hooks.register("register_page_listing_more_buttons")
-def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_listing_more_buttons(page, page_perms, next_url=None):
     if (
         page_perms.user.has_perm("simple_translation.submit_translation")
         and not page.is_root()
