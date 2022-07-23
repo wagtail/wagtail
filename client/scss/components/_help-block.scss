@@ -16,7 +16,14 @@
   }
 
   a {
-    color: $color-link;
+    color: theme('colors.secondary.DEFAULT');
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -47,7 +54,7 @@
   background-color: theme('colors.warning.50');
 
   .icon-warning {
-    color: theme('colors.warning.100');
+    color: theme('colors.primary.DEFAULT');
   }
 }
 
