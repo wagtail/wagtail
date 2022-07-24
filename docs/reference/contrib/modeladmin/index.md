@@ -2,6 +2,8 @@
 
 The `modeladmin` module allows you to add any model in your project to the Wagtail admin. You can create customisable listing pages for a model, including plain Django models, and add navigation elements so that a model can be accessed directly from the Wagtail admin. Simply extend the `ModelAdmin` class, override a few attributes to suit your needs, register it with Wagtail using an easy one-line `modeladmin_register` method (you can copy and paste from the examples below), and you're good to go. Your model doesn’t need to extend `Page` or be registered as a `Snippet`, and it won’t interfere with any of the existing admin functionality that Wagtail provides.
 
+We follow an already existing pattern in Django: The appropriate place to create your Wagtail `ModelAdmin` classes and call `modeladmin_register` is in your app's `admin.py`, alongside any custom Django admin class definitions.
+
 (modeladmin_feature_summary)=
 
 ## Summary of features
