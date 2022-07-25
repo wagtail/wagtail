@@ -5,6 +5,9 @@
         aria-labelledby="title-{{ id }}"
         aria-hidden="true"
         class="w-dialog"
+        {% if dialog_root_selector %}
+            data-dialog-root-selector="{{ dialog_root_selector }}"
+        {% endif %}
         {% if data_url %}
             data-url="{{ data_url }}"
         {% endif %}
