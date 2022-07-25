@@ -70,16 +70,16 @@
             </p>
 
             {% help_block status="info" %}
-                <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
+                <p>This is help text that might be just for <a href="#help">information</a>, explaining what happens next, or drawing the user's attention to something they're about to do</p>
                 <p>It could be multiple lines</p>
             {% endhelp_block %}
 
             {% help_block status="warning" %}
-                A warning message might be output in cases where a user's action could have serious consequences
+                A warning message might be output in cases where a user's action could have serious <a href="#help">consequences</a>.
             {% endhelp_block %}
 
             {% help_block status="critical" %}
-                A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
+                A critical message would probably be rare, in cases where a particularly brittle or <a href="#help">dangerously destructive action</a> could be performed and needs to be warned about.
             {% endhelp_block %}
 
         </section>
