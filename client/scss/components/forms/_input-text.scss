@@ -26,5 +26,14 @@ textarea {
   @apply w-body-text-large;
   width: 100%;
   padding: theme('spacing.[1.5]') theme('spacing.5');
-  min-height: rem($text-input-height);
+  min-height: $text-input-height;
+}
+
+// Make non-text field types with custom widgets have a smaller width.
+.w-field--date_field,
+.w-field--date_time_field,
+.w-field--time_field {
+  input {
+    width: auto;
+  }
 }

@@ -16,41 +16,10 @@
                 {% csrf_token %}
                 <h1>{% trans "Set your new password" %}</h1>
 
-                <ul class="fields">
-                    <li>
-                        <div class="field">
-                            {{ form.new_password1.label_tag }}
-                            {{ form.new_password1 }}
+                {% field field=form.new_password1 %}{% endfield %}
+                {% field field=form.new_password2 %}{% endfield %}
 
-                            {% if form.new_password1.errors %}
-                                <div class="help-block help-critical">
-                                    {% icon name='warning' %}
-                                    {% for error in form.new_password1.errors %}
-                                        <p class="error">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </li>
-                    <li>
-                        <div class="field">
-                            {{ form.new_password2.label_tag }}
-                            {{ form.new_password2 }}
-
-                            {% if form.new_password2.errors %}
-                                <div class="help-block help-critical">
-                                    {% icon name='warning' %}
-                                    {% for error in form.new_password2.errors %}
-                                        <p class="error">{{ error }}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </li>
-                    <li class="submit">
-                        <button type="submit" class="button">{% trans 'Reset password' %}</button>
-                    </li>
-                </ul>
+                <button type="submit" class="button">{% trans 'Reset password' %}</button>
             </form>
         {% else %}
             <h1>{% trans "Invalid password reset link" %}</h1>

@@ -1,8 +1,9 @@
 @use 'sass:map';
-// These are the generic stylings for forms of any type.
-// If you're styling something specific to the page editing interface,
-// it probably ought to go in layouts/page-editor.scss
+// Legacy form reset styles. Avoid adding any new styles here.
 form {
+  // Historically, Wagtail forms rendered all fields as list items.
+  // This is still the case in some instances, and there may be a lot of
+  // of form widgets relying on this too.
   ul,
   li {
     list-style-type: none;

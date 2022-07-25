@@ -191,7 +191,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         # Check the form does not contain the checkbox field include_descendants
         self.assertContains(
             response,
-            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+            'name="include_descendants"',
             count=0,
         )
 
@@ -266,7 +266,7 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         # Check the form contains the checkbox field include_descendants
         self.assertContains(
             response,
-            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+            'name="include_descendants"',
         )
 
     def test_unpublish_include_children_view_post(self):

@@ -1,9 +1,3 @@
-.EditorFallback__textarea {
-  min-height: 150px;
-  margin-top: 1rem;
-  resize: vertical;
-}
-
 // Override over-reaching styles definition for all textareas in full fields.
 @mixin wagtail-textarea-overrides {
   padding: 1rem;
@@ -13,6 +7,9 @@
 
 .EditorFallback__textarea {
   @include wagtail-textarea-overrides;
+  min-height: 150px;
+  margin-top: 1rem;
+  resize: vertical;
 }
 
 .EditorFallback__error {

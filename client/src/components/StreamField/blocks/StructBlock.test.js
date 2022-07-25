@@ -81,8 +81,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
             label: 'Heading text',
             required: true,
             icon: 'placeholder',
-            classname:
-              'field char_field widget-text_input fieldname-heading_text',
+            classname: 'w-field w-field--char_field w-field--text_input',
           },
         ),
         new FieldBlockDefinition(
@@ -92,7 +91,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
             label: 'Size',
             required: false,
             icon: 'placeholder',
-            classname: 'field choice_field widget-select fieldname-size',
+            classname: 'w-field w-field--choice_field w-field--select',
           },
         ),
       ],
@@ -208,8 +207,7 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
             label: 'Heading text',
             required: true,
             icon: 'placeholder',
-            classname:
-              'field char_field widget-text_input fieldname-heading_text',
+            classname: 'w-field w-field--char_field w-field--text_input',
           },
         ),
         new FieldBlockDefinition(
@@ -219,7 +217,7 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
             label: 'Size',
             required: false,
             icon: 'placeholder',
-            classname: 'field choice_field widget-select fieldname-size',
+            classname: 'w-field w-field--choice_field w-field--select',
           },
         ),
       ],

@@ -21,7 +21,7 @@
 
   &__container {
     border-radius: $border-curvature $border-curvature 0 0;
-    background: $color-grey-1;
+    background: theme('colors.primary.DEFAULT');
     color: $color-white;
     margin-top: 0;
     margin-inline-end: 0;

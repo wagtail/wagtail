@@ -10,7 +10,7 @@
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
-    - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar 
+    - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar
     - `merged` - if true, add the classname 'merged'
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
@@ -35,14 +35,12 @@
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
-                    <ul class="fields">
-                        {% for field in search_form %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}
-                        {% endfor %}
-                        {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
-                        <li class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></li>
-                        <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
-                    </ul>
+                    {% for field in search_form %}
+                        {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0" sr_only_label=True icon="search" %}
+                    {% endfor %}
+                    {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                    <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
+                    <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
                 </form>
             {% endif %}
         </div>

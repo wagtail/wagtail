@@ -2,6 +2,10 @@
 @use 'sass:map';
 @use 'sass:math';
 
+.side-panel-open {
+  @apply w-overflow-y-hidden sm:w-overflow-y-auto;
+}
+
 .form-side {
   @apply w-absolute
       w-z-[90]

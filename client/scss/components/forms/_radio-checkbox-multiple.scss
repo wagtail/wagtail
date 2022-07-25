@@ -1,6 +1,10 @@
-$radio-checkbox-line-gap: theme('spacing.[2.5]');
+/**
+ * Lists of checkboxes or radios, one after another vertically.
+ * Labels are next to their input, horizontally centered.
+ */
 
 .w-field--checkbox_select_multiple,
+.w-field--checkbox_select_multiple_with_disabled_options,
 .w-field--radio_select {
   ul {
     list-style: none;
@@ -13,6 +17,6 @@ $radio-checkbox-line-gap: theme('spacing.[2.5]');
     display: inline-flex;
     align-items: center;
     line-height: normal;
-    margin-bottom: $radio-checkbox-line-gap;
+    margin-bottom: theme('spacing.[2.5]');
   }
 }

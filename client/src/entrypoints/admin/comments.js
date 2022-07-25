@@ -103,12 +103,12 @@ window.comments = (() => {
     }
 
     onFocus() {
-      this.node.classList.remove('button-secondary');
+      this.node.classList.add('w-field__comment-button--focused');
       this.node.ariaLabel = gettext('Unfocus comment');
     }
 
     onUnfocus() {
-      this.node.classList.add('button-secondary');
+      this.node.classList.remove('w-field__comment-button--focused');
       this.node.ariaLabel = gettext('Focus comment');
 
       // TODO: ensure comment is focused accessibly when this is clicked,
@@ -237,9 +237,17 @@ window.comments = (() => {
     getAnnotationForComment() {
       const annotationNode = this.annotationTemplateNode.cloneNode(true);
       annotationNode.id = '';
+      annotationNode.setAttribute(
+        'aria-label',
+        this.commentAdditionNode.getAttribute('aria-label'),
+      );
+      annotationNode.setAttribute(
+        'aria-describedby',
+        this.commentAdditionNode.getAttribute('aria-describedby'),
+      );
       annotationNode.classList.remove('u-hidden');
       this.commentAdditionNode.insertAdjacentElement(
-        'afterend',
+        'beforebegin',
         annotationNode,
       );
       return new BasicFieldLevelAnnotation(

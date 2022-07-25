@@ -6,21 +6,9 @@ function InlinePanel(opts) {
   const self = {};
 
   // eslint-disable-next-line func-names
-  self.setHasContent = function () {
-    if ($('> li', self.formsUl).not('.deleted').length) {
-      self.formsUl.parent().removeClass('empty');
-    } else {
-      self.formsUl.parent().addClass('empty');
-    }
-  };
-
-  // eslint-disable-next-line func-names
   self.initChildControls = function (prefix) {
     const childId = 'inline_child_' + prefix;
     const deleteInputId = 'id_' + prefix + '-DELETE';
-
-    // mark container as having children to identify fields in use from those not
-    self.setHasContent();
 
     $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
@@ -30,7 +18,6 @@ function InlinePanel(opts) {
         .slideUp(() => {
           self.updateMoveButtonDisabledStates();
           self.updateAddButtonState();
-          self.setHasContent();
         });
     });
 
@@ -91,7 +78,6 @@ function InlinePanel(opts) {
         .hide(0, () => {
           self.updateMoveButtonDisabledStates();
           self.updateAddButtonState();
-          self.setHasContent();
         });
 
       $('#' + childId)
@@ -241,7 +227,7 @@ function initErrorDetection() {
   // first count up all the errors
   // eslint-disable-next-line func-names
   $('.error-message,.help-critical').each(function () {
-    const parentSection = $(this).closest('section');
+    const parentSection = $(this).closest('section[role="tabpanel"]');
 
     if (!errorSections[parentSection.attr('id')]) {
       errorSections[parentSection.attr('id')] = 0;

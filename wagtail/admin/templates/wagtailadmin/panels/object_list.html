@@ -1,7 +1,9 @@
 {% load wagtailadmin_tags %}
 
-{% for child, identifier in self.visible_children_with_identifiers %}
-    {% panel id_prefix=self.prefix id=identifier class_name=child.classes|join:' ' heading=child.heading heading_size="label" icon=child.icon id_for_label=child.id_for_label is_required=child.is_required %}
-        {% component child %}
-    {% endpanel %}
-{% endfor %}
+<div class="w-form-width">
+    {% for child, identifier in self.visible_children_with_identifiers %}
+        {% panel id_prefix=self.prefix id=identifier classname=child.classes|join:' ' heading=child.heading heading_size="label" icon=child.icon id_for_label=child.id_for_label is_required=child.is_required %}
+            {% component child %}
+        {% endpanel %}
+    {% endfor %}
+</div>

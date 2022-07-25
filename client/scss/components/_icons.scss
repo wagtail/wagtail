@@ -69,9 +69,12 @@
   display: inline-block;
 }
 
-svg.icon-spinner {
-  // TODO: leave only class when iconfont styles are removed
+// For SVG icons, add spinner styles onto the use element,
+// so an icon can be turned into a spinner by changing the href only.
+// This allows us to switch any icon to a spinner with much less boilerplate.
+use[href='#icon-spinner'] {
   animation: spin-wag 0.5s infinite linear;
+  transform-origin: center;
 }
 
 .icon-horizontalrule:before {

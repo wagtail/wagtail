@@ -82,7 +82,7 @@ Add the field to the group 'edit'/'create' templates:
 {% load wagtailusers_tags wagtailadmin_tags i18n %}
 
 {% block extra_fields %}
-    {% include "wagtailadmin/shared/field_as_li.html" with field=form.adgroups %}
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.adgroups %}</li>
 {% endblock extra_fields %}
 ```
 

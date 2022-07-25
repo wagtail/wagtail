@@ -24,7 +24,9 @@ $(() => {
             "input[name='restriction_type'][value='groups']",
             modal.body,
           );
-          const passwordField = $('.password-field', modal.body);
+          const passwordField = $('[name="password"]', modal.body).parents(
+            '[data-field-wrapper]',
+          );
           const groupsFields = $('#groups-fields', modal.body);
 
           function refreshFormFields() {

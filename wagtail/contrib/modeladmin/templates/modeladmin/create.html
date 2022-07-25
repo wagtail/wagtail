@@ -40,7 +40,9 @@
     <form action="{% block form_action %}{{ view.create_url }}{% endblock %}{% if locale %}?locale={{ locale.language_code }}{% endif %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
 
-        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        <div class="nice-padding">
+            {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        </div>
 
         {% block footer %}
             <footer class="footer">

@@ -103,7 +103,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
           required: true,
           icon: 'pilcrow',
           classname:
-            'field char_field widget-admin_auto_height_text_input fieldname-',
+            'w-field w-field--char_field w-field--admin_auto_height_text_input',
         },
       ),
       null,
@@ -321,7 +321,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
         required: true,
         icon: 'pilcrow',
         classname:
-          'field char_field widget-admin_auto_height_text_input fieldname-',
+          'w-field w-field--char_field w-field--admin_auto_height_text_input',
       },
     ),
     null,

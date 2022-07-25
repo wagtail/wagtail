@@ -74,15 +74,6 @@
     float: right;
   }
 
-  .search-form .icon {
-    @include svg-icon(1.2rem);
-    color: theme('colors.primary.DEFAULT');
-    position: absolute;
-    top: 0;
-    height: 100%;
-    inset-inline-start: 0.7em;
-  }
-
   // For case where content below header should merge with it
   &.w-header--merged {
     margin-bottom: 0;
@@ -111,29 +102,8 @@
     background-color: transparent;
   }
 
-  label {
-    @include visuallyhidden();
-  }
-
   .error-message {
     color: inherit;
-  }
-
-  .fields {
-    margin-top: -0.5em;
-
-    li {
-      padding-bottom: 0;
-    }
-
-    .field {
-      padding: 0;
-    }
-  }
-
-  .field-content {
-    width: auto;
-    padding: 0;
   }
 
   .last-updated {
@@ -156,18 +126,11 @@
   }
 }
 
-// Media for Windows High Contrast
-@media (forced-colors: $media-forced-colours) {
-  .w-header .field-content {
-    border: 0.1em solid $system-color-link-text;
-  }
-}
-
 @include media-breakpoint-up(sm) {
   .w-header {
     .row {
-      padding-inline-start: 90px;
-      padding-inline-end: 90px;
+      padding-inline-start: $desktop-nice-padding;
+      padding-inline-end: $desktop-nice-padding;
       padding-top: theme('spacing.6');
     }
 
@@ -216,9 +179,4 @@
       @include column(9);
     }
   }
-}
-
-// For pages with the slim header, make sure the header is accounted for when scrolling to an anchor.
-.page-slim-header {
-  scroll-padding-top: calc(theme('spacing.slim-header') + 1rem);
 }

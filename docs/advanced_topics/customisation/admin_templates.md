@@ -163,12 +163,10 @@ To add extra fields to the login form, override the `fields` block. You will nee
 
 {% block fields %}
     {{ block.super }}
-    <li class="full">
-        <div class="field iconfield">
-            Two factor auth token
-            <div class="input icon-key">
-                <input type="text" name="two-factor-auth">
-            </div>
+    <li>
+        <div>
+            <label for="id_two-factor-auth">Two factor auth token</label>
+            <input type="text" name="two-factor-auth" id="id_two-factor-auth">
         </div>
     </li>
 {% endblock %}

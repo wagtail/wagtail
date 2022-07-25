@@ -15,10 +15,12 @@ $grid-max-width: 1200px;
 $grid-content-indent: 0.7;
 
 $mobile-nice-padding: 20px;
-$desktop-nice-padding: 50px;
+$desktop-nice-padding: 80px;
 
-// All text inputs have a set height to simplify alignment.
-$text-input-height: 42px;
+// All text inputs have a 42px set height to simplify alignment.
+$text-input-height: 2.625rem;
+// Forms should be constrainted to a maximum width for legibility.
+$max-form-width: 840px;
 
 // screen breakpoints
 $breakpoints: (
@@ -38,8 +40,6 @@ $color-teal: theme('colors.secondary.DEFAULT');
 $color-teal-darker: theme('colors.secondary.400');
 $color-teal-dark: theme('colors.secondary.600');
 
-$color-salmon: #f37e77;
-$color-salmon-light: #fcf2f2;
 $color-white: theme('colors.white.DEFAULT');
 $color-black: theme('colors.black.DEFAULT');
 
@@ -61,8 +61,6 @@ $color-input-disabled-text: theme('colors.grey.400');
 $color-input-disabled-bg: theme('colors.grey.50');
 $color-input-disabled-border: theme('colors.grey.100');
 $color-input-hover-border: theme('colors.grey.200');
-$color-input-focus-border: theme('colors.secondary.100');
-$color-input-error-bg: theme('colors.critical.50');
 $color-input-error-border: theme('colors.critical.200');
 
 $color-button: $color-teal;
@@ -97,8 +95,7 @@ $font-wagtail-icons: wagtail;
 $thumbnail-width: 130px;
 $menu-width: 200px;
 $menu-width-slim: 60px;
-
-$menu-width-max: 320px;
+$side-panel-width: 500px;
 
 $mobile-nav-indent: 50px;
 

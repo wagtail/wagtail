@@ -1,19 +1,31 @@
+$header-icon-size: theme('spacing.4');
+$header-button-size-mobile: $mobile-nice-padding;
+$header-button-size: theme('spacing.8');
+
 .w-panel {
   margin-bottom: theme('spacing.10');
+  // Legacy code support. Make sure we render correctly enough after a panel that contains un-cleared floats.
+  clear: both;
 }
 
 .w-panel__header {
   display: flex;
   align-items: center;
-  gap: theme('spacing.2');
-  margin-bottom: theme('spacing.5');
-  margin-left: calc(-1 * 2 * (theme('spacing.6') + theme('spacing.2')));
+  margin-bottom: theme('spacing.4');
+  margin-inline-start: -1 * $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    $gap: theme('spacing.1');
+    gap: $gap;
+    margin-inline-start: calc(-1 * 2 * ($header-button-size + $gap));
+  }
 }
 
 .w-panel__heading {
   @apply w-h3;
   display: inline-block;
   margin: 0;
+  cursor: pointer;
 }
 
 .w-panel__heading--label {
@@ -27,16 +39,25 @@
   align-content: center;
   color: theme('colors.primary.DEFAULT');
   padding: 0;
-  width: theme('spacing.6');
-  height: theme('spacing.6');
+  width: $header-button-size-mobile;
+  height: $header-button-size-mobile;
+
+  @include media-breakpoint-up(sm) {
+    width: $header-button-size;
+    height: $header-button-size;
+  }
 }
 
 .w-panel__anchor {
-  visibility: hidden;
+  // Only hide anchors for devices that support hover interactions.
+  @media (hover: hover) {
+    // Hiding with opacity only, so the anchor isn’t skipped in the page’s focus order.
+    opacity: 0;
 
-  .w-panel__header:hover &,
-  .w-panel__header:focus-within & {
-    visibility: visible;
+    .w-panel__header:hover &,
+    .w-panel__header:focus-within & {
+      opacity: 1;
+    }
   }
 }
 
@@ -46,10 +67,11 @@
 }
 
 .w-panel__icon {
-  width: theme('spacing.5');
-  height: theme('spacing.5');
+  width: $header-icon-size;
+  height: $header-icon-size;
 
-  [aria-expanded='false'] & {
+  // Only rotate the default caret icon, not custom ones.
+  [aria-expanded='false'] &.icon-arrow-down-big {
     transform: rotate(-90deg);
   }
 
@@ -59,19 +81,6 @@
   }
 }
 
-.w-panel__icon--custom {
-  // Only display the default icon when closed.
-  [aria-expanded='false'] & {
-    display: none;
-  }
-
-  // Hide the default icon when expanded.
-  [aria-expanded='true'] & + .w-panel__icon {
-    display: none;
-  }
-}
-
-// TODO Forms
-.w-panel--row .w-panel__content {
-  @apply w-grid lg:w-grid-flow-col lg:w-grid-cols-3;
+.w-panel__wrapper {
+  @include max-form-width();
 }

@@ -8,29 +8,29 @@
     {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
 
     <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
-        <form>
-            <ul class="fields">
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.filter_method %}
-                <li>
-                    <ul class="field-row">
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.width li_classes="field-col col4" %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.height li_classes="field-col col4" %}
-                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.closeness li_classes="field-col col4" %}
-                    </ul>
-                </li>
-            </ul>
+        <form class="w-mb-10">
+            {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
+            {% field_row max_content=True %}
+                {% include "wagtailadmin/shared/field.html" with field=form.width %}
+                {% include "wagtailadmin/shared/field.html" with field=form.height %}
+                {% include "wagtailadmin/shared/field.html" with field=form.closeness %}
+            {% endfield_row %}
         </form>
 
-        <h2 class="icon icon-link">{% trans "URL" %}</h2>
-        <textarea id="result-url" rows="1"></textarea>
+        {% trans "URL" as heading %}
+        {% panel id="url" icon="link" heading=heading %}
+            <textarea id="result-url" rows="1"></textarea>
+        {% endpanel %}
 
-        <h2 class="icon icon-view">{% trans "Preview" %}</h2>
-        <div>
-            <div class="loading-mask inline-block">
-                <img class="preview" src="" alt="{% trans 'Preview' %}" />
+        {% trans "Preview" as heading %}
+        {% panel id="preview" icon="view" heading=heading %}
+            <div>
+                <div class="loading-mask inline-block">
+                    <img class="preview" src="" alt="{% trans 'Preview' %}" />
+                </div>
             </div>
-        </div>
-        <p id="note-size" class="help-block help-warning">{% icon name='warning' %}{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+            <p id="note-size" class="help-block help-warning">{% icon name='warning' %}{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+        {% endpanel %}
     </div>
 {% endblock %}
 

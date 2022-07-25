@@ -65,6 +65,10 @@
     w-rounded-[1rem];
   }
 
+  &__panel {
+    @include nice-padding();
+  }
+
   // Optional animate attr for tabs to animate in
   &[data-tabs-animate] &__panel {
     @apply motion-reduce:w-transition-none w-transition w-duration-150 w-translate-y-1 w-opacity-0;

@@ -20,29 +20,31 @@
         <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST" novalidate>
             {% csrf_token %}
 
-            <ul class="fields">
+            <div class="fields">
                 {% block fields %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
+                    {% panel id="name" heading=form.name.label id_for_label=form.name.id_for_label is_required=True %}
+                        {% include "wagtailadmin/shared/field.html" with field=form.name show_label=False %}
+                    {% endpanel %}
                     {% block extra_fields %}{% endblock extra_fields %}
                 {% endblock fields %}
 
-                <li>
+                <div>
                     {% format_permissions permission_bound_field=form.permissions %}
-                </li>
+                </div>
 
                 {% for panel in permission_panels %}
-                    <li>
+                    <div>
                         {{ panel.as_admin_panel }}
-                    </li>
+                    </div>
                 {% endfor %}
-                <li>
+                <div>
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
 
                     {% if perms.auth.delete_group %}
                         <a href="{% url 'wagtailusers_groups:delete' group.id %}" class="button button-secondary no">{% trans "Delete group" %}</a>
                     {% endif %}
-                </li>
-            </ul>
+                </div>
+            </div>
 
         </form>
     </div>

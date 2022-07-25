@@ -86,10 +86,9 @@ class FieldBlockAdapter(Adapter):
 
     def js_args(self, block):
         classname = [
-            "field",
-            camelcase_to_underscore(block.field.__class__.__name__),
-            "widget-" + camelcase_to_underscore(block.field.widget.__class__.__name__),
-            "fieldname-" + block.name,
+            "w-field",
+            f"w-field--{camelcase_to_underscore(block.field.__class__.__name__)}",
+            f"w-field--{camelcase_to_underscore(block.field.widget.__class__.__name__)}",
         ]
 
         form_classname = getattr(block.meta, "form_classname", "")

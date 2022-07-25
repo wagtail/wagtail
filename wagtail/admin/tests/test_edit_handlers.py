@@ -484,7 +484,7 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
         )
         result = tabbed_interface.render_html()
         self.assertIn(
-            '<a id="tab-label-event-details" href="#tab-event-details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
             result,
         )
         self.assertIn(
@@ -506,7 +506,7 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
         )
         result = tabbed_interface.render_html()
         self.assertIn(
-            '<a id="tab-label-event-details" href="#tab-event-details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
+            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
             result,
         )
         self.assertIn(
@@ -563,14 +563,14 @@ class TestObjectList(TestCase):
         self.assertIn('<div class="w-panel__header">', result)
 
         # result should contain labels for children
-        self.assertInHTML(
-            '<label for="id_date_from">Start date<span class="w-error" aria-hidden="true">*</span></label>',
+        self.assertIn(
+            '<label for="id_date_from" id="id_date_from-label">',
             result,
         )
 
         # result should include help text for children
         self.assertInHTML(
-            '<p id="panel-child-date_to-helptext" class="w-help-text">Not required if event is on a single day</p>',
+            '<div class="help">Not required if event is on a single day</div>',
             result,
         )
 
@@ -660,9 +660,7 @@ class TestFieldPanel(TestCase):
         self.assertIn('value="2014-07-22"', result)
 
         # there should be no errors on this field
-        self.assertNotIn(
-            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
-        )
+        self.assertNotIn("error-message", result)
 
     def test_required_fields(self):
         result = self.end_date_panel.get_form_options()["fields"]
@@ -687,10 +685,7 @@ class TestFieldPanel(TestCase):
         )
         result = field_panel.render_html()
 
-        self.assertIn(
-            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>Enter a valid date.',
-            result,
-        )
+        self.assertIn("Enter a valid date.", result)
 
     def test_repr(self):
         form = self.EventPageForm()
@@ -756,12 +751,7 @@ class TestFieldRowPanel(TestCase):
 
         # check that label is output in the 'field' style
         self.assertIn(
-            '<label for="id_date_to" class="w-field__label">End date</label>', result
-        )
-
-        # check that label is overridden with the 'heading' argument
-        self.assertIn(
-            '<label for="id_date_from" class="w-field__label">Start<span class="w-error" aria-hidden="true">*</span></label>',
+            '<label class="w-field__label" for="id_date_to" id="id_date_to-label">',
             result,
         )
 
@@ -772,9 +762,7 @@ class TestFieldRowPanel(TestCase):
         self.assertIn('value="2014-07-22"', result)
 
         # there should be no errors on this field
-        self.assertNotIn(
-            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
-        )
+        self.assertNotIn("error-message", result)
 
     def test_error_message_is_rendered(self):
         form = self.EventPageForm(
@@ -795,10 +783,7 @@ class TestFieldRowPanel(TestCase):
         )
         result = field_panel.render_html()
 
-        self.assertIn(
-            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>Enter a valid date.',
-            result,
-        )
+        self.assertIn("Enter a valid date.", result)
 
 
 class TestFieldRowPanelWithChooser(TestCase):
@@ -849,9 +834,7 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.assertIn('value="2014-07-20"', result)
 
         # there should be no errors on this field
-        self.assertNotIn(
-            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
-        )
+        self.assertNotIn("error-message", result)
 
 
 class TestPageChooserPanel(TestCase):
@@ -917,9 +900,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_html(self):
         result = self.page_chooser_panel.render_html()
-        self.assertIn(
-            '<p id="panel-helptext" class="w-help-text">help text</p>', result
-        )
+        self.assertIn('<div class="help">help text</div>', result)
         self.assertIn('<span class="title">Christmas</span>', result)
         self.assertIn(
             '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">'
@@ -935,9 +916,7 @@ class TestPageChooserPanel(TestCase):
         )
         result = page_chooser_panel.render_html()
 
-        self.assertIn(
-            '<p id="panel-helptext" class="w-help-text">help text</p>', result
-        )
+        self.assertIn('<div class="help">help text</div>', result)
         self.assertIn('<span class="title"></span>', result)
         self.assertIn("Choose a page", result)
 
@@ -948,10 +927,7 @@ class TestPageChooserPanel(TestCase):
         page_chooser_panel = self.my_page_chooser_panel.get_bound_panel(
             instance=self.test_instance, form=form, request=self.request
         )
-        self.assertIn(
-            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
-            page_chooser_panel.render_html(),
-        )
+        self.assertIn("error-message", page_chooser_panel.render_html())
 
     def test_override_page_type(self):
         # Model has a foreign key to Page, but we specify EventPage in the PageChooserPanel
@@ -966,16 +942,8 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form, request=self.request
         )
 
-<<<<<<< HEAD
-        result = page_chooser_panel.render_as_field()
-        expected_js = 'new PageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
-||||||| parent of 2346b6cb88 (Drop render_as_object / render_as_field distinction)
-        result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
-=======
         result = page_chooser_panel.render_html()
-        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
->>>>>>> 2346b6cb88 (Drop render_as_object / render_as_field distinction)
+        expected_js = 'new PageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id
         )
 
@@ -994,16 +962,8 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form, request=self.request
         )
 
-<<<<<<< HEAD
-        result = page_chooser_panel.render_as_field()
-        expected_js = 'new PageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
-||||||| parent of 2346b6cb88 (Drop render_as_object / render_as_field distinction)
-        result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
-=======
         result = page_chooser_panel.render_html()
-        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
->>>>>>> 2346b6cb88 (Drop render_as_object / render_as_field distinction)
+        expected_js = 'new PageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id
         )
 
@@ -1064,16 +1024,16 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         # FIXME: reinstate when we pass classnames to the template again
         # self.assertIn('<li class="object classname-for-speakers">', result)
         self.assertIn(
-            '<label for="id_speakers-0-first_name" class="w-field__label">Name</label>',
+            '<label class="w-field__label" for="id_speakers-0-first_name" id="id_speakers-0-first_name-label">',
             result,
         )
         self.assertIn('value="Father"', result)
         self.assertIn(
-            '<label for="id_speakers-0-last_name" class="w-field__label">Surname</label>',
+            '<label class="w-field__label" for="id_speakers-0-last_name" id="id_speakers-0-last_name-label">',
             result,
         )
         self.assertIn(
-            '<label for="id_speakers-0-image" class="w-field__label">Image</label>',
+            '<label class="w-field__label" for="id_speakers-0-image" id="id_speakers-0-image-label">',
             result,
         )
         self.assertIn("Choose an image", result)
@@ -1139,12 +1099,13 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         # rendered panel should contain first_name rendered as a text area, but no last_name field
         self.assertIn(
-            '<label for="id_speakers-0-first_name" class="w-field__label">Name</label>',
+            '<label class="w-field__label" for="id_speakers-0-first_name" id="id_speakers-0-first_name-label">',
             result,
         )
         self.assertIn("Father</textarea>", result)
         self.assertNotIn(
-            '<label for="id_speakers-0-last_name">Surname:</label>', result
+            '<label class="w-field__label" for="id_speakers-0-last_name" id="id_speakers-0-last_name-label">',
+            result,
         )
 
         # test for #338: surname field should not be rendered as a 'stray' label-less field
@@ -1155,7 +1116,10 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
             allow_extra_attrs=True,
         )
 
-        # self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        self.assertIn(
+            '<label class="w-field__label" for="id_speakers-0-image" id="id_speakers-0-image-label">',
+            result,
+        )
         self.assertIn("Choose an image", result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER

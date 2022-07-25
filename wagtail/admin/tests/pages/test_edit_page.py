@@ -119,7 +119,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Test InlinePanel labels/headings
         self.assertContains(
             response,
-            '<label for="id_speakers-__prefix__-last_name" class="w-field__label">Surname</label>',
+            '<label class="w-field__label" for="id_speakers-__prefix__-last_name" id="id_speakers-__prefix__-last_name-label">',
         )
         self.assertContains(response, "Add speakers")
 
@@ -2054,11 +2054,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
             response, "The page could not be saved due to validation errors"
         )
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(
-            response,
-            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
-            count=1,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_non_field_error(self):
@@ -2146,11 +2142,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         )
 
         # Error on title shown against the title field
-        self.assertContains(
-            response,
-            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
-            count=1,
-        )
+        self.assertContains(response, "error-message", count=1)
         # Error on title shown in the header message
         self.assertContains(
             response, "<li>Title: This field is required.</li>", count=1

@@ -1026,6 +1026,20 @@ class PanelNode(BlockInclusionNode):
 register.tag("panel", PanelNode.handle)
 
 
+class FieldNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/field.html"
+
+
+register.tag("field", FieldNode.handle)
+
+
+class FieldRowNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/forms/field_row.html"
+
+
+register.tag("field_row", FieldRowNode.handle)
+
+
 # Button used to open dialogs
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog_toggle.html")
 def dialog_toggle(dialog_id, class_name="", text=None):

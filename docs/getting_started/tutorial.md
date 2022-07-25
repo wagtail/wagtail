@@ -139,7 +139,7 @@ class HomePage(Page):
     body = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
 ```
 
@@ -229,7 +229,7 @@ class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full")
+        FieldPanel('intro')
     ]
 ```
 
@@ -296,7 +296,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
 ```
 
@@ -484,7 +484,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
@@ -572,7 +572,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 ```

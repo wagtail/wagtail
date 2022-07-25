@@ -72,6 +72,8 @@ $draftail-editor-font-family: $font-sans;
 .Draftail-Editor__wrapper {
   // Ensure elements within the editor are positioned according to this container.
   position: relative;
+  // Make fields take up the whole available width in their container.
+  width: 100%;
 }
 
 .Draftail-ToolbarButton,
@@ -147,7 +149,7 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-.Draftail-Editor .public-DraftEditor-content {
+.Draftail-Editor__wrapper .public-DraftEditor-content {
   @include input-base();
   @include show-focus-outline-inside();
 }

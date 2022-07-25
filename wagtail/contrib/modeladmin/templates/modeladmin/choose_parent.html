@@ -37,12 +37,8 @@
             <form action="" method="post" novalidate>
                 {% csrf_token %}
 
-                <ul class="fields">
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.parent_page %}
-                    <li>
-                        <input type="submit" class="button" value="{% trans 'Continue' %}">
-                    </li>
-                </ul>
+                {% include "wagtailadmin/shared/field.html" with field=form.parent_page %}
+                <button class="button" type="submit">{% trans 'Continue' %}</button>
             </form>
 
         </div>

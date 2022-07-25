@@ -29,57 +29,31 @@
 
                 <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
 
-                <div class="fields-wrapper">
-                    <ul class="fields">
-                        {% block fields %}
-                            <li>
-                                <div class="field iconfield">
-                                    {{ form.username.label_tag }}
-                                    <div class="input icon-user">
-                                        {{ form.username }}
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="field iconfield">
-                                    {{ form.password.label_tag }}
-                                    <div class="input icon-password">
-                                        {{ form.password }}
-                                    </div>
-                                </div>
-                            </li>
+                {% block fields %}
+                    <div class="login-fields">
+                        {% field field=form.username icon="user" sr_only_label=True %}{% endfield %}
+                        {% field field=form.password icon="password" sr_only_label=True %}{% endfield %}
 
-                            {% block extra_fields %}
-                                {% for field_name, field in form.extra_fields %}
-                                    <li>
-                                        {{ field.label_tag }}
-                                        <div class="field iconfield">
-                                            {{ field }}
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            {% endblock extra_fields %}
+                        {% block extra_fields %}
+                            {% for field_name, field in form.extra_fields %}
+                                {% field field=field %}{% endfield %}
+                            {% endfor %}
+                        {% endblock extra_fields %}
+                    </div>
 
-                            <li class="checkbox">
-                                <div class="field">
-                                    <label><input name="remember" type="checkbox" />{% trans "Remember me" %}</label>
-                                </div>
-                            </li>
-                        {% endblock %}
+                    {% trans "Remember me" as checkbox_text %}
+                    {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="remember" label_classname="w-label=3 w-mb-4" text=checkbox_text %}
+                {% endblock %}
 
-                        <li class="submit">
-                            {% block submit_buttons %}
-                                <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
-                            {% endblock %}
-                        </li>
-                    </ul>
-
-                    {% if show_password_reset %}
-                        <p class="help">
-                            <a class="help__link" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
-                        </p>
-                    {% endif %}
+                <div class="w-mt-4 w-mb-4">
+                    {% block submit_buttons %}
+                        <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
+                    {% endblock %}
                 </div>
+
+                {% if show_password_reset %}
+                    <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
+                {% endif %}
             {% endblock %}
         </form>
 

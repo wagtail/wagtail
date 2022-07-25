@@ -8,7 +8,7 @@
 
 @media (forced-colors: $media-forced-colours) {
   .tagit,
-  .field-content .tagit .tagit-choice,
+  .tagit .tagit-choice,
   .tagit .tagit-new .ui-widget-content {
     box-shadow: inset 1000px 0 0 0 $color-black;
     color: $color-white;

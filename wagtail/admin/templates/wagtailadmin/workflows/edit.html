@@ -21,40 +21,30 @@
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
 
-        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        <div class="nice-padding">
+            {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
-        <ul class="objects">
-            <li class="object">
-                <div class="title-wrapper">
-                    <label>{% trans "Assign your workflow to pages" %}</label>
-                </div>
-                <div class="object-layout">
-                    <div class="object-layout_big-part">
-                        {% if workflow.active %}
-                            <div class="top-padding">
-                                <p class="help-block help-info">
-                                    {% icon name='help' %}
-                                    {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
-                                    {% blocktrans trimmed %}
-                                        Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
-                                        See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.
-                                    {% endblocktrans %}
-                                </p>
-                            </div>
+            {% trans "Assign your workflow to pages" as heading %}
+            {% panel id="workflow-pages" heading=heading  %}
+                {% if workflow.active %}
+                    <p class="help-block help-info">
+                        {% icon name='help' %}
+                        {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
+                        {% blocktrans trimmed %}
+                            Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
+                            See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.
+                        {% endblocktrans %}
+                    </p>
 
-                            {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
-                        {% else %}
-                            <div class="top-padding">
-                                <p class="help-block help-info">
-                                    {% icon name='help' %}
-                                    {% trans "This workflow is disabled so it cannot be assigned to any pages." %}
-                                </p>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </li>
-        </ul>
+                    {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+                {% else %}
+                    <p class="help-block help-info">
+                        {% icon name='help' %}
+                        {% trans "This workflow is disabled so it cannot be assigned to any pages." %}
+                    </p>
+                {% endif %}
+            {% endpanel %}
+        </div>
 
         {% block footer %}
             <footer class="footer" role="contentinfo">

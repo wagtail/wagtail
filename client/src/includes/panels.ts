@@ -1,67 +1,89 @@
 /**
- * Make panels collapsible, and collapse panels already marked as `collapsed`.
+ * Switches a collapsible panel from expanded to collapsed, or vice versa.
+ * Updates the DOM and fires custom events for other code to hook into.
  */
-export function initCollapsiblePanels() {
-  const toggles = document.querySelectorAll<HTMLButtonElement>(
-    '[data-panel-toggle]',
+const toggleCollapsiblePanel = (
+  toggle: HTMLButtonElement,
+  content: HTMLElement,
+  // If a specific state isn’t requested, read the DOM and toggle.
+  expanded = !(toggle.getAttribute('aria-expanded') === 'true'),
+) => {
+  toggle.setAttribute('aria-expanded', `${expanded}`);
+
+  if (expanded) {
+    content.removeAttribute('hidden');
+  } else {
+    // Use experimental `until-found` value, so users can search inside the panels.
+    // Browsers without support for `until-found` will ignore the value and just `display: none` the panel.
+    content.setAttribute('hidden', 'until-found');
+  }
+
+  content.dispatchEvent(
+    new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
+  );
+  content.dispatchEvent(
+    new CustomEvent('wagtail:panel-toggle', {
+      bubbles: true,
+      cancelable: false,
+      detail: { expanded },
+    }),
+  );
+};
+
+/**
+ * Initialises event handlers for a collapsible panel,
+ * and applies the correct initial state based on classes.
+ */
+function initCollapsiblePanel(toggle: HTMLButtonElement) {
+  const panel = toggle.closest<HTMLElement>('[data-panel]');
+  const content = document.querySelector<HTMLDivElement>(
+    `#${toggle.getAttribute('aria-controls')}`,
   );
 
-  toggles.forEach((toggle) => {
-    const panel = toggle.closest<HTMLElement>('[data-panel]');
-    const content = document.querySelector<HTMLDivElement>(
-      `#${toggle.getAttribute('aria-controls')}`,
-    );
+  if (!content || !panel) {
+    return;
+  }
 
-    if (!content || !panel) {
-      return;
-    }
+  const togglePanel = toggleCollapsiblePanel.bind(null, toggle, content);
 
-    const onAnimationComplete = () => {
-      content.dispatchEvent(
-        new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
-      );
-    };
+  // Collapse panels marked as `collapsed`, unless they contain invalid fields.
+  const hasCollapsed = panel.classList.contains('collapsed');
+  const hasError = content.querySelector(
+    '[aria-invalid="true"], .error, .w-field--error',
+  );
 
-    const hasCollapsed = panel.classList.contains('collapsed');
-    const hasError = content.querySelector('[aria-invalid="true"]');
+  if (hasCollapsed && !hasError) {
+    togglePanel(false);
+  }
 
-    // Collapse panels marked as `collapsed`, unless they contain invalid fields.
-    if (hasCollapsed && !hasError) {
-      // Use experimental `until-found` value.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      content.hidden = 'until-found';
-      toggle.setAttribute('aria-expanded', 'false');
-      onAnimationComplete();
-    }
+  toggle.addEventListener('click', togglePanel.bind(null, undefined));
 
-    toggle.addEventListener('click', () => {
-      const wasExpanded = toggle.getAttribute('aria-expanded') === 'true';
-      const isExpanded = !wasExpanded;
-      // Use experimental `until-found` value, so users can search inside the panels.
-      // Browsers without support for `until-found` will ignore the value.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      content.hidden = !isExpanded ? 'until-found' : '';
-      onAnimationComplete();
+  const heading = panel.querySelector<HTMLElement>('[data-panel-heading]');
+  if (heading) {
+    heading.addEventListener('click', togglePanel.bind(null, undefined));
+  }
 
-      toggle.setAttribute('aria-expanded', `${isExpanded}`);
-    });
+  // Set the toggle back to expanded upon reveal.
+  content.addEventListener('beforematch', togglePanel.bind(null, true));
+}
 
-    // Set the toggle back to expanded upon reveal.
-    content.addEventListener('beforematch', () => {
-      toggle.setAttribute('aria-expanded', 'true');
-    });
-  });
+/**
+ * Make panels collapsible, and collapse panels already marked as `collapsed`.
+ */
+export function initCollapsiblePanels(
+  toggles = document.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]'),
+) {
+  toggles.forEach(initCollapsiblePanel);
 }
 
 /**
  * Smooth scroll onto any active panel.
  * Needs to run after the whole page is loaded so the browser can resolve any
- * JS-driven :target.
+ * JS-rendered :target.
  */
-export function initAnchoredPanels() {
-  const anchorTarget = document.querySelector('[data-panel]:target');
+export function initAnchoredPanels(
+  anchorTarget = document.querySelector<HTMLElement>('[data-panel]:target'),
+) {
   if (anchorTarget) {
     anchorTarget.scrollIntoView({ behavior: 'smooth' });
   }

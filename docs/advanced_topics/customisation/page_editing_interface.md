@@ -13,9 +13,9 @@ class BlogPage(Page):
     # field definitions omitted
 
     content_panels = [
-        FieldPanel('title', classname="full title"),
+        FieldPanel('title', classname="title"),
         FieldPanel('date'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
     sidebar_content_panels = [
         FieldPanel('advert'),
@@ -26,7 +26,7 @@ class BlogPage(Page):
         ObjectList(content_panels, heading='Content'),
         ObjectList(sidebar_content_panels, heading='Sidebar content'),
         ObjectList(Page.promote_panels, heading='Promote'),
-        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(Page.settings_panels, heading='Settings'),
     ])
 ```
 
@@ -45,7 +45,7 @@ class BookPage(Page):
     body = RichTextField()
 
     content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
 ```
 
