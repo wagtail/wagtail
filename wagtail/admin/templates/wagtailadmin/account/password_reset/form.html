@@ -30,7 +30,7 @@
 
                 {% block extra_fields %}
                     {% for field_name, field in form.extra_fields %}
-                        <li class="full">
+                        <li>
                             {{ field.label_tag }}
                             <div class="field iconfield">
                                 {{ field }}

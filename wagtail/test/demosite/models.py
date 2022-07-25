@@ -180,7 +180,7 @@ class HomePageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 HomePage.content_panels = Page.content_panels + [
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("carousel_items", label="Carousel items"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -230,9 +230,9 @@ class StandardPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 StandardPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("carousel_items", label="Carousel items"),
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -274,7 +274,7 @@ class StandardIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 StandardIndexPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -345,7 +345,7 @@ class BlogEntryPageTag(TaggedItemBase):
 
 BlogEntryPage.content_panels = Page.content_panels + [
     FieldPanel("date"),
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("carousel_items", label="Carousel items"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -407,7 +407,7 @@ class BlogIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 BlogIndexPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -521,7 +521,7 @@ EventPage.content_panels = Page.content_panels + [
     FieldPanel("cost"),
     FieldPanel("signup_link"),
     InlinePanel("carousel_items", label="Carousel items"),
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     InlinePanel("speakers", label="Speakers"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -569,7 +569,7 @@ class EventIndexPageRelatedLink(Orderable, AbstractRelatedLink):
 
 
 EventIndexPage.content_panels = Page.content_panels + [
-    FieldPanel("intro", classname="full"),
+    FieldPanel("intro"),
     InlinePanel("related_links", label="Related links"),
 ]
 
@@ -627,8 +627,8 @@ class PersonPageRelatedLink(Orderable, AbstractRelatedLink):
 PersonPage.content_panels = Page.content_panels + [
     FieldPanel("first_name"),
     FieldPanel("last_name"),
-    FieldPanel("intro", classname="full"),
-    FieldPanel("biography", classname="full"),
+    FieldPanel("intro"),
+    FieldPanel("biography"),
     FieldPanel("image"),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
     InlinePanel("related_links", label="Related links"),
@@ -668,7 +668,7 @@ class ContactPage(Page, ContactFieldsMixin):
 
 
 ContactPage.content_panels = Page.content_panels + [
-    FieldPanel("body", classname="full"),
+    FieldPanel("body"),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
 ]
 

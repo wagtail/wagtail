@@ -55,7 +55,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -111,7 +110,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -167,7 +165,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -242,7 +239,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -298,7 +294,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -373,7 +368,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -429,7 +423,6 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -504,7 +497,6 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -560,7 +552,6 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -635,7 +626,6 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -701,7 +691,6 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -776,7 +765,6 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -832,7 +820,6 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
       </div>
@@ -917,7 +904,6 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -973,7 +959,6 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div>

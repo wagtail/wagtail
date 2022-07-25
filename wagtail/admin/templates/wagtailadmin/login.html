@@ -32,7 +32,7 @@
                 <div class="fields-wrapper">
                     <ul class="fields">
                         {% block fields %}
-                            <li class="full">
+                            <li>
                                 <div class="field iconfield">
                                     {{ form.username.label_tag }}
                                     <div class="input icon-user">
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="full">
+                            <li>
                                 <div class="field iconfield">
                                     {{ form.password.label_tag }}
                                     <div class="input icon-password">
@@ -51,7 +51,7 @@
 
                             {% block extra_fields %}
                                 {% for field_name, field in form.extra_fields %}
-                                    <li class="full">
+                                    <li>
                                         {{ field.label_tag }}
                                         <div class="field iconfield">
                                             {{ field }}

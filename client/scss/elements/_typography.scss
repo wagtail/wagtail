@@ -13,12 +13,12 @@ h4,
 h5,
 h6 {
   font-weight: normal;
+  line-height: theme('lineHeight.tight');
+  color: theme('colors.primary.DEFAULT');
 }
 
 h1 {
-  line-height: 1.3em;
   font-size: 1.5em;
-  color: $color-grey-1;
   font-weight: 700;
 
   span {
@@ -28,9 +28,7 @@ h1 {
 
 h2 {
   font-size: 1.3em;
-  font-family: $font-sans;
   font-weight: 600;
-  color: $color-grey-2;
 }
 
 p {

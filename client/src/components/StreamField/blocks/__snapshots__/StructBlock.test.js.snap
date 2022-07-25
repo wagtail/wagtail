@@ -2,7 +2,7 @@
 
 exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 "<div class=\\"struct-block\\">
-        
+
           <span>
             <div class=\\"help\\">
               <div class=\\"icon-help\\">?</div>
@@ -15,7 +15,6 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -25,7 +24,6 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -34,7 +32,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 
 exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to children 1`] = `
 "<div class=\\"struct-block\\">
-        
+
           <span>
             <div class=\\"help\\">
               <div class=\\"icon-help\\">?</div>
@@ -47,7 +45,6 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -57,7 +54,6 @@ exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
-            <span></span>
           </div>
         <p class=\\"error-message\\"><span>This is too big</span></p></div>
       </div>
@@ -71,7 +67,6 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -80,7 +75,6 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
-            <span></span>
           </div>
         </div>
       </div>

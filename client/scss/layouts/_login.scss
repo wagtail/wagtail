@@ -61,18 +61,15 @@ $desktop-nice-padding: 100px;
 
   .fields li {
     padding: 1em 0;
+    position: relative;
+    padding: 0;
 
-    &.full {
-      position: relative;
-      padding: 0;
+    label {
+      @include visuallyhidden;
+    }
 
-      label {
-        @include visuallyhidden;
-      }
-
-      input {
-        border-top: 1px dashed $color-input-border;
-      }
+    input {
+      border-top: 1px dashed $color-input-border;
     }
 
     &:first-child input {
@@ -94,7 +91,7 @@ $desktop-nice-padding: 100px;
   }
 
   // Special full-width, one-off fields i.e a single text or textarea input
-  .full input {
+  input {
     border-radius: 0;
     font-weight: 300;
     border: 0;
@@ -171,30 +168,26 @@ $desktop-nice-padding: 100px;
       font-size: 4em;
     }
 
-    .full {
-      margin: 0 (-$desktop-nice-padding);
+    .iconfield {
+      // stylelint-disable-next-line max-nesting-depth
+      .input:before {
+        display: inline-block;
+        position: absolute;
+        color: theme('colors.grey.200');
+        border: 2px solid theme('colors.grey.200');
+        border-radius: 100%;
+        width: 1em;
+        height: 1em;
+        padding: 0.3em;
+        inset-inline-start: $desktop-nice-padding;
+        margin-top: -1.1rem;
+        top: 50%;
+        font-size: 1.3rem;
+      }
 
-      .iconfield {
-        // stylelint-disable-next-line max-nesting-depth
-        .input:before {
-          display: inline-block;
-          position: absolute;
-          color: theme('colors.grey.200');
-          border: 2px solid theme('colors.grey.200');
-          border-radius: 100%;
-          width: 1em;
-          height: 1em;
-          padding: 0.3em;
-          inset-inline-start: $desktop-nice-padding;
-          margin-top: -1.1rem;
-          top: 50%;
-          font-size: 1.3rem;
-        }
-
-        // stylelint-disable-next-line max-nesting-depth
-        input {
-          padding-inline-start: ($desktop-nice-padding + 50px);
-        }
+      // stylelint-disable-next-line max-nesting-depth
+      input {
+        padding-inline-start: ($desktop-nice-padding + 50px);
       }
     }
   }

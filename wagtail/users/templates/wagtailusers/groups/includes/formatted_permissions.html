@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <fieldset>
-    <legend class="visuallyhidden">{% trans "Permissions" %}</legend>
+    <legend class="w-sr-only">{% trans "Permissions" %}</legend>
     <h2>{% trans "Object permissions" %}</h2>
     <table class="listing">
         <col />
@@ -48,7 +48,7 @@
                         <td>
                             {% if content_perms_dict.custom %}
                                 <fieldset class="custom-permissions">
-                                    <legend>{% trans "Custom permissions" %}</legend>
+                                    <legend class="w-sr-only">{% trans "Custom permissions" %}</legend>
                                     {% for custom_perm in content_perms_dict.custom %}
                                         <label class="custom-permissions-item">
                                             <input type="checkbox" name="permissions" value="{{ custom_perm.perm.id }}" {% if custom_perm.selected %}checked{% endif %}>
@@ -77,7 +77,7 @@
         <tbody>
             {% for perm_tuple in other_perms %}
                 <tr>
-                    <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="plain-checkbox-label">{{ perm_tuple.0.name }}</label></td>
+                    <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="w-label-3">{{ perm_tuple.0.name }}</label></td>
                     <td>
                         {{ perm_tuple.1.tag }}
                     </td>

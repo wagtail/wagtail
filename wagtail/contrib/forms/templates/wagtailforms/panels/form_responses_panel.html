@@ -2,9 +2,9 @@
 {% trans "Total submissions" as total %}
 {% trans "Latest submission" as latest %}
 <fieldset>
-    <legend>{{ self.heading }}</legend>
+    <legend class="w-sr-only">{{ self.heading }}</legend>
     <ul class="fields">
-        <li class="full">
+        <li>
             <div class="field">
                 <label class="label">{{ total }}</label>
                 <div class="field-content">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </li>
-        <li class="full">
+        <li>
             <div class="field">
                 <label class="label">{{ latest }}</label>
                 <div class="field-content">

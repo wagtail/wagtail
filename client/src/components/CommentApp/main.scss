@@ -7,7 +7,6 @@ $color-box-border: $color-grey-3;
 $color-box-border-focused: $color-grey-2;
 $color-box-text: $color-black;
 $color-textarea-background: theme('colors.grey.50');
-$color-textarea-background-focused: $color-input-focus;
 $color-textarea-border: $color-input-border;
 $color-textarea-border-focused: $color-input-focus-border;
 $color-textarea-placeholder-text: $color-grey-2;
@@ -47,7 +46,6 @@ $box-padding: 10px;
     }
 
     &:focus {
-      background-color: $color-textarea-background-focused;
       border-color: $color-textarea-border-focused;
       outline: unset;
     }

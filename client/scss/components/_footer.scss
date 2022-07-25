@@ -166,3 +166,58 @@
     }
   }
 }
+
+// Footer control bar for performing actions on the page
+footer .actions,
+footer .preview {
+  .button {
+    @apply w-leading-none w-inline-flex w-items-center;
+
+    .icon {
+      margin-inline-end: theme('spacing.2');
+    }
+  }
+}
+
+footer .actions {
+  .button {
+    font-weight: 600;
+    text-overflow: ellipsis;
+  }
+}
+
+footer .preview {
+  button,
+  .button {
+    padding: 0 1em;
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      height: 3em;
+    }
+
+    background-color: $color-grey-2;
+    border-color: $color-grey-2;
+  }
+
+  .dropdown {
+    input[type='button'],
+    input[type='submit'],
+    button,
+    .button {
+      background-color: $color-grey-2;
+      border-color: $color-grey-2;
+    }
+
+    ul,
+    .dropdown-toggle {
+      background-color: $color-grey-2;
+    }
+
+    &.open > .button + .dropdown-toggle {
+      background-color: $color-grey-2;
+    }
+  }
+}

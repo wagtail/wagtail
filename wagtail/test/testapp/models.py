@@ -386,7 +386,7 @@ class EventPage(Page):
         FieldPanel("cost"),
         FieldPanel("signup_link"),
         InlinePanel("carousel_items", label="Carousel items"),
-        FieldPanel("body", classname="full"),
+        FieldPanel("body"),
         InlinePanel("speakers", label="Speakers", heading="Speaker lineup"),
         InlinePanel("related_links", label="Related links"),
         FieldPanel("categories"),
@@ -525,7 +525,7 @@ class EventIndex(Page):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
-        FieldPanel("intro", classname="full"),
+        FieldPanel("intro"),
     ]
 
 
@@ -551,9 +551,9 @@ class FormPage(AbstractEmailForm):
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -577,9 +577,9 @@ class JadeFormPage(AbstractEmailForm):
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -626,9 +626,9 @@ class FormPageWithRedirect(AbstractEmailForm):
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -706,14 +706,14 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
-        FieldPanel("intro", classname="full"),
+        FieldPanel("intro"),
         InlinePanel("custom_form_fields", label="Form fields"),
-        FieldPanel("thank_you_text", classname="full"),
+        FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -777,14 +777,14 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
-        FieldPanel("intro", classname="full"),
+        FieldPanel("intro"),
         InlinePanel("form_fields", label="Form fields"),
-        FieldPanel("thank_you_text", classname="full"),
+        FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -852,9 +852,9 @@ class FormPageWithCustomFormBuilder(AbstractEmailForm):
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),

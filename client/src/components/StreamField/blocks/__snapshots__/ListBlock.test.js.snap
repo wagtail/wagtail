@@ -51,7 +51,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -102,7 +101,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -153,7 +151,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -219,7 +216,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -270,7 +266,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -336,7 +331,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -387,7 +381,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -453,7 +446,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -504,7 +496,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -555,7 +546,6 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -621,7 +611,6 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -672,7 +661,6 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -738,7 +726,6 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -789,7 +776,6 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -855,7 +841,6 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -906,7 +891,6 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
       </div>
@@ -972,7 +956,6 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>
@@ -1023,7 +1006,6 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
         </div>
       </div>

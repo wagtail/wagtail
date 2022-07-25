@@ -121,6 +121,7 @@
       top: 0;
       width: 3em;
       height: 100%;
+      box-sizing: content-box;
       text-align: center;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
@@ -352,6 +353,7 @@
   font-size: 0; // unavoidable duplication of setting in icons.scss
   width: 1.8rem;
   height: 1.8rem;
+  box-sizing: content-box;
 
   &:before {
     line-height: 1.7em;
@@ -384,6 +386,7 @@
     font-size: initial;
     @include svg-icon(1rem, middle);
     padding: 0.5em;
+    box-sizing: content-box;
   }
 
   &.button-small {
@@ -506,16 +509,16 @@ button {
 
 .multiple {
   padding: 0;
-  max-width: 1024px - 50px;
   overflow: hidden;
 
   > li {
-    @include row();
+    @include row(1.5em);
     border-radius: 2px;
     position: relative;
     overflow: hidden;
     background-color: $color-white;
-    padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
+    padding: 1em 1.5em;
+    padding-inline-end: 10em; // 10em padding leaves room for controls
     margin-bottom: 1em;
     border: 1px solid theme('colors.grey.100');
   }

@@ -1,0 +1,62 @@
+@use 'sass:math';
+
+$size: 30;
+$marker-size: 18;
+$marker-offset: math.div($size - $marker-size, 2) - 1;
+$radio-checkbox-label-gap: theme('spacing.[2.5]');
+$radio-checkbox-line-gap: theme('spacing.[2.5]');
+
+// Both input types are very similar in appearance and layout.
+@mixin radio-checkbox-base() {
+  @include input-base();
+  display: inline-block;
+  position: relative;
+  height: rem($size);
+  width: rem($size);
+  cursor: pointer;
+  margin-inline-end: $radio-checkbox-label-gap;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: rem($marker-offset);
+    inset-inline-start: rem($marker-offset);
+    width: rem($marker-size);
+    height: rem($marker-size);
+  }
+
+  &:checked::before {
+    background: $color-teal;
+
+    @media (forced-colors: active) {
+      background: Highlight;
+    }
+  }
+}
+
+input[type='radio'] {
+  @include radio-checkbox-base();
+  display: inline-block;
+  border-radius: theme('borderRadius.full');
+
+  &:checked::before {
+    mask-image: url('#{$images-root}icons/radio-full.svg');
+  }
+}
+
+input[type='checkbox'] {
+  @include radio-checkbox-base();
+  border-radius: theme('borderRadius.sm');
+  // Legacy alignment for checkboxes, particularly within listings.
+  vertical-align: bottom;
+
+  &::before {
+    // Checkboxes look better with a slightly larger offset.
+    top: rem($marker-offset + 1);
+    inset-inline-start: rem($marker-offset + 1);
+  }
+
+  &:checked::before {
+    mask-image: url('#{$images-root}icons/tick.svg');
+  }
+}

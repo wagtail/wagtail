@@ -26,14 +26,12 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"mytable-cell-0-0\\" id=\\"mytable-cell-0-0\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div></td><td><div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"mytable-cell-0-1\\" id=\\"mytable-cell-0-1\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div></td><td class=\\"control-cell\\"><input type=\\"hidden\\" name=\\"mytable-row-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace no delete-row\\" aria-label=\\"Delete row\\" title=\\"Delete row\\">
@@ -44,14 +42,12 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"mytable-cell-1-0\\" id=\\"mytable-cell-1-0\\">Block A widget</p>
-            <span></span>
           </div>
         </div>
       </div></td><td><div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"mytable-cell-1-1\\" id=\\"mytable-cell-1-1\\">Block B widget</p>
-            <span></span>
           </div>
         </div>
       </div></td><td class=\\"control-cell\\"><input type=\\"hidden\\" name=\\"mytable-row-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace no delete-row\\" aria-label=\\"Delete row\\" title=\\"Delete row\\">
@@ -69,7 +65,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             </tfoot>
           </table>
         </div>
-      
+
         <span>
           <div class=\\"help\\">
             <div class=\\"icon-help\\">?</div>
