@@ -360,13 +360,13 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   };
 
   const assertCannotAddBlock = () => {
-    // Test duplicate button
+    // Test duplicate button is always enabled
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
         .querySelector('button[title="Duplicate"]')
         .getAttribute('disabled'),
-    ).toEqual('disabled');
+    ).toBe(null);
 
     // Test menu
     expect(
@@ -424,55 +424,5 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     boundBlock.deleteBlock(2);
 
     assertCanAddBlock();
-  });
-
-  test('initialising at maxNum disables split', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
-      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
-    ]);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
-  });
-
-  test('insert disables split', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
-    ]);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(true);
-
-    boundBlock.insert('Third value', 2);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
-  });
-
-  test('delete enables split', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
-      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
-    ]);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
-
-    boundBlock.deleteBlock(2);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(true);
   });
 });
