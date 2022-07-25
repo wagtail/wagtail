@@ -12,6 +12,10 @@
   box-sizing: border-box;
   display: none;
 
+  .w-dialog & {
+    z-index: calc(theme('zIndex.dialog') + 5);
+  }
+
   * {
     box-sizing: border-box;
     padding: 0;
