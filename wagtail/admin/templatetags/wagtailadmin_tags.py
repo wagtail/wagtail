@@ -514,7 +514,7 @@ def page_header_buttons(context, page, page_perms):
             "w-flex",
             "w-justify-center",
             "w-items-center",
-            "w-h-[50px]",
+            "w-h-slim-header",
         ],
         "button_classes": [
             "w-p-0",
@@ -1017,6 +1017,13 @@ class HelpBlockNode(BlockInclusionNode):
 
 
 register.tag("help_block", HelpBlockNode.handle)
+
+
+class PanelNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/panel.html"
+
+
+register.tag("panel", PanelNode.handle)
 
 
 # Button used to open dialogs

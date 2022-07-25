@@ -33,7 +33,6 @@ module.exports = function exports(env, argv) {
     'admin': [
       'chooser-modal',
       'chooser-widget',
-      'collapsible',
       'comments',
       'core',
       'date-time-chooser',

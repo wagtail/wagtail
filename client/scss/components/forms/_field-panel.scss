@@ -1,0 +1,28 @@
+.w-field {
+  position: relative;
+}
+
+.w-field__errors {
+  @apply w-label-2;
+  color: theme('colors.critical.200');
+  margin-bottom: theme('spacing.[2.5]');
+}
+
+.w-field__errors-icon {
+  width: 1em;
+  height: 1em;
+  position: relative;
+  top: 0.125em;
+  margin-inline-end: 0.375em;
+}
+
+.w-field__label {
+  @apply w-label-3;
+  display: block;
+  margin-bottom: theme('spacing.3');
+}
+
+// Only add space in-between fields when there is more than one.
+.w-field__wrapper + .w-field__wrapper {
+  margin-top: theme('spacing.5');
+}

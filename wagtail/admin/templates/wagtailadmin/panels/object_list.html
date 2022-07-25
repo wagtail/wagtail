@@ -1,33 +1,7 @@
 {% load wagtailadmin_tags %}
 
 {% for child, identifier in self.visible_children_with_identifiers %}
-    <section
-        id="{{ self.prefix }}-childsection-{{ identifier }}"
-        aria-labelledby="{{ self.prefix }}-childheading-{{ identifier }}"
-        class="w-panel"
-    >
-        <div class="w-panel__header">
-            <a href="#{{ self.prefix }}-childsection-{{ identifier }}" aria-label="Link to {{ child.heading }}">#</a>
-            <button
-                type="button"
-                class="w-panel__toggle"
-                aria-label="Toggle {{ child.heading }}"
-                aria-controls="{{ self.prefix }}-childcontent-{{ identifier }}"
-                aria-expanded="true"
-            >
-                <svg width="16" height="16"><use href="#icon-pilcrow"></use></svg>
-            </button>
-            <h2 id="{{ self.prefix }}-childheading-{{ identifier }}" class="w-panel__heading">
-                {% if child.id_for_label %}
-                    <label for="{{ child.id_for_label }}">{{ child.heading }}{% if child.is_required %}<span class="w-error" aria-hidden="true">*</span>{% endif %}</label>
-                {% else %}
-                    {{ child.heading }}{% if child.is_required %}<span class="w-error" aria-hidden="true">*</span>{% endif %}
-                {% endif %}
-            </h2>
-        </div>
-
-        <div id="{{ self.prefix }}-childcontent-{{ identifier }}" class="w-panel__content">
-            {% component child %}
-        </div>
-    </section>
+    {% panel id_prefix=self.prefix id=identifier class_name=child.classes|join:' ' heading=child.heading heading_size="label" icon=child.icon id_for_label=child.id_for_label is_required=child.is_required %}
+        {% component child %}
+    {% endpanel %}
 {% endfor %}

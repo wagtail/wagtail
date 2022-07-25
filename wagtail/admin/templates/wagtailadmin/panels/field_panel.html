@@ -1,12 +1,15 @@
 {% load wagtailadmin_tags i18n %}
-<div id="{{ self.prefix }}-field" class="w-field {% if field.errors %}w-field--error{% endif %}" data-contentpath="{{ field.name }}">
+<div class="w-field w-field--{{ field|fieldtype }} w-field--{{ field|widgettype }} {% if field.errors %}w-field--error{% endif %}" data-contentpath="{{ field.name }}" id="{{ self.prefix }}-field">
     {% if errors %}
-        <p id="{{ error_message_id }}" class="w-error"><svg width="16" height="16"><use href="#icon-cross"></use></svg>{% for error in errors %}{{ error }} {% endfor %}</p>
+        <p class="w-field__errors" id="{{ error_message_id }}">
+            {% icon name="warning" class_name="w-field__errors-icon" %}
+            {% for error in errors %}{{ error }} {% endfor %}
+        </p>
     {% endif %}
 
     {{ rendered_field }}
     {% if help_text %}
-        <p id="{{ help_text_id }}" class="w-help-text">{{ help_text }}</p>
+        <div id="{{ help_text_id }}" class="help">{{ help_text }}</div>
     {% endif %}
 
     {% if show_add_comment_button %}

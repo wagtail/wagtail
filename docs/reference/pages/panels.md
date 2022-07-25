@@ -90,8 +90,7 @@ This is a powerful but complex feature which will take some space to cover, so w
 
 #### Collapsing InlinePanels to save space
 
-Note that you can use `classname="collapsible collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
-See {ref}`collapsible` for more details on `collapsible` usage.
+Note that you can use `classname="collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
 
 ### FieldRowPanel
 
@@ -240,11 +239,6 @@ See {ref}`collapsible` for more details on `collapsible` usage.
 By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
 (See [Django model field reference](django:ref/models/fields)).
 
-### Full-Width Input
-
-Use `classname="full"` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a
-[`MultiFieldPanel`](wagtail.admin.panels.MultiFieldPanel), which places its child fields into a formset.
-
 ### Titles
 
 Use `classname="title"` to make Page's built-in title field stand out with more vertical padding.
@@ -253,12 +247,11 @@ Use `classname="title"` to make Page's built-in title field stand out with more 
 
 ### Collapsible
 
-By default, panels are expanded and not collapsible.
-Use `classname="collapsible"` to enable the collapse control.
-Use `classname="collapsible collapsed"` will load the editor page with the panel collapsed under its heading.
+```{versionchanged} 4.0
+All panels are now collapsible by default.
+```
 
-You must define a `heading` when using `collapsible` with `MultiFieldPanel`.
-You must define a `heading` or `label` when using `collapsible` with `InlinePanel`.
+Using `classname="collapsed"` will load the editor page with the panel collapsed under its heading.
 
 ```python
     content_panels = [
@@ -269,7 +262,7 @@ You must define a `heading` or `label` when using `collapsible` with `InlinePane
                 FieldPanel('publisher'),
             ],
             heading="Collection of Book Fields",
-            classname="collapsible collapsed"
+            classname="collapsed"
         ),
     ]
 ```

@@ -1,0 +1,77 @@
+.w-panel {
+  margin-bottom: theme('spacing.10');
+}
+
+.w-panel__header {
+  display: flex;
+  align-items: center;
+  gap: theme('spacing.2');
+  margin-bottom: theme('spacing.5');
+  margin-left: calc(-1 * 2 * (theme('spacing.6') + theme('spacing.2')));
+}
+
+.w-panel__heading {
+  @apply w-h3;
+  display: inline-block;
+  margin: 0;
+}
+
+.w-panel__heading--label {
+  @apply w-label-1;
+}
+
+.w-panel__anchor,
+.w-panel__toggle {
+  display: inline-grid;
+  justify-content: center;
+  align-content: center;
+  color: theme('colors.primary.DEFAULT');
+  padding: 0;
+  width: theme('spacing.6');
+  height: theme('spacing.6');
+}
+
+.w-panel__anchor {
+  visibility: hidden;
+
+  .w-panel__header:hover &,
+  .w-panel__header:focus-within & {
+    visibility: visible;
+  }
+}
+
+.w-panel__toggle {
+  appearance: none;
+  background: transparent;
+}
+
+.w-panel__icon {
+  width: theme('spacing.5');
+  height: theme('spacing.5');
+
+  [aria-expanded='false'] & {
+    transform: rotate(-90deg);
+  }
+
+  &.icon-link {
+    width: theme('spacing.[3.5]');
+    height: theme('spacing.[3.5]');
+  }
+}
+
+.w-panel__icon--custom {
+  // Only display the default icon when closed.
+  [aria-expanded='false'] & {
+    display: none;
+  }
+
+  // Hide the default icon when expanded.
+  [aria-expanded='true'] & + .w-panel__icon {
+    display: none;
+  }
+}
+
+// TODO Forms
+.w-panel--row .w-panel__content {
+  @apply w-grid lg:w-grid-flow-col lg:w-grid-cols-3;
+}

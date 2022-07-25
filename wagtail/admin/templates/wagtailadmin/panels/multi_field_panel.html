@@ -1,6 +1,10 @@
 {% load wagtailadmin_tags %}
 {% for child in self.visible_children %}
-    <label {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %} class="w-field__label">{{ child.heading }}{% if child.is_required %}<span class="w-error" aria-hidden="true">*</span>{% endif %}</label>
+    <div class="w-field__wrapper">
+        {% if child.heading %}
+            <label {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %} class="w-field__label">{{ child.heading }}{% if child.is_required %}<span class="w-required-mark">*</span>{% endif %}</label>
+        {% endif %}
 
-    {% component child %}
+        {% component child %}
+    </div>
 {% endfor %}
