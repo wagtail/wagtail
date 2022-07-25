@@ -184,25 +184,35 @@ class DraftailRichTextArea {
 
       const blockGroups = addSibling ? addSibling.blockGroups : [];
       const blockCommands = blockGroups.map(([group, blocks]) => {
-        const blockControls = blocks.map((blockDef) => ({
-          icon: `#icon-${blockDef.meta.icon}`,
-          description: blockDef.meta.label,
-          type: blockDef.name,
-          onSelect: ({ editorState }) => {
-            const result = window.draftail.splitState(editorState);
-            // Run the split after a timeout to circumvent potential race condition.
-            setTimeout(() => {
-              if (result) {
-                split.fn(
-                  result.stateBefore,
-                  result.stateAfter,
-                  result.shouldMoveCommentFn,
-                );
-              }
-              addSibling.fn({ type: blockDef.name });
-            }, 50);
-          },
-        }));
+        const blockControls = blocks.map((blockDef) => {
+          const blockMax = addSibling.getBlockMax(blockDef.name);
+          return {
+            icon: `#icon-${blockDef.meta.icon}`,
+            description: blockDef.meta.label,
+            type: blockDef.name,
+            render: ({ option }) => {
+              const limitText =
+                typeof blockMax === 'number'
+                  ? `(${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
+                  : '';
+              return `${option.description}${limitText}`;
+            },
+            onSelect: ({ editorState }) => {
+              const result = window.draftail.splitState(editorState);
+              // Run the split after a timeout to circumvent potential race condition.
+              setTimeout(() => {
+                if (result) {
+                  split.fn(
+                    result.stateBefore,
+                    result.stateAfter,
+                    result.shouldMoveCommentFn,
+                  );
+                }
+                addSibling.fn({ type: blockDef.name });
+              }, 50);
+            },
+          };
+        });
         return {
           label: group || gettext('Blocks'),
           type: `streamfield-${group}`,

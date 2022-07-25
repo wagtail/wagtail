@@ -233,6 +233,9 @@ export class StreamBlock extends BaseSequenceBlock {
     // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
 
+    // Cache for child block counting (not guaranteed to be fully populated)
+    this.childBlockCounts = new Map();
+
     // Insertion control objects - there are one more of these than there are children.
     // The control at index n will insert a block at index n
     this.inserters = [];
@@ -263,6 +266,32 @@ export class StreamBlock extends BaseSequenceBlock {
     return this.blockDef.groupedChildBlockDefs;
   }
 
+  getBlockCount(type) {
+    // Get the block count for a particular type, or if none is provided, the total block count
+    if (!type) {
+      return this.children.length;
+    }
+    if (!this.childBlockCounts.has(type)) {
+      this._updateBlockCount(type);
+    }
+    return this.childBlockCounts.get(type) || 0;
+  }
+
+  getBlockMax(type) {
+    // Get the maximum number of blocks allowable for a particular type, or if none is provided, the total maximum
+    if (!type) {
+      return this.blockDef.meta.maxNum;
+    }
+    return this.blockDef.meta.blockCounts[type];
+  }
+
+  _updateBlockCount(type) {
+    const currentBlockCount = this.children.filter(
+      (child) => child.type === type,
+    ).length;
+    this.childBlockCounts.set(type, currentBlockCount);
+  }
+
   /*
    * Called whenever a block is added or removed
    *
@@ -271,6 +300,7 @@ export class StreamBlock extends BaseSequenceBlock {
   blockCountChanged() {
     super.blockCountChanged();
     this.canAddBlock = true;
+    this.childBlockCounts.clear();
 
     if (
       typeof this.blockDef.meta.maxNum === 'number' &&
@@ -279,21 +309,17 @@ export class StreamBlock extends BaseSequenceBlock {
       this.canAddBlock = false;
     }
 
-    // If we can add blocks, check if there are any block types that have count limits
+    // Check if there are any block types that have count limits
     this.disabledBlockTypes = new Set();
-    if (this.canAddBlock) {
-      for (const blockType in this.blockDef.meta.blockCounts) {
-        if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
-          const counts = this.blockDef.meta.blockCounts[blockType];
+    for (const blockType in this.blockDef.meta.blockCounts) {
+      if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
+        const counts = this.blockDef.meta.blockCounts[blockType];
 
-          if (typeof counts.max_num === 'number') {
-            const currentBlockCount = this.children.filter(
-              (child) => child.type === blockType,
-            ).length;
+        if (typeof counts.max_num === 'number') {
+          const currentBlockCount = this.getBlockCount(blockType);
 
-            if (currentBlockCount >= counts.max_num) {
-              this.disabledBlockTypes.add(blockType);
-            }
+          if (currentBlockCount >= counts.max_num) {
+            this.disabledBlockTypes.add(blockType);
           }
         }
       }

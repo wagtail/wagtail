@@ -196,6 +196,8 @@ export class BaseSequenceChild extends EventEmitter {
       enabled: true,
       fn: this.addSibling.bind(this),
       blockGroups: this.sequence.getBlockGroups(),
+      getBlockCount: this.sequence.getBlockCount.bind(this.sequence),
+      getBlockMax: this.sequence.getBlockMax.bind(this.sequence),
     });
 
     this.block = this.blockDef.render(

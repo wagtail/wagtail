@@ -300,6 +300,14 @@ export class ListBlock extends BaseSequenceBlock {
   getBlockGroups() {
     return ['', [this.childBlockDef]];
   }
+
+  getBlockCount() {
+    return this.children.length;
+  }
+
+  getBlockMax() {
+    return this.blockDef.meta.maxNum || 0;
+  }
 }
 
 export class ListBlockDefinition {
