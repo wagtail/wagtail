@@ -325,18 +325,6 @@ export class StreamBlock extends BaseSequenceBlock {
       }
     }
 
-    for (let i = 0; i < this.children.length; i++) {
-      const canDuplicate =
-        this.canAddBlock && !this.disabledBlockTypes.has(this.children[i].type);
-
-      if (canDuplicate) {
-        this.children[i].enableDuplication();
-        this.children[i].enableSplit();
-      } else {
-        this.children[i].disableDuplication();
-        this.children[i].disableSplit();
-      }
-    }
     for (let i = 0; i < this.inserters.length; i++) {
       this.inserters[i].setNewBlockRestrictions(
         this.canAddBlock,

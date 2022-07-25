@@ -209,10 +209,6 @@ export class ListBlock extends BaseSequenceBlock {
         for (let i = 0; i < this.inserters.length; i++) {
           this.inserters[i].enable();
         }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].enableDuplication();
-          this.children[i].enableSplit();
-        }
       }
     }
   }
