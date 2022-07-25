@@ -96,7 +96,7 @@ To add extra information to a block within one of the above Wagtail templates, u
 
     {% block content %}
         {{ block.super }}
-        <div class="object">
+        <div>
             <img src="{% get_media_prefix %}{{ instance.image }}"/>
         </div>
     {% endblock %}

@@ -278,7 +278,12 @@ class Tabs {
   selectTabByURLHash() {
     if (window.location.hash) {
       const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-      const tab = this.getTabElementByHref(cleanedHash);
+      // Support linking straight to a tab, or to an element within a tab.
+      const tabID = document
+        .querySelector(cleanedHash)
+        ?.closest('[role="tabpanel"]')
+        ?.getAttribute('aria-labelledby');
+      const tab = document.getElementById(tabID);
       if (tab) {
         this.selectTab(tab);
       } else {

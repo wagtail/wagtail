@@ -56,6 +56,12 @@ audio:not([controls]) {
   display: none !important;
 }
 
+// See https://github.com/necolas/normalize.css/pull/879.
+[hidden='until-found'] {
+  /* stylelint-disable-next-line declaration-no-important */
+  display: revert !important;
+}
+
 /* ==========================================================================
    Base
    ========================================================================== */

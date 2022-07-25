@@ -217,3 +217,8 @@
     }
   }
 }
+
+// For pages with the slim header, make sure the header is accounted for when scrolling to an anchor.
+.page-slim-header {
+  scroll-padding-top: calc(theme('spacing.slim-header') + 1rem);
+}

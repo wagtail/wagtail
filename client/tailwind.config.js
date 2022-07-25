@@ -83,7 +83,10 @@ module.exports = {
       ...boxShadow,
       none: 'none',
     },
-    spacing,
+    spacing: {
+      ...spacing,
+      'slim-header': '50px',
+    },
     extend: {
       outlineOffset: {
         inside: '-3px',
