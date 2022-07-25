@@ -170,20 +170,27 @@ class DraftailRichTextArea {
     this.options = options;
   }
 
-  render(container, name, id, initialState, parentCapabilities) {
-    const originalOptions = this.options;
-    const options = { ...originalOptions };
-    const capabilities = parentCapabilities || new Map();
+  getCapabilityOptions(originalOptions, parentCapabilities) {
+    // Given original options object, return the options overrides
+    // that account for its contextual abilities (splitting or adding additional blocks)
+    const options = {};
+    const capabilities = parentCapabilities;
     const split = capabilities.get('split');
     const addSibling = capabilities.get('addSibling');
-    if (split) {
-      options.controls = options.controls ? [...options.controls] : [];
+    let blockCommands = [];
+    if (split && split.enabled) {
+      options.controls = originalOptions.controls
+        ? [...originalOptions.controls]
+        : [];
       options.controls.push({
         meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
       });
 
-      const blockGroups = addSibling ? addSibling.blockGroups : [];
-      const blockCommands = blockGroups.map(([group, blocks]) => {
+      const blockGroups =
+        addSibling && addSibling.enabled ? addSibling.blockGroups : [];
+      // Create commands for splitting + inserting a block. This requires both the split
+      // and addSibling capabilities to be available and enabled
+      blockCommands = blockGroups.map(([group, blocks]) => {
         const blockControls = blocks.map((blockDef) => {
           const blockMax = addSibling.getBlockMax(blockDef.name);
           return {
@@ -191,6 +198,7 @@ class DraftailRichTextArea {
             description: blockDef.meta.label,
             type: blockDef.name,
             render: ({ option }) => {
+              // If the specific block has a limit, render the current number/max alongside the description
               const limitText =
                 typeof blockMax === 'number'
                   ? `(${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
@@ -219,56 +227,63 @@ class DraftailRichTextArea {
           items: blockControls,
         };
       });
-
-      const hrCommand = {
-        type: 'hr',
-        // The horizontal rule isn’t included in entityTypes by default.
-        items: [{ type: 'HORIZONTAL_RULE' }],
-      };
-
-      options.commands = [
-        {
-          label: gettext('Rich text'),
-          type: 'blockTypes',
-        },
-        {
-          type: 'entityTypes',
-        },
-        ...(options.enableHorizontalRule ? [hrCommand] : []),
-        ...blockCommands,
-        {
-          label: 'Actions',
-          type: 'custom-actions',
-          items: [
-            {
-              icon: '#icon-cut',
-              description: gettext('Split block'),
-              type: 'split',
-              render: ({ option, getEditorState }) => {
-                const editorState = getEditorState();
-                const content = editorState.getCurrentContent();
-                const blocks = content.getBlockMap();
-                const text = `${option.description} (will split ${blocks.size} blocks)`;
-                return text;
-              },
-              onSelect: ({ editorState }) => {
-                const result = window.draftail.splitState(editorState);
-                // Run the split after a timeout to circumvent potential race condition.
-                setTimeout(() => {
-                  if (result) {
-                    split.fn(
-                      result.stateBefore,
-                      result.stateAfter,
-                      result.shouldMoveCommentFn,
-                    );
-                  }
-                }, 50);
-              },
-            },
-          ],
-        },
-      ];
     }
+
+    options.commands = [
+      {
+        label: gettext('Rich text'),
+        type: 'blockTypes',
+      },
+      {
+        type: 'entityTypes',
+      },
+      ...blockCommands,
+      {
+        label: 'Actions',
+        type: 'custom-actions',
+        items: [
+          {
+            icon: '#icon-cut',
+            description: gettext('Split block'),
+            type: 'split',
+            render: ({ option, getEditorState }) => {
+              const editorState = getEditorState();
+              const content = editorState.getCurrentContent();
+              const blocks = content.getBlockMap();
+              const text = `${option.description} (will split ${blocks.size} blocks)`;
+              return text;
+            },
+            onSelect: ({ editorState }) => {
+              const result = window.draftail.splitState(editorState);
+              // Run the split after a timeout to circumvent potential race condition.
+              setTimeout(() => {
+                if (result) {
+                  split.fn(
+                    result.stateBefore,
+                    result.stateAfter,
+                    result.shouldMoveCommentFn,
+                  );
+                }
+              }, 50);
+            },
+          },
+        ],
+      },
+    ];
+
+    return options;
+  }
+
+  getFullOptions(originalOptions, parentCapabilities) {
+    return {
+      ...originalOptions,
+      ...this.getCapabilityOptions(originalOptions, parentCapabilities),
+    };
+  }
+
+  render(container, name, id, initialState, parentCapabilities) {
+    const originalOptions = this.options;
+    const capabilities = new Map(parentCapabilities);
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
@@ -280,9 +295,9 @@ class DraftailRichTextArea {
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
     // eslint-disable-next-line no-undef
-    const [currentOptions, setOptions] = draftail.initEditor(
+    const [, setOptions] = draftail.initEditor(
       '#' + id,
-      options,
+      this.getFullOptions(originalOptions, parentCapabilities),
       document.currentScript,
     );
 
@@ -323,21 +338,8 @@ class DraftailRichTextArea {
           capabilities.get(capability),
           capabilityOptions,
         );
-        if (capability === 'split') {
-          setOptions({
-            ...currentOptions,
-            controls: [
-              ...(originalOptions || []),
-              {
-                // eslint-disable-next-line no-undef
-                block: draftail.getSplitControl(
-                  newCapability.fn,
-                  !!newCapability.enabled,
-                ),
-              },
-            ],
-          });
-        }
+        capabilities.set(capability, newCapability);
+        setOptions(this.getFullOptions(originalOptions, capabilities));
       },
     };
 
