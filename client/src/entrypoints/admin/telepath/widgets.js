@@ -178,16 +178,25 @@ class DraftailRichTextArea {
     const split = capabilities.get('split');
     const addSibling = capabilities.get('addSibling');
     let blockCommands = [];
+<<<<<<< HEAD
     if (split && split.enabled) {
       options.controls = originalOptions.controls
         ? [...originalOptions.controls]
         : [];
+=======
+    if (split) {
+      options.controls = originalOptions.controls ? [...originalOptions.controls] : [];
+>>>>>>> 320474ed14... fixup! Move command generation out of render and update them when capabilities change
       options.controls.push({
         meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
       });
 
+<<<<<<< HEAD
       const blockGroups =
         addSibling && addSibling.enabled ? addSibling.blockGroups : [];
+=======
+      const blockGroups = (addSibling && addSibling.enabled && split.enabled) ? addSibling.blockGroups : [];
+>>>>>>> 320474ed14... fixup! Move command generation out of render and update them when capabilities change
       // Create commands for splitting + inserting a block. This requires both the split
       // and addSibling capabilities to be available and enabled
       blockCommands = blockGroups.map(([group, blocks]) => {
@@ -294,10 +303,12 @@ class DraftailRichTextArea {
     const initialiseBlank = !!initialState.getCurrentContent;
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
+
+    const getFullOptions = this.getFullOptions.bind(this);
     // eslint-disable-next-line no-undef
     const [, setOptions] = draftail.initEditor(
       '#' + id,
-      this.getFullOptions(originalOptions, parentCapabilities),
+      getFullOptions(originalOptions, parentCapabilities),
       document.currentScript,
     );
 
@@ -338,9 +349,9 @@ class DraftailRichTextArea {
           capabilities.get(capability),
           capabilityOptions,
         );
-        capabilities.set(capability, newCapability);
-        setOptions(this.getFullOptions(originalOptions, capabilities));
-      },
+        capabilities.set(capability, newCapability)
+        setOptions(getFullOptions(originalOptions, capabilities));
+      }
     };
 
     if (initialiseBlank) {
