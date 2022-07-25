@@ -6,7 +6,13 @@ export const dialog = (
   dialogs.forEach((template) => {
     const html = document.documentElement;
     const templateContent = template.content.firstElementChild;
-    document.body.appendChild(templateContent);
+
+    const { dialogRootSelector } = templateContent.dataset;
+    const dialogRoot =
+      (dialogRootSelector && document.querySelector(dialogRootSelector)) ||
+      document.body;
+    dialogRoot.appendChild(templateContent);
+
     const dialogTemplate = new A11yDialog(templateContent);
 
     // Prevent scrolling when dialog is open
