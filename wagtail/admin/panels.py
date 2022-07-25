@@ -21,6 +21,7 @@ from wagtail.admin.forms.comments import CommentForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
+from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.blocks import BlockField
 from wagtail.coreutils import safe_snake_case
 from wagtail.models import COMMENTS_RELATION_NAME, Page
@@ -1049,20 +1050,37 @@ class InlinePanel(Panel):
 # and therefore the associated styling of the publishing panel
 class PublishingPanel(MultiFieldPanel):
     def __init__(self, **kwargs):
+        js_overlay_parent_selector = "#schedule-publishing-dialog"
         updated_kwargs = {
             "children": [
                 FieldRowPanel(
                     [
-                        FieldPanel("go_live_at"),
-                        FieldPanel("expire_at"),
+                        FieldPanel(
+                            "go_live_at",
+                            widget=AdminDateTimeInput(
+                                js_overlay_parent_selector=js_overlay_parent_selector,
+                            ),
+                        ),
+                        FieldPanel(
+                            "expire_at",
+                            widget=AdminDateTimeInput(
+                                js_overlay_parent_selector=js_overlay_parent_selector,
+                            ),
+                        ),
                     ],
                 ),
             ],
-            "heading": gettext_lazy("Scheduled publishing"),
             "classname": "publishing",
         }
         updated_kwargs.update(kwargs)
         super().__init__(**updated_kwargs)
+
+    @property
+    def clean_name(self):
+        return super().clean_name or "publishing"
+
+    class BoundPanel(PanelGroup.BoundPanel):
+        template_name = "wagtailadmin/panels/publishing/schedule_publishing_panel.html"
 
 
 class CommentPanel(Panel):

@@ -1,0 +1,14 @@
+{% load i18n wagtailadmin_tags %}
+
+{% trans 'Set publishing schedule' as schedule_publishing_dialog_title %}
+{% trans 'Choose when this page should go live and/or expire' as schedule_publishing_dialog_subtitle %}
+
+<div data-schedule-publishing-dialog-root>
+    {% dialog id='schedule-publishing-dialog' dialog_root_selector='[data-schedule-publishing-dialog-root]' icon_name='calendar-alt' title=schedule_publishing_dialog_title subtitle=schedule_publishing_dialog_subtitle %}
+        {% include 'wagtailadmin/panels/multi_field_panel.html' %}
+
+        <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+            <em>{% trans 'Save date' %}</em>
+        </button>
+    {% enddialog %}
+</div>
