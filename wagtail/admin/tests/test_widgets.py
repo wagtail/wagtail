@@ -283,7 +283,12 @@ class TestAdminDateTimeInput(TestCase):
 
         self.assertEqual(
             js_args[0],
-            {"dayOfWeekStart": 0, "format": "Y-m-d H:i", "formatTime": "H:i"},
+            {
+                "dayOfWeekStart": 0,
+                "format": "Y-m-d H:i",
+                "formatTime": "H:i",
+                "parentID": "body",
+            },
         )
 
     def test_adapt_with_custom_format(self):
@@ -295,7 +300,29 @@ class TestAdminDateTimeInput(TestCase):
 
         self.assertEqual(
             js_args[0],
-            {"dayOfWeekStart": 0, "format": "d.m.Y. H:i", "formatTime": "H:i A"},
+            {
+                "dayOfWeekStart": 0,
+                "format": "d.m.Y. H:i",
+                "formatTime": "H:i A",
+                "parentID": "body",
+            },
+        )
+
+    def test_adapt_with_custom_parent_selector(self):
+        widget = widgets.AdminDateTimeInput(
+            js_overlay_parent_selector="#test-parent-id"
+        )
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(
+            js_args[0],
+            {
+                "dayOfWeekStart": 0,
+                "format": "Y-m-d H:i",
+                "formatTime": "H:i",
+                "parentID": "#test-parent-id",
+            },
         )
 
     def test_render_js_init(self):
@@ -314,6 +341,7 @@ class TestAdminDateTimeInput(TestCase):
         self.assertIn('"dayOfWeekStart": 0', html)
         self.assertIn('"format": "Y-m-d H:i"', html)
         self.assertIn('"formatTime": "H:i"', html)
+        self.assertIn('"parentID": "body"', html)
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateTimeInput(
