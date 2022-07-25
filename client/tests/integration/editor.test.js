@@ -27,7 +27,7 @@ describe('Editor', () => {
     });
   });
 
-  it('axe embed chooser', async () => {
+  it.skip('axe embed chooser', async () => {
     const trigger = await page.$('.Draftail-Editor [name="EMBED"]');
     await Promise.all([
       trigger.click(),

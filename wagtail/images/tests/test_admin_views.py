@@ -353,7 +353,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         # as standard, only the root collection exists and so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
@@ -369,7 +372,10 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/add.html")
 
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         self.assertContains(response, "Evil plans")
 
     def test_get_with_collection_nesting(self):
@@ -605,7 +611,10 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_get_with_collection_nesting(self):
         self.evil_plans_collection.add_child(name="Eviler plans")
@@ -613,7 +622,10 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
         response = self.get()
         self.assertEqual(response.status_code, 200)
         # Unlike the above test, the user should have access to multiple Collections.
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
 
@@ -1160,7 +1172,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         # Confirm that the Collection chooser is not visible, because the Baker cannot
         # choose from multiple Collections.
-        self.assertNotContains(response, "Collection:")
+        self.assertNotContains(response, "Collection")
 
         # We now let the Baker choose from the Office collection.
         GroupCollectionPermission.objects.create(
@@ -1182,7 +1194,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
 
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
-        self.assertContains(response, "Collection:")
+        self.assertContains(response, "Collection")
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_with_custom_image_model(self):
@@ -1727,7 +1739,10 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_get_chooser(self):
         response = self.client.get(reverse("wagtailimages_chooser:choose"))
@@ -1736,7 +1751,10 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_add(self):
         response = self.client.post(

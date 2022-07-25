@@ -8,7 +8,7 @@
                 {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
             {% endfor %}
             {% if popular_tags %}
-                <li class="taglist">
+                <li class="taglist w-label-3">
                     <h3>{% trans 'Popular tags' %}</h3>
                     {% for tag in popular_tags %}
                         <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>

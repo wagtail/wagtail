@@ -81,8 +81,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 label: 'Test Block A',
                 required: true,
                 icon: 'placeholder',
-                classname:
-                  'field char_field widget-text_input fieldname-test_charblock',
+                classname: 'w-field w-field--char_field w-field--text_input',
               },
             ),
             new FieldBlockDefinition(
@@ -93,7 +92,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 required: true,
                 icon: 'pilcrow',
                 classname:
-                  'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
               },
             ),
           ],
@@ -356,8 +355,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
                 label: 'Test Block <A>',
                 required: true,
                 icon: 'placeholder',
-                classname:
-                  'field char_field widget-text_input fieldname-test_charblock',
+                classname: 'w-field w-field--char_field w-field--text_input',
               },
             ),
             new FieldBlockDefinition(
@@ -368,7 +366,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
                 required: true,
                 icon: 'pilcrow',
                 classname:
-                  'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
               },
             ),
           ],
@@ -435,8 +433,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
               label: 'Test Block <A>',
               required: true,
               icon: 'placeholder',
-              classname:
-                'field char_field widget-text_input fieldname-test_charblock',
+              classname: 'w-field w-field--char_field w-field--text_input',
             },
           ),
           new FieldBlockDefinition(
@@ -447,7 +444,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
               required: true,
               icon: 'pilcrow',
               classname:
-                'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                'w-field w-field--char_field w-field--admin_auto_height_text_input',
             },
           ),
         ],
@@ -652,8 +649,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
               label: 'Test Block <A>',
               required: true,
               icon: 'placeholder',
-              classname:
-                'field char_field widget-text_input fieldname-test_charblock',
+              classname: 'w-field w-field--char_field w-field--text_input',
             },
           ),
           new FieldBlockDefinition(
@@ -664,7 +660,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
               required: true,
               icon: 'pilcrow',
               classname:
-                'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                'w-field w-field--char_field w-field--admin_auto_height_text_input',
             },
           ),
         ],

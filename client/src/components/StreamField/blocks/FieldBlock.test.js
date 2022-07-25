@@ -81,8 +81,7 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname:
-          'field char_field widget-text_input fieldname-test_charblock',
+        classname: 'w-field w-field--char_field w-field--text_input',
         helpText: 'drink <em>more</em> water',
       },
     );
@@ -168,8 +167,7 @@ describe('telepath: wagtail.blocks.FieldBlock with comments enabled', () => {
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname:
-          'field char_field widget-text_input fieldname-test_charblock',
+        classname: 'w-field w-field--char_field w-field--text_input',
         helpText: 'drink <em>more</em> water',
         showAddCommentButton: true,
         strings: {
@@ -211,8 +209,7 @@ describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () 
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname:
-          'field char_field widget-text_input fieldname-test_charblock',
+        classname: 'w-field w-field--char_field w-field--text_input',
         helpText: 'drink <em>more</em> water',
       },
     );

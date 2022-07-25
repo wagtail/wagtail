@@ -115,7 +115,7 @@
             <form action="" method="get" novalidate>
                 <button class="button button-longrunning" type="submit">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>
                 {% for field in select_date_form %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small" %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
             </form>
         </div>

@@ -8,7 +8,6 @@ $color-box-border-focused: $color-grey-2;
 $color-box-text: $color-black;
 $color-textarea-background: theme('colors.grey.50');
 $color-textarea-border: $color-input-border;
-$color-textarea-border-focused: $color-input-focus-border;
 $color-textarea-placeholder-text: $color-grey-2;
 $box-border-radius: 5px;
 $box-padding: 10px;
@@ -43,11 +42,6 @@ $box-padding: 10px;
     &::placeholder {
       color: $color-textarea-placeholder-text;
       opacity: 1;
-    }
-
-    &:focus {
-      border-color: $color-textarea-border-focused;
-      outline: unset;
     }
   }
 

@@ -156,32 +156,13 @@
   }
 
   &__modes {
-    @apply w-bg-white;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-  }
 
-  &__mode-label {
-    padding: 0;
-    width: auto;
-  }
-
-  &__mode-select {
-    @apply w-bg-white w-outline-offset-inside;
-    font-size: 1em;
-    padding: 0.6rem 0.75rem;
-    padding-inline-end: 2.5rem;
-    width: auto;
-  }
-
-  &__modes.choice_field &__mode-select ~ span:after {
-    @apply w-text-grey-400;
-    border: 0;
-    font-size: 1.5em;
-    line-height: 1.65em;
-    top: auto;
-    width: 2.5rem;
+    label {
+      margin-bottom: 0;
+    }
   }
 }

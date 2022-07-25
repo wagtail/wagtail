@@ -3,7 +3,7 @@
 .xdsoft_datetimepicker {
   box-shadow: 0 5px 10px -5px theme('colors.black-35');
   background: $color-white;
-  border: 1px solid $color-input-focus-border;
+  border: 1px solid $color-input-border;
   padding: 8px;
   padding-inline-start: 0;
   padding-top: 2px;
@@ -202,8 +202,12 @@
       }
 
       > div > .xdsoft_option:hover {
-        color: $color-white;
-        background: $color-salmon;
+        background: theme('colors.secondary.75');
+
+        // stylelint-disable-next-line max-nesting-depth
+        @media (forced-colors: active) {
+          background: SelectedItem;
+        }
       }
 
       > div > .xdsoft_option {
@@ -261,9 +265,12 @@
   .xdsoft_calendar td.xdsoft_default,
   .xdsoft_calendar td.xdsoft_current,
   .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
-    background: $color-salmon;
-    color: $color-white;
+    background: theme('colors.secondary.75');
     font-weight: 700;
+
+    @media (forced-colors: active) {
+      background: SelectedItem;
+    }
   }
 
   .xdsoft_calendar td.xdsoft_other_month,
@@ -271,10 +278,20 @@
   .xdsoft_time_box > div > div.xdsoft_disabled {
     opacity: 0.5;
     background: $color-grey-3;
+
+    @media (forced-colors: active) {
+      opacity: 1;
+      color: GrayText;
+    }
   }
 
   .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
     opacity: 0.2;
+
+    @media (forced-colors: active) {
+      opacity: 1;
+      color: GrayText;
+    }
   }
 
   .xdsoft_calendar td:hover,

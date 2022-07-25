@@ -1,23 +1,2 @@
 {% load wagtailadmin_tags i18n %}
-<div class="w-field w-field--{{ field|fieldtype }} w-field--{{ field|widgettype }} {% if field.errors %}w-field--error{% endif %}" data-contentpath="{{ field.name }}" id="{{ self.prefix }}-field">
-    {% if errors %}
-        <p class="w-field__errors" id="{{ error_message_id }}">
-            {% icon name="warning" class_name="w-field__errors-icon" %}
-            {% for error in errors %}{{ error }} {% endfor %}
-        </p>
-    {% endif %}
-
-    {{ rendered_field }}
-    {% if help_text %}
-        <div id="{{ help_text_id }}" class="help">{{ help_text }}</div>
-    {% endif %}
-
-    {% if show_add_comment_button %}
-        <div class="field-comment-control">
-            <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{% trans 'Add comment' %}">
-                {% icon name="comment-add" class_name="initial icon-default" %}
-                {% icon name="comment-add-reversed" class_name="initial icon-reversed" %}
-            </button>
-        </div>
-    {% endif %}
-</div>
+{% include "wagtailadmin/shared/field.html" with show_label=False %}

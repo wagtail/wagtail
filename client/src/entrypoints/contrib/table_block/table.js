@@ -19,31 +19,32 @@ function initTable(id, tableOptions) {
   let isInitialized = false;
 
   const getWidth = function () {
-    return $('.widget-table_input').closest('.sequence-member-inner').width();
+    return $('.w-field--table_input').closest('.sequence-member-inner').width();
   };
   const getHeight = function () {
     const tableParent = $('#' + id).parent();
     return (
       tableParent.find('.htCore').height() +
-      tableParent.find('.input').height() * 2
+      tableParent.find('[data-field]').height() * 2
     );
   };
-  const resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
+  const resizeTargets = [
+    '[data-field] > .handsontable',
+    '.wtHider',
+    '.wtHolder',
+  ];
   const resizeHeight = function (height) {
     const currTable = $('#' + id);
     $.each(resizeTargets, function () {
-      currTable.closest('.field-content').find(this).height(height);
+      currTable.closest('[data-field]').find(this).height(height);
     });
   };
   function resizeWidth(width) {
     $.each(resizeTargets, function () {
       $(this).width(width);
     });
-    const parentDiv = $('.widget-table_input').parent();
-    parentDiv.find('.field-content').width(width);
-    parentDiv
-      .find('.fieldname-table .field-content .field-content')
-      .width('80%');
+    const $field = $('.w-field--table_input');
+    $field.width(width);
   }
 
   try {
@@ -195,38 +196,39 @@ class TableInput {
   render(placeholder, name, id, initialState) {
     const container = document.createElement('div');
     container.innerHTML = `
-      <div class="field boolean_field widget-checkbox_input">
-        <label for="${id}-handsontable-header">${this.strings['Row header']}</label>
-        <div class="field-content">
-          <div class="input">
-            <input type="checkbox" id="${id}-handsontable-header" name="handsontable-header" />
+      <div className="w-field__wrapper" data-field-wrapper>
+        <label class="w-field__label" for="${id}-handsontable-header">${this.strings['Row header']}</label>
+        <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
+          <div className="w-field__input" data-field-input>
+            <input type="checkbox" id="${id}-handsontable-header" name="handsontable-header" aria-describedby="${id}-handsontable-header-helptext" />
           </div>
-          <p class="help">${this.strings['Display the first row as a header.']}</p>
+          <div id="${id}-handsontable-header-helptext" data-field-help>
+            <div class="help">${this.strings['Display the first row as a header.']}</div>
+          </div>
         </div>
       </div>
-      <br/>
-      <div class="field boolean_field widget-checkbox_input">
-        <label for="${id}-handsontable-col-header">${this.strings['Column header']}</label>
-        <div class="field-content">
-          <div class="input">
-            <input type="checkbox" id="${id}-handsontable-col-header" name="handsontable-col-header" />
+      <div className="w-field__wrapper" data-field-wrapper>
+        <label class="w-field__label" for="${id}-handsontable-col-header">${this.strings['Column header']}</label>
+        <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
+          <div className="w-field__input" data-field-input>
+            <input type="checkbox" id="${id}-handsontable-col-header" name="handsontable-col-header" aria-describedby="${id}-handsontable-col-header-helptext" />
           </div>
-          <p class="help">${this.strings['Display the first column as a header.']}</p>
+          <div id="${id}-handsontable-col-header-helptext" data-field-help>
+            <div class="help">${this.strings['Display the first column as a header.']}</div>
+          </div>
         </div>
       </div>
-      <br/>
-      <div class="field">
-          <label for="${id}-handsontable-col-caption">${this.strings['Table caption']}</label>
-          <div class="field-content">
-            <div class="input">
-            <input type="text" id="${id}-handsontable-col-caption" name="handsontable-col-caption" />
+      <div className="w-field__wrapper" data-field-wrapper>
+        <label class="w-field__label" for="${id}-handsontable-col-caption">${this.strings['Table caption']}</label>
+        <div class="w-field w-field--char_field w-field--text_input" data-field>
+          <div className="w-field__input" data-field-input>
+            <input type="text" id="${id}-handsontable-col-caption" name="handsontable-col-caption" aria-describedby="${id}-handsontable-col-caption-helptext" />
           </div>
-          <p class="help">
-            ${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']}
-          </p>
+          <div id="${id}-handsontable-col-caption-helptext" data-field-help>
+            <div class="help">${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']}</div>
+          </div>
         </div>
       </div>
-      <br/>
       <div id="${id}-handsontable-container"></div>
       <input type="hidden" name="${name}" id="${id}" placeholder="${this.strings['Table']}">
     `;

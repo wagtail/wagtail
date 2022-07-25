@@ -474,7 +474,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
                 "label": "Test tableblock",
                 "required": True,
                 "icon": "table",
-                "classname": "field char_field widget-table_input fieldname-test_tableblock",
+                "classname": "w-field w-field--char_field w-field--table_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -524,7 +524,7 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         # check page + field renders
         self.assertContains(
             response,
-            '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">',
+            '<div data-contentpath="table" class="w-field w-field--char_field w-field--table_input">',
         )
         # check data
         self.assertContains(response, "Battlestar")

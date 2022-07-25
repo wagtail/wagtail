@@ -51,11 +51,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -106,11 +110,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -161,11 +169,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -235,11 +247,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -290,11 +306,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -364,11 +384,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -419,11 +443,15 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -493,11 +521,15 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -548,11 +580,15 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -622,11 +658,15 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -687,11 +727,15 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -761,11 +805,15 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -816,12 +864,16 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock error\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
+          <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
-        <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+        </div>
       </div>
                 </div>
               </div>
@@ -900,11 +952,15 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
           </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -955,11 +1011,15 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
+          </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
           </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>

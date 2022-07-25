@@ -25,7 +25,7 @@ class BlogPage(Page):
     author = models.CharField(max_length=255)
     date = models.DateField("Post date")
     body = StreamField([
-        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
     ], use_json_field=True)
@@ -121,7 +121,7 @@ body = StreamField([
         ('photo', ImageChooserBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ])),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -162,7 +162,7 @@ class PersonBlock(blocks.StructBlock):
 ```python
 body = StreamField([
     ('person', PersonBlock()),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -182,7 +182,7 @@ body = StreamField([
         ('photo', ImageChooserBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ], icon='user')),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -212,7 +212,7 @@ For a list of the recognised icon identifiers, see the [](styleguide).
 
 body = StreamField([
     ('gallery', blocks.ListBlock(ImageChooserBlock())),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -248,7 +248,7 @@ body = StreamField([
         ('image', ImageChooserBlock()),
         ('video', EmbedBlock()),
     ])),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -269,7 +269,7 @@ A StreamBlock subclass defined in this way can also be passed to a `StreamField`
 
 ```python
 class CommonContentBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(form_classname="full title")
+    heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
     image = ImageChooserBlock()
 
@@ -306,7 +306,7 @@ By default, a StreamField can contain an unlimited number of blocks. The `min_nu
 
 ```python
 body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], min_num=2, max_num=5, use_json_field=True)
@@ -316,7 +316,7 @@ Or equivalently:
 
 ```python
 class CommonContentBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(form_classname="full title")
+    heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
     image = ImageChooserBlock()
 
@@ -329,7 +329,7 @@ The `block_counts` option can be used to set a minimum or maximum count for spec
 
 ```python
 body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], block_counts={
@@ -341,7 +341,7 @@ Or equivalently:
 
 ```python
 class CommonContentBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(form_classname="full title")
+    heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
     image = ImageChooserBlock()
 

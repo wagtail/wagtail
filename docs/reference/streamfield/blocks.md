@@ -24,7 +24,7 @@ The required `use_json_field` argument is added.
 
 ```python
 body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], block_counts={
@@ -402,7 +402,7 @@ All block definitions accept the following optional keyword arguments:
    .. code-block:: python
 
        body = StreamField([
-           ('heading', blocks.CharBlock(form_classname="full title")),
+           ('heading', blocks.CharBlock(form_classname="title")),
            ('paragraph', blocks.RichTextBlock()),
            ('image', ImageChooserBlock()),
            ('person', PersonBlock()),

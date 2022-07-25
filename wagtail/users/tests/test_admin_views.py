@@ -210,8 +210,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
-        self.assertContains(response, "Password:")
-        self.assertContains(response, "Password confirmation:")
+        self.assertContains(response, "Password")
+        self.assertContains(response, "Password confirmation")
 
     def test_create(self):
         response = self.post(
@@ -352,8 +352,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
-        self.assertContains(response, "Password:")
-        self.assertContains(response, "Password confirmation:")
+        self.assertContains(response, "Password")
+        self.assertContains(response, "Password confirmation")
 
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
     def test_create_with_password_not_required(self):
@@ -429,8 +429,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
-        self.assertNotContains(response, "Password:")
-        self.assertNotContains(response, "Password confirmation:")
+        self.assertNotContains(response, "Password")
+        self.assertNotContains(response, "Password confirmation")
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
     def test_password_fields_ignored_when_disabled(self):
@@ -710,8 +710,8 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
-        self.assertContains(response, "Password:")
-        self.assertContains(response, "Password confirmation:")
+        self.assertContains(response, "Password")
+        self.assertContains(response, "Password confirmation")
 
         url_finder = AdminURLFinder(self.current_user)
         expected_url = "/admin/users/%s/" % self.test_user.pk
@@ -1020,8 +1020,8 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
-        self.assertNotContains(response, "Password:")
-        self.assertNotContains(response, "Password confirmation:")
+        self.assertNotContains(response, "Password")
+        self.assertNotContains(response, "Password confirmation")
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
     def test_password_fields_ignored_when_disabled(self):
@@ -1354,16 +1354,12 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
 
         response = self.get()
 
-        self.assertTagInHTML(
-            '<fieldset class="custom-permissions">', str(response.content), count=0
-        )
+        self.assertInHTML("Custom permissions", str(response.content), count=0)
 
     def test_custom_permissions_shown(self):
         response = self.get()
 
-        self.assertTagInHTML(
-            '<fieldset class="custom-permissions">', str(response.content)
-        )
+        self.assertInHTML("Custom permissions", str(response.content))
 
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
@@ -1765,7 +1761,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertTagInHTML(
-            '<label class="custom-permissions-item"><input type="checkbox" name="permissions" value="%s" checked>'
+            '<input type="checkbox" name="permissions" value="%s" checked>'
             % custom_permission.id,
             str(response.content),
         )

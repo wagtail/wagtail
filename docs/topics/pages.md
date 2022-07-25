@@ -53,7 +53,7 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
         InlinePanel('related_links', label="Related links"),
     ]
 

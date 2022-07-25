@@ -43,9 +43,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -98,7 +98,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         # ...
     ]
 ```

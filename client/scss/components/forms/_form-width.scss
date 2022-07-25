@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use 'sass:math';
+
+/**
+ * Calculate the ideal form width to avoid any overlap with the side panels.
+ */
+
+@mixin form-width-vw($breakpoint) {
+  .side-panel-open & {
+    width: calc(
+      100vw - $menu-width - $side-panel-width - $desktop-nice-padding -
+        theme('spacing.4')
+    );
+  }
+
+  .side-panel-open.sidebar-collapsed & {
+    width: calc(
+      100vw - $menu-width-slim - $side-panel-width - $desktop-nice-padding -
+        theme('spacing.4')
+    );
+  }
+}
+
+/**
+ * Special resizing logic for forms with side panels.
+ */
+
+.w-form-width {
+  @include max-form-width();
+
+  @include media-breakpoint-up(lg) {
+    @include form-width-vw(lg);
+  }
+
+  @include media-breakpoint-up(xl) {
+    @include form-width-vw(xl);
+  }
+}
+
+.fields {
+  // Apply the desired form width for legacy `fields` container.
+  max-width: $max-form-width;
+
+  // Remove any spacing in legacy fields markup.
+  > li {
+    padding: 0;
+  }
+}

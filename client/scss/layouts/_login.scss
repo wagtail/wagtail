@@ -1,5 +1,6 @@
 // overrides default nice padding defined in variables.scss
-$desktop-nice-padding: 100px;
+$custom-nice-padding: 100px;
+$input-text-vertical-padding: theme('spacing.12');
 
 .login,
 .login .content-wrapper {
@@ -9,10 +10,18 @@ $desktop-nice-padding: 100px;
 
 .login {
   margin-inline-start: 0;
-  height: 100%;
+  height: 100vh;
 
   .content-wrapper {
     border: 0;
+
+    @include media-breakpoint-up(sm) {
+      float: none;
+      height: auto;
+      width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 
   .wrapper {
@@ -20,6 +29,22 @@ $desktop-nice-padding: 100px;
     padding-inline-end: $mobile-nice-padding;
     margin-inline-start: 0;
     max-width: none;
+
+    // centres login form vertically
+    @include media-breakpoint-up(sm) {
+      position: relative;
+      height: 100%;
+      padding: 0 $custom-nice-padding;
+
+      &:before {
+        content: '';
+        width: 0;
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-inline-start: -0.4em;
+      }
+    }
   }
 
   h1 {
@@ -28,97 +53,33 @@ $desktop-nice-padding: 100px;
     line-height: 1em;
     color: $color-white;
     white-space: nowrap;
-  }
 
-  form {
-    width: 100%;
-
-    ul {
-      @include unlist();
+    @include media-breakpoint-up(sm) {
+      font-size: 4em;
     }
   }
 
-  label {
-    width: auto;
+  label,
+  .help {
     color: $color-white;
   }
 
-  .button,
-  a.button {
-    line-height: 1.2em;
-    font-size: 1.5em;
-    padding: 1.1em 2.4em;
-    height: 3.5em;
-  }
-
-  .fields-wrapper {
-    position: relative;
-  }
-
-  .fields {
-    max-width: none;
-  }
-
-  .fields li {
-    padding: 1em 0;
-    position: relative;
-    padding: 0;
-
-    label {
-      @include visuallyhidden;
-    }
-
-    input {
-      border-top: 1px dashed $color-input-border;
-    }
-
-    &:first-child input {
-      border: 0;
-    }
-  }
-
-  .fields .checkbox {
-    padding-top: 2em;
-    padding-bottom: 2em;
-  }
-
-  .field {
-    padding: 0;
-  }
-
-  .iconfield .input:before {
-    display: none;
-  }
-
-  // Special full-width, one-off fields i.e a single text or textarea input
-  input {
-    border-radius: 0;
-    font-weight: 300;
-    border: 0;
-    padding: 1.5em $mobile-nice-padding 1.5em $mobile-nice-padding;
-    font-size: 1.6em;
-    line-height: 1.6em;
-  }
-
-  // Forgotten password link
-  .help {
-    font-size: 1.3em;
+  .reset-password {
+    @apply w-help-text;
+    display: block;
     margin-top: 0;
     padding: 10px 0;
+    color: $color-white;
+    text-decoration: underline;
 
     @include media-breakpoint-up(sm) {
       position: absolute;
-      top: 139px;
-      inset-inline-end: 5%;
+      // This number is manually updated based on the position of the first field.
+      top: 307px;
+      inset-inline-end: 0;
       padding: 0;
-    }
-
-    &__link {
-      color: $color-white;
-
-      @include media-breakpoint-up(sm) {
-        color: $color-link;
-      }
+      color: $color-link;
+      text-decoration: none;
     }
   }
 
@@ -139,56 +100,71 @@ $desktop-nice-padding: 100px;
     }
   }
 
-  @include media-breakpoint-up(sm) {
-    .content-wrapper {
-      float: none;
-      height: auto;
-      width: 100%;
-      display: inline-block;
-      vertical-align: middle;
+  .button,
+  a.button {
+    line-height: 1.2em;
+    font-size: 1.5em;
+    padding: 1.1em 2.4em;
+    height: 3.5em;
+  }
+}
+
+// Full-width fields for the login form only, rather than also password reset.
+.login-fields {
+  .w-field__wrapper {
+    max-width: none;
+
+    &:first-of-type {
+      // Fields are separated by a thin dashed line rather than by empty space.
+      border-bottom: 1px dashed #e6e6e6;
+      margin-bottom: 0;
     }
 
-    // centres login form vertically
-    .wrapper {
-      position: relative;
-      height: 100%;
-      padding: 0 $desktop-nice-padding;
-
-      &:before {
-        content: '';
-        width: 0;
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        margin-inline-start: -0.4em;
-      }
+    @include media-breakpoint-up(sm) {
+      width: 100vw;
+      margin-inline-start: -1 * $custom-nice-padding;
+      margin-inline-end: -1 * $custom-nice-padding;
     }
+  }
 
-    h1 {
-      font-size: 4em;
+  // For the login form, we rely on the non-field error only.
+  .w-field__errors {
+    display: none;
+  }
+
+  // Special full-width, one-off fields i.e a single text or textarea input
+  input:not([type='checkbox']) {
+    @include show-focus-outline-inside();
+    @apply w-h3;
+    color: $color-input-text;
+    border-radius: 0;
+    font-weight: 300;
+    border: 0;
+    padding: $input-text-vertical-padding $mobile-nice-padding;
+
+    @include media-breakpoint-up(sm) {
+      padding-inline-start: $custom-nice-padding;
+      padding-inline-end: $custom-nice-padding;
     }
+  }
 
-    .iconfield {
-      // stylelint-disable-next-line max-nesting-depth
-      .input:before {
-        display: inline-block;
-        position: absolute;
-        color: theme('colors.grey.200');
-        border: 2px solid theme('colors.grey.200');
-        border-radius: 100%;
-        width: 1em;
-        height: 1em;
-        padding: 0.3em;
-        inset-inline-start: $desktop-nice-padding;
-        margin-top: -1.1rem;
-        top: 50%;
-        font-size: 1.3rem;
-      }
+  .w-field__icon {
+    $size: theme('spacing.9');
+    display: none;
+    pointer-events: none;
+    color: theme('colors.grey.200');
+    border: 2px solid theme('colors.grey.200');
+    border-radius: theme('borderRadius.full');
+    width: $size;
+    height: $size;
+    padding: theme('spacing.[1.5]');
+    top: calc($input-text-vertical-padding - theme('spacing.[1.5]'));
+    inset-inline-start: calc(
+      $custom-nice-padding - ($size + theme('spacing.3'))
+    );
 
-      // stylelint-disable-next-line max-nesting-depth
-      input {
-        padding-inline-start: ($desktop-nice-padding + 50px);
-      }
+    @include media-breakpoint-up(sm) {
+      display: block;
     }
   }
 }

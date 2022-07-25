@@ -15,14 +15,6 @@
       display: block;
       margin-bottom: 10px;
     }
-
-    // Get rid of Wagtail's overrides
-    label {
-      float: unset;
-      display: block;
-      width: unset;
-      padding-top: 1.2em;
-    }
   }
 
   @include media-breakpoint-down(sm) {

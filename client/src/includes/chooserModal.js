@@ -9,16 +9,16 @@ const validateCreationForm = (form) => {
   form.querySelectorAll('input[required]').forEach((input) => {
     if (!input.value) {
       hasErrors = true;
-      const li = input.closest('li');
-      if (!li.classList.contains('error')) {
-        li.classList.add('error');
-        const container = input.closest('.field-content');
-        const errorPara = document.createElement('p');
-        errorPara.className = 'error-message';
-        container.appendChild(errorPara);
-        const errorSpan = document.createElement('span');
-        errorPara.appendChild(errorSpan);
-        errorSpan.innerText = gettext('This field is required.');
+      if (!input.hasAttribute('aria-invalid')) {
+        input.setAttribute('aria-invalid', 'true');
+        const field = input.closest('[data-field]');
+        field.classList.add('w-field--error');
+        const errors = input.querySelector('[data-field-errors]');
+        errors.querySelector('.icon').removeAttribute('hidden');
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('error-message');
+        errorElement.innerHTML = gettext('This field is required.');
+        errors.appendChild(errorElement);
       }
     }
   });

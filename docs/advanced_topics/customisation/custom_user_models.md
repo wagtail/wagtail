@@ -53,8 +53,8 @@ Template create.html:
 {% extends "wagtailusers/users/create.html" %}
 
 {% block extra_fields %}
-    {% include "wagtailadmin/shared/field_as_li.html" with field=form.country %}
-    {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.country %}</li>
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.status %}</li>
 {% endblock extra_fields %}
 ```
 
@@ -64,8 +64,8 @@ Template edit.html:
 {% extends "wagtailusers/users/edit.html" %}
 
 {% block extra_fields %}
-    {% include "wagtailadmin/shared/field_as_li.html" with field=form.country %}
-    {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.country %}</li>
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.status %}</li>
 {% endblock extra_fields %}
 ```
 

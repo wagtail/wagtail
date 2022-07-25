@@ -28,9 +28,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('custom_form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -77,9 +77,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -136,9 +136,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -209,9 +209,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -302,9 +302,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -444,9 +444,9 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
+        FieldPanel('intro'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -570,9 +570,9 @@ class FormPage(AbstractEmailForm):
         return super().render_landing_page(request, form_submission, *args, **kwargs)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname='full'),
+        FieldPanel('intro'),
         InlinePanel('form_fields'),
-        FieldPanel('thank_you_text', classname='full'),
+        FieldPanel('thank_you_text'),
         FieldPanel('thank_you_page'),
         MultiFieldPanel([
             FieldRowPanel([

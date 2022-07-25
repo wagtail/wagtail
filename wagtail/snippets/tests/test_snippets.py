@@ -523,11 +523,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The snippet could not be created due to errors.")
-        self.assertContains(
-            response,
-            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
-            count=1,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_create(self):
@@ -931,11 +927,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The snippet could not be saved due to errors.")
-        self.assertContains(
-            response,
-            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
-            count=1,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_edit(self):
@@ -2797,7 +2789,7 @@ class TestSnippetChooserBlock(TestCase):
                 "required": True,
                 "icon": "snippet",
                 "helpText": "pick an advert, any advert",
-                "classname": "field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock",
+                "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -3052,7 +3044,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
                 "required": True,
                 "icon": "snippet",
                 "helpText": "pick an advert, any advert",
-                "classname": "field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock",
+                "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },

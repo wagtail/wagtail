@@ -37,8 +37,6 @@ a.tag:hover {
 
 .tagfilter {
   legend {
-    @include visuallyvisible;
-
     @include media-breakpoint-up(sm) {
       @include column(2);
       padding-inline-start: 0;

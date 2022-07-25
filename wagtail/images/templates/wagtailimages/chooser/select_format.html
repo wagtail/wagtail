@@ -10,12 +10,10 @@
     <div class="col6">
         <form action="{% url 'wagtailimages_chooser:select_format' image.id %}" method="POST" novalidate>
             {% csrf_token %}
-            <ul class="fields">
-                {% for field in form %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field li_classes="label-above" %}
-                {% endfor %}
-                <li><input type="submit" value="{% trans 'Insert image' %}"  class="button" /></li>
-            </ul>
+            {% for field in form %}
+                {% include "wagtailadmin/shared/field.html" with field=field %}
+            {% endfor %}
+            <input type="submit" value="{% trans 'Insert image' %}"  class="button" />
         </form>
     </div>
 </div>

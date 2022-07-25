@@ -1,5 +1,7 @@
 // Styles for title fields throughout the page.
-.title {
+// The `title` class is meant to be applied by end users throughout different forms APIs.
+.w-panel.title,
+.w-field.title {
   input,
   textarea,
   .Draftail-Editor .public-DraftEditor-content {
@@ -9,7 +11,9 @@
 }
 
 // Styles for the title field when at the top of the page.
-.w-panel.title:first-child {
+// It’s the first panel when comments are disabled, second if enabled.
+.w-panel.title:nth-child(1),
+.w-panel.title:nth-child(2) {
   .w-panel__header {
     @apply w-sr-only;
   }

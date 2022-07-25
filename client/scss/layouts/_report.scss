@@ -3,8 +3,7 @@
   grid-column-gap: 50px;
 
   &:not(&--no-margin) {
-    margin-inline-start: 50px;
-    margin-inline-end: 50px;
+    @include nice-padding();
   }
 
   &__results {

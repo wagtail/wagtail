@@ -106,11 +106,19 @@ class Panel:
     as HTML.
     """
 
-    def __init__(self, heading="", classname="", help_text="", base_form_class=None):
+    def __init__(
+        self,
+        heading="",
+        classname="",
+        help_text="",
+        base_form_class=None,
+        icon="",
+    ):
         self.heading = heading
         self.classname = classname
         self.help_text = help_text
         self.base_form_class = base_form_class
+        self.icon = icon
         self.model = None
 
     def clone(self):
@@ -125,6 +133,7 @@ class Panel:
         Return a dictionary of keyword arguments that can be used to create a clone of this panel definition.
         """
         return {
+            "icon": self.icon,
             "heading": self.heading,
             "classname": self.classname,
             "help_text": self.help_text,
@@ -314,6 +323,10 @@ class Panel:
 
         def classes(self):
             return self.panel.classes()
+
+        @property
+        def icon(self):
+            return self.panel.icon
 
         def id_for_label(self):
             """
@@ -555,7 +568,7 @@ class ObjectList(PanelGroup):
 
 class FieldRowPanel(PanelGroup):
     class BoundPanel(PanelGroup.BoundPanel):
-        template_name = "wagtailadmin/panels/multi_field_panel.html"
+        template_name = "wagtailadmin/panels/field_row_panel.html"
 
 
 class MultiFieldPanel(PanelGroup):
@@ -719,6 +732,30 @@ class FieldPanel(Panel):
         def classes(self):
             return self.panel.classes()
 
+        @property
+        def icon(self):
+            """
+            Display a different icon depending on the field’s type.
+            """
+            field_icons = {
+                # Icons previously-defined as StreamField block icons.
+                # Commented out until they can be reviewed for appropriateness in this new context.
+                # "DateField": "date",
+                # "TimeField": "time",
+                # "DateTimeField": "date",
+                # "URLField": "site",
+                # "ClusterTaggableManager": "tag",
+                # "EmailField": "mail",
+                # "TextField": "pilcrow",
+                # "FloatField": "plus-inverse",
+                # "DecimalField": "plus-inverse",
+                # "RegexField": "code",
+                # "BooleanField": "tick-inverse",
+            }
+            field_type = self.bound_field.field.__class__.__name__
+
+            return self.panel.icon or field_icons.get(field_type, None)
+
         def id_for_label(self):
             return self.bound_field.id_for_label
 
@@ -736,7 +773,6 @@ class FieldPanel(Panel):
             widget_described_by_ids = []
             help_text = self.bound_field.help_text
             help_text_id = "%s-helptext" % self.prefix
-            errors = None
             error_message_id = "%s-errors" % self.prefix
 
             if help_text:
@@ -760,7 +796,6 @@ class FieldPanel(Panel):
                         errors=self.bound_field.errors,
                     )
                 else:
-                    errors = self.bound_field.errors
                     widget_described_by_ids.append(error_message_id)
                     rendered_field = self.bound_field.as_widget(
                         attrs={
@@ -781,7 +816,6 @@ class FieldPanel(Panel):
                     "rendered_field": rendered_field,
                     "help_text": help_text,
                     "help_text_id": help_text_id,
-                    "errors": errors,
                     "error_message_id": error_message_id,
                     "show_add_comment_button": self.comments_enabled
                     and getattr(
@@ -1016,7 +1050,6 @@ class PublishingPanel(MultiFieldPanel):
                         FieldPanel("go_live_at"),
                         FieldPanel("expire_at"),
                     ],
-                    classname="label-above",
                 ),
             ],
             "heading": gettext_lazy("Scheduled publishing"),
@@ -1105,7 +1138,11 @@ class CommentPanel(Panel):
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.
 def set_default_page_edit_handlers(cls):
     cls.content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel(
+            "title",
+            classname="title",
+            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title")}),
+        ),
     ]
 
     cls.promote_panels = [
@@ -1156,11 +1193,7 @@ def _get_page_edit_handler(cls):
             tabs.append(ObjectList(cls.promote_panels, heading=gettext_lazy("Promote")))
         if cls.settings_panels:
             tabs.append(
-                ObjectList(
-                    cls.settings_panels,
-                    heading=gettext_lazy("Settings"),
-                    classname="settings",
-                )
+                ObjectList(cls.settings_panels, heading=gettext_lazy("Settings"))
             )
 
         edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
