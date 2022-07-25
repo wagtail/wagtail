@@ -1006,6 +1006,7 @@ def register_icons(icons):
         "bin.svg",
         "bold.svg",
         "breadcrumb-expand.svg",
+        "calendar-alt.svg",
         "chain-broken.svg",
         "check.svg",
         "chevron-down.svg",
