@@ -200,10 +200,6 @@ export class ListBlock extends BaseSequenceBlock {
         for (let i = 0; i < this.inserters.length; i++) {
           this.inserters[i].disable();
         }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].disableDuplication();
-          this.children[i].disableSplit();
-        }
       } else {
         /* allow adding new blocks */
         for (let i = 0; i < this.inserters.length; i++) {
