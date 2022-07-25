@@ -142,12 +142,8 @@ const initEditor = (selector, originalOptions, currentScript) => {
         description: gettext('Line break'),
         icon: BR_ICON,
       },
-      bottomToolbar: (props) => (
-        <>
-          <InlineToolbar {...props} />
-          <MetaToolbar {...props} />
-        </>
-      ),
+      topToolbar: InlineToolbar,
+      bottomToolbar: MetaToolbar,
       commandPalette: (props) => (
         <CommandPalette {...props} noResultsText={gettext('No results')} />
       ),

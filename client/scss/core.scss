@@ -106,6 +106,20 @@ These are classes for components.
 
 // Legacy
 @import 'components/icons';
+@import 'components/forms/input-base';
+@import 'components/forms/input-text';
+@import 'components/forms/radio-checkbox';
+@import 'components/forms/select';
+@import 'components/forms/tagit';
+@import 'components/forms/radio-checkbox-multiple';
+@import 'components/forms/error-message';
+@import 'components/forms/required-mark';
+@import 'components/forms/help';
+@import 'components/forms/drop-zone';
+@import 'components/forms/daterange';
+@import 'components/forms/file';
+@import 'components/forms/switch';
+@import 'components/forms/title';
 @import 'components/tabs';
 @import 'components/dialog';
 @import 'components/dropdown';
@@ -122,6 +136,7 @@ These are classes for components.
 @import 'components/messages.capability';
 @import 'components/messages.status';
 @import 'components/header';
+@import 'components/search-bar';
 @import 'components/progressbar';
 @import 'components/summary';
 @import 'components/tooltips';
@@ -136,7 +151,6 @@ These are classes for components.
 @import 'components/skiplink';
 @import 'components/workflow-tasks';
 @import 'components/workflow-timeline';
-@import 'components/switch';
 @import 'components/bulk_actions';
 @import 'components/preview-panel';
 @import 'components/preview-error';

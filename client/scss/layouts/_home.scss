@@ -1,11 +1,4 @@
 .homepage {
-  .object.collapsible {
-    .object-layout .title-wrapper::before {
-      // fix for legacy icons
-      display: none;
-    }
-  }
-
   .listing tbody {
     border-bottom: 0;
   }

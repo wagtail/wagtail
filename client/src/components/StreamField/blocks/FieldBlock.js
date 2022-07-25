@@ -21,7 +21,6 @@ export class FieldBlock {
         <div class="field-content">
           <div class="input">
             <div data-streamfield-widget></div>
-            <span></span>
           </div>
         </div>
       </div>

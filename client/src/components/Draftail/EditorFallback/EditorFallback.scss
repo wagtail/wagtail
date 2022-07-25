@@ -11,8 +11,7 @@
   border-radius: 6px;
 }
 
-.EditorFallback__textarea,
-.object.full .EditorFallback__textarea {
+.EditorFallback__textarea {
   @include wagtail-textarea-overrides;
 }
 

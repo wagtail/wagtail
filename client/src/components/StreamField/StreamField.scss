@@ -22,7 +22,7 @@ $block-border-color: $color-grey-4;
 $block-border-color-focus: $color-grey-3;
 $block-hover-background: $color-grey-5;
 $error-border-color: theme('colors.critical.100');
-$error-background-color: $color-input-error-bg;
+$error-background-color: $color-input-bg;
 $add-panel-gutter: 8px;
 
 @import 'scss/components/c-sf-add-button';

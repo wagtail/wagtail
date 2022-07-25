@@ -1,0 +1,30 @@
+// Styles for title fields throughout the page.
+.title {
+  input,
+  textarea,
+  .Draftail-Editor .public-DraftEditor-content {
+    @apply w-h2;
+    color: $color-input-text;
+  }
+}
+
+// Styles for the title field when at the top of the page.
+.w-panel.title:first-child {
+  .w-panel__header {
+    @apply w-sr-only;
+  }
+
+  input,
+  textarea,
+  .Draftail-Editor .public-DraftEditor-content {
+    @apply w-h1;
+    color: $color-input-text;
+    // Slightly out-dented so the field’s is horizontally aligned.
+    padding-inline-start: theme('spacing[1.5]');
+    margin-inline-start: calc(-1 * theme('spacing[1.5]'));
+
+    &:not(:hover, :focus, [aria-invalid='true']) {
+      border-color: transparent;
+    }
+  }
+}

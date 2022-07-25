@@ -1,0 +1,110 @@
+.field-comment-control {
+  display: none;
+}
+
+.tab-content--comments-enabled {
+  .field-comment-control {
+    position: absolute;
+    display: block;
+    top: 0;
+    inset-inline-end: 0;
+    height: 100%;
+    line-height: 100%;
+
+    &--object {
+      inset-inline-end: 20px;
+
+      @include media-breakpoint-up(lg) {
+        inset-inline-end: 350px;
+      }
+    }
+
+    button {
+      @include transition(opacity 0.2s ease);
+      border: 0;
+      background: none;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: 3px;
+      position: absolute;
+      top: 50%;
+      inset-inline-end: 0;
+
+      @include media-breakpoint-up(sm) {
+        inset-inline-end: 10px;
+      }
+
+      // Hide by default, reveal on hover of parent
+      @include media-breakpoint-up(md) {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-50%);
+        inset-inline-end: 0;
+      }
+
+      .icon-reversed {
+        display: none;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        // stylelint-disable max-nesting-depth
+        .icon-default {
+          display: none;
+        }
+
+        .icon-reversed {
+          display: block;
+        }
+      }
+
+      &:focus {
+        opacity: 1;
+        pointer-events: initial;
+      }
+
+      > svg {
+        width: 35px;
+        height: 35px;
+        color: $color-teal;
+
+        @media (forced-colors: $media-forced-colours) {
+          color: ButtonText;
+          border: 1px solid;
+        }
+      }
+
+      .icon-comment {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  // TODO Forms
+  .field-row .field-comment-control {
+    top: 0;
+  }
+
+  // TODO Forms
+  .field:not(.block_field) {
+    &:hover {
+      .field-comment-control button {
+        opacity: 1;
+        pointer-events: initial;
+      }
+    }
+  }
+
+  // TODO Forms
+  .object {
+    &:hover {
+      .field-comment-control--object button {
+        opacity: 1;
+        pointer-events: initial;
+      }
+    }
+  }
+}

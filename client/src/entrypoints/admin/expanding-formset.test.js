@@ -169,7 +169,7 @@ describe('buildExpandingFormset', () => {
     </li>
   </ul>
   <fieldset>
-    <legend>Events</legend>
+    <legend class="w-sr-only">Events</legend>
     <input type="text" name="venues-__prefix__-events-__prefix__-name" id="id_venues-__prefix__-events-__prefix__-name">
   </fieldset>
 <-/script>

@@ -1,4 +1,4 @@
-$draftail-editor-text: $color-text-input;
+$draftail-editor-text: $color-input-text;
 $draftail-editor-chrome: theme('colors.primary.DEFAULT');
 $draftail-editor-chrome-text: $color-white;
 // This needs to remain a Sass value due to a limitation in Draftail.
@@ -7,10 +7,12 @@ $draftail-editor-chrome-active: #fff;
 $draftail-editor-chrome-accent: transparent;
 
 $draftail-base-spacing: 0.375rem;
+$draftail-editor-radius: 0;
 $draftail-editor-border: 0;
-$draftail-editor-padding: 0.75rem;
+$draftail-editor-padding: 0 theme('spacing.5');
 $draftail-editor-background: $color-white;
-$draftail-toolbar-radius: 5px;
+$draftail-block-spacing: theme('spacing.2');
+$draftail-toolbar-radius: theme('borderRadius.DEFAULT');
 $draftail-toolbar-icon-size: 1em;
 
 $draftail-editor-font-family: $font-sans;
@@ -35,9 +37,8 @@ $draftail-editor-font-family: $font-sans;
   h4,
   h5,
   h6 {
-    // Overrides for other parts of the Wagtail admin.
-    font-family: inherit;
-    clear: both;
+    // Overrides for heading styles of Wagtail itself.
+    color: inherit;
     line-height: 1;
   }
 
@@ -68,13 +69,9 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-.Draftail-Editor {
-  border-radius: 0;
-
-  &__wrapper {
-    // Ensure elements within the editor are positioned according to this container.
-    position: relative;
-  }
+.Draftail-Editor__wrapper {
+  // Ensure elements within the editor are positioned according to this container.
+  position: relative;
 }
 
 .Draftail-ToolbarButton,
@@ -95,36 +92,14 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-// When in a .full container, the editor has a specific appearance
-// so the whole area appears like a focusable area, and the editor
-// receives focus on click.
-.full .Draftail-Editor {
-  padding-top: 2em;
-  padding-bottom: 2em;
-  background-color: $color-fieldset-hover;
-  border-inline-end: 1px solid $color-input-border;
-
-  &--focus {
-    background-color: $color-input-focus;
-    border-color: $color-input-focus-border;
-  }
-}
-
-.full .Draftail-Editor .public-DraftEditor-content,
-.full .Draftail-Editor .public-DraftEditorPlaceholder-root {
-  @include nice-padding;
-}
-
-.full .Draftail-Toolbar {
-  @include nice-margin;
-}
-
 .Draftail-Toolbar {
   border: 1px solid $color-grey-3;
 }
 
 .Draftail-MetaToolbar {
-  padding: 0;
+  position: absolute;
+  inset-inline-end: 0;
+  visibility: hidden;
 
   // Make sure the toolbar is always visible for devices that do not hover.
   @media (hover: hover) {
@@ -172,9 +147,9 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
-.title .Draftail-Editor .public-DraftEditor-content,
-.title .Draftail-Editor .public-DraftEditorPlaceholder-root {
-  font-size: 2em;
+.Draftail-Editor .public-DraftEditor-content {
+  @include input-base();
+  @include show-focus-outline-inside();
 }
 
 .Draftail-block--blockquote {
@@ -182,4 +157,8 @@ $draftail-editor-font-family: $font-sans;
   color: $color-grey-2;
   margin: 1em 0;
   padding: 1em 2em;
+}
+
+.DraftEditor-editorContainer {
+  border: 0;
 }

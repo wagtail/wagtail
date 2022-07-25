@@ -29,9 +29,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
     .. attribute:: FieldPanel.classname
 
-        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields.
-
-        The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
+        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity.
 
         The CSS class ``title`` can be used to give the field a larger text size, suitable for representing page titles and section headings.
 
