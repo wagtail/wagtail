@@ -44,7 +44,8 @@
       "./client/tests/adapter.js",
       "./client/tests/stubs.js",
       "./client/tests/mock-fetch.js",
-      "./client/tests/mock-jquery.js"
+      "./client/tests/mock-jquery.js",
+      "./client/tests/mock-mousetrap.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
@@ -59,6 +60,8 @@
     "@storybook/react": "^6.4.19",
     "@types/draft-js": "^0.10.45",
     "@types/jest": "^26.0.24",
+    "@types/jquery": "^3.5.14",
+    "@types/mousetrap": "^1.6.9",
     "@types/react": "^16.14.21",
     "@types/react-dom": "^16.0",
     "@types/react-redux": "^7.1.20",
@@ -106,6 +109,7 @@
     "focus-trap-react": "^8.4.2",
     "immer": "^9.0.6",
     "js-cookie": "^2.2.1",
+    "mousetrap": "^1.6.5",
     "prop-types": "^15.6.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
