@@ -107,7 +107,13 @@ register(AdminTimeInputAdapter(), AdminTimeInput)
 class AdminDateTimeInput(widgets.DateTimeInput):
     template_name = "wagtailadmin/widgets/datetime_input.html"
 
-    def __init__(self, attrs=None, format=None, time_format=None):
+    def __init__(
+        self,
+        attrs=None,
+        format=None,
+        time_format=None,
+        js_overlay_parent_selector="body",
+    ):
         default_attrs = {"autocomplete": "off"}
         fmt = format
         if attrs:
@@ -119,6 +125,7 @@ class AdminDateTimeInput(widgets.DateTimeInput):
             time_fmt = getattr(settings, "WAGTAIL_TIME_FORMAT", DEFAULT_TIME_FORMAT)
         self.js_format = to_datetimepicker_format(fmt)
         self.js_time_format = to_datetimepicker_format(time_fmt)
+        self.js_overlay_parent_selector = js_overlay_parent_selector
         super().__init__(attrs=default_attrs, format=fmt)
 
     def get_config(self):
@@ -126,6 +133,8 @@ class AdminDateTimeInput(widgets.DateTimeInput):
             "dayOfWeekStart": get_format("FIRST_DAY_OF_WEEK"),
             "format": self.js_format,
             "formatTime": self.js_time_format,
+            # The parentID option actually takes a CSS selector instead of an ID
+            "parentID": self.js_overlay_parent_selector,
         }
 
     def get_context(self, name, value, attrs):
