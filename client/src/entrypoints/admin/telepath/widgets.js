@@ -178,25 +178,18 @@ class DraftailRichTextArea {
     const split = capabilities.get('split');
     const addSibling = capabilities.get('addSibling');
     let blockCommands = [];
-<<<<<<< HEAD
-    if (split && split.enabled) {
+    if (split) {
       options.controls = originalOptions.controls
         ? [...originalOptions.controls]
         : [];
-=======
-    if (split) {
-      options.controls = originalOptions.controls ? [...originalOptions.controls] : [];
->>>>>>> 320474ed14... fixup! Move command generation out of render and update them when capabilities change
       options.controls.push({
         meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
       });
 
-<<<<<<< HEAD
       const blockGroups =
-        addSibling && addSibling.enabled ? addSibling.blockGroups : [];
-=======
-      const blockGroups = (addSibling && addSibling.enabled && split.enabled) ? addSibling.blockGroups : [];
->>>>>>> 320474ed14... fixup! Move command generation out of render and update them when capabilities change
+        addSibling && addSibling.enabled && split.enabled
+          ? addSibling.blockGroups
+          : [];
       // Create commands for splitting + inserting a block. This requires both the split
       // and addSibling capabilities to be available and enabled
       blockCommands = blockGroups.map(([group, blocks]) => {
@@ -210,7 +203,7 @@ class DraftailRichTextArea {
               // If the specific block has a limit, render the current number/max alongside the description
               const limitText =
                 typeof blockMax === 'number'
-                  ? `(${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
+                  ? ` (${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
                   : '';
               return `${option.description}${limitText}`;
             },
@@ -349,9 +342,9 @@ class DraftailRichTextArea {
           capabilities.get(capability),
           capabilityOptions,
         );
-        capabilities.set(capability, newCapability)
+        capabilities.set(capability, newCapability);
         setOptions(getFullOptions(originalOptions, capabilities));
-      }
+      },
     };
 
     if (initialiseBlank) {

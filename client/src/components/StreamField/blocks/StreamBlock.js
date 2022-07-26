@@ -282,7 +282,7 @@ export class StreamBlock extends BaseSequenceBlock {
     if (!type) {
       return this.blockDef.meta.maxNum;
     }
-    return this.blockDef.meta.blockCounts[type];
+    return this.blockDef.meta.blockCounts[type]?.max_num;
   }
 
   _updateBlockCount(type) {
@@ -313,12 +313,12 @@ export class StreamBlock extends BaseSequenceBlock {
     this.disabledBlockTypes = new Set();
     for (const blockType in this.blockDef.meta.blockCounts) {
       if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
-        const counts = this.blockDef.meta.blockCounts[blockType];
+        const maxNum = this.getBlockMax(blockType);
 
-        if (typeof counts.max_num === 'number') {
+        if (typeof maxNum === 'number') {
           const currentBlockCount = this.getBlockCount(blockType);
 
-          if (currentBlockCount >= counts.max_num) {
+          if (currentBlockCount >= maxNum) {
             this.disabledBlockTypes.add(blockType);
           }
         }
