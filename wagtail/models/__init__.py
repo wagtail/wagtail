@@ -72,6 +72,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
+from wagtail.locks import BasicLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet
 from wagtail.search import index
@@ -781,6 +782,13 @@ class LockableMixin(models.Model):
         obj.locked_by = self.locked_by
 
         return obj
+
+    def get_lock(self):
+        """
+        Returns a sub-clss of BaseLock if the instance is locked, otherwise None
+        """
+        if self.locked:
+            return BasicLock(self)
 
 
 class AbstractPage(
@@ -2216,6 +2224,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return bool(page.preview_modes)
 
+    def get_lock(self):
+        # Standard locking should take precedence over workflow locking
+        # because it's possible for both to be used at the same time
+        lock = super().get_lock()
+        if lock:
+            return lock
+
+        current_workflow_task = self.current_workflow_task
+        if current_workflow_task:
+            return WorkflowLock(current_workflow_task, self)
+
     def get_route_paths(self):
         """
         .. versionadded:: 2.16
@@ -3006,21 +3025,8 @@ class PagePermissionTester:
         return self.page.locked_by_id == self.user.pk
 
     def page_locked(self):
-        current_workflow_task = self.page.current_workflow_task
-        if current_workflow_task:
-            if current_workflow_task.page_locked_for_user(self.page, self.user):
-                return True
-
-        if not self.page.locked:
-            # Page is not locked
-            return False
-
-        if getattr(settings, "WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK", False):
-            # All locks are global
-            return True
-        else:
-            # Locked only if the current user was not the one who locked the page
-            return not self.user_has_lock()
+        lock = self.page.get_lock()
+        return lock and lock.for_user(self.user)
 
     def can_add_subpage(self):
         if not self.user.is_active:
