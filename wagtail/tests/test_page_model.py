@@ -3642,11 +3642,38 @@ class TestGetLock(TestCase):
 
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
-        christmas_event.locked_by = christmas_event.locked_by = moderator
+        christmas_event.locked_by = moderator
+        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
-        self.assertIsInstance(christmas_event.get_lock(), BasicLock)
-        self.assertTrue(christmas_event.get_lock().for_user(christmas_event.owner))
-        self.assertFalse(christmas_event.get_lock().for_user(moderator))
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, BasicLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertFalse(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+
+    def test_when_locked_without_locked_at(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+
+        lock = christmas_event.get_lock()
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "<b>Page 'Christmas' is locked</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>Page 'Christmas' is locked</b> by <b>you</b>.",
+        )
 
     @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
     def test_when_locked_globally(self):
@@ -3654,11 +3681,21 @@ class TestGetLock(TestCase):
 
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
-        christmas_event.locked_by = christmas_event.locked_by = moderator
+        christmas_event.locked_by = moderator
+        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
-        self.assertIsInstance(christmas_event.get_lock(), BasicLock)
-        self.assertTrue(christmas_event.get_lock().for_user(christmas_event.owner))
-        self.assertTrue(christmas_event.get_lock().for_user(moderator))
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, BasicLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertTrue(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+        )
 
     def test_when_locked_by_workflow(self):
         moderator = get_user_model().objects.get(email="eventmoderator@example.com")
@@ -3672,6 +3709,24 @@ class TestGetLock(TestCase):
         WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
         workflow.start(christmas_event, moderator)
 
-        self.assertIsInstance(christmas_event.get_lock(), WorkflowLock)
-        self.assertTrue(christmas_event.get_lock().for_user(christmas_event.owner))
-        self.assertFalse(christmas_event.get_lock().for_user(moderator))
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, WorkflowLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertFalse(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "This page is currently awaiting moderation. Only reviewers for this task can edit the page.",
+        )
+        self.assertIsNone(lock.get_message(moderator))
+
+        # When visiting a page in a workflow with multiple tasks, the message displayed to users changes to show the current task the page is on
+
+        # Add a second task to the workflow
+        other_task = GroupApprovalTask.objects.create(name="another_task")
+        WorkflowTask.objects.create(workflow=workflow, task=other_task, sort_order=2)
+
+        lock = christmas_event.get_lock()
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "This page is awaiting <b>'test_task'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page.",
+        )
