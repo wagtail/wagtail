@@ -5,24 +5,27 @@ from unittest.mock import Mock
 import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpRequest
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
-from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.locks import BasicLock, WorkflowLock
 from wagtail.models import (
     Comment,
+    GroupApprovalTask,
     Locale,
     Page,
     PageLogEntry,
     PageManager,
     Site,
+    Workflow,
+    WorkflowTask,
     get_page_models,
     get_translatable_models,
 )
@@ -3624,3 +3627,51 @@ class TestLocalized(TestCase):
             self.assertEqual(self.fr_event_page.localized, self.fr_event_page)
             self.assertEqual(self.event_page.localized_draft, self.event_page)
             self.assertEqual(self.fr_event_page.localized_draft, self.fr_event_page)
+
+
+class TestGetLock(TestCase):
+    fixtures = ["test.json"]
+
+    def test_when_unlocked(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        self.assertIsNone(christmas_event.get_lock())
+
+    def test_when_locked(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = christmas_event.locked_by = moderator
+
+        self.assertIsInstance(christmas_event.get_lock(), BasicLock)
+        self.assertTrue(christmas_event.get_lock().for_user(christmas_event.owner))
+        self.assertFalse(christmas_event.get_lock().for_user(moderator))
+
+    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    def test_when_locked_globally(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = christmas_event.locked_by = moderator
+
+        self.assertIsInstance(christmas_event.get_lock(), BasicLock)
+        self.assertTrue(christmas_event.get_lock().for_user(christmas_event.owner))
+        self.assertTrue(christmas_event.get_lock().for_user(moderator))
+
+    def test_when_locked_by_workflow(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.save_revision()
+
+        workflow = Workflow.objects.create(name="test_workflow")
+        task = GroupApprovalTask.objects.create(name="test_task")
+        task.groups.add(Group.objects.get(name="Event moderators"))
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        workflow.start(christmas_event, moderator)
+
+        self.assertIsInstance(christmas_event.get_lock(), WorkflowLock)
+        self.assertTrue(christmas_event.get_lock().for_user(christmas_event.owner))
+        self.assertFalse(christmas_event.get_lock().for_user(moderator))
