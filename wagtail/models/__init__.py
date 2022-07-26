@@ -738,7 +738,53 @@ class PreviewableMixin:
         )
 
 
+class LockableMixin(models.Model):
+    locked = models.BooleanField(
+        verbose_name=_("locked"), default=False, editable=False
+    )
+    locked_at = models.DateTimeField(
+        verbose_name=_("locked at"), null=True, editable=False
+    )
+    locked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("locked by"),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name="locked_pages",
+    )
+
+    class Meta:
+        abstract = True
+
+    def with_content_json(self, content):
+        """
+        Returns a new version of the object with field values updated to reflect changes
+        in the provided ``content`` (which usually comes from a previously-saved revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        object is saved, such as ``id``. The following field values are also preserved,
+        as they are considered to be meaningful to the object as a whole, rather than
+        to a specific revision:
+
+        * ``locked``
+        * ``locked_at``
+        * ``locked_by``
+        """
+        obj = super().with_content_json(content)
+
+        # Ensure other values that are meaningful for the object as a whole (rather than
+        # to a specific revision) are preserved
+        obj.locked = self.locked
+        obj.locked_at = self.locked_at
+        obj.locked_by = self.locked_by
+
+        return obj
+
+
 class AbstractPage(
+    LockableMixin,
     PreviewableMixin,
     DraftStateMixin,
     RevisionMixin,
@@ -814,22 +860,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         help_text=_(
             "The descriptive text displayed underneath a headline in search engine results."
         ),
-    )
-
-    locked = models.BooleanField(
-        verbose_name=_("locked"), default=False, editable=False
-    )
-    locked_at = models.DateTimeField(
-        verbose_name=_("locked at"), null=True, editable=False
-    )
-    locked_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("locked by"),
-        null=True,
-        blank=True,
-        editable=False,
-        on_delete=models.SET_NULL,
-        related_name="locked_pages",
     )
 
     latest_revision_created_at = models.DateTimeField(
