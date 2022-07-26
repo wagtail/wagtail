@@ -1,4 +1,7 @@
 from django.conf import settings
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 
 
 class BaseLock:
@@ -13,6 +16,12 @@ class BaseLock:
         Returns True if the lock applies to the given user.
         """
         return NotImplemented
+
+    def get_message(self, user):
+        """
+        Returns a message to display to the given user describing the lock.
+        """
+        return None
 
 
 class BasicLock(BaseLock):
@@ -32,6 +41,35 @@ class BasicLock(BaseLock):
         else:
             return user.pk != self.page.locked_by_id
 
+    def get_message(self, user):
+        if self.page.locked_by_id == user.pk:
+            if self.page.locked_at:
+                return format_html(
+                    _("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."),
+                    self.page.get_admin_display_title(),
+                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
+                )
+
+            else:
+                return format_html(
+                    _("<b>Page '{}' is locked</b> by <b>you</b>."),
+                    self.page.get_admin_display_title(),
+                )
+        else:
+            if self.page.locked_by and self.page.locked_at:
+                return format_html(
+                    _("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."),
+                    self.page.get_admin_display_title(),
+                    str(self.page.locked_by),
+                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
+                )
+            else:
+                # Page was probably locked with an old version of Wagtail, or a script
+                return format_html(
+                    _("<b>Page '{}' is locked</b>."),
+                    self.page.get_admin_display_title(),
+                )
+
 
 class WorkflowLock(BaseLock):
     """
@@ -46,3 +84,21 @@ class WorkflowLock(BaseLock):
 
     def for_user(self, user):
         return self.task.page_locked_for_user(self.page, user)
+
+    def get_message(self, user):
+        if self.for_user(user):
+            if len(self.page.current_workflow_state.all_tasks_with_status()) == 1:
+                # If only one task in workflow, show simple message
+                workflow_info = _("This page is currently awaiting moderation.")
+            else:
+                workflow_info = format_html(
+                    _("This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."),
+                    self.task.name,
+                    self.page.current_workflow_state.workflow.name,
+                )
+
+            return mark_safe(
+                workflow_info
+                + " "
+                + _("Only reviewers for this task can edit the page.")
+            )
