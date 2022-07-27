@@ -71,7 +71,13 @@ $desktop-nice-padding: 100px;
       }
 
       input {
-        border: 1px dashed $color-input-border;
+        border-top: 1px dashed $color-input-border;
+
+        /* stylelint-disable max-nesting-depth */
+        @media (forced-colors: active) {
+          border: 2px solid $color-input-border;
+        }
+        /* stylelint-enable max-nesting-depth */
       }
     }
 
