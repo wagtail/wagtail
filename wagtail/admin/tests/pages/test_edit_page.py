@@ -615,16 +615,16 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should be redirected to edit page
-        self.assertEqual(response.status_code, 302)
+        # Should be blocked, as the page is already scheduled
+        self.assertEqual(response.status_code, 200)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
 
-        # The page should be live now
-        self.assertTrue(child_page_new.live)
+        # The page should not be live
+        self.assertFalse(child_page_new.live)
 
-        # And a revision with approved_go_live_at should not exist
-        self.assertFalse(
+        # The revision with approved_go_live_at should still exist
+        self.assertTrue(
             Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
@@ -743,25 +743,25 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should be redirected to edit page
-        self.assertEqual(response.status_code, 302)
+        # Should be blocked, as the page is alrready scheduled
+        self.assertEqual(response.status_code, 200)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
 
-        # The page should be live now
+        # The page should still be live
         self.assertTrue(child_page_new.live)
 
-        # And a revision with approved_go_live_at should not exist
-        self.assertFalse(
+        # The scheduled revision should still exist
+        self.assertTrue(
             Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
 
+        # The title should still be the same, as the publish didn't work
         self.assertEqual(
             child_page_new.title,
-            post_data["title"],
-            "A published page should have the new title",
+            "Hello world!",
         )
 
     def test_page_edit_post_submit(self):
@@ -1278,7 +1278,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
     def test_page_edit_num_queries(self):
-        with self.assertNumQueries(40):
+        with self.assertNumQueries(46):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )

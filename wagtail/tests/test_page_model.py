@@ -15,7 +15,7 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
-from wagtail.locks import BasicLock, WorkflowLock
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     Comment,
     GroupApprovalTask,
@@ -3730,3 +3730,21 @@ class TestGetLock(TestCase):
             lock.get_message(christmas_event.owner),
             "This page is awaiting <b>'test_task'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page.",
         )
+
+    def test_when_scheduled_for_publish(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
+        christmas_event.save_revision().publish()
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, ScheduledForPublishLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "Page 'Christmas' is locked and has been scheduled to go-live at 07/29/2030 7:32 a.m.",
+        )
+
+        # Not even superusers can break this lock
+        # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
+        superuser = get_user_model().objects.get(email="superuser@example.com")
+        self.assertTrue(lock.for_user(superuser))
