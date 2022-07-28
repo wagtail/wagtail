@@ -43,7 +43,15 @@ def revisions_revert(request, page_id, revision_id):
         instance=revision_page, request=request, form=form
     )
 
-    action_menu = PageActionMenu(request, view="revisions_revert", page=page)
+    lock = page.get_lock()
+
+    action_menu = PageActionMenu(
+        request,
+        view="revisions_revert",
+        page=page,
+        lock=lock,
+        locked_for_user=lock is not None and lock.for_user(request.user),
+    )
     side_panels = PageSidePanels(
         request,
         page,

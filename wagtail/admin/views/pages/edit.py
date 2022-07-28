@@ -815,7 +815,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         bound_panel = self.edit_handler.get_bound_panel(
             instance=self.page, request=self.request, form=self.form
         )
-        action_menu = PageActionMenu(self.request, view="edit", page=self.page)
+        action_menu = PageActionMenu(
+            self.request,
+            view="edit",
+            page=self.page,
+            lock=self.lock,
+            locked_for_user=self.locked_for_user,
+        )
         side_panels = PageSidePanels(
             self.request,
             self.page_for_status,

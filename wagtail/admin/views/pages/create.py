@@ -328,7 +328,11 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             request=self.request, instance=self.page, form=self.form
         )
         action_menu = PageActionMenu(
-            self.request, view="create", parent_page=self.parent_page
+            self.request,
+            view="create",
+            parent_page=self.parent_page,
+            lock=None,
+            locked_for_user=False,
         )
         side_panels = PageSidePanels(
             self.request,
