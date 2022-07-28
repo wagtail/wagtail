@@ -180,14 +180,22 @@ class IndexView(
 
         ordering = self.get_ordering()
         if ordering:
-            if isinstance(ordering, str):
+            # Explicitly handle null values for the updated at column to ensure consistency
+            # across database backends and match the behaviour in page explorer
+            if ordering == "_updated_at":
+                ordering = models.F("_updated_at").asc(nulls_first=True)
+            elif ordering == "-_updated_at":
+                ordering = models.F("_updated_at").desc(nulls_last=True)
+            if not isinstance(ordering, (list, tuple)):
                 ordering = (ordering,)
             queryset = queryset.order_by(*ordering)
 
         # Preserve the model-level ordering if specified, but fall back on
         # updated_at and PK if not (to ensure pagination is consistent)
         if not queryset.ordered:
-            queryset = queryset.order_by("-_updated_at", "-pk")
+            queryset = queryset.order_by(
+                models.F("_updated_at").desc(nulls_last=True), "-pk"
+            )
 
         return queryset
 
