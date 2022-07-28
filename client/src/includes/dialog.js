@@ -10,12 +10,27 @@ export const dialog = (
     const dialogTemplate = new A11yDialog(templateContent);
 
     // Prevent scrolling when dialog is open
+    // Dispatch events to hook into behaviour of modals showing / hiding that bubble
     dialogTemplate
-      .on('show', () => {
+      .on('show', (element, event) => {
         html.style.overflowY = 'hidden';
+        templateContent.dispatchEvent(
+          new CustomEvent('wagtail:dialog-toggle', {
+            bubbles: true,
+            cancelable: false,
+            detail: { event, shown: true },
+          }),
+        );
       })
-      .on('hide', () => {
+      .on('hide', (element, event) => {
         html.style.overflowY = '';
+        templateContent.dispatchEvent(
+          new CustomEvent('wagtail:dialog-toggle', {
+            bubbles: true,
+            cancelable: false,
+            detail: { event, shown: false },
+          }),
+        );
       });
 
     // Attach event listeners to the dialog root (element with id), so it's
