@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.formats import date_format
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
@@ -102,3 +103,32 @@ class WorkflowLock(BaseLock):
                 + " "
                 + _("Only reviewers for this task can edit the page.")
             )
+
+
+class ScheduledForPublishLock(BaseLock):
+    """
+    A lock that occurs when something is scheduled to be published.
+
+    This prevents it becoming difficult for users to see which version of a page that is going to be published.
+    Nobody can edit something that's scheduled for publish.
+    """
+
+    def __init__(self, page):
+        self.page = page
+
+    def for_user(self, user):
+        return True
+
+    def get_message(self, user):
+        scheduled_revision = self.page.revisions.filter(
+            approved_go_live_at__isnull=False
+        ).first()
+
+        return format_html(
+            _("Page '{}' is locked and has been scheduled to go-live at {}"),
+            self.page.get_admin_display_title(),
+            date_format(
+                scheduled_revision.approved_go_live_at,
+                settings.SHORT_DATETIME_FORMAT,
+            ),
+        )

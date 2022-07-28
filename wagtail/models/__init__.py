@@ -72,7 +72,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
-from wagtail.locks import BasicLock, WorkflowLock
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet
 from wagtail.search import index
@@ -785,10 +785,16 @@ class LockableMixin(models.Model):
 
     def get_lock(self):
         """
-        Returns a sub-clss of BaseLock if the instance is locked, otherwise None
+        Returns a sub-class of BaseLock if the instance is locked, otherwise None
         """
         if self.locked:
             return BasicLock(self)
+
+        if (
+            isinstance(self, DraftStateMixin)
+            and self.revisions.filter(approved_go_live_at__isnull=False).exists()
+        ):
+            return ScheduledForPublishLock(self)
 
 
 class AbstractPage(
