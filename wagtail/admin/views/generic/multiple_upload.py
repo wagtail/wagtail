@@ -10,6 +10,8 @@ from django.views.decorators.vary import vary_on_headers
 from django.views.generic.base import TemplateView, View
 
 from wagtail.admin.views.generic import PermissionCheckedMixin
+from wagtail.images.models import Image
+from wagtail.images.utils import find_image_duplicates
 
 
 class AddView(PermissionCheckedMixin, TemplateView):
@@ -140,7 +142,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
             },
             user=request.user,
         )
-
+        print("HERE")
         if form.is_valid():
             # Save it
             self.object = self.save_object(form)
@@ -154,6 +156,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
             # Some other field of the form has failed validation, e.g. a required metadata field
             # on a custom image model. Store the object as an upload_model instance instead and
             # present the edit form so that it will become a proper object when successfully filled in
+            # self.object = self.save_object(form)
             self.upload_object = self.upload_model.objects.create(
                 file=self.request.FILES["files[]"], uploaded_by_user=self.request.user
             )
@@ -162,7 +165,38 @@ class AddView(PermissionCheckedMixin, TemplateView):
                 collection_id=self.request.POST.get("collection"),
             )
 
-            return JsonResponse(self.get_edit_upload_response_data())
+            data = self.get_edit_upload_response_data()
+            temporary_image = Image.objects.create(
+                title="TEMPORARY_SHIT_ORIGINAL_WAGTAIL_IMAGE",
+                file=self.request.FILES["files[]"],
+                width=1,
+                height=1,
+            )
+            temporary_image.get_file_hash()
+
+            duplicates = find_image_duplicates(
+                image=temporary_image,
+                user=self.request.user,
+                permission_policy=self.permission_policy,
+            )
+            temporary_image.delete()
+
+            if not duplicates:
+                data.update(duplicate=False)
+            else:
+                data.update(
+                    duplicate=True,
+                    confirm_duplicate_upload=render_to_string(
+                        "wagtailimages/images/confirm_duplicate_upload.html",
+                        {
+                            "existing_image": duplicates[0],
+                            "delete_action": reverse("wagtailimages:dummy_delete"),
+                        },
+                        request=self.request,
+                    ),
+                )
+
+            return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

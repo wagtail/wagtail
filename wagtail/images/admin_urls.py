@@ -1,6 +1,13 @@
 from django.urls import path
 
 from wagtail.images.views import chooser, images, multiple
+from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
+
+
+class DummyDeleteView(BaseDeleteView):
+    def post(self, request, *args, **kwargs):
+        return JsonResponse({"success": True})
+
 
 app_name = "wagtailimages"
 urlpatterns = [
@@ -23,6 +30,11 @@ urlpatterns = [
         "multiple/create_from_uploaded_image/<int:uploaded_image_id>/",
         multiple.CreateFromUploadedImageView.as_view(),
         name="create_multiple_from_uploaded_image",
+    ),
+    path(
+        "multiple/dummy_delete",
+        DummyDeleteView.as_view(),
+        name="dummy_delete",
     ),
     path(
         "multiple/<int:image_id>/delete/",

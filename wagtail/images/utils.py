@@ -103,6 +103,5 @@ def find_image_duplicates(image, user, permission_policy):
     To keep things simple, two images are considered to be duplicates if they have the same `file_hash` value.
     This function also ensures that the `user` can choose one of the duplicate images returned (if any).
     """
-
     instances = permission_policy.instances_user_has_permission_for(user, "choose")
     return instances.exclude(pk=image.pk).filter(file_hash=image.file_hash)
