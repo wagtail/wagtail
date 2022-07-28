@@ -165,9 +165,10 @@ class AddView(PermissionCheckedMixin, TemplateView):
                 collection_id=self.request.POST.get("collection"),
             )
 
+            # checking for image duplicates, in case custom image model with additional fields is used
             data = self.get_edit_upload_response_data()
             temporary_image = Image.objects.create(
-                title="TEMPORARY_SHIT_ORIGINAL_WAGTAIL_IMAGE",
+                title="TEMPORARY_ORIGINAL_WAGTAIL_IMAGE",
                 file=self.request.FILES["files[]"],
                 width=1,
                 height=1,
