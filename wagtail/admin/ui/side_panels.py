@@ -6,6 +6,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.ui.components import Component
+from wagtail.locks import BasicLock
 from wagtail.models import Page, UserPagePermissionsProxy
 
 
@@ -66,6 +67,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
         page = self.object
+        lock = page.get_lock()
 
         if page.id:
             context.update(
@@ -73,10 +75,14 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
+                    "lock": lock,
+                    "locked_for_user": lock is not None
+                    and lock.for_user(self.request.user),
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
                     "user_can_lock": user_perms.for_page(page).can_lock(),
-                    "user_can_unlock": user_perms.for_page(page).can_unlock(),
+                    "user_can_unlock": isinstance(lock, BasicLock)
+                    and user_perms.for_page(page).can_unlock(),
                     "locale": None,
                     "translations": [],
                 }
