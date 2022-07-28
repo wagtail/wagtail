@@ -304,6 +304,148 @@ class TestModelOrdering(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["items"][0].text, "aaaadvert")
 
 
+class TestListViewOrdering(TestCase, WagtailTestUtils):
+    @classmethod
+    def setUpTestData(cls):
+        for i in range(1, 10):
+            advert = Advert.objects.create(text=f"{i*'a'}dvert {i}")
+            draft = DraftStateModel.objects.create(text=f"{i*'d'}raft {i}", live=False)
+            if i % 2 == 0:
+                ModelLogEntry.objects.create(
+                    content_type=ContentType.objects.get_for_model(Advert),
+                    label="Test Advert",
+                    action="wagtail.create",
+                    timestamp=now(),
+                    object_id=advert.pk,
+                )
+                draft.save_revision().publish()
+
+    def setUp(self):
+        self.login()
+
+    def test_listing_orderable_columns_with_no_mixin(self):
+        list_url = reverse("wagtailsnippets_tests_advert:list")
+        response = self.client.get(list_url)
+        sort_updated_url = list_url + "?ordering=_updated_at"
+        sort_live_url = list_url + "?ordering=live"
+
+        self.assertEqual(response.status_code, 200)
+        # Should use the tables framework
+        self.assertTemplateUsed(response, "wagtailadmin/tables/table.html")
+        # The Updated column header should be a link with the correct query param
+        self.assertContains(
+            response,
+            f'<th><a href="{sort_updated_url}" class="icon icon-arrow-down-after">Updated</a></th>',
+            html=True,
+        )
+        # Should not contain the Status column header
+        self.assertNotContains(
+            response,
+            f'<th><a href="{sort_live_url}" class="icon icon-arrow-down-after">Status</a></th>',
+            html=True,
+        )
+
+    def test_listing_orderable_columns_with_draft_state_mixin(self):
+        list_url = reverse("wagtailsnippets_tests_draftstatemodel:list")
+        response = self.client.get(list_url)
+        sort_updated_url = list_url + "?ordering=_updated_at"
+        sort_live_url = list_url + "?ordering=live"
+
+        self.assertEqual(response.status_code, 200)
+        # Should use the tables framework
+        self.assertTemplateUsed(response, "wagtailadmin/tables/table.html")
+        # The Updated column header should be a link with the correct query param
+        self.assertContains(
+            response,
+            f'<th><a href="{sort_updated_url}" class="icon icon-arrow-down-after">Updated</a></th>',
+            html=True,
+        )
+        # The Status column header should be a link with the correct query param
+        self.assertContains(
+            response,
+            f'<th><a href="{sort_live_url}" class="icon icon-arrow-down-after">Status</a></th>',
+            html=True,
+        )
+
+    def test_order_by_updated_at_with_no_mixin(self):
+        list_url = reverse("wagtailsnippets_tests_advert:list")
+        response = self.client.get(list_url + "?ordering=_updated_at")
+
+        self.assertEqual(response.status_code, 200)
+
+        # With ascending order, empty updated_at information should be shown first
+        self.assertIsNone(response.context["page_obj"][0]._updated_at)
+        # The most recently updated should be at the bottom
+        self.assertEqual(response.context["page_obj"][-1].text, "aaaaaaaadvert 8")
+        self.assertIsNotNone(response.context["page_obj"][-1]._updated_at)
+
+        # Should contain a link to reverse the order
+        self.assertContains(response, list_url + "?ordering=-_updated_at")
+
+        response = self.client.get(list_url + "?ordering=-_updated_at")
+
+        self.assertEqual(response.status_code, 200)
+
+        # With descending order, the first object should be the one that was last updated
+        self.assertEqual(response.context["page_obj"][0].text, "aaaaaaaadvert 8")
+        self.assertIsNotNone(response.context["page_obj"][0]._updated_at)
+
+        # Should contain a link to reverse the order
+        self.assertContains(response, list_url + "?ordering=_updated_at")
+
+    def test_order_by_updated_at_with_draft_state_mixin(self):
+        list_url = reverse("wagtailsnippets_tests_draftstatemodel:list")
+        response = self.client.get(list_url + "?ordering=_updated_at")
+
+        self.assertEqual(response.status_code, 200)
+
+        # With ascending order, empty updated_at information should be shown first
+        self.assertIsNone(response.context["page_obj"][0]._updated_at)
+        # The most recently updated should be at the bottom
+        self.assertEqual(response.context["page_obj"][-1].text, "ddddddddraft 8")
+        self.assertIsNotNone(response.context["page_obj"][-1]._updated_at)
+
+        # Should contain a link to reverse the order
+        self.assertContains(response, list_url + "?ordering=-_updated_at")
+
+        response = self.client.get(list_url + "?ordering=-_updated_at")
+
+        self.assertEqual(response.status_code, 200)
+
+        # With descending order, the first object should be the one that was last updated
+        self.assertEqual(response.context["page_obj"][0].text, "ddddddddraft 8")
+        self.assertIsNotNone(response.context["page_obj"][0]._updated_at)
+
+        # Should contain a link to reverse the order
+        self.assertContains(response, list_url + "?ordering=_updated_at")
+
+    def test_order_by_live(self):
+        list_url = reverse("wagtailsnippets_tests_draftstatemodel:list")
+        response = self.client.get(list_url + "?ordering=live")
+
+        self.assertEqual(response.status_code, 200)
+
+        # With ascending order, live=False should be shown first
+        self.assertFalse(response.context["page_obj"][0].live)
+        # The last one should be live=True
+        self.assertTrue(response.context["page_obj"][-1].live)
+
+        # Should contain a link to reverse the order
+        self.assertContains(response, list_url + "?ordering=-live")
+
+        response = self.client.get(list_url + "?ordering=-live")
+
+        self.assertEqual(response.status_code, 200)
+
+        # With descending order, live=True should be shown first
+        self.assertTrue(response.context["page_obj"][0].live)
+        # The last one should be live=False
+        self.assertFalse(response.context["page_obj"][-1].live)
+
+        # Should contain a link to reverse the order
+        self.assertContains(response, list_url + "?ordering=live")
+
+
 class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
