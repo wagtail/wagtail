@@ -397,6 +397,21 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     assertCannotAddBlock();
   });
 
+  test('addSibling capability works', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      { value: 'First value', id: '11111111-1111-1111-1111-111111111111' },
+      { value: 'Second value', id: '22222222-2222-2222-2222-222222222222' },
+      { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
+    ]);
+    const addSibling =
+      boundBlock.children[0].block.parentCapabilities.get('addSibling');
+    expect(addSibling.getBlockMax()).toEqual(3);
+    expect(addSibling.getBlockCount()).toEqual(3);
+    addSibling.fn();
+    expect(boundBlock.children.length).toEqual(4);
+  });
+
   test('insert disables new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [

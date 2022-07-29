@@ -554,6 +554,30 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     assertCannotAddBlock();
   });
 
+  test('addSibling capability works', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+    const addSibling =
+      boundBlock.children[0].block.parentCapabilities.get('addSibling');
+    expect(addSibling.getBlockMax('test_block_a')).toBeUndefined();
+    expect(addSibling.getBlockMax()).toEqual(3);
+    expect(addSibling.getBlockCount()).toEqual(2);
+    addSibling.fn({ type: 'test_block_a' });
+    expect(boundBlock.children.length).toEqual(3);
+    expect(boundBlock.children[1].type).toEqual('test_block_a');
+  });
+
   test('insert disables new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
@@ -708,6 +732,29 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     ).toEqual('disabled');
   };
 
+  test('addSibling capability works', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+    const addSibling =
+      boundBlock.children[0].block.parentCapabilities.get('addSibling');
+    expect(addSibling.getBlockMax('test_block_a')).toEqual(2);
+    expect(addSibling.getBlockCount('test_block_a')).toEqual(1);
+    addSibling.fn({ type: 'test_block_a' });
+    expect(boundBlock.children.length).toEqual(3);
+    expect(boundBlock.children[1].type).toEqual('test_block_a');
+  });
+
   test('single instance allows creation of new block and duplication', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
@@ -727,7 +774,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     assertCanAddBlock();
   });
 
-  test('initialising at max_num disables adding new block of that type and duplication', () => {
+  test('initialising at max_num disables adding new block of that type', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
