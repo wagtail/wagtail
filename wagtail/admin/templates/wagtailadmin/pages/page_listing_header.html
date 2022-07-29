@@ -7,11 +7,9 @@
         {{ title }}
     </h1>
     {# breadcrumbs #}
-    {% if parent_page.is_root %}
-        <div class="w-pl-3">{% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=True %}</div>
-    {% else %}
-        {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
-    {% endif %}
+    <div class="w-py-3{% if parent_page.is_root %} w-pl-3{% endif %}">
+        {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root %}
+    </div>
     {# Actions divider #}
     <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-grey-100"></div>
     {# Page actions dropdown #}
