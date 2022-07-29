@@ -1,4 +1,5 @@
 /* global $ */
+import { gettext } from '../../../utils/gettext';
 
 class BoundWidget {
   constructor(element, name, idForLabel, initialState, parentCapabilities) {
