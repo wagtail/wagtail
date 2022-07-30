@@ -1,170 +1,118 @@
-// overrides default nice padding defined in variables.scss
-$custom-nice-padding: 100px;
-$input-text-vertical-padding: theme('spacing.12');
-
-.login,
-.login .content-wrapper {
-  background-color: $color-grey-1;
-  color: $color-grey-3;
-}
-
-.login {
-  margin-inline-start: 0;
-  height: 100vh;
-
-  .content-wrapper {
-    border: 0;
-
-    @include media-breakpoint-up(sm) {
-      float: none;
-      height: auto;
-      width: 100%;
-      display: inline-block;
-      vertical-align: middle;
+@mixin login-fullscreen-background() {
+  @at-root {
+    :root {
+      --w-login-fullscreen-background: radial-gradient(
+        100% 300.28% at 100% 0%,
+        theme('colors.primary.DEFAULT') 0%,
+        theme('colors.primary.DEFAULT') 32.94%,
+        theme('colors.primary.DEFAULT') 49.9%,
+        theme('colors.primary.DEFAULT') 50.2%,
+        theme('colors.secondary.DEFAULT') 100%
+      );
     }
   }
 
+  // support older browsers that do not support radial gradient 'at' usage
+  background: theme('colors.primary.DEFAULT');
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  background: var(
+    --w-login-fullscreen-background,
+    theme('colors.primary.DEFAULT')
+  );
+}
+
+.login {
+  @include login-fullscreen-background;
+
+  color: theme('colors.primary.DEFAULT');
+
   .wrapper {
-    padding-inline-start: $mobile-nice-padding;
-    padding-inline-end: $mobile-nice-padding;
-    margin-inline-start: 0;
-    max-width: none;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    padding: min(theme('spacing.4'), 5vh) min(theme('spacing.4'), 5vw);
+    min-height: 100vh;
+  }
 
-    // centres login form vertically
-    @include media-breakpoint-up(sm) {
-      position: relative;
-      height: 100%;
-      padding: 0 $custom-nice-padding;
+  .messages {
+    background: none;
+    margin-bottom: theme('spacing.8');
 
-      &:before {
-        content: '';
-        width: 0;
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        margin-inline-start: -0.4em;
+    ul {
+      @include unlist();
+
+      li {
+        border-radius: theme('borderRadius.sm');
+        margin-bottom: theme('spacing.2');
       }
+    }
+  }
+
+  .content-wrapper {
+    border: 0;
+    height: auto;
+    float: none;
+    padding: theme('spacing.10') theme('spacing.12');
+    background: theme('colors.white.DEFAULT');
+    box-shadow: theme('boxShadow.md');
+    border-radius: theme('borderRadius.md');
+    margin-bottom: 15vh; // should appear slightly above centre
+    max-width: calc(theme('spacing.52') * 2);
+
+    @include media-breakpoint-up(sm) {
+      max-width: calc(theme('spacing.60') * 2);
+      padding: theme('spacing.12') theme('spacing.14');
     }
   }
 
   h1 {
-    font-weight: 300;
-    font-size: 2em;
-    line-height: 1em;
-    color: $color-white;
-    white-space: nowrap;
-
-    @include media-breakpoint-up(sm) {
-      font-size: 4em;
-    }
-  }
-
-  label,
-  .help {
-    color: $color-white;
-  }
-
-  .reset-password {
-    @apply w-help-text;
-    display: block;
+    @apply w-h1;
     margin-top: 0;
-    padding: 10px 0;
-    color: $color-white;
-    text-decoration: underline;
-
-    @include media-breakpoint-up(sm) {
-      position: absolute;
-      // This number is manually updated based on the position of the first field.
-      top: 307px;
-      inset-inline-end: 0;
-      padding: 0;
-      color: $color-link;
-      text-decoration: none;
-    }
-  }
-
-  .messages {
-    margin: 1em 0;
-    z-index: 5;
-
-    ul {
-      margin: 0;
-
-      &:before {
-        display: none;
-      }
-
-      li {
-        border-radius: 3px;
-      }
-    }
+    margin-bottom: theme('spacing.8');
+    text-align: center;
   }
 
   .button,
-  a.button {
-    line-height: 1.2em;
-    font-size: 1.5em;
-    padding: 1.1em 2.4em;
-    height: 3.5em;
+  .w-field__label {
+    width: 100%;
+    font-size: theme('fontSize.16');
+    font-weight: theme('fontWeight.bold');
   }
-}
 
-// Full-width fields for the login form only, rather than also password reset.
-.login-fields {
   .w-field__wrapper {
-    max-width: none;
-
-    &:first-of-type {
-      // Fields are separated by a thin dashed line rather than by empty space.
-      border-bottom: 1px dashed #e6e6e6;
-      margin-bottom: 0;
-    }
-
-    @include media-breakpoint-up(sm) {
-      width: 100vw;
-      margin-inline-start: -1 * $custom-nice-padding;
-      margin-inline-end: -1 * $custom-nice-padding;
-    }
+    margin-bottom: theme('spacing.8');
   }
 
-  // For the login form, we rely on the non-field error only.
-  .w-field__errors {
+  .skiplink {
+    width: auto;
+  }
+
+  .reset-password {
+    display: block;
+    // bring in reset password link tight to the form
+    margin: calc(-1 * theme('spacing.6')) 0 theme('spacing.8');
+  }
+
+  .remember-me {
+    margin: theme('spacing.4') 0;
+  }
+
+  .form-actions {
+    // no need for margin bottom due to padding on content-wrapper
+    margin-top: theme('spacing.8');
+    text-align: center;
+  }
+
+  .login-form .w-field__errors {
+    // for the login form, we rely on the non-field error only.
+
     display: none;
   }
 
-  // Special full-width, one-off fields i.e a single text or textarea input
-  input:not([type='checkbox']) {
-    @include show-focus-outline-inside();
-    @apply w-h3;
-    color: $color-input-text;
-    border-radius: 0;
-    font-weight: 300;
-    border: 0;
-    padding: $input-text-vertical-padding $mobile-nice-padding;
-
-    @include media-breakpoint-up(sm) {
-      padding-inline-start: $custom-nice-padding;
-      padding-inline-end: $custom-nice-padding;
-    }
-  }
-
-  .w-field__icon {
-    $size: theme('spacing.9');
-    display: none;
-    pointer-events: none;
-    color: theme('colors.grey.200');
-    border: 2px solid theme('colors.grey.200');
-    border-radius: theme('borderRadius.full');
-    width: $size;
-    height: $size;
-    padding: theme('spacing.[1.5]');
-    top: calc($input-text-vertical-padding - theme('spacing.[1.5]'));
-    inset-inline-start: calc(
-      $custom-nice-padding - ($size + theme('spacing.3'))
-    );
-
-    @include media-breakpoint-up(sm) {
-      display: block;
-    }
+  .login-logo {
+    margin: theme('spacing.8') auto 0;
+    width: theme('spacing.8');
   }
 }
