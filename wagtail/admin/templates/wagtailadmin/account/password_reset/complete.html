@@ -4,8 +4,10 @@
 {% block bodyclass %}login{% endblock %}
 
 {% block furniture %}
-    <main class="content-wrapper">
+    <main class="content-wrapper" id="main">
         <h1>{% trans "Password change successful" %}</h1>
-        <p><a href="{% url 'wagtailadmin_login' %}" class="button button-primary">{% trans "Login" %}</a></p>
+        <footer class="form-actions">
+            <a href="{% url 'wagtailadmin_login' %}" class="button button-primary">{% trans "Login" %}</a>
+        </footer>
     </main>
 {% endblock %}

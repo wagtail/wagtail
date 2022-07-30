@@ -4,14 +4,15 @@
 {% block bodyclass %}login{% endblock %}
 
 {% block furniture %}
-    <main class="content-wrapper">
+    <main class="content-wrapper" id="main">
+        <h1>{% trans "Reset your password" %}</h1>
+
         {% include "wagtailadmin/shared/non_field_errors.html" %}
 
         {% block above_form %}{% endblock %}
 
         <form method="post" novalidate>
             {% csrf_token %}
-            <h1>{% trans "Reset your password" %}</h1>
 
             {% field field=form.email %}{% endfield %}
 
@@ -21,9 +22,13 @@
                 {% endfor %}
             {% endblock extra_fields %}
 
-            {% block submit_buttons %}
-                <button type="submit" class="button">{% trans 'Reset password' %}</button>
-            {% endblock %}
+            <footer class="form-actions">
+                {% block submit_buttons %}
+                    <button type="submit" class="button">{% trans 'Reset password' %}</button>
+                {% endblock %}
+            </footer>
         </form>
+
+        {% block below_form %}{% endblock %}
     </main>
 {% endblock %}
