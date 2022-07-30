@@ -75,7 +75,7 @@ class TestHome(TestCase, WagtailTestUtils):
     def test_summary_items(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "<p>0 broken links</p>")
+        self.assertContains(response, "<li>0 broken links</li>")
 
         # check that media attached to summary items is correctly pulled in
         if DJANGO_VERSION >= (4, 1):

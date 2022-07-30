@@ -214,7 +214,7 @@ class BrokenLinksSummaryItem(SummaryItem):
     order = 100
 
     def render_html(self, parent_context):
-        return mark_safe("<p>0 broken links</p>")
+        return mark_safe("<li>0 broken links</li>")
 
     class Media:
         css = {"all": ["testapp/css/broken-links.css"]}
