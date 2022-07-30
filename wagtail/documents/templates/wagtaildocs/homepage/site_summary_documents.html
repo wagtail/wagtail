@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 
 <li>
-    {% icon name="doc-full-inverse" %}
+    {% icon name="doc-full" %}
     <a href="{% url 'wagtaildocs:index' %}">
         {% blocktrans trimmed count counter=total_docs with total_docs|intcomma as total %}
             <span>{{ total }}</span> Document <span class="visuallyhidden">created in {{ site_name }}</span>
