@@ -119,6 +119,7 @@ Changelog
  * Fix: Ensure icons within help blocks have accessible contrasting colours, and links have a darker colour plus underline to indicate they are links (Paarth Agarwal)
  * Fix: Ensure consistent sidebar icon position whether expanded or collapsed (Scott Cranfill)
  * Fix: Avoid redirects import error if the file had lots of columns (Jaap Roes)
+ * Fix: Resolve accessibility and styling issues with the expanding status panel (Sage Abdullah)
 
 
 3.0.1 (16.06.2022)
