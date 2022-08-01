@@ -18,6 +18,7 @@ from modelcluster.models import get_serializable_data_for_fields
 
 from wagtail.admin import compare
 from wagtail.admin.forms.comments import CommentForm
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
@@ -1093,6 +1094,12 @@ class PublishingPanel(MultiFieldPanel):
 
         def show_panel_furniture(self):
             return False
+
+        @property
+        def media(self):
+            return super().media + Media(
+                js=[versioned_static("wagtailadmin/js/schedule-publishing.js")],
+            )
 
 
 class CommentPanel(Panel):
