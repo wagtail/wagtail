@@ -21,7 +21,7 @@ from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
-from wagtail.locks import BasicLock
+from wagtail.locks import BasicLock, ScheduledForPublishLock
 from wagtail.models import (
     COMMENTS_RELATION_NAME,
     Comment,
@@ -388,6 +388,23 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                         lock_message,
                         reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
                         _("Unlock"),
+                    )
+
+                if (
+                    isinstance(self.lock, ScheduledForPublishLock)
+                    and self.page_perms.can_unschedule()
+                ):
+                    scheduled_revision = self.page.revisions.defer().get(
+                        approved_go_live_at__isnull=False
+                    )
+                    lock_message = format_html(
+                        '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                        lock_message,
+                        reverse(
+                            "wagtailadmin_pages:revisions_unschedule",
+                            args=[self.page.id, scheduled_revision.pk],
+                        ),
+                        _("Cancel scheduled publish"),
                     )
 
                 if self.locked_for_user:
