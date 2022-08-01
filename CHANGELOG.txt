@@ -83,7 +83,7 @@ Changelog
  * Replace latin abbreviations (i.e. / e.g.) with common English phrases so that documentation is easier to understand (Dominik Lech)
  * Add shortcut for accessing StreamField blocks by block name with new `blocks_by_name` and `first_block_by_name` methods on `StreamValue` (Tidiane Dia, Matt Westcott)
  * Extend support for custom user interface colours across almost all admin colours (Thibaud Colas)
- * Add HTML-aware max_length validation on RichTextField and RichTextBlock (Matt Westcott)
+ * Add HTML-aware max_length validation and character count on RichTextField and RichTextBlock (Matt Westcott, Thibaud Colas)
  * Remove undocumented `SearchableListMixin` (Sage Abdullah)
  * Extract filtering code from ReportView to generic IndexView (Sage Abdullah)
  * Retain other query params in header search behaviour (Sage Abdullah)
