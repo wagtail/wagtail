@@ -47,6 +47,7 @@ module.exports = function exports(env, argv) {
       'page-editor',
       'preview-panel',
       'privacy-switch',
+      'schedule-publishing',
       'sidebar',
       'task-chooser-modal',
       'task-chooser',
