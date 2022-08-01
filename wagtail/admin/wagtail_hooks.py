@@ -908,7 +908,7 @@ class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
         return (
             getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True)
-            and UserPagePermissionsProxy(request.user).can_publish_pages()
+            and UserPagePermissionsProxy(request.user).can_edit_pages()
         )
 
 
