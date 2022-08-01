@@ -49,7 +49,7 @@ class BookPage(Page):
     ]
 ```
 
-`RichTextField` inherits from Django's basic `TextField` field, so you can pass any field parameters into `RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with `FieldPanel`.
+`RichTextField` inherits from Django's basic `TextField` field, so you can pass any field parameters into `RichTextField` as if using a normal Django field. Its `max_length` will ignore any rich text formatting. This field does not need a special panel and can be defined with `FieldPanel`.
 
 However, template output from `RichTextField` is special and needs to be filtered in order to preserve embedded content. See [](rich_text_filter).
 

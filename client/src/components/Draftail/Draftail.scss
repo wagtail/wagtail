@@ -124,11 +124,16 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-MetaToolbar {
-  visibility: hidden;
+  padding: 0;
 
-  .Draftail-Editor:focus-within &,
-  .Draftail-Editor:hover & {
-    visibility: visible;
+  // Make sure the toolbar is always visible for devices that do not hover.
+  @media (hover: hover) {
+    visibility: hidden;
+
+    .Draftail-Editor:focus-within &,
+    .Draftail-Editor:hover & {
+      visibility: visible;
+    }
   }
 }
 
