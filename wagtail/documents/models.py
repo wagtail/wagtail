@@ -141,7 +141,6 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         self.file_size = self.file.size
 
         # Set new document file hash
-        self.file.seek(0)
         self._set_file_hash(self.file.read())
         self.file.seek(0)
 
