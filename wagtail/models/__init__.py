@@ -552,6 +552,13 @@ class DraftStateMixin(models.Model):
         else:
             return self
 
+    def get_scheduled_revision(self):
+        return self.revisions.filter(approved_go_live_at__isnull=False).first()
+
+    def get_scheduled_revision_as_object(self):
+        scheduled_revision = self.get_scheduled_revision()
+        return scheduled_revision and scheduled_revision.as_object()
+
     def _update_from_revision(self, revision, changed=True):
         update_fields = ["latest_revision"]
         self.latest_revision = revision
