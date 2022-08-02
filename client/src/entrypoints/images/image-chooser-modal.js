@@ -2,6 +2,20 @@ import $ from 'jquery';
 import { ChooserModalOnloadHandlerFactory } from '../../includes/chooserModal';
 
 class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
+  ajaxifyLinks(modal, context) {
+    super.ajaxifyLinks(modal, context);
+
+    $('a.upload-one-now').on('click', (event) => {
+      // Set current collection ID at upload form tab
+      const collectionId = $('#id_collection_id').val();
+      if (collectionId) {
+        $('#id_image-chooser-upload-collection').val(collectionId);
+      }
+
+      event.preventDefault();
+    });
+  }
+
   onLoadChooseStep(modal) {
     super.onLoadChooseStep(modal);
 
