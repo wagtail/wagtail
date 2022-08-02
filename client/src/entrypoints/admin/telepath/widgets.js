@@ -171,9 +171,11 @@ class DraftailRichTextArea {
     this.options = options;
   }
 
+  /**
+   * Given original options object, return the options overrides
+   * that account for its contextual abilities (splitting or adding additional blocks)
+   */
   getCapabilityOptions(originalOptions, parentCapabilities) {
-    // Given original options object, return the options overrides
-    // that account for its contextual abilities (splitting or adding additional blocks)
     const options = {};
     const capabilities = parentCapabilities;
     const split = capabilities.get('split');
@@ -209,7 +211,13 @@ class DraftailRichTextArea {
               return `${option.description}${limitText}`;
             },
             onSelect: ({ editorState }) => {
-              const result = window.draftail.splitState(editorState);
+              // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
+              const result = window.draftail.splitState(
+                window.draftail.DraftUtils.resetBlockWithType(
+                  editorState,
+                  'unstyled',
+                ),
+              );
               // Run the split after a timeout to circumvent potential race condition.
               setTimeout(() => {
                 if (result) {
@@ -230,18 +238,8 @@ class DraftailRichTextArea {
           items: blockControls,
         };
       });
-    }
 
-    options.commands = [
-      {
-        label: gettext('Rich text'),
-        type: 'blockTypes',
-      },
-      {
-        type: 'entityTypes',
-      },
-      ...blockCommands,
-      {
+      blockCommands.push({
         label: 'Actions',
         type: 'custom-actions',
         items: [
@@ -257,7 +255,12 @@ class DraftailRichTextArea {
               return text;
             },
             onSelect: ({ editorState }) => {
-              const result = window.draftail.splitState(editorState);
+              const result = window.draftail.splitState(
+                window.draftail.DraftUtils.resetBlockWithType(
+                  editorState,
+                  'unstyled',
+                ),
+              );
               // Run the split after a timeout to circumvent potential race condition.
               setTimeout(() => {
                 if (result) {
@@ -271,7 +274,18 @@ class DraftailRichTextArea {
             },
           },
         ],
+      });
+    }
+
+    options.commands = [
+      {
+        label: gettext('Rich text'),
+        type: 'blockTypes',
       },
+      {
+        type: 'entityTypes',
+      },
+      ...blockCommands,
     ];
 
     return options;

@@ -69,6 +69,7 @@ Changelog
  * Add support for right-to-left (RTL) languages to the rich text editor (Thibaud Colas)
  * Change rich text editor placeholder to follow the user’s focus on empty blocks (Thibaud Colas)
  * Add rich text editor empty block highlight by showing their block type (Thibaud Colas)
+ * Add ability to split a rich text field and insert a StreamField block at the same time (Jacob Topp-Mugglestone)
  * Make ModelAdmin InspectView footer actions consistent with other parts of the UI (Thibaud Colas)
  * Introduce a new auto-updating preview panel inside the page editor (Sage Abdullah)
  * Add support for Twitter and other text-only embeds in Draftail embed previews (Iman Syed, Paarth Agarwal)
