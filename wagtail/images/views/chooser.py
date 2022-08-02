@@ -300,8 +300,6 @@ class ImageChooserViewSet(ChooserViewSet):
     choose_one_text = _("Choose an image")
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
-    choose_another_text = _("Choose another image")
-    edit_item_text = _("Edit this image")
 
     @property
     def select_format_view(self):

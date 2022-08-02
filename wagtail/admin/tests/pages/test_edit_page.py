@@ -1549,7 +1549,10 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertContains(response, "Adverts")
         self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
         # the formset should be populated with an existing form (with a snippet chooser widget)
-        self.assertContains(response, '<span class="title">test_advert</span>')
+        self.assertContains(
+            response,
+            '<div class="chooser__title" data-chooser-title id="id_advert_placements-0-advert-title">test_advert</div>',
+        )
         self.assertContains(
             response,
             '<input type="hidden" name="advert_placements-0-advert" value="1" id="id_advert_placements-0-advert">',

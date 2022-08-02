@@ -87,7 +87,7 @@
                         {% endif %}
                     {% endfor %}
                     {% if current_tag %}
-                        <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear choice' %}</a>
+                        <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear' %}</a>
                     {% endif %}
                 </fieldset>
             {% endif %}

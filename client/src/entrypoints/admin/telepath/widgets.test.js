@@ -223,29 +223,34 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
     // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.PageChooser',
+      // Copy of wagtailadmin/widgets/chooser.html. Make sure to update when making changes to the template.
       _args: [
         `<div id="__ID__-chooser" class="chooser page-chooser blank" data-chooser-url="/admin/choose-page/">
           <div class="chosen">
-            <span class="title"></span>
-            <ul class="actions">
+          <div class="chooser__preview" role="presentation"></div>
+          <div class="chooser__title" data-chooser-title id="__ID__-title"></div>
+            <ul class="chooser__actions">
               <li>
-                <button type="button" class="button action-choose button-small button-secondary">
-                  Choose another page
+                <button type="button" class="button action-choose button-small button-secondary" aria-describedby="__ID__-title">
+                  Change
                 </button>
               </li>
               <li>
-                <a href=""
-                   class="edit-link button button-small button-secondary"
-                   target="_blank"
-                   rel="noreferrer">
-                  Edit this page
+                <a
+                  href=""
+                  class="edit-link button button-small button-secondary"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-describedby="__ID__-title"
+                >
+                  Edit
                 </a>
               </li>
             </ul>
           </div>
           <div class="unchosen">
-            <button type="button" class="button action-choose button-small button-secondary">
-              Choose a page
+            <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">
+              <svg class="icon icon-doc-empty-inverse" aria-hidden="true"><use href="#icon-doc-empty-inverse"></use></svg>Choose a page
             </button>
           </div>
         </div>

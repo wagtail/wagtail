@@ -1893,7 +1893,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         field_html = self.snippet_chooser_panel.render_html()
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert", field_html)
-        self.assertIn("Choose another advert", field_html)
+        self.assertIn("Change", field_html)
 
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
@@ -1910,7 +1910,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
 
         field_html = snippet_chooser_panel.render_html()
         self.assertIn("Choose advert", field_html)
-        self.assertIn("Choose another advert", field_html)
+        self.assertIn("Change", field_html)
 
     def test_render_js(self):
         self.assertIn(
@@ -3256,7 +3256,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         field_html = self.snippet_chooser_panel.render_html()
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert with custom primary key", field_html)
-        self.assertIn("Choose another advert with custom primary key", field_html)
+        self.assertIn("Change", field_html)
 
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
@@ -3273,7 +3273,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
         field_html = snippet_chooser_panel.render_html()
         self.assertIn("Choose advert with custom primary key", field_html)
-        self.assertIn("Choose another advert with custom primary key", field_html)
+        self.assertIn("Change", field_html)
 
     def test_render_js(self):
         self.assertIn(

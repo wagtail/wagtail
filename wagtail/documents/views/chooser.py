@@ -189,8 +189,6 @@ class DocumentChooserViewSet(ChooserViewSet):
     choose_one_text = _("Choose a document")
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")
-    choose_another_text = _("Choose another document")
-    edit_item_text = _("Edit this document")
 
 
 viewset = DocumentChooserViewSet(

@@ -25,7 +25,9 @@ export class Chooser {
 
   initHTMLElements(id) {
     this.chooserElement = document.getElementById(`${id}-chooser`);
-    this.titleElement = this.chooserElement.querySelector('.title');
+    this.titleElement = this.chooserElement.querySelector(
+      '[data-chooser-title]',
+    );
     this.input = document.getElementById(id);
     this.editLink = this.chooserElement.querySelector('.edit-link');
     this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;

@@ -22,8 +22,6 @@ class AdminSnippetChooser(BaseChooser):
         self.model = model
         name = self.model._meta.verbose_name
         self.choose_one_text = _("Choose %s") % name
-        self.choose_another_text = _("Choose another %s") % name
-        self.link_to_chosen_text = _("Edit this %s") % name
 
         super().__init__(**kwargs)
 
