@@ -243,7 +243,6 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         self.file_size = self.file.size
 
         # Set new image file hash
-        self.file.seek(0)
         self._set_file_hash(self.file.read())
         self.file.seek(0)
 
