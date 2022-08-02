@@ -17,5 +17,16 @@
 {% endblock %}
 
 {% block no_items_message %}
-    <p>{% trans "No images have been uploaded." %}</p>
+    <p>
+        {% if is_filtering_by_collection %}
+            {% trans "You haven't uploaded any images in this collection." %}
+        {% else %}
+            {% trans "You haven't uploaded any images." %}
+        {% endif %}
+        {% if can_create %}
+            {% blocktrans trimmed %}
+                Why not <a class="upload-one-now" href="#tab-upload" data-tab-trigger>upload one now</a>?
+            {% endblocktrans %}
+        {% endif %}
+    </p>
 {% endblock %}
