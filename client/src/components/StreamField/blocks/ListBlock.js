@@ -290,7 +290,8 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   getBlockGroups() {
-    return ['', [this.childBlockDef]];
+    const group = ['', [this.blockDef.childBlockDef]];
+    return [group];
   }
 
   getBlockCount() {
