@@ -1,4 +1,5 @@
 /* global $ */
+import { gettext } from '../../../utils/gettext';
 
 class BoundWidget {
   constructor(element, name, idForLabel, initialState, parentCapabilities) {
@@ -170,18 +171,136 @@ class DraftailRichTextArea {
     this.options = options;
   }
 
+  /**
+   * Given original options object, return the options overrides
+   * that account for its contextual abilities (splitting or adding additional blocks)
+   */
+  getCapabilityOptions(originalOptions, parentCapabilities) {
+    const options = {};
+    const capabilities = parentCapabilities;
+    const split = capabilities.get('split');
+    const addSibling = capabilities.get('addSibling');
+    let blockCommands = [];
+    if (split) {
+      options.controls = originalOptions.controls
+        ? [...originalOptions.controls]
+        : [];
+      options.controls.push({
+        meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
+      });
+
+      const blockGroups =
+        addSibling && addSibling.enabled && split.enabled
+          ? addSibling.blockGroups
+          : [];
+      // Create commands for splitting + inserting a block. This requires both the split
+      // and addSibling capabilities to be available and enabled
+      blockCommands = blockGroups.map(([group, blocks]) => {
+        const blockControls = blocks.map((blockDef) => {
+          const blockMax = addSibling.getBlockMax(blockDef.name);
+          return {
+            icon: `#icon-${blockDef.meta.icon}`,
+            description: blockDef.meta.label,
+            type: blockDef.name,
+            render: ({ option }) => {
+              // If the specific block has a limit, render the current number/max alongside the description
+              const limitText =
+                typeof blockMax === 'number'
+                  ? ` (${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
+                  : '';
+              return `${option.description}${limitText}`;
+            },
+            onSelect: ({ editorState }) => {
+              // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
+              const result = window.draftail.splitState(
+                window.draftail.DraftUtils.resetBlockWithType(
+                  editorState,
+                  'unstyled',
+                ),
+              );
+              // Run the split after a timeout to circumvent potential race condition.
+              setTimeout(() => {
+                if (result) {
+                  split.fn(
+                    result.stateBefore,
+                    result.stateAfter,
+                    result.shouldMoveCommentFn,
+                  );
+                }
+                addSibling.fn({ type: blockDef.name });
+              }, 50);
+            },
+          };
+        });
+        return {
+          label: group || gettext('Blocks'),
+          type: `streamfield-${group}`,
+          items: blockControls,
+        };
+      });
+
+      blockCommands.push({
+        label: 'Actions',
+        type: 'custom-actions',
+        items: [
+          {
+            icon: '#icon-cut',
+            description: gettext('Split block'),
+            type: 'split',
+            render: ({ option, getEditorState }) => {
+              const editorState = getEditorState();
+              const content = editorState.getCurrentContent();
+              const blocks = content.getBlockMap();
+              const text = `${option.description} (will split ${blocks.size} blocks)`;
+              return text;
+            },
+            onSelect: ({ editorState }) => {
+              const result = window.draftail.splitState(
+                window.draftail.DraftUtils.resetBlockWithType(
+                  editorState,
+                  'unstyled',
+                ),
+              );
+              // Run the split after a timeout to circumvent potential race condition.
+              setTimeout(() => {
+                if (result) {
+                  split.fn(
+                    result.stateBefore,
+                    result.stateAfter,
+                    result.shouldMoveCommentFn,
+                  );
+                }
+              }, 50);
+            },
+          },
+        ],
+      });
+    }
+
+    options.commands = [
+      {
+        label: gettext('Rich text'),
+        type: 'blockTypes',
+      },
+      {
+        type: 'entityTypes',
+      },
+      ...blockCommands,
+    ];
+
+    return options;
+  }
+
+  getFullOptions(originalOptions, parentCapabilities) {
+    return {
+      ...originalOptions,
+      ...this.getCapabilityOptions(originalOptions, parentCapabilities),
+    };
+  }
+
   render(container, name, id, initialState, parentCapabilities) {
     const originalOptions = this.options;
-    const options = { ...originalOptions };
-    const capabilities = parentCapabilities || new Map();
-    const split = capabilities.get('split');
-    if (split) {
-      options.controls = options.controls ? [...options.controls] : [];
-      options.controls.push(
-        // eslint-disable-next-line no-undef
-        draftail.getSplitControl(split.fn, !!split.enabled),
-      );
-    }
+    const capabilities = new Map(parentCapabilities);
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
@@ -192,10 +311,12 @@ class DraftailRichTextArea {
     const initialiseBlank = !!initialState.getCurrentContent;
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
+
+    const getFullOptions = this.getFullOptions.bind(this);
     // eslint-disable-next-line no-undef
-    const [currentOptions, setOptions] = draftail.initEditor(
+    const [, setOptions] = draftail.initEditor(
       '#' + id,
-      options,
+      getFullOptions(originalOptions, parentCapabilities),
       document.currentScript,
     );
 
@@ -236,21 +357,8 @@ class DraftailRichTextArea {
           capabilities.get(capability),
           capabilityOptions,
         );
-        if (capability === 'split') {
-          setOptions({
-            ...currentOptions,
-            controls: [
-              ...(originalOptions || []),
-              {
-                // eslint-disable-next-line no-undef
-                block: draftail.getSplitControl(
-                  newCapability.fn,
-                  !!newCapability.enabled,
-                ),
-              },
-            ],
-          });
-        }
+        capabilities.set(capability, newCapability);
+        setOptions(getFullOptions(originalOptions, capabilities));
       },
     };
 

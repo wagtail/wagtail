@@ -236,6 +236,7 @@ window.Draftail;
 
 // Wagtail’s Draftail-related APIs and components.
 window.draftail;
+window.draftail.DraftUtils;
 window.draftail.ModalWorkflowSource;
 window.draftail.ImageModalWorkflowSource;
 window.draftail.EmbedModalWorkflowSource;

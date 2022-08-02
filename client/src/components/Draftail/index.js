@@ -5,6 +5,7 @@ import {
   InlineToolbar,
   MetaToolbar,
   CommandPalette,
+  DraftUtils,
 } from 'draftail';
 import { Provider } from 'react-redux';
 
@@ -24,6 +25,7 @@ import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor, {
   getSplitControl,
+  splitState,
 } from './CommentableEditor/CommentableEditor';
 
 export { default as Link, onPasteLink } from './decorators/Link';
@@ -200,7 +202,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
 export default {
   initEditor,
   getSplitControl,
+  splitState,
   registerPlugin,
+  DraftUtils,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
   ImageModalWorkflowSource,
