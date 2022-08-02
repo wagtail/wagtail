@@ -316,6 +316,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             Page.objects.prefetch_workflow_states(), id=page_id
         )
         self.latest_revision = self.real_page_record.get_latest_revision()
+        self.scheduled_revision = self.real_page_record.get_scheduled_revision()
         self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
 
@@ -841,7 +842,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
         side_panels = PageSidePanels(
             self.request,
-            self.page_for_status,
+            self.page,
+            live_page=self.real_page_record,
+            scheduled_revision=self.scheduled_revision,
             preview_enabled=True,
             comments_enabled=self.form.show_comments_toggle,
         )
