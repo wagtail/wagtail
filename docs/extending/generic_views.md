@@ -63,8 +63,6 @@ class PersonChooserViewSet(ChooserViewSet):
 
     icon = "user"
     choose_one_text = "Choose a person"
-    choose_another_text = "Choose another person"
-    edit_item_text = "Edit this person"
     form_fields = ["first_name", "last_name"]  # fields to show in the "Create" tab
 
 

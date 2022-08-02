@@ -24,7 +24,7 @@ class ChooserViewSet(ViewSet):
     )  #: Label for the 'choose' button in the chooser widget when choosing an initial item
     page_title = None  #: Title text for the chooser modal (defaults to the same as ``choose_one_text``)`
     choose_another_text = _(
-        "Choose another"
+        "Change"
     )  #: Label for the 'choose' button in the chooser widget, when an item has already been chosen
     edit_item_text = _("Edit")  #: Label for the 'edit' button in the chooser widget
 

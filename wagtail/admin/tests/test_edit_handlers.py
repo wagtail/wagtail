@@ -901,10 +901,13 @@ class TestPageChooserPanel(TestCase):
     def test_render_html(self):
         result = self.page_chooser_panel.render_html()
         self.assertIn('<div class="help">help text</div>', result)
-        self.assertIn('<span class="title">Christmas</span>', result)
         self.assertIn(
-            '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">'
-            "Edit this page</a>" % self.christmas_page.id,
+            '<div class="chooser__title" data-chooser-title id="id_page-title">Christmas</div>',
+            result,
+        )
+        self.assertIn(
+            '<a href="/admin/pages/%d/edit/" aria-describedby="id_page-title" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">Edit</a>'
+            % self.christmas_page.id,
             result,
         )
 
@@ -917,7 +920,10 @@ class TestPageChooserPanel(TestCase):
         result = page_chooser_panel.render_html()
 
         self.assertIn('<div class="help">help text</div>', result)
-        self.assertIn('<span class="title"></span>', result)
+        self.assertIn(
+            '<div class="chooser__title" data-chooser-title id="id_page-title"></div>',
+            result,
+        )
         self.assertIn("Choose a page", result)
 
     def test_render_error(self):

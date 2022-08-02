@@ -6,7 +6,9 @@ class ImageChooser extends Chooser {
 
   initHTMLElements(id) {
     super.initHTMLElements(id);
-    this.previewImage = this.chooserElement.querySelector('.preview-image img');
+    this.previewImage = this.chooserElement.querySelector(
+      '[data-chooser-image]',
+    );
   }
 
   getStateFromHTML() {
@@ -17,7 +19,6 @@ class ImageChooser extends Chooser {
     */
     const state = super.getStateFromHTML();
     if (state) {
-      state.title = this.previewImage.getAttribute('alt');
       state.preview = {
         url: this.previewImage.getAttribute('src'),
         width: this.previewImage.getAttribute('width'),
@@ -31,8 +32,6 @@ class ImageChooser extends Chooser {
     super.renderState(newState);
     this.previewImage.setAttribute('src', newState.preview.url);
     this.previewImage.setAttribute('width', newState.preview.width);
-    this.previewImage.setAttribute('alt', newState.title);
-    this.previewImage.setAttribute('title', newState.title);
   }
 }
 window.ImageChooser = ImageChooser;

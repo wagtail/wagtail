@@ -1,10 +1,6 @@
 {% extends "wagtailadmin/widgets/chooser.html" %}
 
-{# Image chooser doesn't have a chosen icon. It shows an preview of the chosen image instead. #}
-{% block chosen_icon %}{% endblock chosen_icon %}
-
-{% block chosen_state_view %}
-    <div class="preview-image">
-        <img alt="{{ display_title }}" class="show-transparency" height="{{ preview.height }}" src="{{ preview.url }}" title="{{ display_title }}" width="{{ preview.width }}">
-    </div>
-{% endblock %}
+{% block chosen_icon %}
+    {# Empty alt because the chosen item’s title is already displayed next to the image. #}
+    <img class="chooser__image" data-chooser-image alt="" class="show-transparency" height="{{ preview.height }}" src="{{ preview.url }}" width="{{ preview.width }}">
+{% endblock chosen_icon %}
