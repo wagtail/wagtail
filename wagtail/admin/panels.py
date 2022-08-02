@@ -1092,6 +1092,12 @@ class PublishingPanel(MultiFieldPanel):
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/publishing/schedule_publishing_panel.html"
 
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
+            context["request"] = self.request
+            context["instance"] = self.instance
+            return context
+
         def show_panel_furniture(self):
             return False
 

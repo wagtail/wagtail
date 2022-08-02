@@ -3,8 +3,15 @@
 {% trans 'Set publishing schedule' as schedule_publishing_dialog_title %}
 {% trans 'Choose when this page should go live and/or expire' as schedule_publishing_dialog_subtitle %}
 
+{% page_permissions instance as page_perms %}
+
+{% if not page_perms.can_publish %}
+    {% trans "Anyone with editing permissions can create schedules" as message_heading %}
+    {% trans "But only those with publishing permissions can make them effective." as message_description %}
+{% endif %}
+
 <div data-schedule-publishing-dialog-root>
-    {% dialog id='schedule-publishing-dialog' dialog_root_selector='[data-schedule-publishing-dialog-root]' icon_name='calendar-alt' title=schedule_publishing_dialog_title subtitle=schedule_publishing_dialog_subtitle %}
+    {% dialog id='schedule-publishing-dialog' dialog_root_selector='[data-schedule-publishing-dialog-root]' icon_name='calendar-alt' title=schedule_publishing_dialog_title subtitle=schedule_publishing_dialog_subtitle message_icon_name='info' message_status='info' message_heading=message_heading message_description=message_description %}
         {% include 'wagtailadmin/panels/multi_field_panel.html' %}
 
         <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">

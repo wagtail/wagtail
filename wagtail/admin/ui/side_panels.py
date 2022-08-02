@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin.ui.components import Component
 from wagtail.locks import BasicLock
-from wagtail.models import Page, UserPagePermissionsProxy
+from wagtail.models import DraftStateMixin, Page, UserPagePermissionsProxy
 
 
 class BaseSidePanel(Component):
@@ -35,13 +35,13 @@ class BaseStatusSidePanel(BaseSidePanel):
         self,
         *args,
         live_object=None,
-        scheduled_revision=None,
+        scheduled_page=None,
         in_explorer=False,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self.live_object = live_object
-        self.scheduled_revision = scheduled_revision
+        self.scheduled_page = scheduled_page
         self.in_explorer = in_explorer
 
     def get_status_templates(self, context):
@@ -57,10 +57,82 @@ class BaseStatusSidePanel(BaseSidePanel):
 
         return templates
 
+    def get_scheduled_publishing_context(self):
+        if not isinstance(self.object, DraftStateMixin):
+            return {}
+
+        context = {
+            # These are the dates that show up with the unticked calendar icon,
+            # aka "draft schedule"
+            "draft_go_live_at": None,
+            "draft_expire_at": None,
+            # These are the dates that show up with the ticked calendar icon,
+            # aka "active schedule"
+            "scheduled_go_live_at": None,
+            "scheduled_expire_at": None,
+            # This is for an edge case where the live object already has an
+            # expire_at, which can still take effect if the active schedule's
+            # go_live_at is later than that
+            "live_expire_at": None,
+        }
+
+        # Only consider draft schedule if there are unpublished changes
+        if self.object.has_unpublished_changes:
+            context["draft_go_live_at"] = self.object.go_live_at
+            context["draft_expire_at"] = self.object.expire_at
+
+        # Get active schedule from the scheduled revision's page object (if any)
+        if self.scheduled_page:
+            context["scheduled_go_live_at"] = self.scheduled_page.go_live_at
+            context["scheduled_expire_at"] = self.scheduled_page.expire_at
+
+            # Ignore draft schedule if it's the same as the active schedule
+            if context["draft_go_live_at"] == context["scheduled_go_live_at"]:
+                context["draft_go_live_at"] = None
+
+            if context["draft_expire_at"] == context["scheduled_expire_at"]:
+                context["draft_expire_at"] = None
+
+        # The live object can still have its own active expiry date
+        # that's separate from the active schedule
+        if (
+            self.live_object
+            and self.live_object.expire_at
+            and not self.live_object.expired
+        ):
+            context["live_expire_at"] = self.live_object.expire_at
+
+            # Ignore the live object's expiry date if the active schedule has
+            # an earlier go_live_at, as the active schedule's expiry date will
+            # override the live object's expiry date when the draft is published
+            if (
+                context["scheduled_go_live_at"]
+                and context["scheduled_go_live_at"] < context["live_expire_at"]
+            ):
+                context["live_expire_at"] = None
+
+        # Only show the box for the live object expire_at edge case
+        # if it passes the checks above
+        context["has_live_publishing_schedule"] = bool(context["live_expire_at"])
+
+        # Only show the main scheduled publishing box if it has at least one of
+        # the draft/active schedule dates after passing the checks above
+        context["has_draft_publishing_schedule"] = any(
+            (
+                context["scheduled_go_live_at"],
+                context["scheduled_expire_at"],
+                context["draft_go_live_at"],
+                context["draft_expire_at"],
+            )
+        )
+
+        return context
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["status_templates"] = self.get_status_templates(context)
+        context.update(self.get_scheduled_publishing_context())
         return context
 
 
@@ -83,7 +155,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                 {
                     "in_explorer": self.in_explorer,
                     "live_object": self.live_object,
-                    "scheduled_revision": self.scheduled_revision,
+                    "scheduled_page": self.scheduled_page,
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
@@ -210,7 +282,7 @@ class PageSidePanels(BaseSidePanels):
         preview_enabled,
         comments_enabled,
         live_page=None,
-        scheduled_revision=None,
+        scheduled_page=None,
         in_explorer=False,
     ):
         super().__init__(request, page)
@@ -220,7 +292,7 @@ class PageSidePanels(BaseSidePanels):
                 page,
                 self.request,
                 live_object=live_page,
-                scheduled_revision=scheduled_revision,
+                scheduled_page=scheduled_page,
                 in_explorer=in_explorer,
             ),
         ]

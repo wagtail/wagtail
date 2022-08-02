@@ -552,11 +552,12 @@ class DraftStateMixin(models.Model):
         else:
             return self
 
-    def get_scheduled_revision(self):
+    @cached_property
+    def scheduled_revision(self):
         return self.revisions.filter(approved_go_live_at__isnull=False).first()
 
     def get_scheduled_revision_as_object(self):
-        scheduled_revision = self.get_scheduled_revision()
+        scheduled_revision = self.scheduled_revision
         return scheduled_revision and scheduled_revision.as_object()
 
     def _update_from_revision(self, revision, changed=True):
@@ -815,10 +816,7 @@ class LockableMixin(models.Model):
         if self.locked:
             return BasicLock(self)
 
-        if (
-            isinstance(self, DraftStateMixin)
-            and self.revisions.filter(approved_go_live_at__isnull=False).exists()
-        ):
+        if isinstance(self, DraftStateMixin) and self.scheduled_revision:
             return ScheduledForPublishLock(self)
 
 
@@ -2140,7 +2138,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if hasattr(self, "_approved_schedule"):
             return self._approved_schedule
 
-        return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
+        return self.scheduled_revision is not None
 
     def has_unpublished_subtree(self):
         """
