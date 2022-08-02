@@ -31,8 +31,17 @@ class BaseStatusSidePanel(BaseSidePanel):
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "info-circle"
 
-    def __init__(self, *args, in_explorer=False, **kwargs):
+    def __init__(
+        self,
+        *args,
+        live_object=None,
+        scheduled_revision=None,
+        in_explorer=False,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
+        self.live_object = live_object
+        self.scheduled_revision = scheduled_revision
         self.in_explorer = in_explorer
 
     def get_status_templates(self, context):
@@ -72,6 +81,9 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         if page.id:
             context.update(
                 {
+                    "in_explorer": self.in_explorer,
+                    "live_object": self.live_object,
+                    "scheduled_revision": self.scheduled_revision,
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
@@ -191,12 +203,26 @@ class BaseSidePanels:
 
 class PageSidePanels(BaseSidePanels):
     def __init__(
-        self, request, page, *, preview_enabled, comments_enabled, in_explorer=False
+        self,
+        request,
+        page,
+        *,
+        preview_enabled,
+        comments_enabled,
+        live_page=None,
+        scheduled_revision=None,
+        in_explorer=False,
     ):
         super().__init__(request, page)
 
         self.side_panels = [
-            PageStatusSidePanel(page, self.request, in_explorer=in_explorer),
+            PageStatusSidePanel(
+                page,
+                self.request,
+                live_object=live_page,
+                scheduled_revision=scheduled_revision,
+                in_explorer=in_explorer,
+            ),
         ]
 
         if preview_enabled and page.is_previewable():
