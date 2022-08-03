@@ -9,7 +9,7 @@
 
 {% block no_items_message %}
     <p>
-        {% if collection_id %}
+        {% if is_filtering_by_collection %}
             {% trans "You haven't uploaded any documents in this collection." %}
         {% else %}
             {% trans "You haven't uploaded any documents." %}

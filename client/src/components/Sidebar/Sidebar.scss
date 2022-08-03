@@ -48,6 +48,8 @@
     width: 1rem;
     height: 1rem;
     min-width: 1rem;
+    // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+    margin: 0.046875rem 0;
   }
 
   &--slim {

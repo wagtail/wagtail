@@ -43,7 +43,8 @@
       font-size: 1rem;
       display: flex;
       align-items: center;
-      margin-inline-end: 0;
+      // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+      margin: 0.046875rem 0;
     }
 
     // only really used for spinners and settings menu

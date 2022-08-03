@@ -192,6 +192,13 @@ export class BaseSequenceChild extends EventEmitter {
       enabled: true,
       fn: this.split.bind(this),
     });
+    capabilities.set('addSibling', {
+      enabled: true,
+      fn: this.addSibling.bind(this),
+      blockGroups: this.sequence.getBlockGroups(),
+      getBlockCount: this.sequence.getBlockCount.bind(this.sequence),
+      getBlockMax: this.sequence.getBlockMax.bind(this.sequence),
+    });
 
     this.block = this.blockDef.render(
       blockElement,
@@ -215,6 +222,10 @@ export class BaseSequenceChild extends EventEmitter {
 
   addActionButton(button) {
     button.render(this.actionsContainerElement);
+  }
+
+  addSibling(opts) {
+    this.sequence._onRequestInsert(this.index + 1, opts);
   }
 
   moveUp() {
@@ -391,6 +402,10 @@ export class BaseSequenceBlock {
   }
 
   _getChildDataForInsertion(opts) {
+    throw new Error('not implemented');
+  }
+
+  getBlockGroups() {
     throw new Error('not implemented');
   }
   /* eslint-enable @typescript-eslint/no-unused-vars */

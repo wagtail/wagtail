@@ -6,7 +6,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
-from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.views.generic.chooser import (
@@ -23,7 +22,6 @@ from wagtail.admin.widgets import BaseChooser
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
-from wagtail.search import index as search_index
 
 
 class DocumentChosenResponseMixin(ChosenResponseMixin):
@@ -67,59 +65,20 @@ class DownloadColumn(Column):
         return context
 
 
-class DocumentFilterForm(forms.Form):
-    q = forms.CharField(
-        label=_("Search term"),
-        widget=forms.TextInput(attrs={"placeholder": _("Search")}),
-        required=False,
-    )
-
-    def __init__(self, *args, collections, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        if collections:
-            collection_choices = [
-                ("", _("All collections"))
-            ] + collections.get_indented_choices()
-            self.fields["collection_id"] = forms.ChoiceField(
-                label=_("Collection"),
-                choices=collection_choices,
-                required=False,
-            )
-
-
 class BaseDocumentChooseView(BaseChooseView):
     results_template_name = "wagtaildocs/chooser/results.html"
-    filter_form_class = DocumentFilterForm
     per_page = 10
+    ordering = "-created_at"
+    construct_queryset_hook_name = "construct_document_chooser_queryset"
 
     def get_object_list(self):
-        documents = self.permission_policy.instances_user_has_any_permission_for(
+        return self.permission_policy.instances_user_has_any_permission_for(
             self.request.user, ["choose"]
         )
-        # allow hooks to modify the queryset
-        for hook in hooks.get_hooks("construct_document_chooser_queryset"):
-            documents = hook(documents, self.request)
-
-        return documents
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET, collections=self.collections)
-
-    def filter_object_list(self, documents, form):
-        self.collection_id = form.cleaned_data.get("collection_id")
-        if self.collection_id:
-            documents = documents.filter(collection=self.collection_id)
-
-        self.search_query = form.cleaned_data.get("q")
-        if self.search_query:
-            documents = documents.search(self.search_query)
-            self.is_searching = True
-        else:
-            documents = documents.order_by("-created_at")
-
-        return documents
 
     @cached_property
     def collections(self):
@@ -145,14 +104,7 @@ class BaseDocumentChooseView(BaseChooseView):
 
     def get(self, request):
         self.model = get_document_model()
-        self.collection_id = None
-
         return super().get(request)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["collection_id"] = self.collection_id
-        return context
 
 
 class DocumentChooseViewMixin(ChooseViewMixin):
@@ -191,22 +143,6 @@ class DocumentChooserUploadView(
     def dispatch(self, request, *args, **kwargs):
         self.model = get_document_model()
         return super().dispatch(request, *args, **kwargs)
-
-    def save_form(self, form):
-        document = form.instance
-        document.file_size = document.file.size
-
-        # Set new document file hash
-        document.file.seek(0)
-        document._set_file_hash(document.file.read())
-        document.file.seek(0)
-
-        form.save()
-
-        # Reindex the document to make sure all tags are indexed
-        search_index.insert_or_update_object(document)
-
-        return document
 
 
 class BaseAdminDocumentChooser(BaseChooser):

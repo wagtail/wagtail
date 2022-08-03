@@ -4,6 +4,7 @@ export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
 
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
+  editLinkStateKey = 'edit_link'; // key used in the 'state' dictionary to hold the URL of the edit page
   chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
@@ -42,10 +43,12 @@ export class Chooser {
     if (this.input.value) {
       const state = {
         id: this.input.value,
-        edit_link: this.editLink.getAttribute('href'),
       };
       if (this.titleElement && this.titleStateKey) {
-        state[this.titleStateKey] = this.titleElement.innerText;
+        state[this.titleStateKey] = this.titleElement.textContent;
+      }
+      if (this.editLink && this.editLinkStateKey) {
+        state[this.editLinkStateKey] = this.editLink.getAttribute('href');
       }
       return state;
     } else {
@@ -82,10 +85,12 @@ export class Chooser {
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
     if (this.titleElement && this.titleStateKey) {
-      this.titleElement.innerText = newState[this.titleStateKey];
+      this.titleElement.textContent = newState[this.titleStateKey];
     }
     this.chooserElement.classList.remove('blank');
-    this.editLink.setAttribute('href', newState.edit_link);
+    if (this.editLink) {
+      this.editLink.setAttribute('href', newState[this.editLinkStateKey]);
+    }
   }
 
   getTextLabel(opts) {
@@ -98,17 +103,26 @@ export class Chooser {
   }
 
   focus() {
-    this.chooserElement.querySelector('.action-choose').focus();
+    if (this.state) {
+      this.chooserElement.querySelector('.chosen .action-choose').focus();
+    } else {
+      this.chooserElement.querySelector('.unchosen .action-choose').focus();
+    }
   }
 
   getModalUrl() {
     return this.chooserBaseUrl;
   }
 
+  getModalUrlParams() {
+    return null;
+  }
+
   openChooserModal() {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getModalUrl(),
+      urlParams: this.getModalUrlParams(),
       onload: this.modalOnloadHandlers,
       responses: {
         [this.chosenResponseName]: (result) => {

@@ -213,7 +213,7 @@ This setting lets you provide your own image model for use in Wagtail, which sho
 WAGTAILIMAGES_IMAGE_FORM_BASE = 'myapp.forms.MyImageBaseForm'
 ```
 
-This setting lets you provide your own image base form for use in Wagtail, which might extend the built-in `BaseImageForm` class or replace it entirely.
+This setting lets you provide your own image base form for use in Wagtail, which should extend the built-in `BaseImageForm` class.
 You can use it to specify or override the widgets to use in the admin form.
 
 ### `WAGTAILIMAGES_MAX_UPLOAD_SIZE`
@@ -292,7 +292,7 @@ This setting lets you provide your own document model for use in Wagtail, which 
 WAGTAILDOCS_DOCUMENT_FORM_BASE = 'myapp.forms.MyDocumentBaseForm'
 ```
 
-This setting lets you provide your own Document base form for use in Wagtail, which might extend the built-in `BaseDocumentForm` class or replace it entirely.
+This setting lets you provide your own Document base form for use in Wagtail, which should extend the built-in `BaseDocumentForm` class.
 You can use it to specify or override the widgets to use in the admin form.
 
 (wagtaildocs_serve_method)=

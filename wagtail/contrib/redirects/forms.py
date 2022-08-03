@@ -1,6 +1,5 @@
-import os
-
 from django import forms
+from django.core.signing import BadSignature, Signer
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.widgets import AdminPageChooser
@@ -70,7 +69,36 @@ class ImportForm(forms.Form):
         self.fields["import_file"].help_text = help_text
 
 
-class ConfirmImportForm(forms.Form):
+class ConfirmImportManagementForm(forms.Form):
+    """
+    Store the import file name and input format in the form so that it can be used in the next step
+
+    The initial values are signed, to prevent them from being tampered with.
+    """
+
+    import_file_name = forms.CharField(widget=forms.HiddenInput())
+    input_format = forms.CharField(widget=forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        self.signer = Signer()
+        initial = kwargs.get("initial", {})
+        for key in {"import_file_name", "input_format"}:
+            if key in initial:
+                # Sign initial data so it cannot be tampered with
+                initial[key] = self.signer.sign(initial[key])
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        for key in {"import_file_name", "input_format"}:
+            try:
+                cleaned_data[key] = self.signer.unsign(cleaned_data[key])
+            except BadSignature as e:
+                raise forms.ValidationError(e.message)
+        return cleaned_data
+
+
+class ConfirmImportForm(ConfirmImportManagementForm):
     from_index = forms.ChoiceField(
         label=_("From field"),
         choices=(),
@@ -86,9 +114,6 @@ class ConfirmImportForm(forms.Form):
         empty_label=_("All sites"),
     )
     permanent = forms.BooleanField(initial=True, required=False)
-    import_file_name = forms.CharField(widget=forms.HiddenInput())
-    original_file_name = forms.CharField(widget=forms.HiddenInput())
-    input_format = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, headers, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -101,8 +126,3 @@ class ConfirmImportForm(forms.Form):
 
         self.fields["from_index"].choices = choices
         self.fields["to_index"].choices = choices
-
-    def clean_import_file_name(self):
-        data = self.cleaned_data["import_file_name"]
-        data = os.path.basename(data)
-        return data
