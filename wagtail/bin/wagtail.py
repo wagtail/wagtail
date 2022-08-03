@@ -79,7 +79,7 @@ class CreateProject(Command):
                 "name. Please try another name." % project_name
             )
 
-        print(
+        print(  # noqa
             "Creating a Wagtail project called %(project_name)s"
             % {"project_name": project_name}
         )  # noqa
@@ -108,7 +108,7 @@ class CreateProject(Command):
         utility = ManagementUtility(utility_args)
         utility.execute()
 
-        print(
+        print(  # noqa
             "Success! %(project_name)s has been created"
             % {"project_name": project_name}
         )  # noqa
@@ -239,7 +239,7 @@ class UpdateModulePaths(Command):
                     else:  # actually update
                         change_count = self._rewrite_file(path)
                     if change_count:
-                        print(
+                        print(  # noqa
                             "%s - %d change%s"
                             % (relative_path, change_count, pluralize(change_count))
                         )  # NOQA
@@ -248,7 +248,7 @@ class UpdateModulePaths(Command):
                     changed_file_count += 1
 
         if diff or list_files:
-            print(
+            print(  # noqa
                 "\nChecked %d .py file%s, %d file%s to update."
                 % (
                     checked_file_count,
@@ -258,7 +258,7 @@ class UpdateModulePaths(Command):
                 )
             )  # NOQA
         else:
-            print(
+            print(  # noqa
                 "\nChecked %d .py file%s, %d file%s updated."
                 % (
                     checked_file_count,
@@ -374,7 +374,7 @@ class Version(Command):
 
         version = wagtail.get_version(wagtail.VERSION)
 
-        print("You are using Wagtail %(version)s" % {"version": version})
+        print("You are using Wagtail %(version)s" % {"version": version})  # noqa
 
 
 COMMANDS = {
@@ -389,7 +389,7 @@ def prog_name():
 
 
 def help_index():
-    print(
+    print(  # noqa
         "Type '%s help <subcommand>' for help on a specific subcommand.\n" % prog_name()
     )  # NOQA
     print("Available subcommands:\n")  # NOQA

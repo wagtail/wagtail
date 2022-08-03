@@ -1,4 +1,5 @@
 import re
+import warnings
 from io import StringIO
 
 from django.core import management
@@ -33,7 +34,7 @@ class TestUpdateImageRenditions(TestCase):
                 rendition_image = rendition.image
                 rendition.delete()
             except Exception:
-                print(f"Could not delete rendition for {rendition_image}")
+                warnings.warn(f"Could not delete rendition for {rendition_image}")
 
     def run_command(self, **options):
         output = StringIO()
