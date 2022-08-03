@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.http import Http404
 from django.test import Client, TestCase, override_settings
@@ -186,12 +187,14 @@ class TestValidation(TestCase):
         "events.example.com",
         "about.example.com",
         "unknown.site.com",
-    ]
+    ],
+    CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}},
 )
 class TestSiteRouting(TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        cache.clear()
         self.default_site = Site.objects.get(is_default_site=True)
         events_page = Page.objects.get(url_path="/home/events/")
         about_page = Page.objects.get(url_path="/home/about-us/")
@@ -212,11 +215,19 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = "8000"
         self.unrecognised_hostname = "unknown.site.com"
 
+    def tearDown(self):
+        cache.clear()
+
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
         request = get_dummy_request(site=self.events_site)
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.events_site)
+
+        self.assertIn(
+            (self.events_site.hostname, str(self.events_site.port)),
+            cache.get("wagtail_site_for_hostname", {}),
+        )
 
     def test_ports_in_request_headers_are_respected(self):
         # ports in the Host: header should be respected
@@ -281,6 +292,19 @@ class TestSiteRouting(TestCase):
             self.assertEqual(
                 Site.find_for_request(request), self.alternate_port_events_site
             )
+
+    def test_reads_from_cache(self):
+        cache.set(
+            "wagtail_site_for_hostname",
+            {(self.events_site.hostname, str(self.events_site.port)): self.events_site},
+            60,
+        )
+        request = HttpRequest()
+        request.path = "/"
+        request.META["HTTP_HOST"] = self.events_site.hostname
+        request.META["SERVER_PORT"] = self.events_site.port
+        with self.assertNumQueries(0):
+            self.assertEqual(Site.find_for_request(request), self.events_site)
 
 
 class TestRouting(TestCase):
@@ -739,8 +763,6 @@ class TestServeView(TestCase):
         # Explicitly clear the cache of site root paths. Normally this would be kept
         # in sync by the Site.save logic, but this is bypassed when the database is
         # rolled back between tests using transactions.
-        from django.core.cache import cache
-
         cache.delete("wagtail_site_root_paths")
 
         # also need to clear urlresolver caches before/after tests, because we override

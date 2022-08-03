@@ -17,6 +17,14 @@ MATCH_HOSTNAME = 3
 
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
+    sites_cache = cache.get("wagtail_site_for_hostname", {})
+
+    cache_key = (hostname, port)
+    site = sites_cache.get(cache_key)
+
+    if site is not None:
+        return site
+
     sites = list(
         Site.objects.annotate(
             match=Case(
@@ -47,15 +55,23 @@ def get_site_for_hostname(hostname, port):
             MATCH_HOSTNAME_PORT,
             MATCH_HOSTNAME_DEFAULT,
         ):
-            return sites[0]
+            site = sites[0]
 
         # if there is a default match with a different hostname, see if
         # there are many hostname matches. if only 1 then use that instead
         # otherwise we use the default
-        if sites[0].match == MATCH_DEFAULT:
-            return sites[int(len(sites) == 2)]
+        elif sites[0].match == MATCH_DEFAULT:
+            site = sites[int(len(sites) == 2)]
 
-    raise Site.DoesNotExist()
+    # Don't cache unknown sites
+    if site is None:
+        raise Site.DoesNotExist()
+
+    # Cache the found site for future requests
+    sites_cache[cache_key] = site
+    cache.set("wagtail_site_for_hostname", sites_cache, 3600)
+
+    return site
 
 
 class SiteManager(models.Manager):
