@@ -18,13 +18,14 @@ from wagtail.models import Locale, Page, ReferenceIndex, Site
 logger = logging.getLogger("wagtail")
 
 
-# Clear the wagtail_site_root_paths from the cache whenever Site records are updated.
 def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
     Site.clear_site_root_paths_cache()
+    cache.delete("wagtail_site_for_hostname")
 
 
 def post_delete_site_signal_handler(instance, **kwargs):
     Site.clear_site_root_paths_cache()
+    cache.delete("wagtail_site_for_hostname")
 
 
 def pre_delete_page_unpublish(sender, instance, **kwargs):
