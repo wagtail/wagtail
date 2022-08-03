@@ -167,21 +167,15 @@ class Site(models.Model):
             return None
 
         if not hasattr(request, "_wagtail_site"):
-            site = Site._find_for_request(request)
+            hostname = split_domain_port(request.get_host())[0]
+            port = request.get_port()
+            try:
+                site = get_site_for_hostname(hostname, port)
+            except Site.DoesNotExist:
+                # copy old SiteMiddleware behaviour
+                site = None
             setattr(request, "_wagtail_site", site)
         return request._wagtail_site
-
-    @staticmethod
-    def _find_for_request(request):
-        hostname = split_domain_port(request.get_host())[0]
-        port = request.get_port()
-        site = None
-        try:
-            site = get_site_for_hostname(hostname, port)
-        except Site.DoesNotExist:
-            pass
-            # copy old SiteMiddleware behaviour
-        return site
 
     @property
     def root_url(self):
