@@ -1,9 +1,10 @@
 from django.urls import path
+from django.http import JsonResponse
 
 from wagtail.images.views import chooser, images, multiple
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 
-
+# used as delete_action, when object is already deleted, just to show user delete animation
 class DummyDeleteView(BaseDeleteView):
     def post(self, request, *args, **kwargs):
         return JsonResponse({"success": True})

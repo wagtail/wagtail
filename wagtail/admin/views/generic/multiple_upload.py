@@ -156,7 +156,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
             # Some other field of the form has failed validation, e.g. a required metadata field
             # on a custom image model. Store the object as an upload_model instance instead and
             # present the edit form so that it will become a proper object when successfully filled in
-            # self.object = self.save_object(form)
+
             self.upload_object = self.upload_model.objects.create(
                 file=self.request.FILES["files[]"], uploaded_by_user=self.request.user
             )
@@ -169,7 +169,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
             if not hasattr(self.request.FILES["files[]"], "image"):
                 return JsonResponse(data)
-            else:  
+            else:
                 # checking for image duplicates, in case custom image model with additional fields is used
                 temporary_image = Image.objects.create(
                     title="TEMPORARY_ORIGINAL_WAGTAIL_IMAGE",
