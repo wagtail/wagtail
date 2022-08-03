@@ -75,11 +75,14 @@
     border-color: theme('colors.grey.150');
   }
 
+  // Hiding for devices capable of hover states only,
+  // with opacity only so keyboard focus can move to the first interactive element to reveal it.
   @media (hover: hover) {
-    visibility: hidden;
+    opacity: 0;
 
-    .chooser:hover & {
-      visibility: visible;
+    .chooser:hover &,
+    .chooser:focus-within & {
+      opacity: 1;
     }
   }
 }
