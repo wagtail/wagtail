@@ -14,13 +14,13 @@ for path in Path(__file__).parent.resolve().parent.rglob("LC_MESSAGES/*.po"):
         expected_placeholders = set(placeholder_regexp.findall(entry.msgid))
         actual_placeholders = set(placeholder_regexp.findall(entry.msgstr))
         if expected_placeholders != actual_placeholders:
-            print("Invalid string at %s line %d:" % (path, entry.linenum))
-            print(
+            print("Invalid string at %s line %d:" % (path, entry.linenum))  # noqa
+            print(  # noqa
                 "\toriginal string %r has placeholders: %r"
                 % (entry.msgid, expected_placeholders)
-            )
-            print(
+            )  # noqa
+            print(  # noqa
                 "\ttranslated string %r has placeholders: %r"
                 % (entry.msgstr, actual_placeholders)
-            )
-            print()
+            )  # noqa
+            print()  # noqa

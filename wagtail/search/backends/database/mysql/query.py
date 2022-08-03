@@ -247,6 +247,6 @@ class MatchExpression(Expression):
         )  # Substitute the params in the query
         column_list = ", ".join(
             ["`{}`".format(column) for column in self.columns]
-        )  #  ['title', 'body'] becomes '`title`, `body`'
+        )  # ['title', 'body'] becomes '`title`, `body`'
         params = [formatted_query]
         return (self.template % (column_list, "%s"), params)
