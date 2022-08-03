@@ -77,7 +77,7 @@ class check_bdist_egg(bdist_egg):
     def run(self):
         bdist_egg.run(self)
         if not os.path.isdir(self.sentinel_dir):
-            print(
+            print(  # noqa
                 "\n".join(
                     [  # noqa
                         "************************************************************",
