@@ -1,6 +1,5 @@
 from collections import namedtuple
 
-from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
@@ -18,8 +17,6 @@ MATCH_HOSTNAME = 3
 
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
-    Site = apps.get_model("wagtailcore.Site")
-
     sites = list(
         Site.objects.annotate(
             match=Case(
