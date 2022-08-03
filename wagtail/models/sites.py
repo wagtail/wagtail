@@ -56,7 +56,7 @@ def get_site_for_hostname(hostname, port):
         # there are many hostname matches. if only 1 then use that instead
         # otherwise we use the default
         if sites[0].match == MATCH_DEFAULT:
-            return sites[len(sites) == 2]
+            return sites[int(len(sites) == 2)]
 
     raise Site.DoesNotExist()
 
