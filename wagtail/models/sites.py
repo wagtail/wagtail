@@ -41,7 +41,7 @@ def get_site_for_hostname(hostname, port):
         )
         .filter(Q(hostname=hostname) | Q(is_default_site=True))
         .order_by("match")
-        .select_related("root_page")
+        .select_related("root_page")[:3]
     )
 
     if sites:
