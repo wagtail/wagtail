@@ -4,6 +4,7 @@ Changelog
 4.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added support for Django 4.1
  * Added a new `BaseGenericSetting` base model class that allows defining a settings model that applies to all sites rather than just a single site (Kyle Bayliss)
  * Add clarity to confirmation when being asked to convert an external link to an internal one (Thijs Kramer)
  * Convert various pages in the documentation to Markdown (Khanh Hoang, Vu Pham, Daniel Kirkham, LB (Ben) Johnston, Thiago Costa de Souza, Benedict Faw, Noble Mittal, Sævar Öfjörð Magnússon, Sandeep M A, Stefano Silvestri)
