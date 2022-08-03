@@ -42,7 +42,7 @@ describe('Editor', () => {
     ]);
   });
 
-  it('axe image chooser', async () => {
+  it.skip('axe image chooser', async () => {
     const trigger = await page.$('.Draftail-Editor [name="IMAGE"]');
     await Promise.all([
       trigger.click(),
@@ -57,7 +57,7 @@ describe('Editor', () => {
     ]);
   });
 
-  it('axe page chooser', async () => {
+  it.skip('axe page chooser', async () => {
     const trigger = await page.$('.Draftail-Editor [name="LINK"]');
     await Promise.all([
       trigger.click(),
