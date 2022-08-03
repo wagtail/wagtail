@@ -22,7 +22,7 @@ __semver__ = get_semver_version(VERSION)
 """
 
 
-print(
+print(  # noqa
     INIT_TEMPLATE.format(
         major=VERSION[0],
         minor=VERSION[1],
