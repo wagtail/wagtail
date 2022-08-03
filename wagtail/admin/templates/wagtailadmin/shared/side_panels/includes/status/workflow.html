@@ -32,6 +32,24 @@
                         {{ block.super }}
                     {% endif %}
                 {% endwith %}
+                {% if has_live_publishing_schedule %}
+                    {% page_permissions object as page_perms %}
+                    <div class="w-mt-3 w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
+                        {% icon name='calendar-check' class_name='w-w-4 w-h-4 w-text-info-100' %}
+                        <div class="w-flex w-flex-1 w-items-start w-justify-between">
+                            <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text">
+                                <div>
+                                    <span class="w-text-primary">{% trans 'Expiry:' %}</span>
+                                    {{ live_expire_at }}
+                                </div>
+                            </div>
+                            {% if not has_draft_publishing_schedule and not page_perms.page_locked and not in_explorer %}
+                                {% trans 'Edit schedule' as edit_schedule_text %}
+                                {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
 
             {% endif %}
 
@@ -96,7 +114,7 @@
 {% block bottom %}
     {# Workflow Status #}
     {% page_permissions object as page_perms %}
-    {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision scheduled_go_live_at=scheduled_revision.approved_go_live_at scheduled_expire_at=live_object.expire_at expired=live_object.expired draft_go_live_at=object.go_live_at draft_expire_at=object.expire_at %}
+    {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision %}
         {% if workflow_state %}
             <div class="w-flex w-space-x-4 w-mt-3">
                 {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
@@ -107,7 +125,7 @@
         {% endif %}
 
         {# Scheduled publishing #}
-        {% if scheduled_go_live_at or scheduled_expire_at and not expired or draft_go_live_at or draft_expire_at %}
+        {% if has_draft_publishing_schedule %}
             <div class="w-mt-3 w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
                 {% if scheduled_go_live_at or scheduled_expire_at %}
                     {% icon name='calendar-check' class_name='w-w-4 w-h-4 w-text-info-100' %}
@@ -122,12 +140,12 @@
                         {% if scheduled_expire_at %}
                             <div><span class="w-text-primary">{% trans 'Expiry:' %}</span> {{ scheduled_expire_at }}</div>
                         {% endif %}
-                        {% if draft_go_live_at and draft_go_live_at != scheduled_go_live_at or draft_expire_at and draft_expire_at != scheduled_expire_at %}
+                        {% if draft_go_live_at or draft_expire_at %}
                             <div class="w-label-3">{% trans 'Once published:' %}</div>
-                            {% if draft_go_live_at and draft_go_live_at != scheduled_go_live_at %}
+                            {% if draft_go_live_at %}
                                 <div><span class="w-text-primary">{% trans 'Go-live:' %}</span> {{ draft_go_live_at }}</div>
                             {% endif %}
-                            {% if draft_expire_at and draft_expire_at != scheduled_expire_at %}
+                            {% if draft_expire_at %}
                                 <div><span class="w-text-primary">{% trans 'Expiry:' %}</span> {{ draft_expire_at }}</div>
                             {% endif %}
                         {% endif %}
@@ -138,7 +156,7 @@
                     {% endif %}
                 </div>
             </div>
-        {% else %}
+        {% elif not has_live_publishing_schedule %}
             <div class="w-flex w-justify-between w-items-center w-w-full w-mt-3">
                 <div class="w-ml-8 w-pr-4 w-label-3">{% trans 'No publishing schedule set' %}</div>
                 {% if not page_perms.page_locked and not in_explorer %}

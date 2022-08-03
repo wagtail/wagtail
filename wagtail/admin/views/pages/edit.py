@@ -333,6 +333,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.page = self.real_page_record.get_latest_revision_as_object()
         self.parent = self.page.get_parent()
+        self.scheduled_page = self.real_page_record.get_scheduled_revision_as_object()
 
         self.page_perms = self.page.permissions_for_user(self.request.user)
         self.lock = self.page.get_lock()
@@ -395,15 +396,12 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     isinstance(self.lock, ScheduledForPublishLock)
                     and self.page_perms.can_unschedule()
                 ):
-                    scheduled_revision = self.page.revisions.defer().get(
-                        approved_go_live_at__isnull=False
-                    )
                     lock_message = format_html(
                         '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
                         lock_message,
                         reverse(
                             "wagtailadmin_pages:revisions_unschedule",
-                            args=[self.page.id, scheduled_revision.pk],
+                            args=[self.page.id, self.scheduled_revision.pk],
                         ),
                         _("Cancel scheduled publish"),
                     )
@@ -844,7 +842,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.request,
             self.page,
             live_page=self.real_page_record,
-            scheduled_revision=self.scheduled_revision,
+            scheduled_page=self.scheduled_page,
             preview_enabled=True,
             comments_enabled=self.form.show_comments_toggle,
         )

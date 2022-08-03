@@ -96,7 +96,9 @@ def index(request, parent_page_id=None):
 
     side_panels = PageSidePanels(
         request,
-        parent_page.specific,
+        parent_page.get_latest_revision_as_object(),
+        live_page=parent_page.specific,
+        scheduled_page=parent_page.get_scheduled_revision_as_object(),
         in_explorer=True,
         preview_enabled=False,
         comments_enabled=False,
