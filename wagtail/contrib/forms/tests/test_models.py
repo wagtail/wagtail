@@ -182,6 +182,26 @@ class TestFormSubmission(TestCase):
         with self.assertRaises(ValidationError):
             make_form_page(from_address="not an email")
 
+    def test_string_representation_form_submission(self):
+        """
+        Ensure that a form submission can be logged / printed without error.
+        Broke when converting field to JSON - see #8927
+        """
+
+        self.client.post(
+            "/contact-us/",
+            {
+                "your_email": "bob@example.com",
+                "your_message": "hello world",
+                "your_choices": {},
+            },
+        )
+
+        self.assertGreaterEqual(FormSubmission.objects.count(), 1)
+
+        submission = FormSubmission.objects.first()
+        self.assertIn("hello world", str(submission))
+
 
 class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
     def setUp(self):
