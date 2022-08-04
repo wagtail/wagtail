@@ -281,7 +281,7 @@
     cursor: default;
     @media (forced-colors: active) {
       color: GrayText;
-      border-color: currentColor;
+      border-color: GrayText;
       border-style: dashed;
     }
   }
