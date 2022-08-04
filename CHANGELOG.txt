@@ -122,6 +122,7 @@ Changelog
  * Fix: Avoid redirects import error if the file had lots of columns (Jaap Roes)
  * Fix: Resolve accessibility and styling issues with the expanding status panel (Sage Abdullah)
  * Fix: Avoid 503 `AttributeError` when an empty search param `q=` is combined with other filters in the Images index view (Paritosh Kabra)
+ * Fix: Fix error with string representation of FormSubmission not returning a string (LB (Ben) Johnston)
 
 
 3.0.1 (16.06.2022)
