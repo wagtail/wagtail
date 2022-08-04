@@ -90,6 +90,7 @@ Changelog
  * Remove `is_parent` kwarg in various page button hooks as this approach is no longer required (Paarth Agarwal)
  * Improve security of redirect imports by adding a file hash (signature) check for so that any tampering of file contents between requests will throw a `BadSignature` error (Jaap Roes)
  * Refresh designs for Home (Dashboard) site summary panels, use theme spacing and colours, add support for RTL layouts and better support for small devices (Paarth Agarwal, LB (Ben) Johnston)
+ * Include all CSS system colors in allowed values in Stylelint's declaration-strict-value rule
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
@@ -125,7 +126,7 @@ Changelog
  * Fix: Avoid 503 `AttributeError` when an empty search param `q=` is combined with other filters in the Images index view (Paritosh Kabra)
  * Fix: Fix error with string representation of FormSubmission not returning a string (LB (Ben) Johnston)
  * Fix: Ensure disabled buttons are distinguishable from active buttons in forced colors mode (Anuja Verma)
- * Include all CSS system colors in allowed values in Stylelint's declaration-strict-value rule
+ * Fix: Revise usage of `extra_actions` in new changes to shared header template to avoid invalid template variable usage (Paarth Agarwal)
 
 
 3.0.1 (16.06.2022)

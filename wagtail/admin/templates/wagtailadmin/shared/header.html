@@ -56,7 +56,9 @@
                     </div>
                 {% endif %}
             {% endblock %}
-            {{ extra_actions }}
+            {% if extra_actions %}
+                {{ extra_actions }}
+            {% endif %}
         </div>
     </div>
     {% block extra_rows %}{% endblock %}
