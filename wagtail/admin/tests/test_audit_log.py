@@ -197,7 +197,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         history_url = reverse("wagtailadmin_pages:history", args=[self.hello_page.id])
         self.assertContains(response, history_url)
 
-    def test_create_and_publish_does_not_log_revision_save(self):
+    def test_create_and_publish_logs_revision_save(self):
         self.login(user=self.administrator)
         post_data = {
             "title": "New page!",
@@ -225,7 +225,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
                 .values_list("action", flat=True)
                 .order_by("action")
             ),
-            ["wagtail.create", "wagtail.publish"],
+            ["wagtail.create", "wagtail.edit", "wagtail.publish"],
         )
 
     def test_revert_and_publish_logs_reversion_and_publish(self):
