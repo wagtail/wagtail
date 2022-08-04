@@ -92,6 +92,7 @@ Changelog
  * Refresh designs for Home (Dashboard) site summary panels, use theme spacing and colours, add support for RTL layouts and better support for small devices (Paarth Agarwal, LB (Ben) Johnston)
  * Include all CSS system colors in allowed values in Stylelint's declaration-strict-value rule (Thibaud Colas)
  * Add JavaScript `range` util for (LB (Ben) Johnston)
+ * Allow generic chooser viewsets to support non-model data such as an API endpoint (Matt Wescott)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
