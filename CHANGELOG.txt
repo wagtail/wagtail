@@ -124,6 +124,7 @@ Changelog
  * Fix: Resolve accessibility and styling issues with the expanding status panel (Sage Abdullah)
  * Fix: Avoid 503 `AttributeError` when an empty search param `q=` is combined with other filters in the Images index view (Paritosh Kabra)
  * Fix: Fix error with string representation of FormSubmission not returning a string (LB (Ben) Johnston)
+ * Fix: Ensure disabled buttons are distinguishable from active buttons in forced colors mode (Anuja Verma)
 
 
 3.0.1 (16.06.2022)
