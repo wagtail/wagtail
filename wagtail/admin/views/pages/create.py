@@ -170,7 +170,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.parent_page.add_child(instance=self.page)
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=False)
+        self.page.save_revision(user=self.request.user, log_action=True)
 
         # Save subscription settings
         self.subscription.page = self.page
@@ -196,7 +196,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.parent_page.add_child(instance=self.page)
 
         # Save revision
-        revision = self.page.save_revision(user=self.request.user, log_action=False)
+        revision = self.page.save_revision(user=self.request.user, log_action=True)
 
         # Save subscription settings
         self.subscription.page = self.page
@@ -252,7 +252,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.parent_page.add_child(instance=self.page)
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=False)
+        self.page.save_revision(user=self.request.user, log_action=True)
 
         # Submit
         workflow = self.page.get_workflow()

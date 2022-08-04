@@ -784,15 +784,28 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
 
         # Should not create entries for empty revisions.
         self.assertListEqual(
-            list(PageLogEntry.objects.values_list("action", flat=True)),
-            [
-                "wagtail.publish",
-                "wagtail.edit",
-                "wagtail.create",
-                "wagtail.publish",
-                "wagtail.edit",
-                "wagtail.create",
-            ],
+            list(PageLogEntry.objects.values_list("page_id", "action")),
+            # Default PageLogEntry sort order is from newest event to oldest.
+            # We reverse here to make it easier to understand what is being
+            # tested. The events here should correspond with setUp above.
+            list(
+                reversed(
+                    [
+                        # The SimplePage was created in draft mode, with an initial revision.
+                        (self.page.pk, "wagtail.create"),
+                        (self.page.pk, "wagtail.edit"),
+                        # The SimplePage was edited as a new draft, then published.
+                        (self.page.pk, "wagtail.edit"),
+                        (self.page.pk, "wagtail.publish"),
+                        # The SecretPage was created in draft mode, with an initial revision.
+                        (self.secret_page.pk, "wagtail.create"),
+                        (self.secret_page.pk, "wagtail.edit"),
+                        # The SecretPage was edited as a new draft, then published.
+                        (self.secret_page.pk, "wagtail.edit"),
+                        (self.secret_page.pk, "wagtail.publish"),
+                    ]
+                )
+            ),
         )
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
