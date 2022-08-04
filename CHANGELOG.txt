@@ -112,6 +112,7 @@ Changelog
  * Fix: Remove outdated reference to 30-character limit on usernames in help text (minusf)
  * Fix: Resolve multiple form submissions index listing page layout issues including title not being visible on mobile and interaction with large tables (Paarth Agarwal)
  * Fix: Ensure ModelAdmin single selection lists show correctly with Django 4.0 form template changes (Coen van der Kamp)
+ * Fix: Ensure disabled buttons are distinguishable from active buttons in forced colors mode (Anuja Verma)
 
 
 3.0.1 (16.06.2022)
