@@ -45,7 +45,14 @@ from wagtail.admin.views.pages.bulk_actions import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
-from wagtail.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
+from wagtail.models import (
+    Collection,
+    Locale,
+    Page,
+    Task,
+    UserPagePermissionsProxy,
+    Workflow,
+)
 from wagtail.permissions import (
     collection_permission_policy,
     task_permission_policy,
@@ -200,7 +207,7 @@ def register_workflow_tasks_menu_item():
 
 
 @hooks.register("register_page_listing_buttons")
-def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_listing_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield PageListingButton(
             _("Edit"),
@@ -234,41 +241,21 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=30,
         )
     if page_perms.can_add_subpage():
-        if is_parent:
-            yield Button(
-                _("Add child page"),
-                reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-                attrs={
-                    "aria-label": _("Add a child page to '%(title)s' ")
-                    % {"title": page.get_admin_display_title()},
-                },
-                classes={
-                    "button",
-                    "button-small",
-                    "bicolor",
-                    "icon",
-                    "white",
-                    "icon-plus",
-                },
-                priority=40,
-            )
-        else:
-            yield PageListingButton(
-                _("Add child page"),
-                reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-                attrs={
-                    "aria-label": _("Add a child page to '%(title)s' ")
-                    % {"title": page.get_admin_display_title()}
-                },
-                priority=40,
-            )
+        yield PageListingButton(
+            _("Add child page"),
+            reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
+            attrs={
+                "aria-label": _("Add a child page to '%(title)s' ")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=40,
+        )
 
     yield ButtonWithDropdownFromHook(
         _("More"),
         hook_name="register_page_listing_more_buttons",
         page=page,
         page_perms=page_perms,
-        is_parent=is_parent,
         next_url=next_url,
         attrs={
             "target": "_blank",
@@ -281,7 +268,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
 
 
 @hooks.register("register_page_listing_more_buttons")
-def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_move():
         yield Button(
             _("Move"),
@@ -350,7 +337,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=50,
         )
 
-    if is_parent and page_perms.can_reorder_children():
+    if page_perms.can_reorder_children():
         yield Button(
             _("Sort menu order"),
             "?ordering=ord",
@@ -363,7 +350,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
 
 
 @hooks.register("register_page_header_buttons")
-def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield Button(
             _("Edit"),
@@ -447,7 +434,7 @@ def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
             },
             priority=60,
         )
-    if is_parent and page_perms.can_reorder_children():
+    if page_perms.can_reorder_children():
         url = reverse("wagtailadmin_explore", args=[page.id])
         url += "?ordering=ord"
         yield Button(
@@ -460,6 +447,34 @@ def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
             },
             priority=70,
         )
+    if Permission.objects.filter(
+        content_type__app_label="simple_translation", codename="submit_translation"
+    ):
+        if (
+            page_perms.user.has_perm("simple_translation.submit_translation")
+            and not page.is_root()
+        ):
+            # If there's at least one locale that we haven't translated into yet, show "Translate this page" button
+            has_locale_to_translate_to = Locale.objects.exclude(
+                id__in=page.get_translations(inclusive=True).values_list(
+                    "locale_id", flat=True
+                )
+            ).exists()
+
+            if has_locale_to_translate_to:
+                url = reverse(
+                    "simple_translation:submit_page_translation", args=[page.id]
+                )
+                yield Button(
+                    _("Translate"),
+                    url,
+                    icon_name="globe",
+                    attrs={
+                        "title": _("Translate this page")
+                        % {"title": page.get_admin_display_title()}
+                    },
+                    priority=80,
+                )
 
 
 @hooks.register("register_admin_urls")

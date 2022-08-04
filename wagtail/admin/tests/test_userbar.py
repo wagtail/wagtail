@@ -16,11 +16,11 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         )
         self.homepage = Page.objects.get(id=2)
 
-    def dummy_request(self, user=None, is_preview=False):
+    def dummy_request(self, user=None, is_preview=False, in_preview_panel=False):
         request = RequestFactory().get("/")
         request.user = user or AnonymousUser()
-        if is_preview:
-            request.is_preview = True
+        request.is_preview = is_preview
+        request.in_preview_panel = in_preview_panel
         return request
 
     def test_userbar_tag(self):
@@ -97,7 +97,7 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
         self.assertIn("Edit this page", content)
 
-    def test_userbar_not_in_preview(self):
+    def test_userbar_edit_menu_not_in_preview(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(
             Context(
@@ -109,6 +109,22 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         )
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
         self.assertNotIn("Edit this page", content)
+
+    def test_userbar_not_in_preview_panel(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(
+            Context(
+                {
+                    PAGE_TEMPLATE_VAR: self.homepage,
+                    "request": self.dummy_request(
+                        self.user, is_preview=True, in_preview_panel=True
+                    ),
+                }
+            )
+        )
+
+        # Make sure nothing was rendered
+        self.assertEqual(content, "")
 
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):

@@ -25,7 +25,6 @@ from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.models import Collection, Site
-from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -87,17 +86,6 @@ class BaseListingView(TemplateView):
             .prefetch_renditions("max-165x165")
         )
 
-        # Search
-        query_string = None
-        if "q" in self.request.GET:
-            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
-            if self.form.is_valid():
-                query_string = self.form.cleaned_data["q"]
-
-                images = images.search(query_string)
-        else:
-            self.form = SearchForm(placeholder=_("Search images"))
-
         # Filter by collection
         self.current_collection = None
         collection_id = self.request.GET.get("collection_id")
@@ -115,6 +103,17 @@ class BaseListingView(TemplateView):
                 images = images.filter(tags__name=self.current_tag)
             except (AttributeError):
                 self.current_tag = None
+
+        # Search
+        query_string = None
+        if "q" in self.request.GET:
+            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data["q"]
+
+                images = images.search(query_string)
+        else:
+            self.form = SearchForm(placeholder=_("Search images"))
 
         entries_per_page = self.get_num_entries_per_page()
         paginator = Paginator(images, per_page=entries_per_page)
@@ -191,29 +190,9 @@ def edit(request, image_id):
     next_url = get_valid_next_url_from_request(request)
 
     if request.method == "POST":
-        original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            if "file" in form.changed_data:
-                # Set new image file size
-                image.file_size = image.file.size
-
-                # Set new image file hash
-                image.file.seek(0)
-                image._set_file_hash(image.file.read())
-                image.file.seek(0)
-
             form.save()
-
-            if "file" in form.changed_data:
-                # if providing a new image file, delete the old one and all renditions.
-                # NB Doing this via original_file.delete() clears the file field,
-                # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
-                image.renditions.all().delete()
-
-            # Reindex the image to make sure all tags are indexed
-            search_index.insert_or_update_object(image)
 
             edit_url = reverse("wagtailimages:edit", args=(image.id,))
             redirect_url = "wagtailimages:index"
@@ -391,18 +370,7 @@ def add(request):
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            # Set image file size
-            image.file_size = image.file.size
-
-            # Set image file hash
-            image.file.seek(0)
-            image._set_file_hash(image.file.read())
-            image.file.seek(0)
-
             form.save()
-
-            # Reindex the image to make sure all tags are indexed
-            search_index.insert_or_update_object(image)
 
             messages.success(
                 request,

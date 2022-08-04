@@ -15,6 +15,7 @@ from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
 from wagtail.images.permissions import permission_policy as images_permission_policy
 from wagtail.models import Collection
+from wagtail.search import index as search_index
 
 
 # Callback to allow us to override the default form field for the image file field and collection field.
@@ -36,6 +37,29 @@ def formfield_for_dbfield(db_field, **kwargs):
 
 class BaseImageForm(BaseCollectionMemberForm):
     permission_policy = images_permission_policy
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.original_file = self.instance.file
+
+    def save(self, commit=True):
+        if "file" in self.changed_data:
+            self.instance._set_image_file_metadata()
+
+        super().save(commit=commit)
+
+        if commit:
+            if "file" in self.changed_data and self.original_file:
+                # if providing a new image file, delete the old one and all renditions.
+                # NB Doing this via original_file.delete() clears the file field,
+                # which definitely isn't what we want...
+                self.original_file.storage.delete(self.original_file.name)
+                self.instance.renditions.all().delete()
+
+            # Reindex the image to make sure all tags are indexed
+            search_index.insert_or_update_object(self.instance)
+
+        return self.instance
 
     class Meta:
         # set the 'file' widget to a FileInput rather than the default ClearableFileInput

@@ -6,6 +6,7 @@
     - `classname` - if present, adds classname to the header class list. This will be the class/classes added to the header class list
     - `title` - Displayed as `h1`
     - `subtitle` - Within the `h1` tag but smaller
+    - `description` - if present, displayed as a small text below the `h1` tag title
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
@@ -22,7 +23,7 @@
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1 class="w-header__title">
+                <h1 class="w-header__title" id="header-title">
                     {% if icon %}
                         {% icon class_name="w-header__glyph" name=icon %}
                     {% elif avatar %}
@@ -30,6 +31,7 @@
                     {% endif %}
                     {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
                 </h1>
+                {% if description %}<div class="w-header__description">{{ description }}</div>{% endif %}
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">

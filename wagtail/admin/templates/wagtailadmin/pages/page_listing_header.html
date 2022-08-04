@@ -2,11 +2,14 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block header_content %}
-    {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' %}
-
+    {# Accessible page title #}
     <h1 class="w-sr-only">
         {{ title }}
     </h1>
+    {# breadcrumbs #}
+    <div class="w-py-3{% if parent_page.is_root %} w-pl-3{% endif %}">
+        {% breadcrumbs parent_page 'wagtailadmin_explore' url_root_name='wagtailadmin_explore_root' is_expanded=parent_page.is_root %}
+    </div>
     {# Actions divider #}
     <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-grey-100"></div>
     {# Page actions dropdown #}

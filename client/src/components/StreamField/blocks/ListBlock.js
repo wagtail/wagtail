@@ -200,18 +200,10 @@ export class ListBlock extends BaseSequenceBlock {
         for (let i = 0; i < this.inserters.length; i++) {
           this.inserters[i].disable();
         }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].disableDuplication();
-          this.children[i].disableSplit();
-        }
       } else {
         /* allow adding new blocks */
         for (let i = 0; i < this.inserters.length; i++) {
           this.inserters[i].enable();
-        }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].enableDuplication();
-          this.children[i].enableSplit();
         }
       }
     }
@@ -295,6 +287,19 @@ export class ListBlock extends BaseSequenceBlock {
         this.children[blockIndex].setError(blockError);
       }
     });
+  }
+
+  getBlockGroups() {
+    const group = ['', [this.blockDef.childBlockDef]];
+    return [group];
+  }
+
+  getBlockCount() {
+    return this.children.length;
+  }
+
+  getBlockMax() {
+    return this.blockDef.meta.maxNum || 0;
   }
 }
 

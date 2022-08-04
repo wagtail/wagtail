@@ -1497,7 +1497,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should use the latest draft content for the title
         self.assertContains(
             response,
-            '<h1 class="w-header__title"><svg class="icon icon-snippet w-header__glyph" aria-hidden="true"><use href="#icon-snippet"></use></svg>Draft-enabled Bar, In Draft</h1>',
+            '<h1 class="w-header__title" id="header-title"><svg class="icon icon-snippet w-header__glyph" aria-hidden="true"><use href="#icon-snippet"></use></svg>Draft-enabled Bar, In Draft</h1>',
             html=True,
         )
 

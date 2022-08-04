@@ -1,5 +1,3 @@
-(site_settings)=
-
 # Settings
 
 The `wagtail.contrib.settings` module allows you to define models that hold
@@ -147,6 +145,8 @@ def view(request):
     social_media_settings = GenericSocialMediaSettings.load(request_or_site=request)
     ...
 ```
+
+(site_settings)=
 
 #### Site-specific settings
 

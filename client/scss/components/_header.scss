@@ -2,7 +2,8 @@
 @use 'sass:color';
 
 .w-header {
-  @apply w-text-primary w-mb-8;
+  @apply w-text-primary;
+  margin-bottom: theme('spacing.8');
 
   h1,
   h2 {
@@ -17,7 +18,7 @@
 
   .w-header__glyph {
     position: absolute;
-    inset-inline-start: -1.5em;
+    inset-inline-start: calc(0 - theme('spacing.11'));
     vertical-align: text-top;
 
     &.icon {
@@ -27,23 +28,29 @@
     }
 
     &.avatar {
-      inset-inline-start: -1.75em;
+      margin-top: theme('spacing.2');
+      margin-inline-start: calc(0 - theme('spacing.2'));
     }
   }
 
   .w-header__subtitle {
-    margin-inline-start: 0.3125rem;
-    font-weight: 400;
+    margin-inline-start: theme('spacing[1.5]');
+    font-weight: theme('fontWeight.normal');
+  }
+
+  .w-header__description {
+    font-size: theme('fontSize.18');
+    font-weight: theme('fontWeight.normal');
   }
 
   // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
   // Use w-header--with-padding for headers that don't contain .row elements.
   &.w-header--with-padding,
   > .row {
-    padding-top: 0.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: theme('spacing.2');
+    padding-bottom: theme('spacing.6');
     padding-inline-start: 110px;
-    padding-inline-end: 20px;
+    padding-inline-end: theme('spacing.5');
   }
 
   &.w-header--merged .w-breadcrumb {
@@ -79,7 +86,7 @@
   // For case where content below header should merge with it
   &.w-header--merged {
     margin-bottom: 0;
-    padding-bottom: 1rem;
+    padding-bottom: theme('spacing.1');
   }
 
   &.w-header--no-border {
@@ -144,7 +151,7 @@
     }
 
     a {
-      font-weight: bold;
+      font-weight: theme('fontWeight.bold');
     }
   }
 }
@@ -159,13 +166,19 @@
 @include media-breakpoint-up(sm) {
   .w-header {
     .row {
-      padding-top: 1.5rem;
       padding-inline-start: 90px;
       padding-inline-end: 90px;
+      padding-top: theme('spacing.6');
     }
 
     &.w-header--merged .w-breadcrumb {
       padding-inline-start: 0;
+    }
+
+    .w-header__glyph {
+      &.avatar {
+        margin-inline-start: calc(0 - theme('spacing.5'));
+      }
     }
 
     .left {

@@ -114,6 +114,35 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             )
             self.assertEqual(Redirect.objects.all().count(), 2)
 
+    def test_import_step_with_offset_columns(self):
+        f = "{}/files/example_offset_columns.csv".format(TEST_ROOT)
+        (_, filename) = os.path.split(f)
+
+        with open(f, "rb") as infile:
+            upload_file = SimpleUploadedFile(filename, infile.read())
+
+            self.assertEqual(Redirect.objects.all().count(), 0)
+
+            response = self.post(
+                {
+                    "import_file": upload_file,
+                }
+            )
+
+            import_response = self.post_import(
+                {
+                    **response.context["form"].initial,
+                    "from_index": 16,
+                    "to_index": 17,
+                    "permanent": True,
+                },
+            )
+
+            self.assertTemplateUsed(
+                import_response, "wagtailredirects/import_summary.html"
+            )
+            self.assertEqual(Redirect.objects.all().count(), 2)
+
     def test_permanent_setting(self):
         f = "{}/files/example.csv".format(TEST_ROOT)
         (_, filename) = os.path.split(f)

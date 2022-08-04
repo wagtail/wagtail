@@ -132,7 +132,8 @@ class EmbedHandler(EntityHandler):
 class RichTextMaxLengthValidator(MaxLengthValidator):
     """
     A variant of MaxLengthValidator that only counts text (not HTML tags) towards the limit
+    Un-escapes entities for consistency with client-side character count.
     """
 
     def clean(self, x):
-        return len(strip_tags(x))
+        return len(unescape(strip_tags(x)))

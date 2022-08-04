@@ -5,6 +5,7 @@ import {
   InlineToolbar,
   MetaToolbar,
   CommandPalette,
+  DraftUtils,
 } from 'draftail';
 import { Provider } from 'react-redux';
 
@@ -24,6 +25,7 @@ import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor, {
   getSplitControl,
+  splitState,
 } from './CommentableEditor/CommentableEditor';
 
 export { default as Link, onPasteLink } from './decorators/Link';
@@ -94,6 +96,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
   };
 
   const getSharedPropsFromOptions = (newOptions) => {
+    let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
           description: gettext('Horizontal line'),
@@ -102,7 +105,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
     const blockTypes = newOptions.blockTypes || [];
     const inlineStyles = newOptions.inlineStyles || [];
-    const controls = newOptions.controls || [];
+    let controls = newOptions.controls || [];
     const commands = newOptions.commands || true;
     let entityTypes = newOptions.entityTypes || [];
 
@@ -112,6 +115,23 @@ const initEditor = (selector, originalOptions, currentScript) => {
       // Override the properties defined in the JS plugin: Python should be the source of truth.
       return { ...plugin, ...type };
     });
+
+    // Only initialise the character count / max length on fields explicitly requiring it.
+    if (field.hasAttribute('maxlength')) {
+      const maxLengthID = `${field.id}-length`;
+      ariaDescribedBy = maxLengthID;
+      controls = controls.concat([
+        {
+          meta: (props) => (
+            <MaxLength
+              {...props}
+              maxLength={field.maxLength}
+              id={maxLengthID}
+            />
+          ),
+        },
+      ]);
+    }
 
     return {
       rawContentState: rawContentState,
@@ -133,11 +153,12 @@ const initEditor = (selector, originalOptions, currentScript) => {
       ),
       maxListNesting: 4,
       stripPastedStyles: false,
+      ariaDescribedBy,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
-      controls: controls.concat([{ meta: MaxLength }]),
+      controls,
       commands,
       enableHorizontalRule,
     };
@@ -200,7 +221,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
 export default {
   initEditor,
   getSplitControl,
+  splitState,
   registerPlugin,
+  DraftUtils,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
   ImageModalWorkflowSource,

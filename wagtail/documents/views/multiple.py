@@ -9,7 +9,6 @@ from wagtail.admin.views.generic.multiple_upload import (
 )
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
-from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
@@ -46,13 +45,7 @@ class AddView(BaseAddView):
     def save_object(self, form):
         doc = form.save(commit=False)
         doc.uploaded_by_user = self.request.user
-        doc.file_size = doc.file.size
-
-        # Set new document file hash
-        doc.file.seek(0)
-        doc._set_file_hash(doc.file.read())
-        doc.file.seek(0)
-
+        doc._set_document_file_metadata()
         doc.save()
 
         return doc
@@ -83,13 +76,6 @@ class EditView(BaseEditView):
 
     def get_edit_form_class(self):
         return get_document_multi_form(self.model)
-
-    def save_object(self, form):
-        form.save()
-
-        # Reindex the doc to make sure all tags are indexed
-        for backend in get_search_backends():
-            backend.add(self.object)
 
 
 class DeleteView(BaseDeleteView):
@@ -124,16 +110,11 @@ class CreateFromUploadedDocumentView(BaseCreateFromUploadView):
             os.path.basename(self.upload.file.name), self.upload.file.file, save=False
         )
         self.object.uploaded_by_user = self.request.user
-        self.object.file_size = self.object.file.size
-        self.object.file.open()
-        self.object.file.seek(0)
-        self.object._set_file_hash(self.object.file.read())
-        self.object.file.seek(0)
-        form.save()
 
-        # Reindex the document to make sure all tags are indexed
-        for backend in get_search_backends():
-            backend.add(self.object)
+        # form.save() would normally handle writing the image file metadata, but in this case the
+        # file handling happens outside the form, so we need to do that manually
+        self.object._set_document_file_metadata()
+        form.save()
 
 
 class DeleteUploadView(BaseDeleteUploadView):

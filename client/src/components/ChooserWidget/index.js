@@ -2,17 +2,14 @@ import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
+
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
+  editLinkStateKey = 'edit_link'; // key used in the 'state' dictionary to hold the URL of the edit page
   chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
-    this.chooserElement = document.getElementById(`${id}-chooser`);
-    this.titleElement = this.chooserElement.querySelector('.title');
-    this.input = document.getElementById(id);
-    this.editLink = this.chooserElement.querySelector('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
-
-    this.state = this.getStateFromHtml();
+    this.initHTMLElements(id);
+    this.state = this.getStateFromHTML();
 
     for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
       btn.addEventListener('click', () => {
@@ -26,7 +23,15 @@ export class Chooser {
     }
   }
 
-  getStateFromHtml() {
+  initHTMLElements(id) {
+    this.chooserElement = document.getElementById(`${id}-chooser`);
+    this.titleElement = this.chooserElement.querySelector('.title');
+    this.input = document.getElementById(id);
+    this.editLink = this.chooserElement.querySelector('.edit-link');
+    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
+  }
+
+  getStateFromHTML() {
     /*
         Construct initial state of the chooser from the rendered (static) HTML.
         State is either null (= no item chosen) or a dict of id, title and edit_link.
@@ -36,11 +41,16 @@ export class Chooser {
         passed directly to chooser.setState.
         */
     if (this.input.value) {
-      return {
+      const state = {
         id: this.input.value,
-        edit_link: this.editLink.getAttribute('href'),
-        [this.titleStateKey]: this.titleElement.innerText,
       };
+      if (this.titleElement && this.titleStateKey) {
+        state[this.titleStateKey] = this.titleElement.textContent;
+      }
+      if (this.editLink && this.editLinkStateKey) {
+        state[this.editLinkStateKey] = this.editLink.getAttribute('href');
+      }
+      return state;
     } else {
       return null;
     }
@@ -74,9 +84,13 @@ export class Chooser {
 
   renderState(newState) {
     this.input.setAttribute('value', newState.id);
-    this.titleElement.innerText = newState[this.titleStateKey];
+    if (this.titleElement && this.titleStateKey) {
+      this.titleElement.textContent = newState[this.titleStateKey];
+    }
     this.chooserElement.classList.remove('blank');
-    this.editLink.setAttribute('href', newState.edit_link);
+    if (this.editLink) {
+      this.editLink.setAttribute('href', newState[this.editLinkStateKey]);
+    }
   }
 
   getTextLabel(opts) {
@@ -89,17 +103,26 @@ export class Chooser {
   }
 
   focus() {
-    this.chooserElement.querySelector('.action-choose').focus();
+    if (this.state) {
+      this.chooserElement.querySelector('.chosen .action-choose').focus();
+    } else {
+      this.chooserElement.querySelector('.unchosen .action-choose').focus();
+    }
   }
 
   getModalUrl() {
     return this.chooserBaseUrl;
   }
 
+  getModalUrlParams() {
+    return null;
+  }
+
   openChooserModal() {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getModalUrl(),
+      urlParams: this.getModalUrlParams(),
       onload: this.modalOnloadHandlers,
       responses: {
         [this.chosenResponseName]: (result) => {

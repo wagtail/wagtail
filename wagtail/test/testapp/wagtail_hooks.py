@@ -165,9 +165,7 @@ def register_relax_menu_item(menu_items, request, context):
 
 
 @hooks.register("construct_page_listing_buttons")
-def register_page_listing_button_item(
-    buttons, page, page_perms, is_parent=False, context=None
-):
+def register_page_listing_button_item(buttons, page, page_perms, context=None):
     item = Button(
         label="Dummy Button",
         url="/dummy-button",
@@ -216,7 +214,7 @@ class BrokenLinksSummaryItem(SummaryItem):
     order = 100
 
     def render_html(self, parent_context):
-        return mark_safe("<p>0 broken links</p>")
+        return mark_safe("<li>0 broken links</li>")
 
     class Media:
         css = {"all": ["testapp/css/broken-links.css"]}

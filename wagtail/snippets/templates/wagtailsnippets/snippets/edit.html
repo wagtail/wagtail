@@ -14,7 +14,7 @@
 
         {% usage_count_enabled as uc_enabled %}
         <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
-            <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
                 {% csrf_token %}
                 {{ panel.render_form_content }}
                 <footer class="footer">

@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -14,11 +13,18 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.forms.choosers import (
+    BaseFilterForm,
+    CollectionFilterMixin,
+    LocaleFilterMixin,
+    SearchFilterMixin,
+)
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
-from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 
@@ -51,6 +57,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     model = None
     per_page = 10
+    ordering = None
     chosen_url_name = None
     results_url_name = None
     icon = "snippet"
@@ -58,13 +65,21 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     filter_form_class = None
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtailadmin/generic/chooser/results.html"
+    construct_queryset_hook_name = None
 
     def get_object_list(self):
-        objects = self.model.objects.all()
+        return self.model.objects.all()
 
-        # Preserve the model-level ordering if specified, but fall back on PK if not
-        # (to ensure pagination is consistent)
-        if not objects.ordered:
+    def apply_object_list_ordering(self, objects):
+        if isinstance(self.ordering, (list, tuple)):
+            objects = objects.order_by(*self.ordering)
+        elif self.ordering:
+            objects = objects.order_by(self.ordering)
+        elif objects.ordered:
+            # Preserve the model-level ordering if specified
+            pass
+        else:
+            # fall back on PK to ensure pagination is consistent
             objects = objects.order_by("pk")
 
         return objects
@@ -73,29 +88,33 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if self.filter_form_class:
             return self.filter_form_class
         else:
-            fields = {}
+            bases = [BaseFilterForm]
             if class_is_indexed(self.model):
-                fields["q"] = forms.CharField(
-                    label=_("Search term"), widget=forms.TextInput(), required=False
-                )
+                bases.insert(0, SearchFilterMixin)
+            if issubclass(self.model, CollectionMember):
+                bases.insert(0, CollectionFilterMixin)
+            if issubclass(self.model, TranslatableMixin):
+                bases.insert(0, LocaleFilterMixin)
 
             return type(
                 "FilterForm",
-                (forms.Form,),
-                fields,
+                tuple(bases),
+                {},
             )
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET)
 
-    def filter_object_list(self, objects, form):
-        search_query = form.cleaned_data.get("q")
-        if search_query:
-            search_backend = get_search_backend()
-            objects = search_backend.search(search_query, objects)
-            self.is_searching = True
-            self.search_query = search_query
+    def filter_object_list(self, objects):
+        if self.construct_queryset_hook_name:
+            # allow hooks to modify the queryset
+            for hook in hooks.get_hooks(self.construct_queryset_hook_name):
+                objects = hook(objects, self.request)
+
+        self.filter_form = self.get_filter_form()
+        if self.filter_form.is_valid():
+            objects = self.filter_form.filter(objects)
         return objects
 
     def get_results_url(self):
@@ -115,12 +134,8 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
 
     def get(self, request):
         objects = self.get_object_list()
-        self.is_searching = False
-        self.search_query = None
-
-        self.filter_form = self.get_filter_form()
-        if self.filter_form.is_valid():
-            objects = self.filter_object_list(objects, self.filter_form)
+        objects = self.apply_object_list_ordering(objects)
+        objects = self.filter_object_list(objects)
 
         paginator = Paginator(objects, per_page=self.per_page)
         self.results = paginator.get_page(request.GET.get("p"))
@@ -135,8 +150,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results": self.results,
                 "table": self.table,
                 "results_url": self.get_results_url(),
-                "is_searching": self.is_searching,
-                "search_query": self.search_query,
+                "is_searching": self.filter_form.is_searching,
+                "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
+                "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
             }
         )
@@ -289,6 +305,7 @@ class ChosenResponseMixin:
     """
 
     response_data_title_key = "title"
+    chosen_response_name = "chosen"
 
     def get_object_id(self, instance):
         return instance.pk
@@ -323,7 +340,7 @@ class ChosenResponseMixin:
             None,
             None,
             None,
-            json_data={"step": "chosen", "result": response_data},
+            json_data={"step": self.chosen_response_name, "result": response_data},
         )
 
 
