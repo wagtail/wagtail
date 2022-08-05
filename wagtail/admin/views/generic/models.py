@@ -539,13 +539,13 @@ class EditView(
     def get_object(self, queryset=None):
         if "pk" not in self.kwargs:
             self.kwargs["pk"] = self.args[0]
-        object = super().get_object(queryset)
+        self.live_object = super().get_object(queryset)
 
         # Cannot use self.draftstate_enabled here as there are subclasses
         # that rely on get_object to determine the model
-        if isinstance(object, DraftStateMixin):
-            return object.get_latest_revision_as_object()
-        return object
+        if isinstance(self.live_object, DraftStateMixin):
+            return self.live_object.get_latest_revision_as_object()
+        return self.live_object
 
     def get_page_subtitle(self):
         return str(self.object)

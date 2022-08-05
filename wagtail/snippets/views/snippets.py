@@ -283,8 +283,16 @@ class CreateView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(self.request, self.model(), self)
+        side_panels = SnippetSidePanels(
+            self.request,
+            self.model(),
+            self,
+            show_schedule_publishing_toggle=getattr(
+                form, "show_schedule_publishing_toggle", False
+            ),
+        )
         media = context.get("media") + action_menu.media + side_panels.media
 
         context.update(
@@ -333,11 +341,11 @@ class EditView(generic.EditView):
         return get_edit_handler(self.model)
 
     def get_object(self, queryset=None):
-        object = get_object_or_404(self.model, pk=unquote(self.pk))
+        self.live_object = get_object_or_404(self.model, pk=unquote(self.pk))
 
         if issubclass(self.model, DraftStateMixin):
-            return object.get_latest_revision_as_object()
-        return object
+            return self.live_object.get_latest_revision_as_object()
+        return self.live_object
 
     def get_edit_url(self):
         return reverse(
@@ -393,8 +401,20 @@ class EditView(generic.EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        form = context.get("form")
         action_menu = self._get_action_menu()
-        side_panels = SnippetSidePanels(self.request, self.object, self)
+        side_panels = SnippetSidePanels(
+            self.request,
+            self.object,
+            self,
+            show_schedule_publishing_toggle=getattr(
+                form, "show_schedule_publishing_toggle", False
+            ),
+            live_object=self.live_object,
+            scheduled_object=self.live_object.get_scheduled_revision_as_object()
+            if self.draftstate_enabled
+            else None,
+        )
         media = context.get("media") + action_menu.media + side_panels.media
 
         context.update(
@@ -402,6 +422,7 @@ class EditView(generic.EditView):
                 "model_opts": self.model._meta,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
+                "history_url": self.get_history_url(),
                 "media": media,
             }
         )
