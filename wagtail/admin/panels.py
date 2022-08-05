@@ -25,7 +25,7 @@ from wagtail.admin.widgets import AdminPageChooser
 from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.blocks import BlockField
 from wagtail.coreutils import safe_snake_case
-from wagtail.models import COMMENTS_RELATION_NAME, Page
+from wagtail.models import COMMENTS_RELATION_NAME, DraftStateMixin, Page
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
@@ -1100,6 +1100,8 @@ class PublishingPanel(MultiFieldPanel):
             context = super().get_context_data(parent_context)
             context["request"] = self.request
             context["instance"] = self.instance
+            if isinstance(self.instance, Page):
+                context["page"] = self.instance
             return context
 
         def show_panel_furniture(self):

@@ -3,13 +3,14 @@
 {% trans 'Set publishing schedule' as schedule_publishing_dialog_title %}
 {% trans 'Choose when this page should go live and/or expire' as schedule_publishing_dialog_subtitle %}
 
-{% page_permissions instance as page_perms %}
-
-{% if page_perms.can_publish %}
-    {% trans "This publishing schedule will only take effect after you have published" as message_heading %}
-{% else %}
-    {% trans "Anyone with editing permissions can create schedules" as message_heading %}
-    {% trans "But only those with publishing permissions can make them effective." as message_description %}
+{% if page %}
+    {% page_permissions instance as page_perms %}
+    {% if page_perms.can_publish %}
+        {% trans "This publishing schedule will only take effect after you have published" as message_heading %}
+    {% else %}
+        {% trans "Anyone with editing permissions can create schedules" as message_heading %}
+        {% trans "But only those with publishing permissions can make them effective." as message_description %}
+    {% endif %}
 {% endif %}
 
 <div data-schedule-publishing-dialog-root>

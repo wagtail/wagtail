@@ -15,7 +15,7 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
 
         if self.object.pk:
             templates += [
-                "wagtailsnippets/snippets/side_panels/includes/status/workflow.html",
+                "wagtailadmin/shared/side_panels/includes/status/workflow.html",
             ]
 
         if context.get("locale"):
@@ -27,6 +27,7 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
         context = super().get_context_data(parent_context)
         inherit = [
             "view",
+            "history_url",
             "revision_enabled",
             "draftstate_enabled",
             "live_last_updated_info",
@@ -59,11 +60,26 @@ class SnippetPreviewSidePanel(BasePreviewSidePanel):
 
 
 class SnippetSidePanels(BaseSidePanels):
-    def __init__(self, request, object, view):
+    def __init__(
+        self,
+        request,
+        object,
+        view,
+        *,
+        show_schedule_publishing_toggle,
+        live_object=None,
+        scheduled_object=None,
+    ):
         self.side_panels = []
         if object.pk or view.locale:
             self.side_panels += [
-                SnippetStatusSidePanel(object, request),
+                SnippetStatusSidePanel(
+                    object,
+                    request,
+                    show_schedule_publishing_toggle=show_schedule_publishing_toggle,
+                    live_object=live_object,
+                    scheduled_object=scheduled_object,
+                ),
             ]
 
         if isinstance(object, PreviewableMixin) and object.is_previewable():

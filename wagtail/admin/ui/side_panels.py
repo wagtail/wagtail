@@ -36,7 +36,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         *args,
         show_schedule_publishing_toggle=None,
         live_object=None,
-        scheduled_page=None,
+        scheduled_object=None,
         in_explorer=False,
         **kwargs,
     ):
@@ -45,7 +45,7 @@ class BaseStatusSidePanel(BaseSidePanel):
             show_schedule_publishing_toggle and not in_explorer
         )
         self.live_object = live_object
-        self.scheduled_page = scheduled_page
+        self.scheduled_object = scheduled_object
         self.in_explorer = in_explorer
 
     def get_status_templates(self, context):
@@ -78,16 +78,16 @@ class BaseStatusSidePanel(BaseSidePanel):
             "live_expire_at": None,
         }
 
-        # Only consider draft schedule if the page hasn't been created
+        # Only consider draft schedule if the object hasn't been created
         # or if there are unpublished changes
         if not self.object.pk or self.object.has_unpublished_changes:
             context["draft_go_live_at"] = self.object.go_live_at
             context["draft_expire_at"] = self.object.expire_at
 
-        # Get active schedule from the scheduled revision's page object (if any)
-        if self.scheduled_page:
-            context["scheduled_go_live_at"] = self.scheduled_page.go_live_at
-            context["scheduled_expire_at"] = self.scheduled_page.expire_at
+        # Get active schedule from the scheduled revision's object (if any)
+        if self.scheduled_object:
+            context["scheduled_go_live_at"] = self.scheduled_object.go_live_at
+            context["scheduled_expire_at"] = self.scheduled_object.expire_at
 
             # Ignore draft schedule if it's the same as the active schedule
             if context["draft_go_live_at"] == context["scheduled_go_live_at"]:
@@ -158,7 +158,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                 {
                     "in_explorer": self.in_explorer,
                     "live_object": self.live_object,
-                    "scheduled_page": self.scheduled_page,
+                    "scheduled_object": self.scheduled_object,
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
@@ -297,7 +297,7 @@ class PageSidePanels(BaseSidePanels):
                 self.request,
                 show_schedule_publishing_toggle=show_schedule_publishing_toggle,
                 live_object=live_page,
-                scheduled_page=scheduled_page,
+                scheduled_object=scheduled_page,
                 in_explorer=in_explorer,
             ),
         ]
