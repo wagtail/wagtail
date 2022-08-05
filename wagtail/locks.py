@@ -119,9 +119,7 @@ class ScheduledForPublishLock(BaseLock):
         return True
 
     def get_message(self, user):
-        scheduled_revision = self.page.revisions.filter(
-            approved_go_live_at__isnull=False
-        ).first()
+        scheduled_revision = self.page.scheduled_revision
 
         return format_html(
             _("Page '{}' is locked and has been scheduled to go live at {}"),
