@@ -59,10 +59,10 @@
     box-shadow: theme('boxShadow.md');
     border-radius: theme('borderRadius.md');
     margin-bottom: 15vh; // should appear slightly above centre
-    max-width: calc(theme('spacing.52') * 2);
+    max-width: calc(theme('spacing.32') * 3.15);
 
     @include media-breakpoint-up(sm) {
-      max-width: calc(theme('spacing.60') * 2);
+      max-width: calc(theme('spacing.32') * 3.5);
       padding: theme('spacing.12') theme('spacing.14');
     }
   }
@@ -82,7 +82,7 @@
   }
 
   .w-field__wrapper {
-    margin-bottom: theme('spacing.8');
+    margin-bottom: theme('spacing.6');
   }
 
   .skiplink {
@@ -92,7 +92,7 @@
   .reset-password {
     display: block;
     // bring in reset password link tight to the form
-    margin: calc(-1 * theme('spacing.6')) 0 theme('spacing.8');
+    margin: calc(-1 * theme('spacing.4')) 0 theme('spacing.8');
   }
 
   .remember-me {
