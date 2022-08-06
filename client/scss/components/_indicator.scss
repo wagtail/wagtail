@@ -20,7 +20,27 @@
 }
 
 .indicator {
-  margin-inline-end: 0;
   font-size: 1em;
-  opacity: 0.7;
+  margin-inline-end: 0;
+  opacity: theme('opacity.70');
+
+  .icon {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    font-size: 1.25em;
+    padding: 2px;
+    vertical-align: middle; // reset vertical-align set by icon.initial
+
+    @media (forced-colors: active) {
+      background-color: ButtonText;
+    }
+  }
+
+  &.indicator--is-inverse {
+    .icon {
+      border-color: $color-white; // ensure border is available for high contrast mode
+      background-color: $color-grey-1;
+      color: $color-white;
+    }
+  }
 }

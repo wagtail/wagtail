@@ -401,7 +401,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Must have one privacy icon (next to the private page)
         self.assertContains(
             response,
-            '<span class="indicator privacy-indicator icon icon-no-view"',
+            'class="indicator privacy-indicator"',
             count=1,
         )
 
@@ -420,7 +420,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Must have one privacy icon (next to the private child page)
         self.assertContains(
             response,
-            '<span class="indicator privacy-indicator icon icon-no-view"',
+            'class="indicator privacy-indicator"',
             count=1,
         )
 
