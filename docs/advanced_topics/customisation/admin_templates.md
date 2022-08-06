@@ -36,9 +36,11 @@ To replace the default logo, create a template file `dashboard/templates/wagtail
 {% endblock %}
 ```
 
-The logo also appears on the admin 404 error page; to replace it there too, create a template file `dashboard/templates/wagtailadmin/404.html` that overrides the `branding_logo` block.
+The logo also appears in the following pages and can be replaced with its template file:
 
-The logo also appears on the wagtail userbar; to replace it there too, create a template file `dashboard/templates/wagtailadmin/userbar/base.html` that overwrites the `branding_logo` block.
+-   **login page** - create a template file `dashboard/templates/wagtailadmin/login.html` that overwrites the `branding_logo` block.
+-   **404 error page** - create a template file `dashboard/templates/wagtailadmin/404.html` that overrides the `branding_logo` block.
+-   **wagtail userbar** - create a template file `dashboard/templates/wagtailadmin/userbar/base.html` that overwrites the `branding_logo` block.
 
 ### `branding_favicon`
 

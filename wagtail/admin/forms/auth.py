@@ -23,6 +23,7 @@ class LoginForm(AuthenticationForm):
         self.fields["username"].widget.attrs["placeholder"] = (
             gettext_lazy("Enter your %s") % self.username_field.verbose_name
         )
+        self.fields["username"].widget.attrs["autofocus"] = ""
 
     @property
     def extra_fields(self):
