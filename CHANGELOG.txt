@@ -101,6 +101,7 @@ Changelog
  * Rework layout of login and password reset pages to ensure `main` id on main element (for skip link) and consistent DOM layout for h1 header (Paarth Agarwal, LB (Ben) Johnston)
  * Adopt new design, including logo, for login and password reset pages (Paarth Agarwal, LB (Ben) Johnston)
  * Remove usage of inline script to focus on the username field, instead use `autofocus` (LB (Ben) Johnston)
+ * Improve organisation of the settings reference page in the documentation (Akash Kumar Sen)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
