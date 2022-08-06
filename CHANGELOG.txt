@@ -150,6 +150,7 @@ Changelog
  * Fix: Stop rich text fields from overlapping with sidebar (Thibaud Colas)
  * Fix: Prevent comment buttons from overlapping with fields (Thibaud Colas)
  * Fix: Resolve MySQL search compatibility issue with Django 4.1 (Andy Chosak)
+ * Fix: Ensure that the fields on login and password reset forms are visible in forced colors mode (Paarth Agarwal)
 
 
 3.0.1 (16.06.2022)
