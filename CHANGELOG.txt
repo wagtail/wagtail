@@ -149,6 +149,7 @@ Changelog
  * Fix: Make it possible to scroll input fields in admin on safari mobile (Thibaud Colas)
  * Fix: Stop rich text fields from overlapping with sidebar (Thibaud Colas)
  * Fix: Prevent comment buttons from overlapping with fields (Thibaud Colas)
+ * Fix: Resolve MySQL search compatibility issue with Django 4.1 (Andy Chosak)
 
 
 3.0.1 (16.06.2022)
