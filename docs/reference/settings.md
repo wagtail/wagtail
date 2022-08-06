@@ -173,50 +173,55 @@ WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
 
 This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
 
-## User preferences
+## General editing
 
-(wagtail_gravatar_provider_url)=
+(WAGTAILADMIN_RICH_TEXT_EDITORS)=
 
-### `WAGTAIL_GRAVATAR_PROVIDER_URL`
-
-```python
-WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
-```
-
-If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
-
-(WAGTAIL_USER_TIME_ZONES)=
-
-### `WAGTAIL_USER_TIME_ZONES`
-
-Logged-in users can choose their current time zone for the admin interface in the account settings. If is no time zone selected by the user, then `TIME_ZONE` will be used.
-(Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
-
-The list of time zones is by default the common_timezones list from pytz.
-It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
-If there is zero or one time zone permitted, the account settings form will be hidden.
+### `WAGTAILADMIN_RICH_TEXT_EDITORS`
 
 ```python
-WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': ['h2', 'bold', 'italic', 'link', 'document-link']
+        }
+    },
+    'secondary': {
+        'WIDGET': 'some.external.RichTextEditor',
+    }
+}
 ```
 
-(WAGTAILADMIN_PERMITTED_LANGUAGES)=
+Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
 
-### `WAGTAILADMIN_PERMITTED_LANGUAGES`
+-   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
+-   `OPTIONS`: Configuration options to pass to the widget. Recognised options are widget-specific, but `DraftailRichTextArea` accept a `features` list indicating the active rich text features (see [](rich_text_features)).
 
-Users can choose between several languages for the admin interface in the account settings. The list of languages is by default all the available languages in Wagtail with at least 90% coverage. To change it, set `WAGTAILADMIN_PERMITTED_LANGUAGES`:
+If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
+
+(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION)=
+
+### `WAGTAILADMIN_EXTERNAL_LINK_CONVERSION`
 
 ```python
-WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
-                                    ('pt', 'Portuguese')]
+WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
 ```
 
-Since the syntax is the same as Django `LANGUAGES`, you can do this so users can only choose between front office languages:
+Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
+
+## Date and DateTime inputs
+
+### `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT`
 
 ```python
-LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
-                                                ('pt', 'Portuguese')]
+WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
+WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
+WAGTAIL_TIME_FORMAT = '%H:%M'
 ```
+
+Specifies the date, time and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior), and must be one of the recognised formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
+
 
 ## Page editing
 
@@ -267,41 +272,6 @@ WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
 ```
 
 This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
-
-(WAGTAILADMIN_RICH_TEXT_EDITORS)=
-
-### `WAGTAILADMIN_RICH_TEXT_EDITORS`
-
-```python
-WAGTAILADMIN_RICH_TEXT_EDITORS = {
-    'default': {
-        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
-        'OPTIONS': {
-            'features': ['h2', 'bold', 'italic', 'link', 'document-link']
-        }
-    },
-    'secondary': {
-        'WIDGET': 'some.external.RichTextEditor',
-    }
-}
-```
-
-Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
-
--   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
--   `OPTIONS`: Configuration options to pass to the widget. Recognised options are widget-specific, but `DraftailRichTextArea` accept a `features` list indicating the active rich text features (see [](rich_text_features)).
-
-If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
-
-(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION)=
-
-### `WAGTAILADMIN_EXTERNAL_LINK_CONVERSION`
-
-```python
-WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
-```
-
-Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
 
 ## Images
 
@@ -545,6 +515,51 @@ WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
 
 Allows the default `LoginForm` to be extended with extra fields.
 
+## User preferences
+
+(wagtail_gravatar_provider_url)=
+
+### `WAGTAIL_GRAVATAR_PROVIDER_URL`
+
+```python
+WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
+```
+
+If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
+
+(WAGTAIL_USER_TIME_ZONES)=
+
+### `WAGTAIL_USER_TIME_ZONES`
+
+Logged-in users can choose their current time zone for the admin interface in the account settings. If is no time zone selected by the user, then `TIME_ZONE` will be used.
+(Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
+
+The list of time zones is by default the common_timezones list from pytz.
+It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
+If there is zero or one time zone permitted, the account settings form will be hidden.
+
+```python
+WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
+```
+
+(WAGTAILADMIN_PERMITTED_LANGUAGES)=
+
+### `WAGTAILADMIN_PERMITTED_LANGUAGES`
+
+Users can choose between several languages for the admin interface in the account settings. The list of languages is by default all the available languages in Wagtail with at least 90% coverage. To change it, set `WAGTAILADMIN_PERMITTED_LANGUAGES`:
+
+```python
+WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                    ('pt', 'Portuguese')]
+```
+
+Since the syntax is the same as Django `LANGUAGES`, you can do this so users can only choose between front office languages:
+
+```python
+LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                                ('pt', 'Portuguese')]
+```
+
 ## Email Notifications
 
 ### `WAGTAILADMIN_NOTIFICATION_FROM_EMAIL`
@@ -585,7 +600,7 @@ For admins only, Wagtail performs a check on the dashboard to see if newer relea
 
 If admins should only be informed of new long term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
 
-## Front-end authentication
+## Frontend authentication
 
 ### `PASSWORD_REQUIRED_TEMPLATE`
 
@@ -671,19 +686,6 @@ The link is also shown on the delete page, above the "Delete" button.
 The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
 ```
 
-## Date and DateTime inputs
-
-### `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT`
-
-```python
-WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
-WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
-WAGTAIL_TIME_FORMAT = '%H:%M'
-```
-
-Specifies the date, time and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior), and must be one of the recognised formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
-
-
 
 ## Static files
 
@@ -695,7 +697,7 @@ WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
 
 Static file URLs within the Wagtail admin are given a version-specific query string of the form `?v=1a2b3c4d`, to prevent outdated cached copies of JavaScript and CSS files from persisting after a Wagtail upgrade. To disable these, set `WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS` to `False`.
 
-## API Settings
+## API
 
 For full documentation on API configuration, including these settings, see [](api_v2_configuration) documentation.
 
