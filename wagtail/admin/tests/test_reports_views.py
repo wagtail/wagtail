@@ -63,6 +63,12 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
             response.content.decode(),
         )
 
+        # Locked by current user shown in indicator
+        self.assertContains(response, "locked-indicator indicator--is-inverse")
+        self.assertContains(
+            response, 'title="This page is locked, by you, to further editing"'
+        )
+
     def test_csv_export(self):
 
         self.page = Page.objects.first()
