@@ -82,7 +82,11 @@ $desktop-nice-padding: 100px;
     }
 
     &:first-child input {
-      border: 2px solid transparent;
+      /* stylelint-disable max-nesting-depth */
+      @media (forced-colors: active) {
+        border: 2px solid transparent;
+      }
+      /* stylelint-enable max-nesting-depth */
     }
   }
 
