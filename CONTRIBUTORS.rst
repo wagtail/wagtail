@@ -615,6 +615,7 @@ Contributors
 * Alexander Rogovskyy
 * Dominik Lech
 * Paritosh Kabra
+* Akash Kumar Sen
 
 
 Translators
