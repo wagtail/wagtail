@@ -200,6 +200,32 @@ To completely customise the login form, override the `login_form` block. This bl
 {% endblock %}
 ```
 
+## Extending the password reset request form
+
+To add extra controls to the password reset form, create a template file `dashboard/templates/wagtailadmin/account/password_reset/form.html`.
+
+### `above_form` and `below_form`
+
+To add content above or below the password reset form, override these blocks:
+
+```html+django
+{% extends "wagtailadmin/account/password_reset/form.html" %}
+
+{% block above_login %} If you have not received your email within 7 days, call us. {% endblock %}
+```
+
+### `submit_buttons`
+
+To add extra buttons to the password reset form, override the `submit_buttons` block. You will need to add `{{ block.super }}` somewhere in your block if you want to include the original submit button:
+
+```html+django
+{% extends "wagtailadmin/account/password_reset/form.html" %}
+
+{% block submit_buttons %}
+    <a href="{% url 'helpdesk' %}">Contact the helpdesk</a>
+{% endblock %}
+```
+
 (extending_clientside_components)=
 
 ## Extending client-side components
