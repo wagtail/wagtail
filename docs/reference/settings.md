@@ -2,7 +2,7 @@
 
 Wagtail makes use of the following settings, in addition to [Django's core settings](django:ref/settings)`:
 
-## Site Name
+## Sites
 
 ### `WAGTAIL_SITE_NAME`
 
@@ -11,6 +11,22 @@ WAGTAIL_SITE_NAME = 'Stark Industries Skunkworks'
 ```
 
 This is the human-readable name of your Wagtail install which welcomes users upon login to the Wagtail admin.
+
+(wagtailadmin_base_url)=
+
+### `WAGTAILADMIN_BASE_URL`
+
+```python
+WAGTAILADMIN_BASE_URL = 'http://example.com'
+```
+
+This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
+
+If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
+
+```{versionchanged} 3.0
+This setting was previously named ``BASE_URL`` and was undocumented, using ``BASE_URL`` will be removed in a future release.
+```
 
 (append_slash)=
 
@@ -33,23 +49,6 @@ When `WAGTAIL_APPEND_SLASH` is `False`, requests to Wagtail pages will be served
 If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See [this Google Search Central Blog post](https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash) for more details.
 ```
 
-## ADMIN BASE URL
-
-(wagtailadmin_base_url)=
-
-### `WAGTAILADMIN_BASE_URL`
-
-```python
-WAGTAILADMIN_BASE_URL = 'http://example.com'
-```
-
-This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
-
-If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
-
-```{versionchanged} 3.0
-This setting was previously named ``BASE_URL`` and was undocumented, using ``BASE_URL`` will be removed in a future release.
-```
 
 ## Search
 
@@ -174,7 +173,7 @@ WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
 
 This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
 
-## User
+## User preferences
 
 (wagtail_gravatar_provider_url)=
 
@@ -186,7 +185,40 @@ WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
 
-## Comments
+(WAGTAIL_USER_TIME_ZONES)=
+
+### `WAGTAIL_USER_TIME_ZONES`
+
+Logged-in users can choose their current time zone for the admin interface in the account settings. If is no time zone selected by the user, then `TIME_ZONE` will be used.
+(Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
+
+The list of time zones is by default the common_timezones list from pytz.
+It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
+If there is zero or one time zone permitted, the account settings form will be hidden.
+
+```python
+WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
+```
+
+(WAGTAILADMIN_PERMITTED_LANGUAGES)=
+
+### `WAGTAILADMIN_PERMITTED_LANGUAGES`
+
+Users can choose between several languages for the admin interface in the account settings. The list of languages is by default all the available languages in Wagtail with at least 90% coverage. To change it, set `WAGTAILADMIN_PERMITTED_LANGUAGES`:
+
+```python
+WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                    ('pt', 'Portuguese')]
+```
+
+Since the syntax is the same as Django `LANGUAGES`, you can do this so users can only choose between front office languages:
+
+```python
+LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
+                                                ('pt', 'Portuguese')]
+```
+
+## Page editing
 
 ### `WAGTAILADMIN_COMMENTS_ENABLED`
 
@@ -196,6 +228,80 @@ WAGTAILADMIN_COMMENTS_ENABLED = False
 ```
 
 Sets whether commenting is enabled for pages (`True` by default).
+
+### `WAGTAIL_ALLOW_UNICODE_SLUGS`
+
+```python
+WAGTAIL_ALLOW_UNICODE_SLUGS = True
+```
+
+By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
+
+### `WAGTAIL_AUTO_UPDATE_PREVIEW`
+
+```python
+WAGTAIL_AUTO_UPDATE_PREVIEW = True
+```
+
+When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
+This behaviour is enabled by default.
+
+### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
+
+```python
+WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
+```
+
+The interval (in milliseconds) to check for changes made in the page editor before updating the preview. The default value is `500`.
+
+(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK)=
+
+### `WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`
+
+`WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK` can be set to `True` to prevent users from editing pages that they have locked.
+
+### `WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT`
+
+```python
+WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
+```
+
+This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
+
+(WAGTAILADMIN_RICH_TEXT_EDITORS)=
+
+### `WAGTAILADMIN_RICH_TEXT_EDITORS`
+
+```python
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': ['h2', 'bold', 'italic', 'link', 'document-link']
+        }
+    },
+    'secondary': {
+        'WIDGET': 'some.external.RichTextEditor',
+    }
+}
+```
+
+Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
+
+-   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
+-   `OPTIONS`: Configuration options to pass to the widget. Recognised options are widget-specific, but `DraftailRichTextArea` accept a `features` list indicating the active rich text features (see [](rich_text_features)).
+
+If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
+
+(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION)=
+
+### `WAGTAILADMIN_EXTERNAL_LINK_CONVERSION`
+
+```python
+WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
+```
+
+Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
 
 ## Images
 
@@ -349,7 +455,7 @@ If this isn't supplied all document extensions are allowed.
 Warning: this doesn't always ensure that the uploaded file is valid as files can
 be renamed to have an extension no matter what data they contain.
 
-## Password Management
+## User Management
 
 ### `WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`
 
@@ -401,6 +507,44 @@ WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
 
 Allows the default `PasswordResetForm` to be extended with extra fields.
 
+### `WAGTAIL_USER_EDIT_FORM`
+
+```python
+WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
+```
+
+Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
+
+For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+
+### `WAGTAIL_USER_CREATION_FORM`
+
+```python
+WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
+```
+
+Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
+
+For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+
+### `WAGTAIL_USER_CUSTOM_FIELDS`
+
+```python
+WAGTAIL_USER_CUSTOM_FIELDS = ['country']
+```
+
+A list of the extra custom fields to be appended to the default list.
+
+For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+
+### `WAGTAILADMIN_USER_LOGIN_FORM`
+
+```python
+WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
+```
+
+Allows the default `LoginForm` to be extended with extra fields.
+
 ## Email Notifications
 
 ### `WAGTAILADMIN_NOTIFICATION_FROM_EMAIL`
@@ -441,7 +585,7 @@ For admins only, Wagtail performs a check on the dashboard to see if newer relea
 
 If admins should only be informed of new long term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
 
-## Private pages / documents
+## Front-end authentication
 
 ### `PASSWORD_REQUIRED_TEMPLATE`
 
@@ -458,16 +602,6 @@ DOCUMENT_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
-
-## Login page
-
-### `WAGTAILADMIN_USER_LOGIN_FORM`
-
-```python
-WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
-```
-
-Allows the default `LoginForm` to be extended with extra fields.
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
@@ -487,7 +621,7 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 For more details, see the [](login_page) documentation.
 
-## Case-Insensitive Tags
+## Tags
 
 ### `TAGGIT_CASE_INSENSITIVE`
 
@@ -497,8 +631,6 @@ TAGGIT_CASE_INSENSITIVE = True
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
-## Multi-word tags
-
 ### `TAG_SPACES_ALLOWED`
 
 ```python
@@ -506,8 +638,6 @@ TAG_SPACES_ALLOWED = False
 ```
 
 Tags can only consist of a single word, no spaces allowed. The default setting is `True` (spaces in tags are allowed).
-
-## Tag limit
 
 ### `TAG_LIMIT`
 
@@ -517,62 +647,7 @@ TAG_LIMIT = 5
 
 Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `None`, meaning no limit on tags.
 
-## Unicode Page Slugs
 
-### `WAGTAIL_ALLOW_UNICODE_SLUGS`
-
-```python
-WAGTAIL_ALLOW_UNICODE_SLUGS = True
-```
-
-By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
-
-## Auto update preview
-
-### `WAGTAIL_AUTO_UPDATE_PREVIEW`
-
-```python
-WAGTAIL_AUTO_UPDATE_PREVIEW = True
-```
-
-When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
-This behaviour is enabled by default.
-
-### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
-
-```python
-WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
-```
-
-The interval (in milliseconds) to check for changes made in the page editor before updating the preview. The default value is `500`.
-
-## Custom User Edit Forms
-
-See {doc}`/advanced_topics/customisation/custom_user_models`.
-
-### `WAGTAIL_USER_EDIT_FORM`
-
-```python
-WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
-```
-
-Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
-
-### `WAGTAIL_USER_CREATION_FORM`
-
-```python
-WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
-```
-
-Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
-
-### `WAGTAIL_USER_CUSTOM_FIELDS`
-
-```python
-WAGTAIL_USER_CUSTOM_FIELDS = ['country']
-```
-
-A list of the extra custom fields to be appended to the default list.
 
 (WAGTAIL_USAGE_COUNT_ENABLED)=
 
@@ -608,42 +683,7 @@ WAGTAIL_TIME_FORMAT = '%H:%M'
 
 Specifies the date, time and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior), and must be one of the recognised formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
 
-(WAGTAIL_USER_TIME_ZONES)=
 
-## Time zones
-
-Logged-in users can choose their current time zone for the admin interface in the account settings. If is no time zone selected by the user, then `TIME_ZONE` will be used.
-(Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
-
-### `WAGTAIL_USER_TIME_ZONES`
-
-The list of time zones is by default the common_timezones list from pytz.
-It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
-If there is zero or one time zone permitted, the account settings form will be hidden.
-
-```python
-WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
-```
-
-(WAGTAILADMIN_PERMITTED_LANGUAGES)=
-
-## Admin languages
-
-Users can choose between several languages for the admin interface in the account settings. The list of languages is by default all the available languages in Wagtail with at least 90% coverage. To change it, set `WAGTAILADMIN_PERMITTED_LANGUAGES`:
-
-### `WAGTAILADMIN_PERMITTED_LANGUAGES`
-
-```python
-WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
-                                    ('pt', 'Portuguese')]
-```
-
-Since the syntax is the same as Django `LANGUAGES`, you can do this so users can only choose between front office languages:
-
-```python
-LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
-                                                ('pt', 'Portuguese')]
-```
 
 ## Static files
 
@@ -720,51 +760,6 @@ WAGTAILFRONTENDCACHE_LANGUAGES = [l[0] for l in settings.LANGUAGES]
 
 Default is an empty list, must be a list of languages to also purge the urls for each language of a purging url. This setting needs `settings.USE_I18N` to be `True` to work.
 
-(WAGTAILADMIN_RICH_TEXT_EDITORS)=
-
-## Rich text
-
-### `WAGTAILADMIN_RICH_TEXT_EDITORS`
-
-```python
-WAGTAILADMIN_RICH_TEXT_EDITORS = {
-    'default': {
-        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
-        'OPTIONS': {
-            'features': ['h2', 'bold', 'italic', 'link', 'document-link']
-        }
-    },
-    'secondary': {
-        'WIDGET': 'some.external.RichTextEditor',
-    }
-}
-```
-
-Customise the behaviour of rich text fields. By default, `RichTextField` and `RichTextBlock` use the configuration given under the `'default'` key, but this can be overridden on a per-field basis through the `editor` keyword argument, for example `body = RichTextField(editor='secondary')`. Within each configuration block, the following fields are recognised:
-
--   `WIDGET`: The rich text widget implementation to use. Wagtail provides `wagtail.admin.rich_text.DraftailRichTextArea` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
--   `OPTIONS`: Configuration options to pass to the widget. Recognised options are widget-specific, but `DraftailRichTextArea` accept a `features` list indicating the active rich text features (see [](rich_text_features)).
-
-If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
-
-(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION)=
-
-### `WAGTAILADMIN_EXTERNAL_LINK_CONVERSION`
-
-```python
-WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
-```
-
-Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
-
-(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK)=
-
-## Page locking
-
-### `WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`
-
-`WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK` can be set to `True` to prevent users from editing pages that they have locked.
-
 ## Redirects
 
 ### `WAGTAIL_REDIRECTS_FILE_STORAGE`
@@ -839,13 +834,3 @@ WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the workflow continues to provide less urgent feedback.
-
-## Page deletion
-
-### `WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT`
-
-```python
-WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT = 20
-```
-
-This setting enables an additional confirmation step when deleting a page with a large number of child pages. If the number of pages is greater than or equal to this limit (10 by default), the user must enter the site name (as defined by `WAGTAIL_SITE_NAME`) to proceed.
