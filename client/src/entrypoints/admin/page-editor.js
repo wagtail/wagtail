@@ -250,25 +250,6 @@ function initErrorDetection() {
 
 window.initErrorDetection = initErrorDetection;
 
-function initKeyboardShortcuts() {
-  // eslint-disable-next-line no-undef
-  Mousetrap.bind(['mod+p'], () => {
-    const previewToggle = document.querySelector(
-      '[data-side-panel-toggle="preview"]',
-    );
-    if (previewToggle) previewToggle.click();
-    return false;
-  });
-
-  // eslint-disable-next-line no-undef
-  Mousetrap.bind(['mod+s'], () => {
-    $('.action-save').trigger('click');
-    return false;
-  });
-}
-
-window.initKeyboardShortcuts = initKeyboardShortcuts;
-
 $(() => {
   /* Only non-live pages should auto-populate the slug from the title */
   if (!$('body').hasClass('page-is-live')) {
@@ -277,7 +258,6 @@ $(() => {
 
   initSlugCleaning();
   initErrorDetection();
-  initKeyboardShortcuts();
 });
 
 let updateFooterTextTimeout = -1;
