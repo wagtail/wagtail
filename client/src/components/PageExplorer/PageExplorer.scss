@@ -44,8 +44,8 @@ $explorer-header-horizontal-padding: 10px;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  margin-inline-start: $sidebar-toggle-spacing * 2 + $sidebar-toggle-size;
-  height: $sidebar-toggle-spacing * 2 + $sidebar-toggle-size;
+  margin-inline-start: $mobile-nav-indent;
+  height: $mobile-nav-indent;
 
   @include media-breakpoint-up(sm) {
     margin-inline-start: initial;
