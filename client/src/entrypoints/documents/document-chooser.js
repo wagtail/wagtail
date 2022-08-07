@@ -1,4 +1,5 @@
 import { Chooser } from '../../components/ChooserWidget';
+import { removedInWagtail50Warning } from '../../utils/deprecation';
 
 class DocumentChooser extends Chooser {
   // eslint-disable-next-line no-undef
@@ -7,7 +8,9 @@ class DocumentChooser extends Chooser {
 window.DocumentChooser = DocumentChooser;
 
 function createDocumentChooser(id) {
-  /* RemovedInWagtail50Warning */
+  removedInWagtail50Warning(
+    '`createDocumentChooser(id)` should be replaced with `new DocumentChooser(id)`',
+  );
   return new DocumentChooser(id);
 }
 window.createDocumentChooser = createDocumentChooser;

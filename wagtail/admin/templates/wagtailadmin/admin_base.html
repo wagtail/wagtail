@@ -51,6 +51,7 @@
     <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
     <script src="{% url 'wagtailadmin_javascript_catalog' %}"></script>
+    {% is_debug as load_development_script %}{% if load_development_script %}<script src="{% versioned_static 'wagtailadmin/js/development.js' %}"></script>{% endif %}
     <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>

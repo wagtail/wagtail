@@ -1,4 +1,5 @@
 import { Chooser } from '../../components/ChooserWidget';
+import { removedInWagtail50Warning } from '../../utils/deprecation';
 
 class ImageChooser extends Chooser {
   // eslint-disable-next-line no-undef
@@ -37,7 +38,9 @@ class ImageChooser extends Chooser {
 window.ImageChooser = ImageChooser;
 
 function createImageChooser(id) {
-  /* RemovedInWagtail50Warning */
+  removedInWagtail50Warning(
+    '`createImageChooser(id)` should be replaced with `newImageChooser(id)`',
+  );
   return new ImageChooser(id);
 }
 

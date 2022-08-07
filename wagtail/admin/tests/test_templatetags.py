@@ -369,3 +369,36 @@ class FragmentTagTest(TestCase):
         """
 
         self.assertHTMLEqual(expected, Template(template).render(context))
+
+
+class IsDebugTagTest(TestCase):
+    def test_debug_false(self):
+        context = Context({})
+
+        template = """
+            {% load wagtailadmin_tags %}
+            {% is_debug as debug %}
+            {% if debug %}DEBUG!{% else %}NOT DEBUG!{% endif %}
+        """
+
+        expected = """
+        NOT DEBUG!
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(context))
+
+    @override_settings(DEBUG=True)
+    def test_debug_true(self):
+        context = Context({})
+
+        template = """
+            {% load wagtailadmin_tags %}
+            {% is_debug as debug %}
+            {% if debug %}DEBUG!{% else %}NOT DEBUG!{% endif %}
+        """
+
+        expected = """
+        DEBUG!
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(context))

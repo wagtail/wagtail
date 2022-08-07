@@ -1,4 +1,5 @@
 import { Chooser } from '../../components/ChooserWidget';
+import { removedInWagtail50Warning } from '../../utils/deprecation';
 
 /* global wagtailConfig */
 
@@ -20,7 +21,9 @@ class SnippetChooser extends Chooser {
 window.SnippetChooser = SnippetChooser;
 
 function createSnippetChooser(id) {
-  /* RemovedInWagtail50Warning */
+  removedInWagtail50Warning(
+    '`createSnippetChooser(id)` should be replaced with `new SnippetChooser(id)`',
+  );
   return new SnippetChooser(id);
 }
 window.createSnippetChooser = createSnippetChooser;

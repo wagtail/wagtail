@@ -1078,3 +1078,8 @@ def human_readable_date(date, description=None):
         "date": date,
         "description": description,
     }
+
+
+@register.simple_tag()
+def is_debug():
+    return settings.DEBUG

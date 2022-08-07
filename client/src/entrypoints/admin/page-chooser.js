@@ -1,4 +1,5 @@
 import { Chooser } from '../../components/ChooserWidget';
+import { removedInWagtail50Warning } from '../../utils/deprecation';
 
 class PageChooser extends Chooser {
   // eslint-disable-next-line no-undef
@@ -49,7 +50,9 @@ class PageChooser extends Chooser {
 window.PageChooser = PageChooser;
 
 function createPageChooser(id, parentId, options) {
-  /* RemovedInWagtail50Warning */
+  removedInWagtail50Warning(
+    '`createPageChooser(id)` should be replaced with `new PageChooser(id)`',
+  );
   return new PageChooser(id, parentId, options);
 }
 window.createPageChooser = createPageChooser;

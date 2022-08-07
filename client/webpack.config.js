@@ -37,6 +37,7 @@ module.exports = function exports(env, argv) {
       'comments',
       'core',
       'date-time-chooser',
+      'development',
       'draftail',
       'expanding-formset',
       'filtered-select',
