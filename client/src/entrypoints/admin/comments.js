@@ -2,6 +2,7 @@ import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
 
 const KEYCODE_M = 77;
+const COMMENT_KEYBOARD_SHORTCUTS = ['ctrl+alt+m', 'meta+alt+m'];
 
 /**
  * Entry point loaded when the comments system is in use.
@@ -11,7 +12,7 @@ window.comments = (() => {
 
   /**
    * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
-   * shortcut
+   * shortcut. Used for Draftail editor commenting
    */
   function isCommentShortcut(e) {
     return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M;
@@ -217,8 +218,19 @@ window.comments = (() => {
         // Make the widget button clickable to add a comment
         addComment();
       });
-      this.fieldNode.addEventListener('keyup', (e) => {
-        if (currentlyEnabled && isCommentShortcut(e)) {
+
+      this.fieldNode.addEventListener(
+        'wagtail:comments-key-activated',
+        (event) => {
+          // if comments not enabled - ignore
+          if (!currentlyEnabled) return;
+
+          // stop any further triggering
+          event.stopPropagation();
+          event.detail.keyboardEvent.preventDefault();
+          event.detail.keyboardEvent.stopPropagation();
+
+          // set up new comment or focus on existing comment
           if (currentComments.length === 0) {
             addComment();
           } else {
@@ -229,8 +241,8 @@ window.comments = (() => {
               }),
             );
           }
-        }
-      });
+        },
+      );
 
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
@@ -324,6 +336,31 @@ window.comments = (() => {
       data.user,
       data.comments,
       new Map(Object.entries(data.authors)),
+    );
+
+    /**
+     * Register a keyboard shortcut globally to listen for the add comment shortcut.
+     * Dispatch an event to be caught by the commentable field so that the shortcut can
+     * be used.
+     */
+    document.dispatchEvent(
+      new CustomEvent('wagtail:bind-keyboard-shortcut', {
+        detail: {
+          key: COMMENT_KEYBOARD_SHORTCUTS,
+          callback: (event) => {
+            const element = event.srcElement || event.target;
+            if (element === document.body || !element) return;
+            element.dispatchEvent(
+              new CustomEvent('wagtail:comments-key-activated', {
+                bubbles: true,
+                detail: { keyboardEvent: event },
+              }),
+            );
+          },
+          isGlobal: true,
+          target: commentsElement,
+        },
+      }),
     );
 
     formElement

@@ -5,6 +5,7 @@ import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
 import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
+import initKeyboardShortcuts from '../../includes/initKeyboardShortcuts';
 import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
@@ -29,6 +30,7 @@ window.wagtail.components = {
  * Add in here code to run once the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
+  initKeyboardShortcuts();
   initUpgradeNotification();
   initTooltips();
   initModernDropdown();

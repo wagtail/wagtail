@@ -1163,7 +1163,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             </button>
         """
         save_button = """
-            <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
+            <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" data-keyboard-shortcut="mod+s">
                 <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true"><use href="#icon-draft"></use></svg>
 
                 <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg>

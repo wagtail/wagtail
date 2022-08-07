@@ -145,6 +145,7 @@ class BasePreviewSidePanel(BaseSidePanel):
     order = 400
     toggle_aria_label = gettext_lazy("Toggle preview")
     toggle_icon_name = "mobile-alt"
+    keyboard_shortcut = "mod+p"
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
