@@ -99,8 +99,8 @@
 
     {% include "wagtailadmin/shared/header.html" with classname="w-header--no-border" title=page_title subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions %}
 
-    <div class="report report--has-filters report--no-margin">
-        <div class="report__results w-overflow-y-hidden w-overflow-x-scroll w-p-3 w-pb-6">
+    <div class="report filterable">
+        <div class="report__results w-overflow-y-hidden w-overflow-x-scroll w-pb-6">
             {% if submissions %}
                 <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
                     {% include "wagtailforms/list_submissions.html" %}
@@ -110,7 +110,7 @@
                 <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
             {% endif %}
         </div>
-        <div class="report__filters w-p-3">
+        <div class="filterable__filters">
             <h2>{% trans 'Filter' %}</h2>
             <form action="" method="get" novalidate>
                 <button class="button button-longrunning" type="submit">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>

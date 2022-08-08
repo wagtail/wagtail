@@ -153,6 +153,7 @@ Changelog
  * Fix: Resolve MySQL search compatibility issue with Django 4.1 (Andy Chosak)
  * Fix: Ensure that the fields on login and password reset forms are visible in forced colors mode (Paarth Agarwal)
  * Fix: Missing a outline on dropdown content and malformed tooltip arrow in forced colors mode (Anuja Verma, LB (Ben) Johnston)
+ * Fix: Layout issues with reports (including form submissions listings) on md device widths (Akash Kumar Sen, LB (Ben) Johnston)
 
 
 3.0.1 (16.06.2022)

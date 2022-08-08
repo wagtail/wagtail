@@ -1,16 +1,12 @@
 .report {
   display: grid;
-  grid-column-gap: 50px;
+  grid-column-gap: theme('spacing.12');
 
-  &:not(&--no-margin) {
-    @include nice-padding();
-  }
+  @include nice-margin();
 
   &__results {
-    grid-column-start: col-start 1 col-end 2;
-
     &--text {
-      margin: 0 0.5em 0.5em 0;
+      margin: 0 theme('spacing.[1.5]') theme('spacing.[1.5]') 0;
 
       + .status-tag {
         margin-inline-start: 0;
@@ -25,12 +21,12 @@
   &__actions > div {
     float: right;
     display: block;
-    margin-inline-end: 10px;
+    margin-inline-end: theme('spacing.3');
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     form {
-      margin-bottom: 1em;
+      margin-bottom: theme('spacing.3');
     }
   }
 }
