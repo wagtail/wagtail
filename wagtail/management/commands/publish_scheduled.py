@@ -1,7 +1,8 @@
+from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.utils import dateparse, timezone
 
-from wagtail.models import Page, Revision
+from wagtail.models import DraftStateMixin, Page, Revision
 
 
 def revision_date_expired(r):
@@ -31,38 +32,69 @@ class Command(BaseCommand):
             self.stdout.write("Will do a dry run.")
             dryrun = True
 
-        # 1. get all expired pages with live = True
-        expired_pages = Page.objects.filter(live=True, expire_at__lt=timezone.now())
-        if dryrun:
-            if expired_pages:
-                self.stdout.write("Expired pages to be deactivated:")
-                self.stdout.write("Expiry datetime\t\tSlug\t\tName")
-                self.stdout.write("---------------\t\t----\t\t----")
-                for ep in expired_pages:
-                    self.stdout.write(
-                        "{0}\t{1}\t{2}".format(
-                            ep.expire_at.strftime("%Y-%m-%d %H:%M"), ep.slug, ep.title
-                        )
-                    )
-            else:
-                self.stdout.write("No expired pages to be deactivated found.")
-        else:
-            # Unpublish the expired pages
-            # Cast to list to make sure the query is fully evaluated
-            # before unpublishing anything
-            for page in list(expired_pages):
-                page.unpublish(
-                    set_expired=True, log_action="wagtail.unpublish.scheduled"
-                )
+        models = [Page]
+        models += [
+            model
+            for model in apps.get_models()
+            if issubclass(model, DraftStateMixin) and not issubclass(model, Page)
+        ]
 
-        # 2. get all page revisions for moderation that have been expired
+        # 1. get all expired objects with live = True
+        expired_objects = []
+        for model in models:
+            expired_objects += [
+                model.objects.filter(live=True, expire_at__lt=timezone.now()).order_by(
+                    "expire_at"
+                )
+            ]
+
+        if dryrun:
+            self.stdout.write("\n---------------------------------")
+            if any(expired_objects):
+                self.stdout.write("Expired objects to be deactivated:")
+                self.stdout.write("Expiry datetime\t\tModel\t\tSlug\t\tName")
+                self.stdout.write("---------------\t\t-----\t\t----\t\t----")
+                for queryset in expired_objects:
+                    if queryset.model is Page:
+                        for obj in queryset:
+                            self.stdout.write(
+                                "{0}\t{1}\t{2}\t{3}".format(
+                                    obj.expire_at.strftime("%Y-%m-%d %H:%M"),
+                                    obj.specific_class.__name__,
+                                    obj.slug,
+                                    obj.title,
+                                )
+                            )
+                    else:
+                        for obj in queryset:
+                            self.stdout.write(
+                                "{0}\t{1}\t{2}\t\t{3}".format(
+                                    obj.expire_at.strftime("%Y-%m-%d %H:%M"),
+                                    queryset.model.__name__,
+                                    "",
+                                    str(obj),
+                                )
+                            )
+            else:
+                self.stdout.write("No expired objects to be deactivated found.")
+        else:
+            # Unpublish the expired objects
+            for queryset in expired_objects:
+                # Cast to list to make sure the query is fully evaluated
+                # before unpublishing anything
+                for obj in list(queryset):
+                    obj.unpublish(
+                        set_expired=True, log_action="wagtail.unpublish.scheduled"
+                    )
+
+        # 2. get all object revisions for moderation that have been expired
         expired_revs = [
             r
-            for r in Revision.page_revisions.filter(submitted_for_moderation=True)
+            for r in Revision.objects.filter(submitted_for_moderation=True)
             if revision_date_expired(r)
         ]
         if dryrun:
-            self.stdout.write("---------------------------------")
+            self.stdout.write("\n---------------------------------")
             if expired_revs:
                 self.stdout.write(
                     "Expired revisions to be dropped from moderation queue:"
@@ -88,28 +120,30 @@ class Command(BaseCommand):
                 er.save()
 
         # 3. get all revisions that need to be published
-        revs_for_publishing = Revision.page_revisions.filter(
+        revs_for_publishing = Revision.objects.filter(
             approved_go_live_at__lt=timezone.now()
-        )
+        ).order_by("approved_go_live_at")
         if dryrun:
-            self.stdout.write("---------------------------------")
+            self.stdout.write("\n---------------------------------")
             if revs_for_publishing:
                 self.stdout.write("Revisions to be published:")
-                self.stdout.write("Go live datetime\t\tSlug\t\tName")
-                self.stdout.write("---------------\t\t\t----\t\t----")
+                self.stdout.write("Go live datetime\tModel\t\tSlug\t\tName")
+                self.stdout.write("----------------\t-----\t\t----\t\t----")
                 for rp in revs_for_publishing:
+                    model = rp.content_type.model_class()
                     rev_data = rp.content
                     self.stdout.write(
-                        "{0}\t\t{1}\t{2}".format(
+                        "{0}\t{1}\t{2}\t\t{3}".format(
                             rp.approved_go_live_at.strftime("%Y-%m-%d %H:%M"),
-                            rev_data.get("slug"),
-                            rev_data.get("title"),
+                            model.__name__,
+                            rev_data.get("slug", ""),
+                            rev_data.get("title", rp.object_str),
                         )
                     )
             else:
-                self.stdout.write("No pages to go live.")
+                self.stdout.write("No objects to go live.")
         else:
             for rp in revs_for_publishing:
                 # just run publish for the revision -- since the approved go
-                # live datetime is before now it will make the page live
+                # live datetime is before now it will make the object live
                 rp.publish(log_action="wagtail.publish.scheduled")
