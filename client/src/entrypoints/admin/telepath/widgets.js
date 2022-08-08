@@ -182,13 +182,6 @@ class DraftailRichTextArea {
     const addSibling = capabilities.get('addSibling');
     let blockCommands = [];
     if (split) {
-      options.controls = originalOptions.controls
-        ? [...originalOptions.controls]
-        : [];
-      options.controls.push({
-        meta: window.draftail.getSplitControl(split.fn, !!split.enabled),
-      });
-
       const blockGroups =
         addSibling && addSibling.enabled && split.enabled
           ? addSibling.blockGroups
@@ -239,42 +232,44 @@ class DraftailRichTextArea {
         };
       });
 
-      blockCommands.push({
-        label: 'Actions',
-        type: 'custom-actions',
-        items: [
-          {
-            icon: '#icon-cut',
-            description: gettext('Split block'),
-            type: 'split',
-            render: ({ option, getEditorState }) => {
-              const editorState = getEditorState();
-              const content = editorState.getCurrentContent();
-              const blocks = content.getBlockMap();
-              const text = `${option.description} (will split ${blocks.size} blocks)`;
-              return text;
+      if (split.enabled) {
+        blockCommands.push({
+          label: 'Actions',
+          type: 'custom-actions',
+          items: [
+            {
+              icon: '#icon-cut',
+              description: gettext('Split block'),
+              type: 'split',
+              render: ({ option, getEditorState }) => {
+                const editorState = getEditorState();
+                const content = editorState.getCurrentContent();
+                const blocks = content.getBlockMap();
+                const text = `${option.description} (will split ${blocks.size} blocks)`;
+                return text;
+              },
+              onSelect: ({ editorState }) => {
+                const result = window.draftail.splitState(
+                  window.draftail.DraftUtils.resetBlockWithType(
+                    editorState,
+                    'unstyled',
+                  ),
+                );
+                // Run the split after a timeout to circumvent potential race condition.
+                setTimeout(() => {
+                  if (result) {
+                    split.fn(
+                      result.stateBefore,
+                      result.stateAfter,
+                      result.shouldMoveCommentFn,
+                    );
+                  }
+                }, 50);
+              },
             },
-            onSelect: ({ editorState }) => {
-              const result = window.draftail.splitState(
-                window.draftail.DraftUtils.resetBlockWithType(
-                  editorState,
-                  'unstyled',
-                ),
-              );
-              // Run the split after a timeout to circumvent potential race condition.
-              setTimeout(() => {
-                if (result) {
-                  split.fn(
-                    result.stateBefore,
-                    result.stateAfter,
-                    result.shouldMoveCommentFn,
-                  );
-                }
-              }, 50);
-            },
-          },
-        ],
-      });
+          ],
+        });
+      }
     }
 
     options.commands = [

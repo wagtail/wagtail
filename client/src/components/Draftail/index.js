@@ -24,7 +24,6 @@ import TooltipEntity from './decorators/TooltipEntity';
 import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor, {
-  getSplitControl,
   splitState,
 } from './CommentableEditor/CommentableEditor';
 
@@ -216,7 +215,6 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
 export default {
   initEditor,
-  getSplitControl,
   splitState,
   registerPlugin,
   DraftUtils,

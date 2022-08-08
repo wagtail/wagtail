@@ -14,7 +14,6 @@ window.$ = $;
 window.comments = {
   getContentPath: jest.fn(),
 };
-window.draftail.getSplitControl = jest.fn(window.draftail.getSplitControl);
 
 describe('telepath: wagtail.widgets.Widget', () => {
   let boundWidget;
@@ -552,22 +551,17 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     );
   });
 
-  test('setCapabilityOptions for split updates the editor controls', () => {
+  test('setCapabilityOptions for split updates the editor commands', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: false }),
     );
-    expect(inputElement.draftailEditor.props.controls).toHaveLength(1);
-    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
-      parentCapabilities.get('split').fn,
-      false,
-    );
+    expect(inputElement.draftailEditor.props.commands).toHaveLength(2);
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: true }),
     );
-    expect(inputElement.draftailEditor.props.controls).toHaveLength(1);
-    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
-      parentCapabilities.get('split').fn,
-      true,
+    expect(inputElement.draftailEditor.props.commands).toHaveLength(3);
+    expect(inputElement.draftailEditor.props.commands[2].items[0].type).toBe(
+      'split',
     );
   });
 });
