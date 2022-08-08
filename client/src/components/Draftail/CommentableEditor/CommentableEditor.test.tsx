@@ -139,18 +139,15 @@ describe('CommentableEditor', () => {
   it('has control', () => {
     commentApp.setVisible(true);
     const editor = mount(getEditorComponent(commentApp));
-    const controls = editor.findWhere(
-      (n) => n.name() === 'ToolbarButton' && n.prop('name') === 'comment',
-    );
+    const controls = editor.find('DraftailEditor').prop('controls');
     expect(controls).toHaveLength(1);
+    expect(controls[0].inline).toBeTruthy();
     editor.unmount();
   });
   it('has no control when comments disabled', () => {
     commentApp.store.dispatch(updateGlobalSettings({ commentsEnabled: false }));
     const editor = mount(getEditorComponent(commentApp));
-    const controls = editor.findWhere(
-      (n) => n.name() === 'ToolbarButton' && n.prop('name') === 'comment',
-    );
+    const controls = editor.find('DraftailEditor').prop('controls');
     expect(controls).toHaveLength(0);
     editor.unmount();
   });

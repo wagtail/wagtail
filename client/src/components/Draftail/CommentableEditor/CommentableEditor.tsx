@@ -313,54 +313,6 @@ export function splitState(editorState: EditorState) {
   };
 }
 
-export function getSplitControl(
-  splitFn: (
-    stateBefore: EditorState,
-    stateAfter: EditorState,
-    shouldMoveCommentFn: (comment: Comment) => boolean,
-  ) => void,
-  enabled = true,
-) {
-  const title = gettext('Split block');
-  const name = 'split';
-  const icon = <Icon name="cut" />;
-  if (!enabled) {
-    // Taken from https://github.com/springload/draftail/blob/main/lib/components/ToolbarButton.js#L65
-    // as it doesn't take the disabled prop
-    return () => (
-      <button
-        name={name}
-        className="Draftail-ToolbarButton"
-        type="button"
-        aria-label={title}
-        data-draftail-balloon={title}
-        tabIndex={-1}
-        disabled={true}
-      >
-        {icon}
-      </button>
-    );
-  }
-  return ({ getEditorState }: ControlComponentProps) => (
-    <ToolbarButton
-      name={name}
-      active={false}
-      title={title}
-      icon={icon}
-      onClick={() => {
-        const result = splitState(getEditorState());
-        if (result) {
-          splitFn(
-            result.stateBefore,
-            result.stateAfter,
-            result.shouldMoveCommentFn,
-          );
-        }
-      }}
-    />
-  );
-}
-
 function getCommentControl(
   commentApp: CommentApp,
   contentPath: string,
@@ -852,7 +804,7 @@ function CommentableEditor({
       }}
       editorState={editorState}
       controls={
-        enabled ? controls.concat([{ block: CommentControl }]) : controls
+        enabled ? controls.concat([{ inline: CommentControl }]) : controls
       }
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={plugins.concat([
