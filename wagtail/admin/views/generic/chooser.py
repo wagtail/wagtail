@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -11,14 +10,23 @@ from django.http import Http404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, View
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.forms.choosers import (
+    BaseFilterForm,
+    CollectionFilterMixin,
+    LocaleFilterMixin,
+    SearchFilterMixin,
+)
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.coreutils import resolve_model_string
+from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
-from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 
@@ -43,14 +51,28 @@ class ModalPageFurnitureMixin(ContextMixin):
         return context
 
 
-class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
+class ModelLookupMixin:
+    """
+    Allows a class to have a `model` attribute, which can be set as either a model class or a string,
+    and then retrieve it as `model_class` to consistently get back a model class
+    """
+
+    model = None
+
+    @cached_property
+    def model_class(self):
+        if self.model:
+            return resolve_model_string(self.model)
+
+
+class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, View):
     """
     Provides common functionality for views that present a (possibly searchable / filterable) list
     of objects to choose from
     """
 
-    model = None
     per_page = 10
+    ordering = None
     chosen_url_name = None
     results_url_name = None
     icon = "snippet"
@@ -58,13 +80,21 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
     filter_form_class = None
     template_name = "wagtailadmin/generic/chooser/chooser.html"
     results_template_name = "wagtailadmin/generic/chooser/results.html"
+    construct_queryset_hook_name = None
 
     def get_object_list(self):
-        objects = self.model.objects.all()
+        return self.model_class.objects.all()
 
-        # Preserve the model-level ordering if specified, but fall back on PK if not
-        # (to ensure pagination is consistent)
-        if not objects.ordered:
+    def apply_object_list_ordering(self, objects):
+        if isinstance(self.ordering, (list, tuple)):
+            objects = objects.order_by(*self.ordering)
+        elif self.ordering:
+            objects = objects.order_by(self.ordering)
+        elif objects.ordered:
+            # Preserve the model-level ordering if specified
+            pass
+        else:
+            # fall back on PK to ensure pagination is consistent
             objects = objects.order_by("pk")
 
         return objects
@@ -73,29 +103,33 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         if self.filter_form_class:
             return self.filter_form_class
         else:
-            fields = {}
-            if class_is_indexed(self.model):
-                fields["q"] = forms.CharField(
-                    label=_("Search term"), widget=forms.TextInput(), required=False
-                )
+            bases = [BaseFilterForm]
+            if self.model_class:
+                if class_is_indexed(self.model_class):
+                    bases.insert(0, SearchFilterMixin)
+                if issubclass(self.model_class, CollectionMember):
+                    bases.insert(0, CollectionFilterMixin)
+                if issubclass(self.model_class, TranslatableMixin):
+                    bases.insert(0, LocaleFilterMixin)
 
             return type(
                 "FilterForm",
-                (forms.Form,),
-                fields,
+                tuple(bases),
+                {},
             )
 
     def get_filter_form(self):
         FilterForm = self.get_filter_form_class()
         return FilterForm(self.request.GET)
 
-    def filter_object_list(self, objects, form):
-        search_query = form.cleaned_data.get("q")
-        if search_query:
-            search_backend = get_search_backend()
-            objects = search_backend.search(search_query, objects)
-            self.is_searching = True
-            self.search_query = search_query
+    def filter_object_list(self, objects):
+        if self.construct_queryset_hook_name:
+            # allow hooks to modify the queryset
+            for hook in hooks.get_hooks(self.construct_queryset_hook_name):
+                objects = hook(objects, self.request)
+
+        if self.filter_form.is_valid():
+            objects = self.filter_form.filter(objects)
         return objects
 
     def get_results_url(self):
@@ -113,17 +147,17 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
             ),
         ]
 
-    def get(self, request):
+    def get_results_page(self, request):
         objects = self.get_object_list()
-        self.is_searching = False
-        self.search_query = None
-
-        self.filter_form = self.get_filter_form()
-        if self.filter_form.is_valid():
-            objects = self.filter_object_list(objects, self.filter_form)
+        objects = self.apply_object_list_ordering(objects)
+        objects = self.filter_object_list(objects)
 
         paginator = Paginator(objects, per_page=self.per_page)
-        self.results = paginator.get_page(request.GET.get("p"))
+        return paginator.get_page(request.GET.get("p"))
+
+    def get(self, request):
+        self.filter_form = self.get_filter_form()
+        self.results = self.get_results_page(request)
         self.table = Table(self.columns, self.results)
 
         return self.render_to_response()
@@ -135,8 +169,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
                 "results": self.results,
                 "table": self.table,
                 "results_url": self.get_results_url(),
-                "is_searching": self.is_searching,
-                "search_query": self.search_query,
+                "is_searching": self.filter_form.is_searching,
+                "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
+                "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
             }
         )
@@ -146,7 +181,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ContextMixin, View):
         raise NotImplementedError()
 
 
-class CreationFormMixin:
+class CreationFormMixin(ModelLookupMixin):
     """
     Provides a form class for creating new objects
     """
@@ -164,8 +199,8 @@ class CreationFormMixin:
     def get_permission_policy(self):
         if self.permission_policy:
             return self.permission_policy
-        elif self.model:
-            return ModelPermissionPolicy(self.model)
+        elif self.model_class:
+            return ModelPermissionPolicy(self.model_class)
         else:
             return BlanketPermissionPolicy(None)
 
@@ -179,7 +214,9 @@ class CreationFormMixin:
             return self.creation_form_class
         elif self.form_fields is not None or self.exclude_form_fields is not None:
             return modelform_factory(
-                self.model, fields=self.form_fields, exclude=self.exclude_form_fields
+                self.model_class,
+                fields=self.form_fields,
+                exclude=self.exclude_form_fields,
             )
 
     def get_creation_form_kwargs(self):
@@ -289,6 +326,7 @@ class ChosenResponseMixin:
     """
 
     response_data_title_key = "title"
+    chosen_response_name = "chosen"
 
     def get_object_id(self, instance):
         return instance.pk
@@ -323,20 +361,18 @@ class ChosenResponseMixin:
             None,
             None,
             None,
-            json_data={"step": "chosen", "result": response_data},
+            json_data={"step": self.chosen_response_name, "result": response_data},
         )
 
 
-class ChosenViewMixin:
+class ChosenViewMixin(ModelLookupMixin):
     """
     A view that takes an object ID in the URL and returns a modal workflow response indicating
     that object has been chosen
     """
 
-    model = None
-
     def get_object(self, pk):
-        return self.model.objects.get(pk=pk)
+        return self.model_class.objects.get(pk=pk)
 
     def get(self, request, pk):
         try:

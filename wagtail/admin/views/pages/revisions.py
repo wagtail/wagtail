@@ -14,6 +14,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.admin.views.generic.models import RevisionsCompareView
+from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
@@ -88,23 +89,22 @@ def revisions_revert(request, page_id, revision_id):
     )
 
 
-@user_passes_test(user_has_any_page_permission)
-def revisions_view(request, page_id, revision_id):
-    page = get_object_or_404(Page, id=page_id).specific
+@method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")
+class RevisionsView(PreviewRevision):
+    model = Page
 
-    perms = page.permissions_for_user(request.user)
-    if not (perms.can_publish() or perms.can_edit()):
-        raise PermissionDenied
+    def setup(self, request, page_id, revision_id, *args, **kwargs):
+        # Rename path kwargs from pk to page_id
+        return super().setup(request, page_id, revision_id, *args, **kwargs)
 
-    revision = get_object_or_404(page.revisions, id=revision_id)
-    revision_page = revision.as_object()
+    def get_object(self):
+        page = get_object_or_404(Page, id=self.pk).specific
 
-    try:
-        preview_mode = page.default_preview_mode
-    except IndexError:
-        raise PermissionDenied
+        perms = page.permissions_for_user(self.request.user)
+        if not (perms.can_publish() or perms.can_edit()):
+            raise PermissionDenied
 
-    return revision_page.make_preview_request(request, preview_mode)
+        return page
 
 
 class RevisionsCompare(RevisionsCompareView):

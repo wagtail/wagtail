@@ -1,0 +1,50 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:math';
+
+.side-panel-open {
+  @apply w-overflow-y-hidden sm:w-overflow-y-auto;
+}
+
+.form-side {
+  @apply w-absolute
+      w-z-[90]
+      w-right-0
+      w-top-full
+      w-w-full
+      w-h-[calc(100vh-100%)]
+      sm:w-max-w-[500px]
+      w-transform
+      w-translate-x-full
+      w-px-6
+      w-py-4
+      w-bg-white
+      w-box-border
+      w-transition
+      w-duration-300
+      w-border-l
+      w-border-grey-100
+      w-overflow-y-auto
+      w-scrollbar-thin;
+
+  &--open {
+    @apply w-translate-x-0;
+  }
+
+  &__close-button {
+    @apply w-text-primary w-absolute w-left-3 w-top-3 hover:w-text-primary-200 w-bg-white w-p-3 w-hidden w-transition;
+
+    .icon {
+      @apply w-w-4 w-h-4;
+    }
+  }
+
+  &--open .form-side__close-button,
+  &--open .form-side__panel {
+    @apply w-block;
+  }
+
+  &__panel {
+    @apply w-hidden w-h-full;
+  }
+}

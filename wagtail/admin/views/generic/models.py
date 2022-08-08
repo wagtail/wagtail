@@ -23,6 +23,7 @@ from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, RevisionMixin
+from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
@@ -76,8 +77,11 @@ class IndexView(
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
     default_ordering = None
+    search_fields = None
     is_searchable = None
     search_kwarg = "q"
+    filters = None
+    filterset_class = None
     table_class = Table
 
     def setup(self, request, *args, **kwargs):
@@ -101,7 +105,7 @@ class IndexView(
         if self.model is None:
             return False
         if self.is_searchable is None:
-            return class_is_indexed(self.model)
+            return class_is_indexed(self.model) or self.search_fields
         return self.is_searchable
 
     def get_search_url(self):
@@ -124,6 +128,63 @@ class IndexView(
             placeholder=_("Search %(model_name)s")
             % {"model_name": self.model._meta.verbose_name_plural}
         )
+
+    def get_queryset(self):
+        self.filters, queryset = self.filter_queryset(super().get_queryset())
+
+        if self.locale:
+            queryset = queryset.filter(locale=self.locale)
+
+        if self.model and issubclass(self.model, DraftStateMixin):
+            queryset = queryset.select_related("latest_revision")
+
+        # Preserve the model-level ordering if specified, but fall back on PK if not
+        # (to ensure pagination is consistent)
+        if not queryset.ordered:
+            queryset = queryset.order_by("pk")
+
+        return queryset
+
+    def paginate_queryset(self, queryset, page_size):
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
+        )
+
+        page_number = self.request.GET.get(self.page_kwarg)
+        page = paginator.get_page(page_number)
+        return (paginator, page, page.object_list, page.has_other_pages())
+
+    def filter_queryset(self, queryset):
+        # construct filter instance (self.filters) if not created already
+        if self.filterset_class and self.filters is None:
+            self.filters = self.filterset_class(
+                self.request.GET, queryset=queryset, request=self.request
+            )
+            queryset = self.filters.qs
+        elif self.filters:
+            # if filter object was created on a previous filter_queryset call, re-use it
+            queryset = self.filters.filter_queryset(queryset)
+
+        return self.filters, queryset
+
+    def search_queryset(self, queryset):
+        if not self.search_query:
+            return queryset
+
+        if class_is_indexed(queryset.model):
+            search_backend = get_search_backend()
+            return search_backend.search(
+                self.search_query, queryset, fields=self.search_fields
+            )
+
+        filters = {
+            field + "__icontains": self.search_query
+            for field in self.search_fields or []
+        }
+        return queryset.filter(**filters)
 
     def get_columns(self):
         try:
@@ -164,8 +225,12 @@ class IndexView(
             ordering = self.default_ordering
         return ordering
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+        queryset = self.search_queryset(queryset)
+
+        context = super().get_context_data(*args, object_list=queryset, **kwargs)
+
         index_url = self.get_index_url()
         table = self.table_class(
             self.columns,
@@ -181,6 +246,12 @@ class IndexView(
         if context["can_add"]:
             context["add_url"] = self.get_add_url()
             context["add_item_label"] = self.add_item_label
+
+        if self.filters:
+            context["filters"] = self.filters
+            context["is_filtering"] = any(
+                self.request.GET.get(f) for f in set(self.filters.get_fields())
+            )
 
         context["table"] = table
         context["media"] = table.media

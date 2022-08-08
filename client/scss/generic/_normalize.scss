@@ -1,4 +1,4 @@
-/* stylelint-disable declaration-block-no-duplicate-properties, property-no-vendor-prefix */
+/* stylelint-disable declaration-block-no-duplicate-properties, property-no-vendor-prefix, scale-unlimited/declaration-strict-value */
 /*! normalize.css v1.1.1 | MIT License | git.io/normalize */
 
 /* ==========================================================================
@@ -54,6 +54,12 @@ audio:not([controls]) {
 [hidden] {
   /* stylelint-disable-next-line declaration-no-important */
   display: none !important;
+}
+
+// See https://github.com/necolas/normalize.css/pull/879.
+[hidden='until-found'] {
+  /* stylelint-disable-next-line declaration-no-important */
+  display: revert !important;
 }
 
 /* ==========================================================================

@@ -7,7 +7,13 @@
     <form action="{{ submit_url }}" method="POST" novalidate>
         {% csrf_token %}
         <ul class="fields">
-            {% include 'wagtailadmin/shared/form_as_ul.html' %}
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    {% include "wagtailadmin/shared/field.html" with field=field %}
+                {% endif %}
+            {% endfor %}
             <li><button type="submit" class="button button-longrunning">{% icon name="spinner" %}{{ action_verbose }}</button></li>
         </ul>
     </form>

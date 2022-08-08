@@ -8,9 +8,8 @@ The presentation of your content, the actual webpages, includes the normal use o
 
 ```{toctree}
 ---
-:maxdepth: 2
+maxdepth: 2
 ---
-
 theory
 model_recipes
 panels

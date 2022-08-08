@@ -1,0 +1,86 @@
+$header-icon-size: theme('spacing.4');
+$header-button-size-mobile: $mobile-nice-padding;
+$header-button-size: theme('spacing.8');
+
+.w-panel {
+  margin-bottom: theme('spacing.10');
+  // Legacy code support. Make sure we render correctly enough after a panel that contains un-cleared floats.
+  clear: both;
+}
+
+.w-panel__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: theme('spacing.4');
+  margin-inline-start: -1 * $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    $gap: theme('spacing.1');
+    gap: $gap;
+    margin-inline-start: calc(-1 * 2 * ($header-button-size + $gap));
+  }
+}
+
+.w-panel__heading {
+  @apply w-h3;
+  display: inline-block;
+  margin: 0;
+  cursor: pointer;
+}
+
+.w-panel__heading--label {
+  @apply w-label-1;
+}
+
+.w-panel__anchor,
+.w-panel__toggle {
+  display: inline-grid;
+  justify-content: center;
+  align-content: center;
+  color: theme('colors.primary.DEFAULT');
+  padding: 0;
+  width: $header-button-size-mobile;
+  height: $header-button-size-mobile;
+
+  @include media-breakpoint-up(sm) {
+    width: $header-button-size;
+    height: $header-button-size;
+  }
+}
+
+.w-panel__anchor {
+  // Only hide anchors for devices that support hover interactions.
+  @media (hover: hover) {
+    // Hiding with opacity only, so the anchor isn’t skipped in the page’s focus order.
+    opacity: 0;
+
+    .w-panel__header:hover &,
+    .w-panel__header:focus-within & {
+      opacity: 1;
+    }
+  }
+}
+
+.w-panel__toggle {
+  appearance: none;
+  background: transparent;
+}
+
+.w-panel__icon {
+  width: $header-icon-size;
+  height: $header-icon-size;
+
+  // Only rotate the default caret icon, not custom ones.
+  [aria-expanded='false'] &.icon-arrow-down-big {
+    transform: rotate(-90deg);
+  }
+
+  &.icon-link {
+    width: theme('spacing.[3.5]');
+    height: theme('spacing.[3.5]');
+  }
+}
+
+.w-panel__wrapper {
+  @include max-form-width();
+}

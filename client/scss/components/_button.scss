@@ -46,7 +46,7 @@
     &:hover {
       color: $color-white;
       border-color: transparent;
-      background-color: $color-button-yes-hover;
+      background-color: $color-button-yes;
     }
   }
 
@@ -63,7 +63,7 @@
     &:hover {
       color: $color-white;
       border-color: transparent;
-      background-color: $color-button-warning-hover;
+      background-color: $color-button-warning;
     }
   }
 
@@ -81,7 +81,7 @@
     &:hover {
       color: $color-white;
       border-color: transparent;
-      background-color: $color-button-no-hover;
+      background-color: $color-button-no;
     }
   }
 
@@ -99,7 +99,7 @@
       line-height: 1.85em;
       height: 100%;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: theme('colors.black-20');
       display: block;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
@@ -112,7 +112,7 @@
     }
 
     .icon-wrapper {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: theme('colors.black-20');
       display: flex;
       align-items: center;
       justify-content: center;
@@ -121,6 +121,7 @@
       top: 0;
       width: 3em;
       height: 100%;
+      box-sizing: content-box;
       text-align: center;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
@@ -145,7 +146,7 @@
     }
 
     &.button-secondary {
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      border: 1px solid theme('colors.black-20');
     }
   }
 
@@ -279,6 +280,11 @@
     border-color: $color-grey-3;
     color: $color-grey-2;
     cursor: default;
+    @media (forced-colors: active) {
+      color: GrayText;
+      border-color: GrayText;
+      border-style: dashed;
+    }
   }
 
   &.button-secondary:disabled,
@@ -347,6 +353,7 @@
   font-size: 0; // unavoidable duplication of setting in icons.scss
   width: 1.8rem;
   height: 1.8rem;
+  box-sizing: content-box;
 
   &:before {
     line-height: 1.7em;
@@ -379,6 +386,7 @@
     font-size: initial;
     @include svg-icon(1rem, middle);
     padding: 0.5em;
+    box-sizing: content-box;
   }
 
   &.button-small {
@@ -422,7 +430,7 @@ button.button.bicolor .icon-wrapper {
   &:hover {
     color: $color-white;
     border-color: transparent;
-    background-color: $color-button-yes-hover;
+    background-color: $color-button-yes;
   }
 }
 
@@ -440,7 +448,7 @@ button.button.bicolor .icon-wrapper {
   &:hover {
     color: $color-white;
     border-color: transparent;
-    background-color: $color-button-no-hover;
+    background-color: $color-button-no;
   }
 }
 
@@ -457,7 +465,7 @@ button.button.bicolor .icon-wrapper {
     line-height: 1.85em;
     height: 100%;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: theme('colors.black-20');
     display: block;
   }
 }
@@ -501,18 +509,18 @@ button {
 
 .multiple {
   padding: 0;
-  max-width: 1024px - 50px;
   overflow: hidden;
 
   > li {
-    @include row();
+    @include row(1.5em);
     border-radius: 2px;
     position: relative;
     overflow: hidden;
     background-color: $color-white;
-    padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
+    padding: 1em 1.5em;
+    padding-inline-end: 10em; // 10em padding leaves room for controls
     margin-bottom: 1em;
-    border: 1px solid color.adjust($color-grey-4, $lightness: 3%); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
+    border: 1px solid theme('colors.grey.100');
   }
 
   &.moving {

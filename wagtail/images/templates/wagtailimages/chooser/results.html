@@ -1,28 +1,32 @@
-{% load wagtailimages_tags wagtailadmin_tags %}
-{% load i18n %}
-{% if images %}
-    {% if is_searching %}
-        <h2 role="alert">
-            {% blocktrans trimmed count counter=images.paginator.count %}
-                There is {{ counter }} match
-            {% plural %}
-                There are {{ counter }} matches
-            {% endblocktrans %}
-        </h2>
-    {% else %}
-        <h2>{% trans "Latest images" %}</h2>
-    {% endif %}
+{% extends "wagtailadmin/generic/chooser/results.html" %}
+{% load i18n wagtailimages_tags wagtailadmin_tags %}
 
+{% block listing_title %}<h2>{% trans "Latest images" %}</h2>{% endblock %}
+
+{% block results_listing %}
     <ul class="listing horiz images chooser">
-        {% for image in images %}
+        {% for image in results %}
             <li>
-                <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% if will_select_format %}{% url 'wagtailimages:chooser_select_format' image.id %}{% else %}{% url 'wagtailimages:image_chosen' image.id %}{% endif %}">
+                <a data-chooser-modal-choice class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% if will_select_format %}{% url 'wagtailimages_chooser:select_format' image.id %}{% else %}{% url 'wagtailimages_chooser:chosen' image.id %}{% endif %}">
                     <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images linkurl='wagtailimages:chooser_results' %}
-{% endif %}
+{% block no_items_message %}
+    <p>
+        {% if is_filtering_by_collection %}
+            {% trans "You haven't uploaded any images in this collection." %}
+        {% else %}
+            {% trans "You haven't uploaded any images." %}
+        {% endif %}
+        {% if can_create %}
+            {% blocktrans trimmed %}
+                Why not <a class="upload-one-now" href="#tab-upload" data-tab-trigger>upload one now</a>?
+            {% endblocktrans %}
+        {% endif %}
+    </p>
+{% endblock %}

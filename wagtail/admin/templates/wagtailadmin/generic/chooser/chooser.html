@@ -9,15 +9,14 @@
 <div class="w-tabs" data-tabs data-tabs-disable-url>
     {% if creation_form %}
         <div class="w-tabs__wrapper w-overflow-hidden">
-            {# Using nice-padding and full width class until the modal header is restyled #}
-            <div role="tablist" class="w-tabs__list w-w-full nice-padding">
+            <div role="tablist" class="w-tabs__list w-w-full">
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_tab_label %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=view.creation_tab_id title=creation_tab_label %}
             </div>
         </div>
     {% endif %}
 
-    <div class="tab-content nice-padding">
+    <div class="tab-content">
         <section
             id="tab-search"
             class="w-tabs__panel"

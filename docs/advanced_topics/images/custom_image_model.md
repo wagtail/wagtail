@@ -22,7 +22,7 @@ from wagtail.images.models import Image, AbstractImage, AbstractRendition
 class CustomImage(AbstractImage):
     # Add any extra fields to image here
 
-    # eg. To add a caption field:
+    # To add a caption field:
     # caption = models.CharField(max_length=255, blank=True)
 
     admin_form_fields = Image.admin_form_fields + (

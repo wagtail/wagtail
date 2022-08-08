@@ -13,9 +13,9 @@ class BlogPage(Page):
     # field definitions omitted
 
     content_panels = [
-        FieldPanel('title', classname="full title"),
+        FieldPanel('title', classname="title"),
         FieldPanel('date'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
     sidebar_content_panels = [
         FieldPanel('advert'),
@@ -26,7 +26,7 @@ class BlogPage(Page):
         ObjectList(content_panels, heading='Content'),
         ObjectList(sidebar_content_panels, heading='Sidebar content'),
         ObjectList(Page.promote_panels, heading='Promote'),
-        ObjectList(Page.settings_panels, heading='Settings', classname="settings"),
+        ObjectList(Page.settings_panels, heading='Settings'),
     ])
 ```
 
@@ -45,11 +45,11 @@ class BookPage(Page):
     body = RichTextField()
 
     content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
 ```
 
-`RichTextField` inherits from Django's basic `TextField` field, so you can pass any field parameters into `RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with `FieldPanel`.
+`RichTextField` inherits from Django's basic `TextField` field, so you can pass any field parameters into `RichTextField` as if using a normal Django field. Its `max_length` will ignore any rich text formatting. This field does not need a special panel and can be defined with `FieldPanel`.
 
 However, template output from `RichTextField` is special and needs to be filtered in order to preserve embedded content. See [](rich_text_filter).
 

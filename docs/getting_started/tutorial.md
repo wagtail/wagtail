@@ -47,7 +47,7 @@ $ source mysite/env/bin/activate
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
 ```{note}
-If you're using version control (e.g. git), `mysite` will be the directory for your project.
+If you're using version control (such as git), `mysite` will be the directory for your project.
 The `env` directory inside of it should be excluded from any version control.
 ```
 
@@ -97,7 +97,7 @@ If you haven't updated the project settings, this will be a SQLite database file
 $ python manage.py migrate
 ```
 
-This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (eg. you may add a field to a model) you will need to run this command in order to update the database.
+This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command in order to update the database.
 
 ### Create an admin user
 
@@ -139,7 +139,7 @@ class HomePage(Page):
     body = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
 ```
 
@@ -159,7 +159,7 @@ the page by selecting _Publish_ at the bottom of the page editor, rather than _S
 The page template now needs to be updated to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
 type. By default, it will look for a template filename formed from the app and model name,
-separating capital letters with underscores (e.g. HomePage within the 'home' app becomes
+separating capital letters with underscores (for example HomePage within the 'home' app becomes
 `home/home_page.html`). This template file can exist in any location recognised by
 [Django's template rules](https://docs.djangoproject.com/en/stable/intro/tutorial03/#write-views-that-actually-do-something); conventionally it is placed under a `templates` folder within the app.
 
@@ -229,7 +229,7 @@ class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full")
+        FieldPanel('intro')
     ]
 ```
 
@@ -296,7 +296,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
     ]
 ```
 
@@ -484,7 +484,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
@@ -572,7 +572,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 ```
@@ -600,7 +600,7 @@ This method is now available from our templates. Update `blog_index_page.html` t
 
 ### Tagging Posts
 
-Let's say we want to let editors "tag" their posts, so that readers can, e.g.,
+Let's say we want to let editors "tag" their posts, so that readers can, for example,
 view all bicycle-related content together. For this, we'll need to invoke
 the tagging system bundled with Wagtail, attach it to the `BlogPage`
 model and content panels, and render linked tags on the blog post template.

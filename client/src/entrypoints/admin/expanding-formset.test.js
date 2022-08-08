@@ -13,7 +13,7 @@ describe('buildExpandingFormset', () => {
   it('should add an expanded item if the add button is not disabled', () => {
     const prefix = 'id_form_fields';
     document.body.innerHTML = `
-    <div class="object" id="content">
+    <div id="content">
       <input type="hidden" name="form_fields-TOTAL_FORMS" value="2" id="${prefix}-TOTAL_FORMS">
       <ul id="${prefix}-FORMS">
         ${[0, 1].map(
@@ -91,7 +91,7 @@ describe('buildExpandingFormset', () => {
   it('should not add an expanded item if the add button is disabled', () => {
     const prefix = 'id_form_fields';
     document.body.innerHTML = `
-    <div class="object" id="content">
+    <div id="content">
       <input type="hidden" name="form_fields-TOTAL_FORMS" value="2" id="${prefix}-TOTAL_FORMS">
       <ul id="${prefix}-FORMS">
         ${[0, 1].map(
@@ -169,14 +169,14 @@ describe('buildExpandingFormset', () => {
     </li>
   </ul>
   <fieldset>
-    <legend>Events</legend>
+    <legend class="w-sr-only">Events</legend>
     <input type="text" name="venues-__prefix__-events-__prefix__-name" id="id_venues-__prefix__-events-__prefix__-name">
   </fieldset>
 <-/script>
     `;
 
     document.body.innerHTML = `
-    <div class="object" id="content">
+    <div id="content">
       <input type="hidden" name="form_fields-TOTAL_FORMS" value="2" id="${prefix}-TOTAL_FORMS">
       <ul id="${prefix}-FORMS">
         ${[0, 1].map(

@@ -25,7 +25,7 @@ Alternatively, `hooks.register` can be called as an ordinary function, passing i
 hooks.register('name_of_hook', my_hook_function)
 ```
 
-If you need your hooks to run in a particular order, you can pass the `order` parameter. If order is not specified then the hooks proceed in the order given by `INSTALLED_APPS`. Wagtail uses hooks internally, too, so you need to be aware of order when overriding built-in Wagtail functionality (i.e. removing default summary items):
+If you need your hooks to run in a particular order, you can pass the `order` parameter. If order is not specified then the hooks proceed in the order given by `INSTALLED_APPS`. Wagtail uses hooks internally, too, so you need to be aware of order when overriding built-in Wagtail functionality (such as removing default summary items):
 
 ```python
 @hooks.register('name_of_hook', order=1)  # This will run after every hook in the wagtail core
@@ -795,9 +795,9 @@ Modify the final list of page listing buttons in the page explorer. The callable
 
 ```python
 @hooks.register('construct_page_listing_buttons')
-def remove_page_listing_button_item(buttons, page, page_perms, is_parent=False, context=None):
-    if is_parent:
-        buttons.pop() # removes the last 'more' dropdown button on the parent page listing buttons
+def remove_page_listing_button_item(buttons, page, page_perms, context=None):
+    if page.is_root:
+        buttons.pop() # removes the last 'more' dropdown button on the root page listing buttons
 ```
 
 (construct_wagtail_userbar)=
@@ -977,7 +977,7 @@ This example will add a simple button to the listing:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):>
+def page_listing_buttons(page, page_perms, next_url=None):
     yield wagtailadmin_widgets.PageListingButton(
         'A page listing button',
         '/goes/to/a/url/',
@@ -989,7 +989,6 @@ The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
 -   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
--   `is_parent` - if true, this button is being rendered for the parent page being displayed at the top of the listing
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
@@ -1006,7 +1005,7 @@ This example will add a simple button to the dropdown menu:
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_more_buttons')
-def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_listing_more_buttons(page, page_perms, next_url=None):
     yield wagtailadmin_widgets.Button(
         'A dropdown button',
         '/goes/to/a/url/',
@@ -1018,7 +1017,6 @@ The arguments passed to the hook are as follows:
 
 -   `page` - the page object to generate the button for
 -   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
--   `is_parent` - if true, this button is being rendered for the parent page being displayed at the top of the listing
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
@@ -1036,19 +1034,18 @@ This example shows how Wagtail's default admin dropdown is implemented. You can 
 from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
-def page_custom_listing_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_custom_listing_buttons(page, page_perms, next_url=None):
     yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
         'More actions',
         hook_name='my_button_dropdown_hook',
         page=page,
         page_perms=page_perms,
-        is_parent=is_parent,
         next_url=next_url,
         priority=50
     )
 
 @hooks.register('my_button_dropdown_hook')
-def page_custom_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_custom_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_move():
         yield wagtailadmin_widgets.Button('Move', reverse('wagtailadmin_pages:move', args=[page.id]), priority=10)
     if page_perms.can_delete():

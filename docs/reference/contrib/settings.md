@@ -1,7 +1,7 @@
 # Settings
 
 The `wagtail.contrib.settings` module allows you to define models that hold
-settings which are either generic (i.e. the same) across all `Site`s or
+settings which are either generic (that is the same) across all `Site`s or
 specific to each `Site`.
 
 Settings are editable by administrators within the Wagtail admin, and can be
@@ -24,8 +24,8 @@ update your `TEMPLATES` settings (discussed later in this page).
 
 Create a model that inherits from either:
 
-* `BaseGenericSetting` for generic settings across all sites
-* `BaseSiteSetting` for site-specific settings
+-   `BaseGenericSetting` for generic settings across all sites
+-   `BaseSiteSetting` for site-specific settings
 
 and register it using the `register_setting` decorator:
 
@@ -83,7 +83,7 @@ class SiteSpecificImportantPages(BaseSiteSetting):
     ]
 ```
 
-You can also customise the edit handlers [like you would do for `Page` model](/advanced_topics/customisation/page_editing_interface.html#customising-the-tabbed-interface) with a custom `edit_handler` attribute:
+You can also customise the edit handlers [like you would do for `Page` model](customising_the_tabbed_interface) with a custom `edit_handler` attribute:
 
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList
@@ -126,7 +126,7 @@ class SiteSpecificSocialMediaSettings(BaseSiteSetting):
         verbose_name = "Site-specific social media settings"
 ```
 
-For a list of all available icons, please see the [styleguide](/contributing//styleguide.html).
+For a list of all available icons, please see the [styleguide](styleguide).
 
 ## Using the settings
 
@@ -145,6 +145,8 @@ def view(request):
     social_media_settings = GenericSocialMediaSettings.load(request_or_site=request)
     ...
 ```
+
+(site_settings)=
 
 #### Site-specific settings
 
@@ -290,7 +292,7 @@ Or, alternately, using the `set` tag:
 
 ## Utilising `select_related` to improve efficiency
 
-For models with foreign key relationships to other objects (e.g. pages),
+For models with foreign key relationships to other objects (for example pages),
 which are very often needed to output values in templates, you can set
 the `select_related` attribute on your model to have Wagtail utilise
 Django's [QuerySet.select_related()](https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related)
@@ -358,7 +360,7 @@ Using the `page_url` shortcut has a few of advantages over using the tag:
     so you don't have to worry about doing this (or forgetting to do this)
     yourself.
 2.  The results are cached, so if you need to access the same page URL
-    in more than one place (e.g. in a form and in footer navigation), using
+    in more than one place (for example in a form and in footer navigation), using
     the `page_url` shortcut will be more efficient.
 3.  It's more concise, and the syntax is the same whether using it in templates
     or views (or other Python code), allowing you to write more consistent

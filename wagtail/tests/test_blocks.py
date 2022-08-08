@@ -76,7 +76,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "helpText": "Some helpful text",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field char_field widget-text_input fieldname-test_block",
+                "classname": "w-field w-field--char_field w-field--text_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -176,7 +176,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field choice_field widget-select fieldname-test_choiceblock",
+                "classname": "w-field w-field--choice_field w-field--select",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -576,7 +576,7 @@ class TestRichTextBlock(TestCase):
         self.assertEqual(
             js_args[2],
             {
-                "classname": "field char_field widget-custom_rich_text_area fieldname-test_richtextblock",
+                "classname": "w-field w-field--char_field w-field--custom_rich_text_area",
                 "icon": "doc-full",
                 "label": "Test richtextblock",
                 "required": True,
@@ -601,7 +601,7 @@ class TestRichTextBlock(TestCase):
                 "label": "Test richtextblock",
                 "required": True,
                 "icon": "doc-full",
-                "classname": "field char_field widget-draftail_rich_text_area fieldname-test_richtextblock",
+                "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -628,6 +628,20 @@ class TestRichTextBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean(RichText("<p>bar</p>"))
+
+    def test_validate_max_length(self):
+        block = blocks.RichTextBlock(max_length=20)
+
+        block.clean(RichText("<p>short</p>"))
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText("<p>this exceeds the 20 character limit</p>"))
+
+        block.clean(
+            RichText(
+                '<p><a href="http://really-long-domain-name.example.com">also</a> short</p>'
+            )
+        )
 
     def test_get_searchable_content(self):
         block = blocks.RichTextBlock()
@@ -675,7 +689,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field choice_field widget-select fieldname-test_choiceblock",
+                "classname": "w-field w-field--choice_field w-field--select",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1054,7 +1068,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
-                "classname": "field multiple_choice_field widget-select_multiple fieldname-test_choiceblock",
+                "classname": "w-field w-field--multiple_choice_field w-field--select_multiple",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1465,7 +1479,7 @@ class TestRawHTMLBlock(unittest.TestCase):
                 "label": "Test rawhtmlblock",
                 "required": True,
                 "icon": "code",
-                "classname": "field char_field widget-textarea fieldname-test_rawhtmlblock",
+                "classname": "w-field w-field--char_field w-field--textarea",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -3969,6 +3983,73 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+    def test_block_names(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.TextBlock()
+            date = blocks.DateBlock()
+
+        block = ArticleBlock()
+        value = block.to_python(
+            [
+                {
+                    "type": "heading",
+                    "value": "My title",
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My first paragraph",
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My second paragraph",
+                },
+            ]
+        )
+        blocks_by_name = value.blocks_by_name()
+        assert isinstance(blocks_by_name, blocks.StreamValue.BlockNameLookup)
+
+        # unpack results to a dict of {block name: list of block values} for easier comparison
+        result = {
+            block_name: [block.value for block in blocks]
+            for block_name, blocks in blocks_by_name.items()
+        }
+        self.assertEqual(
+            result,
+            {
+                "heading": ["My title"],
+                "paragraph": ["My first paragraph", "My second paragraph"],
+                "date": [],
+            },
+        )
+
+        paragraph_blocks = value.blocks_by_name(block_name="paragraph")
+        # We can also access by indexing on the stream
+        self.assertEqual(paragraph_blocks, value.blocks_by_name()["paragraph"])
+
+        self.assertEqual(len(paragraph_blocks), 2)
+        for block in paragraph_blocks:
+            self.assertEqual(block.block_type, "paragraph")
+
+        self.assertEqual(value.blocks_by_name(block_name="date"), [])
+        self.assertEqual(value.blocks_by_name(block_name="invalid_type"), [])
+
+        first_heading_block = value.first_block_by_name(block_name="heading")
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(value.first_block_by_name(block_name="date"), None)
+        self.assertIs(value.first_block_by_name(block_name="invalid_type"), None)
+
+        # first_block_by_name with no argument returns a dict-like lookup of first blocks per name
+        first_blocks_by_name = value.first_block_by_name()
+        first_heading_block = first_blocks_by_name["heading"]
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(first_blocks_by_name["date"], None)
+        self.assertIs(first_blocks_by_name["invalid_type"], None)
+
     def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
 
@@ -4158,7 +4239,7 @@ class TestPageChooserBlock(TestCase):
                 "required": True,
                 "icon": "redirect",
                 "helpText": "pick a page, any page",
-                "classname": "field model_choice_field widget-admin_page_chooser fieldname-test_pagechooserblock",
+                "classname": "w-field w-field--model_choice_field w-field--admin_page_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4464,7 +4545,7 @@ class TestDateBlock(TestCase):
                 "label": "Test dateblock",
                 "required": True,
                 "icon": "date",
-                "classname": "field date_field widget-admin_date_input fieldname-test_dateblock",
+                "classname": "w-field w-field--date_field w-field--admin_date_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4497,7 +4578,7 @@ class TestTimeBlock(TestCase):
                 "label": "Test timeblock",
                 "required": True,
                 "icon": "time",
-                "classname": "field time_field widget-admin_time_input fieldname-test_timeblock",
+                "classname": "w-field w-field--time_field w-field--admin_time_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -4530,7 +4611,7 @@ class TestDateTimeBlock(TestCase):
                 "label": "Test datetimeblock",
                 "required": True,
                 "icon": "date",
-                "classname": "field date_time_field widget-admin_date_time_input fieldname-test_datetimeblock",
+                "classname": "w-field w-field--date_time_field w-field--admin_date_time_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },

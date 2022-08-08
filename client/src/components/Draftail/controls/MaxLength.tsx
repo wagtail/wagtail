@@ -1,6 +1,7 @@
 import React from 'react';
-import { ControlComponentProps } from 'draftail';
+import { ControlComponentProps, BLOCK_TYPE } from 'draftail';
 
+import { ContentBlock, EditorState } from 'draft-js';
 import { gettext } from '../../../utils/gettext';
 
 /**
@@ -21,18 +22,37 @@ export const countCharacters = (text: string) => {
 };
 
 /**
+ * Retrieves the plain text content of the editor similarly of how we would server-side,
+ * ignoring inline formatting, atomic blocks, and discarding line breaks.
+ */
+export const getPlainText = (editorState: EditorState) => {
+  const content = editorState.getCurrentContent();
+  const text = content.getBlockMap().reduce<string>((acc, item) => {
+    const block = item as ContentBlock;
+    const isAtomicBlock = block.getType() === BLOCK_TYPE.ATOMIC;
+
+    return `${acc}${isAtomicBlock ? '' : block.getText()}`;
+  }, '');
+
+  return text.replace(/\n/g, '');
+};
+
+interface MaxLengthProps extends ControlComponentProps {
+  maxLength: number;
+  id: string;
+}
+
+/**
  * Shows the editor’s character count, with a calculation of unicode characters
  * matching that of `maxlength` attributes.
  */
-const MaxLength = ({ getEditorState }: ControlComponentProps) => {
-  const editorState = getEditorState();
-  const content = editorState.getCurrentContent();
-  const text = content.getPlainText();
+const MaxLength = ({ getEditorState, maxLength, id }: MaxLengthProps) => {
+  const text = getPlainText(getEditorState());
 
   return (
-    <div className="w-inline-block w-tabular-nums w-label-3">
+    <div className="w-inline-block w-tabular-nums w-help-text" id={id}>
       <span className="w-sr-only">{gettext('Character count:')}</span>
-      <span>{countCharacters(text)}</span>
+      <span>{`${countCharacters(text)}/${maxLength}`}</span>
     </div>
   );
 };

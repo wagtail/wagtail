@@ -81,7 +81,6 @@ These are base styles for bare HTML elements.
 @import 'elements/elements';
 @import 'elements/typography';
 @import 'elements/forms';
-@import 'elements/root';
 
 /* OBJECTS
 These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
@@ -107,27 +106,47 @@ These are classes for components.
 
 // Legacy
 @import 'components/icons';
+@import 'components/forms/input-base';
+@import 'components/forms/input-text';
+@import 'components/forms/radio-checkbox';
+@import 'components/forms/select';
+@import 'components/forms/tagit';
+@import 'components/forms/radio-checkbox-multiple';
+@import 'components/forms/error-message';
+@import 'components/forms/required-mark';
+@import 'components/forms/help';
+@import 'components/forms/drop-zone';
+@import 'components/forms/daterange';
+@import 'components/forms/file';
+@import 'components/forms/switch';
+@import 'components/forms/title';
+@import 'components/forms/field';
+@import 'components/forms/field-row';
+@import 'components/forms/field-comment-control';
+@import 'components/forms/form-width';
 @import 'components/tabs';
+@import 'components/panel';
 @import 'components/dialog';
 @import 'components/dropdown';
 @import 'components/dropdown.legacy';
 @import 'components/help-block';
 @import 'components/modals';
-@import 'components/forms';
 @import 'components/button';
 @import 'components/chooser';
 @import 'components/tag';
 @import 'components/listing';
+@import 'components/filters';
 @import 'components/messages';
 @import 'components/messages.capability';
 @import 'components/messages.status';
 @import 'components/header';
+@import 'components/search-bar';
 @import 'components/progressbar';
+@import 'components/summary';
 @import 'components/tooltips';
 @import 'components/grid.legacy';
 @import 'components/footer';
 @import 'components/loading-mask';
-@import 'components/media-placeholder';
 @import 'components/human-readable-date';
 @import 'components/link.legacy';
 @import 'components/privacy-indicator';
@@ -136,10 +155,10 @@ These are classes for components.
 @import 'components/skiplink';
 @import 'components/workflow-tasks';
 @import 'components/workflow-timeline';
-@import 'components/switch';
 @import 'components/bulk_actions';
 @import 'components/preview-panel';
 @import 'components/preview-error';
+@import 'components/form-side';
 
 @import '../src/components/Sidebar/Sidebar';
 
@@ -169,18 +188,12 @@ These are classes that provide overrides.
 @import 'layouts/404';
 @import 'layouts/compare-revisions';
 @import 'layouts/home';
-@import 'layouts/page-editor';
-@import 'layouts/form-side';
 @import 'layouts/login';
 @import 'layouts/account';
-@import 'layouts/workflow-edit';
 @import 'layouts/workflow-progress';
 @import 'layouts/report';
-@import 'layouts/groups-edit';
 @import 'layouts/add-multiple';
 @import 'layouts/chooser-duplicate-upload';
 @import 'layouts/focal-point-chooser';
 @import 'layouts/modeladmin';
-@import 'layouts/modeladmin-choose-parent-page';
 @import 'layouts/redirects';
-@import 'layouts/listing';

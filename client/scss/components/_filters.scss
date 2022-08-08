@@ -1,0 +1,27 @@
+.filterable {
+  display: grid;
+  grid-template-columns: auto 300px;
+  grid-column-gap: 50px;
+
+  &__filters {
+    grid-column-start: col-start -2 col-end -1;
+
+    button[type='submit'] {
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    input[type='checkbox'] {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: auto;
+
+    &__filters {
+      grid-row: 1;
+    }
+  }
+}

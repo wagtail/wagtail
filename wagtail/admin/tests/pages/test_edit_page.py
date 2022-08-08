@@ -117,7 +117,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'id="status-sidebar-live"')
 
         # Test InlinePanel labels/headings
-        self.assertContains(response, "<legend>Speaker lineup</legend>")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_speakers-__prefix__-last_name" id="id_speakers-__prefix__-last_name-label">',
+        )
         self.assertContains(response, "Add speakers")
 
         # test register_page_action_menu_item hook
@@ -972,7 +975,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_editor_page_shows_live_url_in_status_when_draft_edits_exist(self):
         # If a page has draft edits (ie. page has unpublished changes)
-        # that affect the URL (eg. slug) we  should still ensure the
+        # that affect the URL (slug) we  should still ensure the
         # status button at the top of the page links to the live URL
 
         self.child_page.content = "Some content with a draft edit"
@@ -985,8 +988,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1011,8 +1014,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1278,7 +1281,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
     def test_page_edit_num_queries(self):
-        with self.assertNumQueries(38):
+        with self.assertNumQueries(40):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2051,12 +2054,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
             response, "The page could not be saved due to validation errors"
         )
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_non_field_error(self):
@@ -2144,12 +2142,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         )
 
         # Error on title shown against the title field
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
         # Error on title shown in the header message
         self.assertContains(
             response, "<li>Title: This field is required.</li>", count=1

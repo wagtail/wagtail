@@ -8,7 +8,7 @@
 
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
-            <div role="tablist" class="w-tabs__list nice-padding">
+            <div role="tablist" class="w-tabs__list">
                 {% for tab in panels_by_tab.keys %}
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=tab.name title=tab.title %}
                 {% endfor %}
@@ -32,26 +32,13 @@
                         hidden
                         aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
                     >
-                        <ul class="objects">
-                            {% for panel in panels %}
-                                <li class="object">
-                                    <div class="title-wrapper">
-                                        <label>{{ panel.title }}</label>
-                                    </div>
-                                    <div class="object-layout">
-                                        <div class="object-layout_big-part">
-                                            <div class="top-padding">
-                                                {{ panel.render }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                        {% for panel in panels %}
+                            {% panel id=panel.name heading=panel.title %}
+                                {{ panel.render }}
+                            {% endpanel %}
+                        {% endfor %}
 
-                        <div class="top-padding nice-padding">
-                            <button type="submit" class="button">{% trans 'Save account details' %}</button>
-                        </div>
+                        <button type="submit" class="button">{% trans 'Save account details' %}</button>
                     </section>
                 {% endfor %}
 

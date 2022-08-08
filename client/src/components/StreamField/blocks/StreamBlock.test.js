@@ -81,8 +81,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 label: 'Test Block A',
                 required: true,
                 icon: 'placeholder',
-                classname:
-                  'field char_field widget-text_input fieldname-test_charblock',
+                classname: 'w-field w-field--char_field w-field--text_input',
               },
             ),
             new FieldBlockDefinition(
@@ -93,7 +92,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 required: true,
                 icon: 'pilcrow',
                 classname:
-                  'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
               },
             ),
           ],
@@ -356,8 +355,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
                 label: 'Test Block <A>',
                 required: true,
                 icon: 'placeholder',
-                classname:
-                  'field char_field widget-text_input fieldname-test_charblock',
+                classname: 'w-field w-field--char_field w-field--text_input',
               },
             ),
             new FieldBlockDefinition(
@@ -368,7 +366,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
                 required: true,
                 icon: 'pilcrow',
                 classname:
-                  'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
               },
             ),
           ],
@@ -435,8 +433,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
               label: 'Test Block <A>',
               required: true,
               icon: 'placeholder',
-              classname:
-                'field char_field widget-text_input fieldname-test_charblock',
+              classname: 'w-field w-field--char_field w-field--text_input',
             },
           ),
           new FieldBlockDefinition(
@@ -447,7 +444,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
               required: true,
               icon: 'pilcrow',
               classname:
-                'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                'w-field w-field--char_field w-field--admin_auto_height_text_input',
             },
           ),
         ],
@@ -495,13 +492,13 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   };
 
   const assertCannotAddBlock = () => {
-    // Test duplicate button
+    // Test duplicate button is still enabled even when at block limit
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
         .querySelector('button[title="Duplicate"]')
         .getAttribute('disabled'),
-    ).toEqual('disabled');
+    ).toBe(null);
 
     // Test menu
     expect(
@@ -552,6 +549,30 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     boundBlock.inserters[0].open();
 
     assertCannotAddBlock();
+  });
+
+  test('addSibling capability works', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+    const addSibling =
+      boundBlock.children[0].block.parentCapabilities.get('addSibling');
+    expect(addSibling.getBlockMax('test_block_a')).toBeUndefined();
+    expect(addSibling.getBlockMax()).toEqual(3);
+    expect(addSibling.getBlockCount()).toEqual(2);
+    addSibling.fn({ type: 'test_block_a' });
+    expect(boundBlock.children.length).toEqual(3);
+    expect(boundBlock.children[1].type).toEqual('test_block_a');
   });
 
   test('insert disables new block', () => {
@@ -628,8 +649,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
               label: 'Test Block <A>',
               required: true,
               icon: 'placeholder',
-              classname:
-                'field char_field widget-text_input fieldname-test_charblock',
+              classname: 'w-field w-field--char_field w-field--text_input',
             },
           ),
           new FieldBlockDefinition(
@@ -640,7 +660,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
               required: true,
               icon: 'pilcrow',
               classname:
-                'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+                'w-field w-field--char_field w-field--admin_auto_height_text_input',
             },
           ),
         ],
@@ -692,13 +712,13 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
   };
 
   const assertCannotAddBlock = () => {
-    // Test duplicate button
+    // Test duplicate button is always enabled
     // querySelector always returns the first element it sees so this only checks the first block
     expect(
       document
         .querySelector('button[title="Duplicate"]')
         .getAttribute('disabled'),
-    ).toEqual('disabled');
+    ).toBe(null);
 
     // Test menu item
     expect(
@@ -707,6 +727,29 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
         .getAttribute('disabled'),
     ).toEqual('disabled');
   };
+
+  test('addSibling capability works', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+    const addSibling =
+      boundBlock.children[0].block.parentCapabilities.get('addSibling');
+    expect(addSibling.getBlockMax('test_block_a')).toEqual(2);
+    expect(addSibling.getBlockCount('test_block_a')).toEqual(1);
+    addSibling.fn({ type: 'test_block_a' });
+    expect(boundBlock.children.length).toEqual(3);
+    expect(boundBlock.children[1].type).toEqual('test_block_a');
+  });
 
   test('single instance allows creation of new block and duplication', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
@@ -727,7 +770,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     assertCanAddBlock();
   });
 
-  test('initialising at max_num disables adding new block of that type and duplication', () => {
+  test('initialising at max_num disables adding new block of that type', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
       {
@@ -749,93 +792,6 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     boundBlock.inserters[0].open();
 
     assertCannotAddBlock();
-  });
-
-  test('initialising at max_num disables splitting', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      {
-        id: '1',
-        type: 'test_block_a',
-        value: 'First value',
-      },
-      {
-        id: '2',
-        type: 'test_block_b',
-        value: 'Second value',
-      },
-      {
-        id: '3',
-        type: 'test_block_a',
-        value: 'Third value',
-      },
-    ]);
-    expect(
-      boundBlock.children[2].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
-  });
-
-  test('insert disables splitting', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      {
-        id: '1',
-        type: 'test_block_a',
-        value: 'First value',
-      },
-      {
-        id: '2',
-        type: 'test_block_b',
-        value: 'Second value',
-      },
-    ]);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(true);
-
-    boundBlock.insert(
-      {
-        id: '3',
-        type: 'test_block_a',
-        value: 'Third value',
-      },
-      2,
-    );
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
-  });
-
-  test('delete enables splitting', () => {
-    document.body.innerHTML = '<div id="placeholder"></div>';
-    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      {
-        id: '1',
-        type: 'test_block_a',
-        value: 'First value',
-      },
-      {
-        id: '2',
-        type: 'test_block_b',
-        value: 'Second value',
-      },
-      {
-        id: '3',
-        type: 'test_block_a',
-        value: 'Third value',
-      },
-    ]);
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(false);
-
-    boundBlock.deleteBlock(2);
-
-    expect(
-      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
-    ).toBe(true);
   });
 
   test('insert disables new block', () => {

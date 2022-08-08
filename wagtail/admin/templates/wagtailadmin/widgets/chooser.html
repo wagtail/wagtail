@@ -23,7 +23,7 @@
             {% if widget.show_edit_link %}
                 <li>
                     {% block edit_link %}
-                        <a href="{% block edit_chosen_item_url %}{{ edit_url }}{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">{{ widget.link_to_chosen_text }}</a>
+                        <a href="{% block edit_chosen_item_url %}{{ edit_url }}{% endblock %}" class="edit-link button button-small button-secondary{% if not edit_url %} u-hidden{% endif %}" target="_blank" rel="noreferrer">{{ widget.link_to_chosen_text }}</a>
                     {% endblock %}
                 </li>
             {% endif %}

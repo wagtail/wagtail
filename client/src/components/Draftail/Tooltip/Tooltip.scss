@@ -8,7 +8,7 @@ $tooltip-chrome-text: $draftail-tooltip-chrome-text;
 
 $tooltip-z-index: $draftail-tooltip-z-index;
 
-$tooltip-color-no: #f48880;
+$tooltip-color-no: theme('colors.critical.100');
 
 @mixin arrow--top {
   margin-top: $tooltip-arrow-spacing;
@@ -51,7 +51,7 @@ $tooltip-color-no: #f48880;
   color: $tooltip-chrome-text;
   z-index: $tooltip-z-index;
   border-radius: $tooltip-radius;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px theme('colors.black-35');
 
   &::before {
     content: '';

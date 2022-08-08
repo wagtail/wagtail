@@ -78,9 +78,9 @@ A form template for a StructBlock must include the output of `render_form` for e
     {% endif %}
 
     {% for child in children.values %}
-        <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
+        <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
             {% if child.block.label %}
-                <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+                <label class="w-field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}</label>
             {% endif %}
             {{ child.render_form }}
         </div>

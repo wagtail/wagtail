@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.tables import TitleColumn
-from wagtail.admin.views import generic, mixins
+from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
 from wagtail.users.views.users import index
@@ -52,7 +52,7 @@ class PermissionPanelFormsMixin:
         return super().get_context_data(**kwargs)
 
 
-class IndexView(mixins.SearchableListMixin, generic.IndexView):
+class IndexView(generic.IndexView):
     page_title = _("Groups")
     add_item_label = _("Add a group")
     search_box_placeholder = _("Search groups")

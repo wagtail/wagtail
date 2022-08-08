@@ -17,7 +17,7 @@ class AdminImageChooser(BaseChooser):
     choose_another_text = _("Change image")
     link_to_chosen_text = _("Edit this image")
     template_name = "wagtailimages/widgets/image_chooser.html"
-    chooser_modal_url_name = "wagtailimages:chooser"
+    chooser_modal_url_name = "wagtailimages_chooser:choose"
     icon = "image"
     classname = "image-chooser"
 
@@ -41,7 +41,7 @@ class AdminImageChooser(BaseChooser):
         return context
 
     def render_js_init(self, id_, name, value_data):
-        return "createImageChooser({0});".format(json.dumps(id_))
+        return "new ImageChooser({0});".format(json.dumps(id_))
 
     @property
     def media(self):

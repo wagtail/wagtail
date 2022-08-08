@@ -138,6 +138,7 @@ class TitleColumn(Column):
         get_url=None,
         link_classname=None,
         link_attrs=None,
+        id_accessor="pk",
         **kwargs,
     ):
         super().__init__(name, **kwargs)
@@ -145,6 +146,7 @@ class TitleColumn(Column):
         self._get_url_func = get_url
         self.link_attrs = link_attrs or {}
         self.link_classname = link_classname
+        self.id_accessor = id_accessor
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
@@ -160,7 +162,8 @@ class TitleColumn(Column):
         if self._get_url_func:
             return self._get_url_func(instance)
         else:
-            return reverse(self.url_name, args=(quote(instance.pk),))
+            id = multigetattr(instance, self.id_accessor)
+            return reverse(self.url_name, args=(quote(id),))
 
 
 class StatusFlagColumn(Column):

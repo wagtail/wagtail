@@ -1,6 +1,6 @@
 import os
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
@@ -18,9 +18,13 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.views.reports import ReportView
 from wagtail.contrib.redirects import models
-from wagtail.contrib.redirects.base_formats import DEFAULT_FORMATS
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
-from wagtail.contrib.redirects.forms import ConfirmImportForm, ImportForm, RedirectForm
+from wagtail.contrib.redirects.forms import (
+    ConfirmImportForm,
+    ConfirmImportManagementForm,
+    ImportForm,
+    RedirectForm,
+)
 from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
@@ -259,9 +263,10 @@ def start_import(request):
         )
         return redirect("wagtailredirects:start_import")
 
+    # This data is needed in the processing step, so it is stored in
+    # hidden form fields as signed strings (signing happens in the form).
     initial = {
-        "import_file_name": file_storage.name,
-        "original_file_name": import_file.name,
+        "import_file_name": os.path.basename(file_storage.name),
         "input_format": get_import_formats().index(import_format_cls),
     }
 
@@ -281,48 +286,43 @@ def process_import(request):
     supported_extensions = get_supported_extensions()
     from_encoding = "utf-8"
 
-    form_kwargs = {}
-    form = ConfirmImportForm(
-        DEFAULT_FORMATS, request.POST or None, request.FILES or None, **form_kwargs
-    )
+    management_form = ConfirmImportManagementForm(request.POST)
+    if not management_form.is_valid():
+        # Unable to unsign the hidden form data, or the data is missing, that's suspicious.
+        raise SuspiciousOperation(
+            f"Invalid management form, data is missing or has been tampered with:\n"
+            f"{management_form.errors.as_text()}"
+        )
 
-    is_confirm_form_valid = form.is_valid()
-
-    import_formats = get_import_formats()
-    input_format = import_formats[int(form.cleaned_data["input_format"])]()
+    input_format = get_import_formats()[
+        int(management_form.cleaned_data["input_format"])
+    ]()
 
     FileStorage = get_file_storage()
-    file_storage = FileStorage(name=form.cleaned_data["import_file_name"])
-
-    if not is_confirm_form_valid:
-        data = file_storage.read(input_format.get_read_mode())
-        if not input_format.is_binary() and from_encoding:
-            data = force_str(data, from_encoding)
-        dataset = input_format.create_dataset(data)
-
-        initial = {
-            "import_file_name": file_storage.name,
-            "original_file_name": form.cleaned_data["import_file_name"],
-        }
-
-        return render(
-            request,
-            "wagtailredirects/confirm_import.html",
-            {
-                "form": ConfirmImportForm(
-                    dataset.headers,
-                    request.POST or None,
-                    request.FILES or None,
-                    initial=initial,
-                ),
-                "dataset": dataset,
-            },
-        )
+    file_storage = FileStorage(name=management_form.cleaned_data["import_file_name"])
 
     data = file_storage.read(input_format.get_read_mode())
     if not input_format.is_binary() and from_encoding:
         data = force_str(data, from_encoding)
     dataset = input_format.create_dataset(data)
+
+    # Now check if the rest of the management form is valid
+    form = ConfirmImportForm(
+        dataset.headers,
+        request.POST,
+        request.FILES,
+        initial=management_form.cleaned_data,
+    )
+
+    if not form.is_valid():
+        return render(
+            request,
+            "wagtailredirects/confirm_import.html",
+            {
+                "form": form,
+                "dataset": dataset,
+            },
+        )
 
     import_summary = create_redirects_from_dataset(
         dataset,

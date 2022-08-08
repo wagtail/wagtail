@@ -1,0 +1,100 @@
+$button-size: theme('spacing.8');
+
+.w-field__comment-button {
+  @include transition(opacity 0.2s ease);
+  position: absolute;
+  // Text input’s default top margin.
+  top: theme('spacing.[1.5]');
+  inset-inline-end: 0;
+  color: $color-teal;
+  background: none;
+  border: 0;
+  width: $button-size;
+  height: $button-size;
+  padding: 0;
+
+  @include media-breakpoint-up(sm) {
+    inset-inline-end: calc(-1 * $button-size);
+  }
+
+  .icon {
+    width: $button-size;
+    height: $button-size;
+    color: inherit;
+  }
+
+  visibility: hidden;
+  opacity: 0;
+
+  // For devices without hover support, always show when comments are enabled.
+  @media (hover: none) {
+    .tab-content--comments-enabled & {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  // Hide by default, reveal on hover of parent, for devices supporting hover interaction
+  @media (hover: hover) {
+    .tab-content--comments-enabled .w-field__input:hover > &,
+    .tab-content--comments-enabled .w-field__input:focus-within > &,
+    &:hover,
+    &:focus,
+    &.w-field__comment-button--focused {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+// Add extra space to the right of commentable fields for the buttons.
+.w-field--commentable {
+  .tab-content--comments-enabled & .w-field__input {
+    padding-inline-end: $button-size;
+
+    @include media-breakpoint-up(sm) {
+      // Partial offset to reduce the change in layout with/without comments.
+      padding-inline-end: calc($button-size / 2);
+    }
+  }
+}
+
+.w-field__comment-button--add {
+  .icon-comment-add,
+  .icon-comment-add-reversed {
+    display: none;
+  }
+
+  &:not(:hover) {
+    .icon-comment-add {
+      display: block;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .icon-comment-add-reversed {
+      display: block;
+    }
+  }
+
+  // Hide the "Add comment" button if it’s preceded by a "Reveal comment" button.
+  .w-field__comment-button--reveal + & {
+    display: none;
+  }
+}
+
+.w-field__comment-button--reveal {
+  display: none;
+
+  .icon-comment {
+    // TODO Refactor: this needs different styles only because the icon symbols are drawn at different sizes.
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+  }
+
+  .tab-content--comments-enabled & {
+    display: block;
+  }
+}

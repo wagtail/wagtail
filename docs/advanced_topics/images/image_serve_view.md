@@ -152,7 +152,7 @@ class MySendFileView(SendFileView):
 ```
 
 You can also customise it to serve private files. For example, if the only need
-is to be authenticated (e.g. for Django >= 1.9):
+is to be authenticated (Django >= 1.9):
 
 ```python
 from django.contrib.auth.mixins import LoginRequiredMixin

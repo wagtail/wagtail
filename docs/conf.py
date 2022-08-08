@@ -213,7 +213,7 @@ html_use_index = False
 # base URL from which the finished HTML is served.
 # html_use_opensearch = ''
 
-# This is the file name suffix for HTML files (e.g. ".xhtml").
+# This is the file name suffix for HTML files (for example ".xhtml").
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.

@@ -15,6 +15,8 @@ class ChooserViewSet(ViewSet):
     A viewset that creates a chooser modal interface for choosing model instances.
     """
 
+    model = None
+
     icon = "snippet"  #: The icon to use in the header of the chooser modal, and on the chooser widget
     choose_one_text = _(
         "Choose"
@@ -24,6 +26,8 @@ class ChooserViewSet(ViewSet):
         "Choose another"
     )  #: Label for the 'choose' button in the chooser widget, when an item has already been chosen
     edit_item_text = _("Edit")  #: Label for the 'edit' button in the chooser widget
+
+    per_page = 10  #: Number of results to show per page
 
     #: The view class to use for the overall chooser modal; must be a subclass of ``wagtail.admin.views.generic.chooser.ChooseView``.
     choose_view_class = chooser_views.ChooseView
@@ -76,6 +80,7 @@ class ChooserViewSet(ViewSet):
             create_url_name=self.get_url_name("create"),
             icon=self.icon,
             page_title=self.page_title,
+            per_page=self.per_page,
             creation_form_class=self.creation_form_class,
             form_fields=self.form_fields,
             exclude_form_fields=self.exclude_form_fields,
@@ -92,6 +97,7 @@ class ChooserViewSet(ViewSet):
             model=self.model,
             chosen_url_name=self.get_url_name("chosen"),
             results_url_name=self.get_url_name("choose_results"),
+            per_page=self.per_page,
             creation_form_class=self.creation_form_class,
             form_fields=self.form_fields,
             exclude_form_fields=self.exclude_form_fields,
@@ -124,8 +130,17 @@ class ChooserViewSet(ViewSet):
         """
         Returns the form widget class for this chooser.
         """
+        if self.model is None:
+            widget_class_name = "ChooserWidget"
+        else:
+            if isinstance(self.model, str):
+                model_name = self.model.split(".")[-1]
+            else:
+                model_name = self.model.__name__
+            widget_class_name = "%sChooserWidget" % model_name
+
         return type(
-            "%sChooserWidget" % self.model.__name__,
+            widget_class_name,
             (self.base_widget_class,),
             {
                 "model": self.model,
@@ -146,7 +161,7 @@ class ChooserViewSet(ViewSet):
         ]
 
     def on_register(self):
-        if self.register_widget:
+        if self.model and self.register_widget:
             register_form_field_override(
                 ForeignKey, to=self.model, override={"widget": self.widget_class}
             )

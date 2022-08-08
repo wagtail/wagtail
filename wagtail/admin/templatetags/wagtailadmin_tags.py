@@ -477,18 +477,18 @@ def paginate(context, page, base_url="", page_key="p", classnames=""):
 
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
-def page_listing_buttons(context, page, page_perms, is_parent=False):
+def page_listing_buttons(context, page, page_perms):
     next_url = context.request.path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook(page, page_perms, is_parent, next_url))
+        buttons.extend(hook(page, page_perms, next_url))
 
     buttons.sort()
 
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
-        hook(buttons, page, page_perms, is_parent, context)
+        hook(buttons, page, page_perms, context)
 
     return {"page": page, "buttons": buttons}
 
@@ -514,7 +514,7 @@ def page_header_buttons(context, page, page_perms):
             "w-flex",
             "w-justify-center",
             "w-items-center",
-            "w-h-[50px]",
+            "w-h-slim-header",
         ],
         "button_classes": [
             "w-p-0",
@@ -585,7 +585,6 @@ def bulk_action_choices(context, app_label, model_name):
                 for action in bulk_action_more_list
             ],
         )
-        more_button.is_parent = True
         bulk_action_buttons.append(more_button)
 
     return {"buttons": bulk_action_buttons}
@@ -1018,6 +1017,27 @@ class HelpBlockNode(BlockInclusionNode):
 
 
 register.tag("help_block", HelpBlockNode.handle)
+
+
+class PanelNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/panel.html"
+
+
+register.tag("panel", PanelNode.handle)
+
+
+class FieldNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/field.html"
+
+
+register.tag("field", FieldNode.handle)
+
+
+class FieldRowNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/forms/field_row.html"
+
+
+register.tag("field_row", FieldRowNode.handle)
 
 
 # Button used to open dialogs

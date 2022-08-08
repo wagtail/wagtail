@@ -22,7 +22,7 @@
   }
 
   &--add-in-gutter {
-    @media (min-width: $screen-sm-min) {
+    @include media-breakpoint-up(sm) {
       padding-inline-start: $add-button-size;
 
       .c-sf-add-button {
@@ -72,7 +72,7 @@
 
     &.required > label::after {
       content: '*';
-      color: #cd3238;
+      color: theme('colors.critical.200');
       font-weight: 700;
       display: inline-block;
       margin-inline-start: 0.5em;

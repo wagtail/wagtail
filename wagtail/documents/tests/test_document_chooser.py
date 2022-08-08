@@ -136,7 +136,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the Collection chooser is not visible, because the Baker cannot
         # choose from multiple Collections.
-        self.assertNotContains(response, "Collection:")
+        self.assertNotContains(response, "Collection")
 
         # Let the Baker choose from the Office Collection.
         GroupCollectionPermission.objects.create(
@@ -155,7 +155,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
-        self.assertContains(response, "Collection:")
+        self.assertContains(response, "Collection")
 
     def test_chooser_no_docs_upload_allowed(self):
         # given a superuser and no documents in the database

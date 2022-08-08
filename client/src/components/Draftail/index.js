@@ -5,6 +5,7 @@ import {
   InlineToolbar,
   MetaToolbar,
   CommandPalette,
+  DraftUtils,
 } from 'draftail';
 import { Provider } from 'react-redux';
 
@@ -24,6 +25,7 @@ import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor, {
   getSplitControl,
+  splitState,
 } from './CommentableEditor/CommentableEditor';
 
 export { default as Link, onPasteLink } from './decorators/Link';
@@ -94,6 +96,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
   };
 
   const getSharedPropsFromOptions = (newOptions) => {
+    let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
           description: gettext('Horizontal line'),
@@ -102,7 +105,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
     const blockTypes = newOptions.blockTypes || [];
     const inlineStyles = newOptions.inlineStyles || [];
-    const controls = newOptions.controls || [];
+    let controls = newOptions.controls || [];
     const commands = newOptions.commands || true;
     let entityTypes = newOptions.entityTypes || [];
 
@@ -113,6 +116,23 @@ const initEditor = (selector, originalOptions, currentScript) => {
       return { ...plugin, ...type };
     });
 
+    // Only initialise the character count / max length on fields explicitly requiring it.
+    if (field.hasAttribute('maxlength')) {
+      const maxLengthID = `${field.id}-length`;
+      ariaDescribedBy = maxLengthID;
+      controls = controls.concat([
+        {
+          meta: (props) => (
+            <MaxLength
+              {...props}
+              maxLength={field.maxLength}
+              id={maxLengthID}
+            />
+          ),
+        },
+      ]);
+    }
+
     return {
       rawContentState: rawContentState,
       onSave: serialiseInputValue,
@@ -122,22 +142,19 @@ const initEditor = (selector, originalOptions, currentScript) => {
         description: gettext('Line break'),
         icon: BR_ICON,
       },
-      bottomToolbar: (props) => (
-        <>
-          <InlineToolbar {...props} />
-          <MetaToolbar {...props} />
-        </>
-      ),
+      topToolbar: InlineToolbar,
+      bottomToolbar: MetaToolbar,
       commandPalette: (props) => (
         <CommandPalette {...props} noResultsText={gettext('No results')} />
       ),
       maxListNesting: 4,
       stripPastedStyles: false,
+      ariaDescribedBy,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
-      controls: controls.concat([{ meta: MaxLength }]),
+      controls,
       commands,
       enableHorizontalRule,
     };
@@ -145,9 +162,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
   const styles = getComputedStyle(document.documentElement);
   const colors = {
-    standardHighlight: styles.getPropertyValue('--color-primary-light'),
-    overlappingHighlight: styles.getPropertyValue('--color-primary-lighter'),
-    focusedHighlight: styles.getPropertyValue('--color-primary'),
+    standardHighlight: styles.getPropertyValue('--w-color-secondary-100'),
+    overlappingHighlight: styles.getPropertyValue('--w-color-secondary-50'),
+    focusedHighlight: styles.getPropertyValue('--w-color-secondary'),
   };
 
   let options;
@@ -200,7 +217,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
 export default {
   initEditor,
   getSplitControl,
+  splitState,
   registerPlugin,
+  DraftUtils,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
   ImageModalWorkflowSource,

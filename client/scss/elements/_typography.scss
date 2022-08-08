@@ -13,12 +13,12 @@ h4,
 h5,
 h6 {
   font-weight: normal;
+  line-height: theme('lineHeight.tight');
+  color: theme('colors.primary.DEFAULT');
 }
 
 h1 {
-  line-height: 1.3em;
   font-size: 1.5em;
-  color: $color-grey-1;
   font-weight: 700;
 
   span {
@@ -28,9 +28,7 @@ h1 {
 
 h2 {
   font-size: 1.3em;
-  font-family: $font-sans;
   font-weight: 600;
-  color: $color-grey-2;
 }
 
 p {
@@ -47,8 +45,8 @@ a {
 }
 
 code {
-  box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.2);
-  background-color: $color-fieldset-hover;
+  box-shadow: inset 0 0 4px 0 theme('colors.black-20');
+  background-color: $color-white;
   font-family: $font-mono;
   padding: 2px 5px;
 }
@@ -57,7 +55,7 @@ kbd {
   border-radius: 3px;
   font-family: $font-sans;
   border: 1px solid $color-grey-2;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: theme('colors.black-20');
   padding: 0.3em 0.5em;
 }
 

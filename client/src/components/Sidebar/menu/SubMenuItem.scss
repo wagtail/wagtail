@@ -75,7 +75,7 @@
 
   &--visible {
     visibility: visible;
-    box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
+    box-shadow: 2px 0 2px theme('colors.black-35');
   }
 
   // Don't apply this to nested submenus though
@@ -102,7 +102,7 @@
 .sidebar-sub-menu-item {
   &--open {
     > a {
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+      text-shadow: -1px -1px 0 theme('colors.black-35');
     }
   }
 }

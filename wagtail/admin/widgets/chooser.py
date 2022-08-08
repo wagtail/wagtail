@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms import widgets
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -99,6 +100,7 @@ class BaseChooser(widgets.Input):
     )
     icon = None
     classname = None
+    model = None
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -120,6 +122,10 @@ class BaseChooser(widgets.Input):
         if "show_clear_link" in kwargs:
             self.show_clear_link = kwargs.pop("show_clear_link")
         super().__init__(**kwargs)
+
+    @cached_property
+    def model_class(self):
+        return resolve_model_string(self.model)
 
     def value_from_datadict(self, data, files, name):
         # treat the empty string as None
@@ -176,10 +182,10 @@ class BaseChooser(widgets.Input):
         """
         if value is None:
             return None
-        elif isinstance(value, self.model):
+        elif isinstance(value, self.model_class):
             return value
         else:  # assume instance ID
-            return self.model.objects.get(pk=value)
+            return self.model_class.objects.get(pk=value)
 
     def get_display_title(self, instance):
         """
@@ -314,7 +320,7 @@ class AdminPageChooser(BaseChooser):
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}
-        return "createPageChooser({id}, {parent}, {options});".format(
+        return "new PageChooser({id}, {parent}, {options});".format(
             id=json.dumps(id_),
             parent=json.dumps(value_data.get("parent_id")),
             options=json.dumps(self.client_options),

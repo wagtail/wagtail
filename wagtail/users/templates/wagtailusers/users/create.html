@@ -9,7 +9,7 @@
 
     <div class="w-tabs" data-tabs>
         <div class="w-tabs__wrapper">
-            <div role="tablist" class="w-tabs__list nice-padding">
+            <div role="tablist" class="w-tabs__list">
                 {% trans "Account" as account_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
                 {% trans "Roles" as roles_text %}
@@ -18,7 +18,7 @@
         </div>
 
         <form action="{% url 'wagtailusers_users:add' %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-            <div class="tab-content nice-padding">
+            <div class="tab-content">
                 {% csrf_token %}
                 <section
                     id="tab-account"

@@ -34,7 +34,7 @@
     &:hover,
     &:focus {
       color: $color-white;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+      text-shadow: -1px -1px 0 theme('colors.black-35');
     }
 
     &:before {
@@ -43,7 +43,8 @@
       font-size: 1rem;
       display: flex;
       align-items: center;
-      margin-inline-end: 0;
+      // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+      margin: 0.046875rem 0;
     }
 
     // only really used for spinners and settings menu
@@ -68,10 +69,9 @@
 
   &--active {
     @apply w-bg-primary-200;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    text-shadow: -1px -1px 0 theme('colors.black-35');
 
     > a {
-      border-inline-start-color: $color-salmon;
       color: $color-white;
     }
   }

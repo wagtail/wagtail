@@ -33,7 +33,7 @@ For more information, see the Django documentation for the [application director
 
 ### Page content
 
-The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. e.g the page title `{{ page.title }}` or another field `{{ page.author }}`.
+The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. For example the page title `{{ page.title }}` or another field `{{ page.author }}`.
 
 A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
@@ -41,7 +41,7 @@ Additionally `request.` is available and contains Django's request object.
 
 ## Static assets
 
-Static files e.g CSS, JS and images are typically stored here:
+Static files (such as CSS, JS and images) are typically stored here:
 
 ```
 name_of_project/
@@ -64,7 +64,7 @@ Images uploaded to a Wagtail site by its users (as opposed to a developer's stat
 
 Unlike other CMSs, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur _on the fly_ when the image is requested, via a special syntax within the template.
 
-Images from the library must be requested using this syntax, but a developer's static images can be added via conventional means e.g `img` tags. Only images from the library can be manipulated on the fly.
+Images from the library must be requested using this syntax, but a developer's static images can be added via conventional means like `img` tags. Only images from the library can be manipulated on the fly.
 
 Read more about the image manipulation syntax here: [](image_tag).
 
@@ -179,7 +179,7 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 
 Takes any `slug` as defined in a page's "Promote" tab and returns the URL for the matching Page. If multiple pages exist with the same slug, the page chosen is undetermined.
 
-Like `pageurl`, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, e.g. top level navigation or site-wide links.
+Like `pageurl`, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, for example top level navigation or site-wide links.
 
 ```html+django
 {% load wagtailcore_tags %}

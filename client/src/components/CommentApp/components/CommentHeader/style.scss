@@ -21,7 +21,7 @@
   }
 
   &__date {
-    color: $color-grey-25;
+    color: theme('colors.grey.400');
   }
 
   &__actions {
@@ -35,10 +35,6 @@
     border-radius: 5px;
     width: 30px;
     height: 30px;
-
-    &:hover {
-      background-color: $color-grey-7;
-    }
 
     > button,
     > details > summary {
@@ -82,18 +78,13 @@
     &--more {
       > button,
       > details > summary {
-        color: #767676;
-
-        // stylelint-disable-next-line max-nesting-depth
-        &:hover {
-          color: $color-grey-25;
-        }
+        color: theme('colors.grey.400');
       }
     }
   }
 
   &__more-actions {
-    background-color: #333;
+    background-color: $color-grey-1;
     color: $color-grey-5;
     position: absolute;
     z-index: 1000;
@@ -104,7 +95,7 @@
     &:before {
       content: '';
       border: 6px solid transparent;
-      border-bottom-color: #333;
+      border-bottom-color: $color-grey-1;
       display: block;
       position: absolute;
       bottom: 100%;
@@ -115,16 +106,12 @@
       display: block;
       background: none;
       border: 0;
-      color: #fff;
+      color: $color-white;
       padding: 5px 10px;
       font-size: 13px;
       width: 100px;
       text-align: start;
-
-      &:hover {
-        color: #aaa;
-        cursor: pointer;
-      }
+      cursor: pointer;
     }
   }
 }

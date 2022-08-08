@@ -41,6 +41,7 @@ from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
+    FilterableSnippet,
     RegisterDecorator,
     RegisterFunction,
     SearchableSnippet,
@@ -351,6 +352,107 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
         self.assertIn(self.snippet_c, items)
 
 
+class TestSnippetListViewWithFilterSet(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse("wagtailsnippets_snippetstests_filterablesnippet:list"),
+            params,
+        )
+
+    def create_test_snippets(self):
+        FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
+        FilterableSnippet.objects.create(text="From the UK", country_code="UK")
+
+    def test_unfiltered_no_results(self):
+        response = self.get()
+        add_url = reverse("wagtailsnippets_snippetstests_filterablesnippet:add")
+        self.assertContains(
+            response,
+            f'No filterable snippets have been created. Why not <a href="{add_url}">add one</a>',
+        )
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            html=True,
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+
+    def test_unfiltered_with_results(self):
+        self.create_test_snippets()
+        response = self.get()
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "From the UK")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            html=True,
+        )
+
+    def test_empty_filter_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": ""})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "From the UK")
+        self.assertNotContains(response, "There are 2 matches")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="">All</button>',
+            html=True,
+        )
+
+    def test_filtered_no_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "PH"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Sorry, no filterable snippets match your query")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="PH">Philippines</button>',
+            html=True,
+        )
+
+    def test_filtered_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "ID"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From Indonesia")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="ID">Indonesia</button>',
+            html=True,
+        )
+
+    def test_filtered_searched_no_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "ID", "q": "the"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "Sorry, no filterable snippets match your query")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="ID">Indonesia</button>',
+            html=True,
+        )
+
+    def test_filtered_searched_with_results(self):
+        self.create_test_snippets()
+        response = self.get({"country_code": "UK", "q": "the"})
+        self.assertTemplateUsed(response, "wagtailadmin/shared/filters.html")
+        self.assertContains(response, "From the UK")
+        self.assertContains(response, "There is 1 match")
+        self.assertContains(
+            response,
+            '<button class="button button-select__option button-select__option--selected" value="UK">United Kingdom</button>',
+            html=True,
+        )
+
+
 class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
@@ -421,12 +523,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The snippet could not be created due to errors.")
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_create(self):
@@ -830,12 +927,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The snippet could not be saved due to errors.")
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_edit(self):
@@ -1395,7 +1487,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should use the latest draft content for the title
         self.assertContains(
             response,
-            '<h1 class="w-header__title"><svg class="icon icon-snippet w-header__glyph" aria-hidden="true"><use href="#icon-snippet"></use></svg>Draft-enabled Bar, In Draft</h1>',
+            '<h1 class="w-header__title" id="header-title"><svg class="icon icon-snippet w-header__glyph" aria-hidden="true"><use href="#icon-snippet"></use></svg>Draft-enabled Bar, In Draft</h1>',
             html=True,
         )
 
@@ -1655,8 +1747,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advert"
         ][0]
 
-    def test_render_as_field(self):
-        field_html = self.snippet_chooser_panel.render_as_field()
+    def test_render_html(self):
+        field_html = self.snippet_chooser_panel.render_html()
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
@@ -1674,14 +1766,14 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advert"
         ][0]
 
-        field_html = snippet_chooser_panel.render_as_field()
+        field_html = snippet_chooser_panel.render_html()
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
 
     def test_render_js(self):
         self.assertIn(
             'new SnippetChooser("id_advert");',
-            self.snippet_chooser_panel.render_as_field(),
+            self.snippet_chooser_panel.render_html(),
         )
 
     def test_target_model_autodetected(self):
@@ -2697,7 +2789,7 @@ class TestSnippetChooserBlock(TestCase):
                 "required": True,
                 "icon": "snippet",
                 "helpText": "pick an advert, any advert",
-                "classname": "field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock",
+                "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -2952,7 +3044,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
                 "required": True,
                 "icon": "snippet",
                 "helpText": "pick an advert, any advert",
-                "classname": "field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock",
+                "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -3018,8 +3110,8 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advertwithcustomprimarykey"
         ][0]
 
-    def test_render_as_field(self):
-        field_html = self.snippet_chooser_panel.render_as_field()
+    def test_render_html(self):
+        field_html = self.snippet_chooser_panel.render_html()
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert with custom primary key", field_html)
         self.assertIn("Choose another advert with custom primary key", field_html)
@@ -3037,14 +3129,14 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advertwithcustomprimarykey"
         ][0]
 
-        field_html = snippet_chooser_panel.render_as_field()
+        field_html = snippet_chooser_panel.render_html()
         self.assertIn("Choose advert with custom primary key", field_html)
         self.assertIn("Choose another advert with custom primary key", field_html)
 
     def test_render_js(self):
         self.assertIn(
             'new SnippetChooser("id_advertwithcustomprimarykey");',
-            self.snippet_chooser_panel.render_as_field(),
+            self.snippet_chooser_panel.render_html(),
         )
 
     def test_target_model_autodetected(self):

@@ -8,7 +8,12 @@ from freezegun import freeze_time
 
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page
-from wagtail.test.testapp.models import EventCategory, SimplePage, StreamPage
+from wagtail.test.testapp.models import (
+    EventCategory,
+    MultiPreviewModesPage,
+    SimplePage,
+    StreamPage,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -141,7 +146,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # The preview should be unavailable
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/preview_error.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
             "<title>Wagtail - Preview not available</title>",
@@ -180,7 +185,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # The preview should still be unavailable
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/preview_error.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
             "<title>Wagtail - Preview not available</title>",
@@ -311,6 +316,179 @@ class TestPreview(TestCase, WagtailTestUtils):
             response = self.client.get(preview_url)
             self.assertEqual(response.status_code, 200)
 
+    def test_preview_modes(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "multipreviewmodespage", self.home_page.id),
+        )
+
+        response = self.client.post(preview_url, data={"title": "Test", "slug": "test"})
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        cases = [
+            ("", "tests/simple_page_alt.html"),
+            ("?mode=original", "tests/simple_page.html"),
+            ("?mode=alt%231", "tests/simple_page_alt.html"),
+        ]
+
+        for params, template in cases:
+            with self.subTest(params=params, template=template):
+                response = self.client.get(preview_url + params)
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, template)
+
+
+class TestEnablePreview(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+        # SimplePage only has one preview mode
+        self.single = SimplePage(title="Single preview mode", content="foo")
+        # MultiPreviewModesPage has two preview modes
+        self.multiple = MultiPreviewModesPage(title="Multiple preview modes")
+
+        self.root_page.add_child(instance=self.single)
+        self.root_page.add_child(instance=self.multiple)
+
+    def get_url_on_add(self, name, page):
+        model_name = type(page)._meta.model_name
+        return reverse(
+            f"wagtailadmin_pages:{name}",
+            args=("tests", model_name, self.root_page.id),
+        )
+
+    def get_url_on_edit(self, name, page):
+        return reverse(f"wagtailadmin_pages:{name}", args=(page.id,))
+
+    def test_show_preview_panel_on_create_with_single_mode(self):
+        create_url = self.get_url_on_add("add", self.single)
+        preview_url = self.get_url_on_add("preview_on_add", self.single)
+        iframe_url = preview_url + "?in_preview_panel=true&mode="
+        response = self.client.get(create_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Should show the preview panel
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
+        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should show the iframe
+        self.assertContains(
+            response,
+            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+        )
+
+        # Should not show the preview mode selection
+        self.assertNotContains(
+            response,
+            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+        )
+
+    def test_show_preview_panel_on_create_with_multiple_modes(self):
+        create_url = self.get_url_on_add("add", self.multiple)
+        preview_url = self.get_url_on_add("preview_on_add", self.multiple)
+        iframe_url = preview_url + "?in_preview_panel=true&mode=alt%231"
+        response = self.client.get(create_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Should show the preview panel
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
+        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should show the iframe with the default mode set and correctly quoted
+        self.assertContains(
+            response,
+            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+        )
+
+        # should show the preview mode selection
+        self.assertContains(
+            response,
+            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+        )
+        self.assertContains(response, '<option value="original">Original</option>')
+
+        # Should respect the default_preview_mode
+        self.assertContains(
+            response, '<option value="alt#1" selected>Alternate</option>'
+        )
+
+    def test_show_preview_panel_on_edit_with_single_mode(self):
+        edit_url = self.get_url_on_edit("edit", self.single)
+        preview_url = self.get_url_on_edit("preview_on_edit", self.single)
+        iframe_url = preview_url + "?in_preview_panel=true&mode="
+        response = self.client.get(edit_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Should show the preview panel
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
+        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should show the iframe
+        self.assertContains(
+            response,
+            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+        )
+
+        # Should not show the preview mode selection
+        self.assertNotContains(
+            response,
+            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+        )
+
+    def test_show_preview_panel_on_edit_with_multiple_modes(self):
+        edit_url = self.get_url_on_edit("edit", self.multiple)
+        preview_url = self.get_url_on_edit("preview_on_edit", self.multiple)
+        iframe_url = preview_url + "?in_preview_panel=true&mode=alt%231"
+        response = self.client.get(edit_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Should show the preview panel
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
+        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should show the iframe with the default mode set and correctly quoted
+        self.assertContains(
+            response,
+            f'<iframe title="Preview" class="preview-panel__iframe" data-preview-iframe src="{iframe_url}" aria-describedby="preview-panel-error-banner">',
+        )
+
+        # should show the preview mode selection
+        self.assertContains(
+            response,
+            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+        )
+        self.assertContains(response, '<option value="original">Original</option>')
+
+        # Should respect the default_preview_mode
+        self.assertContains(
+            response, '<option value="alt#1" selected>Alternate</option>'
+        )
+
+    def test_show_preview_on_revisions_list(self):
+        latest_revision = self.single.save_revision(log_action=True)
+        history_url = self.get_url_on_edit("history", self.single)
+        preview_url = reverse(
+            "wagtailadmin_pages:revisions_view",
+            args=(self.single.id, latest_revision.id),
+        )
+
+        response = self.client.get(history_url)
+        self.assertContains(response, "Preview")
+        self.assertContains(response, preview_url)
+
 
 class TestDisablePreviewButton(TestCase, WagtailTestUtils):
     """
@@ -325,23 +503,6 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         self.user = self.login()
 
     def test_disable_preview_on_create(self):
-        # preview button is available by default
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", self.root_page.id),
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-
-        preview_url = reverse(
-            "wagtailadmin_pages:preview_on_add",
-            args=("tests", "simplepage", self.root_page.id),
-        )
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
-        self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
-
         # StreamPage has preview_modes = []
         response = self.client.get(
             reverse(
@@ -360,22 +521,6 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
 
     def test_disable_preview_on_edit(self):
-        simple_page = SimplePage(title="simple page", content="hello")
-        self.root_page.add_child(instance=simple_page)
-
-        # preview button is available by default
-        response = self.client.get(
-            reverse("wagtailadmin_pages:edit", args=(simple_page.id,))
-        )
-        self.assertEqual(response.status_code, 200)
-
-        preview_url = reverse(
-            "wagtailadmin_pages:preview_on_edit", args=(simple_page.id,)
-        )
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
-        self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
-
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
         self.root_page.add_child(instance=stream_page)
 
@@ -393,21 +538,6 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
 
     def test_disable_preview_on_revisions_list(self):
-        simple_page = SimplePage(title="simple page", content="hello")
-        self.root_page.add_child(instance=simple_page)
-        simple_page.save_revision(log_action=True)
-
-        # check preview shows up by default
-        response = self.client.get(
-            reverse("wagtailadmin_pages:history", args=(simple_page.id,))
-        )
-        preview_url = reverse(
-            "wagtailadmin_pages:revisions_view",
-            args=(simple_page.id, simple_page.get_latest_revision().id),
-        )
-        self.assertContains(response, "Preview")
-        self.assertContains(response, preview_url)
-
         stream_page = StreamPage(title="stream page", body=[("text", "hello")])
         self.root_page.add_child(instance=stream_page)
         latest_revision = stream_page.save_revision(log_action=True)

@@ -1,6 +1,8 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 
+from wagtail.coreutils import resolve_model_string
+
 
 class ObjectTypeRegistry:
     """
@@ -66,7 +68,7 @@ class ModelFieldRegistry(ObjectTypeRegistry):
     def register(self, field_class, to=None, value=None, exact_class=False):
         if to:
             if field_class == models.ForeignKey:
-                self.values_by_fk_related_model[to] = value
+                self.values_by_fk_related_model[resolve_model_string(to)] = value
             else:
                 raise ImproperlyConfigured(
                     "The 'to' argument on ModelFieldRegistry.register is only valid for ForeignKey fields"

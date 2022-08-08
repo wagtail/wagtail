@@ -172,7 +172,7 @@ Returns the name of a custom template to be used in rendering the data entry mod
 
 `Task.on_action(task_state, user, action_name, **kwargs)`:
 
-This performs the actions specified in `Task.get_actions(page, user)`: it is passed an action name, eg `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
+This performs the actions specified in `Task.get_actions(page, user)`: it is passed an action name, for example `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
 
 For example, let's say we wanted to add an additional option: cancelling the entire workflow:
 
@@ -237,7 +237,7 @@ class BaseUserApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def can_handle(self, instance, **kwargs):
         if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, UserApprovalTask):
-            # Don't send notifications if a Task has been cancelled and then resumed - ie page was updated to a new revision
+            # Don't send notifications if a Task has been cancelled and then resumed - when page was updated to a new revision
             return not TaskState.objects.filter(workflow_state=instance.workflow_state, task=instance.task, status=TaskState.STATUS_CANCELLED).exists()
         return False
 

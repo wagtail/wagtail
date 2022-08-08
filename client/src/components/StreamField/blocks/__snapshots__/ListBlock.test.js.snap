@@ -47,12 +47,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -98,12 +101,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -149,12 +155,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -215,12 +224,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -266,12 +278,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -332,12 +347,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -383,12 +401,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -449,12 +470,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -500,12 +524,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -551,12 +578,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -617,12 +647,15 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -668,12 +701,15 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -734,12 +770,15 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -785,12 +824,15 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -851,12 +893,15 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -902,13 +947,16 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname- error\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
+          <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
-        <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+        </div>
       </div>
                 </div>
               </div>
@@ -968,12 +1016,15 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -1019,12 +1070,15 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>

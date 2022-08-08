@@ -139,9 +139,9 @@ class CustomSettingsPanel(BaseSettingsPanel):
 
 {# This is the default template Wagtail uses, which just renders the form #}
 
-<ul class="fields">
+{% block content %}
     {% for field in form %}
-        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+        {% include "wagtailadmin/shared/field.html" with field=field %}
     {% endfor %}
-</ul>
+{% endblock %}
 ```

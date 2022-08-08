@@ -82,11 +82,11 @@ Add the field to the group 'edit'/'create' templates:
 {% load wagtailusers_tags wagtailadmin_tags i18n %}
 
 {% block extra_fields %}
-    {% include "wagtailadmin/shared/field_as_li.html" with field=form.adgroups %}
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.adgroups %}</li>
 {% endblock extra_fields %}
 ```
 
-Finally we configure the `wagtail.users` application to use the custom viewset, by setting up a custom `AppConfig` class. Within your project folder (i.e. the package containing the top-level settings and urls modules), create `apps.py` (if it does not exist already) and add:
+Finally we configure the `wagtail.users` application to use the custom viewset, by setting up a custom `AppConfig` class. Within your project folder (which will be the package containing the top-level settings and urls modules), create `apps.py` (if it does not exist already) and add:
 
 ```python
 from wagtail.users.apps import WagtailUsersAppConfig

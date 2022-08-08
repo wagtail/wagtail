@@ -73,3 +73,7 @@ $padding: math.div($grid-gutter-width, 2);
     margin-inline-end: $desktop-nice-padding;
   }
 }
+
+@mixin max-form-width {
+  max-width: $max-form-width;
+}

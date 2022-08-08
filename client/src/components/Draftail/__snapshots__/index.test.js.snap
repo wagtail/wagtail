@@ -16,11 +16,7 @@ Object {
   "commandPalette": [Function],
   "commandToolbar": [Function],
   "commands": true,
-  "controls": Array [
-    Object {
-      "meta": [Function],
-    },
-  ],
+  "controls": Array [],
   "decorators": Array [],
   "editorState": null,
   "enableHorizontalRule": Object {

@@ -252,6 +252,7 @@ export class TypedTableBlock {
     });
 
     column.headingInput = document.createElement('input');
+    column.headingInput.type = 'text';
     column.headingInput.name =
       this.prefix + '-column-' + column.id + '-heading';
     column.headingInput.className = 'column-heading';

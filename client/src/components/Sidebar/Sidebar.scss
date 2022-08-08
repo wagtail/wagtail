@@ -48,6 +48,8 @@
     width: 1rem;
     height: 1rem;
     min-width: 1rem;
+    // Ensure consistent button height in collapsed state where no text line-height is adding 1.5px.
+    margin: 0.046875rem 0;
   }
 
   &--slim {
@@ -91,7 +93,7 @@
   display: none; // Nav toggle is for mobile only
 
   &--mobile {
-    @apply w-bg-primary w-top-0 w-left-0 w-h-[50px] w-w-[50px] w-rounded-none hover:w-bg-primary-200;
+    @apply w-bg-primary w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-primary-200;
     display: grid;
   }
 

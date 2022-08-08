@@ -516,7 +516,7 @@ Contributors
 * Kevin Breen
 * Ihor Marhitych
 * Andre Fonseca
-* Tidjani Dia
+* Tidiane Dia
 * Jan Seifert
 * hardcodd
 * Chris Pollard
@@ -613,6 +613,9 @@ Contributors
 * Bernd de Ridder
 * Stefano Silvestri
 * Alexander Rogovskyy
+* Dominik Lech
+* Paritosh Kabra
+* Akash Kumar Sen
 
 
 Translators

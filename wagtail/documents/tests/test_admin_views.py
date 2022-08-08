@@ -180,7 +180,10 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
 
         # as standard, only the root collection exists and so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
@@ -196,7 +199,10 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
 
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         self.assertContains(response, "Evil plans")
 
     def test_get_with_collection_nesting(self):
@@ -335,7 +341,10 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_get_with_collection_nesting(self):
         self.evil_plans_collection.add_child(name="Eviler plans")
@@ -343,7 +352,10 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
         response = self.client.get(reverse("wagtaildocs:add"))
         self.assertEqual(response.status_code, 200)
         # Unlike the above test, the user should have access to multiple Collections.
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
 
@@ -775,7 +787,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
 
         # no collection chooser when only one collection exists
-        self.assertNotContains(response, '<label for="id_adddocument_collection">')
+        self.assertNotContains(response, "id_adddocument_collection")
 
         self.check_form_media_in_response(response)
 
@@ -791,7 +803,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
 
         # collection chooser should exisst
-        self.assertContains(response, '<label for="id_adddocument_collection">')
+        self.assertContains(response, "id_adddocument_collection")
         self.assertContains(response, "Evil plans")
 
     def test_add_post(self):
@@ -1875,7 +1887,10 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
 
         # documents can only be moved to collections you have add permission for,
         # so the 'collection' field is not available here
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
         # if the user has add permission on a different collection,
         # they should have option to move the document
@@ -1891,7 +1906,10 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
             reverse("wagtaildocs:edit", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         self.assertContains(response, "Nice plans")
         self.assertContains(response, "Evil plans")
 

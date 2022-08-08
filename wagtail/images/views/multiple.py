@@ -18,7 +18,6 @@ from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.models import UploadedImage
 from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
 from wagtail.images.utils import find_image_duplicates
-from wagtail.search.backends import get_search_backends
 
 
 class AddView(BaseAddView):
@@ -81,10 +80,6 @@ class AddView(BaseAddView):
     def save_object(self, form):
         image = form.save(commit=False)
         image.uploaded_by_user = self.request.user
-        image.file_size = image.file.size
-        image.file.seek(0)
-        image._set_file_hash(image.file.read())
-        image.file.seek(0)
         image.save()
         return image
 
@@ -123,13 +118,6 @@ class EditView(BaseEditView):
     def get_edit_form_class(self):
         return get_image_multi_form(self.model)
 
-    def save_object(self, form):
-        form.save()
-
-        # Reindex the image to make sure all tags are indexed
-        for backend in get_search_backends():
-            backend.add(self.object)
-
 
 class DeleteView(BaseDeleteView):
     permission_policy = permission_policy
@@ -163,16 +151,12 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
             os.path.basename(self.upload.file.name), self.upload.file.file, save=False
         )
         self.object.uploaded_by_user = self.request.user
-        self.object.file_size = self.object.file.size
-        self.object.file.open()
-        self.object.file.seek(0)
-        self.object._set_file_hash(self.object.file.read())
-        self.object.file.seek(0)
-        form.save()
 
-        # Reindex the image to make sure all tags are indexed
-        for backend in get_search_backends():
-            backend.add(self.object)
+        # form.save() would normally handle writing the image file metadata, but in this case the
+        # file handling happens outside the form, so we need to do that manually
+        self.object._set_image_file_metadata()
+
+        form.save()
 
 
 class DeleteUploadView(BaseDeleteUploadView):

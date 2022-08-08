@@ -3,7 +3,6 @@
 {% load i18n %}
 
 {% block titletag %}{% blocktrans trimmed with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}page-editor create model-{{ content_type.model }}{% endblock %}
 
 {% block content %}
     <div id="comments"></div>

@@ -24,7 +24,7 @@ The required `use_json_field` argument is added.
 
 ```python
 body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], block_counts={
@@ -46,7 +46,7 @@ All block definitions accept the following optional keyword arguments:
 -   `template`
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
-    -   The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+    -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
 ## Field block types
 
@@ -205,6 +205,7 @@ All block definitions accept the following optional keyword arguments:
    :param editor: The rich text editor to be used (see :ref:`WAGTAILADMIN_RICH_TEXT_EDITORS`).
    :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
    :param required: If true (the default), the field cannot be left blank.
+   :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
    :param help_text: Help text to display alongside the field.
    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
@@ -401,7 +402,7 @@ All block definitions accept the following optional keyword arguments:
    .. code-block:: python
 
        body = StreamField([
-           ('heading', blocks.CharBlock(form_classname="full title")),
+           ('heading', blocks.CharBlock(form_classname="title")),
            ('paragraph', blocks.RichTextBlock()),
            ('image', ImageChooserBlock()),
            ('person', PersonBlock()),
@@ -413,7 +414,7 @@ All block definitions accept the following optional keyword arguments:
    :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
    :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
    :param label_format:
-     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - e.g. ``label_format = "Profile for {first_name} {surname}"``
+     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - for example ``label_format = "Profile for {first_name} {surname}"``
 
 
 .. class:: wagtail.blocks.ListBlock

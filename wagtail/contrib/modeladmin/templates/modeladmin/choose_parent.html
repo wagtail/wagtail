@@ -27,7 +27,7 @@
         <div class="nice-padding">
             <p class="back">
                 <a href="{{ view.index_url }}">
-                    <svg class="icon default" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+                    {% icon name="arrow-left" class_name="default" %}
                     {% blocktrans trimmed with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}
                 </a>
             </p>
@@ -37,12 +37,8 @@
             <form action="" method="post" novalidate>
                 {% csrf_token %}
 
-                <ul class="fields">
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.parent_page %}
-                    <li>
-                        <input type="submit" class="button" value="{% trans 'Continue' %}">
-                    </li>
-                </ul>
+                {% include "wagtailadmin/shared/field.html" with field=form.parent_page %}
+                <button class="button" type="submit">{% trans 'Continue' %}</button>
             </form>
 
         </div>

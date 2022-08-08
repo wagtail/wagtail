@@ -8,6 +8,11 @@
     min-height: 20rem;
   }
 
+  // Layout is handled by the table markup.
+  .w-field__wrapper {
+    margin-bottom: 0;
+  }
+
   table {
     margin: 2.5rem 0 1rem 2.5rem;
   }

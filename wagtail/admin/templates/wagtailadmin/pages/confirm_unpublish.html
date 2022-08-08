@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Unpublish {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Unpublish" as unpublish_str %}
@@ -20,46 +20,36 @@
         <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
-            <ul class="fields">
-                {% if live_descendant_count > 0 or translation_descendant_count > 0 %}
-                    <li>
-                        <div class="field boolean_field checkbox_input">
-                            <div class="field-content">
-                                <div class="input">
-                                    <input id="id_include_descendants" name="include_descendants" type="checkbox">
-                                    <label for="id_include_descendants" class="plain-checkbox-label">
-                                        {% if translation_descendant_count %}
-                                            {% if translation_descendant_count == 1 %}
-                                                {% blocktrans trimmed count counter=live_descendant_count %}
-                                                    This page has one subpage and its translations have a combined one translated child page. Unpublish these too
-                                                {% plural %}
-                                                    This page has {{ live_descendant_count }} child pages and its translations have a combined one translated child page. Unpublish these too
-                                                {% endblocktrans %}
-                                            {% else %}
-                                                {% blocktrans trimmed count counter=live_descendant_count %}
-                                                    This page has one child page and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
-                                                {% plural %}
-                                                    This page has {{ live_descendant_count }} child pages and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
-                                                {% endblocktrans %}
-                                            {% endif %}
-                                        {% else %}
-                                            {% blocktrans trimmed count counter=live_descendant_count %}
-                                                This page has one subpage. Unpublish this too
-                                            {% plural %}
-                                                This page has {{ live_descendant_count }} subpages. Unpublish these too
-                                            {% endblocktrans %}
-                                        {% endif %}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                {% endif %}
-                <li>
-                    <input type="submit" value="{% trans 'Yes, unpublish it' %}" class="button">
-                    <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't unpublish" %}</a>
-                </li>
-            </ul>
+            {% if live_descendant_count > 0 or translation_descendant_count > 0 %}
+                {% fragment as text %}
+                    {% if translation_descendant_count %}
+                        {% if translation_descendant_count == 1 %}
+                            {% blocktrans trimmed count counter=live_descendant_count %}
+                                This page has one subpage and its translations have a combined one translated child page. Unpublish these too
+                            {% plural %}
+                                This page has {{ live_descendant_count }} child pages and its translations have a combined one translated child page. Unpublish these too
+                            {% endblocktrans %}
+                        {% else %}
+                            {% blocktrans trimmed count counter=live_descendant_count %}
+                                This page has one child page and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
+                            {% plural %}
+                                This page has {{ live_descendant_count }} child pages and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
+                            {% endblocktrans %}
+                        {% endif %}
+                    {% else %}
+                        {% blocktrans trimmed count counter=live_descendant_count %}
+                            This page has one subpage. Unpublish this too
+                        {% plural %}
+                            This page has {{ live_descendant_count }} subpages. Unpublish these too
+                        {% endblocktrans %}
+                    {% endif %}
+                {% endfragment %}
+                {% include "wagtailadmin/shared/forms/single_checkbox.html" with name="include_descendants" label_classname="w-label-3 w-mb-4" text=text %}
+            {% endif %}
+            <div>
+                <button class="button" type="submit">{% trans 'Yes, unpublish it' %}</button>
+                <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, don't unpublish" %}</a>
+            </div>
         </form>
     </div>
 {% endblock %}

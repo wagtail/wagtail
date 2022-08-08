@@ -54,12 +54,12 @@
     padding: 0 15px;
 
     h2 {
-      background-color: #fafafa;
+      background-color: $color-grey-5;
       font-size: 13px;
       line-height: 31px;
       margin-top: 0;
       padding-inline-start: 8px;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 1px solid $color-grey-4;
     }
 
     h3 {
@@ -88,7 +88,7 @@
       font-weight: normal;
       vertical-align: middle;
       display: block;
-      background-color: #fff;
+      background-color: $color-white;
       border: 1px solid $color-teal;
       color: $color-teal;
       text-decoration: none;
@@ -102,13 +102,13 @@
       &:hover {
         background-color: $color-teal-dark;
         border-color: $color-teal-dark;
-        color: #fff;
+        color: $color-white;
       }
     }
 
     li.selected a {
       // stylelint-disable-next-line declaration-no-important
-      color: #fff !important;
+      color: $color-white !important;
       // stylelint-disable-next-line declaration-no-important
       border-color: $color-teal !important;
       background-color: $color-teal;
@@ -132,7 +132,7 @@
 
   .pagination {
     margin-top: 3em;
-    border-top: 1px dashed #d9d9d9;
+    border-top: 1px dashed theme('colors.grey.100');
     padding: 2em 1em 0;
 
     ul {

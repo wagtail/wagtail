@@ -1,5 +1,4 @@
 import functools
-import re
 from warnings import warn
 
 from django import forms
@@ -12,7 +11,6 @@ from django.dispatch import receiver
 from django.forms import Media
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
-from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
@@ -24,7 +22,7 @@ from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_displa
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
-from wagtail.coreutils import camelcase_to_underscore
+from wagtail.coreutils import safe_snake_case
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
@@ -108,11 +106,19 @@ class Panel:
     as HTML.
     """
 
-    def __init__(self, heading="", classname="", help_text="", base_form_class=None):
+    def __init__(
+        self,
+        heading="",
+        classname="",
+        help_text="",
+        base_form_class=None,
+        icon="",
+    ):
         self.heading = heading
         self.classname = classname
         self.help_text = help_text
         self.base_form_class = base_form_class
+        self.icon = icon
         self.model = None
 
     def clone(self):
@@ -127,6 +133,7 @@ class Panel:
         Return a dictionary of keyword arguments that can be used to create a clone of this panel definition.
         """
         return {
+            "icon": self.icon,
             "heading": self.heading,
             "classname": self.classname,
             "help_text": self.help_text,
@@ -225,7 +232,7 @@ class Panel:
         )
         return self.get_bound_panel(instance=instance, request=request, form=form)
 
-    def get_bound_panel(self, instance=None, request=None, form=None):
+    def get_bound_panel(self, instance=None, request=None, form=None, prefix="panel"):
         """
         Return a ``BoundPanel`` instance that can be rendered onto the template as a component. By default, this creates an instance
         of the panel class's inner ``BoundPanel`` class, which must inherit from ``Panel.BoundPanel``.
@@ -243,7 +250,7 @@ class Panel:
             )
 
         return self.BoundPanel(
-            panel=self, instance=instance, request=request, form=form
+            panel=self, instance=instance, request=request, form=form, prefix=prefix
         )
 
     def on_model_bound(self):
@@ -269,12 +276,6 @@ class Panel:
             return [self.classname]
         return []
 
-    def field_type(self):
-        """
-        The kind of field it is e.g boolean_field. Useful for better semantic markup of field display based on type
-        """
-        return ""
-
     def id_for_label(self):
         """
         The ID to be used as the 'for' attribute of any <label> elements that refer
@@ -283,16 +284,35 @@ class Panel:
         """
         return ""
 
+    @property
+    def clean_name(self):
+        """
+        A name for this panel, consisting only of ASCII alphanumerics and underscores, suitable for use in identifiers.
+        Usually generated from the panel heading. Note that this is not guaranteed to be unique or non-empty; anything
+        making use of this and requiring uniqueness should validate and modify the return value as needed.
+        """
+        return safe_snake_case(self.heading)
+
     class BoundPanel(Component):
         """
         A template component for a panel that has been associated with a model instance, form, and request.
         """
 
-        def __init__(self, panel, instance, request, form):
+        def __init__(self, panel, instance, request, form, prefix):
+            #: The panel definition corresponding to this bound panel
             self.panel = panel
+
+            #: The model instance associated with this panel
             self.instance = instance
+
+            #: The request object associated with this panel
             self.request = request
+
+            #: The form object associated with this panel
             self.form = form
+
+            #: A unique prefix for this panel, for use in HTML IDs
+            self.prefix = prefix
 
             self.heading = self.panel.heading
             self.help_text = self.panel.help_text
@@ -304,8 +324,9 @@ class Panel:
         def classes(self):
             return self.panel.classes()
 
-        def field_type(self):
-            return self.panel.field_type()
+        @property
+        def icon(self):
+            return self.panel.icon
 
         def id_for_label(self):
             """
@@ -319,10 +340,23 @@ class Panel:
             """
             return True
 
+        def is_required(self):
+            return False
+
         def render_as_object(self):
+            warn(
+                "Panel.render_as_object is deprecated. Use render_html instead",
+                category=RemovedInWagtail50Warning,
+                stacklevel=2,
+            )
             return self.render_html()
 
         def render_as_field(self):
+            warn(
+                "Panel.render_as_field is deprecated. Use render_html instead",
+                category=RemovedInWagtail50Warning,
+                stacklevel=2,
+            )
             return self.render_html()
 
         def get_context_data(self, parent_context=None):
@@ -355,7 +389,7 @@ class Panel:
             Render this as an 'object', ensuring that all fields necessary for a valid form
             submission are included
             """
-            return mark_safe(self.render_as_object() + self.render_missing_fields())
+            return mark_safe(self.render_html() + self.render_missing_fields())
 
         def __repr__(self):
             return "<%s with model=%s instance=%s request=%s form=%s>" % (
@@ -443,22 +477,55 @@ class PanelGroup(Panel):
     def on_model_bound(self):
         self.children = [child.bind_to_model(self.model) for child in self.children]
 
-    class BoundPanel(Panel.BoundPanel):
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel=panel, instance=instance, request=request, form=form)
+    @cached_property
+    def child_identifiers(self):
+        """
+        A list of identifiers corresponding to child panels in ``self.children``, formed from the clean_name property
+        but validated to be unique and non-empty.
+        """
+        used_names = set()
+        result = []
+        for panel in self.children:
+            base_name = panel.clean_name or "panel"
+            candidate_name = base_name
+            suffix = 0
+            while candidate_name in used_names:
+                suffix += 1
+                candidate_name = "%s%d" % (base_name, suffix)
 
+            result.append(candidate_name)
+            used_names.add(candidate_name)
+
+        return result
+
+    class BoundPanel(Panel.BoundPanel):
         @cached_property
         def children(self):
             return [
                 child.get_bound_panel(
-                    instance=self.instance, request=self.request, form=self.form
+                    instance=self.instance,
+                    request=self.request,
+                    form=self.form,
+                    prefix=("%s-child-%s" % (self.prefix, identifier)),
                 )
-                for child in self.panel.children
+                for child, identifier in zip(
+                    self.panel.children, self.panel.child_identifiers
+                )
             ]
 
         @cached_property
         def visible_children(self):
             return [child for child in self.children if child.is_shown()]
+
+        @cached_property
+        def visible_children_with_identifiers(self):
+            return [
+                (child, identifier)
+                for child, identifier in zip(
+                    self.children, self.panel.child_identifiers
+                )
+                if child.is_shown()
+            ]
 
         def is_shown(self):
             return any(child.is_shown() for child in self.children)
@@ -503,22 +570,8 @@ class FieldRowPanel(PanelGroup):
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/field_row_panel.html"
 
-        def visible_children_with_classnames(self):
-            visible_children = self.visible_children
-            col_count = " col%s" % (12 // len(visible_children))
-            for child in visible_children:
-                classname = " ".join(child.classes())
-                if not re.search(r"\bcol\d+\b", classname):
-                    classname += col_count
-                yield child, classname
-
 
 class MultiFieldPanel(PanelGroup):
-    def classes(self):
-        classes = super().classes()
-        classes.append("multi-field")
-        return classes
-
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/multi_field_panel.html"
 
@@ -543,9 +596,13 @@ class HelpPanel(Panel):
         )
         return kwargs
 
+    @property
+    def clean_name(self):
+        return super().clean_name or "help"
+
     class BoundPanel(Panel.BoundPanel):
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel, instance, request, form)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
             self.template_name = self.panel.template
             self.content = self.panel.content
 
@@ -617,6 +674,10 @@ class FieldPanel(Panel):
 
         return model._meta.get_field(self.field_name)
 
+    @property
+    def clean_name(self):
+        return self.field_name
+
     def __repr__(self):
         return "<%s '%s' with model=%s>" % (
             self.__class__.__name__,
@@ -625,11 +686,10 @@ class FieldPanel(Panel):
         )
 
     class BoundPanel(Panel.BoundPanel):
-        object_template_name = "wagtailadmin/panels/single_field_panel.html"
-        field_template_name = "wagtailadmin/panels/field_panel_field.html"
+        template_name = "wagtailadmin/panels/field_panel.html"
 
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel=panel, instance=instance, request=request, form=form)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
 
             if self.form is None:
                 self.bound_field = None
@@ -666,26 +726,35 @@ class FieldPanel(Panel):
 
             return True
 
+        def is_required(self):
+            return self.bound_field.field.required
+
         def classes(self):
-            classes = self.panel.classes().copy()
+            return self.panel.classes()
 
-            if self.bound_field.field.required:
-                classes.append("required")
+        @property
+        def icon(self):
+            """
+            Display a different icon depending on the field’s type.
+            """
+            field_icons = {
+                # Icons previously-defined as StreamField block icons.
+                # Commented out until they can be reviewed for appropriateness in this new context.
+                # "DateField": "date",
+                # "TimeField": "time",
+                # "DateTimeField": "date",
+                # "URLField": "site",
+                # "ClusterTaggableManager": "tag",
+                # "EmailField": "mail",
+                # "TextField": "pilcrow",
+                # "FloatField": "plus-inverse",
+                # "DecimalField": "plus-inverse",
+                # "RegexField": "code",
+                # "BooleanField": "tick-inverse",
+            }
+            field_type = self.bound_field.field.__class__.__name__
 
-            # If field has any errors, add the classname 'error' to enable error styling
-            # (e.g. red background), unless the widget has its own mechanism for rendering errors
-            # via the render_with_errors mechanism (as StreamField does).
-            if self.bound_field.errors and not hasattr(
-                self.bound_field.field.widget, "render_with_errors"
-            ):
-                classes.append("error")
-
-            classes.append(self.field_type())
-
-            return classes
-
-        def field_type(self):
-            return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
+            return self.panel.icon or field_icons.get(field_type, None)
 
         def id_for_label(self):
             return self.bound_field.id_for_label
@@ -698,32 +767,63 @@ class FieldPanel(Panel):
             else:
                 return not self.panel.disable_comments
 
-        def render_as_object(self):
-            return render_to_string(
-                self.object_template_name,
-                {
-                    "self": self,
-                    self.panel.TEMPLATE_VAR: self,
-                    "field": self.bound_field,
-                    "show_add_comment_button": self.comments_enabled
-                    and getattr(
-                        self.bound_field.field.widget, "show_add_comment_button", True
-                    ),
-                },
-            )
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
 
-        def render_as_field(self):
-            return render_to_string(
-                self.field_template_name,
+            widget_described_by_ids = []
+            help_text = self.bound_field.help_text
+            help_text_id = "%s-helptext" % self.prefix
+            error_message_id = "%s-errors" % self.prefix
+
+            if help_text:
+                widget_described_by_ids.append(help_text_id)
+
+            if self.bound_field.errors:
+                widget = self.bound_field.field.widget
+                if hasattr(widget, "render_with_errors"):
+                    widget_attrs = {
+                        "id": self.bound_field.auto_id,
+                    }
+                    if widget_described_by_ids:
+                        widget_attrs["aria-describedby"] = " ".join(
+                            widget_described_by_ids
+                        )
+
+                    rendered_field = widget.render_with_errors(
+                        self.bound_field.html_name,
+                        self.bound_field.value(),
+                        attrs=widget_attrs,
+                        errors=self.bound_field.errors,
+                    )
+                else:
+                    widget_described_by_ids.append(error_message_id)
+                    rendered_field = self.bound_field.as_widget(
+                        attrs={
+                            "aria-invalid": "true",
+                            "aria-describedby": " ".join(widget_described_by_ids),
+                        }
+                    )
+            else:
+                widget_attrs = {}
+                if widget_described_by_ids:
+                    widget_attrs["aria-describedby"] = " ".join(widget_described_by_ids)
+
+                rendered_field = self.bound_field.as_widget(attrs=widget_attrs)
+
+            context.update(
                 {
                     "field": self.bound_field,
-                    "field_type": self.field_type(),
+                    "rendered_field": rendered_field,
+                    "help_text": help_text,
+                    "help_text_id": help_text_id,
+                    "error_message_id": error_message_id,
                     "show_add_comment_button": self.comments_enabled
                     and getattr(
                         self.bound_field.field.widget, "show_add_comment_button", True
                     ),
-                },
+                }
             )
+            return context
 
         def get_comparison(self):
             comparator_class = self.panel.get_comparison_class()
@@ -862,8 +962,8 @@ class InlinePanel(Panel):
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
 
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel, instance, request, form)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
 
             self.label = self.panel.label
 
@@ -874,7 +974,7 @@ class InlinePanel(Panel):
             self.child_edit_handler = self.panel.child_edit_handler
 
             self.children = []
-            for subform in self.formset.forms:
+            for index, subform in enumerate(self.formset.forms):
                 # override the DELETE field to have a hidden input
                 subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
 
@@ -884,7 +984,10 @@ class InlinePanel(Panel):
 
                 self.children.append(
                     self.child_edit_handler.get_bound_panel(
-                        instance=subform.instance, request=self.request, form=subform
+                        instance=subform.instance,
+                        request=self.request,
+                        form=subform,
+                        prefix=("%s-%d" % (self.prefix, index)),
                     )
                 )
 
@@ -901,16 +1004,22 @@ class InlinePanel(Panel):
                 empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             self.empty_child = self.child_edit_handler.get_bound_panel(
-                instance=empty_form.instance, request=self.request, form=empty_form
+                instance=empty_form.instance,
+                request=self.request,
+                form=empty_form,
+                prefix=("%s-__prefix__" % self.prefix),
             )
 
         def get_comparison(self):
             field_comparisons = []
 
-            for panel in self.panel.child_edit_handler.children:
+            for index, panel in enumerate(self.panel.child_edit_handler.children):
                 field_comparisons.extend(
                     panel.get_bound_panel(
-                        instance=None, request=self.request, form=None
+                        instance=None,
+                        request=self.request,
+                        form=None,
+                        prefix=("%s-%d" % (self.prefix, index)),
                     ).get_comparison()
                 )
 
@@ -941,7 +1050,6 @@ class PublishingPanel(MultiFieldPanel):
                         FieldPanel("go_live_at"),
                         FieldPanel("expire_at"),
                     ],
-                    classname="label-above",
                 ),
             ],
             "heading": gettext_lazy("Scheduled publishing"),
@@ -967,6 +1075,10 @@ class CommentPanel(Panel):
                 }
             },
         }
+
+    @property
+    def clean_name(self):
+        return super().clean_name or "commments"
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/comments/comment_panel.html"
@@ -1026,7 +1138,11 @@ class CommentPanel(Panel):
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.
 def set_default_page_edit_handlers(cls):
     cls.content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel(
+            "title",
+            classname="title",
+            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title")}),
+        ),
     ]
 
     cls.promote_panels = [
@@ -1077,11 +1193,7 @@ def _get_page_edit_handler(cls):
             tabs.append(ObjectList(cls.promote_panels, heading=gettext_lazy("Promote")))
         if cls.settings_panels:
             tabs.append(
-                ObjectList(
-                    cls.settings_panels,
-                    heading=gettext_lazy("Settings"),
-                    classname="settings",
-                )
+                ObjectList(cls.settings_panels, heading=gettext_lazy("Settings"))
             )
 
         edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)

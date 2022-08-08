@@ -17,7 +17,7 @@
       bottom: -5px;
       inset-inline-end: -5px;
       z-index: 1;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: theme('colors.white-50');
     }
 
     &:after {
