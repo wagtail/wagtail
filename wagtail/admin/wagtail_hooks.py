@@ -916,7 +916,7 @@ def register_core_features(features):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return UserPagePermissionsProxy(request.user).can_remove_locks()
+        return UserPagePermissionsProxy(request.user).can_remove_locks() 
 
 
 class WorkflowReportMenuItem(MenuItem):
