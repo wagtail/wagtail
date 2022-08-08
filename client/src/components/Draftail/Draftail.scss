@@ -73,6 +73,10 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
+.Draftail-Editor {
+  --draftail-offset-inline-start: 0;
+}
+
 .Draftail-Editor__wrapper {
   // Ensure elements within the editor are positioned according to this container.
   position: relative;
@@ -118,8 +122,77 @@ $draftail-editor-font-family: $font-sans;
   }
 }
 
+.Draftail-BlockToolbar {
+  margin-inline-start: calc(-1 * theme('spacing.5'));
+
+  @include media-breakpoint-up(sm) {
+    margin-inline-start: calc(-1 * theme('spacing.6'));
+  }
+}
+
+.Draftail-BlockToolbar__trigger {
+  color: theme('colors.secondary.DEFAULT');
+  width: theme('spacing.4');
+  height: theme('spacing.4');
+  margin-inline-end: theme('spacing.1');
+
+  @include media-breakpoint-up(sm) {
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+  }
+
+  // Hide the trigger unless the editor is hovered, focused, or an element within it is focused.
+  .Draftail-Editor:not(:hover, .Draftail-Editor--focus, :focus-within) & {
+    // Hide even if the conditions to display it are met.
+    // stylelint-disable-next-line declaration-no-important
+    visibility: hidden !important;
+  }
+
+  .icon {
+    width: theme('spacing.3');
+    height: theme('spacing.3');
+  }
+}
+
+.Draftail-ComboBox [role='combobox'] {
+  padding: theme('spacing.4');
+}
+
+.Draftail-ComboBox [aria-autocomplete='list'] {
+  border-radius: theme('borderRadius.DEFAULT');
+  border: 1px solid $color-input-border;
+}
+
+.Draftail-ComboBox__menu {
+  padding: 0 theme('spacing.4');
+}
+
+.Draftail-ComboBox__optgroup-label {
+  @apply w-label-3;
+  background-color: theme('colors.grey.50');
+}
+
+.Draftail-ComboBox__option,
+.Draftail-ComboBox__status {
+  color: theme('colors.primary.DEFAULT');
+  padding: theme('spacing.3') 0;
+  border-width: 1px;
+}
+
+.Draftail-ComboBox__option[aria-selected='true'] {
+  color: theme('colors.secondary.DEFAULT');
+  border-radius: theme('borderRadius.sm');
+  background: transparent;
+}
+
+.Draftail-ComboBox__option-icon {
+  color: inherit;
+  margin: 0 theme('spacing.3');
+}
+
 .Draftail-ComboBox__option-text {
   @apply w-label-3;
+  color: inherit;
 }
 
 .Draftail-ToolbarGroup::before {
