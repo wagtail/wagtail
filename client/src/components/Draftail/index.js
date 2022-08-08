@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   DraftailEditor,
+  BlockToolbar,
   InlineToolbar,
   MetaToolbar,
   CommandPalette,
@@ -35,6 +36,7 @@ export { default as EmbedBlock } from './blocks/EmbedBlock';
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON =
   'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
+const ADD_ICON = <Icon name="plus" />;
 
 /**
  * Registry for client-side code of Draftail plugins.
@@ -141,7 +143,19 @@ const initEditor = (selector, originalOptions, currentScript) => {
         description: gettext('Line break'),
         icon: BR_ICON,
       },
-      topToolbar: InlineToolbar,
+      topToolbar: (props) => (
+        <>
+          <BlockToolbar
+            {...props}
+            triggerIcon={ADD_ICON}
+            triggerLabel={gettext('Insert a block')}
+            comboLabel={gettext('Search blocks')}
+            comboPlaceholder={gettext('Search blocks')}
+            noResultsText={gettext('No results')}
+          />
+          <InlineToolbar {...props} />
+        </>
+      ),
       bottomToolbar: MetaToolbar,
       commandPalette: (props) => (
         <CommandPalette {...props} noResultsText={gettext('No results')} />
