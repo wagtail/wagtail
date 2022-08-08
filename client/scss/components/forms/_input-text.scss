@@ -29,6 +29,11 @@ textarea {
   min-height: $text-input-height;
 }
 
+// Multiline text fields have larger top-bottom padding.
+textarea {
+  padding: theme('spacing.5');
+}
+
 // Make non-text field types with custom widgets have a smaller width.
 .w-field--date_field,
 .w-field--date_time_field,

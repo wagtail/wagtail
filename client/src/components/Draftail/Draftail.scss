@@ -1,4 +1,8 @@
 $draftail-editor-text: $color-input-text;
+// w-body-text-large
+$draftail-editor-font-size: theme('fontSize.18');
+$draftail-editor-line-height: theme('lineHeight.normal');
+
 $draftail-editor-chrome: theme('colors.primary.DEFAULT');
 $draftail-editor-chrome-text: $color-white;
 // This needs to remain a Sass value due to a limitation in Draftail.
@@ -9,9 +13,9 @@ $draftail-editor-chrome-accent: transparent;
 $draftail-base-spacing: 0.375rem;
 $draftail-editor-radius: 0;
 $draftail-editor-border: 0;
-$draftail-editor-padding: 0 theme('spacing.5');
+$draftail-editor-padding: theme('spacing.[2.5]') theme('spacing.5');
 $draftail-editor-background: $color-white;
-$draftail-block-spacing: theme('spacing.2');
+$draftail-block-spacing: theme('spacing.[2.5]');
 $draftail-toolbar-radius: theme('borderRadius.DEFAULT');
 $draftail-toolbar-icon-size: 1em;
 
