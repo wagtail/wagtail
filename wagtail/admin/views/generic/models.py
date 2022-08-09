@@ -17,6 +17,7 @@ from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
 from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
 from django.views.generic.list import BaseListView
 
+from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
@@ -29,7 +30,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
-from .mixins import BeforeAfterHookMixin, LocaleMixin, PanelMixin
+from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
@@ -871,4 +872,98 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
             }
         )
 
+        return context
+
+
+class UnpublishView(HookResponseMixin, TemplateView):
+    model = None
+    index_url_name = None
+    edit_url_name = None
+    unpublish_url_name = None
+    success_message = _("'{object_name}' unpublished.")
+    template_name = "wagtailadmin/shared/confirm_unpublish.html"
+
+    def setup(self, request, pk, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = pk
+        self.object = self.get_object()
+
+    def dispatch(self, request, *args, **kwargs):
+        self.objects_to_unpublish = self.get_objects_to_unpublish()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not self.model or not issubclass(self.model, DraftStateMixin):
+            raise Http404
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_objects_to_unpublish(self):
+        # Hook to allow child classes to have more objects to unpublish (e.g. page descendants)
+        return [self.object]
+
+    def get_object_display_title(self):
+        return str(self.object)
+
+    def get_success_message(self):
+        if self.success_message is None:
+            return None
+        return self.success_message.format(object_name=str(self.object))
+
+    def get_success_buttons(self):
+        if self.edit_url_name:
+            return [
+                messages.button(
+                    reverse(self.edit_url_name, args=(quote(self.object.pk),)),
+                    _("Edit"),
+                )
+            ]
+
+    def get_next_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.UnpublishView "
+                "must provide an index_url_name attribute or a get_next_url method"
+            )
+        return reverse(self.index_url_name)
+
+    def get_unpublish_url(self):
+        if not self.unpublish_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.UnpublishView "
+                "must provide an unpublish_url_name attribute or a get_unpublish_url method"
+            )
+        return reverse(self.unpublish_url_name, args=(quote(self.object.pk),))
+
+    def unpublish(self):
+        hook_response = self.run_hook("before_unpublish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        for object in self.objects_to_unpublish:
+            action = UnpublishAction(object, user=self.request.user)
+            action.execute(skip_permission_checks=True)
+
+        hook_response = self.run_hook("after_unpublish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+    def post(self, request, *args, **kwargs):
+        hook_response = self.unpublish()
+        if hook_response:
+            return hook_response
+
+        success_message = self.get_success_message()
+        success_buttons = self.get_success_buttons()
+        if success_message is not None:
+            messages.success(request, success_message, buttons=success_buttons)
+
+        return redirect(self.get_next_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["model_opts"] = self.model._meta
+        context["object"] = self.object
+        context["object_display_title"] = self.get_object_display_title()
+        context["unpublish_url"] = self.get_unpublish_url()
+        context["next_url"] = self.get_next_url()
         return context

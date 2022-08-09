@@ -41,7 +41,10 @@ class UnpublishAction:
                 "You do not have permission to unpublish this object"
             )
 
-    def _after_unpublish(self):
+    def _commit_unpublish(self, object):
+        object.save()
+
+    def _after_unpublish(self, object):
         unpublished.send(sender=type(object), instance=object)
 
     def _unpublish_object(self, object, set_expired, commit, user, log_action):
@@ -59,8 +62,7 @@ class UnpublishAction:
                 object.expired = True
 
             if commit:
-                # using clean=False to bypass validation
-                object.save(clean=False)
+                self._commit_unpublish(object)
 
             if log_action:
                 log(
@@ -75,7 +77,7 @@ class UnpublishAction:
 
             object.revisions.update(approved_go_live_at=None)
 
-            self._after_unpublish()
+            self._after_unpublish(object)
 
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
