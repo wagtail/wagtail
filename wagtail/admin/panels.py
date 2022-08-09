@@ -341,6 +341,12 @@ class Panel:
             """
             return True
 
+        def show_panel_furniture(self):
+            """
+            Whether this panel shows the panel furniture instead of being rendered outside of it.
+            """
+            return self.is_shown()
+
         def is_required(self):
             return False
 
@@ -527,6 +533,9 @@ class PanelGroup(Panel):
                 )
                 if child.is_shown()
             ]
+
+        def show_panel_furniture(self):
+            return any(child.show_panel_furniture() for child in self.children)
 
         def is_shown(self):
             return any(child.is_shown() for child in self.children)
@@ -1082,6 +1091,9 @@ class PublishingPanel(MultiFieldPanel):
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/publishing/schedule_publishing_panel.html"
 
+        def show_panel_furniture(self):
+            return False
+
 
 class CommentPanel(Panel):
     def get_form_options(self):
@@ -1157,6 +1169,9 @@ class CommentPanel(Panel):
 
             context["comments_data"] = comments_data
             return context
+
+        def show_panel_furniture(self):
+            return False
 
 
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.
