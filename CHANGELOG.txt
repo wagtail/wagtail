@@ -86,6 +86,7 @@ Changelog
  * Add HTML-aware max_length validation and character count on RichTextField and RichTextBlock (Matt Westcott, Thibaud Colas)
  * Remove undocumented `SearchableListMixin` (Sage Abdullah)
  * Extract filtering code from ReportView to generic IndexView (Sage Abdullah)
+ * Extract unpublish code for pages to generic UnpublishView (Sage Abdullah)
  * Retain other query params in header search behaviour (Sage Abdullah)
  * Remove `is_parent` kwarg in various page button hooks as this approach is no longer required (Paarth Agarwal)
  * Improve security of redirect imports by adding a file hash (signature) check for so that any tampering of file contents between requests will throw a `BadSignature` error (Jaap Roes)

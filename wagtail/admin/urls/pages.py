@@ -46,7 +46,7 @@ urlpatterns = [
     path("<int:page_id>/view_draft/", preview.view_draft, name="view_draft"),
     path("<int:parent_page_id>/add_subpage/", create.add_subpage, name="add_subpage"),
     path("<int:page_id>/delete/", delete.delete, name="delete"),
-    path("<int:page_id>/unpublish/", unpublish.unpublish, name="unpublish"),
+    path("<int:page_id>/unpublish/", unpublish.Unpublish.as_view(), name="unpublish"),
     path(
         "<int:page_id>/convert_alias/",
         convert_alias.convert_alias,
