@@ -2595,6 +2595,43 @@ class TestSnippetChooseResults(TestCase, WagtailTestUtils):
         )
 
 
+class TestSnippetChooseStatus(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.draft = DraftStateModel.objects.create(text="foo", live=False)
+        cls.live = DraftStateModel.objects.create(text="bar", live=True)
+        cls.live_draft = DraftStateModel.objects.create(text="baz", live=True)
+        cls.live_draft.save_revision()
+
+    def get(self, view_name, params=None):
+        return self.client.get(
+            reverse(f"wagtailsnippetchoosers_tests_draftstatemodel:{view_name}"),
+            params or {},
+        )
+
+    def test_choose_view_shows_status_column(self):
+        response = self.get("choose")
+        html = response.json()["html"]
+        self.assertTagInHTML("<th>Status</th>", html)
+        self.assertTagInHTML('<div class="status-tag ">draft</div>', html)
+        self.assertTagInHTML('<div class="status-tag primary">live</div>', html)
+        self.assertTagInHTML('<div class="status-tag primary">live + draft</div>', html)
+
+    def test_choose_results_view_shows_status_column(self):
+        response = self.get("choose_results")
+        self.assertContains(response, "<th>Status</th>", html=True)
+        self.assertContains(response, '<div class="status-tag ">draft</div>', html=True)
+        self.assertContains(
+            response, '<div class="status-tag primary">live</div>', html=True
+        )
+        self.assertContains(
+            response, '<div class="status-tag primary">live + draft</div>', html=True
+        )
+
+
 class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
