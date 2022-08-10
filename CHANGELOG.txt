@@ -159,6 +159,7 @@ Changelog
  * Fix: Missing a outline on dropdown content and malformed tooltip arrow in forced colors mode (Anuja Verma, LB (Ben) Johnston)
  * Fix: Layout issues with reports (including form submissions listings) on md device widths (Akash Kumar Sen, LB (Ben) Johnston)
  * Fix: Layout issue with page explorer's inner header item on small device widths (Akash Kumar Sen)
+ * Fix: Ensure that `BaseSiteSetting` / `BaseGenericSetting` objects can be pickled (Andy Babic)
 
 
 3.0.1 (16.06.2022)
