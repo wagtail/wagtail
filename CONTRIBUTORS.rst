@@ -643,7 +643,7 @@ Contributors
 * Abayomi Victory
 * Victoria Poromon
 * Dokua Asiedu
-
+* Darrel O'Pry
 
 Translators
 ===========
