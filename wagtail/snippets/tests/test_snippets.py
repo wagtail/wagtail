@@ -1,5 +1,6 @@
 import datetime
 import json
+from unittest import mock
 
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
@@ -24,6 +25,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page, Revision
+from wagtail.signals import unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
     get_base_snippet_action_menu_items,
@@ -912,6 +914,11 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
             '<div class="form-side__panel" data-side-panel="status">',
         )
 
+        # Should not show the Unpublish action menu item
+        unpublish_url = "/admin/snippets/tests/draftstatemodel/unpublish/"
+        self.assertNotContains(response, unpublish_url)
+        self.assertNotContains(response, "Unpublish")
+
     def test_save_draft(self):
         response = self.post(post_data={"text": "Draft-enabled Foo"})
         snippet = DraftStateModel.objects.get(text="Draft-enabled Foo")
@@ -1343,6 +1350,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             '<button type="submit" name="action-publish" value="action-publish" class="button action-save button-longrunning" data-clicked-text="Publishing…">',
         )
 
+        # Should not show the Unpublish action menu item
+        unpublish_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertNotContains(
+            response,
+            f'<a class="button action-secondary" href="{unpublish_url}">',
+        )
+        self.assertNotContains(response, "Unpublish")
+
     def test_save_draft(self):
         response = self.post(post_data={"text": "Draft-enabled Bar"})
         self.test_snippet.refresh_from_db()
@@ -1574,6 +1592,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             html=True,
         )
 
+        # Should not show the Unpublish action menu item
+        unpublish_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertNotContains(
+            response,
+            f'<a class="button action-secondary" href="{unpublish_url}">',
+        )
+        self.assertNotContains(response, "Unpublish")
+
     def test_get_after_publish(self):
         self.post(
             post_data={
@@ -1598,6 +1627,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             '<h3 id="status-sidebar-draft" class="w-label-1 !w-mt-0 w-mb-1"><span class="w-sr-only">Status: </span>Draft</h3>',
             html=True,
         )
+
+        # Should show the Unpublish action menu item
+        unpublish_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertContains(
+            response,
+            f'<a class="button action-secondary" href="{unpublish_url}">',
+        )
+        self.assertContains(response, "Unpublish")
 
     def test_get_after_publish_and_save_draft(self):
         self.post(
@@ -1626,6 +1666,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             html=True,
         )
 
+        # Should show the Unpublish action menu item
+        unpublish_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertContains(
+            response,
+            f'<a class="button action-secondary" href="{unpublish_url}">',
+        )
+        self.assertContains(response, "Unpublish")
+
         # Should use the latest draft content for the title
         self.assertContains(
             response,
@@ -1639,6 +1690,122 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             html,
             allow_extra_attrs=True,
         )
+
+
+class TestSnippetUnpublish(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.user = self.login()
+        self.snippet = DraftStateModel.objects.create(text="to be unpublished")
+        self.unpublish_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            args=(quote(self.snippet.pk),),
+        )
+
+    def test_unpublish_view(self):
+        """
+        This tests that the unpublish view responds with an unpublish confirm page
+        """
+        # Get unpublish page
+        response = self.client.get(self.unpublish_url)
+
+        # Check that the user received an unpublish confirm page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/confirm_unpublish.html")
+
+    def test_unpublish_view_invalid_pk(self):
+        """
+        This tests that the unpublish view returns an error if the object pk is invalid
+        """
+        # Get unpublish page
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:unpublish", args=(quote(12345),)
+            )
+        )
+
+        # Check that the user received a 404 response
+        self.assertEqual(response.status_code, 404)
+
+    def test_unpublish_view_bad_permissions(self):
+        """
+        This tests that the unpublish view doesn't allow users without unpublish permissions
+        """
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        # Get unpublish page
+        response = self.client.get(self.unpublish_url)
+
+        # Check that the user received a 302 redirected response
+        self.assertEqual(response.status_code, 302)
+
+    def test_unpublish_view_post(self):
+        """
+        This posts to the unpublish view and checks that the object was unpublished
+        """
+        # Connect a mock signal handler to unpublished signal
+        mock_handler = mock.MagicMock()
+        unpublished.connect(mock_handler)
+
+        # Post to the unpublish view
+        response = self.client.post(self.unpublish_url)
+
+        # Should be redirected to the listing page
+        self.assertRedirects(
+            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+        )
+
+        # Check that the object was unpublished
+        self.assertFalse(DraftStateModel.objects.get(pk=self.snippet.pk).live)
+
+        # Check that the unpublished signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], DraftStateModel)
+        self.assertEqual(mock_call["instance"], self.snippet)
+        self.assertIsInstance(mock_call["instance"], DraftStateModel)
+
+    def test_after_unpublish_hook(self):
+        def hook_func(request, snippet):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(snippet.pk, self.snippet.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_unpublish", hook_func):
+            post_data = {}
+            response = self.client.post(self.unpublish_url, post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.status_string, "draft")
+
+    def test_before_unpublish(self):
+        def hook_func(request, snippet):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(snippet.pk, self.snippet.pk)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_unpublish", hook_func):
+            post_data = {}
+            response = self.client.post(self.unpublish_url, post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # The hook response is served before unpublish is called.
+        self.snippet.refresh_from_db()
+        self.assertEqual(self.snippet.status_string, "live")
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
@@ -1709,7 +1876,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
             )
         )
 
-        # Should be redirected to explorer page
+        # Should be redirected to the listing page
         self.assertRedirects(response, reverse("wagtailsnippets_tests_advert:list"))
 
         # Check that the page is gone
@@ -1820,7 +1987,7 @@ class TestSnippetDeleteMultipleWithOne(TestCase, WagtailTestUtils):
         url += "?id=%s" % (self.snippet.id)
         response = self.client.post(url)
 
-        # Should be redirected to explorer page
+        # Should be redirected to the listing page
         self.assertRedirects(response, reverse("wagtailsnippets_tests_advert:list"))
 
         # Check that the page is gone
@@ -1855,7 +2022,7 @@ class TestSnippetDeleteMultipleWithThree(TestCase, WagtailTestUtils):
         )
         response = self.client.post(url)
 
-        # Should be redirected to explorer page
+        # Should be redirected to the listing page
         self.assertRedirects(response, reverse("wagtailsnippets_tests_advert:list"))
 
         # Check that the page is gone
@@ -2212,6 +2379,17 @@ class TestSnippetRevisions(TestCase, WagtailTestUtils):
             response,
             '<button type="submit" name="action-publish" value="action-publish" class="button action-save button-longrunning warning" data-clicked-text="Publishing…">',
         )
+
+        # Should not show the Unpublish action menu item
+        unpublish_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            args=(quote(self.snippet.pk),),
+        )
+        self.assertNotContains(
+            response,
+            f'<a class="button action-secondary" href="{unpublish_url}">',
+        )
+        self.assertNotContains(response, "Unpublish")
 
     def test_replace_revision(self):
         get_response = self.get()

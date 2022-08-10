@@ -27,7 +27,7 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
-from wagtail.admin.views.generic.models import RevisionsCompareView
+from wagtail.admin.views.generic.models import RevisionsCompareView, UnpublishView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import (
     PreviewOnCreate,
@@ -665,6 +665,10 @@ class RevisionsCompare(PermissionCheckedMixin, RevisionsCompareView):
         )
 
 
+class Unpublish(PermissionCheckedMixin, UnpublishView):
+    permission_required = "publish"
+
+
 class SnippetViewSet(ViewSet):
     index_view_class = List
     add_view_class = Create
@@ -674,6 +678,7 @@ class SnippetViewSet(ViewSet):
     history_view_class = History
     revisions_view_class = RevisionsView
     revisions_compare_view_class = RevisionsCompare
+    unpublish_view_class = Unpublish
     preview_on_add_view_class = PreviewOnCreate
     preview_on_edit_view_class = PreviewOnEdit
 
@@ -797,6 +802,16 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
+    def unpublish_view(self):
+        return self.unpublish_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            index_url_name=self.get_url_name("list"),
+            edit_url_name=self.get_url_name("edit"),
+            unpublish_url_name=self.get_url_name("unpublish"),
+        )
+
+    @property
     def preview_on_add_view(self):
         return self.preview_on_add_view_class.as_view(model=self.model)
 
@@ -871,6 +886,11 @@ class SnippetViewSet(ViewSet):
                     self.revisions_compare_view,
                     name="revisions_compare",
                 ),
+            ]
+
+        if issubclass(self.model, DraftStateMixin):
+            urlpatterns += [
+                path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
             ]
 
         legacy_redirects = [
