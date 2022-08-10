@@ -7,6 +7,7 @@ from contextlib import contextmanager
 from io import BytesIO
 from typing import Union
 
+import willow
 from django.apps import apps
 from django.conf import settings
 from django.core import checks
@@ -21,7 +22,6 @@ from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
-from willow.image import Image as WillowImage
 
 from wagtail import hooks
 from wagtail.coreutils import string_to_ascii
@@ -184,12 +184,51 @@ class ImageFileMixin:
     @contextmanager
     def get_willow_image(self):
         with self.open_file() as image_file:
-            yield WillowImage.open(image_file)
+            yield willow.Image.open(image_file)
+
+
+class WagtailImageFieldFile(models.fields.files.ImageFieldFile):
+    """
+    Override the ImageFieldFile in order to use Willow instead
+    of Pillow.
+    """
+
+    def _get_image_dimensions(self):
+        """
+        override _get_image_dimensions to call our own get_image_dimensions.
+        """
+        if not hasattr(self, "_dimensions_cache"):
+            self._dimensions_cache = self.get_image_dimensions()
+        return self._dimensions_cache
+
+    def get_image_dimensions(self):
+        """
+        The upstream ImageFieldFile calls a local function get_image_dimensions. In this implementation we've made get_image_dimensions
+        a method to make it easier to override for Wagtail developers in the future.
+        """
+        close = self.closed
+        try:
+            self.open()
+            image = willow.Image.open(self)
+            return image.get_size()
+        finally:
+            if close:
+                self.close()
+
+
+class WagtailImageField(models.ImageField):
+    """
+    Override the attr_class on the Django ImageField Model to inject our ImageFieldFile
+    with Willow support.
+    """
+
+    attr_class = WagtailImageFieldFile
 
 
 class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_("title"))
-    file = models.ImageField(
+    """ Use local ImageField with Willow support.  """
+    file = WagtailImageField(
         verbose_name=_("file"),
         upload_to=get_upload_to,
         width_field="width",
@@ -743,7 +782,8 @@ class Filter:
 
 class AbstractRendition(ImageFileMixin, models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
-    file = models.ImageField(
+    """ Use local ImageField with Willow support.  """
+    file = WagtailImageField(
         upload_to=get_rendition_upload_to,
         storage=get_rendition_storage,
         width_field="width",
