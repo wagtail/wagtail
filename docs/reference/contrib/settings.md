@@ -1,8 +1,7 @@
 # Settings
 
 The `wagtail.contrib.settings` module allows you to define models that hold
-settings which are either generic (that is the same) across all `Site`s or
-specific to each `Site`.
+settings which are either common across all site records, or specific to each site.
 
 Settings are editable by administrators within the Wagtail admin, and can be
 accessed in code as well as in templates.
