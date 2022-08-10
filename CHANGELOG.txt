@@ -105,6 +105,8 @@ Changelog
  * Added `path` and `re_path` decorators to the `RoutablePageMixin` module which emulate their Django URL utils equivalent, redirect `re_path` to the original `route` decorator (Tidiane Dia)
  * `BaseChooser` widget now provides a Telepath adapter that's directly usable for any subclasses that use the chooser widget and modal JS as-is with no customisations (Matt Westcott)
  * Implement the new chooser widget styles as part of the page editor redesign (Thibaud Colas)
+ * Update base Draftail/TextField form designs as part of the page editor redesign (Thibaud Colas)
+ * Move commenting trigger to inline toolbar and move block splitting to the block toolbar and command palette only in Draftail (Thibaud Colas)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
