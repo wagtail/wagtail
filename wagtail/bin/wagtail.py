@@ -353,7 +353,14 @@ class UpdateModulePaths(Command):
                     found_unicode_error = True
                 else:
                     line = self._rewrite_line(original_line)
-                    sys.stdout.write(line.encode("utf-8"))
+                    if CURRENT_PYTHON >= (3, 8):
+                        sys.stdout.write(line.encode("utf-8"))
+                    else:
+                        # Python 3.7 opens the output stream in text mode, so write the line back as
+                        # text rather than bytes:
+                        # https://github.com/python/cpython/commit/be6dbfb43b89989ccc83fbc4c5234f50f44c47ad
+                        sys.stdout.write(line)
+
                     if line != original_line:
                         change_count += 1
 
