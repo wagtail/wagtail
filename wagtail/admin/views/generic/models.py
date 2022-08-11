@@ -978,3 +978,92 @@ class UnpublishView(HookResponseMixin, TemplateView):
         context["unpublish_url"] = self.get_unpublish_url()
         context["next_url"] = self.get_next_url()
         return context
+
+
+class RevisionsUnscheduleView(TemplateView):
+    model = None
+    edit_url_name = None
+    history_url_name = None
+    revisions_unschedule_url_name = None
+    success_message = gettext_lazy('Version {revision_id} of "{object}" unscheduled.')
+    template_name = "wagtailadmin/shared/revisions/confirm_unschedule.html"
+
+    def setup(self, request, pk, revision_id, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = pk
+        self.revision_id = revision_id
+        self.object = self.get_object()
+        self.revision = self.get_revision()
+
+    def get_object(self, queryset=None):
+        if not self.model or not issubclass(self.model, DraftStateMixin):
+            raise Http404
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_revision(self):
+        return get_object_or_404(self.object.revisions, id=self.revision_id)
+
+    def get_revisions_unschedule_url(self):
+        return reverse(
+            self.revisions_unschedule_url_name,
+            args=(quote(self.object.pk), self.revision.id),
+        )
+
+    def get_object_display_title(self):
+        return str(self.object)
+
+    def get_success_message(self):
+        if self.success_message is None:
+            return None
+        return self.success_message.format(
+            revision_id=self.revision.id, object=self.get_object_display_title()
+        )
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
+            )
+        ]
+
+    def get_next_url(self):
+        if not self.history_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.RevisionsUnscheduleView "
+                " must provide a history_url_name attribute or a get_next_url method"
+            )
+        return reverse(self.history_url_name, args=(quote(self.object.pk),))
+
+    def get_page_subtitle(self):
+        return _('revision {revision_id} of "{object}"').format(
+            revision_id=self.revision.id, object=self.get_object_display_title()
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "object": self.object,
+                "revision": self.revision,
+                "subtitle": self.get_page_subtitle(),
+                "object_display_title": self.get_object_display_title(),
+                "revisions_unschedule_url": self.get_revisions_unschedule_url(),
+                "next_url": self.get_next_url(),
+            }
+        )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.revision.approved_go_live_at = None
+        self.revision.save(user=request.user, update_fields=["approved_go_live_at"])
+
+        success_message = self.get_success_message()
+        success_buttons = self.get_success_buttons()
+        if success_message:
+            messages.success(
+                request,
+                success_message,
+                buttons=success_buttons,
+            )
+
+        return redirect(self.get_next_url())
