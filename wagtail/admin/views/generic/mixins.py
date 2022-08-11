@@ -4,6 +4,7 @@ from django.forms import Media
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -209,10 +210,15 @@ class RevisionsRevertMixin:
         message = _(
             "{model_name} '{instance}' has been replaced with version from {timestamp}."
         )
-        if self.action == "publish":
+        if self.draftstate_enabled and self.action == "publish":
             message = _(
                 "Version from {timestamp} of {model_name} '{instance}' has been published."
             )
+
+            if self.object.go_live_at and self.object.go_live_at > timezone.now():
+                message = _(
+                    "Version from {timestamp} of {model_name} '{instance}' has been scheduled for publishing."
+                )
 
         return message.format(
             model_name=capfirst(self.model._meta.verbose_name),

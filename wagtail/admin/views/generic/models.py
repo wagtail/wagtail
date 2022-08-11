@@ -8,6 +8,7 @@ from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
@@ -399,8 +400,11 @@ class CreateView(
         return reverse(self.index_url_name)
 
     def get_success_message(self, instance):
-        if self.action == "publish":
-            return _("'{0}' has been created and published.").format(str(instance))
+        if isinstance(instance, DraftStateMixin) and self.action == "publish":
+            if instance.go_live_at and instance.go_live_at > timezone.now():
+                return _("'{0}' created and scheduled for publishing.").format(instance)
+            return _("'{0}' created and published.").format(instance)
+
         if self.success_message is None:
             return None
         return self.success_message.format(instance)
@@ -622,8 +626,13 @@ class EditView(
         return None
 
     def get_success_message(self):
-        if self.action == "publish":
-            return _("'{0}' has been published.").format(str(self.object))
+        if self.draftstate_enabled and self.action == "publish":
+            if self.object.go_live_at and self.object.go_live_at > timezone.now():
+                return _("'{0}' updated and scheduled for publishing.").format(
+                    self.object
+                )
+            return _("'{0}' updated and published.").format(self.object)
+
         if self.success_message is None:
             return None
         return self.success_message.format(self.object)
