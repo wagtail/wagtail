@@ -211,6 +211,8 @@ def get_workflow_edit_handler():
                 FieldPanel("task", widget=AdminTaskChooser(show_clear_link=False)),
             ],
             heading=_("Add tasks to your workflow"),
+            label=_("Task"),
+            icon="thumbtack",
         ),
     ]
     edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)

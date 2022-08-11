@@ -1,0 +1,101 @@
+$header-icon-size-sm: theme('spacing.5');
+$header-button-size-sm: theme('spacing.8');
+$header-gap: theme('spacing.1');
+$panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
+
+.w-panel--inline-panel {
+  --divider-color: transparent;
+
+  .w-panel__divider {
+    height: 1px;
+    // Slightly nicer text alignment.
+    margin-top: 1px;
+    background-image: linear-gradient(
+      to right,
+      var(--divider-color) 50%,
+      rgba(255, 255, 255, 0) 0%
+    );
+    background-position: center center;
+    background-size: 6px 1px;
+    background-repeat: repeat-x;
+  }
+
+  @media (hover: hover) {
+    &:is(:hover, :focus-within) {
+      --divider-color: theme('colors.grey.150');
+    }
+  }
+
+  .w-panel {
+    margin-inline-start: theme('spacing.7');
+    margin-bottom: theme('spacing.6');
+
+    @media (hover: hover) {
+      &:is(:hover, :focus-within) {
+        --divider-color: theme('colors.primary.DEFAULT');
+      }
+    }
+  }
+
+  // Tighter spacing for nested panel headers so their icons align.
+  .w-panel .w-panel__header {
+    gap: 0;
+    transform: translateX(calc(-1 * theme('spacing.5')));
+
+    @include media-breakpoint-up(sm) {
+      transform: translateX(theme('spacing.1'));
+    }
+  }
+
+  .w-panel__content {
+    margin-inline-start: calc(-1 * theme('spacing.3'));
+    padding-inline-start: theme('spacing.3');
+    background-image: linear-gradient(
+      to bottom,
+      var(--divider-color) 50%,
+      rgba(255, 255, 255, 0) 0%
+    );
+    background-position: left center;
+    background-size: 1px 6px;
+    background-repeat: repeat-y;
+
+    @include media-breakpoint-up(sm) {
+      margin-inline-start: calc(-1 * $panel-x-offset);
+      padding-inline-start: $panel-x-offset;
+    }
+  }
+
+  .w-panel__anchor {
+    background-color: $color-white;
+  }
+
+  .w-panel .w-panel__anchor--prefix {
+    display: inline-grid;
+  }
+
+  .w-panel .w-panel__anchor--suffix {
+    display: none;
+  }
+
+  .w-panel__heading--label {
+    // Use smaller labels within nested panels in InlinePanel.
+    @apply w-label-2;
+  }
+
+  .w-panel__controls .disabled {
+    display: none;
+  }
+}
+
+.multiple {
+  padding: 0;
+
+  &.moving {
+    position: relative;
+  }
+
+  li.moving {
+    position: absolute;
+    width: 100%;
+  }
+}

@@ -4,14 +4,12 @@ $header-button-size: theme('spacing.8');
 
 .w-panel {
   margin-bottom: theme('spacing.10');
-  // Legacy code support. Make sure we render correctly enough after a panel that contains un-cleared floats.
-  clear: both;
 }
 
 .w-panel__header {
   display: flex;
   align-items: center;
-  margin-bottom: theme('spacing.4');
+  margin-bottom: theme('spacing.3');
   margin-inline-start: -1 * $mobile-nice-padding;
 
   @include media-breakpoint-up(sm) {
@@ -26,6 +24,11 @@ $header-button-size: theme('spacing.8');
   display: inline-block;
   margin: 0;
   cursor: pointer;
+  padding-inline-end: theme('spacing.2');
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-end: theme('spacing.5');
+  }
 }
 
 .w-panel__heading--label {
@@ -33,7 +36,10 @@ $header-button-size: theme('spacing.8');
 }
 
 .w-panel__anchor,
-.w-panel__toggle {
+.w-panel__toggle,
+.w-panel__controls .button.button--icon,
+.w-panel__controls-cue {
+  @include show-focus-outline-inside();
   display: inline-grid;
   justify-content: center;
   align-content: center;
@@ -51,13 +57,23 @@ $header-button-size: theme('spacing.8');
 .w-panel__anchor {
   // Only hide anchors for devices that support hover interactions.
   @media (hover: hover) {
-    // Hiding with opacity only, so the anchor isn’t skipped in the page’s focus order.
-    opacity: 0;
-
-    .w-panel__header:hover &,
-    .w-panel__header:focus-within & {
-      opacity: 1;
+    .w-panel__header:not(:hover, :focus-within) & {
+      opacity: 0;
     }
+  }
+}
+
+.w-panel__anchor--suffix {
+  @include media-breakpoint-up(sm) {
+    display: none;
+  }
+}
+
+.w-panel__anchor--prefix {
+  display: none;
+
+  @include media-breakpoint-up(sm) {
+    display: inline-grid;
   }
 }
 
@@ -78,6 +94,41 @@ $header-button-size: theme('spacing.8');
   &.icon-link {
     width: theme('spacing.[3.5]');
     height: theme('spacing.[3.5]');
+  }
+}
+
+.w-panel__divider {
+  flex: 1;
+}
+
+.w-panel__controls {
+  margin: calc(-1 * theme('spacing.4'));
+  margin-inline-end: calc(-1 * theme('spacing.8'));
+  margin-inline-start: 0;
+  padding: theme('spacing.4');
+
+  @include media-breakpoint-up(sm) {
+    margin: calc(-1 * theme('spacing.4'));
+    margin-inline-start: 0;
+  }
+
+  > * {
+    visibility: hidden;
+  }
+
+  > .w-panel__controls-cue {
+    position: absolute;
+    visibility: visible;
+  }
+
+  @media (hover: hover) {
+    .w-panel__header:is(:hover, :focus-within) & > * {
+      visibility: visible;
+
+      &.w-panel__controls-cue {
+        visibility: hidden;
+      }
+    }
   }
 }
 

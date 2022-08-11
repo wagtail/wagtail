@@ -959,6 +959,9 @@ class InlinePanel(Panel):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
 
+    def classes(self):
+        return super().classes() + ["w-panel--inline-panel"]
+
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
 

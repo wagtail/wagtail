@@ -25,7 +25,7 @@
             {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
             {% trans "Assign your workflow to pages" as heading %}
-            {% panel id="workflow-pages" heading=heading  %}
+            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=heading %}
                 {% if workflow.active %}
                     <p class="help-block help-info">
                         {% icon name='help' %}

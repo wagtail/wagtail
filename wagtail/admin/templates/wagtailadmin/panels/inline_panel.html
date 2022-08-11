@@ -22,12 +22,11 @@
     {% endescapescript %}
 </script>
 
-<p class="add">
-    <button type="button" class="button bicolor button--icon" id="id_{{ self.formset.prefix }}-ADD">
-        {% icon name="plus" wrapped=1 %}
-        {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+<div class="w-mb-4 -w-ml-0.5">
+    <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
+        {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
     </button>
-</p>
+</div>
 
 <script>
     (function() {
