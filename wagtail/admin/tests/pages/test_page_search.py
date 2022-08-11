@@ -2,11 +2,11 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.models import Page
 from wagtail.search.index import SearchField
 from wagtail.test.testapp.models import SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import local_datetime
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
