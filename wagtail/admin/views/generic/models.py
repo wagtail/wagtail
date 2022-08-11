@@ -259,7 +259,12 @@ class IndexView(
         return column_class("_updated_at", label=_("Updated"), sort_key="_updated_at")
 
     def _get_status_tag_column(self, column_class=StatusTagColumn):
-        return column_class("status_string", label=_("Status"), sort_key="live")
+        return column_class(
+            "status_string",
+            label=_("Status"),
+            sort_key="live",
+            primary=lambda instance: instance.live,
+        )
 
     def _get_default_columns(self):
         columns = [
