@@ -13,10 +13,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.tests.pages.timestamps import (
-    rendered_timestamp,
-    submittable_timestamp,
-)
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
     Comment,
@@ -46,6 +42,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
+from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
 from wagtail.users.models import UserProfile
 
 

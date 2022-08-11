@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.models import GroupPagePermission, Locale, Page, Revision
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -28,6 +27,7 @@ from wagtail.test.testapp.models import (
     StandardIndex,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import submittable_timestamp
 
 
 class TestPageCreation(TestCase, WagtailTestUtils):

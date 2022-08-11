@@ -6,7 +6,6 @@ from django.urls import reverse
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     DefaultStreamPage,
@@ -15,6 +14,7 @@ from wagtail.test.testapp.models import (
     SecretPage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import local_datetime
 
 
 class TestRevisions(TestCase, WagtailTestUtils):
