@@ -214,7 +214,7 @@ A shorthand for outputting the attributes `src`, `width`, `height` and `alt` in 
 
 ### `full_url`
 
-Same as `url`, but always returns a full absolute URL. This requires `BASE_URL` to be set in the project settings.
+Same as `url`, but always returns a full absolute URL. This requires `WAGTAILADMIN_BASE_URL` to be set in the project settings.
 
 This is useful for images that will be re-used outside of the current site, such as social share images:
 
