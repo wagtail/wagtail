@@ -3741,7 +3741,7 @@ class TestGetLock(TestCase):
         self.assertTrue(lock.for_user(christmas_event.owner))
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            "Page 'Christmas' is locked and has been scheduled to go-live at 07/29/2030 7:32 a.m.",
+            "Page 'Christmas' is locked and has been scheduled to go live at 07/29/2030 7:32 a.m.",
         )
 
         # Not even superusers can break this lock

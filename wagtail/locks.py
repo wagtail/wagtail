@@ -125,7 +125,7 @@ class ScheduledForPublishLock(BaseLock):
         ).first()
 
         return format_html(
-            _("Page '{}' is locked and has been scheduled to go-live at {}"),
+            _("Page '{}' is locked and has been scheduled to go live at {}"),
             self.page.get_admin_display_title(),
             date_format(
                 scheduled_revision.approved_go_live_at,

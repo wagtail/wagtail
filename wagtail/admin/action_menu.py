@@ -42,10 +42,10 @@ class ActionMenuItem(Component):
             'page' (if view = 'edit' or 'revisions_revert') = the page being edited
             'parent_page' (if view = 'create') = the parent page of the page being created
             'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
-            may also contain:
-            'user_page_permissions_tester' = a PagePermissionTester for the current user and page
             'lock' = a Lock object if the page is locked, otherwise None
             'locked_for_user' = True if the lock prevents the current user from editing the page
+            may also contain:
+            'user_page_permissions_tester' = a PagePermissionTester for the current user and page
         """
         return context["view"] == "create" or not context["locked_for_user"]
 
