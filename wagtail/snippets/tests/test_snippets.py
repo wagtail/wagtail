@@ -25,7 +25,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page, Revision
-from wagtail.signals import unpublished
+from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
     get_base_snippet_action_menu_items,
@@ -65,6 +65,7 @@ from wagtail.test.testapp.models import (
     SnippetChooserModelWithCustomPrimaryKey,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
@@ -983,6 +984,10 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         self.assertEqual(snippet.latest_revision.content["text"], "Draft-enabled Foo")
 
     def test_publish(self):
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
         timestamp = now()
         with freeze_time(timestamp):
             response = self.post(
@@ -1015,6 +1020,113 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
             snippet.live_revision.content["text"],
             "Draft-enabled Foo, Published",
         )
+
+        # Check that the published signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], DraftStateModel)
+        self.assertEqual(mock_call["instance"], snippet)
+        self.assertIsInstance(mock_call["instance"], DraftStateModel)
+
+    def test_create_scheduled(self):
+        go_live_at = now() + datetime.timedelta(days=1)
+        expire_at = now() + datetime.timedelta(days=2)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        snippet = DraftStateModel.objects.get(text="Some content")
+        self.assertEqual(snippet.go_live_at.date(), go_live_at.date())
+        self.assertEqual(snippet.expire_at.date(), expire_at.date())
+        self.assertIs(snippet.expired, False)
+        self.assertTrue(snippet.status_string, "draft")
+
+        # No revisions with approved_go_live_at
+        self.assertFalse(
+            Revision.objects.for_instance(snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+    def test_create_scheduled_go_live_before_expiry(self):
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "go_live_at": submittable_timestamp(now() + datetime.timedelta(days=2)),
+                "expire_at": submittable_timestamp(now() + datetime.timedelta(days=1)),
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response,
+            "form",
+            "go_live_at",
+            "Go live date/time must be before expiry date/time",
+        )
+        self.assertFormError(
+            response,
+            "form",
+            "expire_at",
+            "Go live date/time must be before expiry date/time",
+        )
+
+    def test_create_scheduled_expire_in_the_past(self):
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "expire_at": submittable_timestamp(now() + datetime.timedelta(days=-1)),
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response, "form", "expire_at", "Expiry date/time must be in the future"
+        )
+
+    def test_create_post_publish_scheduled(self):
+        go_live_at = now() + datetime.timedelta(days=1)
+        expire_at = now() + datetime.timedelta(days=2)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        # Find the object and check it
+        snippet = DraftStateModel.objects.get(text="Some content")
+        self.assertEqual(snippet.go_live_at.date(), go_live_at.date())
+        self.assertEqual(snippet.expire_at.date(), expire_at.date())
+        self.assertIs(snippet.expired, False)
+
+        # A revision with approved_go_live_at should exist now
+        self.assertTrue(
+            Revision.objects.for_instance(snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+        # But snippet won't be live
+        self.assertFalse(snippet.live)
+        self.assertFalse(snippet.first_published_at)
+        self.assertTrue(snippet.status_string, "scheduled")
 
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
@@ -1429,6 +1541,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertEqual(latest_revision.content["text"], "Draft-enabled Bar")
 
     def test_publish(self):
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
         timestamp = now()
         with freeze_time(timestamp):
             response = self.post(
@@ -1479,6 +1595,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # A log entry with wagtail.publish action should be created
         self.assertEqual(log_entries.count(), 1)
         self.assertEqual(log_entry.timestamp, timestamp)
+
+        # Check that the published signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], DraftStateCustomPrimaryKeyModel)
+        self.assertEqual(mock_call["instance"], self.test_snippet)
+        self.assertIsInstance(mock_call["instance"], DraftStateCustomPrimaryKeyModel)
 
     def test_save_draft_then_publish(self):
         save_timestamp = now()
@@ -1734,6 +1858,734 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertTagInHTML(
             '<textarea name="text">Draft-enabled Bar, In Draft</textarea>',
             html,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_scheduled(self):
+        self.test_snippet.save_revision().publish()
+
+        # put go_live_at and expire_at several days away from the current date, to avoid
+        # false matches in content__ tests
+        go_live_at = now() + datetime.timedelta(days=10)
+        expire_at = now() + datetime.timedelta(days=20)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object will still be live
+        self.assertTrue(self.test_snippet.live)
+
+        # A revision with approved_go_live_at should not exist
+        self.assertFalse(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # But a revision with go_live_at and expire_at in their content json *should* exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .filter(
+                content__go_live_at__startswith=str(go_live_at.date()),
+            )
+            .exists()
+        )
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .filter(
+                content__expire_at__startswith=str(expire_at.date()),
+            )
+            .exists()
+        )
+
+        # Get the edit page again
+        response = self.get()
+
+        # Should show the draft go_live_at and expire_at under the "Once published" label
+        self.assertContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_scheduled_go_live_before_expiry(self):
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "go_live_at": submittable_timestamp(now() + datetime.timedelta(days=2)),
+                "expire_at": submittable_timestamp(now() + datetime.timedelta(days=1)),
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response,
+            "form",
+            "go_live_at",
+            "Go live date/time must be before expiry date/time",
+        )
+        self.assertFormError(
+            response,
+            "form",
+            "expire_at",
+            "Go live date/time must be before expiry date/time",
+        )
+
+    def test_edit_scheduled_expire_in_the_past(self):
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "expire_at": submittable_timestamp(now() + datetime.timedelta(days=-1)),
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response, "form", "expire_at", "Expiry date/time must be in the future"
+        )
+
+    def test_first_published_at_editable(self):
+        """Test that we can update the first_published_at via the edit form,
+        for models that expose it."""
+
+        self.test_snippet.save_revision().publish()
+        self.test_snippet.refresh_from_db()
+
+        initial_delta = self.test_snippet.first_published_at - now()
+
+        first_published_at = now() - datetime.timedelta(days=2)
+
+        self.post(
+            post_data={
+                "text": "I've been edited!",
+                "action-publish": "action-publish",
+                "first_published_at": submittable_timestamp(first_published_at),
+            }
+        )
+
+        self.test_snippet.refresh_from_db()
+
+        # first_published_at should have changed.
+        new_delta = self.test_snippet.first_published_at - now()
+        self.assertNotEqual(new_delta.days, initial_delta.days)
+        # first_published_at should be 3 days ago.
+        self.assertEqual(new_delta.days, -3)
+
+    def test_edit_post_publish_scheduled_unpublished(self):
+        go_live_at = now() + datetime.timedelta(days=1)
+        expire_at = now() + datetime.timedelta(days=2)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should not be live
+        self.assertFalse(self.test_snippet.live)
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # The object SHOULD have the "has_unpublished_changes" flag set,
+        # because the changes are not visible as a live object yet
+        self.assertTrue(
+            self.test_snippet.has_unpublished_changes,
+            "An object scheduled for future publishing should have has_unpublished_changes=True",
+        )
+
+        self.assertEqual(self.test_snippet.status_string, "scheduled")
+
+        response = self.get()
+
+        # Should show the go_live_at and expire_at without the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should still show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_publish_now_an_already_scheduled_unpublished(self):
+        # First let's publish an object with a go_live_at in the future
+        go_live_at = now() + datetime.timedelta(days=1)
+        expire_at = now() + datetime.timedelta(days=2)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should not be live
+        self.assertFalse(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "scheduled")
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # Now, let's edit it and publish it right now
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": "",
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should be live
+        self.assertTrue(self.test_snippet.live)
+
+        # The revision with approved_go_live_at should no longer exist
+        self.assertFalse(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        response = self.get()
+
+        # Should show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_publish_scheduled_published(self):
+        self.test_snippet.save_revision().publish()
+        self.test_snippet.refresh_from_db()
+
+        live_revision = self.test_snippet.live_revision
+
+        go_live_at = now() + datetime.timedelta(days=1)
+        expire_at = now() + datetime.timedelta(days=2)
+        response = self.post(
+            post_data={
+                "text": "I've been edited!",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.get(
+            pk=self.test_snippet.pk
+        )
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "live + scheduled")
+
+        # A revision with approved_go_live_at should now exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # The object SHOULD have the "has_unpublished_changes" flag set,
+        # because the changes are not visible as a live object yet
+        self.assertTrue(
+            self.test_snippet.has_unpublished_changes,
+            "An object scheduled for future publishing should have has_unpublished_changes=True",
+        )
+
+        self.assertNotEqual(
+            self.test_snippet.get_latest_revision(),
+            live_revision,
+            "An object scheduled for future publishing should have a new revision, that is not the live revision",
+        )
+
+        self.assertEqual(
+            self.test_snippet.text,
+            "Draft-enabled Foo",
+            "A live object with a scheduled revision should still have the original content",
+        )
+
+        response = self.get()
+
+        # Should show the go_live_at and expire_at without the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should still show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_publish_now_an_already_scheduled_published(self):
+        self.test_snippet.save_revision().publish()
+
+        # First let's publish an object with a go_live_at in the future
+        go_live_at = now() + datetime.timedelta(days=1)
+        expire_at = now() + datetime.timedelta(days=2)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        # A revision with approved_go_live_at should now exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        self.assertEqual(
+            self.test_snippet.text,
+            "Draft-enabled Foo",
+            "A live object with scheduled revisions should still have original content",
+        )
+
+        # Now, let's edit it and publish it right now
+        response = self.post(
+            post_data={
+                "text": "I've been updated!",
+                "action-publish": "Publish",
+                "go_live_at": "",
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should be live
+        self.assertTrue(self.test_snippet.live)
+
+        # The scheduled revision should no longer exist
+        self.assertFalse(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # The content should be updated
+        self.assertEqual(self.test_snippet.text, "I've been updated!")
+
+    def test_edit_post_save_schedule_before_a_scheduled_expire(self):
+        # First let's publish an object with *just* an expire_at in the future
+        expire_at = now() + datetime.timedelta(days=20)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "live")
+
+        # The live object should have the expire_at field set
+        self.assertEqual(
+            self.test_snippet.expire_at,
+            expire_at.replace(second=0, microsecond=0),
+        )
+
+        # Now, let's save an object with a go_live_at in the future,
+        # but before the existing expire_at
+        go_live_at = now() + datetime.timedelta(days=10)
+        new_expire_at = now() + datetime.timedelta(days=15)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(new_expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object will still be live
+        self.assertTrue(self.test_snippet.live)
+
+        # A revision with approved_go_live_at should not exist
+        self.assertFalse(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # But a revision with go_live_at and expire_at in their content json *should* exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .filter(content__go_live_at__startswith=str(go_live_at.date()))
+            .exists()
+        )
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .filter(content__expire_at__startswith=str(expire_at.date()))
+            .exists()
+        )
+
+        response = self.get()
+
+        # Should still show the active expire_at in the live object
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should also show the draft go_live_at and expire_at under the "Once published" label
+        self.assertContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should still show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_publish_schedule_before_a_scheduled_expire(self):
+        # First let's publish an object with *just* an expire_at in the future
+        expire_at = now() + datetime.timedelta(days=20)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "live")
+
+        # The live object should have the expire_at field set
+        self.assertEqual(
+            self.test_snippet.expire_at,
+            expire_at.replace(second=0, microsecond=0),
+        )
+
+        # Now, let's publish an object with a go_live_at in the future,
+        # but before the existing expire_at
+        go_live_at = now() + datetime.timedelta(days=10)
+        new_expire_at = now() + datetime.timedelta(days=15)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(new_expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.get(
+            pk=self.test_snippet.pk
+        )
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "live + scheduled")
+
+        # A revision with approved_go_live_at should now exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        response = self.get()
+
+        # Should not show the active expire_at in the live object because the
+        # scheduled revision is before the existing expire_at, which means it will
+        # override the existing expire_at when it goes live
+        self.assertNotContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(expire_at)}',
+            html=True,
+        )
+
+        # Should show the go_live_at and expire_at without the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should still show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_publish_schedule_after_a_scheduled_expire(self):
+        # First let's publish an object with *just* an expire_at in the future
+        expire_at = now() + datetime.timedelta(days=20)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "expire_at": submittable_timestamp(expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet.refresh_from_db()
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "live")
+
+        # The live object should have the expire_at field set
+        self.assertEqual(
+            self.test_snippet.expire_at,
+            expire_at.replace(second=0, microsecond=0),
+        )
+
+        # Now, let's publish an object with a go_live_at in the future,
+        # but after the existing expire_at
+        go_live_at = now() + datetime.timedelta(days=23)
+        new_expire_at = now() + datetime.timedelta(days=25)
+        response = self.post(
+            post_data={
+                "text": "Some content",
+                "action-publish": "Publish",
+                "go_live_at": submittable_timestamp(go_live_at),
+                "expire_at": submittable_timestamp(new_expire_at),
+            }
+        )
+
+        # Should be redirected to the listing page
+        self.assertEqual(response.status_code, 302)
+
+        self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.get(
+            pk=self.test_snippet.pk
+        )
+
+        # The object should still be live
+        self.assertTrue(self.test_snippet.live)
+
+        self.assertEqual(self.test_snippet.status_string, "live + scheduled")
+
+        # Instead a revision with approved_go_live_at should now exist
+        self.assertTrue(
+            Revision.objects.for_instance(self.test_snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        response = self.get()
+
+        # Should still show the active expire_at in the live object because the
+        # scheduled revision is after the existing expire_at, which means the
+        # new expire_at won't take effect until the revision goes live.
+        # This means the object will be:
+        # unpublished (expired) -> published (scheduled) -> unpublished (expired again)
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should show the go_live_at and expire_at without the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            html=True,
+            count=1,
+        )
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should still show the "Edit schedule" button
+        html = response.content.decode()
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
             allow_extra_attrs=True,
         )
 

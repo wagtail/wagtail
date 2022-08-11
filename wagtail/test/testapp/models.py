@@ -26,6 +26,7 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
+    PublishingPanel,
     TabbedInterface,
 )
 from wagtail.blocks import (
@@ -1002,6 +1003,7 @@ class DraftStateModel(DraftStateMixin, RevisionMixin, models.Model):
 
     panels = [
         FieldPanel("text"),
+        PublishingPanel(),
     ]
 
     def __str__(self):
@@ -1017,6 +1019,8 @@ class DraftStateCustomPrimaryKeyModel(DraftStateMixin, RevisionMixin, models.Mod
 
     panels = [
         FieldPanel("text"),
+        FieldPanel("first_published_at"),
+        PublishingPanel(),
     ]
 
     def __str__(self):
