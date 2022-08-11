@@ -465,14 +465,22 @@ class DraftStateMixin(models.Model):
         return []
 
     @property
+    def approved_schedule(self):
+        return self.scheduled_revision is not None
+
+    @property
     def status_string(self):
         if not self.live:
             if self.expired:
                 return _("expired")
+            elif self.approved_schedule:
+                return _("scheduled")
             else:
                 return _("draft")
         else:
-            if self.has_unpublished_changes:
+            if self.approved_schedule:
+                return _("live + scheduled")
+            elif self.has_unpublished_changes:
                 return _("live + draft")
             else:
                 return _("live")
