@@ -453,7 +453,7 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, "wagtailadmin/pages/revisions/confirm_unschedule.html"
+            response, "wagtailadmin/shared/revisions/confirm_unschedule.html"
         )
 
     def test_unschedule_view_invalid_page_id(self):
@@ -567,7 +567,7 @@ class TestRevisionsUnscheduleForUnpublishedPages(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, "wagtailadmin/pages/revisions/confirm_unschedule.html"
+            response, "wagtailadmin/shared/revisions/confirm_unschedule.html"
         )
 
     def test_unschedule_view_post(self):

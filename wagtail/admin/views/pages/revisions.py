@@ -3,7 +3,6 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
@@ -13,7 +12,10 @@ from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.side_panels import PageSidePanels
-from wagtail.admin.views.generic.models import RevisionsCompareView
+from wagtail.admin.views.generic.models import (
+    RevisionsCompareView,
+    RevisionsUnscheduleView,
+)
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
@@ -137,43 +139,29 @@ class RevisionsCompare(RevisionsCompareView):
         return self.object.get_admin_display_title()
 
 
-def revisions_unschedule(request, page_id, revision_id):
-    page = get_object_or_404(Page, id=page_id).specific
+class RevisionsUnschedule(RevisionsUnscheduleView):
+    model = Page
+    edit_url_name = "wagtailadmin_pages:edit"
+    history_url_name = "wagtailadmin_pages:history"
+    revisions_unschedule_url_name = "wagtailadmin_pages:revisions_unschedule"
 
-    user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_unschedule():
-        raise PermissionDenied
+    def setup(self, request, page_id, revision_id, *args, **kwargs):
+        # Rename path kwargs from pk to page_id
+        return super().setup(request, page_id, revision_id, *args, **kwargs)
 
-    revision = get_object_or_404(page.revisions, id=revision_id)
+    def get_object(self, queryset=None):
+        page = get_object_or_404(Page, id=self.pk).specific
 
-    next_url = get_valid_next_url_from_request(request)
+        user_perms = UserPagePermissionsProxy(self.request.user)
+        if not user_perms.for_page(page).can_unschedule():
+            raise PermissionDenied
+        return page
 
-    subtitle = _('revision {0} of "{1}"').format(
-        revision.id, page.get_admin_display_title()
-    )
+    def get_object_display_title(self):
+        return self.object.get_admin_display_title()
 
-    if request.method == "POST":
-        revision.approved_go_live_at = None
-        revision.save(user=request.user, update_fields=["approved_go_live_at"])
-
-        messages.success(
-            request,
-            _('Version {0} of "{1}" unscheduled.').format(
-                revision.id, page.get_admin_display_title()
-            ),
-            buttons=[
-                messages.button(
-                    reverse("wagtailadmin_pages:edit", args=(page.id,)), _("Edit")
-                )
-            ],
-        )
-
+    def get_success_url(self):
+        next_url = get_valid_next_url_from_request(self.request)
         if next_url:
-            return redirect(next_url)
-        return redirect("wagtailadmin_pages:history", page.id)
-
-    return TemplateResponse(
-        request,
-        "wagtailadmin/pages/revisions/confirm_unschedule.html",
-        {"page": page, "revision": revision, "next": next_url, "subtitle": subtitle},
-    )
+            return next_url
+        return super().get_success_url()
