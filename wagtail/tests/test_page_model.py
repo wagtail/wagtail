@@ -3734,15 +3734,22 @@ class TestGetLock(TestCase):
     def test_when_scheduled_for_publish(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
-        christmas_event.save_revision().publish()
+        rvn = christmas_event.save_revision()
+        rvn.publish()
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, ScheduledForPublishLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
-        self.assertEqual(
-            lock.get_message(christmas_event.owner),
-            "Page 'Christmas' is locked and has been scheduled to go live at 07/29/2030 7:32 a.m.",
-        )
+        if settings.USE_TZ:
+            self.assertEqual(
+                lock.get_message(christmas_event.owner),
+                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 07:32",
+            )
+        else:
+            self.assertEqual(
+                lock.get_message(christmas_event.owner),
+                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 16:32",
+            )
 
         # Not even superusers can break this lock
         # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
