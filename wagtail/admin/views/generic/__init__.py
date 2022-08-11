@@ -5,5 +5,13 @@ from .mixins import (  # noqa
     LocaleMixin,
     PanelMixin,
 )
-from .models import CreateView, DeleteView, EditView, IndexView  # noqa
+from .models import (  # noqa
+    CreateView,
+    DeleteView,
+    EditView,
+    IndexView,
+    RevisionsCompareView,
+    RevisionsUnscheduleView,
+    UnpublishView,
+)
 from .permissions import PermissionCheckedMixin  # noqa

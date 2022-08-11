@@ -648,6 +648,7 @@ class HistoryView(ReportView):
     revisions_view_url_name = None
     revisions_revert_url_name = None
     revisions_compare_url_name = None
+    revisions_unschedule_url_name = None
     any_permission_required = ["add", "change", "delete"]
     template_name = "wagtailsnippets/snippets/history.html"
     title = gettext_lazy("Snippet history")
@@ -701,7 +702,7 @@ class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
     permission_required = "change"
 
 
-class RevisionsCompareView(PermissionCheckedMixin, generic.models.RevisionsCompareView):
+class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView):
     permission_required = "change"
     header_icon = "snippet"
 
@@ -718,8 +719,12 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.models.RevisionsCompa
         )
 
 
-class UnpublishView(PermissionCheckedMixin, generic.models.UnpublishView):
+class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
     permission_required = "publish"
+
+
+class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
+    permission_required = "change"
 
 
 class SnippetViewSet(ViewSet):
@@ -768,6 +773,9 @@ class SnippetViewSet(ViewSet):
 
     #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsCompareView``.
     revisions_compare_view_class = RevisionsCompareView
+
+    #: The view class to use for unscheduling revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsUnscheduleView``.
+    revisions_unschedule_view_class = RevisionsUnscheduleView
 
     #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnpublishView``.
     unpublish_view_class = UnpublishView
@@ -890,6 +898,7 @@ class SnippetViewSet(ViewSet):
             revisions_view_url_name=self.get_url_name("revisions_view"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
             revisions_compare_url_name=self.get_url_name("revisions_compare"),
+            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
@@ -918,6 +927,16 @@ class SnippetViewSet(ViewSet):
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
             history_url_name=self.get_url_name("history"),
+        )
+
+    @property
+    def revisions_unschedule_view(self):
+        return self.revisions_unschedule_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            edit_url_name=self.get_url_name("edit"),
+            history_url_name=self.get_url_name("history"),
+            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
@@ -1009,6 +1028,11 @@ class SnippetViewSet(ViewSet):
 
         if self.draftstate_enabled:
             urlpatterns += [
+                path(
+                    "history/<str:pk>/revisions/<int:revision_id>/unschedule/",
+                    self.revisions_unschedule_view,
+                    name="revisions_unschedule",
+                ),
                 path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
             ]
 
