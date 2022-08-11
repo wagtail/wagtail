@@ -182,6 +182,20 @@ class StatusTagColumn(Column):
 
     cell_template_name = "wagtailadmin/tables/status_tag_cell.html"
 
+    def __init__(self, name, primary=None, **kwargs):
+        super().__init__(name, **kwargs)
+        self.primary = primary
+
+    def get_primary(self, instance):
+        if callable(self.primary):
+            return self.primary(instance)
+        return self.primary
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["primary"] = self.get_primary(instance)
+        return context
+
 
 class DateColumn(Column):
     """Outputs a date in human-readable format"""
