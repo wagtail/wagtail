@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.utils.formats import date_format
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
@@ -127,8 +126,5 @@ class ScheduledForPublishLock(BaseLock):
         return format_html(
             _("Page '{}' is locked and has been scheduled to go live at {}"),
             self.page.get_admin_display_title(),
-            date_format(
-                scheduled_revision.approved_go_live_at,
-                settings.SHORT_DATETIME_FORMAT,
-            ),
+            scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
         )
