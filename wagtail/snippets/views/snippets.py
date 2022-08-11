@@ -10,6 +10,7 @@ from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
+from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
@@ -243,8 +244,13 @@ class CreateView(generic.CreateView):
 
     def get_success_message(self, instance):
         message = _("%(snippet_type)s '%(instance)s' created.")
-        if self.action == "publish":
+        if isinstance(instance, DraftStateMixin) and self.action == "publish":
             message = _("%(snippet_type)s '%(instance)s' created and published.")
+            if instance.go_live_at and instance.go_live_at > timezone.now():
+                message = _(
+                    "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+                )
+
         return message % {
             "snippet_type": capfirst(self.model._meta.verbose_name),
             "instance": instance,
@@ -371,8 +377,19 @@ class EditView(generic.EditView):
 
     def get_success_message(self):
         message = _("%(snippet_type)s '%(instance)s' updated.")
-        if self.action == "publish":
+
+        if self.draftstate_enabled and self.action == "publish":
             message = _("%(snippet_type)s '%(instance)s' updated and published.")
+
+            if self.object.go_live_at and self.object.go_live_at > timezone.now():
+                message = _(
+                    "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+                )
+
+                if self.object.live:
+                    message = _(
+                        "%(snippet_type)s '%(instance)s' is live and this version has been scheduled for publishing."
+                    )
 
         return message % {
             "snippet_type": capfirst(self.model._meta.verbose_name),
