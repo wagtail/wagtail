@@ -5,12 +5,12 @@ from django.utils.functional import cached_property
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
 from wagtail.models import Site
-from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .registry import register_setting
 
 __all__ = [
-    "BaseSetting",  # RemovedInWagtail60Warning
+    "BaseSetting",  # RemovedInWagtail50Warning
     "BaseGenericSetting",
     "BaseSiteSetting",
     "register_setting",
@@ -214,7 +214,7 @@ class BaseSetting(BaseSiteSetting):
                 "`wagtail.contrib.settings.models.BaseSiteSetting` or "
                 "`wagtail.contrib.settings.models.BaseGenericSetting`"
             ),
-            category=RemovedInWagtail60Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         return super().__init__(self, *args, **kwargs)
