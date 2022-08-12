@@ -40,22 +40,22 @@
 
 // Default guide line color for nested panels.
 @mixin guide-line-active() {
-  @media (hover: hover) {
-    &:is(:hover, :focus-within) {
-      --guide-line-color: theme('colors.grey.150');
-    }
+  @media (hover: none) {
+    --guide-line-color: theme('colors.grey.150');
+  }
+
+  &:is(:hover, :focus-within) {
+    --guide-line-color: theme('colors.grey.150');
   }
 }
 
 // More visible guide line for nested panels in the currently-active DOM tree.
 @mixin guide-line-nested() {
-  @media (hover: hover) {
-    &:is(:hover, :focus-within) {
-      --guide-line-color: theme('colors.primary.DEFAULT');
+  &:is(:hover, :focus-within) {
+    --guide-line-color: theme('colors.primary.DEFAULT');
 
-      @media (forced-colors: active) {
-        --guide-line-color: Highlight;
-      }
+    @media (forced-colors: active) {
+      --guide-line-color: Highlight;
     }
   }
 }

@@ -136,17 +136,22 @@ $header-button-size: theme('spacing.8');
     }
   }
 
-  // Hiding with opacity only, so the elements can still be focused.
-  > * {
-    opacity: 0;
-  }
-
   &__cue {
     position: absolute;
-    opacity: 1;
+    visibility: hidden;
   }
 
   @media (hover: hover) {
+    // Hiding with opacity only, so the elements can still be focused.
+    > * {
+      opacity: 0;
+    }
+
+    &__cue {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .c-sf-block__header:is(:hover, :focus-within) & {
       > * {
         opacity: 1;
