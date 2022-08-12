@@ -1484,6 +1484,13 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Tutte le raccolte"
 
+msgid "New: "
+msgstr "Nuovo:"
+
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "Modifica %(page_type)s %(title)s"
+
 msgid "History"
 msgstr "Storico"
 

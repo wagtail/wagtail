@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dominik Lech, 2022
 # Miłosz Miśkiewicz, 2016
 # Miłosz Miśkiewicz, 2018-2020
 # Miłosz Miśkiewicz, 2016
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2018-2020\n"
+"Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +121,9 @@ msgstr "Nie usuwaj"
 
 msgid "Home"
 msgstr "Start"
+
+msgid "Last updated"
+msgstr "Ostatnio aktualizowane"
 
 msgid "History"
 msgstr "Historia"

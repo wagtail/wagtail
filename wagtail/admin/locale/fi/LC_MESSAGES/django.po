@@ -412,6 +412,9 @@ msgstr "Lähetä profiilikuva:"
 msgid "Reset to default"
 msgstr "Palauta oletusarvoon"
 
+msgid "Sidebar"
+msgstr "Sivupalkki"
+
 msgid "Go back"
 msgstr "Siirry takaisin"
 
@@ -812,6 +815,12 @@ msgstr "SIirrä"
 msgid "Are you sure you want to move these pages?"
 msgstr "Haluatko varmasti siirtää nämä sivut?"
 
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Tällä sivulla on yksi lapsisivu"
+msgstr[1] "Tällä sivulla on %(counter)s lapsisivua"
+
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Oikeutesi eivät riitä tämän sivun siirtämiseen"
@@ -845,6 +854,12 @@ msgstr "Ei, älä julkaise"
 
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Haluatko varmasti piilottaa näiden sivujen julkaisun?"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Tällä sivulla on yksi alasivu"
+msgstr[1] "Tällä sivulla on %(counter)s alisivua"
 
 msgid "Yes, unpublish"
 msgstr "Kyllä, piilota julkaisu"
@@ -1148,8 +1163,18 @@ msgstr "Valitettavasti mikään sivu ei vastaa hakua <em>%(query_string)s</em>"
 msgid "Enter a search term above"
 msgstr "Syötä hakutermi ylle"
 
+msgid "Page Locale: "
+msgstr "Sivun maa-asetus:"
+
+#, python-format
+msgid "Translated to %(count)s other locales"
+msgstr "Käännetty %(count)s muulle maa-asetustolle"
+
 msgid "No other translations"
 msgstr "Ei muita käännöksiä"
+
+msgid "Switch locales"
+msgstr "Vaihda maa-asetustoja"
 
 msgid "Page locking: "
 msgstr "Sivun lukitus:"
@@ -1184,6 +1209,12 @@ msgstr "Ei näkyvissä julkisesti"
 
 msgid "Page status: "
 msgstr "Sivun tila:"
+
+msgid "In Moderation"
+msgstr "Tarkastatettavana"
+
+msgid "View details"
+msgstr "Näytä tiedot"
 
 msgid "View history"
 msgstr "Näytä historia"
@@ -1457,6 +1488,13 @@ msgid ""
 msgstr ""
 "Työnkulkuja ei ole luotu. Haluatko <a href=\"%(add_url)s\">luoda työnkulun</"
 "a>?"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Työnkulkuja ei ole käytössä. Miksi et <a href=\"%(add_url)s\">lisäisi "
+"sellaista</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Valitse minkä tyyppisen tehtävän haluat luoda."
@@ -2012,6 +2050,11 @@ msgstr "Tyhjennä valinta"
 
 msgid "Choose another page"
 msgstr "Valitse toinen sivu"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+"Tunnisteet voivat koostua vain yhdestä sanasta, välilyönnit eivät ole "
+"sallittuja."
 
 msgid "Choose another task"
 msgstr "Valitse toinen tehtävä"

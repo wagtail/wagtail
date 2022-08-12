@@ -1316,7 +1316,7 @@ msgstr "Aktueller Entwurf"
 
 #, python-format
 msgid "%(time_period)s ago"
-msgstr "vor %(time_period)s"
+msgstr "%(time_period)s her"
 
 msgid "No log entries found."
 msgstr "Keine Protokoll-Einträge gefunden."
@@ -1610,7 +1610,7 @@ msgid "This will publish at "
 msgstr "Dies wird veröffentlich am"
 
 msgid "First published"
-msgstr "Erstmals veröffentlicht"
+msgstr "Erste Veröffentlichung"
 
 msgid "No pages use"
 msgstr "Keine Seite benutzt "

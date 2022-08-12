@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dominik Lech, 2022
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2017
 # Miłosz Miśkiewicz, 2017-2021
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2021\n"
+"Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "API Wagtail v2"
 
 msgid "Wagtail core"
 msgstr "Rdzeń Wagtail"
@@ -423,6 +427,10 @@ msgstr "wpis loga"
 msgid "log entries"
 msgstr "wpisy loga"
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "użytkownik %(id)s (usunięty)"
+
 msgid "system"
 msgstr "system"
 
@@ -552,6 +560,12 @@ msgstr "Angielski"
 msgid "French"
 msgstr "Francuski"
 
+msgid "The form is already filled."
+msgstr "Ten formularz jest już wypełniony."
+
+msgid "You must log in first."
+msgstr "Najpierw musisz się zalogować."
+
 msgid "German"
 msgstr "Niemiecki"
 
@@ -605,12 +619,18 @@ msgstr "Odblokowany"
 msgid "Reject"
 msgstr "Odrzuć"
 
+msgid "Rename"
+msgstr "Zmień nazwę"
+
 #, python-format
 msgid "Renamed from '%(old)s' to '%(new)s'"
 msgstr "Zmieniono nazwę z '%(old)s' na '%(new)s'"
 
 msgid "Renamed"
 msgstr "Zmieniona nazwa"
+
+msgid "Revert"
+msgstr "Cofnij zmiany"
 
 #, python-format
 msgid ""
@@ -631,6 +651,9 @@ msgstr "Skopiowane z %(title)s"
 msgid "Copied"
 msgstr "Skopiowane"
 
+msgid "Create alias"
+msgstr "Stwórz alias"
+
 #, python-format
 msgid "Created an alias of %(title)s"
 msgstr "Utworzono alias dla %(title)s"
@@ -648,12 +671,18 @@ msgstr "Przesunięto z '%(old_parent)s' do '%(new_parent)s'"
 msgid "Moved"
 msgstr "Przesunięto"
 
+msgid "Reorder"
+msgstr "Zmień kolejność"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Zmieniona kolejność pod '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Zmieniona kolejność"
+
+msgid "Schedule publication"
+msgstr "Zaplanuj publikację"
 
 #, python-format
 msgid ""
@@ -670,6 +699,9 @@ msgstr "Strony zaplanowane do publikacji dnia %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Strony zaplanowane do publikacji"
 
+msgid "Unschedule publication"
+msgstr "Cofnij zaplanowanie publikacji"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -685,6 +717,9 @@ msgstr "Strona odplanowana z publikacji dnia %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Strona odplanowana z publikacji"
 
+msgid "Add view restrictions"
+msgstr "Dodaj ograniczenia wyświetlania"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Dodano restrykcję widoczności: '%(restriction)s' "
@@ -692,12 +727,18 @@ msgstr "Dodano restrykcję widoczności: '%(restriction)s' "
 msgid "Added view restriction"
 msgstr "Dodano restrykcję widoczności"
 
+msgid "Update view restrictions"
+msgstr "Zaktualizuj restrykcje wyświetlania"
+
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
 msgstr "Zaktualizowano restrykcję widoczności do '%(restriction)s'"
 
 msgid "Updated view restriction"
 msgstr "Zaktualizowano restrykcję widoczności"
+
+msgid "Remove view restrictions"
+msgstr "Usuń ograniczenia wyświetlania"
 
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
@@ -716,8 +757,14 @@ msgstr "Dodano komentarz na polu %(field)s: \"%(text)s\""
 msgid "Added a comment"
 msgstr "Dodano komentarz"
 
+msgid "Edit comment"
+msgstr "Zedytuj komentarz"
+
 msgid "Edited a comment"
 msgstr "Wyedytowano komentarz"
+
+msgid "Delete comment"
+msgstr "Usuń komentarz"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -725,6 +772,28 @@ msgstr "Usunięto komentarz na polu %(field)s: \"%(text)s\""
 
 msgid "Deleted a comment"
 msgstr "Usunięto komentarz"
+
+msgid "Reply to comment"
+msgstr "Odpowiedz na komentarz"
+
+msgid "Replied to a comment"
+msgstr "Odpowiedziano na komentarz"
+
+msgid "Edit reply to comment"
+msgstr "Zedytuj odpowiedź na komentarz"
+
+msgid "Edited a reply"
+msgstr "Zedytowano odpowiedź"
+
+msgid "Delete reply to comment"
+msgstr "Usuń odpowiedź do komentarza"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Usunięto odpowiedź do komentarza na polu %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Usunięto odpowiedź"
 
 msgid "Workflow: start"
 msgstr "Workflow: start"

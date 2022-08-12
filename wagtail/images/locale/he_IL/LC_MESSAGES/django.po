@@ -28,6 +28,9 @@ msgstr "פורמט תמונה לא נתמך. פורמטים נתמכים: %s."
 msgid "Not a valid %s image."
 msgstr "תמונה %s לא מתאימה"
 
+msgid "Collection"
+msgstr "אוסף"
+
 msgid "Filter"
 msgstr "מסנן"
 

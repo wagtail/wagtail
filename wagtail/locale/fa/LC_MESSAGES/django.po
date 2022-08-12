@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "کمترین تعداد آیتم ها %d مورد است"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "حداکثر تعداد آیتم ها %d مورد میباشد"
 
 msgid "Move up"
 msgstr "حرکت به بالا"
@@ -204,6 +213,12 @@ msgstr "تایید"
 msgid "Not started"
 msgstr "شروع نشده"
 
+msgid "comments"
+msgstr "نظر ها"
+
+msgid "comment reply"
+msgstr "ثبت پاسخ"
+
 msgid "collection"
 msgstr "مجموعه"
 
@@ -348,3 +363,18 @@ msgstr "کپی"
 
 msgid "Move"
 msgstr "انتقال"
+
+msgid "Remove view restrictions"
+msgstr "برداشتن محدودیت های نمایش"
+
+msgid "Add comment"
+msgstr "افزودن نظر"
+
+msgid "Edit comment"
+msgstr "ویرایش نظر"
+
+msgid "Delete comment"
+msgstr "حذف نظر"
+
+msgid "Replied to a comment"
+msgstr "به یک نظر پاسخ داده"

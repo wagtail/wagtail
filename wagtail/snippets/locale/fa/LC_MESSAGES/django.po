@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -40,11 +41,24 @@ msgid "Saving…"
 msgstr "درحال ذخیره…"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s دفعه استفاده شده"
+msgstr[1] "%(usage_count)s دفعه استفاده شده"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "آیا مطمئن هستید که میخواهید این %(snippet_type_name)s را حذف کنید؟"
 
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "آیا از حذف %(count)s عدد %(snippet_type_name)s اطمینان دارید؟"
+
 msgid "Yes, delete"
 msgstr "بله حذف شود"
+
+msgid "No, don't delete"
+msgstr "نه، حذف نکن"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"

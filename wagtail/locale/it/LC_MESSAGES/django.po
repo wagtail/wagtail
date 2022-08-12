@@ -584,6 +584,9 @@ msgstr "Francese"
 msgid "Wagtail snippets tests"
 msgstr "Test Wagtail snippets"
 
+msgid "Wagtail tests"
+msgstr "Test Wagtail"
+
 msgid "The form is already filled."
 msgstr "Il form è già compilato."
 

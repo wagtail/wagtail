@@ -5,6 +5,7 @@
 # Translators:
 # Adi Ron <adi@bnop.co>, 2019
 # 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 <5628a6f4d3ab86b48aef276247790766_814>, 2015
+# Gilad Levi <gilad.x@blobim.com>, 2022
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Adi Ron <adi@bnop.co>, 2019\n"
+"Last-Translator: Gilad Levi <gilad.x@blobim.com>, 2022\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -28,23 +29,60 @@ msgstr "פרסם"
 msgid "Submit for moderation"
 msgstr "שלח לעריכה"
 
+msgid "Resubmit to {}"
+msgstr "הרשמה מחודשת ל {}"
+
+msgid "Submit to {}"
+msgstr "הרשמה ל {}"
+
+msgid "Restart workflow "
+msgstr "אתחול תזרים העבודה"
+
+msgid "Cancel workflow "
+msgstr "ביטול תזרים עבודה"
+
 msgid "Unpublish"
 msgstr "ביטול פרסום"
 
 msgid "Delete"
 msgstr "מחק"
 
+msgid "Save Draft"
+msgstr "שמירת טיוטה"
+
 msgid "Page locked"
 msgstr "עמוד נעול"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ופרסום"
+
 msgid "Wagtail admin"
 msgstr "ממשק הניהול של Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "You do not have permission to access the admin"
 msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "None"
 msgstr "אף אחת"
+
+msgid "Date from"
+msgstr "מתאריך"
+
+msgid "Date to"
+msgstr "עד לתאריך"
+
+msgid "All"
+msgstr "הכל"
+
+msgid "Preferred language"
+msgstr "שפה מועדפת"
+
+msgid "Current time zone"
+msgstr "אזור זמן נוכחי"
 
 msgid "First Name"
 msgstr "שם פרטי"
@@ -54,6 +92,9 @@ msgstr "שם משפחה"
 
 msgid "Email"
 msgstr "דואר אלקטרוני"
+
+msgid "Upload a profile picture"
+msgstr "העלאת תמונה"
 
 msgid "Enter password"
 msgstr "הזינו סיסמה"
@@ -71,11 +112,20 @@ msgstr "כתובת "
 msgid "Parent"
 msgstr "הורה"
 
+msgid "Collection"
+msgstr "אוסף"
+
 msgid "Add"
 msgstr "הוספה"
 
+msgid "Add collections"
+msgstr "הוספת אוסף"
+
 msgid "Edit"
 msgstr "עריכה"
+
+msgid "Edit collections"
+msgstr "עריכת אוסף"
 
 msgid "New title"
 msgstr "כותרת חדשה"

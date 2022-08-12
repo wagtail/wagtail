@@ -5,6 +5,7 @@
 # Translators:
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # Bartosz Wiśniewski <kontakt@pr0gramista.pl>, 2017
+# Dominik Lech, 2022
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2018
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2022\n"
+"Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -455,6 +456,9 @@ msgstr "Wgraj zdjęcie profilowe:"
 msgid "Reset to default"
 msgstr "Przywróć domyślne"
 
+msgid "Sidebar"
+msgstr "pasek boczny"
+
 msgid "Go back"
 msgstr "Wróć"
 
@@ -731,6 +735,12 @@ msgstr ""
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Strona \"%(title)s\" została zaakceptowana w \"%(task)s\"."
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr ""
+"Strona \"%(title)s\" została odrzucona na etapie moderacji \"%(task)s\"."
+
 msgid "New comments"
 msgstr "Nowe komentarze"
 
@@ -779,6 +789,14 @@ msgstr "Poniższy komentarz został zostawiony: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Strona \"%(title)s\" została odrzucona podczas \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Strona \"%(title)s\" została przesłana do workflow moderacji \"%(workflow)s"
+"\"."
 
 msgid "Page privacy"
 msgstr "Prywatność strony"
@@ -852,11 +870,32 @@ msgstr[1] "Usuń %(counter)s stron"
 msgstr[2] "Usuń %(counter)s stron"
 msgstr[3] "Usuń %(counter)s stron"
 
+msgid "Are you sure you want to delete these pages?"
+msgstr "Czy jesteś pewny że chcesz usunąć te strony?"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Nie posiadasz uprawnień do usunięcia tej strony"
+msgstr[1] "Nie posiadasz uprawnień do usunięcia tych stron"
+msgstr[2] "Nie posiadasz uprawnień do usunięcia tych stron"
+msgstr[3] "Nie posiadasz uprawnień do usunięcia tych stron"
+
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Przenieś 1 stronę"
+msgstr[1] "Przenieś %(counter)s stron"
+msgstr[2] "Przenieś %(counter)s stron"
+msgstr[3] "Przenieś %(counter)s stron"
+
 msgid "Move"
 msgstr "Przesuń"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Czy jesteś pewny, że chcesz przenieść te strony?"
 
 msgid "Yes, move these pages"
 msgstr "Tak, przenieś te strony"
@@ -1230,11 +1269,17 @@ msgstr "Odblokowany"
 msgid "Lock"
 msgstr "Blokada"
 
+msgid "Page visibility: "
+msgstr "Widoczność strony:"
+
 msgid "Visible to all"
 msgstr "Widoczna dla wszystkich"
 
 msgid "Not visible to the public"
 msgstr "Niewidoczna publicznie"
+
+msgid "Change privacy"
+msgstr "Zmień prywatność"
 
 msgid "Page status: "
 msgstr "Status strony:"
@@ -1418,6 +1463,9 @@ msgstr "Start"
 
 msgid "All collections"
 msgstr "Wszystkie kolekcje"
+
+msgid "New: "
+msgstr "Nowe:"
 
 msgid "History"
 msgstr "Historia"
@@ -1632,6 +1680,9 @@ msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco.
 msgid "More"
 msgstr "Więcej"
 
+msgid "View more bulk actions"
+msgstr "Zobacz więcej akcji masowych"
+
 msgid "0 minutes"
 msgstr "0 minut"
 
@@ -1709,6 +1760,27 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 
 msgid "Editing"
 msgstr "Edytowanie"
+
+msgid "Delete selected pages"
+msgstr "Usuń wybrane strony"
+
+msgid "1 page has been deleted"
+msgstr "1 strona została usunięta"
+
+msgid "Select a new parent page"
+msgstr "Wybierz nową stronę nadrzędną"
+
+msgid "Move selected pages"
+msgstr "Przenieś wybrane strony"
+
+msgid "Publish selected pages"
+msgstr "Opublikuj wybrane strony"
+
+msgid "1 page has been published"
+msgstr "1 strona została opublikowana"
+
+msgid "Unpublish selected pages"
+msgstr "Odpublikuj wybrane strony"
 
 #, python-brace-format
 msgid "Page '{0}' has been converted into an ordinary page."

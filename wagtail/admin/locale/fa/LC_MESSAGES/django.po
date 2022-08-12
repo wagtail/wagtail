@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mehdi <myjahromi@gmail.com>, 2020\n"
+"Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -185,6 +186,28 @@ msgstr "این فیلد لازم است."
 msgid "Please select at least one group."
 msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
+#, python-brace-format
+msgid "{0} documents selected"
+msgstr "{0} سند انتخاب شد"
+
+#, python-brace-format
+msgid "All {0} documents on this screen selected"
+msgstr "همه {0} سند این صفحه انتخاب شدند"
+
+msgid "1 image selected"
+msgstr "1 تصویر انتخاب شد"
+
+#, python-brace-format
+msgid "All {0} images on this screen selected"
+msgstr "همه {0} تصویر این صفحه انتخاب شده"
+
+msgid "1 user selected"
+msgstr "1 کاربر انتخاب شده"
+
+#, python-brace-format
+msgid "{0} items selected"
+msgstr "{0} مورد انتخاب شده"
+
 msgid "Scheduled publishing"
 msgstr "انتشار زمانبندی‌شده"
 
@@ -271,6 +294,12 @@ msgstr "بازنشانی رمزعبور"
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
 
+msgid "Sidebar"
+msgstr "نوار کناری"
+
+msgid "Bulk actions"
+msgstr "اعمال جمعی"
+
 msgid "Internal link"
 msgstr "لینک درونی"
 
@@ -297,6 +326,9 @@ msgstr "انتخاب کنید"
 
 msgid "Choose a page"
 msgstr "صفحه را انتخاب کنید"
+
+msgid "Use external link"
+msgstr "استفاده از لینک خارجی"
 
 msgid "Add an email link"
 msgstr "اضافه کردن لینک ایمیل"
@@ -530,8 +562,49 @@ msgstr "نوع صفحه ای را که میخواهید بسازید مشخص ک
 msgid "Pages using %(page_type)s"
 msgstr "صفحه هایی که %(page_type)s هستند"
 
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "شما مجور حذف این صفحه را ندارید"
+msgstr[1] "شما مجور حذف این صفحات را ندارید"
+
+msgid "No, don't delete"
+msgstr "نه، حذف نکن"
+
 msgid "Move"
 msgstr "انتقال"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "شما مجوز انتقال این صفحه را ندارید"
+msgstr[1] "شما مجوز انتقال این صفحات را ندارید"
+
+msgid "Yes, move these pages"
+msgstr "بله، این صفحات را منتقل کن"
+
+msgid "No, don't move"
+msgstr "نه، منتقل نکن"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "آیا از انتشار این صفحات اطمینان دارید؟"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "شما مجوز منتشر کردن این صفحه را ندارید"
+msgstr[1] "شما مجوز منتشر کردن این صفحات را ندارید"
+
+msgid "No, don't publish"
+msgstr "نه، منتشر نکن"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "آیا مطمئن هستید میخواهید این صفحات را از انتشار خارج کنید؟"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "شما مجوز از انتشار خارج کردن این صفحه را ندارید"
+msgstr[1] "شما مجوز از انتشار خارج کردن این صفحات را ندارید"
+
+msgid "Yes, unpublish"
+msgstr "بله، لغو انتشار شود"
 
 msgid "No, don't unpublish"
 msgstr "نه لغو انتشار نشود"
@@ -775,11 +848,18 @@ msgstr "گشوده"
 msgid "Lock"
 msgstr "قفل"
 
+msgid "Change privacy"
+msgstr "تغییر حریم خصوصی"
+
 msgid "No pages use"
 msgstr "صفحه ای استفاده نمی‌کند"
 
 msgid "Edit / Review"
 msgstr "ویرایش / بازنگری"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "درخواست شده توسط <b>%(modified_by)s</b>"
 
 msgid "Page edited"
 msgstr "صفحه ویرایش شد"
@@ -802,6 +882,12 @@ msgstr "حرکت به بالا"
 
 msgid "Move down"
 msgstr "حرکت به پایین"
+
+msgid "Add comment"
+msgstr "افزودن نظر"
+
+msgid "Add a collection permission"
+msgstr "افزودن مجوز مجموعه"
 
 msgid "No pages found."
 msgstr "صفحه‌ای یافت نشد"
@@ -873,8 +959,18 @@ msgstr "ساختن"
 msgid "Not used"
 msgstr "استفاده نشده"
 
+msgid "Choose which type of task you'd like to create."
+msgstr "وظایفی که میخواهید ایجاد کنید را انتخاب کنید."
+
 msgid "New"
 msgstr "جدید"
+
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
+msgstr ""
+"<a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>یک مورد الآن "
+"اضافه کنید</a>"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -903,6 +999,9 @@ msgstr "صفحه‌های فرزند درون %(parent)s توسط %(label)s به
 
 msgid "More"
 msgstr "بیشتر"
+
+msgid "View more bulk actions"
+msgstr "مشاهده اعمال جمعی بیشتر"
 
 msgid "0 minutes"
 msgstr "0 دقیقه"
@@ -963,6 +1062,40 @@ msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
 
 msgid "Editing"
 msgstr "ویرایش"
+
+msgid "Delete selected pages"
+msgstr "حذف صفحات انتخاب شده"
+
+msgid "1 page has been deleted"
+msgstr "1 صفحه حذف شد"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
+msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d صفحه حذف شدند"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
+msgstr[1] ""
+"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
+msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."

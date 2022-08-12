@@ -666,6 +666,10 @@ msgstr "Sivun ajastettu julkaisu peruttu"
 msgid "Add view restrictions"
 msgstr "Lisää katselurajoituksia"
 
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Lisätty näkymärajoitus '%(restriction)s'"
+
 msgid "Added view restriction"
 msgstr "Lisätty katselurajoitus"
 
@@ -677,6 +681,10 @@ msgstr "Päivitetty katselurajoitus"
 
 msgid "Remove view restrictions"
 msgstr "Poista katselurajoitukset"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Poistettu näkymärajoitus '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "Poistettu katselurajoitus"

@@ -28,6 +28,9 @@ msgstr "סוג"
 msgid "Permanent"
 msgstr "קבוע "
 
+msgid "All"
+msgstr "הכל"
+
 msgid "Add redirect"
 msgstr "הוסף הפנייה"
 

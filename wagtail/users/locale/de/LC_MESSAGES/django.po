@@ -338,7 +338,7 @@ msgstr "Inaktiv"
 
 #, python-format
 msgid "%(time_period)s ago"
-msgstr "vor %(time_period)s"
+msgstr "%(time_period)s her"
 
 #, python-format
 msgid "There is %(counter)s match"

@@ -109,6 +109,9 @@ msgstr "بازگشت به فهرست"
 msgid "Yes, delete"
 msgstr "بله حذف شود"
 
+msgid "No, don't delete"
+msgstr "نه، حذف نکن"
+
 msgid "Home"
 msgstr "خانه"
 

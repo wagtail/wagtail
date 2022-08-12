@@ -8,13 +8,14 @@
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+# Patrik Radics, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-29 14:46+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
+"Last-Translator: Patrik Radics, 2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -223,6 +224,11 @@ msgstr "Keresés"
 
 msgid "Search term"
 msgstr "Keresett szó(darab)"
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr ""
+"Cím(ek) %(value_too_long)s túl lépik a %(max_tag_length)d karakterszámot "
 
 msgid "Visibility"
 msgstr "Láthatóság"
@@ -1259,6 +1265,9 @@ msgstr "Megnyitott"
 
 msgid "Lock"
 msgstr "Zárol"
+
+msgid "Page visibility: "
+msgstr "Oldal láthatósága:"
 
 msgid "since"
 msgstr "ezóta: "

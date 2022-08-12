@@ -69,6 +69,13 @@ msgstr "documento"
 msgid "documents"
 msgstr "documenti"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Aggiungi tag a 1 documento"
+msgstr[1] "Aggiungi tag a %(counter)s documenti"
+msgstr[2] "Aggiungi tag a %(counter)s documenti"
+
 msgid "Add tags to documents"
 msgstr "Aggiungi tag ai documenti"
 
