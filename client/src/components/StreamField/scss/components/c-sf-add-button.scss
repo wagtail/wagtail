@@ -6,7 +6,7 @@
   height: theme('spacing.5');
   appearance: none;
   color: $color-teal;
-  background: none;
+  background-color: $color-white;
   padding: 0;
   cursor: pointer;
   opacity: 0;
@@ -36,6 +36,12 @@
         opacity: 1;
       }
     }
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $color-white;
+    background-color: $color-teal;
   }
 
   &[disabled] {

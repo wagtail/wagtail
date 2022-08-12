@@ -15,8 +15,6 @@
   outline: none;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color $hover-transition-duration ease-in-out,
-    color $hover-transition-duration ease-in-out;
 
   &:hover,
   &:focus {

@@ -137,6 +137,7 @@ export class BaseSequenceChild extends EventEmitter {
         <input type="hidden" name="${this.prefix}-id" value="${h(
       this.id || '',
     )}">
+
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">

@@ -3,30 +3,20 @@ $header-button-size-mobile: $mobile-nice-padding;
 $header-button-size: theme('spacing.8');
 
 .c-sf-block {
-  --divider-color: transparent;
+  @include guide-line-active();
+  @include guide-line-nested();
   flex: 1 1 auto;
   margin-top: $block-margin-vertical;
   margin-inline-start: $block-margin-horizontal;
-
-  @media (hover: hover) {
-    &:is(:hover, :focus-within) {
-      --divider-color: theme('colors.primary.DEFAULT');
-    }
-  }
 }
 
 .c-sf-block__header {
   display: flex;
   align-items: center;
-  cursor: default;
   min-height: 30px;
 
   &--collapsible {
     cursor: pointer;
-  }
-
-  &--sortable {
-    cursor: grab;
   }
 
   &__title {
@@ -52,19 +42,16 @@ $header-button-size: theme('spacing.8');
       padding: theme('spacing.2');
       margin-inline-start: calc(-1 * $header-button-size / 2);
     }
+
+    @media (forced-colors: active) {
+      color: inherit;
+    }
   }
 }
 
 .c-sf-block__header__divider {
+  @include guide-line-horizontal();
   flex: 1;
-  height: 1px;
-  background-image: linear-gradient(
-    to right,
-    var(--divider-color) 50%,
-    rgba(255, 255, 255, 0) 0%
-  );
-  background-size: 6px 1px;
-  background-repeat: repeat-x;
   margin-inline-start: theme('spacing.5');
   margin-inline-end: theme('spacing.5');
 }
@@ -80,27 +67,15 @@ $header-button-size: theme('spacing.8');
 }
 
 .c-sf-block__content {
-  background-image: linear-gradient(
-    to bottom,
-    var(--divider-color) 50%,
-    rgba(255, 255, 255, 0) 0%
-  );
-  background-size: 1px 6px;
-  background-repeat: repeat-y;
+  @include guide-line-vertical();
 
   &-inner {
     padding-top: $content-padding-vertical;
     padding-inline-start: $content-padding-horizontal;
-
-    .w-field__wrapper:last-child {
-      // Don’t add extra space after the last field inside a StreamField block.
-      margin-bottom: 0;
-    }
   }
 }
 
 .c-sf-block__actions {
-  flex: 0 1 auto;
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -129,10 +104,7 @@ $header-button-size: theme('spacing.8');
     cursor: pointer;
     color: theme('colors.primary.DEFAULT');
     opacity: 1;
-    transition: opacity $hover-transition-duration ease-in-out,
-      color $hover-transition-duration ease-in-out,
-      background-color $hover-transition-duration ease-in-out;
-    border-radius: 50%;
+    border-radius: theme('borderRadius.full');
     line-height: 1;
     font-size: $action-font-size;
     text-align: center;
@@ -144,31 +116,43 @@ $header-button-size: theme('spacing.8');
 
     &:focus,
     &:hover {
-      color: $color-grey-1;
-      background-color: $color-grey-4;
+      background-color: $color-grey-5;
+
+      @media (forced-colors: active) {
+        border: 1px solid currentColor;
+      }
     }
 
     &[disabled] {
-      opacity: 0.2;
-      pointer-events: none;
+      color: $color-grey-3;
+      cursor: not-allowed;
+      // Counter hover styles.
+      background-color: transparent;
+
+      @media (forced-colors: active) {
+        border: 0;
+        color: GrayText;
+      }
     }
   }
 
+  // Hiding with opacity only, so the elements can still be focused.
   > * {
-    visibility: hidden;
+    opacity: 0;
   }
 
   &__cue {
     position: absolute;
-    visibility: visible;
+    opacity: 1;
   }
 
   @media (hover: hover) {
     .c-sf-block__header:is(:hover, :focus-within) & {
       > * {
-        visibility: visible;
+        opacity: 1;
       }
 
+      // The cue should be fully hidden, not just transparent.
       .c-sf-block__actions__cue {
         visibility: hidden;
       }

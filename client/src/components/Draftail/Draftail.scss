@@ -150,6 +150,12 @@ $draftail-editor-font-family: $font-sans;
     visibility: hidden !important;
   }
 
+  &:hover,
+  &:focus-visible {
+    color: $color-white;
+    background-color: $color-teal;
+  }
+
   .icon {
     width: theme('spacing.3');
     height: theme('spacing.3');

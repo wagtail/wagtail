@@ -19,7 +19,7 @@
 {% fragment as heading_id %}{{ prefix }}-heading{% endfragment %}
 {% fragment as content_id %}{{ prefix }}-content{% endfragment %}
 <section class="w-panel {{ classname }}" id="{{ panel_id }}" aria-labelledby="{{ heading_id }}" data-panel>
-    {# If a panel has no heading, we don’t want any of the associated UI. #}
+    {# If a panel has no heading nor header controls, we don’t want any of the associated UI. #}
     {% if heading or header_controls %}
         <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#{{ panel_id }}" aria-labelledby="{{ heading_id }}">

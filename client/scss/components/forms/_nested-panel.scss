@@ -3,40 +3,31 @@ $header-button-size-sm: theme('spacing.8');
 $header-gap: theme('spacing.1');
 $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
 
+/**
+ * Panel styles shared between StreamField and InlinePanel, for
+ * repeating collapsible panels which can be reordered.
+ * Top-level and nested panels have guiding borders to show their start and end,
+ * as well as indentation for nested panels.
+ */
+
 .w-panel--nested {
-  --divider-color: transparent;
+  @include guide-line-active();
 
   .w-panel__divider {
-    height: 1px;
+    @include guide-line-horizontal();
     // Slightly nicer text alignment.
     margin-top: 1px;
-    background-image: linear-gradient(
-      to right,
-      var(--divider-color) 50%,
-      rgba(255, 255, 255, 0) 0%
-    );
-    background-size: 6px 1px;
-    background-repeat: repeat-x;
-  }
-
-  @media (hover: hover) {
-    &:is(:hover, :focus-within) {
-      --divider-color: theme('colors.grey.150');
-    }
   }
 
   .w-panel {
+    @include guide-line-nested();
+    // Nesting for nested panels.
     margin-inline-start: theme('spacing.7');
     margin-bottom: theme('spacing.6');
-
-    @media (hover: hover) {
-      &:is(:hover, :focus-within) {
-        --divider-color: theme('colors.primary.DEFAULT');
-      }
-    }
   }
 
-  // Tighter spacing for nested panel headers so their icons align.
+  // Tighter spacing for nested panel headers so their icons align
+  // with parent panels’ guiding line.
   .w-panel .w-panel__header {
     gap: 0;
     transform: translateX(calc(-1 * theme('spacing.5')));
@@ -47,15 +38,10 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
   }
 
   .w-panel__content {
+    @include guide-line-vertical();
+    // Center the vertical line.
     margin-inline-start: calc(-1 * theme('spacing.3'));
     padding-inline-start: theme('spacing.3');
-    background-image: linear-gradient(
-      to bottom,
-      var(--divider-color) 50%,
-      rgba(255, 255, 255, 0) 0%
-    );
-    background-size: 1px 6px;
-    background-repeat: repeat-y;
 
     @include media-breakpoint-up(sm) {
       margin-inline-start: calc(-1 * $panel-x-offset);
@@ -80,14 +66,15 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     @apply w-label-2;
   }
 
+  // Legacy InlinePanel styles for disabled controls.
   .w-panel__controls .disabled {
     display: none;
   }
 }
 
+// Legacy InlinePanel styles for reordering.
+// Should be set in JavaScript instead.
 .multiple {
-  padding: 0;
-
   &.moving {
     position: relative;
   }

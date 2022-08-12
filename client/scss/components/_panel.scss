@@ -44,9 +44,19 @@ $header-button-size: theme('spacing.8');
   justify-content: center;
   align-content: center;
   color: theme('colors.primary.DEFAULT');
+  border-radius: theme('borderRadius.full');
   padding: 0;
   width: $header-button-size-mobile;
   height: $header-button-size-mobile;
+
+  &:focus-visible,
+  &:hover {
+    background-color: $color-grey-5;
+
+    @media (forced-colors: active) {
+      border: 1px solid currentColor;
+    }
+  }
 
   @include media-breakpoint-up(sm) {
     width: $header-button-size;
@@ -112,19 +122,21 @@ $header-button-size: theme('spacing.8');
     margin-inline-start: 0;
   }
 
+  // Hiding with opacity only, so the elements can still be focused.
   > * {
-    visibility: hidden;
+    opacity: 0;
   }
 
   > .w-panel__controls-cue {
     position: absolute;
-    visibility: visible;
+    opacity: 1;
   }
 
   @media (hover: hover) {
     .w-panel__header:is(:hover, :focus-within) & > * {
-      visibility: visible;
+      opacity: 1;
 
+      // The cue should be fully hidden, not just transparent.
       &.w-panel__controls-cue {
         visibility: hidden;
       }
