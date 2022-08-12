@@ -267,3 +267,4 @@ class BaseUserChooseView(BaseChooseView):
         paginator = APIPaginator(result['meta']['total_count'], self.per_page)
         page = Page(result['items'], page_number, paginator)
         return page
+```
