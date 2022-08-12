@@ -54,13 +54,13 @@ class AddView(PermissionCheckedMixin, TemplateView):
         edit_form_class = self.get_edit_form_class()
         return {
             self.context_object_name: self.object,
-            "edit_action": reverse(self.edit_object_url_name, args=(self.object.id,)),
+            "edit_action": reverse(self.edit_object_url_name, args=(self.object.pk,)),
             "delete_action": reverse(
-                self.delete_object_url_name, args=(self.object.id,)
+                self.delete_object_url_name, args=(self.object.pk,)
             ),
             "form": edit_form_class(
                 instance=self.object,
-                prefix="%s-%d" % (self.edit_object_form_prefix, self.object.id),
+                prefix="%s-%d" % (self.edit_object_form_prefix, self.object.pk),
                 user=self.request.user,
             ),
         }
@@ -71,7 +71,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
         """
         return {
             "success": True,
-            self.context_object_id_name: int(self.object.id),
+            self.context_object_id_name: self.object.pk,
             "form": render_to_string(
                 self.edit_form_template_name,
                 self.get_edit_object_form_context_data(),
@@ -213,7 +213,7 @@ class EditView(View):
         self.model = self.get_model()
         self.form_class = self.get_edit_form_class()
 
-        self.object = get_object_or_404(self.model, id=object_id)
+        self.object = get_object_or_404(self.model, pk=object_id)
 
         if not self.permission_policy.user_has_permission_for_instance(
             request.user, "change", self.object
@@ -234,14 +234,14 @@ class EditView(View):
             return JsonResponse(
                 {
                     "success": True,
-                    self.context_object_id_name: int(object_id),
+                    self.context_object_id_name: self.object.pk,
                 }
             )
         else:
             return JsonResponse(
                 {
                     "success": False,
-                    self.context_object_id_name: int(object_id),
+                    self.context_object_id_name: self.object.pk,
                     "form": render_to_string(
                         self.edit_form_template_name,
                         {
@@ -271,7 +271,10 @@ class DeleteView(View):
     def post(self, request, *args, **kwargs):
         object_id = kwargs[self.pk_url_kwarg]
         self.model = self.get_model()
-        self.object = get_object_or_404(self.model, id=object_id)
+        self.object = get_object_or_404(self.model, pk=object_id)
+        object_id = (
+            self.object.pk
+        )  # retrieve object id cast to the appropriate type (usually int)
 
         if not self.permission_policy.user_has_permission_for_instance(
             request.user, "delete", self.object
@@ -283,7 +286,7 @@ class DeleteView(View):
         return JsonResponse(
             {
                 "success": True,
-                self.context_object_id_name: int(object_id),
+                self.context_object_id_name: object_id,
             }
         )
 

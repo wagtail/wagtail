@@ -22,6 +22,7 @@ Changelog
  * Refine designs for disabled buttons throughout the admin interface (Paarth Agarwal)
  * Update expanding formset add buttons to use `button` not link for behaviour (LB (Ben) Johnston)
  * Add robust unit testing for authentication scenarios across the user management admin pages (Mehrdad Moradizadeh)
+ * Avoid assuming an integer PK named 'id' on multiple upload views (Matt Westcott)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
