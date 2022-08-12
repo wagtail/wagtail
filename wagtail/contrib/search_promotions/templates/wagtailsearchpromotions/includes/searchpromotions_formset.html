@@ -1,10 +1,14 @@
 {% load i18n wagtailadmin_tags %}
 {{ formset.management_form }}
-<ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
-    {% for form in formset.forms %}
-        {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=form only %}
-    {% endfor %}
-</ul>
+
+{% trans "Promoted search results" as heading %}
+{% panel id="promoted-search-results" heading=heading heading_size="label" classname="w-panel--nested" %}
+    <ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
+        {% for form in formset.forms %}
+            {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=form only %}
+        {% endfor %}
+    </ul>
+{% endpanel %}
 
 <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
     {% escapescript %}
@@ -12,6 +16,9 @@
     {% endescapescript %}
 </script>
 
-<p class="add">
-    <a class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add">{% icon name="plus" wrapped=1 %}{% trans "Add recommended page" %}</a>
-</p>
+{# Align with guiding line of the preceding child panel. #}
+<div class="w-mb-4 -w-ml-0.5">
+    <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ formset.prefix }}-ADD" value="Add">
+        {% icon name="plus-inverse" %}{% trans "Add recommended page" %}
+    </button>
+</div>
