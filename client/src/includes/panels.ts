@@ -12,10 +12,12 @@ const toggleCollapsiblePanel = (
 
   if (expanded) {
     content.removeAttribute('hidden');
-  } else {
+  } else if ('onbeforematch' in document.body) {
     // Use experimental `until-found` value, so users can search inside the panels.
-    // Browsers without support for `until-found` will ignore the value and just `display: none` the panel.
     content.setAttribute('hidden', 'until-found');
+  } else {
+    // Browsers without support for `until-found` will not have this value set
+    content.setAttribute('hidden', '');
   }
 
   content.dispatchEvent(
