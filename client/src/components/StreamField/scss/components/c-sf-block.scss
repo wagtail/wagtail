@@ -130,7 +130,6 @@ $header-button-size: theme('spacing.8');
       background-color: transparent;
 
       @media (forced-colors: active) {
-        border: 0;
         color: GrayText;
       }
     }

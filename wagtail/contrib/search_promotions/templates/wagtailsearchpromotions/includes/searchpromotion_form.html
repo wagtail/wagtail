@@ -2,11 +2,11 @@
 
 {% fragment as id %}inline_child_{{ form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<li id="{{ id }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
+<div id="{{ id }}"{% if form.DELETE.value %} style="display: none;"{% endif %}>
 
     {% fragment as header_controls %}
-        <button type="button" class="button button--icon text-replace inline-child-move-up" id="{{ form.prefix }}-move-up">{% icon name="arrow-up" %}{% trans "Move up" %}</button>
-        <button type="button" class="button button--icon text-replace inline-child-move-down" id="{{ form.prefix }}-move-down">{% icon name="arrow-down" %}{% trans "Move down" %}</button>
+        <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-up>{% icon name="arrow-up" %}{% trans "Move up" %}</button>
+        <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-down>{% icon name="arrow-down" %}{% trans "Move down" %}</button>
         <button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button">{% icon name="bin" %}{% trans "Delete" %}</button>
     {% endfragment %}
 
@@ -29,4 +29,4 @@
     {{ form.id }}
     {{ form.ORDER }}
     {{ form.DELETE }}
-</li>
+</div>

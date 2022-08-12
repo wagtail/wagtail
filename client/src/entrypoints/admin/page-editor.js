@@ -10,21 +10,21 @@ function InlinePanel(opts) {
   self.initChildControls = function (prefix) {
     const childId = 'inline_child_' + prefix;
     const deleteInputId = 'id_' + prefix + '-DELETE';
+    const currentChild = $('#' + childId);
+    const $up = currentChild.find('[data-inline-panel-child-move-up]');
+    const $down = currentChild.find('[data-inline-panel-child-move-down]');
 
     $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
-      $('#' + childId)
-        .addClass('deleted')
-        .slideUp(() => {
-          self.updateMoveButtonDisabledStates();
-          self.updateAddButtonState();
-        });
+      currentChild.addClass('deleted').slideUp(() => {
+        self.updateMoveButtonDisabledStates();
+        self.updateAddButtonState();
+      });
     });
 
     if (opts.canOrder) {
-      $('#' + prefix + '-move-up').on('click', () => {
-        const currentChild = $('#' + childId);
+      $up.on('click', () => {
         const currentChildOrderElem = currentChild.children(
           'input[name$="-ORDER"]',
         );
@@ -46,8 +46,7 @@ function InlinePanel(opts) {
         self.updateMoveButtonDisabledStates();
       });
 
-      $('#' + prefix + '-move-down').on('click', () => {
-        const currentChild = $('#' + childId);
+      $down.on('click', () => {
         const currentChildOrderElem = currentChild.children(
           'input[name$="-ORDER"]',
         );
@@ -87,20 +86,17 @@ function InlinePanel(opts) {
     }
   };
 
-  self.formsUl = $('#' + opts.formsetPrefix + '-FORMS');
+  self.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
 
-  // eslint-disable-next-line func-names
-  self.updateMoveButtonDisabledStates = function () {
+  self.updateMoveButtonDisabledStates = function updateMoveButtons() {
     if (opts.canOrder) {
-      const forms = self.formsUl.children('li:not(.deleted)');
-      // eslint-disable-next-line func-names
-      forms.each(function (i) {
-        $('ul.controls .inline-child-move-up', this)
-          .toggleClass('disabled', i === 0)
-          .toggleClass('enabled', i !== 0);
-        $('ul.controls .inline-child-move-down', this)
-          .toggleClass('disabled', i === forms.length - 1)
-          .toggleClass('enabled', i !== forms.length - 1);
+      const forms = self.formsElt.children(':not(.deleted)');
+      forms.each(function updateButtonStates(i) {
+        const isFirst = i === 0;
+        const isLast = i === forms.length - 1;
+        console.log(isFirst, isLast);
+        $('[data-inline-panel-child-move-up]', this).prop('disabled', isFirst);
+        $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
       });
     }
   };
@@ -108,23 +104,23 @@ function InlinePanel(opts) {
   // eslint-disable-next-line func-names
   self.updateAddButtonState = function () {
     if (opts.maxForms) {
-      const forms = $('> [data-inline-panel-child]', self.formsUl).not(
+      const forms = $('> [data-inline-panel-child]', self.formsElt).not(
         '.deleted',
       );
       const addButton = $('#' + opts.formsetPrefix + '-ADD');
 
       if (forms.length >= opts.maxForms) {
-        addButton.addClass('disabled');
+        addButton.prop('disabled', true);
       } else {
-        addButton.removeClass('disabled');
+        addButton.prop('disabled', false);
       }
     }
   };
 
   // eslint-disable-next-line func-names
   self.animateSwap = function (item1, item2) {
-    const parent = self.formsUl;
-    const children = parent.children('li:not(.deleted)');
+    const parent = self.formsElt;
+    const children = parent.children(':not(.deleted)');
 
     // Position children absolutely and add hard-coded height
     // to prevent scroll jumps when reordering.

@@ -3,11 +3,11 @@
 
 {% trans "Promoted search results" as heading %}
 {% panel id="promoted-search-results" heading=heading heading_size="label" classname="w-panel--nested" %}
-    <ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
+    <div id="id_{{ formset.prefix }}-FORMS">
         {% for form in formset.forms %}
             {% include "wagtailsearchpromotions/includes/searchpromotion_form.html" with form=form only %}
         {% endfor %}
-    </ul>
+    </div>
 {% endpanel %}
 
 <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">

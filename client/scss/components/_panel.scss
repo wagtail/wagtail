@@ -58,6 +58,17 @@ $header-button-size: theme('spacing.8');
     }
   }
 
+  &[disabled] {
+    color: $color-grey-3;
+    cursor: not-allowed;
+    // Counter hover styles.
+    background-color: transparent;
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
+  }
+
   @include media-breakpoint-up(sm) {
     width: $header-button-size;
     height: $header-button-size;

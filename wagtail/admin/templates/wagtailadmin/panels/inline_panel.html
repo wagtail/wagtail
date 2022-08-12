@@ -2,19 +2,19 @@
 
 {{ self.formset.management_form }}
 
-<ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+<div id="id_{{ self.formset.prefix }}-FORMS">
     {% if self.formset.non_form_errors %}
-        <li class="error-message">
+        <div class="error-message">
             {% for error in self.formset.non_form_errors %}
                 <span>{{ error|escape }}</span>
             {% endfor %}
-        </li>
+        </div>
     {% endif %}
 
     {% for child in self.children %}
         {% include "wagtailadmin/panels/inline_panel_child.html" %}
     {% endfor %}
-</ul>
+</div>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
     {% escapescript %}

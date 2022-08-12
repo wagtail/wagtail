@@ -40,11 +40,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     // Use smaller labels within nested panels in InlinePanel.
     @apply w-label-2;
   }
-
-  // Legacy InlinePanel styles for disabled controls.
-  .w-panel__controls .disabled {
-    display: none;
-  }
 }
 
 // Styles for nested panels excluding the top level.
