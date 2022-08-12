@@ -1,6 +1,4 @@
 $grid-gutter-width: 30px;
-$header-padding-horizontal: 4px;
-$header-padding-vertical: 6px;
 $header-gutter: 8px;
 $block-margin-vertical: theme('spacing.1');
 $block-margin-horizontal: theme('spacing.3');
@@ -12,7 +10,6 @@ $action-font-size: 1.125rem;
 $add-transition-duration: 0.3s;
 $hover-transition-duration: 0.3s;
 $border-radius: 3px;
-$block-hover-background: $color-grey-5;
 $add-panel-gutter: 8px;
 
 @import 'scss/components/c-sf-add-button';

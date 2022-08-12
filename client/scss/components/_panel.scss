@@ -125,16 +125,18 @@ $header-button-size: theme('spacing.8');
 }
 
 .w-panel__controls {
+  // Add additional invisible padding for a more forgiving hover area.
+  padding: theme('spacing.4');
   margin: calc(-1 * theme('spacing.4'));
   margin-inline-end: calc(-1 * theme('spacing.8'));
   margin-inline-start: 0;
-  padding: theme('spacing.4');
 
   @include media-breakpoint-up(sm) {
     margin: calc(-1 * theme('spacing.4'));
     margin-inline-start: 0;
   }
 
+  // The cue is meant to be displayed on top of a real button.
   > .w-panel__controls-cue {
     position: absolute;
     visibility: hidden;

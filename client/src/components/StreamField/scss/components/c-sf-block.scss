@@ -61,6 +61,7 @@ $header-button-size: theme('spacing.8');
   overflow-x: hidden;
   text-overflow: ellipsis;
 
+  // Hide the block type if we are showing the title (in collapsed mode).
   .c-sf-block__header__title:not(:empty) + & {
     display: none;
   }
@@ -80,6 +81,7 @@ $header-button-size: theme('spacing.8');
   align-items: center;
   white-space: nowrap;
   overflow-x: hidden;
+  // Add additional invisible padding for a more forgiving hover area.
   padding: theme('spacing.4');
   margin: calc(-1 * theme('spacing.4'));
 
@@ -135,6 +137,7 @@ $header-button-size: theme('spacing.8');
     }
   }
 
+  // The cue is meant to be displayed on top of a real button.
   &__cue {
     position: absolute;
     visibility: hidden;

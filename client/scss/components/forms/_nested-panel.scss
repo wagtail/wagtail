@@ -33,6 +33,7 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
   }
 
   .w-panel__anchor {
+    // Mask the overlap with the parent panel’s guide line.
     background-color: $color-white;
   }
 
