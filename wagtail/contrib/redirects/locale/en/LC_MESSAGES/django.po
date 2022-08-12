@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-12 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,48 +22,48 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr ""
 
-#: filters.py:11 templates/wagtailredirects/list.html:20 views.py:423
+#: filters.py:12 templates/wagtailredirects/list.html:20 views.py:423
 msgid "Type"
 msgstr ""
 
-#: filters.py:14
+#: filters.py:15
 msgid "Permanent"
 msgstr ""
 
-#: filters.py:15
+#: filters.py:16
 msgid "Temporary"
 msgstr ""
 
-#: filters.py:17
+#: filters.py:18
 msgid "All"
 msgstr ""
 
-#: forms.py:13 forms.py:83
+#: forms.py:12 forms.py:111
 msgid "From site"
 msgstr ""
 
-#: forms.py:16 forms.py:86
+#: forms.py:15 forms.py:114
 msgid "All sites"
 msgstr ""
 
-#: forms.py:46
+#: forms.py:45
 msgid "A redirect with this path already exists."
 msgstr ""
 
-#: forms.py:56
+#: forms.py:55
 msgid "File to import"
 msgstr ""
 
-#: forms.py:67
+#: forms.py:66
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr ""
 
-#: forms.py:75
+#: forms.py:103
 msgid "From field"
 msgstr ""
 
-#: forms.py:79
+#: forms.py:107
 msgid "To field"
 msgstr ""
 
@@ -134,19 +134,19 @@ msgid "Save"
 msgstr ""
 
 #: templates/wagtailredirects/choose_import_file.html:3
-#: templates/wagtailredirects/index.html:5
+#: templates/wagtailredirects/index.html:7
 #: templates/wagtailredirects/index.html:21 wagtail_hooks.py:34
 msgid "Redirects"
 msgstr ""
 
-#: templates/wagtailredirects/choose_import_file.html:17
+#: templates/wagtailredirects/choose_import_file.html:6
 #: templates/wagtailredirects/confirm_import.html:6
 #: templates/wagtailredirects/import_summary.html:5
 #: templates/wagtailredirects/index.html:27
 msgid "Import redirects"
 msgstr ""
 
-#: templates/wagtailredirects/choose_import_file.html:23
+#: templates/wagtailredirects/choose_import_file.html:12
 msgid ""
 "<p>Select a file where redirects are separated into rows and contains the "
 "columns representing <code>from</code> and <code>to</code> (they can be "
@@ -154,7 +154,7 @@ msgid ""
 "view where you can customize your redirects before import.</p>"
 msgstr ""
 
-#: templates/wagtailredirects/choose_import_file.html:41
+#: templates/wagtailredirects/choose_import_file.html:30
 msgid "Import"
 msgstr ""
 
@@ -271,47 +271,47 @@ msgid ""
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:84 views.py:225
+#: views.py:88 views.py:229
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:110
+#: views.py:114
 #, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr ""
 
-#: views.py:114 views.py:179
+#: views.py:118 views.py:183
 msgid "Edit"
 msgstr ""
 
-#: views.py:120
+#: views.py:124
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:151
+#: views.py:155
 #, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
-#: views.py:175
+#: views.py:179
 #, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr ""
 
-#: views.py:186
+#: views.py:190
 msgid "The redirect could not be created due to errors."
 msgstr ""
 
-#: views.py:238
+#: views.py:242
 msgid "File format of type \"{}\" is not supported"
 msgstr ""
 
-#: views.py:252
+#: views.py:256
 #, python-format
 msgid "Imported file has a wrong encoding: %s"
 msgstr ""
 
-#: views.py:257
+#: views.py:261
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"
 msgstr ""

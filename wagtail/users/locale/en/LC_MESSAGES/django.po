@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-12 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,63 +22,63 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:49
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+#: forms.py:48
+msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:56
+#: forms.py:53
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:82
+#: forms.py:79
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:83
+#: forms.py:80
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:86
+#: forms.py:83
 msgid "Email"
 msgstr ""
 
-#: forms.py:87
+#: forms.py:84
 msgid "First Name"
 msgstr ""
 
-#: forms.py:88
+#: forms.py:85
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:88
 msgid "Password"
 msgstr ""
 
-#: forms.py:94
+#: forms.py:91
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:97
+#: forms.py:94
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:100
+#: forms.py:97
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:104 forms.py:241
+#: forms.py:101 forms.py:238
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:107 forms.py:243
+#: forms.py:104 forms.py:240
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:237
+#: forms.py:234
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:360
+#: forms.py:357
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -183,7 +183,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:7
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:19
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:21
 #: templates/wagtailusers/groups/includes/page_permissions_form.html:13
 #: views/bulk_actions/delete.py:9 wagtail_hooks.py:147
 msgid "Delete"
@@ -239,7 +239,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
 #: templates/wagtailusers/groups/confirm_delete.html:6
-#: templates/wagtailusers/groups/edit.html:43 views/groups.py:121
+#: templates/wagtailusers/groups/edit.html:44 views/groups.py:121
 #: views/groups.py:158
 msgid "Delete group"
 msgstr ""
@@ -264,69 +264,67 @@ msgid "Are you sure you want to delete this group?"
 msgstr ""
 
 #: templates/wagtailusers/groups/create.html:4
-#: templates/wagtailusers/groups/create.html:15
-#: templates/wagtailusers/groups/create.html:35 views/groups.py:82
+#: templates/wagtailusers/groups/create.html:14
+#: templates/wagtailusers/groups/create.html:34 views/groups.py:82
 msgid "Add group"
 msgstr ""
 
 #: templates/wagtailusers/groups/edit.html:4
-#: templates/wagtailusers/groups/edit.html:15
+#: templates/wagtailusers/groups/edit.html:14
 #: templates/wagtailusers/users/edit.html:4
 #: templates/wagtailusers/users/edit.html:7
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailusers/groups/edit.html:16
+#: templates/wagtailusers/groups/edit.html:15
 msgid "View users in this group"
 msgstr ""
 
-#: templates/wagtailusers/groups/edit.html:40
+#: templates/wagtailusers/groups/edit.html:41
 #: templates/wagtailusers/users/edit.html:52
 #: templates/wagtailusers/users/edit.html:73
 msgid "Save"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:4
-msgid "Permissions"
-msgstr ""
-
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:5
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:3
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:6
 msgid "Object permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:16
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:73
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:18
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:78
 #: templates/wagtailusers/users/list.html:9
 #: templates/wagtailusers/users/list.html:13 views/groups.py:68
 msgid "Name"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:17
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:19
 msgid "Add"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:18
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:20
 msgid "Change"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:21
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:51
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:23
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:53
 msgid "Custom permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:67
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:68
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:71
 msgid "Other permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/page_permissions_formset.html:2
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:3
 msgid "Page permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/page_permissions_formset.html:22
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:24
 msgid "Page"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/page_permissions_formset.html:54
+#: templates/wagtailusers/groups/includes/page_permissions_formset.html:56
 msgid "Add a page permission"
 msgstr ""
 
@@ -413,11 +411,6 @@ msgstr ""
 #: templates/wagtailusers/users/list.html:48
 #: views/bulk_actions/set_active_state.py:11
 msgid "Inactive"
-msgstr ""
-
-#: templates/wagtailusers/users/list.html:49
-#, python-format
-msgid "%(time_period)s ago"
 msgstr ""
 
 #: templates/wagtailusers/users/results.html:5

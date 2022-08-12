@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:348
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:326
 msgid "Add a comment"
 msgstr ""
 
@@ -15,7 +15,11 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/components/Draftail/decorators/Link.js:25
+#: src/entrypoints/admin/telepath/widgets.js:229
+msgid "Blocks"
+msgstr ""
+
+#: src/components/Draftail/decorators/Link.js:26
 msgid "Broken link"
 msgstr ""
 
@@ -30,7 +34,11 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/entrypoints/admin/modal-workflow.js:38
+#: src/components/Draftail/controls/MaxLength.tsx:54
+msgid "Character count:"
+msgstr ""
+
+#: src/entrypoints/admin/modal-workflow.js:50
 msgid "Close"
 msgstr ""
 
@@ -50,7 +58,7 @@ msgstr ""
 #: src/components/CommentApp/components/Comment/index.tsx:424
 #: src/components/CommentApp/components/CommentHeader/index.tsx:136
 #: src/components/CommentApp/components/CommentReply/index.tsx:205
-#: src/components/Draftail/blocks/EmbedBlock.js:38
+#: src/components/Draftail/blocks/EmbedBlock.js:44
 #: src/components/Draftail/blocks/ImageBlock.js:34
 msgid "Delete"
 msgstr ""
@@ -66,7 +74,7 @@ msgid "Deleting"
 msgstr ""
 
 #: src/components/CommentApp/components/CommentHeader/index.tsx:131
-#: src/components/Draftail/blocks/EmbedBlock.js:32
+#: src/components/Draftail/blocks/EmbedBlock.js:38
 #: src/components/Draftail/blocks/ImageBlock.js:28
 msgid "Edit"
 msgstr ""
@@ -80,20 +88,36 @@ msgstr ""
 msgid "Edit your account"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:543
+#: src/components/CommentApp/components/Comment/index.tsx:238
+msgid "Enter your comments..."
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:163
+msgid "Enter your reply..."
+msgstr ""
+
+#: src/entrypoints/admin/preview-panel.js:181
+msgid "Error while sending preview data."
+msgstr ""
+
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:521
 #: src/entrypoints/admin/comments.js:112
 msgid "Focus comment"
 msgstr ""
 
-#: src/components/Draftail/index.js:93
+#: src/components/Draftail/index.js:103
 msgid "Horizontal line"
 msgstr ""
 
-#: src/components/Draftail/index.js:113
+#: src/components/Draftail/index.js:151
+msgid "Insert a block"
+msgstr ""
+
+#: src/components/Draftail/index.js:143
 msgid "Line break"
 msgstr ""
 
-#: src/components/LoadingSpinner/LoadingSpinner.js:12
+#: src/components/LoadingSpinner/LoadingSpinner.tsx:12
 msgid "Loading…"
 msgstr ""
 
@@ -109,6 +133,8 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
+#: src/components/Draftail/index.js:154
+#: src/components/Draftail/index.js:161
 #: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
 msgstr ""
@@ -122,12 +148,8 @@ msgid "Page explorer"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:28
-#: src/components/PageExplorer/PageExplorerHeader.tsx:86
+#: src/components/PageExplorer/PageExplorerHeader.tsx:82
 msgid "Pages"
-msgstr ""
-
-#: src/components/Draftail/index.js:117
-msgid "Redo"
 msgstr ""
 
 #: src/components/Draftail/EditorFallback/EditorFallback.js:96
@@ -142,6 +164,10 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
+#: src/includes/chooserModal.js:45
+msgid "Report this error to your website administrator with the following information:"
+msgstr ""
+
 #: src/components/CommentApp/components/CommentHeader/index.tsx:145
 msgid "Resolve"
 msgstr ""
@@ -151,6 +177,10 @@ msgstr ""
 #: src/components/CommentApp/components/CommentReply/index.tsx:161
 #: src/components/CommentApp/components/CommentReply/index.tsx:261
 msgid "Retry"
+msgstr ""
+
+#: src/entrypoints/admin/telepath/widgets.js:277
+msgid "Rich text"
 msgstr ""
 
 #: src/components/CommentApp/components/Comment/index.tsx:318
@@ -180,11 +210,16 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: src/components/Sidebar/modules/Search.tsx:118
-#: src/components/Sidebar/modules/Search.tsx:53
-#: src/components/Sidebar/modules/Search.tsx:73
-#: src/components/Sidebar/modules/Search.tsx:93
+#: src/components/Sidebar/modules/Search.tsx:117
+#: src/components/Sidebar/modules/Search.tsx:52
+#: src/components/Sidebar/modules/Search.tsx:72
+#: src/components/Sidebar/modules/Search.tsx:92
 msgid "Search"
+msgstr ""
+
+#: src/components/Draftail/index.js:152
+#: src/components/Draftail/index.js:153
+msgid "Search blocks"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:24
@@ -193,6 +228,7 @@ msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
+#: src/includes/chooserModal.js:55
 msgid "Server Error"
 msgstr ""
 
@@ -204,7 +240,7 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:298
+#: src/entrypoints/admin/telepath/widgets.js:242
 msgid "Split block"
 msgstr ""
 
@@ -212,13 +248,13 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
+#: src/includes/chooserModal.js:20
+msgid "This field is required."
+msgstr ""
+
 #: src/components/Sidebar/Sidebar.tsx:188
 #: src/components/Sidebar/Sidebar.tsx:223
 msgid "Toggle sidebar"
-msgstr ""
-
-#: src/components/Draftail/index.js:116
-msgid "Undo"
 msgstr ""
 
 #: src/entrypoints/admin/comments.js:107
@@ -229,6 +265,6 @@ msgstr ""
 msgid "View child pages of '{title}'"
 msgstr ""
 
-#: src/components/Draftail/index.js:110
-msgid "Write here…"
+#: src/components/Draftail/index.js:140
+msgid "Write something or type ‘/’ to insert a block"
 msgstr ""
