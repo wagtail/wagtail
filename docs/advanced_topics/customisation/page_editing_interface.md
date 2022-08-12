@@ -19,7 +19,7 @@ class BlogPage(Page):
     ]
     sidebar_content_panels = [
         FieldPanel('advert'),
-        InlinePanel('related_links', label="Related links"),
+        InlinePanel('related_links', heading="Related links", label="Related link"),
     ]
 
     edit_handler = TabbedInterface([

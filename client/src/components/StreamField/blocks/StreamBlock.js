@@ -68,7 +68,7 @@ class StreamBlockMenu extends BaseInsertionControl {
           opts.strings.ADD,
         )}"
             class="c-sf-add-button c-sf-add-button--visible">
-          <i aria-hidden="true">+</i>
+          <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
         </button>
         <div data-streamblock-menu-outer>
           <div data-streamblock-menu-inner class="c-sf-add-panel"></div>
@@ -221,12 +221,11 @@ export class StreamBlock extends BaseSequenceBlock {
     if (this.blockDef.meta.helpText) {
       // help text is left unescaped as per Django conventions
       $(`
-        <span>
+        <div class="c-sf-help">
           <div class="help">
-            ${this.blockDef.meta.helpIcon}
             ${this.blockDef.meta.helpText}
           </div>
-        </span>
+        </div>
       `).insertBefore(dom);
     }
 

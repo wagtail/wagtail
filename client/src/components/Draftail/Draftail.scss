@@ -126,7 +126,9 @@ $draftail-editor-font-family: $font-sans;
   margin-inline-start: calc(-1 * theme('spacing.5'));
 
   @include media-breakpoint-up(sm) {
-    margin-inline-start: calc(-1 * theme('spacing.6'));
+    margin-inline-start: calc(
+      -1 * (theme('spacing.8') + theme('spacing.[0.5]'))
+    );
   }
 }
 
@@ -146,6 +148,12 @@ $draftail-editor-font-family: $font-sans;
     // Hide even if the conditions to display it are met.
     // stylelint-disable-next-line declaration-no-important
     visibility: hidden !important;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $color-white;
+    background-color: $color-teal;
   }
 
   .icon {

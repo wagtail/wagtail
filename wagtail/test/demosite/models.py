@@ -231,9 +231,9 @@ class StandardPageRelatedLink(Orderable, AbstractRelatedLink):
 
 StandardPage.content_panels = Page.content_panels + [
     FieldPanel("intro"),
-    InlinePanel("carousel_items", label="Carousel items"),
+    InlinePanel("carousel_items", heading="Carousel items", label="Carousel item"),
     FieldPanel("body"),
-    InlinePanel("related_links", label="Related links"),
+    InlinePanel("related_links", heading="Related links", label="Related link"),
 ]
 
 

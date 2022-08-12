@@ -379,8 +379,15 @@
 }
 
 .button--icon.text-replace {
+  background-color: transparent;
+  color: $color-grey-2;
+  border-color: transparent;
   font-size: 0;
   text-align: center;
+
+  &:hover {
+    color: $color-grey-1;
+  }
 
   .icon {
     font-size: initial;
@@ -505,69 +512,4 @@ button {
       height: 2em;
     }
   }
-}
-
-.multiple {
-  padding: 0;
-  overflow: hidden;
-
-  > li {
-    @include row(1.5em);
-    border-radius: 2px;
-    position: relative;
-    overflow: hidden;
-    background-color: $color-white;
-    padding: 1em 1.5em;
-    padding-inline-end: 10em; // 10em padding leaves room for controls
-    margin-bottom: 1em;
-    border: 1px solid theme('colors.grey.100');
-  }
-
-  &.moving {
-    position: relative;
-  }
-
-  li.moving {
-    position: absolute;
-    width: 100%;
-  }
-
-  fieldset {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  // Object controls
-  .controls {
-    position: absolute;
-    z-index: 1;
-    inset-inline-end: 1em;
-    top: 1em;
-    color: $color-white;
-
-    li {
-      float: left;
-      margin-inline-end: 1px;
-
-      &:last-child {
-        margin-inline-end: 0;
-      }
-    }
-
-    .disabled {
-      display: none;
-      visibility: hidden;
-    }
-  }
-}
-
-// wrapper around add button for multiple objects
-.add {
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 1em;
-  padding-bottom: 2em;
-  clear: both;
 }

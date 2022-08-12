@@ -1,44 +1,55 @@
 .c-sf-add-button {
-  width: 100%;
-  height: $add-button-size;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: theme('spacing.5');
+  height: theme('spacing.5');
   appearance: none;
-  border: 0 none;
   color: $color-teal;
-  font-weight: bold;
-  background: none;
+  background-color: $color-white;
   padding: 0;
   cursor: pointer;
-  outline: none;
-  backface-visibility: hidden;
-  overflow: hidden; // Makes the rotated i box not clickable.
-  user-select: none;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 100ms ease-in-out;
+  border: 1px solid currentColor;
+  border-radius: theme('borderRadius.full');
+  margin-inline-start: theme('spacing.[0.5]');
 
-  &:hover {
-    opacity: 1;
+  .icon {
+    width: theme('spacing.3');
+    height: theme('spacing.3');
+    transition: transform $add-transition-duration ease-in-out;
   }
 
-  i {
-    display: block;
-    transition: transform $add-transition-duration $bounce-transition-timing;
-    font-style: normal;
-    font-size: $add-button-font-size;
-    line-height: $add-button-size;
+  &--close .icon {
+    transform: rotate(45deg);
   }
 
   &--visible {
-    opacity: 0.8;
+    opacity: 1;
     pointer-events: unset;
+
+    @media (hover: hover) {
+      opacity: 0;
+
+      .w-panel--nested:is(:hover, :focus-within) & {
+        opacity: 1;
+      }
+    }
   }
 
-  &--close i {
-    transform: rotate(45deg);
+  &:hover,
+  &:focus-visible {
+    color: $color-white;
+    background-color: $color-teal;
   }
 
   &[disabled] {
     opacity: 0.2;
     pointer-events: none;
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
   }
 }

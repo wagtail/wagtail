@@ -1,0 +1,61 @@
+/**
+ * Vertical and horizontal divider lines to visualise nesting in
+ * StreamField and InlinePanel.
+ */
+
+@mixin guide-line-vertical() {
+  // 3px dash height, 3px space, 1px dash width.
+  background-size: 1px 6px;
+  background-repeat: repeat-y;
+  background-image: linear-gradient(
+    to bottom,
+    var(--guide-line-color, transparent) 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+
+  @media (forced-colors: active) {
+    border-inline-start: 1px dashed var(--guide-line-color, CanvasText);
+    background: none;
+  }
+}
+
+@mixin guide-line-horizontal() {
+  min-height: 1px;
+  // 3px dash width, 3px space, 1px dash height.
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+  background-image: linear-gradient(
+    to right,
+    var(--guide-line-color, transparent) 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+
+  // Guide lines are always shown in forced-colors mode, as it’s
+  // not possible to have transparent borders there.
+  @media (forced-colors: active) {
+    border-top: 1px dashed var(--guide-line-color, CanvasText);
+    background: none;
+  }
+}
+
+// Default guide line color for nested panels.
+@mixin guide-line-active() {
+  @media (hover: none) {
+    --guide-line-color: theme('colors.grey.150');
+  }
+
+  &:is(:hover, :focus-within) {
+    --guide-line-color: theme('colors.grey.150');
+  }
+}
+
+// More visible guide line for nested panels in the currently-active DOM tree.
+@mixin guide-line-nested() {
+  &:is(:hover, :focus-within) {
+    --guide-line-color: theme('colors.primary.DEFAULT');
+
+    @media (forced-colors: active) {
+      --guide-line-color: Highlight;
+    }
+  }
+}

@@ -82,11 +82,10 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
           </table>
         </div>
       
-        <span>
+        <div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>plenty</strong> of these
           </div>
-        </span>
+        </div>
       </div>"
 `;

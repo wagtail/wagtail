@@ -3,12 +3,11 @@
 exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 "<div class=\\"struct-block\\">
         
-          <span>
+          <div class=\\"c-sf-help\\">
             <div class=\\"help\\">
-              <div class=\\"icon-help\\">?</div>
               use <strong>lots</strong> of these
             </div>
-          </span>
+          </div>
         <div data-contentpath=\\"heading_text\\">
           <label class=\\"w-field__label\\" for=\\"the-prefix-heading_text\\">Heading text<span class=\\"w-required-mark\\">*</span></label>
             <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
@@ -41,12 +40,11 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to children 1`] = `
 "<div class=\\"struct-block\\">
         
-          <span>
+          <div class=\\"c-sf-help\\">
             <div class=\\"help\\">
-              <div class=\\"icon-help\\">?</div>
               use <strong>lots</strong> of these
             </div>
-          </span>
+          </div>
         <div data-contentpath=\\"heading_text\\">
           <label class=\\"w-field__label\\" for=\\"the-prefix-heading_text\\">Heading text<span class=\\"w-required-mark\\">*</span></label>
             <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
