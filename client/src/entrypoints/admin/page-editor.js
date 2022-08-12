@@ -126,16 +126,22 @@ function InlinePanel(opts) {
     const parent = self.formsUl;
     const children = parent.children('li:not(.deleted)');
 
-    // Apply moving class to container (ul.multiple) so it can assist absolute positioning of it's children
-    // Also set it's relatively calculated height to be an absolute one,
-    // to prevent the containercollapsing while its children go absolute
-    parent.addClass('moving').css('height', parent.height());
+    // Position children absolutely and add hard-coded height
+    // to prevent scroll jumps when reordering.
+    parent.css({
+      position: 'relative',
+      height: parent.height(),
+    });
 
     children
       .each(function moveChildTop() {
         $(this).css('top', $(this).position().top);
       })
-      .addClass('moving');
+      .css({
+        // Set this after the actual position so the items animate correctly.
+        position: 'absolute',
+        width: '100%',
+      });
 
     // animate swapping around
     item1.animate(
@@ -144,8 +150,8 @@ function InlinePanel(opts) {
       },
       200,
       () => {
-        parent.removeClass('moving').removeAttr('style');
-        children.removeClass('moving').removeAttr('style');
+        parent.removeAttr('style');
+        children.removeAttr('style');
       },
     );
 
@@ -155,8 +161,8 @@ function InlinePanel(opts) {
       },
       200,
       () => {
-        parent.removeClass('moving').removeAttr('style');
-        children.removeClass('moving').removeAttr('style');
+        parent.removeAttr('style');
+        children.removeAttr('style');
       },
     );
   };

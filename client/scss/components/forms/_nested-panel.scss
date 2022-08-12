@@ -75,18 +75,3 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     display: none;
   }
 }
-
-.multiple {
-  // Legacy InlinePanel styles for reordering.
-  // Should be set in JavaScript instead.
-  &.moving {
-    position: relative;
-  }
-
-  // Legacy InlinePanel styles for reordering.
-  // Should be set in JavaScript instead.
-  li.moving {
-    position: absolute;
-    width: 100%;
-  }
-}
