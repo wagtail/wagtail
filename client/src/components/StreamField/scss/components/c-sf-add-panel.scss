@@ -3,13 +3,7 @@
 .c-sf-add-panel {
   position: relative;
   padding: $grid-gutter-width * 0.25 0 $grid-gutter-width;
-  border-radius: $border-radius;
   user-select: none;
-
-  @include media-breakpoint-up(lg) {
-    padding: $grid-gutter-width * 0.25 $grid-gutter-width * 2 $add-button-size -
-      math.div($grid-gutter-width, 2);
-  }
 
   &__group-title {
     margin: 5px 0;

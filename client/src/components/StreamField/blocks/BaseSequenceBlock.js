@@ -137,7 +137,6 @@ export class BaseSequenceChild extends EventEmitter {
         <input type="hidden" name="${this.prefix}-id" value="${h(
       this.id || '',
     )}">
-
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
@@ -148,10 +147,16 @@ export class BaseSequenceChild extends EventEmitter {
                   <use href="#icon-${h(this.blockDef.meta.icon)}"></use>
                 </svg>
                 <h3 data-block-title class="c-sf-block__header__title"></h3>
+                <div class="c-sf-block__type">${h(
+                  this.blockDef.meta.label,
+                )}</div>
+                <div class="c-sf-block__header__divider"></div>
                 <div class="c-sf-block__actions" data-block-actions>
-                  <span class="c-sf-block__type">${h(
-                    this.blockDef.meta.label,
-                  )}</span>
+                  <div class="c-sf-block__actions__cue">
+                    <svg class="icon icon-dots-horizontal" aria-hidden="true">
+                      <use href="#icon-dots-horizontal"></use>
+                    </svg>
+                  </div>
                 </div>
               </div>
               <div data-block-content class="c-sf-block__content" aria-hidden="false">

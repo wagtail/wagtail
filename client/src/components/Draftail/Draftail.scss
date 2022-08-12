@@ -126,7 +126,9 @@ $draftail-editor-font-family: $font-sans;
   margin-inline-start: calc(-1 * theme('spacing.5'));
 
   @include media-breakpoint-up(sm) {
-    margin-inline-start: calc(-1 * theme('spacing.6'));
+    margin-inline-start: calc(
+      -1 * (theme('spacing.8') + theme('spacing.[0.5]'))
+    );
   }
 }
 

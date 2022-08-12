@@ -730,7 +730,10 @@ class FieldPanel(Panel):
             return self.bound_field.field.required
 
         def classes(self):
-            return self.panel.classes()
+            is_streamfield = isinstance(self.bound_field.field, BlockField)
+            extra_classes = ["w-panel--nested"] if is_streamfield else []
+
+            return self.panel.classes() + extra_classes
 
         @property
         def icon(self):
@@ -960,7 +963,7 @@ class InlinePanel(Panel):
         self.db_field = manager.rel
 
     def classes(self):
-        return super().classes() + ["w-panel--inline-panel"]
+        return super().classes() + ["w-panel--nested"]
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"

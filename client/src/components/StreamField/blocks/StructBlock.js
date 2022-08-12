@@ -42,12 +42,11 @@ export class StructBlock {
       if (this.blockDef.meta.helpText) {
         // help text is left unescaped as per Django conventions
         dom.append(`
-          <span>
+          <div class="c-sf-help">
             <div class="help">
-              ${this.blockDef.meta.helpIcon}
               ${this.blockDef.meta.helpText}
             </div>
-          </span>
+          </div>
         `);
       }
 

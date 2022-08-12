@@ -183,11 +183,6 @@ function InlinePanel(opts) {
           `#inline_child_${newChildPrefix} [data-panel-toggle]`,
         ),
       );
-      console.log(
-        document.querySelectorAll(
-          `#inline_child_${newChildPrefix} [data-panel-toggle]`,
-        ),
-      );
 
       if (opts.onAdd) opts.onAdd();
     },

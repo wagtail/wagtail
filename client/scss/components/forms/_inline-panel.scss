@@ -3,7 +3,7 @@ $header-button-size-sm: theme('spacing.8');
 $header-gap: theme('spacing.1');
 $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
 
-.w-panel--inline-panel {
+.w-panel--nested {
   --divider-color: transparent;
 
   .w-panel__divider {
@@ -15,7 +15,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
       var(--divider-color) 50%,
       rgba(255, 255, 255, 0) 0%
     );
-    background-position: center center;
     background-size: 6px 1px;
     background-repeat: repeat-x;
   }
@@ -55,7 +54,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
       var(--divider-color) 50%,
       rgba(255, 255, 255, 0) 0%
     );
-    background-position: left center;
     background-size: 1px 6px;
     background-repeat: repeat-y;
 

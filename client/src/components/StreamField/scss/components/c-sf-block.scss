@@ -1,186 +1,183 @@
-// TODO: Reduce nesting further by splitting out more components.
-// ---
-// There's quite a lot of nesting in here which makes parsing some segments difficult.
-// Some of this is to deal with the fact that .c-sf-block can contain many .c-sf-block's and so is
-// legitimate. A lot of these would ideally be their own components (eg the actions) however there
-// is a lot of interdependency of the elements which makes this hard
-// without fairly intensive rethinking of the HTML.
-// ---
-// However, the new classes adequately sanitise streamfield only CSS so am leaving this for
-// now to avoid blocking the release of the new Streamfield. -@jonnyscholes
-.c-sf-block {
-  flex: 1 1 auto;
-  margin: $block-margin-vertical $block-margin-horizontal;
-  border: 1px solid $block-border-color;
-  border-radius: $border-radius;
-  background: $color-white;
-  transition: border-color $hover-transition-duration ease-in-out;
-  transition-property: border-color, box-shadow;
+$header-icon-size: theme('spacing.4');
+$header-button-size-mobile: $mobile-nice-padding;
+$header-button-size: theme('spacing.8');
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $header-padding-vertical $header-padding-horizontal;
-    user-select: none;
-    transition: background-color $hover-transition-duration ease-in-out;
-    cursor: default;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-top-left-radius: $border-radius;
-    border-start-start-radius: $border-radius;
-    // Remove once we drop support for Safari 14.
-    // stylelint-disable-next-line property-disallowed-list
-    border-top-right-radius: $border-radius;
-    border-start-end-radius: $border-radius;
-    min-height: 30px;
-    background: $header-background;
+.c-sf-block {
+  --divider-color: transparent;
+  flex: 1 1 auto;
+  margin-top: $block-margin-vertical;
+  margin-inline-start: $block-margin-horizontal;
+
+  @media (hover: hover) {
+    &:is(:hover, :focus-within) {
+      --divider-color: theme('colors.primary.DEFAULT');
+    }
+  }
+}
+
+.c-sf-block__header {
+  display: flex;
+  align-items: center;
+  cursor: default;
+  min-height: 30px;
+
+  &--collapsible {
+    cursor: pointer;
+  }
+
+  &--sortable {
+    cursor: grab;
+  }
+
+  &__title {
+    @apply w-label-2;
+    display: inline-block;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__icon {
+    color: theme('colors.primary.DEFAULT');
+    width: $header-button-size-mobile;
+    height: $header-button-size-mobile;
+    padding: theme('spacing.[0.5]');
+    margin-inline-start: calc(-1 * $header-button-size-mobile / 2);
+    transition: color $hover-transition-duration ease-in-out;
 
     @include media-breakpoint-up(sm) {
-      padding-inline-start: $content-padding-horizontal - $header-gutter;
-    }
-
-    &--collapsible {
-      cursor: pointer;
-    }
-
-    &--sortable {
-      cursor: grab;
-    }
-
-    &__title,
-    &__icon {
-      color: $header-text-color;
-    }
-
-    &__title {
-      display: inline-block;
-      flex: 1 10 auto;
-      margin: 0;
-      font-size: 12px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    &__icon {
-      width: 20px;
-      height: 20px;
-      margin: 0 $header-gutter;
-      transition: color $hover-transition-duration ease-in-out;
+      width: $header-button-size;
+      height: $header-button-size;
+      padding: theme('spacing.2');
+      margin-inline-start: calc(-1 * $header-button-size / 2);
     }
   }
+}
 
-  &__content {
-    &-inner {
-      padding: $content-padding-vertical $content-padding-horizontal;
+.c-sf-block__header__divider {
+  flex: 1;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    var(--divider-color) 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+  margin-inline-start: theme('spacing.5');
+  margin-inline-end: theme('spacing.5');
+}
+
+.c-sf-block__type {
+  @apply w-label-2;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+
+  .c-sf-block__header__title:not(:empty) + & {
+    display: none;
+  }
+}
+
+.c-sf-block__content {
+  background-image: linear-gradient(
+    to bottom,
+    var(--divider-color) 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-size: 1px 6px;
+  background-repeat: repeat-y;
+
+  &-inner {
+    padding-top: $content-padding-vertical;
+    padding-inline-start: $content-padding-horizontal;
+
+    .w-field__wrapper:last-child {
+      // Don’t add extra space after the last field inside a StreamField block.
+      margin-bottom: 0;
     }
   }
+}
 
-  &__actions {
-    flex: 0 1 auto;
-    display: flex;
+.c-sf-block__actions {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow-x: hidden;
+  padding: theme('spacing.4');
+  margin: calc(-1 * theme('spacing.4'));
+
+  &__cue,
+  &__single {
+    display: inline-grid;
+    justify-items: center;
     align-items: center;
-    white-space: nowrap;
-    overflow-x: hidden;
+    width: $header-button-size-mobile;
+    height: $header-button-size-mobile;
 
-    &__single {
-      appearance: none;
-      border: 0 none;
-      background: none;
-      cursor: pointer;
-      color: $header-text-color;
-      opacity: 1;
-      transition: opacity $hover-transition-duration ease-in-out,
-        color $hover-transition-duration ease-in-out,
-        background-color $hover-transition-duration ease-in-out;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      line-height: 1;
-      font-size: $action-font-size;
-      text-align: center;
-      padding: 0;
+    @include media-breakpoint-up(sm) {
+      width: $header-button-size;
+      height: $header-button-size;
+    }
+  }
 
-      &:not(:last-of-type) {
-        margin-inline-end: 3px;
+  &__single {
+    appearance: none;
+    border: 0 none;
+    background: none;
+    cursor: pointer;
+    color: theme('colors.primary.DEFAULT');
+    opacity: 1;
+    transition: opacity $hover-transition-duration ease-in-out,
+      color $hover-transition-duration ease-in-out,
+      background-color $hover-transition-duration ease-in-out;
+    border-radius: 50%;
+    line-height: 1;
+    font-size: $action-font-size;
+    text-align: center;
+    padding: 0;
+
+    &:not(:last-of-type) {
+      margin-inline-end: 3px;
+    }
+
+    &:focus,
+    &:hover {
+      color: $color-grey-1;
+      background-color: $color-grey-4;
+    }
+
+    &[disabled] {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+  }
+
+  > * {
+    visibility: hidden;
+  }
+
+  &__cue {
+    position: absolute;
+    visibility: visible;
+  }
+
+  @media (hover: hover) {
+    .c-sf-block__header:is(:hover, :focus-within) & {
+      > * {
+        visibility: visible;
       }
 
-      &:focus,
-      &:hover {
-        color: $color-grey-1;
-        background-color: $color-grey-4;
-      }
-
-      svg.icon {
-        width: 1em;
-        height: 1em;
-        vertical-align: middle;
-      }
-
-      &[disabled] {
-        opacity: 0.2;
-        pointer-events: none;
+      .c-sf-block__actions__cue {
+        visibility: hidden;
       }
     }
   }
 
-  &__type {
-    margin: 0 $header-gutter;
-    text-align: end;
-    font-size: 12px;
-    color: $header-text-color;
-    user-select: none;
-    vertical-align: 2px;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &.c-sf-block--error {
-    border-color: $error-border-color;
-
-    > .c-sf-block__header {
-      background: $error-background-color;
-    }
-
-    &:hover,
-    &:focus {
-      border-color: $error-border-color;
-
-      > .c-sf-block__header {
-        background: $error-background-color;
-      }
-    }
-
-    // Duplicated because of
-    // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
-    &:focus-within {
-      border-color: $error-border-color;
-
-      > .c-sf-block__header {
-        background: $error-background-color;
-      }
-    }
-  }
-
-  &:hover,
-  &:focus {
-    border-color: $block-border-color-focus;
-    box-shadow: 3px 2px 3px -1px theme('colors.black-10');
-
-    > .c-sf-block__header {
-      background: $block-hover-background;
-    }
-  }
-
-  // Duplicated because of
-  // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
-  &:focus-within {
-    border-color: $block-border-color-focus;
-    box-shadow: 3px 2px 3px -1px theme('colors.black-10');
-
-    > .c-sf-block__header {
-      background: $block-hover-background;
-    }
+  svg.icon {
+    width: $header-icon-size;
+    height: $header-icon-size;
+    vertical-align: middle;
   }
 }
