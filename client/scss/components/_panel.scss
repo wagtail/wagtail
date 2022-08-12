@@ -73,12 +73,14 @@ $header-button-size: theme('spacing.8');
   }
 }
 
+// The suffix anchor is intended for small viewports only.
 .w-panel__anchor--suffix {
   @include media-breakpoint-up(sm) {
     display: none;
   }
 }
 
+// The prefix anchor can be used when there is enough space in the margin of the page.
 .w-panel__anchor--prefix {
   display: none;
 

@@ -4,12 +4,13 @@ $header-gap: theme('spacing.1');
 $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
 
 /**
- * Panel styles shared between StreamField and InlinePanel, for
- * repeating collapsible panels which can be reordered.
+ * Panel styles shared between StreamField and InlinePanel,
+ * for repeating collapsible panels which can be reordered.
  * Top-level and nested panels have guiding borders to show their start and end,
  * as well as indentation for nested panels.
  */
 
+// Styles for the top-level panel, and any panel within.
 .w-panel--nested {
   @include guide-line-active();
 
@@ -17,24 +18,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     @include guide-line-horizontal();
     // Slightly nicer text alignment.
     margin-top: 1px;
-  }
-
-  .w-panel {
-    @include guide-line-nested();
-    // Nesting for nested panels.
-    margin-inline-start: theme('spacing.7');
-    margin-bottom: theme('spacing.6');
-  }
-
-  // Tighter spacing for nested panel headers so their icons align
-  // with parent panels’ guiding line.
-  .w-panel .w-panel__header {
-    gap: 0;
-    transform: translateX(calc(-1 * theme('spacing.5')));
-
-    @include media-breakpoint-up(sm) {
-      transform: translateX(theme('spacing.1'));
-    }
   }
 
   .w-panel__content {
@@ -53,14 +36,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     background-color: $color-white;
   }
 
-  .w-panel .w-panel__anchor--prefix {
-    display: inline-grid;
-  }
-
-  .w-panel .w-panel__anchor--suffix {
-    display: none;
-  }
-
   .w-panel__heading--label {
     // Use smaller labels within nested panels in InlinePanel.
     @apply w-label-2;
@@ -72,13 +47,44 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
   }
 }
 
-// Legacy InlinePanel styles for reordering.
-// Should be set in JavaScript instead.
+// Styles for nested panels excluding the top level.
+.w-panel--nested .w-panel {
+  @include guide-line-nested();
+  // Indentation for nested panels.
+  margin-inline-start: theme('spacing.7');
+  margin-bottom: theme('spacing.6');
+
+  // Tighter spacing for nested panel headers so their icons align
+  // with parent panels’ guiding line.
+  .w-panel__header {
+    gap: 0;
+    transform: translateX(calc(-1 * theme('spacing.5')));
+
+    @include media-breakpoint-up(sm) {
+      transform: translateX(theme('spacing.1'));
+    }
+  }
+
+  // For nested panels, there is always enough space for the prefix anchor.
+  .w-panel__anchor--prefix {
+    display: inline-grid;
+  }
+
+  // Nested panels never need the suffix anchor.
+  .w-panel__anchor--suffix {
+    display: none;
+  }
+}
+
 .multiple {
+  // Legacy InlinePanel styles for reordering.
+  // Should be set in JavaScript instead.
   &.moving {
     position: relative;
   }
 
+  // Legacy InlinePanel styles for reordering.
+  // Should be set in JavaScript instead.
   li.moving {
     position: absolute;
     width: 100%;
