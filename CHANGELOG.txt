@@ -90,7 +90,7 @@ Changelog
  * Remove `is_parent` kwarg in various page button hooks as this approach is no longer required (Paarth Agarwal)
  * Improve security of redirect imports by adding a file hash (signature) check for so that any tampering of file contents between requests will throw a `BadSignature` error (Jaap Roes)
  * Refresh designs for Home (Dashboard) site summary panels, use theme spacing and colours, add support for RTL layouts and better support for small devices (Paarth Agarwal, LB (Ben) Johnston)
- * Include all CSS system colors in allowed values in Stylelint's declaration-strict-value rule (Thibaud Colas)
+ * Include all CSS system colours in allowed values in Stylelint's declaration-strict-value rule (Thibaud Colas)
  * Add JavaScript `range` util for (LB (Ben) Johnston)
  * Allow generic chooser viewsets to support non-model data such as an API endpoint (Matt Wescott)
  * Update all widget styles across the admin UI (Thibaud Colas)
