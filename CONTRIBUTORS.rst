@@ -616,6 +616,7 @@ Contributors
 * Dominik Lech
 * Paritosh Kabra
 * Akash Kumar Sen
+* Xabier Bello
 
 
 Translators
