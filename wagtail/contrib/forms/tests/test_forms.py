@@ -229,7 +229,7 @@ class TestFormBuilder(TestCase):
         multiselect_field = FormField.objects.create(
             page=self.form_page,
             sort_order=2,
-            label="Your favorite colors",
+            label="Your favorite colours",
             field_type="multiselect",
             required=True,
             choices="red\r\nblue\r\ngreen",
@@ -283,7 +283,7 @@ class TestFormBuilder(TestCase):
 
         self.assertEqual(
             [("red", "red"), ("blue", "blue"), ("green", "green")],
-            form_class.base_fields["your_favorite_colors"].choices,
+            form_class.base_fields["your_favorite_colours"].choices,
         )
         self.assertEqual(
             [("cat", "cat"), ("dog", "dog"), ("bird", "bird")],

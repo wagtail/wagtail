@@ -315,7 +315,7 @@ You can encode the image into lossless WebP format by using the `format-webp-los
 {% image page.photo width-400 format-webp-lossless %}
 ```
 
-(image_background_color)=
+(image_background_colour)=
 
 ## Background colour
 
