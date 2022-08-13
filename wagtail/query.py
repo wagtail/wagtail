@@ -242,7 +242,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         for restriction in PageViewRestriction.objects.select_related("page").all():
             q &= ~self.descendant_of_q(restriction.page, inclusive=True)
         return q
-
+    
     def public(self):
         """
         This filters the QuerySet to only contain pages that are not in a private section
@@ -253,7 +253,8 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         This filters the QuerySet to only contain pages that are in a private section
         """
-        return self.exclude(self.public_q())
+        public_objects = self.public()
+        return self.exclude(id__in=[public_object.id for public_object in public_objects])
 
     def first_common_ancestor(self, include_self=False, strict=False):
         """
