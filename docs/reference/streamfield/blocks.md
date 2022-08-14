@@ -202,7 +202,7 @@ All block definitions accept the following optional keyword arguments:
 
    A WYSIWYG editor for creating formatted text including links, bold / italics etc. The following keyword arguments are accepted in addition to the standard ones:
 
-   :param editor: The rich text editor to be used (see :ref:`WAGTAILADMIN_RICH_TEXT_EDITORS`).
+   :param editor: The rich text editor to be used (see :ref:`wagtailadmin_rich_text_editors`).
    :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
    :param required: If true (the default), the field cannot be left blank.
    :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.

@@ -68,7 +68,7 @@ Images from the library must be requested using this syntax, but a developer's s
 
 Read more about the image manipulation syntax here: [](image_tag).
 
-(template-tags-and-filters)=
+(template_tags_and_filters)=
 
 ## Template tags & filters
 

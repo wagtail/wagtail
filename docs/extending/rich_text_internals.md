@@ -199,7 +199,7 @@ def register_embed_handler(features):
 
 ## Editor widgets
 
-The editor interface used on rich text fields can be configured with the [WAGTAILADMIN_RICH_TEXT_EDITORS](WAGTAILADMIN_RICH_TEXT_EDITORS) setting. Wagtail provides an implementation: `wagtail.admin.rich_text.DraftailRichTextArea` (the [Draftail](https://www.draftail.org/) editor based on [Draft.js](https://draftjs.org/)).
+The editor interface used on rich text fields can be configured with the [WAGTAILADMIN_RICH_TEXT_EDITORS](wagtailadmin_rich_text_editors) setting. Wagtail provides an implementation: `wagtail.admin.rich_text.DraftailRichTextArea` (the [Draftail](https://www.draftail.org/) editor based on [Draft.js](https://draftjs.org/)).
 
 It is possible to create your own rich text editor implementation. At minimum, a rich text editor is a Django **_class_ django.forms.Widget** subclass whose constructor accepts an `options` keyword argument (a dictionary of editor-specific configuration options sourced from the `OPTIONS` field in `WAGTAILADMIN_RICH_TEXT_EDITORS`), and which consumes and produces string data in the HTML-like format described above.
 

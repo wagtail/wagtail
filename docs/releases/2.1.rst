@@ -34,7 +34,7 @@ The API now includes an endpoint for finding pages by path; see :ref:`apiv2_find
 User time zone setting
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Users can now set their current time zone through the Account Settings menu, which will then be reflected in date / time fields throughout the admin (such as go-live / expiry dates). The list of available time zones can be configured via the :ref:`WAGTAIL_USER_TIME_ZONES <WAGTAIL_USER_TIME_ZONES>` setting. This feature was developed by David Moore.
+Users can now set their current time zone through the Account Settings menu, which will then be reflected in date / time fields throughout the admin (such as go-live / expiry dates). The list of available time zones can be configured via the :ref:`WAGTAIL_USER_TIME_ZONES <wagtail_user_time_zones>` setting. This feature was developed by David Moore.
 
 
 Elasticsearch 6 support

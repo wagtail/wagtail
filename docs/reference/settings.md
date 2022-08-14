@@ -174,7 +174,7 @@ This setting lets you change the number of items shown at 'Your most recent edit
 
 ## General editing
 
-(WAGTAILADMIN_RICH_TEXT_EDITORS)=
+(wagtailadmin_rich_text_editors)=
 
 ### `WAGTAILADMIN_RICH_TEXT_EDITORS`
 
@@ -199,7 +199,7 @@ Customise the behaviour of rich text fields. By default, `RichTextField` and `Ri
 
 If a `'default'` editor is not specified, rich text fields that do not specify an `editor` argument will use the Draftail editor with the default feature set enabled.
 
-(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION)=
+(wagtailadmin_external_link_conversion)=
 
 ### `WAGTAILADMIN_EXTERNAL_LINK_CONVERSION`
 
@@ -238,6 +238,8 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
+(wagtail_auto_update_preview)=
+
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW`
 
 ```python
@@ -255,7 +257,7 @@ WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 
 The interval (in milliseconds) to check for changes made in the page editor before updating the preview. The default value is `500`.
 
-(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK)=
+(wagtailadmin_global_page_edit_lock)=
 
 ### `WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`
 
@@ -328,7 +330,7 @@ Specifies the number of images per page shown on the main Images listing in the 
 WAGTAILIMAGES_USAGE_PAGE_SIZE = 20
 ```
 
-Specifies the number of items per page shown when viewing an image's usage (see [`WAGTAIL_USAGE_COUNT_ENABLED`](WAGTAIL_USAGE_COUNT_ENABLED)).
+Specifies the number of items per page shown when viewing an image's usage (see [`WAGTAIL_USAGE_COUNT_ENABLED`](wagtail_usage_count_enabled)).
 
 ### `WAGTAILIMAGES_CHOOSER_PAGE_SIZE`
 
@@ -525,7 +527,7 @@ WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
 
-(WAGTAIL_USER_TIME_ZONES)=
+(wagtail_user_time_zones)=
 
 ### `WAGTAIL_USER_TIME_ZONES`
 
@@ -540,7 +542,7 @@ If there is zero or one time zone permitted, the account settings form will be h
 WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
 ```
 
-(WAGTAILADMIN_PERMITTED_LANGUAGES)=
+(wagtailadmin_permitted_languages)=
 
 ### `WAGTAILADMIN_PERMITTED_LANGUAGES`
 
@@ -659,7 +661,7 @@ TAG_LIMIT = 5
 
 Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `None`, meaning no limit on tags.
 
-(WAGTAIL_USAGE_COUNT_ENABLED)=
+(wagtail_usage_count_enabled)=
 
 ## Usage for images, documents and snippets
 

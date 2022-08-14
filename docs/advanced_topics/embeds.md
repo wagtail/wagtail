@@ -8,7 +8,7 @@ code directly from the relevant provider's site using the oEmbed protocol.
 
 Wagtail has a built-in list of the most common providers and this list can be
 changed [with a setting](customising_embed_providers). Wagtail also supports
-fetching embed code using [Embedly](Embedly) and [custom embed finders](custom_embed_finders).
+fetching embed code using [Embedly](embedly) and [custom embed finders](custom_embed_finders).
 
 ## Embedding content on your site
 
@@ -234,7 +234,7 @@ By passing `'omitscript': True` in the configuration, you can indicate that thes
 tags should be omitted from the embed HTML. Note that you will then have to take care of
 loading this script yourself.
 
-(Embedly)=
+(embedly)=
 
 ### Embed.ly
 
