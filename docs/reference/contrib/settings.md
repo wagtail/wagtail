@@ -47,6 +47,8 @@ class SiteSpecificSocialMediaSettings(BaseSiteSetting):
 
 Links to your settings will appear in the Wagtail admin 'Settings' menu.
 
+(edit_handlers_settings)=
+
 ## Edit handlers
 
 Settings use edit handlers much like the rest of Wagtail.

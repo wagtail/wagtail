@@ -108,7 +108,7 @@ A [link to a reference](register_reports_menu_item).
 
 #### Reference links
 
-Reference links (links to a target within a page) rely on the page having a reference created, this can be added as follows:
+Reference links (links to a target within a page) rely on the page having a reference created. Each reference must have a unique name and should use the `lower_snake_case` format. A reference can be added as follows:
 
 ```md
 (my_awesome_section)=

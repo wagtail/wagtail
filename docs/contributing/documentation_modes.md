@@ -10,7 +10,7 @@ Each type of information delivery has a purpose and targets a specific audience.
 
 We are following Daniele Procida's [Diátaxis documentation framework](https://diataxis.fr/).
 
-(choose-a-writing-mode)=
+(choose_a_writing_mode)=
 
 ## Choose a writing mode
 
