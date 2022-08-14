@@ -4,7 +4,7 @@ The Dashboard provides information on:
 
 -   The number of pages, images, and documents currently held in the Wagtail CMS
 -   Any pages currently awaiting moderation (if you have these privileges)
--   Any pages that you've locked (if your administrator has enabled {ref}`author-specific locking<WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK>`)
+-   Any pages that you've locked (if your administrator has enabled {ref}`author-specific locking<wagtailadmin_global_page_edit_lock>`)
 -   Your most recently edited pages
 
 You can return to the Dashboard at any time by clicking the Wagtail logo in the top-left of the screen.

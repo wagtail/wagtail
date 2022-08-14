@@ -33,7 +33,7 @@ Wagtail is now compatible with Django 1.11 and Python 3.6. Compatibility fixes w
 User language preference
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Users can now set their preferred language for the Wagtail admin interface under Account Settings → Language Preferences. The list of available languages can be configured via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES <WAGTAILADMIN_PERMITTED_LANGUAGES>` setting. This feature was developed by Daniel Chimeno.
+Users can now set their preferred language for the Wagtail admin interface under Account Settings → Language Preferences. The list of available languages can be configured via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES <wagtailadmin_permitted_languages>` setting. This feature was developed by Daniel Chimeno.
 
 
 New admin preview
@@ -43,7 +43,7 @@ Previewing pages in Wagtail admin interface was rewritten
 to make it more robust. In previous versions, preview was broken in several
 scenarios so users often ended up on a blank page with an infinite spinner.
 
-An additional setting was created: :ref:`WAGTAIL_AUTO_UPDATE_PREVIEW <WAGTAIL_AUTO_UPDATE_PREVIEW>`.
+An additional setting was created: :ref:`WAGTAIL_AUTO_UPDATE_PREVIEW <wagtail_auto_update_preview>`.
 It allows users to see changes done in the editor by refreshing the preview tab
 without having to click again on the preview button.
 
