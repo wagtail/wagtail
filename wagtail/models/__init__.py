@@ -1552,9 +1552,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         This is called by Wagtail whenever a page with aliases is published.
 
-        :param revision: The revision of the original page that we are updating to (used for logging purposes)
+        :param revision: The revision of the original page that we are updating to (used for logging purposes).
         :type revision: Revision, optional
-        :param user: The user who is publishing (used for logging purposes)
+        :param user: The user who is publishing (used for logging purposes).
         :type user: User, optional
         """
         specific_self = self.specific
