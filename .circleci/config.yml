@@ -102,6 +102,19 @@ jobs:
           command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: reports/jest
+      - restore_cache:
+          key: ui_tests-npm-v1-{{ checksum "package-lock.json" }}
+      # Only install if node_modules wasn’t cached.
+      - run: |
+          if [[ ! -e "node_modules" ]]; then
+              npm install --no-save --no-optional --no-audit --no-fund --progress=false
+          fi
+      - save_cache:
+          paths:
+            - node_modules
+          key: ui_tests-npm-v1-{{ checksum "package-lock.json" }}
+      - run: npm run build
+      - run: pipenv run ./wagtail/test/manage.py collectstatic --noinput
       - store_test_results:
           path: ./reports/jest
 
