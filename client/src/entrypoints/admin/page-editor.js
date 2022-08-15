@@ -94,7 +94,6 @@ function InlinePanel(opts) {
       forms.each(function updateButtonStates(i) {
         const isFirst = i === 0;
         const isLast = i === forms.length - 1;
-        console.log(isFirst, isLast);
         $('[data-inline-panel-child-move-up]', this).prop('disabled', isFirst);
         $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
       });
