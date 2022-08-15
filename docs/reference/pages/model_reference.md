@@ -616,9 +616,9 @@ The model is added to allow Snippets to have changes that are not immediately re
 
 Every time a page is edited, a new `Revision` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
--   Revisions can be created from any {class}`~wagtail.models.Page` object by calling its {meth}`~Page.save_revision` method
--   The content of the page is JSON-serialisable and stored in the {attr}`~Revision.content` field
--   You can retrieve a `Revision` as a {class}`~wagtail.models.Page` object by calling the {meth}`~Revision.as_object` method
+-   Revisions can be created from any instance of {class}`~wagtail.models.RevisionMixin` by calling its {meth}`~RevisionMixin.save_revision` method.
+-   The content of the page is JSON-serialisable and stored in the {attr}`~Revision.content` field.
+-   You can retrieve a `Revision` as an instance of the object's model by calling the {meth}`~Revision.as_object` method.
 
 ```{versionchanged} 4.0
 The model has been renamed from ``PageRevision`` to ``Revision`` and it now references the ``Page`` model using a {class}`~django.contrib.contenttypes.fields.GenericForeignKey`.
@@ -633,49 +633,49 @@ The model has been renamed from ``PageRevision`` to ``Revision`` and it now refe
 
         (generic foreign key)
 
-        This property returns the object this revision belongs to as an instance of the specific class.
+        The object this revision belongs to. For page revisions, the object is an instance of the specific class.
 
     .. attribute:: content_type
 
         (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
 
-        This is the content type of the object this revision belongs to. For page revisions, this means the content type of the specific page type.
+        The content type of the object this revision belongs to. For page revisions, this means the content type of the specific page type.
 
     .. attribute:: base_content_type
 
         (foreign key to :class:`~django.contrib.contenttypes.models.ContentType`)
 
-        This is the base content type of the object this revision belongs to. For page revisions, this means the content type of the :class:`~wagtail.models.Page` model.
+        The base content type of the object this revision belongs to. For page revisions, this means the content type of the :class:`~wagtail.models.Page` model.
 
     .. attribute:: object_id
 
         (string)
 
-        This represents the primary key of the object this revision belongs to.
+        The primary key of the object this revision belongs to.
 
     .. attribute:: submitted_for_moderation
 
         (boolean)
 
-        ``True`` if this revision is in moderation
+        ``True`` if this revision is in moderation.
 
     .. attribute:: created_at
 
         (date/time)
 
-        This is the time the revision was created
+        The time the revision was created.
 
     .. attribute:: user
 
         (foreign key to user model)
 
-        This links to the user that created the revision
+        The user that created the revision.
 
     .. attribute:: content
 
         (dict)
 
-        This field contains the JSON content for the page at the time the revision was created
+        The JSON content for the object at the time the revision was created.
 
         .. versionchanged:: 3.0
 
@@ -741,15 +741,15 @@ The model has been renamed from ``PageRevision`` to ``Revision`` and it now refe
 
     .. automethod:: approve_moderation
 
-        Calling this on a revision that's in moderation will mark it as approved and publish it
+        Calling this on a revision that's in moderation will mark it as approved and publish it.
 
     .. automethod:: reject_moderation
 
-        Calling this on a revision that's in moderation will mark it as rejected
+        Calling this on a revision that's in moderation will mark it as rejected.
 
     .. automethod:: is_latest_revision
 
-        Returns ``True`` if this revision is the object's latest revision
+        Returns ``True`` if this revision is the object's latest revision.
 
     .. automethod:: publish
 
