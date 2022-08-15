@@ -404,7 +404,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
     .. automethod:: get_site_root_paths
 ```
 
-## Locale
+## `Locale`
 
 The `Locale` model defines the set of languages and/or locales that can be used on a site.
 Each `Locale` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
@@ -440,18 +440,17 @@ database queries making them unable to be edited or viewed.
     .. automethod:: get_display_name
 ```
 
-## Translatable Mixin
+## `TranslatableMixin`
 
 `TranslatableMixin` is an abstract model that can be added to any non-page Django model to make it translatable.
 Pages already include this mixin, so there is no need to add it.
 
-### Methods and properties
+### Database fields
 
 The `locale` and `translation_key` fields have a unique key constraint to prevent the object being translated into a language more than once.
 
 ```{eval-rst}
 .. class:: TranslatableMixin
-    :noindex:
 
     .. attribute:: locale
 
@@ -465,6 +464,13 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
 
         A UUID that is randomly generated whenever a new model instance is created.
         This is shared with all translations of that instance so can be used for querying translations.
+```
+
+### Methods and properties
+
+```{eval-rst}
+.. class:: TranslatableMixin
+    :noindex:
 
     .. automethod:: get_translations
 
