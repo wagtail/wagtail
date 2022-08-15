@@ -110,6 +110,7 @@ Changelog
  * Move commenting trigger to inline toolbar and move block splitting to the block toolbar and command palette only in Draftail (Thibaud Colas)
  * Pages are now locked when they are scheduled for publishing (Karl Hobley)
  * Simplify page chooser views by converting to class-based views (Matt Westcott)
+ * Add reference documentation for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
