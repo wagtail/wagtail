@@ -480,6 +480,17 @@ class DraftStateMixin(models.Model):
     def publish(
         self, revision, user=None, changed=True, log_action=True, previous_revision=None
     ):
+        """
+        Publish a revision of the object by applying the changes in the revision to the live object.
+
+        :param revision: Revision to publish.
+        :type revision: Revision
+        :param user: The publishing user.
+        :param changed: Indicated whether content has changed.
+        :param log_action: Flag for the logging action, pass ``False`` to skip logging.
+        :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
+        :type previous_revision: Revision
+        """
         return PublishRevisionAction(
             revision,
             user=user,
@@ -489,6 +500,14 @@ class DraftStateMixin(models.Model):
         ).execute()
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
+        """
+        Unpublish the live object.
+
+        :param set_expired: Mark the object as expired.
+        :param commit: Commit the changes to the database.
+        :param user: The unpublishing user.
+        :param log_action: Flag for the logging action, pass ``False`` to skip logging.
+        """
         return UnpublishAction(
             self,
             set_expired=set_expired,
@@ -499,23 +518,12 @@ class DraftStateMixin(models.Model):
 
     def with_content_json(self, content):
         """
-        Returns a new version of the object with field values updated to reflect changes
-        in the provided ``content`` (which usually comes from a previously-saved revision).
+        Similar to :meth:`RevisionMixin.with_content_json`,
+        but with the following fields also preserved:
 
-        Certain field values are preserved in order to prevent errors if the returned
-        object is saved, such as ``id``. The following field values are also preserved,
-        as they are considered to be meaningful to the object as a whole, rather than
-        to a specific revision:
-
-        * ``latest_revision``
         * ``live``
         * ``has_unpublished_changes``
         * ``first_published_at``
-
-        If ``TranslatableMixin`` is applied, the following field values are also preserved:
-
-        * ``translation_key``
-        * ``locale``
         """
         obj = super().with_content_json(content)
 
