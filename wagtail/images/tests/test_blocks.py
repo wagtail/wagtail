@@ -63,3 +63,10 @@ class TestImageChooserBlock(TestCase):
         )
 
         self.assertHTMLEqual(html, expected_html)
+
+    def test_deconstruct(self):
+        block = ImageChooserBlock(required=False)
+        path, args, kwargs = block.deconstruct()
+        self.assertEqual(path, "wagtail.images.blocks.ImageChooserBlock")
+        self.assertEqual(args, ())
+        self.assertEqual(kwargs, {"required": False})

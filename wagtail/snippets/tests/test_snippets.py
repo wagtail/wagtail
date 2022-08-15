@@ -3174,6 +3174,13 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
         self.assertIsNone(nonrequired_block.clean(None))
 
+    def test_deconstruct(self):
+        block = SnippetChooserBlock(Advert, required=False)
+        path, args, kwargs = block.deconstruct()
+        self.assertEqual(path, "wagtail.snippets.blocks.SnippetChooserBlock")
+        self.assertEqual(args, (Advert,))
+        self.assertEqual(kwargs, {"required": False})
+
 
 class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
     def test_adapt(self):

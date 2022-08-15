@@ -96,6 +96,10 @@ The viewset also makes a StreamField chooser block class available, as the prope
 from .views import person_chooser_viewset
 
 PersonChooserBlock = person_chooser_viewset.block_class
+
+# When deconstructing a PersonChooserBlock instance for migrations, the module path
+# used in migrations should point back to this module
+PersonChooserBlock.__module__ = 'myapp.blocks'
 ```
 
 ## Chooser viewsets for non-model datasources
