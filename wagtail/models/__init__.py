@@ -695,50 +695,39 @@ class PreviewableMixin:
     @property
     def preview_modes(self):
         """
-        A list of (internal_name, display_name) tuples for the modes in which
+        A list of ``(internal_name, display_name)`` tuples for the modes in which
         this object can be displayed for preview/moderation purposes. Ordinarily an object
         will only have one display mode, but subclasses can override this -
         for example, a page containing a form might have a default view of the form,
-        and a post-submission 'thank you' page
+        and a post-submission 'thank you' page.
         """
         return PreviewableMixin.DEFAULT_PREVIEW_MODES
 
     @property
     def default_preview_mode(self):
         """
-        The preview mode to use in workflows that do not give the user the option of selecting a
-        mode explicitly, e.g. moderator approval. Will raise IndexError if preview_modes is empty
+        The default preview mode to use in live preview.
+        This default is also used in areas that do not give the user the option of selecting a
+        mode explicitly, e.g. in the moderator approval workflow.
+        If ``preview_modes`` is empty, an ``IndexError`` will be raised.
         """
         return self.preview_modes[0][0]
 
     def is_previewable(self):
-        """Returns True if at least one preview mode is specified"""
+        """Returns ``True`` if at least one preview mode is specified in ``preview_modes``."""
         return bool(self.preview_modes)
 
     def serve_preview(self, request, mode_name):
         """
-        Return an HTTP response for use in object previews. Normally this would be equivalent
-        to self.serve(request), since we obviously want the preview to be indicative of how
-        it looks on the live site. However, there are a couple of cases where this is not
-        appropriate, and custom behaviour is required:
+        Returns an HTTP response for use in object previews.
 
-        1) The page has custom routing logic that derives some additional required
-        args/kwargs to be passed to serve(). The routing mechanism is bypassed when
-        previewing, so there's no way to know what args we should pass. In such a case,
-        the page model needs to implement its own version of serve_preview.
+        This method can be overridden to implement custom rendering and/or
+        routing logic.
 
-        2) The object has several different renderings that we would like to be able to see
-        when previewing - for example, a form page might have one rendering that displays
-        the form, and another rendering to display a landing page when the form is posted.
-        This can be done by setting a custom preview_modes list on the page model -
-        Wagtail will allow the user to specify one of those modes when previewing, and
-        pass the chosen mode_name to serve_preview so that the page model can decide how
-        to render it appropriately. (Models that do not specify their own preview_modes
-        list will always receive an empty string as mode_name.)
-
-        Any templates rendered during this process should use the 'request' object passed
-        here - this ensures that request.user and other properties are set appropriately for
-        the wagtail user bar to be displayed. This request will always be a GET.
+        Any templates rendered during this process should use the ``request``
+        object passed here - this ensures that ``request.user`` and other
+        properties are set appropriately for the wagtail user bar to be
+        displayed/hidden. This request will always be a GET.
         """
         return TemplateResponse(
             request,
@@ -747,11 +736,22 @@ class PreviewableMixin:
         )
 
     def get_preview_context(self, request, *args, **kwargs):
+        """
+        Returns a context dictionary for use in templates for previewing this object.
+        """
         return {"object": self, "request": request}
 
     def get_preview_template(self, request, *args, **kwargs):
+        """
+        Returns a template to be used when previewing this object.
+
+        Subclasses of ``PreviewableMixin`` must override this method to return the
+        template name to be used in the preview. Alternatively, subclasses can also
+        override the ``serve_preview`` method to completely customise the preview
+        rendering logic.
+        """
         raise ImproperlyConfigured(
-            "%s (subclass of PreviewableMixin) must override get_preview_template"
+            "%s (subclass of PreviewableMixin) must override get_preview_template or serve_preview"
             % type(self).__name__
         )
 
