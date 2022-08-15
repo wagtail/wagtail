@@ -232,12 +232,14 @@ class RevisionMixin(models.Model):
     @property
     def revisions(self):
         """
-        Returns revisions that belong to this object.
+        Returns revisions that belong to the object.
 
-        Subclasses should define a GenericRelation to Revision and override
-        this property to return that GenericRelation. This allows subclasses
-        to customise the `related_query_name` of the GenericRelation and add
-        some custom logic (e.g. to always use the specific instance in Page).
+        Subclasses should define a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
+        :class:`~wagtail.models.Revision` and override this property to return
+        that ``GenericRelation``. This allows subclasses to customise the
+        ``related_query_name`` of the ``GenericRelation`` and add custom logic
+        (e.g. to always use the specific instance in ``Page``).
         """
         return Revision.objects.filter(
             content_type=self.get_content_type(),
@@ -263,6 +265,10 @@ class RevisionMixin(models.Model):
         return self.latest_revision
 
     def get_latest_revision_as_object(self):
+        """
+        Returns the latest revision of the object as an instance of the model.
+        If no latest revision exists, returns the object itself.
+        """
         latest_revision = self.get_latest_revision()
         if latest_revision:
             return latest_revision.as_object()
@@ -295,7 +301,8 @@ class RevisionMixin(models.Model):
 
         * ``latest_revision``
 
-        If ``TranslatableMixin`` is applied, the following field values are also preserved:
+        If :class:`~wagtail.models.TranslatableMixin` is applied, the following field values
+        are also preserved:
 
         * ``translation_key``
         * ``locale``
@@ -331,15 +338,17 @@ class RevisionMixin(models.Model):
     ):
         """
         Creates and saves a revision.
-        :param user: the user performing the action
-        :param submitted_for_moderation: indicates whether the object was submitted for moderation
-        :param approved_go_live_at: the date and time the revision is approved to go live
-        :param changed: indicates whether there were any content changes
-        :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
-            Defaults to 'wagtail.edit' when no 'previous_revision' param is passed, otherwise 'wagtail.revert'
-        :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
-        :param clean: Set this to False to skip cleaning object content before saving this revision
-        :return: the newly created revision
+
+        :param user: The user performing the action.
+        :param submitted_for_moderation: Indicates whether the object was submitted for moderation.
+        :param approved_go_live_at: The date and time the revision is approved to go live.
+        :param changed: Indicates whether there were any content changes.
+        :param log_action: Flag for logging the action. Pass ``False`` to skip logging. Can be passed an action string.
+            Defaults to ``"wagtail.edit"`` when no ``previous_revision`` param is passed, otherwise ``"wagtail.revert"``.
+        :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
+        :type previous_revision: Revision
+        :param clean: Set this to ``False`` to skip cleaning object content before saving this revision.
+        :return: The newly created revision.
         """
         if clean:
             self.full_clean()

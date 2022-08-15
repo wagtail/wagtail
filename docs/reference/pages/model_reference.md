@@ -487,6 +487,42 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
     .. autoattribute:: localized
 ```
 
+## `RevisionMixin`
+
+`RevisionMixin` is an abstract model that can be added to any non-page Django model to allow saving revisions of its instances.
+Pages already include this mixin, so there is no need to add it.
+
+```{versionadded} 4.0
+The model is added to allow Snippets to save revisions, revert to a previous revision, and compare changes between revisions.
+```
+
+### Database fields
+
+```{eval-rst}
+.. class:: RevisionMixin
+
+    .. attribute:: latest_revision
+
+        (foreign key to :class:`~wagtail.models.Revision`)
+
+        This points to the latest revision created for the object. This reference is stored in the database for performance optimisation.
+```
+
+### Methods and properties
+
+```{eval-rst}
+.. class:: RevisionMixin
+    :noindex:
+
+    .. autoattribute:: revisions
+
+    .. automethod:: save_revision
+
+    .. automethod:: get_latest_revision_as_object
+
+    .. automethod:: with_content_json
+```
+
 (revision_model_ref)=
 
 ## `Revision`
