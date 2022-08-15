@@ -164,6 +164,7 @@ Changelog
  * Fix: Layout issue with page explorer's inner header item on small device widths (Akash Kumar Sen)
  * Fix: Ensure that `BaseSiteSetting` / `BaseGenericSetting` objects can be pickled (Andy Babic)
  * Fix: Ensure `DocumentChooserBlock` can be deconstructed for migrations (Matt Westcott)
+ * Fix: Resolve frontent console error and unintented console logging issues (Matt Wescott, Paarth Agarwal)
 
 
 3.0.1 (16.06.2022)
