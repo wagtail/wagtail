@@ -523,6 +523,66 @@ The model is added to allow Snippets to save revisions, revert to a previous rev
     .. automethod:: with_content_json
 ```
 
+## `DraftStateMixin`
+
+`DraftStateMixin` is an abstract model that can be added to any non-page Django model to allow its instances to have unpublished changes.
+This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages already include this mixin, so there is no need to add it.
+
+```{versionadded} 4.0
+The model is added to allow Snippets to have changes that are not immediately reflected to the instance.
+```
+
+### Database fields
+
+```{eval-rst}
+.. class:: DraftStateMixin
+
+    .. attribute:: live
+
+        (boolean)
+
+        A boolean that is set to ``True`` if the object is published.
+
+        Note: this field defaults to ``True`` meaning that any objects that are created programmatically will be published by default.
+
+    .. attribute:: live_revision
+
+        (foreign key to :class:`~wagtail.models.Revision`)
+
+        This points to the revision that is currently live.
+
+    .. attribute:: has_unpublished_changes
+
+        (boolean)
+
+        A boolean that is set to ``True`` when the object is either in draft or published with draft changes.
+
+    .. attribute:: first_published_at
+
+        (date/time)
+
+        The date/time when the object was first published.
+
+    .. attribute:: last_published_at
+
+        (date/time)
+
+        The date/time when the object was last published.
+```
+
+### Methods and properties
+
+```{eval-rst}
+.. class:: DraftStateMixin
+    :noindex:
+
+    .. automethod:: publish
+
+    .. automethod:: unpublish
+
+    .. automethod:: with_content_json
+```
+
 (revision_model_ref)=
 
 ## `Revision`
