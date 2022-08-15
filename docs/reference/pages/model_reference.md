@@ -487,6 +487,33 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
     .. autoattribute:: localized
 ```
 
+## `PreviewableMixin`
+
+`PreviewableMixin` is a mixin class that can be added to any non-page Django model to allow previewing its instances.
+Pages already include this mixin, so there is no need to add it.
+
+```{versionadded} 4.0
+The class is added to allow Snippets to have live preview in the editor.
+```
+
+### Methods and properties
+
+```{eval-rst}
+.. class:: PreviewableMixin
+
+    .. autoattribute:: preview_modes
+
+    .. autoattribute:: default_preview_mode
+
+    .. automethod:: is_previewable
+
+    .. automethod:: get_preview_context
+
+    .. automethod:: get_preview_template
+
+    .. automethod:: serve_preview
+```
+
 ## `RevisionMixin`
 
 `RevisionMixin` is an abstract model that can be added to any non-page Django model to allow saving revisions of its instances.
