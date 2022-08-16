@@ -272,6 +272,45 @@ class Advert(index.Indexed, models.Model):
     ]
 ```
 
+## Saving revisions of snippets
+
+```{versionadded} 4.0
+The `RevisionMixin` class was introduced.
+```
+
+If a snippet model inherits from {class}`~wagtail.models.RevisionMixin`, Wagtail will automatically save revisions when you save any changes in the snippets admin.
+In addition to inheriting the mixin, it is recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.Revision` model and override the {attr}`~wagtail.models.RevisionMixin.revisions` property to return the `GenericRelation`. For example, the `Advert` snippet could be made revisable as follows:
+
+```python
+# ...
+
+from django.contrib.contenttypes.fields import GenericRelation
+from wagtail.models import RevisionMixin
+
+# ...
+
+@register_snippet
+class Advert(RevisionMixin, models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    @property
+    def revisions(self):
+        return self._revisions
+```
+
+The `RevisionMixin` includes a `latest_revision` field that needs to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
+
+With the `RevisionMixin` applied, any changes made from the snippets admin will create an instance of the `Revision` model that contains the state of the snippet instance. The revision instance is attached to the [audit log](audit_log) entry of the edit action, allowing you to revert to a previous revision or compare the changes between revisions from the snippet history page.
+
+You can also save revisions programmatically by calling the {meth}`~wagtail.models.RevisionMixin.save_revision` method. After applying the mixin, it is recommended to call this method (or save the snippet in the admin) at least once for each instance of the snippet that already exists (if any), so that the `latest_revision` field is populated in the database table.
+
 ## Tagging snippets
 
 Adding tags to snippets is very similar to adding tags to pages. The only difference is that {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
