@@ -61,7 +61,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: widget_class
    .. autoattribute:: register_widget
    .. autoattribute:: base_block_class
-   .. autoattribute:: block_class
+   .. automethod:: get_block_class
    .. autoattribute:: creation_form_class
    .. autoattribute:: form_fields
    .. autoattribute:: exclude_form_fields

@@ -163,10 +163,13 @@ class ChooserViewSet(ViewSet):
             },
         )
 
-    @cached_property
-    def block_class(self):
+    def get_block_class(self, name=None, module_path=None):
         """
         Returns a StreamField ChooserBlock class using this chooser.
+
+        :param name: Name to give to the class; defaults to the model name with "ChooserBlock" appended
+        :param module_path: The dotted path of the module where the class can be imported from; used when
+            deconstructing the block definition for migration files.
         """
         meta = type(
             "Meta",
@@ -175,8 +178,8 @@ class ChooserViewSet(ViewSet):
                 "icon": self.icon,
             },
         )
-        return type(
-            "%sChooserBlock" % self.model_name,
+        cls = type(
+            name or "%sChooserBlock" % self.model_name,
             (self.base_block_class,),
             {
                 "target_model": self.model,
@@ -184,6 +187,9 @@ class ChooserViewSet(ViewSet):
                 "Meta": meta,
             },
         )
+        if module_path:
+            cls.__module__ = module_path
+        return cls
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
