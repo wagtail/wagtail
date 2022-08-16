@@ -160,6 +160,90 @@ These child objects are now accessible through the page's `advert_placements` pr
 {% endfor %}
 ```
 
+## Making snippets previewable
+
+```{versionadded} 4.0
+The `PreviewableMixin` class was introduced.
+```
+
+If a snippet model inherits from {class}`~wagtail.models.PreviewableMixin`, Wagtail will automatically add a live preview panel in the editor. In addition to inheriting the mixin, the model must also override {meth}`~wagtail.models.PreviewableMixin.get_preview_template` or {meth}`~wagtail.models.PreviewableMixin.serve_preview`. For example, the `Advert` snippet could be made previewable as follows:
+
+```python
+# ...
+
+from wagtail.models import PreviewableMixin
+
+# ...
+
+@register_snippet
+class Advert(PreviewableMixin, models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def get_preview_template(self, request, mode_name):
+        return "demo/previews/advert.html"
+```
+
+With the following `demo/previews/advert.html` template:
+
+```html+django
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ object.text }}</title>
+    </head>
+    <body>
+        <a href="{{ object.url }}">{{ object.text }}</a>
+    </body>
+</html>
+```
+
+The variables available in the default context are `request` (a fake {class}`~django.http.HttpRequest` object) and `object` (the snippet instance). To customise the context, you can override the {meth}`~wagtail.models.PreviewableMixin.get_preview_context` method.
+
+By default, the `serve_preview` method returns a {class}`~django.template.response.TemplateResponse` that is rendered using the request object, the template returned by `get_preview_template`, and the context object returned by `get_preview_context`. You can override the `serve_preview` method to customise the rendering and/or routing logic.
+
+Similar to pages, you can define multiple preview modes by overriding the {attr}`~wagtail.models.PreviewableMixin.preview_modes` property. For example, the following `Advert` snippet has two preview modes:
+
+```python
+# ...
+
+from wagtail.models import PreviewableMixin
+
+# ...
+
+@register_snippet
+class Advert(PreviewableMixin, models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    @property
+    def preview_modes(self):
+        return PreviewableMixin.DEFAULT_PREVIEW_MODES + [("alt", "Alternate")]
+
+    def get_preview_template(self, request, mode_name):
+        templates = {
+            "": "demo/previews/advert.html",  # Default preview mode
+            "alt": "demo/previews/advert_alt.html",  # Alternate preview mode
+        }
+        return templates.get(mode_name, templates[""])
+
+    def get_preview_context(self, request, mode_name):
+        context = super().get_preview_context(request, mode_name)
+        if mode_name == "alt":
+            context["extra_context"] = "Alternate preview mode"
+        return context
+```
+
 (wagtailsnippets_making_snippets_searchable)=
 
 ## Making snippets searchable
