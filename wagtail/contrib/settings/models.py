@@ -217,4 +217,4 @@ class BaseSetting(BaseSiteSetting):
             category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
-        return super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
