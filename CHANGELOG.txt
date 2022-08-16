@@ -166,6 +166,7 @@ Changelog
  * Fix: Ensure that `BaseSiteSetting` / `BaseGenericSetting` objects can be pickled (Andy Babic)
  * Fix: Ensure `DocumentChooserBlock` can be deconstructed for migrations (Matt Westcott)
  * Fix: Resolve frontent console error and unintented console logging issues (Matt Wescott, Paarth Agarwal)
+ * Fix: Resolve issue with sites that have not yet migrated away from `BaseSetting` when upgrading to Wagtail 4.0 (Stefan Hammer)
 
 
 3.0.1 (16.06.2022)
