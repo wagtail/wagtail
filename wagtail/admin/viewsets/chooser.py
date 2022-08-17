@@ -7,6 +7,7 @@ from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.views.generic import chooser as chooser_views
 from wagtail.admin.widgets.chooser import BaseChooser
 from wagtail.blocks import ChooserBlock
+from wagtail.telepath import register as register_telepath_adapter
 
 from .base import ViewSet
 
@@ -44,6 +45,10 @@ class ChooserViewSet(ViewSet):
 
     #: The base Widget class that the chooser widget will be derived from.
     base_widget_class = BaseChooser
+
+    #: The adapter class used to map the widget class to its JavaScript implementation - see :ref:`streamfield_widget_api`.
+    #: Only required if the chooser uses custom JavaScript code.
+    widget_telepath_adapter_class = None
 
     #: The base ChooserBlock class that the StreamField chooser block will be derived from.
     base_block_class = ChooserBlock
@@ -204,3 +209,6 @@ class ChooserViewSet(ViewSet):
             register_form_field_override(
                 ForeignKey, to=self.model, override={"widget": self.widget_class}
             )
+            if self.widget_telepath_adapter_class:
+                adapter = self.widget_telepath_adapter_class()
+                register_telepath_adapter(adapter, self.widget_class)
