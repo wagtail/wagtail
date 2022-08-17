@@ -1,12 +1,22 @@
-/* Add additional spacing between sections using semantic section elements, until we update sphinx-wagtail-theme */
-section {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+/* fix a few issues with static/scrolling sidebar and algolia search fields
+- issue where overflow-x hidden was added but not required if hidden submit button wraps
+- added search content causes width of sidebar to make content wrap
+- search results not able to be shown inside scrollable container
+- https://github.com/wagtail/sphinx_wagtail_theme/issues/201
+*/
+
+.sidebar-container .collapse {
+  overflow-x: unset;
 }
 
-/* Workaround for https://github.com/executablebooks/MyST-Parser/issues/533 */
-li > p {
-  margin-bottom: 0;
+@media screen and (min-width: 992px) {
+  .sidebar-container {
+    width: 25%;
+  }
+}
+
+body.body--autocomplete-open .sidebar-container .collapse {
+  overflow-y: unset;
 }
 
 /* Wagtail Space */
