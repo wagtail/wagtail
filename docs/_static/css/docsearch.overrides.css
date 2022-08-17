@@ -12,6 +12,19 @@
 a.algolia-docsearch-suggestion {
   border-bottom: 0;
 }
+
 #search-results h2 {
   display: none;
+}
+
+/* override algolia search input colors (set on element via JS) for dark mode alignment and radius for left icon */
+
+#search-form .algolia-autocomplete > .form-control {
+  background: #fff none repeat scroll 0% 0% padding-box !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+body.theme-dark #search-form .algolia-autocomplete > .form-control {
+  background: #2e1f5e none repeat scroll 0% 0% padding-box !important;
 }
