@@ -76,7 +76,7 @@ documentation_extras = [
     "sphinxcontrib-spelling>=5.4.0,<6",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==5.1.1",
+    "sphinx-wagtail-theme==5.3.0",
     "myst_parser==0.17.0",
 ]
 
