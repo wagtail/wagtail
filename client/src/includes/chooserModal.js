@@ -13,8 +13,11 @@ const validateCreationForm = (form) => {
         input.setAttribute('aria-invalid', 'true');
         const field = input.closest('[data-field]');
         field.classList.add('w-field--error');
-        const errors = input.querySelector('[data-field-errors]');
-        errors.querySelector('.icon').removeAttribute('hidden');
+        const errors = field.querySelector('[data-field-errors]');
+        const icon = errors.querySelector('.icon');
+        if (icon) {
+          icon.removeAttribute('hidden');
+        }
         const errorElement = document.createElement('p');
         errorElement.classList.add('error-message');
         errorElement.innerHTML = gettext('This field is required.');
