@@ -116,6 +116,7 @@ jobs:
       - run: PYTHONPATH=. python scripts/nightly/get_version.py > __init__.py
       - run: mv __init__.py wagtail/__init__.py
       - run: python setup.py bdist_wheel
+      - run: python ./wagtail/manage.py collectstatic --noinput
       - run: python scripts/nightly/upload.py
 
 workflows:
