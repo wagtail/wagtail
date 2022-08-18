@@ -19,6 +19,9 @@ $draftail-block-spacing: theme('spacing.[2.5]');
 $draftail-toolbar-radius: theme('borderRadius.DEFAULT');
 $draftail-toolbar-icon-size: 1em;
 
+$draftail-trigger-additional-size: 30px;
+$draftail-block-hoverable-area-offset: 40px;
+
 $draftail-editor-font-family: $font-sans;
 
 @import '../../../../node_modules/draft-js/dist/Draft';
@@ -123,13 +126,15 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-BlockToolbar {
-  margin-inline-start: calc(-1 * theme('spacing.5'));
-
-  @include media-breakpoint-up(sm) {
-    margin-inline-start: calc(
-      -1 * (theme('spacing.8') + theme('spacing.[0.5]'))
-    );
-  }
+  position: absolute;
+  background: transparent;
+  // Adds additional hoverable area so block trigger will be shown when hovering to the side of the field.
+  width: $draftail-block-hoverable-area-offset;
+  inset-inline-start: -$draftail-block-hoverable-area-offset;
+  top: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .Draftail-BlockToolbar__trigger {
@@ -141,6 +146,21 @@ $draftail-editor-font-family: $font-sans;
   @include media-breakpoint-up(sm) {
     width: theme('spacing.5');
     height: theme('spacing.5');
+  }
+
+  // Increase the hoverable area of the trigger button
+  &::before {
+    content: '';
+    background: transparent;
+    display: block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    inset-inline-start: 50%;
+    top: 50%;
+    width: $draftail-trigger-additional-size;
+    height: $draftail-trigger-additional-size;
+    border-radius: theme('borderRadius.DEFAULT');
+    z-index: 1;
   }
 
   // Hide the trigger unless the editor is hovered, focused, or an element within it is focused.
