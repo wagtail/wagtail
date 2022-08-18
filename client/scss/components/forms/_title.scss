@@ -15,13 +15,11 @@
 .w-panel.title:nth-child(1),
 .w-panel.title:nth-child(2) {
   .w-panel__header {
+    @apply w-sr-only;
+
     .w-panel__anchor,
     .w-panel__toggle {
       @apply w-hidden;
-    }
-
-    .w-panel__heading {
-      @apply w-sr-only;
     }
   }
 
