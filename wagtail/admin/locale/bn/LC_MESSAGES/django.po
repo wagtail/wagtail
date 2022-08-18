@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2021\n"
 "Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
@@ -40,9 +40,6 @@ msgstr "কর্মপ্রবাহ বাতিল করুন"
 
 msgid "Unpublish"
 msgstr "অপ্রকাশিত করুন "
-
-msgid "Delete"
-msgstr "মুছে ফেলুন "
 
 msgid "Save Draft"
 msgstr "খসড়া সংরক্ষণ"
@@ -98,6 +95,12 @@ msgstr "আপনার পাসওয়ার্ড রিসেট করত
 msgid "URL"
 msgstr "URL"
 
+msgid "Search"
+msgstr "সার্চ"
+
+msgid "Collection"
+msgstr "সংগ্রহ"
+
 msgid "Parent"
 msgstr "জনক"
 
@@ -114,9 +117,6 @@ msgstr "অন্য জনক নির্বাচন করুন"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "আপনার একই সংগ্রহের জন্য একাধিক অনুমতি রেকর্ড থাকতে পারে না।"
 
-msgid "Collection"
-msgstr "সংগ্রহ"
-
 msgid "Add"
 msgstr "যোগ করুন"
 
@@ -128,6 +128,9 @@ msgstr "সম্পাদনা করুন"
 
 msgid "Edit collections"
 msgstr "সংগ্রহগুলি সম্পাদনা করুন"
+
+msgid "Delete"
+msgstr "মুছে ফেলুন "
 
 msgid "Delete collections"
 msgstr "সংগ্রহ মুছে দিন"
@@ -177,14 +180,8 @@ msgstr "লাইভ তারিখ/সময় মেয়াদ শেষ �
 msgid "Expiry date/time must be in the future"
 msgstr "মেয়াদ শেষ হওয়ার তারিখ/সময় ভবিষ্যতে হতে হবে"
 
-msgid "Search"
-msgstr "সার্চ"
-
 msgid "Scheduled publishing"
 msgstr "নির্ধারিত প্রকাশনা"
-
-msgid "Privacy"
-msgstr "গোপনীয়তা"
 
 msgid "For search engines"
 msgstr "সার্চ ইঞ্জিনের জন্য"
@@ -203,6 +200,9 @@ msgstr "সেটিংস "
 
 msgid "Save"
 msgstr "সংরক্ষণ"
+
+msgid "Privacy"
+msgstr "গোপনীয়তা"
 
 msgid "Unlock"
 msgstr "আনলক"

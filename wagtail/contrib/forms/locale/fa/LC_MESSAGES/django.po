@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -128,27 +128,6 @@ msgstr "فرم‌ها"
 msgid "Pages"
 msgstr "صفحه ها"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "ارسال های %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "داده های فرم %(form_title)s"
-
-msgid "Filter"
-msgstr "فیلتر"
-
-msgid "Download XLSX"
-msgstr "دانلود XLSX"
-
-msgid "Download CSV"
-msgstr "دانلود CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "ارسالی برای فرم %(title)s وجود ندارد."
-
 msgid "Title"
 msgstr "عنوان"
 
@@ -166,6 +145,23 @@ msgstr "آخرین ارسال"
 
 msgid "No form pages have been created."
 msgstr "هیچ صفحه فرمی ایجاد نشده"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "ارسال های %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "دانلود XLSX"
+
+msgid "Download CSV"
+msgstr "دانلود CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "ارسالی برای فرم %(title)s وجود ندارد."
+
+msgid "Filter"
+msgstr "فیلتر"
 
 #, python-format
 msgid "One submission has been deleted."

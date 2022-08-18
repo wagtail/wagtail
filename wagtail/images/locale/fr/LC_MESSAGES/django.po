@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -271,15 +271,6 @@ msgstr "Oui, supprimer"
 msgid "No, don't delete"
 msgstr "Non, ne pas supprimer"
 
-msgid "Choose an image"
-msgstr "Choisir une image"
-
-msgid "Search"
-msgstr "Rechercher"
-
-msgid "Upload"
-msgstr "Transférer"
-
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
 
@@ -302,24 +293,21 @@ msgstr "Utiliser une nouvelle image"
 msgid "Use existing and delete new"
 msgstr "Utiliser l'image existante et supprimer la nouvelle"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
-
 msgid "Latest images"
 msgstr "Dernières images"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Pourquoi ne pas <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>en transférer un</a> ?"
 
 msgid "Choose a format"
 msgstr "Choisissez un format"
 
 msgid "Insert image"
 msgstr "Insérer l'image"
-
-msgid "Uploading…"
-msgstr "Transfert…"
 
 #, python-format
 msgid ""
@@ -366,6 +354,9 @@ msgstr "Modification de l'image %(title)s"
 msgid "Editing"
 msgstr "Modification"
 
+msgid "Image focal point"
+msgstr "Zone d'intérêt de l'image"
+
 msgid "URL Generator"
 msgstr "Générateur d'URL"
 
@@ -403,14 +394,21 @@ msgstr "Utilisation"
 msgid "Images"
 msgstr "Images"
 
+msgid "Sort by"
+msgstr "Ordonner par"
+
 msgid "Popular Tags:"
 msgstr "Mots-clés populaires :"
 
-msgid "Clear choice"
-msgstr "Effacer ce choix"
-
 msgid "Select all images in listing"
 msgstr "Sélectionner toutes les images dans la liste"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
+msgstr[2] "Il y a %(counter)s correspondances"
 
 msgid "Select image"
 msgstr "Sélectionner l'image"
@@ -577,6 +575,33 @@ msgstr[0] "%(num_parent_objects)d image a été supprimée"
 msgstr[1] "%(num_parent_objects)d images ont été supprimées"
 msgstr[2] "%(num_parent_objects)d images ont été supprimées"
 
+msgid "Upload"
+msgstr "Transférer"
+
+msgid "Uploading…"
+msgstr "Transfert…"
+
+msgid "Choose an image"
+msgstr "Choisir une image"
+
+msgid "Newest"
+msgstr "Plus récent"
+
+msgid "Oldest"
+msgstr "Plus ancien(ne)"
+
+msgid "Title: (A -> Z)"
+msgstr "Titre : (A → Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titre : (Z → A)"
+
+msgid "File size: (low to high)"
+msgstr "Taille de fichier : (croissant)"
+
+msgid "File size: (high to low)"
+msgstr "Taille de fichier : (décroissant)"
+
 msgid "Search images"
 msgstr "Rechercher des images"
 
@@ -617,9 +642,3 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s image"
 msgstr[1] "%(count)s images"
 msgstr[2] "%(count)s images"
-
-msgid "Change image"
-msgstr "Changer cette image"
-
-msgid "Edit this image"
-msgstr "Modifier cette image"

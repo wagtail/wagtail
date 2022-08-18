@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -21,18 +21,6 @@ msgstr ""
 
 msgid "default"
 msgstr "taunoa"
-
-#, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr ""
-"%(setting_type_name)s Whakarerekē\n"
-"E Whakarerekē a John I ōna tuhinga mo tōna pukapuka – John is editing the "
-"writing for his book\n"
-"%(instance)s Kei te Whakarerekē a Hine ī nga tuhinga mō te nūpepa – Hine is "
-"editing the writing for the newspaper"
-
-msgid "Editing"
-msgstr "Whakarerekē"
 
 msgid "Site"
 msgstr "Pae"

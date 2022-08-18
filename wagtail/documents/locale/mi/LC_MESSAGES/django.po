@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -73,32 +73,14 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
-msgid "Choose a document"
-msgstr "Kōhiti he pukapuka"
-
-msgid "Search"
-msgstr "Haha"
-
-msgid "Upload"
-msgstr "Tukuatu"
-
 msgid "Latest documents"
 msgstr "Pukapuka hōu"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(query_string)s</em>"
-"\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga."
 
 msgid "You haven't uploaded any documents."
 msgstr "Ehara koe i tukuatu ētahi pukapuka."
-
-msgid "Uploading…"
-msgstr "Tukuna atu..."
 
 msgid "Change document:"
 msgstr "panoni pukapuka:"
@@ -108,6 +90,12 @@ msgstr "Tāpiri he pukapuka"
 
 msgid "Add document"
 msgstr "Tāpiri pukapuka"
+
+msgid "Uploading…"
+msgstr "Tukuna atu..."
+
+msgid "Upload"
+msgstr "Tukuatu"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -148,8 +136,10 @@ msgid "Created"
 msgstr "Hangaia"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s mai rā anō"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
@@ -228,8 +218,8 @@ msgstr "Tāpiri he whakaae-a-pukapuka"
 msgid "Delete"
 msgstr "Muku"
 
-msgid "Server Error"
-msgstr "Hapa rorohiko"
+msgid "Choose a document"
+msgstr "Kōhiti he pukapuka"
 
 msgid "Search documents"
 msgstr "Haha ngā pukapuka"
@@ -263,9 +253,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s pukapuka"
 msgstr[1] "%(count)s pukapuka"
-
-msgid "Choose another document"
-msgstr "Kōhiti anō he pukapuka "
-
-msgid "Edit this document"
-msgstr "Whakarerekē i tēnei pukapuka"

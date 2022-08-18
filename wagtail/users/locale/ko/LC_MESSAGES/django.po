@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,9 +23,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "웨그테일 사용자"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "필수사항. 30자 이하. 문자, 숫자 및 @/./+/-/_ 만 가능."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "이 값에는 오직 문자, 숫자 및 @/./+/-/_ 만 포함될 수 있습니다."
@@ -137,9 +134,6 @@ msgstr "수정중"
 msgid "Save"
 msgstr "저장"
 
-msgid "Permissions"
-msgstr "권한"
-
 msgid "Object permissions"
 msgstr "오브젝트 권한"
 
@@ -217,10 +211,6 @@ msgstr "활성화"
 
 msgid "Inactive"
 msgstr "비활성화"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 전"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

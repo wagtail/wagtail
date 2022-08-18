@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -75,7 +75,7 @@ msgstr "Posunúť vyššie"
 msgid "Move down"
 msgstr "Posunúť nižšie"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Propagované výsledky vyhladávania"
 
 msgid "Add recommended page"
@@ -83,9 +83,6 @@ msgstr "Pridať odporúčanú stránku"
 
 msgid "Search Terms"
 msgstr "Výrazy vyhladávania"
-
-msgid "Promoted search results"
-msgstr "Propagované výsledky vyhladávania"
 
 msgid "Add new promoted result"
 msgstr "Pridať nový propagovaný výsledok"

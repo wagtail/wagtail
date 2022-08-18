@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -22,6 +22,12 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Unpublish"
+msgstr "Yayından Kaldır"
+
 msgid "Delete"
 msgstr "Sil"
 
@@ -31,19 +37,15 @@ msgstr "Kaydet"
 msgid "Wagtail snippets"
 msgstr "Wagtail kod parçacıkları (snippets)"
 
-msgid "Choose"
-msgstr "Seç"
-
-msgid "Search"
-msgstr "Ara"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' silindi."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen kod parçacığı bulunmuyor"
-
-msgid "Saving…"
-msgstr "Kaydediliyor…"
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s silindi."
+msgstr[1] "%(count)d %(snippet_type)s silindi."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -75,6 +77,18 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
+msgid "Publishing…"
+msgstr "Yayınlanıyor…"
+
+msgid "Saving…"
+msgstr "Kaydediliyor…"
+
+msgid "Replace current draft"
+msgstr "Şimdiki taslağın yerine koy"
+
+msgid "Save draft"
+msgstr "Taslağı kaydet"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Yeni %(snippet_type_name)s"
@@ -85,29 +99,14 @@ msgstr "Yeni"
 msgid "Actions"
 msgstr "Eylemler"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "%(snippet_type_name)s - %(instance)s düzenleniyor"
-
-msgid "Editing"
-msgstr "Düzenleniyor"
-
 msgid "Usage"
 msgstr "Kullanım"
 
+msgid "Breadcrumb"
+msgstr "İçerik haritası"
+
 msgid "Snippets"
 msgstr "Kod parçacıkları (Snippets)"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Tümünü seç %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Başlık"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "%(snippet)s seç"
 
 #, python-format
 msgid ""
@@ -117,13 +116,27 @@ msgstr ""
 "Hiç %(snippet_type_name_plural)s oluşturulmadı. Neden <a href="
 "\"%(wagtailsnippets_create_url)s\">bir tane oluşturmuyorsunuz</a>?"
 
+msgid "Live version"
+msgstr "Canlı sürüm"
+
+msgid "Current draft"
+msgstr "Şimdiki taslak"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Live"
+msgstr "Yayında"
+
+msgid "Draft"
+msgstr "Taslak"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Kod parçacıkları %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Kod parçacıkları <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -135,6 +148,9 @@ msgstr "%(title)s kullanımı"
 
 msgid "Usage of"
 msgstr "Kullanımı"
+
+msgid "Title"
+msgstr "Başlık"
 
 msgid "Parent"
 msgstr "Üst öğre"
@@ -148,9 +164,11 @@ msgstr "Durum"
 msgid "Edit this page"
 msgstr "Sayfayı düzenle"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s ara"
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Name"
+msgstr "Ad"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Hata nedeniyle kod parçacığı oluşturulamadı."
@@ -159,25 +177,12 @@ msgstr "Hata nedeniyle kod parçacığı oluşturulamadı."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' oluşturuldu."
 
-msgid "Edit"
-msgstr "Düzenle"
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' güncellendi."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Hata nedeniyle kod parçacığı kaydedilemedi."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' silindi."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s silindi."
-msgstr[1] "%(count)d %(snippet_type)s silindi."
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' güncellendi."
 
 msgid "Date"
 msgstr "Tarih"
@@ -189,11 +194,3 @@ msgstr "'%(title)s' düzenle"
 #, python-format
 msgid "Choose %s"
 msgstr "%s seç"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Başka %s seç"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "%s düzenle"

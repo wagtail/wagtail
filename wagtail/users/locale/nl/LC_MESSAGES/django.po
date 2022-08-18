@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -25,11 +25,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail gebruikers"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Verplicht veld, maximaal 30 tekens lang. Alleen letters, cijfers en de "
-"tekens @.+-_ zijn toegestaan."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -231,9 +226,6 @@ msgstr "Bekijk gebruikers in deze groep"
 msgid "Save"
 msgstr "Opslaan"
 
-msgid "Permissions"
-msgstr "Machtigingen"
-
 msgid "Object permissions"
 msgstr "Machtigingen per type object"
 
@@ -318,10 +310,6 @@ msgstr "Actief"
 
 msgid "Inactive"
 msgstr "Inactief"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
 
 #, python-format
 msgid "There is %(counter)s match"

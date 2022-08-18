@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -53,12 +53,12 @@ msgstr "Formas"
 msgid "Pages"
 msgstr "Lapas"
 
+msgid "Title"
+msgstr "Virsraksts"
+
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "%(form_title)s iesniegumi"
-
-msgid "Filter"
-msgstr "Atsijāt"
 
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
@@ -67,5 +67,5 @@ msgstr "Lejupielādēt CSV failu"
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr "Nav '%(title)s' veida iesniegumu."
 
-msgid "Title"
-msgstr "Virsraksts"
+msgid "Filter"
+msgstr "Atsijāt"

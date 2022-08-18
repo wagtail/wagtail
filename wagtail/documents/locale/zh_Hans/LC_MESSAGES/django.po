@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -126,30 +126,14 @@ msgstr "是，删除"
 msgid "No, don't delete"
 msgstr "否，不删除"
 
-msgid "Choose a document"
-msgstr "选择一个文档"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Upload"
-msgstr "上传"
-
 msgid "Latest documents"
 msgstr "最新文档"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "你还没有上传任何文档到这个集合。"
 
 msgid "You haven't uploaded any documents."
 msgstr "你还没有上传任何文档。"
-
-msgid "Uploading…"
-msgstr "正在上传…"
 
 msgid "Change document:"
 msgstr "修改文档："
@@ -159,6 +143,12 @@ msgstr "添加一个文档"
 
 msgid "Add document"
 msgstr "添加文档"
+
+msgid "Uploading…"
+msgstr "正在上传…"
+
+msgid "Upload"
+msgstr "上传"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -205,8 +195,8 @@ msgid "Select document"
 msgstr "选择文档"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
 
 #, python-format
 msgid ""
@@ -315,13 +305,8 @@ msgid "%(num_parent_objects)d document has been deleted"
 msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个文档"
 
-msgid "Server Error"
-msgstr "服务器错误"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "向系统管理员报告错误并提供以下信息："
+msgid "Choose a document"
+msgstr "选择一个文档"
 
 msgid "Search documents"
 msgstr "搜索文档"
@@ -352,9 +337,3 @@ msgstr "文档"
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s 个文档"
-
-msgid "Choose another document"
-msgstr "选择另一个文档"
-
-msgid "Edit this document"
-msgstr "编辑此文档"

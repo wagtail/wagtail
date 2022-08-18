@@ -55,3 +55,6 @@ msgstr "Vidieť všetko"
 
 msgid "Server Error"
 msgstr "Chyba servera"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."

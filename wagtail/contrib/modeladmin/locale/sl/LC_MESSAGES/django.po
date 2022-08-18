@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -53,14 +53,14 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
 
-msgid "Home"
-msgstr "Domov"
-
 msgid "Last updated"
 msgstr "Zadnje posodobljeno"
 
 msgid "History"
 msgstr "Zgodovina"
+
+msgid "Search"
+msgstr "Iskanje"
 
 msgid "Download XLSX"
 msgstr "Prenesi XLSX"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -44,9 +44,6 @@ msgstr "取消工作流程"
 
 msgid "Unpublish"
 msgstr "取消發佈"
-
-msgid "Delete"
-msgstr "刪除"
 
 msgid "Save Draft"
 msgstr "儲存草稿"
@@ -106,6 +103,18 @@ msgstr "輸入電子郵件地址以重置密碼"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "搜索條件"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "All collections"
+msgstr "所有集合"
+
+msgid "Collection"
+msgstr "集合"
+
 msgid "Parent"
 msgstr "上一級"
 
@@ -114,9 +123,6 @@ msgstr "請選擇其它上級"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
-
-msgid "Collection"
-msgstr "集合"
 
 msgid "Add"
 msgstr "新增"
@@ -129,6 +135,9 @@ msgstr "編輯"
 
 msgid "Edit collections"
 msgstr "編輯集合"
+
+msgid "Delete"
+msgstr "刪除"
 
 msgid "Delete collections"
 msgstr "刪除集合"
@@ -198,12 +207,6 @@ msgstr "上線時間須早於截止期限"
 msgid "Expiry date/time must be in the future"
 msgstr "過期日期/時間必須是未來時間。"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索條件"
-
 msgid "Visibility"
 msgstr "可見"
 
@@ -228,6 +231,9 @@ msgstr "命名工作流程"
 
 msgid "Add tasks to your workflow"
 msgstr "增加作業至工作流程"
+
+msgid "Task"
+msgstr "作業"
 
 msgid "1 page selected"
 msgstr "已選擇 1 頁面"
@@ -302,9 +308,6 @@ msgstr "已選擇列表中的所有項目"
 msgid "Scheduled publishing"
 msgstr "定時發佈"
 
-msgid "Privacy"
-msgstr "隱蔽設置"
-
 msgid "Content"
 msgstr "內容"
 
@@ -313,24 +316,6 @@ msgstr "推薦"
 
 msgid "Settings"
 msgstr "設置"
-
-msgid "Status"
-msgstr "狀態"
-
-msgid "Toggle status"
-msgstr "切換狀態"
-
-msgid "Comments"
-msgstr "評論"
-
-msgid "Toggle comments"
-msgstr "切換評論"
-
-msgid "Preview"
-msgstr "預覽"
-
-msgid "Toggle preview"
-msgstr "切換預覽"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -352,13 +337,6 @@ msgstr "更多操作"
 
 msgid "Save account details"
 msgstr "儲存帳戶詳細資料"
-
-msgid "Change password"
-msgstr "更改密碼"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "您不能修改密碼，請聯系管理員。"
 
 msgid "Reset password"
 msgstr "重置密碼"
@@ -451,6 +429,13 @@ msgstr "插入連結"
 msgid "Add an external link"
 msgstr "新增外部連結"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "查看'%(title)s'的子頁面"
+
+msgid "Explore"
+msgstr "瀏覽"
+
 msgid "Collection privacy"
 msgstr "集合隱蔽設置"
 
@@ -460,12 +445,15 @@ msgstr "此集合已經被上階集合設為隱蔽。"
 msgid "You can edit the privacy settings on:"
 msgstr "你可以在此修改隱蔽設置："
 
+msgid "Save"
+msgstr "儲存"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "隱蔽設置可檢視此文件集合之使用者。"
 
-msgid "Save"
-msgstr "儲存"
+msgid "Privacy"
+msgstr "隱蔽設置"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "集合隱蔽設定。目前狀態：公開"
@@ -499,8 +487,21 @@ msgstr "確認刪除"
 msgid "Update"
 msgstr "更新"
 
-msgid "Dashboard"
-msgstr "控制面板"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "比較 %(title)s"
+
+msgid "Comparing"
+msgstr "正在比較"
+
+msgid "Fields"
+msgstr "欄位"
+
+msgid "Changes"
+msgstr "更改"
+
+msgid "There are no differences between these two versions"
+msgstr "兩版本間無任何差異"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -532,10 +533,6 @@ msgstr "草稿"
 msgid "Live"
 msgstr "上線"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "等待頁面審核中"
 
@@ -554,17 +551,20 @@ msgstr "通過"
 msgid "Reject"
 msgstr "駁回"
 
+msgid "Preview"
+msgstr "預覽"
+
 msgid "Your most recent edits"
 msgstr "最近編輯"
+
+msgid "Status"
+msgstr "狀態"
 
 msgid "Date"
 msgstr "日期"
 
 msgid "Site summary"
 msgstr "網站摘要"
-
-msgid "Task"
-msgstr "作業"
 
 msgid "Task started"
 msgstr "作業開始"
@@ -581,21 +581,21 @@ msgstr "作業"
 msgid "Sign in"
 msgstr "登錄"
 
+msgid "Sign in to Wagtail"
+msgstr "登錄Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "帳戶 %(username_field)s 密碼不正確，請重試。"
 
-msgid "Sign in to Wagtail"
-msgstr "登錄Wagtail"
+msgid "Forgotten password?"
+msgstr "忘記密碼？"
 
 msgid "Remember me"
 msgstr "記住我"
 
 msgid "Signing in…"
 msgstr "正在登錄..."
-
-msgid "Forgotten password?"
-msgstr "忘記密碼？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -742,21 +742,6 @@ msgstr "頁面隱蔽設置"
 msgid "This page has been made private by a parent page."
 msgstr "此頁面已被上階頁面設置為隱蔽。"
 
-msgid "Privacy changes apply to all children of this page too."
-msgstr "隱蔽設置也會套用至所有子頁面。"
-
-msgid "Set page privacy. Current status: Public"
-msgstr "頁面隱蔽設定。目前狀態：公開"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "頁面隱蔽設定。目前狀態：隱蔽"
-
-msgid "Page privacy. Current status: Public"
-msgstr "頁面隱蔽。目前狀態：公開"
-
-msgid "Page privacy. Current status: Private"
-msgstr "頁面隱蔽。目前狀態：隱蔽"
-
 msgid "You have <span>unsaved edits</span>"
 msgstr "你有<span>尚未儲存的編輯內容</span>"
 
@@ -887,15 +872,8 @@ msgstr "確定將此頁面及其子頁面移至 '%(title)s'？"
 msgid "Yes, move this page"
 msgstr "是，移動頁面"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "取消發佈%(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "確定取消發佈此頁面？"
-
-msgid "Yes, unpublish it"
-msgstr "是，取消發佈"
 
 msgid "Publish page"
 msgstr "發佈頁面"
@@ -968,10 +946,6 @@ msgstr "線上版本"
 msgid "Current draft"
 msgstr "當前草稿"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 前"
-
 msgid "No log entries found."
 msgstr "沒有發現任何記錄"
 
@@ -988,9 +962,6 @@ msgstr "選擇頁面"
 msgid "Drag"
 msgstr "拖曳"
 
-msgid "Updated"
-msgstr "已更新"
-
 msgid "Configure a site now."
 msgstr "立即設定一個網站。"
 
@@ -1003,13 +974,6 @@ msgstr "要不<a href=\"%(add_page_url)s\">創建一個</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "此頁面已鎖定，無法編輯"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "查看'%(title)s'的子頁面"
-
-msgid "Explore"
-msgstr "瀏覽"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1043,25 +1007,14 @@ msgstr "排序"
 msgid "Enable ordering of child pages"
 msgstr "啟用子頁面排序"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "為 %(title)s選擇上階頁面"
+msgid "Updated"
+msgstr "已更新"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "為<span>%(title)s</span>選擇上階頁面"
+msgid "Confirm"
+msgstr "確認"
 
-msgid "Preview error"
-msgstr "預覽錯誤"
-
-msgid "Close"
-msgstr "關閉"
-
-msgid "Current status:"
-msgstr "目前狀態："
-
-msgid "Set page privacy"
-msgstr "設定頁面隱蔽"
+msgid "History"
+msgstr "歷史"
 
 msgid "Review this version"
 msgstr "審核此版本"
@@ -1074,25 +1027,6 @@ msgstr "與目前版本進行比較"
 
 msgid "Cancel scheduled publish"
 msgstr "取消預定的發佈"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "比較 %(title)s"
-
-msgid "Comparing"
-msgstr "正在比較"
-
-msgid "Page history"
-msgstr "頁面歷史"
-
-msgid "Fields"
-msgstr "欄位"
-
-msgid "Changes"
-msgstr "更改"
-
-msgid "There are no differences between these two versions"
-msgstr "兩版本間無任何差異"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1115,24 +1049,6 @@ msgstr "頁面類型"
 
 msgid "Enter a search term above"
 msgstr "輸入上面的搜索條件"
-
-msgid "Locked"
-msgstr "已鎖定"
-
-msgid "Unlocked"
-msgstr "已解鎖"
-
-msgid "Lock"
-msgstr "鎖定"
-
-msgid "View details"
-msgstr "檢視詳細資料"
-
-msgid "View history"
-msgstr "檢視歷史"
-
-msgid "since"
-msgstr "自"
 
 msgid "No pages use"
 msgstr "沒有頁面使用"
@@ -1190,23 +1106,17 @@ msgstr "上移"
 msgid "Move down"
 msgstr "下移"
 
-msgid "Add comment"
-msgstr "新增評論"
-
 msgid "Download XLSX"
 msgstr "下載 XLSX"
 
 msgid "Download CSV"
 msgstr "下載 CSV"
 
-msgid "Filter"
-msgstr "過濾"
-
-msgid "Apply filters"
-msgstr "套用過濾"
-
 msgid "Locking status"
 msgstr "鎖定狀態"
+
+msgid "Locked"
+msgstr "已鎖定"
 
 msgid "No locked pages found."
 msgstr "沒有已被鎖定頁面"
@@ -1230,14 +1140,21 @@ msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
 msgid "Root"
 msgstr "根"
 
-msgid "Home"
-msgstr "主頁"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消發佈%(title)s"
 
-msgid "All collections"
-msgstr "所有集合"
+msgid "Yes, unpublish it"
+msgstr "是，取消發佈"
 
-msgid "History"
-msgstr "歷史"
+msgid "Add comment"
+msgstr "新增評論"
+
+msgid "Filter"
+msgstr "過濾"
+
+msgid "Apply filters"
+msgstr "套用過濾"
 
 msgid "Visit the live page"
 msgstr "查看線上頁面"
@@ -1247,6 +1164,21 @@ msgstr "目前頁面狀態："
 
 msgid "Other searches"
 msgstr "其它搜索"
+
+msgid "Unlocked"
+msgstr "已解鎖"
+
+msgid "Lock"
+msgstr "鎖定"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "隱蔽設置也會套用至所有子頁面。"
+
+msgid "View details"
+msgstr "檢視詳細資料"
+
+msgid "View history"
+msgstr "檢視歷史"
 
 msgid "Add a child page"
 msgstr "新增子頁面"
@@ -1340,10 +1272,6 @@ msgstr "使用工作流程 '%(name)s' 的頁面"
 msgid "Pages that use workflow"
 msgstr "使用工作流程的頁面"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "由%(modified_by)s"
-
 msgid "Submitted"
 msgstr "已提交"
 
@@ -1368,20 +1296,24 @@ msgstr "更多"
 msgid "0 minutes"
 msgstr "0 分鐘"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 前"
+
 msgid "Log out"
 msgstr "登出"
 
-msgid "live"
-msgstr "上線"
+msgid "Toggle status"
+msgstr "切換狀態"
 
-msgid "draft"
-msgstr "草稿"
+msgid "Comments"
+msgstr "評論"
 
-msgid "live + draft"
-msgstr "發佈+草稿"
+msgid "Toggle comments"
+msgstr "切換評論"
 
-msgid "Test"
-msgstr "測試"
+msgid "Toggle preview"
+msgstr "切換預覽"
 
 msgid "Notifications"
 msgstr "通知"
@@ -1424,6 +1356,15 @@ msgstr "確定刪除此集合？"
 
 msgid "Editing"
 msgstr "正在編輯"
+
+msgid "Earliest"
+msgstr "最早的"
+
+msgid "Latest"
+msgstr "最近的"
+
+msgid "Dashboard"
+msgstr "控制面板"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1469,12 +1410,6 @@ msgstr "頁面等待審核中"
 msgid "Page '{0}' has been updated."
 msgstr "頁面 '{0}' 已被更新。"
 
-msgid "This page is currently awaiting moderation."
-msgstr "此頁面目前等待審核中"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "儘此作業之審核者可編輯此頁面"
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "已取消頁面 '{0}' 之工作流程"
@@ -1501,6 +1436,9 @@ msgstr "頁面已被鎖定，無法儲存。"
 msgid "The page could not be saved due to validation errors"
 msgstr "驗證錯誤，無法儲存頁面。"
 
+msgid "Page history"
+msgstr "頁面歷史"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "頁面 '{0}'已解鎖。"
@@ -1526,12 +1464,6 @@ msgstr "發送駁回通知失敗。"
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "頁面 '{0}' 已移動。"
-
-msgid "Earliest"
-msgstr "最早的"
-
-msgid "Latest"
-msgstr "最近的"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -1644,8 +1576,8 @@ msgstr "已禁用作業 '{0}'"
 msgid "Task '{0}' enabled."
 msgstr "已啟用作業 '{0}'"
 
-msgid "Server Error"
-msgstr "伺服器錯誤"
+msgid "Change"
+msgstr "更改"
 
 msgid "Pages"
 msgstr "頁面"
@@ -1721,18 +1653,3 @@ msgstr "是"
 
 msgid "Choose an item"
 msgstr "選擇一項"
-
-msgid "Choose another item"
-msgstr "選擇其它項"
-
-msgid "Clear choice"
-msgstr "清除選擇"
-
-msgid "Choose another page"
-msgstr "選擇其它頁面"
-
-msgid "Choose another task"
-msgstr "選擇其它作業"
-
-msgid "Edit this task"
-msgstr "編輯此作業"

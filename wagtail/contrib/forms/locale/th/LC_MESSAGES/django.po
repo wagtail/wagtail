@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -139,24 +139,6 @@ msgstr "แบบฟอร์ม"
 msgid "Pages"
 msgstr "หลายหน้า"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "การส่งของ %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "รูปแแบข้อมูล <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "คัดกรอง"
-
-msgid "Download CSV"
-msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "ไม่เคยมีการส่งของ '%(title)s' รูปแบบ"
-
 msgid "Title"
 msgstr "หัวข้อ"
 
@@ -174,6 +156,20 @@ msgstr "การส่งล่าสุด"
 
 msgid "No form pages have been created."
 msgstr "ไม่มีหน้าแบบฟอร์มที่ถูกสร้าง"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "การส่งของ %(form_title)s"
+
+msgid "Download CSV"
+msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "ไม่เคยมีการส่งของ '%(title)s' รูปแบบ"
+
+msgid "Filter"
+msgstr "คัดกรอง"
 
 #, python-format
 msgid "One submission has been deleted."

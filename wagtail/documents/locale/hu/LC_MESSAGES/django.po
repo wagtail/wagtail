@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -131,30 +131,14 @@ msgstr "Igen, törlés"
 msgid "No, don't delete"
 msgstr "Nem, ne töröljük"
 
-msgid "Choose a document"
-msgstr "dokumentum kiválasztása"
-
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Upload"
-msgstr "Feltöltés"
-
 msgid "Latest documents"
 msgstr "Legutóbbi dokumentumok"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Sajnos nincs találat a \"<em>%(query_string)s</em>\" kifejezésre"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ebbe a gyűjteménybe még nincs dokumentum feltöltve."
 
 msgid "You haven't uploaded any documents."
 msgstr "Még nem töltött fel dokumentumot."
-
-msgid "Uploading…"
-msgstr "Feltöltés folyamatban…"
 
 msgid "Change document:"
 msgstr "Dokumentum módosítása"
@@ -164,6 +148,12 @@ msgstr "Dokumentum hozzáadása"
 
 msgid "Add document"
 msgstr "Dokumentum hozzáadása"
+
+msgid "Uploading…"
+msgstr "Feltöltés folyamatban…"
+
+msgid "Upload"
+msgstr "Feltöltés"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -210,8 +200,8 @@ msgid "Select document"
 msgstr "Dokumentum kíválasztása"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "ekkor: %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Sajnos nincs találat a \"<em>%(query_string)s</em>\" kifejezésre"
 
 #, python-format
 msgid ""
@@ -326,13 +316,8 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d dokumentum törölve"
 msgstr[1] "%(num_parent_objects)d dokumentum törölve"
 
-msgid "Server Error"
-msgstr "Szerverhiba"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "Hiba jelentése az aminisztrátornak a következő információkkal: "
+msgid "Choose a document"
+msgstr "dokumentum kiválasztása"
 
 msgid "Search documents"
 msgstr "Keresés a dokumentumokban"
@@ -366,9 +351,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s dokumentum"
 msgstr[1] "%(count)s dokumentum"
-
-msgid "Choose another document"
-msgstr "Válasszon másik dokumentumot"
-
-msgid "Edit this document"
-msgstr "Dokumentum szerkesztése"

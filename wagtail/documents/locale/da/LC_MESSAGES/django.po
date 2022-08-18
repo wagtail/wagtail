@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -61,17 +61,11 @@ msgstr "dokumenter"
 msgid "Yes, delete"
 msgstr "Ja, slet"
 
-msgid "Choose a document"
-msgstr "Vælg et dokument"
-
-msgid "Search"
-msgstr "Søg"
+msgid "Uploading…"
+msgstr "Uploading..."
 
 msgid "Upload"
 msgstr "Upload"
-
-msgid "Uploading…"
-msgstr "Uploading..."
 
 #, python-format
 msgid "Delete %(title)s"
@@ -85,10 +79,6 @@ msgstr "Gem"
 
 msgid "Title"
 msgstr "Titel"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
 
 msgid "Parent"
 msgstr "Forældre"
@@ -105,5 +95,5 @@ msgstr "Rediger denne side"
 msgid "Delete"
 msgstr "Slet"
 
-msgid "Server Error"
-msgstr "Server Fejl"
+msgid "Choose a document"
+msgstr "Vælg et dokument"

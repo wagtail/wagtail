@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -157,15 +157,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "Choose an image"
-msgstr "Valige pilt"
-
-msgid "Search"
-msgstr "Otsing"
-
-msgid "Upload"
-msgstr "Laadi üles"
-
 msgid "Popular tags"
 msgstr "Populaarsed sildid"
 
@@ -183,9 +174,6 @@ msgstr "Valige vorming"
 
 msgid "Insert image"
 msgstr "Sisesta pilt"
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
 
 msgid "Change image file:"
 msgstr "Pildifaili muutmine:"
@@ -248,9 +236,6 @@ msgstr "Kujutised"
 
 msgid "Popular Tags:"
 msgstr "Populaarsed sildid:"
-
-msgid "Clear choice"
-msgstr "Selge valik"
 
 msgid "pixels"
 msgstr "pikslit"
@@ -355,6 +340,15 @@ msgstr "Lisage pildiluba"
 msgid "Delete"
 msgstr "Kustuta"
 
+msgid "Upload"
+msgstr "Laadi üles"
+
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
+
+msgid "Choose an image"
+msgstr "Valige pilt"
+
 msgid "Search images"
 msgstr "Piltide otsimine"
 
@@ -392,9 +386,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s pilt"
 msgstr[1] "%(count)s pilti"
-
-msgid "Change image"
-msgstr "Muuda pilti"
-
-msgid "Edit this image"
-msgstr "Muutke seda pilti"

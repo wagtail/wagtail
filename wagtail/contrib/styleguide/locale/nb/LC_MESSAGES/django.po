@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2018\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -31,9 +31,6 @@ msgstr "Lagre"
 
 msgid "Delete image"
 msgstr "Slett bilde"
-
-msgid "Home"
-msgstr "Hjem"
 
 msgid "Search something"
 msgstr "Søk etter noe"

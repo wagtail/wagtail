@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -54,18 +54,6 @@ msgstr "Đúng, xoá đi"
 msgid "No, don't delete"
 msgstr "Không xoá"
 
-msgid "Choose an image"
-msgstr "Chọn một hình ảnh"
-
-msgid "Search"
-msgstr "Tìm kiếm"
-
-msgid "Upload"
-msgstr "Đăng tải"
-
-msgid "Uploading…"
-msgstr "Đang đăng tải..."
-
 msgid "Save"
 msgstr "Lưu"
 
@@ -93,5 +81,11 @@ msgstr "Lỗi Hệ thống"
 msgid "Delete"
 msgstr "Xoá"
 
-msgid "Change image"
-msgstr "Thay đổi hình ảnh"
+msgid "Upload"
+msgstr "Đăng tải"
+
+msgid "Uploading…"
+msgstr "Đang đăng tải..."
+
+msgid "Choose an image"
+msgstr "Chọn một hình ảnh"

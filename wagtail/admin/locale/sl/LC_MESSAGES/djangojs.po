@@ -1,12 +1,12 @@
 #
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
-# Mitja Pagon <mitja.pagon@inueni.com>, 2022
 # Andrej, 2022
+# Mitja Pagon <mitja.pagon@inueni.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2022\n"
 "Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,9 +92,6 @@ msgstr "Raziskovalec strani"
 msgid "Pages"
 msgstr "Strani"
 
-msgid "Redo"
-msgstr "Ponovi"
-
 msgid "Reload saved content"
 msgstr "Ponovno naložite shranjeno vsebino"
 
@@ -152,17 +149,14 @@ msgstr ""
 "Urejevalnik se je pravkar zrušil. Vsebina je bila ponastavljena na zadnjo "
 "shranjeno različico"
 
+msgid "This field is required."
+msgstr "Polje je obvezno."
+
 msgid "Toggle sidebar"
 msgstr "Preklopi stransko vrstico"
-
-msgid "Undo"
-msgstr "Razveljavi"
 
 msgid "Unfocus comment"
 msgstr "Odstrani fokus komentarja"
 
 msgid "View child pages of '{title}'"
 msgstr "Ogled podrejenih strani za  '{title}'"
-
-msgid "Write here…"
-msgstr "Pišite tu..."

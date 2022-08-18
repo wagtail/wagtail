@@ -39,3 +39,6 @@ msgstr "Porcurar"
 
 msgid "Server Error"
 msgstr "Erro do Servidor"
+
+msgid "This field is required."
+msgstr "Este campo é requirido."

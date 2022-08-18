@@ -59,9 +59,6 @@ msgstr "Kaihōpara-a-whārangi"
 msgid "Pages"
 msgstr "Ngā whārangi"
 
-msgid "Redo"
-msgstr "Tukurua"
-
 msgid "Reload saved content"
 msgstr "Uta anō tē rārangi take e puritia."
 
@@ -90,11 +87,8 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Kua pakaru tē ētita. Kua puritia tē rārangi ki te rerenga tuatahi"
 
-msgid "Undo"
-msgstr "Whakakore"
+msgid "This field is required."
+msgstr "Hiahiatia ana tēnei whīra"
 
 msgid "View child pages of '{title}'"
 msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
-
-msgid "Write here…"
-msgstr "Tuhi i konei"

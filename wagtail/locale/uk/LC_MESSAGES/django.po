@@ -6,16 +6,16 @@
 # Anastasiia La, 2021
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2022
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail "
@@ -66,6 +69,15 @@ msgstr "Для цього блоку немає опцій."
 msgid "This field is required."
 msgstr "Це поле необхідно заповнити."
 
+msgid "Wagtail frontend cache"
+msgstr "Фронт-енд кеш Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Карти сайту Wagtail"
+
 msgid "Password"
 msgstr "Пароль"
 
@@ -74,6 +86,75 @@ msgstr "Пароль. який ви ввели, не є коректним. Бу
 
 msgid "Comment"
 msgstr "Коментар"
+
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Сторінка '{}' заблокована</b> <b>вами</b>  на <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Сторінка '{}' заблокована </b> <b>вами</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Сторінка '{}' заблокована </b> користувачем <b>{}</b> на <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Сторінка '{}' заблокована</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Ця сторінка очікує на модерацію."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Ця сторінка очікує <b>'{}'</b> в робочому процесі <b>'{}'</b>."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Лише рецензенти цього завдання можуть редагувати сторінку. "
+
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr "Сторінка '{}' заблокована і запланована до публікації о {}"
+
+msgid "latest revision"
+msgstr "остання ревізія"
+
+msgid "live"
+msgstr "наживо"
+
+msgid "has unpublished changes"
+msgstr "має неопубліковані зміни"
+
+msgid "first published at"
+msgstr "вперше опубліковано о"
+
+msgid "last published at"
+msgstr "востаннє опубліковано о"
+
+msgid "live revision"
+msgstr "опублікована ревізія"
+
+msgid "go live date/time"
+msgstr "дата/час початку живої публікації"
+
+msgid "expiry date/time"
+msgstr "буде доступним до дати/часу"
+
+msgid "expired"
+msgstr "більше не доступне"
+
+msgid "draft"
+msgstr "чернетка"
+
+msgid "live + draft"
+msgstr "наживо + чернетка"
+
+msgid "Default"
+msgstr "Типовий"
+
+msgid "locked"
+msgstr "заблоковано"
+
+msgid "locked at"
+msgstr "заблоковано в"
+
+msgid "locked by"
+msgstr "заблокований"
 
 msgid "title"
 msgstr "заголовок"
@@ -93,12 +174,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "тип вмісту"
-
-msgid "live"
-msgstr "наживо"
-
-msgid "has unpublished changes"
-msgstr "має неопубліковані зміни"
 
 msgid "URL path"
 msgstr "рядок URL"
@@ -134,35 +209,8 @@ msgstr ""
 "Описовий текст, що відображається під заголовком у результатах пошукової "
 "системи."
 
-msgid "go live date/time"
-msgstr "дата/час початку живої публікації"
-
-msgid "expiry date/time"
-msgstr "буде доступним до дати/часу"
-
-msgid "expired"
-msgstr "більше не доступне"
-
-msgid "locked"
-msgstr "заблоковано"
-
-msgid "locked at"
-msgstr "заблоковано в"
-
-msgid "locked by"
-msgstr "заблокований"
-
-msgid "first published at"
-msgstr "вперше опубліковано о"
-
-msgid "last published at"
-msgstr "востаннє опубліковано о"
-
 msgid "latest revision created at"
 msgstr "останню ревізію створено о"
-
-msgid "live revision"
-msgstr "опублікована ревізія"
 
 msgid "This slug is already in use"
 msgstr "Ця коротка назва вже використовується"
@@ -173,26 +221,20 @@ msgstr "заплановано"
 msgid "in moderation"
 msgstr "на модерації"
 
-msgid "draft"
-msgstr "чернетка"
-
 msgid "live + scheduled"
 msgstr "наживо + заплановано"
 
 msgid "live + in moderation"
 msgstr "наживо + на модерації"
 
-msgid "live + draft"
-msgstr "наживо + чернетка"
-
-msgid "Default"
-msgstr "Типовий"
-
 msgid "page"
 msgstr "сторінка"
 
 msgid "pages"
 msgstr "сторінки"
+
+msgid "object id"
+msgstr "ID об'єкту"
 
 msgid "submitted for moderation"
 msgstr "надіслано на модерацію"
@@ -209,11 +251,11 @@ msgstr "вміст JSON"
 msgid "approved go live at"
 msgstr "схвалено до публікації наживо о"
 
-msgid "page revision"
-msgstr "ревізія сторінки"
+msgid "revision"
+msgstr "ревізія"
 
-msgid "page revisions"
-msgstr "ревізії сторінки"
+msgid "revisions"
+msgstr "ревізії"
 
 msgid "Add/edit pages you own"
 msgstr "Додавати/редагувати сторінки, які належать вам"
@@ -389,6 +431,9 @@ msgstr "Пропущено"
 
 msgid "workflow state"
 msgstr "стан робочого процесу"
+
+msgid "page revision"
+msgstr "ревізія сторінки"
 
 msgid "started at"
 msgstr "запущено о"
@@ -575,15 +620,6 @@ msgstr "Для доступу до цієї сторінки необхідни�
 
 msgid "Continue"
 msgstr "Продовжити"
-
-msgid "English"
-msgstr "Англійська"
-
-msgid "French"
-msgstr "Французька"
-
-msgid "German"
-msgstr "Німецька"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -892,11 +928,11 @@ msgid "Workflow: resume task"
 msgstr "Робочий процес: відновити завдання"
 
 #, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Завдання '%(task)s' виконано ще раз. Робочий процес відновлено'"
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Завдання '%(task)s' надіслано ще раз. Робочий процес відновлено"
 
 msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Завдання виконано ще раз. Робочий процес відновлено"
+msgstr "Завдання надіслано ще раз. Робочий процес відновлено"
 
 msgid "Workflow: cancel"
 msgstr "Робочий процес: скасувати"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -20,9 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "لازم. 30 کاراکتر یا کمتر. تنها حروف، اعداد و @/./+/-/_ مجاز هستند."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "این مقدار تنها می‌تواند شامل حروف، اعداد و نویسه های @/./+/-/_ باشد."
@@ -199,10 +196,6 @@ msgstr "فعال"
 
 msgid "Inactive"
 msgstr "غیرفعال"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -74,30 +74,14 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "Choose a document"
-msgstr "Valige dokument"
-
-msgid "Search"
-msgstr "Otsing"
-
-msgid "Upload"
-msgstr "Laadi üles"
-
 msgid "Latest documents"
 msgstr "Viimased dokumendid"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Te pole sellesse kogusse ühtegi dokumenti üles laadinud."
 
 msgid "You haven't uploaded any documents."
 msgstr "Te pole ühtegi dokumenti üles laadinud."
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
 
 msgid "Change document:"
 msgstr "Muuda dokumenti:"
@@ -107,6 +91,12 @@ msgstr "Lisage dokument"
 
 msgid "Add document"
 msgstr "Lisage dokument"
+
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
+
+msgid "Upload"
+msgstr "Laadi üles"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -147,8 +137,8 @@ msgid "Created"
 msgstr "Loodud"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s tagasi"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
 
 #, python-format
 msgid ""
@@ -224,8 +214,8 @@ msgstr "Lisage dokumendi luba"
 msgid "Delete"
 msgstr "Kustuta"
 
-msgid "Server Error"
-msgstr "Serveri viga"
+msgid "Choose a document"
+msgstr "Valige dokument"
 
 msgid "Search documents"
 msgstr "Dokumentide otsimine"
@@ -257,9 +247,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenti."
-
-msgid "Choose another document"
-msgstr "Valige mõni muu dokument"
-
-msgid "Edit this document"
-msgstr "Muutke seda dokumenti"

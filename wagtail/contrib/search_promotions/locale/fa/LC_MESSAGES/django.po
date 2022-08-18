@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -69,7 +69,7 @@ msgstr "حرکت به بالا"
 msgid "Move down"
 msgstr "حرکت به پایین"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "نتایج جستجوی ترویج شده"
 
 msgid "Add recommended page"
@@ -77,9 +77,6 @@ msgstr "افزودن صفحه توصیه شده"
 
 msgid "Search Terms"
 msgstr "عبارات جستجو"
-
-msgid "Promoted search results"
-msgstr "نتایج جستجوی ترویج شده"
 
 msgid "Add new promoted result"
 msgstr "افزودن نتیجه ترویج شده جدید"

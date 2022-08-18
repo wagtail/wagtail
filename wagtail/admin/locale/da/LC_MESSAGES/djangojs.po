@@ -51,9 +51,6 @@ msgstr "Side"
 msgid "Pages"
 msgstr "Sider"
 
-msgid "Redo"
-msgstr "Gå frem"
-
 msgid "Reload saved content"
 msgstr "Genindlæs gemt indhold"
 
@@ -87,8 +84,5 @@ msgstr ""
 "Redigeringsprogrammet crashede. Indholdet er blevet sat til den nyeste gemte "
 "version."
 
-msgid "Undo"
-msgstr "Gå tilbage"
-
-msgid "Write here…"
-msgstr "Skriv her..."
+msgid "This field is required."
+msgstr "Dette felt er påkrævet."

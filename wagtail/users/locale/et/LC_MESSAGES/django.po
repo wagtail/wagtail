@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,9 +22,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail kasutajad"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Nõutud. 30 tähemärki või vähem. Ainult tähed, numbrid ja @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "See väärtus võib sisaldada ainult tähti, numbreid ja @/./+/-/_  märke."
@@ -141,9 +138,6 @@ msgstr "Kuva selle grupi kasutajad"
 msgid "Save"
 msgstr "Salvesta"
 
-msgid "Permissions"
-msgstr "Load"
-
 msgid "Object permissions"
 msgstr "Objekti load"
 
@@ -221,10 +215,6 @@ msgstr "Aktiivne"
 
 msgid "Inactive"
 msgstr "Mitteaktiivne"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s tagasi"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

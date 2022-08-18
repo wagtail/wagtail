@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -144,30 +144,14 @@ msgstr "Sim, apagar"
 msgid "No, don't delete"
 msgstr "Não, não apagar"
 
-msgid "Choose a document"
-msgstr "Escolher um documento"
-
-msgid "Search"
-msgstr "Pesquisar"
-
-msgid "Upload"
-msgstr "Carregar"
-
 msgid "Latest documents"
 msgstr "Últimos documentos"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ainda não carregou nenhum documento para esta coleção."
 
 msgid "You haven't uploaded any documents."
 msgstr "Ainda não carregou nenhum documento"
-
-msgid "Uploading…"
-msgstr "A carregar…"
 
 msgid "Change document:"
 msgstr "Alterar documento:"
@@ -177,6 +161,12 @@ msgstr "Adicionar um documento"
 
 msgid "Add document"
 msgstr "Adicionar documento"
+
+msgid "Uploading…"
+msgstr "A carregar…"
+
+msgid "Upload"
+msgstr "Carregar"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -223,8 +213,8 @@ msgid "Select document"
 msgstr "Selecionar documento"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s atrás"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -343,15 +333,8 @@ msgstr[0] "%(num_parent_objects)ddocumento foi apagado"
 msgstr[1] "%(num_parent_objects)ddocumentos foram apagados"
 msgstr[2] "%(num_parent_objects)ddocumentos foram apagados"
 
-msgid "Server Error"
-msgstr "Erro no Servidor"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Reporte este erro ao administrador do seu site, incluindo a seguinte "
-"informação:"
+msgid "Choose a document"
+msgstr "Escolher um documento"
 
 msgid "Search documents"
 msgstr "Pesquisar documentos"
@@ -385,9 +368,3 @@ msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s documento"
 msgstr[1] "%(count)s documentos"
 msgstr[2] "%(count)s documentos"
-
-msgid "Choose another document"
-msgstr "Escolher outro documento"
-
-msgid "Edit this document"
-msgstr "Alterar este documento"

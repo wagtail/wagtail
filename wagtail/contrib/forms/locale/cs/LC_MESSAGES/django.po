@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -157,27 +157,6 @@ msgstr "Formuláře"
 msgid "Pages"
 msgstr "Stránky"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Odeslané formuláře %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Data formuláře <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtr"
-
-msgid "Download XLSX"
-msgstr "Stáhnout XLSX"
-
-msgid "Download CSV"
-msgstr "Stáhnout CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Zatím nikdo nevyplnil formulář '%(title)s'."
-
 msgid "Title"
 msgstr "Název"
 
@@ -195,6 +174,26 @@ msgstr "Poslední odeslání"
 
 msgid "No form pages have been created."
 msgstr "Žádné stránky s formuláři nebyly vytvořeny."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Odeslané formuláře %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Zatím nikdo nevyplnil formulář '%(title)s'."
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Apply filters"
+msgstr "Použít filtry"
 
 #, python-format
 msgid "One submission has been deleted."

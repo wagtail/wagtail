@@ -3,12 +3,12 @@
 # mahulst, 2022
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
-# Loic Teixeira, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -92,9 +92,6 @@ msgstr "Paginaverkenner"
 msgid "Pages"
 msgstr "Pagina's"
 
-msgid "Redo"
-msgstr "Opnieuw doen"
-
 msgid "Reload saved content"
 msgstr "Herlaad opgeslagen inhoud"
 
@@ -103,6 +100,11 @@ msgstr "Herlaad de pagina"
 
 msgid "Reply"
 msgstr "Reageer"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Meld deze fout aan uw websitebeheerder, en vermeld het volgende:"
 
 msgid "Resolve"
 msgstr "Markeer als opgelost"
@@ -152,17 +154,14 @@ msgstr ""
 "De editor is zojuist vastgelopen. De inhoud is teruggezet naar de laatst "
 "opgeslagen versie."
 
+msgid "This field is required."
+msgstr "Dit veld is verplicht."
+
 msgid "Toggle sidebar"
 msgstr "Toon/verberg zijbalk"
-
-msgid "Undo"
-msgstr "Ongedaan maken"
 
 msgid "Unfocus comment"
 msgstr "Ontfocus opmerking"
 
 msgid "View child pages of '{title}'"
 msgstr "Toon onderliggende pagina's van '{title}'"
-
-msgid "Write here…"
-msgstr "Schrijf hier..."

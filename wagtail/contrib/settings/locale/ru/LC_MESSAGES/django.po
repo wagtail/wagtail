@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Anatoly <pandorinpan@gmail.com>, 2021\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -32,13 +32,6 @@ msgstr ""
 
 msgid "default"
 msgstr "по умолчанию"
-
-#, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Редактирование %(setting_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Редактирование"
 
 msgid "Site"
 msgstr "Сайт"

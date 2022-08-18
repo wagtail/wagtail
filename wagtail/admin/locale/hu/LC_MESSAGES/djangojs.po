@@ -87,9 +87,6 @@ msgstr "Intéző"
 msgid "Pages"
 msgstr "Oldalak"
 
-msgid "Redo"
-msgstr "Újra"
-
 msgid "Reload saved content"
 msgstr "Mentett tartalom újratöltése"
 
@@ -98,6 +95,11 @@ msgstr "Oldal újratöltése"
 
 msgid "Reply"
 msgstr "Válasz"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Hiba jelentése az aminisztrátornak a következő információkkal: "
 
 msgid "Resolve"
 msgstr "Megoldás"
@@ -144,17 +146,14 @@ msgstr ""
 "A szerkesztő összeomlott. A tartalom vissza lett állítva az utolsó mentett "
 "verzióra."
 
+msgid "This field is required."
+msgstr "Ennek a mezőnek a megadása kötelező."
+
 msgid "Toggle sidebar"
 msgstr "Oldalsáv kapcsolása"
-
-msgid "Undo"
-msgstr "Visszavonás"
 
 msgid "Unfocus comment"
 msgstr "Megjegyzés kivétele a fókuszból"
 
 msgid "View child pages of '{title}'"
 msgstr "'{title}' gyerekoldalainak megtekintése"
-
-msgid "Write here…"
-msgstr "Írjon ide..."

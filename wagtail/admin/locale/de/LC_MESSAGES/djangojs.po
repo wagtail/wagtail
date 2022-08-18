@@ -2,21 +2,20 @@
 # Translators:
 # Patrick Hebner <hebner.tec@gmail.com>, 2022
 # karlsander <karlsander@gmail.com>, 2022
-# Scriptim <Scriptim@gmx.de>, 2022
 # Norman Uekermann <nue@melexis.com>, 2022
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2022
 # Peter Dreuw <archandha@gmx.net>, 2022
-# Ettore Atalan <atalanttore@googlemail.com>, 2022
 # Henrik Kröger <hedwig@riseup.net>, 2022
-# Herbert Poul, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
-# oliverengel <codeangel@posteo.de>, 2022
 # aw.wunderweiss, 2022
+# oliverengel <codeangel@posteo.de>, 2022
+# Ettore Atalan <atalanttore@googlemail.com>, 2022
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: aw.wunderweiss, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
@@ -31,11 +30,17 @@ msgstr "Alternativtext"
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
+msgid "Blocks"
+msgstr "Blöcke"
+
 msgid "Broken link"
 msgstr "Defekter Link"
 
 msgid "Cancel"
 msgstr "Abbrechen"
+
+msgid "Character count:"
+msgstr "Zeichenanzahl:"
 
 msgid "Close"
 msgstr "Schließen"
@@ -67,11 +72,23 @@ msgstr "‚{title}‘ bearbeiten"
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
 
+msgid "Enter your comments..."
+msgstr "Geben Sie Ihre Kommentare ein..."
+
+msgid "Enter your reply..."
+msgstr "Geben Sie Ihre Antwort ein..."
+
+msgid "Error while sending preview data."
+msgstr "Fehler beim Senden der Vorschaudaten."
+
 msgid "Focus comment"
 msgstr "Kommentar fokussieren"
 
 msgid "Horizontal line"
 msgstr "Horizontale Linie"
+
+msgid "Insert a block"
+msgstr "Einen Block einfügen"
 
 msgid "Line break"
 msgstr "Zeilenumbruch"
@@ -100,9 +117,6 @@ msgstr "Seitenübersicht"
 msgid "Pages"
 msgstr "Seiten"
 
-msgid "Redo"
-msgstr "Wiederholen"
-
 msgid "Reload saved content"
 msgstr "Gespeicherten Inhalt erneut laden"
 
@@ -112,11 +126,21 @@ msgstr "Seite erneut laden"
 msgid "Reply"
 msgstr "Antworten"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenadministrator mit der folgenden "
+"Information:"
+
 msgid "Resolve"
 msgstr "Lösen"
 
 msgid "Retry"
 msgstr "Wiederholen"
+
+msgid "Rich text"
+msgstr "Rich Text"
 
 msgid "Save"
 msgstr "Speichern"
@@ -125,19 +149,22 @@ msgid "Save error"
 msgstr "Fehler speichern"
 
 msgid "Save the page to add this comment"
-msgstr "Speichere die Seite um den Kommentar hinzuzufügen"
+msgstr "Speichern Sie die Seite um den Kommentar hinzuzufügen"
 
 msgid "Save the page to save this comment"
-msgstr "Speichere die Seite um den Kommentar zu speichern"
+msgstr "Speichern Sie die Seite um den Kommentar zu speichern"
 
 msgid "Save the page to save this reply"
-msgstr "Speichere die Seite um diese Antwort zu speichern"
+msgstr "Speichern Sie die Seite um diese Antwort zu speichern"
 
 msgid "Saving..."
 msgstr "Speichern..."
 
 msgid "Search"
 msgstr "Suche"
+
+msgid "Search blocks"
+msgstr "Blöcke suchen"
 
 msgid "See all"
 msgstr "Alles einsehen"
@@ -160,11 +187,11 @@ msgstr ""
 "Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
 "Version zurückgesetzt."
 
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
 msgid "Toggle sidebar"
 msgstr "Seitenleiste ein-/ausblenden"
-
-msgid "Undo"
-msgstr "Rückgängig"
 
 msgid "Unfocus comment"
 msgstr "Fokussierung des Kommentars aufheben"
@@ -172,5 +199,5 @@ msgstr "Fokussierung des Kommentars aufheben"
 msgid "View child pages of '{title}'"
 msgstr "Unterseiten von ‚{title}‘ anzeigen"
 
-msgid "Write here…"
-msgstr "Hier schreiben..."
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Schreiben Sie etwas oder geben Sie „/“ ein, um einen Block einzufügen"

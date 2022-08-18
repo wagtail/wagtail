@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -70,7 +70,7 @@ msgstr "Muda ba leten"
 msgid "Move down"
 msgstr "Muda ba karik"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Promove rezultadu peskiza"
 
 msgid "Add recommended page"
@@ -78,9 +78,6 @@ msgstr "Aumenta pájina rekomenda"
 
 msgid "Search Terms"
 msgstr "Termu peskiza"
-
-msgid "Promoted search results"
-msgstr "Promove rezultadu peskiza"
 
 msgid "Add new promoted result"
 msgstr "Aumenta rezultadu foun ne'ebé promove"

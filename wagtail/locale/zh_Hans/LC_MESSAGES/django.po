@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -78,6 +78,69 @@ msgstr "密码错误，请重新输入"
 msgid "Comment"
 msgstr "评论"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>页面 '{}' </b> 已被 <b>你</b> 锁定于<b>{}</b>。"
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>页面 '{}'</b> 已被<b>你</b>锁定。"
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>页面 '{}' </b> 已被 <b>{}</b> 锁定于<b>{}</b>。"
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>页面 '{}' 已被锁定</b>。"
+
+msgid "This page is currently awaiting moderation."
+msgstr "此页面当前在等待审核。"
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "此页面在等待<b>‘{}’</b>，在<b>'{}'</b>工作流中"
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "只有此任务的审阅者才能编辑页面。"
+
+msgid "live"
+msgstr "在用"
+
+msgid "has unpublished changes"
+msgstr "有未发布的修改"
+
+msgid "first published at"
+msgstr "第一次发布于"
+
+msgid "last published at"
+msgstr "最后发布于"
+
+msgid "live revision"
+msgstr "发布版本"
+
+msgid "go live date/time"
+msgstr "上线日期/时间"
+
+msgid "expiry date/time"
+msgstr "过期日期/时间"
+
+msgid "expired"
+msgstr "已过期"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + draft"
+msgstr "发布+草稿"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "locked"
+msgstr "已锁定"
+
+msgid "locked at"
+msgstr "锁定于"
+
+msgid "locked by"
+msgstr "锁定人"
+
 msgid "title"
 msgstr "标题"
 
@@ -94,12 +157,6 @@ msgstr "用于URL的页面名称，如http://domain.com/work/[my-work]/"
 
 msgid "content type"
 msgstr "内容类型"
-
-msgid "live"
-msgstr "在用"
-
-msgid "has unpublished changes"
-msgstr "有未发布的修改"
 
 msgid "URL path"
 msgstr "URL路径"
@@ -130,35 +187,8 @@ msgid ""
 "results."
 msgstr "显示在搜索引擎结果中，位于标题之下的描述性文字。"
 
-msgid "go live date/time"
-msgstr "上线日期/时间"
-
-msgid "expiry date/time"
-msgstr "过期日期/时间"
-
-msgid "expired"
-msgstr "已过期"
-
-msgid "locked"
-msgstr "已锁定"
-
-msgid "locked at"
-msgstr "锁定于"
-
-msgid "locked by"
-msgstr "锁定人"
-
-msgid "first published at"
-msgstr "第一次发布于"
-
-msgid "last published at"
-msgstr "最后发布于"
-
 msgid "latest revision created at"
 msgstr "最近修订版本创建于"
-
-msgid "live revision"
-msgstr "发布版本"
 
 msgid "This slug is already in use"
 msgstr "此缩略名已被使用"
@@ -169,20 +199,11 @@ msgstr "已计划"
 msgid "in moderation"
 msgstr "审核中"
 
-msgid "draft"
-msgstr "草稿"
-
 msgid "live + scheduled"
 msgstr "在用 + 已计划"
 
 msgid "live + in moderation"
 msgstr "发布+审核中"
-
-msgid "live + draft"
-msgstr "发布+草稿"
-
-msgid "Default"
-msgstr "默认"
 
 msgid "page"
 msgstr "页面"
@@ -204,12 +225,6 @@ msgstr "内容JSON"
 
 msgid "approved go live at"
 msgstr "批准上线时间"
-
-msgid "page revision"
-msgstr "页版本"
-
-msgid "page revisions"
-msgstr "页版本"
 
 msgid "Add/edit pages you own"
 msgstr "添加/编辑所属的页面"
@@ -377,6 +392,9 @@ msgstr "已跳过"
 
 msgid "workflow state"
 msgstr "工作流状态"
+
+msgid "page revision"
+msgstr "页版本"
 
 msgid "started at"
 msgstr "启动于"
@@ -556,15 +574,6 @@ msgstr "你需要访问该页面的密码。"
 
 msgid "Continue"
 msgstr "继续"
-
-msgid "English"
-msgstr "英语"
-
-msgid "French"
-msgstr "法语"
-
-msgid "German"
-msgstr "德语"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -864,10 +873,6 @@ msgstr "工作流任务已拒绝，工作流完成"
 
 msgid "Workflow: resume task"
 msgstr "工作流：恢复任务"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "重新提交“%(task)s”，工作流已恢复"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "工作流任务已重新提交，工作流已恢复"

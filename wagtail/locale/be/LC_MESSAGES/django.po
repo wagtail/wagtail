@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -60,6 +60,57 @@ msgstr "Пароль"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Уведзены вамі пароль няправільны. Паспрабуйце яшчэ раз."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Старонка '{}' была заблакавана</b><b>Вамі</b> у <b> {} </b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Старонка '{}' заблакавана</b><b>Вамі</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Старонка '{}' была заблакавана <b>{}</b> у <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Старонка '{}' заблакавана</b>."
+
+msgid "live"
+msgstr "апублікавана"
+
+msgid "has unpublished changes"
+msgstr "мае неапублікаваныя змены"
+
+msgid "first published at"
+msgstr "ўпершыню апублікавана"
+
+msgid "last published at"
+msgstr "апошні раз друкавалася"
+
+msgid "go live date/time"
+msgstr "дата / час публікацыі"
+
+msgid "expiry date/time"
+msgstr "дата / час заканчэння"
+
+msgid "expired"
+msgstr "скончыўся"
+
+msgid "draft"
+msgstr "чарнавік"
+
+msgid "live + draft"
+msgstr "апублікавана + чарнавік"
+
+msgid "Default"
+msgstr "Па змаўчанні"
+
+msgid "locked"
+msgstr "заблакавана"
+
+msgid "locked at"
+msgstr "заблякаваны ў"
+
+msgid "locked by"
+msgstr "заблякаваны"
+
 msgid "title"
 msgstr "загаловак"
 
@@ -79,12 +130,6 @@ msgstr ""
 msgid "content type"
 msgstr "тып змесціва"
 
-msgid "live"
-msgstr "апублікавана"
-
-msgid "has unpublished changes"
-msgstr "мае неапублікаваныя змены"
-
 msgid "URL path"
 msgstr "шлях URL"
 
@@ -100,30 +145,6 @@ msgstr ""
 "Ці павінна спасылка на гэтую старонку адлюстроўвацца ў аўтаматычна "
 "генераваных меню"
 
-msgid "go live date/time"
-msgstr "дата / час публікацыі"
-
-msgid "expiry date/time"
-msgstr "дата / час заканчэння"
-
-msgid "expired"
-msgstr "скончыўся"
-
-msgid "locked"
-msgstr "заблакавана"
-
-msgid "locked at"
-msgstr "заблякаваны ў"
-
-msgid "locked by"
-msgstr "заблякаваны"
-
-msgid "first published at"
-msgstr "ўпершыню апублікавана"
-
-msgid "last published at"
-msgstr "апошні раз друкавалася"
-
 msgid "latest revision created at"
 msgstr "апошняя версія створана"
 
@@ -133,17 +154,8 @@ msgstr "Гэты моцна складаны ўжо выкарыстоўваец
 msgid "scheduled"
 msgstr "запланаванае"
 
-msgid "draft"
-msgstr "чарнавік"
-
 msgid "live + scheduled"
 msgstr "размешчана + запланаваная"
-
-msgid "live + draft"
-msgstr "апублікавана + чарнавік"
-
-msgid "Default"
-msgstr "Па змаўчанні"
 
 msgid "page"
 msgstr "старонка"
@@ -165,12 +177,6 @@ msgstr "сожержимое JSON"
 
 msgid "approved go live at"
 msgstr "пацверджана да публікацыі"
-
-msgid "page revision"
-msgstr "версія старонкі"
-
-msgid "page revisions"
-msgstr "версіі старонкі"
 
 msgid "Add/edit pages you own"
 msgstr "Дадаць / рэдагаваць свае старонкі"
@@ -231,6 +237,9 @@ msgstr "групы"
 
 msgid "Approve"
 msgstr "Пацвярдзіць"
+
+msgid "page revision"
+msgstr "версія старонкі"
 
 msgid "collection"
 msgstr "калекцыя"
@@ -348,15 +357,6 @@ msgstr "Вам патрэбен пароль для доступу да гэта
 
 msgid "Continue"
 msgstr "Працягнуць"
-
-msgid "English"
-msgstr "Англійская"
-
-msgid "French"
-msgstr "Французская"
-
-msgid "German"
-msgstr "Нямецкая"
 
 msgid "Created"
 msgstr "Створаны"

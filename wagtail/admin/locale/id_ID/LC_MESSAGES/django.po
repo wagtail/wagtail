@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Reshi Mahendra <reshimahendra@gmail.com>, 2020\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -45,9 +45,6 @@ msgstr "Batalkan alur kerja"
 
 msgid "Unpublish"
 msgstr "Tarik publikasi"
-
-msgid "Delete"
-msgstr "Hapus"
 
 msgid "Save Draft"
 msgstr "Simpan konsep"
@@ -111,6 +108,18 @@ msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Kata kunci pencarian"
+
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "All collections"
+msgstr "Semua koleksi"
+
+msgid "Collection"
+msgstr "Koleksi"
+
 msgid "Parent"
 msgstr "Induk"
 
@@ -118,14 +127,14 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Anda tidak boleh memiliki lebih dari satu izin untuk koleksi yang sama."
 
-msgid "Collection"
-msgstr "Koleksi"
-
 msgid "Add"
 msgstr "Tambah"
 
 msgid "Edit"
 msgstr "Ubah"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "New title"
 msgstr "Judul baru"
@@ -194,12 +203,6 @@ msgstr "Waktu publikasi harus diatur sebelum waktu kadaluarsa"
 msgid "Expiry date/time must be in the future"
 msgstr "Waktu kadaluarsa harus di masa depan"
 
-msgid "Search"
-msgstr "Pencarian"
-
-msgid "Search term"
-msgstr "Kata kunci pencarian"
-
 msgid "Visibility"
 msgstr "Visibilitas"
 
@@ -215,9 +218,6 @@ msgstr "Semua tipe"
 msgid "Scheduled publishing"
 msgstr "Penerbitan terjadwal"
 
-msgid "Privacy"
-msgstr "Privasi"
-
 msgid "Content"
 msgstr "Konten"
 
@@ -226,12 +226,6 @@ msgstr "Promosikan"
 
 msgid "Settings"
 msgstr "Pengaturan"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Preview"
-msgstr "Pratinjau"
 
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
@@ -247,14 +241,6 @@ msgstr "Pergi ke pengelolaan Wagtail"
 
 msgid "Account"
 msgstr "Akun"
-
-msgid "Change password"
-msgstr "Ganti kata sandi"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Kata sandi Anda tidak dapat diubah di sini. Harap hubungi pengelola situs."
 
 msgid "Reset password"
 msgstr "Atur ulang kata sandi"
@@ -327,6 +313,13 @@ msgstr "Sisipkan tautan"
 msgid "Add an external link"
 msgstr "Tambahkan tautan luar"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Menjelajah sub-halaman dari '%(title)s'"
+
+msgid "Explore"
+msgstr "Jelajahi"
+
 msgid "Collection privacy"
 msgstr "Privasi koleksi"
 
@@ -336,14 +329,17 @@ msgstr "Koleksi ini diubah menjadi bersifat pribadi oleh halaman induknya."
 msgid "You can edit the privacy settings on:"
 msgstr "Anda dapat mengubah konfigurasi privasi pada:"
 
+msgid "Save"
+msgstr "Simpan"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Konfigurasi privasi menentukan siapa yang dapat melihat isi dokumen dalam "
 "koleksi ini."
 
-msgid "Save"
-msgstr "Simpan"
+msgid "Privacy"
+msgstr "Privasi"
 
 msgid "Public"
 msgstr "Publik"
@@ -373,8 +369,18 @@ msgstr "Ya, hapus"
 msgid "Update"
 msgstr "Perbarui"
 
-msgid "Dashboard"
-msgstr "Dasbor"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Membandingkan %(title)s"
+
+msgid "Comparing"
+msgstr "Membandingkan"
+
+msgid "Fields"
+msgstr "Kolom-kolom"
+
+msgid "Changes"
+msgstr "Perubahan"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -420,8 +426,14 @@ msgstr "Menyetujui"
 msgid "Reject"
 msgstr "Tolak"
 
+msgid "Preview"
+msgstr "Pratinjau"
+
 msgid "Your most recent edits"
 msgstr "Perubahan terakhir yang anda lakukan"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Date"
 msgstr "Tanggal"
@@ -438,13 +450,13 @@ msgstr "Menunggu tinjauan anda"
 msgid "Sign in"
 msgstr "Masuk"
 
+msgid "Sign in to Wagtail"
+msgstr "Masuk ke Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "%(username_field)s dan kata sandi anda tidak cocok. Silakan coba kembali."
-
-msgid "Sign in to Wagtail"
-msgstr "Masuk ke Wagtail"
 
 msgid "Signing in…"
 msgstr "Melakukan Sign In..."
@@ -495,10 +507,6 @@ msgstr "Privasi halaman"
 msgid "This page has been made private by a parent page."
 msgstr ""
 "Halaman ini telah dibuat menjadi bersifat pribadi oleh halaman induknya."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Perubahan privasi juga berlaku untuk semua keturunan dari halaman induk ini."
 
 msgid "Publishing…"
 msgstr "Mempublikasikan..."
@@ -575,15 +583,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Ya, pindahkan halaman ini"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tarik publikasi %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Apakan anda yakin akan menarik publikasi halaman ini?"
-
-msgid "Yes, unpublish it"
-msgstr "Ya, tarik publikasi"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -623,18 +624,11 @@ msgid "Current draft"
 msgstr "Konsep saat ini"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yang lalu"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Menjelajah %(title)s"
 
 msgid "Drag"
 msgstr "Seret"
-
-msgid "Updated"
-msgstr "Telah diubah"
 
 msgid "Configure a site now."
 msgstr "Atur sebuah situs sekarang."
@@ -648,13 +642,6 @@ msgstr "Bagaimana kalau <a href=\"%(add_page_url)s\">buat sebuah</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Halaman ini dikunci sehingga tidak dapat diubah"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Menjelajah sub-halaman dari '%(title)s'"
-
-msgid "Explore"
-msgstr "Jelajahi"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -682,35 +669,11 @@ msgstr "Nonaktifkan pengurutan halaman turunan "
 msgid "Enable ordering of child pages"
 msgstr "Aktifkan pengurutan halaman turunan"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Pilih halaman induk baru untuk %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Pilih halaman induk baru untuk <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "Galat pratinjau"
-
-msgid "Close"
-msgstr "Tutup"
+msgid "Updated"
+msgstr "Telah diubah"
 
 msgid "Cancel scheduled publish"
 msgstr "Batalkan publikasi terjadwal"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Membandingkan %(title)s"
-
-msgid "Comparing"
-msgstr "Membandingkan"
-
-msgid "Fields"
-msgstr "Kolom-kolom"
-
-msgid "Changes"
-msgstr "Perubahan"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -734,15 +697,6 @@ msgstr "Jenis Halaman"
 msgid "Enter a search term above"
 msgstr "Masukkan kata kunci pencarian di atas"
 
-msgid "Locked"
-msgstr "Terkunci"
-
-msgid "Unlocked"
-msgstr "Kunci terbuka"
-
-msgid "Lock"
-msgstr "Kunci"
-
 msgid "No pages use"
 msgstr "Tidak ada halaman yang menggunakan"
 
@@ -762,8 +716,8 @@ msgstr "Geser ke bawah"
 msgid "Download CSV"
 msgstr "Unduh CSV"
 
-msgid "Filter"
-msgstr "Saring"
+msgid "Locked"
+msgstr "Terkunci"
 
 msgid "Edit this item"
 msgstr "Ubah ini"
@@ -784,14 +738,28 @@ msgstr "Halaman %(page_num)s dari %(total_pages)s."
 msgid "Root"
 msgstr "Dasar"
 
-msgid "Home"
-msgstr "Beranda"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Tarik publikasi %(title)s"
 
-msgid "All collections"
-msgstr "Semua koleksi"
+msgid "Yes, unpublish it"
+msgstr "Ya, tarik publikasi"
+
+msgid "Filter"
+msgstr "Saring"
 
 msgid "Other searches"
 msgstr "Pencarian yang lain"
+
+msgid "Unlocked"
+msgstr "Kunci terbuka"
+
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Perubahan privasi juga berlaku untuk semua keturunan dari halaman induk ini."
 
 msgid "Add a child page"
 msgstr "Tambah turunan halaman"
@@ -802,30 +770,18 @@ msgstr "Tampilkan di Penjelajah"
 msgid "New"
 msgstr "Baru"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "oleh %(modified_by)s"
-
 msgid "Compare with live version"
 msgstr "Bandingkan dengan versi aktif"
 
 msgid "More"
 msgstr "Lainnya"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
+
 msgid "Log out"
 msgstr "Keluar"
-
-msgid "live"
-msgstr "aktif"
-
-msgid "draft"
-msgstr "konsep"
-
-msgid "live + draft"
-msgstr "aktif + konsep"
-
-msgid "Test"
-msgstr "Uji"
 
 msgid "Password"
 msgstr "Kata Kunci"
@@ -865,6 +821,15 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 
 msgid "Editing"
 msgstr "Mengubah"
+
+msgid "Earliest"
+msgstr "Paling awal"
+
+msgid "Latest"
+msgstr "Paling akhir"
+
+msgid "Dashboard"
+msgstr "Dasbor"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -954,12 +919,6 @@ msgstr "Gagal mengirim notifikasi penolakan"
 msgid "Page '{0}' moved."
 msgstr "Halaman '{0}' telah dipindah."
 
-msgid "Earliest"
-msgstr "Paling awal"
-
-msgid "Latest"
-msgstr "Paling akhir"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revisi {0} dari \"{1}\""
@@ -974,8 +933,8 @@ msgstr "Tampilkan"
 msgid "Awaiting my review"
 msgstr "Menunggu ulasan saya"
 
-msgid "Server Error"
-msgstr "Galat pada Server"
+msgid "Change"
+msgstr "Ubah"
 
 msgid "Pages"
 msgstr "Halaman"
@@ -1000,12 +959,3 @@ msgstr "Tautan"
 
 msgid "Choose an item"
 msgstr "Pilih salah satu"
-
-msgid "Choose another item"
-msgstr "Pilih yang lain"
-
-msgid "Clear choice"
-msgstr "Kosongkan pilihan"
-
-msgid "Choose another page"
-msgstr "Pilih halaman lain"

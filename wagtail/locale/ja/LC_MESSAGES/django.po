@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Goto Hayato <habita.gh@gmail.com>, 2021\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -70,6 +70,42 @@ msgstr "入力されたパスワードは正しくありませんでした。再
 msgid "Comment"
 msgstr "コメント"
 
+msgid "live"
+msgstr "公開"
+
+msgid "has unpublished changes"
+msgstr "変更が適用されていません"
+
+msgid "first published at"
+msgstr "最初の公開日時"
+
+msgid "last published at"
+msgstr "最終の公開日時"
+
+msgid "go live date/time"
+msgstr "公開予定日時"
+
+msgid "expiry date/time"
+msgstr "有効期限"
+
+msgid "expired"
+msgstr "失効"
+
+msgid "draft"
+msgstr "下書き"
+
+msgid "live + draft"
+msgstr "公開 + 下書き"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "locked"
+msgstr "ロックされています"
+
+msgid "locked at"
+msgstr "ロック日時"
+
 msgid "title"
 msgstr "タイトル"
 
@@ -86,12 +122,6 @@ msgstr "URLに表示したいページ名（例：http://domain.com/blog/[my-slu
 
 msgid "content type"
 msgstr "コンテンツの種類"
-
-msgid "live"
-msgstr "公開"
-
-msgid "has unpublished changes"
-msgstr "変更が適用されていません"
 
 msgid "URL path"
 msgstr "URLパス"
@@ -117,27 +147,6 @@ msgid ""
 "results."
 msgstr "検索エンジンの検索結果でヘッドラインの下に表示される説明テキスト。"
 
-msgid "go live date/time"
-msgstr "公開予定日時"
-
-msgid "expiry date/time"
-msgstr "有効期限"
-
-msgid "expired"
-msgstr "失効"
-
-msgid "locked"
-msgstr "ロックされています"
-
-msgid "locked at"
-msgstr "ロック日時"
-
-msgid "first published at"
-msgstr "最初の公開日時"
-
-msgid "last published at"
-msgstr "最終の公開日時"
-
 msgid "latest revision created at"
 msgstr "最終更新日時"
 
@@ -147,17 +156,8 @@ msgstr "このスラッグはすでに使われています"
 msgid "scheduled"
 msgstr "予定日"
 
-msgid "draft"
-msgstr "下書き"
-
 msgid "live + scheduled"
 msgstr "公開 + 予定日"
-
-msgid "live + draft"
-msgstr "公開 + 下書き"
-
-msgid "Default"
-msgstr "デフォルト"
 
 msgid "page"
 msgstr "ページ"
@@ -179,12 +179,6 @@ msgstr "JSONコンテンツ"
 
 msgid "approved go live at"
 msgstr "承認済み・公開予定："
-
-msgid "page revision"
-msgstr "ページの修正"
-
-msgid "page revisions"
-msgstr "ページの修正"
 
 msgid "Add/edit pages you own"
 msgstr "自分のページを追加/編集"
@@ -290,6 +284,9 @@ msgstr "ワークフローの状態"
 
 msgid "Workflow states"
 msgstr "ワークフローの状態"
+
+msgid "page revision"
+msgstr "ページの修正"
 
 msgid "Task state"
 msgstr "タスクの状態"
@@ -441,15 +438,6 @@ msgstr "このページへアクセスするためにはパスワードが必要
 
 msgid "Continue"
 msgstr "続ける"
-
-msgid "English"
-msgstr "英語"
-
-msgid "French"
-msgstr "フランス語"
-
-msgid "German"
-msgstr "ドイツ語"
 
 msgid "Create"
 msgstr "作成"

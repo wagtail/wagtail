@@ -13,6 +13,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
+# Matti Borchers, 2022
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
@@ -27,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -264,15 +265,6 @@ msgstr "Ja, löschen"
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
 
-msgid "Choose an image"
-msgstr "Bild auswählen"
-
-msgid "Search"
-msgstr "Suche"
-
-msgid "Upload"
-msgstr "Hochladen"
-
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
 
@@ -295,23 +287,27 @@ msgstr "Neues Bild verwenden"
 msgid "Use existing and delete new"
 msgstr "Vorhandenes verwenden und neues löschen"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
-
 msgid "Latest images"
 msgstr "Neueste Bilder"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Sie haben in dieser Sammlung keine Bilder hochgeladen."
+
+msgid "You haven't uploaded any images."
+msgstr "Sie haben noch keine Bilder hochgeladen."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Warum nicht <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>ein neues hochladen</a>?"
 
 msgid "Choose a format"
 msgstr "Wählen Sie ein Format aus"
 
 msgid "Insert image"
 msgstr "Bild einfügen"
-
-msgid "Uploading…"
-msgstr "Wird hochgeladen…"
 
 #, python-format
 msgid ""
@@ -355,6 +351,9 @@ msgstr "Bild %(title)s bearbeiten"
 msgid "Editing"
 msgstr "Bearbeiten"
 
+msgid "Image focal point"
+msgstr "Bildfokuspunkt"
+
 msgid "URL Generator"
 msgstr "URL Generator"
 
@@ -392,14 +391,26 @@ msgstr "Benutzung"
 msgid "Images"
 msgstr "Bilder"
 
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid "Entries per page"
+msgstr "Einträge pro Seite"
+
 msgid "Popular Tags:"
 msgstr "Häufig verwendete Schlagwörter:"
 
-msgid "Clear choice"
-msgstr "Auswahl löschen"
+msgid "Clear"
+msgstr "Zurücksetzen"
 
 msgid "Select all images in listing"
 msgstr "Alle Bilder in der Aufzählung auswählen"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
 
 msgid "Select image"
 msgstr "Bild auswählen"
@@ -555,6 +566,33 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d Bild wurde gelöscht"
 msgstr[1] "%(num_parent_objects)d Bilder wurden gelöscht"
 
+msgid "Upload"
+msgstr "Hochladen"
+
+msgid "Uploading…"
+msgstr "Wird hochgeladen…"
+
+msgid "Choose an image"
+msgstr "Bild auswählen"
+
+msgid "Newest"
+msgstr "Neueste"
+
+msgid "Oldest"
+msgstr "Älteste"
+
+msgid "Title: (A -> Z)"
+msgstr "Titel: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titel: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Dateigröße: (niedrig bis hoch)"
+
+msgid "File size: (high to low)"
+msgstr "Dateigröße: (hoch bis niedrig)"
+
 msgid "Search images"
 msgstr "Nach Bildern suchen"
 
@@ -594,9 +632,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s Bild"
 msgstr[1] "%(count)s Bilder"
-
-msgid "Change image"
-msgstr "Bild ändern"
-
-msgid "Edit this image"
-msgstr "Dieses Bild bearbeiten"

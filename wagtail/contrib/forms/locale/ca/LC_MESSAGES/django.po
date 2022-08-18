@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -153,27 +153,6 @@ msgstr "Formularis"
 msgid "Pages"
 msgstr "Pàgines"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Enviaments de %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Dades del formulari <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtrar"
-
-msgid "Download XLSX"
-msgstr "Descarregar XLSX"
-
-msgid "Download CSV"
-msgstr "Baixar CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "No hi ha enviaments del formulari '%(title)s'."
-
 msgid "Title"
 msgstr "Títol"
 
@@ -191,6 +170,26 @@ msgstr "Últim enviament"
 
 msgid "No form pages have been created."
 msgstr "No s'han creat pàgines de formulari"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Enviaments de %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Descarregar XLSX"
+
+msgid "Download CSV"
+msgstr "Baixar CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "No hi ha enviaments del formulari '%(title)s'."
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Apply filters"
+msgstr "Aplica els filtres"
 
 #, python-format
 msgid "One submission has been deleted."

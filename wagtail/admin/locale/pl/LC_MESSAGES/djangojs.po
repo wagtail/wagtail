@@ -87,9 +87,6 @@ msgstr "Przeglądarka stron"
 msgid "Pages"
 msgstr "Strony"
 
-msgid "Redo"
-msgstr "Ponów"
-
 msgid "Reload saved content"
 msgstr "Odśwież zapisaną zawartość"
 
@@ -144,14 +141,11 @@ msgstr ""
 "Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
 "wersji."
 
-msgid "Undo"
-msgstr "Cofnij"
+msgid "This field is required."
+msgstr "To pole jest wymagane."
 
 msgid "Unfocus comment"
 msgstr "Usuń wyróżnienie komentarza"
 
 msgid "View child pages of '{title}'"
 msgstr "Wyświetl podstrony dla '{title}'"
-
-msgid "Write here…"
-msgstr "Pisz tutaj..."

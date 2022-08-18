@@ -60,9 +60,6 @@ msgstr "Lapu pārlūks"
 msgid "Pages"
 msgstr "Lapas"
 
-msgid "Redo"
-msgstr "Atcelt atsaukšanu"
-
 msgid "Reload saved content"
 msgstr "Pārlādēt saglabāto saturu"
 
@@ -94,11 +91,8 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Redaktors kļūda. Saturs ir atiestatīts uz pēdējo saglabāto versiju."
 
-msgid "Undo"
-msgstr "Atsaukt"
+msgid "This field is required."
+msgstr "Šis lauks ir nepieciešams"
 
 msgid "View child pages of '{title}'"
 msgstr "Apskatīt '{title}' zemāka līmeņa lapas"
-
-msgid "Write here…"
-msgstr "Raksti šeit..."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -24,6 +24,12 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Publish"
+msgstr "انشر"
+
+msgid "Unpublish"
+msgstr "غير منشور"
+
 msgid "Delete"
 msgstr "احذف"
 
@@ -32,19 +38,6 @@ msgstr "احفظ"
 
 msgid "Wagtail snippets"
 msgstr "قصاصات Wagtail"
-
-msgid "Choose"
-msgstr "اختر"
-
-msgid "Search"
-msgstr "بحث"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "عذرًا ، لا يوجد تطابق في المقتطفات \"<em>%(query_string)s</em>\""
-
-msgid "Saving…"
-msgstr "يتم الحفظ…"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -67,6 +60,18 @@ msgstr "نعم, احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
+msgid "Publishing…"
+msgstr "يتم النشر..."
+
+msgid "Saving…"
+msgstr "يتم الحفظ…"
+
+msgid "Replace current draft"
+msgstr "استبدال المسودة الحالية"
+
+msgid "Save draft"
+msgstr "احفظ المسوّد"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "جديد %(snippet_type_name)s"
@@ -77,21 +82,11 @@ msgstr "جديد"
 msgid "Actions"
 msgstr "النشاطات"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "تحرير %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "تحرير"
-
 msgid "Usage"
 msgstr "استعمال"
 
 msgid "Snippets"
 msgstr "قصاصات"
-
-msgid "Title"
-msgstr "عنوان"
 
 #, python-format
 msgid ""
@@ -101,13 +96,27 @@ msgstr ""
 "لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a href="
 "\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
 
+msgid "Live version"
+msgstr "نسخة حية"
+
+msgid "Current draft"
+msgstr "المسودة الحالية"
+
+msgid "Preview"
+msgstr "نظر مقدم"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Live"
+msgstr "مباشر"
+
+msgid "Draft"
+msgstr "مسودة"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "قصاصات %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "قصاصات <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -119,6 +128,9 @@ msgstr "استعمل من %(title)s"
 
 msgid "Usage of"
 msgstr "استعمال"
+
+msgid "Title"
+msgstr "عنوان"
 
 msgid "Parent"
 msgstr "والد"
@@ -132,15 +144,14 @@ msgstr "رتبة"
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "بحث %(snippet_type_name)s"
+msgid "Choose"
+msgstr "اختر"
+
+msgid "Name"
+msgstr "اسم"
 
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"
-
-msgid "Edit"
-msgstr "تحرير"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
@@ -151,11 +162,3 @@ msgstr "تاريخ"
 #, python-format
 msgid "Choose %s"
 msgstr "اختر %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "اختر %s اخر"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "تحرير هذا %s"

@@ -1,6 +1,5 @@
 #
 # Translators:
-# Eva Mikesova <eva.mikesova@tul.cz>, 2022
 # Jiri Stepanek <stepiiicz@gmail.com>, 2022
 # Martin Galda <martingalda9@gmail.com>, 2022
 # Marek Turnovec <aesculap@gmail.com>, 2022
@@ -89,9 +88,6 @@ msgstr "Explorer"
 msgid "Pages"
 msgstr "Stránky"
 
-msgid "Redo"
-msgstr "Opakovat"
-
 msgid "Reload saved content"
 msgstr "Znovu načíst uložený obsah"
 
@@ -135,14 +131,11 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
 
-msgid "Undo"
-msgstr "Vrátit zpět"
+msgid "This field is required."
+msgstr "Toto pole je vyžadováno."
 
 msgid "Unfocus comment"
 msgstr "Nezvýrazňovat komentář"
 
 msgid "View child pages of '{title}'"
 msgstr "Ukázat podstránky '{title}'"
-
-msgid "Write here…"
-msgstr "Pište zde..."

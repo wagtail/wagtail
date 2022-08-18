@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -79,24 +79,8 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
 
-msgid "Choose a document"
-msgstr "Izberite dokument"
-
-msgid "Search"
-msgstr "Iskanje"
-
-msgid "Upload"
-msgstr "Prenos"
-
 msgid "Latest documents"
 msgstr "Zadnji dokumenti"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
-
-msgid "Uploading…"
-msgstr "Nalagam..."
 
 msgid "Change document:"
 msgstr "Spremeni dokument:"
@@ -106,6 +90,12 @@ msgstr "Dodaj dokument"
 
 msgid "Add document"
 msgstr "Dodaj dokument"
+
+msgid "Uploading…"
+msgstr "Nalagam..."
+
+msgid "Upload"
+msgstr "Prenos"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -146,8 +136,8 @@ msgid "Created"
 msgstr "Ustvarjeno"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s nazaj"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -217,8 +207,8 @@ msgstr "Dodaj v zbirko"
 msgid "Delete"
 msgstr "Izbriši"
 
-msgid "Server Error"
-msgstr "Napaka na strežniku"
+msgid "Choose a document"
+msgstr "Izberite dokument"
 
 msgid "Search documents"
 msgstr "Iskanje po dokumentih"
@@ -251,9 +241,3 @@ msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenta"
 msgstr[2] "%(count)s dokumenti"
 msgstr[3] "%(count)s dokumentov"
-
-msgid "Choose another document"
-msgstr "Izberite drug dokument"
-
-msgid "Edit this document"
-msgstr "Uredi dokument"

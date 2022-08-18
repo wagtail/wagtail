@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -72,7 +72,7 @@ msgstr "上に移動"
 msgid "Move down"
 msgstr "下に移動"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "提案された検索結果"
 
 msgid "Add recommended page"
@@ -80,9 +80,6 @@ msgstr "提案ページを追加"
 
 msgid "Search Terms"
 msgstr "検索ワード"
-
-msgid "Promoted search results"
-msgstr "提案された検索結果"
 
 msgid "Add new promoted result"
 msgstr "新たに検索結果を提案"

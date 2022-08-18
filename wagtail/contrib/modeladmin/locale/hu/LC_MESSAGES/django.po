@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -74,6 +74,10 @@ msgstr "%s másolása"
 msgid "image"
 msgstr "kép"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Vissza a(z) %(model_name)s listához"
+
 msgid "Choose a parent page"
 msgstr "Válasszon szülő oldalt"
 
@@ -117,9 +121,6 @@ msgstr "Igen, törlés"
 msgid "No, don't delete"
 msgstr "Nem, ne töröljük"
 
-msgid "Home"
-msgstr "Kezdőlap"
-
 msgid "Last updated"
 msgstr "Utolsó frissítés"
 
@@ -141,6 +142,9 @@ msgstr "Keresés:"
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)s keresés"
+
+msgid "Search"
+msgstr "Keresés"
 
 msgid "Download XLSX"
 msgstr "XLSX letöltése"
@@ -169,10 +173,6 @@ msgstr "Lapozó"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "%(current_page)s/%(num_pages)s. oldal"
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Vissza a(z) %(model_name)s listához"
 
 msgid "Previous"
 msgstr "Előző"

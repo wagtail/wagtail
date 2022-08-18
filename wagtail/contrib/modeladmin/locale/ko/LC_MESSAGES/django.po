@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -72,6 +72,10 @@ msgstr "이 %s 복사하기"
 msgid "image"
 msgstr "이미지"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "%(model_name)s 목록으로 돌아가기"
+
 msgid "Choose a parent page"
 msgstr "상위 페이지 선택하기"
 
@@ -115,9 +119,6 @@ msgstr "네, 삭제합니다"
 msgid "No, don't delete"
 msgstr "아니오, 지우지 않습니다"
 
-msgid "Home"
-msgstr "홈"
-
 #, python-format
 msgid "By %(filter_title)s"
 msgstr "%(filter_title)s까지"
@@ -142,6 +143,9 @@ msgstr "검색: "
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)s 검색"
+
+msgid "Search"
+msgstr "검색"
 
 msgid "Download XLSX"
 msgstr "XLSX 다운로드"
@@ -174,10 +178,6 @@ msgstr "페이지네이션"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "%(num_pages)s중 %(current_page)s 페이지"
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "%(model_name)s 목록으로 돌아가기"
 
 msgid "Previous"
 msgstr "이전"

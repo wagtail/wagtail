@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amelia Dao, 2022\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -79,20 +79,14 @@ msgstr "Đúng, xoá đi"
 msgid "No, don't delete"
 msgstr "Không xoá"
 
-msgid "Choose a document"
-msgstr "Chọn một văn bản"
-
-msgid "Search"
-msgstr "Tìm kiếm"
-
-msgid "Upload"
-msgstr "Đăng tải"
+msgid "Add a document"
+msgstr "Thêm một văn bản"
 
 msgid "Uploading…"
 msgstr "Đang đăng tải..."
 
-msgid "Add a document"
-msgstr "Thêm một văn bản"
+msgid "Upload"
+msgstr "Đăng tải"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -116,12 +110,9 @@ msgstr "Trạng thái"
 msgid "Delete"
 msgstr "Xoá"
 
-msgid "Server Error"
-msgstr "Lỗi Hệ thống"
+msgid "Choose a document"
+msgstr "Chọn một văn bản"
 
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Văn bản '{0}' đã được xóa."
-
-msgid "Edit this document"
-msgstr "Biên tập văn bản này"

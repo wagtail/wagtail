@@ -2,15 +2,15 @@
 # Translators:
 # nahuel, 2022
 # Karl Hobley <karl@torchbox.com>, 2022
-# Aurélien Debord <contact@aureliendebord.com>, 2022
 # Benoît Vogel <contact@spicy-informatique.com>, 2022
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Aurélien Debord <contact@aureliendebord.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Aurélien Debord <contact@aureliendebord.com>, 2022\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -95,9 +95,6 @@ msgstr "Explorateur"
 msgid "Pages"
 msgstr "Pages"
 
-msgid "Redo"
-msgstr "Rétablir"
-
 msgid "Reload saved content"
 msgstr "Recharger le contenu sauvegardé"
 
@@ -106,6 +103,12 @@ msgstr "Recharger la page"
 
 msgid "Reply"
 msgstr "Répondre"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Signalez cette erreur à votre webmaster avec les informations suivantes :"
 
 msgid "Resolve"
 msgstr "Archiver"
@@ -155,17 +158,14 @@ msgstr ""
 "L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
 "restauré."
 
+msgid "This field is required."
+msgstr "Ce champ est requis."
+
 msgid "Toggle sidebar"
 msgstr "Afficher/masquer la barre latérale"
-
-msgid "Undo"
-msgstr "Annuler"
 
 msgid "Unfocus comment"
 msgstr "Mettre le commentaire en arrière-plan"
 
 msgid "View child pages of '{title}'"
 msgstr "Voir les sous-pages de '{title}'"
-
-msgid "Write here…"
-msgstr "Écrire ici..."

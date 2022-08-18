@@ -644,7 +644,7 @@ Translators
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: Amós Oviedo
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, Dimitri Fekas, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Gilad Levi, Men770, Adi Ron, Oleg Sverdlov
@@ -670,6 +670,7 @@ Translators
 * Slovenian: Andrej, Mitja Pagon, Lev Predan Kowarski, Urban Prevc, Matej Stavanja
 * Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, Hector Garcia, José Luis, Amós Oviedo, Maylon Pedroso, Joaquín Tita, Daniel Wohlgemuth, Unai Zalakain
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström, Tomas Walch
+* Tamil: Ramakrishnan Sathyanarayanan
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Walaksawan Vervoort
 * Turkish: Saadettin Yasir Akel, Umut Bektaş, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, Fatih Koç koç, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal, Suayip Uzulmez
