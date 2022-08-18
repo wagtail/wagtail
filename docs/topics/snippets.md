@@ -311,6 +311,50 @@ With the `RevisionMixin` applied, any changes made from the snippets admin will 
 
 You can also save revisions programmatically by calling the {meth}`~wagtail.models.RevisionMixin.save_revision` method. After applying the mixin, it is recommended to call this method (or save the snippet in the admin) at least once for each instance of the snippet that already exists (if any), so that the `latest_revision` field is populated in the database table.
 
+## Saving draft changes of snippets
+
+```{versionadded} 4.0
+The `DraftStateMixin` class was introduced.
+```
+
+If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically change the "Save" action menu in the snippets admin to "Save draft" and add a new "Publish" action menu. Any changes you save in the snippets admin will be saved as revisions and will not be reflected to the "live" snippet instance until you publish the changes. For example, the `Advert` snippet could save draft changes by defining it as follows:
+
+```python
+# ...
+
+from django.contrib.contenttypes.fields import GenericRelation
+from wagtail.models import DraftStateMixin, RevisionMixin
+
+# ...
+
+@register_snippet
+class Advert(DraftStateMixin, RevisionMixin, models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    @property
+    def revisions(self):
+        return self._revisions
+```
+
+You can publish revisions programmatically by calling {meth}`instance.publish(revision) <wagtail.models.DraftStateMixin.publish>` or by calling {meth}`revision.publish() <wagtail.models.Revision.publish>`. After applying the mixin, it is recommended to publish at least one revision for each instance of the snippet that already exists (if any), so that the `latest_revision` and `live_revision` fields are populated in the database table.
+
+```{warning}
+Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (e.g. by checking its `live` field). We are planning to improve this in the future.
+```
+
+```{note}
+The `DraftStateMixin` includes fields used by Wagtail's publishing mechanism that may currently be inapplicable for snippets. For example, the scheduled publishing fields (i.e. `go_live_at`, `expire_at`, and `expired`) are added to snippet models that inherit from the mixin, but the scheduled publishing feature itself is not yet officially supported for snippets.
+
+We are introducing these fields early to make adding new features easier in the future. Until the features become available and officially supported, we recommend explicitly defining the `panels` in your snippets with only your relevant model fields.
+```
+
 ## Tagging snippets
 
 Adding tags to snippets is very similar to adding tags to pages. The only difference is that {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
