@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -21,24 +21,17 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Unpublish"
+msgstr "Cancelar publicación"
+
 msgid "Delete"
 msgstr "Eliminar"
 
 msgid "Save"
 msgstr "Gardar"
-
-msgid "Choose"
-msgstr "Seleccionar"
-
-msgid "Search"
-msgstr "Porcurar"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "Sentímolo, ningún fragmento contén \"<em>%(query_string)s</em>\""
-
-msgid "Saving…"
-msgstr "Gardando…"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -46,6 +39,15 @@ msgstr "¿Seguro que queres eliminar este %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Si, eliminar"
+
+msgid "Saving…"
+msgstr "Gardando…"
+
+msgid "Replace current draft"
+msgstr "Substituír borrador actual"
+
+msgid "Save draft"
+msgstr "Gardar borrador"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -57,18 +59,8 @@ msgstr "Novo"
 msgid "Actions"
 msgstr "Accións"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Editando %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Editando"
-
 msgid "Snippets"
 msgstr "Fragmentos"
-
-msgid "Title"
-msgstr "Título"
 
 #, python-format
 msgid ""
@@ -78,13 +70,24 @@ msgstr ""
 "Ningún %(snippet_type_name_plural)s foi creado. ¿Por qué non <a href="
 "\"%(wagtailsnippets_create_url)s\">engadir un</a>?"
 
+msgid "Current draft"
+msgstr "Borrador actual"
+
+msgid "Preview"
+msgstr "Previsualizar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Live"
+msgstr "En vivo"
+
+msgid "Draft"
+msgstr "Borrador"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragmentos %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Fragmentos <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -96,6 +99,9 @@ msgstr "Uso de %(title)s"
 
 msgid "Usage of"
 msgstr "Uso de"
+
+msgid "Title"
+msgstr "Título"
 
 msgid "Parent"
 msgstr "Pai"
@@ -109,15 +115,14 @@ msgstr "Estado"
 msgid "Edit this page"
 msgstr "Editar esta páxina"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Procurar %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Seleccionar"
+
+msgid "Name"
+msgstr "Nome"
 
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento non puido ser creado debido a errores."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O fragmento non puido ser gardado debido a erros."
@@ -128,11 +133,3 @@ msgstr "Data"
 #, python-format
 msgid "Choose %s"
 msgstr "Seleccionar %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Seleccionar outro %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"

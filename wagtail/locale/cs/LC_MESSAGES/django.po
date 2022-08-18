@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,69 @@ msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
 msgid "Comment"
 msgstr "Komentář"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Stránku '{}' jste uzamknul</b>:<b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Stránku '{}' jste uzamknul</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Stránka '{}' byla uzamčena</b> uživatelem <b>{}</b>: <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Stránka '{}' je uzamčena</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Tato stránka nyní čeká na posouzení."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Tato stránka čeká <b>'{}'</b> v postupu <b>'{}'</b> ."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Pouze recenzenti této úlohy mohou stránku upravit."
+
+msgid "live"
+msgstr "publikováno"
+
+msgid "has unpublished changes"
+msgstr "má nepublikované změny"
+
+msgid "first published at"
+msgstr "poprvé publikováno:"
+
+msgid "last published at"
+msgstr "naposledy publikováno:"
+
+msgid "live revision"
+msgstr "publikováno verze"
+
+msgid "go live date/time"
+msgstr "datum/čas publikování"
+
+msgid "expiry date/time"
+msgstr "datum/čas expirace"
+
+msgid "expired"
+msgstr "platnost skončila"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + draft"
+msgstr "publikováno + koncept"
+
+msgid "Default"
+msgstr "Default(ní)"
+
+msgid "locked"
+msgstr "uzamčeno"
+
+msgid "locked at"
+msgstr "uzamčeno: "
+
+msgid "locked by"
+msgstr "uzamčeno uživatelem"
+
 msgid "title"
 msgstr "titulek"
 
@@ -93,12 +156,6 @@ msgstr "Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug
 
 msgid "content type"
 msgstr "content type (typ obsahu)"
-
-msgid "live"
-msgstr "publikováno"
-
-msgid "has unpublished changes"
-msgstr "má nepublikované změny"
 
 msgid "URL path"
 msgstr "URL adresa"
@@ -131,35 +188,8 @@ msgid ""
 "results."
 msgstr "Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledávačů."
 
-msgid "go live date/time"
-msgstr "datum/čas publikování"
-
-msgid "expiry date/time"
-msgstr "datum/čas expirace"
-
-msgid "expired"
-msgstr "platnost skončila"
-
-msgid "locked"
-msgstr "uzamčeno"
-
-msgid "locked at"
-msgstr "uzamčeno: "
-
-msgid "locked by"
-msgstr "uzamčeno uživatelem"
-
-msgid "first published at"
-msgstr "poprvé publikováno:"
-
-msgid "last published at"
-msgstr "naposledy publikováno:"
-
 msgid "latest revision created at"
 msgstr "poslední verze vytvořena:"
-
-msgid "live revision"
-msgstr "publikováno verze"
 
 msgid "This slug is already in use"
 msgstr "Slug (identifikátor) je už používán"
@@ -170,20 +200,11 @@ msgstr "naplánováno"
 msgid "in moderation"
 msgstr "probíhá schvalování"
 
-msgid "draft"
-msgstr "koncept"
-
 msgid "live + scheduled"
 msgstr "publikováno + naplánováno"
 
 msgid "live + in moderation"
 msgstr "publikováno + probíhá schvalování"
-
-msgid "live + draft"
-msgstr "publikováno + koncept"
-
-msgid "Default"
-msgstr "Default(ní)"
 
 msgid "page"
 msgstr "stránka"
@@ -205,12 +226,6 @@ msgstr "obsah JSON"
 
 msgid "approved go live at"
 msgstr "povoleno publikovat:"
-
-msgid "page revision"
-msgstr "verze stránky"
-
-msgid "page revisions"
-msgstr "verze stránky"
 
 msgid "Add/edit pages you own"
 msgstr "Přidat/Editovat vámi vlastněné stránky"
@@ -385,6 +400,9 @@ msgstr "Přeskočeno"
 
 msgid "workflow state"
 msgstr "stav zpracování"
+
+msgid "page revision"
+msgstr "verze stránky"
 
 msgid "started at"
 msgstr "spuštěno v"
@@ -563,18 +581,6 @@ msgstr "Pro přístup k této stránce potřebujete heslo."
 
 msgid "Continue"
 msgstr "Pokračovat"
-
-msgid "English"
-msgstr "Angličtina"
-
-msgid "French"
-msgstr "Francouzština"
-
-msgid "You must log in first."
-msgstr "Je vyžadováno přihlášení"
-
-msgid "German"
-msgstr "Němčina"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -808,10 +814,6 @@ msgstr "Úkol postupu byl zamítnut. Postup dokončen"
 
 msgid "Workflow: resume task"
 msgstr "Postup: obnovit úlohu"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Znovu potvrzeno '%(task)s'. Postup byl obnoven"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Úkol postupu byl potvrzen. Postup byl obnoven"

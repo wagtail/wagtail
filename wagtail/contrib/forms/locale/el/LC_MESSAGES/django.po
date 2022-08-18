@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Wasilis Mandratzis-Walz, 2015\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -134,24 +134,6 @@ msgstr "Φόρμες"
 msgid "Pages"
 msgstr "Σελίδες "
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Υποβολές του %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Δεδομένα φόρμας <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Φίλτρο"
-
-msgid "Download CSV"
-msgstr "Ληψη CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Δεν υπήρξαν υποβολες του '%(title)s' μορφής."
-
 msgid "Title"
 msgstr "Τίτλος"
 
@@ -166,6 +148,20 @@ msgstr "Τελευταίες υποβολές"
 
 msgid "No form pages have been created."
 msgstr "Δεν έχουν δημιουργηθεί σελίδες μορφής. "
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Υποβολές του %(form_title)s"
+
+msgid "Download CSV"
+msgstr "Ληψη CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Δεν υπήρξαν υποβολες του '%(title)s' μορφής."
+
+msgid "Filter"
+msgstr "Φίλτρο"
 
 #, python-format
 msgid "One submission has been deleted."

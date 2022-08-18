@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Dan Braghis, 2016,2019-2021\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -75,6 +75,10 @@ msgstr "Copie %s"
 msgid "image"
 msgstr "imagine"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Înapoi la lista %(model_name)s"
+
 msgid "Choose a parent page"
 msgstr "Selectează o pagină părinte"
 
@@ -119,9 +123,6 @@ msgstr "Da, șterge"
 msgid "No, don't delete"
 msgstr "Nu, nu șterge"
 
-msgid "Home"
-msgstr "Acasă"
-
 msgid "Last updated"
 msgstr "Ultima actualizare"
 
@@ -142,6 +143,9 @@ msgstr "Căută"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Caută %(name)s"
+
+msgid "Search"
+msgstr "Căută"
 
 msgid "Download XLSX"
 msgstr "Descarcă XLSX"
@@ -170,10 +174,6 @@ msgstr "Paginare"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Pagina %(current_page)s din %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Înapoi la lista %(model_name)s"
 
 msgid "Previous"
 msgstr "Precedent"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020-2021\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -34,9 +34,6 @@ msgstr "Submete ba moderasaun"
 
 msgid "Unpublish"
 msgstr "Halo la publika"
-
-msgid "Delete"
-msgstr "Hamoos"
 
 msgid "Save Draft"
 msgstr "Rai hanesan ezbosu"
@@ -93,20 +90,32 @@ msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Loron buka"
+
+msgid "Search"
+msgstr "Buka"
+
+msgid "All collections"
+msgstr "Koleksaun hotu-hotu"
+
+msgid "Collection"
+msgstr "Kolleksaun"
+
 msgid "Parent"
 msgstr "Inan-aman"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
 
-msgid "Collection"
-msgstr "Kolleksaun"
-
 msgid "Add"
 msgstr "Hatama"
 
 msgid "Edit"
 msgstr "Hadia"
+
+msgid "Delete"
+msgstr "Hamoos"
 
 msgid "New title"
 msgstr "Titlu foun"
@@ -169,12 +178,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Ita boot tenki hatama tempu no loron expirasuan iha futuru"
 
-msgid "Search"
-msgstr "Buka"
-
-msgid "Search term"
-msgstr "Loron buka"
-
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -187,9 +190,6 @@ msgstr "Favor ida hili grupu ida ka tan"
 msgid "Scheduled publishing"
 msgstr "Horariu Publikasaun"
 
-msgid "Privacy"
-msgstr "Privasidade"
-
 msgid "Content"
 msgstr "Konteudu"
 
@@ -198,12 +198,6 @@ msgstr "Promove"
 
 msgid "Settings"
 msgstr "Konfigurasaun"
-
-msgid "Status"
-msgstr "Estadu"
-
-msgid "Preview"
-msgstr "Haree"
 
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"
@@ -219,14 +213,6 @@ msgstr "Ba administrasaun Wagtail"
 
 msgid "Account"
 msgstr "Konta"
-
-msgid "Change password"
-msgstr "Troka seña"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ita boot labele troka seña iha nee. Favor koalia malu situ administrador."
 
 msgid "Reset password"
 msgstr "Inisiu troka seña"
@@ -313,6 +299,13 @@ msgstr "Aumenta ligasaun externa ida"
 msgid "Add a phone link"
 msgstr "Aumenta ligasaun telefone"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Esplora pajina iha  '%(title)s' nia okos"
+
+msgid "Explore"
+msgstr "Esplora"
+
 msgid "Collection privacy"
 msgstr "Rekolla privasidade"
 
@@ -322,14 +315,17 @@ msgstr "Koleksaun nee halo privadu ona husi koleksaun inan-aman"
 msgid "You can edit the privacy settings on:"
 msgstr "Ita boot bele troka konfigurasaun privado iha:"
 
+msgid "Save"
+msgstr "Rai"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Konfigurasaun privado determina se mak bele haree dokumentu sira iha "
 "koleksaun nee."
 
-msgid "Save"
-msgstr "Rai"
+msgid "Privacy"
+msgstr "Privasidade"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Troka koleksaun privadu. Status agora: Publiku"
@@ -364,8 +360,18 @@ msgstr "Sin, hamoos"
 msgid "Update"
 msgstr "Troka"
 
-msgid "Dashboard"
-msgstr "Painel kontrolu"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparasaun %(title)s"
+
+msgid "Comparing"
+msgstr "Comparasaun"
+
+msgid "Fields"
+msgstr "Attributu sira"
+
+msgid "Changes"
+msgstr "Troka sira"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -407,8 +413,14 @@ msgstr "Aprova"
 msgid "Reject"
 msgstr "Rejeita"
 
+msgid "Preview"
+msgstr "Haree"
+
 msgid "Your most recent edits"
 msgstr "Ita boot nia troka sira"
+
+msgid "Status"
+msgstr "Estadu"
 
 msgid "Date"
 msgstr "Data"
@@ -419,12 +431,12 @@ msgstr "Sumariu Situs"
 msgid "Sign in"
 msgstr "Tama"
 
+msgid "Sign in to Wagtail"
+msgstr "Tama ba Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "Ita boot nia%(username_field)s ka seña laloos. Favor ida koko fali."
-
-msgid "Sign in to Wagtail"
-msgstr "Tama ba Wagtail"
 
 msgid "Signing in…"
 msgstr "Tama hela..."
@@ -474,21 +486,6 @@ msgstr "Pájina privasidade"
 
 msgid "This page has been made private by a parent page."
 msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Troka pajina privadu: Status agora publiku"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Troka pajina privadu: Status agora privadu"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Pajina privadu: Status agora Publiku"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Pajina privadu: Status agora Publiku"
 
 msgid "Publishing…"
 msgstr "Publika hela..."
@@ -566,15 +563,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Sin, muda pájina ida-ne'e"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "La publika %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ita iha serteza katak ita hakarak la publika pájina neʼe?"
-
-msgid "Yes, unpublish it"
-msgstr "Sin, subar"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -614,18 +604,11 @@ msgid "Current draft"
 msgstr "Esbosu agora dadaun"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s liubá"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Explora %(title)s"
 
 msgid "Drag"
 msgstr "Rasta"
-
-msgid "Updated"
-msgstr "Atualiza ona"
 
 msgid "Configure a site now."
 msgstr "Konfigura situs ida agora"
@@ -639,13 +622,6 @@ msgstr "Hakarak <a href=\"%(add_page_url)s\">kria pajina ida</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Pajina nee xavi, labele troka"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Esplora pajina iha  '%(title)s' nia okos"
-
-msgid "Explore"
-msgstr "Esplora"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -679,35 +655,11 @@ msgstr "Orden"
 msgid "Enable ordering of child pages"
 msgstr "Loke pajina orden"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Hili pajina inan-aman foun ba %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Hili pajina inan-aman foun ba <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "visualizasaun erru"
-
-msgid "Close"
-msgstr "Taka"
+msgid "Updated"
+msgstr "Atualiza ona"
 
 msgid "Cancel scheduled publish"
 msgstr "Kansela orariu publiku"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparasaun %(title)s"
-
-msgid "Comparing"
-msgstr "Comparasaun"
-
-msgid "Fields"
-msgstr "Attributu sira"
-
-msgid "Changes"
-msgstr "Troka sira"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -731,15 +683,6 @@ msgstr "Tipu pajina sira"
 msgid "Enter a search term above"
 msgstr "Hatama termu buka iha leten"
 
-msgid "Locked"
-msgstr "Xavi tiha ona"
-
-msgid "Unlocked"
-msgstr "Loke tiha ona"
-
-msgid "Lock"
-msgstr "Xavi"
-
 msgid "No pages use"
 msgstr "Laiha pajina nebee uza"
 
@@ -756,8 +699,8 @@ msgstr "Muda ba kraik"
 msgid "Download CSV"
 msgstr "Download CSV"
 
-msgid "Filter"
-msgstr "Filtru"
+msgid "Locked"
+msgstr "Xavi tiha ona"
 
 msgid "Page"
 msgstr "Pajina"
@@ -772,11 +715,15 @@ msgstr "Hatudu dalan korta"
 msgid "Root"
 msgstr "Abut"
 
-msgid "Home"
-msgstr "Uma"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "La publika %(title)s"
 
-msgid "All collections"
-msgstr "Koleksaun hotu-hotu"
+msgid "Yes, unpublish it"
+msgstr "Sin, subar"
+
+msgid "Filter"
+msgstr "Filtru"
 
 msgid "Visit the live page"
 msgstr "Vizita pajina publiku"
@@ -786,6 +733,15 @@ msgstr "Status pajina dadaun"
 
 msgid "Other searches"
 msgstr "Buka seluk"
+
+msgid "Unlocked"
+msgstr "Loke tiha ona"
+
+msgid "Lock"
+msgstr "Xavi"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
 
 msgid "Add a child page"
 msgstr "Hatama pajina oan"
@@ -797,23 +753,11 @@ msgid "New"
 msgstr "Foun"
 
 #, python-format
-msgid "by %(modified_by)s"
-msgstr "Husi  %(modified_by)s"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s liubá"
 
 msgid "Log out"
 msgstr "Sai"
-
-msgid "live"
-msgstr "Hela"
-
-msgid "draft"
-msgstr "Esbosu"
-
-msgid "live + draft"
-msgstr "Hela + esbosu"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Password"
 msgstr "Seña"
@@ -854,6 +798,12 @@ msgstr "Ita boot serteza hamoos koleksaun nee?"
 msgid "Editing"
 msgstr "Hadia hela"
 
+msgid "Latest"
+msgstr " Mak tardi liu"
+
+msgid "Dashboard"
+msgstr "Painel kontrolu"
+
 msgid "View live"
 msgstr "Haree iha situ"
 
@@ -861,15 +811,12 @@ msgstr "Haree iha situ"
 msgid "Page '{0}' deleted."
 msgstr "Pajina '{0}' hammos ona."
 
-msgid "Latest"
-msgstr " Mak tardi liu"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr " revizaun {0} hosi \"{1}\""
 
-msgid "Server Error"
-msgstr "Servidor erru"
+msgid "Change"
+msgstr "Troka"
 
 msgid "Pages"
 msgstr "Pajina sira"

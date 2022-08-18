@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -70,30 +70,14 @@ msgstr[0] "Digunakan %(usage_count)skali"
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-msgid "Choose a document"
-msgstr "Pilih Dokumen"
-
-msgid "Search"
-msgstr "Pencarian"
-
-msgid "Upload"
-msgstr "Unggah"
-
 msgid "Latest documents"
 msgstr "Dokumen terbaru"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Anda belum mengunggah dokumen apapun dalam koleksi ini."
 
 msgid "You haven't uploaded any documents."
 msgstr "Anda belum mengunggah dokumen apapun."
-
-msgid "Uploading…"
-msgstr "Mengunggah"
 
 msgid "Change document:"
 msgstr "Ubah dokumen:"
@@ -103,6 +87,12 @@ msgstr "Tambah dokumen"
 
 msgid "Add document"
 msgstr "Tambah dokumen"
+
+msgid "Uploading…"
+msgstr "Mengunggah"
+
+msgid "Upload"
+msgstr "Unggah"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -140,8 +130,8 @@ msgid "File"
 msgstr "Berkas"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yang lalu"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -208,8 +198,8 @@ msgstr "Tambahkan izin dokumen"
 msgid "Delete"
 msgstr "Hapus"
 
-msgid "Server Error"
-msgstr "Kesalahan Server"
+msgid "Choose a document"
+msgstr "Pilih Dokumen"
 
 msgid "Search documents"
 msgstr "Cari dokumen"
@@ -241,9 +231,3 @@ msgstr "Dokumen"
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)sdokumen"
-
-msgid "Choose another document"
-msgstr "Pilih dokumen lain"
-
-msgid "Edit this document"
-msgstr "Ubah dokumen ini"

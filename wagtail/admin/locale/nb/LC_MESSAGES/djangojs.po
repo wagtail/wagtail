@@ -61,9 +61,6 @@ msgstr "Sideutforsker"
 msgid "Pages"
 msgstr "Sider"
 
-msgid "Redo"
-msgstr "Gjør om"
-
 msgid "Reload saved content"
 msgstr "Oppdater lagret innhold"
 
@@ -95,11 +92,8 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editoren krasjet. Innholdet er tilbakestilt til sist lagrede versjon."
 
-msgid "Undo"
-msgstr "Angre"
+msgid "This field is required."
+msgstr "Dette feltet er påkrevet."
 
 msgid "View child pages of '{title}'"
 msgstr "Vis undersider av «{title}»"
-
-msgid "Write here…"
-msgstr "Skriv her..."

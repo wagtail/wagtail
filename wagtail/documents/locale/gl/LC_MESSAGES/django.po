@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -60,24 +60,12 @@ msgstr "documento"
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
-msgid "Choose a document"
-msgstr "Seleccionar un documento"
-
-msgid "Search"
-msgstr "Procurar"
-
-msgid "Upload"
-msgstr "Subir"
-
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
-
-msgid "Uploading…"
-msgstr "Subindo…"
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Sentímolo, ningún documento contén \"<em>%(search_query)s</em>\""
 
 msgid "Change document:"
 msgstr "Cambiar documento:"
@@ -87,6 +75,12 @@ msgstr "Engadir un documento"
 
 msgid "Add document"
 msgstr "Engadir documento"
+
+msgid "Uploading…"
+msgstr "Subindo…"
+
+msgid "Upload"
+msgstr "Subir"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -119,6 +113,10 @@ msgstr "Título"
 
 msgid "File"
 msgstr "Arquivo"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -182,8 +180,8 @@ msgstr "Engadir un permiso ao documento"
 msgid "Delete"
 msgstr "Eliminar"
 
-msgid "Server Error"
-msgstr "Erro do Servidor"
+msgid "Choose a document"
+msgstr "Seleccionar un documento"
 
 msgid "Search documents"
 msgstr "Procurar documentos"
@@ -214,9 +212,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s documento"
 msgstr[1] "%(count)s documentos"
-
-msgid "Choose another document"
-msgstr "Elixir outro documento"
-
-msgid "Edit this document"
-msgstr "Editar este documento"

@@ -1,12 +1,12 @@
 #
 # Translators:
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2022
-# Ronggo Radityo <radityo3000@yahoo.com>, 2022
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2022
+# Ronggo Radityo <radityo3000@yahoo.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2022\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2022\n"
 "Language-Team: Indonesian (Indonesia) (https://www.transifex.com/torchbox/"
 "teams/8009/id_ID/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,9 +58,6 @@ msgstr "Perambah halaman"
 msgid "Pages"
 msgstr "Halaman"
 
-msgid "Redo"
-msgstr "Ulangi"
-
 msgid "Reload saved content"
 msgstr "Muat ulang konten tersimpan"
 
@@ -94,8 +91,5 @@ msgstr ""
 "Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
 "disimpan."
 
-msgid "Undo"
-msgstr "Urungkan"
-
-msgid "Write here…"
-msgstr "Tulis disini..."
+msgid "This field is required."
+msgstr "Kolom ini harus diisi."

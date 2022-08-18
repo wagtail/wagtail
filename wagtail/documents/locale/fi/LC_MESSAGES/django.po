@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -85,32 +85,14 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
-msgid "Choose a document"
-msgstr "Valitse dokumentti"
-
-msgid "Search"
-msgstr "Haku"
-
-msgid "Upload"
-msgstr "Lähetä"
-
 msgid "Latest documents"
 msgstr "Tuoreimmat dokumentit"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</em>"
-"\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Et ole tuonut dokumentteja tähän kokoelmaan."
 
 msgid "You haven't uploaded any documents."
 msgstr "Et ole tuonut dokumenttejä."
-
-msgid "Uploading…"
-msgstr "Lähetetään…"
 
 msgid "Change document:"
 msgstr "Vaihda dokumentti:"
@@ -120,6 +102,12 @@ msgstr "Lisää dokumentti"
 
 msgid "Add document"
 msgstr "Lisää dokumentti"
+
+msgid "Uploading…"
+msgstr "Lähetetään…"
+
+msgid "Upload"
+msgstr "Lähetä"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -160,8 +148,10 @@ msgid "Created"
 msgstr "Luotu"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sitten"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</em>"
+"\""
 
 #, python-format
 msgid ""
@@ -245,13 +235,8 @@ msgstr "Lisää kokoelmaan"
 msgid "Delete"
 msgstr "Poista"
 
-msgid "Server Error"
-msgstr "Palvelinvirhe"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
+msgid "Choose a document"
+msgstr "Valitse dokumentti"
 
 msgid "Search documents"
 msgstr "Hae dokumentteja"
@@ -283,9 +268,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s dokumentti"
 msgstr[1] "%(count)s dokumenttia"
-
-msgid "Choose another document"
-msgstr "Valitse toinen dokumentti"
-
-msgid "Edit this document"
-msgstr "Muokkaa tätä dokumenttia"

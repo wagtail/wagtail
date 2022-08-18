@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -124,15 +124,6 @@ msgstr "Imaxe"
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
-msgid "Choose an image"
-msgstr "Seleccionar unha imaxe"
-
-msgid "Search"
-msgstr "Porcurar"
-
-msgid "Upload"
-msgstr "Subir"
-
 msgid "Popular tags"
 msgstr "Etiquetas populares"
 
@@ -147,9 +138,6 @@ msgstr "Selecciona un formato"
 
 msgid "Insert image"
 msgstr "Insertar imaxe"
-
-msgid "Uploading…"
-msgstr "Subindo…"
 
 msgid "Change image file:"
 msgstr "Cambiar arquivo de imaxe:"
@@ -190,9 +178,6 @@ msgstr "Arquivo non atopado"
 
 msgid "Images"
 msgstr "Imaxes"
-
-msgid "Clear choice"
-msgstr "Borrar selección"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -294,6 +279,15 @@ msgstr "Engadir un permiso á imaxe"
 msgid "Delete"
 msgstr "Eliminar"
 
+msgid "Upload"
+msgstr "Subir"
+
+msgid "Uploading…"
+msgstr "Subindo…"
+
+msgid "Choose an image"
+msgstr "Seleccionar unha imaxe"
+
 msgid "Search images"
 msgstr "Procurar imaxes"
 
@@ -330,6 +324,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imaxe"
 msgstr[1] "%(count)s imaxes"
-
-msgid "Edit this image"
-msgstr "Editar esta imaxe"

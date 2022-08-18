@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -30,9 +30,6 @@ msgstr "Pateikti moderavimui"
 
 msgid "Unpublish"
 msgstr "Nebepublikuoti"
-
-msgid "Delete"
-msgstr "Ištrinti"
 
 msgid "Save Draft"
 msgstr "Išsaugoti juodraštį"
@@ -97,6 +94,18 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Paieškos frazė"
+
+msgid "Search"
+msgstr "Paieška"
+
+msgid "All collections"
+msgstr "Visos kolekcijos"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
 msgid "Parent"
 msgstr "Tėvas"
 
@@ -110,9 +119,6 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
 
-msgid "Collection"
-msgstr "Kolekcija"
-
 msgid "Add"
 msgstr "Pridėti"
 
@@ -124,6 +130,9 @@ msgstr "Redaguoti"
 
 msgid "Edit collections"
 msgstr "Redaguoti kolekcijas"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "Delete collections"
 msgstr "Ištrinti kolekcijas"
@@ -207,12 +216,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
 
-msgid "Search"
-msgstr "Paieška"
-
-msgid "Search term"
-msgstr "Paieškos frazė"
-
 msgid "Visibility"
 msgstr "Matomumas"
 
@@ -225,11 +228,11 @@ msgstr "Prašome pasirinkti bent vieną grupę."
 msgid "All types"
 msgstr "Visi tipai"
 
+msgid "Task"
+msgstr "Užduotis"
+
 msgid "Scheduled publishing"
 msgstr "Publikavimo planavimas"
-
-msgid "Privacy"
-msgstr "Privatumas"
 
 msgid "For search engines"
 msgstr "Paieškos varikliams"
@@ -245,15 +248,6 @@ msgstr "Skelbti"
 
 msgid "Settings"
 msgstr "Nustatymai"
-
-msgid "Status"
-msgstr "Būsena"
-
-msgid "Comments"
-msgstr "Komentarai"
-
-msgid "Preview"
-msgstr "Peržiūrėti"
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
@@ -275,15 +269,6 @@ msgstr "Daugiau veiksmų"
 
 msgid "Save account details"
 msgstr "Išsaugoti paskyros duomenis"
-
-msgid "Change password"
-msgstr "Keisti slaptažodį"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Čia jūsų slaptažodis negali būti pakeistas. Susisiekite su tinklalapio "
-"administratoriumi."
 
 msgid "Reset password"
 msgstr "Atstatyti slaptažodį"
@@ -389,6 +374,13 @@ msgstr "Pridėti išorinę nuorodą"
 msgid "Add a phone link"
 msgstr "Pridėti telefono nuorodą"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Naršyti vidinius '%(title)s' puslapius"
+
+msgid "Explore"
+msgstr "Naršyti"
+
 msgid "Collection privacy"
 msgstr "Kolekcijos privatumas"
 
@@ -398,14 +390,17 @@ msgstr "Ši kolekcija buvo padaryta privačia pagal pirminę kolekciją."
 msgid "You can edit the privacy settings on:"
 msgstr "Jūs galite redaguoti privatumo nustatymus čia:"
 
+msgid "Save"
+msgstr "Išsaugoti"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Privatumo nustatymai nustato kas galės žiūrėti dokumentus esančius šioje "
 "kolekcijoje."
 
-msgid "Save"
-msgstr "Išsaugoti"
+msgid "Privacy"
+msgstr "Privatumas"
 
 msgid "Public"
 msgstr "Viešas"
@@ -434,8 +429,18 @@ msgstr "Taip, ištrinti"
 msgid "Update"
 msgstr "Atnaujinti"
 
-msgid "Dashboard"
-msgstr "Prietaisų skydas"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Lyginami %(title)s"
+
+msgid "Comparing"
+msgstr "Palyginama"
+
+msgid "Fields"
+msgstr "Laukai"
+
+msgid "Changes"
+msgstr "Pakeitimai"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -487,8 +492,14 @@ msgstr "Patvirtinti"
 msgid "Reject"
 msgstr "Atmesti"
 
+msgid "Preview"
+msgstr "Peržiūrėti"
+
 msgid "Your most recent edits"
 msgstr "Jūsų paskutiniai redagavimai"
+
+msgid "Status"
+msgstr "Būsena"
 
 msgid "Date"
 msgstr "Data"
@@ -516,9 +527,6 @@ msgstr[3] ""
 "<span>%(total)s</span> Puslapių <span class=\"visuallyhidden\">, sukurtų "
 "%(site_name)s tinklalapyje</span>"
 
-msgid "Task"
-msgstr "Užduotis"
-
 msgid "Task started"
 msgstr "Užduotis pradėta"
 
@@ -537,21 +545,21 @@ msgstr "Užduotį pateikė"
 msgid "Sign in"
 msgstr "Prisijungti"
 
+msgid "Sign in to Wagtail"
+msgstr "Prisijungti prie Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "Jūsų %(username_field)s ir slaptažodis nesutapo. Bandykite dar kartą."
 
-msgid "Sign in to Wagtail"
-msgstr "Prisijungti prie Wagtail"
+msgid "Forgotten password?"
+msgstr "Pamiršote slaptažodį?"
 
 msgid "Remember me"
 msgstr "Prisiminti mane"
 
 msgid "Signing in…"
 msgstr "Prisijungiama..."
-
-msgid "Forgotten password?"
-msgstr "Pamiršote slaptažodį?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -625,9 +633,6 @@ msgstr "Puslapio privatumas"
 
 msgid "This page has been made private by a parent page."
 msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
 
 msgid "Publishing…"
 msgstr "Publikuojama..."
@@ -715,15 +720,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Taip, perkelti šį puslapį"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Nebepublikuoti %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
-
-msgid "Yes, unpublish it"
-msgstr "Taip, nebepublikuoti"
 
 msgid "Publish page"
 msgstr "Publikuoti puslapį"
@@ -788,10 +786,6 @@ msgid "Current draft"
 msgstr "Dabartinis juodraštis"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Naršoma %(title)s"
 
@@ -800,9 +794,6 @@ msgstr "Pasirinkti puslapį"
 
 msgid "Drag"
 msgstr "Tempti"
-
-msgid "Updated"
-msgstr "Atnaujintas"
 
 msgid "Configure a site now."
 msgstr "Konfigūruoti tinklalapį dabar."
@@ -816,13 +807,6 @@ msgstr "Kodėl gi <a href=\"%(add_page_url)s\">nesukūrus vieno</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Šis puslapis tolimesniam redagavimui užrakintas"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Naršyti vidinius '%(title)s' puslapius"
-
-msgid "Explore"
-msgstr "Naršyti"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -853,25 +837,14 @@ msgstr "Išjungti vidinių puslapių rikiavimą"
 msgid "Enable ordering of child pages"
 msgstr "Įgalinti vidinių puslapių rikiavimą"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Pasirinkite %(title)s naują tėvinį puslapį"
+msgid "Updated"
+msgstr "Atnaujintas"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Pasirinkite <span>%(title)s</span> naują tėvinį puslapį"
+msgid "Confirm"
+msgstr "Patvirtinti"
 
-msgid "Preview error"
-msgstr "Peržiūrėti klaidą"
-
-msgid "Close"
-msgstr "Uždaryti"
-
-msgid "Current status:"
-msgstr "Dabartinė būsena:"
-
-msgid "Set page privacy"
-msgstr "Nustatyti puslapio privatumą"
+msgid "History"
+msgstr "Istorija"
 
 msgid "Review this version"
 msgstr "Peržiūrėti šią versiją"
@@ -884,22 +857,6 @@ msgstr "Palyginti su dabartine versija"
 
 msgid "Cancel scheduled publish"
 msgstr "Atšaukti suplanuotą publikavimą"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Lyginami %(title)s"
-
-msgid "Comparing"
-msgstr "Palyginama"
-
-msgid "Page history"
-msgstr "Puslapio istorija"
-
-msgid "Fields"
-msgstr "Laukai"
-
-msgid "Changes"
-msgstr "Pakeitimai"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -922,24 +879,6 @@ msgstr "Puslapių tipai"
 
 msgid "Enter a search term above"
 msgstr "Aukščiau įveskite paieškos frazę"
-
-msgid "Page Locale: "
-msgstr "Puslapio lokalė:"
-
-msgid "Locked"
-msgstr "Užrakinta"
-
-msgid "Unlocked"
-msgstr "Atrakinta"
-
-msgid "Lock"
-msgstr "Užrakinti"
-
-msgid "Page status: "
-msgstr "Puslapio būsena:"
-
-msgid "View history"
-msgstr "Peržiūrėti istoriją"
 
 msgid "No pages use"
 msgstr "Jokie puslapiai nenaudoja"
@@ -967,9 +906,6 @@ msgstr "Perkelti aukštyn"
 msgid "Move down"
 msgstr "Perkelti žemyn"
 
-msgid "Add comment"
-msgstr "Pridėti komentarą"
-
 msgid "Comment notifications"
 msgstr "Komentarų pranešimai"
 
@@ -988,12 +924,6 @@ msgstr "Parsiųsti XLSX"
 msgid "Download CSV"
 msgstr "Parsisiųsti CSV"
 
-msgid "Filter"
-msgstr "Filtras"
-
-msgid "Apply filters"
-msgstr "Taikyti filtrus"
-
 #, python-format
 msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
 msgstr "<b>%(locking_date)s</b> užrakinote jūs"
@@ -1005,6 +935,9 @@ msgstr "<b>%(locking_date)s</b> užrakino <b>%(locked_by)s</b>"
 #, python-format
 msgid "Locked at <b>%(locking_date)s</b>"
 msgstr "Užrakinta <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Užrakinta"
 
 msgid "No locked pages found."
 msgstr "Užrakintų puslapių nerasta."
@@ -1028,20 +961,45 @@ msgstr "Naršymo kelias"
 msgid "Root"
 msgstr "Šakninis"
 
-msgid "Home"
-msgstr "Namai"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Nebepublikuoti %(title)s"
 
-msgid "All collections"
-msgstr "Visos kolekcijos"
+msgid "Yes, unpublish it"
+msgstr "Taip, nebepublikuoti"
 
-msgid "History"
-msgstr "Istorija"
+msgid "Add comment"
+msgstr "Pridėti komentarą"
+
+msgid "Filter"
+msgstr "Filtras"
+
+msgid "Apply filters"
+msgstr "Taikyti filtrus"
 
 msgid "Current page status:"
 msgstr "Dabartinė puslapio būsena:"
 
 msgid "Other searches"
 msgstr "Kitos paieškos"
+
+msgid "Page Locale: "
+msgstr "Puslapio lokalė:"
+
+msgid "Unlocked"
+msgstr "Atrakinta"
+
+msgid "Lock"
+msgstr "Užrakinti"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
+
+msgid "Page status: "
+msgstr "Puslapio būsena:"
+
+msgid "View history"
+msgstr "Peržiūrėti istoriją"
 
 msgid "Add a child page"
 msgstr "Pridėti vidinį puslapį"
@@ -1067,10 +1025,6 @@ msgstr "Žingsnis %(step_number)s"
 msgid "New"
 msgstr "Naujas"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "pagal %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Pateikta"
 
@@ -1095,20 +1049,15 @@ msgstr "0 minučių"
 msgid "Just now"
 msgstr "Ką tik"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
+
 msgid "Log out"
 msgstr "Atsijungti"
 
-msgid "live"
-msgstr "veikiantis"
-
-msgid "draft"
-msgstr "juodraštis"
-
-msgid "live + draft"
-msgstr "veikiantis + juodraštis"
-
-msgid "Test"
-msgstr "Testas"
+msgid "Comments"
+msgstr "Komentarai"
 
 msgid "Profile"
 msgstr "Profilis"
@@ -1166,6 +1115,15 @@ msgstr "Ar tikrai norite ištrinti šią kolekciją?"
 
 msgid "Editing"
 msgstr "Redaguojama"
+
+msgid "Earliest"
+msgstr "Naujausias"
+
+msgid "Latest"
+msgstr "Vėliausias"
+
+msgid "Dashboard"
+msgstr "Prietaisų skydas"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1232,6 +1190,9 @@ msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
 msgid "Hide commenting actions"
 msgstr "Slėpti komentavimo veiksmus"
 
+msgid "Page history"
+msgstr "Puslapio istorija"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Puslapis '{0}' dabar atrakintas."
@@ -1257,12 +1218,6 @@ msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Puslapis '{0}' buvo perkeltas."
-
-msgid "Earliest"
-msgstr "Naujausias"
-
-msgid "Latest"
-msgstr "Vėliausias"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -1308,8 +1263,8 @@ msgstr "Išjungti"
 msgid "Enable"
 msgstr "Įjungti"
 
-msgid "Server Error"
-msgstr "Serverio klaida"
+msgid "Change"
+msgstr "Keisti"
 
 msgid "Pages"
 msgstr "Puslapiai"
@@ -1344,6 +1299,12 @@ msgstr "Nebepublikuoti '%(title)s' puslapio"
 msgid "Sort menu order"
 msgstr "Meniu rikiavimo tvarka"
 
+msgid "Translate"
+msgstr "Versti"
+
+msgid "Translate this page"
+msgstr "Versti šį puslapį"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Antraštė %(level)d"
@@ -1374,12 +1335,3 @@ msgstr "Ataskaitos"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"
-
-msgid "Choose another item"
-msgstr "Pasirinkti kitą elementą"
-
-msgid "Clear choice"
-msgstr "Išvalyti pasirinkimus"
-
-msgid "Choose another page"
-msgstr "Pasirinkti kitą puslapį"

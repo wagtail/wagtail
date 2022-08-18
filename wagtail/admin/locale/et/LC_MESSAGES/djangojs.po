@@ -65,9 +65,6 @@ msgstr "Leheuurija"
 msgid "Pages"
 msgstr "Lehed"
 
-msgid "Redo"
-msgstr "Tee uuesti"
-
 msgid "Reload saved content"
 msgstr "Salvestatud sisu uuesti laadimine"
 
@@ -97,11 +94,8 @@ msgid ""
 msgstr ""
 "Redaktorjooksis kokku. Sisu on lähtestatud viimati salvestatud versioonile."
 
-msgid "Undo"
-msgstr "Võta tagasi"
+msgid "This field is required."
+msgstr "Selle välja täitmine on kohustuslik."
 
 msgid "View child pages of '{title}'"
 msgstr "Kuva üksuse „{title}” alamlehed"
-
-msgid "Write here…"
-msgstr "Kirjuta siia…"

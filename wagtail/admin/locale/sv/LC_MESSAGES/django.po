@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -48,9 +48,6 @@ msgstr "Avbryt arbetsflöde"
 
 msgid "Unpublish"
 msgstr "Avpublicera"
-
-msgid "Delete"
-msgstr "Radera"
 
 msgid "Save Draft"
 msgstr "Spara utkast"
@@ -114,6 +111,18 @@ msgstr "Ange din e-postadress för att återställa ditt lösenord"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Sökterm"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "All collections"
+msgstr "Alla samlingar"
+
+msgid "Collection"
+msgstr "Samling"
+
 msgid "Parent"
 msgstr "Topp"
 
@@ -130,9 +139,6 @@ msgstr "Vänligen välj en annan föräldersida"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
 
-msgid "Collection"
-msgstr "Samling"
-
 msgid "Add"
 msgstr "Lägg till"
 
@@ -144,6 +150,9 @@ msgstr "Redigera"
 
 msgid "Edit collections"
 msgstr "Redigera samlingar"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Delete collections"
 msgstr "Radera samlingar"
@@ -221,12 +230,6 @@ msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
 msgid "Expiry date/time must be in the future"
 msgstr "Utgångsdatum/-tid måste ske i framtiden"
 
-msgid "Search"
-msgstr "Sök"
-
-msgid "Search term"
-msgstr "Sökterm"
-
 msgid "Visibility"
 msgstr "Synlighet"
 
@@ -251,6 +254,9 @@ msgstr "Ge ditt arbetsflöde ett namn"
 
 msgid "Add tasks to your workflow"
 msgstr "Lägg till uppgifter till ditt arbetsflöde"
+
+msgid "Task"
+msgstr "Uppgift"
 
 msgid "1 page selected"
 msgstr "1 sida vald"
@@ -325,9 +331,6 @@ msgstr "Alla objekt i lista valda"
 msgid "Scheduled publishing"
 msgstr "Schemalagd publicering"
 
-msgid "Privacy"
-msgstr "Sekretess"
-
 msgid "For search engines"
 msgstr "För sökmotorer"
 
@@ -342,15 +345,6 @@ msgstr "Marknadsför"
 
 msgid "Settings"
 msgstr "Inställningar"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Comments"
-msgstr "Kommentarer"
-
-msgid "Preview"
-msgstr "Förhandsgranska"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -372,14 +366,6 @@ msgstr "Fler åtgärder"
 
 msgid "Save account details"
 msgstr "Spara kontodetaljer"
-
-msgid "Change password"
-msgstr "Byt lösenord"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ditt lösenord inte inte ändras här. Vänligen kontakta en administratör."
 
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -491,6 +477,13 @@ msgstr "Infoga extern länk"
 msgid "Add a phone link"
 msgstr "Lägg till Telefonlänk"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Utforska undersidor till '%(title)s'"
+
+msgid "Explore"
+msgstr "Utforska"
+
 msgid "Collection privacy"
 msgstr "Sekretess för samlingar"
 
@@ -500,14 +493,17 @@ msgstr "Denna samling har gjorts privat p.g.a. en huvudsamling."
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan redigera sekretessinställningarna på:"
 
+msgid "Save"
+msgstr "Spara"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Sekretessinställningarna bestämmer vem som kan se dokument i den här "
 "samlingen. "
 
-msgid "Save"
-msgstr "Spara"
+msgid "Privacy"
+msgstr "Sekretess"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Ställer in samlingens integritet. Nuvarande status: Publik"
@@ -543,8 +539,21 @@ msgstr "Ja, radera"
 msgid "Update"
 msgstr "Uppdatera"
 
-msgid "Dashboard"
-msgstr "Instrumentpanel"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Jämför %(title)s"
+
+msgid "Comparing"
+msgstr "Jämför"
+
+msgid "Fields"
+msgstr "Fält"
+
+msgid "Changes"
+msgstr "Ändringar"
+
+msgid "There are no differences between these two versions"
+msgstr "Det finns inga skillnader mellan dessa två versioner"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -578,10 +587,6 @@ msgstr "Utkast"
 msgid "Live"
 msgstr "Publicerad"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Sidor som väntar på moderation"
 
@@ -600,8 +605,14 @@ msgstr "Godkänn"
 msgid "Reject"
 msgstr "Avvisa"
 
+msgid "Preview"
+msgstr "Förhandsgranska"
+
 msgid "Your most recent edits"
 msgstr "Dina senaste editeringar"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Date"
 msgstr "Datum"
@@ -611,9 +622,6 @@ msgstr "Sajtsammanställning"
 
 msgid "Your pages in a workflow"
 msgstr "Dina sidor i ett arbetsflöde"
-
-msgid "Task"
-msgstr "Uppgift"
 
 msgid "Task started"
 msgstr "Uppgift påbörjad"
@@ -636,22 +644,22 @@ msgstr "Uppgift inskickad av"
 msgid "Sign in"
 msgstr "Logga in"
 
+msgid "Sign in to Wagtail"
+msgstr "Logga in till Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Ditt %(username_field)s och lösenord matchade inte. Vänligen försök igen."
 
-msgid "Sign in to Wagtail"
-msgstr "Logga in till Wagtail"
+msgid "Forgotten password?"
+msgstr "Glömt lösenord?"
 
 msgid "Remember me"
 msgstr "Kom ihåg mig"
 
 msgid "Signing in…"
 msgstr "Loggar in..."
-
-msgid "Forgotten password?"
-msgstr "Glömt lösenord?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -816,23 +824,6 @@ msgstr "Sidsekretess"
 
 msgid "This page has been made private by a parent page."
 msgstr "Denna sida har gjorts privat p.g.a. en huvudsida."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Ändring av sekretessinställningar påverkar även alla undersidor till denna "
-"sida."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Ställ in sidans integritet. Nuvarande status: Publik"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Ställ in sidans integritet. Nuvarande status: Privat"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Sidans integritet. Nuvarande status: Publik"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Sidans integritet. Nuvarande status: Privat"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Du har <span>osparade ändringar</span>"
@@ -1006,15 +997,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Ja, flytta sidan"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Avpublicera %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Är du säker på att du vill avpublicera denna sida?"
-
-msgid "Yes, unpublish it"
-msgstr "Ja, avpublicera den"
 
 msgid "Publish page"
 msgstr "Publicera sida"
@@ -1090,10 +1074,6 @@ msgstr "Publicerad version"
 msgid "Current draft"
 msgstr "Nuvarande utkast"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sedan"
-
 msgid "No log entries found."
 msgstr "Inga loggposter funna"
 
@@ -1110,9 +1090,6 @@ msgstr "Välj sida"
 msgid "Drag"
 msgstr "Dra"
 
-msgid "Updated"
-msgstr "Uppdaterad"
-
 msgid "Configure a site now."
 msgstr "Konfigurera en sajt nu."
 
@@ -1125,13 +1102,6 @@ msgstr "Varför inte <a href=\"%(add_page_url)s\">skapa en</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Den här sidan är låst för fortsatt editering"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Utforska undersidor till '%(title)s'"
-
-msgid "Explore"
-msgstr "Utforska"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1165,25 +1135,14 @@ msgstr "Sortera"
 msgid "Enable ordering of child pages"
 msgstr "Aktivera sortering av undersidor"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Välj en ny topp-sida för %(title)s"
+msgid "Updated"
+msgstr "Uppdaterad"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Välj en ny topp-sida för <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Bekräfta"
 
-msgid "Preview error"
-msgstr "Fel under förhandsgranskning"
-
-msgid "Close"
-msgstr "Stäng"
-
-msgid "Current status:"
-msgstr "Nuvarande status:"
-
-msgid "Set page privacy"
-msgstr "Sätt sidsekretess"
+msgid "History"
+msgstr "Historik"
 
 msgid "Review this version"
 msgstr "Granska denna version"
@@ -1196,25 +1155,6 @@ msgstr "Jämför med nuvarande version"
 
 msgid "Cancel scheduled publish"
 msgstr "Avbryt schemalagd publicering"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Jämför %(title)s"
-
-msgid "Comparing"
-msgstr "Jämför"
-
-msgid "Page history"
-msgstr "Sidhistorik"
-
-msgid "Fields"
-msgstr "Fält"
-
-msgid "Changes"
-msgstr "Ändringar"
-
-msgid "There are no differences between these two versions"
-msgstr "Det finns inga skillnader mellan dessa två versioner"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1241,18 +1181,6 @@ msgstr "Ledsen, inga sidor matchar <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Ange en sökterm ovan"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Olåst"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "since"
-msgstr "sedan"
 
 msgid "No pages use"
 msgstr "Inga sidor använder"
@@ -1331,9 +1259,6 @@ msgstr "Flytta upp"
 msgid "Move down"
 msgstr "Flytta ner"
 
-msgid "Add comment"
-msgstr "Lägg till kommentar"
-
 msgid "Comment notifications"
 msgstr "Kommentarnotifiering"
 
@@ -1361,14 +1286,11 @@ msgstr "Ladda ner XLSX"
 msgid "Download CSV"
 msgstr "Ladda ner CSV"
 
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Apply filters"
-msgstr "Filtrera"
-
 msgid "Locking status"
 msgstr "Låsstatus"
+
+msgid "Locked"
+msgstr "Låst"
 
 msgid "No locked pages found."
 msgstr "Inga upplåsta sidor hittades."
@@ -1404,14 +1326,21 @@ msgstr "Sökvägsnavigering"
 msgid "Root"
 msgstr "Rot"
 
-msgid "Home"
-msgstr "Hem"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Avpublicera %(title)s"
 
-msgid "All collections"
-msgstr "Alla samlingar"
+msgid "Yes, unpublish it"
+msgstr "Ja, avpublicera den"
 
-msgid "History"
-msgstr "Historik"
+msgid "Add comment"
+msgstr "Lägg till kommentar"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Filtrera"
 
 msgid "Visit the live page"
 msgstr "Besök live-sidan"
@@ -1421,6 +1350,17 @@ msgstr "Nuvarande sidstatus:"
 
 msgid "Other searches"
 msgstr "Andra sökningar"
+
+msgid "Unlocked"
+msgstr "Olåst"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Ändring av sekretessinställningar påverkar även alla undersidor till denna "
+"sida."
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -1567,14 +1507,6 @@ msgstr "Sidor som använder arbetsflöde  '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Sidor som använder arbetsflöde"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Lämnade in till <em>%(workflow_name)s</em> vid %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "av %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Inlämnad"
 
@@ -1629,20 +1561,15 @@ msgstr "0 minuter"
 msgid "Just now"
 msgstr "Just nu"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sedan"
+
 msgid "Log out"
 msgstr "Logga ut"
 
-msgid "live"
-msgstr "publicerad"
-
-msgid "draft"
-msgstr "utkast"
-
-msgid "live + draft"
-msgstr "publicerad + utkast"
-
-msgid "Test"
-msgstr "Test"
+msgid "Comments"
+msgstr "Kommentarer"
 
 msgid "Profile"
 msgstr "Profil"
@@ -1700,6 +1627,15 @@ msgstr "Är du säker på att du vill radera denna samling?"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Earliest"
+msgstr "Tidigast"
+
+msgid "Latest"
+msgstr "Senast"
+
+msgid "Dashboard"
+msgstr "Instrumentpanel"
 
 msgid "Delete selected pages"
 msgstr "Radera valda sidor"
@@ -1856,27 +1792,6 @@ msgstr "Sidan '{0}' har blivit ersatt med version från {1}."
 msgid "Page '{0}' has been updated."
 msgstr "Sida '{0}' har blivit uppdaterad."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Sidan '{}' låstes</b> av <b>dig</b> <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Sida '{}' är låst</b> av <b>dig</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Sidan '{}' låstes</b> av <b>{}</b> <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Sidan '{}' är låst</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Sidan väntar på moderering"
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Endast granskare för denna uppgift kan redigera sidan."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Arbetsflöde på sida '{0}' har avbrutits."
@@ -1921,6 +1836,9 @@ msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 msgid "Hide commenting actions"
 msgstr "Göm kommenteringshandlingar"
 
+msgid "Page history"
+msgstr "Sidhistorik"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
@@ -1962,12 +1880,6 @@ msgid ""
 msgstr ""
 "Du tittar på en tidigare version av sidan från <b>%(created_at)s</b> av "
 "%(user)s"
-
-msgid "Earliest"
-msgstr "Tidigast"
-
-msgid "Latest"
-msgstr "Senast"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2132,15 +2044,8 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Uppgift '{0}' aktiverad."
 
-msgid "Server Error"
-msgstr "Serverfel"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Rapportera detta fel till din webbplatsadministratör med följande "
-"information:"
+msgid "Change"
+msgstr "Ändra"
 
 msgid "Pages"
 msgstr "Sidor"
@@ -2195,6 +2100,12 @@ msgstr "Sortera menyordning"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Ändra sortering på undersidor till '%(title)s'"
 
+msgid "Translate"
+msgstr "Översätt"
+
+msgid "Translate this page"
+msgstr "Översätt den här sidan"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Rubrik %(level)d"
@@ -2240,18 +2151,3 @@ msgstr "Ja"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"
-
-msgid "Choose another item"
-msgstr "Välj ett annat objekt"
-
-msgid "Clear choice"
-msgstr "Rensa val"
-
-msgid "Choose another page"
-msgstr "Välj annan sida"
-
-msgid "Choose another task"
-msgstr "Välj en annan uppgift"
-
-msgid "Edit this task"
-msgstr "Redigera denna uppgift"

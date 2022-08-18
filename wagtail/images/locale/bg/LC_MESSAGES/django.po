@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,15 +27,6 @@ msgstr "Избери"
 
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
-
-msgid "Choose an image"
-msgstr "Изберете изображение"
-
-msgid "Search"
-msgstr "Търсене"
-
-msgid "Upload"
-msgstr "Качване"
 
 msgid "Popular tags"
 msgstr "Популярни тагове"
@@ -74,9 +65,6 @@ msgstr "Редактиране"
 msgid "Images"
 msgstr "Изображения"
 
-msgid "Clear choice"
-msgstr "Изчисти избора"
-
 msgid "URL"
 msgstr "URL"
 
@@ -100,6 +88,12 @@ msgstr "Редактирайте тази страница"
 
 msgid "Delete"
 msgstr "Изтрий"
+
+msgid "Upload"
+msgstr "Качване"
+
+msgid "Choose an image"
+msgstr "Изберете изображение"
 
 #, python-brace-format
 msgid "Image '{0}' updated."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -181,15 +181,6 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
-msgid "Choose an image"
-msgstr "Odaberi sliku"
-
-msgid "Search"
-msgstr "Pretraži"
-
-msgid "Upload"
-msgstr "Prijenos"
-
 msgid "Popular tags"
 msgstr "Popularne oznake"
 
@@ -207,9 +198,6 @@ msgstr "Odaberi format"
 
 msgid "Insert image"
 msgstr "Umetni sliku"
-
-msgid "Uploading…"
-msgstr "Prijenos u tijeku..."
 
 msgid "Change image file:"
 msgstr "Promijeni sliku:"
@@ -271,9 +259,6 @@ msgstr "Slike"
 
 msgid "Popular Tags:"
 msgstr "Popularne Oznake:"
-
-msgid "Clear choice"
-msgstr "Poništi odabir"
 
 msgid "pixels"
 msgstr "piksela"
@@ -378,6 +363,15 @@ msgstr "Dodaj dozvolu slike"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Upload"
+msgstr "Prijenos"
+
+msgid "Uploading…"
+msgstr "Prijenos u tijeku..."
+
+msgid "Choose an image"
+msgstr "Odaberi sliku"
+
 msgid "Search images"
 msgstr "Pretraži slike"
 
@@ -417,9 +411,3 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s slika"
 msgstr[1] "%(count)s slika"
 msgstr[2] "%(count)s slika"
-
-msgid "Change image"
-msgstr "Promijeni sliku"
-
-msgid "Edit this image"
-msgstr "Uredi ovu sliku"

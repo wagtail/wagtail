@@ -73,9 +73,6 @@ msgstr "Pretraživač stranica"
 msgid "Pages"
 msgstr "Stranice"
 
-msgid "Redo"
-msgstr "Ponovi"
-
 msgid "Reload saved content"
 msgstr "Ponovno učitaj sačuvani sadržaj"
 
@@ -102,11 +99,8 @@ msgid ""
 msgstr ""
 "Uređivač se upravo srušio. Sadržaj je vraćen na zadnju pohranjenu verziju. "
 
-msgid "Undo"
-msgstr "Vrati"
+msgid "This field is required."
+msgstr "Ovo polje je obavezno."
 
 msgid "View child pages of '{title}'"
 msgstr "Pogledaj djecu stranice '{title}'"
-
-msgid "Write here…"
-msgstr "Pišite ovdje..."

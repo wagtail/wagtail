@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Basitlik İyidir, 2020\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -64,6 +64,42 @@ msgstr "Parola"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."
 
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Sayfa '{}' kilitli </b>."
+
+msgid "live"
+msgstr "canlı"
+
+msgid "has unpublished changes"
+msgstr "yayınlanmayan değişiklikler var"
+
+msgid "first published at"
+msgstr "ilk yayınlanma zamanı"
+
+msgid "last published at"
+msgstr "son yayınlanma zamanı"
+
+msgid "go live date/time"
+msgstr "yayın başlangış tarihi/zamanı"
+
+msgid "expiry date/time"
+msgstr "yayın bitiş tarihi/zamanı"
+
+msgid "expired"
+msgstr "süresi doldu"
+
+msgid "draft"
+msgstr "taslak"
+
+msgid "live + draft"
+msgstr "canlı + taslak"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "locked"
+msgstr "kilitlendi"
+
 msgid "title"
 msgstr "başlık"
 
@@ -82,12 +118,6 @@ msgstr ""
 msgid "content type"
 msgstr "içerik türü"
 
-msgid "live"
-msgstr "canlı"
-
-msgid "has unpublished changes"
-msgstr "yayınlanmayan değişiklikler var"
-
 msgid "URL path"
 msgstr "URL yolu"
 
@@ -102,24 +132,6 @@ msgid ""
 msgstr ""
 "Otomatik olarak oluşturulan menülerde, bu sayfaya bir bağlantı olacaktır"
 
-msgid "go live date/time"
-msgstr "yayın başlangış tarihi/zamanı"
-
-msgid "expiry date/time"
-msgstr "yayın bitiş tarihi/zamanı"
-
-msgid "expired"
-msgstr "süresi doldu"
-
-msgid "locked"
-msgstr "kilitlendi"
-
-msgid "first published at"
-msgstr "ilk yayınlanma zamanı"
-
-msgid "last published at"
-msgstr "son yayınlanma zamanı"
-
 msgid "latest revision created at"
 msgstr "en son oluşturulan revizyon zamanı"
 
@@ -129,17 +141,8 @@ msgstr "Bu başlık url'si zaten kullanılıyor"
 msgid "scheduled"
 msgstr "zamanlandı"
 
-msgid "draft"
-msgstr "taslak"
-
 msgid "live + scheduled"
 msgstr "canlı + zamanlandı"
-
-msgid "live + draft"
-msgstr "canlı + taslak"
-
-msgid "Default"
-msgstr "Varsayılan"
 
 msgid "page"
 msgstr "sayfa"
@@ -161,12 +164,6 @@ msgstr "JSON içerik"
 
 msgid "approved go live at"
 msgstr "onaylandı, canlısı"
-
-msgid "page revision"
-msgstr "sayfa revizyon"
-
-msgid "page revisions"
-msgstr "sayfa revizyonları"
 
 msgid "Add/edit pages you own"
 msgstr "Sahip olduğun sayfalara ekle/düzenle"
@@ -221,6 +218,9 @@ msgstr "gruplar"
 
 msgid "Approve"
 msgstr "Onayla"
+
+msgid "page revision"
+msgstr "sayfa revizyon"
 
 msgid "collection"
 msgstr "koleksiyon"
@@ -333,15 +333,6 @@ msgstr "Bu sayfaya erişmek için şifre gerekiyor."
 
 msgid "Continue"
 msgstr "Devam et"
-
-msgid "English"
-msgstr "İngilizce"
-
-msgid "French"
-msgstr "Fransızca"
-
-msgid "German"
-msgstr "Almanca"
 
 msgid "Edited"
 msgstr "Düzenlendi"

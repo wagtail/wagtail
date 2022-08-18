@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -41,9 +41,6 @@ msgstr "Cancel·lar fluxe de treball"
 
 msgid "Unpublish"
 msgstr "Despublica"
-
-msgid "Delete"
-msgstr "Esborra"
 
 msgid "Save Draft"
 msgstr "Desa l'esborrany"
@@ -107,6 +104,18 @@ msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Termini de cerca"
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "All collections"
+msgstr "Totes les col·leccions"
+
+msgid "Collection"
+msgstr "Col·lecció"
+
 msgid "Parent"
 msgstr "Pare"
 
@@ -124,9 +133,6 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
 
-msgid "Collection"
-msgstr "Col·lecció"
-
 msgid "Add"
 msgstr "Afegir"
 
@@ -138,6 +144,9 @@ msgstr "Edita"
 
 msgid "Edit collections"
 msgstr "Editar col·leccions"
+
+msgid "Delete"
+msgstr "Esborra"
 
 msgid "Delete collections"
 msgstr "Esborrar col·leccions"
@@ -216,12 +225,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "La data/hora de caducitat ha d'estar en el futur"
 
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Search term"
-msgstr "Termini de cerca"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr ""
@@ -253,6 +256,9 @@ msgstr "Poseu-li un nom al fluxe de treball"
 
 msgid "Add tasks to your workflow"
 msgstr "Afegir tasques al fluxe de treball"
+
+msgid "Task"
+msgstr "Tasca"
 
 msgid "1 page selected"
 msgstr "1 pàgina seleccionada"
@@ -327,8 +333,8 @@ msgstr "S'ha seleccionat tots els elements del llistat"
 msgid "Scheduled publishing"
 msgstr "Planifica la publicació"
 
-msgid "Privacy"
-msgstr "Privadesa"
+msgid "Page title"
+msgstr "Títol de la pàgina"
 
 msgid "For search engines"
 msgstr "Per motors de cerca"
@@ -344,24 +350,6 @@ msgstr "Promoure"
 
 msgid "Settings"
 msgstr "Configuració"
-
-msgid "Status"
-msgstr "Estat"
-
-msgid "Toggle status"
-msgstr "Canviar l'estat"
-
-msgid "Comments"
-msgstr "Comentaris"
-
-msgid "Toggle comments"
-msgstr "Mostrar/ocultar comentaris"
-
-msgid "Preview"
-msgstr "Vista prèvia"
-
-msgid "Toggle preview"
-msgstr "Mostrar/ocultar previsualització"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pàgina no trobada"
@@ -383,15 +371,6 @@ msgstr "Més accions"
 
 msgid "Save account details"
 msgstr "Desar els detalls del compte"
-
-msgid "Change password"
-msgstr "Canviar contrasenya"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
-"l'administrador de la web"
 
 msgid "Reset password"
 msgstr "Reiniciar contrasenya"
@@ -509,6 +488,13 @@ msgstr "Afegir un enllaç extern"
 msgid "Add a phone link"
 msgstr "Afegir un enllaç a telèfon"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorar subpàgines de '%(title)s'"
+
+msgid "Explore"
+msgstr "Explora"
+
 msgid "Collection privacy"
 msgstr "Privadesa de la col·lecció"
 
@@ -518,14 +504,17 @@ msgstr "Aquesta col·lecció ha estat feta privada per una col·lecció pare."
 msgid "You can edit the privacy settings on:"
 msgstr "Podeu editar la configuració de privadesa a:"
 
+msgid "Save"
+msgstr "Desar"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "La configuració de privadesa determina qui pot visualitzar documents "
 "d'aquesta col·lecció."
 
-msgid "Save"
-msgstr "Desar"
+msgid "Privacy"
+msgstr "Privadesa"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Establir privadesa de la col·lecció. Estat actual: Pública"
@@ -561,8 +550,18 @@ msgstr "Sí, eliminar"
 msgid "Update"
 msgstr "Actualitzar"
 
-msgid "Dashboard"
-msgstr "Tauler de control"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparant %(title)s"
+
+msgid "Comparing"
+msgstr "Comparant"
+
+msgid "Fields"
+msgstr "Camps"
+
+msgid "Changes"
+msgstr "Canvis"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -596,10 +595,6 @@ msgstr "Esborrany"
 msgid "Live"
 msgstr "En viu"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Pàgines a l'espera de moderació"
 
@@ -618,8 +613,14 @@ msgstr "Aprovar"
 msgid "Reject"
 msgstr "Rebutjar"
 
+msgid "Preview"
+msgstr "Vista prèvia"
+
 msgid "Your most recent edits"
 msgstr "Edicions més recents"
+
+msgid "Status"
+msgstr "Estat"
 
 msgid "Date"
 msgstr "Data"
@@ -629,9 +630,6 @@ msgstr "Resum del lloc"
 
 msgid "Your pages in a workflow"
 msgstr "Les vostres pàgines en un fluxe de treball"
-
-msgid "Task"
-msgstr "Tasca"
 
 msgid "Task started"
 msgstr "La tasca s'ha iniciat"
@@ -654,22 +652,22 @@ msgstr "Tasca enviada per"
 msgid "Sign in"
 msgstr "Registra't"
 
+msgid "Sign in to Wagtail"
+msgstr "Connecta't a Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "El vostre %(username_field)s y contrasenya no concorden. Torneu-ho a provar."
 
-msgid "Sign in to Wagtail"
-msgstr "Connecta't a Wagtail"
+msgid "Forgotten password?"
+msgstr "Has oblidat la clau?"
 
 msgid "Remember me"
 msgstr "Recorda'm"
 
 msgid "Signing in…"
 msgstr "Iniciant la sessió..."
-
-msgid "Forgotten password?"
-msgstr "Has oblidat la clau?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -749,23 +747,6 @@ msgstr "Privadesa de la pàgina"
 
 msgid "This page has been made private by a parent page."
 msgstr "Aquesta pàgina ha estat feta privada per una pàgina pare."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
-"d'aquesta pàgina."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Establir privadesa de la pàgina. Estat actual: Pública"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Establir privadesa de la pàgina. Estat actual: Privada"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Privadesa de la pàgina. Estat actual: Pública"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Privadesa de la pàgina. Estat actual: Privada"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Teniu <span>edicions sense desar</span>"
@@ -958,15 +939,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Si, mou la pàgina"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Despublica %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estàs segur que vols despublicar aquesta pàgina?"
-
-msgid "Yes, unpublish it"
-msgstr "Si, despublicar"
 
 msgid "Publish page"
 msgstr "Publica la pàgina"
@@ -1026,10 +1000,6 @@ msgid "Current draft"
 msgstr "Esborrany actual"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "fa %(time_period)s"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorant %(title)s"
 
@@ -1041,9 +1011,6 @@ msgstr "Seleccionar pàgina"
 
 msgid "Drag"
 msgstr "Agafa"
-
-msgid "Updated"
-msgstr "Actualitzat"
 
 msgid "Configure a site now."
 msgstr "Configurar un lloc ara."
@@ -1057,13 +1024,6 @@ msgstr "Per què no en <a href=\"%(add_page_url)s\">creeu una</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Aquesta pàgina està bloquejada per a la seva posterior edició"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Explorar subpàgines de '%(title)s'"
-
-msgid "Explore"
-msgstr "Explora"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1097,25 +1057,11 @@ msgstr "Ordenació"
 msgid "Enable ordering of child pages"
 msgstr "Activa l'ordenació de les pàgines fill"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Selecciona una nova pàgina pare per %(title)s"
+msgid "Updated"
+msgstr "Actualitzat"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Selecciona una nova pàgina pare per <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "Previsualitzar l'error"
-
-msgid "Close"
-msgstr "Tanca"
-
-msgid "Current status:"
-msgstr "Estat actual:"
-
-msgid "Set page privacy"
-msgstr "Establir privacitat de la pàgina"
+msgid "History"
+msgstr "Historial"
 
 msgid "Review this version"
 msgstr "Revisar aquesta versió"
@@ -1128,22 +1074,6 @@ msgstr "Compara amb la versió actual"
 
 msgid "Cancel scheduled publish"
 msgstr "Cancel·lar la publicació programada"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparant %(title)s"
-
-msgid "Comparing"
-msgstr "Comparant"
-
-msgid "Page history"
-msgstr "Historial de pàgina"
-
-msgid "Fields"
-msgstr "Camps"
-
-msgid "Changes"
-msgstr "Canvis"
 
 msgid "Unschedule"
 msgstr "Desprogramar"
@@ -1159,55 +1089,6 @@ msgstr "Tipus de pàgina"
 
 msgid "Enter a search term above"
 msgstr "Introdueix un terme de cerca abaix"
-
-msgid "Page Locale: "
-msgstr "Localització de la pàgina:"
-
-#, python-format
-msgid "Translated to %(count)s other locales"
-msgstr "Traduït a %(count)s altres localitzacions"
-
-msgid "Switch locales"
-msgstr "Commutar localitzacions"
-
-msgid "Locked"
-msgstr "Bloquejada"
-
-msgid "Unlocked"
-msgstr "Desbloquejat"
-
-msgid "Lock"
-msgstr "Bloqueja"
-
-msgid "Page visibility: "
-msgstr "Visibilitat de la pàgina:"
-
-msgid "Visible to all"
-msgstr "Visible per tothom"
-
-msgid "Once live anyone can view"
-msgstr "Un cop en directe tothom la pot veure"
-
-msgid "Not visible to the public"
-msgstr "No visible de forma pública"
-
-msgid "Page status: "
-msgstr "Estat de la pàgina:"
-
-msgid "In Moderation"
-msgstr "En Moderació"
-
-msgid "View details"
-msgstr "Veure detalls"
-
-msgid "View history"
-msgstr "Veure historial"
-
-msgid "since"
-msgstr "des de"
-
-msgid "First published"
-msgstr "Primera publicació"
 
 msgid "No pages use"
 msgstr "No hi ha pàgines que enllacin"
@@ -1271,9 +1152,6 @@ msgstr "Puja"
 msgid "Move down"
 msgstr "Baixa"
 
-msgid "Add comment"
-msgstr "Afegir comentari"
-
 msgid "Last published"
 msgstr "Última publicació"
 
@@ -1289,14 +1167,11 @@ msgstr "Baixa XLSX"
 msgid "Download CSV"
 msgstr "Baixa CSV"
 
-msgid "Filter"
-msgstr "Filtra"
-
-msgid "Apply filters"
-msgstr "Aplica els filtres"
-
 msgid "Locking status"
 msgstr "Estat de bloqueig"
+
+msgid "Locked"
+msgstr "Bloquejada"
 
 msgid "No locked pages found."
 msgstr "No s'ha trobat cap pàgina bloquejada."
@@ -1326,17 +1201,65 @@ msgstr "Pàgina %(page_num)s de %(total_pages)s."
 msgid "Root"
 msgstr "Arrel"
 
-msgid "Home"
-msgstr "Inici"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Despublica %(title)s"
 
-msgid "All collections"
-msgstr "Totes les col·leccions"
+msgid "Yes, unpublish it"
+msgstr "Si, despublicar"
 
-msgid "History"
-msgstr "Historial"
+msgid "Add comment"
+msgstr "Afegir comentari"
+
+msgid "Filter"
+msgstr "Filtra"
+
+msgid "Apply filters"
+msgstr "Aplica els filtres"
+
+msgid "Visible to all"
+msgstr "Visible per tothom"
 
 msgid "Other searches"
 msgstr "Altres cerques"
+
+msgid "Page Locale: "
+msgstr "Localització de la pàgina:"
+
+msgid "Switch locales"
+msgstr "Commutar localitzacions"
+
+msgid "Unlocked"
+msgstr "Desbloquejat"
+
+msgid "Lock"
+msgstr "Bloqueja"
+
+msgid "Page visibility: "
+msgstr "Visibilitat de la pàgina:"
+
+msgid "Once live anyone can view"
+msgstr "Un cop en directe tothom la pot veure"
+
+msgid "Not visible to the public"
+msgstr "No visible de forma pública"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
+"d'aquesta pàgina."
+
+msgid "Page status: "
+msgstr "Estat de la pàgina:"
+
+msgid "In Moderation"
+msgstr "En Moderació"
+
+msgid "View details"
+msgstr "Veure detalls"
+
+msgid "View history"
+msgstr "Veure historial"
 
 msgid "Add a child page"
 msgstr "Afegir una pàgina filla"
@@ -1390,10 +1313,6 @@ msgstr "Pàgines que utlitzen el fluxe de treball '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Pàgines que utilitzen el fluxe de treball"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "per %(modified_by)s"
-
 msgid "Not started"
 msgstr "No està iniciat"
 
@@ -1423,20 +1342,24 @@ msgstr "0 minuts"
 msgid "Just now"
 msgstr "Ara mateix"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
+
 msgid "Log out"
 msgstr "Desconnecta"
 
-msgid "live"
-msgstr "en viu"
+msgid "Toggle status"
+msgstr "Canviar l'estat"
 
-msgid "draft"
-msgstr "esborrany"
+msgid "Comments"
+msgstr "Comentaris"
 
-msgid "live + draft"
-msgstr "en viu + esborrany"
+msgid "Toggle comments"
+msgstr "Mostrar/ocultar comentaris"
 
-msgid "Test"
-msgstr "Provar"
+msgid "Toggle preview"
+msgstr "Mostrar/ocultar previsualització"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -1491,6 +1414,15 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 
 msgid "Editing"
 msgstr "Editant"
+
+msgid "Earliest"
+msgstr "La més antiga"
+
+msgid "Latest"
+msgstr "L'última"
+
+msgid "Dashboard"
+msgstr "Tauler de control"
 
 msgid "Delete selected pages"
 msgstr "Esborrar les pàgines seleccionades"
@@ -1566,6 +1498,9 @@ msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
 msgid "The page could not be saved due to validation errors"
 msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
+msgid "Page history"
+msgstr "Historial de pàgina"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "La pàgina '{0}' ara està desbloquejada."
@@ -1591,12 +1526,6 @@ msgstr "Ha fallat l'enviament de notificacions de rebuig"
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pàgina '{0}' moguda."
-
-msgid "Earliest"
-msgstr "La més antiga"
-
-msgid "Latest"
-msgstr "L'última"
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
@@ -1672,14 +1601,8 @@ msgstr "S'ha deshabilitat el fluxe de treball '{0}'."
 msgid "Workflow '{0}' enabled."
 msgstr "S'ha habilitat el fluxe de treball '{0}'."
 
-msgid "Server Error"
-msgstr "Error del servidor"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Informar d'aquest error a l'administrador web amb la informació següent:"
+msgid "Change"
+msgstr "Canviar"
 
 msgid "Pages"
 msgstr "Pàgines"
@@ -1736,18 +1659,3 @@ msgstr "Sí"
 
 msgid "Choose an item"
 msgstr "Escull un element"
-
-msgid "Choose another item"
-msgstr "Escull un altre element"
-
-msgid "Clear choice"
-msgstr "Opció clara"
-
-msgid "Choose another page"
-msgstr "Escull una altra pàgina"
-
-msgid "Choose another task"
-msgstr "Tria una altra tasca"
-
-msgid "Edit this task"
-msgstr "Edita aquesta tasca"

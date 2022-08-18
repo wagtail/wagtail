@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,12 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
 msgid "Delete"
 msgstr "Esborrar"
 
@@ -31,24 +37,15 @@ msgstr "Desar"
 msgid "Wagtail snippets"
 msgstr "Fragments de Wagtail"
 
-msgid "Choose"
-msgstr "Triar"
-
-msgid "Search"
-msgstr "Cercar"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' esborrat."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "No hi ha cap fragment amb \"<em>%(query_string)s</em>\""
-
-msgid "Last updated"
-msgstr "Última actualització"
-
-msgid "History"
-msgstr "Historial"
-
-msgid "Saving…"
-msgstr "Desant…"
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s esborrat."
+msgstr[1] "%(count)d %(snippet_type)s esborrats."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -77,6 +74,27 @@ msgstr "Esborrar"
 msgid "No, don't delete"
 msgstr "No esborrar"
 
+msgid "Last updated"
+msgstr "Última actualització"
+
+msgid "History"
+msgstr "Historial"
+
+msgid "Publishing…"
+msgstr "Publicant..."
+
+msgid "Publish this version"
+msgstr "Publica aquesta versió"
+
+msgid "Saving…"
+msgstr "Desant…"
+
+msgid "Replace current draft"
+msgstr "Reemplaçar l'esborrany actual"
+
+msgid "Save draft"
+msgstr "Desa esborrany"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Nou %(snippet_type_name)s"
@@ -87,29 +105,11 @@ msgstr "Nou"
 msgid "Actions"
 msgstr "Accions"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Editant %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Editant"
-
 msgid "Usage"
 msgstr "Ús"
 
 msgid "Snippets"
 msgstr "Fragments"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Seleccionar tots %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Títol"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Seleccionat %(snippet)s"
 
 #, python-format
 msgid ""
@@ -119,13 +119,39 @@ msgstr ""
 "No s'ha creat cap %(snippet_type_name_plural)s. Per què no <a href="
 "\"%(wagtailsnippets_create_url)s\">afeixes un</a>?"
 
+msgid "Live version"
+msgstr "Versió en viu"
+
+msgid "Current draft"
+msgstr "Esborrany actual"
+
+msgid "Preview"
+msgstr "Previsualització"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Review this version"
+msgstr "Revisar aquesta versió"
+
+msgid "Compare with previous version"
+msgstr "Compara amb la versió anterior"
+
+msgid "Compare with current version"
+msgstr "Compara amb la versió actual"
+
+msgid "Live"
+msgstr "En viu"
+
+msgid "Draft"
+msgstr "Esborrany"
+
+msgid "View history"
+msgstr "Veure historial"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Fragments %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Fragments <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -137,6 +163,9 @@ msgstr "Utilització de %(title)s"
 
 msgid "Usage of"
 msgstr "Utilització de"
+
+msgid "Title"
+msgstr "Títol"
 
 msgid "Parent"
 msgstr "Pare"
@@ -150,9 +179,11 @@ msgstr "Estat"
 msgid "Edit this page"
 msgstr "Editar aquesta plana"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Cercar %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Triar"
+
+msgid "Name"
+msgstr "Nom"
 
 msgid "The snippet could not be created due to errors."
 msgstr "El fragment no s'ha pogut crear degut a errors."
@@ -161,34 +192,21 @@ msgstr "El fragment no s'ha pogut crear degut a errors."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' creat."
 
-msgid "Edit"
-msgstr "Editar"
+msgid "The snippet could not be saved due to errors."
+msgstr "El fragment no s'ha pogut desar degut a errors."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' actualitzat."
 
-msgid "The snippet could not be saved due to errors."
-msgstr "El fragment no s'ha pogut desar degut a errors."
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' esborrat."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s esborrat."
-msgstr[1] "%(count)d %(snippet_type)s esborrats."
+msgid "Date"
+msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Historial del fragment"
 
 msgid "Action"
 msgstr "Acció"
-
-msgid "Date"
-msgstr "Data"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -201,11 +219,3 @@ msgstr "Esborrar '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Triar %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Seleccionar un altre %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Editar aquest %s"

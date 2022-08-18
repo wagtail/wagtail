@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dan Braghis, 2014-2021\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -69,6 +69,69 @@ msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
 msgid "Comment"
 msgstr "Comentariu"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Pagina '{}' a fost blocată</b> de <b>tine</b> la <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Pagina '{}' esta blocată</b> de <b>tine</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Pagina '{}' a fost blocată</b> de <b>{}</b> la <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Pagina '{}' este blocată</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Această pagină este în moderare"
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Acestă pagină așteaptă <b>'{}'</b> în fluxul de lucru <b>'{}'</b>"
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Numai revizuitorii acestei sarcini pot să editeze pagina."
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "conține modificări nepublicate"
+
+msgid "first published at"
+msgstr "publicată pentru prima dată la"
+
+msgid "last published at"
+msgstr "publicată pentru prima dată la"
+
+msgid "live revision"
+msgstr "revizie live"
+
+msgid "go live date/time"
+msgstr "data/timpul de publicare"
+
+msgid "expiry date/time"
+msgstr "data/timpul de expirare"
+
+msgid "expired"
+msgstr "expirat"
+
+msgid "draft"
+msgstr "ciornă"
+
+msgid "live + draft"
+msgstr "live + ciornă"
+
+msgid "Default"
+msgstr "Implicit"
+
+msgid "locked"
+msgstr "blocat"
+
+msgid "locked at"
+msgstr "blocat la"
+
+msgid "locked by"
+msgstr "blocat de"
+
 msgid "title"
 msgstr "titlu"
 
@@ -87,12 +150,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "tip de conținut"
-
-msgid "live"
-msgstr "live"
-
-msgid "has unpublished changes"
-msgstr "conține modificări nepublicate"
 
 msgid "URL path"
 msgstr "Cale"
@@ -128,35 +185,8 @@ msgid ""
 msgstr ""
 "Textul descriptiv afișat sub titluri în rezultatele motoarelor de căutare."
 
-msgid "go live date/time"
-msgstr "data/timpul de publicare"
-
-msgid "expiry date/time"
-msgstr "data/timpul de expirare"
-
-msgid "expired"
-msgstr "expirat"
-
-msgid "locked"
-msgstr "blocat"
-
-msgid "locked at"
-msgstr "blocat la"
-
-msgid "locked by"
-msgstr "blocat de"
-
-msgid "first published at"
-msgstr "publicată pentru prima dată la"
-
-msgid "last published at"
-msgstr "publicată pentru prima dată la"
-
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
-
-msgid "live revision"
-msgstr "revizie live"
 
 msgid "This slug is already in use"
 msgstr "Slug-ul acesta a fost deja folosit"
@@ -167,20 +197,11 @@ msgstr "programată"
 msgid "in moderation"
 msgstr "în moderație"
 
-msgid "draft"
-msgstr "ciornă"
-
 msgid "live + scheduled"
 msgstr "live + programată"
 
 msgid "live + in moderation"
 msgstr "live + în moderație"
-
-msgid "live + draft"
-msgstr "live + ciornă"
-
-msgid "Default"
-msgstr "Implicit"
 
 msgid "page"
 msgstr "pagină"
@@ -202,12 +223,6 @@ msgstr "conținut JSON"
 
 msgid "approved go live at"
 msgstr "aprobat pentru publicare la"
-
-msgid "page revision"
-msgstr "revizie pagină"
-
-msgid "page revisions"
-msgstr "revizii pagină"
 
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
@@ -383,6 +398,9 @@ msgstr "Omis"
 
 msgid "workflow state"
 msgstr "statut flux de lucru"
+
+msgid "page revision"
+msgstr "revizie pagină"
 
 msgid "started at"
 msgstr "început la"
@@ -569,15 +587,6 @@ msgstr "Aveți nevoie de o parolă pentru a accesa această pagină."
 
 msgid "Continue"
 msgstr "Continuă"
-
-msgid "English"
-msgstr "Engleză"
-
-msgid "French"
-msgstr "Franceză"
-
-msgid "German"
-msgstr "Germană"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -883,10 +892,6 @@ msgstr "Sarcina de lucru respinsă. Flux de lucru finalizat"
 
 msgid "Workflow: resume task"
 msgstr "Flux de lucru: reluare sarcină"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Sarcina '%(task)s' retrimisă. Flux de lucru rezumat"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"

@@ -10,15 +10,17 @@
 # Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2018
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Iuri L. Machado, 2021-2022\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"<rmsolucoeseminformatica@protonmail.com>, 2022\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +112,9 @@ msgstr "temporário"
 msgid "redirect"
 msgstr "redirecionamento"
 
+msgid "redirects"
+msgstr "redirecionamentos"
+
 msgid "Add redirect"
 msgstr "Adicionar Redirecionamentos"
 
@@ -121,6 +126,18 @@ msgstr "Redirecionamentos"
 
 msgid "Import redirects"
 msgstr "Importar redirecionamentos"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Selecione um arquivo onde os redirecionamentos são separados em linhas e "
+"contém as colunas que representam <code>a partir de</code> e <code>para</"
+"code>(podem ser nomeados qualquer coisa). </p> <p>Após o envio, você será "
+"levado a uma visualização de confirmação onde poderá personalizar seus "
+"redirecionamentos antes da importação.</p>"
 
 msgid "Import"
 msgstr "Importar"
@@ -193,6 +210,13 @@ msgstr "Edite esse redirecionamento"
 
 msgid "No redirects found."
 msgstr "Nenhum redirecionamento foi encontrado."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Encontrados %(counter)s resultados"
+msgstr[1] "Encontrados %(counter)s resultados"
+msgstr[2] "Encontrados %(counter)s resultados"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

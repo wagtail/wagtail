@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -98,8 +98,8 @@ msgstr "Name"
 
 msgid "Safe name of the form field, the label converted to ascii_snake_case"
 msgstr ""
-"Speichere den Name des Feldes der Eingabenmaske, die Bezeichnung wurde in "
-"ascii_snake_case konvertiert"
+"Speichern Sie den Namen des Feldes der Eingabemaske, die Bezeichnung wurde "
+"in ascii_snake_case konvertiert"
 
 msgid "label"
 msgstr "Beschriftung"
@@ -185,27 +185,6 @@ msgstr "Formulare"
 msgid "Pages"
 msgstr "Seiten"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Einreichungen für %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Formulardaten für <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Download XLSX"
-msgstr "XLSX herunterladen"
-
-msgid "Download CSV"
-msgstr "CSV herunterladen"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Für ‚%(title)s‘ wurde bisher nichts eingereicht."
-
 msgid "Title"
 msgstr "Titel"
 
@@ -225,7 +204,30 @@ msgid "No form pages have been created."
 msgstr "Es wurden keine Formularseiten angelegt."
 
 #, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Einreichungen für %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "XLSX herunterladen"
+
+msgid "Download CSV"
+msgstr "CSV herunterladen"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Für ‚%(title)s‘ wurde bisher nichts eingereicht."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Filter anwenden"
+
+#, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Eine Formular-Eingabe wurde gelöscht."
 msgstr[1] "%(count)d Formular-Eingaben wurden gelöscht."
+
+msgid "Form data"
+msgstr "Formulardaten"

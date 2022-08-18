@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2022
-# saevarom <saevar@saevar.is>, 2017-2021
+# saevarom <saevar@saevar.is>, 2017-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2020-2022\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -24,10 +23,8 @@ msgstr ""
 msgid "Wagtail users"
 msgstr "Wagtail notendur"
 
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Þarf að fylla út. 30 slög eða færri. Bókstafir, tölustafir og  @/./+/-/_ er "
-"leyft."
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Krafa. Stafir, tölur og @/./+/-/_ eingöngu."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Þetta gildi má aðeins innihalda stafi, númer og @/./+/-/_."
@@ -226,9 +223,6 @@ msgstr "Skoða notendur í þessari grúppu"
 msgid "Save"
 msgstr "Vista"
 
-msgid "Permissions"
-msgstr "Heimildir"
-
 msgid "Object permissions"
 msgstr "Hluta heimildir"
 
@@ -312,10 +306,6 @@ msgstr "Virkur"
 
 msgid "Inactive"
 msgstr "Óvirkur"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s síðan"
 
 #, python-format
 msgid "There is %(counter)s match"

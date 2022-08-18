@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -25,6 +25,12 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+msgid "Publish"
+msgstr "Опублікувати"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
 msgid "Delete"
 msgstr "Видалити"
 
@@ -34,25 +40,17 @@ msgstr "Зберегти"
 msgid "Wagtail snippets"
 msgstr "Уривки Wagtail"
 
-msgid "Choose"
-msgstr "Вибрати"
-
-msgid "Search"
-msgstr "Пошук"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' видалено."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Вибачте, немає уривків, які б відповідали \"<em>%(query_string)s</em>\""
-
-msgid "Last updated"
-msgstr "Востаннє оновлено"
-
-msgid "History"
-msgstr "Історія змін"
-
-msgid "Saving…"
-msgstr "Йде зберігання..."
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s видалено."
+msgstr[1] "%(count)d %(snippet_type)s видалено."
+msgstr[2] "%(count)d %(snippet_type)s видалено."
+msgstr[3] "%(count)d %(snippet_type)s видалено."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -83,6 +81,27 @@ msgstr "Так, видалити"
 msgid "No, don't delete"
 msgstr "Ні, не видаляти"
 
+msgid "Last updated"
+msgstr "Востаннє оновлено"
+
+msgid "History"
+msgstr "Історія змін"
+
+msgid "Publishing…"
+msgstr "Опубліковується..."
+
+msgid "Publish this version"
+msgstr "Опублікувати цю версію"
+
+msgid "Saving…"
+msgstr "Йде зберігання..."
+
+msgid "Replace current draft"
+msgstr "Замінити поточну чернетку"
+
+msgid "Save draft"
+msgstr "Зберегти чернетку"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Новий %(snippet_type_name)s"
@@ -93,29 +112,17 @@ msgstr "Новий"
 msgid "Actions"
 msgstr "Дії"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Редагування %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Редагування"
-
 msgid "Usage"
 msgstr "Використання"
+
+msgid "Breadcrumb"
+msgstr "Ланцюжок навігації"
 
 msgid "Snippets"
 msgstr "Уривки"
 
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Вибрати всі %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Заголовок"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Вибрати %(snippet)s"
+msgid "No log entries found."
+msgstr "Записи в журналі не знайдені. "
 
 #, python-format
 msgid ""
@@ -125,13 +132,36 @@ msgstr ""
 "%(snippet_type_name_plural)s ще не були створені. Чому б не <a href="
 "\"%(wagtailsnippets_create_url)s\">додати якийсь</a>?"
 
+msgid "Live version"
+msgstr "Версія наживо"
+
+msgid "Current draft"
+msgstr "Поточна чернетка"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Review this version"
+msgstr "Переглянути цю версію"
+
+msgid "Compare with previous version"
+msgstr "Порівняти з попередньою версією"
+
+msgid "Compare with current version"
+msgstr "Порівняти з поточною версією"
+
+msgid "Live"
+msgstr "Наживо"
+
+msgid "Draft"
+msgstr "Чернетка"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Уривки %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Уривки <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -143,6 +173,9 @@ msgstr "Використання %(title)s"
 
 msgid "Usage of"
 msgstr "Використання"
+
+msgid "Title"
+msgstr "Заголовок"
 
 msgid "Parent"
 msgstr "Предок"
@@ -156,9 +189,11 @@ msgstr "Статус"
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Шукати %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Вибрати"
+
+msgid "Name"
+msgstr "Ім'я"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Цей уривок не може бути створено через помилки."
@@ -167,36 +202,21 @@ msgstr "Цей уривок не може бути створено через �
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' створено."
 
-msgid "Edit"
-msgstr "Редагувати"
+msgid "The snippet could not be saved due to errors."
+msgstr "Цей уривок не може бути збережено через помилки."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' оновлено."
 
-msgid "The snippet could not be saved due to errors."
-msgstr "Цей уривок не може бути збережено через помилки."
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' видалено."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s видалено."
-msgstr[1] "%(count)d %(snippet_type)s видалено."
-msgstr[2] "%(count)d %(snippet_type)s видалено."
-msgstr[3] "%(count)d %(snippet_type)s видалено."
+msgid "Date"
+msgstr "Дата"
 
 msgid "Snippet history"
 msgstr "Історія уривку"
 
 msgid "Action"
 msgstr "Дія"
-
-msgid "Date"
-msgstr "Дата"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -209,11 +229,3 @@ msgstr "Видалити '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Вибрати %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Виберіть %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Редагувати %s"

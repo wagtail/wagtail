@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -70,30 +70,14 @@ msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
-msgid "Choose a document"
-msgstr "Файл сонгох"
-
-msgid "Search"
-msgstr "Хайх"
-
-msgid "Upload"
-msgstr "Хуулах"
-
 msgid "Latest documents"
 msgstr "Сүүлийн файлууд"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "\"<em>%(query_string)s</em>\" утгад тохирох хайлтын илэрц олдсонгүй"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Энэ цуглуулгад ямар нэг файл нэмээгүй байна."
 
 msgid "You haven't uploaded any documents."
 msgstr "Та ямар нэг файл хуулаагүй байна."
-
-msgid "Uploading…"
-msgstr "Хуулж байна..."
 
 msgid "Change document:"
 msgstr "Файлыг солих"
@@ -103,6 +87,12 @@ msgstr "Файл нэмэх"
 
 msgid "Add document"
 msgstr "Файл нэмэх"
+
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
+msgid "Upload"
+msgstr "Хуулах"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -140,8 +130,8 @@ msgid "File"
 msgstr "Файл"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "\"<em>%(query_string)s</em>\" утгад тохирох хайлтын илэрц олдсонгүй"
 
 #, python-format
 msgid ""
@@ -200,8 +190,8 @@ msgstr "Файлын хандалтын эрх нэмэх"
 msgid "Delete"
 msgstr "Устгах"
 
-msgid "Server Error"
-msgstr "Северийн алдаа"
+msgid "Choose a document"
+msgstr "Файл сонгох"
 
 msgid "Search documents"
 msgstr "Файл хайх"
@@ -227,9 +217,3 @@ msgstr "'{0}' файл устлаа."
 
 msgid "Document"
 msgstr "Файл"
-
-msgid "Choose another document"
-msgstr "Өөр файл сонгох"
-
-msgid "Edit this document"
-msgstr "Файлыг засах"

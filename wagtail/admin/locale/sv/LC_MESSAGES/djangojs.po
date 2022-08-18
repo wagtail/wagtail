@@ -1,14 +1,14 @@
 #
 # Translators:
 # Andreas Lans <andreas.lans@gmail.com>, 2022
-# Martin Sandström <martin@marteinn.se>, 2022
-# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
 # Philip Andersen <renegadevi@codeofmagi.net>, 2022
 # Thomas Kunambi <kunambi@gmail.com>, 2022
+# Martin Sandström <martin@marteinn.se>, 2022
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
+"Last-Translator: Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022\n"
 "Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -92,9 +92,6 @@ msgstr "Sidutforskare"
 msgid "Pages"
 msgstr "Sidor"
 
-msgid "Redo"
-msgstr "Gör om"
-
 msgid "Reload saved content"
 msgstr "Ladda om sparat innehåll"
 
@@ -103,6 +100,13 @@ msgstr "Ladda om sidan"
 
 msgid "Reply"
 msgstr "Svara"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Rapportera detta fel till din webbplatsadministratör med följande "
+"information:"
 
 msgid "Resolve"
 msgstr "Lös"
@@ -152,17 +156,14 @@ msgstr ""
 "Textredigeraren kraschade. Innehållet har återställts till den senaste "
 "sparade versionen."
 
+msgid "This field is required."
+msgstr "Det här fältet är obligatoriskt."
+
 msgid "Toggle sidebar"
 msgstr "Växla sidorad"
-
-msgid "Undo"
-msgstr "Ångra"
 
 msgid "Unfocus comment"
 msgstr "Avfokusera kommentar"
 
 msgid "View child pages of '{title}'"
 msgstr "Visa undersidor av '{title}'"
-
-msgid "Write here…"
-msgstr "Skriv här..."

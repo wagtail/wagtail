@@ -1,0 +1,14 @@
+#
+# Translators:
+# Ramakrishnan Sathyanarayanan, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Ramakrishnan Sathyanarayanan, 2022\n"
+"Language-Team: Tamil (https://www.transifex.com/torchbox/teams/8009/ta/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ta\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Save"
+msgstr "சேமிக்கவும் "

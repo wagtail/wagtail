@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,29 +155,8 @@ msgstr "Ja, verwijder"
 msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
 
-msgid "Choose a document"
-msgstr "Kies een document"
-
-msgid "Search"
-msgstr "Zoek"
-
-msgid "Upload"
-msgstr "Uploaden"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
 msgid "Latest documents"
 msgstr "Nieuwste documenten"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Sorry, geen documenten komen overeen met de zoekterm \"<em>%(query_string)s</"
-"em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "U heeft nog geen documenten aan deze collectie toegevoegd."
@@ -192,9 +171,6 @@ msgstr ""
 "<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>Upload er "
 "nu eentje!</a>"
 
-msgid "Uploading…"
-msgstr "Bezig met uploaden…"
-
 msgid "Change document:"
 msgstr "Wijzig document:"
 
@@ -203,6 +179,12 @@ msgstr "Voeg een document toe"
 
 msgid "Add document"
 msgstr "Voeg document toe"
+
+msgid "Uploading…"
+msgstr "Bezig met uploaden…"
+
+msgid "Upload"
+msgstr "Uploaden"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -249,8 +231,16 @@ msgid "Select document"
 msgstr "Selecteer document"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen documenten komen overeen met de zoekterm \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
@@ -377,13 +367,8 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d document is verwijderd"
 msgstr[1] "%(num_parent_objects)d documenten zijn verwijderd"
 
-msgid "Server Error"
-msgstr "Server Error"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "Meld deze fout aan uw websitebeheerder, en vermeld het volgende:"
+msgid "Choose a document"
+msgstr "Kies een document"
 
 msgid "Search documents"
 msgstr "Zoek documenten"
@@ -417,9 +402,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s document"
 msgstr[1] "%(count)s documenten"
-
-msgid "Choose another document"
-msgstr "Kies een ander document"
-
-msgid "Edit this document"
-msgstr "Wijzig document"

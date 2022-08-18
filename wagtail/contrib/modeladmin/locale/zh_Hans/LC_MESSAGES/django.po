@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017,2020-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -75,6 +75,10 @@ msgstr "复制该 %s"
 msgid "image"
 msgstr "图片"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "返回%(model_name)s列表"
+
 msgid "Choose a parent page"
 msgstr "选择上级页面"
 
@@ -117,9 +121,6 @@ msgstr "确认删除"
 msgid "No, don't delete"
 msgstr "否，不删除"
 
-msgid "Home"
-msgstr "主页"
-
 msgid "Last updated"
 msgstr "最近更新"
 
@@ -140,6 +141,9 @@ msgstr "搜索"
 #, python-format
 msgid "Search %(name)s"
 msgstr "搜索  %(name)s "
+
+msgid "Search"
+msgstr "搜索"
 
 msgid "Download XLSX"
 msgstr "下载XLSX"
@@ -166,10 +170,6 @@ msgstr "分页"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "页面  %(current_page)s /  %(num_pages)s "
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "返回%(model_name)s列表"
 
 msgid "Previous"
 msgstr "上一页"

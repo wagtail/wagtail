@@ -3,16 +3,15 @@
 # 小口英昭 <oguchi@bluff-lab.com>, 2022
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2022
-# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
-# Kinoshita Shinji <shinji.kino@gmail.com>, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2022
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2022
 # shuhei hirota, 2022
 # kojikojikojikoji, 2022
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: kojikojikojikoji, 2022\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022\n"
 "Language-Team: Japanese (https://www.transifex.com/torchbox/teams/8009/ja/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
@@ -90,9 +89,6 @@ msgstr "ページ探索"
 msgid "Pages"
 msgstr "ページ"
 
-msgid "Redo"
-msgstr "やり直す"
-
 msgid "Reload saved content"
 msgstr "保存した内容をリロードします"
 
@@ -138,14 +134,11 @@ msgstr ""
 "エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
 "す。"
 
-msgid "Undo"
-msgstr "取り消す"
+msgid "This field is required."
+msgstr "この項目は必須です。"
 
 msgid "Unfocus comment"
 msgstr "コメントをアンフォーカス"
 
 msgid "View child pages of '{title}'"
 msgstr "'{title}'の子ページを閲覧する"
-
-msgid "Write here…"
-msgstr "入力してください"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,13 +22,6 @@ msgstr ""
 
 msgid "default"
 msgstr "noklusētais"
-
-#, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Rediģē %(setting_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Rediģē"
 
 msgid "Site"
 msgstr "Vietne"

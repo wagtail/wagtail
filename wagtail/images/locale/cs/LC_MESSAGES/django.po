@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -177,15 +177,6 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nemazat"
 
-msgid "Choose an image"
-msgstr "Zvolit obrázek"
-
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Upload"
-msgstr "Nahrát"
-
 msgid "Popular tags"
 msgstr "Oblíbené štítky"
 
@@ -203,9 +194,6 @@ msgstr "Zvolte formát"
 
 msgid "Insert image"
 msgstr "Vložit obrázek"
-
-msgid "Uploading…"
-msgstr "Nahrávání…"
 
 msgid "Change image file:"
 msgstr "Změnit soubor obrázku:"
@@ -267,9 +255,6 @@ msgstr "Obrázky"
 
 msgid "Popular Tags:"
 msgstr "Oblíbené štítky"
-
-msgid "Clear choice"
-msgstr "Zrušit výběr"
 
 msgid "pixels"
 msgstr "pixely"
@@ -375,6 +360,15 @@ msgstr "Přidat oprávnění obrázku"
 msgid "Delete"
 msgstr "Smazat"
 
+msgid "Upload"
+msgstr "Nahrát"
+
+msgid "Uploading…"
+msgstr "Nahrávání…"
+
+msgid "Choose an image"
+msgstr "Zvolit obrázek"
+
 msgid "Search images"
 msgstr "Hledat obrázky"
 
@@ -416,9 +410,3 @@ msgstr[0] "%(count)s obrázek"
 msgstr[1] "%(count)s obrázky"
 msgstr[2] "%(count)s obrázků"
 msgstr[3] "%(count)s obrázků"
-
-msgid "Change image"
-msgstr "Změnit obrázek"
-
-msgid "Edit this image"
-msgstr "Upravit tento obrázek"

@@ -86,9 +86,6 @@ msgstr "Explorador de pàgines"
 msgid "Pages"
 msgstr "Pàgines"
 
-msgid "Redo"
-msgstr "Refés"
-
 msgid "Reload saved content"
 msgstr "Recarrega el contingut desat"
 
@@ -97,6 +94,12 @@ msgstr "Recarrega la pàgina"
 
 msgid "Reply"
 msgstr "Respondre"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informar d'aquest error a l'administrador web amb la informació següent:"
 
 msgid "Resolve"
 msgstr "Resoldre"
@@ -142,17 +145,14 @@ msgid ""
 msgstr ""
 "L'editor ha fallat. El contingut ha estat reiniciat a l'última versió desada."
 
+msgid "This field is required."
+msgstr "Aquest camp és obligatori."
+
 msgid "Toggle sidebar"
 msgstr "Commutar la barra lateral"
-
-msgid "Undo"
-msgstr "Desfés"
 
 msgid "Unfocus comment"
 msgstr "Comentari de desenfocament"
 
 msgid "View child pages of '{title}'"
 msgstr "Mostra pàgines filles de '{title}'"
-
-msgid "Write here…"
-msgstr "Escriviu aquí..."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019-2020\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -59,6 +59,39 @@ msgstr "Seña"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Seña ladiak! Favor koko ida tan."
 
+msgid "live"
+msgstr "Hela"
+
+msgid "has unpublished changes"
+msgstr "Iha sasan la hanesan publiku"
+
+msgid "first published at"
+msgstr "Publika dahuluk iha"
+
+msgid "last published at"
+msgstr "Publika ikus iha"
+
+msgid "go live date/time"
+msgstr "Ba husi hela data/tempu"
+
+msgid "expiry date/time"
+msgstr "Termu data/tempu"
+
+msgid "expired"
+msgstr "Data liu ona"
+
+msgid "draft"
+msgstr "Esbosu"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
+
+msgid "Default"
+msgstr "Estandar"
+
+msgid "locked"
+msgstr "Xavi tiha ona"
+
 msgid "title"
 msgstr "titlu"
 
@@ -77,12 +110,6 @@ msgstr ""
 msgid "content type"
 msgstr "Tipu konteudu"
 
-msgid "live"
-msgstr "Hela"
-
-msgid "has unpublished changes"
-msgstr "Iha sasan la hanesan publiku"
-
 msgid "URL path"
 msgstr "Dalan URL"
 
@@ -91,24 +118,6 @@ msgstr "nain"
 
 msgid "show in menus"
 msgstr "Hatudu iha menus sira"
-
-msgid "go live date/time"
-msgstr "Ba husi hela data/tempu"
-
-msgid "expiry date/time"
-msgstr "Termu data/tempu"
-
-msgid "expired"
-msgstr "Data liu ona"
-
-msgid "locked"
-msgstr "Xavi tiha ona"
-
-msgid "first published at"
-msgstr "Publika dahuluk iha"
-
-msgid "last published at"
-msgstr "Publika ikus iha"
 
 msgid "latest revision created at"
 msgstr "Revizaun ikus kria ona iha"
@@ -119,17 +128,8 @@ msgstr "Slug ida ne'e uza tiha ona"
 msgid "scheduled"
 msgstr "Ajenda ona"
 
-msgid "draft"
-msgstr "Esbosu"
-
 msgid "live + scheduled"
 msgstr "Hela + ajenda"
-
-msgid "live + draft"
-msgstr "Hela + esbosu"
-
-msgid "Default"
-msgstr "Estandar"
 
 msgid "page"
 msgstr "Pajina"
@@ -151,12 +151,6 @@ msgstr "Konteudu JSON"
 
 msgid "approved go live at"
 msgstr "Aprova ona ba hela iha"
-
-msgid "page revision"
-msgstr "Pajina revizaun"
-
-msgid "page revisions"
-msgstr "Pajina revizaun sira"
 
 msgid "Add/edit pages you own"
 msgstr "Hatama/hadia pajina ita nia rasik."
@@ -199,6 +193,9 @@ msgstr "Grupu sira"
 
 msgid "Approve"
 msgstr "Aprova"
+
+msgid "page revision"
+msgstr "Pajina revizaun"
 
 msgid "collection"
 msgstr "Koleksaun"
@@ -275,15 +272,6 @@ msgstr "Ita presiza sena hodi asesu ba pajina ida ne'e."
 
 msgid "Continue"
 msgstr "Kontinua"
-
-msgid "English"
-msgstr "English"
-
-msgid "French"
-msgstr "Fransa"
-
-msgid "German"
-msgstr "German"
 
 msgid "Edited"
 msgstr "Hadia tiha ona"

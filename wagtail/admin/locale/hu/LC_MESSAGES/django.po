@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Patrik Radics, 2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -44,9 +44,6 @@ msgstr "Munkafolyamat felfüggesztése"
 
 msgid "Unpublish"
 msgstr "Visszavonás"
-
-msgid "Delete"
-msgstr "Törlés"
 
 msgid "Save Draft"
 msgstr "Vázlat mentése"
@@ -111,6 +108,18 @@ msgstr "Kérjük adja meg az email címét a jelszó változtatáshoz."
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Keresett szó(darab)"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "All collections"
+msgstr "Összes gyűjtemény"
+
+msgid "Collection"
+msgstr "Gyűjtemény"
+
 msgid "Parent"
 msgstr "Szülő"
 
@@ -127,9 +136,6 @@ msgstr "Kérjül válasszon másik szülőt"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
 
-msgid "Collection"
-msgstr "Gyűjtemény"
-
 msgid "Add"
 msgstr "Hozzáadás"
 
@@ -141,6 +147,9 @@ msgstr "Szerkeszt"
 
 msgid "Edit collections"
 msgstr "Gyűjtemények szerkesztése"
+
+msgid "Delete"
+msgstr "Törlés"
 
 msgid "Delete collections"
 msgstr "Gyűjtemények törlése"
@@ -219,12 +228,6 @@ msgstr "A megjelenés dátumának/idejének a lejárat ideje előttinek kell len
 msgid "Expiry date/time must be in the future"
 msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
 
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Search term"
-msgstr "Keresett szó(darab)"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr ""
@@ -256,6 +259,9 @@ msgstr "Munkafolyamat elnevezése"
 
 msgid "Add tasks to your workflow"
 msgstr "Feladatok hozzáadása a munkafolyamathoz"
+
+msgid "Task"
+msgstr "Feladat"
 
 msgid "1 page selected"
 msgstr "1 oldal kiválasztva"
@@ -330,9 +336,6 @@ msgstr "Minden elem kiválasztva a listában"
 msgid "Scheduled publishing"
 msgstr "Oldal közzététele későbbi időpontban"
 
-msgid "Privacy"
-msgstr "Láthatóság"
-
 msgid "For search engines"
 msgstr "Keresőmotorok számára"
 
@@ -347,15 +350,6 @@ msgstr "Marketing"
 
 msgid "Settings"
 msgstr "Beállítások"
-
-msgid "Status"
-msgstr "Állapot"
-
-msgid "Comments"
-msgstr "Megjegyzések"
-
-msgid "Preview"
-msgstr "Előnézet"
 
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
@@ -377,15 +371,6 @@ msgstr "További akciók"
 
 msgid "Save account details"
 msgstr "Fiók részleteinek mentése"
-
-msgid "Change password"
-msgstr "Jelszó megváltoztatása"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"A jelszavát itt nem tudja megváltoztatni. Kérem vegye fel a kapcsolatot az "
-"oldal rendszergazdájával."
 
 msgid "Reset password"
 msgstr "Jelszó módosítása"
@@ -495,6 +480,13 @@ msgstr "Külső link hozzáadása"
 msgid "Add a phone link"
 msgstr "Telefonszám link hozzáadása"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "'%(title)s' aloldalainak tallózása"
+
+msgid "Explore"
+msgstr "Tallózás"
+
 msgid "Collection privacy"
 msgstr "Gyűjtemény láthatósága"
 
@@ -504,14 +496,17 @@ msgstr "Ez a gyűjtemény privát a szülő gyűjtemény beállításai miatt."
 msgid "You can edit the privacy settings on:"
 msgstr "A láthatósági beállításokat itt szerkesztheti:"
 
+msgid "Save"
+msgstr "Mentés"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "A láthatósági beállítások határozzák meg, hogy ki tekintheti meg a "
 "gyűjteménybe tartozó elemeket."
 
-msgid "Save"
-msgstr "Mentés"
+msgid "Privacy"
+msgstr "Láthatóság"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Gyűjtemény láthatóságának beállítása. Jelenlegi státusz: publikus"
@@ -546,8 +541,21 @@ msgstr "Törlés megerősítése"
 msgid "Update"
 msgstr "Frissítés"
 
-msgid "Dashboard"
-msgstr "Műszerfal"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s összevetése"
+
+msgid "Comparing"
+msgstr "Összevetés"
+
+msgid "Fields"
+msgstr "Mezők"
+
+msgid "Changes"
+msgstr "Változtatások"
+
+msgid "There are no differences between these two versions"
+msgstr "Nincsenek különbségek a két verzió között"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -581,10 +589,6 @@ msgstr "Vázlat"
 msgid "Live"
 msgstr "Közzétett oldal"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s "
-
 msgid "Pages awaiting moderation"
 msgstr "Moderálásra váró oldalak"
 
@@ -603,8 +607,14 @@ msgstr "Jóváhagy"
 msgid "Reject"
 msgstr "Elutasít"
 
+msgid "Preview"
+msgstr "Előnézet"
+
 msgid "Your most recent edits"
 msgstr "A legutóbbi szerkesztések"
+
+msgid "Status"
+msgstr "Állapot"
 
 msgid "Date"
 msgstr "Dátum"
@@ -614,9 +624,6 @@ msgstr "Oldal összegzés"
 
 msgid "Your pages in a workflow"
 msgstr "Munkafolyamatban lévő oldalak"
-
-msgid "Task"
-msgstr "Feladat"
 
 msgid "Task started"
 msgstr "Feladat elindítva"
@@ -639,23 +646,23 @@ msgstr "Feladat beküldője "
 msgid "Sign in"
 msgstr "Bejelentkezés"
 
+msgid "Sign in to Wagtail"
+msgstr "Bejelentkezés a Wagtail-be"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "A %(username_field)s felhasználónévhez tartozó jelszó nem megfelelő. "
 "Próbálja újra."
 
-msgid "Sign in to Wagtail"
-msgstr "Bejelentkezés a Wagtail-be"
+msgid "Forgotten password?"
+msgstr "Elfelejtette jelszavát?"
 
 msgid "Remember me"
 msgstr "Emlékezz rám"
 
 msgid "Signing in…"
 msgstr "Belépés..."
-
-msgid "Forgotten password?"
-msgstr "Elfelejtette jelszavát?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -825,23 +832,6 @@ msgstr "Az oldal láthatósága"
 
 msgid "This page has been made private by a parent page."
 msgstr "Ez az oldal privát a szülő oldal beállításai miatt."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"A láthatóság beállításai érvényesek lesznek az összes ez alatti tartalomra "
-"is."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Oldal láthatóságának beállítása. Jelenlegi státusz: publikus"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Oldal láthatóságának beállítása. Jelenlegi státusz: privát"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Oldal láthatóság. Jelenlegi: publikus"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Oldal láthatóság. Jelenlegi: privát"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
@@ -1019,15 +1009,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Igen, átmozgatom"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s visszavonása"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Biztosan vissza szeretné vonni ezt az oldalt?"
-
-msgid "Yes, unpublish it"
-msgstr "Igen, visszavonom"
 
 msgid "Publish page"
 msgstr "Oldal közzététele"
@@ -1103,10 +1086,6 @@ msgstr "Élő verzió"
 msgid "Current draft"
 msgstr "Jelenlegi vázlat"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s "
-
 msgid "No log entries found."
 msgstr "Nincs naplóbejegyzés."
 
@@ -1123,9 +1102,6 @@ msgstr "Oldal kiválasztása"
 msgid "Drag"
 msgstr "Megragadás"
 
-msgid "Updated"
-msgstr "Frissítve"
-
 msgid "Configure a site now."
 msgstr "Állítson be új webhelyet."
 
@@ -1138,13 +1114,6 @@ msgstr "Miért nem <a href=\"%(add_page_url)s\">hoz létre egyet</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Ez az oldal zárolva van, így nem lehet szerkeszteni"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "'%(title)s' aloldalainak tallózása"
-
-msgid "Explore"
-msgstr "Tallózás"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1178,25 +1147,14 @@ msgstr "Sorbarendezés"
 msgid "Enable ordering of child pages"
 msgstr "Aloldalak sorba rendezésének engedélyezése"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Válasszon új szülőoldalt ennek: %(title)s"
+msgid "Updated"
+msgstr "Frissítve"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Válasszon új szülőoldalt ennek: <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Megerősítés"
 
-msgid "Preview error"
-msgstr "Előnézet hiba"
-
-msgid "Close"
-msgstr "Bezár"
-
-msgid "Current status:"
-msgstr "Jelenlegi státusz:"
-
-msgid "Set page privacy"
-msgstr "Oldal védettségének beállítása"
+msgid "History"
+msgstr "Történet"
 
 msgid "Review this version"
 msgstr "Verzió ellenőrzése"
@@ -1209,25 +1167,6 @@ msgstr "Összehasonlítás a jelenlegi verzióval"
 
 msgid "Cancel scheduled publish"
 msgstr "Időzített közzététel visszavonása"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s összevetése"
-
-msgid "Comparing"
-msgstr "Összevetés"
-
-msgid "Page history"
-msgstr "Oldaltörténet"
-
-msgid "Fields"
-msgstr "Mezők"
-
-msgid "Changes"
-msgstr "Változtatások"
-
-msgid "There are no differences between these two versions"
-msgstr "Nincsenek különbségek a két verzió között"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1256,21 +1195,6 @@ msgstr ""
 
 msgid "Enter a search term above"
 msgstr "Kérjük adja meg a keresett kifejezést"
-
-msgid "Locked"
-msgstr "Zárolt"
-
-msgid "Unlocked"
-msgstr "Megnyitott"
-
-msgid "Lock"
-msgstr "Zárol"
-
-msgid "Page visibility: "
-msgstr "Oldal láthatósága:"
-
-msgid "since"
-msgstr "ezóta: "
 
 msgid "No pages use"
 msgstr "Egyetlen oldal sem használja: "
@@ -1349,9 +1273,6 @@ msgstr "Mozgatás fel"
 msgid "Move down"
 msgstr "Mozgatás le"
 
-msgid "Add comment"
-msgstr "Megjegyzés hozzáadása"
-
 msgid "Comment notifications"
 msgstr "Értesítések megjegyzésekről"
 
@@ -1379,14 +1300,11 @@ msgstr "XSLX letöltése"
 msgid "Download CSV"
 msgstr "CSV letöltése"
 
-msgid "Filter"
-msgstr "Szűrő"
-
-msgid "Apply filters"
-msgstr "Szűrés"
-
 msgid "Locking status"
 msgstr "Zárolás státusz"
+
+msgid "Locked"
+msgstr "Zárolt"
 
 msgid "No locked pages found."
 msgstr "Nincs zárolt oldal."
@@ -1422,14 +1340,21 @@ msgstr "Navigációs sáv"
 msgid "Root"
 msgstr "Gyökér"
 
-msgid "Home"
-msgstr "Nyitólap"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s visszavonása"
 
-msgid "All collections"
-msgstr "Összes gyűjtemény"
+msgid "Yes, unpublish it"
+msgstr "Igen, visszavonom"
 
-msgid "History"
-msgstr "Történet"
+msgid "Add comment"
+msgstr "Megjegyzés hozzáadása"
+
+msgid "Filter"
+msgstr "Szűrő"
+
+msgid "Apply filters"
+msgstr "Szűrés"
 
 msgid "Visit the live page"
 msgstr "Élő oldal megtekintése"
@@ -1439,6 +1364,20 @@ msgstr "Oldal jelenlegi státusza:"
 
 msgid "Other searches"
 msgstr "További keresések"
+
+msgid "Unlocked"
+msgstr "Megnyitott"
+
+msgid "Lock"
+msgstr "Zárol"
+
+msgid "Page visibility: "
+msgstr "Oldal láthatósága:"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"A láthatóság beállításai érvényesek lesznek az összes ez alatti tartalomra "
+"is."
 
 msgid "Skip to main content"
 msgstr "Előre a fő tartalomig"
@@ -1589,15 +1528,6 @@ msgstr "A(z) '%(name)s' munkafolyamatot használó oldalak"
 msgid "Pages that use workflow"
 msgstr "Munkafolyamatot használó oldalak"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr ""
-"<em>%(workflow_name)s</em> munkafolyamatba beküldve ekkor: %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "szerző: %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Beküldve"
 
@@ -1652,20 +1582,15 @@ msgstr "0 perc"
 msgid "Just now"
 msgstr "Most"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s "
+
 msgid "Log out"
 msgstr "Kijelentkezés"
 
-msgid "live"
-msgstr "élő"
-
-msgid "draft"
-msgstr "vázlat"
-
-msgid "live + draft"
-msgstr "élő + vázlat"
-
-msgid "Test"
-msgstr "Teszt"
+msgid "Comments"
+msgstr "Megjegyzések"
 
 msgid "Profile"
 msgstr "Profil"
@@ -1723,6 +1648,15 @@ msgstr "Biztosan törli a gyűjteményt?"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "Earliest"
+msgstr "Legkorábbi"
+
+msgid "Latest"
+msgstr "Legkésőbbi"
+
+msgid "Dashboard"
+msgstr "Műszerfal"
 
 msgid "Delete selected pages"
 msgstr "Kiválasztott oldalak törlése"
@@ -1873,30 +1807,6 @@ msgstr "A(z) '{0}' oldal le lett cserélve a {1} által szerkesztett verzióra."
 msgid "Page '{0}' has been updated."
 msgstr "'{0}' oldal frissítve."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr ""
-"<b>A(z) '{}' oldal zárolva van</b>, lezárta: <b>én</b>, időpont: <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>én</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr ""
-"<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>{}</b>, időpont: <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>A(z) '{}' oldal zárolva van</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Ez az oldal jelenleg moderálásra vár."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr ""
-"Az oldal jelenleg a(z) <b>'{}'</b> munkafolyamatvan vár erre:<b>'{}'</b> "
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Csak az ellenőrzők szerkeszthetik az oldalt."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "A munkafolyamat a(z) '{0}' oldalon meg lett szakítva."
@@ -1939,6 +1849,9 @@ msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
 msgid "Hide commenting actions"
 msgstr "Megjegyzés akciók elrejtése"
 
+msgid "Page history"
+msgstr "Oldaltörténet"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' oldal zárolása fel lett oldva."
@@ -1980,12 +1893,6 @@ msgid ""
 msgstr ""
 "Az oldal egy korábbi verzióját látja, amelyet %(user)s készített ekkor: <b>"
 "%(created_at)s</b>"
-
-msgid "Earliest"
-msgstr "Legkorábbi"
-
-msgid "Latest"
-msgstr "Legkésőbbi"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2150,13 +2057,8 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "'{0}' feladat bekapcsolva."
 
-msgid "Server Error"
-msgstr "Szerverhiba"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "Hiba jelentése az aminisztrátornak a következő információkkal: "
+msgid "Change"
+msgstr "Megváltoztatás"
 
 msgid "Pages"
 msgstr "Oldalak"
@@ -2211,6 +2113,12 @@ msgstr "Menü sorrend rendezése"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 
+msgid "Translate"
+msgstr "Fordítás"
+
+msgid "Translate this page"
+msgstr "Oldal lefordítása"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Fejléc %(level)d"
@@ -2256,18 +2164,3 @@ msgstr "Igen"
 
 msgid "Choose an item"
 msgstr "Elem kiválasztása"
-
-msgid "Choose another item"
-msgstr "Másik elem kiválasztása"
-
-msgid "Clear choice"
-msgstr "Kiválasztás törlése"
-
-msgid "Choose another page"
-msgstr "Másik oldal választása"
-
-msgid "Choose another task"
-msgstr "Másik feladat kiválasztása"
-
-msgid "Edit this task"
-msgstr "Feladat szerkesztése"

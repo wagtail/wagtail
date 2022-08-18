@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -42,17 +42,17 @@ msgstr "Parole"
 msgid "expired"
 msgstr "novecojis"
 
-msgid "This slug is already in use"
-msgstr "Šis tekstuālais identifikators jau tiek lietots"
-
-msgid "scheduled"
-msgstr "plānots"
-
 msgid "draft"
 msgstr "melnraksts"
 
 msgid "Default"
 msgstr "Noklusējums"
+
+msgid "This slug is already in use"
+msgstr "Šis tekstuālais identifikators jau tiek lietots"
+
+msgid "scheduled"
+msgstr "plānots"
 
 msgid "page"
 msgstr "lapa"
@@ -114,15 +114,6 @@ msgstr "Publisks"
 
 msgid "Private, accessible with the following password"
 msgstr "Privāts, pieejams ar šādu paroli"
-
-msgid "English"
-msgstr "angļu"
-
-msgid "French"
-msgstr "franču"
-
-msgid "German"
-msgstr "vācu"
 
 msgid "Edited"
 msgstr "Labots"
@@ -261,10 +252,6 @@ msgstr "Darbplūsmas uzdevums noraidīts. Darbplūsma pabeigta."
 
 msgid "Workflow: resume task"
 msgstr "Darbplūsma: atsākt uzdevumu"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Atkārtoti iesniegts %(task)s. Darbplūsma atsākta."
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Darbplūsmas uzdevums atkārtoti iesniegts. Darbplūsma atsākta."

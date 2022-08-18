@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -20,13 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Ita boot troka %(setting_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Hadia hela"
 
 msgid "Site"
 msgstr "situs"

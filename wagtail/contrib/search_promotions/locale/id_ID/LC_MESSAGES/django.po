@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -73,7 +73,7 @@ msgstr "Geser ke atas"
 msgid "Move down"
 msgstr "Geser ke bawah"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Hasil pencarian terpromosi"
 
 msgid "Add recommended page"
@@ -81,9 +81,6 @@ msgstr "Tambah halaman yang direkomendasi"
 
 msgid "Search Terms"
 msgstr "Kata kunci pencarian"
-
-msgid "Promoted search results"
-msgstr "Hasil pencarian terpromosi"
 
 msgid "Add new promoted result"
 msgstr "Tambah hasil terpromosi baru"

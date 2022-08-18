@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -44,9 +44,6 @@ msgstr "Otkaži tijek rada"
 
 msgid "Unpublish"
 msgstr "Odjavi"
-
-msgid "Delete"
-msgstr "Obriši"
 
 msgid "Save Draft"
 msgstr "Spremi skicu"
@@ -110,6 +107,18 @@ msgstr "Unesite vašu email adresu kako bi ponovno postavili vašu lozinku"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Pojam za pretraživanje"
+
+msgid "Search"
+msgstr "Pretraga"
+
+msgid "All collections"
+msgstr "Sve zbirke"
+
+msgid "Collection"
+msgstr "Zbirka"
+
 msgid "Parent"
 msgstr "Roditelj"
 
@@ -126,9 +135,6 @@ msgstr "Molimo odaberite drugog roditelja"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nije moguće dodati više skupova dozvola za istu zbirku."
 
-msgid "Collection"
-msgstr "Zbirka"
-
 msgid "Add"
 msgstr "Dodaj"
 
@@ -140,6 +146,9 @@ msgstr "Uredi"
 
 msgid "Edit collections"
 msgstr "Uredi zbirke"
+
+msgid "Delete"
+msgstr "Obriši"
 
 msgid "Delete collections"
 msgstr "Izbriši zbirke"
@@ -219,12 +228,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Datum/vrijeme odjavljivanja mora biti u budućnosti"
 
-msgid "Search"
-msgstr "Pretraga"
-
-msgid "Search term"
-msgstr "Pojam za pretraživanje"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "Oznaka(e) %(value_too_long)s su dulje od %(max_tag_length)d znakova"
@@ -253,6 +256,9 @@ msgstr "Nazovite vaš tijek rada"
 
 msgid "Add tasks to your workflow"
 msgstr "Dodajte zadatke u vaš tijek rada"
+
+msgid "Task"
+msgstr "Zadatak"
 
 msgid "1 page selected"
 msgstr "1 stranica odabrana"
@@ -291,9 +297,6 @@ msgstr "Svih {0} stavki na zaslonu je odabrano"
 msgid "Scheduled publishing"
 msgstr "Planirano objavljivanje"
 
-msgid "Privacy"
-msgstr "Privatnost"
-
 msgid "Content"
 msgstr "Sadržaj"
 
@@ -302,15 +305,6 @@ msgstr "Promoviraj"
 
 msgid "Settings"
 msgstr "Postavke"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Comments"
-msgstr "Komentari"
-
-msgid "Preview"
-msgstr "Pregled"
 
 msgid "Error 404: Page not found"
 msgstr "Greška 404: Stranica nije pronađena"
@@ -326,15 +320,6 @@ msgstr "Idi na Wagtail administraciju"
 
 msgid "Account"
 msgstr "Korisnički račun"
-
-msgid "Change password"
-msgstr "Promijeni lozinku"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Vaša lozinka se ne može promijeniti ovdje. Molimo kontaktirajte "
-"administratora sjedišta."
 
 msgid "Reset password"
 msgstr "Ponovno postavi lozinku"
@@ -425,19 +410,29 @@ msgstr "Dodaj vanjsku poveznicu"
 msgid "Add a phone link"
 msgstr "Dodaj telefonsku poveznicu"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Pretraži podstranice od '%(title)s'"
+
+msgid "Explore"
+msgstr "Pretraži"
+
 msgid "Collection privacy"
 msgstr "Privatnost zbirke"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Ovu zbirku je nadređena zbirka učinila privatnom."
 
+msgid "Save"
+msgstr "Spremi"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Postavke privatnosti određuju tko može vidjeti dokumente u ovoj zbirci."
 
-msgid "Save"
-msgstr "Spremi"
+msgid "Privacy"
+msgstr "Privatnost"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Postavi privatnost zbirke. Trenutni status: Javno"
@@ -472,8 +467,21 @@ msgstr "Da, izbriši"
 msgid "Update"
 msgstr "Ažuriraj"
 
-msgid "Dashboard"
-msgstr "Kontrolna ploča"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Usporedba %(title)s"
+
+msgid "Comparing"
+msgstr "Usporedba"
+
+msgid "Fields"
+msgstr "Polja"
+
+msgid "Changes"
+msgstr "Promjene"
+
+msgid "There are no differences between these two versions"
+msgstr "Nema razlika između ove dvije verzije."
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -507,10 +515,6 @@ msgstr "Skica"
 msgid "Live"
 msgstr "Uživo"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Type"
 msgstr "Tip"
 
@@ -526,8 +530,14 @@ msgstr "Odobri"
 msgid "Reject"
 msgstr "Odbij"
 
+msgid "Preview"
+msgstr "Pregled"
+
 msgid "Your most recent edits"
 msgstr "Vaša nedavna uređivanja"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Date"
 msgstr "Datum"
@@ -537,9 +547,6 @@ msgstr "Sažetak"
 
 msgid "Your pages in a workflow"
 msgstr "Vaše stranice u tijeku rada"
-
-msgid "Task"
-msgstr "Zadatak"
 
 msgid "Changes requested at"
 msgstr "Zatražene promjene u"
@@ -553,23 +560,23 @@ msgstr "Zadaci"
 msgid "Sign in"
 msgstr "Prijavi se"
 
+msgid "Sign in to Wagtail"
+msgstr "Prijavite se na Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Vaše %(username_field)s i lozinka se ne podudaraju. Molimo pokušajte "
 "ponovno. "
 
-msgid "Sign in to Wagtail"
-msgstr "Prijavite se na Wagtail"
+msgid "Forgotten password?"
+msgstr "Zaboravljena lozinka?"
 
 msgid "Remember me"
 msgstr "Zapamti me"
 
 msgid "Signing in…"
 msgstr "Prijava u tijeku..."
-
-msgid "Forgotten password?"
-msgstr "Zaboravljena lozinka?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -703,22 +710,6 @@ msgstr "Privatnost stranice"
 msgid "This page has been made private by a parent page."
 msgstr "Ovu stranicu je nadređena stranica učinila privatnom."
 
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Postavke privatnosti će se također primijeniti na sve podređene stranice."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Postavi privatnost stranice. Trenutni status: Javno"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Postavi privatnost stranice. Trenutni status: Privatno"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Privatnost stranice. Trenutni status: Public"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Privatnost stranice. Trenutni status: Privatno"
-
 msgid "Publishing…"
 msgstr "Objava u tijeku..."
 
@@ -812,15 +803,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Da, premjesti stranicu"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odjavi %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Jeste li sigurni da želite odjaviti stranicu?"
-
-msgid "Yes, unpublish it"
-msgstr "Da, odjavi"
 
 msgid "Publish page"
 msgstr "Objavi stranicu"
@@ -893,10 +877,6 @@ msgstr "Verzija uživo"
 msgid "Current draft"
 msgstr "Trenutna skica"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "Prije %(time_period)s"
-
 msgid "No log entries found."
 msgstr "Nema pronađenih zapisa."
 
@@ -906,9 +886,6 @@ msgstr "Pretraživanje %(title)s"
 
 msgid "Drag"
 msgstr "Povucite"
-
-msgid "Updated"
-msgstr "Ažurirano"
 
 msgid "Configure a site now."
 msgstr "Postavite sjedište sada."
@@ -922,13 +899,6 @@ msgstr "Zašto ne <a href=\"%(add_page_url)s\">stvorite jednu</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Ova stranica je zaključana za daljnje uređivanje"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Pretraži podstranice od '%(title)s'"
-
-msgid "Explore"
-msgstr "Pretraži"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -959,22 +929,14 @@ msgstr "Sortiraj"
 msgid "Enable ordering of child pages"
 msgstr "Uključite mijenjanje redoslijeda podređenih stranica"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Odaberite novu roditeljsku stranicu za %(title)s"
+msgid "Updated"
+msgstr "Ažurirano"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Odaberite novu roditeljsku stranicu za <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Potvrdi"
 
-msgid "Close"
-msgstr "Zatvori"
-
-msgid "Current status:"
-msgstr "Trenutni status:"
-
-msgid "Set page privacy"
-msgstr "Postavi privatnost stranice"
+msgid "History"
+msgstr "Povijest"
 
 msgid "Review this version"
 msgstr "Pregledaj ovu verziju"
@@ -984,25 +946,6 @@ msgstr "Usporedi sa prijašnjom verzijom"
 
 msgid "Compare with current version"
 msgstr "Usporedi sa trenutnom verzijom"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Usporedba %(title)s"
-
-msgid "Comparing"
-msgstr "Usporedba"
-
-msgid "Page history"
-msgstr "Povijest stranice"
-
-msgid "Fields"
-msgstr "Polja"
-
-msgid "Changes"
-msgstr "Promjene"
-
-msgid "There are no differences between these two versions"
-msgstr "Nema razlika između ove dvije verzije."
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1030,18 +973,6 @@ msgstr ""
 
 msgid "Enter a search term above"
 msgstr "Unesite iznad pojam za pretraživanje"
-
-msgid "Locked"
-msgstr "Zaključano"
-
-msgid "Unlocked"
-msgstr "Otključano"
-
-msgid "Lock"
-msgstr "Zaključaj"
-
-msgid "since"
-msgstr "od"
 
 msgid "No pages use"
 msgstr "Nema stranica koje koriste"
@@ -1117,9 +1048,6 @@ msgstr "Pomakni prema gore"
 msgid "Move down"
 msgstr "Pomakni prema dolje"
 
-msgid "Add comment"
-msgstr "Dodaj komentar"
-
 msgid "No pages found."
 msgstr "Nema pronađenih stranica."
 
@@ -1129,14 +1057,11 @@ msgstr "Preuzmi XLSX"
 msgid "Download CSV"
 msgstr "Preuzmi CSV"
 
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Apply filters"
-msgstr "Primjeni filtere"
-
 msgid "Locking status"
 msgstr "Status zaključavanja"
+
+msgid "Locked"
+msgstr "Zaključano"
 
 msgid "No locked pages found."
 msgstr "Nema zaključanih stranica."
@@ -1169,14 +1094,21 @@ msgstr "Stranica %(page_num)s od %(total_pages)s."
 msgid "Root"
 msgstr "Korijen"
 
-msgid "Home"
-msgstr "Naslovna"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odjavi %(title)s"
 
-msgid "All collections"
-msgstr "Sve zbirke"
+msgid "Yes, unpublish it"
+msgstr "Da, odjavi"
 
-msgid "History"
-msgstr "Povijest"
+msgid "Add comment"
+msgstr "Dodaj komentar"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Primjeni filtere"
 
 msgid "Visit the live page"
 msgstr "Posjetite stranicu uživo"
@@ -1186,6 +1118,16 @@ msgstr "Trenutni status stranice"
 
 msgid "Other searches"
 msgstr "Ostale pretrage"
+
+msgid "Unlocked"
+msgstr "Otključano"
+
+msgid "Lock"
+msgstr "Zaključaj"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Postavke privatnosti će se također primijeniti na sve podređene stranice."
 
 msgid "Show in Explorer"
 msgstr "Prikaži u pretraživaču"
@@ -1324,14 +1266,6 @@ msgstr "Stranice koje koriste tijek rada '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Stranice koje koriste tijek rada"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Poslano u <em>%(workflow_name)s</em> u %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "od strane korisnika %(modified_by)s"
-
 msgid "Not started"
 msgstr "Nije započeto"
 
@@ -1375,20 +1309,15 @@ msgstr "0 minuta"
 msgid "Just now"
 msgstr "Upravo sada"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "Prije %(time_period)s"
+
 msgid "Log out"
 msgstr "Odjava"
 
-msgid "live"
-msgstr "uživo"
-
-msgid "draft"
-msgstr "skica"
-
-msgid "live + draft"
-msgstr "uživo + skica"
-
-msgid "Test"
-msgstr "Test"
+msgid "Comments"
+msgstr "Komentari"
 
 msgid "Password"
 msgstr "Lozinka"
@@ -1428,6 +1357,15 @@ msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 
 msgid "Editing"
 msgstr "Uređivanje"
+
+msgid "Earliest"
+msgstr "Najranije"
+
+msgid "Latest"
+msgstr "Najnovije"
+
+msgid "Dashboard"
+msgstr "Kontrolna ploča"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1470,21 +1408,6 @@ msgstr "Stranica '{0}' je izbrisana."
 msgid "Page '{0}' has been updated."
 msgstr "Stanica '{0}' je ažurirana."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Stranicu '{}' ste zaključali</b> <b>vi</b> na dan <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Stranicu '{}' ste zaključali</b> <b>vi</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Stranicu '{}' je zaključao</b> korisnik <b>{}</b> na dan <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Stranica '{}' je zaključana</b>."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Ova stranica čeka <b>'{}'</b> u tijeku rada <b>'{}'</b>."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Tijek rada na stranici '{0}' je otkazan."
@@ -1507,6 +1430,9 @@ msgstr "Stranica '{0}' je poslana na moderiranje."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Nije moguće sačuvati stranicu budući da je zaključana"
+
+msgid "Page history"
+msgstr "Povijest stranice"
 
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
@@ -1533,12 +1459,6 @@ msgid ""
 msgstr ""
 "Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
 "%(user)s"
-
-msgid "Earliest"
-msgstr "Najranije"
-
-msgid "Latest"
-msgstr "Najnovije"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -1674,8 +1594,8 @@ msgstr "Zadatak '{0}' je onemogućen."
 msgid "Task '{0}' enabled."
 msgstr "Zadatak '{0}' je omogućen."
 
-msgid "Server Error"
-msgstr "Greška na poslužitelju"
+msgid "Change"
+msgstr "Promijeni"
 
 msgid "Pages"
 msgstr "Stranice"
@@ -1714,6 +1634,9 @@ msgstr "Pogledaj povijest stranice '%(title)s'"
 
 msgid "Sort menu order"
 msgstr "Sortiraj poredak izbornika"
+
+msgid "Translate"
+msgstr "Prevedi"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -1760,18 +1683,3 @@ msgstr "Da"
 
 msgid "Choose an item"
 msgstr "Odaberi stavku"
-
-msgid "Choose another item"
-msgstr "Odaberi drugu stavku"
-
-msgid "Clear choice"
-msgstr "Poništi odabir"
-
-msgid "Choose another page"
-msgstr "Odaberi drugu stranicu"
-
-msgid "Choose another task"
-msgstr "Odaberi drugi zadatak"
-
-msgid "Edit this task"
-msgstr "Uredi ovaj zadatak"

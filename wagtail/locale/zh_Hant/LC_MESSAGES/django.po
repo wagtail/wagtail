@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -68,6 +68,51 @@ msgstr "密碼錯誤，請重新輸入"
 msgid "Comment"
 msgstr "評論"
 
+msgid "This page is currently awaiting moderation."
+msgstr "此頁面目前等待審核中"
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "儘此作業之審核者可編輯此頁面"
+
+msgid "live"
+msgstr "在用"
+
+msgid "has unpublished changes"
+msgstr "有未發佈的變更"
+
+msgid "first published at"
+msgstr "第一次發佈於"
+
+msgid "last published at"
+msgstr "最後發佈於"
+
+msgid "live revision"
+msgstr "上線版本"
+
+msgid "go live date/time"
+msgstr "上線日期/時間"
+
+msgid "expiry date/time"
+msgstr "過期日期/時間"
+
+msgid "expired"
+msgstr "已過期"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + draft"
+msgstr "發佈+草稿"
+
+msgid "Default"
+msgstr "預設"
+
+msgid "locked"
+msgstr "已鎖定"
+
+msgid "locked at"
+msgstr "鎖定於"
+
 msgid "title"
 msgstr "標題"
 
@@ -85,12 +130,6 @@ msgstr "用於URL的頁面名稱，如http://domain.com/work/[my-work]/"
 msgid "content type"
 msgstr "內容類型"
 
-msgid "live"
-msgstr "在用"
-
-msgid "has unpublished changes"
-msgstr "有未發佈的變更"
-
 msgid "URL path"
 msgstr "URL路徑"
 
@@ -107,32 +146,8 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "是否需要在自動生成的選單中出現此頁面的Link。"
 
-msgid "go live date/time"
-msgstr "上線日期/時間"
-
-msgid "expiry date/time"
-msgstr "過期日期/時間"
-
-msgid "expired"
-msgstr "已過期"
-
-msgid "locked"
-msgstr "已鎖定"
-
-msgid "locked at"
-msgstr "鎖定於"
-
-msgid "first published at"
-msgstr "第一次發佈於"
-
-msgid "last published at"
-msgstr "最後發佈於"
-
 msgid "latest revision created at"
 msgstr "最近修訂版本創建於"
-
-msgid "live revision"
-msgstr "上線版本"
 
 msgid "This slug is already in use"
 msgstr "此縮略名已被使用"
@@ -143,20 +158,11 @@ msgstr "已計劃"
 msgid "in moderation"
 msgstr "審核中"
 
-msgid "draft"
-msgstr "草稿"
-
 msgid "live + scheduled"
 msgstr "在用 + 已預定"
 
 msgid "live + in moderation"
 msgstr "上線 + 審核中"
-
-msgid "live + draft"
-msgstr "發佈+草稿"
-
-msgid "Default"
-msgstr "預設"
 
 msgid "page"
 msgstr "頁面"
@@ -178,12 +184,6 @@ msgstr "內容JSON"
 
 msgid "approved go live at"
 msgstr "批準上線時間"
-
-msgid "page revision"
-msgstr "頁版本"
-
-msgid "page revisions"
-msgstr "頁版本"
 
 msgid "Add/edit pages you own"
 msgstr "新增/編輯所屬的頁面"
@@ -344,6 +344,9 @@ msgstr "已略過"
 msgid "workflow state"
 msgstr "工作流程狀態"
 
+msgid "page revision"
+msgstr "頁版本"
+
 msgid "started at"
 msgstr "開始於"
 
@@ -490,21 +493,6 @@ msgstr "你需要訪問該頁面的密碼。"
 
 msgid "Continue"
 msgstr "繼續"
-
-msgid "English"
-msgstr "英語"
-
-msgid "French"
-msgstr "法語"
-
-msgid "Wagtail tests"
-msgstr "Wagtail 測試"
-
-msgid "You must log in first."
-msgstr "您必須登入。"
-
-msgid "German"
-msgstr "德語"
 
 msgid "Create"
 msgstr "建立"
@@ -692,10 +680,6 @@ msgstr "已駁回工作流程作業。工作流程完成"
 
 msgid "Workflow: resume task"
 msgstr "工作流程：繼續作業"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "重新提交 '%(task)s' ，已繼續工作流程"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "重新提交工作流程作業，已繼續工作流程"

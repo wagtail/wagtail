@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -229,15 +229,6 @@ msgstr "Ja, radera"
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
-msgid "Choose an image"
-msgstr "Välj en bild"
-
-msgid "Search"
-msgstr "Sök"
-
-msgid "Upload"
-msgstr "Ladda upp"
-
 msgid "Popular tags"
 msgstr "Populära taggar"
 
@@ -255,9 +246,6 @@ msgstr "Välj ett format"
 
 msgid "Insert image"
 msgstr "Lägg in bild"
-
-msgid "Uploading…"
-msgstr "Laddar upp…"
 
 msgid "Change image file:"
 msgstr "Byt bildfil:"
@@ -320,9 +308,6 @@ msgstr "Bilder"
 
 msgid "Popular Tags:"
 msgstr "Populära Taggar:"
-
-msgid "Clear choice"
-msgstr "Rensa val"
 
 msgid "Select all images in listing"
 msgstr "Välj alla bilder i listan"
@@ -473,6 +458,15 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d bild har raderats"
 msgstr[1] "%(num_parent_objects)d bilder har raderats"
 
+msgid "Upload"
+msgstr "Ladda upp"
+
+msgid "Uploading…"
+msgstr "Laddar upp…"
+
+msgid "Choose an image"
+msgstr "Välj en bild"
+
 msgid "Search images"
 msgstr "Sök bilder"
 
@@ -512,9 +506,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s bild"
 msgstr[1] "%(count)s bilder"
-
-msgid "Change image"
-msgstr "Ändra bild"
-
-msgid "Edit this image"
-msgstr "Redigera den här bilden"

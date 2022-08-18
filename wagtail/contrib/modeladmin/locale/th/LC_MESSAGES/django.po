@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -71,6 +71,10 @@ msgstr "ก๊อปปี้สิ่งนี้ %s"
 msgid "image"
 msgstr "รูปภาพ"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "กลับไปที่ %(model_name)s รายการ"
+
 msgid "Choose a parent page"
 msgstr "เลือกหน้าหลัก"
 
@@ -110,9 +114,6 @@ msgstr "กลับไปที่รายชื่อ"
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Home"
-msgstr "หน้าหลักของเว็บไซด์"
-
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "ขออภัย,ไม่มี %(name)s ที่ตรงกันของการค้นหา."
@@ -123,6 +124,9 @@ msgstr "ค้นหาสำหรับ"
 #, python-format
 msgid "Search %(name)s"
 msgstr "ค้นหา %(name)s"
+
+msgid "Search"
+msgstr "ค้นหา"
 
 msgid "Download CSV"
 msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
@@ -145,10 +149,6 @@ msgstr "ยังไม่ %(name)s มีการถูกสร้าง"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "หน้า %(current_page)s ของ %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "กลับไปที่ %(model_name)s รายการ"
 
 msgid "Previous"
 msgstr "หน้าก่อนหน้านี้"

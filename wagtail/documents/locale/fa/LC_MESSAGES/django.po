@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -83,21 +83,8 @@ msgstr "بله حذف شود"
 msgid "No, don't delete"
 msgstr "نه، حذف نکن"
 
-msgid "Choose a document"
-msgstr "یک سند انتخاب کنید"
-
-msgid "Search"
-msgstr "جستجو"
-
-msgid "Upload"
-msgstr "آپلود"
-
 msgid "Latest documents"
 msgstr "آخرین اسناد"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پیدا نشد."
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "شما هیچ سندی در این مجموعه بارگذاری نکرده اید."
@@ -112,9 +99,6 @@ msgstr ""
 "<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>یک مورد "
 "الآن بارگذاری کنید</a>"
 
-msgid "Uploading…"
-msgstr "در حال آپلود…"
-
 msgid "Change document:"
 msgstr "تغییر سند:"
 
@@ -123,6 +107,12 @@ msgstr "افزودن یک سند"
 
 msgid "Add document"
 msgstr "افزودن سند"
+
+msgid "Uploading…"
+msgstr "در حال آپلود…"
+
+msgid "Upload"
+msgstr "آپلود"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -157,8 +147,8 @@ msgid "File"
 msgstr "فایل"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پیدا نشد."
 
 #, python-format
 msgid ""
@@ -233,8 +223,8 @@ msgstr "افزودن یک مجوز سند"
 msgid "Delete"
 msgstr "حذف"
 
-msgid "Server Error"
-msgstr "خطای سرور"
+msgid "Choose a document"
+msgstr "یک سند انتخاب کنید"
 
 msgid "Search documents"
 msgstr "جستجوی سندها"
@@ -263,9 +253,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s سند"
 msgstr[1] "%(count)s سند"
-
-msgid "Choose another document"
-msgstr "سند دیگری را انتخاب کنید"
-
-msgid "Edit this document"
-msgstr "ویرایش این سند"

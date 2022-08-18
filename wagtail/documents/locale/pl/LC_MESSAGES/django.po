@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,31 +155,19 @@ msgstr "Tak, usuń"
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
-msgid "Choose a document"
-msgstr "Wybierz dokument"
-
-msgid "Search"
-msgstr "Szukaj"
-
-msgid "Upload"
-msgstr "Prześlij"
-
 msgid "Latest documents"
 msgstr "Najnowsze dokumenty"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
+"Przepraszamy, żaden dokument nie pasuje do \"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Nie przesłano żadnych dokumentów do tej kolekcji."
 
 msgid "You haven't uploaded any documents."
 msgstr "Nie przesłano żadnych dokumentów."
-
-msgid "Uploading…"
-msgstr "Wgrywanie…"
 
 msgid "Change document:"
 msgstr "Zmień dokument:"
@@ -189,6 +177,12 @@ msgstr "Dodaj dokument"
 
 msgid "Add document"
 msgstr "Dodaj dokument"
+
+msgid "Uploading…"
+msgstr "Wgrywanie…"
+
+msgid "Upload"
+msgstr "Prześlij"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -235,8 +229,9 @@ msgid "Select document"
 msgstr "Wybierz dokument"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s temu"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -331,8 +326,8 @@ msgstr "Usuń"
 msgid "Delete selected documents"
 msgstr "Usuń wybrane dokumenty"
 
-msgid "Server Error"
-msgstr "Błąd serwera"
+msgid "Choose a document"
+msgstr "Wybierz dokument"
 
 msgid "Search documents"
 msgstr "Szukaj dokumentów"
@@ -367,9 +362,3 @@ msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumentów"
 msgstr[2] "%(count)s dokumentów"
 msgstr[3] "%(count)s dokumentów"
-
-msgid "Choose another document"
-msgstr "Wybierz inny dokument"
-
-msgid "Edit this document"
-msgstr "Edytuj ten dokument"

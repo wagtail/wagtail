@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -240,15 +240,6 @@ msgstr "Tak, usuń"
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
-msgid "Choose an image"
-msgstr "Wybierz obraz"
-
-msgid "Search"
-msgstr "Szukaj"
-
-msgid "Upload"
-msgstr "Prześlij"
-
 msgid "Popular tags"
 msgstr "Popularne tagi"
 
@@ -279,9 +270,6 @@ msgstr "Wybierz format"
 
 msgid "Insert image"
 msgstr "Wstaw obraz"
-
-msgid "Uploading…"
-msgstr "Wgrywanie…"
 
 msgid "Change image file:"
 msgstr "Zmień plik obrazu:"
@@ -350,9 +338,6 @@ msgstr "Obrazy"
 
 msgid "Popular Tags:"
 msgstr "Popularne Tagi:"
-
-msgid "Clear choice"
-msgstr "Wyczyść wybór"
 
 msgid "Select all images in listing"
 msgstr "Zaznacz wszystkie dobrazy na liście"
@@ -477,6 +462,15 @@ msgstr "Usuń"
 msgid "Delete selected images"
 msgstr "Usuń wybrane obrazy"
 
+msgid "Upload"
+msgstr "Prześlij"
+
+msgid "Uploading…"
+msgstr "Wgrywanie…"
+
+msgid "Choose an image"
+msgstr "Wybierz obraz"
+
 msgid "Search images"
 msgstr "Szukaj obrazów"
 
@@ -518,9 +512,3 @@ msgstr[0] "%(count)s obraz"
 msgstr[1] "%(count)s obrazów"
 msgstr[2] "%(count)s obrazów"
 msgstr[3] "%(count)s obrazów"
-
-msgid "Change image"
-msgstr "Zmień obraz"
-
-msgid "Edit this image"
-msgstr "Edytuj obraz"

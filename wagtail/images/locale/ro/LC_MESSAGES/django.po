@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dan Braghis, 2014-2016,2018-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -230,15 +230,6 @@ msgstr "Da, șterge"
 msgid "No, don't delete"
 msgstr "Nu, nu șterge"
 
-msgid "Choose an image"
-msgstr "Alege imagine"
-
-msgid "Search"
-msgstr "Căutare"
-
-msgid "Upload"
-msgstr "Încărcare"
-
 msgid "Popular tags"
 msgstr "Etichete populare"
 
@@ -256,9 +247,6 @@ msgstr "Alege un format"
 
 msgid "Insert image"
 msgstr "Inserează imagine"
-
-msgid "Uploading…"
-msgstr "În curs de încărcare…"
 
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
@@ -321,9 +309,6 @@ msgstr "Imagini"
 
 msgid "Popular Tags:"
 msgstr "Etichete populare:"
-
-msgid "Clear choice"
-msgstr "Curăță selecție"
 
 msgid "Select all images in listing"
 msgstr "Selectează toate imaginile din listă"
@@ -480,6 +465,15 @@ msgstr[0] "%(num_parent_objects)d imagine a fost ștearsă"
 msgstr[1] "%(num_parent_objects)d imagini au fost șterse"
 msgstr[2] "%(num_parent_objects)d imagini au fost șterse"
 
+msgid "Upload"
+msgstr "Încărcare"
+
+msgid "Uploading…"
+msgstr "În curs de încărcare…"
+
+msgid "Choose an image"
+msgstr "Alege imagine"
+
 msgid "Search images"
 msgstr "Caută imagini"
 
@@ -520,9 +514,3 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagine"
 msgstr[1] "%(count)s imagini"
 msgstr[2] "%(count)s de imagini"
-
-msgid "Change image"
-msgstr "Schimbă imaginea"
-
-msgid "Edit this image"
-msgstr "Editează această imagine"
