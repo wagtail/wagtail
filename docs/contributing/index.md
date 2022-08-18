@@ -29,7 +29,7 @@ committing
 
 Wagtail has internationalisation support so if you are fluent in a non-English language you can contribute by localising the interface.
 
-Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+Translation work should be submitted through [Transifex](https://www.transifex.com/torchbox/wagtail/).
 
 ## Other contributions
 
