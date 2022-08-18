@@ -131,7 +131,7 @@ If you're a Python or Django developer, fork the repo and get stuck in! We have 
 
 You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
-We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/torchbox/wagtail/).
 
 ### 🔓 License
 
