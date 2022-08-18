@@ -160,6 +160,8 @@ These child objects are now accessible through the page's `advert_placements` pr
 {% endfor %}
 ```
 
+(wagtailsnippets_making_snippets_previewable)=
+
 ## Making snippets previewable
 
 ```{versionadded} 4.0
@@ -272,6 +274,8 @@ class Advert(index.Indexed, models.Model):
     ]
 ```
 
+(wagtailsnippets_saving_revisions_of_snippets)=
+
 ## Saving revisions of snippets
 
 ```{versionadded} 4.0
@@ -310,6 +314,8 @@ The `RevisionMixin` includes a `latest_revision` field that needs to be added to
 With the `RevisionMixin` applied, any changes made from the snippets admin will create an instance of the `Revision` model that contains the state of the snippet instance. The revision instance is attached to the [audit log](audit_log) entry of the edit action, allowing you to revert to a previous revision or compare the changes between revisions from the snippet history page.
 
 You can also save revisions programmatically by calling the {meth}`~wagtail.models.RevisionMixin.save_revision` method. After applying the mixin, it is recommended to call this method (or save the snippet in the admin) at least once for each instance of the snippet that already exists (if any), so that the `latest_revision` field is populated in the database table.
+
+(wagtailsnippets_saving_draft_changes_of_snippets)=
 
 ## Saving draft changes of snippets
 
