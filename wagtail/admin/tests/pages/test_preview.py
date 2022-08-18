@@ -387,7 +387,7 @@ class TestEnablePreview(TestCase, WagtailTestUtils):
         # Should not show the preview mode selection
         self.assertNotContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
         )
 
     def test_show_preview_panel_on_create_with_multiple_modes(self):
@@ -412,7 +412,7 @@ class TestEnablePreview(TestCase, WagtailTestUtils):
         # should show the preview mode selection
         self.assertContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
         )
         self.assertContains(response, '<option value="original">Original</option>')
 
@@ -443,7 +443,7 @@ class TestEnablePreview(TestCase, WagtailTestUtils):
         # Should not show the preview mode selection
         self.assertNotContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
         )
 
     def test_show_preview_panel_on_edit_with_multiple_modes(self):
@@ -468,7 +468,7 @@ class TestEnablePreview(TestCase, WagtailTestUtils):
         # should show the preview mode selection
         self.assertContains(
             response,
-            '<select id="id_preview_mode" name="preview_mode" data-preview-mode-select>',
+            '<select id="id_preview_mode" name="preview_mode" class="preview-panel__mode-select" data-preview-mode-select>',
         )
         self.assertContains(response, '<option value="original">Original</option>')
 
