@@ -110,6 +110,7 @@ Changelog
  * Pages are now locked when they are scheduled for publishing (Karl Hobley)
  * Simplify page chooser views by converting to class-based views (Matt Westcott)
  * Add reference documentation for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
+ * Add "Translate" button within pages’ Actions dropdown when editing pages (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
@@ -168,6 +169,12 @@ Changelog
  * Fix: Resolve frontent console error and unintented console logging issues (Matt Wescott, Paarth Agarwal)
  * Fix: Resolve issue with sites that have not yet migrated away from `BaseSetting` when upgrading to Wagtail 4.0 (Stefan Hammer)
  * Fix: Use correct classnames for showing/hiding edit button on chooser widget (Matt Wescott)
+ * Fix: Render MultiFieldPanel’s heading even when nested (Thibaud Colas)
+ * Fix: Make sure select widgets render correctly regardless of the Django field and widget type (Thibaud Colas)
+ * Fix: Consistently display boolean field labels above the widget so they render correctly (Thibaud Colas)
+ * Fix: Address form field label alignment issues by always displaying labels above the widget (Thibaud Colas)
+ * Fix: Make sure rich text URL editing tooltip is fully visible when displayed inside InlinePanel blocks (Thibaud Colas)
+ * Fix: Allow input fields to scroll horizontally in Safari iOS (Thibaud Colas)
 
 
 3.0.1 (16.06.2022)
