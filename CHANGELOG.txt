@@ -175,6 +175,7 @@ Changelog
  * Fix: Address form field label alignment issues by always displaying labels above the widget (Thibaud Colas)
  * Fix: Make sure rich text URL editing tooltip is fully visible when displayed inside InlinePanel blocks (Thibaud Colas)
  * Fix: Allow input fields to scroll horizontally in Safari iOS (Thibaud Colas)
+ * Fix: Ensure screen readers are made aware of page level messages added dynamically to the top of the page (Paarth Agarwal)
 
 
 3.0.1 (16.06.2022)
