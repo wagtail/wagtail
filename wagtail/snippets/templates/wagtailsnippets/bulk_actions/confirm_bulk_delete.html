@@ -43,10 +43,16 @@
 
 
 {% block items_with_no_access %}
-
-    {% blocktrans with snippet_type_name=model_opts.verbose_name snippet_plural_name=model_opts.verbose_name_plural|capfirst trimmed asvar no_access_msg count counter=items_with_no_access|length  %}You don't have permission to delete this {{ snippet_type_name }}{% plural %}You don't have permission to delete these {{ snippet_plural_name }} {% endblocktrans %}
+    {% if items_with_no_access|length == 1 %}
+        {% blocktrans with snippet_type_name=model_opts.verbose_name trimmed asvar no_access_msg %}
+            You don't have permission to delete this {{ snippet_type_name }}
+        {% endblocktrans %}
+    {% else %}
+        {% blocktrans with snippet_plural_name=model_opts.verbose_name_plural trimmed asvar no_access_msg %}
+            You don't have permission to delete these {{ snippet_plural_name }}
+        {% endblocktrans %}
+    {% endif %}
     {% include 'wagtailsnippets/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
-
 {% endblock items_with_no_access %}
 
 {% block form_section %}

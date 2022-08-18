@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.text import capfirst
 
 from wagtail.test.snippets.models import StandardSnippet
 from wagtail.test.utils import WagtailTestUtils
@@ -65,7 +64,7 @@ class TestSnippetDeleteView(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
         self.assertInHTML(
-            f"<p>You don't have permission to delete these {capfirst(self.snippet_model._meta.verbose_name_plural)}</p>",
+            "<p>You don't have permission to delete these standard snippets</p>",
             html,
         )
 
