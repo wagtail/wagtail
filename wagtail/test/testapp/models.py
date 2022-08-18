@@ -191,10 +191,10 @@ class MultiPreviewModesPage(Page):
     def default_preview_mode(self):
         return "alt#1"
 
-    def get_preview_template(self, request, mode_name, *args, **kwargs):
+    def get_preview_template(self, request, mode_name):
         if mode_name == "alt#1":
             return "tests/simple_page_alt.html"
-        return super().get_preview_template(request, *args, **kwargs)
+        return super().get_preview_template(request, mode_name)
 
 
 # Page with Excluded Fields when copied
@@ -1009,7 +1009,7 @@ class PreviewableModel(PreviewableMixin, ClusterableModel):
     def __str__(self):
         return self.text
 
-    def get_preview_template(self, request, mode_name, *args, **kwargs):
+    def get_preview_template(self, request, mode_name):
         return "tests/previewable_model.html"
 
 
@@ -1030,7 +1030,7 @@ class MultiPreviewModesModel(PreviewableMixin, RevisionMixin, models.Model):
     def default_preview_mode(self):
         return "alt#1"
 
-    def get_preview_template(self, request, mode_name, *args, **kwargs):
+    def get_preview_template(self, request, mode_name):
         templates = {
             "": "tests/previewable_model.html",
             "alt#1": "tests/previewable_model_alt.html",
