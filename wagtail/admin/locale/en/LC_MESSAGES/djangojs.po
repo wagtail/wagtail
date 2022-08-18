@@ -164,7 +164,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: src/includes/chooserModal.js:45
+#: src/includes/chooserModal.js:48
 msgid "Report this error to your website administrator with the following information:"
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
-#: src/includes/chooserModal.js:55
+#: src/includes/chooserModal.js:58
 msgid "Server Error"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/includes/chooserModal.js:20
+#: src/includes/chooserModal.js:23
 msgid "This field is required."
 msgstr ""
 

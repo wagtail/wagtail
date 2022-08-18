@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-12 14:06+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,17 +91,19 @@ msgstr ""
 #: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:47
 #, python-format
 msgid "You don't have permission to delete this %(snippet_type_name)s"
-msgid_plural ""
-"You don't have permission to delete these %(snippet_plural_name)s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:54
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:51
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:60
 #: templates/wagtailsnippets/snippets/confirm_delete.html:37
 msgid "Yes, delete"
 msgstr ""
 
-#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:55
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:61
 #: templates/wagtailsnippets/snippets/confirm_delete.html:38
 msgid "No, don't delete"
 msgstr ""
