@@ -493,7 +493,7 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
 Pages already include this mixin, so there is no need to add it.
 
 ```{versionadded} 4.0
-The class is added to allow Snippets to have live preview in the editor.
+The class is added to allow snippets to have live preview in the editor. See [](wagtailsnippets_making_snippets_previewable) for more details.
 ```
 
 ### Methods and properties
@@ -520,7 +520,7 @@ The class is added to allow Snippets to have live preview in the editor.
 Pages already include this mixin, so there is no need to add it.
 
 ```{versionadded} 4.0
-The model is added to allow Snippets to save revisions, revert to a previous revision, and compare changes between revisions.
+The model is added to allow snippets to save revisions, revert to a previous revision, and compare changes between revisions. See [](wagtailsnippets_saving_revisions_of_snippets) for more details.
 ```
 
 ### Database fields
@@ -556,7 +556,7 @@ The model is added to allow Snippets to save revisions, revert to a previous rev
 This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages already include this mixin, so there is no need to add it.
 
 ```{versionadded} 4.0
-The model is added to allow Snippets to have changes that are not immediately reflected to the instance.
+The model is added to allow snippets to have changes that are not immediately reflected to the instance. See [](wagtailsnippets_saving_draft_changes_of_snippets) for more details.
 ```
 
 ### Database fields
