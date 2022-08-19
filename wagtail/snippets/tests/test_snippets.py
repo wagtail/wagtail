@@ -57,6 +57,7 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
     AdvertWithTabbedInterface,
+    DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
     RevisableChildModel,
     RevisableModel,
@@ -1330,8 +1331,8 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
 class TestEditDraftStateSnippet(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
-        self.test_snippet = DraftStateModel.objects.create(
-            text="Draft-enabled Foo", live=False
+        self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.create(
+            custom_id="custom/1", text="Draft-enabled Foo", live=False
         )
 
     def test_get(self):
@@ -1352,7 +1353,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should not show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertNotContains(
@@ -1368,7 +1369,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should not be updated
@@ -1403,14 +1405,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         log_entries = ModelLogEntry.objects.filter(
-            content_type=ContentType.objects.get_for_model(DraftStateModel),
+            content_type=ContentType.objects.get_for_model(
+                DraftStateCustomPrimaryKeyModel
+            ),
             action="wagtail.publish",
             object_id=self.test_snippet.pk,
         )
         log_entry = log_entries.first()
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated
@@ -1457,7 +1462,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated
@@ -1497,7 +1503,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated with the last published changes
@@ -1545,7 +1552,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated with the last published changes
@@ -1594,7 +1602,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should not show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertNotContains(
@@ -1630,7 +1638,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertContains(
@@ -1668,7 +1676,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertContains(
