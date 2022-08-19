@@ -1,5 +1,6 @@
 import copy
 
+from django import VERSION as DJANGO_VERSION
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass, ClusterFormOptions
@@ -100,25 +101,27 @@ class WagtailAdminModelFormOptions(PermissionedFormOptionsMixin, ClusterFormOpti
 class WagtailAdminModelFormMetaclass(PermissionedFormMetaclass, ClusterFormMetaclass):
     options_class = WagtailAdminModelFormOptions
 
-    # Override the behaviour of the regular ModelForm metaclass -
-    # which handles the translation of model fields to form fields -
-    # to use our own formfield_for_dbfield function to do that translation.
-    # This is done by sneaking a formfield_callback property into the class
-    # being defined (unless the class already provides a formfield_callback
-    # of its own).
-
-    # while we're at it, we'll also set extra_form_count to 0, as we're creating
-    # extra forms in JS
+    # set extra_form_count to 0, as we're creating extra forms in JS
     extra_form_count = 0
 
-    def __new__(cls, name, bases, attrs):
-        if "formfield_callback" not in attrs or attrs["formfield_callback"] is None:
-            attrs["formfield_callback"] = formfield_for_dbfield
+    if DJANGO_VERSION < (4, 2):
 
-        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(
-            cls, name, bases, attrs
-        )
-        return new_class
+        def __new__(cls, name, bases, attrs):
+            # Override the behaviour of the regular ModelForm metaclass -
+            # which handles the translation of model fields to form fields -
+            # to use our own formfield_for_dbfield function to do that translation.
+            # This is done by sneaking a formfield_callback property into the class
+            # being defined (unless the class already provides a formfield_callback
+            # of its own).
+            # As of Django 4.2, formfield_callback is available as an option in ModelForm.Meta
+            # so we don't have to hack the metaclass for this.
+            if "formfield_callback" not in attrs or attrs["formfield_callback"] is None:
+                attrs["formfield_callback"] = formfield_for_dbfield
+
+            new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(
+                cls, name, bases, attrs
+            )
+            return new_class
 
     @classmethod
     def child_form(cls):
@@ -132,6 +135,11 @@ class WagtailAdminModelForm(
         # keep hold of the `for_user` kwarg as well as passing it on to PermissionedForm
         self.for_user = kwargs.get("for_user")
         super().__init__(*args, **kwargs)
+
+    if DJANGO_VERSION >= (4, 2):
+
+        class Meta:
+            formfield_callback = formfield_for_dbfield
 
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
