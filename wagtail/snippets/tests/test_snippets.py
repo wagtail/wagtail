@@ -2721,6 +2721,21 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         # filter_form should not have a search field
         self.assertFalse(self.get().context["filter_form"].fields.get("q"))
 
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_filter_requires_i18n_enabled(self):
+        self.url_args = ["snippetstests", "translatablesnippet"]
+        fr_locale = Locale.objects.create(language_code="fr")
+
+        TranslatableSnippet.objects.create(text="English snippet")
+        TranslatableSnippet.objects.create(text="French snippet", locale=fr_locale)
+
+        response = self.get()
+
+        # Check the filter is omitted
+        response_html = response.json()["html"]
+        self.assertNotIn("data-chooser-modal-search-filter", response_html)
+        self.assertNotIn('name="locale"', response_html)
+
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_filter_by_locale(self):
         self.url_args = ["snippetstests", "translatablesnippet"]
