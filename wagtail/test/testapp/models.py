@@ -1001,6 +1001,21 @@ class DraftStateModel(DraftStateMixin, RevisionMixin, models.Model):
 register_snippet(DraftStateModel)
 
 
+class DraftStateCustomPrimaryKeyModel(DraftStateMixin, RevisionMixin, models.Model):
+    custom_id = models.CharField(max_length=255, primary_key=True)
+    text = models.TextField()
+
+    panels = [
+        FieldPanel("text"),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(DraftStateCustomPrimaryKeyModel)
+
+
 # Models with PreviewableMixin
 class PreviewableModel(PreviewableMixin, ClusterableModel):
     text = models.TextField()
