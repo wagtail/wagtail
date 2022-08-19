@@ -138,6 +138,17 @@ function initPreview() {
     newIframe.addEventListener('load', handleLoad);
   };
 
+  const clearPreviewData = () => {
+    const csrfToken = document.querySelector(
+      'input[name="csrfmiddlewaretoken"]',
+    ).value;
+
+    return fetch(previewUrl, {
+      headers: { 'X-CSRFToken': csrfToken },
+      method: 'DELETE',
+    });
+  };
+
   const setPreviewData = () => {
     hasPendingUpdate = true;
     spinnerTimeout = setTimeout(
@@ -260,7 +271,9 @@ function initPreview() {
   }
 
   // Make sure current preview data in session exists and is up-to-date.
-  setPreviewData();
+  clearPreviewData()
+    .then(() => setPreviewData())
+    .then(() => reloadIframe());
   setPreviewWidth();
 }
 

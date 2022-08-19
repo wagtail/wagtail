@@ -199,6 +199,66 @@ class TestPreview(TestCase, WagtailTestUtils):
                 self.client.session,
             )
 
+    def test_preview_on_create_clear_preview_data(self):
+        # Set a fake preview session data for the page
+        self.client.session[self.session_key_prefix] = "test data"
+
+        response = self.client.delete(self.preview_on_add_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"success": True},
+        )
+
+        # The data should no longer exist in the session
+        self.assertNotIn(self.session_key_prefix, self.client.session)
+
+        response = self.client.get(self.preview_on_add_url)
+
+        # The preview should be unavailable
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
+        self.assertContains(
+            response,
+            "<title>Wagtail - Preview not available</title>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
+        )
+
+    def test_preview_on_edit_clear_preview_data(self):
+        # Set a fake preview session data for the page
+        self.client.session[self.edit_session_key] = "test data"
+
+        response = self.client.delete(self.preview_on_edit_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"success": True},
+        )
+
+        # The data should no longer exist in the session
+        self.assertNotIn(self.edit_session_key, self.client.session)
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # The preview should be unavailable
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
+        self.assertContains(
+            response,
+            "<title>Wagtail - Preview not available</title>",
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
+        )
+
     def test_preview_revision(self):
         snippet = MultiPreviewModesModel.objects.create(text="Multiple modes")
         revision = snippet.save_revision(log_action=True)
