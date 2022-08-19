@@ -16,7 +16,7 @@ from wagtail.utils.decorators import xframe_options_sameorigin_override
 
 class PreviewOnEdit(View):
     model = None
-    http_method_names = ("post", "get")
+    http_method_names = ("post", "get", "delete")
     preview_expiration_timeout = 60 * 60 * 24  # seconds
     session_key_prefix = "wagtail-preview-"
 
@@ -110,6 +110,10 @@ class PreviewOnEdit(View):
         }
 
         return self.object.make_preview_request(request, preview_mode, extra_attrs)
+
+    def delete(self, request, *args, **kwargs):
+        request.session.pop(self.session_key, None)
+        return JsonResponse({"success": True})
 
 
 class PreviewOnCreate(PreviewOnEdit):

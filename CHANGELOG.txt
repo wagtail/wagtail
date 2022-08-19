@@ -178,6 +178,7 @@ Changelog
  * Fix: Ensure screen readers are made aware of page level messages added dynamically to the top of the page (Paarth Agarwal)
  * Fix: Fix `updatemodulepaths` command for Python 3.7 (Matt Westcott)
  * Fix: Only show locale filter in choosers when i18n is enabled in settings (Matt Westcott)
+ * Fix: Ensure that the live preview panel correctly clears the cache when a new page is created (Sage Abdullah)
 
 
 3.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
