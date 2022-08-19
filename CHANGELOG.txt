@@ -28,6 +28,7 @@ Changelog
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
  * Fix: Ensure that disabled buttons have a consistent presentation on hover to indicate no interaction is available (Paarth Agarwal)
  * Fix: Update the 'Locked pages' report menu title so that it is consistent with other pages reports and its own title on viewing (Nicholas Johnson)
+ * Fix: Support `formfield_callback` handling on `ModelForm.Meta` for future Django 4.2 release (Matt Westcott)
 
 
 4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
