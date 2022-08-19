@@ -16,25 +16,45 @@ class TestUserbarTag(TestCase, WagtailTestUtils):
         )
         self.homepage = Page.objects.get(id=2)
 
-    def dummy_request(self, user=None, is_preview=False, in_preview_panel=False):
+    def dummy_request(
+        self, user=None, *, is_preview=False, in_preview_panel=False, revision_id=None
+    ):
         request = RequestFactory().get("/")
         request.user = user or AnonymousUser()
         request.is_preview = is_preview
         request.in_preview_panel = in_preview_panel
+        if revision_id:
+            request.revision_id = revision_id
         return request
 
     def test_userbar_tag(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        content = template.render(
-            Context(
-                {
-                    PAGE_TEMPLATE_VAR: self.homepage,
-                    "request": self.dummy_request(self.user),
-                }
-            )
+        context = Context(
+            {
+                PAGE_TEMPLATE_VAR: self.homepage,
+                "request": self.dummy_request(self.user),
+            }
         )
+        with self.assertNumQueries(5):
+            content = template.render(context)
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
+    def test_userbar_tag_revision(self):
+        self.homepage.save_revision(user=self.user, submitted_for_moderation=True)
+        revision = self.homepage.get_latest_revision()
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        context = Context(
+            {
+                PAGE_TEMPLATE_VAR: self.homepage,
+                "request": self.dummy_request(self.user, revision_id=revision.id),
+            }
+        )
+        with self.assertNumQueries(7):
+            content = template.render(context)
+
+        self.assertIn("<!-- Wagtail user bar embed code -->", content)
+        self.assertIn("Approve", content)
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")

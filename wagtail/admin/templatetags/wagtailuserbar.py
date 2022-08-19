@@ -64,28 +64,21 @@ def wagtailuserbar(context, position="bottom-right"):
 
         if page and page.id:
             if revision_id:
+                revision = Revision.page_revisions.get(id=revision_id)
                 items = [
                     AdminItem(),
-                    ExplorePageItem(
-                        Revision.page_revisions.get(id=revision_id).content_object
-                    ),
-                    EditPageItem(
-                        Revision.page_revisions.get(id=revision_id).content_object
-                    ),
-                    ApproveModerationEditPageItem(
-                        Revision.page_revisions.get(id=revision_id)
-                    ),
-                    RejectModerationEditPageItem(
-                        Revision.page_revisions.get(id=revision_id)
-                    ),
+                    ExplorePageItem(revision.content_object),
+                    EditPageItem(revision.content_object),
+                    ApproveModerationEditPageItem(revision),
+                    RejectModerationEditPageItem(revision),
                 ]
             else:
                 # Not a revision
                 items = [
                     AdminItem(),
-                    ExplorePageItem(Page.objects.get(id=page.id)),
-                    EditPageItem(Page.objects.get(id=page.id)),
-                    AddPageItem(Page.objects.get(id=page.id)),
+                    ExplorePageItem(page),
+                    EditPageItem(page),
+                    AddPageItem(page),
                 ]
         else:
             # Not a page.
