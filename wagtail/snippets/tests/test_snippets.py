@@ -1703,9 +1703,11 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 class TestSnippetUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
-        self.snippet = DraftStateModel.objects.create(text="to be unpublished")
+        self.snippet = DraftStateCustomPrimaryKeyModel.objects.create(
+            custom_id="custom/1", text="to be unpublished"
+        )
         self.unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.snippet.pk),),
         )
 
@@ -1727,7 +1729,8 @@ class TestSnippetUnpublish(TestCase, WagtailTestUtils):
         # Get unpublish page
         response = self.client.get(
             reverse(
-                "wagtailsnippets_tests_draftstatemodel:unpublish", args=(quote(12345),)
+                "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
+                args=(quote(12345),),
             )
         )
 
@@ -1766,19 +1769,22 @@ class TestSnippetUnpublish(TestCase, WagtailTestUtils):
 
         # Should be redirected to the listing page
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # Check that the object was unpublished
-        self.assertFalse(DraftStateModel.objects.get(pk=self.snippet.pk).live)
+        self.assertFalse(
+            DraftStateCustomPrimaryKeyModel.objects.get(pk=self.snippet.pk).live
+        )
 
         # Check that the unpublished signal was fired
         self.assertEqual(mock_handler.call_count, 1)
         mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], DraftStateModel)
+        self.assertEqual(mock_call["sender"], DraftStateCustomPrimaryKeyModel)
         self.assertEqual(mock_call["instance"], self.snippet)
-        self.assertIsInstance(mock_call["instance"], DraftStateModel)
+        self.assertIsInstance(mock_call["instance"], DraftStateCustomPrimaryKeyModel)
 
     def test_after_unpublish_hook(self):
         def hook_func(request, snippet):
