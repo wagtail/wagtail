@@ -1314,7 +1314,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self
 
         if isinstance(self, model_class):
-            # self is already the an instance of the most specific class
+            # self is already an instance of the most specific class.
             return self
 
         if deferred:
