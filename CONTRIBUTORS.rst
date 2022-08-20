@@ -617,6 +617,7 @@ Contributors
 * Paritosh Kabra
 * Akash Kumar Sen
 * Xabier Bello
+* Mehrdad Moradizadeh
 
 
 Translators
