@@ -109,7 +109,7 @@ Changelog
  * Move commenting trigger to inline toolbar and move block splitting to the block toolbar and command palette only in Draftail (Thibaud Colas)
  * Pages are now locked when they are scheduled for publishing (Karl Hobley)
  * Simplify page chooser views by converting to class-based views (Matt Westcott)
- * Add reference documentation for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
+ * Add reference documentation and snippets usage guide for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
  * Add "Translate" button within pages’ Actions dropdown when editing pages (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
