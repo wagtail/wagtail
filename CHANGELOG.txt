@@ -180,6 +180,7 @@ Changelog
  * Fix: Only show locale filter in choosers when i18n is enabled in settings (Matt Westcott)
  * Fix: Ensure that the live preview panel correctly clears the cache when a new page is created (Sage Abdullah)
  * Fix: Ensure that there is a larger hoverable area for add block (+) within the Drafttail editor (Steven Steinwand)
+ * Fix: Resolve multiple header styling issues for modal, alignment on small devices, outside click handling target on medium devices, close button target size and hover styles (Paarth Agarwal)
 
 
 3.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
