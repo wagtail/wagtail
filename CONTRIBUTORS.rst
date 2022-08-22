@@ -618,6 +618,7 @@ Contributors
 * Akash Kumar Sen
 * Xabier Bello
 * Mehrdad Moradizadeh
+* ariadi
 
 
 Translators
