@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -51,6 +51,48 @@ msgstr "La contrasenya que heu introduït no és correcta. Torneu a provar."
 msgid "Comment"
 msgstr "Commentari"
 
+msgid "live"
+msgstr "en viu"
+
+msgid "has unpublished changes"
+msgstr "té canvis no publicats"
+
+msgid "first published at"
+msgstr "primera publicació el "
+
+msgid "last published at"
+msgstr "última publicació el"
+
+msgid "live revision"
+msgstr "Revisió en viu"
+
+msgid "go live date/time"
+msgstr "data/hora de pas a en viu"
+
+msgid "expiry date/time"
+msgstr "Data/hora d'expiració"
+
+msgid "expired"
+msgstr "expirat"
+
+msgid "draft"
+msgstr "esborrany"
+
+msgid "live + draft"
+msgstr "en viu + esborrany"
+
+msgid "Default"
+msgstr "Per defecte?"
+
+msgid "locked"
+msgstr "bloquejat"
+
+msgid "locked at"
+msgstr "bloquejada el"
+
+msgid "locked by"
+msgstr "bloquejada per"
+
 msgid "title"
 msgstr "títol"
 
@@ -70,12 +112,6 @@ msgstr ""
 msgid "content type"
 msgstr "tipus de contingut"
 
-msgid "live"
-msgstr "en viu"
-
-msgid "has unpublished changes"
-msgstr "té canvis no publicats"
-
 msgid "URL path"
 msgstr "ruta URL"
 
@@ -90,35 +126,8 @@ msgid ""
 msgstr ""
 "Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
 
-msgid "go live date/time"
-msgstr "data/hora de pas a en viu"
-
-msgid "expiry date/time"
-msgstr "Data/hora d'expiració"
-
-msgid "expired"
-msgstr "expirat"
-
-msgid "locked"
-msgstr "bloquejat"
-
-msgid "locked at"
-msgstr "bloquejada el"
-
-msgid "locked by"
-msgstr "bloquejada per"
-
-msgid "first published at"
-msgstr "primera publicació el "
-
-msgid "last published at"
-msgstr "última publicació el"
-
 msgid "latest revision created at"
 msgstr "última revisió creada el"
-
-msgid "live revision"
-msgstr "Revisió en viu"
 
 msgid "This slug is already in use"
 msgstr "Aquest slug ja està en ús"
@@ -129,20 +138,11 @@ msgstr "programat"
 msgid "in moderation"
 msgstr "en moderació"
 
-msgid "draft"
-msgstr "esborrany"
-
 msgid "live + scheduled"
 msgstr "en viu + programada"
 
 msgid "live + in moderation"
 msgstr "en viu + en moderació"
-
-msgid "live + draft"
-msgstr "en viu + esborrany"
-
-msgid "Default"
-msgstr "Per defecte?"
 
 msgid "page"
 msgstr "pàgina"
@@ -164,12 +164,6 @@ msgstr "contingut JSON"
 
 msgid "approved go live at"
 msgstr "aprovat l'en viu el"
-
-msgid "page revision"
-msgstr "revisió de pàgina"
-
-msgid "page revisions"
-msgstr "revisions de pàgines"
 
 msgid "Add/edit pages you own"
 msgstr "Afegir/editar pàgines pròpies"
@@ -312,6 +306,9 @@ msgstr "Omesos"
 
 msgid "workflow state"
 msgstr "estat del fluxe de treball"
+
+msgid "page revision"
+msgstr "revisió de pàgina"
 
 msgid "started at"
 msgstr "iniciat el"
@@ -459,15 +456,6 @@ msgstr "Necessiteu una contrasenya per accedir a aquesta pàgina."
 
 msgid "Continue"
 msgstr "Continuar"
-
-msgid "English"
-msgstr "Anglès"
-
-msgid "French"
-msgstr "Francès"
-
-msgid "German"
-msgstr "Alemany"
 
 msgid "Create"
 msgstr "Crear"

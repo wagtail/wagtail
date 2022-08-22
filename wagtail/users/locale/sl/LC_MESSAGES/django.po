@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,10 +23,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail uporabniki"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Obvezno. Največ 30 znakov. Dovoljene samo črke, številke in znaki @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Vrednost lahko vsebuje samo črke, številke in znake @/./+/-/_."
@@ -148,9 +144,6 @@ msgstr "Urejanje"
 msgid "Save"
 msgstr "Shrani"
 
-msgid "Permissions"
-msgstr "Dovoljenja"
-
 msgid "Object permissions"
 msgstr "Dovoljenja objekta"
 
@@ -227,10 +220,6 @@ msgstr "Aktiven"
 
 msgid "Inactive"
 msgstr "Neaktiven"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s nazaj"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

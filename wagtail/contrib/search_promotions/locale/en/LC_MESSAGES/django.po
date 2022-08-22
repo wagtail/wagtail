@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,7 +74,7 @@ msgstr ""
 
 #: templates/wagtailsearchpromotions/confirm_delete.html:5
 #: templates/wagtailsearchpromotions/edit.html:20
-#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:6
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
 msgid "Delete"
 msgstr ""
 
@@ -96,28 +96,29 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:4
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:8
 msgid "Move up"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:5
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:9
 msgid "Move down"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
-msgid "Promoted search result"
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:13
+msgid "Recommended page"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:16
+#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:4
+#: templates/wagtailsearchpromotions/index.html:17 wagtail_hooks.py:36
+msgid "Promoted search results"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:22
 msgid "Add recommended page"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/index.html:3
 msgid "Search Terms"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/index.html:17 wagtail_hooks.py:36
-msgid "Promoted search results"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/index.html:18

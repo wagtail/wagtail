@@ -1,12 +1,12 @@
 #
 # Translators:
-# Py Data Geek <pydatageek@gmail.com>, 2022
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
+# Py Data Geek <pydatageek@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: José Luis <alagunajs@gmail.com>, 2022\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2022\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/torchbox/"
 "teams/8009/tr_TR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,9 +61,6 @@ msgstr "Sayfa bulucu"
 msgid "Pages"
 msgstr "Sayfalar"
 
-msgid "Redo"
-msgstr "Yeniden"
-
 msgid "Reload saved content"
 msgstr "Kayıtlı içeriği yeniden yükle"
 
@@ -95,11 +92,8 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
 
-msgid "Undo"
-msgstr "Geri al"
+msgid "This field is required."
+msgstr "Bu alan gerekli."
 
 msgid "View child pages of '{title}'"
 msgstr "'{title}' alt sayfalarını gör"
-
-msgid "Write here…"
-msgstr "Buraya yazın…"

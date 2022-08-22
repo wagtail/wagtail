@@ -1,7 +1,36 @@
 /* eslint-disable max-classes-per-file */
 import $ from 'jquery';
 import { initTabs } from './tabs';
+import { initTooltips } from './initTooltips';
 import { gettext } from '../utils/gettext';
+
+const validateCreationForm = (form) => {
+  let hasErrors = false;
+  form.querySelectorAll('input[required]').forEach((input) => {
+    if (!input.value) {
+      hasErrors = true;
+      if (!input.hasAttribute('aria-invalid')) {
+        input.setAttribute('aria-invalid', 'true');
+        const field = input.closest('[data-field]');
+        field.classList.add('w-field--error');
+        const errors = field.querySelector('[data-field-errors]');
+        const icon = errors.querySelector('.icon');
+        if (icon) {
+          icon.removeAttribute('hidden');
+        }
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('error-message');
+        errorElement.innerHTML = gettext('This field is required.');
+        errors.appendChild(errorElement);
+      }
+    }
+  });
+  if (hasErrors) {
+    // eslint-disable-next-line no-undef
+    setTimeout(cancelSpinner, 500);
+  }
+  return !hasErrors;
+};
 
 const submitCreationForm = (modal, form, { errorContainerSelector }) => {
   const formdata = new FormData(form);
@@ -168,7 +197,7 @@ class ChooserModalOnloadHandlerFactory {
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
     this.searchInputDelay = opts?.searchInputDelay || 200;
     this.creationFormSelector =
-      opts?.creationFormSelector || 'form[data-chooser-modal-create]';
+      opts?.creationFormSelector || 'form[data-chooser-modal-creation-form]';
     this.creationFormTabSelector =
       opts?.creationFormTabSelector || '#tab-create';
     this.creationFormFileFieldSelector = opts?.creationFormFileFieldSelector;
@@ -197,6 +226,9 @@ class ChooserModalOnloadHandlerFactory {
 
     // Reinitialize tabs to hook up tab event listeners in the modal
     if (this.modalHasTabs(modal)) initTabs();
+
+    // Reinitialise any tooltips
+    initTooltips();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -207,10 +239,11 @@ class ChooserModalOnloadHandlerFactory {
   ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
-      submitCreationForm(modal, event.currentTarget, {
-        errorContainerSelector: this.creationFormTabSelector,
-      });
-
+      if (validateCreationForm(event.currentTarget)) {
+        submitCreationForm(modal, event.currentTarget, {
+          errorContainerSelector: this.creationFormTabSelector,
+        });
+      }
       return false;
     });
 
@@ -283,6 +316,7 @@ const chooserModalOnloadHandlers =
   new ChooserModalOnloadHandlerFactory().getOnLoadHandlers();
 
 export {
+  validateCreationForm,
   submitCreationForm,
   initPrefillTitleFromFilename,
   SearchController,

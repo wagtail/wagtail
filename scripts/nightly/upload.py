@@ -9,10 +9,10 @@ dist_folder = pathlib.Path.cwd() / "dist"
 try:
     f = next(dist_folder.glob("*.whl"))
 except StopIteration:
-    print("No .whl files found in ./dist!")
+    print("No .whl files found in ./dist!")  # noqa
     sys.exit()
 
-print("Uploading", f.name)
+print("Uploading", f.name)  # noqa
 s3 = boto3.client("s3")
 s3.upload_file(
     str(f),
@@ -21,7 +21,7 @@ s3.upload_file(
     ExtraArgs={"ACL": "public-read"},
 )
 
-print("Updating latest.json")
+print("Updating latest.json")  # noqa
 
 boto3.resource("s3").Object("releases.wagtail.io", "nightly/latest.json").put(
     ACL="public-read",

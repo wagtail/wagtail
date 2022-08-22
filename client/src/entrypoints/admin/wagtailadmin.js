@@ -5,6 +5,11 @@ import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
 import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
+import initSidePanel from '../../includes/sidePanel';
+import {
+  initAnchoredPanels,
+  initCollapsiblePanels,
+} from '../../includes/panels';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -31,4 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkipLink();
   dialog();
   initCollapsibleBreadcrumbs();
+  initSidePanel();
+  initCollapsiblePanels();
+});
+
+/**
+ * Prefer the document’s DOMContentLoaded if possible.
+ * window `load` only fires once the page’s resources are loaded.
+ */
+window.addEventListener('load', () => {
+  initAnchoredPanels();
 });

@@ -17,6 +17,8 @@ class Migration(migrations.Migration):
         ("wagtailcore", "0069_log_entry_jsonfield"),
     ]
 
+    atomic = False
+
     operations = [
         migrations.RunPython(
             disable_sqlite_legacy_alter_table,

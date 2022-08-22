@@ -4,7 +4,7 @@ The `typed_table_block` module provides a StreamField block type for building ta
 
 ## Installation
 
-Add `"wagtail.contrib.typed_table_block"` to your INSTALLED_APPS:
+Add `"wagtail.contrib.typed_table_block"` to your `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS = [
@@ -36,20 +36,20 @@ class DemoStreamBlock(blocks.StreamBlock):
 To keep the UI as simple as possible for authors, it's generally recommended to use Wagtail's basic built-in block types as column types, as above. However, all custom block types and parameters are supported. For example, to define a 'country' column type consisting of a dropdown of country choices:
 
 ```python
-    table = TypedTableBlock([
-        ('text', blocks.CharBlock()),
-        ('numeric', blocks.FloatBlock()),
-        ('rich_text', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('country', ChoiceBlock(choices=[
-            ('be', 'Belgium'),
-            ('fr', 'France'),
-            ('de', 'Germany'),
-            ('nl', 'Netherlands'),
-            ('pl', 'Poland'),
-            ('uk', 'United Kingdom'),
-        ])),
-    ])
+table = TypedTableBlock([
+    ('text', blocks.CharBlock()),
+    ('numeric', blocks.FloatBlock()),
+    ('rich_text', blocks.RichTextBlock()),
+    ('image', ImageChooserBlock()),
+    ('country', ChoiceBlock(choices=[
+        ('be', 'Belgium'),
+        ('fr', 'France'),
+        ('de', 'Germany'),
+        ('nl', 'Netherlands'),
+        ('pl', 'Poland'),
+        ('uk', 'United Kingdom'),
+    ])),
+])
 ```
 
 On your page template, the `{% include_block %}` tag (called on either the individual block, or the StreamField value as a whole) will render any typed table blocks as an HTML `<table>` element.

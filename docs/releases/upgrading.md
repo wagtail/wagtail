@@ -36,17 +36,13 @@ To upgrade:
 
 -   Update the `wagtail` line in your project's `requirements.txt` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 1.8.x, the line should read:
 
-        ```text
         wagtail>=1.8,<1.9
-        ```
 
 -   Run:
 
-        ```console
         pip install -r requirements.txt
         ./manage.py makemigrations
         ./manage.py migrate
-        ```
 
 -   Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
 -   Test that your project is working as expected.
@@ -103,3 +99,4 @@ The compatible versions of Django and Python for each Wagtail release are:
 | 2.15 LTS        | 3.0, 3.1, 3.2              | 3.6, 3.7, 3.8, 3.9, 3.10   |
 | 2.16            | 3.2, 4.0                   | 3.7, 3.8, 3.9, 3.10        |
 | 3.0             | 3.2, 4.0                   | 3.7, 3.8, 3.9, 3.10        |
+| 4.0             | 3.2, 4.0, 4.1              | 3.7, 3.8, 3.9, 3.10        |

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -72,6 +72,10 @@ msgstr "Kopier %s"
 msgid "image"
 msgstr "bilde"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Tilbake til %(model_name)slisten"
+
 msgid "Choose a parent page"
 msgstr "Velg en foreldreside"
 
@@ -115,9 +119,6 @@ msgstr "Ja, slett"
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
-msgid "Home"
-msgstr "Hjem"
-
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Beklager, fant ingen %(name)s som samsvarer med søket ditt."
@@ -128,6 +129,9 @@ msgstr "Søk etter"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Søk etter %(name)s"
+
+msgid "Search"
+msgstr "Søk"
 
 msgid "Download XLSX"
 msgstr "Last ned XLSX"
@@ -156,10 +160,6 @@ msgstr "Paginering"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Side %(current_page)s av %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Tilbake til %(model_name)slisten"
 
 msgid "Previous"
 msgstr "Forrige"

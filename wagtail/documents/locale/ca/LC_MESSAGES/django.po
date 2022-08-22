@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -131,30 +131,20 @@ msgstr "Si, esborra"
 msgid "No, don't delete"
 msgstr "No, no esborrar"
 
-msgid "Choose a document"
-msgstr "Escull un document"
-
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Upload"
-msgstr "Pujar"
-
 msgid "Latest documents"
 msgstr "Últims documents"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Ho sentim, no s'han trobat documents que coincideixin amb \"<em>"
+"%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "No heu pujat cap document a aquest col·lecció."
 
 msgid "You haven't uploaded any documents."
 msgstr "No heu pujat cap document."
-
-msgid "Uploading…"
-msgstr "Pujant…"
 
 msgid "Change document:"
 msgstr "Canvia el document:"
@@ -164,6 +154,12 @@ msgstr "Afegeix un document"
 
 msgid "Add document"
 msgstr "Afegeix el document"
+
+msgid "Uploading…"
+msgstr "Pujant…"
+
+msgid "Upload"
+msgstr "Pujar"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -210,8 +206,8 @@ msgid "Select document"
 msgstr "Seleccionar document"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "fa %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
 
 #, python-format
 msgid ""
@@ -326,14 +322,8 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "S'ha esborrat %(num_parent_objects)d document"
 msgstr[1] "S'han esborrat %(num_parent_objects)d documents"
 
-msgid "Server Error"
-msgstr "Error del servidor"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Informar d'aquest error a l'administrador web amb la informació següent:"
+msgid "Choose a document"
+msgstr "Escull un document"
 
 msgid "Search documents"
 msgstr "Cercar documents"
@@ -365,9 +355,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s document"
 msgstr[1] "%(count)s documents"
-
-msgid "Choose another document"
-msgstr "Escull un altre document"
-
-msgid "Edit this document"
-msgstr "Editar aquest document"

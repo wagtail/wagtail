@@ -3,9 +3,13 @@
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     {% if revision_enabled and instance.revision %}
         {% with revision=instance.revision latest_revision=object.get_latest_revision previous_revision=instance.revision.get_previous %}
-            <span class="report__results--text">{{ value }}</span>
-            {% if revision == latest_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
+            <span>{{ value }}</span>
+            {% if instance.action == 'wagtail.publish' and revision == object.live_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>
+            {% elif instance.content_changed and revision == latest_revision %}<span class="status-tag primary">{% trans 'Current draft' %}</span>{% endif %}
             <ul class="actions">
+                {% if preview_enabled and object.is_previewable %}
+                    <li><a href="{% url view.revisions_view_url_name object.pk|admin_urlquote revision.pk %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>
+                {% endif %}
                 {% if revision == latest_revision %}
                     <li><a href="{% url view.edit_url_name object.pk|admin_urlquote %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
                 {% else %}

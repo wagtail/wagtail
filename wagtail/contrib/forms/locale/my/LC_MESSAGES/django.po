@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -137,24 +137,6 @@ msgstr "ဖောင်များ"
 msgid "Pages"
 msgstr "စာမျက်နှာများ"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "%(form_title)s၏တင်ပြချက်များ"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "<span>%(form_title)s</span>ဖောင်ဒေတာ"
-
-msgid "Filter"
-msgstr "စစ်ထုတ်ပါ"
-
-msgid "Download CSV"
-msgstr "CSV ဒေါင်းပါ"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "'%(title)s'ဖောင် တင်ပြချက်မျိုး မရှိပါ။"
-
 msgid "Title"
 msgstr "ခေါင်းစဥ်"
 
@@ -172,6 +154,20 @@ msgstr "နောက်ဆုံးတင်ပြချက်"
 
 msgid "No form pages have been created."
 msgstr "ဘယ်ဖောင်စာမျက်နှာမှ မဖန်တီးထားပါ။"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s၏တင်ပြချက်များ"
+
+msgid "Download CSV"
+msgstr "CSV ဒေါင်းပါ"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "'%(title)s'ဖောင် တင်ပြချက်မျိုး မရှိပါ။"
+
+msgid "Filter"
+msgstr "စစ်ထုတ်ပါ"
 
 #, python-format
 msgid "One submission has been deleted."

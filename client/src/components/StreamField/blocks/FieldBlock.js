@@ -16,19 +16,24 @@ export class FieldBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
+    // See field.html for the reference implementation of this markup.
     const dom = $(`
-      <div class="${h(this.blockDef.meta.classname)}">
-        <div class="field-content">
-          <div class="input">
-            <div data-streamfield-widget></div>
-            <span></span>
+      <div class="w-field__wrapper" data-field-wrapper>
+        <div class="${h(this.blockDef.meta.classname)}" data-field>
+          <div class="w-field__errors" id="${prefix}-errors" data-field-errors>
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden><use href="#icon-warning"></use></svg>
           </div>
+          <div class="w-field__input" data-field-input>
+            <div data-streamfield-widget></div>
+          </div>
+          <div id="${prefix}-helptext" data-field-help></div>
         </div>
       </div>
     `);
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
+    this.field = this.element.querySelector('[data-field]');
 
     this.parentCapabilities = parentCapabilities || new Map();
 
@@ -61,14 +66,10 @@ export class FieldBlock {
       const helpElement = document.createElement('p');
       helpElement.classList.add('help');
       helpElement.innerHTML = this.blockDef.meta.helpText; // unescaped, as per Django conventions
-      this.element.querySelector('.field-content').appendChild(helpElement);
+      this.field.querySelector('[data-field-help]').appendChild(helpElement);
     }
 
     if (window.comments && this.blockDef.meta.showAddCommentButton) {
-      const fieldCommentControlElement = document.createElement('div');
-      fieldCommentControlElement.classList.add('field-comment-control');
-      this.element.appendChild(fieldCommentControlElement);
-
       const addCommentButtonElement = document.createElement('button');
       addCommentButtonElement.type = 'button';
       addCommentButtonElement.setAttribute(
@@ -76,19 +77,23 @@ export class FieldBlock {
         blockDef.meta.strings.ADD_COMMENT,
       );
       addCommentButtonElement.setAttribute('data-comment-add', '');
-      addCommentButtonElement.classList.add('button');
-      addCommentButtonElement.classList.add('button-secondary');
-      addCommentButtonElement.classList.add('button-small');
-      addCommentButtonElement.classList.add('u-hidden');
+      addCommentButtonElement.classList.add(
+        'w-field__comment-button',
+        'w-field__comment-button--add',
+        'u-hidden',
+      );
 
       ReactDOM.render(
         <>
-          <Icon name="comment-add" className="icon-default" />
-          <Icon name="comment-add-reversed" className="icon-reversed" />
+          <Icon name="comment-add" />
+          <Icon name="comment-add-reversed" />
         </>,
         addCommentButtonElement,
       );
-      fieldCommentControlElement.appendChild(addCommentButtonElement);
+      this.field.classList.add('w-field--commentable');
+      this.field
+        .querySelector('[data-field-input]')
+        .appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
     }
 
@@ -111,21 +116,25 @@ export class FieldBlock {
   }
 
   setError(errorList) {
-    this.element
-      .querySelectorAll(':scope > .field-content > .error-message')
+    const errors = this.field.querySelector('[data-field-errors]');
+
+    errors
+      .querySelectorAll('.error-message')
       .forEach((element) => element.remove());
 
     if (errorList) {
-      this.element.classList.add('error');
+      this.field.classList.add('w-field--error');
+      errors.querySelector('.icon').removeAttribute('hidden');
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
       errorElement.innerHTML = errorList
         .map((error) => `<span>${h(error.messages[0])}</span>`)
         .join('');
-      this.element.querySelector('.field-content').appendChild(errorElement);
+      errors.appendChild(errorElement);
     } else {
-      this.element.classList.remove('error');
+      this.field.classList.remove('w-field--error');
+      errors.querySelector('.icon').setAttribute('hidden', 'true');
     }
   }
 

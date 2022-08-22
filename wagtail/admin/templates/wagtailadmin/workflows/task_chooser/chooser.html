@@ -5,8 +5,7 @@
 {% if can_create %}
     <div class="w-tabs" data-tabs data-tabs-disable-url>
         <div class="w-tabs__wrapper w-overflow-hidden">
-            {# Using nice-padding and full width class until the modal header is restyled #}
-            <div role="tablist" class="w-tabs__list w-w-full nice-padding">
+            <div role="tablist" class="w-tabs__list w-w-full">
                 {% trans "New" as new_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='new' title=new_text %}
                 {% trans "Existing" as existing_text %}
@@ -14,7 +13,7 @@
             </div>
         </div>
 
-        <div class="tab-content nice-padding">
+        <div class="tab-content">
             <section
                 id="tab-new"
                 class="w-tabs__panel"

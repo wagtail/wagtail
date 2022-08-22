@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -78,31 +78,14 @@ msgstr "Так, выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
-msgid "Choose a document"
-msgstr "Абраць дакумент"
-
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Upload"
-msgstr "Запампаваць"
-
 msgid "Latest documents"
 msgstr "Апошнія дакументы"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Вы не загрузілі дакументы ў гэтую калекцыю."
 
 msgid "You haven't uploaded any documents."
 msgstr "Вы не загрузілі ніякіх дакументаў."
-
-msgid "Uploading…"
-msgstr "Запампоўваецца..."
 
 msgid "Change document:"
 msgstr "Змяніць дакумент:"
@@ -112,6 +95,12 @@ msgstr "Дадаць дакумент"
 
 msgid "Add document"
 msgstr "Дадаць дакумент"
+
+msgid "Uploading…"
+msgstr "Запампоўваецца..."
+
+msgid "Upload"
+msgstr "Запампаваць"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -152,8 +141,9 @@ msgid "Created"
 msgstr "Створаны"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -229,8 +219,8 @@ msgstr "Дадаць правы доступу да дакумента"
 msgid "Delete"
 msgstr "Выдаліць"
 
-msgid "Server Error"
-msgstr "Памылка сервера"
+msgid "Choose a document"
+msgstr "Абраць дакумент"
 
 msgid "Search documents"
 msgstr "Пошул дакументаў"
@@ -264,9 +254,3 @@ msgstr[0] "%(count)s дакумент"
 msgstr[1] "%(count)s дакументы"
 msgstr[2] "%(count)s дакументаў"
 msgstr[3] "%(count)s дакументаў"
-
-msgid "Choose another document"
-msgstr "Абраць іншы дакумент"
-
-msgid "Edit this document"
-msgstr "Рэдагаваць гэты дакумент"

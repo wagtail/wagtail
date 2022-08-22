@@ -1,0 +1,22 @@
+.preview-error {
+  @apply w-bg-white;
+  position: absolute;
+  inset-inline-start: 0;
+  width: 100%;
+  display: grid;
+  min-height: 100vh;
+  align-content: center;
+  text-align: center;
+
+  &__header {
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    @apply w-h4 w-text-grey-600;
+  }
+
+  &__details {
+    @apply w-help-text;
+  }
+}

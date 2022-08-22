@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 function createTaskChooser(id) {
   const chooserElement = $('#' + id + '-chooser');
-  const taskName = chooserElement.find('.name');
+  const taskName = chooserElement.find('[data-chooser-title]');
   const input = $('#' + id);
   const editAction = chooserElement.find('.edit-link');
 

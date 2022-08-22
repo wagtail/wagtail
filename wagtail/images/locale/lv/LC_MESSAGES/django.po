@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -80,15 +80,6 @@ msgstr "Izvēlēties"
 msgid "Yes, delete"
 msgstr "Dzēst"
 
-msgid "Choose an image"
-msgstr "Izvēlēties attēlu"
-
-msgid "Search"
-msgstr "Meklēt"
-
-msgid "Upload"
-msgstr "Augšupielādēt"
-
 msgid "New"
 msgstr "Jauns"
 
@@ -131,9 +122,6 @@ msgstr "Fails netika atrasts"
 
 msgid "Images"
 msgstr "Attēli"
-
-msgid "Clear choice"
-msgstr "Atcelt izvēli"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -193,6 +181,12 @@ msgstr "Servera kļūda"
 msgid "Delete"
 msgstr "Dzēst"
 
+msgid "Upload"
+msgstr "Augšupielādēt"
+
+msgid "Choose an image"
+msgstr "Izvēlēties attēlu"
+
 msgid "Search images"
 msgstr "Meklēt attēlus"
 
@@ -216,6 +210,3 @@ msgstr "Attēls '{0}' pievienots."
 
 msgid "The image could not be created due to errors."
 msgstr "Attēlu nevarēja izveidot kļūdu dēļ."
-
-msgid "Edit this image"
-msgstr "Labot šo attēlu"

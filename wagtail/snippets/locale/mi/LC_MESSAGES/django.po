@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Publish"
+msgstr "Perehi"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
 msgid "Delete"
 msgstr "Muku"
 
@@ -28,20 +34,15 @@ msgstr "Puritia"
 msgid "Wagtail snippets"
 msgstr "Pitopito kōrero-a-Wagtail"
 
-msgid "Choose"
-msgstr "Kōhiti"
-
-msgid "Search"
-msgstr "Haha"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' kua muku."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Aroha mai, karekau hē pitopito kōrero e whakataurite ki \"<em>"
-"%(query_string)s</em>\""
-
-msgid "Saving…"
-msgstr "pupuru ana..."
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d%(snippet_type)s mukuhia"
+msgstr[1] "%(count)d %(snippet_type)s kua mukuhia."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -70,6 +71,9 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
+msgid "Saving…"
+msgstr "pupuru ana..."
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Hou %(snippet_type_name)s"
@@ -80,34 +84,11 @@ msgstr "Hou"
 msgid "Actions"
 msgstr "Hohenga"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr ""
-"Whakarerekē%(snippet_type_name)s\n"
-"E Whakarerekē a John I ōna tuhinga mo tōna pukapuka – John is editing the "
-"writing for his book\n"
-"%(instance)s Kei te Whakarerekē a Hine ī nga tuhinga mō te nūpepa – Hine is "
-"editing the writing for the newspaper"
-
-msgid "Editing"
-msgstr "Whakarerekē"
-
 msgid "Usage"
 msgstr "Whakamahi"
 
 msgid "Snippets"
 msgstr "Pitopito kōrero"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Kōwhiri ngā %(snippet_type_name_plural)s katoa"
-
-msgid "Title"
-msgstr "Taitara"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Kōwhiri %(snippet)s"
 
 #, python-format
 msgid ""
@@ -117,13 +98,15 @@ msgstr ""
 "Ehara kua hangaia he %(snippet_type_name_plural)s. He aha ai <a href="
 "\"%(wagtailsnippets_create_url)s\"> tāpiri kotahi</a>?"
 
+msgid "Preview"
+msgstr "Titiro"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Pitopito kōrero %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Pitopito kōrero <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -135,6 +118,9 @@ msgstr "Te whakamahi ō %(title)s"
 
 msgid "Usage of"
 msgstr "Te whakamahi ō "
+
+msgid "Title"
+msgstr "Taitara"
 
 msgid "Parent"
 msgstr "Mātua"
@@ -148,9 +134,11 @@ msgstr "Tūnga"
 msgid "Edit this page"
 msgstr "Whakarerekē i tēnei whārangi"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Haha %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Kōhiti"
+
+msgid "Name"
+msgstr "Ingoa"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Ehara tēnei pitopito kōrero e taea ki te hangaia, he raruraru "
@@ -159,25 +147,12 @@ msgstr "Ehara tēnei pitopito kōrero e taea ki te hangaia, he raruraru "
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' kua hangaia."
 
-msgid "Edit"
-msgstr "Whakarerekē"
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' kua whakahou."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pitopito kōrero nei, he raruraru "
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' kua muku."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d%(snippet_type)s mukuhia"
-msgstr[1] "%(count)d %(snippet_type)s kua mukuhia."
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' kua whakahou."
 
 msgid "Date"
 msgstr "Rā"
@@ -193,11 +168,3 @@ msgstr "Muku '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Kōhiti %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Kōhiti anō %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Whakarerekē i tēnei %s"

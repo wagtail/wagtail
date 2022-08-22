@@ -1,131 +1,93 @@
-/*
-TODO this chooser style has been made more generic based on two identical
-methods for choosing pages and images that were previously included in their
-own less files in each app directory (and since deleted). It would be best if
-an admin 'theme' provided all the design for a UI in a single place, but
-should that be a series of overrides to the css provided from an app? If so,
-perhaps those two previous less files should be re-instated and then
-overridden here? hmm.
-*/
-
 .chooser {
-  input[type='text'] {
-    float: left;
-    width: 50%;
-    margin-inline-end: 1em;
-  }
-
-  .chosen {
-    display: block;
-  }
-
-  .unchosen,
-  .chosen {
-    position: relative;
-
-    .icon {
-      color: $color-grey-3;
-      @include svg-icon(2.5em);
-      vertical-align: middle;
-      margin-inline-end: 0.625rem;
-    }
-
-    // TODO: [icon-font] remove when the Wagtail icon font is removed
-    &:before {
-      vertical-align: middle;
-      font-family: $font-wagtail-icons;
-      content: '';
-      // position: relative
-      display: inline-block;
-      // float: left;
-      color: $color-grey-3;
-      line-height: 1em;
-      font-size: 2.5em;
-      margin-inline-end: 0.3em;
-    }
-  }
-
-  .unchosen {
+  &.blank .chosen {
     display: none;
   }
 
-  .actions {
-    @include clearfix;
-    overflow: hidden;
+  &:not(.blank) .unchosen {
+    display: none;
+  }
+}
 
-    li {
-      float: left;
-      margin: 0.3em;
-    }
+// Very subdued button style specifically for choosers, as there can be a lot of
+// chooser fields left unused on a page editing form.
+.chooser__choose-button {
+  display: flex;
+  align-items: center;
+  border-color: transparent;
+  padding-inline-start: 0;
+  // So the outline is slightly more separated from the text.
+  padding-inline-end: $focus-outline-width;
+
+  .icon {
+    @include svg-icon(theme('spacing.5'), initial);
+    color: inherit;
+    margin-inline-end: 5px;
   }
 
-  // ...unless the .page-chooser has the 'blank' class set
-  &.blank {
-    .chosen {
-      display: none;
-    }
+  &:hover,
+  &:focus {
+    color: $color-button-hover;
+    background-color: $color-white;
+  }
+}
 
-    .unchosen {
-      display: block;
+.chosen {
+  display: flex;
+  gap: theme('spacing.4');
+  align-items: center;
+}
+
+.chooser__preview {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  // Prevent this item from getting smaller if the title is long.
+  flex-shrink: 0;
+  background-color: theme('colors.grey.150');
+  color: $color-white;
+  border-radius: theme('borderRadius.sm');
+
+  @media (forced-colors: active) {
+    border: 1px solid transparent;
+  }
+
+  .icon {
+    width: theme('spacing.7');
+    height: theme('spacing.7');
+    color: inherit;
+  }
+}
+
+.chooser__title {
+  @apply w-body-text-large;
+}
+
+.chooser__actions {
+  display: flex;
+  gap: theme('spacing.[1.5]');
+
+  .button {
+    // Subdued border as there can be a lot of chooser action buttons on a page.
+    border-color: theme('colors.grey.150');
+  }
+
+  // Hiding for devices capable of hover states only,
+  // with opacity only so keyboard focus can move to the first interactive element to reveal it.
+  @media (hover: hover) {
+    opacity: 0;
+
+    .chooser:hover &,
+    .chooser:focus-within & {
+      opacity: 1;
     }
   }
 }
 
-// standard way of doing a chooser where the chosen object's title is overlaid
-.page-chooser,
-.snippet-chooser,
-.document-chooser {
-  .chosen {
-    .title {
-      color: $color-grey-1;
-      // display: block;
-      padding-inline-start: 1em;
-      display: inline-block;
-    }
-
-    .actions {
-      clear: both;
-      padding-top: 0.6em;
-    }
-  }
-}
-
-// TODO: [icon-font] remove when the Wagtail icon font is removed
-.page-chooser,
-.snippet-chooser,
-.document-chooser,
-.image-chooser {
-  .unchosen,
-  .chosen {
-    &:before {
-      display: none;
-    }
-  }
-}
-
-.image-chooser {
-  .chosen {
-    padding-inline-start: $thumbnail-width;
-
-    &:before {
-      display: inline-block;
-    }
-
-    .preview-image {
-      float: left;
-      margin-inline-start: -($thumbnail-width);
-      margin-inline-end: 1em;
-      max-width: $thumbnail-width;
-
-      // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
-      // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
-      // where images are store off-site with higher rendering times.
-      img {
-        max-width: $thumbnail-width;
-        max-height: $thumbnail-width;
-        height: auto;
-        width: auto;
-      }
-    }
-  }
+.chooser__image {
+  max-width: 200px;
+  max-height: 140px;
+  height: auto;
+  width: auto;
 }

@@ -1,5 +1,19 @@
-@use './scss/index' with (
-  $teal: $color-teal,
-  $error-color: $color-red,
-  $font-sans: $font-sans
-);
+$grid-gutter-width: 30px;
+$header-gutter: 8px;
+$block-margin-vertical: theme('spacing.1');
+$block-margin-horizontal: theme('spacing.3');
+$type-button-padding-vertical: 10px;
+$type-button-padding-horizontal: 10px;
+$content-padding-horizontal: 24px;
+$content-padding-vertical: 16px;
+$action-font-size: 1.125rem;
+$add-transition-duration: 0.3s;
+$hover-transition-duration: 0.3s;
+$border-radius: 3px;
+$add-panel-gutter: 8px;
+
+@import 'scss/components/c-sf-add-button';
+@import 'scss/components/c-sf-add-panel';
+@import 'scss/components/c-sf-button';
+@import 'scss/components/c-sf-block';
+@import 'scss/components/c-sf-container';

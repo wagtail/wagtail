@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -164,15 +164,6 @@ msgstr "네, 지우겠습니다"
 msgid "No, don't delete"
 msgstr "아니오, 지우지 않습니다"
 
-msgid "Choose an image"
-msgstr "이미지 선택"
-
-msgid "Search"
-msgstr "검색"
-
-msgid "Upload"
-msgstr "업로드"
-
 msgid "Popular tags"
 msgstr "인기있는 태그"
 
@@ -190,9 +181,6 @@ msgstr "포맷 선택"
 
 msgid "Insert image"
 msgstr "이미지 삽입"
-
-msgid "Uploading…"
-msgstr "업로드 중…"
 
 msgid "Change image file:"
 msgstr "이미지 파일 변경"
@@ -254,9 +242,6 @@ msgstr "이미지"
 
 msgid "Popular Tags:"
 msgstr "인기있는 태그:"
-
-msgid "Clear choice"
-msgstr "선택 초기화"
 
 msgid "pixels"
 msgstr "픽셀"
@@ -372,6 +357,15 @@ msgstr "컬렉션에 추가"
 msgid "Delete"
 msgstr "삭제"
 
+msgid "Upload"
+msgstr "업로드"
+
+msgid "Uploading…"
+msgstr "업로드 중…"
+
+msgid "Choose an image"
+msgstr "이미지 선택"
+
 msgid "Search images"
 msgstr "이미지 검색"
 
@@ -410,9 +404,3 @@ msgstr "이미지"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s개의 이미지"
-
-msgid "Change image"
-msgstr "이미지 변경"
-
-msgid "Edit this image"
-msgstr "이 이미지 수정"

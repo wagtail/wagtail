@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "لازم. 30 کاراکتر یا کمتر. تنها حروف، اعداد و @/./+/-/_ مجاز هستند."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "این مقدار تنها می‌تواند شامل حروف، اعداد و نویسه های @/./+/-/_ باشد."
@@ -54,7 +52,7 @@ msgid "Enter the same password as above, for verification."
 msgstr "رمز یکسان با قبلی را برای تایید وارد کنید."
 
 msgid "Administrator"
-msgstr "راهبر"
+msgstr "مدیر"
 
 msgid "Administrators have full access to manage any object or setting."
 msgstr "راهبرها دسترسی کامل برای مدیریت هر شی یا تنظیمی را دارا هستند."
@@ -89,6 +87,9 @@ msgstr "زبان ترجیحی"
 msgid "Select language for the admin"
 msgstr "زبانی را برای راهبری انتخاب کنید"
 
+msgid "profile picture"
+msgstr "تصویر پروفایل"
+
 msgid "user profile"
 msgstr "پروفایل کاربر"
 
@@ -97,6 +98,9 @@ msgstr "حذف"
 
 msgid "Yes, delete"
 msgstr "بله حذف شود"
+
+msgid "No, don't delete"
+msgstr "نه، حذف نکن"
 
 msgid "Delete group"
 msgstr "حذف گروه"
@@ -141,6 +145,10 @@ msgstr "صفحه"
 
 msgid "Add a page permission"
 msgstr "افزودن مجوز صفحه"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "هیچ گروهی با \"%(query)s\" همخوان نیست"
 
 #, python-format
 msgid ""
@@ -190,12 +198,16 @@ msgid "Inactive"
 msgstr "غیرفعال"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» منطبق نبود"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"هیچ کاربری تنظیم نشده است. میخواهید <a href=\"%(wagtailusers_add_url)s\">چند "
+"مورد اضافه کنید</a>؟"
 
 msgid "Groups"
 msgstr "گروه ها"

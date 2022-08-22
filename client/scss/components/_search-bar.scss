@@ -1,0 +1,11 @@
+// search-bars
+.search-bar {
+  .required .field > label:after {
+    display: none;
+  }
+
+  .button-filter {
+    height: 2.71em;
+    border-color: transparent;
+  }
+}

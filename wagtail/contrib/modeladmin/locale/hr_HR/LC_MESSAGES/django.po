@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -72,6 +72,10 @@ msgstr "Kopiraj %s"
 msgid "image"
 msgstr "slika"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Povratak na popis %(model_name)s"
+
 msgid "Choose a parent page"
 msgstr "Odaberi roditeljsku stranicu"
 
@@ -115,9 +119,6 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
-msgid "Home"
-msgstr "Naslovna"
-
 #, python-format
 msgid "By %(filter_title)s"
 msgstr "Po %(filter_title)s"
@@ -143,6 +144,9 @@ msgstr "Pretraži"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Pretraži %(name)s"
+
+msgid "Search"
+msgstr "Pretraži"
 
 msgid "Download XLSX"
 msgstr "Preuzmi XLSX"
@@ -175,10 +179,6 @@ msgstr "Numeriranje stranica"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Stranica %(current_page)s od %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Povratak na popis %(model_name)s"
 
 msgid "Previous"
 msgstr "Prethodna"

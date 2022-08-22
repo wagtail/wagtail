@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # Mohsen Hassani <hassani@unicore.ir>, 2020
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Mohsen Hassani <hassani@unicore.ir>, 2020\n"
+"Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -65,27 +66,38 @@ msgstr "سند"
 msgid "documents"
 msgstr "مستندات"
 
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "آیا از حذف این سند اطمینان دارید؟"
+msgstr[1] "ایا از حذف این اسناد اطمینان دارید؟"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s بار استفاده شده"
+msgstr[1] "%(usage_count)s بار استفاده شده"
+
 msgid "Yes, delete"
 msgstr "بله حذف شود"
 
-msgid "Choose a document"
-msgstr "یک سند انتخاب کنید"
-
-msgid "Search"
-msgstr "جستجو"
-
-msgid "Upload"
-msgstr "آپلود"
+msgid "No, don't delete"
+msgstr "نه، حذف نکن"
 
 msgid "Latest documents"
 msgstr "آخرین اسناد"
 
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پیدا نشد."
+msgid "You haven't uploaded any documents in this collection."
+msgstr "شما هیچ سندی در این مجموعه بارگذاری نکرده اید."
 
-msgid "Uploading…"
-msgstr "در حال آپلود…"
+msgid "You haven't uploaded any documents."
+msgstr "شما هیچ سندی بارگذاری نکرده اید."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>یک مورد "
+"الآن بارگذاری کنید</a>"
 
 msgid "Change document:"
 msgstr "تغییر سند:"
@@ -95,6 +107,12 @@ msgstr "افزودن یک سند"
 
 msgid "Add document"
 msgstr "افزودن سند"
+
+msgid "Uploading…"
+msgstr "در حال آپلود…"
+
+msgid "Upload"
+msgstr "آپلود"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -129,8 +147,8 @@ msgid "File"
 msgstr "فایل"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پیدا نشد."
 
 #, python-format
 msgid ""
@@ -182,6 +200,14 @@ msgstr "یا از کامپیوتر یکی را انتخاب کنید"
 msgid "Add to collection:"
 msgstr "افزودن به مجموعه:"
 
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"بارگذاری موفق، لطفا درصورت لزوم این سند را با عنوان مناسب تری بروز کنید. "
+"همچنین اگر این بارگذاری لزومی نداشت میتوانید این سند را به کلی حذف کنید."
+
 msgid "Sorry, upload failed."
 msgstr "متاسفانه آپلود ناموفق بود."
 
@@ -197,8 +223,8 @@ msgstr "افزودن یک مجوز سند"
 msgid "Delete"
 msgstr "حذف"
 
-msgid "Server Error"
-msgstr "خطای سرور"
+msgid "Choose a document"
+msgstr "یک سند انتخاب کنید"
 
 msgid "Search documents"
 msgstr "جستجوی سندها"
@@ -227,9 +253,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s سند"
 msgstr[1] "%(count)s سند"
-
-msgid "Choose another document"
-msgstr "سند دیگری را انتخاب کنید"
-
-msgid "Edit this document"
-msgstr "ویرایش این سند"

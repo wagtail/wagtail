@@ -74,6 +74,10 @@
   // Override any right alignment that might've been set by a parent element
   // (such as the snippets header)
   text-align: start;
+
+  @media (forced-colors: active) {
+    border: 2px solid transparent;
+  }
 }
 
 .c-dropdown__item {
@@ -89,13 +93,6 @@
 
 .c-dropdown__item:last-child {
   margin-bottom: 0;
-}
-
-.c-dropdown__divider {
-  border-color: #555;
-  border-style: dotted;
-  margin-top: 12px;
-  margin-bottom: 12px;
 }
 
 @keyframes dropdownIn {

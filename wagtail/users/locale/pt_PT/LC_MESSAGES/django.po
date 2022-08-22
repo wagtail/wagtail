@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -29,10 +29,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Utilizadores do Wagtail"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Obrigatório. 30 caracteres ou menos. Apenas letras, algarismos e @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -204,9 +200,6 @@ msgstr "Ver os utilizadores deste grupo"
 msgid "Save"
 msgstr "Gravar"
 
-msgid "Permissions"
-msgstr "Permissões"
-
 msgid "Object permissions"
 msgstr "Permissões de objeto"
 
@@ -290,10 +283,6 @@ msgstr "Ativo"
 
 msgid "Inactive"
 msgstr "Inativo"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s atrás"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

@@ -1,6 +1,24 @@
+*,
+::before,
+::after {
+  // Reset border styles so tailwinds default border class works as expected
+  // https://tailwindcss.com/docs/preflight#border-styles-are-reset-globally
+  border-width: 0;
+  border-style: solid;
+  // Set all elements to inherit their parent’s (border-box) box-sizing.
+  box-sizing: inherit;
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
 html {
   background: $color-grey-4;
   height: 100%;
+  // Set the whole admin to border-box by default.
+  box-sizing: border-box;
 }
 
 body {
@@ -11,7 +29,7 @@ body {
     content: '';
     position: fixed;
     transition: visibility 0s linear 0s, opacity 0.2s ease-out;
-    background: rgba(255, 255, 255, 0.5);
+    background: theme('colors.white-50');
     width: 100%;
     height: 100%;
     top: 0;
@@ -32,18 +50,4 @@ hr {
 img {
   max-width: 100%;
   height: auto;
-}
-
-// Reset border styles so tailwinds default border class works as expected
-// https://tailwindcss.com/docs/preflight#border-styles-are-reset-globally
-*,
-::before,
-::after {
-  border-width: 0;
-  border-style: solid;
-}
-
-::before,
-::after {
-  --tw-content: '';
 }

@@ -41,7 +41,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   return (
     <form
       role="search"
-      className={`w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0`}
+      className="w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0"
       action={searchUrl}
       method="get"
       onSubmit={onSubmitForm}
@@ -63,7 +63,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           w-outline-offset-inside
           w-border-0
           w-rounded-none
-          w-text-white/80
+          w-text-white-80
           w-z-10
           hover:w-text-white
           focus:w-text-white
@@ -107,10 +107,10 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
             !w-bg-transparent
             !w-border-0
             !w-rounded-none
-            !w-text-white/80
+            !w-text-white-80
             !w-outline-offset-inside
             !w-leading-none
-            placeholder:!w-text-white/80`}
+            placeholder:!w-text-white-80`}
           type="text"
           id="menu-search-q"
           name="q"

@@ -44,7 +44,7 @@ class SettingMenuItem(MenuItem):
         return user_can_edit_setting_type(request.user, self.model)
 
 
-class SettingsAdminURLFinder(ModelAdminURLFinder):
+class SiteSettingAdminURLFinder(ModelAdminURLFinder):
     def construct_edit_url(self, instance):
         return reverse(
             "wagtailsettings:edit",
@@ -56,8 +56,22 @@ class SettingsAdminURLFinder(ModelAdminURLFinder):
         )
 
 
+class GenericSettingAdminURLFinder(ModelAdminURLFinder):
+    def construct_edit_url(self, instance):
+        return reverse(
+            "wagtailsettings:edit",
+            args=[
+                self.model._meta.app_label,
+                self.model._meta.model_name,
+                instance.id,
+            ],
+        )
+
+
 class Registry(list):
     def register(self, model, **kwargs):
+        from .models import BaseGenericSetting, BaseSiteSetting
+
         """
         Register a model as a setting, adding it to the wagtail admin menu
         """
@@ -81,11 +95,22 @@ class Registry(list):
 
         # Register an admin URL finder
         permission_policy = ModelPermissionPolicy(model)
-        finder_class = type(
-            "_SettingsAdminURLFinder",
-            (SettingsAdminURLFinder,),
-            {"model": model, "permission_policy": permission_policy},
-        )
+
+        if issubclass(model, BaseSiteSetting):
+            finder_class = type(
+                "_SiteSettingAdminURLFinder",
+                (SiteSettingAdminURLFinder,),
+                {"model": model, "permission_policy": permission_policy},
+            )
+        elif issubclass(model, BaseGenericSetting):
+            finder_class = type(
+                "_GenericSettingAdminURLFinder",
+                (GenericSettingAdminURLFinder,),
+                {"model": model, "permission_policy": permission_policy},
+            )
+        else:
+            raise NotImplementedError
+
         register_admin_url_finder(model, finder_class)
 
         return model
@@ -109,9 +134,10 @@ class Registry(list):
             Model = apps.get_model(app_label, model_name)
         except LookupError:
             return None
-        if Model not in registry:
-            return None
-        return Model
+        else:
+            if Model not in registry:
+                return None
+            return Model
 
 
 registry = Registry()

@@ -13,7 +13,7 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
-from wagtail.admin.side_panels import PageSidePanels
+from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
@@ -328,10 +328,17 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             request=self.request, instance=self.page, form=self.form
         )
         action_menu = PageActionMenu(
-            self.request, view="create", parent_page=self.parent_page
+            self.request,
+            view="create",
+            parent_page=self.parent_page,
+            lock=None,
+            locked_for_user=False,
         )
         side_panels = PageSidePanels(
-            self.request, self.page, comments_enabled=self.form.show_comments_toggle
+            self.request,
+            self.page,
+            preview_enabled=True,
+            comments_enabled=self.form.show_comments_toggle,
         )
 
         context.update(
@@ -342,7 +349,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "edit_handler": bound_panel,
                 "action_menu": action_menu,
                 "side_panels": side_panels,
-                "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import '../../admin/telepath/telepath';
 import $ from 'jquery';
 import { TypedTableBlockDefinition } from './typed_table_block';
@@ -72,8 +70,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
         label: 'Test Block A',
         required: true,
         icon: 'placeholder',
-        classname:
-          'field char_field widget-text_input fieldname-test_charblock',
+        classname: 'w-field w-field--char_field w-field--text_input',
       },
     );
     childBlockB = new FieldBlockDefinition(
@@ -84,7 +81,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
         required: true,
         icon: 'pilcrow',
         classname:
-          'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+          'w-field w-field--char_field w-field--admin_auto_height_text_input',
       },
     );
 

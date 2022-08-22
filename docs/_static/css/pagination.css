@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.pagination-list {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination-button,
+.pagination-previous,
+.pagination-next {
+  border: none;
+  background: none;
+  text-decoration: 2px solid underline;
+  text-decoration-color: #3beccd;
+  text-underline-offset: 3px;
+}
+.pagination-button[aria-current='page'] {
+  background-color: #40efc5;
+}

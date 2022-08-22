@@ -11,6 +11,9 @@ from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
+from wagtail.snippets.views.snippets import List as SnippetListView
+from wagtail.snippets.views.snippets import SnippetViewSet
+from wagtail.test.snippets.models import FilterableSnippetFilterSet
 
 from .forms import FavouriteColourForm
 
@@ -162,9 +165,7 @@ def register_relax_menu_item(menu_items, request, context):
 
 
 @hooks.register("construct_page_listing_buttons")
-def register_page_listing_button_item(
-    buttons, page, page_perms, is_parent=False, context=None
-):
+def register_page_listing_button_item(buttons, page, page_perms, context=None):
     item = Button(
         label="Dummy Button",
         url="/dummy-button",
@@ -213,7 +214,7 @@ class BrokenLinksSummaryItem(SummaryItem):
     order = 100
 
     def render_html(self, parent_context):
-        return mark_safe("<p>0 broken links</p>")
+        return mark_safe("<li>0 broken links</li>")
 
     class Media:
         css = {"all": ["testapp/css/broken-links.css"]}
@@ -222,3 +223,12 @@ class BrokenLinksSummaryItem(SummaryItem):
 @hooks.register("construct_homepage_summary_items")
 def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
+
+
+class FilterableSnippetViewSet(SnippetViewSet):
+    @property
+    def index_view_class(self):
+        class FilterableSnippetList(SnippetListView):
+            filterset_class = FilterableSnippetFilterSet
+
+        return FilterableSnippetList

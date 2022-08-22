@@ -48,65 +48,49 @@
 
     <div class="nice-padding">
         <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
-            <ul class="fields fields--image-search">
-                <li>
-                    <ul class="field-row">
-                        {% if collections %}
-                            {% include "wagtailadmin/shared/collection_chooser.html" with li_classes="field-col col4" %}
-                            {% if current_tag %}
-                                <input type="hidden" name="tag" value="{{ current_tag }}" />
-                            {% endif %}
-                        {% endif %}
-                        <li class="field-col col4">
-                            <div class="field choice_field select">
-                                <label for="order_images_by">{% trans "Sort by" %}:</label>
-                                <div class="field-content">
-                                    <div class="input">
-                                        <select id="order_images_by" name="ordering">
-                                            {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
-                                                <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="field-col col4">
-                            <div class="field choice_field select">
-                                <label for="entries_per_page">{% trans "Entries per page" %}:</label>
-                                <div class="field-content">
-                                    <div class="input">
-                                        <select id="entries_per_page" name="entries_per_page">
-                                            {% for value in ENTRIES_PER_PAGE_CHOICES %}
-                                                <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                {% if popular_tags %}
-                    <li>
-                        <fieldset class="tagfilter">
-                            <legend>{% trans 'Popular Tags:' %}</legend>
-                            {% for tag in popular_tags %}
-                                {% if tag.name != current_tag %}
-                                    <a class="button button-small button-secondary bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
-                                {% else %}
-                                    <a class="button button-small bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
-                                {% endif %}
-                            {% endfor %}
-                            {% if current_tag %}
-                                <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear choice' %}</a>
-                            {% endif %}
-                        </fieldset>
-                    </li>
+            {% if current_tag %}
+                <input type="hidden" name="tag" value="{{ current_tag }}" />
+            {% endif %}
+
+            {% field_row max_content=True %}
+                {% if collections %}
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
                 {% endif %}
-            </ul>
+
+                {% trans "Sort by" as sort_by %}
+                {% field label_text=sort_by id_for_label="order_images_by" %}
+                    <select id="order_images_by" name="ordering">
+                        {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                            <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                        {% endfor %}
+                    </select>
+                {% endfield %}
+
+                {% trans "Entries per page" as entries_per_page %}
+                {% field label_text=entries_per_page id_for_label="entries_per_page" %}
+                    <select id="entries_per_page" name="entries_per_page">
+                        {% for value in ENTRIES_PER_PAGE_CHOICES %}
+                            <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                {% endfield %}
+            {% endfield_row %}
+
+            {% if popular_tags %}
+                <fieldset class="tagfilter">
+                    <legend>{% trans 'Popular Tags:' %}</legend>
+                    {% for tag in popular_tags %}
+                        {% if tag.name != current_tag %}
+                            <a class="button button-small button-secondary bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
+                        {% else %}
+                            <a class="button button-small bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current_tag %}
+                        <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear' %}</a>
+                    {% endif %}
+                </fieldset>
+            {% endif %}
         </form>
 
         <div id="image-results">

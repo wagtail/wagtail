@@ -45,7 +45,14 @@ from wagtail.admin.views.pages.bulk_actions import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
-from wagtail.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
+from wagtail.models import (
+    Collection,
+    Locale,
+    Page,
+    Task,
+    UserPagePermissionsProxy,
+    Workflow,
+)
 from wagtail.permissions import (
     collection_permission_policy,
     task_permission_policy,
@@ -200,7 +207,7 @@ def register_workflow_tasks_menu_item():
 
 
 @hooks.register("register_page_listing_buttons")
-def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_listing_buttons(page, page_perms, next_url=None):
     if page_perms.can_edit():
         yield PageListingButton(
             _("Edit"),
@@ -234,41 +241,21 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=30,
         )
     if page_perms.can_add_subpage():
-        if is_parent:
-            yield Button(
-                _("Add child page"),
-                reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-                attrs={
-                    "aria-label": _("Add a child page to '%(title)s' ")
-                    % {"title": page.get_admin_display_title()},
-                },
-                classes={
-                    "button",
-                    "button-small",
-                    "bicolor",
-                    "icon",
-                    "white",
-                    "icon-plus",
-                },
-                priority=40,
-            )
-        else:
-            yield PageListingButton(
-                _("Add child page"),
-                reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
-                attrs={
-                    "aria-label": _("Add a child page to '%(title)s' ")
-                    % {"title": page.get_admin_display_title()}
-                },
-                priority=40,
-            )
+        yield PageListingButton(
+            _("Add child page"),
+            reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
+            attrs={
+                "aria-label": _("Add a child page to '%(title)s' ")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=40,
+        )
 
     yield ButtonWithDropdownFromHook(
         _("More"),
         hook_name="register_page_listing_more_buttons",
         page=page,
         page_perms=page_perms,
-        is_parent=is_parent,
         next_url=next_url,
         attrs={
             "target": "_blank",
@@ -281,7 +268,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
 
 
 @hooks.register("register_page_listing_more_buttons")
-def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_listing_more_buttons(page, page_perms, next_url=None):
     if page_perms.can_move():
         yield Button(
             _("Move"),
@@ -350,7 +337,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=50,
         )
 
-    if is_parent and page_perms.can_reorder_children():
+    if page_perms.can_reorder_children():
         yield Button(
             _("Sort menu order"),
             "?ordering=ord",
@@ -364,6 +351,17 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
 
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, page_perms, next_url=None):
+    if page_perms.can_edit():
+        yield Button(
+            _("Edit"),
+            reverse("wagtailadmin_pages:edit", args=[page.id]),
+            icon_name="edit",
+            attrs={
+                "title": _("Edit '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=10,
+        )
     if page_perms.can_move():
         yield Button(
             _("Move"),
@@ -373,7 +371,7 @@ def page_header_buttons(page, page_perms, next_url=None):
                 "title": _("Move page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
-            priority=10,
+            priority=20,
         )
     if page_perms.can_copy():
         url = reverse("wagtailadmin_pages:copy", args=[page.id])
@@ -388,7 +386,7 @@ def page_header_buttons(page, page_perms, next_url=None):
                 "title": _("Copy page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
             },
-            priority=20,
+            priority=30,
         )
     if page_perms.can_add_subpage():
         yield Button(
@@ -399,8 +397,84 @@ def page_header_buttons(page, page_perms, next_url=None):
                 "aria-label": _("Add a child page to '%(title)s' ")
                 % {"title": page.get_admin_display_title()},
             },
-            priority=30,
+            priority=40,
         )
+    if page_perms.can_delete():
+        url = reverse("wagtailadmin_pages:delete", args=[page.id])
+
+        # After deleting the page, it is impossible to redirect to it.
+        if next_url == reverse("wagtailadmin_explore", args=[page.id]):
+            next_url = None
+
+        if next_url:
+            url += "?" + urlencode({"next": next_url})
+
+        yield Button(
+            _("Delete"),
+            url,
+            icon_name="bin",
+            attrs={
+                "title": _("Delete page '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=50,
+        )
+    if page_perms.can_unpublish():
+        url = reverse("wagtailadmin_pages:unpublish", args=[page.id])
+        if next_url:
+            url += "?" + urlencode({"next": next_url})
+
+        yield Button(
+            _("Unpublish"),
+            url,
+            icon_name="download-alt",
+            attrs={
+                "title": _("Unpublish page '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=60,
+        )
+    if page_perms.can_reorder_children():
+        url = reverse("wagtailadmin_explore", args=[page.id])
+        url += "?ordering=ord"
+        yield Button(
+            _("Sort menu order"),
+            url,
+            icon_name="list-ul",
+            attrs={
+                "title": _("Change ordering of child pages of '%(title)s'")
+                % {"title": page.get_admin_display_title()}
+            },
+            priority=70,
+        )
+    if Permission.objects.filter(
+        content_type__app_label="simple_translation", codename="submit_translation"
+    ):
+        if (
+            page_perms.user.has_perm("simple_translation.submit_translation")
+            and not page.is_root()
+        ):
+            # If there's at least one locale that we haven't translated into yet, show "Translate this page" button
+            has_locale_to_translate_to = Locale.objects.exclude(
+                id__in=page.get_translations(inclusive=True).values_list(
+                    "locale_id", flat=True
+                )
+            ).exists()
+
+            if has_locale_to_translate_to:
+                url = reverse(
+                    "simple_translation:submit_page_translation", args=[page.id]
+                )
+                yield Button(
+                    _("Translate"),
+                    url,
+                    icon_name="globe",
+                    attrs={
+                        "title": _("Translate this page")
+                        % {"title": page.get_admin_display_title()}
+                    },
+                    priority=80,
+                )
 
 
 @hooks.register("register_admin_urls")
@@ -486,7 +560,7 @@ def register_core_features(features):
         "h1",
         draftail_features.BlockFeature(
             {
-                "label": "H1",
+                "icon": "h1",
                 "type": "header-one",
                 "description": gettext("Heading %(level)d") % {"level": 1},
             }
@@ -507,7 +581,7 @@ def register_core_features(features):
         "h2",
         draftail_features.BlockFeature(
             {
-                "label": "H2",
+                "icon": "h2",
                 "type": "header-two",
                 "description": gettext("Heading %(level)d") % {"level": 2},
             }
@@ -528,7 +602,7 @@ def register_core_features(features):
         "h3",
         draftail_features.BlockFeature(
             {
-                "label": "H3",
+                "icon": "h3",
                 "type": "header-three",
                 "description": gettext("Heading %(level)d") % {"level": 3},
             }
@@ -549,7 +623,7 @@ def register_core_features(features):
         "h4",
         draftail_features.BlockFeature(
             {
-                "label": "H4",
+                "icon": "h4",
                 "type": "header-four",
                 "description": gettext("Heading %(level)d") % {"level": 4},
             }
@@ -570,7 +644,7 @@ def register_core_features(features):
         "h5",
         draftail_features.BlockFeature(
             {
-                "label": "H5",
+                "icon": "h5",
                 "type": "header-five",
                 "description": gettext("Heading %(level)d") % {"level": 5},
             }
@@ -591,7 +665,7 @@ def register_core_features(features):
         "h6",
         draftail_features.BlockFeature(
             {
-                "label": "H6",
+                "icon": "h6",
                 "type": "header-six",
                 "description": gettext("Heading %(level)d") % {"level": 6},
             }
@@ -733,7 +807,7 @@ def register_core_features(features):
                 # We want to enforce constraints on which links can be pasted into rich text.
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["url", "id", "parentId"],
-                "whitelist": {
+                "allowlist": {
                     # Keep pasted links with http/https protocol, and not-pasted links (href = undefined).
                     "href": "^(http:|https:|undefined$)",
                 },
@@ -947,12 +1021,10 @@ def register_icons(icons):
         "comment.svg",
         "comment-add.svg",
         "comment-add-reversed.svg",
-        "comment-large.svg",
-        "comment-large-outline.svg",
-        "comment-large-reversed.svg",
         "cross.svg",
         "cut.svg",
         "date.svg",
+        "desktop.svg",
         "doc-empty-inverse.svg",
         "doc-empty.svg",
         "doc-full-inverse.svg",
@@ -975,6 +1047,12 @@ def register_icons(icons):
         "globe.svg",
         "grip.svg",
         "group.svg",
+        "h1.svg",
+        "h2.svg",
+        "h3.svg",
+        "h4.svg",
+        "h5.svg",
+        "h6.svg",
         "help.svg",
         "history.svg",
         "home.svg",
@@ -1010,6 +1088,7 @@ def register_icons(icons):
         "repeat.svg",
         "reset.svg",
         "resubmit.svg",
+        "rotate.svg",
         "search.svg",
         "site.svg",
         "snippet.svg",
@@ -1019,6 +1098,7 @@ def register_icons(icons):
         "subscript.svg",
         "superscript.svg",
         "table.svg",
+        "tablet-alt.svg",
         "tag.svg",
         "tasks.svg",
         "thumbtack.svg",

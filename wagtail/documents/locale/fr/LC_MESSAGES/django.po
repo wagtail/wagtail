@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -180,28 +180,8 @@ msgstr "Oui, supprimer"
 msgid "No, don't delete"
 msgstr "Non, ne pas supprimer"
 
-msgid "Choose a document"
-msgstr "Choisir un document"
-
-msgid "Search"
-msgstr "Recherche"
-
-msgid "Upload"
-msgstr "Transférer"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Il y a %(counter)s correspondance"
-msgstr[1] "Il y a %(counter)s correspondances"
-msgstr[2] "Il y a %(counter)s correspondances"
-
 msgid "Latest documents"
 msgstr "Derniers documents"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Désolé, aucun document ne correspond à \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Vous n’avez pas encore transféré de document dans cette collection."
@@ -216,9 +196,6 @@ msgstr ""
 "Pourquoi ne pas <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
 "trigger>en transférer un</a> ?"
 
-msgid "Uploading…"
-msgstr "Transfert…"
-
 msgid "Change document:"
 msgstr "Modifier le document :"
 
@@ -227,6 +204,12 @@ msgstr "Ajouter un document"
 
 msgid "Add document"
 msgstr "Ajouter le document"
+
+msgid "Uploading…"
+msgstr "Transfert…"
+
+msgid "Upload"
+msgstr "Transférer"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -273,8 +256,15 @@ msgid "Select document"
 msgstr "Sélectionner le document"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "il y a %(time_period)s"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Il y a %(counter)s correspondance"
+msgstr[1] "Il y a %(counter)s correspondances"
+msgstr[2] "Il y a %(counter)s correspondances"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Désolé, aucun document ne correspond à \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -421,14 +411,8 @@ msgstr[0] "%(num_parent_objects)d document a été supprimé"
 msgstr[1] "%(num_parent_objects)d documents ont été supprimés"
 msgstr[2] "%(num_parent_objects)d documents ont été supprimés"
 
-msgid "Server Error"
-msgstr "Erreur du serveur"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Signalez cette erreur à votre webmaster avec les informations suivantes :"
+msgid "Choose a document"
+msgstr "Choisir un document"
 
 msgid "Search documents"
 msgstr "Rechercher des documents"
@@ -463,9 +447,3 @@ msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s document"
 msgstr[1] "%(count)s documents"
 msgstr[2] "%(count)s documents"
-
-msgid "Choose another document"
-msgstr "Choisir un autre document"
-
-msgid "Edit this document"
-msgstr "Modifier ce document"

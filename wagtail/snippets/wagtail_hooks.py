@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
+from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import (
     get_permission_name,
@@ -101,3 +102,6 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             priority=20,
             classes=["no"],
         )
+
+
+hooks.register("register_bulk_action", DeleteBulkAction)

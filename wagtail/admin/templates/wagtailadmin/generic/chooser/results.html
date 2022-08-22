@@ -11,9 +11,13 @@
                 {% endblocktrans %}
             </h2>
         {% endblock %}
+    {% else %}
+        {% block listing_title %}{% endblock %}
     {% endif %}
 
-    {% component table %}
+    {% block results_listing %}
+        {% component table %}
+    {% endblock %}
     {% include "wagtailadmin/shared/pagination_nav.html" with items=results linkurl=results_url %}
 {% else %}
     {% if is_searching %}

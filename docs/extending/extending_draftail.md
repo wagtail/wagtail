@@ -4,9 +4,9 @@ Wagtail’s rich text editor is built with [Draftail](https://www.draftail.org/)
 
 Plugins come in three types:
 
--   Inline styles – To format a portion of a line, eg. `bold`, `italic`, `monospace`.
--   Blocks – To indicate the structure of the content, eg. `blockquote`, `ol`.
--   Entities – To enter additional data/metadata, eg. `link` (with a URL), `image` (with a file).
+-   Inline styles – To format a portion of a line, for example `bold`, `italic`, `monospace`.
+-   Blocks – To indicate the structure of the content, for example `blockquote`, `ol`.
+-   Entities – To enter additional data/metadata, for example `link` (with a URL), `image` (with a file).
 
 All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of `mark`. Place the following in a `wagtail_hooks.py` file in any installed app:
 
@@ -64,7 +64,7 @@ For detailed configuration options, head over to the [Draftail documentation](ht
 
 -   The `type` is the only mandatory piece of information.
 -   To display the control in the toolbar, combine `icon`, `label` and `description`.
--   The controls’ `icon` can be a string to use an icon font with CSS classes, say `'icon': 'fas fa-user',`. It can also be an array of strings, to use SVG paths, or SVG symbol references eg. `'icon': ['M100 100 H 900 V 900 H 100 Z'],`. The paths need to be set for a 1024x1024 viewbox.
+-   The controls’ `icon` can be a string to use an icon font with CSS classes, say `'icon': 'fas fa-user',`. It can also be an array of strings, to use SVG paths, or SVG symbol references for example `'icon': ['M100 100 H 900 V 900 H 100 Z'],`. The paths need to be set for a 1024x1024 viewbox.
 
 ## Creating new inline styles
 
@@ -145,7 +145,7 @@ To go further, please look at the [Draftail documentation](https://www.draftail.
 
 Here is a detailed example to showcase how those tools are used in the context of Wagtail.
 For the sake of our example, we can imagine a news team working at a financial newspaper.
-They want to write articles about the stock market, refer to specific stocks anywhere inside of their content (eg. "$TSLA" tokens in a sentence), and then have their article automatically enriched with the stock’s information (a link, a number, a sparkline).
+They want to write articles about the stock market, refer to specific stocks anywhere inside of their content (for example "$TSLA" tokens in a sentence), and then have their article automatically enriched with the stock’s information (a link, a number, a sparkline).
 
 The editor toolbar could contain a "stock chooser" that displays a list of available stocks, then inserts the user’s selection as a textual token. For our example, we will just pick a stock at random:
 

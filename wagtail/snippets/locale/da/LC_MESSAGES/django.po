@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -18,29 +18,53 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Udgiv"
+
+msgid "Unpublish"
+msgstr "Afpublicer"
+
 msgid "Delete"
 msgstr "Slet"
 
 msgid "Save"
 msgstr "Gem"
 
-msgid "Choose"
-msgstr "Vælg"
+msgid "Yes, delete"
+msgstr "Ja, slet"
 
-msgid "Search"
-msgstr "Søg"
+msgid "Publishing…"
+msgstr "Udgiver..."
 
 msgid "Saving…"
 msgstr "Gemmer..."
 
-msgid "Yes, delete"
-msgstr "Ja, slet"
+msgid "Replace current draft"
+msgstr "Udskift nuværende skitse"
+
+msgid "Save draft"
+msgstr "Gem skitse"
 
 msgid "New"
 msgstr "Ny"
 
-msgid "Editing"
-msgstr "Redigerer"
+msgid "Live version"
+msgstr "Live version"
+
+msgid "Current draft"
+msgstr "Nuværende skitse"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Draft"
+msgstr "Skitse"
 
 msgid "Title"
 msgstr "Titel"
@@ -57,8 +81,11 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Rediger denne side"
 
-msgid "Edit"
-msgstr "Rediger"
+msgid "Choose"
+msgstr "Vælg"
+
+msgid "Name"
+msgstr "Navn"
 
 msgid "Date"
 msgstr "Dato"

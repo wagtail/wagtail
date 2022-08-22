@@ -1,12 +1,12 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2022
-# Kyungil Choi <hanpama@gmail.com>, 2022
 # Kyu Choi, 2022
+# Kyungil Choi <hanpama@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Kyu Choi, 2022\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/torchbox/teams/8009/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ko\n"
@@ -90,9 +90,6 @@ msgstr "페이지 탐색"
 msgid "Pages"
 msgstr "페이지"
 
-msgid "Redo"
-msgstr "재실행"
-
 msgid "Reload saved content"
 msgstr "저장된 컨텐츠 다시 불러오기"
 
@@ -101,6 +98,11 @@ msgstr "페이지 다시 불러오기"
 
 msgid "Reply"
 msgstr "응답하다"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "이 오류를 다음의 정보와 함께 웹 관리자에게 보고하시길 바랍니다"
 
 msgid "Resolve"
 msgstr "해결하다"
@@ -150,17 +152,14 @@ msgstr ""
 "에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
 "니다."
 
+msgid "This field is required."
+msgstr "이 필드는 필수입니다."
+
 msgid "Toggle sidebar"
 msgstr "사이드 전환"
-
-msgid "Undo"
-msgstr "실행취소"
 
 msgid "Unfocus comment"
 msgstr "비인기 댓글"
 
 msgid "View child pages of '{title}'"
 msgstr " '{title}' 페이지의 하위 페이지 보기"
-
-msgid "Write here…"
-msgstr "여기에 작성..."

@@ -1,0 +1,21 @@
+@use 'sass:map';
+
+.error-message {
+  border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
+  margin: 0.5em 0 0;
+  font-size: 1em;
+  font-weight: bold;
+  color: theme('colors.critical.200');
+
+  @media (forced-colors: $media-forced-colours) {
+    forced-color-adjust: none;
+  }
+
+  // UI-Redesign: to be added via js and styled here
+  // TODO Forms
+  &::before {
+    font-family: $font-wagtail-icons;
+    vertical-align: -10%;
+    content: map.get($icons, 'warning');
+  }
+}

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -154,27 +154,6 @@ msgstr "Ffurflenni"
 msgid "Pages"
 msgstr "Tudalennau"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Cyflwyniadau o %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Data ffurflen <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Hidlydd"
-
-msgid "Download XLSX"
-msgstr "Lawrlwythwch XSLX"
-
-msgid "Download CSV"
-msgstr "Lawrlwythwch CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nid oes unrhyw gyflwyniad o'r ffurflen '%(title)s'."
-
 msgid "Title"
 msgstr "Teitl"
 
@@ -192,6 +171,23 @@ msgstr "Y cyflwyniadau diweddaraf"
 
 msgid "No form pages have been created."
 msgstr "Nid oes unrhyw dudalennau ffurflen wedi'u creu."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Cyflwyniadau o %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Lawrlwythwch XSLX"
+
+msgid "Download CSV"
+msgstr "Lawrlwythwch CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nid oes unrhyw gyflwyniad o'r ffurflen '%(title)s'."
+
+msgid "Filter"
+msgstr "Hidlydd"
 
 #, python-format
 msgid "One submission has been deleted."

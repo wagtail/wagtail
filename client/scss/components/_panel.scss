@@ -1,0 +1,169 @@
+$header-icon-size: theme('spacing.4');
+$header-button-size-mobile: $mobile-nice-padding;
+$header-button-size: theme('spacing.8');
+
+.w-panel {
+  margin-bottom: theme('spacing.10');
+}
+
+.w-panel__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: theme('spacing.3');
+  margin-inline-start: -1 * $mobile-nice-padding;
+
+  @include media-breakpoint-up(sm) {
+    $gap: theme('spacing.1');
+    gap: $gap;
+    margin-inline-start: calc(-1 * 2 * ($header-button-size + $gap));
+  }
+}
+
+.w-panel__heading {
+  @apply w-h3;
+  display: inline-block;
+  margin: 0;
+  cursor: pointer;
+  padding-inline-end: theme('spacing.2');
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-end: theme('spacing.5');
+  }
+}
+
+.w-panel__heading--label {
+  @apply w-label-1;
+}
+
+.w-panel__anchor,
+.w-panel__toggle,
+.w-panel__controls .button.button--icon,
+.w-panel__controls-cue {
+  @include show-focus-outline-inside();
+  display: inline-grid;
+  justify-content: center;
+  align-content: center;
+  color: theme('colors.primary.DEFAULT');
+  border-radius: theme('borderRadius.full');
+  padding: 0;
+  width: $header-button-size-mobile;
+  height: $header-button-size-mobile;
+
+  &:focus-visible,
+  &:hover {
+    background-color: $color-grey-5;
+
+    @media (forced-colors: active) {
+      border: 1px solid currentColor;
+    }
+  }
+
+  &[disabled] {
+    color: $color-grey-3;
+    cursor: not-allowed;
+    // Counter hover styles.
+    background-color: transparent;
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    width: $header-button-size;
+    height: $header-button-size;
+  }
+}
+
+.w-panel__anchor {
+  // Only hide anchors for devices that support hover interactions.
+  @media (hover: hover) {
+    .w-panel__header:not(:hover, :focus-within) & {
+      opacity: 0;
+    }
+  }
+}
+
+// The suffix anchor is intended for small viewports only.
+.w-panel__anchor--suffix {
+  @include media-breakpoint-up(sm) {
+    display: none;
+  }
+}
+
+// The prefix anchor can be used when there is enough space in the margin of the page.
+.w-panel__anchor--prefix {
+  display: none;
+
+  @include media-breakpoint-up(sm) {
+    display: inline-grid;
+  }
+}
+
+.w-panel__toggle {
+  appearance: none;
+  background: transparent;
+}
+
+.w-panel__icon {
+  width: $header-icon-size;
+  height: $header-icon-size;
+
+  // Only rotate the default caret icon, not custom ones.
+  [aria-expanded='false'] &.icon-arrow-down-big {
+    transform: rotate(-90deg);
+  }
+
+  &.icon-link {
+    width: theme('spacing.[3.5]');
+    height: theme('spacing.[3.5]');
+  }
+}
+
+.w-panel__divider {
+  flex: 1;
+}
+
+.w-panel__controls {
+  // Add additional invisible padding for a more forgiving hover area.
+  padding: theme('spacing.4');
+  margin: calc(-1 * theme('spacing.4'));
+  margin-inline-end: calc(-1 * theme('spacing.8'));
+  margin-inline-start: 0;
+
+  @include media-breakpoint-up(sm) {
+    margin: calc(-1 * theme('spacing.4'));
+    margin-inline-start: 0;
+  }
+
+  // The cue is meant to be displayed on top of a real button.
+  > .w-panel__controls-cue {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  @media (hover: hover) {
+    // Hiding with opacity only, so the elements can still be focused.
+    > * {
+      opacity: 0;
+    }
+
+    > .w-panel__controls-cue {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .w-panel__header:is(:hover, :focus-within) & > * {
+      opacity: 1;
+
+      // The cue should be fully hidden, not just transparent.
+      &.w-panel__controls-cue {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+.w-panel__wrapper {
+  @include max-form-width();
+}

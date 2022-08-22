@@ -1,28 +1,14 @@
-{% load i18n l10n wagtailadmin_tags %}
+{% load wagtailadmin_tags i18n l10n %}
 
-<li {% if li_classes %}class="{{ li_classes }}"{% endif %}>
-    <div class="field choice_field select">
-        <label for="collection_chooser_collection_id">{% trans "Collection" %}:</label>
-        <div class="field-content">
-            <div class="input">
-                <select id="collection_chooser_collection_id" name="collection_id">
-                    <option value="">{% trans "All collections" %}</option>
-                    {% minimum_collection_depth collections as min_depth %}
-                    {% for collection in collections %}
-                        <option value="{{ collection.id|unlocalize }}"
-                            {% if collection == current_collection %}selected="selected"{% endif %}>
-                            {% if request.user.is_superuser %}
-                                {# Superuser may see all collections #}
-                                {% format_collection collection %}
-                            {% else %}
-                                {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
-                                {% format_collection collection min_depth %}
-                            {% endif %}
-                        </option>
-                    {% endfor %}
-                </select>
-                <span></span>
-            </div>
-        </div>
-    </div>
-</li>
+{% trans "Collection" as label_text %}
+{% field label_text=label_text id_for_label="collection_chooser_collection_id" %}
+    <select id="collection_chooser_collection_id" name="collection_id">
+        <option value="">{% trans "All collections" %}</option>
+        {% for pk, display_name in collections.get_indented_choices %}
+            <option value="{{ pk|unlocalize }}"
+                {% if pk == current_collection.pk %}selected="selected"{% endif %}>
+                {{ display_name }}
+            </option>
+        {% endfor %}
+    </select>
+{% endfield %}

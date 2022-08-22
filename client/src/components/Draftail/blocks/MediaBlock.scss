@@ -41,4 +41,16 @@
     height: auto;
     pointer-events: none;
   }
+
+  &__fallback {
+    position: absolute;
+    top: 0;
+    inset-inline-end: 0;
+    bottom: 0;
+    inset-inline-start: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-white;
+  }
 }

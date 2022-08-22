@@ -44,7 +44,11 @@ from wagtail.contrib.forms.models import (
     AbstractFormSubmission,
 )
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import (
+    BaseGenericSetting,
+    BaseSiteSetting,
+    register_setting,
+)
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.documents import get_document_model
@@ -54,10 +58,12 @@ from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.models import (
+    DraftStateMixin,
     Orderable,
     Page,
     PageManager,
     PageQuerySet,
+    PreviewableMixin,
     RevisionMixin,
     Task,
     TranslatableMixin,
@@ -166,12 +172,29 @@ class SimplePage(Page):
     page_description = "A simple page description"
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("content"),
     ]
 
     def get_admin_display_title(self):
         return "%s (simple page)" % super().get_admin_display_title()
+
+
+class MultiPreviewModesPage(Page):
+    template = "tests/simple_page.html"
+
+    @property
+    def preview_modes(self):
+        return [("original", "Original"), ("alt#1", "Alternate")]
+
+    @property
+    def default_preview_mode(self):
+        return "alt#1"
+
+    def get_preview_template(self, request, mode_name):
+        if mode_name == "alt#1":
+            return "tests/simple_page_alt.html"
+        return super().get_preview_template(request, mode_name)
 
 
 # Page with Excluded Fields when copied
@@ -183,7 +206,7 @@ class PageWithExcludedCopyField(Page):
     exclude_fields_in_copy = ["special_field"]
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("special_field"),
         FieldPanel("content"),
     ]
@@ -218,7 +241,7 @@ class FilePage(Page):
     file_field = models.FileField()
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         HelpPanel("remember to check for viruses"),
         FieldPanel("file_field"),
     ]
@@ -353,7 +376,7 @@ class EventPage(Page):
     base_form_class = EventPageForm
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("date_from"),
         FieldPanel("date_to"),
         FieldPanel("time_from"),
@@ -363,7 +386,7 @@ class EventPage(Page):
         FieldPanel("cost"),
         FieldPanel("signup_link"),
         InlinePanel("carousel_items", label="Carousel items"),
-        FieldPanel("body", classname="full"),
+        FieldPanel("body"),
         InlinePanel("speakers", label="Speakers", heading="Speaker lineup"),
         InlinePanel("related_links", label="Related links"),
         FieldPanel("categories"),
@@ -395,7 +418,7 @@ class FormClassAdditionalFieldPage(Page):
     body = RichTextField(blank=True)
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("location"),
         FieldPanel("body"),
         FieldPanel("code"),  # not in model, see set base_form_class
@@ -443,7 +466,7 @@ class EventSitemap(Sitemap):
 
 # Event index (has a separate AJAX template, and a custom template context)
 class EventIndex(Page):
-    intro = RichTextField(blank=True)
+    intro = RichTextField(blank=True, max_length=50)
     ajax_template = "tests/includes/event_listing.html"
 
     def get_events(self):
@@ -501,8 +524,8 @@ class EventIndex(Page):
         return super().get_cached_paths() + ["/past/"]
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
-        FieldPanel("intro", classname="full"),
+        FieldPanel("title", classname="title"),
+        FieldPanel("intro"),
     ]
 
 
@@ -524,13 +547,13 @@ class FormPage(AbstractEmailForm):
     submissions_list_view_class = SubmissionsListView
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -550,13 +573,13 @@ class JadeFormPage(AbstractEmailForm):
     template = "tests/form_page.jade"
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -598,14 +621,14 @@ class FormPageWithRedirect(AbstractEmailForm):
         )
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("thank_you_redirect_page"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -682,15 +705,15 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return super().serve(request, *args, **kwargs)
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
-        FieldPanel("intro", classname="full"),
+        FieldPanel("title", classname="title"),
+        FieldPanel("intro"),
         InlinePanel("custom_form_fields", label="Form fields"),
-        FieldPanel("thank_you_text", classname="full"),
+        FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -753,15 +776,15 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
         return data_fields
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
-        FieldPanel("intro", classname="full"),
+        FieldPanel("title", classname="title"),
+        FieldPanel("intro"),
         InlinePanel("form_fields", label="Form fields"),
-        FieldPanel("thank_you_text", classname="full"),
+        FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -825,13 +848,13 @@ class FormPageWithCustomFormBuilder(AbstractEmailForm):
     form_builder = CustomFormBuilder
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
-                FieldPanel("to_address", classname="full"),
-                FieldPanel("from_address", classname="full"),
-                FieldPanel("subject", classname="full"),
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
             ],
             "Email",
         ),
@@ -963,6 +986,73 @@ class RevisableGrandChildModel(RevisableChildModel):
     pass
 
 
+# Models with DraftStateMixin
+class DraftStateModel(DraftStateMixin, RevisionMixin, models.Model):
+    text = models.TextField()
+
+    panels = [
+        FieldPanel("text"),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(DraftStateModel)
+
+
+# Models with PreviewableMixin
+class PreviewableModel(PreviewableMixin, ClusterableModel):
+    text = models.TextField()
+    categories = ParentalManyToManyField(EventCategory, blank=True)
+
+    def __str__(self):
+        return self.text
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_model.html"
+
+
+register_snippet(PreviewableModel)
+
+
+class MultiPreviewModesModel(PreviewableMixin, RevisionMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    @property
+    def preview_modes(self):
+        return [("", "Normal"), ("alt#1", "Alternate")]
+
+    @property
+    def default_preview_mode(self):
+        return "alt#1"
+
+    def get_preview_template(self, request, mode_name):
+        templates = {
+            "": "tests/previewable_model.html",
+            "alt#1": "tests/previewable_model_alt.html",
+        }
+        return templates.get(mode_name, templates[""])
+
+
+register_snippet(MultiPreviewModesModel)
+
+
+class NonPreviewableModel(PreviewableMixin, RevisionMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    preview_modes = []
+
+
+register_snippet(NonPreviewableModel)
+
+
 class StandardIndex(Page):
     """Index for the site"""
 
@@ -971,7 +1061,7 @@ class StandardIndex(Page):
     # A custom panel setup where all Promote fields are placed in the Content tab instead;
     # we use this to test that the 'promote' tab is left out of the output when empty
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("seo_title"),
         FieldPanel("slug"),
         InlinePanel("advert_placements", label="Adverts"),
@@ -989,12 +1079,10 @@ StandardChild.edit_handler = TabbedInterface(
     [
         ObjectList(StandardChild.content_panels, heading="Content"),
         ObjectList(StandardChild.promote_panels, heading="Promote"),
-        ObjectList(
-            StandardChild.settings_panels, heading="Settings", classname="settings"
-        ),
+        ObjectList(StandardChild.settings_panels, heading="Settings"),
         ObjectList(
             [
-                HelpPanel("remember to check for asteroids"),
+                HelpPanel("Watch out for asteroids"),
             ],
             heading="Dinosaurs",
         ),
@@ -1042,7 +1130,7 @@ class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("tags"),
     ]
 
@@ -1326,13 +1414,32 @@ class AbstractPage(Page):
 
 
 @register_setting
-class TestSetting(BaseSetting):
+class TestSiteSetting(BaseSiteSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
 
 
 @register_setting
-class ImportantPages(BaseSetting):
+class TestGenericSetting(BaseGenericSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+
+@register_setting
+class ImportantPagesSiteSetting(BaseSiteSetting):
+    sign_up_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+    general_terms_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+    privacy_policy_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+
+
+@register_setting
+class ImportantPagesGenericSetting(BaseGenericSetting):
     sign_up_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
     )
@@ -1345,16 +1452,30 @@ class ImportantPages(BaseSetting):
 
 
 @register_setting(icon="icon-setting-tag")
-class IconSetting(BaseSetting):
+class IconSiteSetting(BaseSiteSetting):
     pass
 
 
-class NotYetRegisteredSetting(BaseSetting):
+@register_setting(icon="icon-setting-tag")
+class IconGenericSetting(BaseGenericSetting):
+    pass
+
+
+class NotYetRegisteredSiteSetting(BaseSiteSetting):
+    pass
+
+
+class NotYetRegisteredGenericSetting(BaseGenericSetting):
     pass
 
 
 @register_setting
-class FileUploadSetting(BaseSetting):
+class FileSiteSetting(BaseSiteSetting):
+    file = models.FileField()
+
+
+@register_setting
+class FileGenericSetting(BaseGenericSetting):
     file = models.FileField()
 
 
@@ -1490,7 +1611,7 @@ class DefaultRichTextFieldPage(Page):
     body = RichTextField()
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -1510,7 +1631,7 @@ class CustomRichTextFieldPage(Page):
     body = RichTextField(editor="custom")
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -1524,7 +1645,7 @@ class CustomRichBlockFieldPage(Page):
     )
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -1533,7 +1654,7 @@ class RichTextFieldWithFeaturesPage(Page):
     body = RichTextField(features=["quotation", "embed", "made-up-feature"])
 
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -1551,7 +1672,7 @@ class SectionedRichTextPageSection(Orderable):
 
 class SectionedRichTextPage(Page):
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         InlinePanel("sections"),
     ]
 
@@ -1573,7 +1694,7 @@ class InlineStreamPageSection(Orderable):
 
 class InlineStreamPage(Page):
     content_panels = [
-        FieldPanel("title", classname="full title"),
+        FieldPanel("title", classname="title"),
         InlinePanel("sections"),
     ]
 
@@ -1590,11 +1711,24 @@ class UserProfile(models.Model):
     favourite_colour = models.CharField(max_length=255)
 
 
-class PanelSettings(TestSetting):
+class PanelSiteSettings(TestSiteSetting):
     panels = [FieldPanel("title")]
 
 
-class TabbedSettings(TestSetting):
+class PanelGenericSettings(TestGenericSetting):
+    panels = [FieldPanel("title")]
+
+
+class TabbedSiteSettings(TestSiteSetting):
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("title")], heading="First tab"),
+            ObjectList([FieldPanel("email")], heading="Second tab"),
+        ]
+    )
+
+
+class TabbedGenericSettings(TestGenericSetting):
     edit_handler = TabbedInterface(
         [
             ObjectList([FieldPanel("title")], heading="First tab"),

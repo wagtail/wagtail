@@ -129,6 +129,7 @@ class BulkAction(ABC, FormView):
         request = self.request
         self.cleaned_form = form
         objects, objects_without_access = self.get_actionable_objects()
+        self.actionable_objects = objects
         resp = self.prepare_action(objects, objects_without_access)
         if hasattr(resp, "status_code"):
             return resp

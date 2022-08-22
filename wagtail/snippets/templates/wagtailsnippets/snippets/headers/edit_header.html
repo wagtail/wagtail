@@ -1,0 +1,36 @@
+{% extends 'wagtailsnippets/snippets/headers/_base_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block breadcrumb_items %}
+    {{ block.super }}
+    <li class="{{ breadcrumb_item_classes }}">
+        <a class="{{ breadcrumb_link_classes }}" href="{% url view.edit_url_name object.pk|admin_urlquote %}">
+            {{ object }}
+        </a>
+    </li>
+{% endblock %}
+
+{% block header_content %}
+    {{ block.super }}
+
+    <h1 class="w-sr-only">
+        {% blocktrans trimmed with title=object snippet_type=model_opts.verbose_name %}Editing {{ snippet_type }} {{ title }}{% endblocktrans %}
+    </h1>
+{% endblock %}
+
+{% block actions %}
+    {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-h-slim-header w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary' %}
+        {% include "wagtailadmin/shared/side_panel_toggles.html" %}
+
+        {# Object history #}
+        <a href="{{ view.get_history_url }}"
+            class="{{ nav_icon_button_classes }}"
+            data-tippy-content="{% trans 'History' %}"
+            data-tippy-offset="[0, 0]"
+            data-tippy-placement="bottom"
+            aria-label="{% trans 'History' %}"
+        >
+            {% icon name="history" class_name=nav_icon_classes %}
+        </a>
+    {% endwith %}
+{% endblock %}

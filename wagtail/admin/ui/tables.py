@@ -138,6 +138,7 @@ class TitleColumn(Column):
         get_url=None,
         link_classname=None,
         link_attrs=None,
+        id_accessor="pk",
         **kwargs,
     ):
         super().__init__(name, **kwargs)
@@ -145,6 +146,7 @@ class TitleColumn(Column):
         self._get_url_func = get_url
         self.link_attrs = link_attrs or {}
         self.link_classname = link_classname
+        self.id_accessor = id_accessor
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
@@ -160,7 +162,8 @@ class TitleColumn(Column):
         if self._get_url_func:
             return self._get_url_func(instance)
         else:
-            return reverse(self.url_name, args=(quote(instance.pk),))
+            id = multigetattr(instance, self.id_accessor)
+            return reverse(self.url_name, args=(quote(id),))
 
 
 class StatusFlagColumn(Column):
@@ -172,6 +175,26 @@ class StatusFlagColumn(Column):
         super().__init__(name, **kwargs)
         self.true_label = true_label
         self.false_label = false_label
+
+
+class StatusTagColumn(Column):
+    """Represents a status tag"""
+
+    cell_template_name = "wagtailadmin/tables/status_tag_cell.html"
+
+    def __init__(self, name, primary=None, **kwargs):
+        super().__init__(name, **kwargs)
+        self.primary = primary
+
+    def get_primary(self, instance):
+        if callable(self.primary):
+            return self.primary(instance)
+        return self.primary
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["primary"] = self.get_primary(instance)
+        return context
 
 
 class DateColumn(Column):
@@ -201,6 +224,16 @@ class UserColumn(Column):
             context["display_name"] = full_name or user.get_username()
         else:
             context["display_name"] = self.blank_display_name
+        return context
+
+
+class BulkActionsCheckboxColumn(Column):
+    header_template_name = "wagtailadmin/bulk_actions/select_all_checkbox_cell.html"
+    cell_template_name = "wagtailadmin/bulk_actions/listing_checkbox_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["obj"] = context["instance"]
         return context
 
 

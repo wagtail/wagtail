@@ -5,6 +5,9 @@
         aria-labelledby="title-{{ id }}"
         aria-hidden="true"
         class="w-dialog"
+        {% if data_url %}
+            data-url="{{ data_url }}"
+        {% endif %}
     >
         <div data-a11y-dialog-hide class="w-dialog__overlay"></div>
         <div class="w-dialog__box">
@@ -32,8 +35,10 @@
                     <p class="w-dialog__subtitle w-help-text">{{ subtitle }}</p>
                 {% endif %}
 
-
-                {% comment %}
-    This markup is intentionally left without closing div tags so that the contents can be populated with child elements between dialog and enddialog
-    For the end tags please see end-dialog.html
-                {% endcomment %}
+                <div data-dialog-body>
+                    {{ children }}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

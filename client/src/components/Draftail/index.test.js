@@ -53,6 +53,18 @@ describe('Draftail', () => {
       });
 
       expect(field.draftailEditor.props).toMatchSnapshot();
+      // Make sure we don’t initialise a character count on fields that have the default unlimited max length.
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe(null);
+    });
+
+    it('maxLength', () => {
+      document.body.innerHTML =
+        '<input id="test" value="null" maxlength="50" />';
+      const field = document.querySelector('#test');
+
+      draftail.initEditor('#test', {});
+
+      expect(field.draftailEditor.props.ariaDescribedBy).toBe('test-length');
     });
 
     describe('selector conflicts', () => {
@@ -162,5 +174,4 @@ describe('Draftail', () => {
     expect(draftail.ModalWorkflowSource).toBeDefined());
   it('#Tooltip', () => expect(draftail.Tooltip).toBeDefined());
   it('#TooltipEntity', () => expect(draftail.TooltipEntity).toBeDefined());
-  it('#getSplitControl', () => expect(draftail.getSplitControl).toBeDefined());
 });

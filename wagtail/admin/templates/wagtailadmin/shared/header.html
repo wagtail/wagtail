@@ -3,37 +3,44 @@
 
     Variables accepted by this template:
 
+    - `classname` - if present, adds classname to the header class list. This will be the class/classes added to the header class list
     - `title` - Displayed as `h1`
     - `subtitle` - Within the `h1` tag but smaller
+    - `description` - if present, displayed as a small text below the `h1` tag title
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
+    - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar
     - `merged` - if true, add the classname 'merged'
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
+    - `extra_actions` - extra action buttons for the header. This is the HTML to be used for the extra buttons
 
 {% endcomment %}
-<header class="header {% if merged %}merged{% endif %} {% if search_form %}hasform{% endif %}">
+<header class="{% classnames "w-header" classname merged|yesno:"w-header--merged," search_form|yesno:"w-header--hasform," %}">
     {% block breadcrumb %}{% endblock %}
     <div class="row">
         <div class="left">
             <div class="col">
-                <h1 class="header__title">
-                    {% if icon %}{% icon name=icon %}{% endif %}
-                    {{ title }}{% if subtitle %} <span class="header__subtitle">{{ subtitle }}</span>{% endif %}
+                <h1 class="w-header__title" id="header-title">
+                    {% if icon %}
+                        {% icon class_name="w-header__glyph" name=icon %}
+                    {% elif avatar %}
+                        <div class="w-header__glyph avatar"><img src="{{ avatar }}" alt="" /></div>
+                    {% endif %}
+                    {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
                 </h1>
+                {% if description %}<div class="w-header__description">{{ description }}</div>{% endif %}
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
-                    <ul class="fields">
-                        {% for field in search_form %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}
-                        {% endfor %}
-                        {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
-                        <li class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></li>
-                        <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
-                    </ul>
+                    {% for field in search_form %}
+                        {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0" sr_only_label=True icon="search" %}
+                    {% endfor %}
+                    {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                    <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
+                    <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
                 </form>
             {% endif %}
         </div>
@@ -47,6 +54,9 @@
                     </div>
                 {% endif %}
             {% endblock %}
+            {% if extra_actions %}
+                {{ extra_actions }}
+            {% endif %}
         </div>
     </div>
     {% block extra_rows %}{% endblock %}

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -74,6 +74,10 @@ msgstr "Kopiera denna %s"
 msgid "image"
 msgstr "Bild"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Tillbaka till listan för %(model_name)s"
+
 msgid "Choose a parent page"
 msgstr "Välj en topp-sida"
 
@@ -117,9 +121,6 @@ msgstr "Ja, ta bort"
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
-msgid "Home"
-msgstr "Hem"
-
 msgid "Last updated"
 msgstr "Senast ändrad"
 
@@ -140,6 +141,9 @@ msgstr "Sök efter"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Sök %(name)s"
+
+msgid "Search"
+msgstr "Sök"
 
 msgid "Download XLSX"
 msgstr "Ladda ner XLSX"
@@ -168,10 +172,6 @@ msgstr "Sidnumrering"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Sida %(current_page)s av %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Tillbaka till listan för %(model_name)s"
 
 msgid "Previous"
 msgstr "Föregående"

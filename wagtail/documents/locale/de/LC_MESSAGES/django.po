@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -171,28 +171,13 @@ msgstr "Ja, Löschen"
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
 
-msgid "Choose a document"
-msgstr "Dokument auswählen"
-
-msgid "Search"
-msgstr "Suche"
-
-msgid "Upload"
-msgstr "Hochladen"
-
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
-
 msgid "Latest documents"
 msgstr "Neueste Dokumente"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Es gibt leider keine Dokumente zum Suchbegriff „<em>%(query_string)s</em>“"
+"Es gibt leider keine Dokumente zum Suchbegriff \"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Sie haben in dieser Sammlung keine Dokumente hochgeladen."
@@ -207,9 +192,6 @@ msgstr ""
 "Warum nicht <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
 "trigger>ein neues hochladen</a>?"
 
-msgid "Uploading…"
-msgstr "Lade hoch…"
-
 msgid "Change document:"
 msgstr "Dokument ändern:"
 
@@ -218,6 +200,12 @@ msgstr "Ein Dokument hinzufügen"
 
 msgid "Add document"
 msgstr "Dokument hinzufügen"
+
+msgid "Uploading…"
+msgstr "Lade hoch…"
+
+msgid "Upload"
+msgstr "Hochladen"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -264,8 +252,15 @@ msgid "Select document"
 msgstr "Dokument auswählen"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "vor %(time_period)s"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Es gibt leider keine Dokumente zum Suchbegriff „<em>%(query_string)s</em>“"
 
 #, python-format
 msgid ""
@@ -385,7 +380,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete selected documents"
-msgstr "Ausgwählte Dokumente löschen"
+msgstr "Ausgewählte Dokumente löschen"
 
 #, python-format
 msgid "%(num_parent_objects)d document has been deleted"
@@ -393,15 +388,8 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] "%(num_parent_objects)d Dokument wurde gelöscht"
 msgstr[1] "%(num_parent_objects)d Dokumente wurden gelöscht"
 
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenadministrator mit der folgenden "
-"Information:"
+msgid "Choose a document"
+msgstr "Dokument auswählen"
 
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
@@ -435,9 +423,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s Dokument"
 msgstr[1] "%(count)s Dokumente"
-
-msgid "Choose another document"
-msgstr "Anderes Dokument wählen"
-
-msgid "Edit this document"
-msgstr "Dieses Dokument bearbeiten"

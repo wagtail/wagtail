@@ -23,15 +23,16 @@ concurrency:
 # - django 3.2, python 3.7, postgres
 # - django 3.2, python 3.8, mysql
 # - django 4.0, python 3.9, sqlite
-# - django 4.0, python 3.9, mysql
+# - django 4.1, python 3.9, mysql
 # - django 4.0, python 3.10, postgres, USE_EMAIL_USER_MODEL=yes
-# - django 4.0, python 3.10, postgres, DISABLE_TIMEZONE=yes
+# - django 4.1, python 3.10, postgres, DISABLE_TIMEZONE=yes
 # - django stable/4.1.x, python 3.10, postgres (allow failures)
+# - django stable/4.1.x, python 3.10, mysql (allow failures)
 # - django main, python 3.10, postgres (allow failures)
 # - elasticsearch 5, django 3.2, python 3.7, sqlite
 # - elasticsearch 6, django 3.2, python 3.7, postgres
 # - elasticsearch 7, django 4.0, python 3.8, postgres
-# - elasticsearch 7, django 4.0, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 7, django 4.1, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
 
 jobs:
   test-sqlite:
@@ -69,7 +70,7 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
           - python: '3.10'
-            django: 'Django>=4.0,<4.1'
+            django: 'Django>=4.1,<4.2'
             notz: notz
             experimental: false
           - python: '3.10'
@@ -82,12 +83,13 @@ jobs:
             postgres: 'postgres:12'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
+            install_extras: 'pip uninstall -y djangorestframework ; pip install git+https://github.com/encode/django-rest-framework.git@master#egg=djangorestframework'
             experimental: true
             postgres: 'postgres:12'
 
     services:
       postgres:
-        image: ${{ matrix.postgres || 'postgres:10.8' }}
+        image: ${{ matrix.postgres || 'postgres:11' }}
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -128,8 +130,11 @@ jobs:
             django: 'Django>=3.2,<3.3'
             experimental: false
           - python: '3.9'
-            django: 'Django>=4.0,<4.1'
+            django: 'Django>=4.1,<4.2'
             experimental: false
+          - python: '3.10'
+            django: 'git+https://github.com/django/django.git@stable/4.1.x#egg=Django'
+            experimental: true
 
     services:
       mysql:
@@ -209,7 +214,7 @@ jobs:
       matrix:
         include:
           - python: '3.9'
-            django: 'Django>=4.0,<4.1'
+            django: 'Django>=4.1,<4.2'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
@@ -257,7 +262,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres:10.8
+        image: postgres:11
+        env:
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -307,7 +314,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres:10.8
+        image: postgres:11
+        env:
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5

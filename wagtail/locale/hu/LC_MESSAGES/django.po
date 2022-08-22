@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -70,6 +70,72 @@ msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
 msgid "Comment"
 msgstr "Megjegyzés"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr ""
+"<b>A(z) '{}' oldal zárolva van</b>, lezárta: <b>én</b>, időpont: <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>én</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr ""
+"<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>{}</b>, időpont: <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>A(z) '{}' oldal zárolva van</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Ez az oldal jelenleg moderálásra vár."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr ""
+"Az oldal jelenleg a(z) <b>'{}'</b> munkafolyamatvan vár erre:<b>'{}'</b> "
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Csak az ellenőrzők szerkeszthetik az oldalt."
+
+msgid "live"
+msgstr "közzétett oldal"
+
+msgid "has unpublished changes"
+msgstr "nem közzétett tartalommal rendelkezik"
+
+msgid "first published at"
+msgstr "első közzététel időpontja"
+
+msgid "last published at"
+msgstr "utolsó közzététel időpontja"
+
+msgid "live revision"
+msgstr "közzétett verzió"
+
+msgid "go live date/time"
+msgstr "közzététel ideje"
+
+msgid "expiry date/time"
+msgstr "lejárat dátuma/ideje"
+
+msgid "expired"
+msgstr "lejárt"
+
+msgid "draft"
+msgstr "vázlat"
+
+msgid "live + draft"
+msgstr "közzétéve + vázlat"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "locked"
+msgstr "zárolt"
+
+msgid "locked at"
+msgstr "zárolva ekkor: "
+
+msgid "locked by"
+msgstr "zároló: "
+
 msgid "title"
 msgstr "cím"
 
@@ -88,12 +154,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "tartalomtípus"
-
-msgid "live"
-msgstr "közzétett oldal"
-
-msgid "has unpublished changes"
-msgstr "nem közzétett tartalommal rendelkezik"
 
 msgid "URL path"
 msgstr "URL cím"
@@ -124,35 +184,8 @@ msgid ""
 "results."
 msgstr "Az oldal kerés oldalakon megjelenített leírása."
 
-msgid "go live date/time"
-msgstr "közzététel ideje"
-
-msgid "expiry date/time"
-msgstr "lejárat dátuma/ideje"
-
-msgid "expired"
-msgstr "lejárt"
-
-msgid "locked"
-msgstr "zárolt"
-
-msgid "locked at"
-msgstr "zárolva ekkor: "
-
-msgid "locked by"
-msgstr "zároló: "
-
-msgid "first published at"
-msgstr "első közzététel időpontja"
-
-msgid "last published at"
-msgstr "utolsó közzététel időpontja"
-
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
-
-msgid "live revision"
-msgstr "közzétett verzió"
 
 msgid "This slug is already in use"
 msgstr "Ez a rövidítés már használatban van"
@@ -163,20 +196,11 @@ msgstr "időzítve"
 msgid "in moderation"
 msgstr "jóváhagyás alatt"
 
-msgid "draft"
-msgstr "vázlat"
-
 msgid "live + scheduled"
 msgstr "közzétéve + időzítve"
 
 msgid "live + in moderation"
 msgstr "közzétéve + moderálás alatt"
-
-msgid "live + draft"
-msgstr "közzétéve + vázlat"
-
-msgid "Default"
-msgstr "Alapértelmezett"
 
 msgid "page"
 msgstr "oldal"
@@ -198,12 +222,6 @@ msgstr "JSON tartalom"
 
 msgid "approved go live at"
 msgstr "jóváhagyott közzététel időpontja"
-
-msgid "page revision"
-msgstr "oldal verzió"
-
-msgid "page revisions"
-msgstr "oldal verziók"
 
 msgid "Add/edit pages you own"
 msgstr "Saját oldalaim létrehozása/szerkesztése"
@@ -379,6 +397,9 @@ msgstr "Átlépve"
 
 msgid "workflow state"
 msgstr "munkafolyamat állapot"
+
+msgid "page revision"
+msgstr "oldal verzió"
 
 msgid "started at"
 msgstr "elindítva: "
@@ -563,15 +584,6 @@ msgstr "Ezen oldal megtekintéséhez jelszó szükséges."
 
 msgid "Continue"
 msgstr "Folytatás"
-
-msgid "English"
-msgstr "Angol"
-
-msgid "French"
-msgstr "Francia"
-
-msgid "German"
-msgstr "Német"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -877,10 +889,6 @@ msgstr "Munkafolyamat lépés elutasítva. Munkafolyamat befejeződött"
 
 msgid "Workflow: resume task"
 msgstr "Munkafolyamat: lépés folytatása"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "'%(task)s' lépés újrakezdve. Munkafolyamat folytatódik"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Munkafolyamat lépés újrakezdve. A munkafolyamat folytatódik"

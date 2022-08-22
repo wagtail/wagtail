@@ -5,23 +5,24 @@ exports[`telepath: wagtail.widgets.CheckboxInput it renders correctly 1`] = `"<i
 exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
 "<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser\\" data-chooser-url=\\"/admin/choose-page/\\">
           <div class=\\"chosen\\">
-            <span class=\\"title\\">Welcome to the Wagtail Bakery!</span>
-            <ul class=\\"actions\\">
+          <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
+          <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Welcome to the Wagtail Bakery!</div>
+            <ul class=\\"chooser__actions\\">
               <li>
-                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\">
-                  Choose another page
+                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
+                  Change
                 </button>
               </li>
               <li>
-                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\">
-                  Edit this page
+                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
+                  Edit
                 </a>
               </li>
             </ul>
           </div>
           <div class=\\"unchosen\\">
-            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\">
-              Choose a page
+            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary chooser__choose-button\\">
+              <svg class=\\"icon icon-doc-empty-inverse\\" aria-hidden=\\"true\\"><use href=\\"#icon-doc-empty-inverse\\"></use></svg>Choose a page
             </button>
           </div>
         </div>
@@ -31,23 +32,24 @@ exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
 exports[`telepath: wagtail.widgets.PageChooser setState() changes the current page 1`] = `
 "<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser\\" data-chooser-url=\\"/admin/choose-page/\\">
           <div class=\\"chosen\\">
-            <span class=\\"title\\">Anadama</span>
-            <ul class=\\"actions\\">
+          <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
+          <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Anadama</div>
+            <ul class=\\"chooser__actions\\">
               <li>
-                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\">
-                  Choose another page
+                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
+                  Change
                 </button>
               </li>
               <li>
-                <a href=\\"/admin/pages/34/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\">
-                  Edit this page
+                <a href=\\"/admin/pages/34/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
+                  Edit
                 </a>
               </li>
             </ul>
           </div>
           <div class=\\"unchosen\\">
-            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\">
-              Choose a page
+            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary chooser__choose-button\\">
+              <svg class=\\"icon icon-doc-empty-inverse\\" aria-hidden=\\"true\\"><use href=\\"#icon-doc-empty-inverse\\"></use></svg>Choose a page
             </button>
           </div>
         </div>
@@ -57,23 +59,24 @@ exports[`telepath: wagtail.widgets.PageChooser setState() changes the current pa
 exports[`telepath: wagtail.widgets.PageChooser setState() to null clears the fields 1`] = `
 "<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser blank\\" data-chooser-url=\\"/admin/choose-page/\\">
           <div class=\\"chosen\\">
-            <span class=\\"title\\">Welcome to the Wagtail Bakery!</span>
-            <ul class=\\"actions\\">
+          <div class=\\"chooser__preview\\" role=\\"presentation\\"></div>
+          <div class=\\"chooser__title\\" data-chooser-title=\\"\\" id=\\"the-id-title\\">Welcome to the Wagtail Bakery!</div>
+            <ul class=\\"chooser__actions\\">
               <li>
-                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\">
-                  Choose another page
+                <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
+                  Change
                 </button>
               </li>
               <li>
-                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\">
-                  Edit this page
+                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
+                  Edit
                 </a>
               </li>
             </ul>
           </div>
           <div class=\\"unchosen\\">
-            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\">
-              Choose a page
+            <button type=\\"button\\" class=\\"button action-choose button-small button-secondary chooser__choose-button\\">
+              <svg class=\\"icon icon-doc-empty-inverse\\" aria-hidden=\\"true\\"><use href=\\"#icon-doc-empty-inverse\\"></use></svg>Choose a page
             </button>
           </div>
         </div>

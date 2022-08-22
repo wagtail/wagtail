@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -76,30 +76,14 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-msgid "Choose a document"
-msgstr "Belge seç"
-
-msgid "Search"
-msgstr "Ara"
-
-msgid "Upload"
-msgstr "Yükle"
-
 msgid "Latest documents"
 msgstr "En yeni belgeler"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Bu koleksiyone henüz belge yüklemediniz."
 
 msgid "You haven't uploaded any documents."
 msgstr "Hiç belge yüklemediniz."
-
-msgid "Uploading…"
-msgstr "Yükleniyor…"
 
 msgid "Change document:"
 msgstr "Belgeyi değiştir:"
@@ -109,6 +93,12 @@ msgstr "Belge ekle"
 
 msgid "Add document"
 msgstr "Belge ekle"
+
+msgid "Uploading…"
+msgstr "Yükleniyor…"
+
+msgid "Upload"
+msgstr "Yükle"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -146,8 +136,8 @@ msgid "File"
 msgstr "Dosya"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
 
 #, python-format
 msgid ""
@@ -222,8 +212,8 @@ msgstr "Bir belge izni ekle"
 msgid "Delete"
 msgstr "Sil"
 
-msgid "Server Error"
-msgstr "Sunucu Hatası"
+msgid "Choose a document"
+msgstr "Belge seç"
 
 msgid "Search documents"
 msgstr "Belgelerde ara"
@@ -255,9 +245,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s belge"
 msgstr[1] "%(count)s belge"
-
-msgid "Choose another document"
-msgstr "Başka bir belge seçin"
-
-msgid "Edit this document"
-msgstr "Belgeyi düzenle"

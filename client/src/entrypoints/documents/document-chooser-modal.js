@@ -7,7 +7,7 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
 
     $('a.upload-one-now').on('click', (event) => {
       // Set current collection ID at upload form tab
-      const collectionId = $('#collection_chooser_collection_id').val();
+      const collectionId = $('#id_collection_id').val();
       if (collectionId) {
         $('#id_document-chooser-upload-collection').val(collectionId);
       }
@@ -19,12 +19,9 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
 
 window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
   new DocumentChooserModalOnloadHandlerFactory({
-    searchFilterSelectors: ['#collection_chooser_collection_id'],
     searchInputDelay: 50,
-    chosenResponseName: 'documentChosen',
-    creationFormSelector: 'form.document-upload',
-    creationFormTabSelector: '#tab-upload',
     creationFormFileFieldSelector: '#id_document-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
+    creationFormTabSelector: '#tab-upload',
     creationFormEventName: 'wagtail:documents-upload',
   }).getOnLoadHandlers();

@@ -1,0 +1,73 @@
+$header-icon-size-sm: theme('spacing.5');
+$header-button-size-sm: theme('spacing.8');
+$header-gap: theme('spacing.1');
+$panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
+
+/**
+ * Panel styles shared between StreamField and InlinePanel,
+ * for repeating collapsible panels which can be reordered.
+ * Top-level and nested panels have guiding borders to show their start and end,
+ * as well as indentation for nested panels.
+ */
+
+// Styles for the top-level panel, and any panel within.
+.w-panel--nested {
+  @include guide-line-active();
+
+  .w-panel__divider {
+    @include guide-line-horizontal();
+    // Slightly nicer text alignment.
+    margin-top: 1px;
+  }
+
+  .w-panel__content {
+    @include guide-line-vertical();
+    // Center the vertical line.
+    margin-inline-start: calc(-1 * theme('spacing.3'));
+    padding-inline-start: theme('spacing.3');
+
+    @include media-breakpoint-up(sm) {
+      margin-inline-start: calc(-1 * $panel-x-offset);
+      padding-inline-start: $panel-x-offset;
+    }
+  }
+
+  .w-panel__anchor {
+    // Mask the overlap with the parent panel’s guide line.
+    background-color: $color-white;
+  }
+
+  .w-panel__heading--label {
+    // Use smaller labels within nested panels in InlinePanel.
+    @apply w-label-2;
+  }
+}
+
+// Styles for nested panels excluding the top level.
+.w-panel--nested .w-panel {
+  @include guide-line-nested();
+  // Indentation for nested panels.
+  margin-inline-start: theme('spacing.7');
+  margin-bottom: theme('spacing.6');
+
+  // Tighter spacing for nested panel headers so their icons align
+  // with parent panels’ guiding line.
+  .w-panel__header {
+    gap: 0;
+    transform: translateX(calc(-1 * theme('spacing.5')));
+
+    @include media-breakpoint-up(sm) {
+      transform: translateX(theme('spacing.1'));
+    }
+  }
+
+  // For nested panels, there is always enough space for the prefix anchor.
+  .w-panel__anchor--prefix {
+    display: inline-grid;
+  }
+
+  // Nested panels never need the suffix anchor.
+  .w-panel__anchor--suffix {
+    display: none;
+  }
+}

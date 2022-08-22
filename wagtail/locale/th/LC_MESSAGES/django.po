@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -56,6 +56,39 @@ msgstr "รหัสผ่าน"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "พาสเวิร์ดที่คุณกรอกไม่ถูกต้อง กรุณาลองอีกครั้ง"
 
+msgid "live"
+msgstr "ถ่ายทอดสด"
+
+msgid "has unpublished changes"
+msgstr "มีการเปลี่ยนแปลงยกเลิก"
+
+msgid "first published at"
+msgstr "ตีพิมพ์ครั้งแรกเมื่อ"
+
+msgid "last published at"
+msgstr "ตีพิมพ์ครั้งสุดท้ายเมื่อ"
+
+msgid "go live date/time"
+msgstr "ถ่ายทอดสด วันที่/เวลา"
+
+msgid "expiry date/time"
+msgstr "วันหมดอายุ/เวลา"
+
+msgid "expired"
+msgstr "หมดอายุ"
+
+msgid "draft"
+msgstr "ร่าง"
+
+msgid "live + draft"
+msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
+
+msgid "Default"
+msgstr "ต้นแบบ"
+
+msgid "locked"
+msgstr "ล็อค"
+
 msgid "title"
 msgstr "หัวข้อ"
 
@@ -73,12 +106,6 @@ msgstr "ชื่อของหน้านี้ จะปรากฏใน U
 msgid "content type"
 msgstr "ประเภทของเนื้อหา"
 
-msgid "live"
-msgstr "ถ่ายทอดสด"
-
-msgid "has unpublished changes"
-msgstr "มีการเปลี่ยนแปลงยกเลิก"
-
 msgid "URL path"
 msgstr "ช่องทางของ URL"
 
@@ -92,24 +119,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "อย่างไรก็ตามลิงค์ของหน้านี้จะปรากฎขึ้นโดยอัตโนมัติในเมนู"
 
-msgid "go live date/time"
-msgstr "ถ่ายทอดสด วันที่/เวลา"
-
-msgid "expiry date/time"
-msgstr "วันหมดอายุ/เวลา"
-
-msgid "expired"
-msgstr "หมดอายุ"
-
-msgid "locked"
-msgstr "ล็อค"
-
-msgid "first published at"
-msgstr "ตีพิมพ์ครั้งแรกเมื่อ"
-
-msgid "last published at"
-msgstr "ตีพิมพ์ครั้งสุดท้ายเมื่อ"
-
 msgid "latest revision created at"
 msgstr "การแก้ไขครั้งล่าสุดเกิดขึ้นเมื่อ"
 
@@ -119,17 +128,8 @@ msgstr "Slug นี้กำลังใช้อยู่"
 msgid "scheduled"
 msgstr "ตารางที่กำหนดไว้แล้ว"
 
-msgid "draft"
-msgstr "ร่าง"
-
 msgid "live + scheduled"
 msgstr "ถ่ายทอดสด + ตาราง"
-
-msgid "live + draft"
-msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
-
-msgid "Default"
-msgstr "ต้นแบบ"
 
 msgid "page"
 msgstr "หน้า"
@@ -151,12 +151,6 @@ msgstr "ข้อมูลของ JSON"
 
 msgid "approved go live at"
 msgstr "อนุมัติให้ไปยังถ่ายทอดสด"
-
-msgid "page revision"
-msgstr "หน้าที่แก้ไขแล้ว"
-
-msgid "page revisions"
-msgstr "หน้าที่แก้ไขแล้ว"
 
 msgid "Add/edit pages you own"
 msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
@@ -208,6 +202,9 @@ msgstr "กลุ่ม"
 
 msgid "Approve"
 msgstr "ยืนยัน"
+
+msgid "page revision"
+msgstr "หน้าที่แก้ไขแล้ว"
 
 msgid "collection"
 msgstr "ของสะสม"
@@ -315,15 +312,6 @@ msgstr "คุณต้องมีรหัสผ่านเพื่อเข
 
 msgid "Continue"
 msgstr "ต่อเนื่อง"
-
-msgid "English"
-msgstr "อังกฤษ"
-
-msgid "French"
-msgstr "ภาษาฝรั่งเศส"
-
-msgid "German"
-msgstr "ภาษาเยอรมัน"
 
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"

@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -69,7 +68,7 @@ class InsertPosition extends BaseInsertionControl {
         opts.strings.ADD,
       )}" data-streamfield-list-add
           class="c-sf-add-button c-sf-add-button--visible">
-        <i aria-hidden="true">+</i>
+        <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>
     `);
     $(placeholder).replaceWith(button);
@@ -114,12 +113,11 @@ export class ListBlock extends BaseSequenceBlock {
     if (this.blockDef.meta.helpText) {
       // help text is left unescaped as per Django conventions
       $(`
-        <span>
+        <div class="c-sf-help">
           <div class="help">
-            ${this.blockDef.meta.helpIcon}
             ${this.blockDef.meta.helpText}
           </div>
-        </span>
+        </div>
       `).insertBefore(dom);
     }
 
@@ -200,18 +198,10 @@ export class ListBlock extends BaseSequenceBlock {
         for (let i = 0; i < this.inserters.length; i++) {
           this.inserters[i].disable();
         }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].disableDuplication();
-          this.children[i].disableSplit();
-        }
       } else {
         /* allow adding new blocks */
         for (let i = 0; i < this.inserters.length; i++) {
           this.inserters[i].enable();
-        }
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].enableDuplication();
-          this.children[i].enableSplit();
         }
       }
     }
@@ -295,6 +285,19 @@ export class ListBlock extends BaseSequenceBlock {
         this.children[blockIndex].setError(blockError);
       }
     });
+  }
+
+  getBlockGroups() {
+    const group = ['', [this.blockDef.childBlockDef]];
+    return [group];
+  }
+
+  getBlockCount() {
+    return this.children.length;
+  }
+
+  getBlockMax() {
+    return this.blockDef.meta.maxNum || 0;
   }
 }
 

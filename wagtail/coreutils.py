@@ -108,7 +108,7 @@ def cautious_slugify(value):
     that any non-ASCII alphanumeric characters (that cannot be ASCIIfied under Unicode
     normalisation) are escaped into codes like 'u0421' instead of being deleted entirely.
 
-    This ensures that the result of slugifying e.g. Cyrillic text will not be an empty
+    This ensures that the result of slugifying (for example - Cyrillic) text will not be an empty
     string, and can thus be safely used as an identifier (albeit not a human-readable one).
     """
     value = force_str(value)
@@ -121,7 +121,7 @@ def cautious_slugify(value):
 
     # Strip out characters that aren't letterlike, underscores or hyphens,
     # using the same regexp that slugify uses. This ensures that non-ASCII non-letters
-    # (e.g. accent modifiers, fancy punctuation) get stripped rather than escaped
+    # (accent modifiers, fancy punctuation) get stripped rather than escaped
     value = SLUGIFY_RE.sub("", value)
 
     # Encode as ASCII, escaping non-ASCII characters with backslashreplace, then convert
@@ -202,6 +202,13 @@ class InvokeViaAttributeShortcut:
     def __getattr__(self, name):
         method = getattr(self.obj, self.method_name)
         return method(name)
+
+    def __getstate__(self):
+        return {"obj": self.obj, "method_name": self.method_name}
+
+    def __setstate__(self, state):
+        self.obj = state["obj"]
+        self.method_name = state["method_name"]
 
 
 def find_available_slug(parent, requested_slug, ignore_page_id=None):

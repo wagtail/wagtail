@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -79,6 +79,66 @@ msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
 msgid "Comment"
 msgstr "Kommentti"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Sinä</b> lukitsit <b>sivun '{}'</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Sinä</b> olet lukinnut <b>sivun '{}'</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Sivun '{}' lukitsi</b> <b>{}</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Sivu '{}' on lukittu.</b>"
+
+msgid "This page is currently awaiting moderation."
+msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Vain tämän tehtävän tarkastajat voivat muokata sivua."
+
+msgid "live"
+msgstr "julkaistu"
+
+msgid "has unpublished changes"
+msgstr "sis. julkaisemattomia muutoksia"
+
+msgid "first published at"
+msgstr "ensin julkaistu"
+
+msgid "last published at"
+msgstr "viimeksi julkaistu"
+
+msgid "live revision"
+msgstr "live-versio"
+
+msgid "go live date/time"
+msgstr "julkaisupäivämäärä ja -aika"
+
+msgid "expiry date/time"
+msgstr "poistumispäivämäärä ja -aika"
+
+msgid "expired"
+msgstr "vanhentunut"
+
+msgid "draft"
+msgstr "luonnos"
+
+msgid "live + draft"
+msgstr "julkaistu + luonnos"
+
+msgid "Default"
+msgstr "Oletus"
+
+msgid "locked"
+msgstr "lukittu"
+
+msgid "locked at"
+msgstr "lukittu"
+
+msgid "locked by"
+msgstr "lukinnut"
+
 msgid "title"
 msgstr "otsikko"
 
@@ -97,12 +157,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "sisältötyyppi"
-
-msgid "live"
-msgstr "julkaistu"
-
-msgid "has unpublished changes"
-msgstr "sis. julkaisemattomia muutoksia"
 
 msgid "URL path"
 msgstr "URL-polku"
@@ -133,35 +187,8 @@ msgid ""
 "results."
 msgstr "Kuvaileva teksti, joka näytetään hakukonetulosten alapuolella."
 
-msgid "go live date/time"
-msgstr "julkaisupäivämäärä ja -aika"
-
-msgid "expiry date/time"
-msgstr "poistumispäivämäärä ja -aika"
-
-msgid "expired"
-msgstr "vanhentunut"
-
-msgid "locked"
-msgstr "lukittu"
-
-msgid "locked at"
-msgstr "lukittu"
-
-msgid "locked by"
-msgstr "lukinnut"
-
-msgid "first published at"
-msgstr "ensin julkaistu"
-
-msgid "last published at"
-msgstr "viimeksi julkaistu"
-
 msgid "latest revision created at"
 msgstr "uusin versio luotu"
-
-msgid "live revision"
-msgstr "live-versio"
 
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä."
@@ -172,20 +199,11 @@ msgstr "ajoitettu"
 msgid "in moderation"
 msgstr "tarkastettavana"
 
-msgid "draft"
-msgstr "luonnos"
-
 msgid "live + scheduled"
 msgstr "esillä + ajastettu"
 
 msgid "live + in moderation"
 msgstr "esillä + tarkastettavana"
-
-msgid "live + draft"
-msgstr "julkaistu + luonnos"
-
-msgid "Default"
-msgstr "Oletus"
 
 msgid "page"
 msgstr "sivu"
@@ -207,12 +225,6 @@ msgstr "sisältö-JSON"
 
 msgid "approved go live at"
 msgstr "hyväksytty julkistus"
-
-msgid "page revision"
-msgstr "sivuversio"
-
-msgid "page revisions"
-msgstr "sivuversiot"
 
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
@@ -360,6 +372,9 @@ msgstr "Ohitettu"
 
 msgid "workflow state"
 msgstr "työnkulun tila"
+
+msgid "page revision"
+msgstr "sivuversio"
 
 msgid "started at"
 msgstr "aloitettu"
@@ -531,27 +546,6 @@ msgstr "Tarvitset salasanan päästäksesi tälle sivulle"
 msgid "Continue"
 msgstr "Jatka"
 
-msgid "Wagtail search tests"
-msgstr "Wagtailin hakutestit"
-
-msgid "English"
-msgstr "englanti"
-
-msgid "French"
-msgstr "ranska"
-
-msgid "Wagtail tests"
-msgstr "Wagtailin testit"
-
-msgid "The form is already filled."
-msgstr "Lomake on jo täytetty."
-
-msgid "You must log in first."
-msgstr "Sinun tulee ensin kirjautua sisään."
-
-msgid "German"
-msgstr "saksa"
-
 msgid "Create"
 msgstr "Luo"
 
@@ -666,6 +660,10 @@ msgstr "Sivun ajastettu julkaisu peruttu"
 msgid "Add view restrictions"
 msgstr "Lisää katselurajoituksia"
 
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Lisätty näkymärajoitus '%(restriction)s'"
+
 msgid "Added view restriction"
 msgstr "Lisätty katselurajoitus"
 
@@ -677,6 +675,10 @@ msgstr "Päivitetty katselurajoitus"
 
 msgid "Remove view restrictions"
 msgstr "Poista katselurajoitukset"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Poistettu näkymärajoitus '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "Poistettu katselurajoitus"

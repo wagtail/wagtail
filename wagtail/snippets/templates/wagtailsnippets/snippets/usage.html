@@ -1,9 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
-{% block titletag %}{% blocktrans trimmed with title=instance %}Usage of {{ title }}{% endblocktrans %}{% endblock %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans trimmed with title=object %}Usage of {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
+
 {% block content %}
+    {% include 'wagtailsnippets/snippets/headers/usage_header.html' %}
+
     {% trans "Usage of" as usage_str %}
-    {% include "wagtailadmin/shared/header.html" with title=usage_str subtitle=instance %}
+    {% include "wagtailadmin/shared/header.html" with title=usage_str subtitle=object %}
 
     <div class="nice-padding">
         <table class="listing">

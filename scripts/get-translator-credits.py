@@ -60,8 +60,8 @@ language_names = [
 language_names.sort()
 
 for (language_name, locale) in language_names:
-    print(("%s - %s" % (language_name, locale)))
-    print("-----")
+    print(("%s - %s" % (language_name, locale)))  # noqa
+    print("-----")  # noqa
     for author in sorted(authors_by_locale[locale]):
-        print(author)
-    print("")
+        print(author)  # noqa
+    print("")  # noqa

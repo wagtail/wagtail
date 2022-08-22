@@ -1,0 +1,17 @@
+// file drop zones
+.drop-zone {
+  border-radius: 5px;
+  border: 2px dashed $color-grey-4;
+  padding: $mobile-nice-padding;
+  background-color: $color-grey-5;
+  margin-bottom: 1em;
+  text-align: center;
+
+  .drop-zone-help {
+    border: 0;
+  }
+
+  &.hovered {
+    border-color: $color-teal;
+  }
+}

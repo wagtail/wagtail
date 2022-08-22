@@ -236,6 +236,16 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         return self.file_hash
 
+    def _set_image_file_metadata(self):
+        self.file.open()
+
+        # Set new image file size
+        self.file_size = self.file.size
+
+        # Set new image file hash
+        self._set_file_hash(self.file.read())
+        self.file.seek(0)
+
     def get_upload_to(self, filename):
         folder_name = "original_images"
         filename = self.file.field.storage.get_valid_name(filename)

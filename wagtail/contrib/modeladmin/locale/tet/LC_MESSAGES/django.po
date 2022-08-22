@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -71,6 +71,10 @@ msgstr "kopia iha %s"
 msgid "image"
 msgstr "Imagen"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Fila ba %(model_name)slista"
+
 msgid "Choose a parent page"
 msgstr "Hili pajina"
 
@@ -111,9 +115,6 @@ msgstr "Loos, hamoos"
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
-msgid "Home"
-msgstr "Uma"
-
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Diskulpa, ne'e laiha %(name)smaka hanesan  ita buka parametru."
@@ -124,6 +125,9 @@ msgstr "Buka ba"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Buka %(name)s"
+
+msgid "Search"
+msgstr "Buka"
 
 msgid "Download CSV"
 msgstr "Download CSV"
@@ -149,10 +153,6 @@ msgstr "Pagina"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Pagina %(current_page)sho %(num_pages)s"
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Fila ba %(model_name)slista"
 
 msgid "Previous"
 msgstr " Kotuk"

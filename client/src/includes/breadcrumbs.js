@@ -15,6 +15,8 @@ export default function initCollapsibleBreadcrumbs() {
     '[data-toggle-breadcrumbs]',
   );
 
+  if (!breadcrumbsToggle) return;
+
   const breadcrumbItems = breadcrumbsContainer.querySelectorAll(
     '[data-breadcrumb-item]',
   );

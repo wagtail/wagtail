@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -227,15 +227,6 @@ msgstr "Igen, törlés"
 msgid "No, don't delete"
 msgstr "Nem, ne töröljük"
 
-msgid "Choose an image"
-msgstr "Válasszon képet"
-
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Upload"
-msgstr "Feltöltés"
-
 msgid "Popular tags"
 msgstr "Gyakori címkék"
 
@@ -253,9 +244,6 @@ msgstr "Formátum kiválasztása"
 
 msgid "Insert image"
 msgstr "Kép beillesztése"
-
-msgid "Uploading…"
-msgstr "Feltöltés folyamatban…"
 
 msgid "Change image file:"
 msgstr "Kép cseréje:"
@@ -318,9 +306,6 @@ msgstr "Képek"
 
 msgid "Popular Tags:"
 msgstr "Gyakori címkék:"
-
-msgid "Clear choice"
-msgstr "Kiválasztás törlése"
 
 msgid "Select all images in listing"
 msgstr "Összes kép kiválasztása a listában"
@@ -470,6 +455,15 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d kép törölve"
 msgstr[1] "%(num_parent_objects)d kép törölve"
 
+msgid "Upload"
+msgstr "Feltöltés"
+
+msgid "Uploading…"
+msgstr "Feltöltés folyamatban…"
+
+msgid "Choose an image"
+msgstr "Válasszon képet"
+
 msgid "Search images"
 msgstr "Képek keresése"
 
@@ -509,9 +503,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s kép"
 msgstr[1] "%(count)s kép"
-
-msgid "Change image"
-msgstr "Kép módosítása"
-
-msgid "Edit this image"
-msgstr "Kép szerkesztése"

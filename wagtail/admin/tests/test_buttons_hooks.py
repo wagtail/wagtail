@@ -6,6 +6,7 @@ from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.wagtail_hooks import page_listing_more_buttons
 from wagtail.models import Page
+from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -41,11 +42,19 @@ class ReorderOnlyPagePerms(BasePagePerms):
 
 class TestButtonsHooks(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.root_page = Page.objects.get(id=2)
         self.login()
 
+        self.root_page = Page.objects.get(id=2)
+        self.child_page = self.root_page.add_child(
+            instance=SimplePage(
+                title="Public page",
+                content="hello",
+                live=True,
+            )
+        )
+
     def test_register_page_listing_buttons(self):
-        def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
+        def page_listing_buttons(page, page_perms, next_url=None):
             yield wagtailadmin_widgets.PageListingButton(
                 "Another useless page listing button", "/custom-url", priority=10
             )
@@ -66,7 +75,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         self.assertContains(response, "Another useless page listing button")
 
     def test_register_page_listing_more_buttons(self):
-        def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+        def page_listing_more_buttons(page, page_perms, next_url=None):
             yield wagtailadmin_widgets.Button(
                 'Another useless button in default "More" dropdown',
                 "/custom-url",
@@ -91,23 +100,18 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         )
 
     def test_custom_button_with_dropdown(self):
-        def page_custom_listing_buttons(
-            page, page_perms, is_parent=False, next_url=None
-        ):
+        def page_custom_listing_buttons(page, page_perms, next_url=None):
             yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
                 "One more more button",
                 hook_name="register_page_listing_one_more_more_buttons",
                 page=page,
                 page_perms=page_perms,
-                is_parent=is_parent,
                 next_url=next_url,
                 attrs={"target": "_blank", "rel": "noreferrer"},
                 priority=50,
             )
 
-        def page_custom_listing_more_buttons(
-            page, page_perms, is_parent=False, next_url=None
-        ):
+        def page_custom_listing_more_buttons(page, page_perms, next_url=None):
             yield wagtailadmin_widgets.Button(
                 'Another useless dropdown button in "One more more button" dropdown',
                 "/custom-url",
@@ -166,18 +170,14 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
 
         # page_listing_more_button generator yields only `Delete button`
         delete_button = next(
-            page_listing_more_buttons(
-                page, page_perms, is_parent=False, next_url=next_url
-            )
+            page_listing_more_buttons(page, page_perms, next_url=next_url)
         )
 
         self.assertEqual(delete_button.url, full_url)
 
         next_url = reverse("wagtailadmin_explore", args=[page.id])
         delete_button = next(
-            page_listing_more_buttons(
-                page, page_perms, is_parent=False, next_url=next_url
-            )
+            page_listing_more_buttons(page, page_perms, next_url=next_url)
         )
 
         self.assertEqual(delete_button.url, base_url)
@@ -187,13 +187,11 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         page_perms = BasePagePerms()
 
         # no button returned
-        buttons = page_listing_more_buttons(page, page_perms, is_parent=True)
+        buttons = page_listing_more_buttons(page, page_perms)
         self.assertEqual(len(list(buttons)), 0)
 
         page_perms = ReorderOnlyPagePerms()
         # page_listing_more_button generator yields only `Sort menu order button`
-        reorder_button = next(
-            page_listing_more_buttons(page, page_perms, is_parent=True)
-        )
+        reorder_button = next(page_listing_more_buttons(page, page_perms))
 
         self.assertEqual(reorder_button.url, "?ordering=ord")

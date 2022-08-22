@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -74,6 +74,10 @@ msgstr "Kopijuoti šį %s"
 msgid "image"
 msgstr "paveiksliukas"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Atgal į %(model_name)s sąrašą"
+
 msgid "Choose a parent page"
 msgstr "Pasirinkti tėvinį puslapį"
 
@@ -117,9 +121,6 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
-msgid "Home"
-msgstr "Namai"
-
 #, python-format
 msgid "By %(filter_title)s"
 msgstr "Pagal %(filter_title)s"
@@ -145,6 +146,9 @@ msgstr "Ieškoti"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Ieškoti %(name)s"
+
+msgid "Search"
+msgstr "Ieškoti"
 
 msgid "Download XLSX"
 msgstr "Parsiųsti XLSX"
@@ -177,10 +181,6 @@ msgstr "Skaidymas į puslapius"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Puslapis %(current_page)s iš %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Atgal į %(model_name)s sąrašą"
 
 msgid "Previous"
 msgstr "Buvęs"

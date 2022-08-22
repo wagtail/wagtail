@@ -1,0 +1,36 @@
+/**
+ * Field styles reusable across **all** fields, including:
+ * Text input, textarea, checkbox, radio, select, etc.
+ */
+@mixin input-base() {
+  appearance: none;
+  border-radius: theme('borderRadius.DEFAULT');
+  color: $color-input-text;
+  background-color: $color-input-bg;
+  border: 1px solid $color-input-border;
+
+  &:hover {
+    border-color: $color-input-hover-border;
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    color: $color-input-disabled-text;
+    background-color: $color-input-disabled-bg;
+    border-color: $color-input-disabled-border;
+    cursor: not-allowed;
+  }
+
+  // Only show the error state for the specific field in error.
+  .w-field--error > .w-field__input > &,
+  // Allow for one wrapper level within StreamField.
+  .w-field--error > .w-field__input > * > &,
+  // Ideally, individual widgets should show they are in error state with aria-invalid.
+  &[aria-invalid='true'] {
+    border-color: $color-input-error-border;
+  }
+
+  &::placeholder {
+    color: $color-input-disabled-text;
+  }
+}

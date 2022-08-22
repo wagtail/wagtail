@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,9 +22,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Felhasználók"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Kötelező. Maximum 30 karakter és csak netűk, számok, @/./+/-/_ jelek."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -195,9 +192,6 @@ msgstr "Csoport tagjainak megtekintése"
 msgid "Save"
 msgstr "Mentés"
 
-msgid "Permissions"
-msgstr "Engedélyek"
-
 msgid "Object permissions"
 msgstr "Rekord jogosultságok"
 
@@ -283,10 +277,6 @@ msgstr "Aktív"
 
 msgid "Inactive"
 msgstr "Kikapcsolt"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

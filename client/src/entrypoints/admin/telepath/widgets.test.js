@@ -14,7 +14,6 @@ window.$ = $;
 window.comments = {
   getContentPath: jest.fn(),
 };
-window.draftail.getSplitControl = jest.fn(window.draftail.getSplitControl);
 
 describe('telepath: wagtail.widgets.Widget', () => {
   let boundWidget;
@@ -223,29 +222,34 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
     // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.PageChooser',
+      // Copy of wagtailadmin/widgets/chooser.html. Make sure to update when making changes to the template.
       _args: [
         `<div id="__ID__-chooser" class="chooser page-chooser blank" data-chooser-url="/admin/choose-page/">
           <div class="chosen">
-            <span class="title"></span>
-            <ul class="actions">
+          <div class="chooser__preview" role="presentation"></div>
+          <div class="chooser__title" data-chooser-title id="__ID__-title"></div>
+            <ul class="chooser__actions">
               <li>
-                <button type="button" class="button action-choose button-small button-secondary">
-                  Choose another page
+                <button type="button" class="button action-choose button-small button-secondary" aria-describedby="__ID__-title">
+                  Change
                 </button>
               </li>
               <li>
-                <a href=""
-                   class="edit-link button button-small button-secondary"
-                   target="_blank"
-                   rel="noreferrer">
-                  Edit this page
+                <a
+                  href=""
+                  class="edit-link button button-small button-secondary"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-describedby="__ID__-title"
+                >
+                  Edit
                 </a>
               </li>
             </ul>
           </div>
           <div class="unchosen">
-            <button type="button" class="button action-choose button-small button-secondary">
-              Choose a page
+            <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">
+              <svg class="icon icon-doc-empty-inverse" aria-hidden="true"><use href="#icon-doc-empty-inverse"></use></svg>Choose a page
             </button>
           </div>
         </div>
@@ -301,10 +305,17 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
     expect(document.querySelector('input').value).toBe('');
   });
 
-  test('focus() focuses the input', () => {
+  test('focus() focuses the choose-another-page button when widget is populated', () => {
     boundWidget.focus();
 
-    // Note: This widget always focuses the unchosen button, even if it has a value
+    expect(document.activeElement).toBe(
+      document.querySelector('.chosen button'),
+    );
+  });
+  test('focus() focuses the choose-a-page button when widget is blank', () => {
+    boundWidget.setState(null);
+    boundWidget.focus();
+
     expect(document.activeElement).toBe(
       document.querySelector('.unchosen button'),
     );
@@ -416,7 +427,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
                 icon: 'link',
                 description: 'Link',
                 attributes: ['url', 'id', 'parentId'],
-                whitelist: {
+                allowlist: {
                   href: '^(http:|https:|undefined$)',
                 },
               },
@@ -427,7 +438,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
                 icon: 'image',
                 description: 'Image',
                 attributes: ['id', 'src', 'alt', 'format'],
-                whitelist: {
+                allowlist: {
                   id: true,
                 },
               },
@@ -540,22 +551,17 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     );
   });
 
-  test('setCapabilityOptions for split updates the editor controls', () => {
+  test('setCapabilityOptions for split updates the editor commands', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: false }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
-    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
-      parentCapabilities.get('split').fn,
-      false,
-    );
+    expect(inputElement.draftailEditor.props.commands).toHaveLength(2);
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: true }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
-    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
-      parentCapabilities.get('split').fn,
-      true,
+    expect(inputElement.draftailEditor.props.commands).toHaveLength(3);
+    expect(inputElement.draftailEditor.props.commands[2].items[0].type).toBe(
+      'split',
     );
   });
 });

@@ -8,6 +8,7 @@ from django.urls import reverse
 from wagtail import hooks
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
+from wagtail.admin.ui.side_panels import PageSidePanels
 from wagtail.models import Page, UserPagePermissionsProxy
 
 
@@ -93,9 +94,18 @@ def index(request, parent_page_id=None):
 
     show_ordering_column = request.GET.get("ordering") == "ord"
 
+    side_panels = PageSidePanels(
+        request,
+        parent_page.specific,
+        in_explorer=True,
+        preview_enabled=False,
+        comments_enabled=False,
+    )
+
     context = {
         "parent_page": parent_page.specific,
         "ordering": ordering,
+        "side_panels": side_panels,
         "pages": pages,
         "do_paginate": do_paginate,
         "locale": None,

@@ -20,22 +20,14 @@
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
-        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        <div class="nice-padding">
+            {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
-        <ul class="objects">
-            <li class="object">
-                <div class="title-wrapper">
-                    <label>
-                        {% trans "Assign your workflow to pages" %}
-                    </label>
-                </div>
-                <div class="object-layout">
-                    <div class="object-layout_big-part">
-                        {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
-                    </div>
-                </div>
-            </li>
-        </ul>
+            {% trans "Assign your workflow to pages" as heading %}
+            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=heading %}
+                {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+            {% endpanel %}
+        </div>
 
         {% block footer %}
             <footer class="footer" role="contentinfo">

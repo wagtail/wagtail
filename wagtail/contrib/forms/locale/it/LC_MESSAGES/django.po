@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -156,27 +156,6 @@ msgstr "Modulistica"
 msgid "Pages"
 msgstr "Pagine"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Invio di %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Form data <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Download XLSX"
-msgstr "Scarica XLSX"
-
-msgid "Download CSV"
-msgstr "Scarica CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Non ci sono invii del form '%(title)s' "
-
 msgid "Title"
 msgstr "Titolo"
 
@@ -194,6 +173,26 @@ msgstr "Ultimi invii"
 
 msgid "No form pages have been created."
 msgstr "Nessuna pagina form è stata creata."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Invio di %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Scarica XLSX"
+
+msgid "Download CSV"
+msgstr "Scarica CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Non ci sono invii del form '%(title)s' "
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Applica filtri"
 
 #, python-format
 msgid "One submission has been deleted."

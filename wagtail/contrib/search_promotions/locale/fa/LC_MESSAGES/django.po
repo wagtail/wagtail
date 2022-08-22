@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amir Mahmoodi, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +69,7 @@ msgstr "حرکت به بالا"
 msgid "Move down"
 msgstr "حرکت به پایین"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "نتایج جستجوی ترویج شده"
 
 msgid "Add recommended page"
@@ -76,9 +77,6 @@ msgstr "افزودن صفحه توصیه شده"
 
 msgid "Search Terms"
 msgstr "عبارات جستجو"
-
-msgid "Promoted search results"
-msgstr "نتایج جستجوی ترویج شده"
 
 msgid "Add new promoted result"
 msgstr "افزودن نتیجه ترویج شده جدید"
@@ -97,6 +95,12 @@ msgstr "ویرایش این ترویج"
 
 msgid "None"
 msgstr "خالی"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s مورد همخوانی دارد"
+msgstr[1] "%(counter)s مورد همخوانی دارد"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

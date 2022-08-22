@@ -7,32 +7,36 @@
     Any element with the 'action-choose' class will open the page chooser modal
     when clicked.
 {% endcomment %}
+{% fragment as title_id %}{{ attrs.id }}-title{% endfragment %}
 <div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}{% if classname %}{{ classname }}{% endif %}{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% if chooser_url %}data-chooser-url="{{ chooser_url }}"{% endif %}{% endblock %}>
 
     <div class="chosen">
-        {% block chosen_icon %}{% if icon %}{% icon name=icon %}{% endif %}{% endblock chosen_icon %}
+        {% block chosen_icon %}
+            <div class="chooser__preview" role="presentation">
+                {% if icon %}{% icon name=icon %}{% endif %}
+            </div>
+        {% endblock chosen_icon %}
         {% block chosen_state_view %}
-            <span class="title">{{ display_title }}</span>
+            <div class="chooser__title" data-chooser-title id="{{ title_id }}">{{ display_title }}</div>
         {% endblock %}
 
-        <ul class="actions">
-            {% if not widget.is_required and widget.show_clear_link %}
-                <li><button type="button" class="button action-clear button-small button-secondary">{{ widget.clear_choice_text }}</button></li>
-            {% endif %}
-            <li><button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_another_text }}</button></li>
+        <ul class="chooser__actions">
+            <li><button type="button" class="button action-choose button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.choose_another_text }}</button></li>
             {% if widget.show_edit_link %}
                 <li>
                     {% block edit_link %}
-                        <a href="{% block edit_chosen_item_url %}{{ edit_url }}{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">{{ widget.link_to_chosen_text }}</a>
+                        <a href="{% block edit_chosen_item_url %}{{ edit_url }}{% endblock %}" aria-describedby="{{ title_id }}" class="edit-link button button-small button-secondary{% if not edit_url %} w-hidden{% endif %}" target="_blank" rel="noreferrer">{{ widget.link_to_chosen_text }}</a>
                     {% endblock %}
                 </li>
+            {% endif %}
+            {% if not widget.is_required and widget.show_clear_link %}
+                <li><button type="button" class="button action-clear button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.clear_choice_text }}</button></li>
             {% endif %}
         </ul>
     </div>
 
     <div class="unchosen">
-        {% block unchosen_icon %}{% if icon %}{% icon name=icon %}{% endif %}{% endblock unchosen_icon %}
-        <button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
+        <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">{% block unchosen_icon %}{% icon name=icon|default:"plus-inverse" %}{% endblock unchosen_icon %}{{ widget.choose_one_text }}</button>
     </div>
 </div>
 

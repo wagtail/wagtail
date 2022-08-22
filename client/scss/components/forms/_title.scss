@@ -1,0 +1,34 @@
+// Styles for title fields throughout the page.
+// The `title` class is meant to be applied by end users throughout different forms APIs.
+.w-panel.title,
+.w-field.title {
+  input,
+  textarea,
+  .Draftail-Editor .public-DraftEditor-content {
+    @apply w-h2;
+    color: $color-input-text;
+  }
+}
+
+// Styles for the title field when at the top of the page.
+// It’s the first panel when comments are disabled, second if enabled.
+.w-panel.title:nth-child(1),
+.w-panel.title:nth-child(2) {
+  .w-panel__header {
+    @apply w-sr-only;
+  }
+
+  input,
+  textarea,
+  .Draftail-Editor .public-DraftEditor-content {
+    @apply w-h1;
+    color: $color-input-text;
+    // Slightly out-dented so the field’s is horizontally aligned.
+    padding-inline-start: theme('spacing[1.5]');
+    margin-inline-start: calc(-1 * theme('spacing[1.5]'));
+
+    &:not(:hover, :focus, [aria-invalid='true']) {
+      border-color: transparent;
+    }
+  }
+}

@@ -79,6 +79,12 @@ def get_js_translation_strings():
                 "ALL": _("All {0} users on this screen selected"),
                 "ALL_IN_LISTING": _("All users in listing selected"),
             },
+            "SNIPPET": {
+                "SINGULAR": _("1 snippet selected"),
+                "PLURAL": _("{0} snippets selected"),
+                "ALL": _("All {0} snippets on this screen selected"),
+                "ALL_IN_LISTING": _("All snippets in listing selected"),
+            },
             "ITEM": {
                 "SINGULAR": _("1 item selected"),
                 "PLURAL": _("{0} items selected"),

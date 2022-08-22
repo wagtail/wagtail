@@ -1,35 +1,16 @@
-.Draftail-Toolbar {
-  display: flex;
-  flex-wrap: wrap;
-
-  .Draftail-ToolbarGroup:last-child {
-    flex-grow: 1;
-  }
-
-  .Draftail-CommentControl {
-    float: right;
-    color: $color-teal;
-  }
-}
-
 .Draftail-CommentControl .Draftail-ToolbarButton {
-  .icon-comment-large-outline {
-    display: block;
+  color: theme('colors.secondary.100');
+
+  .icon {
+    width: 1.875rem;
+    height: 1.875rem;
   }
 
-  .icon-comment-large-reversed {
+  &:not(:hover) .icon-comment-add-reversed {
     display: none;
   }
 
-  &:hover {
-    border-color: transparent;
-
-    .icon-comment-large-outline {
-      display: none;
-    }
-
-    .icon-comment-large-reversed {
-      display: block;
-    }
+  &:hover .icon-comment-add {
+    display: none;
   }
 }

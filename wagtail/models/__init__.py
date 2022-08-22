@@ -23,7 +23,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    PermissionDenied,
+    ValidationError,
+)
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
@@ -68,6 +72,7 @@ from wagtail.coreutils import (
 )
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet
 from wagtail.search import index
@@ -227,12 +232,14 @@ class RevisionMixin(models.Model):
     @property
     def revisions(self):
         """
-        Returns revisions that belong to this object.
+        Returns revisions that belong to the object.
 
-        Subclasses should define a GenericRelation to Revision and override
-        this property to return that GenericRelation. This allows subclasses
-        to customise the `related_query_name` of the GenericRelation and add
-        some custom logic (e.g. to always use the specific instance in Page).
+        Subclasses should define a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
+        :class:`~wagtail.models.Revision` and override this property to return
+        that ``GenericRelation``. This allows subclasses to customise the
+        ``related_query_name`` of the ``GenericRelation`` and add custom logic
+        (e.g. to always use the specific instance in ``Page``).
         """
         return Revision.objects.filter(
             content_type=self.get_content_type(),
@@ -258,6 +265,10 @@ class RevisionMixin(models.Model):
         return self.latest_revision
 
     def get_latest_revision_as_object(self):
+        """
+        Returns the latest revision of the object as an instance of the model.
+        If no latest revision exists, returns the object itself.
+        """
         latest_revision = self.get_latest_revision()
         if latest_revision:
             return latest_revision.as_object()
@@ -290,7 +301,8 @@ class RevisionMixin(models.Model):
 
         * ``latest_revision``
 
-        If ``TranslatableMixin`` is applied, the following field values are also preserved:
+        If :class:`~wagtail.models.TranslatableMixin` is applied, the following field values
+        are also preserved:
 
         * ``translation_key``
         * ``locale``
@@ -326,15 +338,17 @@ class RevisionMixin(models.Model):
     ):
         """
         Creates and saves a revision.
-        :param user: the user performing the action
-        :param submitted_for_moderation: indicates whether the object was submitted for moderation
-        :param approved_go_live_at: the date and time the revision is approved to go live
-        :param changed: indicates whether there were any content changes
-        :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
-            Defaults to 'wagtail.edit' when no 'previous_revision' param is passed, otherwise 'wagtail.revert'
-        :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
-        :param clean: Set this to False to skip cleaning object content before saving this revision
-        :return: the newly created revision
+
+        :param user: The user performing the action.
+        :param submitted_for_moderation: Indicates whether the object was submitted for moderation.
+        :param approved_go_live_at: The date and time the revision is approved to go live.
+        :param changed: Indicates whether there were any content changes.
+        :param log_action: Flag for logging the action. Pass ``False`` to skip logging. Can be passed an action string.
+            Defaults to ``"wagtail.edit"`` when no ``previous_revision`` param is passed, otherwise ``"wagtail.revert"``.
+        :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
+        :type previous_revision: Revision
+        :param clean: Set this to ``False`` to skip cleaning object content before saving this revision.
+        :return: The newly created revision.
         """
         if clean:
             self.full_clean()
@@ -466,6 +480,17 @@ class DraftStateMixin(models.Model):
     def publish(
         self, revision, user=None, changed=True, log_action=True, previous_revision=None
     ):
+        """
+        Publish a revision of the object by applying the changes in the revision to the live object.
+
+        :param revision: Revision to publish.
+        :type revision: Revision
+        :param user: The publishing user.
+        :param changed: Indicated whether content has changed.
+        :param log_action: Flag for the logging action, pass ``False`` to skip logging.
+        :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
+        :type previous_revision: Revision
+        """
         return PublishRevisionAction(
             revision,
             user=user,
@@ -475,6 +500,14 @@ class DraftStateMixin(models.Model):
         ).execute()
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
+        """
+        Unpublish the live object.
+
+        :param set_expired: Mark the object as expired.
+        :param commit: Commit the changes to the database.
+        :param user: The unpublishing user.
+        :param log_action: Flag for the logging action, pass ``False`` to skip logging.
+        """
         return UnpublishAction(
             self,
             set_expired=set_expired,
@@ -485,23 +518,12 @@ class DraftStateMixin(models.Model):
 
     def with_content_json(self, content):
         """
-        Returns a new version of the object with field values updated to reflect changes
-        in the provided ``content`` (which usually comes from a previously-saved revision).
+        Similar to :meth:`RevisionMixin.with_content_json`,
+        but with the following fields also preserved:
 
-        Certain field values are preserved in order to prevent errors if the returned
-        object is saved, such as ``id``. The following field values are also preserved,
-        as they are considered to be meaningful to the object as a whole, rather than
-        to a specific revision:
-
-        * ``latest_revision``
         * ``live``
         * ``has_unpublished_changes``
         * ``first_published_at``
-
-        If ``TranslatableMixin`` is applied, the following field values are also preserved:
-
-        * ``translation_key``
-        * ``locale``
         """
         obj = super().with_content_json(content)
 
@@ -541,7 +563,260 @@ class DraftStateMixin(models.Model):
         self.save(update_fields=update_fields)
 
 
+class PreviewableMixin:
+    """A mixin that allows a model to have previews."""
+
+    def make_preview_request(
+        self, original_request=None, preview_mode=None, extra_request_attrs=None
+    ):
+        """
+        Simulate a request to this object, by constructing a fake HttpRequest object that is (as far
+        as possible) representative of a real request to this object's front-end URL, and invoking
+        serve_preview with that request (and the given preview_mode).
+
+        Used for previewing / moderation and any other place where we
+        want to display a view of this object in the admin interface without going through the regular
+        page routing logic.
+
+        If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
+        will be included in the dummy request.
+        """
+        dummy_meta = self._get_dummy_headers(original_request)
+        request = WSGIRequest(dummy_meta)
+
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
+
+        if extra_request_attrs:
+            for k, v in extra_request_attrs.items():
+                setattr(request, k, v)
+
+        obj = self
+
+        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
+        # the eventual view function called at the end of the middleware chain, rather than going
+        # through the URL resolver
+        class Handler(BaseHandler):
+            def _get_response(self, request):
+                request.is_preview = True
+                request.preview_mode = preview_mode
+                response = obj.serve_preview(request, preview_mode)
+                if hasattr(response, "render") and callable(response.render):
+                    response = response.render()
+                patch_cache_control(response, private=True)
+                return response
+
+        # Invoke this custom handler.
+        handler = Handler()
+        handler.load_middleware()
+        return handler.get_response(request)
+
+    def _get_dummy_headers(self, original_request=None):
+        """
+        Return a dict of META information to be included in a faked HttpRequest object to pass to
+        serve_preview.
+        """
+        url = self._get_dummy_header_url(original_request)
+        if url:
+            url_info = urlparse(url)
+            hostname = url_info.hostname
+            path = url_info.path
+            port = url_info.port or (443 if url_info.scheme == "https" else 80)
+            scheme = url_info.scheme
+        else:
+            # Cannot determine a URL to this object - cobble one together based on
+            # whatever we find in ALLOWED_HOSTS
+            try:
+                hostname = settings.ALLOWED_HOSTS[0]
+                if hostname == "*":
+                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
+                    # So we pretend it isn't there.
+                    raise IndexError
+            except IndexError:
+                hostname = "localhost"
+            path = "/"
+            port = 80
+            scheme = "http"
+
+        http_host = hostname
+        if port != (443 if scheme == "https" else 80):
+            http_host = "%s:%s" % (http_host, port)
+        dummy_values = {
+            "REQUEST_METHOD": "GET",
+            "PATH_INFO": path,
+            "SERVER_NAME": hostname,
+            "SERVER_PORT": port,
+            "SERVER_PROTOCOL": "HTTP/1.1",
+            "HTTP_HOST": http_host,
+            "wsgi.version": (1, 0),
+            "wsgi.input": StringIO(),
+            "wsgi.errors": StringIO(),
+            "wsgi.url_scheme": scheme,
+            "wsgi.multithread": True,
+            "wsgi.multiprocess": True,
+            "wsgi.run_once": False,
+        }
+
+        # Add important values from the original request object, if it was provided.
+        HEADERS_FROM_ORIGINAL_REQUEST = [
+            "REMOTE_ADDR",
+            "HTTP_X_FORWARDED_FOR",
+            "HTTP_COOKIE",
+            "HTTP_USER_AGENT",
+            "HTTP_AUTHORIZATION",
+            "wsgi.version",
+            "wsgi.multithread",
+            "wsgi.multiprocess",
+            "wsgi.run_once",
+        ]
+        if settings.SECURE_PROXY_SSL_HEADER:
+            HEADERS_FROM_ORIGINAL_REQUEST.append(settings.SECURE_PROXY_SSL_HEADER[0])
+        if original_request:
+            for header in HEADERS_FROM_ORIGINAL_REQUEST:
+                if header in original_request.META:
+                    dummy_values[header] = original_request.META[header]
+
+        return dummy_values
+
+    def _get_dummy_header_url(self, original_request=None):
+        """
+        Return the URL that _get_dummy_headers() should use to set META headers
+        for the faked HttpRequest.
+        """
+        return self.full_url
+
+    def get_full_url(self):
+        return None
+
+    full_url = property(get_full_url)
+
+    DEFAULT_PREVIEW_MODES = [("", _("Default"))]
+
+    @property
+    def preview_modes(self):
+        """
+        A list of ``(internal_name, display_name)`` tuples for the modes in which
+        this object can be displayed for preview/moderation purposes. Ordinarily an object
+        will only have one display mode, but subclasses can override this -
+        for example, a page containing a form might have a default view of the form,
+        and a post-submission 'thank you' page.
+        """
+        return PreviewableMixin.DEFAULT_PREVIEW_MODES
+
+    @property
+    def default_preview_mode(self):
+        """
+        The default preview mode to use in live preview.
+        This default is also used in areas that do not give the user the option of selecting a
+        mode explicitly, e.g. in the moderator approval workflow.
+        If ``preview_modes`` is empty, an ``IndexError`` will be raised.
+        """
+        return self.preview_modes[0][0]
+
+    def is_previewable(self):
+        """Returns ``True`` if at least one preview mode is specified in ``preview_modes``."""
+        return bool(self.preview_modes)
+
+    def serve_preview(self, request, mode_name):
+        """
+        Returns an HTTP response for use in object previews.
+
+        This method can be overridden to implement custom rendering and/or
+        routing logic.
+
+        Any templates rendered during this process should use the ``request``
+        object passed here - this ensures that ``request.user`` and other
+        properties are set appropriately for the wagtail user bar to be
+        displayed/hidden. This request will always be a GET.
+        """
+        return TemplateResponse(
+            request,
+            self.get_preview_template(request, mode_name),
+            self.get_preview_context(request, mode_name),
+        )
+
+    def get_preview_context(self, request, mode_name):
+        """
+        Returns a context dictionary for use in templates for previewing this object.
+        """
+        return {"object": self, "request": request}
+
+    def get_preview_template(self, request, mode_name):
+        """
+        Returns a template to be used when previewing this object.
+
+        Subclasses of ``PreviewableMixin`` must override this method to return the
+        template name to be used in the preview. Alternatively, subclasses can also
+        override the ``serve_preview`` method to completely customise the preview
+        rendering logic.
+        """
+        raise ImproperlyConfigured(
+            "%s (subclass of PreviewableMixin) must override get_preview_template or serve_preview"
+            % type(self).__name__
+        )
+
+
+class LockableMixin(models.Model):
+    locked = models.BooleanField(
+        verbose_name=_("locked"), default=False, editable=False
+    )
+    locked_at = models.DateTimeField(
+        verbose_name=_("locked at"), null=True, editable=False
+    )
+    locked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("locked by"),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name="locked_pages",
+    )
+
+    class Meta:
+        abstract = True
+
+    def with_content_json(self, content):
+        """
+        Returns a new version of the object with field values updated to reflect changes
+        in the provided ``content`` (which usually comes from a previously-saved revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        object is saved, such as ``id``. The following field values are also preserved,
+        as they are considered to be meaningful to the object as a whole, rather than
+        to a specific revision:
+
+        * ``locked``
+        * ``locked_at``
+        * ``locked_by``
+        """
+        obj = super().with_content_json(content)
+
+        # Ensure other values that are meaningful for the object as a whole (rather than
+        # to a specific revision) are preserved
+        obj.locked = self.locked
+        obj.locked_at = self.locked_at
+        obj.locked_by = self.locked_by
+
+        return obj
+
+    def get_lock(self):
+        """
+        Returns a sub-class of BaseLock if the instance is locked, otherwise None
+        """
+        if self.locked:
+            return BasicLock(self)
+
+        if (
+            isinstance(self, DraftStateMixin)
+            and self.revisions.filter(approved_go_live_at__isnull=False).exists()
+        ):
+            return ScheduledForPublishLock(self)
+
+
 class AbstractPage(
+    LockableMixin,
+    PreviewableMixin,
     DraftStateMixin,
     RevisionMixin,
     TranslatableMixin,
@@ -616,22 +891,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         help_text=_(
             "The descriptive text displayed underneath a headline in search engine results."
         ),
-    )
-
-    locked = models.BooleanField(
-        verbose_name=_("locked"), default=False, editable=False
-    )
-    locked_at = models.DateTimeField(
-        verbose_name=_("locked at"), null=True, editable=False
-    )
-    locked_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("locked by"),
-        null=True,
-        blank=True,
-        editable=False,
-        on_delete=models.SET_NULL,
-        related_name="locked_pages",
     )
 
     latest_revision_created_at = models.DateTimeField(
@@ -1055,7 +1314,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self
 
         if isinstance(self, model_class):
-            # self is already the an instance of the most specific class
+            # self is already an instance of the most specific class.
             return self
 
         if deferred:
@@ -1310,9 +1569,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         This is called by Wagtail whenever a page with aliases is published.
 
-        :param revision: The revision of the original page that we are updating to (used for logging purposes)
+        :param revision: The revision of the original page that we are updating to (used for logging purposes).
         :type revision: Revision, optional
-        :param user: The user who is publishing (used for logging purposes)
+        :param user: The user who is publishing (used for logging purposes).
         :type user: User, optional
         """
         specific_self = self.specific
@@ -1468,14 +1727,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return context
 
+    def get_preview_context(self, request, mode_name):
+        return self.get_context(request)
+
     def get_template(self, request, *args, **kwargs):
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
             return self.ajax_template or self.template
         else:
             return self.template
 
+    def get_preview_template(self, request, mode_name):
+        return self.get_template(request)
+
     def serve(self, request, *args, **kwargs):
-        request.is_preview = getattr(request, "is_preview", False)
+        request.is_preview = False
 
         return TemplateResponse(
             request,
@@ -1968,143 +2233,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def make_preview_request(
-        self, original_request=None, preview_mode=None, extra_request_attrs=None
-    ):
-        """
-        Simulate a request to this page, by constructing a fake HttpRequest object that is (as far
-        as possible) representative of a real request to this page's front-end URL, and invoking
-        serve_preview with that request (and the given preview_mode).
-
-        Used for previewing / moderation and any other place where we
-        want to display a view of this page in the admin interface without going through the regular
-        page routing logic.
-
-        If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
-        will be included in the dummy request.
-        """
-        dummy_meta = self._get_dummy_headers(original_request)
-        request = WSGIRequest(dummy_meta)
-
-        # Add a flag to let middleware know that this is a dummy request.
-        request.is_dummy = True
-
-        if extra_request_attrs:
-            for k, v in extra_request_attrs.items():
-                setattr(request, k, v)
-
-        page = self
-
-        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
-        # the eventual view function called at the end of the middleware chain, rather than going
-        # through the URL resolver
-        class Handler(BaseHandler):
-            def _get_response(self, request):
-                response = page.serve_preview(request, preview_mode)
-                if hasattr(response, "render") and callable(response.render):
-                    response = response.render()
-                return response
-
-        # Invoke this custom handler.
-        handler = Handler()
-        handler.load_middleware()
-        return handler.get_response(request)
-
-    def _get_dummy_headers(self, original_request=None):
-        """
-        Return a dict of META information to be included in a faked HttpRequest object to pass to
-        serve_preview.
-        """
-        url = self._get_dummy_header_url(original_request)
-        if url:
-            url_info = urlparse(url)
-            hostname = url_info.hostname
-            path = url_info.path
-            port = url_info.port or (443 if url_info.scheme == "https" else 80)
-            scheme = url_info.scheme
-        else:
-            # Cannot determine a URL to this page - cobble one together based on
-            # whatever we find in ALLOWED_HOSTS
-            try:
-                hostname = settings.ALLOWED_HOSTS[0]
-                if hostname == "*":
-                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
-                    # So we pretend it isn't there.
-                    raise IndexError
-            except IndexError:
-                hostname = "localhost"
-            path = "/"
-            port = 80
-            scheme = "http"
-
-        http_host = hostname
-        if port != (443 if scheme == "https" else 80):
-            http_host = "%s:%s" % (http_host, port)
-        dummy_values = {
-            "REQUEST_METHOD": "GET",
-            "PATH_INFO": path,
-            "SERVER_NAME": hostname,
-            "SERVER_PORT": port,
-            "SERVER_PROTOCOL": "HTTP/1.1",
-            "HTTP_HOST": http_host,
-            "wsgi.version": (1, 0),
-            "wsgi.input": StringIO(),
-            "wsgi.errors": StringIO(),
-            "wsgi.url_scheme": scheme,
-            "wsgi.multithread": True,
-            "wsgi.multiprocess": True,
-            "wsgi.run_once": False,
-        }
-
-        # Add important values from the original request object, if it was provided.
-        HEADERS_FROM_ORIGINAL_REQUEST = [
-            "REMOTE_ADDR",
-            "HTTP_X_FORWARDED_FOR",
-            "HTTP_COOKIE",
-            "HTTP_USER_AGENT",
-            "HTTP_AUTHORIZATION",
-            "wsgi.version",
-            "wsgi.multithread",
-            "wsgi.multiprocess",
-            "wsgi.run_once",
-        ]
-        if settings.SECURE_PROXY_SSL_HEADER:
-            HEADERS_FROM_ORIGINAL_REQUEST.append(settings.SECURE_PROXY_SSL_HEADER[0])
-        if original_request:
-            for header in HEADERS_FROM_ORIGINAL_REQUEST:
-                if header in original_request.META:
-                    dummy_values[header] = original_request.META[header]
-
-        return dummy_values
-
-    def _get_dummy_header_url(self, original_request=None):
-        """
-        Return the URL that _get_dummy_headers() should use to set META headers
-        for the faked HttpRequest.
-        """
-        return self.full_url
-
-    DEFAULT_PREVIEW_MODES = [("", _("Default"))]
-
-    @property
-    def preview_modes(self):
-        """
-        A list of (internal_name, display_name) tuples for the modes in which
-        this page can be displayed for preview/moderation purposes. Ordinarily a page
-        will only have one display mode, but subclasses of Page can override this -
-        for example, a page containing a form might have a default view of the form,
-        and a post-submission 'thank you' page
-        """
-        return Page.DEFAULT_PREVIEW_MODES
-
-    @property
-    def default_preview_mode(self):
-        """
-        The preview mode to use in workflows that do not give the user the option of selecting a
-        mode explicitly, e.g. moderator approval. Will raise IndexError if preview_modes is empty
-        """
-        return self.preview_modes[0][0]
-
     def is_previewable(self):
         """Returns True if at least one preview mode is specified"""
         # It's possible that this will be called from a listing page using a plain Page queryset -
@@ -2119,37 +2247,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return bool(page.preview_modes)
 
-    def serve_preview(self, request, mode_name):
-        """
-        Return an HTTP response for use in page previews. Normally this would be equivalent
-        to self.serve(request), since we obviously want the preview to be indicative of how
-        it looks on the live site. However, there are a couple of cases where this is not
-        appropriate, and custom behaviour is required:
+    def get_lock(self):
+        # Standard locking should take precedence over workflow locking
+        # because it's possible for both to be used at the same time
+        lock = super().get_lock()
+        if lock:
+            return lock
 
-        1) The page has custom routing logic that derives some additional required
-        args/kwargs to be passed to serve(). The routing mechanism is bypassed when
-        previewing, so there's no way to know what args we should pass. In such a case,
-        the page model needs to implement its own version of serve_preview.
-
-        2) The page has several different renderings that we would like to be able to see
-        when previewing - for example, a form page might have one rendering that displays
-        the form, and another rendering to display a landing page when the form is posted.
-        This can be done by setting a custom preview_modes list on the page model -
-        Wagtail will allow the user to specify one of those modes when previewing, and
-        pass the chosen mode_name to serve_preview so that the page model can decide how
-        to render it appropriately. (Page models that do not specify their own preview_modes
-        list will always receive an empty string as mode_name.)
-
-        Any templates rendered during this process should use the 'request' object passed
-        here - this ensures that request.user and other properties are set appropriately for
-        the wagtail user bar to be displayed. This request will always be a GET.
-        """
-        request.is_preview = True
-        request.preview_mode = mode_name
-
-        response = self.serve(request)
-        patch_cache_control(response, private=True)
-        return response
+        current_workflow_task = self.current_workflow_task
+        if current_workflow_task:
+            return WorkflowLock(current_workflow_task, self)
 
     def get_route_paths(self):
         """
@@ -2487,6 +2594,9 @@ class RevisionQuerySet(models.QuerySet):
 
 
 class RevisionsManager(models.Manager):
+    def get_queryset(self):
+        return RevisionQuerySet(self.model, using=self._db)
+
     def for_instance(self, instance):
         return self.get_queryset().for_instance(instance)
 
@@ -2938,21 +3048,8 @@ class PagePermissionTester:
         return self.page.locked_by_id == self.user.pk
 
     def page_locked(self):
-        current_workflow_task = self.page.current_workflow_task
-        if current_workflow_task:
-            if current_workflow_task.page_locked_for_user(self.page, self.user):
-                return True
-
-        if not self.page.locked:
-            # Page is not locked
-            return False
-
-        if getattr(settings, "WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK", False):
-            # All locks are global
-            return True
-        else:
-            # Locked only if the current user was not the one who locked the page
-            return not self.user_has_lock()
+        lock = self.page.get_lock()
+        return lock and lock.for_user(self.user)
 
     def can_add_subpage(self):
         if not self.user.is_active:

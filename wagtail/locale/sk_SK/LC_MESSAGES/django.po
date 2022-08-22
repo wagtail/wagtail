@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -55,6 +55,39 @@ msgstr "Heslo"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Heslo, ktoré ste zadali, nie je správne. Prosím skúste znovu."
 
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "obsahuje nepublikované zmeny"
+
+msgid "first published at"
+msgstr "prvýkrát publikované"
+
+msgid "last published at"
+msgstr "publikované naposledy"
+
+msgid "go live date/time"
+msgstr "dátum a čas publikácie"
+
+msgid "expiry date/time"
+msgstr "dátum a čas expirácie"
+
+msgid "expired"
+msgstr "expirované"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + draft"
+msgstr "live  + koncept"
+
+msgid "Default"
+msgstr "Predvolené"
+
+msgid "locked"
+msgstr "zamknuté"
+
 msgid "title"
 msgstr "titulok"
 
@@ -74,12 +107,6 @@ msgstr ""
 msgid "content type"
 msgstr "typ obsahu"
 
-msgid "live"
-msgstr "live"
-
-msgid "has unpublished changes"
-msgstr "obsahuje nepublikované zmeny"
-
 msgid "URL path"
 msgstr "URL cesta"
 
@@ -93,24 +120,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Odkaz na túto stránku sa zobrazí v navigácií"
 
-msgid "go live date/time"
-msgstr "dátum a čas publikácie"
-
-msgid "expiry date/time"
-msgstr "dátum a čas expirácie"
-
-msgid "expired"
-msgstr "expirované"
-
-msgid "locked"
-msgstr "zamknuté"
-
-msgid "first published at"
-msgstr "prvýkrát publikované"
-
-msgid "last published at"
-msgstr "publikované naposledy"
-
 msgid "latest revision created at"
 msgstr "posledná revízia vytvorená"
 
@@ -119,15 +128,6 @@ msgstr "Tento slug sa už používa"
 
 msgid "scheduled"
 msgstr "naplánované"
-
-msgid "draft"
-msgstr "koncept"
-
-msgid "live + draft"
-msgstr "live  + koncept"
-
-msgid "Default"
-msgstr "Predvolené"
 
 msgid "page"
 msgstr "stránka"
@@ -149,12 +149,6 @@ msgstr "obsah JSON"
 
 msgid "approved go live at"
 msgstr "schválené na zverejnenie"
-
-msgid "page revision"
-msgstr "revízia stránky"
-
-msgid "page revisions"
-msgstr "revízie stránky"
 
 msgid "Add/edit pages you own"
 msgstr "Pridať/upraviť stránky ktoré vlastníte"
@@ -206,6 +200,9 @@ msgstr "skupiny"
 
 msgid "Approve"
 msgstr "Schváliť"
+
+msgid "page revision"
+msgstr "revízia stránky"
 
 msgid "collection"
 msgstr "kolekcia"
@@ -318,15 +315,6 @@ msgstr "K prístupu na túto stránku potrebujete heslo."
 
 msgid "Continue"
 msgstr "Pokračovať"
-
-msgid "English"
-msgstr "Anglicky"
-
-msgid "French"
-msgstr "Francúzsky"
-
-msgid "German"
-msgstr "Nemecky"
 
 msgid "Edited"
 msgstr "Upravené"

@@ -1,42 +1,30 @@
 import $ from 'jquery';
-import { cleanForSlug } from '../../utils/cleanForSlug';
+import { cleanForSlug } from '../../utils/text';
+import { initCollapsiblePanels } from '../../includes/panels';
 
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]
   const self = {};
 
   // eslint-disable-next-line func-names
-  self.setHasContent = function () {
-    if ($('> li', self.formsUl).not('.deleted').length) {
-      self.formsUl.parent().removeClass('empty');
-    } else {
-      self.formsUl.parent().addClass('empty');
-    }
-  };
-
-  // eslint-disable-next-line func-names
   self.initChildControls = function (prefix) {
     const childId = 'inline_child_' + prefix;
     const deleteInputId = 'id_' + prefix + '-DELETE';
-
-    // mark container as having children to identify fields in use from those not
-    self.setHasContent();
+    const currentChild = $('#' + childId);
+    const $up = currentChild.find('[data-inline-panel-child-move-up]');
+    const $down = currentChild.find('[data-inline-panel-child-move-down]');
 
     $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
-      $('#' + childId)
-        .addClass('deleted')
-        .slideUp(() => {
-          self.updateMoveButtonDisabledStates();
-          self.updateAddButtonState();
-          self.setHasContent();
-        });
+      currentChild.addClass('deleted').slideUp(() => {
+        self.updateMoveButtonDisabledStates();
+        self.updateAddButtonState();
+      });
     });
 
     if (opts.canOrder) {
-      $('#' + prefix + '-move-up').on('click', () => {
-        const currentChild = $('#' + childId);
+      $up.on('click', () => {
         const currentChildOrderElem = currentChild.children(
           'input[name$="-ORDER"]',
         );
@@ -58,8 +46,7 @@ function InlinePanel(opts) {
         self.updateMoveButtonDisabledStates();
       });
 
-      $('#' + prefix + '-move-down').on('click', () => {
-        const currentChild = $('#' + childId);
+      $down.on('click', () => {
         const currentChildOrderElem = currentChild.children(
           'input[name$="-ORDER"]',
         );
@@ -91,7 +78,6 @@ function InlinePanel(opts) {
         .hide(0, () => {
           self.updateMoveButtonDisabledStates();
           self.updateAddButtonState();
-          self.setHasContent();
         });
 
       $('#' + childId)
@@ -100,20 +86,16 @@ function InlinePanel(opts) {
     }
   };
 
-  self.formsUl = $('#' + opts.formsetPrefix + '-FORMS');
+  self.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
 
-  // eslint-disable-next-line func-names
-  self.updateMoveButtonDisabledStates = function () {
+  self.updateMoveButtonDisabledStates = function updateMoveButtons() {
     if (opts.canOrder) {
-      const forms = self.formsUl.children('li:not(.deleted)');
-      // eslint-disable-next-line func-names
-      forms.each(function (i) {
-        $('ul.controls .inline-child-move-up', this)
-          .toggleClass('disabled', i === 0)
-          .toggleClass('enabled', i !== 0);
-        $('ul.controls .inline-child-move-down', this)
-          .toggleClass('disabled', i === forms.length - 1)
-          .toggleClass('enabled', i !== forms.length - 1);
+      const forms = self.formsElt.children(':not(.deleted)');
+      forms.each(function updateButtonStates(i) {
+        const isFirst = i === 0;
+        const isLast = i === forms.length - 1;
+        $('[data-inline-panel-child-move-up]', this).prop('disabled', isFirst);
+        $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
       });
     }
   };
@@ -121,34 +103,40 @@ function InlinePanel(opts) {
   // eslint-disable-next-line func-names
   self.updateAddButtonState = function () {
     if (opts.maxForms) {
-      const forms = $('> [data-inline-panel-child]', self.formsUl).not(
+      const forms = $('> [data-inline-panel-child]', self.formsElt).not(
         '.deleted',
       );
       const addButton = $('#' + opts.formsetPrefix + '-ADD');
 
       if (forms.length >= opts.maxForms) {
-        addButton.addClass('disabled');
+        addButton.prop('disabled', true);
       } else {
-        addButton.removeClass('disabled');
+        addButton.prop('disabled', false);
       }
     }
   };
 
   // eslint-disable-next-line func-names
   self.animateSwap = function (item1, item2) {
-    const parent = self.formsUl;
-    const children = parent.children('li:not(.deleted)');
+    const parent = self.formsElt;
+    const children = parent.children(':not(.deleted)');
 
-    // Apply moving class to container (ul.multiple) so it can assist absolute positioning of it's children
-    // Also set it's relatively calculated height to be an absolute one,
-    // to prevent the containercollapsing while its children go absolute
-    parent.addClass('moving').css('height', parent.height());
+    // Position children absolutely and add hard-coded height
+    // to prevent scroll jumps when reordering.
+    parent.css({
+      position: 'relative',
+      height: parent.height(),
+    });
 
     children
       .each(function moveChildTop() {
         $(this).css('top', $(this).position().top);
       })
-      .addClass('moving');
+      .css({
+        // Set this after the actual position so the items animate correctly.
+        position: 'absolute',
+        width: '100%',
+      });
 
     // animate swapping around
     item1.animate(
@@ -157,8 +145,8 @@ function InlinePanel(opts) {
       },
       200,
       () => {
-        parent.removeClass('moving').removeAttr('style');
-        children.removeClass('moving').removeAttr('style');
+        parent.removeAttr('style');
+        children.removeAttr('style');
       },
     );
 
@@ -168,8 +156,8 @@ function InlinePanel(opts) {
       },
       200,
       () => {
-        parent.removeClass('moving').removeAttr('style');
-        children.removeClass('moving').removeAttr('style');
+        parent.removeAttr('style');
+        children.removeAttr('style');
       },
     );
   };
@@ -191,6 +179,11 @@ function InlinePanel(opts) {
 
       self.updateMoveButtonDisabledStates();
       self.updateAddButtonState();
+      initCollapsiblePanels(
+        document.querySelectorAll(
+          `#inline_child_${newChildPrefix} [data-panel-toggle]`,
+        ),
+      );
 
       if (opts.onAdd) opts.onAdd();
     },
@@ -241,7 +234,7 @@ function initErrorDetection() {
   // first count up all the errors
   // eslint-disable-next-line func-names
   $('.error-message,.help-critical').each(function () {
-    const parentSection = $(this).closest('section');
+    const parentSection = $(this).closest('section[role="tabpanel"]');
 
     if (!errorSections[parentSection.attr('id')]) {
       errorSections[parentSection.attr('id')] = 0;
@@ -267,7 +260,10 @@ window.initErrorDetection = initErrorDetection;
 function initKeyboardShortcuts() {
   // eslint-disable-next-line no-undef
   Mousetrap.bind(['mod+p'], () => {
-    $('.action-preview').trigger('click');
+    const previewToggle = document.querySelector(
+      '[data-side-panel-toggle="preview"]',
+    );
+    if (previewToggle) previewToggle.click();
     return false;
   });
 
@@ -289,81 +285,6 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
-
-  //
-  // Preview
-  //
-  // In order to make the preview truly reliable, the preview page needs
-  // to be perfectly independent from the edit page,
-  // from the browser perspective. To pass data from the edit page
-  // to the preview page, we send the form after each change
-  // and save it inside the user session.
-
-  const $previewButton = $('.action-preview');
-  const $form = $('#page-edit-form');
-  const previewUrl = $previewButton.data('action');
-  let autoUpdatePreviewDataTimeout = -1;
-
-  function setPreviewData() {
-    return $.ajax({
-      url: previewUrl,
-      method: 'POST',
-      data: new FormData($form[0]),
-      processData: false,
-      contentType: false,
-    });
-  }
-
-  $previewButton.one('click', () => {
-    if ($previewButton.data('auto-update')) {
-      // Form data is changed when field values are changed
-      // (change event), when HTML elements are added, modified, moved,
-      // and deleted (DOMSubtreeModified event), and we need to delay
-      // setPreviewData when typing to avoid useless extra AJAX requests
-      // (so we postpone setPreviewData when keyup occurs).
-
-      // TODO: Replace DOMSubtreeModified with a MutationObserver.
-      $form
-        .on('change keyup DOMSubtreeModified', () => {
-          clearTimeout(autoUpdatePreviewDataTimeout);
-          autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
-        })
-        .trigger('change');
-    }
-  });
-
-  // eslint-disable-next-line func-names
-  $previewButton.on('click', function (e) {
-    e.preventDefault();
-    const $this = $(this);
-    const $icon = $this.filter('.icon');
-    const thisPreviewUrl = $this.data('action');
-    $icon.addClass('icon-spinner').removeClass('icon-view');
-    const previewWindow = window.open('', thisPreviewUrl);
-    previewWindow.focus();
-
-    setPreviewData()
-      .done((data) => {
-        if (data.is_valid) {
-          previewWindow.document.location = thisPreviewUrl;
-        } else {
-          window.focus();
-          previewWindow.close();
-
-          // TODO: Stop sending the form, as it removes file data.
-          $form.trigger('submit');
-        }
-      })
-      .fail(() => {
-        // eslint-disable-next-line no-alert
-        alert('Error while sending preview data.');
-        window.focus();
-        previewWindow.close();
-      })
-      .always(() => {
-        $icon.addClass('icon-view').removeClass('icon-spinner');
-      });
-  });
 });
 
 let updateFooterTextTimeout = -1;
@@ -401,79 +322,3 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
     updateWarnings();
   }
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  const setPanel = (panelName) => {
-    const sidePanelWrapper = document.querySelector('[data-form-side]');
-    const body = document.querySelector('body');
-    // Open / close side panel
-
-    // HACK: For now, the comments will show without the side-panel opening.
-    // They will later be updated so that they render inside the side panel.
-    // We couldn't implement this for Wagtail 3.0 as the existing field styling
-    // renders the "Add comment" button on the right hand side, and this gets
-    // covered up by the side panel.
-
-    if (panelName === '' || panelName === 'comments') {
-      sidePanelWrapper.classList.remove('form-side--open');
-      sidePanelWrapper.removeAttribute('aria-labelledby');
-    } else {
-      sidePanelWrapper.classList.add('form-side--open');
-      sidePanelWrapper.setAttribute(
-        'aria-labelledby',
-        `side-panel-${panelName}-title`,
-      );
-    }
-
-    document.querySelectorAll('[data-side-panel]').forEach((panel) => {
-      if (panel.dataset.sidePanel === panelName) {
-        if (panel.hidden) {
-          // eslint-disable-next-line no-param-reassign
-          panel.hidden = false;
-          panel.dispatchEvent(new CustomEvent('show'));
-          body.classList.add('side-panel-open');
-        }
-      } else if (!panel.hidden) {
-        // eslint-disable-next-line no-param-reassign
-        panel.hidden = true;
-        panel.dispatchEvent(new CustomEvent('hide'));
-        body.classList.remove('side-panel-open');
-      }
-    });
-
-    // Update aria-expanded attribute on the panel toggles
-    document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
-      toggle.setAttribute(
-        'aria-expanded',
-        toggle.dataset.sidePanelToggle === panelName ? 'true' : 'false',
-      );
-    });
-  };
-
-  const togglePanel = (panelName) => {
-    const isAlreadyOpen = !document
-      .querySelector(`[data-side-panel="${panelName}"]`)
-      .hasAttribute('hidden');
-
-    if (isAlreadyOpen) {
-      // Close the sidebar
-      setPanel('');
-    } else {
-      // Open the sidebar / navigate to the panel
-      setPanel(panelName);
-    }
-  };
-
-  document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
-    toggle.addEventListener('click', () => {
-      togglePanel(toggle.dataset.sidePanelToggle);
-    });
-  });
-
-  const closeButton = document.querySelector('[data-form-side-close-button]');
-  if (closeButton instanceof HTMLButtonElement) {
-    closeButton.addEventListener('click', () => {
-      setPanel('');
-    });
-  }
-});

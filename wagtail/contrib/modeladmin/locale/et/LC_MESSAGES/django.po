@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -72,6 +72,10 @@ msgstr "Kopeeri see %s"
 msgid "image"
 msgstr "pilt"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Tagasi %(model_name)s juurde"
+
 msgid "Choose a parent page"
 msgstr "Valige vanemleht"
 
@@ -116,9 +120,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-msgid "Home"
-msgstr "Kodu"
-
 msgid "History"
 msgstr "Ajalugu"
 
@@ -132,6 +133,9 @@ msgstr "Otsima"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Otsi %(name)s"
+
+msgid "Search"
+msgstr "Otsing"
 
 msgid "Download XLSX"
 msgstr "Laadige alla XLSX"
@@ -160,10 +164,6 @@ msgstr "Lehekülgede otsimine"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Leht %(current_page)s %(num_pages)s lehest."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Tagasi %(model_name)s juurde"
 
 msgid "Previous"
 msgstr "Eelmine"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -72,6 +72,48 @@ msgstr "Ο κωδικός που εισαγάγατε δεν είναι σωστ
 msgid "Comment"
 msgstr "Σχόλιο"
 
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "έχει αδημοσίευτες αλλαγές"
+
+msgid "first published at"
+msgstr "πρώτη δημοσίευση στις"
+
+msgid "last published at"
+msgstr "τελευταία δημοσίευση στις"
+
+msgid "live revision"
+msgstr "τρέχουσα αναθεώρηση"
+
+msgid "go live date/time"
+msgstr "ημερομηνία/ώρα δημοσίευσης"
+
+msgid "expiry date/time"
+msgstr "ημερομηνία/ώρα λήξης"
+
+msgid "expired"
+msgstr "έχει λήξει"
+
+msgid "draft"
+msgstr "draft"
+
+msgid "live + draft"
+msgstr "live + draft "
+
+msgid "Default"
+msgstr "Προεπιλογή"
+
+msgid "locked"
+msgstr "κλειδωμένο"
+
+msgid "locked at"
+msgstr "κλειδώθηκε στις"
+
+msgid "locked by"
+msgstr "κλειδώθηκε από"
+
 msgid "title"
 msgstr "τίτλος"
 
@@ -90,12 +132,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "Τύπος περιεχομένου"
-
-msgid "live"
-msgstr "live"
-
-msgid "has unpublished changes"
-msgstr "έχει αδημοσίευτες αλλαγές"
 
 msgid "URL path"
 msgstr "Διεύθυνση URL"
@@ -131,35 +167,8 @@ msgid ""
 msgstr ""
 "Το κείμενο που εμφανίζεται κάτω από την επικεφαλίδα σε μηχανές αναζήτησης"
 
-msgid "go live date/time"
-msgstr "ημερομηνία/ώρα δημοσίευσης"
-
-msgid "expiry date/time"
-msgstr "ημερομηνία/ώρα λήξης"
-
-msgid "expired"
-msgstr "έχει λήξει"
-
-msgid "locked"
-msgstr "κλειδωμένο"
-
-msgid "locked at"
-msgstr "κλειδώθηκε στις"
-
-msgid "locked by"
-msgstr "κλειδώθηκε από"
-
-msgid "first published at"
-msgstr "πρώτη δημοσίευση στις"
-
-msgid "last published at"
-msgstr "τελευταία δημοσίευση στις"
-
 msgid "latest revision created at"
 msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
-
-msgid "live revision"
-msgstr "τρέχουσα αναθεώρηση"
 
 msgid "This slug is already in use"
 msgstr "Το slug χρησιμοποιείται ήδη"
@@ -170,20 +179,11 @@ msgstr "έχει προγραμματιστεί"
 msgid "in moderation"
 msgstr "υπό έλεγχο"
 
-msgid "draft"
-msgstr "draft"
-
 msgid "live + scheduled"
 msgstr "τρέχουσα + προγραμματισμένη"
 
 msgid "live + in moderation"
 msgstr "τρέχουσα + υπό έλεγχο"
-
-msgid "live + draft"
-msgstr "live + draft "
-
-msgid "Default"
-msgstr "Προεπιλογή"
 
 msgid "page"
 msgstr "σελίδα"
@@ -205,12 +205,6 @@ msgstr "περιεχόμενο JSON"
 
 msgid "approved go live at"
 msgstr "εγκρίθηκε να δημοσιευθεί στις"
-
-msgid "page revision"
-msgstr "αναθεώρηση σελίδας"
-
-msgid "page revisions"
-msgstr "αναθεωρήσεις σελίδων"
 
 msgid "Add/edit pages you own"
 msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"
@@ -317,6 +311,9 @@ msgstr "ομάδες"
 msgid "Approve"
 msgstr "Έγκριση"
 
+msgid "page revision"
+msgstr "αναθεώρηση σελίδας"
+
 msgid "Draft saved"
 msgstr "Προσχέδιο αποθηκεύτηκε"
 
@@ -421,15 +418,6 @@ msgstr "Θα χρειαστείτε κωδικό για να δείτε αυτή
 
 msgid "Continue"
 msgstr "Συνέχεια"
-
-msgid "English"
-msgstr "Αγγλικά"
-
-msgid "French"
-msgstr "Γαλλικά"
-
-msgid "German"
-msgstr "Γερμανικά"
 
 msgid "Create"
 msgstr "Δημιουργία"

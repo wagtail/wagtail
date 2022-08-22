@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -160,27 +160,6 @@ msgstr "Формы"
 msgid "Pages"
 msgstr "Страницы"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Заполненные %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Данные формы <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Фильтр"
-
-msgid "Download XLSX"
-msgstr "Скачать XLSX"
-
-msgid "Download CSV"
-msgstr "Скачать CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Форма '%(title)s' еще не заполнялась."
-
 msgid "Title"
 msgstr "Заголовок"
 
@@ -198,6 +177,26 @@ msgstr "Последнее добавление"
 
 msgid "No form pages have been created."
 msgstr "Страниц с формами не было создано."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Заполненные %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Скачать XLSX"
+
+msgid "Download CSV"
+msgstr "Скачать CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Форма '%(title)s' еще не заполнялась."
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Apply filters"
+msgstr "Применить фильтры"
 
 #, python-format
 msgid "One submission has been deleted."

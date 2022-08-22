@@ -84,6 +84,14 @@ class EditPageItem(BaseItem):
         if not self.page.id:
             return ""
 
+        # Don't render if request is a preview. This is to avoid confusion that
+        # might arise when the user clicks edit on a preview.
+        try:
+            if request.is_preview:
+                return ""
+        except AttributeError:
+            pass
+
         # Don't render if user doesn't have permission to access the admin area
         if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""

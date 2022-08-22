@@ -26,7 +26,7 @@ from wagtail.test.modeladmintest.models import (
     Token,
     TranslatableBook,
 )
-from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin
+from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin, EventsAdminGroup
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -411,12 +411,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, "form", "title", "This field is required.")
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
 
     def test_exclude_passed_to_extract_panel_definitions(self):
         path_to_form_fields_exclude_property = (
@@ -601,7 +596,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
         expected = """
             <p class="back">
                     <a href="/admin/modeladmintest/author/">
-                        <svg class="icon default" aria-hidden="true">
+                        <svg class="icon icon-arrow-left default" aria-hidden="true">
                             <use href="#icon-arrow-left"></use>
                         </svg>
                         Back to author list
@@ -685,12 +680,7 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, "form", "title", "This field is required.")
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
 
     def test_exclude_passed_to_extract_panel_definitions(self):
         path_to_form_fields_exclude_property = (
@@ -1112,3 +1102,42 @@ There are no default tabs on non-Page models so there will be no\
         # clean up for future checks
         delattr(Publisher, "content_panels")
         delattr(Publisher, "edit_handler")
+
+
+class TestMenuSetting(TestCase, WagtailTestUtils):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+    def test_default_menu_setting_model_admin(self):
+        modeladmin = BookModelAdmin()
+
+        menu_item = modeladmin.get_menu_item()
+        self.assertEqual(menu_item.label, "Books")
+        self.assertEqual(menu_item.name, "books")
+
+    def test_custom_menu_setting_model_admin(self):
+        modeladmin = BookModelAdmin()
+        modeladmin.menu_label = "Book Model Label"
+        modeladmin.menu_item_name = "bookitem"
+
+        menu_item = modeladmin.get_menu_item()
+        self.assertEqual(menu_item.label, "Book Model Label")
+        self.assertEqual(menu_item.name, "bookitem")
+
+    def test_default_menu_setting_model_admin_group(self):
+        modeladmin = EventsAdminGroup()
+
+        menu_item = modeladmin.get_menu_item()
+        self.assertEqual(menu_item.label, "Events")
+        self.assertEqual(menu_item.name, "events")
+
+    def test_custom_menu_setting_model_admin_group(self):
+        modeladmin = EventsAdminGroup()
+        modeladmin.menu_label = "Event Model Label"
+        modeladmin.menu_item_name = "eventitem"
+
+        menu_item = modeladmin.get_menu_item()
+        self.assertEqual(menu_item.label, "Event Model Label")
+        self.assertEqual(menu_item.name, "eventitem")

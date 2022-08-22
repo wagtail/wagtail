@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -250,15 +250,6 @@ msgstr "Sí, eliminar"
 msgid "No, don't delete"
 msgstr "No, no eliminar"
 
-msgid "Choose an image"
-msgstr "Seleccionar una imagen"
-
-msgid "Search"
-msgstr "Buscar"
-
-msgid "Upload"
-msgstr "Subir"
-
 msgid "Popular tags"
 msgstr "Etiquetas populares"
 
@@ -276,9 +267,6 @@ msgstr "Selecciona un formato"
 
 msgid "Insert image"
 msgstr "Insertar imagen"
-
-msgid "Uploading…"
-msgstr "Subiendo..."
 
 msgid "Change image file:"
 msgstr "Cambiar archivo de imagen:"
@@ -341,9 +329,6 @@ msgstr "Imágenes"
 
 msgid "Popular Tags:"
 msgstr "Etiquetas populares"
-
-msgid "Clear choice"
-msgstr "Borrar selección"
 
 msgid "Select all images in listing"
 msgstr "Seleccionar todas las imágenes de la lista"
@@ -503,6 +488,15 @@ msgstr[0] "%(num_parent_objects)d imagen ha sido eliminada"
 msgstr[1] "%(num_parent_objects)d imágenes han sido eliminadas"
 msgstr[2] "%(num_parent_objects)d imágenes han sido eliminadas"
 
+msgid "Upload"
+msgstr "Subir"
+
+msgid "Uploading…"
+msgstr "Subiendo..."
+
+msgid "Choose an image"
+msgstr "Seleccionar una imagen"
+
 msgid "Search images"
 msgstr "Buscar imágenes"
 
@@ -543,9 +537,3 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s image"
 msgstr[1] "%(count)s imagenes"
 msgstr[2] "%(count)s imagenes"
-
-msgid "Change image"
-msgstr "Cambiar imagen"
-
-msgid "Edit this image"
-msgstr "Editar esta imagen"

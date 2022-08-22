@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2020-2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Hector Garcia <torkoff@gmail.com>, 2022\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2020-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -53,9 +53,6 @@ msgstr "Cancelar flujo de trabajo"
 
 msgid "Unpublish"
 msgstr "Despublicar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Save Draft"
 msgstr "Guardar borrador"
@@ -119,6 +116,18 @@ msgstr "Escribe tu dirección de correo para restablecer tu contraseña"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Término de búsqueda"
+
+msgid "Search"
+msgstr "Búsqueda"
+
+msgid "All collections"
+msgstr "Todas las colecciones"
+
+msgid "Collection"
+msgstr "Colección"
+
 msgid "Parent"
 msgstr "Padre"
 
@@ -136,9 +145,6 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No puedes tener múltiples permisos de registro para una misma colección."
 
-msgid "Collection"
-msgstr "Colección"
-
 msgid "Add"
 msgstr "Agregar"
 
@@ -150,6 +156,9 @@ msgstr "Editar"
 
 msgid "Edit collections"
 msgstr "Editar colecciones"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Delete collections"
 msgstr "Eliminar colecciones"
@@ -232,12 +241,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 
-msgid "Search"
-msgstr "Búsqueda"
-
-msgid "Search term"
-msgstr "Término de búsqueda"
-
 msgid "Visibility"
 msgstr "Visibilidad"
 
@@ -263,6 +266,9 @@ msgstr "Da un nombre a tu flujo de trabajo"
 
 msgid "Add tasks to your workflow"
 msgstr "Añade tareas a tu flujo de trabajo"
+
+msgid "Task"
+msgstr "Tarea"
 
 msgid "1 page selected"
 msgstr "1 página seleccionada"
@@ -337,9 +343,6 @@ msgstr "Todos los elementos en la lista seleccionados"
 msgid "Scheduled publishing"
 msgstr "Publicación programada"
 
-msgid "Privacy"
-msgstr "Privacidad"
-
 msgid "For search engines"
 msgstr "Para motores de búsqueda"
 
@@ -354,15 +357,6 @@ msgstr "Promocionar"
 
 msgid "Settings"
 msgstr "Propiedades"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Comments"
-msgstr "Comentarios"
-
-msgid "Preview"
-msgstr "Previsualizar"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Página no encontrada."
@@ -384,15 +378,6 @@ msgstr "Más acciones"
 
 msgid "Save account details"
 msgstr "Guardar detalles de la cuenta"
-
-msgid "Change password"
-msgstr "Cambiar contraseña"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Tu contraseña no puede cambiarse aquí. Por favor, contacta con el "
-"administrador."
 
 msgid "Reset password"
 msgstr "Restablecer contraseña"
@@ -474,6 +459,13 @@ msgstr "Enlace telefónico"
 msgid "Anchor link"
 msgstr "Enlace"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s concidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
+
 msgid "Add an anchor link"
 msgstr "Añadir un enlace"
 
@@ -504,6 +496,13 @@ msgstr "Añadir un enlace externo"
 msgid "Add a phone link"
 msgstr "Añadir un enlace telefónico"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorar subpáginas de '%(title)s'"
+
+msgid "Explore"
+msgstr "Explorar"
+
 msgid "Collection privacy"
 msgstr "Privacidad de la Colección"
 
@@ -513,14 +512,17 @@ msgstr "Esta colección ha sido hecha privada por una colección padre."
 msgid "You can edit the privacy settings on:"
 msgstr "Puede editar los ajustes de privacidad sobre:"
 
+msgid "Save"
+msgstr "Guardar"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Las opciones de privacidad determinan quién es capaz de ver un documento en "
 "esta colección."
 
-msgid "Save"
-msgstr "Guardar"
+msgid "Privacy"
+msgstr "Privacidad"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Establecer privacidad de colección. Estado actual: Público"
@@ -555,8 +557,21 @@ msgstr "Sí, eliminar"
 msgid "Update"
 msgstr "Actualizar"
 
-msgid "Dashboard"
-msgstr "Panel de control"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparando %(title)s"
+
+msgid "Comparing"
+msgstr "Comparando"
+
+msgid "Fields"
+msgstr "Campos"
+
+msgid "Changes"
+msgstr "Cambios"
+
+msgid "There are no differences between these two versions"
+msgstr "No hay diferencias entre estas dos versiones."
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -590,10 +605,6 @@ msgstr "Borrador"
 msgid "Live"
 msgstr "En vivo"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Páginas en espera de ser moderadas"
 
@@ -612,8 +623,14 @@ msgstr "Aprobar"
 msgid "Reject"
 msgstr "Rechazar"
 
+msgid "Preview"
+msgstr "Previsualizar"
+
 msgid "Your most recent edits"
 msgstr "Tus ediciones más recientes"
+
+msgid "Status"
+msgstr "Estado"
 
 msgid "Date"
 msgstr "Fecha"
@@ -623,9 +640,6 @@ msgstr "Resumen del sitio"
 
 msgid "Your pages in a workflow"
 msgstr "Tus páginas en un flujo de trabajo"
-
-msgid "Task"
-msgstr "Tarea"
 
 msgid "Task started"
 msgstr "Tarea iniciada"
@@ -648,23 +662,23 @@ msgstr "Tarea enviada por"
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
+msgid "Sign in to Wagtail"
+msgstr "Iniciar sesión en Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Su %(username_field)s y contraseña no concuerdan. Por favor intente "
 "nuevamente."
 
-msgid "Sign in to Wagtail"
-msgstr "Iniciar sesión en Wagtail"
+msgid "Forgotten password?"
+msgstr "¿Olvidaste la contraseña?"
 
 msgid "Remember me"
 msgstr "Recordarme"
 
 msgid "Signing in…"
 msgstr "Iniciando sesión..."
-
-msgid "Forgotten password?"
-msgstr "¿Olvidaste la contraseña?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -834,21 +848,6 @@ msgstr "Privacidad de la página"
 
 msgid "This page has been made private by a parent page."
 msgstr "Esta página fue convertida en privada por una página padre."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Los cambios de privacidad se aplican a todos los hijos de esta página."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Establecer privacidad de página. Estado actual: Público"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Establecer privacidad de página. Estado actual: Privado"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Privacidad de página. Estado actual: Público"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Privacidad de página. Estado actual: Privado"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Tienes <span>ediciones no guardadas</span>"
@@ -1031,15 +1030,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Sí, mueve esta página"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Despublicar %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "¿Seguro que quieres despublicar de esta página?"
-
-msgid "Yes, unpublish it"
-msgstr "Sí, despublicar"
 
 msgid "Publish page"
 msgstr "Publicar página"
@@ -1115,10 +1107,6 @@ msgstr "Versión en vivo"
 msgid "Current draft"
 msgstr "Borrador actual"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s antes"
-
 msgid "No log entries found."
 msgstr "No se encontraron entradas de registro."
 
@@ -1135,9 +1123,6 @@ msgstr "Selecionar página"
 msgid "Drag"
 msgstr "Arrastrar"
 
-msgid "Updated"
-msgstr "Actualizada"
-
 msgid "Configure a site now."
 msgstr "Configurar sitio ahora."
 
@@ -1150,13 +1135,6 @@ msgstr "¿Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página se encuentra bloqueada para su edición"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Explorar subpáginas de '%(title)s'"
-
-msgid "Explore"
-msgstr "Explorar"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1190,25 +1168,14 @@ msgstr "Ordenar"
 msgid "Enable ordering of child pages"
 msgstr "Habilitar organización de páginas hijas"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Selecciona una nueva página padre para %(title)s"
+msgid "Updated"
+msgstr "Actualizada"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Selecciona una nueva página padre para <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Confirmar"
 
-msgid "Preview error"
-msgstr "Previsualizar error"
-
-msgid "Close"
-msgstr "Cerrar"
-
-msgid "Current status:"
-msgstr "Estado actual:"
-
-msgid "Set page privacy"
-msgstr "Establecer privacidad de la página"
+msgid "History"
+msgstr "Historial"
 
 msgid "Review this version"
 msgstr "Revisar esta versión"
@@ -1221,25 +1188,6 @@ msgstr "Comparar con versión actual"
 
 msgid "Cancel scheduled publish"
 msgstr "Cancelar publicación programada"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparando %(title)s"
-
-msgid "Comparing"
-msgstr "Comparando"
-
-msgid "Page history"
-msgstr "Historial de página"
-
-msgid "Fields"
-msgstr "Campos"
-
-msgid "Changes"
-msgstr "Cambios"
-
-msgid "There are no differences between these two versions"
-msgstr "No hay diferencias entre estas dos versiones."
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1266,18 +1214,6 @@ msgstr "Lo sentimos, ninguna página contiene <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Introduce el término de búsqueda arriba"
-
-msgid "Locked"
-msgstr "Bloqueada"
-
-msgid "Unlocked"
-msgstr "Desbloqueado"
-
-msgid "Lock"
-msgstr "Bloquear"
-
-msgid "since"
-msgstr "desde"
 
 msgid "No pages use"
 msgstr "Páginas sin uso"
@@ -1356,9 +1292,6 @@ msgstr "Subir"
 msgid "Move down"
 msgstr "Bajar"
 
-msgid "Add comment"
-msgstr "Añadir comentario"
-
 msgid "Comment notifications"
 msgstr "Notificaciones de comentario"
 
@@ -1386,14 +1319,11 @@ msgstr "Descargar XLSX"
 msgid "Download CSV"
 msgstr "Descargar CSV"
 
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Apply filters"
-msgstr "Aplicar filtros"
-
 msgid "Locking status"
 msgstr "Estado de bloqueo"
+
+msgid "Locked"
+msgstr "Bloqueada"
 
 msgid "No locked pages found."
 msgstr "Ninguna página bloqueada encontrada."
@@ -1429,14 +1359,21 @@ msgstr "Ruta de navegación"
 msgid "Root"
 msgstr "Raíz"
 
-msgid "Home"
-msgstr "Inicio"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Despublicar %(title)s"
 
-msgid "All collections"
-msgstr "Todas las colecciones"
+msgid "Yes, unpublish it"
+msgstr "Sí, despublicar"
 
-msgid "History"
-msgstr "Historial"
+msgid "Add comment"
+msgstr "Añadir comentario"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Aplicar filtros"
 
 msgid "Visit the live page"
 msgstr "Visitar la página publicada"
@@ -1446,6 +1383,15 @@ msgstr "Estado actual de página:"
 
 msgid "Other searches"
 msgstr "Otras búsquedas"
+
+msgid "Unlocked"
+msgstr "Desbloqueado"
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Los cambios de privacidad se aplican a todos los hijos de esta página."
 
 msgid "Skip to main content"
 msgstr "Saltar al contenido principal"
@@ -1597,14 +1543,6 @@ msgstr "Páginas que usan el flujo de trabajo '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Páginas que usan flujo de trabajo"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Enviado a <em>%(workflow_name)s</em> el %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "por %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Enviado"
 
@@ -1659,20 +1597,15 @@ msgstr "0 minutos"
 msgid "Just now"
 msgstr "Ahora mismo"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s antes"
+
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-msgid "live"
-msgstr "en vivo"
-
-msgid "draft"
-msgstr "borrador"
-
-msgid "live + draft"
-msgstr "en vivo + borrador"
-
-msgid "Test"
-msgstr "Prueba"
+msgid "Comments"
+msgstr "Comentarios"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -1730,6 +1663,15 @@ msgstr "Estás seguro de que deseas eliminar esta colección?"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Earliest"
+msgstr "Primeros"
+
+msgid "Latest"
+msgstr "Últimos"
+
+msgid "Dashboard"
+msgstr "Panel de control"
 
 msgid "Delete selected pages"
 msgstr "Eliminar páginas seleccionadas"
@@ -1901,28 +1843,6 @@ msgstr "Página '{0}' ha sido reemplazado con la versión de {1}."
 msgid "Page '{0}' has been updated."
 msgstr "Página '{0}' ha sido actualizada."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Página '{}' fue bloqueado</b> por <b>usted</b> en <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Página '{}' está bloqueada</b> por <b>usted</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Página '{}' fue bloqueado</b> por <b>{}</b> en <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Página '{}' se encuentra bloqueada</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Esta página está actualmente esperando moderación."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr ""
-"Esta página está esperando <b>'{}'</b> en el <b>'{}'</b> flujo de trabajo."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Solo los revisores de esta tarea pueden editar la página."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Flujo de trabajo en la página '{0}' ha sido cancelado."
@@ -1966,6 +1886,9 @@ msgstr "La página no ha podido ser guardada debido a errores de validación"
 msgid "Hide commenting actions"
 msgstr "Ocultar acciones de comentario"
 
+msgid "Page history"
+msgstr "Historial de página"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Página '{0}' se encuentra desbloqueada."
@@ -2007,12 +1930,6 @@ msgid ""
 msgstr ""
 "Estás viendo una versión anterior de esta página desde el <b>%(created_at)s</"
 "b> por %(user)s"
-
-msgid "Earliest"
-msgstr "Primeros"
-
-msgid "Latest"
-msgstr "Últimos"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2189,14 +2106,8 @@ msgstr[2] ""
 msgid "Task '{0}' enabled."
 msgstr "Tarea '{0}' activada."
 
-msgid "Server Error"
-msgstr "Error de servidor"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Reporte este error a su administrador web con la siguiente información:"
+msgid "Change"
+msgstr "Cambiar"
 
 msgid "Pages"
 msgstr "Páginas"
@@ -2251,6 +2162,12 @@ msgstr "Ordenar menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar el orden de las páginas hijas de '%(title)s'"
 
+msgid "Translate"
+msgstr "Traducir"
+
+msgid "Translate this page"
+msgstr "Traducir esta página"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Encabezado %(level)d"
@@ -2296,18 +2213,3 @@ msgstr "Sí"
 
 msgid "Choose an item"
 msgstr "Seleccionar un elemento"
-
-msgid "Choose another item"
-msgstr "Seleccionar otro elemento"
-
-msgid "Clear choice"
-msgstr "Borrar selección"
-
-msgid "Choose another page"
-msgstr "Seleccionar otra página"
-
-msgid "Choose another task"
-msgstr "Seleccionar otra tarea"
-
-msgid "Edit this task"
-msgstr "Editar esta tarea"

@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { initTooltips } from '../../includes/initTooltips';
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
@@ -226,21 +227,6 @@ $(() => {
   // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
   $('body').addClass('ready');
 
-  // Enable nice focus effects on all fields. This enables help text on hover.
-  // eslint-disable-next-line func-names
-  $(document).on('focus mouseover', 'input,textarea,select', function () {
-    $(this).closest('.field').addClass('focused');
-    $(this).closest('fieldset').addClass('focused');
-    $(this).closest('li').addClass('focused');
-  });
-
-  // eslint-disable-next-line func-names
-  $(document).on('blur mouseout', 'input,textarea,select', function () {
-    $(this).closest('.field').removeClass('focused');
-    $(this).closest('fieldset').removeClass('focused');
-    $(this).closest('li').removeClass('focused');
-  });
-
   /* Functions that need to run/rerun when active tabs are changed */
   function resizeTextAreas() {
     // eslint-disable-next-line func-names
@@ -294,6 +280,8 @@ $(() => {
     let searchNextIndex = 0;
     const $input = $(window.headerSearch.termInput);
     const $inputContainer = $input.parent();
+    const $icon = $inputContainer.find('use');
+    const baseIcon = $icon.attr('href');
 
     $input.on('keyup cut paste change', () => {
       clearTimeout($input.data('timer'));
@@ -306,32 +294,38 @@ $(() => {
 
     // eslint-disable-next-line func-names
     const search = function () {
-      const workingClasses = 'icon-spinner';
-
       const newQuery = $input.val();
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       const currentQuery = getURLParam('q');
       // only do the query if it has changed for trimmed queries
-      // eg. " " === "" and "firstword " ==== "firstword"
+      // for example - " " === "" and "firstword " ==== "firstword"
       if (currentQuery.trim() !== newQuery.trim()) {
-        $inputContainer.addClass(workingClasses);
+        $icon.attr('href', '#icon-spinner');
         searchNextIndex++;
         const index = searchNextIndex;
+
+        // Update q, reset to first page, and keep other query params
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('q', newQuery);
+        searchParams.delete('p');
+        const queryString = searchParams.toString();
+
         $.ajax({
           url: window.headerSearch.url,
-          // eslint-disable-next-line id-length
-          data: { q: newQuery },
+          data: queryString,
           success(data) {
             if (index > searchCurrentIndex) {
               searchCurrentIndex = index;
               $(window.headerSearch.targetOutput).html(data).slideDown(800);
-              window.history.replaceState(null, null, '?q=' + newQuery);
+              window.history.replaceState(null, null, '?' + queryString);
               $input[0].dispatchEvent(new Event('search-success'));
             }
           },
           complete() {
             window.wagtail.ui.initDropDowns();
-            $inputContainer.removeClass(workingClasses);
+            // Reinitialise any tooltips
+            initTooltips();
+            $icon.attr('href', baseIcon);
           },
         });
       }

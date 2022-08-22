@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Loic Teixeira, 2020,2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -104,17 +104,17 @@ msgstr "Monter"
 msgid "Move down"
 msgstr "Descendre"
 
-msgid "Promoted search result"
-msgstr "Résultat de recherche amélioré"
+msgid "Recommended page"
+msgstr "Recommander la page"
+
+msgid "Promoted search results"
+msgstr "Résultats de recherche améliorés"
 
 msgid "Add recommended page"
 msgstr "Ajouter une page recommandée"
 
 msgid "Search Terms"
 msgstr "Termes de recherche"
-
-msgid "Promoted search results"
-msgstr "Résultats de recherche améliorés"
 
 msgid "Add new promoted result"
 msgstr "Ajouter un nouveau résultat amélioré"

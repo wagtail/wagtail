@@ -7,18 +7,18 @@
   // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
   padding: 0 0.5em;
-  border: 1px solid color.adjust($color-grey-2, $lightness: 30%);
-  color: color.adjust($color-grey-2, $lightness: 30%);
+  border: 1px solid theme('colors.grey.200');
+  color: theme('colors.grey.400');
   -webkit-font-smoothing: auto;
   line-height: 19px;
   font-size: 0.8em;
   margin: 0 0.5em 0.5em;
-  background: #fff url('#{$images-root}bg-dark-diag.svg');
+  background: $color-white url('#{$images-root}bg-dark-diag.svg');
 
   &.primary {
     color: $color-grey-2;
     border: 1px solid $color-grey-2;
-    background: #fff;
+    background: $color-white;
   }
 
   &.disabled {

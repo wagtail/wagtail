@@ -25,25 +25,16 @@
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field choice_field select">
-                        <label for="id_adddocument_collection">{% trans "Add to collection:" %}</label>
-                        <div class="field-content">
-                            <select id="id_adddocument_collection" name="collection">
-                                {% minimum_collection_depth collections as min_depth %}
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">
-                                        {% if request.user.is_superuser %}
-                                            {# Superuser may see all collections. #}
-                                            {% format_collection collection %}
-                                        {% else %}
-                                            {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
-                                            {% format_collection collection min_depth %}
-                                        {% endif %}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
+                    {% trans "Add to collection:" as label_text %}
+                    {% field label_text=label_text id_for_label="id_adddocument_collection" classname="w-mx-auto w-mt-4 w-grid w-justify-center"  %}
+                        <select id="id_adddocument_collection" name="collection">
+                            {% for pk, display_name in collections.get_indented_choices %}
+                                <option value="{{ pk|unlocalize }}">
+                                    {{ display_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    {% endfield %}
                 {% endif %}
             </form>
         </div>

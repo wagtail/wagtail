@@ -53,7 +53,7 @@ A number of additional constraints apply to `<a linktype="...">` and `<embed emb
 
 -   The tag name and attributes must be lower-case
 -   Attribute values must be quoted with double-quotes
--   `embed` elements must use XML self-closing tag syntax (i.e. end in `/>` instead of a closing `</embed>` tag)
+-   `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
 -   The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
 
 ## The feature registry
@@ -178,7 +178,7 @@ def register_external_link(features):
     features.register_link_type(NoFollowExternalLinkHandler)
 ```
 
-Similarly you can use `email` linktype to add a custom rewrite handler for email links (e.g. to obfuscate emails in rich text).
+Similarly you can use `email` linktype to add a custom rewrite handler for email links (for example to obfuscate emails in rich text).
 
 ```{eval-rst}
 .. method:: FeatureRegistry.register_embed_type(handler)
@@ -199,7 +199,7 @@ def register_embed_handler(features):
 
 ## Editor widgets
 
-The editor interface used on rich text fields can be configured with the [WAGTAILADMIN_RICH_TEXT_EDITORS](WAGTAILADMIN_RICH_TEXT_EDITORS) setting. Wagtail provides an implementation: `wagtail.admin.rich_text.DraftailRichTextArea` (the [Draftail](https://www.draftail.org/) editor based on [Draft.js](https://draftjs.org/)).
+The editor interface used on rich text fields can be configured with the [WAGTAILADMIN_RICH_TEXT_EDITORS](wagtailadmin_rich_text_editors) setting. Wagtail provides an implementation: `wagtail.admin.rich_text.DraftailRichTextArea` (the [Draftail](https://www.draftail.org/) editor based on [Draft.js](https://draftjs.org/)).
 
 It is possible to create your own rich text editor implementation. At minimum, a rich text editor is a Django **_class_ django.forms.Widget** subclass whose constructor accepts an `options` keyword argument (a dictionary of editor-specific configuration options sourced from the `OPTIONS` field in `WAGTAILADMIN_RICH_TEXT_EDITORS`), and which consumes and produces string data in the HTML-like format described above.
 

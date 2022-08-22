@@ -3,7 +3,7 @@ from datetime import timedelta
 from unittest import mock
 
 from django.conf import settings
-from django.template import Context, Template
+from django.template import Context, Template, TemplateSyntaxError
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
@@ -247,3 +247,125 @@ class TestInternationalisationTags(TestCase):
         # check with an invalid id
         with self.assertNumQueries(0):
             self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)
+
+
+class ComponentTest(TestCase):
+    def test_render_block_component(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% help_block status="info" %}Proceed with caution{% endhelp_block %}
+        """
+
+        expected = """
+            <div class="help-block help-info">
+                <svg aria-hidden="true" class="icon icon icon-help"><use href="#icon-help"></svg>
+                Proceed with caution
+            </div>
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+    def test_render_nested(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% help_block status="warning" %}
+                {% help_block status="info" %}Proceed with caution{% endhelp_block %}
+            {% endhelp_block %}
+        """
+
+        expected = """
+            <div class="help-block help-warning">
+                <svg aria-hidden="true" class="icon icon icon-warning"><use href="#icon-warning"></svg>
+                <div class="help-block help-info">
+                    <svg aria-hidden="true" class="icon icon icon-help"><use href="#icon-help"></svg>
+                    Proceed with caution
+                </div>
+            </div>
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+    def test_kwargs_with_filters(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% help_block status="warning"|upper %}Proceed with caution{% endhelp_block %}
+        """
+
+        expected = """
+            <div class="help-block help-WARNING">
+                <svg aria-hidden="true" class="icon icon icon-warning"><use href="#icon-warning"></svg>
+                Proceed with caution
+            </div>
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+    def test_render_as_variable(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% help_block status="info" as help %}Proceed with caution{% endhelp_block %}
+            <template>{{ help }}</template>
+        """
+
+        expected = """
+            <template>
+                <div class="help-block help-info">
+                    <svg aria-hidden="true" class="icon icon icon-help"><use href="#icon-help"></svg>
+                    Proceed with caution
+                </div>
+            </template>
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(Context()))
+
+
+class FragmentTagTest(TestCase):
+    def test_basic(self):
+        context = Context({})
+
+        template = """
+            {% load wagtailadmin_tags %}
+            {% fragment as my_fragment %}
+            <p>Hello, World</p>
+            {% endfragment %}
+            Text coming after:
+            {{ my_fragment }}
+        """
+
+        expected = """
+            Text coming after:
+            <p>Hello, World</p>
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(context))
+
+    @override_settings(DEBUG=True)
+    def test_syntax_error(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% fragment %}
+            <p>Hello, World</p>
+            {% endfragment %}
+        """
+
+        with self.assertRaises(TemplateSyntaxError):
+            Template(template).render(Context())
+
+    def test_with_variables(self):
+        context = Context({"name": "jonathan wells"})
+
+        template = """
+            {% load wagtailadmin_tags %}
+            {% fragment as my_fragment %}
+                <p>Hello, {{ name|title }}</p>
+            {% endfragment %}
+            Text coming after:
+            {{ my_fragment }}
+        """
+
+        expected = """
+            Text coming after:
+            <p>Hello, Jonathan Wells</p>
+        """
+
+        self.assertHTMLEqual(expected, Template(template).render(context))

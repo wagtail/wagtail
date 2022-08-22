@@ -10,10 +10,8 @@ from wagtail.models import Task
 
 class AdminTaskChooser(BaseChooser):
     choose_one_text = _("Choose a task")
-    choose_another_text = _("Choose another task")
-    link_to_chosen_text = _("Edit this task")
     model = Task
-    template_name = "wagtailadmin/workflows/widgets/task_chooser.html"
+    icon = "thumbtack"
     chooser_modal_url_name = "wagtailadmin_workflows:task_chooser"
     classname = "task-chooser"
 

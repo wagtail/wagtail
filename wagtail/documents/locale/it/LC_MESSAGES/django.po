@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -68,6 +68,13 @@ msgstr "documento"
 
 msgid "documents"
 msgstr "documenti"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Aggiungi tag a 1 documento"
+msgstr[1] "Aggiungi tag a %(counter)s documenti"
+msgstr[2] "Aggiungi tag a %(counter)s documenti"
 
 msgid "Add tags to documents"
 msgstr "Aggiungi tag ai documenti"
@@ -143,31 +150,14 @@ msgstr "Si, elimina"
 msgid "No, don't delete"
 msgstr "No, non eliminarlo"
 
-msgid "Choose a document"
-msgstr "Scegli un documento"
-
-msgid "Search"
-msgstr "Cerca"
-
-msgid "Upload"
-msgstr "Carica"
-
 msgid "Latest documents"
 msgstr "Ultimi documenti"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Spiacente, nessun documento corrispondente \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Non hai ancora caricato alcun documento in questa raccolta."
 
 msgid "You haven't uploaded any documents."
 msgstr "Non hai ancora caricato alcun documento."
-
-msgid "Uploading…"
-msgstr "Caricamento…"
 
 msgid "Change document:"
 msgstr "Cambia documento"
@@ -177,6 +167,12 @@ msgstr "Aggiungi un documento"
 
 msgid "Add document"
 msgstr "Aggiungi documento"
+
+msgid "Uploading…"
+msgstr "Caricamento…"
+
+msgid "Upload"
+msgstr "Carica"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -223,8 +219,9 @@ msgid "Select document"
 msgstr "Seleziona documento"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s fa"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Spiacente, nessun documento corrispondente \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -342,15 +339,8 @@ msgstr[0] "%(num_parent_objects)d documento è stato eliminato"
 msgstr[1] "%(num_parent_objects)d documenti sono stati eliminati"
 msgstr[2] "%(num_parent_objects)d documenti sono stati eliminati"
 
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Segnala questo errore all'amministratore del tuo sito web con le seguenti "
-"informazioni:"
+msgid "Choose a document"
+msgstr "Scegli un documento"
 
 msgid "Search documents"
 msgstr "Cerca documenti"
@@ -383,9 +373,3 @@ msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s documento"
 msgstr[1] "%(count)s documenti"
 msgstr[2] "%(count)s documenti"
-
-msgid "Choose another document"
-msgstr "Scegli un'altro documento"
-
-msgid "Edit this document"
-msgstr "Modifica questo documento"

@@ -3,9 +3,10 @@ import $ from 'jquery';
 $(() => {
   /* Interface to set permissions from the explorer / editor */
   // eslint-disable-next-line func-names
-  $('button[data-action-set-privacy]').on('click', function () {
+  $('[data-a11y-dialog-show="set-privacy"]').on('click', function () {
     // eslint-disable-next-line no-undef
     ModalWorkflow({
+      dialogId: 'set-privacy',
       url: this.getAttribute('data-url'),
       onload: {
         set_privacy(modal) {
@@ -23,7 +24,9 @@ $(() => {
             "input[name='restriction_type'][value='groups']",
             modal.body,
           );
-          const passwordField = $('.password-field', modal.body);
+          const passwordField = $('[name="password"]', modal.body).parents(
+            '[data-field-wrapper]',
+          );
           const groupsFields = $('#groups-fields', modal.body);
 
           function refreshFormFields() {

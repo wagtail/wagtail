@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -75,6 +75,10 @@ msgstr "%sを複製"
 msgid "image"
 msgstr "画像"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "%(model_name)sリストに戻る"
+
 msgid "Choose a parent page"
 msgstr "親ページを選択"
 
@@ -118,9 +122,6 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-msgid "Home"
-msgstr "ホーム"
-
 msgid "History"
 msgstr "履歴"
 
@@ -134,6 +135,9 @@ msgstr "を検索する"
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)sを検索"
+
+msgid "Search"
+msgstr "検索"
 
 msgid "Download XLSX"
 msgstr "XLSXファイルをダウンロード"
@@ -162,10 +166,6 @@ msgstr "ページネーション"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "%(num_pages)sページ中%(current_page)sページ目"
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "%(model_name)sリストに戻る"
 
 msgid "Previous"
 msgstr "前へ"

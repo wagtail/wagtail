@@ -1,201 +1,118 @@
-// overrides default nice padding defined in variables.scss
-$desktop-nice-padding: 100px;
+@mixin login-fullscreen-background() {
+  @at-root {
+    :root {
+      --w-login-fullscreen-background: radial-gradient(
+        100% 300.28% at 100% 0%,
+        theme('colors.primary.DEFAULT') 0%,
+        theme('colors.primary.DEFAULT') 32.94%,
+        theme('colors.primary.DEFAULT') 49.9%,
+        theme('colors.primary.DEFAULT') 50.2%,
+        theme('colors.secondary.DEFAULT') 100%
+      );
+    }
+  }
 
-.login,
-.login .content-wrapper {
-  background-color: $color-grey-1;
-  color: $color-grey-3;
+  // support older browsers that do not support radial gradient 'at' usage
+  background: theme('colors.primary.DEFAULT');
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  background: var(
+    --w-login-fullscreen-background,
+    theme('colors.primary.DEFAULT')
+  );
 }
 
 .login {
-  margin-inline-start: 0;
-  height: 100%;
+  @include login-fullscreen-background;
 
-  .content-wrapper {
-    border: 0;
-  }
+  color: theme('colors.primary.DEFAULT');
 
   .wrapper {
-    padding-inline-start: $mobile-nice-padding;
-    padding-inline-end: $mobile-nice-padding;
-    margin-inline-start: 0;
-    max-width: none;
-  }
-
-  h1 {
-    font-weight: 300;
-    font-size: 2em;
-    line-height: 1em;
-    color: $color-white;
-    white-space: nowrap;
-  }
-
-  form {
-    width: 100%;
-
-    ul {
-      @include unlist();
-    }
-  }
-
-  label {
-    width: auto;
-    color: $color-white;
-  }
-
-  .button,
-  a.button {
-    line-height: 1.2em;
-    font-size: 1.5em;
-    padding: 1.1em 2.4em;
-    height: 3.5em;
-  }
-
-  .fields-wrapper {
-    position: relative;
-  }
-
-  .fields {
-    max-width: none;
-  }
-
-  .fields li {
-    padding: 1em 0;
-
-    &.full {
-      position: relative;
-      padding: 0;
-
-      label {
-        @include visuallyhidden;
-      }
-
-      input {
-        border-top: 1px dashed $color-input-border;
-      }
-    }
-
-    &:first-child input {
-      border: 0;
-    }
-  }
-
-  .fields .checkbox {
-    padding-top: 2em;
-    padding-bottom: 2em;
-  }
-
-  .field {
-    padding: 0;
-  }
-
-  .iconfield .input:before {
-    display: none;
-  }
-
-  // Special full-width, one-off fields i.e a single text or textarea input
-  .full input {
-    border-radius: 0;
-    font-weight: 300;
-    border: 0;
-    padding: 1.5em $mobile-nice-padding 1.5em $mobile-nice-padding;
-    font-size: 1.6em;
-    line-height: 1.6em;
-  }
-
-  // Forgotten password link
-  .help {
-    font-size: 1.3em;
-    margin-top: 0;
-    padding: 10px 0;
-
-    @include media-breakpoint-up(sm) {
-      position: absolute;
-      top: 139px;
-      inset-inline-end: 5%;
-      padding: 0;
-    }
-
-    &__link {
-      color: $color-white;
-
-      @include media-breakpoint-up(sm) {
-        color: $color-link;
-      }
-    }
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    padding: min(theme('spacing.4'), 5vh) min(theme('spacing.4'), 5vw);
+    min-height: 100vh;
   }
 
   .messages {
-    margin: 1em 0;
-    z-index: 5;
+    background: none;
+    margin-bottom: theme('spacing.8');
 
     ul {
-      margin: 0;
-
-      &:before {
-        display: none;
-      }
+      @include unlist();
 
       li {
-        border-radius: 3px;
+        border-radius: theme('borderRadius.sm');
+        margin-bottom: theme('spacing.2');
       }
     }
   }
 
-  @include media-breakpoint-up(sm) {
-    .content-wrapper {
-      float: none;
-      height: auto;
-      width: 100%;
-      display: inline-block;
-      vertical-align: middle;
+  .content-wrapper {
+    border: 0;
+    height: auto;
+    float: none;
+    padding: theme('spacing.10') theme('spacing.12');
+    background: theme('colors.white.DEFAULT');
+    box-shadow: theme('boxShadow.md');
+    border-radius: theme('borderRadius.md');
+    margin-bottom: 15vh; // should appear slightly above centre
+    max-width: calc(theme('spacing.32') * 3.15);
+
+    @include media-breakpoint-up(sm) {
+      max-width: calc(theme('spacing.32') * 3.5);
+      padding: theme('spacing.12') theme('spacing.14');
     }
+  }
 
-    // centres login form vertically
-    .wrapper {
-      position: relative;
-      height: 100%;
-      padding: 0 $desktop-nice-padding;
+  h1 {
+    @apply w-h1;
+    margin-top: 0;
+    margin-bottom: theme('spacing.8');
+    text-align: center;
+  }
 
-      &:before {
-        content: '';
-        width: 0;
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        margin-inline-start: -0.4em;
-      }
-    }
+  .button,
+  .w-field__label {
+    width: 100%;
+    font-size: theme('fontSize.16');
+    font-weight: theme('fontWeight.bold');
+  }
 
-    h1 {
-      font-size: 4em;
-    }
+  .w-field__wrapper {
+    margin-bottom: theme('spacing.6');
+  }
 
-    .full {
-      margin: 0 (-$desktop-nice-padding);
+  .skiplink {
+    width: auto;
+  }
 
-      .iconfield {
-        // stylelint-disable-next-line max-nesting-depth
-        .input:before {
-          display: inline-block;
-          position: absolute;
-          color: theme('colors.grey.200');
-          border: 2px solid theme('colors.grey.200');
-          border-radius: 100%;
-          width: 1em;
-          height: 1em;
-          padding: 0.3em;
-          inset-inline-start: $desktop-nice-padding;
-          margin-top: -1.1rem;
-          top: 50%;
-          font-size: 1.3rem;
-        }
+  .reset-password {
+    display: block;
+    // bring in reset password link tight to the form
+    margin: calc(-1 * theme('spacing.4')) 0 theme('spacing.8');
+  }
 
-        // stylelint-disable-next-line max-nesting-depth
-        input {
-          padding-inline-start: ($desktop-nice-padding + 50px);
-        }
-      }
-    }
+  .remember-me {
+    margin: theme('spacing.4') 0;
+  }
+
+  .form-actions {
+    // no need for margin bottom due to padding on content-wrapper
+    margin-top: theme('spacing.8');
+    text-align: center;
+  }
+
+  .login-form .w-field__errors {
+    // for the login form, we rely on the non-field error only.
+
+    display: none;
+  }
+
+  .login-logo {
+    margin: theme('spacing.8') auto 0;
+    width: theme('spacing.8');
   }
 }

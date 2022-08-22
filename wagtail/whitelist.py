@@ -37,8 +37,8 @@ def attribute_rule(allowed_attrs):
     up in the 'allowed_attrs' dict defined here:
     * if the lookup fails, drop the attribute
     * if the lookup returns a callable, replace the attribute with the result of calling
-      it - e.g. {'title': uppercase} will replace 'title' with the result of uppercasing
-      the title. If the callable returns None, the attribute is dropped
+      it - for example `{'title': uppercase}` will replace 'title' with the result of
+      uppercasing the title. If the callable returns None, the attribute is dropped.
     * if the lookup returns a truthy value, keep the attribute; if falsy, drop it
     """
 

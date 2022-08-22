@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -248,15 +248,6 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
-msgid "Choose an image"
-msgstr "Dewis delwedd"
-
-msgid "Search"
-msgstr "Chwilio"
-
-msgid "Upload"
-msgstr "Uwchlwytho"
-
 msgid "Popular tags"
 msgstr "Tagiau poblogaidd"
 
@@ -271,9 +262,6 @@ msgstr "Dewisiwch fformat"
 
 msgid "Insert image"
 msgstr "Mewnosod llun"
-
-msgid "Uploading…"
-msgstr "Wrthi'n uwchlwytho…"
 
 msgid "Change image file:"
 msgstr "Newid ffeil llun:"
@@ -336,9 +324,6 @@ msgstr "Delweddau"
 
 msgid "Popular Tags:"
 msgstr "Tagiau poblogaidd:"
-
-msgid "Clear choice"
-msgstr "Dewis clir"
 
 msgid "Select all images in listing"
 msgstr "Dewiswch yr holl lluniau yn y rhestr"
@@ -499,6 +484,15 @@ msgstr[1] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[2] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[3] "%(num_parent_objects)d lluniau wedi'i dileu"
 
+msgid "Upload"
+msgstr "Uwchlwytho"
+
+msgid "Uploading…"
+msgstr "Wrthi'n uwchlwytho…"
+
+msgid "Choose an image"
+msgstr "Dewis delwedd"
+
 msgid "Search images"
 msgstr "Chwilio delweddau"
 
@@ -540,9 +534,3 @@ msgstr[0] "%(count)s llun"
 msgstr[1] "%(count)s lluniau"
 msgstr[2] "%(count)s lluniau"
 msgstr[3] "%(count)s lluniau"
-
-msgid "Change image"
-msgstr "Newid llun"
-
-msgid "Edit this image"
-msgstr "Golygu'r llun hon"

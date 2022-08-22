@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dominik Lech, 2022
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2021\n"
+"Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -169,6 +170,20 @@ msgstr "Obrazy"
 msgid "Add tags to images"
 msgstr "Dodaj tagi do obrazów"
 
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Czy jesteś pewny że chcesz otagować ten obraz"
+msgstr[1] "Czy jesteś pewny że chcesz otagować te obrazy"
+msgstr[2] "Czy jesteś pewny że chcesz otagować te obrazy"
+msgstr[3] "Czy jesteś pewny że chcesz otagować te obrazy"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Nie posiadasz uprawnień, żeby dodać tagi do tego obrazu"
+msgstr[1] "Nie posiadasz uprawnień, żeby dodać tagi do tych obrazów"
+msgstr[2] "Nie posiadasz uprawnień, żeby dodać tagi do tych obrazów"
+msgstr[3] "Nie posiadasz uprawnień, żeby dodać tagi do tych obrazów"
+
 msgid "Yes, add"
 msgstr "Tak, dodaj"
 
@@ -178,8 +193,31 @@ msgstr "Nie, nie dodawaj"
 msgid "Add images to collection"
 msgstr "Dodaj obrazy do kolekcji"
 
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] "Czy jesteś pewny że chcesz dodać ten obraz do wybranej kolekcji?"
+msgstr[1] "Czy jesteś pewny że chcesz dodać te obrazy do wybranej kolekcji?"
+msgstr[2] "Czy jesteś pewny że chcesz dodać te obrazy do wybranej kolekcji?"
+msgstr[3] "Czy jesteś pewny że chcesz dodać te obrazy do wybranej kolekcji?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "Nie posiadasz uprawnień, żeby dodać ten obraz do kolekcji"
+msgstr[1] "Nie posiadasz uprawnień, żeby dodać te obrazy do kolekcji"
+msgstr[2] "Nie posiadasz uprawnień, żeby dodać te obrazy do kolekcji"
+msgstr[3] "Nie posiadasz uprawnień, żeby dodać te obrazy do kolekcji"
+
 msgid "Delete images"
 msgstr "Usuń obrazy"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Czy jesteś pewny, że chcesz usunąć ten obraz?"
+msgstr[1] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
+msgstr[2] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
+msgstr[3] "Czy jesteś pewny, że chcesz usunąć te obrazy?"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -189,29 +227,40 @@ msgstr[1] "Użyto %(usage_count)s razy"
 msgstr[2] "Użyto %(usage_count)s razy"
 msgstr[3] "Użyto %(usage_count)s razy"
 
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "Nie posiadasz uprawnień do usunięcia tego obrazu"
+msgstr[1] "Nie posiadasz uprawnień do usunięcia tych obrazów"
+msgstr[2] "Nie posiadasz uprawnień do usunięcia tych obrazów"
+msgstr[3] "Nie posiadasz uprawnień do usunięcia tych obrazów"
+
 msgid "Yes, delete"
 msgstr "Tak, usuń"
 
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
-msgid "Choose an image"
-msgstr "Wybierz obraz"
-
-msgid "Search"
-msgstr "Szukaj"
-
-msgid "Upload"
-msgstr "Prześlij"
-
 msgid "Popular tags"
 msgstr "Popularne tagi"
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Przesłano pomyślnie, jednak nowy obraz wygląda jak duplikat istniejącego "
+"obrazu. Możesz go usunąć, jeżeli nie jest on konieczny."
 
 msgid "Existing"
 msgstr "Istniejący"
 
 msgid "New"
 msgstr "Nowy"
+
+msgid "Use new image"
+msgstr "Użyj nowego obrazu"
+
+msgid "Use existing and delete new"
+msgstr "Użyj istniejącego i usuń nowy"
 
 msgid "Latest images"
 msgstr "Najnowsze obrazy"
@@ -221,9 +270,6 @@ msgstr "Wybierz format"
 
 msgid "Insert image"
 msgstr "Wstaw obraz"
-
-msgid "Uploading…"
-msgstr "Wgrywanie…"
 
 msgid "Change image file:"
 msgstr "Zmień plik obrazu:"
@@ -239,6 +285,12 @@ msgstr "Zapisz"
 
 msgid "Delete image"
 msgstr "Usuń obraz"
+
+msgid "Keep new image"
+msgstr "Zachowaj nowy obraz"
+
+msgid "Delete new image"
+msgstr "Usuń nowy obraz"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -287,8 +339,11 @@ msgstr "Obrazy"
 msgid "Popular Tags:"
 msgstr "Popularne Tagi:"
 
-msgid "Clear choice"
-msgstr "Wyczyść wybór"
+msgid "Select all images in listing"
+msgstr "Zaznacz wszystkie dobrazy na liście"
+
+msgid "Select image"
+msgstr "Wybierz obraz"
 
 msgid "pixels"
 msgstr "pikseli"
@@ -389,8 +444,32 @@ msgstr "Uprawnienia obrazu"
 msgid "Add an image permission"
 msgstr "Dodaj uprawnienie obrazu"
 
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Add tags to the selected images"
+msgstr "Dodaj tagi do wybranych obrazów"
+
+msgid "Add to collection"
+msgstr "Dodaj do kolekcji"
+
+msgid "Add selected images to collection"
+msgstr "Dodaj wybrane obrazy do kolekcji "
+
 msgid "Delete"
 msgstr "Usuń"
+
+msgid "Delete selected images"
+msgstr "Usuń wybrane obrazy"
+
+msgid "Upload"
+msgstr "Prześlij"
+
+msgid "Uploading…"
+msgstr "Wgrywanie…"
+
+msgid "Choose an image"
+msgstr "Wybierz obraz"
 
 msgid "Search images"
 msgstr "Szukaj obrazów"
@@ -433,9 +512,3 @@ msgstr[0] "%(count)s obraz"
 msgstr[1] "%(count)s obrazów"
 msgstr[2] "%(count)s obrazów"
 msgstr[3] "%(count)s obrazów"
-
-msgid "Change image"
-msgstr "Zmień obraz"
-
-msgid "Edit this image"
-msgstr "Edytuj obraz"

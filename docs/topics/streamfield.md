@@ -25,7 +25,7 @@ class BlogPage(Page):
     author = models.CharField(max_length=255)
     date = models.DateField("Post date")
     body = StreamField([
-        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
     ], use_json_field=True)
@@ -121,7 +121,7 @@ body = StreamField([
         ('photo', ImageChooserBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ])),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -162,7 +162,7 @@ class PersonBlock(blocks.StructBlock):
 ```python
 body = StreamField([
     ('person', PersonBlock()),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -182,7 +182,7 @@ body = StreamField([
         ('photo', ImageChooserBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ], icon='user')),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -212,7 +212,7 @@ For a list of the recognised icon identifiers, see the [](styleguide).
 
 body = StreamField([
     ('gallery', blocks.ListBlock(ImageChooserBlock())),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -248,7 +248,7 @@ body = StreamField([
         ('image', ImageChooserBlock()),
         ('video', EmbedBlock()),
     ])),
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], use_json_field=True)
@@ -269,7 +269,7 @@ A StreamBlock subclass defined in this way can also be passed to a `StreamField`
 
 ```python
 class CommonContentBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(form_classname="full title")
+    heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
     image = ImageChooserBlock()
 
@@ -306,7 +306,7 @@ By default, a StreamField can contain an unlimited number of blocks. The `min_nu
 
 ```python
 body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], min_num=2, max_num=5, use_json_field=True)
@@ -316,7 +316,7 @@ Or equivalently:
 
 ```python
 class CommonContentBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(form_classname="full title")
+    heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
     image = ImageChooserBlock()
 
@@ -329,7 +329,7 @@ The `block_counts` option can be used to set a minimum or maximum count for spec
 
 ```python
 body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="full title")),
+    ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
     ('image', ImageChooserBlock()),
 ], block_counts={
@@ -341,7 +341,7 @@ Or equivalently:
 
 ```python
 class CommonContentBlock(blocks.StreamBlock):
-    heading = blocks.CharBlock(form_classname="full title")
+    heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
     image = ImageChooserBlock()
 
@@ -517,6 +517,43 @@ my_page.body.append(('paragraph', RichText("<p>And they all lived happily ever a
 
 # Save the updated data back to the database
 my_page.save()
+```
+
+(streamfield_retrieving_blocks_by_name)=
+
+## Retrieving blocks by name
+
+```{versionadded} 4.0
+The `blocks_by_name` and `first_block_by_name` methods were added.
+```
+
+StreamField values provide a `blocks_by_name` method for retrieving all blocks of a given name:
+
+```python
+my_page.body.blocks_by_name('heading')  # returns a list of 'heading' blocks
+```
+
+Calling `blocks_by_name` with no arguments returns a `dict`-like object, mapping block names to the list of blocks of that name. This is particularly useful in template code, where passing arguments isn't possible:
+
+```html+django
+<h2>Table of contents</h2>
+<ol>
+    {% for heading_block in page.body.blocks_by_name.heading %}
+        <li>{{ heading_block.value }}</li>
+    {% endfor %}
+</ol>
+```
+
+The `first_block_by_name` method returns the first block of the given name in the stream, or `None` if no matching block is found:
+
+```
+hero_image = my_page.body.first_block_by_name('image')
+```
+
+`first_block_by_name` can also be called without arguments to return a `dict`-like mapping:
+
+```html+django
+<div class="hero-image">{{ page.body.first_block_by_name.image }}</div>
 ```
 
 (streamfield_migrating_richtext)=

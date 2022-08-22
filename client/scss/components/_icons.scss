@@ -1,7 +1,7 @@
 @use 'sass:string';
 
 @font-face {
-  font-family: 'wagtail';
+  font-family: $font-wagtail-icons;
   src: url('../fonts/wagtail.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -15,11 +15,11 @@
 }
 
 .icon.teal {
-  color: $color-teal;
+  color: $color-teal-darker;
 }
 
 .icon.white {
-  color: #fff;
+  color: $color-white;
 }
 
 .icon:before,
@@ -27,7 +27,6 @@
   @include icon(); // from _mixins.scss
 }
 
-// stylelint-disable-next-line no-duplicate-selectors
 .icon:after {
   text-align: end;
 }
@@ -70,9 +69,12 @@
   display: inline-block;
 }
 
-svg.icon-spinner {
-  // TODO: leave only class when iconfont styles are removed
+// For SVG icons, add spinner styles onto the use element,
+// so an icon can be turned into a spinner by changing the href only.
+// This allows us to switch any icon to a spinner with much less boilerplate.
+use[href='#icon-spinner'] {
   animation: spin-wag 0.5s infinite linear;
+  transform-origin: center;
 }
 
 .icon-horizontalrule:before {
@@ -164,13 +166,5 @@ svg.icon-spinner {
   margin-inline-end: 0.5em;
   width: 1.5em;
   height: 1.5em;
-  color: $color-red;
-}
-
-// Media for Windows High Contrast mode
-
-@media (forced-colors: $media-forced-colours) {
-  .icon {
-    fill: $system-color-link-text;
-  }
+  color: theme('colors.critical.200');
 }

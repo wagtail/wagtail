@@ -2,19 +2,19 @@
 
 {{ self.formset.management_form }}
 
-<ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+<div id="id_{{ self.formset.prefix }}-FORMS">
     {% if self.formset.non_form_errors %}
-        <li class="error-message">
+        <div class="error-message">
             {% for error in self.formset.non_form_errors %}
                 <span>{{ error|escape }}</span>
             {% endfor %}
-        </li>
+        </div>
     {% endif %}
 
     {% for child in self.children %}
         {% include "wagtailadmin/panels/inline_panel_child.html" %}
     {% endfor %}
-</ul>
+</div>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
     {% escapescript %}
@@ -22,12 +22,12 @@
     {% endescapescript %}
 </script>
 
-<p class="add">
-    <button type="button" class="button bicolor button--icon" id="id_{{ self.formset.prefix }}-ADD">
-        {% icon name="plus" wrapped=1 %}
-        {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+{# Align with guiding line of the preceding child panel. #}
+<div class="w-mb-4 -w-ml-0.5">
+    <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
+        {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
     </button>
-</p>
+</div>
 
 <script>
     (function() {
@@ -41,7 +41,6 @@
         {% for child in self.children %}
             panel.initChildControls("{{ child.form.prefix }}");
         {% endfor %}
-        panel.setHasContent();
         panel.updateMoveButtonDisabledStates();
         panel.updateAddButtonState();
     })();

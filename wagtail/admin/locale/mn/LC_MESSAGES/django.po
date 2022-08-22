@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr "Хянуулахаар илгээсэн"
 
 msgid "Unpublish"
 msgstr "Нийтлэхгүй байх"
-
-msgid "Delete"
-msgstr "Устгах"
 
 msgid "Page locked"
 msgstr "Хуудас түгжигдсэн"
@@ -85,20 +82,32 @@ msgstr "Нууц үгээ шинээр сэргээхийн тулд имейл 
 msgid "URL"
 msgstr "URL хаяг"
 
+msgid "Search term"
+msgstr "Хайлтын утга"
+
+msgid "Search"
+msgstr "Хайлт"
+
+msgid "All collections"
+msgstr "Цуглуулга нэмэх"
+
+msgid "Collection"
+msgstr "Цуглуулга"
+
 msgid "Parent"
 msgstr "Эцэг"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Нэг цуглуулганд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
 
-msgid "Collection"
-msgstr "Цуглуулга"
-
 msgid "Add"
 msgstr "Нэмэх"
 
 msgid "Edit"
 msgstr "Засах"
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "New title"
 msgstr "Шинэ гарчиг"
@@ -166,12 +175,6 @@ msgstr "Нийтлэх өдөр/цаг нь хаагдах цаг/өдрөөсө
 msgid "Expiry date/time must be in the future"
 msgstr "Хаагдах өдөр/цаг нь ирээдүй цагт байх ёстой"
 
-msgid "Search"
-msgstr "Хайлт"
-
-msgid "Search term"
-msgstr "Хайлтын утга"
-
 msgid "Visibility"
 msgstr "Харагдац"
 
@@ -184,8 +187,8 @@ msgstr "Ядаж нэг бүлэг сонгоно уу."
 msgid "Scheduled publishing"
 msgstr "Төлөвлөгөөт нийтлэл"
 
-msgid "Privacy"
-msgstr "Нууцлал"
+msgid "Page title"
+msgstr "Хуудасны гарчиг"
 
 msgid "Content"
 msgstr "Контент"
@@ -195,12 +198,6 @@ msgstr "Бусад тохиргоо"
 
 msgid "Settings"
 msgstr "Тохиргоо"
-
-msgid "Status"
-msgstr "Төлөв"
-
-msgid "Preview"
-msgstr "Урдчилж харах"
 
 msgid "Error 404: Page not found"
 msgstr "Алдаа 404: Хуудас олдсонгүй"
@@ -216,14 +213,6 @@ msgstr "Админ панел руу очих"
 
 msgid "Account"
 msgstr "Хэрэглэгчийн эрх"
-
-msgid "Change password"
-msgstr "Нууц үгээ солих"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Та нууц үгээ энд солих боломжгүй. Системийн аминистратортой холбогдоно уу."
 
 msgid "Reset password"
 msgstr "Нууц үгээ сэргээх"
@@ -304,6 +293,9 @@ msgstr "Нууцлалын тохиргоог өөрчлөх боломжтой:
 msgid "Save"
 msgstr "Хадгалах"
 
+msgid "Privacy"
+msgstr "Нууцлал"
+
 msgid "Public"
 msgstr "Нийтэд нээлттэй"
 
@@ -319,8 +311,18 @@ msgstr "Тийм, устга"
 msgid "Update"
 msgstr "Шинэчлэх"
 
-msgid "Dashboard"
-msgstr "Хянах самбар"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s-г харьцуулж байна"
+
+msgid "Comparing"
+msgstr "Харьцуулж байна"
+
+msgid "Fields"
+msgstr "Талбарууд"
+
+msgid "Changes"
+msgstr "Өөрчлөлтүүд"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -363,8 +365,14 @@ msgstr "Зөвшөөрөх"
 msgid "Reject"
 msgstr "Татгалзах"
 
+msgid "Preview"
+msgstr "Урдчилж харах"
+
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
+
+msgid "Status"
+msgstr "Төлөв"
 
 msgid "Date"
 msgstr "Огноо"
@@ -375,13 +383,13 @@ msgstr "Сайтын хураангуй"
 msgid "Sign in"
 msgstr "Нэвтрэх"
 
+msgid "Sign in to Wagtail"
+msgstr "Нэвтрэх"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Таны %(username_field)s болон нууц үг тохирохгүй байна. Дахин оролдоно уу."
-
-msgid "Sign in to Wagtail"
-msgstr "Нэвтрэх"
 
 msgid "Signing in…"
 msgstr "Нэвтэрч байна..."
@@ -506,15 +514,8 @@ msgstr "Энэ хуудас болон дэд хуудсуудыг '%(title)s' -
 msgid "Yes, move this page"
 msgstr "Тийм, энэ хуудсыг зөө"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s нийтлэхийг болиулах"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Энэ хуудсыг үнэхээр хандах боломжгүй болгох уу?"
-
-msgid "Yes, unpublish it"
-msgstr "Тийм, Нийтлэхгүй болго"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -551,18 +552,11 @@ msgid "Current draft"
 msgstr "Одоогийн ноорог"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s-дыг үзэж байна"
 
 msgid "Drag"
 msgstr "Чирэх"
-
-msgid "Updated"
-msgstr "Шинэчлэгдсэн"
 
 msgid "Configure a site now."
 msgstr "Сайтаа тохируулна уу."
@@ -599,27 +593,11 @@ msgstr "Дэд хуудсуудын эрэмбийг болиулах"
 msgid "Enable ordering of child pages"
 msgstr "Дэд хуудсуудыг эрэмбэлэх"
 
-msgid "Preview error"
-msgstr "Урдчилж харахад алдаа гарлаа"
-
-msgid "Close"
-msgstr "Хаах"
+msgid "Updated"
+msgstr "Шинэчлэгдсэн"
 
 msgid "Cancel scheduled publish"
 msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s-г харьцуулж байна"
-
-msgid "Comparing"
-msgstr "Харьцуулж байна"
-
-msgid "Fields"
-msgstr "Талбарууд"
-
-msgid "Changes"
-msgstr "Өөрчлөлтүүд"
 
 msgid "Unschedule"
 msgstr "Төлөвлөгөөг болиулах"
@@ -639,15 +617,6 @@ msgstr "Хуудасны төрөл"
 msgid "Enter a search term above"
 msgstr "Хайлтын утгаа дээд хэсэгт оруулна уу"
 
-msgid "Locked"
-msgstr "Түгжигдсэн"
-
-msgid "Unlocked"
-msgstr "Түгжигдээгүй"
-
-msgid "Lock"
-msgstr "Түгжих"
-
 msgid "No pages use"
 msgstr "Хуудас хэрэглээгүй"
 
@@ -664,8 +633,8 @@ msgstr "Доош зөөх"
 msgid "Download CSV"
 msgstr "CSV татах"
 
-msgid "Filter"
-msgstr "Шүүлтүүр"
+msgid "Locked"
+msgstr "Түгжигдсэн"
 
 msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
@@ -676,14 +645,24 @@ msgstr "Хуудас"
 msgid "Root"
 msgstr "Үндэс"
 
-msgid "Home"
-msgstr "Нүүр хуудас"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s нийтлэхийг болиулах"
 
-msgid "All collections"
-msgstr "Цуглуулга нэмэх"
+msgid "Yes, unpublish it"
+msgstr "Тийм, Нийтлэхгүй болго"
+
+msgid "Filter"
+msgstr "Шүүлтүүр"
 
 msgid "Other searches"
 msgstr "Бусад хайлтууд"
+
+msgid "Unlocked"
+msgstr "Түгжигдээгүй"
+
+msgid "Lock"
+msgstr "Түгжих"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"
@@ -691,30 +670,18 @@ msgstr "Шинэ мэдээ нэмэх"
 msgid "New"
 msgstr "Шинэ"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "%(modified_by)s-р"
-
 msgid "Compare with live version"
 msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
 
 msgid "More"
 msgstr "Дэлгэрэнгүй"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s-н өмнө"
+
 msgid "Log out"
 msgstr "Гарах"
-
-msgid "live"
-msgstr "нийтлэгдсэн"
-
-msgid "draft"
-msgstr "ноорог"
-
-msgid "live + draft"
-msgstr "нийтлэгдсэн + ноорог"
-
-msgid "Test"
-msgstr "Тест"
 
 msgid "Password"
 msgstr "Нууц үг"
@@ -754,6 +721,15 @@ msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
 
 msgid "Editing"
 msgstr "Засч байна"
+
+msgid "Earliest"
+msgstr "Хамгийн эхний"
+
+msgid "Latest"
+msgstr "Хамгийн сүүлийн"
+
+msgid "Dashboard"
+msgstr "Хянах самбар"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -835,12 +811,6 @@ msgstr "Татгалзсан мэдэгдэл илгээхэд алдаа гар
 msgid "Page '{0}' moved."
 msgstr "'{0}' хуудас зөөгдлөө."
 
-msgid "Earliest"
-msgstr "Хамгийн эхний"
-
-msgid "Latest"
-msgstr "Хамгийн сүүлийн"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"-с {0} дэх хувилбар"
@@ -849,8 +819,8 @@ msgstr "\"{1}\"-с {0} дэх хувилбар"
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' хуудсыг хаалаа."
 
-msgid "Server Error"
-msgstr "Серверийн алдаа"
+msgid "Change"
+msgstr "Солих"
 
 msgid "Pages"
 msgstr "Хуудсууд"
@@ -875,12 +845,3 @@ msgstr "Холбоос"
 
 msgid "Choose an item"
 msgstr "Сонгох"
-
-msgid "Choose another item"
-msgstr "Өөр зүйл сонгох"
-
-msgid "Clear choice"
-msgstr "Сонголтыг цэвэрлэх"
-
-msgid "Choose another page"
-msgstr "Өөр хуудас сонгох"

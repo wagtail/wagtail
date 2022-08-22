@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -150,30 +150,18 @@ msgstr "Sí, eliminar"
 msgid "No, don't delete"
 msgstr "No, no eliminar"
 
-msgid "Choose a document"
-msgstr "Seleccionar un documento"
-
-msgid "Search"
-msgstr "Buscar"
-
-msgid "Upload"
-msgstr "Subir"
-
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Lo sentimos, ningún documento contiene \"<em>%(query_string)s</em>\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Lo sentimos, ningún documento contiene \"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "No has subido documentos en esta colección."
 
 msgid "You haven't uploaded any documents."
 msgstr "No has subido documentos."
-
-msgid "Uploading…"
-msgstr "Subiendo..."
 
 msgid "Change document:"
 msgstr "Cambiar documento:"
@@ -183,6 +171,12 @@ msgstr "Añadir un documento"
 
 msgid "Add document"
 msgstr "Añadir documento"
+
+msgid "Uploading…"
+msgstr "Subiendo..."
+
+msgid "Upload"
+msgstr "Subir"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -229,8 +223,8 @@ msgid "Select document"
 msgstr "Seleccionar documento"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "Hace %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Lo sentimos, ningún documento contiene \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -353,14 +347,8 @@ msgstr[0] "%(num_parent_objects)d documento ha sido eliminado"
 msgstr[1] "%(num_parent_objects)d documentos han sido eliminados"
 msgstr[2] "%(num_parent_objects)d documentos han sido eliminados"
 
-msgid "Server Error"
-msgstr "Error de servidor"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Reporte este error a su administrador web con la siguiente información:"
+msgid "Choose a document"
+msgstr "Seleccionar un documento"
 
 msgid "Search documents"
 msgstr "Buscar documentos"
@@ -395,9 +383,3 @@ msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s documento"
 msgstr[1] "%(count)s documentos"
 msgstr[2] "%(count)s documentos"
-
-msgid "Choose another document"
-msgstr "Elegir otro documento"
-
-msgid "Edit this document"
-msgstr "Editar este documento"

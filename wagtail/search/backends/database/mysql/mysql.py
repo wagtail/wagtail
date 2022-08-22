@@ -2,6 +2,7 @@ import warnings
 from collections import OrderedDict
 
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
+from django.db.models import Case, When
 from django.db.models.aggregates import Avg, Count
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.expressions import F
@@ -452,6 +453,32 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         match_expression = MatchExpression(
             search_query, columns=["title", "body"], output_field=BooleanField()
         )  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
+
+        # In Django 4.0 the above match expression would produce this SQL WHERE clause:
+        #
+        # WHERE ... MATCH (`title`, `body`) AGAINST (query IN BOOLEAN MODE)
+        #
+        # In Django 4.1, this behavior was changed:
+        #
+        # https://code.djangoproject.com/ticket/32691
+        # https://github.com/django/django/commit/407fe95cb116599adeb4b9ed01df5673aa5cb1db
+        #
+        # so that instead this SQL WHERE clause is generated, explicitly filtering
+        # against "= True":
+        #
+        # WHERE ... MATCH (`title`, `body`) AGAINST (query IN BOOLEAN MODE) = True
+        #
+        # This no longer works properly because MATCH returns a floating point score
+        # as a measurement of the match quality, not a boolean value:
+        #
+        # https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html
+        #
+        # In order for filtering on "= True" to work, we change the match expression
+        # SQL to be:
+        #
+        # WHERE ... CASE WHEN MATCH (`title`, `body`) AGAINST (query IN BOOLEAN MODE) THEN True ELSE False END = True
+        match_expression = Case(When(match_expression, then=True), default=False)
+
         score_expression = MatchExpression(
             search_query, columns=["title"], output_field=FloatField()
         ) * F("title_norm") + MatchExpression(

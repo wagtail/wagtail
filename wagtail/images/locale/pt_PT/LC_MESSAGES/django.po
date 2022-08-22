@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -243,15 +243,6 @@ msgstr "Sim, apagar"
 msgid "No, don't delete"
 msgstr "Não, não apagar"
 
-msgid "Choose an image"
-msgstr "Escolher uma imagem"
-
-msgid "Search"
-msgstr "Pesquisar"
-
-msgid "Upload"
-msgstr "Carregar"
-
 msgid "Popular tags"
 msgstr "Palavras-chave populares"
 
@@ -269,9 +260,6 @@ msgstr "Escolher um formato"
 
 msgid "Insert image"
 msgstr "Inserir imagem"
-
-msgid "Uploading…"
-msgstr "A carregar…"
 
 msgid "Change image file:"
 msgstr "Alterar ficheiro de imagem:"
@@ -334,9 +322,6 @@ msgstr "Imagens"
 
 msgid "Popular Tags:"
 msgstr "Palavras-chave Populares:"
-
-msgid "Clear choice"
-msgstr "Limpar escolha"
 
 msgid "Select all images in listing"
 msgstr "Selecionar todas as imagens da listagem"
@@ -492,6 +477,15 @@ msgstr[0] "%(num_parent_objects)dimagem foi apagada"
 msgstr[1] "%(num_parent_objects)dimagens foram apagadas"
 msgstr[2] "%(num_parent_objects)dimagens foram apagadas"
 
+msgid "Upload"
+msgstr "Carregar"
+
+msgid "Uploading…"
+msgstr "A carregar…"
+
+msgid "Choose an image"
+msgstr "Escolher uma imagem"
+
 msgid "Search images"
 msgstr "Pesquisar imagens"
 
@@ -532,9 +526,3 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagem"
 msgstr[1] "%(count)s imagens"
 msgstr[2] "%(count)s imagens"
-
-msgid "Change image"
-msgstr "Alterar imagem"
-
-msgid "Edit this image"
-msgstr "Alterar esta imagem"

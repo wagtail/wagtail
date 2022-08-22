@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2019-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -158,6 +158,12 @@ msgstr "mynd"
 msgid "images"
 msgstr "myndir"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Bæta merkjum við 1 mynd"
+msgstr[1] "Bæta merkjum við %(counter)s myndir"
+
 msgid "Add tags to images"
 msgstr "Bæta merkingum á myndir"
 
@@ -176,6 +182,12 @@ msgstr "Já, bæta við"
 
 msgid "No, don't add"
 msgstr "Nei, ekki bæta við"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Bæta 1 mynd í nýtt safn"
+msgstr[1] "Bæta %(counter)s myndum við nýtt safn"
 
 msgid "Add images to collection"
 msgstr "Bæta myndum í safn"
@@ -223,17 +235,15 @@ msgstr "Já, eyða"
 msgid "No, don't delete"
 msgstr "Nei, ekki eyða"
 
-msgid "Choose an image"
-msgstr "Veldu mynd"
-
-msgid "Search"
-msgstr "Leita"
-
-msgid "Upload"
-msgstr "Hlaða upp"
-
 msgid "Popular tags"
 msgstr "Vinsæl merki"
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Mynd var hlaðið inn en hún lítur út fyrir að vera tvítekin því það er nú "
+"þegar til alveg eins mynd. Þú getur eytt henni ef þú þarft ekki tvö eintök."
 
 msgid "Existing"
 msgstr "Þegar til"
@@ -241,8 +251,27 @@ msgstr "Þegar til"
 msgid "New"
 msgstr "Ný"
 
+msgid "Use new image"
+msgstr "Nota nýja mynd"
+
+msgid "Use existing and delete new"
+msgstr "Nota gömlu og eyða nýju"
+
 msgid "Latest images"
 msgstr "Nýjustu myndirnar"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Þú hefur ekki hlaðið neinum myndum inn í þetta safn."
+
+msgid "You haven't uploaded any images."
+msgstr "Þú hefur ekki hlaðið inn neinum myndum."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Af hverju ekki <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>hlaða upp núna</a>?"
 
 msgid "Choose a format"
 msgstr "Veldu snið"
@@ -250,8 +279,19 @@ msgstr "Veldu snið"
 msgid "Insert image"
 msgstr "Setja inn mynd"
 
-msgid "Uploading…"
-msgstr "Hleð upp..."
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Mynd <span class=\"visuallyhidden\">búin til í "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Myndir <span class=\"visuallyhidden\">búnar til í "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Breyta um myndaskrá:"
@@ -268,12 +308,21 @@ msgstr "Vista"
 msgid "Delete image"
 msgstr "Eyða mynd"
 
+msgid "Keep new image"
+msgstr "Halda nýju myndinni"
+
+msgid "Delete new image"
+msgstr "Eyða nýju myndinni"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Breyti mynd %(title)s"
 
 msgid "Editing"
 msgstr "Breyti"
+
+msgid "Image focal point"
+msgstr "Fókuspunktur myndar"
 
 msgid "URL Generator"
 msgstr "Slóð"
@@ -312,14 +361,26 @@ msgstr "Notkun"
 msgid "Images"
 msgstr "Myndir"
 
+msgid "Sort by"
+msgstr "Raða eftir"
+
+msgid "Entries per page"
+msgstr "Atriði á síðu"
+
 msgid "Popular Tags:"
 msgstr "Vinsæl merki:"
 
-msgid "Clear choice"
+msgid "Clear"
 msgstr "Hreinsa"
 
 msgid "Select all images in listing"
 msgstr "Velja allar myndir"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Það er %(counter)s niðurstaða"
+msgstr[1] "Það eru %(counter)s niðurstöður"
 
 msgid "Select image"
 msgstr "Velja mynd"
@@ -409,6 +470,13 @@ msgstr ""
 "þarf. Þú getur einnig eytt myndinni alveg ef að ekki þurfti að hlaða henni "
 "inn."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Mynd var hlaðið inn en hún lítur út fyrir að vera tvítekin því hún er alveg "
+"eins og þessi mynd. Þú getur eytt henni ef þú þarft ekki tvö eintök."
+
 msgid "Sorry, upload failed."
 msgstr "Því miður tókst ekki að hlaða upp myndunum."
 
@@ -465,6 +533,33 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d mynd hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d myndum hefur verið eytt"
 
+msgid "Upload"
+msgstr "Hlaða upp"
+
+msgid "Uploading…"
+msgstr "Hleð upp..."
+
+msgid "Choose an image"
+msgstr "Veldu mynd"
+
+msgid "Newest"
+msgstr "Nýjast"
+
+msgid "Oldest"
+msgstr "Elst"
+
+msgid "Title: (A -> Z)"
+msgstr "Titill: (A -> Ö)"
+
+msgid "Title: (Z -> A)"
+msgstr "Titill: (Ö -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Skráarstærð: (litlar fyrst)"
+
+msgid "File size: (high to low)"
+msgstr "Skráarstærð: (stórar fyrst)"
+
 msgid "Search images"
 msgstr "Leita að myndum"
 
@@ -503,9 +598,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s mynd"
 msgstr[1] "%(count)s myndir"
-
-msgid "Change image"
-msgstr "Skipta út mynd"
-
-msgid "Edit this image"
-msgstr "Breyta þessari mynd"

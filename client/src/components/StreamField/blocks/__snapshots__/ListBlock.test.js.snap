@@ -1,16 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"3\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
@@ -25,8 +24,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -47,12 +52,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -61,7 +69,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
@@ -76,8 +84,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -98,12 +112,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -112,7 +129,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-order\\" value=\\"2\\">
@@ -127,8 +144,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -149,12 +172,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -163,22 +189,21 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"0\\">
@@ -193,8 +218,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -215,12 +246,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -229,7 +263,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"1\\">
@@ -244,8 +278,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -266,12 +306,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -280,22 +323,21 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered downward 1`]
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"0\\">
@@ -310,8 +352,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -332,12 +380,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -346,7 +397,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"1\\">
@@ -361,8 +412,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -383,12 +440,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -397,22 +457,21 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be reordered upward 1`] =
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"3\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
@@ -427,8 +486,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -449,12 +514,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -463,7 +531,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-order\\" value=\\"1\\">
@@ -478,8 +546,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -500,12 +574,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-2-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-2-value\\" id=\\"the-prefix-2-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-2-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -514,7 +591,7 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"2\\">
@@ -529,8 +606,14 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -551,12 +634,15 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -565,22 +651,21 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be split 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
@@ -595,8 +680,14 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -617,12 +708,15 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -631,7 +725,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"true\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\" style=\\"display: none;\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
@@ -646,8 +740,14 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -668,12 +768,15 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -682,22 +785,21 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
@@ -712,8 +814,14 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -734,12 +842,15 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -748,7 +859,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
@@ -763,8 +874,14 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -785,12 +902,15 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -799,22 +919,21 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to children 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\">
+        </div><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
@@ -829,8 +948,14 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -851,12 +976,15 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -865,7 +993,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
@@ -880,8 +1008,14 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -902,13 +1036,16 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname- error\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-warning\\"></use></svg>
+          <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
             <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
           </div>
-        <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
+        </div>
       </div>
                 </div>
               </div>
@@ -916,22 +1053,21 @@ exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to ch
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`] = `
-"<span>
+"<div class=\\"c-sf-help\\">
           <div class=\\"help\\">
-            <div class=\\"icon-help\\">?</div>
             use <strong>a few</strong> of these
           </div>
-        </span><div class=\\"c-sf-container \\"><p class=\\"help-block help-critical\\">At least three blocks are required</p>
+        </div><div class=\\"c-sf-container \\"><p class=\\"help-block help-critical\\">At least three blocks are required</p>
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"11111111-1111-1111-1111-111111111111\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
@@ -946,8 +1082,14 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -968,12 +1110,15 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-0-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-0-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -982,7 +1127,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button><div aria-hidden=\\"false\\" data-contentpath=\\"22222222-2222-2222-2222-222222222222\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
@@ -997,8 +1142,14 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
                   <use href=\\"#icon-pilcrow\\"></use>
                 </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__type\\"></div>
+                <div class=\\"c-sf-block__header__divider\\"></div>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
-                  <span class=\\"c-sf-block__type\\"></span>
+                  <div class=\\"c-sf-block__actions__cue\\">
+                    <svg class=\\"icon icon-dots-horizontal\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-dots-horizontal\\"></use>
+                    </svg>
+                  </div>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
         <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
           <use href=\\"#icon-arrow-up\\"></use>
@@ -1019,12 +1170,15 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
-                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
-        <div class=\\"field-content\\">
-          <div class=\\"input\\">
-            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
-            <span></span>
+                  <div class=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
+        <div class=\\"w-field w-field--char_field w-field--admin_auto_height_text_input\\" data-field=\\"\\">
+          <div class=\\"w-field__errors\\" id=\\"the-prefix-1-value-errors\\" data-field-errors=\\"\\">
+            <svg class=\\"icon icon-warning w-field__errors-icon\\" aria-hidden=\\"true\\" hidden=\\"\\"><use href=\\"#icon-warning\\"></use></svg>
           </div>
+          <div class=\\"w-field__input\\" data-field-input=\\"\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+          </div>
+          <div id=\\"the-prefix-1-value-helptext\\" data-field-help=\\"\\"></div>
         </div>
       </div>
                 </div>
@@ -1033,7 +1187,7 @@ exports[`telepath: wagtail.blocks.ListBlock setError renders non-block errors 1`
           </div>
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
-        <i aria-hidden=\\"true\\">+</i>
+        <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
       </button></div>
       </div>"
 `;

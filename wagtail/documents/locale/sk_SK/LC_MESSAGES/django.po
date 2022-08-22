@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -62,26 +62,8 @@ msgstr "dokument"
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
-msgid "Choose a document"
-msgstr "Zvoliť dokument"
-
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Upload"
-msgstr "Nahrať"
-
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
-"%(query_string)s</em>\""
-
-msgid "Uploading…"
-msgstr "Odosielam…"
 
 msgid "Change document:"
 msgstr "Zmeniť dokument"
@@ -91,6 +73,12 @@ msgstr "Pridať dokument"
 
 msgid "Add document"
 msgstr "Pridať dokument"
+
+msgid "Uploading…"
+msgstr "Odosielam…"
+
+msgid "Upload"
+msgstr "Nahrať"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -125,8 +113,10 @@ msgid "File"
 msgstr "Súbor"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -194,8 +184,8 @@ msgstr "Pridať oprávnenia dokumentu"
 msgid "Delete"
 msgstr "Vymazať"
 
-msgid "Server Error"
-msgstr "Chyba servera"
+msgid "Choose a document"
+msgstr "Zvoliť dokument"
 
 msgid "Search documents"
 msgstr "Hľadať dokumenty"
@@ -229,9 +219,3 @@ msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenty"
 msgstr[2] "%(count)s dokumentov"
 msgstr[3] "%(count)s dokumentov"
-
-msgid "Choose another document"
-msgstr "Zvoliť ďalší dokument"
-
-msgid "Edit this document"
-msgstr "Upraviť tento dokument"

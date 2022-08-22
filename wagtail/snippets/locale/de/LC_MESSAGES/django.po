@@ -14,6 +14,8 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# Matti Borchers, 2022
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
@@ -25,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +37,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -45,41 +53,18 @@ msgstr "Speichern"
 msgid "Wagtail snippets"
 msgstr "Wagtail Schnipsel"
 
-msgid "Choose"
-msgstr "Auswählen"
-
-msgid "Search"
-msgstr "Suche"
+msgid "Delete selected snippets"
+msgstr "Ausgewählte Schnipsel löschen"
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Es gibt %(counter)s Ergebnis"
-msgstr[1] "Es gibt %(counter)s Ergebnisse"
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' gelöscht."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Leider keine übereinstimmenden Schnipsel zu „<em>%(query_string)s</em>“"
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
-msgstr ""
-"Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noreferrer\">ein neues erstellen</a>?"
-
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
-
-msgid "History"
-msgstr "Historie"
-
-msgid "Saving…"
-msgstr "Speichern…"
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s gelöscht."
+msgstr[1] "%(count)d %(snippet_type)s gelöscht."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -105,11 +90,61 @@ msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr ""
 "Sind Sie sicher, dass Sie %(count)s %(snippet_type_name)s löschen möchten?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr ""
+"Sie haben nicht die Berechtigung, dieses „%(snippet_type_name)s“-Objekt zu "
+"löschen."
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+"Sie haben nicht die Berechtigung, diese %(snippet_plural_name)s zu löschen"
+
 msgid "Yes, delete"
 msgstr "Ja, löschen"
 
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Es gibt leider keine Schnipsel zum Suchbegriff \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Sie haben keine %(snippet_type_name)s Schnipsel erstellt. Warum nicht <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noreferrer\">ein neues erstellen</a>?"
+
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert:"
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Publishing…"
+msgstr "Veröffentlichen..."
+
+msgid "Publish this version"
+msgstr "Diese Version veröffentlichen"
+
+msgid "Saving…"
+msgstr "Speichern…"
+
+msgid "Replace current draft"
+msgstr "Aktuellen Entwurf ersetzen"
+
+msgid "Replace current revision"
+msgstr "Aktuelle Revision ersetzen"
+
+msgid "Save draft"
+msgstr "Entwurf speichern"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -122,28 +157,47 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "%(snippet_type_name)s - %(instance)s bearbeiten"
-
-msgid "Editing"
-msgstr "Bearbeiten"
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "%(snippet_type_name)s - %(object)s bearbeiten"
 
 msgid "Usage"
 msgstr "Benutzung"
 
+msgid "Toggle breadcrumbs"
+msgstr "Breadcrumbs ein-/ausblenden"
+
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
 msgid "Snippets"
 msgstr "Schnipsel"
 
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Wähle alle %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titel"
+msgid "New: "
+msgstr "Neu:"
 
 #, python-format
-msgid "Select %(snippet)s"
-msgstr "Wähle %(snippet)s"
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "%(snippet_type)s %(title)s wird bearbeitet"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Schnipsel-Historie für %(subtitle)s"
+
+msgid "Edit this snippet"
+msgstr "Dieses Schnipsel bearbeiten"
+
+msgid "No log entries found."
+msgstr "Keine Protokoll-Einträge gefunden."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Es gibt %(counter)s Ergebnis"
+msgstr[1] "Es gibt %(counter)s Ergebnisse"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr "Es gibt leider keine %(snippet_type_name_plural)s zu Ihrer Abfrage"
 
 #, python-format
 msgid ""
@@ -153,17 +207,52 @@ msgstr ""
 "Sie haben noch keine „%(snippet_type_name_plural)s“ Schnipsel erstellt. <a "
 "href=\"%(wagtailsnippets_create_url)s\">Erstellen Sie doch jetzt eins.</a>"
 
+msgid "Live version"
+msgstr "Live-Version"
+
+msgid "Current draft"
+msgstr "Aktueller Entwurf"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Review this version"
+msgstr "Diese Version überprüfen"
+
+msgid "Compare with previous version"
+msgstr "Mit vorheriger Version vergleichen"
+
+msgid "Compare with current version"
+msgstr "Mit der aktuellen Version vergleichen"
+
+msgid "Status: "
+msgstr "Status:"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Draft"
+msgstr "Entwurf"
+
+msgid "View history"
+msgstr "Historie anschauen"
+
+msgid "This will publish at "
+msgstr "Dies wird veröffentlich am"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Schnipsel %(snippet_type_name_plural)s"
 
 #, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Schnipsel <span>%(snippet_type_name_plural)s</span>"
-
-#, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s hinzufügen"
+
+msgid "Select all snippets in listing"
+msgstr "Alle Schnipsel in der Aufzählung auswählen"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -171,6 +260,9 @@ msgstr "Benutzung von %(title)s"
 
 msgid "Usage of"
 msgstr "Benutzung von"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Parent"
 msgstr "Übergeordnet"
@@ -184,9 +276,14 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Suche %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Auswählen"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Instances"
+msgstr "Instanzen"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
@@ -195,25 +292,23 @@ msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' erstellt."
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' aktualisiert."
+msgid "%(snippet_type)s '%(instance)s' created and published."
+msgstr "%(snippet_type)s '%(instance)s' wurde erstellt und veröffentlicht."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' gelöscht."
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' aktualisiert."
 
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s gelöscht."
-msgstr[1] "%(count)d %(snippet_type)s gelöscht."
+msgid "%(snippet_type)s '%(instance)s' updated and published."
+msgstr "%(snippet_type)s '%(instance)s' wurde aktualisiert und veröffentlicht."
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Snippet history"
 msgstr "Schnipselhistorie"
@@ -221,8 +316,13 @@ msgstr "Schnipselhistorie"
 msgid "Action"
 msgstr "Aktion"
 
-msgid "Date"
-msgstr "Datum"
+#, python-brace-format
+msgid "Edit this {model_name}"
+msgstr "Dieses „{model_name}“-Objekt bearbeiten"
+
+#, python-brace-format
+msgid "{model_name} history"
+msgstr "{model_name}-Historie"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -235,11 +335,3 @@ msgstr "'%(title)s' löschen"
 #, python-format
 msgid "Choose %s"
 msgstr "Auswählen %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Andere/n/s %s auswählen"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "%s bearbeiten"

@@ -180,7 +180,10 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
 
         # as standard, only the root collection exists and so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
@@ -196,7 +199,10 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/documents/add.html")
 
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         self.assertContains(response, "Evil plans")
 
     def test_get_with_collection_nesting(self):
@@ -335,7 +341,10 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
     def test_get_with_collection_nesting(self):
         self.evil_plans_collection.add_child(name="Eviler plans")
@@ -343,7 +352,10 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
         response = self.client.get(reverse("wagtaildocs:add"))
         self.assertEqual(response.status_code, 200)
         # Unlike the above test, the user should have access to multiple Collections.
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
 
@@ -775,7 +787,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
 
         # no collection chooser when only one collection exists
-        self.assertNotContains(response, '<label for="id_adddocument_collection">')
+        self.assertNotContains(response, "id_adddocument_collection")
 
         self.check_form_media_in_response(response)
 
@@ -791,7 +803,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
 
         # collection chooser should exisst
-        self.assertContains(response, '<label for="id_adddocument_collection">')
+        self.assertContains(response, "id_adddocument_collection")
         self.assertContains(response, "Evil plans")
 
     def test_add_post(self):
@@ -1414,9 +1426,9 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.user = self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
 
@@ -1428,17 +1440,17 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         evil_plans = root_collection.add_child(name="Evil plans")
         evil_plans.add_child(name="Eviler plans")
 
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
 
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
     def test_with_custom_document_model(self):
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
 
         # custom form fields should be present
         self.assertIn(
@@ -1450,10 +1462,10 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
     def test_search(self):
         response = self.client.get(
-            reverse("wagtaildocs:chooser_results"), {"q": "Hello"}
+            reverse("wagtaildocs_chooser:choose_results"), {"q": "Hello"}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["query_string"], "Hello")
+        self.assertEqual(response.context["search_query"], "Hello")
 
     def make_docs(self):
         for i in range(50):
@@ -1463,20 +1475,22 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse("wagtaildocs:chooser_results"), {"p": 2})
+        response = self.client.get(
+            reverse("wagtaildocs_chooser:choose_results"), {"p": 2}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
 
         # Check that we got the correct page
-        self.assertEqual(response.context["documents"].number, 2)
+        self.assertEqual(response.context["results"].number, 2)
 
     def test_pagination_invalid(self):
         self.make_docs()
 
         response = self.client.get(
-            reverse("wagtaildocs:chooser_results"), {"p": "Hello World!"}
+            reverse("wagtaildocs_chooser:choose_results"), {"p": "Hello World!"}
         )
 
         # Check response
@@ -1484,12 +1498,14 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
 
         # Check that we got page one
-        self.assertEqual(response.context["documents"].number, 1)
+        self.assertEqual(response.context["results"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse("wagtaildocs:chooser_results"), {"p": 99999})
+        response = self.client.get(
+            reverse("wagtaildocs_chooser:choose_results"), {"p": 99999}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1497,8 +1513,8 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check that we got the last page
         self.assertEqual(
-            response.context["documents"].number,
-            response.context["documents"].paginator.num_pages,
+            response.context["results"].number,
+            response.context["results"].paginator.num_pages,
         )
 
     def test_construct_queryset_hook_browse(self):
@@ -1518,9 +1534,9 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         with self.register_hook(
             "construct_document_chooser_queryset", filter_documents
         ):
-            response = self.client.get(reverse("wagtaildocs:chooser"))
-        self.assertEqual(len(response.context["documents"]), 1)
-        self.assertEqual(response.context["documents"][0], document)
+            response = self.client.get(reverse("wagtaildocs_chooser:choose"))
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], document)
 
     def test_construct_queryset_hook_search(self):
         document = models.Document.objects.create(
@@ -1540,10 +1556,10 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             "construct_document_chooser_queryset", filter_documents
         ):
             response = self.client.get(
-                reverse("wagtaildocs:chooser_results"), {"q": "Test"}
+                reverse("wagtaildocs_chooser:choose_results"), {"q": "Test"}
             )
-        self.assertEqual(len(response.context["documents"]), 1)
-        self.assertEqual(response.context["documents"][0], document)
+        self.assertEqual(len(response.context["results"]), 1)
+        self.assertEqual(response.context["results"][0], document)
 
     def test_index_without_collections(self):
         self.make_docs()
@@ -1572,7 +1588,7 @@ class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.client.get(
-            reverse("wagtaildocs:document_chosen", args=(self.document.id,))
+            reverse("wagtaildocs_chooser:chosen", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
@@ -1584,9 +1600,11 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         self.login()
 
     def test_simple(self):
-        response = self.client.get(reverse("wagtaildocs:chooser_upload"))
+        response = self.client.get(reverse("wagtaildocs_chooser:create"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "reshow_creation_form")
 
@@ -1599,7 +1617,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
             "document-chooser-upload-title": "Test document",
             "document-chooser-upload-file": fake_file,
         }
-        response = self.client.post(reverse("wagtaildocs:chooser_upload"), post_data)
+        response = self.client.post(reverse("wagtaildocs_chooser:create"), post_data)
 
         # Check that the response is the 'chosen' step
         response_json = json.loads(response.content.decode())
@@ -1620,7 +1638,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         response = self.client.post(
-            reverse("wagtaildocs:chooser_upload"),
+            reverse("wagtaildocs_chooser:create"),
             {
                 "document-chooser-upload-title": "Test document",
                 "document-chooser-upload-file": get_test_document_file(),
@@ -1630,7 +1648,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
 
         # The form should have an error
         self.assertContains(
@@ -1666,9 +1686,11 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
         self.login(username="moriarty", password="password")
 
     def test_simple(self):
-        response = self.client.get(reverse("wagtaildocs:chooser_upload"))
+        response = self.client.get(reverse("wagtaildocs_chooser:create"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/upload_form.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/generic/chooser/creation_form.html"
+        )
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "reshow_creation_form")
 
@@ -1677,9 +1699,9 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 
     def test_chooser_view(self):
         # The main chooser view also includes the form, so need to test there too
-        response = self.client.get(reverse("wagtaildocs:chooser"))
+        response = self.client.get(reverse("wagtaildocs_chooser:choose"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
 
@@ -1695,7 +1717,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
             "document-chooser-upload-title": "Test document",
             "document-chooser-upload-file": fake_file,
         }
-        response = self.client.post(reverse("wagtaildocs:chooser_upload"), post_data)
+        response = self.client.post(reverse("wagtaildocs_chooser:create"), post_data)
 
         # Check that the response is the 'chosen' step
         response_json = json.loads(response.content.decode())
@@ -1865,7 +1887,10 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
 
         # documents can only be moved to collections you have add permission for,
         # so the 'collection' field is not available here
-        self.assertNotContains(response, '<label for="id_collection">')
+        self.assertNotContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
 
         # if the user has add permission on a different collection,
         # they should have option to move the document
@@ -1881,7 +1906,10 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
             reverse("wagtaildocs:edit", args=(self.document.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<label for="id_collection">')
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_collection" id="id_collection-label">',
+        )
         self.assertContains(response, "Nice plans")
         self.assertContains(response, "Evil plans")
 

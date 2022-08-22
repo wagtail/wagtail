@@ -1,11 +1,11 @@
 #
 # Translators:
-# Philip Crisp, 2022
 # Adam Hughes <adamhughes31@gmail.com>, 2022
+# Philip Crisp, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Adam Hughes <adamhughes31@gmail.com>, 2022\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (https://www.transifex.com/torchbox/teams/8009/cy/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cy\n"
@@ -45,6 +45,12 @@ msgstr "Tudalennau"
 msgid "Reply"
 msgstr "Ymateb"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Riportiwch y gwall hwn i weinyddwr eich gwefan gyda'r wybodaeth ganlynol:"
+
 msgid "Resolve"
 msgstr "Datrys"
 
@@ -65,3 +71,6 @@ msgstr "Chwilio"
 
 msgid "Server Error"
 msgstr "Gwall Gweinydd"
+
+msgid "This field is required."
+msgstr "Mae angen y'r ffild hon."

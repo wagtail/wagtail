@@ -26,6 +26,7 @@ from wagtail.images.views.bulk_actions import (
     AddToCollectionBulkAction,
     DeleteBulkAction,
 )
+from wagtail.images.views.chooser import viewset as chooser_viewset
 
 
 @hooks.register("register_admin_urls")
@@ -66,7 +67,7 @@ def editor_js():
             window.chooserUrls.imageChooser = '{0}';
         </script>
         """,
-        reverse("wagtailimages:chooser"),
+        reverse("wagtailimages_chooser:choose"),
     )
 
 
@@ -94,7 +95,7 @@ def register_image_feature(features):
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["id", "src", "alt", "format"],
                 # Keep only images which are from Wagtail.
-                "whitelist": {
+                "allowlist": {
                     "id": True,
                 },
             },
@@ -200,3 +201,8 @@ register_admin_url_finder(get_image_model(), ImageAdminURLFinder)
 
 for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
     hooks.register("register_bulk_action", action_class)
+
+
+@hooks.register("register_admin_viewset")
+def register_image_chooser_viewset():
+    return chooser_viewset

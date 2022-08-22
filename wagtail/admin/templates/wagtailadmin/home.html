@@ -8,26 +8,25 @@
 {% endblock %}
 
 {% block content %}
-    <header class="header merged header--home">
-        <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
+    {% fragment as header_title %}
+        {% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}
+    {% endfragment %}
 
-        <div class="sm:w-ml-4">
-            <h1 class="header__title">{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
-            <div class="user-name">{{ user|user_display_name }}</div>
-        </div>
-    </header>
+    {% avatar_url user as avatar %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar merged=1 %}
 
-    {% if panels %}
-        {% for panel in panels %}
-            {% component panel fallback_render_method=True %}
-        {% endfor %}
-    {% else %}
-        <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
-    {% endif %}
+    <div class="nice-padding">
+        {% if panels %}
+            {% for panel in panels %}
+                {% component panel fallback_render_method=True %}
+            {% endfor %}
+        {% else %}
+            <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
-    <script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
     {{ media.js }}
 {% endblock %}

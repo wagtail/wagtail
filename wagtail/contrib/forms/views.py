@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.translation import ngettext
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
@@ -177,7 +177,7 @@ class DeleteSubmissionsView(TemplateView):
 class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
     """Lists submissions for the provided form page"""
 
-    template_name = "wagtailforms/index_submissions.html"
+    template_name = "wagtailforms/submissions_index.html"
     context_object_name = "submissions"
     form_page = None
     ordering = ("-submit_time",)
@@ -186,6 +186,7 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
         "id",
         "submit_time",
     )  # used to validate ordering in URL
+    page_title = gettext_lazy("Form data")
     select_date_form = None
 
     def dispatch(self, request, *args, **kwargs):
@@ -304,6 +305,7 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
         data_fields = self.form_page.get_data_fields()
         data_rows = []
         context["submissions"] = submissions
+        context["page_title"] = self.page_title
         if not self.is_export:
             # Build data_rows as list of dicts containing model_id and fields
             for submission in submissions:

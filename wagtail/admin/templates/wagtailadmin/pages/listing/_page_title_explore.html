@@ -19,8 +19,6 @@
         <span class="status-tag status-tag--label">{{ page.locale.get_display_name }}</span>
     {% endif %}
 
-    {% block pages_listing_title_extra %}{% endblock pages_listing_title_extra %}
-
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
 </div>

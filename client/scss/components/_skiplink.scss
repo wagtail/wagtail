@@ -10,7 +10,7 @@
   }
 
   &.button {
-    background: $color-green-darker;
-    border: $color-green-darker;
+    background: theme('colors.positive.100');
+    border: theme('colors.positive.100');
   }
 }

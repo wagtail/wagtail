@@ -5,24 +5,27 @@ from unittest.mock import Mock
 import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpRequest
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
-from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     Comment,
+    GroupApprovalTask,
     Locale,
     Page,
     PageLogEntry,
     PageManager,
     Site,
+    Workflow,
+    WorkflowTask,
     get_page_models,
     get_translatable_models,
 )
@@ -3624,3 +3627,131 @@ class TestLocalized(TestCase):
             self.assertEqual(self.fr_event_page.localized, self.fr_event_page)
             self.assertEqual(self.event_page.localized_draft, self.event_page)
             self.assertEqual(self.fr_event_page.localized_draft, self.fr_event_page)
+
+
+class TestGetLock(TestCase):
+    fixtures = ["test.json"]
+
+    def test_when_unlocked(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        self.assertIsNone(christmas_event.get_lock())
+
+    def test_when_locked(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, BasicLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertFalse(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+
+    def test_when_locked_without_locked_at(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+
+        lock = christmas_event.get_lock()
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "<b>Page 'Christmas' is locked</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>Page 'Christmas' is locked</b> by <b>you</b>.",
+        )
+
+    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    def test_when_locked_globally(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.locked = True
+        christmas_event.locked_by = moderator
+        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, BasicLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertTrue(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"<b>Page 'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+        self.assertEqual(
+            lock.get_message(moderator),
+            "<b>Page 'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+        )
+
+    def test_when_locked_by_workflow(self):
+        moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.save_revision()
+
+        workflow = Workflow.objects.create(name="test_workflow")
+        task = GroupApprovalTask.objects.create(name="test_task")
+        task.groups.add(Group.objects.get(name="Event moderators"))
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        workflow.start(christmas_event, moderator)
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, WorkflowLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        self.assertFalse(lock.for_user(moderator))
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "This page is currently awaiting moderation. Only reviewers for this task can edit the page.",
+        )
+        self.assertIsNone(lock.get_message(moderator))
+
+        # When visiting a page in a workflow with multiple tasks, the message displayed to users changes to show the current task the page is on
+
+        # Add a second task to the workflow
+        other_task = GroupApprovalTask.objects.create(name="another_task")
+        WorkflowTask.objects.create(workflow=workflow, task=other_task, sort_order=2)
+
+        lock = christmas_event.get_lock()
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            "This page is awaiting <b>'test_task'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page.",
+        )
+
+    def test_when_scheduled_for_publish(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
+        rvn = christmas_event.save_revision()
+        rvn.publish()
+
+        lock = christmas_event.get_lock()
+        self.assertIsInstance(lock, ScheduledForPublishLock)
+        self.assertTrue(lock.for_user(christmas_event.owner))
+        if settings.USE_TZ:
+            self.assertEqual(
+                lock.get_message(christmas_event.owner),
+                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 07:32",
+            )
+        else:
+            self.assertEqual(
+                lock.get_message(christmas_event.owner),
+                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 16:32",
+            )
+
+        # Not even superusers can break this lock
+        # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
+        superuser = get_user_model().objects.get(email="superuser@example.com")
+        self.assertTrue(lock.for_user(superuser))

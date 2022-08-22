@@ -117,7 +117,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'id="status-sidebar-live"')
 
         # Test InlinePanel labels/headings
-        self.assertContains(response, "<legend>Speaker lineup</legend>")
+        self.assertContains(
+            response,
+            '<label class="w-field__label" for="id_speakers-__prefix__-last_name" id="id_speakers-__prefix__-last_name-label">',
+        )
         self.assertContains(response, "Add speakers")
 
         # test register_page_action_menu_item hook
@@ -615,16 +618,16 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should be redirected to edit page
-        self.assertEqual(response.status_code, 302)
+        # Should be blocked, as the page is already scheduled
+        self.assertEqual(response.status_code, 200)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
 
-        # The page should be live now
-        self.assertTrue(child_page_new.live)
+        # The page should not be live
+        self.assertFalse(child_page_new.live)
 
-        # And a revision with approved_go_live_at should not exist
-        self.assertFalse(
+        # The revision with approved_go_live_at should still exist
+        self.assertTrue(
             Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
@@ -743,25 +746,25 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should be redirected to edit page
-        self.assertEqual(response.status_code, 302)
+        # Should be blocked, as the page is alrready scheduled
+        self.assertEqual(response.status_code, 200)
 
         child_page_new = SimplePage.objects.get(id=self.child_page.id)
 
-        # The page should be live now
+        # The page should still be live
         self.assertTrue(child_page_new.live)
 
-        # And a revision with approved_go_live_at should not exist
-        self.assertFalse(
+        # The scheduled revision should still exist
+        self.assertTrue(
             Revision.page_revisions.filter(object_id=child_page_new.id)
             .exclude(approved_go_live_at__isnull=True)
             .exists()
         )
 
+        # The title should still be the same, as the publish didn't work
         self.assertEqual(
             child_page_new.title,
-            post_data["title"],
-            "A published page should have the new title",
+            "Hello world!",
         )
 
     def test_page_edit_post_submit(self):
@@ -833,7 +836,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         response = self.client.get(preview_url)
 
@@ -856,10 +862,12 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # We should have an error page because we are unable to
         # preview; the page key was not in the session.
         self.assertContains(
-            response, "<title>Wagtail - Preview error</title>", html=True
+            response, "<title>Wagtail - Preview not available</title>", html=True
         )
         self.assertContains(
-            response, '<h1 class="header__title">Preview error</h1>', html=True
+            response,
+            '<h1 class="preview-error__title">Preview not available</h1>',
+            html=True,
         )
 
     @override_settings(
@@ -915,7 +923,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content.decode(), {"is_valid": True})
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
 
         response = self.client.get(preview_url)
 
@@ -964,7 +975,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_editor_page_shows_live_url_in_status_when_draft_edits_exist(self):
         # If a page has draft edits (ie. page has unpublished changes)
-        # that affect the URL (eg. slug) we  should still ensure the
+        # that affect the URL (slug) we  should still ensure the
         # status button at the top of the page links to the live URL
 
         self.child_page.content = "Some content with a draft edit"
@@ -977,8 +988,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1003,8 +1014,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1270,7 +1281,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
     def test_page_edit_num_queries(self):
-        with self.assertNumQueries(39):
+        with self.assertNumQueries(46):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -1538,7 +1549,10 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertContains(response, "Adverts")
         self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
         # the formset should be populated with an existing form (with a snippet chooser widget)
-        self.assertContains(response, '<span class="title">test_advert</span>')
+        self.assertContains(
+            response,
+            '<div class="chooser__title" data-chooser-title id="id_advert_placements-0-advert-title">test_advert</div>',
+        )
         self.assertContains(
             response,
             '<input type="hidden" name="advert_placements-0-advert" value="1" id="id_advert_placements-0-advert">',
@@ -2043,12 +2057,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
             response, "The page could not be saved due to validation errors"
         )
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_non_field_error(self):
@@ -2136,12 +2145,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         )
 
         # Error on title shown against the title field
-        self.assertContains(
-            response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
-            count=1,
-            html=True,
-        )
+        self.assertContains(response, "error-message", count=1)
         # Error on title shown in the header message
         self.assertContains(
             response, "<li>Title: This field is required.</li>", count=1

@@ -2,12 +2,13 @@ import json
 import warnings
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import MaxLengthValidator
 from django.db import models
 from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
-from wagtail.rich_text import get_text_for_indexing
+from wagtail.rich_text import RichTextMaxLengthValidator, get_text_for_indexing
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
@@ -18,6 +19,7 @@ class RichTextField(models.TextField):
         # and retrospectively adding them would generate unwanted migration noise
         self.editor = kwargs.pop("editor", "default")
         self.features = kwargs.pop("features", None)
+
         super().__init__(*args, **kwargs)
 
     def clone(self):
@@ -34,7 +36,16 @@ class RichTextField(models.TextField):
             "widget": get_rich_text_editor_widget(self.editor, features=self.features)
         }
         defaults.update(kwargs)
-        return super().formfield(**defaults)
+        field = super().formfield(**defaults)
+
+        # replace any MaxLengthValidators with RichTextMaxLengthValidators to ignore tags
+        for (i, validator) in enumerate(field.validators):
+            if isinstance(validator, MaxLengthValidator):
+                field.validators[i] = RichTextMaxLengthValidator(
+                    validator.limit_value, message=validator.message
+                )
+
+        return field
 
     def get_searchable_content(self, value):
         # Strip HTML tags to prevent search backend from indexing them

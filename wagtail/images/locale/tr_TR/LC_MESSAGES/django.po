@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -159,15 +159,6 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-msgid "Choose an image"
-msgstr "Bir resim seç"
-
-msgid "Search"
-msgstr "Ara"
-
-msgid "Upload"
-msgstr "Yükle"
-
 msgid "Popular tags"
 msgstr "Yaygın etiketler"
 
@@ -182,9 +173,6 @@ msgstr "Biçim seçin"
 
 msgid "Insert image"
 msgstr "Resim ekleyin"
-
-msgid "Uploading…"
-msgstr "Yükleniyor…"
 
 msgid "Change image file:"
 msgstr "Resim dosyasını değiştir:"
@@ -244,9 +232,6 @@ msgstr "Kullanım"
 
 msgid "Images"
 msgstr "Resimler"
-
-msgid "Clear choice"
-msgstr "Seçimi temizle"
 
 msgid "pixels"
 msgstr "piksel"
@@ -350,6 +335,15 @@ msgstr "Resim izni ekle"
 msgid "Delete"
 msgstr "Sil"
 
+msgid "Upload"
+msgstr "Yükle"
+
+msgid "Uploading…"
+msgstr "Yükleniyor…"
+
+msgid "Choose an image"
+msgstr "Bir resim seç"
+
 msgid "Search images"
 msgstr "Resimlerde ara"
 
@@ -389,9 +383,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s resim"
 msgstr[1] "%(count)s resim"
-
-msgid "Change image"
-msgstr "Resmi değiştir"
-
-msgid "Edit this image"
-msgstr "Resmi düzenle"

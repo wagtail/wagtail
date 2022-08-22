@@ -2,11 +2,12 @@ import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { createEditorStateFromRaw } from 'draftail';
-import { EditorState, SelectionState } from 'draft-js';
+import { DraftInlineStyleType, EditorState, SelectionState } from 'draft-js';
 
 import { CommentApp } from '../../CommentApp/main';
 import { updateGlobalSettings } from '../../CommentApp/actions/settings';
 import { newComment } from '../../CommentApp/state/comments';
+import { noop } from '../../../utils/noop';
 
 import CommentableEditor, {
   updateCommentPositions,
@@ -41,7 +42,7 @@ describe('CommentableEditor', () => {
           {
             offset: 0,
             length: 1,
-            style: 'COMMENT-1',
+            style: 'COMMENT-1' as DraftInlineStyleType,
           },
         ],
         text: 'test',
@@ -60,12 +61,12 @@ describe('CommentableEditor', () => {
           {
             offset: 0,
             length: 10,
-            style: 'COMMENT-2',
+            style: 'COMMENT-2' as DraftInlineStyleType,
           },
           {
             offset: 0,
             length: 20,
-            style: 'COMMENT-1',
+            style: 'COMMENT-1' as DraftInlineStyleType,
           },
         ],
         text: 'test_test_test_test_test_test_test',
@@ -84,12 +85,12 @@ describe('CommentableEditor', () => {
           {
             offset: 21,
             length: 4,
-            style: 'COMMENT-2',
+            style: 'COMMENT-2' as DraftInlineStyleType,
           },
           {
             offset: 0,
             length: 20,
-            style: 'COMMENT-1',
+            style: 'COMMENT-1' as DraftInlineStyleType,
           },
         ],
         text: 'test_test_test_test_test_test_test',
@@ -119,9 +120,9 @@ describe('CommentableEditor', () => {
           fieldNode={fieldNode}
           contentPath={contentpath}
           rawContentState={content}
-          onSave={() => {}}
+          onSave={noop}
           inlineStyles={[]}
-          editorRef={() => {}}
+          editorRef={noop}
           colorConfig={{
             standardHighlight: '#FF0000',
             overlappingHighlight: '#00FF00',
@@ -138,18 +139,15 @@ describe('CommentableEditor', () => {
   it('has control', () => {
     commentApp.setVisible(true);
     const editor = mount(getEditorComponent(commentApp));
-    const controls = editor.findWhere(
-      (n) => n.name() === 'ToolbarButton' && n.prop('name') === 'comment',
-    );
+    const controls = editor.find('DraftailEditor').prop('controls');
     expect(controls).toHaveLength(1);
+    expect(controls[0].inline).toBeTruthy();
     editor.unmount();
   });
   it('has no control when comments disabled', () => {
     commentApp.store.dispatch(updateGlobalSettings({ commentsEnabled: false }));
     const editor = mount(getEditorComponent(commentApp));
-    const controls = editor.findWhere(
-      (n) => n.name() === 'ToolbarButton' && n.prop('name') === 'comment',
-    );
+    const controls = editor.find('DraftailEditor').prop('controls');
     expect(controls).toHaveLength(0);
     editor.unmount();
   });

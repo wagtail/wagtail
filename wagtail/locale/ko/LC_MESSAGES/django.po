@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -63,6 +63,66 @@ msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 �
 msgid "Comment"
 msgstr "댓글"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>'{}' 페이지의 잠금</b>이 <b>당신</b>에 의해 <b>{}</b>에 적용됨."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>'{}' 페이지의 잠금</b>이 <b>당신</b>에 의해 적용됨."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>'{}' 페이지의 잠금</b>이 <b>{}</b>에 의해 <b>{}</b>에 적용됨."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>'{}' 페이지가 잠김</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "페이지가 <b>'{}'</b>워크플로우에서 <b>'{}'</b>를 기다리고 있습니다"
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "오직 이 작업의 후기만이 페이지 수정 가능"
+
+msgid "live"
+msgstr "라이브"
+
+msgid "has unpublished changes"
+msgstr "게시되지 않은 변경 있음"
+
+msgid "first published at"
+msgstr "최초 게시일시:"
+
+msgid "last published at"
+msgstr "최종 게시일시: "
+
+msgid "go live date/time"
+msgstr "라이브 날짜/시간으로 이동"
+
+msgid "expiry date/time"
+msgstr "만료 날짜/시간"
+
+msgid "expired"
+msgstr "만료"
+
+msgid "draft"
+msgstr "초안"
+
+msgid "live + draft"
+msgstr "라이브 + 초안"
+
+msgid "Default"
+msgstr "기본값"
+
+msgid "locked"
+msgstr "잠김"
+
+msgid "locked at"
+msgstr "잠긴 시간:"
+
+msgid "locked by"
+msgstr "잠근 사람:"
+
 msgid "title"
 msgstr "제목"
 
@@ -82,12 +142,6 @@ msgstr ""
 msgid "content type"
 msgstr "콘텐트 타입"
 
-msgid "live"
-msgstr "라이브"
-
-msgid "has unpublished changes"
-msgstr "게시되지 않은 변경 있음"
-
 msgid "URL path"
 msgstr "URL 경로"
 
@@ -101,30 +155,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "이 페이지에 대한 링크가 자동적으로 생성된 메뉴에 나타날 것입니다."
 
-msgid "go live date/time"
-msgstr "라이브 날짜/시간으로 이동"
-
-msgid "expiry date/time"
-msgstr "만료 날짜/시간"
-
-msgid "expired"
-msgstr "만료"
-
-msgid "locked"
-msgstr "잠김"
-
-msgid "locked at"
-msgstr "잠긴 시간:"
-
-msgid "locked by"
-msgstr "잠근 사람:"
-
-msgid "first published at"
-msgstr "최초 게시일시:"
-
-msgid "last published at"
-msgstr "최종 게시일시: "
-
 msgid "latest revision created at"
 msgstr "최근 수정안 작성일:"
 
@@ -134,17 +164,8 @@ msgstr "이 슬러그는 이미 사용되고 있습니다"
 msgid "scheduled"
 msgstr "예약됨"
 
-msgid "draft"
-msgstr "초안"
-
 msgid "live + scheduled"
 msgstr "라이브 + 예약됨"
-
-msgid "live + draft"
-msgstr "라이브 + 초안"
-
-msgid "Default"
-msgstr "기본값"
 
 msgid "page"
 msgstr "페이지"
@@ -166,12 +187,6 @@ msgstr "컨텐트 JSON"
 
 msgid "approved go live at"
 msgstr "라이브 승인 일시:"
-
-msgid "page revision"
-msgstr "페이지 수정안"
-
-msgid "page revisions"
-msgstr "페이지 수정안"
 
 msgid "Add/edit pages you own"
 msgstr "페이지 추가/수정"
@@ -235,6 +250,9 @@ msgstr "승인"
 
 msgid "Not started"
 msgstr "시작되지 않음"
+
+msgid "page revision"
+msgstr "페이지 수정안"
 
 msgid "collection"
 msgstr "모음"
@@ -350,15 +368,6 @@ msgstr "이 페이지에 접근하려면 비밀번호가 필요합니다."
 
 msgid "Continue"
 msgstr "계속"
-
-msgid "English"
-msgstr "영어"
-
-msgid "French"
-msgstr "프랑스어"
-
-msgid "German"
-msgstr "독일어"
 
 msgid "Create"
 msgstr "생성"

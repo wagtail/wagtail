@@ -1,15 +1,15 @@
 #
 # Translators:
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2022
-# Nick Mavrakis <mavrakis.n@gmail.com>, 2022
 # serafeim <serafeim@torchbox.com>, 2022
 # Karl Hobley <karl@torchbox.com>, 2022
 # Yiannis Inglessis <negtheone@gmail.com>, 2022
 # Dimitri Fekas, 2022
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dimitri Fekas, 2022\n"
+"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>, 2022\n"
 "Language-Team: Greek (https://www.transifex.com/torchbox/teams/8009/el/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: el\n"
@@ -78,9 +78,6 @@ msgstr "Σελίδα"
 msgid "Pages"
 msgstr "Σελίδες"
 
-msgid "Redo"
-msgstr "Κύρωση"
-
 msgid "Reload saved content"
 msgstr "Επαναφόρτωση αποθηκευμένου περιεχόμενου"
 
@@ -135,14 +132,11 @@ msgstr ""
 "Ο επεξεργαστής κειμένου απέτυχε. Το περιεχόμενο επαναφέρθηκε στην τελευταία "
 "αποθηκευμένη έκδοση."
 
-msgid "Undo"
-msgstr "Ακύρωση"
+msgid "This field is required."
+msgstr "Το πεδίο αυτό είναι απαραίτητο"
 
 msgid "Unfocus comment"
 msgstr "Αποεστίαση σχολίου"
 
 msgid "View child pages of '{title}'"
 msgstr "Εμφάνιση υποσελίδων της '{title}'"
-
-msgid "Write here…"
-msgstr "Γράψτε εδώ..."

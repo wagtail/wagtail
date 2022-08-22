@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -148,27 +148,6 @@ msgstr "フォーム"
 msgid "Pages"
 msgstr "ページ"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "%(form_title)sを送信"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "フォーム <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "フィルター"
-
-msgid "Download XLSX"
-msgstr "XLSXファイルをダウンロード"
-
-msgid "Download CSV"
-msgstr "CSVをダウンロードする"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "「%(title)s」のフォームには、送信されたデータがありません。"
-
 msgid "Title"
 msgstr "タイトル"
 
@@ -186,6 +165,26 @@ msgstr "最新の送信"
 
 msgid "No form pages have been created."
 msgstr "まだフォームページはありません。"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)sを送信"
+
+msgid "Download XLSX"
+msgstr "XLSXファイルをダウンロード"
+
+msgid "Download CSV"
+msgstr "CSVをダウンロードする"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "「%(title)s」のフォームには、送信されたデータがありません。"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Apply filters"
+msgstr "フィルターを適用"
 
 #, python-format
 msgid "One submission has been deleted."

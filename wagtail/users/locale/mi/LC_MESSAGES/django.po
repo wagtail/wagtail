@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -21,10 +21,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Kai-whakamahi-a-Wagtail"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Hiahiatia. 30 ō ngā pūāhua iti iho rānei. Reta, nama me @/./+/-/_ only."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -136,9 +132,6 @@ msgstr "Kitea ngā kai-whakamahi ki roto i tēnei rōpū"
 msgid "Save"
 msgstr "Puritia"
 
-msgid "Permissions"
-msgstr "Ngā whakaae"
-
 msgid "Object permissions"
 msgstr "Whakaae-a-ahanoa"
 
@@ -201,10 +194,6 @@ msgstr "hohe"
 
 msgid "Inactive"
 msgstr "Koretake"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s mai rā anō"
 
 msgid "Add a group"
 msgstr "Tāpiri he rōpū"

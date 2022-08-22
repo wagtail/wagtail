@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DraftailEditor } from 'draftail';
+import {
+  DraftailEditor,
+  BlockToolbar,
+  InlineToolbar,
+  MetaToolbar,
+  CommandPalette,
+  DraftUtils,
+} from 'draftail';
 import { Provider } from 'react-redux';
 
 import { gettext } from '../../utils/gettext';
@@ -15,12 +22,13 @@ import {
 } from './sources/ModalWorkflowSource';
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
+import MaxLength from './controls/MaxLength';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor, {
-  getSplitControl,
+  splitState,
 } from './CommentableEditor/CommentableEditor';
 
-export { default as Link } from './decorators/Link';
+export { default as Link, onPasteLink } from './decorators/Link';
 export { default as Document } from './decorators/Document';
 export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
@@ -28,6 +36,7 @@ export { default as EmbedBlock } from './blocks/EmbedBlock';
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON =
   'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
+const ADD_ICON = <Icon name="plus" />;
 
 /**
  * Registry for client-side code of Draftail plugins.
@@ -88,6 +97,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
   };
 
   const getSharedPropsFromOptions = (newOptions) => {
+    let ariaDescribedBy = null;
     const enableHorizontalRule = newOptions.enableHorizontalRule
       ? {
           description: gettext('Horizontal line'),
@@ -96,6 +106,8 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
     const blockTypes = newOptions.blockTypes || [];
     const inlineStyles = newOptions.inlineStyles || [];
+    let controls = newOptions.controls || [];
+    const commands = newOptions.commands || true;
     let entityTypes = newOptions.entityTypes || [];
 
     entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
@@ -104,32 +116,68 @@ const initEditor = (selector, originalOptions, currentScript) => {
       // Override the properties defined in the JS plugin: Python should be the source of truth.
       return { ...plugin, ...type };
     });
+
+    // Only initialise the character count / max length on fields explicitly requiring it.
+    if (field.hasAttribute('maxlength')) {
+      const maxLengthID = `${field.id}-length`;
+      ariaDescribedBy = maxLengthID;
+      controls = controls.concat([
+        {
+          meta: (props) => (
+            <MaxLength
+              {...props}
+              maxLength={field.maxLength}
+              id={maxLengthID}
+            />
+          ),
+        },
+      ]);
+    }
+
     return {
       rawContentState: rawContentState,
       onSave: serialiseInputValue,
-      placeholder: gettext('Write here…'),
+      placeholder: gettext('Write something or type ‘/’ to insert a block'),
       spellCheck: true,
       enableLineBreak: {
         description: gettext('Line break'),
         icon: BR_ICON,
       },
-      showUndoControl: { description: gettext('Undo') },
-      showRedoControl: { description: gettext('Redo') },
+      topToolbar: (props) => (
+        <>
+          <BlockToolbar
+            {...props}
+            triggerIcon={ADD_ICON}
+            triggerLabel={gettext('Insert a block')}
+            comboLabel={gettext('Search blocks')}
+            comboPlaceholder={gettext('Search blocks')}
+            noResultsText={gettext('No results')}
+          />
+          <InlineToolbar {...props} />
+        </>
+      ),
+      bottomToolbar: MetaToolbar,
+      commandPalette: (props) => (
+        <CommandPalette {...props} noResultsText={gettext('No results')} />
+      ),
       maxListNesting: 4,
       stripPastedStyles: false,
+      ariaDescribedBy,
       ...newOptions,
       blockTypes: blockTypes.map(wrapWagtailIcon),
       inlineStyles: inlineStyles.map(wrapWagtailIcon),
       entityTypes,
+      controls,
+      commands,
       enableHorizontalRule,
     };
   };
 
   const styles = getComputedStyle(document.documentElement);
   const colors = {
-    standardHighlight: styles.getPropertyValue('--color-primary-light'),
-    overlappingHighlight: styles.getPropertyValue('--color-primary-lighter'),
-    focusedHighlight: styles.getPropertyValue('--color-primary'),
+    standardHighlight: styles.getPropertyValue('--w-color-secondary-100'),
+    overlappingHighlight: styles.getPropertyValue('--w-color-secondary-50'),
+    focusedHighlight: styles.getPropertyValue('--w-color-secondary'),
   };
 
   let options;
@@ -181,8 +229,9 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
 export default {
   initEditor,
-  getSplitControl,
+  splitState,
   registerPlugin,
+  DraftUtils,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
   ImageModalWorkflowSource,

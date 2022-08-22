@@ -60,7 +60,6 @@ ul.listing {
       position: relative;
 
       &.icon:after {
-        opacity: 0.5;
         inset-inline-end: 0;
       }
     }
@@ -73,10 +72,6 @@ ul.listing {
 
   &.full-width {
     margin-bottom: -3em; // this negates the padding added to the bottom of .content
-  }
-
-  &.full-width th {
-    background-color: $color-thead-bg;
   }
 
   .table-headers {
@@ -94,16 +89,12 @@ ul.listing {
       }
 
       &:hover {
-        background-color: #fcfcfc;
+        background-color: theme('colors.grey.50');
       }
     }
 
     tr.selected {
-      background-color: #c8eae9;
-
-      &:hover {
-        background-color: #b5e3e2;
-      }
+      background-color: theme('colors.secondary.100');
     }
   }
 
@@ -205,11 +196,8 @@ ul.listing {
 
     .title-wrapper,
     h2 {
+      @apply w-label-1;
       margin: 0;
-      font-size: 1.15em;
-      font-weight: 600;
-      color: $color-text-base;
-      line-height: 1.5em;
 
       a {
         color: inherit;
@@ -242,20 +230,48 @@ ul.listing {
     }
   }
 
+  &--inline-actions td.title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .title-wrapper {
+      margin-inline-end: 2.5em;
+    }
+
+    .status-tag {
+      margin: 0;
+    }
+  }
+
   &--inline-actions .actions {
     display: inline-block;
     margin-top: 0;
     vertical-align: inherit;
+
+    li {
+      margin-bottom: 0;
+    }
+
+    .button {
+      vertical-align: inherit;
+    }
   }
 
   .button-secondary {
-    border-color: $color-grey-3;
+    border-color: $color-grey-4;
     background: $color-white;
 
-    &.no:hover {
-      border-color: $color-button-no-hover;
-      background-color: $color-button-no-hover;
-      color: $color-white;
+    &.no {
+      // Override `background-color: transparent;` from _buttons.scss
+      background: $color-white;
+
+      &:hover {
+        border-color: $color-button-no;
+        background-color: $color-button-no;
+        color: $color-white;
+      }
     }
 
     &:hover {
@@ -392,59 +408,15 @@ ul.listing {
     opacity: 0.7;
   }
 
-  .index {
-    background-color: $color-grey-4;
-
-    .title .title-wrapper {
-      font-size: 1.2em;
-      opacity: 1;
-
-      a {
-        @include transition(opacity 0.2s ease);
-      }
-
-      a:hover {
-        opacity: 0.7;
-      }
-    }
-
-    .actions {
-      margin-top: 1em;
-    }
-
-    .button {
-      background-color: $color-white;
-      color: $color-teal;
-      border-color: rgba(0, 0, 0, 0.35);
-
-      &:hover {
-        color: $color-white;
-        background: $color-teal-darker;
-        border-color: $color-teal-darker;
-      }
-
-      &:active {
-        color: $color-white;
-        background: #333;
-        border-color: #333;
-      }
-
-      &.bicolor {
-        background: $color-teal-darker;
-
-        &:active {
-          color: $color-white;
-          background: #484848;
-          border-color: #333;
-        }
-      }
-    }
-  }
-
   .indicator {
     margin-inline-end: 0;
     font-size: 1em;
     opacity: 0.7;
+  }
+
+  .status-tag {
+    margin: 0;
+    margin-inline: 0;
   }
 
   &.images img {
@@ -472,57 +444,17 @@ table.listing {
 }
 
 // explorer specific tweaks
-.page-explorer .listing {
-  position: relative;
-
-  .index {
-    color: $color-white;
-    background-color: $color-header-bg;
-
-    td {
-      padding-top: 1.5em;
-      padding-bottom: 1.5em;
-    }
-
-    .privacy-indicator {
-      font-size: 1em;
-      opacity: 1;
-      position: absolute;
-      inset-inline-end: 10%;
-      top: 2em;
-    }
-
-    .locked-indicator {
-      font-size: 0.8em;
-    }
-
-    .title {
-      h2 {
-        color: $color-white;
-        font-size: 1.8em;
-        font-weight: 500;
-
-        a:hover {
-          color: $color-white;
-        }
-      }
-    }
-
-    .button {
-      background-color: transparent;
-      color: $color-white;
-      border-color: rgba(0, 0, 0, 0.35);
-
-      &:hover {
-        color: $color-white;
-        background: $color-teal-darker;
-      }
-
-      &.bicolor {
-        background: $color-teal-darker;
-      }
+.page-explorer .w-breadcrumb {
+  li[hidden] ~ li:last-child,
+  li:only-child {
+    a {
+      font-size: theme('fontSize.18');
     }
   }
+}
+
+.page-explorer .listing {
+  position: relative;
 
   .table-headers {
     height: 35px;
@@ -564,7 +496,7 @@ table.listing {
 
 .listing.full-width + .pagination {
   margin-top: 3em;
-  border-top: 1px dashed #d9d9d9;
+  border-top: 1px dashed theme('colors.grey.100');
   padding: 2em 50px 0;
 }
 
@@ -653,8 +585,6 @@ table.listing {
         }
 
         &:hover {
-          background-color: #fdfdfd;
-
           img {
             border-color: $color-teal;
           }

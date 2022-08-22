@@ -53,7 +53,7 @@ to allow a single author to be specified for each post.
     author_modeladmin = AuthorModelAdmin()
 
     @hooks.register('register_page_listing_buttons')
-    def add_author_edit_buttons(page, page_perms, is_parent=False, next_url=None):
+    def add_author_edit_buttons(page, page_perms, next_url=None):
         """
         For pages that have an author, add an additional button to the page listing,
         linking to the 'edit' page for that author.
@@ -69,7 +69,7 @@ to allow a single author to be specified for each post.
 
 As you can see from the example above, when using `get_action_url()` to
 generate object-specific URLs, the target object's primary key value must be supplied
-so that it can be included in the resulting URL (e.g. `"/admin/my-app/author/edit/2/"`).
+so that it can be included in the resulting URL (for example `"/admin/my-app/author/edit/2/"`).
 The following object-specific action names are supported by `get_action_url()`:
 
 -   `'edit'` Returns a URL for updating a specific object.
@@ -115,7 +115,7 @@ For example:
 ```
 
 ```{note}
-If you have registered a page type with `modeladmin` (e.g. `BlogPage`), and pages
+If you have registered a page type with `modeladmin` (for example `BlogPage`), and pages
 of that type can be added to more than one place in the page tree, when a user visits
 the `create` URL, they'll be automatically redirected to another view to choose a
 parent for the new page. So, this isn't something you need to check or cater for in

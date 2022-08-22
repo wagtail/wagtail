@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -24,9 +24,6 @@ msgstr "ဝဂ်တေးဆိုက်များ"
 
 msgid "Choose a root page"
 msgstr "အခြေခံစာမျက်နှာကို ရွေးပါ"
-
-msgid "Choose a different root page"
-msgstr "အခြားအခြေခံစာမျက်နှာကို ရွေးပါ"
 
 msgid "Sites"
 msgstr "ဆိုက်များ"

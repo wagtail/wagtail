@@ -14,6 +14,8 @@ Here are some Wagtail-specific types that you might include as fields in your mo
    :noindex:
 ```
 
+(field_panel)=
+
 ### FieldPanel
 
 ```{eval-rst}
@@ -27,9 +29,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
     .. attribute:: FieldPanel.classname
 
-        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields.
-
-        The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
+        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity.
 
         The CSS class ``title`` can be used to give the field a larger text size, suitable for representing page titles and section headings.
 
@@ -90,8 +90,7 @@ This is a powerful but complex feature which will take some space to cover, so w
 
 #### Collapsing InlinePanels to save space
 
-Note that you can use `classname="collapsible collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
-See {ref}`collapsible` for more details on `collapsible` usage.
+Note that you can use `classname="collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
 
 ### FieldRowPanel
 
@@ -101,8 +100,6 @@ See {ref}`collapsible` for more details on `collapsible` usage.
     This panel creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below.
 
     Use of FieldRowPanel particularly helps reduce the "snow-blindness" effect of seeing so many fields on the page, for complex models. It also improves the perceived association between fields of a similar nature. For example if you created a model representing an "Event" which had a starting date and ending date, it may be intuitive to find the start and end date on the same "row".
-
-    By default, the panel is divided into equal-width columns, but this can be overridden by adding ``col*`` class names to each of the child Panels of the FieldRowPanel. The Wagtail editing interface is laid out using a grid system, in which the maximum width of the editor is 12 columns. Classes ``col1``-``col12`` can be applied to each child of a FieldRowPanel. The class ``col3`` will ensure that field appears 3 columns wide or a quarter the width. ``col4`` would cause the field to be 4 columns wide, or a third the width.
 
     .. attribute:: FieldRowPanel.children
 
@@ -242,11 +239,6 @@ See {ref}`collapsible` for more details on `collapsible` usage.
 By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
 (See [Django model field reference](django:ref/models/fields)).
 
-### Full-Width Input
-
-Use `classname="full"` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a
-[`MultiFieldPanel`](wagtail.admin.panels.MultiFieldPanel), which places its child fields into a formset.
-
 ### Titles
 
 Use `classname="title"` to make Page's built-in title field stand out with more vertical padding.
@@ -255,12 +247,11 @@ Use `classname="title"` to make Page's built-in title field stand out with more 
 
 ### Collapsible
 
-By default, panels are expanded and not collapsible.
-Use `classname="collapsible"` to enable the collapse control.
-Use `classname="collapsible collapsed"` will load the editor page with the panel collapsed under its heading.
+```{versionchanged} 4.0
+All panels are now collapsible by default.
+```
 
-You must define a `heading` when using `collapsible` with `MultiFieldPanel`.
-You must define a `heading` or `label` when using `collapsible` with `InlinePanel`.
+Using `classname="collapsed"` will load the editor page with the panel collapsed under its heading.
 
 ```python
     content_panels = [
@@ -271,7 +262,7 @@ You must define a `heading` or `label` when using `collapsible` with `InlinePane
                 FieldPanel('publisher'),
             ],
             heading="Collection of Book Fields",
-            classname="collapsible collapsed"
+            classname="collapsed"
         ),
     ]
 ```
@@ -355,7 +346,7 @@ class BookPage(Page):
     # ...
 
     content_panels = Page.content_panels + [
-        InlinePanel('related_links', label="Related Links"),
+        InlinePanel('related_links', heading="Related Links", label="Related link"),
     ]
 ```
 
@@ -365,7 +356,7 @@ The `RelatedLink` class is a vanilla Django abstract model. The `BookPageRelated
 InlinePanel(relation_name, panels=None, heading='', label='', help_text='', min_num=None, max_num=None)
 ```
 
-The `relation_name` is the `related_name` label given to the cluster's `ParentalKey` relation. You can add the `panels` manually or make them part of the cluster model. `heading` and `help_text` provide a heading and caption, respectively, for the Wagtail editor. `label` sets the text on the add button, and is used as the heading when `heading` is not present. Finally, `min_num` and `max_num` allow you to set the minimum/maximum number of forms that the user must submit.
+The `relation_name` is the `related_name` label given to the cluster's `ParentalKey` relation. You can add the `panels` manually or make them part of the cluster model. `heading` and `help_text` provide a heading and caption, respectively, for the Wagtail editor. `label` sets the text on the add button and child panels, and is used as the heading when `heading` is not present. Finally, `min_num` and `max_num` allow you to set the minimum/maximum number of forms that the user must submit.
 
 For another example of using model clusters, see {ref}`tagging`.
 

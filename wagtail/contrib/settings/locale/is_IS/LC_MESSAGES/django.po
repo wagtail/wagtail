@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2018
-# saevarom <saevar@saevar.is>, 2020
+# saevarom <saevar@saevar.is>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2020\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,8 @@ msgid "default"
 msgstr "sjálfgefin"
 
 #, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Breyti %(setting_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Að breyta"
+msgid "Editing %(instance)s"
+msgstr "Breyti %(instance)s"
 
 msgid "Site"
 msgstr "Síða"

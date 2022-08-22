@@ -42,21 +42,22 @@ export class StructBlock {
       if (this.blockDef.meta.helpText) {
         // help text is left unescaped as per Django conventions
         dom.append(`
-          <span>
+          <div class="c-sf-help">
             <div class="help">
-              ${this.blockDef.meta.helpIcon}
               ${this.blockDef.meta.helpText}
             </div>
-          </span>
+          </div>
         `);
       }
 
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
         const childDom = $(`
-          <div class="field ${
-            childBlockDef.meta.required ? 'required' : ''
-          }" data-contentpath="${childBlockDef.name}">
-            <label class="field__label">${h(childBlockDef.meta.label)}</label>
+        <div data-contentpath="${childBlockDef.name}">
+          <label class="w-field__label">${h(childBlockDef.meta.label)}${
+          childBlockDef.meta.required
+            ? '<span class="w-required-mark">*</span>'
+            : ''
+        }</label>
             <div data-streamfield-block></div>
           </div>
         `);

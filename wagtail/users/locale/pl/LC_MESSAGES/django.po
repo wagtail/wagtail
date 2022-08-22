@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dominik Lech, 2022
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
 # Miłosz Miśkiewicz, 2017-2020
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2020\n"
+"Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -27,10 +28,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Użytkownicy Wagtail"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Wymagane. 30 lub mniej znaków. Tylko litery, liczby oraz znaki @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Ta wartość może zawierać tylko litery, liczby oraz znaki @/./+/-/_. "
@@ -94,6 +91,9 @@ msgstr "odrzucone notyfikacje"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Otrzymuj powiadomienie gdy twoja zmiana strony została odrzucona"
 
+msgid "updated comments notifications"
+msgstr "Zaktualizowano powiadomienia komentarzy"
+
 msgid "preferred language"
 msgstr "preferowany język"
 
@@ -115,6 +115,16 @@ msgstr "profil użytkownika"
 msgid "user profiles"
 msgstr "profile użytkownika"
 
+msgid "Assign role"
+msgstr "Przypisz rolę"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nie posiadasz uprawnień do edycji tego użytkownika"
+msgstr[1] "Nie posiadasz uprawnień do edycji tych użytkowników"
+msgstr[2] "Nie posiadasz uprawnień do edycji tych użytkowników"
+msgstr[3] "Nie posiadasz uprawnień do edycji tych użytkowników"
+
 msgid "Delete"
 msgstr "Usuń"
 
@@ -123,6 +133,9 @@ msgstr "Tak, usuń"
 
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
+
+msgid "Yes, change state"
+msgstr "Tak, zmień stan"
 
 msgid "Delete group"
 msgstr "Usuń grupę"
@@ -149,9 +162,6 @@ msgstr "Pokaż użytkowników w tej grupie"
 msgid "Save"
 msgstr "Zapisz"
 
-msgid "Permissions"
-msgstr "Uprawnienia"
-
 msgid "Object permissions"
 msgstr "Uprawnienia obiektu"
 
@@ -163,6 +173,9 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Zmień"
+
+msgid "Custom permissions"
+msgstr "Uprawnienia niestandardowe"
 
 msgid "Other permissions"
 msgstr "Inne uprawnienia"
@@ -231,10 +244,6 @@ msgid "Inactive"
 msgstr "Nieaktywny"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s temu"
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Przepraszamy, żaden użytkownik nie pasuje do \"<em>%(query_string)s</em>\""
@@ -254,6 +263,9 @@ msgid ""
 msgstr ""
 "Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_add_url)s\">dodasz "
 "kilku</a>?"
+
+msgid "Delete selected users"
+msgstr "Usuń wybranych użytkowników"
 
 msgid "Groups"
 msgstr "Grupy"

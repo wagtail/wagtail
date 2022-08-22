@@ -387,7 +387,7 @@ class TestCompareRevisionsWithNonModelField(TestCase, WagtailTestUtils):
         response = self.client.get(edit_url)
         self.assertContains(
             response,
-            '<input type="text" name="code" required id="id_code" maxlength="5" />',
+            '<input type="text" name="code" aria-describedby="panel-child-content-child-code-helptext" required id="id_code" maxlength="5" />',
             html=True,
         )
 

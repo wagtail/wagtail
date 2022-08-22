@@ -5,14 +5,15 @@
 # Translators:
 # Adi Ron <adi@bnop.co>, 2019
 # 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 <5628a6f4d3ab86b48aef276247790766_814>, 2015
+# Gilad Levi <gilad.x@blobim.com>, 2022
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Adi Ron <adi@bnop.co>, 2019\n"
+"Last-Translator: Gilad Levi <gilad.x@blobim.com>, 2022\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -28,23 +29,57 @@ msgstr "פרסם"
 msgid "Submit for moderation"
 msgstr "שלח לעריכה"
 
+msgid "Resubmit to {}"
+msgstr "הרשמה מחודשת ל {}"
+
+msgid "Submit to {}"
+msgstr "הרשמה ל {}"
+
+msgid "Restart workflow "
+msgstr "אתחול תזרים העבודה"
+
+msgid "Cancel workflow "
+msgstr "ביטול תזרים עבודה"
+
 msgid "Unpublish"
 msgstr "ביטול פרסום"
 
-msgid "Delete"
-msgstr "מחק"
+msgid "Save Draft"
+msgstr "שמירת טיוטה"
 
 msgid "Page locked"
 msgstr "עמוד נעול"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ופרסום"
+
 msgid "Wagtail admin"
 msgstr "ממשק הניהול של Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "You do not have permission to access the admin"
 msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "None"
 msgstr "אף אחת"
+
+msgid "Date from"
+msgstr "מתאריך"
+
+msgid "Date to"
+msgstr "עד לתאריך"
+
+msgid "All"
+msgstr "הכל"
+
+msgid "Preferred language"
+msgstr "שפה מועדפת"
+
+msgid "Current time zone"
+msgstr "אזור זמן נוכחי"
 
 msgid "First Name"
 msgstr "שם פרטי"
@@ -54,6 +89,9 @@ msgstr "שם משפחה"
 
 msgid "Email"
 msgstr "דואר אלקטרוני"
+
+msgid "Upload a profile picture"
+msgstr "העלאת תמונה"
 
 msgid "Enter password"
 msgstr "הזינו סיסמה"
@@ -68,14 +106,32 @@ msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את 
 msgid "URL"
 msgstr "כתובת "
 
+msgid "Search term"
+msgstr "ערך לחיפוש"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "Collection"
+msgstr "אוסף"
+
 msgid "Parent"
 msgstr "הורה"
 
 msgid "Add"
 msgstr "הוספה"
 
+msgid "Add collections"
+msgstr "הוספת אוסף"
+
 msgid "Edit"
 msgstr "עריכה"
+
+msgid "Edit collections"
+msgstr "עריכת אוסף"
+
+msgid "Delete"
+msgstr "מחק"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -142,20 +198,14 @@ msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוק�
 msgid "Expiry date/time must be in the future"
 msgstr "זמן תפוגה חייב להיות בעתיד"
 
-msgid "Search"
-msgstr "חיפוש"
-
-msgid "Search term"
-msgstr "ערך לחיפוש"
-
 msgid "This field is required."
 msgstr "שדה חובה"
 
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
 
-msgid "Privacy"
-msgstr "פרטיות"
+msgid "Page title"
+msgstr "כותרת העמוד"
 
 msgid "Content"
 msgstr "תוכן"
@@ -166,21 +216,8 @@ msgstr "קידום"
 msgid "Settings"
 msgstr "הגדרות"
 
-msgid "Status"
-msgstr "מצב"
-
-msgid "Preview"
-msgstr "תצוגה מקדימה"
-
 msgid "Account"
 msgstr "חשבון"
-
-msgid "Change password"
-msgstr "שינוי סיסמה"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
 
 msgid "Reset password"
 msgstr "איתחול סיסמה"
@@ -227,11 +264,21 @@ msgstr "הכניסו קישור"
 msgid "Add an external link"
 msgstr "הוסיפו קישור חיצוני"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "מסייר בתת עמודים של '%(title)s'"
+
+msgid "Explore"
+msgstr "לסייר"
+
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
 msgid "Save"
 msgstr "שמור"
+
+msgid "Privacy"
+msgstr "פרטיות"
 
 msgid "Public"
 msgstr "ציבורי"
@@ -247,9 +294,6 @@ msgstr "כן, מחק"
 
 msgid "Update"
 msgstr "עדכן"
-
-msgid "Dashboard"
-msgstr "לוח מחוונים"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -287,8 +331,14 @@ msgstr "אשרו"
 msgid "Reject"
 msgstr "דחו"
 
+msgid "Preview"
+msgstr "תצוגה מקדימה"
+
 msgid "Your most recent edits"
 msgstr "עריכות אחרונות"
+
+msgid "Status"
+msgstr "מצב"
 
 msgid "Date"
 msgstr "תאריך"
@@ -299,12 +349,12 @@ msgstr "סיכום אתר"
 msgid "Sign in"
 msgstr "התחברות "
 
+msgid "Sign in to Wagtail"
+msgstr "התחברות לWagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "%(username_field)s שלכם והסיסמה לא תאמו. אנא נסו שוב."
-
-msgid "Sign in to Wagtail"
-msgstr "התחברות לWagtail"
 
 msgid "Signing in…"
 msgstr "מתחבר..."
@@ -346,9 +396,6 @@ msgstr "הגדרות פרטיות של העמוד"
 
 msgid "This page has been made private by a parent page."
 msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
 msgid "Publishing…"
 msgstr "מפרסם..."
@@ -400,15 +447,8 @@ msgstr "בטוחים שברצונכם להעביר את העמוד הזה וכל
 msgid "Yes, move this page"
 msgstr "כן, העבר את העמוד"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "הסתר את %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "בטוחים כי תרצו לבטל את פרסום העמוד?"
-
-msgid "Yes, unpublish it"
-msgstr "כן, בטל את הפרסום"
 
 msgid "Pages using"
 msgstr "עמודים משמשים"
@@ -441,18 +481,8 @@ msgstr "מסייר ב%(title)s"
 msgid "Drag"
 msgstr "גרור"
 
-msgid "Updated"
-msgstr "עדכן"
-
 msgid "This page is locked to further editing"
 msgstr "עמוד זה נעול לעריכה"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "מסייר בתת עמודים של '%(title)s'"
-
-msgid "Explore"
-msgstr "לסייר"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -477,22 +507,11 @@ msgstr "כיבוי סידור של תתי-עמודים"
 msgid "Enable ordering of child pages"
 msgstr "הפעלת סידור של תתי-עמודים"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "בחירת עמוד הורה חדש עבור %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "בחירת עמוד הורה חדש עבור <span>%(title)s</span>"
+msgid "Updated"
+msgstr "עדכן"
 
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
-
-msgid "Locked"
-msgstr "נעול"
-
-msgid "Unlocked"
-msgstr "בלתי נעול"
 
 msgid "No pages use"
 msgstr "אף עמוד בשימוש"
@@ -510,8 +529,8 @@ msgstr "עברו מטה"
 msgid "Download CSV"
 msgstr "הורד CSV"
 
-msgid "Filter"
-msgstr "מסנן"
+msgid "Locked"
+msgstr "נעול"
 
 msgid "Edit this item"
 msgstr "ערוך פריט זה"
@@ -523,11 +542,24 @@ msgstr "עמוד"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
-msgid "Home"
-msgstr "לעמוד הבית "
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "הסתר את %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "כן, בטל את הפרסום"
+
+msgid "Filter"
+msgstr "מסנן"
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"
+
+msgid "Unlocked"
+msgstr "בלתי נעול"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
 
 msgid "Add a child page"
 msgstr "הוספת תת-עמוד"
@@ -535,27 +567,17 @@ msgstr "הוספת תת-עמוד"
 msgid "New"
 msgstr "חדש "
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "מאת %(modified_by)s"
-
 msgid "Log out"
 msgstr "התנתקות"
-
-msgid "live"
-msgstr "לייב"
-
-msgid "draft"
-msgstr "טיוטה"
-
-msgid "live + draft"
-msgstr "לייב + טיוטה"
 
 msgid "Password"
 msgstr "סיסמא"
 
 msgid "Editing"
 msgstr "עריכה"
+
+msgid "Dashboard"
+msgstr "לוח מחוונים"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -623,6 +645,9 @@ msgstr "עמוד {0} הוזז"
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
 
+msgid "Change"
+msgstr "שנה"
+
 msgid "Pages"
 msgstr "עמודים"
 
@@ -631,12 +656,3 @@ msgstr "הוספת תת-עמוד"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"
-
-msgid "Choose another item"
-msgstr "בחרו פריט נוסף"
-
-msgid "Clear choice"
-msgstr "נקה בחירה"
-
-msgid "Choose another page"
-msgstr "בחרו עמוד נוסף"

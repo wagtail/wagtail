@@ -8,10 +8,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets import BaseChooser
+from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.admin.widgets.button import ListingButton
 from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminSnippetChooser(BaseChooser):
@@ -23,8 +22,6 @@ class AdminSnippetChooser(BaseChooser):
         self.model = model
         name = self.model._meta.verbose_name
         self.choose_one_text = _("Choose %s") % name
-        self.choose_another_text = _("Choose another %s") % name
-        self.link_to_chosen_text = _("Edit this %s") % name
 
         super().__init__(**kwargs)
 
@@ -59,14 +56,8 @@ class AdminSnippetChooser(BaseChooser):
         )
 
 
-class SnippetChooserAdapter(WidgetAdapter):
+class SnippetChooserAdapter(BaseChooserAdapter):
     js_constructor = "wagtail.snippets.widgets.SnippetChooser"
-
-    def js_args(self, widget):
-        return [
-            widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
-            widget.id_for_label("__ID__"),
-        ]
 
     @cached_property
     def media(self):

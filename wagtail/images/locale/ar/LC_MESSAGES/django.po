@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -145,15 +145,6 @@ msgstr "نعم احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
-msgid "Choose an image"
-msgstr "اختر صورة"
-
-msgid "Search"
-msgstr "بحث"
-
-msgid "Upload"
-msgstr "انقل إلى الحاسوب"
-
 msgid "Popular tags"
 msgstr "علامات دالة شائعة"
 
@@ -168,9 +159,6 @@ msgstr "اختر شكلا"
 
 msgid "Insert image"
 msgstr "أدخل صورة"
-
-msgid "Uploading…"
-msgstr "يتم الرفع…"
 
 msgid "Change image file:"
 msgstr "غير ملف الصورة"
@@ -217,9 +205,6 @@ msgstr "استعمال"
 
 msgid "Images"
 msgstr "صور"
-
-msgid "Clear choice"
-msgstr "محو الاختيار"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -320,6 +305,15 @@ msgstr "إضافة إذن صورة"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Upload"
+msgstr "انقل إلى الحاسوب"
+
+msgid "Uploading…"
+msgstr "يتم الرفع…"
+
+msgid "Choose an image"
+msgstr "اختر صورة"
+
 msgid "Search images"
 msgstr "ابعث صور"
 
@@ -361,9 +355,3 @@ msgstr[2] "صور %(count)s"
 msgstr[3] "صورة %(count)s"
 msgstr[4] "صور %(count)s"
 msgstr[5] "صور %(count)s"
-
-msgid "Change image"
-msgstr "تغير الصورة"
-
-msgid "Edit this image"
-msgstr "حرر هذه الصورة"

@@ -1,20 +1,25 @@
 {% load i18n wagtailadmin_tags %}
-<li data-inline-panel-child id="inline_child_{{ child.form.prefix }}" data-contentpath-disabled>
-    {% if child.form.non_field_errors %}
-        <ul>
-            {% for error in child.form.non_field_errors %}
-                <li class="error-message">
-                    <span>{{ error|escape }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <ul class="controls">
+
+{% fragment as id %}inline_child_{{ child.form.prefix }}{% endfragment %}
+{% fragment as panel_id %}{{ id }}-panel{% endfragment %}
+<div data-inline-panel-child id="{{ id }}" data-contentpath-disabled>
+    {% fragment as header_controls %}
         {% if can_order %}
-            <li><button type="button" class="button button-small button--icon text-replace white inline-child-move-up" id="{{ child.form.prefix }}-move-up" title="{% trans 'Move up' %}">{% icon name="order-up" %}{% trans "Move up" %}</button></li>
-            <li><button type="button" class="button button-small button--icon text-replace white inline-child-move-down" id="{{ child.form.prefix }}-move-down" title="{% trans 'Move down' %}">{% icon name="order-down" %}{% trans "Move down" %}</button></li>
+            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-up title="{% trans 'Move up' %}">{% icon name="arrow-up" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-down title="{% trans 'Move down' %}">{% icon name="arrow-down" %}</button>
         {% endif %}
-        <li><button type="button" class="button button-small button--icon text-replace white hover-no" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% icon name="bin" %}{% trans "Delete" %}</button></li>
-    </ul>
-    {{ child.render_form_content }}
-</li>
+        <button type="button" class="button button--icon text-replace white" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% icon name="bin" %}</button>
+    {% endfragment %}
+    {% panel id=panel_id heading=self.label heading_size="label" header_controls=header_controls %}
+        {% if child.form.non_field_errors %}
+            <ul>
+                {% for error in child.form.non_field_errors %}
+                    <li class="error-message">
+                        <span>{{ error|escape }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {{ child.render_form_content }}
+    {% endpanel %}
+</div>

@@ -7,8 +7,9 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
-from django.db.models import Min, QuerySet
 from django.shortcuts import resolve_url as resolve_url_func
+from django.template import Context
+from django.template.base import token_kwargs
 from django.template.defaultfilters import stringfilter
 from django.templatetags.static import static
 from django.urls import reverse
@@ -40,7 +41,6 @@ from wagtail.coreutils import (
     get_locales_display_names,
 )
 from wagtail.models import (
-    Collection,
     CollectionViewRestriction,
     Locale,
     Page,
@@ -153,6 +153,14 @@ def page_permissions(context, page):
     return _get_user_page_permissions(context).for_page(page)
 
 
+@register.simple_tag
+def classnames(*classes):
+    """
+    Returns any args as a space-separated joined string for using in HTML class names.
+    """
+    return " ".join([classname.strip() for classname in classes if classname])
+
+
 @register.simple_tag(takes_context=True)
 def test_collection_is_public(context, collection):
     """
@@ -227,11 +235,6 @@ def base_url_setting(default=None):
 @register.simple_tag
 def allow_unicode_slugs():
     return getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
-
-
-@register.simple_tag
-def auto_update_preview():
-    return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", False)
 
 
 class EscapeScriptNode(template.Node):
@@ -474,18 +477,18 @@ def paginate(context, page, base_url="", page_key="p", classnames=""):
 
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
-def page_listing_buttons(context, page, page_perms, is_parent=False):
+def page_listing_buttons(context, page, page_perms):
     next_url = context.request.path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook(page, page_perms, is_parent, next_url))
+        buttons.extend(hook(page, page_perms, next_url))
 
     buttons.sort()
 
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
-        hook(buttons, page, page_perms, is_parent, context)
+        hook(buttons, page, page_perms, context)
 
     return {"page": page, "buttons": buttons}
 
@@ -511,7 +514,7 @@ def page_header_buttons(context, page, page_perms):
             "w-flex",
             "w-justify-center",
             "w-items-center",
-            "w-h-[50px]",
+            "w-h-slim-header",
         ],
         "button_classes": [
             "w-p-0",
@@ -582,7 +585,6 @@ def bulk_action_choices(context, app_label, model_name):
                 for action in bulk_action_more_list
             ],
         )
-        more_button.is_parent = True
         bulk_action_buttons.append(more_button)
 
     return {"buttons": bulk_action_buttons}
@@ -729,30 +731,6 @@ def timesince_last_update(
         return _("%(time_period)s ago") % {"time_period": timesince(last_update)}
 
 
-@register.simple_tag
-def format_collection(coll: Collection, min_depth: int = 2) -> str:
-    """
-    Renders a given Collection's name as a formatted string that displays its
-    hierarchical depth via indentation. If min_depth is supplied, the
-    Collection's depth is rendered relative to that depth. min_depth defaults
-    to 2, the depth of the first non-Root Collection.
-
-    Example usage: {% format_collection collection min_depth %}
-    Example output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Child Collection"
-    """
-    return coll.get_indented_name(min_depth, html=True)
-
-
-@register.simple_tag
-def minimum_collection_depth(collections: QuerySet) -> int:
-    """
-    Returns the minimum depth of the Collections in the given queryset.
-    Call this before beginning a loop through Collections that will
-    use {% format_collection collection min_depth %}.
-    """
-    return collections.aggregate(Min("depth"))["depth__min"] or 2
-
-
 @register.filter
 def user_display_name(user):
     """
@@ -855,6 +833,19 @@ def get_comments_enabled():
 
 
 @register.simple_tag
+def preview_settings():
+    default_options = {
+        "WAGTAIL_AUTO_UPDATE_PREVIEW": True,
+        "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500,
+    }
+
+    return {
+        option: getattr(settings, option, default)
+        for option, default in default_options.items()
+    }
+
+
+@register.simple_tag
 def resolve_url(url):
     # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
     # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
@@ -885,65 +876,172 @@ def component(context, obj, fallback_render_method=False):
     return obj.render_html(context)
 
 
-@register.inclusion_tag("wagtailadmin/shared/dialog/dialog.html")
-def dialog(
-    id,
-    title,
-    icon_name=None,
-    subtitle=None,
-    message_status=None,
-    message_heading=None,
-    message_description=None,
-):
+class FragmentNode(template.Node):
+    def __init__(self, nodelist, target_var):
+        self.nodelist = nodelist
+        self.target_var = target_var
+
+    def render(self, context):
+        fragment = self.nodelist.render(context) if self.nodelist else ""
+        context[self.target_var] = fragment
+        return ""
+
+
+@register.tag(name="fragment")
+def fragment(parser, token):
     """
-    Dialog tag - to be used with its corresponding {% enddialog %} tag with dialog content markup nested between
+    Store a template fragment as a variable.
+
+    Usage:
+        {% fragment as header_title %}
+            {% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}
+        {% fragment %}
+
+    Copy-paste of slippers’ fragment template tag.
+    See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L173.
     """
-    if not title:
-        raise ValueError("You must supply a title")
-    if not id:
-        raise ValueError("You must supply an id")
+    error_message = "The syntax for fragment is {% fragment as variable_name %}"
 
-    # Used for determining which icon the message will use
-    message_status_type = {
-        "info": {
-            "message_icon_name": "info-circle",
-        },
-        "warning": {
-            "message_icon_name": "warning",
-        },
-        "critical": {
-            "message_icon_name": "warning",
-        },
-        "success": {
-            "message_icon_name": "circle-check",
-        },
-    }
+    try:
+        tag_name, _, target_var = token.split_contents()
+        nodelist = parser.parse(("endfragment",))
+        parser.delete_first_token()
+    except ValueError:
+        if settings.DEBUG:
+            raise template.TemplateSyntaxError(error_message)
+        return ""
 
-    context = {
-        "id": id,
-        "title": title,
-        "icon_name": icon_name,
-        "subtitle": subtitle,
-        "message_heading": message_heading,
-        "message_description": message_description,
-        "message_status": message_status,
-    }
-
-    # If there is a message status then add the context for that message type
-    if message_status:
-        context.update(**message_status_type[message_status])
-
-    return context
+    return FragmentNode(nodelist, target_var)
 
 
-# Closing tag for dialog tag {% enddialog %}
-@register.inclusion_tag("wagtailadmin/shared/dialog/end-dialog.html")
-def enddialog():
-    return
+class BlockInclusionNode(template.Node):
+    """
+    Create template-driven tags like Django’s inclusion_tag / InclusionNode, but for block-level tags.
+
+    Usage:
+        {% my_tag status="test" label="Alert" %}
+            Proceed with caution.
+        {% endmy_tag %}
+
+    Within `my_tag`’s template, the template fragment will be accessible as the {{ children }} context variable.
+
+    The output can also be stored as a variable in the parent context:
+
+        {% my_tag status="test" label="Alert" as my_variable %}
+            Proceed with caution.
+        {% endmy_tag %}
+
+    Inspired by slippers’ Component Node.
+    See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L47.
+    """
+
+    def __init__(self, nodelist, template, extra_context, target_var=None):
+        self.nodelist = nodelist
+        self.template = template
+        self.extra_context = extra_context
+        self.target_var = target_var
+
+    def get_context_data(self, parent_context):
+        return parent_context
+
+    def render(self, context):
+        children = self.nodelist.render(context) if self.nodelist else ""
+
+        values = {
+            # Resolve the tag’s parameters within the current context.
+            key: value.resolve(context)
+            for key, value in self.extra_context.items()
+        }
+
+        t = context.template.engine.get_template(self.template)
+        # Add the `children` variable in the rendered template’s context.
+        context_data = self.get_context_data({**values, "children": children})
+        output = t.render(Context(context_data, autoescape=context.autoescape))
+
+        if self.target_var:
+            context[self.target_var] = output
+            return ""
+
+        return output
+
+    @classmethod
+    def handle(cls, parser, token):
+        tag_name, *remaining_bits = token.split_contents()
+
+        nodelist = parser.parse((f"end{tag_name}",))
+        parser.delete_first_token()
+
+        extra_context = token_kwargs(remaining_bits, parser)
+
+        # Allow component fragment to be assigned to a variable
+        target_var = None
+        if len(remaining_bits) >= 2 and remaining_bits[-2] == "as":
+            target_var = remaining_bits[-1]
+
+        return cls(nodelist, cls.template, extra_context, target_var)
+
+
+class DialogNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/dialog/dialog.html"
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+
+        if "title" not in context:
+            raise TypeError("You must supply a title")
+        if "id" not in context:
+            raise TypeError("You must supply an id")
+
+        # Used for determining which icon the message will use
+        message_icon_name = {
+            "info": "info-circle",
+            "warning": "warning",
+            "critical": "warning",
+            "success": "circle-check",
+        }
+
+        message_status = context.get("message_status")
+
+        # If there is a message status then determine which icon to use.
+        if message_status:
+            context["message_icon_name"] = message_icon_name[message_status]
+
+        return context
+
+
+register.tag("dialog", DialogNode.handle)
+
+
+class HelpBlockNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/help_block.html"
+
+
+register.tag("help_block", HelpBlockNode.handle)
+
+
+class PanelNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/panel.html"
+
+
+register.tag("panel", PanelNode.handle)
+
+
+class FieldNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/field.html"
+
+
+register.tag("field", FieldNode.handle)
+
+
+class FieldRowNode(BlockInclusionNode):
+    template = "wagtailadmin/shared/forms/field_row.html"
+
+
+register.tag("field_row", FieldRowNode.handle)
 
 
 # Button used to open dialogs
-@register.inclusion_tag("wagtailadmin/shared/dialog/dialog-toggle.html")
+@register.inclusion_tag("wagtailadmin/shared/dialog/dialog_toggle.html")
 def dialog_toggle(dialog_id, class_name="", text=None):
     if not dialog_id:
         raise ValueError("You must supply the dialog ID")

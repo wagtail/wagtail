@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -80,6 +80,70 @@ msgstr "La password inserita non è corretta. Riprovare."
 msgid "Comment"
 msgstr "Commenta"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b> La pagina '{}' è stata bloccata</b> da <b>te</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>La pagina '{}' è stata bloccata</b> da <b>te</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b> La pagina '{}' è stata bloccata</b> da <b>{}</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>La pagina '{}' è stata bloccata</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Questa pagina è attualmente in attesa di moderazione."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr ""
+"Questa pagina è in attesa di <b>'{}'</b> nel flusso di lavoro <b>'{}'</b>."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Solo i revisori per questa attività possono modificare la pagina."
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "ha modifiche non pubblicate"
+
+msgid "first published at"
+msgstr "pubblicata per la prima volta"
+
+msgid "last published at"
+msgstr "ultima pubblicazione il"
+
+msgid "live revision"
+msgstr "revisione live"
+
+msgid "go live date/time"
+msgstr "vai live data/ora"
+
+msgid "expiry date/time"
+msgstr "scadenza data/ora"
+
+msgid "expired"
+msgstr "scaduta"
+
+msgid "draft"
+msgstr "bozza"
+
+msgid "live + draft"
+msgstr "live + bozza"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "locked"
+msgstr "bloccata"
+
+msgid "locked at"
+msgstr "bloccata"
+
+msgid "locked by"
+msgstr "bloccata da"
+
 msgid "title"
 msgstr "titolo"
 
@@ -98,12 +162,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "tipo contenuto"
-
-msgid "live"
-msgstr "live"
-
-msgid "has unpublished changes"
-msgstr "ha modifiche non pubblicate"
 
 msgid "URL path"
 msgstr "URL path"
@@ -138,35 +196,8 @@ msgstr ""
 "Il testo descrittivo visualizzato sotto un titolo nei risultati dei motori "
 "di ricerca."
 
-msgid "go live date/time"
-msgstr "vai live data/ora"
-
-msgid "expiry date/time"
-msgstr "scadenza data/ora"
-
-msgid "expired"
-msgstr "scaduta"
-
-msgid "locked"
-msgstr "bloccata"
-
-msgid "locked at"
-msgstr "bloccata"
-
-msgid "locked by"
-msgstr "bloccata da"
-
-msgid "first published at"
-msgstr "pubblicata per la prima volta"
-
-msgid "last published at"
-msgstr "ultima pubblicazione il"
-
 msgid "latest revision created at"
 msgstr "ultima revisione creata"
-
-msgid "live revision"
-msgstr "revisione live"
 
 msgid "This slug is already in use"
 msgstr "Questo slug è gia in uso"
@@ -177,20 +208,11 @@ msgstr "schedulata"
 msgid "in moderation"
 msgstr "in moderazione"
 
-msgid "draft"
-msgstr "bozza"
-
 msgid "live + scheduled"
 msgstr "live + programmate"
 
 msgid "live + in moderation"
 msgstr "live + in moderazione"
-
-msgid "live + draft"
-msgstr "live + bozza"
-
-msgid "Default"
-msgstr "Default"
 
 msgid "page"
 msgstr "pagina"
@@ -212,12 +234,6 @@ msgstr "contenuto JSON"
 
 msgid "approved go live at"
 msgstr "approvato per la pubblicazione alle"
-
-msgid "page revision"
-msgstr "revisione pagina"
-
-msgid "page revisions"
-msgstr "revisioni pagina"
 
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
@@ -393,6 +409,9 @@ msgstr "Saltato"
 
 msgid "workflow state"
 msgstr "stato flusso di lavoro"
+
+msgid "page revision"
+msgstr "revisione pagina"
 
 msgid "started at"
 msgstr "iniziata il"
@@ -574,21 +593,6 @@ msgstr "Devi avere una password per accedere a questa pagina."
 
 msgid "Continue"
 msgstr "Continua"
-
-msgid "English"
-msgstr "Inglese"
-
-msgid "French"
-msgstr "Francese"
-
-msgid "Wagtail snippets tests"
-msgstr "Test Wagtail snippets"
-
-msgid "The form is already filled."
-msgstr "Il form è già compilato."
-
-msgid "German"
-msgstr "Tedesco"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -896,10 +900,6 @@ msgstr "Attività rifiutata nel flusso di lavoro. Flusso di lavoro completato"
 
 msgid "Workflow: resume task"
 msgstr "Flusso di lavoro: riprendi attività"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Reinviata '%(task)s'. Flusso di lavoro ripreso'"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Attività reinviata nel flusso di lavoro. Flusso di lavoro ripreso"

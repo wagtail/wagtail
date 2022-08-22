@@ -260,13 +260,13 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertPanelActive(response, "password")
 
         # These fields may hide themselves
-        self.assertContains(response, "Email:")
-        self.assertContains(response, "Preferred language:")
+        self.assertContains(response, "Email")
+        self.assertContains(response, "Preferred language")
 
         if settings.USE_TZ:
-            self.assertContains(response, "Current time zone:")
+            self.assertContains(response, "Current time zone")
         else:
-            self.assertNotContains(response, "Current time zone:")
+            self.assertNotContains(response, "Current time zone")
 
         # Form media should be included on the page
         self.assertContains(response, "vendor/colorpicker.js")
@@ -328,7 +328,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/account/account.html")
-        self.assertNotContains(response, "Email:")
+        self.assertNotContains(response, "id_name_email-email")
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
@@ -473,7 +473,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")])
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.get(reverse("wagtailadmin_account"))
-        self.assertNotContains(response, "Preferred language:")
+        self.assertNotContains(response, "Preferred language")
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_change_current_time_zone(self):
@@ -527,12 +527,12 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAIL_USER_TIME_ZONES=["Europe/London"])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
         response = self.client.get(reverse("wagtailadmin_account"))
-        self.assertNotContains(response, "Current time zone:")
+        self.assertNotContains(response, "Current time zone")
 
     @unittest.skipIf(settings.USE_TZ, "Timezone support is enabled")
     def test_not_show_options_if_timezone_support_disabled(self):
         response = self.client.get(reverse("wagtailadmin_account"))
-        self.assertNotContains(response, "Current time zone:")
+        self.assertNotContains(response, "Current time zone")
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(
@@ -561,12 +561,12 @@ class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtil
 
     def test_account_view(self):
         """
-        This tests that the account view renders a "Upload a profile picture:" field
+        This tests that the account view renders a "Upload a profile picture" field
         """
         response = self.client.get(reverse("wagtailadmin_account"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Upload a profile picture:")
+        self.assertContains(response, "Upload a profile picture")
 
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
         response = self.post_form(

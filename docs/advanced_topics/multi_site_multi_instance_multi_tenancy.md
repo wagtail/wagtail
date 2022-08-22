@@ -16,7 +16,7 @@ Multi-site configuration is a single code base, on a single server, connecting t
 
 Wagtail supports multi-site out of the box: Wagtail comes with a [site model](wagtail.models.Site). The site model contains a hostname, port, and root page field. When a URL is requested, the request comes in, the domain name and port are taken from the request object to look up the correct site object. The root page is used as starting point to resolve the URL and serve the correct page.
 
-Wagtail also comes with [site settings](settings). _Site settings_ are 'singletons' that let you store additional information on a site. For example, social media settings, a field to upload a logo, or a choice field to select a theme.
+Wagtail also comes with [site settings](site_settings). _Site settings_ are 'singletons' that let you store additional information on a site. For example, social media settings, a field to upload a logo, or a choice field to select a theme.
 
 Model objects can be linked to a site by placing a foreign key field on the model pointing to the site object. A request object can be used to look up the current site. This way, content belonging to a specific site can be served.
 

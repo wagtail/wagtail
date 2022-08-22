@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms import widgets
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -21,9 +22,9 @@ from wagtail.widget_adapters import WidgetAdapter
 
 class AdminChooser(WidgetWithScript, widgets.Input):
     choose_one_text = _("Choose an item")
-    choose_another_text = _("Choose another item")
-    clear_choice_text = _("Clear choice")
-    link_to_chosen_text = _("Edit this item")
+    choose_another_text = _("Change")
+    clear_choice_text = _("Clear")
+    link_to_chosen_text = _("Edit")
     show_edit_link = True
     show_clear_link = True
 
@@ -88,9 +89,9 @@ class AdminChooser(WidgetWithScript, widgets.Input):
 
 class BaseChooser(widgets.Input):
     choose_one_text = _("Choose an item")
-    choose_another_text = _("Choose another item")
-    clear_choice_text = _("Clear choice")
-    link_to_chosen_text = _("Edit this item")
+    choose_another_text = _("Change")
+    clear_choice_text = _("Clear")
+    link_to_chosen_text = _("Edit")
     show_edit_link = True
     show_clear_link = True
     template_name = "wagtailadmin/widgets/chooser.html"
@@ -99,6 +100,7 @@ class BaseChooser(widgets.Input):
     )
     icon = None
     classname = None
+    model = None
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -120,6 +122,10 @@ class BaseChooser(widgets.Input):
         if "show_clear_link" in kwargs:
             self.show_clear_link = kwargs.pop("show_clear_link")
         super().__init__(**kwargs)
+
+    @cached_property
+    def model_class(self):
+        return resolve_model_string(self.model)
 
     def value_from_datadict(self, data, files, name):
         # treat the empty string as None
@@ -176,10 +182,10 @@ class BaseChooser(widgets.Input):
         """
         if value is None:
             return None
-        elif isinstance(value, self.model):
+        elif isinstance(value, self.model_class):
             return value
         else:  # assume instance ID
-            return self.model.objects.get(pk=value)
+            return self.model_class.objects.get(pk=value)
 
     def get_display_title(self, instance):
         """
@@ -228,16 +234,38 @@ class BaseChooser(widgets.Input):
     def render_js_init(self, id_, name, value_data):
         return "new Chooser({0});".format(json.dumps(id_))
 
-    class Media:
-        js = [
-            "wagtailadmin/js/chooser-widget.js",
+    @cached_property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtailadmin/js/chooser-widget.js"),
+            ]
+        )
+
+
+class BaseChooserAdapter(WidgetAdapter):
+    js_constructor = "wagtail.admin.widgets.Chooser"
+
+    def js_args(self, widget):
+        return [
+            widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
+            widget.id_for_label("__ID__"),
         ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtailadmin/js/chooser-widget-telepath.js"),
+            ]
+        )
+
+
+register(BaseChooserAdapter(), BaseChooser)
 
 
 class AdminPageChooser(BaseChooser):
     choose_one_text = _("Choose a page")
-    choose_another_text = _("Choose another page")
-    link_to_chosen_text = _("Edit this page")
     display_title_key = "display_title"
     chooser_modal_url_name = "wagtailadmin_choose_page"
     icon = "doc-empty-inverse"
@@ -314,7 +342,7 @@ class AdminPageChooser(BaseChooser):
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}
-        return "createPageChooser({id}, {parent}, {options});".format(
+        return "new PageChooser({id}, {parent}, {options});".format(
             id=json.dumps(id_),
             parent=json.dumps(value_data.get("parent_id")),
             options=json.dumps(self.client_options),

@@ -33,7 +33,7 @@ module.exports = function exports(env, argv) {
     'admin': [
       'chooser-modal',
       'chooser-widget',
-      'collapsible',
+      'chooser-widget-telepath',
       'comments',
       'core',
       'date-time-chooser',
@@ -45,6 +45,7 @@ module.exports = function exports(env, argv) {
       'page-chooser-modal',
       'page-chooser',
       'page-editor',
+      'preview-panel',
       'privacy-switch',
       'sidebar',
       'task-chooser-modal',
@@ -194,11 +195,6 @@ module.exports = function exports(env, argv) {
           {
             from: 'wagtail/search/static_src/',
             to: 'wagtail/search/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
-          {
-            from: 'wagtail/snippets/static_src/',
-            to: 'wagtail/snippets/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
           {

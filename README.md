@@ -87,7 +87,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
--   Django 3.2.x and 4.0.x
+-   Django 3.2.x, 4.0.x and 4.1.x
 -   Python 3.7, 3.8, 3.9 and 3.10
 -   PostgreSQL, MySQL and SQLite (with JSON1) as database backends
 
@@ -131,7 +131,7 @@ If you're a Python or Django developer, fork the repo and get stuck in! We have 
 
 You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
-We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/torchbox/wagtail/).
 
 ### 🔓 License
 

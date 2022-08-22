@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -59,17 +59,8 @@ msgstr "Так. Выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Upload"
-msgstr "Запампаваць"
-
 msgid "New"
 msgstr "Новы"
-
-msgid "Uploading…"
-msgstr "Запампоўваецца..."
 
 msgid "Save"
 msgstr "Захаваць"
@@ -88,9 +79,6 @@ msgstr "Файл не знойдзены"
 
 msgid "Usage"
 msgstr "Выкарыстоўванне"
-
-msgid "Clear choice"
-msgstr "Ачысціць выбар"
 
 msgid "URL"
 msgstr "URL"
@@ -134,3 +122,9 @@ msgstr "Памылка Сервера"
 
 msgid "Delete"
 msgstr "Выдаліць"
+
+msgid "Upload"
+msgstr "Запампаваць"
+
+msgid "Uploading…"
+msgstr "Запампоўваецца..."

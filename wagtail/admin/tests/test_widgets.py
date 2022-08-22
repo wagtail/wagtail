@@ -73,7 +73,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});',
+            'new PageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});',
             html,
         )
 
@@ -82,7 +82,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": "copy_to"});',
+            'new PageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": "copy_to"});',
             html,
         )
 
@@ -99,7 +99,7 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertInHTML("foobarbaz (simple page)", html)
 
         self.assertIn(
-            'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});'
+            'new PageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});'
             % self.root_page.id,
             html,
         )
@@ -109,7 +109,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
+            'new PageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
             html,
         )
 
@@ -121,7 +121,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
+            'new PageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
             html,
         )
 
@@ -133,7 +133,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
+            'new PageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
             html,
         )
 
@@ -146,7 +146,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", None, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});',
+            'new PageChooser("test-id", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});',
             html,
         )
 
@@ -158,7 +158,7 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
         self.assertIn(
-            'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": true, "user_perms": null});'
+            'new PageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": true, "user_perms": null});'
             % self.root_page.id,
             html,
         )
@@ -350,7 +350,7 @@ class TestAdminDateTimeInput(TestCase):
 class TestAdminTagWidget(TestCase):
     def get_js_init_params(self, html):
         """Returns a list of the params passed in to initTagField from the supplied HTML"""
-        # Eg. ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
+        # example - ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
         start = "initTagField("
         end = ");"
         items_after_init = html.split(start)[1]

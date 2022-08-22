@@ -10,7 +10,6 @@ class SiteForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["root_page"].widget = AdminPageChooser(
             choose_one_text=_("Choose a root page"),
-            choose_another_text=_("Choose a different root page"),
             show_clear_link=False,
         )
 

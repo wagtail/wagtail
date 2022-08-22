@@ -52,9 +52,22 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: page_title
    .. autoattribute:: choose_another_text
    .. autoattribute:: edit_item_text
+   .. autoattribute:: per_page
    .. autoattribute:: choose_view_class
    .. autoattribute:: choose_results_view_class
    .. autoattribute:: chosen_view_class
+   .. autoattribute:: create_view_class
+   .. autoattribute:: base_widget_class
    .. autoattribute:: widget_class
+   .. autoattribute:: widget_telepath_adapter_class
    .. autoattribute:: register_widget
+   .. autoattribute:: base_block_class
+   .. automethod:: get_block_class
+   .. autoattribute:: creation_form_class
+   .. autoattribute:: form_fields
+   .. autoattribute:: exclude_form_fields
+   .. autoattribute:: create_action_label
+   .. autoattribute:: create_action_clicked_label
+   .. autoattribute:: creation_tab_label
+   .. autoattribute:: search_tab_label
 ```

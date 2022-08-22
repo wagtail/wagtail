@@ -2,6 +2,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
+from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
@@ -63,8 +64,38 @@ class SearchableSnippet(index.Indexed, models.Model):
 
 
 @register_snippet
+class FilterableSnippet(index.Indexed, models.Model):
+    admin_viewset = "wagtail.test.testapp.wagtail_hooks.FilterableSnippetViewSet"
+
+    class CountryCode(models.TextChoices):
+        INDONESIA = "ID"
+        PHILIPPINES = "PH"
+        UNITED_KINGDOM = "UK"
+
+    text = models.CharField(max_length=255)
+    country_code = models.CharField(max_length=2, choices=CountryCode.choices)
+
+    search_fields = [
+        index.SearchField("text"),
+        index.FilterField("country_code"),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+class FilterableSnippetFilterSet(WagtailFilterSet):
+    class Meta:
+        model = FilterableSnippet
+        fields = ["country_code"]
+
+
+@register_snippet
 class StandardSnippet(models.Model):
     text = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.text
 
 
 @register_snippet

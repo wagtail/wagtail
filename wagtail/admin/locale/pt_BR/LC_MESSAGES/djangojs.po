@@ -4,9 +4,9 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
 # Ed Wurch <ewurch@gmail.com>, 2022
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2022
-# Iuri L. Machado, 2022
 # Éder Brito <britoederr@gmail.com>, 2022
 # Gladson <gladsonbrito@gmail.com>, 2022
+# Iuri L. Machado, 2022
 # Luiz Boaretto <lboaretto@gmail.com>, 2022
 #
 msgid ""
@@ -94,9 +94,6 @@ msgstr "Navegador de páginas"
 msgid "Pages"
 msgstr "Páginas"
 
-msgid "Redo"
-msgstr "Refazer"
-
 msgid "Reload saved content"
 msgstr "Recarregar conteúdo salvo"
 
@@ -105,6 +102,12 @@ msgstr "Recarregue a página"
 
 msgid "Reply"
 msgstr "Responder"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informe este erro ao administrador do seu site com as seguintes informações:"
 
 msgid "Resolve"
 msgstr "Resolver"
@@ -151,17 +154,14 @@ msgstr ""
 "O editor simplesmente travou. O conteúdo foi redefinido para a última versão "
 "salva."
 
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
 msgid "Toggle sidebar"
 msgstr "Alternar barra lateral"
-
-msgid "Undo"
-msgstr "Desfazer"
 
 msgid "Unfocus comment"
 msgstr "Desfocar comentário"
 
 msgid "View child pages of '{title}'"
 msgstr "Ver páginas filho de '{title}'"
-
-msgid "Write here…"
-msgstr "Escreva aqui…"

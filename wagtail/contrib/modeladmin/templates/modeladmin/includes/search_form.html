@@ -1,21 +1,10 @@
 {% load i18n wagtailadmin_tags %}
 {% if show_search %}
     <form id="changelist-search" class="col search-form" action="{{ view.index_url }}" method="get">
-        <ul class="fields">
-            <li class="required">
-                <div class="field char_field text_input field-small iconfield">
-                    <label for="id_q" class="visuallyhidden">{% trans 'Search for' %}</label>
-                    <div class="field-content">
-                        <div class="input">
-                            {% icon name="search" %}
-                            <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans trimmed with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="submit visuallyhidden"><input type="submit" value="Search" class="button"></li>
-        </ul>
+        {% trans 'Search for' as label_text %}
+        {% field label_text=label_text sr_only_label=True id_for_label="id_q" icon="search" classname="w-mb-0" %}
+            <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans trimmed with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
+        {% endfield %}
+        <button type="submit" class="w-sr-only">{% trans 'Search' %}</button>
     </form>
-    <script type="text/javascript">document.getElementById("id_q").focus();</script>
 {% endif %}

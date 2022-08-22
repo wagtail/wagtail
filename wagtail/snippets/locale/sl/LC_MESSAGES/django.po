@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Unpublish"
+msgstr "Umakni iz objave"
+
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -30,25 +36,6 @@ msgstr "Shrani"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail delci"
-
-msgid "Choose"
-msgstr "Izberite"
-
-msgid "Search"
-msgstr "Iskanje"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "Žal ni delca, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
-
-msgid "Last updated"
-msgstr "Zadnje posodobljeno"
-
-msgid "History"
-msgstr "Zgodovina"
-
-msgid "Saving…"
-msgstr "Shranjevanje ..."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -67,6 +54,27 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
 
+msgid "Last updated"
+msgstr "Zadnje posodobljeno"
+
+msgid "History"
+msgstr "Zgodovina"
+
+msgid "Publishing…"
+msgstr "Objavljanje…"
+
+msgid "Publish this version"
+msgstr "Objavi to različico"
+
+msgid "Saving…"
+msgstr "Shranjevanje ..."
+
+msgid "Replace current draft"
+msgstr "Nadomesti trenutni osnutek"
+
+msgid "Save draft"
+msgstr "Shrani osnutek"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Nov  %(snippet_type_name)s"
@@ -77,25 +85,14 @@ msgstr "Nov"
 msgid "Actions"
 msgstr "Dejanja"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Urejanje %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Urejanje"
-
 msgid "Usage"
 msgstr "Uporaba"
 
 msgid "Snippets"
 msgstr "Delci"
 
-msgid "Title"
-msgstr "Naziv"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Izberite %(snippet)s"
+msgid "No log entries found."
+msgstr "Najden ni bil noben vnos v dnevnik."
 
 #, python-format
 msgid ""
@@ -105,13 +102,42 @@ msgstr ""
 "Dodan ni bil še noben %(snippet_type_name_plural)s . Zakaj ga ne bi <a href="
 "\"%(wagtailsnippets_create_url)s\">dodali</a>?"
 
+msgid "Live version"
+msgstr "Različica v živo"
+
+msgid "Current draft"
+msgstr "Trenutni osnutek"
+
+msgid "Preview"
+msgstr "Predogled"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Review this version"
+msgstr "Preglejte to različico"
+
+msgid "Compare with previous version"
+msgstr "Primerjaj s prejšnjo različico"
+
+msgid "Compare with current version"
+msgstr "Primerjaj s trenutno različico"
+
+msgid "Live"
+msgstr "Objavljeno"
+
+msgid "Draft"
+msgstr "Osnutek"
+
+msgid "View history"
+msgstr "Ogled zgodovine"
+
+msgid "This will publish at "
+msgstr "To bo objavljeno ob"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Delci %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Delci <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -123,6 +149,9 @@ msgstr "Uporabe %(title)s"
 
 msgid "Usage of"
 msgstr "Uporabe"
+
+msgid "Title"
+msgstr "Naziv"
 
 msgid "Parent"
 msgstr "Nadrejeni"
@@ -136,27 +165,26 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Uredi stran"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Iskanje po %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Izberite"
+
+msgid "Name"
+msgstr "Ime"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
 
-msgid "Edit"
-msgstr "Uredi"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Snippet history"
 msgstr "Zgodovina odrezka"
 
 msgid "Action"
 msgstr "Dejanje"
-
-msgid "Date"
-msgstr "Datum"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -169,11 +197,3 @@ msgstr "Izbriši '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Izberite %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Izberite drug %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Uredi %s"
