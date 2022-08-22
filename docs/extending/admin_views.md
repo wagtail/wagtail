@@ -159,7 +159,7 @@ def index(request):
 def month(request):
     current_year = timezone.now().year
     current_month = timezone.now().month
-    calendar_html = calendar.HTMLCalendar().format_month(current_year, current_month)
+    calendar_html = calendar.HTMLCalendar().formatmonth(current_year, current_month)
 
     return HttpResponse(calendar_html)
 ```
