@@ -235,25 +235,36 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.exact_type_q(*types))
 
-    def public_q(self):
+    def private_q(self):
         from wagtail.models import PageViewRestriction
 
         q = Q()
         for restriction in PageViewRestriction.objects.select_related("page").all():
-            q &= ~self.descendant_of_q(restriction.page, inclusive=True)
-        return q
+            q |= self.descendant_of_q(restriction.page, inclusive=True)
+
+        # do not match any page if no private section exists.
+        return q if q else Q(pk__in=[])
 
     def public(self):
         """
-        This filters the QuerySet to only contain pages that are not in a private section
+        Filters the QuerySet to only contain pages that are not in a private
+        section and their descendants.
         """
-        return self.filter(self.public_q())
+        return self.exclude(self.private_q())
 
     def not_public(self):
         """
-        This filters the QuerySet to only contain pages that are in a private section
+        Filters the QuerySet to only contain pages that are in a private
+        section and their descendants.
         """
-        return self.exclude(self.public_q())
+        return self.filter(self.private_q())
+
+    def private(self):
+        """
+        Filters the QuerySet to only contain pages that are in a private
+        section and their descendants.
+        """
+        return self.filter(self.private_q())
 
     def first_common_ancestor(self, include_self=False, strict=False):
         """

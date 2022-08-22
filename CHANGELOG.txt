@@ -6,6 +6,8 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add basic keyboard control and screen reader support for page listing re-ordering (Paarth Agarwal, Thomas van der Hoeven)
+ * Add `PageQuerySet.private` method as an alias of `not_public` (Mehrdad Moradizadeh)
+ * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
 
 
 4.0 (xx.xx.xxxx) - IN DEVELOPMENT
