@@ -12,6 +12,7 @@ contrib/index
 management_commands
 hooks
 signals
+client_side_events
 settings
 project_template
 jinja2
