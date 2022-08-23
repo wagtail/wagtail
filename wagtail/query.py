@@ -246,13 +246,12 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
     def private_q(self):
         from wagtail.models import PageViewRestriction
 
-        ids = []
+        q = Q()
+        for restriction in PageViewRestriction.objects.select_related("page").all():
+            q |= self.descendant_of_q(restriction.page, inclusive=True)
 
-        for restriction in PageViewRestriction.objects.all():
-            for descendant in restriction.page.get_descendants(inclusive=True):
-                ids.append(descendant.pk)
-
-        return Q(pk__in=ids)
+        # do not match any page if no private section exists.
+        return q if q else Q(pk__in=[])
 
     def public(self):
         """
