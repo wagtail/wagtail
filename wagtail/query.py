@@ -235,14 +235,6 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.exact_type_q(*types))
 
-    def public_q(self):
-        from wagtail.models import PageViewRestriction
-
-        q = Q()
-        for restriction in PageViewRestriction.objects.select_related("page").all():
-            q &= ~self.descendant_of_q(restriction.page, inclusive=True)
-        return q
-
     def private_q(self):
         from wagtail.models import PageViewRestriction
 
