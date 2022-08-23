@@ -480,6 +480,27 @@ class TestPageQuerySet(TestCase):
             # Check that the event is in the results
             self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_private(self):
+        events_index = Page.objects.get(url_path="/home/events/")
+        event = Page.objects.get(url_path="/home/events/christmas/")
+        homepage = Page.objects.get(url_path="/home/")
+
+        # Add PageViewRestriction to events_index
+        PageViewRestriction.objects.create(page=events_index, password="hello")
+
+        with self.assertNumQueries(4):
+            # Get public pages
+            pages = Page.objects.private()
+
+            # Check that the homepage is not in the results
+            self.assertFalse(pages.filter(id=homepage.id).exists())
+
+            # Check that the events index is in the results
+            self.assertTrue(pages.filter(id=events_index.id).exists())
+
+            # Check that the event is in the results
+            self.assertTrue(pages.filter(id=event.id).exists())
+
     def test_merge_queries(self):
         type_q = Page.objects.type_q(EventPage)
         query = Q()

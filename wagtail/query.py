@@ -259,6 +259,13 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.filter(self.private_q())
 
+    def private(self):
+        """
+        Filters the QuerySet to only contain pages that are in a private
+        section and their descendants.
+        """
+        return self.filter(self.private_q())
+
     def first_common_ancestor(self, include_self=False, strict=False):
         """
         Find the first ancestor that all pages in this queryset have in common.
