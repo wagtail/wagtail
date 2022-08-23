@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,51 @@ msgstr "Geslo, ki ste ga vnesli, ni pravilno. Prosim poskusite ponovno."
 msgid "Comment"
 msgstr "Komentar"
 
+msgid "This page is currently awaiting moderation."
+msgstr "Ta stran trenutno čaka na moderiranje."
+
+msgid "live"
+msgstr "v živo"
+
+msgid "has unpublished changes"
+msgstr "ima neobjavljene spremebe"
+
+msgid "first published at"
+msgstr "datum prve objave"
+
+msgid "last published at"
+msgstr "nazadnje objavljeno ob"
+
+msgid "live revision"
+msgstr "revizija objavljenih"
+
+msgid "go live date/time"
+msgstr "datum začetka objave"
+
+msgid "expiry date/time"
+msgstr "datum poteka objave"
+
+msgid "expired"
+msgstr "pretečeno"
+
+msgid "draft"
+msgstr "osnutek"
+
+msgid "live + draft"
+msgstr "objavljeno + osnutek"
+
+msgid "Default"
+msgstr "Privzeta"
+
+msgid "locked"
+msgstr "zaklenjeno"
+
+msgid "locked at"
+msgstr "zaklenjena na"
+
+msgid "locked by"
+msgstr "zaklenil"
+
 msgid "title"
 msgstr "naziv"
 
@@ -95,12 +140,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "tip vsebine"
-
-msgid "live"
-msgstr "v živo"
-
-msgid "has unpublished changes"
-msgstr "ima neobjavljene spremebe"
 
 msgid "URL path"
 msgstr "URL pot"
@@ -135,35 +174,8 @@ msgstr ""
 "Besedilni opis strani, ki bo prikazan pod naslovom rezultata iskanja "
 "spletnih iskalnikov."
 
-msgid "go live date/time"
-msgstr "datum začetka objave"
-
-msgid "expiry date/time"
-msgstr "datum poteka objave"
-
-msgid "expired"
-msgstr "pretečeno"
-
-msgid "locked"
-msgstr "zaklenjeno"
-
-msgid "locked at"
-msgstr "zaklenjena na"
-
-msgid "locked by"
-msgstr "zaklenil"
-
-msgid "first published at"
-msgstr "datum prve objave"
-
-msgid "last published at"
-msgstr "nazadnje objavljeno ob"
-
 msgid "latest revision created at"
 msgstr "zadnja različica ustvarjena"
-
-msgid "live revision"
-msgstr "revizija objavljenih"
 
 msgid "This slug is already in use"
 msgstr "Ključ je že v uporabi"
@@ -174,20 +186,11 @@ msgstr "načrtovana"
 msgid "in moderation"
 msgstr "v pregledu"
 
-msgid "draft"
-msgstr "osnutek"
-
 msgid "live + scheduled"
 msgstr "objavljeno + po urniku"
 
 msgid "live + in moderation"
 msgstr "objavljeno + v pregledu"
-
-msgid "live + draft"
-msgstr "objavljeno + osnutek"
-
-msgid "Default"
-msgstr "Privzeta"
 
 msgid "page"
 msgstr "stran"
@@ -209,12 +212,6 @@ msgstr "JSON vsebina"
 
 msgid "approved go live at"
 msgstr "potrjeno, objava"
-
-msgid "page revision"
-msgstr "različica strani"
-
-msgid "page revisions"
-msgstr "različice strani"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi strani v vaši lasti"
@@ -314,6 +311,9 @@ msgstr "Zavrnjeno"
 
 msgid "Skipped"
 msgstr "Preskočeno"
+
+msgid "page revision"
+msgstr "različica strani"
 
 msgid "started at"
 msgstr "začeto ob"
@@ -436,24 +436,6 @@ msgstr "Za dostop do te strani potrebujete geslo."
 
 msgid "Continue"
 msgstr "Nadaljuj"
-
-msgid "Test Wagtail Model Admin"
-msgstr "Testni skrbnik modela Wagtail"
-
-msgid "English"
-msgstr "angleščina"
-
-msgid "French"
-msgstr "francoski"
-
-msgid "The form is already filled."
-msgstr "Obrazec je že izpolnjen."
-
-msgid "You must log in first."
-msgstr "Najprej se morate prijaviti."
-
-msgid "German"
-msgstr "nemški"
 
 msgid "Create"
 msgstr "Ustvari"

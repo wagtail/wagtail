@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Publish"
+msgstr "จัดพิมพ์,ตีพิมพ์"
+
+msgid "Unpublish"
+msgstr "ยกเลิกประกาศ"
+
 msgid "Delete"
 msgstr "ลบ,ลบทิ้ง"
 
@@ -27,19 +33,6 @@ msgstr "เซฟ,เก็บข้อมูล"
 
 msgid "Wagtail snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อยของWagtail"
-
-msgid "Choose"
-msgstr "เลือก"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "ขออภัย, ไม่มีเกร็ดเล็กเกร็ดน้อยที่ตรงกัน \"<em>%(query_string)s</em>\""
-
-msgid "Saving…"
-msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -64,6 +57,18 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะล
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
+msgid "Publishing…"
+msgstr "กำลังพิมพ์"
+
+msgid "Saving…"
+msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
+
+msgid "Replace current draft"
+msgstr "เปลี่ยนข้อความที่เก็บเอาไว้ทำใหม่อันล่าสุด"
+
+msgid "Save draft"
+msgstr "เซฟข้อความที่เก็บเอาไว้ทำใหม่"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "ใหม่ %(snippet_type_name)s"
@@ -71,21 +76,11 @@ msgstr "ใหม่ %(snippet_type_name)s"
 msgid "New"
 msgstr "ใหม่"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "กำลังแก้ไข%(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "กำลังแก้ไข"
-
 msgid "Usage"
 msgstr "การใช้"
 
 msgid "Snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อย"
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
 
 #, python-format
 msgid ""
@@ -95,13 +90,27 @@ msgstr ""
 "ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a href="
 "\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
 
+msgid "Live version"
+msgstr "รุ่นถ่ายทอดสด"
+
+msgid "Current draft"
+msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
+
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Live"
+msgstr "กำลังแสดงสดอยู่,ถ่ายทอดสด"
+
+msgid "Draft"
+msgstr "ร่าง , ข้อความที่เก็บเอาไว้ทำใหม่"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "เกร็ดเล็กเกร็ดน้อย %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr " เกร็ดเล็กเกร็ดน้อย<span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -113,6 +122,9 @@ msgstr "การใช้ของ%(title)s"
 
 msgid "Usage of"
 msgstr "การใช้ของ"
+
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
 
 msgid "Parent"
 msgstr "หน้าแรก,หน้าหลัก"
@@ -126,15 +138,14 @@ msgstr "สถานะ"
 msgid "Edit this page"
 msgstr "แก้ไขหน้านี้"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "ค้นหา %(snippet_type_name)s"
+msgid "Choose"
+msgstr "เลือก"
+
+msgid "Name"
+msgstr "ชื่อ"
 
 msgid "The snippet could not be created due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
-
-msgid "Edit"
-msgstr "แก้ไข"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
@@ -145,11 +156,3 @@ msgstr "วันที่"
 #, python-format
 msgid "Choose %s"
 msgstr "เลือก %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "เลือกอันอื่น %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "แก้ไขสิ่งนี้ %s"

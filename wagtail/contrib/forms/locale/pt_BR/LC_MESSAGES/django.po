@@ -10,13 +10,15 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Éder Brito <britoederr@gmail.com>, 2021\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"<rmsolucoeseminformatica@protonmail.com>, 2022\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -109,8 +111,21 @@ msgstr "requerido"
 msgid "choices"
 msgstr "escolhas"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Lista de opções separada por vírgula ou nova linha. Aplicável apenas em "
+"caixas de seleção, rádio e menu suspenso."
+
 msgid "default value"
 msgstr "valor padrão"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Valor padrão. Valores separados por vírgula ou nova linha suportados para "
+"caixas de seleção."
 
 msgid "help text"
 msgstr "texto de ajuda"
@@ -151,6 +166,12 @@ msgstr "Excluir dados do formulário %(title)s"
 msgid "Delete form data"
 msgstr "Excluir dados do formulário"
 
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Tem certeza de que deseja excluir esta submissão do formulário?"
+msgstr[1] "Tem certeza de que deseja excluir esta submissão do formulário?"
+msgstr[2] "Tem certeza de que deseja excluir esta submissão do formulário?"
+
 msgid "Delete"
 msgstr "Remover"
 
@@ -159,27 +180,6 @@ msgstr "Formulários"
 
 msgid "Pages"
 msgstr "Páginas"
-
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Envios de %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Dados do formulário <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtro"
-
-msgid "Download XLSX"
-msgstr "Baixar XLSX"
-
-msgid "Download CSV"
-msgstr "Baixar CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Não há envios do formulário '%(title)s'"
 
 msgid "Title"
 msgstr "Título"
@@ -200,8 +200,31 @@ msgid "No form pages have been created."
 msgstr "Nenhuma página foi criada."
 
 #, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Envios de %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Baixar XLSX"
+
+msgid "Download CSV"
+msgstr "Baixar CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Não há envios do formulário '%(title)s'"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Aplicar filtros"
+
+#, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Uma submissão foi removida."
 msgstr[1] "%(count)d submissões foram removidas."
 msgstr[2] "%(count)d submissões foram removidas."
+
+msgid "Form data"
+msgstr "Dados do formulário"

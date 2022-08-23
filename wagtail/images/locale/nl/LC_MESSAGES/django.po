@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -254,15 +254,6 @@ msgstr "Ja, verwijderen"
 msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
 
-msgid "Choose an image"
-msgstr "Kies een afbeelding"
-
-msgid "Search"
-msgstr "Zoek"
-
-msgid "Upload"
-msgstr "Uploaden"
-
 msgid "Popular tags"
 msgstr "Populaire tags"
 
@@ -285,23 +276,21 @@ msgstr "Gebruik nieuwe afbeelding"
 msgid "Use existing and delete new"
 msgstr "Gebruik bestaande en verwijder nieuwe"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
 msgid "Latest images"
 msgstr "Laatste afbeeldingen"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>Upload er "
+"nu eentje!</a>"
 
 msgid "Choose a format"
 msgstr "Kies een formaat"
 
 msgid "Insert image"
 msgstr "Voeg afbeelding in"
-
-msgid "Uploading…"
-msgstr "Bezig met uploaden…"
 
 #, python-format
 msgid ""
@@ -384,11 +373,14 @@ msgstr "Afbeeldingen"
 msgid "Popular Tags:"
 msgstr "Populaire tags:"
 
-msgid "Clear choice"
-msgstr "Keuze leegmaken"
-
 msgid "Select all images in listing"
 msgstr "Selecteer alle afbeeldingen in lijst"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 msgid "Select image"
 msgstr "Selecteer afbeelding"
@@ -542,6 +534,15 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d afbeelding is verwijderd"
 msgstr[1] "%(num_parent_objects)d afbeeldingen zijn verwijderd"
 
+msgid "Upload"
+msgstr "Uploaden"
+
+msgid "Uploading…"
+msgstr "Bezig met uploaden…"
+
+msgid "Choose an image"
+msgstr "Kies een afbeelding"
+
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
@@ -581,9 +582,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s afbeelding"
 msgstr[1] "%(count)s afbeeldingen"
-
-msgid "Change image"
-msgstr "Wijzig afbeelding"
-
-msgid "Edit this image"
-msgstr "Bewerk deze afbeelding"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -175,15 +175,6 @@ msgstr "بله حذف شود"
 msgid "No, don't delete"
 msgstr "نه، حذف نکن"
 
-msgid "Choose an image"
-msgstr "تصویر را انتخاب کنید"
-
-msgid "Search"
-msgstr "جستجو"
-
-msgid "Upload"
-msgstr "آپلود"
-
 msgid "Popular tags"
 msgstr "برچسب های پرتکرار"
 
@@ -193,14 +184,18 @@ msgstr "جدید"
 msgid "Latest images"
 msgstr "آخرین تصاویر"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"<a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>یک مورد "
+"الآن بارگذاری کنید</a>"
+
 msgid "Choose a format"
 msgstr "انتخاب یک فورمت"
 
 msgid "Insert image"
 msgstr "درج تصویر"
-
-msgid "Uploading…"
-msgstr "در حال آپلود…"
 
 msgid "Change image file:"
 msgstr "تغییر فایل تصویر:"
@@ -247,9 +242,6 @@ msgstr "فایل پیدا نشد"
 
 msgid "Images"
 msgstr "عکس‌ها"
-
-msgid "Clear choice"
-msgstr "پاک کردن انتخاب"
 
 msgid "pixels"
 msgstr "پیکسل ها"
@@ -365,6 +357,15 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d تصویر حذف شد"
 msgstr[1] "%(num_parent_objects)d تصویر حذف شد"
 
+msgid "Upload"
+msgstr "آپلود"
+
+msgid "Uploading…"
+msgstr "در حال آپلود…"
+
+msgid "Choose an image"
+msgstr "تصویر را انتخاب کنید"
+
 msgid "Search images"
 msgstr "جستجوی تصاویر"
 
@@ -402,9 +403,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s تصویر"
 msgstr[1] "%(count)s تصویر"
-
-msgid "Change image"
-msgstr "تغییر تصویر"
-
-msgid "Edit this image"
-msgstr "ویرایش این تصویر"

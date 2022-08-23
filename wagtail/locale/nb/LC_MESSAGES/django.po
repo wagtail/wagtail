@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -60,6 +60,57 @@ msgstr "Passord"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Passordet du har skrevet inn er feil. Prøv igjen."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Siden '{}' ble låst</b> av <b>deg</b> den <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "Siden '{}' er låst</b> av <b>deg</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Siden '{}' ble låst</b> av <b>{}</b> den <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Siden '{}' er låst</b>."
+
+msgid "live"
+msgstr "publisert"
+
+msgid "has unpublished changes"
+msgstr "har upubliserte endringer"
+
+msgid "first published at"
+msgstr "først publisert"
+
+msgid "last published at"
+msgstr "Sist publisert"
+
+msgid "go live date/time"
+msgstr "publiseringsdato"
+
+msgid "expiry date/time"
+msgstr "avpubliseringsdato"
+
+msgid "expired"
+msgstr "avpublisert"
+
+msgid "draft"
+msgstr "kladd"
+
+msgid "live + draft"
+msgstr "publisert + kladd"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "locked at"
+msgstr "låst den"
+
+msgid "locked by"
+msgstr "låst av"
+
 msgid "title"
 msgstr "tittel"
 
@@ -79,12 +130,6 @@ msgstr ""
 msgid "content type"
 msgstr "innholdstype"
 
-msgid "live"
-msgstr "publisert"
-
-msgid "has unpublished changes"
-msgstr "har upubliserte endringer"
-
 msgid "URL path"
 msgstr "URL-sti"
 
@@ -99,30 +144,6 @@ msgid ""
 msgstr ""
 "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
 
-msgid "go live date/time"
-msgstr "publiseringsdato"
-
-msgid "expiry date/time"
-msgstr "avpubliseringsdato"
-
-msgid "expired"
-msgstr "avpublisert"
-
-msgid "locked"
-msgstr "låst"
-
-msgid "locked at"
-msgstr "låst den"
-
-msgid "locked by"
-msgstr "låst av"
-
-msgid "first published at"
-msgstr "først publisert"
-
-msgid "last published at"
-msgstr "Sist publisert"
-
 msgid "latest revision created at"
 msgstr "siste utgave opprettet"
 
@@ -132,17 +153,8 @@ msgstr "Denne permalenken er allerede i bruk"
 msgid "scheduled"
 msgstr "planlagt"
 
-msgid "draft"
-msgstr "kladd"
-
 msgid "live + scheduled"
 msgstr "publisert + planlagt"
-
-msgid "live + draft"
-msgstr "publisert + kladd"
-
-msgid "Default"
-msgstr "Standard"
 
 msgid "page"
 msgstr "side"
@@ -164,12 +176,6 @@ msgstr "JSON for innhold"
 
 msgid "approved go live at"
 msgstr "godkjent for publisering"
-
-msgid "page revision"
-msgstr "sideutgave"
-
-msgid "page revisions"
-msgstr "sideutgaver"
 
 msgid "Add/edit pages you own"
 msgstr "Legg til/rediger sider du eier"
@@ -230,6 +236,9 @@ msgstr "grupper"
 
 msgid "Approve"
 msgstr "Godkjenn"
+
+msgid "page revision"
+msgstr "sideutgave"
 
 msgid "collection"
 msgstr "samling"
@@ -342,15 +351,6 @@ msgstr "Du må oppgi et passord for å se denne siden."
 
 msgid "Continue"
 msgstr "Fortsett"
-
-msgid "English"
-msgstr "engelsk"
-
-msgid "French"
-msgstr "fransk"
-
-msgid "German"
-msgstr "tysk"
 
 msgid "Created"
 msgstr "Opprettet"

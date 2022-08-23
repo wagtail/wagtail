@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Iuri L. Machado, 2021\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
@@ -147,31 +147,14 @@ msgstr "Sim, apague"
 msgid "No, don't delete"
 msgstr "Não, não apague"
 
-msgid "Choose a document"
-msgstr "Escolha um documento"
-
-msgid "Search"
-msgstr "Buscar"
-
-msgid "Upload"
-msgstr "Enviar"
-
 msgid "Latest documents"
 msgstr "Últimos documentos"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Desculpe, não há resultados de documentos para \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Você não enviou nenhum documento nesta coleção."
 
 msgid "You haven't uploaded any documents."
 msgstr "Você não enviou nenhum documento."
-
-msgid "Uploading…"
-msgstr "Enviando…"
 
 msgid "Change document:"
 msgstr "Alterar documento"
@@ -181,6 +164,12 @@ msgstr "Adicionar um documento"
 
 msgid "Add document"
 msgstr "Adicionar documento"
+
+msgid "Uploading…"
+msgstr "Enviando…"
+
+msgid "Upload"
+msgstr "Enviar"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -227,8 +216,9 @@ msgid "Select document"
 msgstr "Selecionar documento"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s atrás"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Desculpe, não há resultados de documentos para \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -345,14 +335,8 @@ msgstr[0] "%(num_parent_objects)ddocumento foi excluído"
 msgstr[1] "%(num_parent_objects)ddocumentos foram excluídos"
 msgstr[2] "%(num_parent_objects)ddocumentos foram excluídos"
 
-msgid "Server Error"
-msgstr "Erro de servidor"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Informe este erro ao administrador do seu site com as seguintes informações:"
+msgid "Choose a document"
+msgstr "Escolha um documento"
 
 msgid "Search documents"
 msgstr "Buscar documentos"
@@ -387,9 +371,3 @@ msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s documento"
 msgstr[1] "%(count)s documentos"
 msgstr[2] "%(count)s documentos"
-
-msgid "Choose another document"
-msgstr "Escolha um outro documento"
-
-msgid "Edit this document"
-msgstr "Editar este documento"

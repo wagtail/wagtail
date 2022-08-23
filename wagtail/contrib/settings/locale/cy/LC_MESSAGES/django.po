@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Adam Hughes <adamhughes31@gmail.com>, 2017,2020\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,13 +23,6 @@ msgstr ""
 
 msgid "default"
 msgstr "diofyn"
-
-#, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Golygu%(setting_type_name)s-%(instance)s"
-
-msgid "Editing"
-msgstr "Golygu"
 
 msgid "Site"
 msgstr "Safle"

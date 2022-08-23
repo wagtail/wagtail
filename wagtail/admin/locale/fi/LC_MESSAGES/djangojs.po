@@ -2,12 +2,12 @@
 # Translators:
 # Eetu Häivälä, 2022
 # Aarni Koskela, 2022
-# Valter Maasalo <vmaasalo@gmail.com>, 2022
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2022
+# Valter Maasalo <vmaasalo@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2022\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2022\n"
 "Language-Team: Finnish (https://www.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -91,9 +91,6 @@ msgstr "Sivuselain"
 msgid "Pages"
 msgstr "Sivut"
 
-msgid "Redo"
-msgstr "Tee uudestaan"
-
 msgid "Reload saved content"
 msgstr "Lataa tallennettu sisältö"
 
@@ -102,6 +99,11 @@ msgstr "Lataa sivu uudestaan"
 
 msgid "Reply"
 msgstr "Vastaa"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 msgid "Resolve"
 msgstr "Selvitä"
@@ -151,17 +153,14 @@ msgstr ""
 "Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
 "tallennettu versio. "
 
+msgid "This field is required."
+msgstr "Tämä kenttä on pakollinen."
+
 msgid "Toggle sidebar"
 msgstr "Sivupalkki päälle/pois"
-
-msgid "Undo"
-msgstr "Kumoa"
 
 msgid "Unfocus comment"
 msgstr "Poista kommentin kohdistus"
 
 msgid "View child pages of '{title}'"
 msgstr "Näytä sivun '{title}' alasivut"
-
-msgid "Write here…"
-msgstr "Kirjoita tähän…"

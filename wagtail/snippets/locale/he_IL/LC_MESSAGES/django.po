@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -20,38 +20,53 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
+msgid "Publish"
+msgstr "פרסם"
+
+msgid "Unpublish"
+msgstr "ביטול פרסום"
+
 msgid "Delete"
 msgstr "מחק"
 
 msgid "Save"
 msgstr "שמור"
 
-msgid "Choose"
-msgstr "בחרו"
+msgid "Yes, delete"
+msgstr "כן, מחק"
 
-msgid "Search"
-msgstr "חיפוש"
+msgid "Publishing…"
+msgstr "מפרסם..."
 
 msgid "Saving…"
 msgstr "שומר..."
 
-msgid "Yes, delete"
-msgstr "כן, מחק"
+msgid "Save draft"
+msgstr "שמור טיוטה"
 
 msgid "New"
 msgstr "חדש"
 
-msgid "Editing"
-msgstr "עריכה"
-
 msgid "Snippets"
 msgstr "קטעים"
 
-msgid "Title"
-msgstr "כותרת "
+msgid "Preview"
+msgstr "תצוגה מקדימה "
+
+msgid "Edit"
+msgstr "ערוך"
+
+msgid "Live"
+msgstr "חי"
+
+msgid "Draft"
+msgstr "טיוטה"
 
 msgid "Usage of"
 msgstr "שימוש ב:"
+
+msgid "Title"
+msgstr "כותרת "
 
 msgid "Parent"
 msgstr "הורה"
@@ -65,11 +80,14 @@ msgstr "סטטוס"
 msgid "Edit this page"
 msgstr "ערוך עמוד זה"
 
+msgid "Choose"
+msgstr "בחרו"
+
+msgid "Name"
+msgstr "שם"
+
 msgid "The snippet could not be created due to errors."
 msgstr "לא ניתן ליצור את הקטע עקב שגיאה"
-
-msgid "Edit"
-msgstr "ערוך"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "לא ניתן לשמור את הקטע עקב שגיאה"
@@ -80,11 +98,3 @@ msgstr "תאריך"
 #, python-format
 msgid "Choose %s"
 msgstr "בחר %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "בחר %s נוסף"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "ערוך את %s זה"

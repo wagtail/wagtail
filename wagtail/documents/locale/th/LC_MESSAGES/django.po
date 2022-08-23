@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -70,30 +70,14 @@ msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Choose a document"
-msgstr "เลือกเอกสาร"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Upload"
-msgstr "อัพโหลด"
-
 msgid "Latest documents"
 msgstr "เอกสารอันล่าสุด"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "คุณยังไม่ได้อัพโหลดเอกสารของชุดนี้"
 
 msgid "You haven't uploaded any documents."
 msgstr "คุณยังไม่ได้อัพโหลดเอกสารอันไหนเลย"
-
-msgid "Uploading…"
-msgstr "กำลังอัพโหลด..."
 
 msgid "Change document:"
 msgstr "เปลี่ยนแปลงเอกสาร"
@@ -103,6 +87,12 @@ msgstr "เพิ่มเติมเอกสาร"
 
 msgid "Add document"
 msgstr "เพิ่มเติมเอกสาร"
+
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด..."
+
+msgid "Upload"
+msgstr "อัพโหลด"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -140,8 +130,8 @@ msgid "File"
 msgstr "ไฟล์,แฟ้ม"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s ที่ผ่านมา"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -216,8 +206,8 @@ msgstr "เพิ่มเติมการให้อนุญาตเอก
 msgid "Delete"
 msgstr "ลบ"
 
-msgid "Server Error"
-msgstr "เซฟเวอร์เกิดข้อผิดพลาด"
+msgid "Choose a document"
+msgstr "เลือกเอกสาร"
 
 msgid "Search documents"
 msgstr "ค้นหาเอกสาร"
@@ -248,9 +238,3 @@ msgstr "เอกสาร"
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s เอกสาร"
-
-msgid "Choose another document"
-msgstr "เลือกเอกสารอันอื่น"
-
-msgid "Edit this document"
-msgstr "แก้ไขเอกสารนี้"

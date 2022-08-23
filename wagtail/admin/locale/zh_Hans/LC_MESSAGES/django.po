@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -56,9 +56,6 @@ msgstr "取消工作流"
 
 msgid "Unpublish"
 msgstr "取消发布"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Save Draft"
 msgstr "保存草稿"
@@ -122,6 +119,18 @@ msgstr "输入邮件地址以重置密码"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "搜索条件"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "All collections"
+msgstr "所有集合"
+
+msgid "Collection"
+msgstr "集合"
+
 msgid "Parent"
 msgstr "上一级"
 
@@ -136,9 +145,6 @@ msgstr "请选择另一个父结点"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
-msgid "Collection"
-msgstr "集合"
-
 msgid "Add"
 msgstr "新增"
 
@@ -150,6 +156,9 @@ msgstr "编辑"
 
 msgid "Edit collections"
 msgstr "编辑集合"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Delete collections"
 msgstr "删除集合"
@@ -222,12 +231,6 @@ msgstr "发布日期/时间必须早于过期日期/时间"
 msgid "Expiry date/time must be in the future"
 msgstr "过期日期/时间必须是未来时间。"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索条件"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "标签长度 %(value_too_long)s 超过 %(max_tag_length)d 个字符"
@@ -256,6 +259,9 @@ msgstr "请给你的工作流一个名称"
 
 msgid "Add tasks to your workflow"
 msgstr "增加任务到你的工作流"
+
+msgid "Task"
+msgstr "任务"
 
 msgid "1 page selected"
 msgstr "已选择1个页面"
@@ -330,8 +336,8 @@ msgstr "已选择列表中的所有条目"
 msgid "Scheduled publishing"
 msgstr "定时发布"
 
-msgid "Privacy"
-msgstr "私有设置"
+msgid "Page title"
+msgstr "页面标题"
 
 msgid "For search engines"
 msgstr "用于搜索引擎"
@@ -347,24 +353,6 @@ msgstr "推荐"
 
 msgid "Settings"
 msgstr "设置"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Toggle status"
-msgstr "状态开关"
-
-msgid "Comments"
-msgstr "评论"
-
-msgid "Toggle comments"
-msgstr "评论开关"
-
-msgid "Preview"
-msgstr "预览"
-
-msgid "Toggle preview"
-msgstr "预览开关"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -386,13 +374,6 @@ msgstr "更多动作"
 
 msgid "Save account details"
 msgstr "保存帐号详情"
-
-msgid "Change password"
-msgstr "修改密码"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "您不能修改密码，请联系管理员。"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -508,6 +489,13 @@ msgstr "添加一个外部链接"
 msgid "Add a phone link"
 msgstr "添加一个电话链接"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "查看'%(title)s'的子页面"
+
+msgid "Explore"
+msgstr "浏览"
+
 msgid "Collection privacy"
 msgstr "集合私有设置"
 
@@ -517,12 +505,15 @@ msgstr "这个集合已经被父集合设为私有。"
 msgid "You can edit the privacy settings on:"
 msgstr "你可以在这里修改此隐私设置："
 
+msgid "Save"
+msgstr "保存"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "私有设置决定谁可以查看这个集合中的文档。"
 
-msgid "Save"
-msgstr "保存"
+msgid "Privacy"
+msgstr "私有设置"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "设置选集的隐私状态。当前状态：公开"
@@ -556,8 +547,21 @@ msgstr "是的， 删除"
 msgid "Update"
 msgstr "更新"
 
-msgid "Dashboard"
-msgstr "控制面板"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "比较 %(title)s"
+
+msgid "Comparing"
+msgstr "正在比较"
+
+msgid "Fields"
+msgstr "字段"
+
+msgid "Changes"
+msgstr "更改"
+
+msgid "There are no differences between these two versions"
+msgstr "这两个版本之间没有区别"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -589,10 +593,6 @@ msgstr "草稿"
 msgid "Live"
 msgstr "发布"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "页面等待审核中"
 
@@ -611,8 +611,14 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
+msgid "Preview"
+msgstr "预览"
+
 msgid "Your most recent edits"
 msgstr "最近编辑"
+
+msgid "Status"
+msgstr "状态"
 
 msgid "Date"
 msgstr "日期"
@@ -622,9 +628,6 @@ msgstr "网站摘要"
 
 msgid "Your pages in a workflow"
 msgstr "工作流中的页面"
-
-msgid "Task"
-msgstr "任务"
 
 msgid "Task started"
 msgstr "任务已启动"
@@ -647,21 +650,21 @@ msgstr "任务提交者"
 msgid "Sign in"
 msgstr "登录"
 
+msgid "Sign in to Wagtail"
+msgstr "登录Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "用户 %(username_field)s 密码不匹配，请重试"
 
-msgid "Sign in to Wagtail"
-msgstr "登录Wagtail"
+msgid "Forgotten password?"
+msgstr "忘记密码？"
 
 msgid "Remember me"
 msgstr "记住我"
 
 msgid "Signing in…"
 msgstr "正在登录..."
-
-msgid "Forgotten password?"
-msgstr "忘记密码？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -814,21 +817,6 @@ msgstr "页面私有设置"
 
 msgid "This page has been made private by a parent page."
 msgstr "此页面已被父节点设置为私有。"
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "私有设置也会应用到此页面的所有子页面。"
-
-msgid "Set page privacy. Current status: Public"
-msgstr "设置页面的隐私状态。当前状态：公开"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "设置页面的隐私状态。当前状态：私密"
-
-msgid "Page privacy. Current status: Public"
-msgstr "页面的隐私状态。当前状态：公开"
-
-msgid "Page privacy. Current status: Private"
-msgstr "页面的隐私状态。当前状态：私密"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "你有<span>未保存的编辑</span>"
@@ -1035,15 +1023,8 @@ msgstr "确认将此页面极其子页面移到'%(title)s'？"
 msgid "Yes, move this page"
 msgstr "是的，请开始移动吧"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "取消发布%(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "此页面确定要取消发布吗？"
-
-msgid "Yes, unpublish it"
-msgstr "是，取消发布"
 
 msgid "Publish page"
 msgstr "发布页面"
@@ -1119,10 +1100,6 @@ msgstr "发布版本"
 msgid "Current draft"
 msgstr "当前草稿"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
-
 msgid "No log entries found."
 msgstr "未找到日志记录"
 
@@ -1139,9 +1116,6 @@ msgstr "选择页面"
 msgid "Drag"
 msgstr "拖曳"
 
-msgid "Updated"
-msgstr "已更新"
-
 msgid "Configure a site now."
 msgstr "现在配置一个站点。"
 
@@ -1154,13 +1128,6 @@ msgstr "要不<a href=\"%(add_page_url)s\">创建一个</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "此页面已锁定，无法编辑"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "查看'%(title)s'的子页面"
-
-msgid "Explore"
-msgstr "浏览"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1194,25 +1161,14 @@ msgstr "排序"
 msgid "Enable ordering of child pages"
 msgstr "启用子页面排序"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "为 %(title)s选择新父节点"
+msgid "Updated"
+msgstr "已更新"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "为<span>%(title)s</span>选择新的父节点"
+msgid "Confirm"
+msgstr "确认"
 
-msgid "Preview error"
-msgstr "预览错误"
-
-msgid "Close"
-msgstr "关闭"
-
-msgid "Current status:"
-msgstr "当前状态:"
-
-msgid "Set page privacy"
-msgstr "设置页面隐私"
+msgid "History"
+msgstr "历史"
 
 msgid "Review this version"
 msgstr "审核这个修订"
@@ -1225,25 +1181,6 @@ msgstr "与当前版本进行比较"
 
 msgid "Cancel scheduled publish"
 msgstr "取消预定的发布"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "比较 %(title)s"
-
-msgid "Comparing"
-msgstr "正在比较"
-
-msgid "Page history"
-msgstr "页面历史"
-
-msgid "Fields"
-msgstr "字段"
-
-msgid "Changes"
-msgstr "更改"
-
-msgid "There are no differences between these two versions"
-msgstr "这两个版本之间没有区别"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1270,42 +1207,6 @@ msgstr "对不起，没有符合<em>%(query_string)s</em>的页面"
 
 msgid "Enter a search term above"
 msgstr "输入上面的搜索条件"
-
-msgid "Locked"
-msgstr "已锁定"
-
-msgid "Unlocked"
-msgstr "已解锁"
-
-msgid "Lock"
-msgstr "锁定"
-
-msgid "Page visibility: "
-msgstr "页面可见性: "
-
-msgid "Visible to all"
-msgstr "任何人可看"
-
-msgid "Once live anyone can view"
-msgstr "一旦发布，任何人可看"
-
-msgid "Page status: "
-msgstr "页面状态: "
-
-msgid "View details"
-msgstr "查看详情"
-
-msgid "View history"
-msgstr "查看历史"
-
-msgid "since"
-msgstr "自"
-
-msgid "This will publish at "
-msgstr "将发布于"
-
-msgid "First published"
-msgstr "首次发布的"
 
 msgid "No pages use"
 msgstr "没有页面使用"
@@ -1384,9 +1285,6 @@ msgstr "上移"
 msgid "Move down"
 msgstr "下移"
 
-msgid "Add comment"
-msgstr "添加评论"
-
 msgid "Comment notifications"
 msgstr "评论通知"
 
@@ -1414,18 +1312,15 @@ msgstr "下载XLSX"
 msgid "Download CSV"
 msgstr "下载CSV"
 
-msgid "Filter"
-msgstr "过滤器"
-
-msgid "Apply filters"
-msgstr "应用过滤器"
-
 msgid "Locking status"
 msgstr "锁定状态"
 
 #, python-format
 msgid "Locked at <b>%(locking_date)s</b>"
 msgstr "锁定于 <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "已锁定"
 
 msgid "No locked pages found."
 msgstr "找不到已锁定的页面。"
@@ -1464,11 +1359,21 @@ msgstr "面包屑导航"
 msgid "Root"
 msgstr "根"
 
-msgid "Home"
-msgstr "主页"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消发布%(title)s"
 
-msgid "All collections"
-msgstr "所有集合"
+msgid "Yes, unpublish it"
+msgstr "是，取消发布"
+
+msgid "Add comment"
+msgstr "添加评论"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Apply filters"
+msgstr "应用过滤器"
 
 msgid "New: "
 msgstr "新建: "
@@ -1476,12 +1381,6 @@ msgstr "新建: "
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
 msgstr "正在编辑 %(page_type)s %(title)s"
-
-msgid "History"
-msgstr "历史"
-
-msgid "Toggle side panel"
-msgstr "边栏面板开关"
 
 msgid "Visit the live page"
 msgstr "查看已发布的页面"
@@ -1495,8 +1394,41 @@ msgstr "任何人可看. 查看已发布页面"
 msgid "Private. Visit the live page"
 msgstr "私有. 查看已发布页"
 
+msgid "Visible to all"
+msgstr "任何人可看"
+
 msgid "Other searches"
 msgstr "其它搜索"
+
+msgid "Toggle side panel"
+msgstr "边栏面板开关"
+
+msgid "Unlocked"
+msgstr "已解锁"
+
+msgid "Lock"
+msgstr "锁定"
+
+msgid "Page visibility: "
+msgstr "页面可见性: "
+
+msgid "Once live anyone can view"
+msgstr "一旦发布，任何人可看"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "私有设置也会应用到此页面的所有子页面。"
+
+msgid "Page status: "
+msgstr "页面状态: "
+
+msgid "View details"
+msgstr "查看详情"
+
+msgid "View history"
+msgstr "查看历史"
+
+msgid "This will publish at "
+msgstr "将发布于"
 
 msgid "Errors Count: "
 msgstr "错误数量: "
@@ -1649,14 +1581,6 @@ msgstr "使用工作流‘%(name)s’的页面"
 msgid "Pages that use workflow"
 msgstr "使用工作流的页面"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "已于%(started_at)s提交到<em>%(workflow_name)s</em>"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "经由%(modified_by)s"
-
 msgid "Submitted"
 msgstr "已提交"
 
@@ -1707,20 +1631,24 @@ msgstr "0 分钟"
 msgid "Just now"
 msgstr "刚刚"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
+
 msgid "Log out"
 msgstr "注销"
 
-msgid "live"
-msgstr "发布"
+msgid "Toggle status"
+msgstr "状态开关"
 
-msgid "draft"
-msgstr "草稿"
+msgid "Comments"
+msgstr "评论"
 
-msgid "live + draft"
-msgstr "发布+草稿"
+msgid "Toggle comments"
+msgstr "评论开关"
 
-msgid "Test"
-msgstr "测试"
+msgid "Toggle preview"
+msgstr "预览开关"
 
 msgid "Profile"
 msgstr "资料"
@@ -1778,6 +1706,15 @@ msgstr "确定删除此集合？"
 
 msgid "Editing"
 msgstr "正在编辑"
+
+msgid "Earliest"
+msgstr "最早的"
+
+msgid "Latest"
+msgstr "最近的"
+
+msgid "Dashboard"
+msgstr "控制面板"
 
 msgid "Delete selected pages"
 msgstr "删除选择的页面"
@@ -1916,27 +1853,6 @@ msgstr "页面 '{0}' 已经被版本 {1} 替换。"
 msgid "Page '{0}' has been updated."
 msgstr "页面 '{0}' 已被更新。"
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>页面 '{}' </b> 已被 <b>你</b> 锁定于<b>{}</b>。"
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>页面 '{}'</b> 已被<b>你</b>锁定。"
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>页面 '{}' </b> 已被 <b>{}</b> 锁定于<b>{}</b>。"
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>页面 '{}' 已被锁定</b>。"
-
-msgid "This page is currently awaiting moderation."
-msgstr "此页面当前在等待审核。"
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "此页面在等待<b>‘{}’</b>，在<b>'{}'</b>工作流中"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "只有此任务的审阅者才能编辑页面。"
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "页面'{0}'上的工作流已被取消。"
@@ -1978,6 +1894,9 @@ msgstr "页面无法保存。出现验证错误。"
 msgid "Hide commenting actions"
 msgstr "隐藏评论动作"
 
+msgid "Page history"
+msgstr "页面历史"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
@@ -2016,12 +1935,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "你正在查看此页面的上一版本，创建时间：<b>%(created_at)s</b> 创建人： %(user)s"
-
-msgid "Earliest"
-msgstr "最早的"
-
-msgid "Latest"
-msgstr "最近的"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2178,13 +2091,8 @@ msgstr[0] ""
 msgid "Task '{0}' enabled."
 msgstr "任务 '{0}' 已启用。"
 
-msgid "Server Error"
-msgstr "服务器错误"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "向系统管理员报告错误并提供以下信息："
+msgid "Change"
+msgstr "更改"
 
 msgid "Pages"
 msgstr "页面"
@@ -2239,6 +2147,12 @@ msgstr "排序菜单顺序"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "更改“%(title)s”的子页面顺序"
 
+msgid "Translate"
+msgstr "翻译"
+
+msgid "Translate this page"
+msgstr "翻译此页"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "标题%(level)d"
@@ -2285,15 +2199,6 @@ msgstr "是"
 msgid "Choose an item"
 msgstr "选择一项"
 
-msgid "Choose another item"
-msgstr "选择其它项"
-
-msgid "Clear choice"
-msgstr "清除选择"
-
-msgid "Choose another page"
-msgstr "选择其它页面"
-
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
 "(\")."
@@ -2301,9 +2206,3 @@ msgstr "带空格的多词标签将自动加上双引号(\")。"
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "标签只能由单个词组成，不允许有空格。"
-
-msgid "Choose another task"
-msgstr "选择其它任务"
-
-msgid "Edit this task"
-msgstr "编辑此任务"

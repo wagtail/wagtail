@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2018,2020\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -160,27 +160,6 @@ msgstr "表单"
 msgid "Pages"
 msgstr "页面"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "提交%(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "表格数据 <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "过滤器"
-
-msgid "Download XLSX"
-msgstr "下载XLSX"
-
-msgid "Download CSV"
-msgstr "下载为CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "表格%(title)s没有已提交的内容"
-
 msgid "Title"
 msgstr "标题"
 
@@ -198,6 +177,26 @@ msgstr "上一次提交"
 
 msgid "No form pages have been created."
 msgstr "还没有创建表单页面。"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "提交%(form_title)s"
+
+msgid "Download XLSX"
+msgstr "下载XLSX"
+
+msgid "Download CSV"
+msgstr "下载为CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "表格%(title)s没有已提交的内容"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Apply filters"
+msgstr "应用过滤器"
 
 #, python-format
 msgid "One submission has been deleted."

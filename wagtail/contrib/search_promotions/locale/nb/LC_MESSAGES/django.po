@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, "
 "2016,2018-2019\n"
@@ -74,17 +74,14 @@ msgstr "Flytt opp"
 msgid "Move down"
 msgstr "Flytt ned"
 
-msgid "Promoted search result"
-msgstr "Forfremmet søkeresultat"
+msgid "Promoted search results"
+msgstr "Forfremmede søkeresultater"
 
 msgid "Add recommended page"
 msgstr "Legg til anbefalt side"
 
 msgid "Search Terms"
 msgstr "Søkeord"
-
-msgid "Promoted search results"
-msgstr "Forfremmede søkeresultater"
 
 msgid "Add new promoted result"
 msgstr "Legg til nytt forfremmet resultat"

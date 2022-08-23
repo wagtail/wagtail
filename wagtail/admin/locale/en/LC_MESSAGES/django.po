@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-12 14:06+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,7 +146,7 @@ msgstr ""
 #: forms/choosers.py:70 forms/search.py:8 forms/workflows.py:21
 #: templates/wagtailadmin/pages/search.html:3
 #: templates/wagtailadmin/pages/search.html:21 views/generic/chooser.py:263
-#: viewsets/chooser.py:64
+#: viewsets/chooser.py:69
 msgid "Search"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 #: views/pages/create.py:152 views/pages/edit.py:285
 #: views/pages/moderation.py:42 views/pages/moderation.py:80
 #: views/pages/move.py:114 views/pages/revisions.py:165 views/workflows.py:128
-#: views/workflows.py:233 viewsets/chooser.py:29 wagtail_hooks.py:213
+#: views/workflows.py:233 viewsets/chooser.py:30 wagtail_hooks.py:213
 #: wagtail_hooks.py:356 widgets/chooser.py:27 widgets/chooser.py:94
 msgid "Edit"
 msgstr ""
@@ -663,7 +663,7 @@ msgid "Insert anchor"
 msgstr ""
 
 #: templates/wagtailadmin/chooser/browse.html:3 views/generic/chooser.py:79
-#: viewsets/chooser.py:23
+#: viewsets/chooser.py:24
 msgid "Choose"
 msgstr ""
 
@@ -2622,7 +2622,7 @@ msgstr ""
 #: templates/wagtailadmin/workflows/create_task.html:35
 #: templates/wagtailadmin/workflows/task_chooser/includes/create_form.html:22
 #: views/generic/chooser.py:194 views/generic/models.py:370
-#: viewsets/chooser.py:66
+#: viewsets/chooser.py:71
 msgid "Create"
 msgstr ""
 
@@ -3488,7 +3488,7 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr ""
 
-#: viewsets/chooser.py:27 widgets/chooser.py:25 widgets/chooser.py:92
+#: viewsets/chooser.py:28 widgets/chooser.py:25 widgets/chooser.py:92
 msgid "Change"
 msgstr ""
 

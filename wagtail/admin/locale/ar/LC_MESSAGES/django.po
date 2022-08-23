@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: HossamElDin Mohamed <garo5070@gmail.com>, 2021\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -40,9 +40,6 @@ msgstr "إعادة اﻹدخال إلي {}"
 
 msgid "Unpublish"
 msgstr "غير منشور"
-
-msgid "Delete"
-msgstr "احذف"
 
 msgid "Save Draft"
 msgstr "حفظ مسودة"
@@ -103,20 +100,32 @@ msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع 
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "مصطلح البحث"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "All collections"
+msgstr "جميع المجموعات"
+
+msgid "Collection"
+msgstr "مجموعة"
+
 msgid "Parent"
 msgstr "والد"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يوجد لديك العديد من الصلاحيات المسجلة في نفس المجموعة"
 
-msgid "Collection"
-msgstr "مجموعة"
-
 msgid "Add"
 msgstr "اضف"
 
 msgid "Edit"
 msgstr "تحرير"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "New title"
 msgstr "عنوان جديد"
@@ -187,12 +196,6 @@ msgstr "يجب أن يكون تاريخ / وقت البث المباشر قبل 
 msgid "Expiry date/time must be in the future"
 msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
 
-msgid "Search"
-msgstr "بحث"
-
-msgid "Search term"
-msgstr "مصطلح البحث"
-
 msgid "Visibility"
 msgstr "امكانية الظهور"
 
@@ -205,8 +208,8 @@ msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
 msgid "Scheduled publishing"
 msgstr "نشر مجدول زمنيا"
 
-msgid "Privacy"
-msgstr "نظام السرية"
+msgid "Page title"
+msgstr "عنوان الصفحة"
 
 msgid "Content"
 msgstr "محتوى"
@@ -216,12 +219,6 @@ msgstr "ترويج"
 
 msgid "Settings"
 msgstr "إعدادات"
-
-msgid "Status"
-msgstr "رتبة"
-
-msgid "Preview"
-msgstr "نظر مقدم"
 
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
@@ -237,13 +234,6 @@ msgstr "اذهب الى لوحة تحكم Wagtail"
 
 msgid "Account"
 msgstr "حساب"
-
-msgid "Change password"
-msgstr "غير كلمة السر"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
 
 msgid "Reset password"
 msgstr "غير كلمة السر"
@@ -318,6 +308,13 @@ msgstr "أدخل حلقة"
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "استكشف الصفحات الفرعية %(title)s"
+
+msgid "Explore"
+msgstr "استكشف"
+
 msgid "Collection privacy"
 msgstr "مجموعة خصوصية"
 
@@ -327,12 +324,15 @@ msgstr "تم جعل هذه المجموعة خاصة من قبل مجموعة ا
 msgid "You can edit the privacy settings on:"
 msgstr "يمكنك تحرير إعدادات الخصوصية على:"
 
+msgid "Save"
+msgstr "احفظ"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المستندات في هذه المجموعة."
 
-msgid "Save"
-msgstr "احفظ"
+msgid "Privacy"
+msgstr "نظام السرية"
 
 msgid "Public"
 msgstr "عمومي"
@@ -361,8 +361,18 @@ msgstr "نعم احذف"
 msgid "Update"
 msgstr "حدث"
 
-msgid "Dashboard"
-msgstr "لوحة التحكم"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "مقارنة %(title)s"
+
+msgid "Comparing"
+msgstr "مقارنة"
+
+msgid "Fields"
+msgstr "حقل"
+
+msgid "Changes"
+msgstr "تغيرات"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -408,8 +418,14 @@ msgstr "موافق"
 msgid "Reject"
 msgstr "مرفوض"
 
+msgid "Preview"
+msgstr "نظر مقدم"
+
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
+
+msgid "Status"
+msgstr "رتبة"
 
 msgid "Date"
 msgstr "تاريخ"
@@ -420,13 +436,13 @@ msgstr "ملحص الموقع"
 msgid "Sign in"
 msgstr "تسجيل الدخول"
 
+msgid "Sign in to Wagtail"
+msgstr "تسجيل الدخول لـ Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "لم تتطابق %(username_field)s و كلمة المرور مع كلمة المرور. حاول مرة اخرى."
-
-msgid "Sign in to Wagtail"
-msgstr "تسجيل الدخول لـ Wagtail"
 
 msgid "Signing in…"
 msgstr "يتم تسجيل الدخول..."
@@ -476,9 +492,6 @@ msgstr "خصوصية الصفحة"
 
 msgid "This page has been made private by a parent page."
 msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة رئيسية."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
 
 msgid "Publishing…"
 msgstr "يتم النشر..."
@@ -554,15 +567,8 @@ msgstr "هل أنت متأكد من أنك تريد نقل هذه الصفحة �
 msgid "Yes, move this page"
 msgstr "تعم انقل هذه الصفحة"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "الغ نشر %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "هل تريد فعلا إلغاء نشر هذه الصفحة؟"
-
-msgid "Yes, unpublish it"
-msgstr "نعك ألغ نشره"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -605,18 +611,11 @@ msgid "Current draft"
 msgstr "المسودة الحالية"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "استكشف %(title)s"
 
 msgid "Drag"
 msgstr "اسحب"
-
-msgid "Updated"
-msgstr "مجدد"
 
 msgid "Configure a site now."
 msgstr "تكوين موقع الآن."
@@ -630,13 +629,6 @@ msgstr "لماذا لا تنشئ <a href=\"%(add_page_url)s\">واحدة</a>؟"
 
 msgid "This page is locked to further editing"
 msgstr "هذه الصفحة مغلقة لأي تنقيح"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "استكشف الصفحات الفرعية %(title)s"
-
-msgid "Explore"
-msgstr "استكشف"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -670,35 +662,11 @@ msgstr "ترتيب"
 msgid "Enable ordering of child pages"
 msgstr "تمكين ترتيب الصفحات الفرعية"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "حدد صفحة رئيسية جديدة لـ ‍%(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "حدد صفحة رئيسية جديدة لـ <span> %(title)s </span>"
-
-msgid "Preview error"
-msgstr "استعراض الخطء"
-
-msgid "Close"
-msgstr "اغلاق"
+msgid "Updated"
+msgstr "مجدد"
 
 msgid "Cancel scheduled publish"
 msgstr "إلغاء النشر المجدول"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "مقارنة %(title)s"
-
-msgid "Comparing"
-msgstr "مقارنة"
-
-msgid "Fields"
-msgstr "حقل"
-
-msgid "Changes"
-msgstr "تغيرات"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -722,15 +690,6 @@ msgstr "انواع الصفحة"
 msgid "Enter a search term above"
 msgstr "أدخل مصطلح البحث أعلاه"
 
-msgid "Locked"
-msgstr "مغلق"
-
-msgid "Unlocked"
-msgstr "غير مغلق"
-
-msgid "Lock"
-msgstr "قفل"
-
 msgid "No pages use"
 msgstr "لا توجد صفحات تستخدم"
 
@@ -747,8 +706,8 @@ msgstr "تقدم إلى تحت"
 msgid "Download CSV"
 msgstr "تنزيل ملف CSV"
 
-msgid "Filter"
-msgstr "فلتر"
+msgid "Locked"
+msgstr "مغلق"
 
 msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
@@ -763,14 +722,27 @@ msgstr "صفحة %(page_num)s من %(total_pages)s"
 msgid "Root"
 msgstr "الجذر"
 
-msgid "Home"
-msgstr "الرئيسة"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "الغ نشر %(title)s"
 
-msgid "All collections"
-msgstr "جميع المجموعات"
+msgid "Yes, unpublish it"
+msgstr "نعك ألغ نشره"
+
+msgid "Filter"
+msgstr "فلتر"
 
 msgid "Other searches"
 msgstr "عمليات البحث الاخرى"
+
+msgid "Unlocked"
+msgstr "غير مغلق"
+
+msgid "Lock"
+msgstr "قفل"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
 
 msgid "Add a child page"
 msgstr "إضافة صفحة فرعية"
@@ -781,30 +753,18 @@ msgstr "اعرض في المستكشف"
 msgid "New"
 msgstr "جديد"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "بواسطة %(modified_by)s"
-
 msgid "Compare with live version"
 msgstr "مقارنة مع النسخة الحية"
 
 msgid "More"
 msgstr "المزيد"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
+
 msgid "Log out"
 msgstr "تسجيل الخروج"
-
-msgid "live"
-msgstr "حي"
-
-msgid "draft"
-msgstr "مسود"
-
-msgid "live + draft"
-msgstr "حي + مسودة"
-
-msgid "Test"
-msgstr "اختبار"
 
 msgid "Password"
 msgstr "كلمة السر"
@@ -844,6 +804,15 @@ msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموع
 
 msgid "Editing"
 msgstr "جاري التعديل"
+
+msgid "Earliest"
+msgstr "السابقة"
+
+msgid "Latest"
+msgstr "اللاحقة"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -933,12 +902,6 @@ msgstr "فشل إرسال إشعارات الرفض"
 msgid "Page '{0}' moved."
 msgstr "تم نقل الصفحة '{0}'."
 
-msgid "Earliest"
-msgstr "السابقة"
-
-msgid "Latest"
-msgstr "اللاحقة"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "مراجعة {0} من \"{1}\""
@@ -947,8 +910,8 @@ msgstr "مراجعة {0} من \"{1}\""
 msgid "Page '{0}' unpublished."
 msgstr "الصفحة '{0}' غير منشورة."
 
-msgid "Server Error"
-msgstr "خطا بالخادم"
+msgid "Change"
+msgstr "غيّر"
 
 msgid "Pages"
 msgstr "صفحات"
@@ -983,12 +946,3 @@ msgstr "التقارير"
 
 msgid "Choose an item"
 msgstr "اختيار عنصر"
-
-msgid "Choose another item"
-msgstr "اختيار عنصر آخر"
-
-msgid "Clear choice"
-msgstr "محو الاختيار"
-
-msgid "Choose another page"
-msgstr "إختر صفحة أخرى"

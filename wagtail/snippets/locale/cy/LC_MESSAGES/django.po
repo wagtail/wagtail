@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -20,6 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+msgid "Publish"
+msgstr "Cyhoeddi"
+
+msgid "Unpublish"
+msgstr "Anghyhoedd"
+
 msgid "Delete"
 msgstr "Dileu"
 
@@ -29,25 +35,17 @@ msgstr "Cadw"
 msgid "Wagtail snippets"
 msgstr "Pytiau Wagtail"
 
-msgid "Choose"
-msgstr "Dewis"
-
-msgid "Search"
-msgstr "Chwilio"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' wedi'i dileu."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Mae'n ddrwg gennym, nid oes pytiau'n cyfateb \"<em>%(query_string)s</em>\""
-
-msgid "Last updated"
-msgstr "Diweddarwyd diwethaf"
-
-msgid "History"
-msgstr "Hanes"
-
-msgid "Saving…"
-msgstr "Cadw…"
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s wedi'i dileu."
+msgstr[1] "%(count)d %(snippet_type)s wedi'i dileu."
+msgstr[2] "%(count)d %(snippet_type)s wedi'i dileu."
+msgstr[3] "%(count)d %(snippet_type)s wedi'i dileu."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -79,6 +77,15 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
+msgid "Last updated"
+msgstr "Diweddarwyd diwethaf"
+
+msgid "History"
+msgstr "Hanes"
+
+msgid "Saving…"
+msgstr "Cadw…"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s newydd"
@@ -89,29 +96,14 @@ msgstr "Newydd"
 msgid "Actions"
 msgstr "Gweithredoedd"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Golygu %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Golygu"
-
 msgid "Usage"
 msgstr "Defnydd"
 
+msgid "Breadcrumb"
+msgstr "Briwsion Bara"
+
 msgid "Snippets"
 msgstr "Pytiau"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Dewisiwch %(snippet_type_name_plural)s i gyd"
-
-msgid "Title"
-msgstr "Teitl"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Dewisiwch %(snippet)s"
 
 #, python-format
 msgid ""
@@ -121,13 +113,21 @@ msgstr ""
 "Nid oes %(snippet_type_name_plural)s wedi cael eu greu. Pam ddim <a href="
 "\"%(wagtailsnippets_create_url)s\">creu un</a>?"
 
+msgid "Preview"
+msgstr "Rhagolwg"
+
+msgid "Edit"
+msgstr "Golygu"
+
+msgid "Live"
+msgstr "Yn fyw"
+
+msgid "Draft"
+msgstr "Drafft"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Pytiau %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Pytiau <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -139,6 +139,9 @@ msgstr "Defnydd %(title)s"
 
 msgid "Usage of"
 msgstr "Defnydd o"
+
+msgid "Title"
+msgstr "Teitl"
 
 msgid "Parent"
 msgstr "Rhiant"
@@ -152,9 +155,11 @@ msgstr "Statws"
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Ymchwilio %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Dewis"
+
+msgid "Name"
+msgstr "Enw"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Ni fu modd creu'r pyt oherwydd gwallau."
@@ -163,36 +168,21 @@ msgstr "Ni fu modd creu'r pyt oherwydd gwallau."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' wedi'i creu."
 
-msgid "Edit"
-msgstr "Golygu"
+msgid "The snippet could not be saved due to errors."
+msgstr "Nid oedd modd cadw'r pyt oherwydd gwallau."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' wedi'i diweddaru."
 
-msgid "The snippet could not be saved due to errors."
-msgstr "Nid oedd modd cadw'r pyt oherwydd gwallau."
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' wedi'i dileu."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s wedi'i dileu."
-msgstr[1] "%(count)d %(snippet_type)s wedi'i dileu."
-msgstr[2] "%(count)d %(snippet_type)s wedi'i dileu."
-msgstr[3] "%(count)d %(snippet_type)s wedi'i dileu."
+msgid "Date"
+msgstr "Dyddiad"
 
 msgid "Snippet history"
 msgstr "Hanes pytiau"
 
 msgid "Action"
 msgstr "Gweithred"
-
-msgid "Date"
-msgstr "Dyddiad"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -205,11 +195,3 @@ msgstr "Dileu '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Dewis %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Dewis %s arall"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Golygu %s"

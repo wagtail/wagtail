@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,12 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Publish"
+msgstr "公開"
+
+msgid "Unpublish"
+msgstr "非公開"
+
 msgid "Delete"
 msgstr "削除"
 
@@ -30,22 +36,6 @@ msgstr "保存"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail スニペット"
-
-msgid "Choose"
-msgstr "選択"
-
-msgid "Search"
-msgstr "検索"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "\"<em>%(query_string)s</em>\"に一致する結果はありません。"
-
-msgid "History"
-msgstr "履歴"
-
-msgid "Saving…"
-msgstr "保存中..."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -73,6 +63,24 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
+msgid "History"
+msgstr "履歴"
+
+msgid "Publishing…"
+msgstr "公開中..."
+
+msgid "Publish this version"
+msgstr "このバージョンを公開する"
+
+msgid "Saving…"
+msgstr "保存中..."
+
+msgid "Replace current draft"
+msgstr "現在の下書きを置き換える"
+
+msgid "Save draft"
+msgstr "下書きを保存"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "新しい %(snippet_type_name)s"
@@ -83,21 +91,14 @@ msgstr "新規"
 msgid "Actions"
 msgstr "操作"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "%(snippet_type_name)s - %(instance)sを編集"
-
-msgid "Editing"
-msgstr "編集"
-
 msgid "Usage"
 msgstr "使用法"
 
+msgid "Breadcrumb"
+msgstr "パンくず"
+
 msgid "Snippets"
 msgstr "スニペット"
-
-msgid "Title"
-msgstr "タイトル"
 
 #, python-format
 msgid ""
@@ -107,13 +108,27 @@ msgstr ""
 "まだ%(snippet_type_name_plural)sは作成されていません。 <a href="
 "\"%(wagtailsnippets_create_url)s\">新しく追加</a>しますか？"
 
+msgid "Live version"
+msgstr "ライブ版"
+
+msgid "Current draft"
+msgstr "現在の下書き"
+
+msgid "Preview"
+msgstr "プレビュー"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Live"
+msgstr "公開"
+
+msgid "Draft"
+msgstr "下書き"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "スニペット%(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "スニペット<span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -125,6 +140,9 @@ msgstr "%(title)sを使用"
 
 msgid "Usage of"
 msgstr "使用"
+
+msgid "Title"
+msgstr "タイトル"
 
 msgid "Parent"
 msgstr "上位階層"
@@ -138,33 +156,24 @@ msgstr "ステータス"
 msgid "Edit this page"
 msgstr "ページを編集"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "%(snippet_type_name)sを検索"
+msgid "Choose"
+msgstr "選択"
+
+msgid "Name"
+msgstr "名前"
 
 msgid "The snippet could not be created due to errors."
 msgstr "このスニペットはエラーにより作成されませんでした。"
 
-msgid "Edit"
-msgstr "編集"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
-
-msgid "Action"
-msgstr "アクション"
 
 msgid "Date"
 msgstr "日付"
 
+msgid "Action"
+msgstr "アクション"
+
 #, python-format
 msgid "Choose %s"
 msgstr "%sを選択"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "別の%sを選択"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "%sを編集"

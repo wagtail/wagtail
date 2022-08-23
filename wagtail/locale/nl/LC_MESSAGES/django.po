@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -84,6 +84,70 @@ msgstr "Het wachtwoord dat u heeft ingevuld is niet juist. Probeer opnieuw."
 msgid "Comment"
 msgstr "Opmerking"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "De pagina '{}' is geblokkeerd</b> door jou op <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "</b>De pagina '{}' is geblokkeerd door jou."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>De pagina '{}' is geblokkeerd</b> door <b>{}</b> op <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "De pagina '{}' is geblokkeerd."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Deze pagina is in afwachting van content goedkeuring."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr ""
+"Deze pagina is in afwachting van <b>'{}'</b> in de <b>'{}'</b> workflow."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Alleen reviewers van deze taak kunnen deze pagina bewerken."
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "heeft ongepubliceerde wijzigingen"
+
+msgid "first published at"
+msgstr "voor het eerst gepubliceerd op"
+
+msgid "last published at"
+msgstr "voor het laatst gepubliceerd op"
+
+msgid "live revision"
+msgstr "live versie"
+
+msgid "go live date/time"
+msgstr "Publiceer op"
+
+msgid "expiry date/time"
+msgstr "vervaldatum/tijd"
+
+msgid "expired"
+msgstr "verlopen"
+
+msgid "draft"
+msgstr "concept"
+
+msgid "live + draft"
+msgstr "live + concept"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "locked"
+msgstr "geblokkeerd"
+
+msgid "locked at"
+msgstr "geblokkeerd op"
+
+msgid "locked by"
+msgstr "geblokkeerd door"
+
 msgid "title"
 msgstr "titel"
 
@@ -102,12 +166,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "inhoudstype"
-
-msgid "live"
-msgstr "live"
-
-msgid "has unpublished changes"
-msgstr "heeft ongepubliceerde wijzigingen"
 
 msgid "URL path"
 msgstr "URL pad"
@@ -143,35 +201,8 @@ msgid ""
 msgstr ""
 "De beschrijving die getoont wordt onder de kop in de zoekmachine resultaten."
 
-msgid "go live date/time"
-msgstr "Publiceer op"
-
-msgid "expiry date/time"
-msgstr "vervaldatum/tijd"
-
-msgid "expired"
-msgstr "verlopen"
-
-msgid "locked"
-msgstr "geblokkeerd"
-
-msgid "locked at"
-msgstr "geblokkeerd op"
-
-msgid "locked by"
-msgstr "geblokkeerd door"
-
-msgid "first published at"
-msgstr "voor het eerst gepubliceerd op"
-
-msgid "last published at"
-msgstr "voor het laatst gepubliceerd op"
-
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
-
-msgid "live revision"
-msgstr "live versie"
 
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
@@ -182,20 +213,11 @@ msgstr "gepland"
 msgid "in moderation"
 msgstr "ter goedkeuring"
 
-msgid "draft"
-msgstr "concept"
-
 msgid "live + scheduled"
 msgstr "live + gepland"
 
 msgid "live + in moderation"
 msgstr "live + ter goedkeuring"
-
-msgid "live + draft"
-msgstr "live + concept"
-
-msgid "Default"
-msgstr "Default"
 
 msgid "page"
 msgstr "pagina"
@@ -217,12 +239,6 @@ msgstr "content JSON"
 
 msgid "approved go live at"
 msgstr "goedgekeurde publicatiedatum"
-
-msgid "page revision"
-msgstr "pagina revisie"
-
-msgid "page revisions"
-msgstr "pagina revisie"
 
 msgid "Add/edit pages you own"
 msgstr "Eigen pagina's toevoegen/wijzigen"
@@ -398,6 +414,9 @@ msgstr "Overgeslagen"
 
 msgid "workflow state"
 msgstr "workflow-status"
+
+msgid "page revision"
+msgstr "pagina revisie"
 
 msgid "started at"
 msgstr "Gestart op"
@@ -583,36 +602,6 @@ msgstr "U heeft een wachtwoord nodig om deze pagina te kunnen bekijken."
 
 msgid "Continue"
 msgstr "Ga verder"
-
-msgid "Test Wagtail Model Admin"
-msgstr "Test Wagtail Model Admin"
-
-msgid "Wagtail routable page tests"
-msgstr "Wagtail routeerbare pagina tests"
-
-msgid "Wagtail search tests"
-msgstr "Wagtail Search Tests"
-
-msgid "English"
-msgstr "Engels"
-
-msgid "French"
-msgstr "Frans"
-
-msgid "Wagtail snippets tests"
-msgstr "Wagtail Snippets Tests"
-
-msgid "Wagtail tests"
-msgstr "Wagtail Tests"
-
-msgid "The form is already filled."
-msgstr "Het formulier is al ingevuld."
-
-msgid "You must log in first."
-msgstr "Je moet eerst inloggen."
-
-msgid "German"
-msgstr "Duits"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -919,10 +908,6 @@ msgstr "Workflow-taak afgekeurd. Workflow complete"
 
 msgid "Workflow: resume task"
 msgstr "Workflow: taak hervatten"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Opnieuw ingediend '%(task)s'. Workflow hervat'"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Workflow-taak opnieuw ingediend. Workflow hervat"

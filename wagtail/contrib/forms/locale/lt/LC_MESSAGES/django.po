@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -143,27 +143,6 @@ msgstr "Formos"
 msgid "Pages"
 msgstr "Puslapiai"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "%(form_title)s pateikimai"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Formos duomenys <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtras"
-
-msgid "Download XLSX"
-msgstr "Parsiųsti XLSX"
-
-msgid "Download CSV"
-msgstr "Parsisiųsti CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
-
 msgid "Title"
 msgstr "Pavadinimas"
 
@@ -181,6 +160,26 @@ msgstr "Paskutinis pateikimas"
 
 msgid "No form pages have been created."
 msgstr "Jokie formų puslapiai nebuvo sukurti."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s pateikimai"
+
+msgid "Download XLSX"
+msgstr "Parsiųsti XLSX"
+
+msgid "Download CSV"
+msgstr "Parsisiųsti CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nebuvo jokiu '%(title)s' formos pateikimų."
+
+msgid "Filter"
+msgstr "Filtras"
+
+msgid "Apply filters"
+msgstr "Taikyti filtrus"
 
 #, python-format
 msgid "One submission has been deleted."

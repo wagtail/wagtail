@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -35,9 +35,6 @@ msgstr "Atcelt darbplūsmu"
 
 msgid "Unpublish"
 msgstr "Atsaukt publicēšanu"
-
-msgid "Delete"
-msgstr "Dzēst"
 
 msgid "Save Draft"
 msgstr "Saglabāt melnrakstu"
@@ -88,6 +85,18 @@ msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
 msgid "URL"
 msgstr "Adrese"
 
+msgid "Search term"
+msgstr "Meklēšanas termins"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "All collections"
+msgstr "Visas kolekcijas"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
 msgid "Parent"
 msgstr "Augstāka līmeņa vienība"
 
@@ -101,14 +110,14 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
 
-msgid "Collection"
-msgstr "Kolekcija"
-
 msgid "Add"
 msgstr "Pievienot"
 
 msgid "Edit"
 msgstr "Labot"
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -184,12 +193,6 @@ msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
 msgid "Expiry date/time must be in the future"
 msgstr "Beigu datumam/laikam jābūt nākotnē"
 
-msgid "Search"
-msgstr "Meklēt"
-
-msgid "Search term"
-msgstr "Meklēšanas termins"
-
 msgid "Visibility"
 msgstr "Redzamība"
 
@@ -216,11 +219,14 @@ msgstr "Piešķir darbplūsmai nosaukumu"
 msgid "Add tasks to your workflow"
 msgstr "Pievieno uzdevumus savai darbplūsmai "
 
+msgid "Task"
+msgstr "Uzdevums"
+
 msgid "Scheduled publishing"
 msgstr "Plānota publicēšana"
 
-msgid "Privacy"
-msgstr "Privātums"
+msgid "Page title"
+msgstr "Lapas virsraksts"
 
 msgid "Content"
 msgstr "Saturs"
@@ -230,12 +236,6 @@ msgstr "Veicināšana"
 
 msgid "Settings"
 msgstr "Iestatījumi"
-
-msgid "Status"
-msgstr "Statuss"
-
-msgid "Preview"
-msgstr "Priekšskatīt"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -251,13 +251,6 @@ msgstr "Doties uz Wagtail administrāciju"
 
 msgid "Account"
 msgstr "Konts"
-
-msgid "Change password"
-msgstr "Mainīt paroli"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
 
 msgid "Reset password"
 msgstr "Mainīt paroli"
@@ -343,6 +336,13 @@ msgstr "Pievienot ārēju saiti"
 msgid "Add a phone link"
 msgstr "Pievienot tālruņa saiti"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Pārlūkot '%(title)s' apakšlapas"
+
+msgid "Explore"
+msgstr "Pārlūkot"
+
 msgid "Collection privacy"
 msgstr "Kolekcijas privātums"
 
@@ -352,14 +352,17 @@ msgstr "Šo kolekciju privātu ir padarījusi augstāka līmeņa kolekcija."
 msgid "You can edit the privacy settings on:"
 msgstr "Mainīt privātuma iestatījumus:"
 
+msgid "Save"
+msgstr "Saglabāt"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Privātuma iestatījumi nosaka, kurš var skatīt šajā kolekcijā esošos "
 "dokumentus."
 
-msgid "Save"
-msgstr "Saglabāt"
+msgid "Privacy"
+msgstr "Privātums"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Publisks"
@@ -385,9 +388,6 @@ msgstr "Dzēst"
 
 msgid "Update"
 msgstr "Atjaunot"
-
-msgid "Dashboard"
-msgstr "Informācijas panelis"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -421,10 +421,6 @@ msgstr "Melnraksts"
 msgid "Live"
 msgstr "Aktīva"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Lapām nepieciešama moderācija"
 
@@ -443,8 +439,14 @@ msgstr "Apstiprināt"
 msgid "Reject"
 msgstr "Noraidīt"
 
+msgid "Preview"
+msgstr "Priekšskatīt"
+
 msgid "Your most recent edits"
 msgstr "Neseni labojumi"
+
+msgid "Status"
+msgstr "Statuss"
 
 msgid "Date"
 msgstr "Datums"
@@ -454,9 +456,6 @@ msgstr "Kopsavilkums"
 
 msgid "Your pages in a workflow"
 msgstr "Jūsu lapas darbplūsmā"
-
-msgid "Task"
-msgstr "Uzdevums"
 
 msgid "Task started"
 msgstr "Uzdevums uzsākts"
@@ -476,13 +475,13 @@ msgstr "Uzdevumi"
 msgid "Sign in"
 msgstr "Ieiet"
 
+msgid "Sign in to Wagtail"
+msgstr "Ieet Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Lietotājvārds %(username_field)s neatbilda parole. Lūdzu mēģiniet vēlreiz."
-
-msgid "Sign in to Wagtail"
-msgstr "Ieet Wagtail"
 
 msgid "Signing in…"
 msgstr "Notiek pierakstīšanās..."
@@ -574,15 +573,8 @@ msgstr "Pārvietot lapu uz '%(title)s'?"
 msgid "Yes, move this page"
 msgstr "Pārvietot šo lapu"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Atsaukt %(title)s publicēšanu"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Atsaukt lapas publicēšanu?"
-
-msgid "Yes, unpublish it"
-msgstr "Atsaukt publicēšanu"
 
 msgid "Pages using"
 msgstr "Lapas, kas lieto"
@@ -624,9 +616,6 @@ msgstr "Pārlūko %(title)s"
 msgid "Drag"
 msgstr "Pārvilkt"
 
-msgid "Updated"
-msgstr "Atjaunots"
-
 msgid "Configure a site now."
 msgstr "Konfigurēt vietni"
 
@@ -639,13 +628,6 @@ msgstr "<a href=\"%(add_page_url)s\">Izveidot jaunu?</a>"
 
 msgid "This page is locked to further editing"
 msgstr "Lapa ir slēgta labojumiem"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Pārlūkot '%(title)s' apakšlapas"
-
-msgid "Explore"
-msgstr "Pārlūkot"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -670,28 +652,11 @@ msgstr "Atspējot apakšlapu kārtošanu"
 msgid "Enable ordering of child pages"
 msgstr "Iespējot apakšlapu kārtošanu"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Izvēlēties jaunu virslapu %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Izvēlēties jaunu virslapu <span>%(title)s</span>"
-
-msgid "Close"
-msgstr "Aizvērt"
+msgid "Updated"
+msgstr "Atjaunots"
 
 msgid "Enter a search term above"
 msgstr "Lūdzu ievadiet meklēšanas terminu"
-
-msgid "Locked"
-msgstr "Slēgts"
-
-msgid "Unlocked"
-msgstr "Atslēgts"
-
-msgid "Lock"
-msgstr "Slēgt"
 
 msgid "No pages use"
 msgstr "Neviena lapa nelieto"
@@ -712,8 +677,8 @@ msgstr "Uz leju"
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
 
-msgid "Filter"
-msgstr "Atsijāt"
+msgid "Locked"
+msgstr "Slēgts"
 
 msgid "Edit this item"
 msgstr "Rediģēt šo vienību"
@@ -731,14 +696,24 @@ msgstr "Pabeigts plkst."
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
 
-msgid "Home"
-msgstr "Sākumlapa"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Atsaukt %(title)s publicēšanu"
 
-msgid "All collections"
-msgstr "Visas kolekcijas"
+msgid "Yes, unpublish it"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Filter"
+msgstr "Atsijāt"
 
 msgid "Other searches"
 msgstr "Citi meklējumi"
+
+msgid "Unlocked"
+msgstr "Atslēgts"
+
+msgid "Lock"
+msgstr "Slēgt"
 
 msgid "Add a child page"
 msgstr "Pievienot apakšlapu"
@@ -752,21 +727,11 @@ msgstr "Nē"
 msgid "New"
 msgstr "Jauns"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "autors %(modified_by)s"
-
 msgid "More"
 msgstr "Vairāk"
 
 msgid "Log out"
 msgstr "Iziet"
-
-msgid "draft"
-msgstr "melnraksts"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Password"
 msgstr "Parole"
@@ -806,6 +771,9 @@ msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
 
 msgid "Editing"
 msgstr "Labo"
+
+msgid "Dashboard"
+msgstr "Informācijas panelis"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -905,8 +873,8 @@ msgstr "Rādīt"
 msgid "Awaiting my review"
 msgstr "Gaida manu pārbaudi"
 
-msgid "Server Error"
-msgstr "Servera kļūda"
+msgid "Change"
+msgstr "Mainīt"
 
 msgid "Pages"
 msgstr "Lapas"
@@ -919,18 +887,3 @@ msgstr "Jā"
 
 msgid "Choose an item"
 msgstr "Izvēlies vienību"
-
-msgid "Choose another item"
-msgstr "Izvēlēties citu vienību"
-
-msgid "Clear choice"
-msgstr "Atcelt izvēli"
-
-msgid "Choose another page"
-msgstr "Izvēlēties citu lapu"
-
-msgid "Choose another task"
-msgstr "Izvēlēties citu uzdevumu"
-
-msgid "Edit this task"
-msgstr "Labot šo uzdevumu"

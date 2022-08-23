@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -92,6 +92,73 @@ msgstr ""
 msgid "Comment"
 msgstr "Commentaire"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>vous</b> le <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Cette page '{}' est verrouillée</b> par <b>vous</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>{}</b> le <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Cette page '{}' est verrouillée</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Cette page est actuellement en attente de modération."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr ""
+"Cette page est en attente « <b>{}</b> » dans le workflow « <b>{}</b> »."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Seul les modérateurs pour cette tâche peuvent modifier cette page."
+
+msgid "latest revision"
+msgstr "dernière version"
+
+msgid "live"
+msgstr "publiée"
+
+msgid "has unpublished changes"
+msgstr "contient des changements non publiés"
+
+msgid "first published at"
+msgstr "première publication le"
+
+msgid "last published at"
+msgstr "dernière publication le"
+
+msgid "live revision"
+msgstr "version publiée"
+
+msgid "go live date/time"
+msgstr "date/heure de publication"
+
+msgid "expiry date/time"
+msgstr "date/heure d'expiration"
+
+msgid "expired"
+msgstr "expirée"
+
+msgid "draft"
+msgstr "brouillon"
+
+msgid "live + draft"
+msgstr "publiée + brouillon"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "locked"
+msgstr "verrouillé"
+
+msgid "locked at"
+msgstr "Verrouillé à"
+
+msgid "locked by"
+msgstr "Verrouillé par"
+
 msgid "title"
 msgstr "Titre"
 
@@ -110,12 +177,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "type de contenu"
-
-msgid "live"
-msgstr "publiée"
-
-msgid "has unpublished changes"
-msgstr "contient des changements non publiés"
 
 msgid "URL path"
 msgstr "URL"
@@ -152,35 +213,8 @@ msgstr ""
 "Le texte descriptif affiché sous l'entête dans les résultats des moteurs de "
 "recherche."
 
-msgid "go live date/time"
-msgstr "date/heure de publication"
-
-msgid "expiry date/time"
-msgstr "date/heure d'expiration"
-
-msgid "expired"
-msgstr "expirée"
-
-msgid "locked"
-msgstr "verrouillé"
-
-msgid "locked at"
-msgstr "Verrouillé à"
-
-msgid "locked by"
-msgstr "Verrouillé par"
-
-msgid "first published at"
-msgstr "première publication le"
-
-msgid "last published at"
-msgstr "dernière publication le"
-
 msgid "latest revision created at"
 msgstr "dernière version créée le"
-
-msgid "live revision"
-msgstr "version publiée"
 
 msgid "This slug is already in use"
 msgstr "Ce slug est déjà utilisé"
@@ -191,20 +225,11 @@ msgstr "programmée"
 msgid "in moderation"
 msgstr "en cours de modération"
 
-msgid "draft"
-msgstr "brouillon"
-
 msgid "live + scheduled"
 msgstr "publiée + programmée"
 
 msgid "live + in moderation"
 msgstr "publiée + en cours de modération"
-
-msgid "live + draft"
-msgstr "publiée + brouillon"
-
-msgid "Default"
-msgstr "Par défaut"
 
 msgid "page"
 msgstr "page"
@@ -227,11 +252,11 @@ msgstr "contenu JSON"
 msgid "approved go live at"
 msgstr "publication approuvée le"
 
-msgid "page revision"
-msgstr "version de page"
+msgid "revision"
+msgstr "version"
 
-msgid "page revisions"
-msgstr "versions de page"
+msgid "revisions"
+msgstr "versions"
 
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
@@ -408,6 +433,9 @@ msgstr "Ignoré"
 
 msgid "workflow state"
 msgstr "état de workflow"
+
+msgid "page revision"
+msgstr "version de page"
 
 msgid "started at"
 msgstr "commencé à"
@@ -595,36 +623,6 @@ msgstr "L'accès à cette page nécessite un mot de passe."
 
 msgid "Continue"
 msgstr "Continuer"
-
-msgid "Test Wagtail Model Admin"
-msgstr "Tests Model Admin Wagtail"
-
-msgid "Wagtail routable page tests"
-msgstr "Wagtail routable page tests"
-
-msgid "Wagtail search tests"
-msgstr "Tests recherche Wagtail"
-
-msgid "English"
-msgstr "anglais"
-
-msgid "French"
-msgstr "français"
-
-msgid "Wagtail snippets tests"
-msgstr "Tests blocs Wagtail"
-
-msgid "Wagtail tests"
-msgstr "Tests Wagtail"
-
-msgid "The form is already filled."
-msgstr "Le formulaire est déjà rempli."
-
-msgid "You must log in first."
-msgstr "Vous devez d'abord vous connecter."
-
-msgid "German"
-msgstr "allemand"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -938,10 +936,6 @@ msgstr "La tâche de workflow a été rejetée. Le workflow est terminé"
 
 msgid "Workflow: resume task"
 msgstr "Workflow : reprendre la tâche"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "La tâche « %(task)s » a été resoumisse. Le workflow a repris"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "La tâche du workflow a été resoumisse. Le workflow a repris"

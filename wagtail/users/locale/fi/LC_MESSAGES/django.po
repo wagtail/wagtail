@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -27,11 +27,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtailin käyttäjät"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Vaadittu. Korkeintaan 30 merkkiä. Ainoastaan kirjaimia, numeroita ja @/./+/-/"
-"_ -erikoismerkkejä."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -229,9 +224,6 @@ msgstr "Näytä tämän ryhmän käyttäjät"
 msgid "Save"
 msgstr "Tallenna"
 
-msgid "Permissions"
-msgstr "Oikeudet"
-
 msgid "Object permissions"
 msgstr "Kohteen oikeudet"
 
@@ -315,10 +307,6 @@ msgstr "Aktiivinen"
 
 msgid "Inactive"
 msgstr "Passiivinen"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sitten"
 
 #, python-format
 msgid "There is %(counter)s match"

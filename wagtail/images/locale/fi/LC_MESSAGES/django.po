@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -242,15 +242,6 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
-msgid "Choose an image"
-msgstr "Valitse kuva"
-
-msgid "Search"
-msgstr "Haku"
-
-msgid "Upload"
-msgstr "Lähetä"
-
 msgid "Popular tags"
 msgstr "Suositut asiasanat"
 
@@ -274,12 +265,6 @@ msgstr "Käytä uutta kuvaa"
 msgid "Use existing and delete new"
 msgstr "Käytä olemassa olevaa ja poista uusi"
 
-#, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Löytyi %(counter)s osuma"
-msgstr[1] "Löytyi %(counter)s osumaa"
-
 msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
 
@@ -288,9 +273,6 @@ msgstr "Valitse muoto"
 
 msgid "Insert image"
 msgstr "Lisää kuva"
-
-msgid "Uploading…"
-msgstr "Lähetetään…"
 
 #, python-format
 msgid ""
@@ -374,11 +356,14 @@ msgstr "Kuvat"
 msgid "Popular Tags:"
 msgstr "Suositut tunnisteet:"
 
-msgid "Clear choice"
-msgstr "Poista valinta"
-
 msgid "Select all images in listing"
 msgstr "Valitse listauksen kaikki kuvat"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Löytyi %(counter)s osuma"
+msgstr[1] "Löytyi %(counter)s osumaa"
 
 msgid "Select image"
 msgstr "Valitse kuva"
@@ -532,6 +517,15 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d kuva on poistettu"
 msgstr[1] "%(num_parent_objects)d kuvaa on poistettu"
 
+msgid "Upload"
+msgstr "Lähetä"
+
+msgid "Uploading…"
+msgstr "Lähetetään…"
+
+msgid "Choose an image"
+msgstr "Valitse kuva"
+
 msgid "Search images"
 msgstr "Hae kuvia"
 
@@ -571,9 +565,3 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s kuva"
 msgstr[1] "%(count)s kuvaa"
-
-msgid "Change image"
-msgstr "Vaihda kuva"
-
-msgid "Edit this image"
-msgstr "Muokkaa tätä kuvaa"

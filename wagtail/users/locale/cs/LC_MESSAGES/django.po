@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -25,11 +25,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail uživatelé"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Povinné pole, maximálně 30 znaků. Povolené znaky: písmena bez diakritiky, "
-"číslice, @, ., +, -, _."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -159,9 +154,6 @@ msgstr "Zobrazit uživatele v této skupině"
 msgid "Save"
 msgstr "Uložit"
 
-msgid "Permissions"
-msgstr "Oprávnění"
-
 msgid "Object permissions"
 msgstr "Oprávnění k objektům"
 
@@ -239,10 +231,6 @@ msgstr "Aktivní"
 
 msgid "Inactive"
 msgstr "Neaktivní"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

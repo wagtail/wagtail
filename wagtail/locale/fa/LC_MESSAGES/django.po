@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -54,6 +54,51 @@ msgstr "رمزعبور"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "رمزعبور وارد شده درست نیست. لطفا مجددا سعی کنید."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>صفحه {} توسط <b>شما</b> در <b>{}</b> قفل شد."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>صفحه {} توسط <b>شما</b> قفل شد."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>صفحه {} توسط <b>{}</b> در <b>{}</b> قفل شد."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>صفحه '{}' قفل شده است.</b>"
+
+msgid "live"
+msgstr "زنده"
+
+msgid "has unpublished changes"
+msgstr "حاوی تغییر منتشرنشده"
+
+msgid "first published at"
+msgstr "انتشار نخست در"
+
+msgid "last published at"
+msgstr "انتشار قبلی در"
+
+msgid "go live date/time"
+msgstr "تاریخ/ساعت تبدیل به زنده"
+
+msgid "expiry date/time"
+msgstr "تاریخ/ساعت انقضا"
+
+msgid "expired"
+msgstr "انقضا یافته"
+
+msgid "draft"
+msgstr "پیشنویس"
+
+msgid "live + draft"
+msgstr "زنده + پیشنویس"
+
+msgid "Default"
+msgstr "پیشفرض"
+
+msgid "locked"
+msgstr "قفل شده"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -72,12 +117,6 @@ msgstr ""
 msgid "content type"
 msgstr "نوع محتوا"
 
-msgid "live"
-msgstr "زنده"
-
-msgid "has unpublished changes"
-msgstr "حاوی تغییر منتشرنشده"
-
 msgid "URL path"
 msgstr "مسیر نشانی"
 
@@ -93,24 +132,6 @@ msgstr ""
 "این که آیا یک لینک به این صفحه در منوهای ساخته شده بصورت خودکار نمایش داده "
 "می‌شود یا نه"
 
-msgid "go live date/time"
-msgstr "تاریخ/ساعت تبدیل به زنده"
-
-msgid "expiry date/time"
-msgstr "تاریخ/ساعت انقضا"
-
-msgid "expired"
-msgstr "انقضا یافته"
-
-msgid "locked"
-msgstr "قفل شده"
-
-msgid "first published at"
-msgstr "انتشار نخست در"
-
-msgid "last published at"
-msgstr "انتشار قبلی در"
-
 msgid "latest revision created at"
 msgstr "آخرین بازبینی ایجاد شده در"
 
@@ -119,15 +140,6 @@ msgstr "این اسلاگ در حال استفاده است"
 
 msgid "scheduled"
 msgstr "برنامه‌ریزی شده"
-
-msgid "draft"
-msgstr "پیشنویس"
-
-msgid "live + draft"
-msgstr "زنده + پیشنویس"
-
-msgid "Default"
-msgstr "پیشفرض"
 
 msgid "page"
 msgstr "صفحه"
@@ -149,12 +161,6 @@ msgstr "محتوای JSON"
 
 msgid "approved go live at"
 msgstr "تایید انتقال به حالت زنده در"
-
-msgid "page revision"
-msgstr "بازبینی صفحه"
-
-msgid "page revisions"
-msgstr "بازبینی‌های صفحه"
 
 msgid "Add/edit pages you own"
 msgstr "افزودن/ویرایش صفحه های خودتان"
@@ -212,6 +218,9 @@ msgstr "تایید"
 
 msgid "Not started"
 msgstr "شروع نشده"
+
+msgid "page revision"
+msgstr "بازبینی صفحه"
 
 msgid "comments"
 msgstr "نظر ها"
@@ -330,15 +339,6 @@ msgstr "برای دسترسی به این صفحه نیاز به رمزعبور 
 
 msgid "Continue"
 msgstr "ادامه"
-
-msgid "English"
-msgstr "انگلیسی"
-
-msgid "French"
-msgstr "فرانسوی"
-
-msgid "German"
-msgstr "آلمانی"
 
 msgid "Create"
 msgstr "ساختن"

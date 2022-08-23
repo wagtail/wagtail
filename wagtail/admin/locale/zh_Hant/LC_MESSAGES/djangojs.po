@@ -83,9 +83,6 @@ msgstr "頁面瀏覽器"
 msgid "Pages"
 msgstr "頁面"
 
-msgid "Redo"
-msgstr "取消復原"
-
 msgid "Reload saved content"
 msgstr "重新加載已保存內容"
 
@@ -126,11 +123,8 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "編輯器崩潰了，內容被重新設置為最後保存的版本。"
 
-msgid "Undo"
-msgstr "復原"
+msgid "This field is required."
+msgstr "必要欄位"
 
 msgid "View child pages of '{title}'"
 msgstr "檢視 '{title}' 子頁面"
-
-msgid "Write here…"
-msgstr "寫在這里..."

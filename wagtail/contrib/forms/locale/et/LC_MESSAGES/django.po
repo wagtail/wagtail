@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -153,27 +153,6 @@ msgstr "Vormid"
 msgid "Pages"
 msgstr "Lehed"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "%(form_title)s esitamine."
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Vormi andmed <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Download XLSX"
-msgstr "Lae alla XLSX"
-
-msgid "Download CSV"
-msgstr "Lae alla CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "'%(title)s'  vormi pole esitatud."
-
 msgid "Title"
 msgstr "Pealkiri"
 
@@ -191,6 +170,26 @@ msgstr "Viimased kanded"
 
 msgid "No form pages have been created."
 msgstr "Vormilehti pole loodud."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s esitamine."
+
+msgid "Download XLSX"
+msgstr "Lae alla XLSX"
+
+msgid "Download CSV"
+msgstr "Lae alla CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "'%(title)s'  vormi pole esitatud."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Rakenda filtrid"
 
 #, python-format
 msgid "One submission has been deleted."

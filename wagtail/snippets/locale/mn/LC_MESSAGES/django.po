@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Нийтлэх"
+
+msgid "Unpublish"
+msgstr "Нийтлэхгүй байх"
+
 msgid "Delete"
 msgstr "Устгах"
 
@@ -27,21 +33,6 @@ msgstr "Хадгалах"
 
 msgid "Wagtail snippets"
 msgstr "Туслах хэсгүүд"
-
-msgid "Choose"
-msgstr "Сонгох"
-
-msgid "Search"
-msgstr "Хайлт"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох туслах хэсэг "
-"олдсонгүй"
-
-msgid "Saving…"
-msgstr "Хадгалж байна"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -67,6 +58,18 @@ msgstr "%(count)s %(snippet_type_name)s үнэхээр устгах уу?"
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
+msgid "Publishing…"
+msgstr "Нийтэлж байна..."
+
+msgid "Saving…"
+msgstr "Хадгалж байна"
+
+msgid "Replace current draft"
+msgstr "Одоогийн нооргийг дарж хуулах"
+
+msgid "Save draft"
+msgstr "Ноорог хадгалах"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Шинэ %(snippet_type_name)s"
@@ -74,21 +77,11 @@ msgstr "Шинэ %(snippet_type_name)s"
 msgid "New"
 msgstr "Шинэ"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "%(snippet_type_name)s - %(instance)s засч байна"
-
-msgid "Editing"
-msgstr "Засч байна"
-
 msgid "Usage"
 msgstr "Хэрэглээ"
 
 msgid "Snippets"
 msgstr "Хэсэг"
-
-msgid "Title"
-msgstr "Гарчиг"
 
 #, python-format
 msgid ""
@@ -98,13 +91,27 @@ msgstr ""
 "Үгүй %(snippet_type_name_plural)s үүссэн байна. Яагаад <a href="
 "\"%(wagtailsnippets_create_url)s\">нэмж</a> болохгүй гэж?"
 
+msgid "Live version"
+msgstr "Нийтлэгдсэн хувилбар"
+
+msgid "Current draft"
+msgstr "Одоогийн ноорог"
+
+msgid "Preview"
+msgstr "Урдчилж харах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Live"
+msgstr "Нийтлэгдсэн"
+
+msgid "Draft"
+msgstr "Ноорог"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "%(snippet_type_name_plural)s хэсгүүд"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "<span>%(snippet_type_name_plural)s</span> хэсгүүд"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -116,6 +123,9 @@ msgstr "%(title)s-н хэрэглээ"
 
 msgid "Usage of"
 msgstr "Хэрэглээ"
+
+msgid "Title"
+msgstr "Гарчиг"
 
 msgid "Parent"
 msgstr "Эцэг"
@@ -129,15 +139,14 @@ msgstr "Төлөв"
 msgid "Edit this page"
 msgstr "Энэ хуудсыг засах"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "%(snippet_type_name)s хайх"
+msgid "Choose"
+msgstr "Сонгох"
+
+msgid "Name"
+msgstr "Нэр"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж хадгалагдсангүй."
-
-msgid "Edit"
-msgstr "Засах"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж шинэчлэгдсэнгүй."
@@ -148,11 +157,3 @@ msgstr "Огноо"
 #, python-format
 msgid "Choose %s"
 msgstr "%s сонгох"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Өөр %s сонгох"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "%s засах"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -42,9 +42,6 @@ msgstr "Hætta við vinnuflæði"
 
 msgid "Unpublish"
 msgstr "Taka úr loftinu"
-
-msgid "Delete"
-msgstr "Eyða"
 
 msgid "Save Draft"
 msgstr "Vista uppkast"
@@ -108,6 +105,18 @@ msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
 msgid "URL"
 msgstr "Vefslóð"
 
+msgid "Search term"
+msgstr "Leitarfrasi"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "All collections"
+msgstr "Öll söfn"
+
+msgid "Collection"
+msgstr "Safn"
+
 msgid "Parent"
 msgstr "Yfirsíða"
 
@@ -124,9 +133,6 @@ msgstr "Vinsamlegast veldu annað yfirsafn"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
 
-msgid "Collection"
-msgstr "Safn"
-
 msgid "Add"
 msgstr "Bæta við"
 
@@ -138,6 +144,9 @@ msgstr "Breyta"
 
 msgid "Edit collections"
 msgstr "Breyta söfnu"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Delete collections"
 msgstr "Eyða söfnum"
@@ -221,11 +230,12 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
-msgid "Search"
-msgstr "Leita"
+msgid "Select a new parent for this page."
+msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
 
-msgid "Search term"
-msgstr "Leitarfrasi"
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Merki %(value_too_long)s eru yfir %(max_tag_length)d stafir að lengd"
 
 msgid "Visibility"
 msgstr "Sýnileiki"
@@ -251,6 +261,9 @@ msgstr "Gefðu vinnuflæðinu nafn"
 
 msgid "Add tasks to your workflow"
 msgstr "Bæta skrefum við vinnuflæði"
+
+msgid "Task"
+msgstr "Skref"
 
 msgid "1 page selected"
 msgstr "1 síða valin"
@@ -308,6 +321,20 @@ msgstr "Allir {0} notendur á þessum skjá valdir"
 msgid "All users in listing selected"
 msgstr "Allir notendur valdir"
 
+msgid "1 snippet selected"
+msgstr "1 snifsi valið"
+
+#, python-brace-format
+msgid "{0} snippets selected"
+msgstr "{0} snifsi valin"
+
+#, python-brace-format
+msgid "All {0} snippets on this screen selected"
+msgstr "Öll {0} snifsi á þessum skjá valin"
+
+msgid "All snippets in listing selected"
+msgstr "Öll snifsi í lista valin"
+
 msgid "1 item selected"
 msgstr "1 hlutur valinn"
 
@@ -325,8 +352,8 @@ msgstr "Allir hlutir valdir"
 msgid "Scheduled publishing"
 msgstr "Tímasetning birtingar"
 
-msgid "Privacy"
-msgstr "Aðgengi"
+msgid "Page title"
+msgstr "Titill síðu"
 
 msgid "For search engines"
 msgstr "Fyrir leitarvélar"
@@ -342,15 +369,6 @@ msgstr "Sýnileiki"
 
 msgid "Settings"
 msgstr "Stillingar"
-
-msgid "Status"
-msgstr "Staða"
-
-msgid "Comments"
-msgstr "Athugasemdir"
-
-msgid "Preview"
-msgstr "Forskoða"
 
 msgid "Error 404: Page not found"
 msgstr "404: Síðan fannst ekki"
@@ -372,15 +390,6 @@ msgstr "Fleiri aðgerðir"
 
 msgid "Save account details"
 msgstr "Vista upplýsingar reiknings"
-
-msgid "Change password"
-msgstr "Breyta lykilorði"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ekki er hægt að breyta lykilorðinu þínu hér. Vinsamlegast hafðu samband við "
-"vefstjóra."
 
 msgid "Reset password"
 msgstr "Endursetja lykilorð"
@@ -437,6 +446,9 @@ msgstr "Hlaða upp prófílmynd:"
 msgid "Reset to default"
 msgstr "Endursetja sjálfgefnar stillingar"
 
+msgid "Sidebar"
+msgstr "Hliðarstika"
+
 msgid "Go back"
 msgstr "Til baka"
 
@@ -464,6 +476,12 @@ msgstr "Síma hlekkur"
 msgid "Anchor link"
 msgstr "Hlekkur innan síðu"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Það er %(counter)s niðurstaða"
+msgstr[1] "Það eru %(counter)s niðurstöður"
+
 msgid "Add an anchor link"
 msgstr "Bæta við hlekk innan síðu"
 
@@ -476,8 +494,44 @@ msgstr "Veldu"
 msgid "Choose a page"
 msgstr "Veldu síðu"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Aðeins síður af tegundinni \"%(type)s\" eru leyfðar í þessum reit. "
+"Leitarniðurstöður munu ekki innihalda síður af öðrum tegundum."
+msgstr[1] ""
+"Aðeins eftirtaldar síðutegundir eru leyfðar í þessum reit: %(type)s. "
+"Leitarniðurstöður munu ekki innihalda síður af öðrum tegundum."
+
 msgid "Convert to internal link"
 msgstr "Breyta í hlekk á innri síðu"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"Slóðin sem þú slóst inn, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, lítur út fyrir að passa við "
+"innri síðuna %(page)s, sem er með slóðina <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Ef þú breytir þessu í innri hlekk með tilvísun í %(page)s myndi hann "
+"sjálfkrafa uppfærast ef vefslóð síðunnar á bak við hann breytist. Viltu "
+"breyta í innri hlekk?"
 
 msgid "Use external link"
 msgstr "Nota ytri hlekk"
@@ -494,6 +548,13 @@ msgstr "Bæta við ytri hlekk"
 msgid "Add a phone link"
 msgstr "Bæta við símahlekk"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Skoða undirsíður %(title)s'"
+
+msgid "Explore"
+msgstr "Skoða"
+
 msgid "Collection privacy"
 msgstr "Aðgengisstillingar safns"
 
@@ -503,12 +564,18 @@ msgstr "Þetta safn er með takmarkað aðgengi vegna stillinga yfirflokks."
 msgid "You can edit the privacy settings on:"
 msgstr "Þú getur breytt aðgengisstilligum á:"
 
+msgid "Save"
+msgstr "Vista"
+
+msgid "Change privacy"
+msgstr "Breyta aðgengi"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "Aðgengisstillingar ákvarða hver getur skoðað skjöl í þessu safni"
 
-msgid "Save"
-msgstr "Vista"
+msgid "Privacy"
+msgstr "Aðgengi"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Stilla aðgengi safns. Núverandi staða: Opið"
@@ -537,14 +604,56 @@ msgstr ""
 "Engin söfn hafa verið búin til. Hví ekki að <a href=\"%(add_collection_url)s"
 "\">bæta við einu</a>?"
 
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Því miður eru engar niðurstöður fyrir \"<em>%(search_query)s</em>\""
+
+msgid "No items have been created."
+msgstr "Ekkert var búið til"
+
 msgid "Yes, delete"
 msgstr "Já, eyða"
 
 msgid "Update"
 msgstr "Uppfæra"
 
-msgid "Dashboard"
-msgstr "Yfirlitssíða"
+msgid "Preview not available"
+msgstr "Forskoðun ekki möguleg"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Ekki hægt að forskoða vegna þess að villur komu upp. <br /> Smelltu á vista "
+"til að sýna reitina sem eru að valda villum."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Bera saman %(title)s"
+
+msgid "Comparing"
+msgstr "Ber saman"
+
+msgid "Fields"
+msgstr "Reitir"
+
+msgid "Changes"
+msgstr "Breytingar"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Færði niður um 1 sæti."
+msgstr[1] "Færði niður um %(counter)s sæti."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Færði upp um 1 sæti."
+msgstr[1] "Færði upp um %(counter)s sæti."
+
+msgid "There are no differences between these two versions"
+msgstr "Það eru engar breytingar milli þessara útgáfa"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -578,10 +687,6 @@ msgstr "Uppkast"
 msgid "Live"
 msgstr "Í birtingu"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Síður sem bíða samþykktar"
 
@@ -600,8 +705,18 @@ msgstr "Samþykkja"
 msgid "Reject"
 msgstr "Hafna"
 
+msgid "Preview"
+msgstr "Forskoða"
+
+#, python-format
+msgid "by %(name)s"
+msgstr "eftir %(name)s"
+
 msgid "Your most recent edits"
 msgstr "Síðustu breytingar sem þú hefur gert"
+
+msgid "Status"
+msgstr "Staða"
 
 msgid "Date"
 msgstr "Dagsetning"
@@ -609,11 +724,31 @@ msgstr "Dagsetning"
 msgid "Site summary"
 msgstr "Upplýsingar um vef"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Síða <span class=\"visuallyhidden\">búin til í "
+"%(site_name)s</span>"
+msgstr[1] "<span>%(total)s</span> Síður búnar til í %(site_name)s</span>"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-upgrade-version></strong>."
+msgstr ""
+"Wagtail uppfærsla í boði. Þín útgáfa: <strong>%(current_version)s</strong>. "
+"Nýjasta útgáfan: <strong data-upgrade-version></strong>."
+
+msgid "Read the release notes."
+msgstr "Lestu útgáfu tilkynninguna."
+
 msgid "Your pages in a workflow"
 msgstr "Þínar síður í vinnuflæði"
-
-msgid "Task"
-msgstr "Skref"
 
 msgid "Task started"
 msgstr "Skref hófst"
@@ -636,22 +771,22 @@ msgstr "Skref stofnað af"
 msgid "Sign in"
 msgstr "Innskrá"
 
+msgid "Sign in to Wagtail"
+msgstr "Skrá inn í Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "%(username_field)s og lykilorð pössuðu ekki. Vinsamlegast reyndu aftur."
 
-msgid "Sign in to Wagtail"
-msgstr "Skrá inn í Wagtail"
+msgid "Forgotten password?"
+msgstr "Gleymt lykilorð?"
 
 msgid "Remember me"
 msgstr "Muna eftir mér"
 
 msgid "Signing in…"
 msgstr "Skrái inn..."
-
-msgid "Forgotten password?"
-msgstr "Gleymt lykilorð?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -728,6 +863,13 @@ msgid ""
 msgstr ""
 "Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi \"%(task)s"
 "\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr ""
+"Síðan \"%(title)s\" hefur verið send inn til yfirferðar í skrefi \"%(task)s\""
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -813,26 +955,15 @@ msgstr ""
 "Síðan \"%(title)s\" hefur verið send inn til yfirferðar í vinnuflæði "
 "\"%(workflow)s\"."
 
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr "Síðan \"%(title)s\" hefur verið send inn í vinnuflæði \"%(workflow)s\""
+
 msgid "Page privacy"
 msgstr "Síðu aðgengi"
 
 msgid "This page has been made private by a parent page."
 msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Stilla aðgengi síðu. Núverandi staða: Í birtingu"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Stilla aðgengi síðu. Núverandi staða: Læst"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Aðgengi síðu. Núverandi staða: Í birtingu"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Aðgengi síðu. Núverandi staða: Læst"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Þú ert með <span>óvistaðar breytingar</span>"
@@ -872,12 +1003,27 @@ msgstr "Búa til síðu undir"
 msgid "Choose which type of page you'd like to create."
 msgstr "Veldu hvaða tegund af síðu þú vilt búa til."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Því miður getur þú ekki búið til síðu hér."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Síður sem nota %(page_type)s"
 
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Eyða 1 síðu"
+msgstr[1] "Eyða %(counter)s síðu"
+
 msgid "Are you sure you want to delete these pages?"
 msgstr "Ertu viss um að þú viljir eyða þessum síðum?"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Þetta mun einnig eyða einni undirsíðu."
+msgstr[1] "Þetta mun einnig eyða  %(counter)s undirsíðum."
 
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
@@ -899,10 +1045,22 @@ msgstr "Færa"
 msgid "Are you sure you want to move these pages?"
 msgstr "Ertu viss um að þú viljir færa þessar síður?"
 
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Þessi síða hefur eina undirsíðu"
+msgstr[1] "Þessi síða hefur %(counter)s undirsíður"
+
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Þú ert ekki með réttindi til að færa þessa síðu"
 msgstr[1] "Þú ert ekki með réttindi til að færa þessar síður"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s"
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "Eftirfarandi síðu er ekki hægt að færa undir %(dest_title)s"
+msgstr[1] "Eftirfarandi síður er ekki hægt að færa undir %(dest_title)s"
 
 msgid "The following page cannot be moved due to duplicate slug"
 msgid_plural "The following pages cannot be moved due to duplicate slugs"
@@ -918,8 +1076,20 @@ msgstr "Já, færa þessar síður"
 msgid "No, don't move"
 msgstr "Nei, ekki færa"
 
+#, python-format
+msgid "Publish 1 page"
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Setja 1 síðu í birtingu"
+msgstr[1] "Setja %(counter)s síður í birtingu"
+
 msgid "Are you sure you want to publish these pages?"
 msgstr "Ertu viss um að þú viljir setja þessar síður í loftið?"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Þessi síða hefur eina óbirta undirsíðu"
+msgstr[1] "Þessi síða hefur %(counter)s óbirtar undirsíður"
 
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
@@ -932,8 +1102,20 @@ msgstr "Já, setja í loftið"
 msgid "No, don't publish"
 msgstr "Nei, ekki setja í loftið"
 
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Taka 1 síðu úr loftin"
+msgstr[1] "Taka %(counter)s síður úr loftinu"
+
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Ertu viss um að þú viljir taka þessar síður úr loftinu?"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Þessi síða hefur eina undirsíðu"
+msgstr[1] "Þessi síða hefur %(counter)s undirsíður"
 
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
@@ -972,6 +1154,99 @@ msgstr "Eyða %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Ertu viss um að þú viljir eyða þessari síðu?"
 
+#, python-format
+msgid "Deleting this page will also delete %(descendant_count)s child page."
+msgid_plural ""
+"Deleting this page will also delete %(descendant_count)s more child pages."
+msgstr[0] ""
+"Ef þú eyðir þessari síðu muntu einnig eyða %(descendant_count)s undirsíðu."
+msgstr[1] ""
+"Ef þú eyðir þessari síðu muntu einnig eyða %(descendant_count)s undirsíðum"
+
+#, python-format
+msgid ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Þetta mun einnig eyða 1 þýðingu og samtals %(translation_descendant_count)s "
+"þýddri undirsíðu."
+msgstr[1] ""
+"Þetta mun einnig eyða 1 þýðingu og samtals %(translation_descendant_count)s "
+"þýddum undirsíðum."
+
+#, python-format
+msgid ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Þetta mun einnig eyða %(translation_count)s þýðingum og samtals "
+"%(translation_descendant_count)s þýddri undirsíðu."
+msgstr[1] ""
+"Þetta mun einnig eyða %(translation_count)s þýðingum og samtals "
+"%(translation_descendant_count)s þýddum undirsíðum."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Þetta mun einnig eyða %(translation_count)s þýðingu."
+msgstr[1] "Þetta mun einnig eyða %(translation_count)s þýðingum"
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Ef þú eyðir þessari síðu muntu einnig eyða 1 þýðingu og samtals "
+"%(translation_descendant_count)s þýddri undirsíðu."
+msgstr[1] ""
+"Ef þú eyðir þessari síðu muntu einnig eyða 1 þýðingu og samtals "
+"%(translation_descendant_count)s þýddum undirsíðum."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Þetta mun einnig eyða %(translation_count)s þýðingum og samtals "
+"%(translation_descendant_count)s þýddum undirsíðum."
+msgstr[1] ""
+"Þetta mun einnig eyða %(translation_count)s þýðingum og samtals "
+"%(translation_descendant_count)s þýddum undirsíðum."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] ""
+"Þetta mun einnig eyða %(translation_count)s þýðingum af þessari síðu."
+msgstr[1] ""
+"Þetta mun einnig eyða %(descendant_count)s undirsíðum og "
+"%(translation_count)s þýðingum af þessari síðu."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Þessi aðgerð mun eyða samtals <b>%(total_pages)s</b> síðum."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr ""
+"Vinsamlegast sláðu inn <b>%(wagtail_site_name)s</b> til þess að staðfesta."
+
 msgid "Yes, delete it"
 msgstr "Já, eyddu því"
 
@@ -1004,21 +1279,89 @@ msgstr ""
 "Ertu viss um að þú viljir færa þessa síðu og allar undirsíður undir "
 "'%(title)s'?"
 
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] ""
+"Þetta mun einnig færa eina þýðingu af þessari síðu og öllum undirsíðum "
+"þýðingarinnar."
+msgstr[1] ""
+"Þetta mun færa %(translations_to_move_count)s þýðingar af þessari síðu og "
+"allar undirsíður þýðinganna."
+
 msgid "Yes, move this page"
 msgstr "Já, færðu þessa síðu"
-
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Taka %(title)s úr loftinu"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ertu viss um að þú viljir taka þessa síðu úr loftinu?"
 
-msgid "Yes, unpublish it"
-msgstr "Já, taka úr loftinu"
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] "Þetta mun takar úr loftinu eina þýðingu af síðunni."
+msgstr[1] ""
+"Þetta mun taka úr loftinu %(translation_count)s þýðingar af þessari síðu."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"Þessi síða hefur eina undirsíðu og þýðingar hennar hafa samtals eina þýdda "
+"undirsíðu. Taka allt þetta einnig úr loftinu."
+msgstr[1] ""
+"Þessi síða hefur %(live_descendant_count)s undirsíður og hafa þýðingar "
+"hennar samtals eina þýdda  undirsíðu. Taka allt þetta einnig úr loftinu."
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"Þessi síða hefur eina undirsíðu og þýðingar hennar hafa samtals "
+"%(translation_descendant_count)s þýddar undirsíður. Taka einnig úr loftinu."
+msgstr[1] ""
+"Þessi síða hefur %(live_descendant_count)s undirsíður og þýðingar þeirra "
+"hafa samtals %(translation_descendant_count)s þýddar undirsíður. Taka þær "
+"einnig úr loftinu."
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] "Þessi síða hefur eina undirsíðu. Taka einnig úr loftinu."
+msgstr[1] ""
+"Þessi síða hefur %(live_descendant_count)s undirsíður. Taka einnig úr "
+"loftinu."
 
 msgid "Publish page"
 msgstr "Setja síðu í birtingu"
+
+#, python-format
+msgid ""
+"This page was marked as needing changes at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Beðið var um breytingar á þessari síðu í skrefi <strong>%(task)s</strong> í "
+"<strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
+msgstr ""
+"Þessi síða er núna í skrefi <strong>%(task)s</strong> í <strong>"
+"%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Að setja þessa síðu í birtingu mun stöðva núverandi vinnuflæði"
@@ -1091,10 +1434,6 @@ msgstr "Útgáfa í birtingu"
 msgid "Current draft"
 msgstr "Núverandi vinnuskjal"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s síðan"
-
 msgid "No log entries found."
 msgstr "Engar atburðaskráningar fundust."
 
@@ -1111,11 +1450,45 @@ msgstr "Velja síðu"
 msgid "Drag"
 msgstr "Draga"
 
-msgid "Updated"
-msgstr "Uppfært"
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"Rótin er þar sem þú getur bætt við nýjum vefjum í Wagtail uppsetninguna "
+"þína. Síður sem búnar eru til hér verða hvergi aðgengilegar fyrr en þær eru "
+"tengdar við vef.                        "
 
 msgid "Configure a site now."
 msgstr "Stilla síðu núna."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"Ef þú vilt bæta við síðum á núverandi vefi, búðu þær til sem undirsíður "
+"undir viðeigandi forsíðu."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"Síður sem búnar verða til hér verða ekki aðgengilegar á neinni slóð. Til að "
+"bæta við síðum á núverandi vefi, búðu þær til sem undirsíður af forsíðu"
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"Það er ekkert vefsvæði tengt þessum stað. Síður sem búnar verða til hér "
+"verða ekki aðgengilegar fyrr en vefsvæði verður tengt þessum stað."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr ""
+"Það er ekkert vefsvæði tengt þessum stað. Síður sem verða búnar til hér "
+"verða ekki aðgengilegar á neinni slóð."
 
 msgid "No pages have been created at this location."
 msgstr "Engar síður hafa verið búnar til hér."
@@ -1126,13 +1499,6 @@ msgstr "Hví ekki að <a href=\"%(add_page_url)s\">búa til eina</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Þessi síða er læst, ekki hægt að gera frekari breytingar"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Skoða undirsíður %(title)s'"
-
-msgid "Explore"
-msgstr "Skoða"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1147,6 +1513,10 @@ msgstr "Síðuvalmynd"
 
 msgid "Pagination"
 msgstr "Síðuskipting"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Síða %(page_number)s af %(num_pages)s."
 
 msgid "Previous"
 msgstr "Fyrra"
@@ -1166,25 +1536,14 @@ msgstr "Raða"
 msgid "Enable ordering of child pages"
 msgstr "Virkja röðun á undirsíðum"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Veldu nýja yfirsíðu fyrir %(title)s"
+msgid "Updated"
+msgstr "Uppfært"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Veldu nýja yfirsíðu fyrir <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Staðfesta"
 
-msgid "Preview error"
-msgstr "Forskoðunar villa"
-
-msgid "Close"
-msgstr "Loka"
-
-msgid "Current status:"
-msgstr "Núverandi staða:"
-
-msgid "Set page privacy"
-msgstr "Stilla aðgengi síðu"
+msgid "History"
+msgstr "Saga"
 
 msgid "Review this version"
 msgstr "Skoða þessa útgáfu"
@@ -1197,25 +1556,6 @@ msgstr "Bera saman við núverandi útgáfu"
 
 msgid "Cancel scheduled publish"
 msgstr "Hætta við tímasetta birtingu"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Bera saman %(title)s"
-
-msgid "Comparing"
-msgstr "Ber saman"
-
-msgid "Page history"
-msgstr "Saga síðu"
-
-msgid "Fields"
-msgstr "Reitir"
-
-msgid "Changes"
-msgstr "Breytingar"
-
-msgid "There are no differences between these two versions"
-msgstr "Það eru engar breytingar milli þessara útgáfa"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1233,6 +1573,12 @@ msgstr "Já, hætta við"
 msgid "No, don't unschedule"
 msgstr "Nei, ekki hætta við"
 
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Það er ein niðurstaða"
+msgstr[1] "Það eru %(counter)s niðurstöður"
+
 msgid "Page types"
 msgstr "Síðutegundir"
 
@@ -1242,18 +1588,6 @@ msgstr "Því miður þá eru engar síður sem passa við <em>%(query_string)s<
 
 msgid "Enter a search term above"
 msgstr "Sláðu inn leitarorð hér að ofan"
-
-msgid "Locked"
-msgstr "Læst"
-
-msgid "Unlocked"
-msgstr "Aflæst"
-
-msgid "Lock"
-msgstr "Læsa"
-
-msgid "since"
-msgstr "síðan"
 
 msgid "No pages use"
 msgstr "Engar síður nota"
@@ -1288,6 +1622,14 @@ msgstr "Fyrsta útgáfa"
 msgid "Page edited"
 msgstr "Síðu breytt"
 
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s eftir <b>%(who)s</b> <b>%(at)s</b>"
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s  <b>%(at)s</b>"
+
 msgid "with comment:"
 msgstr "með athugasemdum:"
 
@@ -1296,6 +1638,10 @@ msgstr "Vinnuflæði byrjað"
 
 msgid "Workflow completed"
 msgstr "Vinnuflæði lokið"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s eftir <b>%(who)s</b>"
 
 #, python-format
 msgid "Workflow history for %(title)s"
@@ -1332,9 +1678,6 @@ msgstr "Færa upp"
 msgid "Move down"
 msgstr "Færa niður"
 
-msgid "Add comment"
-msgstr "Bæta við athugasemd"
-
 msgid "Comment notifications"
 msgstr "Athugasemda tilkynningar"
 
@@ -1362,14 +1705,23 @@ msgstr "Sækja XLSX"
 msgid "Download CSV"
 msgstr "Sækja CSV"
 
-msgid "Filter"
-msgstr "Sía"
-
-msgid "Apply filters"
-msgstr "Bæta við síum"
-
 msgid "Locking status"
 msgstr "Staða á læsingu"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Læst af <b>þér</b> <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "Læst af <b>%(locked_by)s</b> <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "Læst <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Læst"
 
 msgid "No locked pages found."
 msgstr "Engar læstar síður fundust"
@@ -1399,20 +1751,44 @@ msgstr "Lokið"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Síða %(page_num)s af %(total_pages)s."
 
+msgid "Toggle breadcrumbs"
+msgstr "Sýna/fela brauðmolaslóð"
+
 msgid "Breadcrumb"
 msgstr "Brauðmolar"
 
 msgid "Root"
 msgstr "Rót"
 
-msgid "Home"
-msgstr "Heim"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Taka %(title)s úr loftinu"
 
-msgid "All collections"
-msgstr "Öll söfn"
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Ertu viss um að þú viljir taka %(model_name)s úr loftinu?"
 
-msgid "History"
-msgstr "Saga"
+msgid "Yes, unpublish it"
+msgstr "Já, taka úr loftinu"
+
+msgid "Close dialog"
+msgstr "Loka glugga"
+
+msgid "Add comment"
+msgstr "Bæta við athugasemd"
+
+msgid "Filter"
+msgstr "Sía"
+
+msgid "Apply filters"
+msgstr "Bæta við síum"
+
+msgid "New: "
+msgstr "Nýtt:"
+
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "Breyti %(page_type)s %(title)s"
 
 msgid "Visit the live page"
 msgstr "Skoða birta útgáfu síðunnar"
@@ -1420,8 +1796,157 @@ msgstr "Skoða birta útgáfu síðunnar"
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
 
+msgid "Visible to all. Visit the live page"
+msgstr "Sýnilegt öllum. Skoða birta síðu"
+
+msgid "Private. Visit the live page"
+msgstr "Læst. Skoða birta síðu"
+
+msgid "Visible to all"
+msgstr "Sýnilegt öllum"
+
+msgid "Toggle section"
+msgstr "Sýna/fela síðuhluta"
+
 msgid "Other searches"
 msgstr "Aðrar leitir"
+
+msgid "Toggle side panel"
+msgstr "Sýna/fela hliðarstiku"
+
+msgid "Page Locale: "
+msgstr "Þýðing síðu:"
+
+msgid "Locale: "
+msgstr "Þýðing:"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "%(translations_total)s þýðingar í boði"
+
+msgid "No other translations"
+msgstr "Engar aðrar þýðingar"
+
+msgid "Switch locales"
+msgstr "Skipta um þýðingu"
+
+msgid "Page locking: "
+msgstr "Læsing síðu:"
+
+msgid ""
+"You can edit this page, but others may not. Unlock it to allow others to "
+"edit."
+msgstr ""
+"Þú getur breytt þessari síðu, en ekki endilega aðrir notendur. Aflæstu henni "
+"til að leyfa öðrum að breyta."
+
+msgid "You can edit this page, but others may not."
+msgstr "Þú getur breytt þessari síðu, en ekki endilega aðrir notendur."
+
+msgid "You cannot edit this page. Unlock it to edit."
+msgstr "Þú getur ekki breytt þessari síðu. Aflæstu henni til að breyta."
+
+msgid "You cannot edit this page."
+msgstr "Þú getur ekki breytt þessari síðu."
+
+msgid "Unlocked"
+msgstr "Aflæst"
+
+msgid "Anyone can edit this page. Lock it to prevent others from editing."
+msgstr ""
+"Allir geta breytt þessari síðu. Læstu henni til að koma í veg fyrir að aðrir "
+"notendur geti breytt henni."
+
+msgid "Anyone can edit this page."
+msgstr "Allir geta breytt þessari síðu."
+
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Page visibility: "
+msgstr "Sýnileiki síðu:"
+
+msgid "Once live anyone can view"
+msgstr "Eftir að hún hefur verið birt geta allir séð hana"
+
+msgid "Not visible to the public"
+msgstr "Ekki sýnileg á vefnum"
+
+msgid "Choose who can view the live version of this page"
+msgstr "Veldu hver getur séð birta útgáfu þessarar síðu"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
+
+msgid "Page status: "
+msgstr "Staða síðu:"
+
+msgid "Status: "
+msgstr "Staða:"
+
+msgid "In Moderation"
+msgstr "Bíður samþykktar"
+
+msgid "View details"
+msgstr "Skoða nánar"
+
+msgid "Moderators approval"
+msgstr "Samþykki stjórnanda"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "eftir %(user)s"
+
+msgid "View history"
+msgstr "Skoða sögu"
+
+msgid "This will publish at "
+msgstr "Þetta mun birtast"
+
+msgid "Preview in mobile size"
+msgstr "Forskoða í farsíma stærð"
+
+msgid "Preview in tablet size"
+msgstr "Forskoða í spjaldtölvu stærð"
+
+msgid "Preview in desktop size"
+msgstr "Forskoða í borðtölvu stærð"
+
+msgid "Preview in new tab"
+msgstr "Forskoða í nýjum flipa"
+
+msgid "Loading"
+msgstr "Hleð.."
+
+msgid "Preview is out of date"
+msgstr "Forskoðun er úreld"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Leiðréttu villurnar til að fara aftur í forskoðun (ef þú vistar sérðu hvar "
+"villurnar eru)"
+
+msgid "Preview mode"
+msgstr "Forskoðun"
+
+msgid "First published "
+msgstr "Fyrst sett í loftið"
+
+msgid "Errors Count: "
+msgstr "Fjöldi villna:"
+
+msgid ""
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
+"browser</a>."
+msgstr ""
+"JavaScript er nauðsynlegt til að nota Wagtail, en það er slökkt á því í "
+"vafranum þínum.<br /> Hér eru <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">leiðbeiningar um hvernig á að virkja "
+"Javascript í vafranum þínum</a>."
 
 msgid "Skip to main content"
 msgstr "Hoppa yfir í aðal efni"
@@ -1434,6 +1959,16 @@ msgstr "Bæta við undirsíðu"
 
 msgid "Show in Explorer"
 msgstr "Sýna í veftré"
+
+#, python-format
+msgid ""
+"This workflow is currently in progress on %(workflow_states_in_progress)s "
+"pages. Deleting this workflow will cancel moderation on these page. Are you "
+"sure you want to delete this workflow?"
+msgstr ""
+"Þetta vinnuflæði er í vinnslu á %(workflow_states_in_progress)s síðum. Að "
+"eyða því afvirkjar vinnuflæðið á þessum síðum. Ertu viss um að þú viljir "
+"eyða þessu vinnuflæði?"
 
 msgid "No"
 msgstr "Nei"
@@ -1492,6 +2027,12 @@ msgid "Used by"
 msgstr "Notað af"
 
 #, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 síða"
+msgstr[1] "%(counter)s síður"
+
+#, python-format
 msgid "Step %(step_number)s"
 msgstr "Skref %(step_number)s"
 
@@ -1543,6 +2084,13 @@ msgstr "Því miður, engin skref passa við \"<em>%(query_string)s</em>\""
 msgid "You haven't created any tasks."
 msgstr "Þú hefur ekki búið til nein skref."
 
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
+msgstr ""
+"Af hverju ekki <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>búa til nýtt núna</a>?"
+
 msgid "Hide disabled tasks"
 msgstr "Fela óvirk skref"
 
@@ -1569,14 +2117,6 @@ msgstr "Síður sem nota vinnuflæðið '%(name)s'"
 
 msgid "Pages that use workflow"
 msgstr "Síður sem nota vinnuflæðið"
-
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Sent inn í <em>%(workflow_name)s</em> kl. %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "af %(modified_by)s"
 
 msgid "Submitted"
 msgstr "Sent inn"
@@ -1629,20 +2169,36 @@ msgstr "0 mínútur"
 msgid "Just now"
 msgstr "Rétt í þessu"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
+
 msgid "Log out"
 msgstr "Útskrá"
 
-msgid "live"
-msgstr "Í birtingu"
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "Breytingar umbeðnar %(finished_at)s"
 
-msgid "draft"
-msgstr "uppkast"
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "Sent til %(task_name)s %(started_at)s"
 
-msgid "live + draft"
-msgstr "í birtingu + uppkast"
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
-msgid "Test"
-msgstr "Prufa"
+msgid "Toggle status"
+msgstr "Sýna/fela stöðu"
+
+msgid "Comments"
+msgstr "Athugasemdir"
+
+msgid "Toggle comments"
+msgstr "Sýna/fela athugasemdir"
+
+msgid "Toggle preview"
+msgstr "Sýna/fela forskoðun"
 
 msgid "Profile"
 msgstr "Prófíll"
@@ -1698,8 +2254,54 @@ msgstr "Safni '{0}' eytt."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ertu viss um að þú viljir eyða þessu safni?"
 
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
+msgstr ""
+"Þú ert að skoða eldri útgáfu af þessu %(model_name)s frá <b>%(created_at)s</"
+"b> eftir %(user)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{instance}' has been replaced with version from {timestamp}."
+msgstr ""
+"{model_name} '{instance}' hefur verið skipt út fyrir  útgáfu frá {timestamp}."
+
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been published."
+msgstr ""
+"Útgáfa frá {timestamp} af {model_name} '{instance}' hefur verið sett í "
+"loftið."
+
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Leita að  %(model_name)s"
+
+#, python-brace-format
+msgid "'{0}' has been created and published."
+msgstr "'{0}' vistað og sett í loftið."
+
 msgid "Editing"
 msgstr "Breyti"
+
+#, python-brace-format
+msgid "'{0}' has been published."
+msgstr "'{0}' hefur verið sett í loftið."
+
+msgid "Earliest"
+msgstr "Fyrsta"
+
+msgid "Latest"
+msgstr "Nýjasta"
+
+#, python-brace-format
+msgid "'{object_name}' unpublished."
+msgstr "'{object_name}' tekið úr loftinu."
+
+msgid "Dashboard"
+msgstr "Yfirlitssíða"
 
 msgid "Delete selected pages"
 msgstr "Eyða völdum síðu"
@@ -1860,27 +2462,6 @@ msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu af {1}."
 msgid "Page '{0}' has been updated."
 msgstr "Síða '{0}' hefur verið uppfærð."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Síðu '{}' var læst</b> af <b>þér</b> á <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Síðu '{}' er læst</b> af <b>þér</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Síðu '{}' var læst</b> af <b>{}</b> á <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Síða '{}' er læst</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Þessi síða bíður yfirferðar."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Þessi síða bíður eftir <b>'{}'</b> í vinnuflæðinu <b>'{}'</b> ."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Aðeins þeir sem geta farið yfir þetta skref geta breytt síðunni."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Hætt hefur verið við vinnuflæði á síðu '{0}' "
@@ -1924,6 +2505,9 @@ msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villupróf
 msgid "Hide commenting actions"
 msgstr "Fela athugasemdaaðgerðir"
 
+msgid "Page history"
+msgstr "Saga síðu"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Síða '{0}' er nú ólæst."
@@ -1965,12 +2549,6 @@ msgid ""
 msgstr ""
 "Þú ert að skoða eldri útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
 "%(user)s"
-
-msgid "Earliest"
-msgstr "Fyrsta"
-
-msgid "Latest"
-msgstr "Nýjasta"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2135,13 +2713,8 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Skref '{0}' virkt."
 
-msgid "Server Error"
-msgstr "Villa á vefþjóni"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
+msgid "Change"
+msgstr "Breyta"
 
 msgid "Pages"
 msgstr "Síður"
@@ -2196,6 +2769,12 @@ msgstr "Röðun undirsíðna"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Breyta röðun undirsíðna '%(title)s'"
 
+msgid "Translate"
+msgstr "Þýða"
+
+msgid "Translate this page"
+msgstr "Þýða þessa síðu"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Fyrirsögn %(level)d"
@@ -2242,17 +2821,15 @@ msgstr "Já"
 msgid "Choose an item"
 msgstr "Veldu"
 
-msgid "Choose another item"
-msgstr "Veldu annað"
-
-msgid "Clear choice"
+msgid "Clear"
 msgstr "Hreinsa"
 
-msgid "Choose another page"
-msgstr "Veldu aðra síðu"
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"Merki sem fela í sér mörg orð með stafabilum munu sjálfkrafa verða sett í "
+"tvöfaldar gæsalappir (\")."
 
-msgid "Choose another task"
-msgstr "Velja annað skref"
-
-msgid "Edit this task"
-msgstr "Breyta þessu skrefi"
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Merki geta eingöngu verið eitt orð, engin stafabil leyfð."

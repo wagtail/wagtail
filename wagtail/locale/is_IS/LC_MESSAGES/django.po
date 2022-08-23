@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
-# saevarom <saevar@saevar.is>, 2019-2021
+# saevarom <saevar@saevar.is>, 2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2019-2021\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2019-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail kjarni"
@@ -59,6 +62,15 @@ msgstr "Þessi blokk hefur enga valmöguleika."
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sitemaps"
+
 msgid "Password"
 msgstr "Lylkilorð"
 
@@ -67,6 +79,75 @@ msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aft
 
 msgid "Comment"
 msgstr "Athugasemd"
+
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Síðu '{}' var læst</b> af <b>þér</b> á <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Síðu '{}' er læst</b> af <b>þér</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Síðu '{}' var læst</b> af <b>{}</b> á <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Síða '{}' er læst</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Þessi síða bíður yfirferðar."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Þessi síða bíður eftir <b>'{}'</b> í vinnuflæðinu <b>'{}'</b> ."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Aðeins þeir sem geta farið yfir þetta skref geta breytt síðunni."
+
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr "Síða '{}' er læst og hefur verið stillt á að fara í loftið {}"
+
+msgid "latest revision"
+msgstr "nýjasta útgáfa"
+
+msgid "live"
+msgstr "Í birtingu"
+
+msgid "has unpublished changes"
+msgstr "er með óvistaðar breytingar."
+
+msgid "first published at"
+msgstr "fyrst sett í loftið"
+
+msgid "last published at"
+msgstr "síðast gefið út"
+
+msgid "live revision"
+msgstr "útgáfa í birtingu"
+
+msgid "go live date/time"
+msgstr "setja í loftið dags/tíma"
+
+msgid "expiry date/time"
+msgstr "taka úr loftinu dags/tíma"
+
+msgid "expired"
+msgstr "tekin úr loftinu"
+
+msgid "draft"
+msgstr "uppkast"
+
+msgid "live + draft"
+msgstr "í birtingu + uppkast"
+
+msgid "Default"
+msgstr "Sjálfgefið"
+
+msgid "locked"
+msgstr "læst"
+
+msgid "locked at"
+msgstr "læst á"
+
+msgid "locked by"
+msgstr "læst af"
 
 msgid "title"
 msgstr "titill"
@@ -86,12 +167,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "efnistegund"
-
-msgid "live"
-msgstr "Í birtingu"
-
-msgid "has unpublished changes"
-msgstr "er með óvistaðar breytingar."
 
 msgid "URL path"
 msgstr "Slóð"
@@ -122,35 +197,8 @@ msgid ""
 "results."
 msgstr "Lýsandi texti sem birtist undir fyrirsögn í leitarvélum."
 
-msgid "go live date/time"
-msgstr "setja í loftið dags/tíma"
-
-msgid "expiry date/time"
-msgstr "taka úr loftinu dags/tíma"
-
-msgid "expired"
-msgstr "tekin úr loftinu"
-
-msgid "locked"
-msgstr "læst"
-
-msgid "locked at"
-msgstr "læst á"
-
-msgid "locked by"
-msgstr "læst af"
-
-msgid "first published at"
-msgstr "fyrst sett í loftið"
-
-msgid "last published at"
-msgstr "síðast gefið út"
-
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
-
-msgid "live revision"
-msgstr "útgáfa í birtingu"
 
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
@@ -161,26 +209,20 @@ msgstr "tímasett"
 msgid "in moderation"
 msgstr "bíður samþykktar"
 
-msgid "draft"
-msgstr "uppkast"
-
 msgid "live + scheduled"
 msgstr "í loftinu + tímasett"
 
 msgid "live + in moderation"
 msgstr "í birtingu + bíður samþykktar"
 
-msgid "live + draft"
-msgstr "í birtingu + uppkast"
-
-msgid "Default"
-msgstr "Sjálfgefið"
-
 msgid "page"
 msgstr "síða"
 
 msgid "pages"
 msgstr "íður"
+
+msgid "object id"
+msgstr "object id"
 
 msgid "submitted for moderation"
 msgstr "send inn til samþykktar"
@@ -197,10 +239,10 @@ msgstr "efni JSON"
 msgid "approved go live at"
 msgstr "samþykkta að fara í loftið"
 
-msgid "page revision"
+msgid "revision"
 msgstr "útgáfa"
 
-msgid "page revisions"
+msgid "revisions"
 msgstr "útgáfur"
 
 msgid "Add/edit pages you own"
@@ -377,6 +419,9 @@ msgstr "Sleppt"
 
 msgid "workflow state"
 msgstr "staða vinnuflæðis"
+
+msgid "page revision"
+msgstr "útgáfa"
 
 msgid "started at"
 msgstr "byrjaði"
@@ -561,15 +606,6 @@ msgstr "Þú þarft lykilorð til að fá aðgang að þessari síðu"
 
 msgid "Continue"
 msgstr "Áfram"
-
-msgid "English"
-msgstr "Enska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "German"
-msgstr "Þýska"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -874,8 +910,8 @@ msgid "Workflow: resume task"
 msgstr "Vinnuflæði: halda áfram með skref"
 
 #, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Endursendi skref '%(task)s'. Vinnuflæði endurvakið'"
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Endursendi '%(task)s'. Vinnuflæði endurvakið"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Vinnuflæðiskref endursent. Vinnuflæði endurvakið"

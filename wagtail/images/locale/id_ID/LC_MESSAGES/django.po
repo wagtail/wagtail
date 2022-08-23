@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -146,15 +146,6 @@ msgstr[0] "Digunakan %(usage_count)s kali"
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-msgid "Choose an image"
-msgstr "Pilih sebuah gambar"
-
-msgid "Search"
-msgstr "Cari"
-
-msgid "Upload"
-msgstr "Unggah"
-
 msgid "Popular tags"
 msgstr "Tag Populer"
 
@@ -169,9 +160,6 @@ msgstr "Pilih format"
 
 msgid "Insert image"
 msgstr "Masukkan gambar"
-
-msgid "Uploading…"
-msgstr "Mengunggah..."
 
 msgid "Change image file:"
 msgstr "Ubah berkas gambar:"
@@ -218,9 +206,6 @@ msgstr "Penggunaan"
 
 msgid "Images"
 msgstr "Gambar"
-
-msgid "Clear choice"
-msgstr "Kosongkan pilihan"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -323,6 +308,15 @@ msgstr "Tambahkan izin gambar"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Upload"
+msgstr "Unggah"
+
+msgid "Uploading…"
+msgstr "Mengunggah..."
+
+msgid "Choose an image"
+msgstr "Pilih sebuah gambar"
+
 msgid "Search images"
 msgstr "Cari gambar"
 
@@ -361,9 +355,3 @@ msgstr "Gambar"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s gambar"
-
-msgid "Change image"
-msgstr "Ubah gambar"
-
-msgid "Edit this image"
-msgstr "Ubah gambar ini"

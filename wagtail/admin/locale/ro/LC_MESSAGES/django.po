@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -42,9 +42,6 @@ msgstr "Anulează flux de lucru"
 
 msgid "Unpublish"
 msgstr "Anulează publicarea"
-
-msgid "Delete"
-msgstr "Șterge"
 
 msgid "Save Draft"
 msgstr "Salvează ciornă"
@@ -108,6 +105,18 @@ msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 msgid "URL"
 msgstr "Adresă de internet"
 
+msgid "Search term"
+msgstr "Termen de căutare"
+
+msgid "Search"
+msgstr "Căutare"
+
+msgid "All collections"
+msgstr "Toate colecțiile"
+
+msgid "Collection"
+msgstr "Colecție"
+
 msgid "Parent"
 msgstr "Bază"
 
@@ -125,9 +134,6 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
-msgid "Collection"
-msgstr "Colecție"
-
 msgid "Add"
 msgstr "Adaugă"
 
@@ -139,6 +145,9 @@ msgstr "Editează"
 
 msgid "Edit collections"
 msgstr "Editează colecții"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Delete collections"
 msgstr "Șterge colecții"
@@ -222,12 +231,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
-msgid "Search"
-msgstr "Căutare"
-
-msgid "Search term"
-msgstr "Termen de căutare"
-
 msgid "Visibility"
 msgstr "Vizibilitate"
 
@@ -254,6 +257,9 @@ msgstr "Dați un nume fluxului de lucru"
 
 msgid "Add tasks to your workflow"
 msgstr "Adăugați sarcini la fluxul de lucru"
+
+msgid "Task"
+msgstr "Sarcina"
 
 msgid "1 page selected"
 msgstr "1 pagină selectată"
@@ -328,8 +334,8 @@ msgstr "Toate articolele din listă selectate"
 msgid "Scheduled publishing"
 msgstr "Publicare programată"
 
-msgid "Privacy"
-msgstr "Confidențialitate"
+msgid "Page title"
+msgstr "Titlu pagină"
 
 msgid "For search engines"
 msgstr "Pentru mașini de căutare"
@@ -345,15 +351,6 @@ msgstr "Promovează"
 
 msgid "Settings"
 msgstr "Setări"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Comments"
-msgstr "Comentarii"
-
-msgid "Preview"
-msgstr "Examinare"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
@@ -375,15 +372,6 @@ msgstr "Mai multe acțiuni"
 
 msgid "Save account details"
 msgstr "Salvează detaliile contului"
-
-msgid "Change password"
-msgstr "Schimbă parola"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
-"sitului."
 
 msgid "Reset password"
 msgstr "Resetează parola"
@@ -494,6 +482,13 @@ msgstr "Adaugă un link extern"
 msgid "Add a phone link"
 msgstr "Adaugă link telefonic"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorează subpaginile '%(title)s'"
+
+msgid "Explore"
+msgstr "Explorează"
+
 msgid "Collection privacy"
 msgstr "Confidențialitate colecție"
 
@@ -503,14 +498,17 @@ msgstr "Această colecție a fost făcută privată de către o colecție părin
 msgid "You can edit the privacy settings on:"
 msgstr "Puteți edita setările de confidențialitate la:"
 
+msgid "Save"
+msgstr "Salvează"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Setările de confidențialitate determinp cine poate să vizualizeze "
 "documentele din această colecție"
 
-msgid "Save"
-msgstr "Salvează"
+msgid "Privacy"
+msgstr "Confidențialitate"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Setați confidențialitatea colecției. Starea actuală: Public"
@@ -545,8 +543,21 @@ msgstr "Da, șterge"
 msgid "Update"
 msgstr "Actualizează"
 
-msgid "Dashboard"
-msgstr "Bord"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparare %(title)s"
+
+msgid "Comparing"
+msgstr "Comparare"
+
+msgid "Fields"
+msgstr "Câmpuri"
+
+msgid "Changes"
+msgstr "Modificări"
+
+msgid "There are no differences between these two versions"
+msgstr "Aceste două versiuni nu au nici o diferență"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -578,10 +589,6 @@ msgstr "Ciornă"
 msgid "Live"
 msgstr "Activată"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Pagini în moderație"
 
@@ -600,8 +607,14 @@ msgstr "Aprobă"
 msgid "Reject"
 msgstr "Respinge"
 
+msgid "Preview"
+msgstr "Examinare"
+
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Date"
 msgstr "Dată"
@@ -611,9 +624,6 @@ msgstr "Rezumat sait"
 
 msgid "Your pages in a workflow"
 msgstr "Paginile D-stră în flux de lucru"
-
-msgid "Task"
-msgstr "Sarcina"
 
 msgid "Task started"
 msgstr "Sarcină incepută"
@@ -636,22 +646,22 @@ msgstr "Sarcină depusă de"
 msgid "Sign in"
 msgstr "Conectare"
 
+msgid "Sign in to Wagtail"
+msgstr "Conectați-vă la Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "%(username_field)s și parola nu corespund. Vă rugăm să încercați din nou."
 
-msgid "Sign in to Wagtail"
-msgstr "Conectați-vă la Wagtail"
+msgid "Forgotten password?"
+msgstr "Ați uitat parola?"
 
 msgid "Remember me"
 msgstr "Ține-mă minte"
 
 msgid "Signing in…"
 msgstr "În curs de conectare…"
-
-msgid "Forgotten password?"
-msgstr "Ați uitat parola?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -819,23 +829,6 @@ msgstr "Confidențialitate"
 
 msgid "This page has been made private by a parent page."
 msgstr "Această pagină a fost făcută privată de către o pagină părinte."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Schimbările setărilor de confidențialitate se aplică și pentru toate "
-"paginile descendente."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Setați confidențialitatea paginii. Starea actuală: Public"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Setați confidențialitatea paginii. Starea actuală: Privat"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Confidențialitatea paginii. Starea actuală: Public"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Confidențialitatea paginii. Starea actuală: Privat"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Aveți <span>editări nesalvate</span>"
@@ -1014,15 +1007,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Da, mută această pagină"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Anulează publicarea %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea acestei pagini?"
-
-msgid "Yes, unpublish it"
-msgstr "Da, anulează publicarea"
 
 msgid "Publish page"
 msgstr "Publică pagina"
@@ -1098,10 +1084,6 @@ msgstr "Versiune live"
 msgid "Current draft"
 msgstr "Ciornă curentă"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s în urmă"
-
 msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."
 
@@ -1118,9 +1100,6 @@ msgstr "Selectează pagină"
 msgid "Drag"
 msgstr "Glisează"
 
-msgid "Updated"
-msgstr "Actualizată"
-
 msgid "Configure a site now."
 msgstr "Configurează un sait."
 
@@ -1133,13 +1112,6 @@ msgstr "De ce să nu <a href=\"%(add_page_url)s\">creați una</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Această pagină este blocată pentru editări ulterioare."
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Explorează subpaginile '%(title)s'"
-
-msgid "Explore"
-msgstr "Explorează"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1173,25 +1145,14 @@ msgstr "Sortează"
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Alege o pagină de bază nouă pentru %(title)s"
+msgid "Updated"
+msgstr "Actualizată"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Alege o pagină de bază nouă pentru <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Confirmează"
 
-msgid "Preview error"
-msgstr "Eroare de previzualizare"
-
-msgid "Close"
-msgstr "Închideți"
-
-msgid "Current status:"
-msgstr "Stare curentă:"
-
-msgid "Set page privacy"
-msgstr "Setează confidențialitatea paginii"
+msgid "History"
+msgstr "Istorie"
 
 msgid "Review this version"
 msgstr "Revezi această versiune"
@@ -1204,25 +1165,6 @@ msgstr "Compară cu versiunea curentă"
 
 msgid "Cancel scheduled publish"
 msgstr "Anulează publicarea programată"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparare %(title)s"
-
-msgid "Comparing"
-msgstr "Comparare"
-
-msgid "Page history"
-msgstr "Istoria paginii"
-
-msgid "Fields"
-msgstr "Câmpuri"
-
-msgid "Changes"
-msgstr "Modificări"
-
-msgid "There are no differences between these two versions"
-msgstr "Aceste două versiuni nu au nici o diferență"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1250,18 +1192,6 @@ msgstr ""
 
 msgid "Enter a search term above"
 msgstr "Introduceți termenii de căutare mai sus"
-
-msgid "Locked"
-msgstr "Blocat"
-
-msgid "Unlocked"
-msgstr "A deblochat"
-
-msgid "Lock"
-msgstr "Blochează"
-
-msgid "since"
-msgstr "de la"
 
 msgid "No pages use"
 msgstr "Nici o pagină nu utilizează"
@@ -1340,9 +1270,6 @@ msgstr "Deplasează în sus"
 msgid "Move down"
 msgstr "Deplasează în jos"
 
-msgid "Add comment"
-msgstr "Adaugă comentariu"
-
 msgid "Comment notifications"
 msgstr "Notificări comentarii"
 
@@ -1370,14 +1297,11 @@ msgstr "Descarcă XLSX"
 msgid "Download CSV"
 msgstr "Descarcă CSV"
 
-msgid "Filter"
-msgstr "Filtrează"
-
-msgid "Apply filters"
-msgstr "Aplică filtre"
-
 msgid "Locking status"
 msgstr "Stare blocare"
+
+msgid "Locked"
+msgstr "Blocat"
 
 msgid "No locked pages found."
 msgstr "Nu s-au găsit pagini blocate."
@@ -1413,14 +1337,21 @@ msgstr "Traseu navigare"
 msgid "Root"
 msgstr "Pagină de bază"
 
-msgid "Home"
-msgstr "Acasă"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Anulează publicarea %(title)s"
 
-msgid "All collections"
-msgstr "Toate colecțiile"
+msgid "Yes, unpublish it"
+msgstr "Da, anulează publicarea"
 
-msgid "History"
-msgstr "Istorie"
+msgid "Add comment"
+msgstr "Adaugă comentariu"
+
+msgid "Filter"
+msgstr "Filtrează"
+
+msgid "Apply filters"
+msgstr "Aplică filtre"
 
 msgid "Visit the live page"
 msgstr "Accesați pagina live"
@@ -1430,6 +1361,17 @@ msgstr "Starea paginii curente:"
 
 msgid "Other searches"
 msgstr "Alte căutări"
+
+msgid "Unlocked"
+msgstr "A deblochat"
+
+msgid "Lock"
+msgstr "Blochează"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Schimbările setărilor de confidențialitate se aplică și pentru toate "
+"paginile descendente."
 
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
@@ -1581,14 +1523,6 @@ msgstr "Pagini cu fluxul de lucru '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Pagini cu fluxul de lucru"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Trimits către <em>%(workflow_name)s</em> la %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "de către %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Trimis"
 
@@ -1643,20 +1577,15 @@ msgstr "0 minute"
 msgid "Just now"
 msgstr "Acum"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
+
 msgid "Log out"
 msgstr "Deconectare"
 
-msgid "live"
-msgstr "live"
-
-msgid "draft"
-msgstr "ciornă"
-
-msgid "live + draft"
-msgstr "live + ciornă"
-
-msgid "Test"
-msgstr "Test"
+msgid "Comments"
+msgstr "Comentarii"
 
 msgid "Profile"
 msgstr "Profil"
@@ -1714,6 +1643,15 @@ msgstr "Sigur doriți să ștergeți această colecție?"
 
 msgid "Editing"
 msgstr "Editare"
+
+msgid "Earliest"
+msgstr "Cea mai veche"
+
+msgid "Latest"
+msgstr "Cea mai recentă"
+
+msgid "Dashboard"
+msgstr "Bord"
 
 msgid "Delete selected pages"
 msgstr "Șterge paginile selectate"
@@ -1892,27 +1830,6 @@ msgstr "Pagina '{0}' a fost schimbată cu versiunea {1}."
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' a fost actualizată."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Pagina '{}' a fost blocată</b> de <b>tine</b> la <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Pagina '{}' esta blocată</b> de <b>tine</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Pagina '{}' a fost blocată</b> de <b>{}</b> la <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Pagina '{}' este blocată</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Această pagină este în moderare"
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Acestă pagină așteaptă <b>'{}'</b> în fluxul de lucru <b>'{}'</b>"
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Numai revizuitorii acestei sarcini pot să editeze pagina."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Fluxul de lucru al paginii '{0}' a fost anulat."
@@ -1955,6 +1872,9 @@ msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 msgid "Hide commenting actions"
 msgstr "Ascunde acțiunile de comentare"
 
+msgid "Page history"
+msgstr "Istoria paginii"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."
@@ -1996,12 +1916,6 @@ msgid ""
 msgstr ""
 "Sunteți în process de vizualizare a versiunii precedente a paginii din <b>"
 "%(created_at)s</b> de către %(user)s"
-
-msgid "Earliest"
-msgstr "Cea mai veche"
-
-msgid "Latest"
-msgstr "Cea mai recentă"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2176,15 +2090,8 @@ msgstr[2] ""
 msgid "Task '{0}' enabled."
 msgstr "Sarcina '{0}' a fost activată."
 
-msgid "Server Error"
-msgstr "Eroare de server"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Raportează această eroare admistratorului site-ului cu următoarele "
-"informații:"
+msgid "Change"
+msgstr "Modifică"
 
 msgid "Pages"
 msgstr "Pagini"
@@ -2239,6 +2146,12 @@ msgstr "Sortează ordinea de meniu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Schimbă ordinea paginilor dependente de '%(title)s'"
 
+msgid "Translate"
+msgstr "Traduce"
+
+msgid "Translate this page"
+msgstr "Traduceți această pagină"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Antet %(level)d"
@@ -2284,18 +2197,3 @@ msgstr "Da"
 
 msgid "Choose an item"
 msgstr "Alege un element"
-
-msgid "Choose another item"
-msgstr "Alege un alt element"
-
-msgid "Clear choice"
-msgstr "Curăță selecție"
-
-msgid "Choose another page"
-msgstr "Alege altă pagină"
-
-msgid "Choose another task"
-msgstr "Crează altă sarcină"
-
-msgid "Edit this task"
-msgstr "Editează sarcină"

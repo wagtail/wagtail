@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -58,6 +58,39 @@ msgstr "كلمة سر"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
 
+msgid "live"
+msgstr "حي"
+
+msgid "has unpublished changes"
+msgstr "يحتوي على تغييرات غير منشورة"
+
+msgid "first published at"
+msgstr "نشر للمرة الأولى في"
+
+msgid "last published at"
+msgstr "نشرت في"
+
+msgid "go live date/time"
+msgstr "تاريخ النشر / الوقت"
+
+msgid "expiry date/time"
+msgstr "تاريخ انتهاء الصلاحية / الوقت"
+
+msgid "expired"
+msgstr "منقضٍ"
+
+msgid "draft"
+msgstr "مسود"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
+
+msgid "Default"
+msgstr "عادي"
+
+msgid "locked"
+msgstr "مغلق"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -75,12 +108,6 @@ msgstr "اسم الصفحة كما ستظهر في URLs e.g http://domain.com/bl
 msgid "content type"
 msgstr "نوع المحتوى"
 
-msgid "live"
-msgstr "حي"
-
-msgid "has unpublished changes"
-msgstr "يحتوي على تغييرات غير منشورة"
-
 msgid "URL path"
 msgstr "مسار عنوان URL"
 
@@ -95,24 +122,6 @@ msgid ""
 msgstr ""
 "ما إذا كان رابط إلى هذه الصفحة سيظهر في القوائم التي يتم إنشاؤها تلقائيًا"
 
-msgid "go live date/time"
-msgstr "تاريخ النشر / الوقت"
-
-msgid "expiry date/time"
-msgstr "تاريخ انتهاء الصلاحية / الوقت"
-
-msgid "expired"
-msgstr "منقضٍ"
-
-msgid "locked"
-msgstr "مغلق"
-
-msgid "first published at"
-msgstr "نشر للمرة الأولى في"
-
-msgid "last published at"
-msgstr "نشرت في"
-
 msgid "latest revision created at"
 msgstr "أحدث نسخة تم إنشاؤها في"
 
@@ -122,17 +131,8 @@ msgstr "هذه السقالة هي بالفعل قيد الاستخدام"
 msgid "scheduled"
 msgstr "موقت"
 
-msgid "draft"
-msgstr "مسود"
-
 msgid "live + scheduled"
 msgstr "حي + مجدول"
-
-msgid "live + draft"
-msgstr "حي + مسودة"
-
-msgid "Default"
-msgstr "عادي"
 
 msgid "page"
 msgstr "صفحة"
@@ -154,12 +154,6 @@ msgstr "محتوى JSON"
 
 msgid "approved go live at"
 msgstr "وافق على النشر في"
-
-msgid "page revision"
-msgstr "مراجعة صفحة"
-
-msgid "page revisions"
-msgstr "مراجعة صفحات"
 
 msgid "Add/edit pages you own"
 msgstr "أضف أو نقح سفحات أنت الصاحب لها "
@@ -214,6 +208,9 @@ msgstr "مجموعات"
 
 msgid "Approve"
 msgstr "موافق"
+
+msgid "page revision"
+msgstr "مراجعة صفحة"
 
 msgid "collection"
 msgstr "مجموعة"
@@ -329,15 +326,6 @@ msgstr "هذه الصفحة تتطلب كلمة مرور."
 
 msgid "Continue"
 msgstr "أكمل"
-
-msgid "English"
-msgstr "الإنجليزية"
-
-msgid "French"
-msgstr "الفرنسية"
-
-msgid "German"
-msgstr "الألمانية"
 
 msgid "Edited"
 msgstr "محررة"

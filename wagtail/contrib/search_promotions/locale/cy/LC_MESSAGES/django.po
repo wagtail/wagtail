@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -73,7 +73,7 @@ msgstr "Symyd i fyny"
 msgid "Move down"
 msgstr "Symyd i lawr"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Canlyniad chwilio wedi'i hyrwyddo"
 
 msgid "Add recommended page"
@@ -81,9 +81,6 @@ msgstr "Ychwanegu tudalen a argymhellir"
 
 msgid "Search Terms"
 msgstr "Termau Chwilio"
-
-msgid "Promoted search results"
-msgstr "Canlyniad chwilio wedi'i hyrwyddo"
 
 msgid "Add new promoted result"
 msgstr "Ychwanegu canlyniad newydd a hyrwyddir"

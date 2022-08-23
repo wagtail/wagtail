@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: André Bouatchidzé <a@anbz.net>, 2015\n"
 "Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -30,9 +30,6 @@ msgstr "დამატება"
 
 msgid "Edit"
 msgstr "რედაქტირება"
-
-msgid "Search"
-msgstr "ძიება"
 
 msgid "New"
 msgstr "ახალი"
@@ -83,6 +80,3 @@ msgstr "გამოსახულება '{0}' წაშლილია."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "გამოსახულება '{0}' დამატებულია."
-
-msgid "Edit this image"
-msgstr "ამ გამოსახულების რედაქტირება"

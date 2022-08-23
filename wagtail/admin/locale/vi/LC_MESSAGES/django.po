@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vu Pham, 2021-2022\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -29,9 +29,6 @@ msgstr "Khởi động lại luồng công việc"
 
 msgid "Unpublish"
 msgstr "Thu hồi xuất bản"
-
-msgid "Delete"
-msgstr "Xoá"
 
 msgid "Save Draft"
 msgstr "Lưu bản nháp"
@@ -77,6 +74,9 @@ msgstr "Nhập địa chỉ email của bạn để thiết lập lại mật kh
 msgid "URL"
 msgstr "URL"
 
+msgid "Search"
+msgstr "Tìm kiếm"
+
 msgid "Collection"
 msgstr "Bộ sưu tập"
 
@@ -86,11 +86,11 @@ msgstr "Thêm"
 msgid "Edit"
 msgstr "Biên tập"
 
+msgid "Delete"
+msgstr "Xoá"
+
 msgid "New title"
 msgstr "Tiêu đề mới"
-
-msgid "Search"
-msgstr "Tìm kiếm"
 
 msgid "Please select at least one group."
 msgstr "Hãy lựa chọn ít nhất một nhóm."
@@ -104,20 +104,11 @@ msgstr "1 hình ảnh được chọn"
 msgid "Settings"
 msgstr "Tùy chỉnh"
 
-msgid "Status"
-msgstr "Trạng thái"
-
-msgid "Preview"
-msgstr "Xem trước"
-
 msgid "Error 404"
 msgstr "Lỗi 404"
 
 msgid "Account"
 msgstr "Tài khoản"
-
-msgid "Change password"
-msgstr "Thay mật khẩu"
 
 msgid "Reset password"
 msgstr "Khôi phục mật khẩu"
@@ -167,8 +158,12 @@ msgstr "Tên"
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 
-msgid "Dashboard"
-msgstr "Trang tổng quan"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "So sánh %(title)s"
+
+msgid "Comparing"
+msgstr "So sánh"
 
 msgid "Title"
 msgstr "Tiêu đề"
@@ -184,6 +179,12 @@ msgstr "Phê chuẩn"
 
 msgid "Reject"
 msgstr "Từ chối"
+
+msgid "Preview"
+msgstr "Xem trước"
+
+msgid "Status"
+msgstr "Trạng thái"
 
 msgid "Date"
 msgstr "Ngày"
@@ -210,25 +211,6 @@ msgstr "Sao chép"
 msgid "Comment"
 msgstr "Bình luận"
 
-msgid "Close"
-msgstr "Đóng"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "So sánh %(title)s"
-
-msgid "Comparing"
-msgstr "So sánh"
-
-msgid "Locked"
-msgstr "Đã bị khóa"
-
-msgid "Unlocked"
-msgstr "Đã được mở khóa"
-
-msgid "Lock"
-msgstr "Khóa"
-
 #, python-format
 msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
 msgstr "Trạng thái <span class=\"status-tag primary\">%(status)s</span>"
@@ -243,26 +225,29 @@ msgstr "Sửa trang"
 msgid "Add %(label)s"
 msgstr "Thêm %(label)s"
 
-msgid "Add comment"
-msgstr "Thêm bình luận"
-
 msgid "Download XLSX"
 msgstr "Tải XLSX"
 
 msgid "Download CSV"
 msgstr "Tải CSV"
 
+msgid "Locked"
+msgstr "Đã bị khóa"
+
 msgid "Page"
 msgstr "Trang"
 
-msgid "Home"
-msgstr "Trang Chủ"
+msgid "Add comment"
+msgstr "Thêm bình luận"
+
+msgid "Unlocked"
+msgstr "Đã được mở khóa"
+
+msgid "Lock"
+msgstr "Khóa"
 
 msgid "Published"
 msgstr "Đã xuất bản"
-
-msgid "draft"
-msgstr "bản nháp"
 
 msgid "Password"
 msgstr "Mật khẩu"
@@ -270,11 +255,14 @@ msgstr "Mật khẩu"
 msgid "Editing"
 msgstr "Chỉnh sửa"
 
-msgid "View live"
-msgstr "Xem bản live"
-
 msgid "Earliest"
 msgstr "Sớm nhất"
+
+msgid "Dashboard"
+msgstr "Trang tổng quan"
+
+msgid "View live"
+msgstr "Xem bản live"
 
 msgid "Date/Time"
 msgstr "Ngày/Giờ"
@@ -295,8 +283,11 @@ msgstr "Luồng công việc '{0}' đã được tạo."
 msgid "Editing workflow"
 msgstr "Biên tập luồng công việc"
 
-msgid "Server Error"
-msgstr "Lỗi Hệ thống"
+msgid "Change"
+msgstr "Sửa"
 
 msgid "Pages"
 msgstr "Trang"
+
+msgid "Translate"
+msgstr "Dịch"

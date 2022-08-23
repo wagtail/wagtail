@@ -72,6 +72,3 @@ msgstr "Lỗi Hệ thống"
 
 msgid "Show error"
 msgstr "Hiển thị lỗi"
-
-msgid "Undo"
-msgstr "Hoàn tác"

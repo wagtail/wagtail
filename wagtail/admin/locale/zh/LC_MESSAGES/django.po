@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: hanfeng <appweb.cn@gmail.com>, 2014,2017\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr "提交审核"
 
 msgid "Unpublish"
 msgstr "取消发布"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "You do not have permission to access the admin"
 msgstr "您没有进入后台的权限"
@@ -57,6 +54,12 @@ msgstr "输入您的电子邮箱来重置您的密码"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "搜索词"
+
+msgid "Search"
+msgstr "搜索"
+
 msgid "Parent"
 msgstr "上一级"
 
@@ -66,17 +69,17 @@ msgstr "添加"
 msgid "Edit"
 msgstr "编辑"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "New title"
 msgstr "新标题"
 
 msgid "This slug is already in use"
 msgstr "这个唯一的地址已被占用"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索词"
+msgid "Page title"
+msgstr "页面标题"
 
 msgid "Content"
 msgstr "内容"
@@ -84,21 +87,8 @@ msgstr "内容"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Status"
-msgstr "状态"
-
-msgid "Preview"
-msgstr "预览"
-
 msgid "Account"
 msgstr "账号"
-
-msgid "Change password"
-msgstr "修改密码"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "您的密码不能在此更改。请联系网站管理员。"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -145,6 +135,9 @@ msgstr "插入一个链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
+msgid "Explore"
+msgstr "浏览"
+
 msgid "Save"
 msgstr "保存"
 
@@ -156,9 +149,6 @@ msgstr "是的，删除"
 
 msgid "Update"
 msgstr "更新"
-
-msgid "Dashboard"
-msgstr "仪表板"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -193,8 +183,14 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
+msgid "Preview"
+msgstr "预览"
+
 msgid "Your most recent edits"
 msgstr "你最近的编辑"
+
+msgid "Status"
+msgstr "状态"
 
 msgid "Date"
 msgstr "日期"
@@ -294,15 +290,8 @@ msgstr "你确定你要移动这页和其所有子页面至'%(title)s'吗?"
 msgid "Yes, move this page"
 msgstr "是的，移动这页"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "停止发布%(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "你确定你想停止发布这页吗？"
-
-msgid "Yes, unpublish it"
-msgstr "是的，停止发布"
 
 msgid "Pages using"
 msgstr "页面在用"
@@ -321,9 +310,6 @@ msgstr "浏览%(title)s"
 msgid "Drag"
 msgstr "拖动"
 
-msgid "Explore"
-msgstr "浏览"
-
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
@@ -340,14 +326,6 @@ msgstr "禁止自页面的顺序"
 msgid "Enable ordering of child pages"
 msgstr "开启子页面顺序"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "为%(title)s选择一个新的根页面"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "为<span>%(title)s</span>选择一个新的根页面"
-
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
 
@@ -361,15 +339,15 @@ msgstr "向下移动"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第%(page_num)s页 共%(total_pages)s页"
 
-msgid "Home"
-msgstr "主页"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "停止发布%(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "是的，停止发布"
 
 msgid "New"
 msgstr "新"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "作者%(modified_by)s"
 
 msgid "More"
 msgstr "更多"
@@ -382,6 +360,9 @@ msgstr "密码"
 
 msgid "Editing"
 msgstr "正在编辑"
+
+msgid "Dashboard"
+msgstr "仪表板"
 
 msgid "View draft"
 msgstr "查看草稿"
@@ -423,20 +404,8 @@ msgstr "第 '{0}' 页已移动。"
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
 
-msgid "Server Error"
-msgstr "服务错误"
-
 msgid "Add child page"
 msgstr "添加子页面"
 
 msgid "Choose an item"
 msgstr "选择一个选项"
-
-msgid "Choose another item"
-msgstr "选择其他选项"
-
-msgid "Clear choice"
-msgstr "清除选择"
-
-msgid "Choose another page"
-msgstr "选择另外一个页面"

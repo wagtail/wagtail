@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -71,17 +71,14 @@ msgstr "Perkelti aukštyn"
 msgid "Move down"
 msgstr "Perkelti žemyn"
 
-msgid "Promoted search result"
-msgstr "Reklamuojamas paieškos rezultatas"
+msgid "Promoted search results"
+msgstr "Reklamuojami paieškos rezultatai"
 
 msgid "Add recommended page"
 msgstr "Pridėti rekomenduojamą puslapį"
 
 msgid "Search Terms"
 msgstr "Paieškos terminai"
-
-msgid "Promoted search results"
-msgstr "Reklamuojami paieškos rezultatai"
 
 msgid "Add new promoted result"
 msgstr "Pridėti naują reklamuojamą rezultatą"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -73,6 +73,10 @@ msgstr "Afrita þessa %s"
 msgid "image"
 msgstr "mynd"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Til baka í  %(model_name)s lista"
+
 msgid "Choose a parent page"
 msgstr "Veldu yfirsíðu"
 
@@ -116,9 +120,6 @@ msgstr "Já, eyða"
 msgid "No, don't delete"
 msgstr "Nei, ekki eyða"
 
-msgid "Home"
-msgstr "Heim"
-
 #, python-format
 msgid "By %(filter_title)s"
 msgstr " Eftir %(filter_title)s "
@@ -143,6 +144,9 @@ msgstr "Leita að"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Leita að %(name)s"
+
+msgid "Search"
+msgstr "Leita"
 
 msgid "Download XLSX"
 msgstr "Sækja XLSX"
@@ -175,10 +179,6 @@ msgstr "Síðuskipting"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Síða %(current_page)s af %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Til baka í  %(model_name)s lista"
 
 msgid "Previous"
 msgstr "Fyrra"

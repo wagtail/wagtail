@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -22,10 +22,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail-brukere"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Påkrevet. 30 tegn eller færre. Kun bokstaver, tall og tegnene @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Denne verdien kan kun inneholde bokstaver, tall og tegnene @/./+/-/_."
@@ -139,9 +135,6 @@ msgstr "Endrer"
 msgid "Save"
 msgstr "Lagre"
 
-msgid "Permissions"
-msgstr "Tillatelser"
-
 msgid "Object permissions"
 msgstr "Objekttillatelser"
 
@@ -219,10 +212,6 @@ msgstr "Aktiv"
 
 msgid "Inactive"
 msgstr "Inaktiv"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

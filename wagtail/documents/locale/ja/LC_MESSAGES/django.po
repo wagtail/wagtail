@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,30 +77,14 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-msgid "Choose a document"
-msgstr "ドキュメントを選択"
-
-msgid "Search"
-msgstr "検索"
-
-msgid "Upload"
-msgstr "アップロード"
-
 msgid "Latest documents"
 msgstr "最新のドキュメント"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "\"<em>%(query_string)s</em>\" に一致するドキュメントはありません"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "このコレクションにはまだドキュメントがアップロードされていません。"
 
 msgid "You haven't uploaded any documents."
 msgstr "まだドキュメントがアップロードされていません。"
-
-msgid "Uploading…"
-msgstr "アップロード中…"
 
 msgid "Change document:"
 msgstr "ドキュメントを変更"
@@ -110,6 +94,12 @@ msgstr "ドキュメントを追加"
 
 msgid "Add document"
 msgstr "ドキュメントを追加"
+
+msgid "Uploading…"
+msgstr "アップロード中…"
+
+msgid "Upload"
+msgstr "アップロード"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -150,8 +140,8 @@ msgid "Created"
 msgstr "作成"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s前"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "\"<em>%(query_string)s</em>\" に一致するドキュメントはありません"
 
 #, python-format
 msgid ""
@@ -227,8 +217,8 @@ msgstr "ドキュメント権限を追加"
 msgid "Delete"
 msgstr "削除"
 
-msgid "Server Error"
-msgstr "サーバーエラー"
+msgid "Choose a document"
+msgstr "ドキュメントを選択"
 
 msgid "Search documents"
 msgstr "ドキュメントを検索"
@@ -261,9 +251,3 @@ msgstr "ドキュメント"
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s件のドキュメント"
-
-msgid "Choose another document"
-msgstr "別のドキュメントを選択"
-
-msgid "Edit this document"
-msgstr "ドキュメントを編集"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -85,31 +85,14 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nemazat"
 
-msgid "Choose a document"
-msgstr "Zvolit dokument"
-
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Upload"
-msgstr "Nahrát"
-
 msgid "Latest documents"
 msgstr "Poslední dokumenty"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné dokumenty"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Zatím jste do kolekce nenahráli žádné dokumenty."
 
 msgid "You haven't uploaded any documents."
 msgstr "Zatím jste nenahráli žádné dokumenty."
-
-msgid "Uploading…"
-msgstr "Nahrávám…"
 
 msgid "Change document:"
 msgstr "Změnit dokument:"
@@ -119,6 +102,12 @@ msgstr "Přidat dokument"
 
 msgid "Add document"
 msgstr "Přidat dokument"
+
+msgid "Uploading…"
+msgstr "Nahrávám…"
+
+msgid "Upload"
+msgstr "Nahrát"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -159,8 +148,9 @@ msgid "Created"
 msgstr "Vytvořeno"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné dokumenty"
 
 #, python-format
 msgid ""
@@ -239,8 +229,8 @@ msgstr "Přidat oprávnění dokumentu"
 msgid "Delete"
 msgstr "Smazat"
 
-msgid "Server Error"
-msgstr "Chyba serveru"
+msgid "Choose a document"
+msgstr "Zvolit dokument"
 
 msgid "Search documents"
 msgstr "Hledat v dokumentech"
@@ -276,9 +266,3 @@ msgstr[0] "%(count)s dokument"
 msgstr[1] "%(count)s dokumenty"
 msgstr[2] "%(count)s dokumentů"
 msgstr[3] "%(count)s dokumentů"
-
-msgid "Choose another document"
-msgstr "Zvolit jiný dokument"
-
-msgid "Edit this document"
-msgstr "Upravit dokument"
