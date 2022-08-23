@@ -247,14 +247,14 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 
     def public(self):
         """
-        This filters the QuerySet to only contain pages that are not in a private
+        Filters the QuerySet to only contain pages that are not in a private
         section and their descendants.
         """
         return self.exclude(self.private_q())
 
     def not_public(self):
         """
-        This filters the QuerySet to only contain pages that are in a private
+        Filters the QuerySet to only contain pages that are in a private
         section and their descendants.
         """
         return self.filter(self.private_q())
