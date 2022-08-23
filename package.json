@@ -102,6 +102,7 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
     "@tippyjs/react": "^4.2.6",
     "a11y-dialog": "^7.4.0",
     "draft-js": "^0.10.5",
