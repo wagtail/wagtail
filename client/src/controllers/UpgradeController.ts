@@ -1,3 +1,4 @@
+import { Controller } from '@hotwired/stimulus';
 import { VersionNumber, VersionDeltaType } from '../utils/version';
 
 /**
@@ -18,73 +19,82 @@ import { VersionNumber, VersionDeltaType } from '../utils/version';
  *     }
  * }
  */
-const initUpgradeNotification = () => {
-  const container = document.querySelector(
-    '[data-upgrade-notification]',
-  ) as HTMLElement;
+export class UpgradeController extends Controller<HTMLElement> {
+  static classes = ['hidden'];
+  static targets = ['latestVersion', 'link'];
+  static values = {
+    currentVersion: String,
+    ltsOnly: { default: false, type: Boolean },
+    url: { default: 'https://releases.wagtail.org/latest.txt', type: String },
+  };
 
-  if (!container) return;
+  currentVersionValue: string;
+  hiddenClass: string;
+  latestVersionTarget: HTMLElement;
+  linkTarget: HTMLElement;
+  ltsOnlyValue: any;
+  urlValue: string;
 
-  const releasesUrl = 'https://releases.wagtail.io/latest.txt';
-  const currentVersion = new VersionNumber(container.dataset.currentVersion);
-  const showLTSOnly = container.hasAttribute('data-upgrade-lts-only');
-  const upgradeVersion = container.querySelector('[data-upgrade-version]');
-  const upgradeLink = container.querySelector('[data-upgrade-link]');
+  connect() {
+    this.checkVersion();
+  }
 
-  fetch(releasesUrl, {
-    referrerPolicy: 'strict-origin-when-cross-origin',
-  })
-    .then((response) => {
-      if (response.status !== 200) {
+  checkVersion() {
+    const releasesUrl = this.urlValue;
+    const currentVersion = new VersionNumber(this.currentVersionValue);
+    const showLTSOnly = this.ltsOnlyValue;
+    fetch(releasesUrl, {
+      referrerPolicy: 'strict-origin-when-cross-origin',
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw Error(
+            `Unexpected response from ${releasesUrl}. Status: ${response.status}`,
+          );
+        }
+        return response.json();
+      })
+      .then((payload) => {
+        let data = payload;
+        if (data && data.lts && showLTSOnly) {
+          data = data.lts;
+        }
+
+        if (data && data.version) {
+          const latestVersion = new VersionNumber(data.version);
+          const versionDelta = currentVersion.howMuchBehind(latestVersion);
+
+          let releaseNotesUrl = null;
+          if (!versionDelta) {
+            return;
+          }
+          if (
+            versionDelta === VersionDeltaType.MAJOR ||
+            versionDelta === VersionDeltaType.MINOR
+          ) {
+            releaseNotesUrl = data.minorUrl;
+          } else {
+            releaseNotesUrl = data.url;
+          }
+
+          if (this.latestVersionTarget instanceof HTMLElement) {
+            this.latestVersionTarget.innerText = [
+              data.version,
+              showLTSOnly ? '(LTS)' : '',
+            ]
+              .join(' ')
+              .trim();
+          }
+
+          if (this.linkTarget instanceof HTMLElement) {
+            this.linkTarget.setAttribute('href', releaseNotesUrl || '');
+          }
+          this.element.classList.remove(this.hiddenClass);
+        }
+      })
+      .catch((err) => {
         // eslint-disable-next-line no-console
-        console.error(
-          `Unexpected response from ${releasesUrl}. Status: ${response.status}`,
-        );
-        return false;
-      }
-      return response.json();
-    })
-    .then((payload) => {
-      let data = payload;
-
-      if (data && data.lts && showLTSOnly) {
-        data = data.lts;
-      }
-
-      if (data && data.version) {
-        const latestVersion = new VersionNumber(data.version);
-        const versionDelta = currentVersion.howMuchBehind(latestVersion);
-
-        let releaseNotesUrl = null;
-        if (!versionDelta) {
-          return;
-        }
-        if (
-          versionDelta === VersionDeltaType.MAJOR ||
-          versionDelta === VersionDeltaType.MINOR
-        ) {
-          releaseNotesUrl = data.minorUrl;
-        } else {
-          releaseNotesUrl = data.url;
-        }
-
-        if (upgradeVersion instanceof HTMLElement) {
-          upgradeVersion.innerText = [data.version, showLTSOnly ? '(LTS)' : '']
-            .join(' ')
-            .trim();
-        }
-
-        if (upgradeLink instanceof HTMLElement) {
-          upgradeLink.setAttribute('href', releaseNotesUrl || '');
-        }
-
-        container.style.display = '';
-      }
-    })
-    .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.error(`Error fetching ${releasesUrl}. Error: ${err}`);
-    });
-};
-
-export { initUpgradeNotification };
+        console.error(`Error fetching ${releasesUrl}. Error: ${err}`);
+      });
+  }
+}
