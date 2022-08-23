@@ -1,4 +1,4 @@
-import { Icon, Portal, initDismissibles, initUpgradeNotification } from '../..';
+import { Icon, Portal, initDismissibles } from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
@@ -20,7 +20,6 @@ window.wagtail.components = {
  * Add in here code to run once the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  initUpgradeNotification();
   initTooltips();
   initModernDropdown();
   initTabs();
