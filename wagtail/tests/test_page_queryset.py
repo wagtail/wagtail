@@ -501,6 +501,12 @@ class TestPageQuerySet(TestCase):
             # Check that the event is in the results
             self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_private_with_no_private_page(self):
+        PageViewRestriction.objects.all().delete()
+
+        count = Page.objects.private().count()
+        self.assertEqual(count, 0)
+
     def test_merge_queries(self):
         type_q = Page.objects.type_q(EventPage)
         query = Q()
