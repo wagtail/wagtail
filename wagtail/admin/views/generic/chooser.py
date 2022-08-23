@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.admin.utils import unquote
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -109,7 +110,9 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
                     bases.insert(0, SearchFilterMixin)
                 if issubclass(self.model_class, CollectionMember):
                     bases.insert(0, CollectionFilterMixin)
-                if issubclass(self.model_class, TranslatableMixin):
+
+                i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+                if i18n_enabled and issubclass(self.model_class, TranslatableMixin):
                     bases.insert(0, LocaleFilterMixin)
 
             return type(

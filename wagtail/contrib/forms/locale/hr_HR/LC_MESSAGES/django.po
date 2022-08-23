@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -174,27 +174,6 @@ msgstr "Formulari"
 msgid "Pages"
 msgstr "Stranice"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Unosi formulara %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Podaci formulara %(form_title)s"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Download XLSX"
-msgstr "Preuzmi XLSX"
-
-msgid "Download CSV"
-msgstr "Preuzmi CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nema ispunjenih formulara %(title)s. "
-
 msgid "Title"
 msgstr "Naslov"
 
@@ -212,6 +191,26 @@ msgstr "Najnoviji unosi"
 
 msgid "No form pages have been created."
 msgstr "Nema stranica s formularima."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Unosi formulara %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Preuzmi XLSX"
+
+msgid "Download CSV"
+msgstr "Preuzmi CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nema ispunjenih formulara %(title)s. "
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Primjeni filtere"
 
 #, python-format
 msgid "One submission has been deleted."

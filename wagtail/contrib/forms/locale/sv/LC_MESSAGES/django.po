@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -159,27 +159,6 @@ msgstr "Formulär"
 msgid "Pages"
 msgstr "Sidor"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Mottagna från %(form_title)s "
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Formulärdata <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtrera"
-
-msgid "Download XLSX"
-msgstr "Ladda ner XLSX"
-
-msgid "Download CSV"
-msgstr "Ladda ner CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Det finns inga mottagna formulär från '%(title)s'."
-
 msgid "Title"
 msgstr "Titel"
 
@@ -197,6 +176,26 @@ msgstr "Senaste inlämning"
 
 msgid "No form pages have been created."
 msgstr "Inga formulär har skapats."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Mottagna från %(form_title)s "
+
+msgid "Download XLSX"
+msgstr "Ladda ner XLSX"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Det finns inga mottagna formulär från '%(title)s'."
+
+msgid "Filter"
+msgstr "Filtrera"
+
+msgid "Apply filters"
+msgstr "Filtrera"
 
 #, python-format
 msgid "One submission has been deleted."

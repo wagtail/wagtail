@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -39,6 +39,36 @@ msgstr "Este campo é requirido."
 msgid "Password"
 msgstr "Contrasinal"
 
+msgid "live"
+msgstr "en vivo"
+
+msgid "has unpublished changes"
+msgstr "publicou cambios"
+
+msgid "first published at"
+msgstr "primeira publicación en"
+
+msgid "go live date/time"
+msgstr "ir en vivo data/hora"
+
+msgid "expiry date/time"
+msgstr "data/hora de expiración"
+
+msgid "expired"
+msgstr "expirado"
+
+msgid "draft"
+msgstr "borrador"
+
+msgid "live + draft"
+msgstr "en vivo + borrador"
+
+msgid "Default"
+msgstr "Por defecto"
+
+msgid "locked"
+msgstr "bloquedada"
+
 msgid "title"
 msgstr "título"
 
@@ -58,12 +88,6 @@ msgstr ""
 msgid "content type"
 msgstr "tipo de contigo"
 
-msgid "live"
-msgstr "en vivo"
-
-msgid "has unpublished changes"
-msgstr "publicou cambios"
-
 msgid "URL path"
 msgstr "ruta URL"
 
@@ -77,21 +101,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Un enlace a esta página aparecerá en menús xerados automáticamente"
 
-msgid "go live date/time"
-msgstr "ir en vivo data/hora"
-
-msgid "expiry date/time"
-msgstr "data/hora de expiración"
-
-msgid "expired"
-msgstr "expirado"
-
-msgid "locked"
-msgstr "bloquedada"
-
-msgid "first published at"
-msgstr "primeira publicación en"
-
 msgid "latest revision created at"
 msgstr "última revisión creada en"
 
@@ -100,15 +109,6 @@ msgstr "Este slug xa está en uso"
 
 msgid "scheduled"
 msgstr "programado"
-
-msgid "draft"
-msgstr "borrador"
-
-msgid "live + draft"
-msgstr "en vivo + borrador"
-
-msgid "Default"
-msgstr "Por defecto"
 
 msgid "page"
 msgstr "páxina"
@@ -130,12 +130,6 @@ msgstr "contenido JSON"
 
 msgid "approved go live at"
 msgstr "aprobado ir en vivo en"
-
-msgid "page revision"
-msgstr "revisión da páxina"
-
-msgid "page revisions"
-msgstr "revisións da páxina"
 
 msgid "Add/edit pages you own"
 msgstr "Engadir/editar páxinas que posúes"
@@ -184,6 +178,9 @@ msgstr "grupos"
 
 msgid "Approve"
 msgstr "Aprobar"
+
+msgid "page revision"
+msgstr "revisión da páxina"
 
 msgid "collection"
 msgstr "colección"

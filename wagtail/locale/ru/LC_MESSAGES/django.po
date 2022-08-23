@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -89,6 +89,69 @@ msgstr "Введённый вами пароль неверный. Попроб�
 msgid "Comment"
 msgstr "Комментарий"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Страница '{}' была заблокирована</b> <b>Вами</b> в<b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Страница {} заблокирована</b> <b>Вами</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Страница '{}' была заблокирована</b> <b>{}</b> в <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Страница {} заблокирована</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "В настоящее время эта страница ожидает модерации."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Страница ожидает<b>'{}'</b> в рабочем процессе <b>'{}'</b>"
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Только рецензенты данной задачи могут редактировать страницу."
+
+msgid "live"
+msgstr "опубликовано"
+
+msgid "has unpublished changes"
+msgstr "имеет неопубликованные изменения"
+
+msgid "first published at"
+msgstr "впервые опубликовано"
+
+msgid "last published at"
+msgstr "последний раз публиковалась"
+
+msgid "live revision"
+msgstr "опубликованная версия"
+
+msgid "go live date/time"
+msgstr "дата/время публикации"
+
+msgid "expiry date/time"
+msgstr "дата/время истечения"
+
+msgid "expired"
+msgstr "истекло"
+
+msgid "draft"
+msgstr "черновик"
+
+msgid "live + draft"
+msgstr "опубликовано + черновик"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "locked"
+msgstr "заблокировано"
+
+msgid "locked at"
+msgstr "заблокирован в"
+
+msgid "locked by"
+msgstr "заблокирован"
+
 msgid "title"
 msgstr "заголовок"
 
@@ -107,12 +170,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "тип содержимого"
-
-msgid "live"
-msgstr "опубликовано"
-
-msgid "has unpublished changes"
-msgstr "имеет неопубликованные изменения"
 
 msgid "URL path"
 msgstr "Путь URL"
@@ -147,35 +204,8 @@ msgid ""
 "results."
 msgstr "Описание, отображаемое под заголовком в результатах поиска."
 
-msgid "go live date/time"
-msgstr "дата/время публикации"
-
-msgid "expiry date/time"
-msgstr "дата/время истечения"
-
-msgid "expired"
-msgstr "истекло"
-
-msgid "locked"
-msgstr "заблокировано"
-
-msgid "locked at"
-msgstr "заблокирован в"
-
-msgid "locked by"
-msgstr "заблокирован"
-
-msgid "first published at"
-msgstr "впервые опубликовано"
-
-msgid "last published at"
-msgstr "последний раз публиковалась"
-
 msgid "latest revision created at"
 msgstr "последняя версия создана"
-
-msgid "live revision"
-msgstr "опубликованная версия"
 
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
@@ -186,20 +216,11 @@ msgstr "запланированное"
 msgid "in moderation"
 msgstr "на модерации"
 
-msgid "draft"
-msgstr "черновик"
-
 msgid "live + scheduled"
 msgstr "размещена + запланированна"
 
 msgid "live + in moderation"
 msgstr "опубликовано + на модерации"
-
-msgid "live + draft"
-msgstr "опубликовано + черновик"
-
-msgid "Default"
-msgstr "По умолчанию"
 
 msgid "page"
 msgstr "страница"
@@ -221,12 +242,6 @@ msgstr "сожержимое JSON"
 
 msgid "approved go live at"
 msgstr "подтверждено к публикации"
-
-msgid "page revision"
-msgstr "версия страницы"
-
-msgid "page revisions"
-msgstr "версии страницы"
 
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
@@ -402,6 +417,9 @@ msgstr "Пропущено"
 
 msgid "workflow state"
 msgstr "состояние процесса выполнения"
+
+msgid "page revision"
+msgstr "версия страницы"
 
 msgid "started at"
 msgstr "запущен в"
@@ -587,30 +605,6 @@ msgstr "Вам нужен пароль для доступа к этой стр�
 
 msgid "Continue"
 msgstr "Продолжить"
-
-msgid "Wagtail search tests"
-msgstr "Wagtail тесты поиска"
-
-msgid "English"
-msgstr "Английский"
-
-msgid "French"
-msgstr "Французский"
-
-msgid "Wagtail snippets tests"
-msgstr "Wagtail тесты фрагментов"
-
-msgid "Wagtail tests"
-msgstr "Wagtail тесты"
-
-msgid "The form is already filled."
-msgstr "Форма уже заполнена."
-
-msgid "You must log in first."
-msgstr "Сначала вы должны войти в систему."
-
-msgid "German"
-msgstr "Немецкий"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -915,10 +909,6 @@ msgstr "Задача рабочего процесса отклонена. Пр�
 
 msgid "Workflow: resume task"
 msgstr "Рабочий процесс: возобновить задачу"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Задача '%(task)s' выполнена еще раз. Рабочий процесс возобновлен."
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Задача выполнена еще раз. Рабочий процесс возобновлен."

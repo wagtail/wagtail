@@ -57,6 +57,7 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
     AdvertWithTabbedInterface,
+    DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
     RevisableChildModel,
     RevisableModel,
@@ -1330,8 +1331,8 @@ class TestEditRevisionSnippet(BaseTestSnippetEditView):
 class TestEditDraftStateSnippet(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
-        self.test_snippet = DraftStateModel.objects.create(
-            text="Draft-enabled Foo", live=False
+        self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.create(
+            custom_id="custom/1", text="Draft-enabled Foo", live=False
         )
 
     def test_get(self):
@@ -1352,7 +1353,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should not show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertNotContains(
@@ -1368,7 +1369,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should not be updated
@@ -1403,14 +1405,17 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         log_entries = ModelLogEntry.objects.filter(
-            content_type=ContentType.objects.get_for_model(DraftStateModel),
+            content_type=ContentType.objects.get_for_model(
+                DraftStateCustomPrimaryKeyModel
+            ),
             action="wagtail.publish",
             object_id=self.test_snippet.pk,
         )
         log_entry = log_entries.first()
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated
@@ -1457,7 +1462,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated
@@ -1497,7 +1503,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated with the last published changes
@@ -1545,7 +1552,8 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         latest_revision = self.test_snippet.latest_revision
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # The instance should be updated with the last published changes
@@ -1594,7 +1602,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should not show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertNotContains(
@@ -1630,7 +1638,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertContains(
@@ -1668,7 +1676,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # Should show the Unpublish action menu item
         unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.test_snippet.pk),),
         )
         self.assertContains(
@@ -1695,9 +1703,11 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 class TestSnippetUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
-        self.snippet = DraftStateModel.objects.create(text="to be unpublished")
+        self.snippet = DraftStateCustomPrimaryKeyModel.objects.create(
+            custom_id="custom/1", text="to be unpublished"
+        )
         self.unpublish_url = reverse(
-            "wagtailsnippets_tests_draftstatemodel:unpublish",
+            "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
             args=(quote(self.snippet.pk),),
         )
 
@@ -1719,7 +1729,8 @@ class TestSnippetUnpublish(TestCase, WagtailTestUtils):
         # Get unpublish page
         response = self.client.get(
             reverse(
-                "wagtailsnippets_tests_draftstatemodel:unpublish", args=(quote(12345),)
+                "wagtailsnippets_tests_draftstatecustomprimarykeymodel:unpublish",
+                args=(quote(12345),),
             )
         )
 
@@ -1758,19 +1769,22 @@ class TestSnippetUnpublish(TestCase, WagtailTestUtils):
 
         # Should be redirected to the listing page
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
         )
 
         # Check that the object was unpublished
-        self.assertFalse(DraftStateModel.objects.get(pk=self.snippet.pk).live)
+        self.assertFalse(
+            DraftStateCustomPrimaryKeyModel.objects.get(pk=self.snippet.pk).live
+        )
 
         # Check that the unpublished signal was fired
         self.assertEqual(mock_handler.call_count, 1)
         mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call["sender"], DraftStateModel)
+        self.assertEqual(mock_call["sender"], DraftStateCustomPrimaryKeyModel)
         self.assertEqual(mock_call["instance"], self.snippet)
-        self.assertIsInstance(mock_call["instance"], DraftStateModel)
+        self.assertIsInstance(mock_call["instance"], DraftStateCustomPrimaryKeyModel)
 
     def test_after_unpublish_hook(self):
         def hook_func(request, snippet):
@@ -2720,6 +2734,21 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
     def test_not_searchable(self):
         # filter_form should not have a search field
         self.assertFalse(self.get().context["filter_form"].fields.get("q"))
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_filter_requires_i18n_enabled(self):
+        self.url_args = ["snippetstests", "translatablesnippet"]
+        fr_locale = Locale.objects.create(language_code="fr")
+
+        TranslatableSnippet.objects.create(text="English snippet")
+        TranslatableSnippet.objects.create(text="French snippet", locale=fr_locale)
+
+        response = self.get()
+
+        # Check the filter is omitted
+        response_html = response.json()["html"]
+        self.assertNotIn("data-chooser-modal-search-filter", response_html)
+        self.assertNotIn('name="locale"', response_html)
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_filter_by_locale(self):

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2020-2021\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -80,30 +80,14 @@ msgstr "是，刪除"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
-msgid "Choose a document"
-msgstr "選擇一個文件"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Upload"
-msgstr "上傳"
-
 msgid "Latest documents"
 msgstr "最新文件"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "對不起。沒找到符合\"<em>%(query_string)s</em>\"的文件"
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "你尚未上傳任何文件在這個集合"
 
 msgid "You haven't uploaded any documents."
 msgstr "你尚未上傳任何文件"
-
-msgid "Uploading…"
-msgstr "正在上傳…"
 
 msgid "Change document:"
 msgstr "修改文件："
@@ -113,6 +97,12 @@ msgstr "新增一個文件"
 
 msgid "Add document"
 msgstr "新增文件"
+
+msgid "Uploading…"
+msgstr "正在上傳…"
+
+msgid "Upload"
+msgstr "上傳"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -156,8 +146,8 @@ msgid "Select document"
 msgstr "選擇文件"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "對不起。沒找到符合\"<em>%(query_string)s</em>\"的文件"
 
 #, python-format
 msgid ""
@@ -244,8 +234,8 @@ msgstr "刪除"
 msgid "Delete selected documents"
 msgstr "刪除選擇的文件"
 
-msgid "Server Error"
-msgstr "伺服器錯誤"
+msgid "Choose a document"
+msgstr "選擇一個文件"
 
 msgid "Search documents"
 msgstr "搜索文件"
@@ -276,9 +266,3 @@ msgstr "文件"
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s 個文件"
-
-msgid "Choose another document"
-msgstr "選擇另一個文件"
-
-msgid "Edit this document"
-msgstr "編輯此文件"

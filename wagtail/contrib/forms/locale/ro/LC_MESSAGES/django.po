@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Dan Braghis, 2014-2020\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -156,27 +156,6 @@ msgstr "Formulare"
 msgid "Pages"
 msgstr "Pagini"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Înregistrări pentru %(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Datele pentru formularul <span>%(form_title)s</span>"
-
-msgid "Filter"
-msgstr "Filtrează"
-
-msgid "Download XLSX"
-msgstr "Descarcă XLSX"
-
-msgid "Download CSV"
-msgstr "Descarcă CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nu sunt înregistrări pentru formularul '%(title)s'"
-
 msgid "Title"
 msgstr "Titlu"
 
@@ -194,6 +173,26 @@ msgstr "Ultima înregistrare"
 
 msgid "No form pages have been created."
 msgstr "Nu a fost creată nici o pagină de formular"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Înregistrări pentru %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "Descarcă XLSX"
+
+msgid "Download CSV"
+msgstr "Descarcă CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nu sunt înregistrări pentru formularul '%(title)s'"
+
+msgid "Filter"
+msgstr "Filtrează"
+
+msgid "Apply filters"
+msgstr "Aplică filtre"
 
 #, python-format
 msgid "One submission has been deleted."

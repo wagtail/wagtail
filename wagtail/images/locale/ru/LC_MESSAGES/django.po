@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -258,15 +258,6 @@ msgstr "Да, удалить"
 msgid "No, don't delete"
 msgstr "Нет, не удалять"
 
-msgid "Choose an image"
-msgstr "Выберите изображение"
-
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Upload"
-msgstr "Загрузка"
-
 msgid "Popular tags"
 msgstr "Популярные теги"
 
@@ -290,9 +281,6 @@ msgstr "Выберите формат"
 
 msgid "Insert image"
 msgstr "Вставить изображение"
-
-msgid "Uploading…"
-msgstr "Загрузка..."
 
 msgid "Change image file:"
 msgstr "Изменить файл изображения:"
@@ -361,9 +349,6 @@ msgstr "Изображения"
 
 msgid "Popular Tags:"
 msgstr "Популярные тэги:"
-
-msgid "Clear choice"
-msgstr "Очистить выбор"
 
 msgid "Select all images in listing"
 msgstr "Выбрать все изображения из списка"
@@ -528,6 +513,15 @@ msgstr[1] "%(num_parent_objects)d изображений было удалено
 msgstr[2] "%(num_parent_objects)d изображений было удалено"
 msgstr[3] "%(num_parent_objects)d  изображений было удалено"
 
+msgid "Upload"
+msgstr "Загрузка"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
+
+msgid "Choose an image"
+msgstr "Выберите изображение"
+
 msgid "Search images"
 msgstr "Поиск изображений"
 
@@ -569,9 +563,3 @@ msgstr[0] "%(count)s изображение"
 msgstr[1] "%(count)s изображения"
 msgstr[2] "%(count)s изображений"
 msgstr[3] "%(count)s изображений"
-
-msgid "Change image"
-msgstr "Изменить изображение"
-
-msgid "Edit this image"
-msgstr "Править это изображение"

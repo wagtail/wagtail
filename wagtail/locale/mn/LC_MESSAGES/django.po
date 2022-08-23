@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -52,6 +52,39 @@ msgstr "Нууц үг"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Таны оруулсан нууц үг буруу байна. Дахин оролдоно уу."
 
+msgid "live"
+msgstr "нийтлэгдсэн"
+
+msgid "has unpublished changes"
+msgstr "нийтлэгдэж амжаагүй өөрчлөлтүүд"
+
+msgid "first published at"
+msgstr "анх нийтлэгдсэн "
+
+msgid "last published at"
+msgstr "сүүлд нийтлэгдсэн"
+
+msgid "go live date/time"
+msgstr "нийтлэгдэх өдөр/цаг"
+
+msgid "expiry date/time"
+msgstr "хаагдах өдөр/цаг"
+
+msgid "expired"
+msgstr "хугацаа нь дууссан"
+
+msgid "draft"
+msgstr "ноорог"
+
+msgid "live + draft"
+msgstr "нийтлэгдсэн + ноорог"
+
+msgid "Default"
+msgstr "Өгөгдмөл"
+
+msgid "locked"
+msgstr "түгжигдсэн"
+
 msgid "title"
 msgstr "гарчиг"
 
@@ -64,12 +97,6 @@ msgstr "слаг"
 msgid "content type"
 msgstr "контентын төрөл"
 
-msgid "live"
-msgstr "нийтлэгдсэн"
-
-msgid "has unpublished changes"
-msgstr "нийтлэгдэж амжаагүй өөрчлөлтүүд"
-
 msgid "URL path"
 msgstr "URL зам"
 
@@ -78,24 +105,6 @@ msgstr "эзэмшигч"
 
 msgid "show in menus"
 msgstr "цэсэнд харуулах"
-
-msgid "go live date/time"
-msgstr "нийтлэгдэх өдөр/цаг"
-
-msgid "expiry date/time"
-msgstr "хаагдах өдөр/цаг"
-
-msgid "expired"
-msgstr "хугацаа нь дууссан"
-
-msgid "locked"
-msgstr "түгжигдсэн"
-
-msgid "first published at"
-msgstr "анх нийтлэгдсэн "
-
-msgid "last published at"
-msgstr "сүүлд нийтлэгдсэн"
 
 msgid "latest revision created at"
 msgstr "сүүлийн засвар үүссэн"
@@ -106,17 +115,8 @@ msgstr "Ийм слагтай мэдээ өмнө нь нийтлэгдсэн б
 msgid "scheduled"
 msgstr "төлөвлөгдсөн"
 
-msgid "draft"
-msgstr "ноорог"
-
 msgid "live + scheduled"
 msgstr "нийтлэгдсэн + төлөвлөгдсөн"
-
-msgid "live + draft"
-msgstr "нийтлэгдсэн + ноорог"
-
-msgid "Default"
-msgstr "Өгөгдмөл"
 
 msgid "page"
 msgstr "хуудас"
@@ -138,12 +138,6 @@ msgstr "контент JSON"
 
 msgid "approved go live at"
 msgstr "нийтлэхээр зөвшөөрөгдсөн"
-
-msgid "page revision"
-msgstr "хуудасны өөрчлөлтийн түүх"
-
-msgid "page revisions"
-msgstr "хуудасны өөрчлөлтийн түүхүүд"
 
 msgid "Add/edit pages you own"
 msgstr "Өөрийн хуудсаа нэмэх/засах"
@@ -189,6 +183,9 @@ msgstr "бүлгүүд"
 
 msgid "Approve"
 msgstr "Зөвшөөрөх"
+
+msgid "page revision"
+msgstr "хуудасны өөрчлөлтийн түүх"
 
 msgid "collection"
 msgstr "цуглуулга"
@@ -288,15 +285,6 @@ msgstr "Энэ хуудсанд хандахын тулд нууц үг оруу
 
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
-
-msgid "English"
-msgstr "Англи хэл"
-
-msgid "French"
-msgstr "Франц"
-
-msgid "German"
-msgstr "Герман"
 
 msgid "Edited"
 msgstr "Засагдсан"

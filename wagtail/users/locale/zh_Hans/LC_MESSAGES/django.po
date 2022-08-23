@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017,2019-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -35,9 +35,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail 用户"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "必填。30字符以内。只能使用字母，数字和@/./+/-/_"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "只能使用字母，数字和@/./+/-/_字符。"
@@ -198,9 +195,6 @@ msgstr "查看此组中的用户"
 msgid "Save"
 msgstr "保存"
 
-msgid "Permissions"
-msgstr "权限"
-
 msgid "Object permissions"
 msgstr "对象权限"
 
@@ -283,10 +277,6 @@ msgstr "有效"
 
 msgid "Inactive"
 msgstr "无效"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

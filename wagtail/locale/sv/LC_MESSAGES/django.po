@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -70,6 +70,69 @@ msgstr "Lösenordet du angav är inte korrekt. Vänligen försök igen."
 msgid "Comment"
 msgstr "Kommentar"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Sidan '{}' låstes</b> av <b>dig</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Sida '{}' är låst</b> av <b>dig</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Sidan '{}' låstes</b> av <b>{}</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Sidan '{}' är låst</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Sidan väntar på moderering"
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Endast granskare för denna uppgift kan redigera sidan."
+
+msgid "live"
+msgstr "publicerad"
+
+msgid "has unpublished changes"
+msgstr "har opublicerade ändringar"
+
+msgid "first published at"
+msgstr "först publicerad vid"
+
+msgid "last published at"
+msgstr "senast publicerad"
+
+msgid "live revision"
+msgstr "publicerad revision"
+
+msgid "go live date/time"
+msgstr "publicera vid datum/tid"
+
+msgid "expiry date/time"
+msgstr "utgångsdatum/tid"
+
+msgid "expired"
+msgstr "utgången"
+
+msgid "draft"
+msgstr "utkast"
+
+msgid "live + draft"
+msgstr "publicerad + utkast"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "locked"
+msgstr "låst"
+
+msgid "locked at"
+msgstr "låstes as"
+
+msgid "locked by"
+msgstr "låst av"
+
 msgid "title"
 msgstr "titel"
 
@@ -88,12 +151,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "innehållstyp"
-
-msgid "live"
-msgstr "publicerad"
-
-msgid "has unpublished changes"
-msgstr "har opublicerade ändringar"
 
 msgid "URL path"
 msgstr "URL sökväg"
@@ -128,35 +185,8 @@ msgstr ""
 "Den beskrivande texten som är synlig under rubriken bland resultaten i "
 "sökmotorer."
 
-msgid "go live date/time"
-msgstr "publicera vid datum/tid"
-
-msgid "expiry date/time"
-msgstr "utgångsdatum/tid"
-
-msgid "expired"
-msgstr "utgången"
-
-msgid "locked"
-msgstr "låst"
-
-msgid "locked at"
-msgstr "låstes as"
-
-msgid "locked by"
-msgstr "låst av"
-
-msgid "first published at"
-msgstr "först publicerad vid"
-
-msgid "last published at"
-msgstr "senast publicerad"
-
 msgid "latest revision created at"
 msgstr "senaste revision skapad vid"
-
-msgid "live revision"
-msgstr "publicerad revision"
 
 msgid "This slug is already in use"
 msgstr "Den här sluggen är redan i användning"
@@ -167,20 +197,11 @@ msgstr "schemalagd"
 msgid "in moderation"
 msgstr "under moderering"
 
-msgid "draft"
-msgstr "utkast"
-
 msgid "live + scheduled"
 msgstr "live + schemalagd"
 
 msgid "live + in moderation"
 msgstr "publicerad + under moderering"
-
-msgid "live + draft"
-msgstr "publicerad + utkast"
-
-msgid "Default"
-msgstr "Standard"
 
 msgid "page"
 msgstr "sida"
@@ -202,12 +223,6 @@ msgstr "innehålls JSON"
 
 msgid "approved go live at"
 msgstr "godkänd för att publiceras vid"
-
-msgid "page revision"
-msgstr "sidorevision"
-
-msgid "page revisions"
-msgstr "sidorevisioner"
 
 msgid "Add/edit pages you own"
 msgstr "Skapa/redigera sidor du äger"
@@ -383,6 +398,9 @@ msgstr "Hoppade över"
 
 msgid "workflow state"
 msgstr "arbetsflöde status"
+
+msgid "page revision"
+msgstr "sidorevision"
 
 msgid "started at"
 msgstr "påbörjades vid"
@@ -568,15 +586,6 @@ msgstr "Du behöver ett lösenord för åtkomst till sidan."
 
 msgid "Continue"
 msgstr "Fortsätt"
-
-msgid "English"
-msgstr "Engelska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "German"
-msgstr "Tyska"
 
 #, python-format
 msgid "%(count)s descendant collection"
@@ -880,10 +889,6 @@ msgstr "Arbetsflödesuppgift avvisad. Arbetsflöde komplett"
 
 msgid "Workflow: resume task"
 msgstr "Arbetsflöde: återuppta uppgift"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Återinskickade '%(task)s'. Arbetsflöde återupptagen'"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Arbetsflödesuppgift återinskickad. Arbetsflöde återupptagen"

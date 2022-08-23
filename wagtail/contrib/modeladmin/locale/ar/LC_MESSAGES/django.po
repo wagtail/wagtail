@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -71,6 +71,10 @@ msgstr "نسخ %s"
 msgid "image"
 msgstr "صورة"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "الرجوع الى %(model_name)s القائمة"
+
 msgid "Choose a parent page"
 msgstr "إختر صفحة أم"
 
@@ -114,9 +118,6 @@ msgstr "نعم, احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
-msgid "Home"
-msgstr "الصفحة الرئيسية"
-
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "عذرًا ، لا توجد مطابقة لـ %(name)s عمليات البحث الخاصة بك."
@@ -127,6 +128,9 @@ msgstr "إبحث عن"
 #, python-format
 msgid "Search %(name)s"
 msgstr "بحث %(name)s"
+
+msgid "Search"
+msgstr "بحث"
 
 msgid "Download CSV"
 msgstr "تنزيل ملف CSV"
@@ -152,10 +156,6 @@ msgstr "ترقيم الصفحات"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "صفحة %(current_page)s من %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "الرجوع الى %(model_name)s القائمة"
 
 msgid "Previous"
 msgstr "السابق"

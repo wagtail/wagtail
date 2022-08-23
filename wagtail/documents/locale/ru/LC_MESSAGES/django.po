@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -122,31 +122,14 @@ msgstr "Да, удалить"
 msgid "No, don't delete"
 msgstr "Нет, не удалять"
 
-msgid "Choose a document"
-msgstr "Выберите документ"
-
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Upload"
-msgstr "Загрузка"
-
 msgid "Latest documents"
 msgstr "Последние документы"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Вы не загрузили документы в эту коллекцию."
 
 msgid "You haven't uploaded any documents."
 msgstr "Вы не загрузили каких-либо документов."
-
-msgid "Uploading…"
-msgstr "Загрузка..."
 
 msgid "Change document:"
 msgstr "Изменить документ:"
@@ -156,6 +139,12 @@ msgstr "Добавить документ"
 
 msgid "Add document"
 msgstr "Добавить документ"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
+
+msgid "Upload"
+msgstr "Загрузка"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -202,8 +191,9 @@ msgid "Select document"
 msgstr "Выбрать документ"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s назад"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -297,14 +287,8 @@ msgstr "Удалить"
 msgid "Delete selected documents"
 msgstr "Удалить выбранные документы"
 
-msgid "Server Error"
-msgstr "Ошибка Сервера"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Сообщите об этой ошибке администратору веб-сайта со следующей информацией:"
+msgid "Choose a document"
+msgstr "Выберите документ"
 
 msgid "Search documents"
 msgstr "Поиск документов"
@@ -340,9 +324,3 @@ msgstr[0] "%(count)s документ"
 msgstr[1] "%(count)s документа"
 msgstr[2] "%(count)s документов"
 msgstr[3] "%(count)s документов"
-
-msgid "Choose another document"
-msgstr "Выбрать другой документ"
-
-msgid "Edit this document"
-msgstr "Править этот документ"

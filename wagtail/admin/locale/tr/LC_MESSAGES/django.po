@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: suayip uzulmez <suayip.541@gmail.com>, 2021\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -42,9 +42,6 @@ msgstr "Gönderildi {}"
 
 msgid "Unpublish"
 msgstr "Yayından Kaldır"
-
-msgid "Delete"
-msgstr "Sil"
 
 msgid "Save Draft"
 msgstr "Taslak Olarak Kaydet"
@@ -104,20 +101,32 @@ msgstr "Şifreyi sıfırlamak için eposta adresini girin"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Arama terimi"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "All collections"
+msgstr "Tüm koleksiyonlar"
+
+msgid "Collection"
+msgstr "Koleksiyon"
+
 msgid "Parent"
 msgstr "Üst-Ebeveyn"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
 
-msgid "Collection"
-msgstr "Koleksiyon"
-
 msgid "Add"
 msgstr "Ekle"
 
 msgid "Edit"
 msgstr "Düzenle"
+
+msgid "Delete"
+msgstr "Sil"
 
 msgid "New title"
 msgstr "Yeni başlık"
@@ -184,12 +193,6 @@ msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmal�
 msgid "Expiry date/time must be in the future"
 msgstr "Bitiş tarihi ileri bir tarih olmalı"
 
-msgid "Search"
-msgstr "Ara"
-
-msgid "Search term"
-msgstr "Arama terimi"
-
 msgid "Visibility"
 msgstr "Görünürlük"
 
@@ -202,9 +205,6 @@ msgstr "Lütfen en az bir grup seçin."
 msgid "Scheduled publishing"
 msgstr "Planlanmış yayın"
 
-msgid "Privacy"
-msgstr "Gizlilik"
-
 msgid "Content"
 msgstr "İçerik"
 
@@ -213,12 +213,6 @@ msgstr "Tanıtımını yap"
 
 msgid "Settings"
 msgstr "Ayarlar"
-
-msgid "Status"
-msgstr "Durum"
-
-msgid "Preview"
-msgstr "Önizleme"
 
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
@@ -234,13 +228,6 @@ msgstr "Wagtail yönetimine git"
 
 msgid "Account"
 msgstr "Hesap"
-
-msgid "Change password"
-msgstr "Şifre değiştir"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
 
 msgid "Reset password"
 msgstr "Şifreyi sıfırla"
@@ -326,6 +313,13 @@ msgstr "Bir dış bağlantı ekle"
 msgid "Add a phone link"
 msgstr "Bir telefon bağlantısı ekle"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
+
+msgid "Explore"
+msgstr "Araştır"
+
 msgid "Collection privacy"
 msgstr "Koleksiyon gizliliği"
 
@@ -335,13 +329,16 @@ msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
 msgid "You can edit the privacy settings on:"
 msgstr "Gizlilik ayarlarını düzenleyebilirsiniz:"
 
+msgid "Save"
+msgstr "Kaydet"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini belirler."
 
-msgid "Save"
-msgstr "Kaydet"
+msgid "Privacy"
+msgstr "Gizlilik"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Koleksiyon gizliliğini ayarla. Şimdiki durum: Genel"
@@ -376,8 +373,18 @@ msgstr "Evet, sil"
 msgid "Update"
 msgstr "Güncelle"
 
-msgid "Dashboard"
-msgstr "Kontrol paneli"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s karşılaştırılıyor"
+
+msgid "Comparing"
+msgstr "Karşılaştırılıyor"
+
+msgid "Fields"
+msgstr "Alanlar"
+
+msgid "Changes"
+msgstr "Değişiklikler"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -429,8 +436,14 @@ msgstr "Onayla"
 msgid "Reject"
 msgstr "Reddet"
 
+msgid "Preview"
+msgstr "Önizleme"
+
 msgid "Your most recent edits"
 msgstr "En son düzenlemeleriniz"
+
+msgid "Status"
+msgstr "Durum"
 
 msgid "Date"
 msgstr "Tarih"
@@ -441,12 +454,12 @@ msgstr "Site özeti"
 msgid "Sign in"
 msgstr "Oturum aç"
 
+msgid "Sign in to Wagtail"
+msgstr "Wagtail'de oturumu aç"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
-
-msgid "Sign in to Wagtail"
-msgstr "Wagtail'de oturumu aç"
 
 msgid "Signing in…"
 msgstr "Giriş yapılıyor…"
@@ -497,22 +510,6 @@ msgstr "Sayfa gizliliği"
 
 msgid "This page has been made private by a parent page."
 msgstr "Bu sayfa bir üst sayfa tarafından gizli yapıldı."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Gizli"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Sayfa gizliliği. Şimdiki durum: Genel"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Sayfa gizliliği. Şimdiki durum: Gizli"
 
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
@@ -594,15 +591,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Evet, sayfayı taşı"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s yayından kaldır"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Bu sayfayı yayından kaldırmak istediğinize emin misiniz?"
-
-msgid "Yes, unpublish it"
-msgstr "Evet, yayından kaldır"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -642,18 +632,11 @@ msgid "Current draft"
 msgstr "Şimdiki taslak"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s araştırılıyor"
 
 msgid "Drag"
 msgstr "Sürükle"
-
-msgid "Updated"
-msgstr "Güncellendi"
 
 msgid "Configure a site now."
 msgstr "Şimdi bir site yapılandırın."
@@ -667,13 +650,6 @@ msgstr "Neden <a href=\"%(add_page_url)s\">bir tane oluşturmuyorsunuz</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Bu sayfa düzenlemeye karşı kilitlenmiştir"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
-
-msgid "Explore"
-msgstr "Araştır"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -707,35 +683,11 @@ msgstr "Sırala"
 msgid "Enable ordering of child pages"
 msgstr "Alt sayfaların sıralamasını etkinleştir"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "%(title)s için yeni bir üst sayfa seç"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "<span>%(title)s</span> için yeni bir üst sayfa seç"
-
-msgid "Preview error"
-msgstr "Önizleme hatası"
-
-msgid "Close"
-msgstr "Kapat"
+msgid "Updated"
+msgstr "Güncellendi"
 
 msgid "Cancel scheduled publish"
 msgstr "Zamanlanmış yayını iptal et"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s karşılaştırılıyor"
-
-msgid "Comparing"
-msgstr "Karşılaştırılıyor"
-
-msgid "Fields"
-msgstr "Alanlar"
-
-msgid "Changes"
-msgstr "Değişiklikler"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -762,15 +714,6 @@ msgstr "Üzgünüz, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok."
 
 msgid "Enter a search term above"
 msgstr "Bir arama kelimesi girin"
-
-msgid "Locked"
-msgstr "Kilitlendi"
-
-msgid "Unlocked"
-msgstr "Kilitsiz"
-
-msgid "Lock"
-msgstr "Kilitle"
 
 msgid "No pages use"
 msgstr "Hiçbir sayfa kullanmıyor"
@@ -800,11 +743,11 @@ msgstr "XLSX İndir"
 msgid "Download CSV"
 msgstr "CSV İndir"
 
-msgid "Filter"
-msgstr "Filtrele"
-
 msgid "Locking status"
 msgstr "Kilitli durum"
+
+msgid "Locked"
+msgstr "Kilitlendi"
 
 msgid "Edit this item"
 msgstr "Bu elemanı düzenle"
@@ -822,11 +765,15 @@ msgstr "İçerik haritası"
 msgid "Root"
 msgstr "Root (kök)"
 
-msgid "Home"
-msgstr "Ana Sayfa"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s yayından kaldır"
 
-msgid "All collections"
-msgstr "Tüm koleksiyonlar"
+msgid "Yes, unpublish it"
+msgstr "Evet, yayından kaldır"
+
+msgid "Filter"
+msgstr "Filtrele"
 
 msgid "Visit the live page"
 msgstr "Yayındaki sayfayı gör"
@@ -837,6 +784,16 @@ msgstr "Şimdiki sayfa durumu:"
 msgid "Other searches"
 msgstr "Diğer aramalar"
 
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
+
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"
 
@@ -845,10 +802,6 @@ msgstr "Araştırıcıda göster"
 
 msgid "New"
 msgstr "Yeni"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "%(modified_by)s tarafından"
 
 msgid "Compare with live version"
 msgstr "Canlı sürümüyle karşılaştır"
@@ -872,20 +825,12 @@ msgstr ""
 msgid "More"
 msgstr "Daha fazla"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
+
 msgid "Log out"
 msgstr "Çıkış yap"
-
-msgid "live"
-msgstr "canlı"
-
-msgid "draft"
-msgstr "taslak"
-
-msgid "live + draft"
-msgstr "canlı + taslak"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Password"
 msgstr "Parola"
@@ -925,6 +870,15 @@ msgstr "Bu koleksiyonu silmek istediğinizden emin misiniz?"
 
 msgid "Editing"
 msgstr "Düzenleniyor"
+
+msgid "Earliest"
+msgstr "En eski"
+
+msgid "Latest"
+msgstr "En yeni"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1022,12 +976,6 @@ msgstr ""
 msgid "Page '{0}' moved."
 msgstr "Sayfa '{0}' taşındı."
 
-msgid "Earliest"
-msgstr "En eski"
-
-msgid "Latest"
-msgstr "En yeni"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "sürüm {0} / \"{1}\""
@@ -1039,8 +987,8 @@ msgstr "Sayfa '{0}' yayından kaldırıldı."
 msgid "Show"
 msgstr "Göster"
 
-msgid "Server Error"
-msgstr "Sunucu Hatası"
+msgid "Change"
+msgstr "Değiştir"
 
 msgid "Pages"
 msgstr "Sayfalar"
@@ -1126,12 +1074,3 @@ msgstr "Raporlar"
 
 msgid "Choose an item"
 msgstr "Bir eleman seçiniz"
-
-msgid "Choose another item"
-msgstr "Başka bir eleman seçiniz"
-
-msgid "Clear choice"
-msgstr "Seçimi temizle"
-
-msgid "Choose another page"
-msgstr "Başka sayfa seç"

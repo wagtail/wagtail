@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
@@ -77,17 +77,14 @@ msgstr "Mover para cima"
 msgid "Move down"
 msgstr "Mover para baixo"
 
-msgid "Promoted search result"
-msgstr "Resultado promovido"
+msgid "Promoted search results"
+msgstr "Resultados promovidos"
 
 msgid "Add recommended page"
 msgstr "Adicionar recomendação para página"
 
 msgid "Search Terms"
 msgstr "Procurar Termos"
-
-msgid "Promoted search results"
-msgstr "Resultados promovidos"
 
 msgid "Add new promoted result"
 msgstr "Adicionar um novo resultado promovido"

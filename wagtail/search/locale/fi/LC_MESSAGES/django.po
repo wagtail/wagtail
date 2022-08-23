@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -58,9 +58,6 @@ msgstr "Näytöt (kuluva viikko)"
 
 msgid "No results found"
 msgstr "Ei tuloksia"
-
-msgid "Date"
-msgstr "Pvm"
 
 msgid "Choose from popular search terms"
 msgstr "Valitse suosituista hakutermeistä"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -62,6 +62,69 @@ msgstr "Sisestatud parool pole õige. Palun proovi uuesti."
 msgid "Comment"
 msgstr "Kommentaar"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b> Teie </b> lukustasite <b> lehe '{}' </b> saidil <b> {} </b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b> teie </b> on <b> leht '{} lukustatud </b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b> Lehe '{}' lukustas </b> <b> {} </b> saidil <b> {} </b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b> Lehekülg '{}' on lukus </b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "See leht ootab praegu modereerimist."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "See leht ootab <b> '{}' </b> töövoos <b> '{}' </b>."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Ainult selle ülesande ülevaatajad saavad lehte muuta."
+
+msgid "live"
+msgstr "elama"
+
+msgid "has unpublished changes"
+msgstr "on avaldamata muudatusi"
+
+msgid "first published at"
+msgstr "esmakordselt avaldatud aadressil"
+
+msgid "last published at"
+msgstr "viimati avaldatud aadressil"
+
+msgid "live revision"
+msgstr "otseülekanne"
+
+msgid "go live date/time"
+msgstr "mine otse kuupäev / kellaaeg"
+
+msgid "expiry date/time"
+msgstr "aegumiskuupäev / kellaaeg"
+
+msgid "expired"
+msgstr "aegunud"
+
+msgid "draft"
+msgstr "mustand"
+
+msgid "live + draft"
+msgstr "otse + mustand"
+
+msgid "Default"
+msgstr "Vaikimisi"
+
+msgid "locked"
+msgstr "lukus"
+
+msgid "locked at"
+msgstr "lukustatud kell"
+
+msgid "locked by"
+msgstr "lukustatud"
+
 msgid "title"
 msgstr "pealkiri"
 
@@ -81,12 +144,6 @@ msgstr ""
 msgid "content type"
 msgstr "sisu tüüp"
 
-msgid "live"
-msgstr "elama"
-
-msgid "has unpublished changes"
-msgstr "on avaldamata muudatusi"
-
 msgid "URL path"
 msgstr "URL-i tee"
 
@@ -100,35 +157,8 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
 
-msgid "go live date/time"
-msgstr "mine otse kuupäev / kellaaeg"
-
-msgid "expiry date/time"
-msgstr "aegumiskuupäev / kellaaeg"
-
-msgid "expired"
-msgstr "aegunud"
-
-msgid "locked"
-msgstr "lukus"
-
-msgid "locked at"
-msgstr "lukustatud kell"
-
-msgid "locked by"
-msgstr "lukustatud"
-
-msgid "first published at"
-msgstr "esmakordselt avaldatud aadressil"
-
-msgid "last published at"
-msgstr "viimati avaldatud aadressil"
-
 msgid "latest revision created at"
 msgstr "viimane redaktsioon loodud aadressil"
-
-msgid "live revision"
-msgstr "otseülekanne"
 
 msgid "This slug is already in use"
 msgstr "See nälkjas on juba kasutusel"
@@ -139,20 +169,11 @@ msgstr "ajastatud"
 msgid "in moderation"
 msgstr "mõõdukalt"
 
-msgid "draft"
-msgstr "mustand"
-
 msgid "live + scheduled"
 msgstr "otse + plaanitud"
 
 msgid "live + in moderation"
 msgstr "live + mõõdukalt"
-
-msgid "live + draft"
-msgstr "otse + mustand"
-
-msgid "Default"
-msgstr "Vaikimisi"
 
 msgid "page"
 msgstr "lehele"
@@ -174,12 +195,6 @@ msgstr "sisu JSON"
 
 msgid "approved go live at"
 msgstr "heakskiidetud otseülekanne kell"
-
-msgid "page revision"
-msgstr "lehekülje redaktsioon"
-
-msgid "page revisions"
-msgstr "lehekülje parandused"
 
 msgid "Add/edit pages you own"
 msgstr "Lisage / muutke omatavaid lehti"
@@ -354,6 +369,9 @@ msgstr "Jäeti vahele"
 msgid "workflow state"
 msgstr "töövoo olek"
 
+msgid "page revision"
+msgstr "lehekülje redaktsioon"
+
 msgid "started at"
 msgstr "algas kell"
 
@@ -512,15 +530,6 @@ msgstr "Sellele lehele pääsemiseks vajate parooli."
 
 msgid "Continue"
 msgstr "Jätka"
-
-msgid "English"
-msgstr "Inglise"
-
-msgid "French"
-msgstr "Prantsuse keel"
-
-msgid "German"
-msgstr "Saksa keel"
 
 msgid "Create"
 msgstr "Loo"
@@ -709,10 +718,6 @@ msgstr "Töövoo ülesanne lükati tagasi. Töövoog on lõpule viidud"
 
 msgid "Workflow: resume task"
 msgstr "Töövoog: ülesande jätkamine"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Esitatud uuesti \"%(task)s\". Töövoo jätkamine "
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Töövoo ülesanne on uuesti esitatud. Töövoog jätkus"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -76,17 +76,14 @@ msgstr "Πάνω"
 msgid "Move down"
 msgstr "Κάτω"
 
-msgid "Promoted search result"
-msgstr "Προωθείται το αποτέλεσμα αναζήτησης"
+msgid "Promoted search results"
+msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
 
 msgid "Add recommended page"
 msgstr "Προσθήκη προτεινόμενης σελίδας"
 
 msgid "Search Terms"
 msgstr "Όροι αναζήτησης"
-
-msgid "Promoted search results"
-msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
 
 msgid "Add new promoted result"
 msgstr "Προσθήκη νέου προωθείμενου αποτελέσματος"

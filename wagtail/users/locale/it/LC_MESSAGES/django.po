@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -25,11 +25,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Utenti Wagtail"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Obbligatorio. 30 caratteri o meno. Sono ammessi soltanto lettere, cifre e "
-"@ / / + / -. / _."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Questo valore può contenere soltanto lettere, numeri e @/./+/-/_"
@@ -233,9 +228,6 @@ msgstr "Visualizza utenti in questo gruppo"
 msgid "Save"
 msgstr "Salva"
 
-msgid "Permissions"
-msgstr "Permessi"
-
 msgid "Object permissions"
 msgstr "Permessi oggetto"
 
@@ -319,10 +311,6 @@ msgstr "Attivo"
 
 msgid "Inactive"
 msgstr "Inattivo"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s fa"
 
 #, python-format
 msgid "There is %(counter)s match"

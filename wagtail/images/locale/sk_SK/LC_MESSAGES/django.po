@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -135,15 +135,6 @@ msgstr "obrázok"
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
-msgid "Choose an image"
-msgstr "Vybrať obrázok"
-
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Upload"
-msgstr "Nahrať"
-
 msgid "Popular tags"
 msgstr "Populárne tagy"
 
@@ -158,9 +149,6 @@ msgstr "Zvoľte formát"
 
 msgid "Insert image"
 msgstr "Vložiť obrázok"
-
-msgid "Uploading…"
-msgstr "Odosielam…"
 
 msgid "Change image file:"
 msgstr "Zmeniť obrázok:"
@@ -204,9 +192,6 @@ msgstr "Súbor nebol nájdený"
 
 msgid "Images"
 msgstr "Obrázky"
-
-msgid "Clear choice"
-msgstr "Zmazať voľbu"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -310,6 +295,15 @@ msgstr "Pridať oprávnenia obrázku"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid "Upload"
+msgstr "Nahrať"
+
+msgid "Uploading…"
+msgstr "Odosielam…"
+
+msgid "Choose an image"
+msgstr "Vybrať obrázok"
+
 msgid "Search images"
 msgstr "Hľadat obrázky"
 
@@ -347,6 +341,3 @@ msgstr[0] "%(count)s obrázok"
 msgstr[1] "%(count)s obrázky"
 msgstr[2] "%(count)s obrázkov"
 msgstr[3] "%(count)s obrázkov"
-
-msgid "Edit this image"
-msgstr "Upraviť tento obrázok"

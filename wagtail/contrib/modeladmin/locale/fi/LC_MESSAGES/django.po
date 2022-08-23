@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -75,6 +75,10 @@ msgstr "Kopioi %s"
 msgid "image"
 msgstr "kuva"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Palaa %(model_name)s -listaan"
+
 msgid "Choose a parent page"
 msgstr "Valitse isäntäsivu"
 
@@ -118,9 +122,6 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
-msgid "Home"
-msgstr "Koti"
-
 msgid "Last updated"
 msgstr "Viimeksi päivitetty"
 
@@ -141,6 +142,9 @@ msgstr "Hae…"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Hae %(name)s"
+
+msgid "Search"
+msgstr "Haku"
 
 msgid "Download XLSX"
 msgstr "Lataa XLSX"
@@ -173,10 +177,6 @@ msgstr "Sivutus"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Sivu %(current_page)s/%(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Palaa %(model_name)s -listaan"
 
 msgid "Previous"
 msgstr "Edellinen"

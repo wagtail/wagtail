@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Favo Yang <favoyang@gmail.com>, 2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -219,15 +219,6 @@ msgstr "是的，删除吧。"
 msgid "No, don't delete"
 msgstr "否，不删除"
 
-msgid "Choose an image"
-msgstr "选择一个图片"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Upload"
-msgstr "上传"
-
 msgid "Popular tags"
 msgstr "热门标签"
 
@@ -245,9 +236,6 @@ msgstr "选择格式"
 
 msgid "Insert image"
 msgstr "插入图片"
-
-msgid "Uploading…"
-msgstr "正在上传…"
 
 msgid "Change image file:"
 msgstr "修改图片文件："
@@ -308,9 +296,6 @@ msgstr "图片"
 
 msgid "Popular Tags:"
 msgstr "热门标签"
-
-msgid "Clear choice"
-msgstr "清除选择"
 
 msgid "Select all images in listing"
 msgstr "选择列表中的所有图片"
@@ -453,6 +438,15 @@ msgid "%(num_parent_objects)d image has been deleted"
 msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个图片"
 
+msgid "Upload"
+msgstr "上传"
+
+msgid "Uploading…"
+msgstr "正在上传…"
+
+msgid "Choose an image"
+msgstr "选择一个图片"
+
 msgid "Search images"
 msgstr "搜索图片"
 
@@ -489,9 +483,3 @@ msgstr "图片"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s 个图片"
-
-msgid "Change image"
-msgstr "修改图片"
-
-msgid "Edit this image"
-msgstr "编辑此图片"

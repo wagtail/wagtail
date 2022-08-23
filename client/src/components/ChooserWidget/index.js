@@ -94,9 +94,9 @@ export class Chooser {
       const editUrl = newState[this.editUrlStateKey];
       if (editUrl) {
         this.editLink.setAttribute('href', editUrl);
-        this.editLink.classList.remove('u-hidden');
+        this.editLink.classList.remove('w-hidden');
       } else {
-        this.editLink.classList.add('u-hidden');
+        this.editLink.classList.add('w-hidden');
       }
     }
   }

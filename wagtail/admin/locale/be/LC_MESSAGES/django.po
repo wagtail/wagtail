@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -42,9 +42,6 @@ msgstr "Адмяніць працоўны працэс"
 
 msgid "Unpublish"
 msgstr "Адмяніць публікацыю"
-
-msgid "Delete"
-msgstr "Выдаліць"
 
 msgid "Save Draft"
 msgstr "Захаваць чарнавік"
@@ -108,20 +105,32 @@ msgstr "Калі ласка, увядзіце адрас электроннай 
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Крытэр пошуку"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "All collections"
+msgstr "Усе калекцыі"
+
+msgid "Collection"
+msgstr "Калекцыя"
+
 msgid "Parent"
 msgstr "Бацькоўскі элемент"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Вы не можаце мець некалькі дазволаў для адной і той жа калекцыі."
 
-msgid "Collection"
-msgstr "Калекцыя"
-
 msgid "Add"
 msgstr "дадаць"
 
 msgid "Edit"
 msgstr "Рэдактаваць"
+
+msgid "Delete"
+msgstr "Выдаліць"
 
 msgid "New title"
 msgstr "Новая назва"
@@ -195,12 +204,6 @@ msgstr "Час размяшчэння павінен быць раней час�
 msgid "Expiry date/time must be in the future"
 msgstr "Тэрмін адмены размяшшчэння павінен быць у будучыні"
 
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Search term"
-msgstr "Крытэр пошуку"
-
 msgid "Visibility"
 msgstr "Бачнасць"
 
@@ -213,9 +216,6 @@ msgstr "Калі ласка, выберыце мінімум 1 гурт."
 msgid "Scheduled publishing"
 msgstr "Адкладзеная публікацыя"
 
-msgid "Privacy"
-msgstr "Сакрэтнасць"
-
 msgid "Content"
 msgstr "Змест"
 
@@ -224,12 +224,6 @@ msgstr "Прасоўванне"
 
 msgid "Settings"
 msgstr "Налады"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Preview"
-msgstr "Папярэдні прагляд"
 
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
@@ -245,15 +239,6 @@ msgstr "Перайсці да адміністратара Wagtail"
 
 msgid "Account"
 msgstr "Аккаунт"
-
-msgid "Change password"
-msgstr "Змяніць пароль"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ваш пароль не можа быць зменены. Калі ласка, звярніцеся да адміністратара "
-"сайта."
 
 msgid "Reset password"
 msgstr "Заменя пароля"
@@ -341,6 +326,13 @@ msgstr "Дадаць знешнюю спасылку"
 msgid "Add a phone link"
 msgstr "Дадайце спасылку на тэлефон"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Агляд падстаронак для '%(title)s'"
+
+msgid "Explore"
+msgstr "Агляд"
+
 msgid "Collection privacy"
 msgstr "Прыватнасць калекцыі"
 
@@ -350,14 +342,17 @@ msgstr "Гэтая калекцыя была зачынена бацькоўск
 msgid "You can edit the privacy settings on:"
 msgstr "Вы можаце смяніць налады прыватнасці:"
 
+msgid "Save"
+msgstr "Захаваць"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Параметры прыватнасці вызначаюць, хто можа праглядаць дакументы ў гэтай "
 "калекцыі."
 
-msgid "Save"
-msgstr "Захаваць"
+msgid "Privacy"
+msgstr "Сакрэтнасць"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Усталяваны статус прыватнасці: грамадскі"
@@ -393,8 +388,18 @@ msgstr "Так. Выдаліць"
 msgid "Update"
 msgstr "Аднаўленне"
 
-msgid "Dashboard"
-msgstr "Панэль кіравання"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Параўноўваем %(title)s"
+
+msgid "Comparing"
+msgstr "Параўноўваем"
+
+msgid "Fields"
+msgstr "Палі"
+
+msgid "Changes"
+msgstr "Змены"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -446,8 +451,14 @@ msgstr "Пацвярдзіць"
 msgid "Reject"
 msgstr "Адхіліць"
 
+msgid "Preview"
+msgstr "Папярэдні прагляд"
+
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
+
+msgid "Status"
+msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
@@ -458,14 +469,14 @@ msgstr "Агульная інфармацыя"
 msgid "Sign in"
 msgstr "Увайсці"
 
+msgid "Sign in to Wagtail"
+msgstr "Увайсці у Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Вашы %(username_field)s і пароль не супадаюць. Калі ласка, паспрабуйце яшчэ "
 "раз."
-
-msgid "Sign in to Wagtail"
-msgstr "Увайсці у Wagtail"
 
 msgid "Signing in…"
 msgstr "Выконваецца ўваход..."
@@ -515,22 +526,6 @@ msgstr "Прыватнасць старонкі"
 
 msgid "This page has been made private by a parent page."
 msgstr "Гэтая старонка была зачынена бацькоўскай старонкай"
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Усталяваць статус канфідэнцыяльнасці старонкі: грамадскі"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Усталяваць статус канфідэнцыяльнасці старонкі: прыватны"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Статус канфідэнцыяльнасці старонкі: грамадскі"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Статус канфідэнцыяльнасці старонкі: прыватны"
 
 msgid "Publishing…"
 msgstr "Апублікаваць..."
@@ -609,15 +604,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Так, перамясціць гэтую старонку"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Адмяніць публікацыю %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы ўпэўнены, што хочаце апублікаваць гэтую старонку?"
-
-msgid "Yes, unpublish it"
-msgstr "Так, апублікаваць"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -657,18 +645,11 @@ msgid "Current draft"
 msgstr "Чарнавік"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму назад"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Агляд %(title)s"
 
 msgid "Drag"
 msgstr "Перацягнуць"
-
-msgid "Updated"
-msgstr "Абноўлена"
 
 msgid "Configure a site now."
 msgstr "Наладзіць сайт."
@@ -682,13 +663,6 @@ msgstr "Чаму б не стварыць <a href=\"%(add_page_url)s\">адну<
 
 msgid "This page is locked to further editing"
 msgstr "Гэтая старонка заблакаваная для далейшага рэдагавання"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Агляд падстаронак для '%(title)s'"
-
-msgid "Explore"
-msgstr "Агляд"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -722,35 +696,11 @@ msgstr "Парадак"
 msgid "Enable ordering of child pages"
 msgstr "Уключыць ўпарадкаванне даччыных старонак"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Выбраць новую бацькоўскую старонку для %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Выбрать новую родительскую страницу для <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "Памылка прадпрагляду"
-
-msgid "Close"
-msgstr "Зачыніць"
+msgid "Updated"
+msgstr "Абноўлена"
 
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Параўноўваем %(title)s"
-
-msgid "Comparing"
-msgstr "Параўноўваем"
-
-msgid "Fields"
-msgstr "Палі"
-
-msgid "Changes"
-msgstr "Змены"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -773,15 +723,6 @@ msgstr "Тыпы старонак"
 
 msgid "Enter a search term above"
 msgstr "Калі ласка, увядзіце крытэр пошуку вышэй"
-
-msgid "Locked"
-msgstr "Заблакавана"
-
-msgid "Unlocked"
-msgstr "Разблакавана"
-
-msgid "Lock"
-msgstr "Заблакаваць"
 
 msgid "No pages use"
 msgstr "Няма старонак выкарыстоўваюць"
@@ -808,11 +749,11 @@ msgstr "Спампаваць XLSX"
 msgid "Download CSV"
 msgstr "Спампаваць CSV"
 
-msgid "Filter"
-msgstr "Фільтр"
-
 msgid "Locking status"
 msgstr "Статус блакавання"
+
+msgid "Locked"
+msgstr "Заблакавана"
 
 msgid "No locked pages found."
 msgstr "Не знойдзены заблякаваныя старонкі."
@@ -833,11 +774,15 @@ msgstr "Шлях па сайту"
 msgid "Root"
 msgstr "Галоўная"
 
-msgid "Home"
-msgstr "Галоўная"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Адмяніць публікацыю %(title)s"
 
-msgid "All collections"
-msgstr "Усе калекцыі"
+msgid "Yes, unpublish it"
+msgstr "Так, апублікаваць"
+
+msgid "Filter"
+msgstr "Фільтр"
 
 msgid "Visit the live page"
 msgstr "Наведаць старонку"
@@ -848,6 +793,16 @@ msgstr "Бягучы статус старонкі:"
 msgid "Other searches"
 msgstr "Іншыя пошукі"
 
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
+
 msgid "Add a child page"
 msgstr "Дадаць даччыную старонку"
 
@@ -856,10 +811,6 @@ msgstr "Паказаць Правадыр"
 
 msgid "New"
 msgstr "Новы"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "ад %(modified_by)s"
 
 msgid "Compare with live version"
 msgstr "Параўнаць з апублікаванай версіяй"
@@ -883,20 +834,12 @@ msgstr ""
 msgid "More"
 msgstr "Больш"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму назад"
+
 msgid "Log out"
 msgstr "Выйсці"
-
-msgid "live"
-msgstr "апублікавана"
-
-msgid "draft"
-msgstr "чарнавік"
-
-msgid "live + draft"
-msgstr "апублікавана + чарнавік"
-
-msgid "Test"
-msgstr "Тэст"
 
 msgid "Password"
 msgstr "Пароль"
@@ -936,6 +879,15 @@ msgstr "Вы ўпэўнены, што жадаеце выдаліць гэтую
 
 msgid "Editing"
 msgstr "Рэдагаванне"
+
+msgid "Earliest"
+msgstr "Ранні"
+
+msgid "Latest"
+msgstr "Апошні"
+
+msgid "Dashboard"
+msgstr "Панэль кіравання"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -980,18 +932,6 @@ msgstr "Гэтая старонка ў дадзены момант чакае м
 #, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Старонка '{0}' абноўлена."
-
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Старонка '{}' была заблакавана</b><b>Вамі</b> у <b> {} </b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Старонка '{}' заблакавана</b><b>Вамі</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Старонка '{}' была заблакавана <b>{}</b> у <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Старонка '{}' заблакавана</b>."
 
 #, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
@@ -1045,12 +985,6 @@ msgstr ""
 msgid "Page '{0}' moved."
 msgstr "Старонка '{0}' перамешчана."
 
-msgid "Earliest"
-msgstr "Ранні"
-
-msgid "Latest"
-msgstr "Апошні"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "версія {0} старонкі \"{1}\""
@@ -1059,8 +993,8 @@ msgstr "версія {0} старонкі \"{1}\""
 msgid "Page '{0}' unpublished."
 msgstr "Старонка '{0}' знята з публікацыі."
 
-msgid "Server Error"
-msgstr "Памылка Сервера"
+msgid "Change"
+msgstr "Змяніць"
 
 msgid "Pages"
 msgstr "Старонкі"
@@ -1146,12 +1080,3 @@ msgstr "Справаздачы"
 
 msgid "Choose an item"
 msgstr "Выбраць элемент"
-
-msgid "Choose another item"
-msgstr "Выбраць іншы элемент"
-
-msgid "Clear choice"
-msgstr "Ачысціць выбар"
-
-msgid "Choose another page"
-msgstr "Выбраць іншую старонку"

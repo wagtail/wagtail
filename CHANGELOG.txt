@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+4.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Add basic keyboard control and screen reader support for page listing re-ordering (Paarth Agarwal, Thomas van der Hoeven)
+
+
 4.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -109,7 +116,8 @@ Changelog
  * Move commenting trigger to inline toolbar and move block splitting to the block toolbar and command palette only in Draftail (Thibaud Colas)
  * Pages are now locked when they are scheduled for publishing (Karl Hobley)
  * Simplify page chooser views by converting to class-based views (Matt Westcott)
- * Add reference documentation for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
+ * Add reference documentation and snippets usage guide for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
+ * Add "Translate" button within pages’ Actions dropdown when editing pages (Sage Abdullah)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
@@ -166,6 +174,27 @@ Changelog
  * Fix: Ensure that `BaseSiteSetting` / `BaseGenericSetting` objects can be pickled (Andy Babic)
  * Fix: Ensure `DocumentChooserBlock` can be deconstructed for migrations (Matt Westcott)
  * Fix: Resolve frontent console error and unintented console logging issues (Matt Wescott, Paarth Agarwal)
+ * Fix: Resolve issue with sites that have not yet migrated away from `BaseSetting` when upgrading to Wagtail 4.0 (Stefan Hammer)
+ * Fix: Use correct classnames for showing/hiding edit button on chooser widget (Matt Wescott)
+ * Fix: Render MultiFieldPanel’s heading even when nested (Thibaud Colas)
+ * Fix: Make sure select widgets render correctly regardless of the Django field and widget type (Thibaud Colas)
+ * Fix: Consistently display boolean field labels above the widget so they render correctly (Thibaud Colas)
+ * Fix: Address form field label alignment issues by always displaying labels above the widget (Thibaud Colas)
+ * Fix: Make sure rich text URL editing tooltip is fully visible when displayed inside InlinePanel blocks (Thibaud Colas)
+ * Fix: Allow input fields to scroll horizontally in Safari iOS (Thibaud Colas)
+ * Fix: Ensure screen readers are made aware of page level messages added dynamically to the top of the page (Paarth Agarwal)
+ * Fix: Fix `updatemodulepaths` command for Python 3.7 (Matt Westcott)
+ * Fix: Only show locale filter in choosers when i18n is enabled in settings (Matt Westcott)
+ * Fix: Ensure that the live preview panel correctly clears the cache when a new page is created (Sage Abdullah)
+ * Fix: Ensure that there is a larger hoverable area for add block (+) within the Drafttail editor (Steven Steinwand)
+ * Fix: Resolve multiple header styling issues for modal, alignment on small devices, outside click handling target on medium devices, close button target size and hover styles (Paarth Agarwal)
+
+
+3.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure string representation of `FormSubmission` returns a string (LB (Ben Johnston))
+ * Fix: Fix `updatemodulepaths` command for Python 3.7 (Matt Westcott)
 
 
 3.0.1 (16.06.2022)

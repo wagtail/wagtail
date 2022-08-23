@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Martin Janšto <mato@jansto.sk>, 2017\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -33,9 +33,6 @@ msgstr "Odoslať na moderáciu"
 
 msgid "Unpublish"
 msgstr "Nezverejniť"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid "Page locked"
 msgstr "Stránka je uzamknutá"
@@ -77,20 +74,32 @@ msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Hľadaný výraz"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "All collections"
+msgstr "Všetky kolekcie"
+
+msgid "Collection"
+msgstr "Kolekcie"
+
 msgid "Parent"
 msgstr "Rodič"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
 
-msgid "Collection"
-msgstr "Kolekcie"
-
 msgid "Add"
 msgstr "Pridať"
 
 msgid "Edit"
 msgstr "Upraviť"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -165,12 +174,6 @@ msgstr "Dátum publikácie musí byť pred dátumom expirácie"
 msgid "Expiry date/time must be in the future"
 msgstr "Dátum expirácie musí byť v budúcnosti"
 
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Search term"
-msgstr "Hľadaný výraz"
-
 msgid "Visibility"
 msgstr "Viditeľnosť"
 
@@ -183,8 +186,8 @@ msgstr "Prosím, vyberte aspoň jednu skupinu."
 msgid "Scheduled publishing"
 msgstr "Naplánovať publikovanie"
 
-msgid "Privacy"
-msgstr "Súkromie"
+msgid "Page title"
+msgstr "Titulok stránky"
 
 msgid "Content"
 msgstr "Obsah"
@@ -194,12 +197,6 @@ msgstr "Propagovať"
 
 msgid "Settings"
 msgstr "Nastavenia"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Preview"
-msgstr "Náhľad"
 
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
@@ -215,14 +212,6 @@ msgstr "Choď do administrátorskej časti"
 
 msgid "Account"
 msgstr "Účet"
-
-msgid "Change password"
-msgstr "Zmeniť heslo"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora sídla."
 
 msgid "Reset password"
 msgstr "Resetovať heslo"
@@ -275,6 +264,13 @@ msgstr "Vložiť odkaz"
 msgid "Add an external link"
 msgstr "Pridať externý odkaz"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Prehliadajte podstránky '%(title)s'"
+
+msgid "Explore"
+msgstr "Prehliadať"
+
 msgid "Collection privacy"
 msgstr "Súkromie kolekcie"
 
@@ -284,13 +280,16 @@ msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavenie súkromia môžete zmeniť na:"
 
+msgid "Save"
+msgstr "Uložiť"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Nastavenia súkromia určujú, kto bude môcť prezerať dokumenty v kolekcii."
 
-msgid "Save"
-msgstr "Uložiť"
+msgid "Privacy"
+msgstr "Súkromie"
 
 msgid "Public"
 msgstr "Verejná"
@@ -319,8 +318,18 @@ msgstr "Áno, zmazať"
 msgid "Update"
 msgstr "Aktualizovať"
 
-msgid "Dashboard"
-msgstr "Nástenka"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnať %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnať"
+
+msgid "Fields"
+msgstr "Polia"
+
+msgid "Changes"
+msgstr "Zmeny"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -360,8 +369,14 @@ msgstr "Schváliť"
 msgid "Reject"
 msgstr "Odmietnuť"
 
+msgid "Preview"
+msgstr "Náhľad"
+
 msgid "Your most recent edits"
 msgstr "Vaše posledné úpravy"
+
+msgid "Status"
+msgstr "Stav"
 
 msgid "Date"
 msgstr "Dátum"
@@ -372,12 +387,12 @@ msgstr "Prehľad sídla"
 msgid "Sign in"
 msgstr "Prihlásiť sa"
 
+msgid "Sign in to Wagtail"
+msgstr "Prihlásiť sa do Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
-
-msgid "Sign in to Wagtail"
-msgstr "Prihlásiť sa do Wagtail"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -424,9 +439,6 @@ msgstr "Nastavenie súkromia stránky"
 
 msgid "This page has been made private by a parent page."
 msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
 
 msgid "Saving…"
 msgstr "Ukladám…"
@@ -498,15 +510,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Áno, presunúť túto stránku"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odpublikovať %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Naozaj chcete odpublikovať túto stránku?"
-
-msgid "Yes, unpublish it"
-msgstr "Áno, odpublikovať"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -549,18 +554,11 @@ msgid "Current draft"
 msgstr "Aktuálny koncept"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Prehliadanie %(title)s"
 
 msgid "Drag"
 msgstr "Potiahnuť"
-
-msgid "Updated"
-msgstr "Aktualizované"
 
 msgid "Configure a site now."
 msgstr "Nastavte webové sídlo."
@@ -574,13 +572,6 @@ msgstr "Prečo nevytvoriť <a href=\"%(add_page_url)s\">jednu ihneď</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Táto stránka bola uzamknutá pre budúcu úpravu"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Prehliadajte podstránky '%(title)s'"
-
-msgid "Explore"
-msgstr "Prehliadať"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -608,44 +599,11 @@ msgstr "Zakázať usporiadanie podstránok"
 msgid "Enable ordering of child pages"
 msgstr "Povoliť usporiadanie child stránok"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Zvolte novú rodičovskú stránku pre %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Zvoľte novú rodičovskú stránku pre  <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "Chyba náhľadu"
-
-msgid "Close"
-msgstr "Zavrieť"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnať %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnať"
-
-msgid "Fields"
-msgstr "Polia"
-
-msgid "Changes"
-msgstr "Zmeny"
+msgid "Updated"
+msgstr "Aktualizované"
 
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
-
-msgid "Locked"
-msgstr "Zamknuté"
-
-msgid "Unlocked"
-msgstr "Odomknuté"
-
-msgid "Lock"
-msgstr "Zamknúť"
 
 msgid "No pages use"
 msgstr "Nepoužívajú žiadne stránky"
@@ -659,8 +617,8 @@ msgstr "Posunúť nižšie"
 msgid "Download CSV"
 msgstr "Stiahnuť CSV"
 
-msgid "Filter"
-msgstr "Filter"
+msgid "Locked"
+msgstr "Zamknuté"
 
 msgid "Edit this item"
 msgstr "Upraviť položku"
@@ -675,14 +633,27 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 msgid "Root"
 msgstr "Koreň"
 
-msgid "Home"
-msgstr "Domov"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odpublikovať %(title)s"
 
-msgid "All collections"
-msgstr "Všetky kolekcie"
+msgid "Yes, unpublish it"
+msgstr "Áno, odpublikovať"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
+
+msgid "Lock"
+msgstr "Zamknúť"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
 
 msgid "Add a child page"
 msgstr "Pridať podstránku"
@@ -693,30 +664,18 @@ msgstr "Zobraziť v prehliadači"
 msgid "New"
 msgstr "Nový"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "od %(modified_by)s"
-
 msgid "Compare with live version"
 msgstr "Porovnaj s live verziou"
 
 msgid "More"
 msgstr "Viac"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
+
 msgid "Log out"
 msgstr "Odhlásiť sa"
-
-msgid "live"
-msgstr "live"
-
-msgid "draft"
-msgstr "koncept"
-
-msgid "live + draft"
-msgstr "live  + koncept"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Password"
 msgstr "Heslo"
@@ -756,6 +715,15 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 
 msgid "Editing"
 msgstr "Editácia"
+
+msgid "Earliest"
+msgstr "Najstaršie"
+
+msgid "Latest"
+msgstr "Najnovšie"
+
+msgid "Dashboard"
+msgstr "Nástenka"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -845,18 +813,12 @@ msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' bola presunutá."
 
-msgid "Earliest"
-msgstr "Najstaršie"
-
-msgid "Latest"
-msgstr "Najnovšie"
-
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránka '{0}' bola odpublikovaná."
 
-msgid "Server Error"
-msgstr "Chyba servera"
+msgid "Change"
+msgstr "Zmeniť"
 
 msgid "Pages"
 msgstr "Stránky"
@@ -866,12 +828,3 @@ msgstr "Pridať podstránku"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"
-
-msgid "Choose another item"
-msgstr "Zvoliť daľšiu položku"
-
-msgid "Clear choice"
-msgstr "Zmazať voľbu"
-
-msgid "Choose another page"
-msgstr "Zvoliť ďalšiu stránku"

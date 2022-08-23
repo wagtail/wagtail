@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -87,24 +87,8 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
-msgid "Choose a document"
-msgstr "Pasirinkti dokumentą"
-
-msgid "Search"
-msgstr "Paieška"
-
-msgid "Upload"
-msgstr "Įkelti"
-
 msgid "Latest documents"
 msgstr "Paskutiniai dokumentai"
-
-#, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(query_string)s</em>\""
-
-msgid "Uploading…"
-msgstr "Įkeliama..."
 
 msgid "Change document:"
 msgstr "Keisti dokumentą:"
@@ -114,6 +98,12 @@ msgstr "Pridėti dokumentą"
 
 msgid "Add document"
 msgstr "Pridėti dokumentą"
+
+msgid "Uploading…"
+msgstr "Įkeliama..."
+
+msgid "Upload"
+msgstr "Įkelti"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -154,8 +144,8 @@ msgid "Created"
 msgstr "Sukurtas"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -245,8 +235,8 @@ msgstr "Pridėti į kolekciją"
 msgid "Delete"
 msgstr "Ištrinti"
 
-msgid "Server Error"
-msgstr "Serverio klaida"
+msgid "Choose a document"
+msgstr "Pasirinkti dokumentą"
 
 msgid "Search documents"
 msgstr "Ieškoti dokumentų"
@@ -280,9 +270,3 @@ msgstr[0] "%(count)s dokumentas"
 msgstr[1] "%(count)s dokumentai"
 msgstr[2] "%(count)s dokumentų"
 msgstr[3] "%(count)s dokumentų"
-
-msgid "Choose another document"
-msgstr "Pasirinkti kitą dokumentą"
-
-msgid "Edit this document"
-msgstr "Redaguoti šį dokumentą"

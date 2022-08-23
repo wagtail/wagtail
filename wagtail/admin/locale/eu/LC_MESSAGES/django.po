@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 67feb0cba3962a6c9f09eb0e43697461_528661a "
 "<cbde1c637170da616adcdde6daca673c_96059>, 2014\n"
@@ -20,37 +20,23 @@ msgstr ""
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Delete"
-msgstr "Ezabatu"
-
 msgid "Enter your email address to reset your password"
 msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
-
-msgid "Parent"
-msgstr "Gurasoa"
-
-msgid "Search"
-msgstr "Bilatu"
 
 msgid "Search term"
 msgstr "Bilaketa terminoa"
 
-msgid "Status"
-msgstr "Egoera"
+msgid "Search"
+msgstr "Bilatu"
 
-msgid "Preview"
-msgstr "Aurrikusi"
+msgid "Parent"
+msgstr "Gurasoa"
+
+msgid "Delete"
+msgstr "Ezabatu"
 
 msgid "Account"
 msgstr "Kontua"
-
-msgid "Change password"
-msgstr "Pasahitza aldatu"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Zure pasahitza ezin da hemen aldatu. Mesedez kontaktatu administratzailea."
 
 msgid "Reset password"
 msgstr "Pasahitza berrezarri"
@@ -94,9 +80,6 @@ msgstr "Esteka txertatu"
 msgid "Add an external link"
 msgstr "Kanpo esteka bat gehitu"
 
-msgid "Dashboard"
-msgstr "Kontrol panela"
-
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Ongi etorri %(site_name)s Wagtail CMSra"
@@ -123,8 +106,14 @@ msgstr "Baieztatu"
 msgid "Reject"
 msgstr "Ezeztatu"
 
+msgid "Preview"
+msgstr "Aurrikusi"
+
 msgid "Your most recent edits"
 msgstr "Zure edizio berrienak"
+
+msgid "Status"
+msgstr "Egoera"
 
 msgid "Date"
 msgstr "Data"
@@ -135,20 +124,11 @@ msgstr "Gora mugitu"
 msgid "Move down"
 msgstr "Behera mugitu"
 
-msgid "Home"
-msgstr "Etxea"
+msgid "Dashboard"
+msgstr "Kontrol panela"
 
 msgid "View draft"
 msgstr "Borradorea ikusi"
 
 msgid "Choose an item"
 msgstr "Elementu bat aukeratu"
-
-msgid "Choose another item"
-msgstr "Beste elementu bat aukeratu"
-
-msgid "Clear choice"
-msgstr "Aukeraketa garbitu"
-
-msgid "Choose another page"
-msgstr "Beste orrialde bat aukeratu"

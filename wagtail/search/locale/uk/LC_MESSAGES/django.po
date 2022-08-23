@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -61,9 +61,6 @@ msgstr "Перегляди (минулий тиждень)"
 
 msgid "No results found"
 msgstr "Результати не знайдені"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Choose from popular search terms"
 msgstr "Оберіть з популярних критеріїв пошуку"

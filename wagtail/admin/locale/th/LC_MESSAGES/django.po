@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr "เสนอให้ตรวจ/ส่งให้ตรวจ"
 
 msgid "Unpublish"
 msgstr "ยกเลิกประกาศ"
-
-msgid "Delete"
-msgstr "ลบ"
 
 msgid "Page locked"
 msgstr "หน้านี้ถูกล็อกไว้"
@@ -85,20 +82,32 @@ msgstr "กรอกอีเมลของคุณเพื่อรีเซ
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "คำที่ต้องการค้นหา"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "All collections"
+msgstr "ทุกชุด"
+
+msgid "Collection"
+msgstr "ชุด"
+
 msgid "Parent"
 msgstr "หน้าหลัก,หน้าแรก"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "คุณไม่สามารถมีใบอนุญาติที่จดทะเบียนซ้ำกันได้"
 
-msgid "Collection"
-msgstr "ชุด"
-
 msgid "Add"
 msgstr "เพิ่ม,เติม"
 
 msgid "Edit"
 msgstr "แก้ไข"
+
+msgid "Delete"
+msgstr "ลบ"
 
 msgid "New title"
 msgstr "หัวข้อใหม่"
@@ -159,12 +168,6 @@ msgstr "วันและเวลาในปัจจุบันต้อง
 msgid "Expiry date/time must be in the future"
 msgstr "วันที่ / เวลาหมดอายุจะต้องเป็นวันเวลาในอนาคต"
 
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Search term"
-msgstr "คำที่ต้องการค้นหา"
-
 msgid "Visibility"
 msgstr "ความชัดเจน"
 
@@ -177,9 +180,6 @@ msgstr "โปรดเลือกอย่างน้อยหนึ่งก
 msgid "Scheduled publishing"
 msgstr "การจัดพิมพ์ตาราง"
 
-msgid "Privacy"
-msgstr "ความเป็นส่วนตัว , ข้อมูลส่วนตัว"
-
 msgid "Content"
 msgstr "เนื้อหา"
 
@@ -188,12 +188,6 @@ msgstr "โปรโมท"
 
 msgid "Settings"
 msgstr "การตั้งค่า"
-
-msgid "Status"
-msgstr "สถานะ"
-
-msgid "Preview"
-msgstr "ภาพตัวอย่าง"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404 : ไม่พบเนื้อหา"
@@ -209,13 +203,6 @@ msgstr "ไปยังหน้า Wagtail admin"
 
 msgid "Account"
 msgstr "ชื่อบัญชี"
-
-msgid "Change password"
-msgstr "เปลี่ยนรหัสผ่าน"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "รหัสผ่านของคุณไม่สามารถเปลี่ยนได้ที่นี่ โปรดติดต่อผู้บริหารของเว็บไซด์"
 
 msgid "Reset password"
 msgstr "ตั้งรหัสใหม่อีกครั้ง"
@@ -284,6 +271,13 @@ msgstr "ใส่ลิงค์"
 msgid "Add an external link"
 msgstr "เติมลิงค์ภายใน"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "สำรวจหน้าย่อยของ '%(title)s'"
+
+msgid "Explore"
+msgstr "สำรวจ"
+
 msgid "Collection privacy"
 msgstr "การเก็บรวบรวมข้อมูลส่วนตัว"
 
@@ -293,12 +287,15 @@ msgstr "ข้อมูลส่วนตัวเหล่านี้ถูก
 msgid "You can edit the privacy settings on:"
 msgstr "คุณสามารถแก้ไขข้อมูลส่วนตัวตามนี้"
 
+msgid "Save"
+msgstr "เซฟ , เก็บรักษาข้อมูล"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "การตั้งค่าข้อมูลส่วนตัวว่าใครสามารถเข้าถึงข้อมูลนี้ได้"
 
-msgid "Save"
-msgstr "เซฟ , เก็บรักษาข้อมูล"
+msgid "Privacy"
+msgstr "ความเป็นส่วนตัว , ข้อมูลส่วนตัว"
 
 msgid "Public"
 msgstr "สาธารณะ"
@@ -327,8 +324,18 @@ msgstr ""
 msgid "Update"
 msgstr "ล่าสุด"
 
-msgid "Dashboard"
-msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "กำลังเปรียบเทียบ %(title)s"
+
+msgid "Comparing"
+msgstr "กำลังเปรียบเทียบ"
+
+msgid "Fields"
+msgstr "หัวข้อ"
+
+msgid "Changes"
+msgstr "เปลี่ยน"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -369,8 +376,14 @@ msgstr "ยืนยัน"
 msgid "Reject"
 msgstr "ไม่ผ่าน"
 
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
+
 msgid "Your most recent edits"
 msgstr "ที่คุณแก้ไขล่าสุด"
+
+msgid "Status"
+msgstr "สถานะ"
 
 msgid "Date"
 msgstr "วันที่"
@@ -381,12 +394,12 @@ msgstr "สรุป,หน้าหลักของเว็บไซด์"
 msgid "Sign in"
 msgstr "ลงชื่อเข้าใช้"
 
+msgid "Sign in to Wagtail"
+msgstr "ลงชื่อเข้าใช้ในWagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "ของคุณ %(username_field)s และรหัสผ่านไม่ตรงกัน โปรดลองใหม่อีกครั้ง"
-
-msgid "Sign in to Wagtail"
-msgstr "ลงชื่อเข้าใช้ในWagtail"
 
 msgid "Signing in…"
 msgstr "กำลังลงชื่อเข้าใช้"
@@ -436,9 +449,6 @@ msgstr "ความเป็นส่วนตัวของหน้านี
 
 msgid "This page has been made private by a parent page."
 msgstr "หน้านี้ถูกตั้งค่าส่วนตัวโดยหน้าหลัก"
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr "การเปลี่ยนความเป็นส่วนตัวทั้งหมดสามารถแสดงให้เห็นในหน้าย่อยทุกหน้า"
 
 msgid "Publishing…"
 msgstr "กำลังพิมพ์"
@@ -515,15 +525,8 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะเ
 msgid "Yes, move this page"
 msgstr "ใช่,เคลื่อนย้ายหน้านี้"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "ยกเลิกการพิมพ์ %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "คุณแน่ใจว่าคุณต้องการยกเลิกการจัดพิมพ์หน้านี้?"
-
-msgid "Yes, unpublish it"
-msgstr "ใช่,ยกเลิกการพิมพ์"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -560,18 +563,11 @@ msgid "Current draft"
 msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s ที่ผ่านมา"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "กำลังสำรวจ %(title)s"
 
 msgid "Drag"
 msgstr "ลาก"
-
-msgid "Updated"
-msgstr "อัพเดท"
 
 msgid "Configure a site now."
 msgstr "โครงสร้างเว็บไซด์ในขณะนี้"
@@ -585,13 +581,6 @@ msgstr "ทำไมถึงไม่ <a href=\"%(add_page_url)s\">สร้า
 
 msgid "This page is locked to further editing"
 msgstr "หน้านี้ถูกล็อกไม่สามารถแก้ไขได้แล้ว"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "สำรวจหน้าย่อยของ '%(title)s'"
-
-msgid "Explore"
-msgstr "สำรวจ"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -619,35 +608,11 @@ msgstr "การเรียงไม่สามารถทำได้ใน
 msgid "Enable ordering of child pages"
 msgstr "การเรียงลำดับสามารถทำได้ในหน้าย่อย"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "เลือกหน้าแรกใหม่สำหรับ %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "เลือกหน้าแรกใหม่สำหรับ <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "ภาพตัวอย่างเออเล่อร์,ภาพตัวอย่างผิดพลาด"
-
-msgid "Close"
-msgstr "ปิด"
+msgid "Updated"
+msgstr "อัพเดท"
 
 msgid "Cancel scheduled publish"
 msgstr "ยกเลิกการจัดพิมพ์ตาราง"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "กำลังเปรียบเทียบ %(title)s"
-
-msgid "Comparing"
-msgstr "กำลังเปรียบเทียบ"
-
-msgid "Fields"
-msgstr "หัวข้อ"
-
-msgid "Changes"
-msgstr "เปลี่ยน"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -673,15 +638,6 @@ msgstr "รูปแบบหน้า"
 msgid "Enter a search term above"
 msgstr "เข้าสู่การค้นหาคำที่หาอยู่"
 
-msgid "Locked"
-msgstr "ล็อกเรียบร้อยแล้ว"
-
-msgid "Unlocked"
-msgstr "ปลดล็อก"
-
-msgid "Lock"
-msgstr "ล็อค"
-
 msgid "No pages use"
 msgstr "ไม่มีหน้าท่ีใช้"
 
@@ -698,8 +654,8 @@ msgstr "เลื่อนลง"
 msgid "Download CSV"
 msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
 
-msgid "Filter"
-msgstr "คัดกรอง"
+msgid "Locked"
+msgstr "ล็อกเรียบร้อยแล้ว"
 
 msgid "Edit this item"
 msgstr "แก้ไขชิ้นนี้"
@@ -714,14 +670,27 @@ msgstr "หน้า %(page_num)s ของ%(total_pages)s."
 msgid "Root"
 msgstr "ต้นฉบับ"
 
-msgid "Home"
-msgstr "หน้าหลัก"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "ยกเลิกการพิมพ์ %(title)s"
 
-msgid "All collections"
-msgstr "ทุกชุด"
+msgid "Yes, unpublish it"
+msgstr "ใช่,ยกเลิกการพิมพ์"
+
+msgid "Filter"
+msgstr "คัดกรอง"
 
 msgid "Other searches"
 msgstr "ค้นหาอย่างอื่น"
+
+msgid "Unlocked"
+msgstr "ปลดล็อก"
+
+msgid "Lock"
+msgstr "ล็อค"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "การเปลี่ยนความเป็นส่วนตัวทั้งหมดสามารถแสดงให้เห็นในหน้าย่อยทุกหน้า"
 
 msgid "Add a child page"
 msgstr "เพิ่มหน้ารองลงมา"
@@ -732,30 +701,18 @@ msgstr "โชว์ในอินเตอร์เน็ตเอ็กซ์
 msgid "New"
 msgstr "ใหม่,อันใหม่"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "โดย %(modified_by)s"
-
 msgid "Compare with live version"
 msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
 
 msgid "More"
 msgstr "เพิ่ม"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ที่ผ่านมา"
+
 msgid "Log out"
 msgstr "ออกจากระบบ"
-
-msgid "live"
-msgstr "ถ่ายทอดสด"
-
-msgid "draft"
-msgstr "ร่าง"
-
-msgid "live + draft"
-msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
-
-msgid "Test"
-msgstr "ทดสอบ"
 
 msgid "Password"
 msgstr "รหัสผ่าน"
@@ -795,6 +752,15 @@ msgstr "คุณแน่ใจว่าคุณต้องการลบท
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
+
+msgid "Earliest"
+msgstr "ที่เก่าแก่ที่สุด"
+
+msgid "Latest"
+msgstr "ล่าสุด"
+
+msgid "Dashboard"
+msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -888,12 +854,6 @@ msgstr ""
 "หน้า{0} \n"
 "เคลื่อนย้ายแล้ว"
 
-msgid "Earliest"
-msgstr "ที่เก่าแก่ที่สุด"
-
-msgid "Latest"
-msgstr "ล่าสุด"
-
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "การแก้ไข{0}ของหน้า{1}"
@@ -902,8 +862,8 @@ msgstr "การแก้ไข{0}ของหน้า{1}"
 msgid "Page '{0}' unpublished."
 msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
 
-msgid "Server Error"
-msgstr "เซิฟเวอร์ขัดข้อง"
+msgid "Change"
+msgstr "เปลี่ยน"
 
 msgid "Pages"
 msgstr "หลายหน้า"
@@ -928,12 +888,3 @@ msgstr "ลิงค์"
 
 msgid "Choose an item"
 msgstr "เลือกชิ้น"
-
-msgid "Choose another item"
-msgstr "เลือกอีกชิ้นหนึ่ง"
-
-msgid "Clear choice"
-msgstr "ทางเลือกที่ชัดเจน"
-
-msgid "Choose another page"
-msgstr "เลือกหน้าอื่น"

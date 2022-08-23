@@ -51,9 +51,6 @@ msgstr "Хуудас"
 msgid "Pages"
 msgstr "Хуудсууд"
 
-msgid "Redo"
-msgstr "Давтах"
-
 msgid "Reload saved content"
 msgstr "Хадгалагдсан контентыг дахин ачааллах"
 
@@ -84,8 +81,5 @@ msgstr ""
 "Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
 "хадгалагдсан."
 
-msgid "Undo"
-msgstr "Буцаах"
-
-msgid "Write here…"
-msgstr "Энд бичнэ үү..."
+msgid "This field is required."
+msgstr "Энэ талбарыг заавал бөглөх шаардлагатай."

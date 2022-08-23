@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -24,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail vartotojai"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr "Būtinas. 30 simbolių arba mažiau. Tik raidės, skaičiai ir @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Ši reikšmė gali turėti tik raides, skaičius ir @/./+/-/_ simbolius."
@@ -138,9 +135,6 @@ msgstr "Peržiūrėti šios grupės vartotojus"
 msgid "Save"
 msgstr "Išsaugoti"
 
-msgid "Permissions"
-msgstr "Leidimai"
-
 msgid "Object permissions"
 msgstr "Objekto leidimai"
 
@@ -221,10 +215,6 @@ msgstr "Aktyvus"
 
 msgid "Inactive"
 msgstr "Neaktyvus"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

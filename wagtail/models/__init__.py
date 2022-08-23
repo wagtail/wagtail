@@ -735,13 +735,13 @@ class PreviewableMixin:
             self.get_preview_context(request, mode_name),
         )
 
-    def get_preview_context(self, request, *args, **kwargs):
+    def get_preview_context(self, request, mode_name):
         """
         Returns a context dictionary for use in templates for previewing this object.
         """
         return {"object": self, "request": request}
 
-    def get_preview_template(self, request, *args, **kwargs):
+    def get_preview_template(self, request, mode_name):
         """
         Returns a template to be used when previewing this object.
 
@@ -1727,8 +1727,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return context
 
-    def get_preview_context(self, request, *args, **kwargs):
-        return self.get_context(request, *args, **kwargs)
+    def get_preview_context(self, request, mode_name):
+        return self.get_context(request)
 
     def get_template(self, request, *args, **kwargs):
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
@@ -1736,8 +1736,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             return self.template
 
-    def get_preview_template(self, request, *args, **kwargs):
-        return self.get_template(request, *args, **kwargs)
+    def get_preview_template(self, request, mode_name):
+        return self.get_template(request)
 
     def serve(self, request, *args, **kwargs):
         request.is_preview = False

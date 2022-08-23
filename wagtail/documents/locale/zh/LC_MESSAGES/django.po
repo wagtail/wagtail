@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: shengsheng gz <gzshengsheng@139.com>, 2018\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -46,24 +46,12 @@ msgstr "文档"
 msgid "Yes, delete"
 msgstr "是的，删除"
 
-msgid "Choose a document"
-msgstr "选择一个文档"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Upload"
-msgstr "上传"
-
 msgid "Latest documents"
 msgstr "最新文档"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
-
-msgid "Uploading…"
-msgstr "上传中"
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "对不起，没有文档匹配\"<em>%(search_query)s</em>\""
 
 msgid "Change document:"
 msgstr "修改文档："
@@ -73,6 +61,12 @@ msgstr "添加一份文档"
 
 msgid "Add document"
 msgstr "添加文档"
+
+msgid "Uploading…"
+msgstr "上传中"
+
+msgid "Upload"
+msgstr "上传"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -107,6 +101,10 @@ msgid "File"
 msgstr "文件"
 
 #, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
+
+#, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
@@ -135,8 +133,8 @@ msgstr "添加文档"
 msgid "Delete"
 msgstr "删除"
 
-msgid "Server Error"
-msgstr "服务错误"
+msgid "Choose a document"
+msgstr "选择一个文档"
 
 msgid "Search documents"
 msgstr "查找文档"
@@ -158,6 +156,3 @@ msgstr "文档'{0}'已删除"
 
 msgid "Document"
 msgstr "文档"
-
-msgid "Choose another document"
-msgstr "选择另外一份文档"

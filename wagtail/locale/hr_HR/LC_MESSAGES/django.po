@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -68,6 +68,63 @@ msgstr "Unesena lozinka nije ispravna. Molimo probajte ponovno."
 msgid "Comment"
 msgstr "Komentar"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Stranicu '{}' ste zaključali</b> <b>vi</b> na dan <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Stranicu '{}' ste zaključali</b> <b>vi</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Stranicu '{}' je zaključao</b> korisnik <b>{}</b> na dan <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Stranica '{}' je zaključana</b>."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Ova stranica čeka <b>'{}'</b> u tijeku rada <b>'{}'</b>."
+
+msgid "live"
+msgstr "uživo"
+
+msgid "has unpublished changes"
+msgstr "sadrži neobjavljene promjene"
+
+msgid "first published at"
+msgstr "prvi put objavljeno"
+
+msgid "last published at"
+msgstr "zadnji put objavljeno"
+
+msgid "live revision"
+msgstr "revizija uživo"
+
+msgid "go live date/time"
+msgstr "Objavi u datum/vrijeme"
+
+msgid "expiry date/time"
+msgstr "Povuci objavu u datum/vrijeme"
+
+msgid "expired"
+msgstr "istekao rok"
+
+msgid "draft"
+msgstr "skica"
+
+msgid "live + draft"
+msgstr "uživo + skica"
+
+msgid "Default"
+msgstr "Zadano"
+
+msgid "locked"
+msgstr "zaključano"
+
+msgid "locked at"
+msgstr "zaključano u"
+
+msgid "locked by"
+msgstr "zaključao/la"
+
 msgid "title"
 msgstr "naslov"
 
@@ -86,12 +143,6 @@ msgstr ""
 
 msgid "content type"
 msgstr "vrsta sadržaja"
-
-msgid "live"
-msgstr "uživo"
-
-msgid "has unpublished changes"
-msgstr "sadrži neobjavljene promjene"
 
 msgid "URL path"
 msgstr "URL putanja"
@@ -126,35 +177,8 @@ msgid ""
 msgstr ""
 "Tekstualni opis prikazan ispod naslova stranice u rezultatima tražilica."
 
-msgid "go live date/time"
-msgstr "Objavi u datum/vrijeme"
-
-msgid "expiry date/time"
-msgstr "Povuci objavu u datum/vrijeme"
-
-msgid "expired"
-msgstr "istekao rok"
-
-msgid "locked"
-msgstr "zaključano"
-
-msgid "locked at"
-msgstr "zaključano u"
-
-msgid "locked by"
-msgstr "zaključao/la"
-
-msgid "first published at"
-msgstr "prvi put objavljeno"
-
-msgid "last published at"
-msgstr "zadnji put objavljeno"
-
 msgid "latest revision created at"
 msgstr "zadnja revizija stvorena"
-
-msgid "live revision"
-msgstr "revizija uživo"
 
 msgid "This slug is already in use"
 msgstr "Slug se već koristi"
@@ -165,20 +189,11 @@ msgstr "zakazano"
 msgid "in moderation"
 msgstr "u moderiranju"
 
-msgid "draft"
-msgstr "skica"
-
 msgid "live + scheduled"
 msgstr "uživo + zakazano"
 
 msgid "live + in moderation"
 msgstr "uživo + u moderiranju"
-
-msgid "live + draft"
-msgstr "uživo + skica"
-
-msgid "Default"
-msgstr "Zadano"
 
 msgid "page"
 msgstr "stranica"
@@ -200,12 +215,6 @@ msgstr "sadržaj JSON"
 
 msgid "approved go live at"
 msgstr "odobreno uživo u"
-
-msgid "page revision"
-msgstr "revizija stranice"
-
-msgid "page revisions"
-msgstr "revizije stranice"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi vlastite stranice"
@@ -382,6 +391,9 @@ msgstr "Preskočeno"
 msgid "workflow state"
 msgstr "stanje radnog tijeka"
 
+msgid "page revision"
+msgstr "revizija stranice"
+
 msgid "started at"
 msgstr "Započeto"
 
@@ -540,15 +552,6 @@ msgstr "Potrebna je lozinka kako bi pristupili ovoj stranici."
 
 msgid "Continue"
 msgstr "Nastavi"
-
-msgid "English"
-msgstr "Engleski"
-
-msgid "French"
-msgstr "Francuski"
-
-msgid "German"
-msgstr "Njemački"
 
 #, python-format
 msgid "%(count)s descendant collection"

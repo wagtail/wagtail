@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020-2021\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
@@ -41,9 +41,6 @@ msgstr "Cancelar fluxo de traballo "
 
 msgid "Unpublish"
 msgstr "Cancelar publicación"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Save Draft"
 msgstr "Gardar borrador"
@@ -98,6 +95,18 @@ msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Procurar termo"
+
+msgid "Search"
+msgstr "Porcurar"
+
+msgid "All collections"
+msgstr "Todas as coleccións"
+
+msgid "Collection"
+msgstr "Colección"
+
 msgid "Parent"
 msgstr "Padre"
 
@@ -111,14 +120,14 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
 
-msgid "Collection"
-msgstr "Colección"
-
 msgid "Add"
 msgstr "Engadir"
 
 msgid "Edit"
 msgstr "Editar"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "New title"
 msgstr "Novo título"
@@ -193,12 +202,6 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "A data/tempo de expiración debe ser no futuro"
 
-msgid "Search"
-msgstr "Porcurar"
-
-msgid "Search term"
-msgstr "Procurar termo"
-
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -218,8 +221,8 @@ msgstr "Esta páxina xa ten o fluxo de traballo '{0}' asignado."
 msgid "Scheduled publishing"
 msgstr "Publicazón programada"
 
-msgid "Privacy"
-msgstr "Privacidade"
+msgid "Page title"
+msgstr "Título da páxina"
 
 msgid "Content"
 msgstr "Contido"
@@ -230,26 +233,11 @@ msgstr "Promocionar"
 msgid "Settings"
 msgstr "Propiedades"
 
-msgid "Status"
-msgstr "Estado"
-
-msgid "Preview"
-msgstr "Previsualizar"
-
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"
 
 msgid "Account"
 msgstr "Conta"
-
-msgid "Change password"
-msgstr "Cambiar contrasinal"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
-"administrador."
 
 msgid "Reset password"
 msgstr "Restablecer contrasinal"
@@ -302,11 +290,21 @@ msgstr "Insertar unha ligazón"
 msgid "Add an external link"
 msgstr "Engadir unha ligazón externa"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorar subpáxinas de '%(title)s'"
+
+msgid "Explore"
+msgstr "Explorar"
+
 msgid "You can edit the privacy settings on:"
 msgstr "Podes editar a configuración de privacidade en:"
 
 msgid "Save"
 msgstr "Gardar"
+
+msgid "Privacy"
+msgstr "Privacidade"
 
 msgid "Public"
 msgstr "Público"
@@ -335,9 +333,6 @@ msgstr "Si, eliminar"
 
 msgid "Update"
 msgstr "Actualizar"
-
-msgid "Dashboard"
-msgstr "Panel de control"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -380,8 +375,14 @@ msgstr "Aprobar"
 msgid "Reject"
 msgstr "Rexeitar"
 
+msgid "Preview"
+msgstr "Previsualizar"
+
 msgid "Your most recent edits"
 msgstr "As túas edicións máis recentes"
+
+msgid "Status"
+msgstr "Estado"
 
 msgid "Date"
 msgstr "Data"
@@ -392,14 +393,14 @@ msgstr "Resumo do sitio"
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
+msgid "Sign in to Wagtail"
+msgstr "Iniciar sesión en Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "O teu %(username_field)s e contrasinal non coinciden. Por favor, téntao de "
 "novo."
-
-msgid "Sign in to Wagtail"
-msgstr "Iniciar sesión en Wagtail"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -446,10 +447,6 @@ msgstr "Privacidade da páxina"
 
 msgid "This page has been made private by a parent page."
 msgstr "Esta páxina foi feita privada por unha páxina pai."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
 
 msgid "Saving…"
 msgstr "Gardando…"
@@ -503,15 +500,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Sí, mover esta páxina"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Non publicar %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "¿Seguro que non queres publicar esta páxina?"
-
-msgid "Yes, unpublish it"
-msgstr "Sí, non publicar"
 
 msgid "Pages using"
 msgstr "Páxinas usando"
@@ -550,9 +540,6 @@ msgstr "Explorando %(title)s"
 msgid "Drag"
 msgstr "Levar"
 
-msgid "Updated"
-msgstr "Actualizado"
-
 msgid "Configure a site now."
 msgstr "Configurar un sitio web agora."
 
@@ -565,13 +552,6 @@ msgstr "¿Por que non <a href=\"%(add_page_url)s\">crear unha</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Esta páxina está bloqueada para a súa edición"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Explorar subpáxinas de '%(title)s'"
-
-msgid "Explore"
-msgstr "Explorar"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -596,25 +576,11 @@ msgstr "Deshabilitar organización de páxinas fillas"
 msgid "Enable ordering of child pages"
 msgstr "Habilitar organización de páxinas fillas"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Seleccionar unha nova páxina pai para %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Seleccionar unha nova páxina pai para <span>%(title)s</span>"
+msgid "Updated"
+msgstr "Actualizado"
 
 msgid "Enter a search term above"
 msgstr "Introduce o termo de procura arriba"
-
-msgid "Locked"
-msgstr "Bloqueada"
-
-msgid "Unlocked"
-msgstr "Desbloqueada"
-
-msgid "Lock"
-msgstr "Bloquear"
 
 msgid "No pages use"
 msgstr "Non hay uso de páxinas"
@@ -628,14 +594,11 @@ msgstr "Subir"
 msgid "Move down"
 msgstr "Baixar"
 
-msgid "Add comment"
-msgstr "Engadir comentario"
-
 msgid "Download CSV"
 msgstr "Descargar CSV"
 
-msgid "Filter"
-msgstr "Filtro"
+msgid "Locked"
+msgstr "Bloqueada"
 
 msgid "Edit this item"
 msgstr "Editar este ítem"
@@ -653,14 +616,31 @@ msgstr "Completado o"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Páxina %(page_num)s de %(total_pages)s."
 
-msgid "Home"
-msgstr "Principal"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Non publicar %(title)s"
 
-msgid "All collections"
-msgstr "Todas as coleccións"
+msgid "Yes, unpublish it"
+msgstr "Sí, non publicar"
+
+msgid "Add comment"
+msgstr "Engadir comentario"
+
+msgid "Filter"
+msgstr "Filtro"
 
 msgid "Other searches"
 msgstr "Outras procuras"
+
+msgid "Unlocked"
+msgstr "Desbloqueada"
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
 
 msgid "Add a child page"
 msgstr "Engadir unha páxina filla"
@@ -674,27 +654,11 @@ msgstr "Non"
 msgid "New"
 msgstr "Nova"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "por %(modified_by)s"
-
 msgid "More"
 msgstr "Máis"
 
 msgid "Log out"
 msgstr "Pechar sesión"
-
-msgid "live"
-msgstr "en vivo"
-
-msgid "draft"
-msgstr "borrador"
-
-msgid "live + draft"
-msgstr "en vivo + borrador"
-
-msgid "Test"
-msgstr "Test"
 
 msgid "Password"
 msgstr "Contrasinal"
@@ -734,6 +698,9 @@ msgstr "¿Seguro que queres eliminar esta colección?"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Dashboard"
+msgstr "Panel de control"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -833,8 +800,8 @@ msgstr "Amosar"
 msgid "Awaiting my review"
 msgstr "Agardar a miña revisión"
 
-msgid "Server Error"
-msgstr "Erro do Servidor"
+msgid "Change"
+msgstr "Cambiar"
 
 msgid "Pages"
 msgstr "Páxinas"
@@ -847,18 +814,3 @@ msgstr "Si"
 
 msgid "Choose an item"
 msgstr "Seleccionar un elemento"
-
-msgid "Choose another item"
-msgstr "Seleccionar outro elemento"
-
-msgid "Clear choice"
-msgstr "Borrar selección"
-
-msgid "Choose another page"
-msgstr "Seleccionar outra páxina"
-
-msgid "Choose another task"
-msgstr "Seleccionar outra tarefa"
-
-msgid "Edit this task"
-msgstr "Editar esta tarefa"

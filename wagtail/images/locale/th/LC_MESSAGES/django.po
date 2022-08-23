@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -144,15 +144,6 @@ msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
-msgid "Choose an image"
-msgstr "เลือกรูปภาพ"
-
-msgid "Search"
-msgstr "ค้นหา"
-
-msgid "Upload"
-msgstr "อัพโหลด"
-
 msgid "Popular tags"
 msgstr "แท็กซ์ที่เป็นที่นิยม"
 
@@ -167,9 +158,6 @@ msgstr "เลือกรูปแบบ"
 
 msgid "Insert image"
 msgstr "ใส่รูปภาพ"
-
-msgid "Uploading…"
-msgstr "กำลังอัพโหลด...."
 
 msgid "Change image file:"
 msgstr "เปลี่ยนแฟ้มรูปภาพ:"
@@ -227,9 +215,6 @@ msgstr "การใช้"
 
 msgid "Images"
 msgstr "รูปภาพ"
-
-msgid "Clear choice"
-msgstr "ทางเลือกที่ชัดเจน"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -330,6 +315,15 @@ msgstr "เพิ่มการอนุญาตรูปภาพ"
 msgid "Delete"
 msgstr "ลบ"
 
+msgid "Upload"
+msgstr "อัพโหลด"
+
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด...."
+
+msgid "Choose an image"
+msgstr "เลือกรูปภาพ"
+
 msgid "Search images"
 msgstr "ค้นหารูปภาพ"
 
@@ -366,9 +360,3 @@ msgstr "รูปภาพ"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s รูปภาพ"
-
-msgid "Change image"
-msgstr "เปลี่ยนรูปภาพ"
-
-msgid "Edit this image"
-msgstr "แก้ไขรูปภาพนี้"

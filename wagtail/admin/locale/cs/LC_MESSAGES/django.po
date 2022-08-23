@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -52,9 +52,6 @@ msgstr "Stornovat zpracování"
 
 msgid "Unpublish"
 msgstr "Zrušit publikaci"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid "Save Draft"
 msgstr "Uložit Koncept"
@@ -118,6 +115,18 @@ msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Hledaný výraz"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "All collections"
+msgstr "Všechny kolekce"
+
+msgid "Collection"
+msgstr "Kolekce"
+
 msgid "Parent"
 msgstr "Nadřazená stránka"
 
@@ -134,14 +143,14 @@ msgstr "Prosím, zvolte jiného předka"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 
-msgid "Collection"
-msgstr "Kolekce"
-
 msgid "Add"
 msgstr "Přidat"
 
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "Delete"
+msgstr "Smazat"
 
 msgid "You cannot edit another user's comment."
 msgstr "Nemůžete změnit komentář jiného uživatele."
@@ -226,12 +235,6 @@ msgstr "Datum/čas publikování musí být dřívější než datum/čas expira
 msgid "Expiry date/time must be in the future"
 msgstr "Datum/čas expirace musí být v budoucnosti"
 
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Search term"
-msgstr "Hledaný výraz"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "Tag(y) %(value_too_long)s mají více než %(max_tag_length)d znaků"
@@ -260,6 +263,9 @@ msgstr "Pojmenujte tento postup"
 
 msgid "Add tasks to your workflow"
 msgstr "Přidejte úlohy do tohoto postupu"
+
+msgid "Task"
+msgstr "Úkol"
 
 msgid "1 page selected"
 msgstr "1 stránka vybrána"
@@ -300,8 +306,8 @@ msgstr "1 uživatel vybrán"
 msgid "Scheduled publishing"
 msgstr "Naplánovaná publikace"
 
-msgid "Privacy"
-msgstr "Viditelnost"
+msgid "Page title"
+msgstr "Název stránky"
 
 msgid "For search engines"
 msgstr "Pro vyhledávače"
@@ -317,15 +323,6 @@ msgstr "Propagovat"
 
 msgid "Settings"
 msgstr "Nastavení"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Comments"
-msgstr "Komentáře"
-
-msgid "Preview"
-msgstr "Náhled"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
@@ -347,15 +344,6 @@ msgstr "Další akce"
 
 msgid "Save account details"
 msgstr "Uložit detaily účtu"
-
-msgid "Change password"
-msgstr "Změnit heslo"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
-"administrátora."
 
 msgid "Reset password"
 msgstr "Obnovit heslo"
@@ -459,6 +447,13 @@ msgstr "Vložit externí odkaz"
 msgid "Add a phone link"
 msgstr "Vložit telefonní odkaz"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Prozkoumat podstránky '%(title)s'"
+
+msgid "Explore"
+msgstr "Prozkoumat"
+
 msgid "Collection privacy"
 msgstr "Viditelnost kolekce"
 
@@ -468,12 +463,15 @@ msgstr "Tato kolekce byla nastavena jako soukromá nadřazenou kolekcí."
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavení viditelnosti můžete změnit zde:"
 
+msgid "Save"
+msgstr "Uložit"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "Nastavení soukromí určuje kdo má přístup k dokumentům v této kolekci."
 
-msgid "Save"
-msgstr "Uložit"
+msgid "Privacy"
+msgstr "Viditelnost"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Nastavení viditelnosti kolekce. Aktuální stav: Veřejná"
@@ -508,8 +506,21 @@ msgstr "Ano, smazat"
 msgid "Update"
 msgstr "Uložit"
 
-msgid "Dashboard"
-msgstr "Dashboard"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnání %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnání"
+
+msgid "Fields"
+msgstr "Pole"
+
+msgid "Changes"
+msgstr "Změny"
+
+msgid "There are no differences between these two versions"
+msgstr "Obě verze jsou shodné"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -541,10 +552,6 @@ msgstr "Koncept"
 msgid "Live"
 msgstr "Publikováno"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Stránky čekající na schválení"
 
@@ -563,8 +570,14 @@ msgstr "Schválit"
 msgid "Reject"
 msgstr "Zamítnout"
 
+msgid "Preview"
+msgstr "Náhled"
+
 msgid "Your most recent edits"
 msgstr "Vaše poslední úpravy"
+
+msgid "Status"
+msgstr "Stav"
 
 msgid "Date"
 msgstr "Datum"
@@ -574,9 +587,6 @@ msgstr "Přehled obsahu"
 
 msgid "Your pages in a workflow"
 msgstr "Stránky zařazené do postupu"
-
-msgid "Task"
-msgstr "Úkol"
 
 msgid "Task started"
 msgstr "Úkol spuštěn"
@@ -596,18 +606,18 @@ msgstr "Úkoly"
 msgid "Sign in"
 msgstr "Přihlásit se"
 
+msgid "Sign in to Wagtail"
+msgstr "Přihlášení do redakčního systému"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
 
-msgid "Sign in to Wagtail"
-msgstr "Přihlášení do redakčního systému"
+msgid "Forgotten password?"
+msgstr "Zapomenuté heslo?"
 
 msgid "Signing in…"
 msgstr "Přihlašování..."
-
-msgid "Forgotten password?"
-msgstr "Zapomenuté heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -769,21 +779,6 @@ msgstr "Viditelnost"
 msgid "This page has been made private by a parent page."
 msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
-msgid "Privacy changes apply to all children of this page too."
-msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Nastavení viditelnosti stránky. Aktuální stav: Veřejná"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Nastavení viditelnosti stránky. Aktuální stav: Privátní"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Soukromí stránky. Aktuální stav: Veřejná"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Viditelnosti stránky. Aktuální stav: Privátní"
-
 msgid "You have <span>unsaved edits</span>"
 msgstr "Máte <span>neuložené změny</span>"
 
@@ -892,15 +887,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Ano, přesunout stránku"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Zrušit publikaci %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Opravdu chcete zrušit publikaci této stránky?"
-
-msgid "Yes, unpublish it"
-msgstr "Ano, zrušit publikaci"
 
 msgid "Publish page"
 msgstr "Publikovat stránku"
@@ -973,10 +961,6 @@ msgstr "Publikovaná verze"
 msgid "Current draft"
 msgstr "Aktuální koncept"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
-
 msgid "No log entries found."
 msgstr "Nenalezeny žádné záznamy v logu."
 
@@ -986,9 +970,6 @@ msgstr "Obsah pod %(title)s"
 
 msgid "Drag"
 msgstr "Přetáhnout myší"
-
-msgid "Updated"
-msgstr "Uloženo"
 
 msgid "Configure a site now."
 msgstr "Nyní zkonfigurujte web"
@@ -1002,13 +983,6 @@ msgstr "<a href=\"%(add_page_url)s\">Založit</a> novou stránku."
 
 msgid "This page is locked to further editing"
 msgstr "Tato stránka je uzamčena pro další úpravy"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Prozkoumat podstránky '%(title)s'"
-
-msgid "Explore"
-msgstr "Prozkoumat"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1042,25 +1016,14 @@ msgstr "Třídění"
 msgid "Enable ordering of child pages"
 msgstr "Zapnout řazení podstránek"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Zvolte novou nadřazenou stránku pro %(title)s"
+msgid "Updated"
+msgstr "Uloženo"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Zvolte novou nadřazenou stránku pro <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Potvrdit"
 
-msgid "Preview error"
-msgstr "Chyba náhledu"
-
-msgid "Close"
-msgstr "Zavřít"
-
-msgid "Current status:"
-msgstr "Aktuální stav:"
-
-msgid "Set page privacy"
-msgstr "Nastavit soukromí stránky"
+msgid "History"
+msgstr "Historie"
 
 msgid "Review this version"
 msgstr "Revidovat tuto verzi"
@@ -1073,25 +1036,6 @@ msgstr "Porovnat s aktuální verzí"
 
 msgid "Cancel scheduled publish"
 msgstr "Zrušit naplánované publikování"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnání %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnání"
-
-msgid "Page history"
-msgstr "Historie stránky"
-
-msgid "Fields"
-msgstr "Pole"
-
-msgid "Changes"
-msgstr "Změny"
-
-msgid "There are no differences between these two versions"
-msgstr "Obě verze jsou shodné"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1118,24 +1062,6 @@ msgstr "Bohužel, žádná stránka nevyhovuje <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Zadejte hledaný výraz"
-
-msgid "Locked"
-msgstr "Uzamčeno"
-
-msgid "Unlocked"
-msgstr "Odemčeno"
-
-msgid "Lock"
-msgstr "Uzamknout"
-
-msgid "View history"
-msgstr "Zobrazit historii"
-
-msgid "since"
-msgstr "od"
-
-msgid "First published"
-msgstr "Poprvé publikováno"
 
 msgid "No pages use"
 msgstr "Žádné stránky typu"
@@ -1214,9 +1140,6 @@ msgstr "Posunout nahoru"
 msgid "Move down"
 msgstr "Posunout dolů"
 
-msgid "Add comment"
-msgstr "Přidat komentář"
-
 msgid "Comment notifications"
 msgstr "Notifikace o komentářích"
 
@@ -1235,14 +1158,11 @@ msgstr "Stáhnout XLSX"
 msgid "Download CSV"
 msgstr "Stáhnout CSV"
 
-msgid "Filter"
-msgstr "Filtr"
-
-msgid "Apply filters"
-msgstr "Použít filtry"
-
 msgid "Locking status"
 msgstr "Stav uzamčení"
+
+msgid "Locked"
+msgstr "Uzamčeno"
 
 msgid "No locked pages found."
 msgstr "Nebyly nalezeny žádné uzamčené stránky"
@@ -1278,14 +1198,21 @@ msgstr "Drobečková navigace"
 msgid "Root"
 msgstr "Počátek"
 
-msgid "Home"
-msgstr "Domů"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Zrušit publikaci %(title)s"
 
-msgid "All collections"
-msgstr "Všechny kolekce"
+msgid "Yes, unpublish it"
+msgstr "Ano, zrušit publikaci"
 
-msgid "History"
-msgstr "Historie"
+msgid "Add comment"
+msgstr "Přidat komentář"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Apply filters"
+msgstr "Použít filtry"
 
 msgid "Visit the live page"
 msgstr "Navštívit publikovanou stránku"
@@ -1295,6 +1222,18 @@ msgstr "Aktuální stav stránky:"
 
 msgid "Other searches"
 msgstr "Další hledání"
+
+msgid "Unlocked"
+msgstr "Odemčeno"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
+
+msgid "View history"
+msgstr "Zobrazit historii"
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
@@ -1439,14 +1378,6 @@ msgstr "Stránky, které používají postup '%(name)s'"
 msgid "Pages that use workflow"
 msgstr "Stránky, které používají postup"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Uloženo do <em>%(workflow_name)s</em> v %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "uživatelem %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Uloženo"
 
@@ -1496,20 +1427,15 @@ msgstr "0 minut"
 msgid "Just now"
 msgstr "Právě teď"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
+
 msgid "Log out"
 msgstr "Odhlásit"
 
-msgid "live"
-msgstr "zveřejněno"
-
-msgid "draft"
-msgstr "návrh"
-
-msgid "live + draft"
-msgstr "zveřejněno + návrh"
-
-msgid "Test"
-msgstr "Test"
+msgid "Comments"
+msgstr "Komentáře"
 
 msgid "Profile"
 msgstr "Profil"
@@ -1568,6 +1494,15 @@ msgstr "Opravdu chcete smazat tuto kolekci?"
 msgid "Editing"
 msgstr "Úprava"
 
+msgid "Earliest"
+msgstr "Nejstarší"
+
+msgid "Latest"
+msgstr "Nejnovější"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
 msgid "Publish selected pages"
 msgstr "Publikovat vybrané stránky"
 
@@ -1619,27 +1554,6 @@ msgstr "Stránka '{0}' byla nahrazena verzí (od) {1}."
 msgid "Page '{0}' has been updated."
 msgstr "Stránka '{0}' byla aktualizována."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Stránku '{}' jste uzamknul</b>:<b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Stránku '{}' jste uzamknul</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Stránka '{}' byla uzamčena</b> uživatelem <b>{}</b>: <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Stránka '{}' je uzamčena</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Tato stránka nyní čeká na posouzení."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Tato stránka čeká <b>'{}'</b> v postupu <b>'{}'</b> ."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Pouze recenzenti této úlohy mohou stránku upravit."
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Postup na stránce '{0}' byl stornován."
@@ -1678,6 +1592,9 @@ msgstr "Stránku nelze uložit, protože je uzamčena"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
+
+msgid "Page history"
+msgstr "Historie stránky"
 
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
@@ -1719,12 +1636,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
-
-msgid "Earliest"
-msgstr "Nejstarší"
-
-msgid "Latest"
-msgstr "Nejnovější"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -1868,8 +1779,8 @@ msgstr "Úloha '{0}' byla zakázána."
 msgid "Task '{0}' enabled."
 msgstr "Úloha '{0}' byla povolena."
 
-msgid "Server Error"
-msgstr "Chyba serveru"
+msgid "Change"
+msgstr "Upravit"
 
 msgid "Pages"
 msgstr "Stránky"
@@ -1917,6 +1828,12 @@ msgstr "Zrušit publikaci stránky %(title)s"
 msgid "View page history for '%(title)s'"
 msgstr "Zobrazit historii stránky '%(title)s'"
 
+msgid "Translate"
+msgstr "Přeložit"
+
+msgid "Translate this page"
+msgstr "Přeložit tuto stránku"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Hlavička %(level)d"
@@ -1963,20 +1880,5 @@ msgstr "Ano"
 msgid "Choose an item"
 msgstr "Zvolit položku"
 
-msgid "Choose another item"
-msgstr "Zvolit jinou položku"
-
-msgid "Clear choice"
-msgstr "Zrušit výběr"
-
-msgid "Choose another page"
-msgstr "Zvolit jinou stránku"
-
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "Tagy mohou být tvořeny pouze jedním slovem, mezery nejsou povoleny."
-
-msgid "Choose another task"
-msgstr "Zvolte jinou úlohu"
-
-msgid "Edit this task"
-msgstr "Editovat tuto úlohu"

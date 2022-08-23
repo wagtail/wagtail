@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -42,15 +42,6 @@ msgstr "标签"
 msgid "Yes, delete"
 msgstr "是的，删除"
 
-msgid "Choose an image"
-msgstr "选择一个图片"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Upload"
-msgstr "上传"
-
 msgid "Popular tags"
 msgstr "流行的标签"
 
@@ -65,9 +56,6 @@ msgstr "选择一个格式"
 
 msgid "Insert image"
 msgstr "插入图片"
-
-msgid "Uploading…"
-msgstr "上传中"
 
 msgid "Add an image"
 msgstr "添加一个图片"
@@ -97,9 +85,6 @@ msgstr "未找到文件"
 msgid "Images"
 msgstr "图片"
 
-msgid "Clear choice"
-msgstr "清除选择"
-
 msgid "URL"
 msgstr "URL"
 
@@ -126,6 +111,15 @@ msgstr "服务错误"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "Upload"
+msgstr "上传"
+
+msgid "Uploading…"
+msgstr "上传中"
+
+msgid "Choose an image"
+msgstr "选择一个图片"
 
 #, python-brace-format
 msgid "Image '{0}' updated."

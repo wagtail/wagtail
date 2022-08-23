@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -28,11 +28,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Користувачі Wagtail "
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Обов'язково. 30 символів або менше. Дозволяються тільки літери, цифри та "
-"символи @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Може містити лише літери, цифри та символи @/./+/-/_."
@@ -207,9 +202,6 @@ msgstr "Переглянути користувачів у цій групі"
 msgid "Save"
 msgstr "Зберегти"
 
-msgid "Permissions"
-msgstr "Дозволи"
-
 msgid "Object permissions"
 msgstr "Дозволи для об'єктів"
 
@@ -293,10 +285,6 @@ msgstr "Активний"
 
 msgid "Inactive"
 msgstr "Неактивний"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s тому"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

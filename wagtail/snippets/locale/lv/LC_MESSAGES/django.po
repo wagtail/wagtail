@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -20,23 +20,29 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
 msgid "Delete"
 msgstr "Dzēst"
 
 msgid "Save"
 msgstr "Saglabāt"
 
-msgid "Choose"
-msgstr "Izvēlēties"
-
-msgid "Search"
-msgstr "Meklēt"
+msgid "Yes, delete"
+msgstr "Dzēst"
 
 msgid "Saving…"
 msgstr "Saglabā..."
 
-msgid "Yes, delete"
-msgstr "Dzēst"
+msgid "Replace current draft"
+msgstr "Aizvietot pašreizējo melnrakstu"
+
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -48,15 +54,20 @@ msgstr "Jauns"
 msgid "Actions"
 msgstr "Darbības"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Labo %(snippet_type_name)s - %(instance)s"
+msgid "Current draft"
+msgstr "Patreizējā sagatave"
 
-msgid "Editing"
-msgstr "Labošana"
+msgid "Preview"
+msgstr "Priekšskatīt"
 
-msgid "Title"
-msgstr "Virsraksts"
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Live"
+msgstr "Aktīva"
+
+msgid "Draft"
+msgstr "Melnraksts"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -68,6 +79,9 @@ msgstr "%(title)s lietojums"
 
 msgid "Usage of"
 msgstr "Lietojums"
+
+msgid "Title"
+msgstr "Virsraksts"
 
 msgid "Parent"
 msgstr "Augstāka līmeņa vienība"
@@ -81,8 +95,11 @@ msgstr "Statuss"
 msgid "Edit this page"
 msgstr "Labot šo lapu"
 
-msgid "Edit"
-msgstr "Labot"
+msgid "Choose"
+msgstr "Izvēlēties"
+
+msgid "Name"
+msgstr "Nosaukums"
 
 msgid "Date"
 msgstr "Datums"
@@ -90,11 +107,3 @@ msgstr "Datums"
 #, python-format
 msgid "Choose %s"
 msgstr "Izvēlēties %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Izvēlēties citu %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Labot šo %s"

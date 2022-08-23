@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -75,17 +75,14 @@ msgstr "Flytta upp"
 msgid "Move down"
 msgstr "Flytta ner"
 
-msgid "Promoted search result"
-msgstr "Premierat sökresultat"
+msgid "Promoted search results"
+msgstr "Premierade sökresultat"
 
 msgid "Add recommended page"
 msgstr "Lägg till rekommenderad sida"
 
 msgid "Search Terms"
 msgstr "Söktermer"
-
-msgid "Promoted search results"
-msgstr "Premierade sökresultat"
 
 msgid "Add new promoted result"
 msgstr "Lägg till ett nytt premierat resultat"

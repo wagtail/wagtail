@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -41,9 +41,6 @@ msgstr "Canslo llif gwaith"
 
 msgid "Unpublish"
 msgstr "Anghyhoedd"
-
-msgid "Delete"
-msgstr "Dileu"
 
 msgid "Save Draft"
 msgstr "Cadw drafft"
@@ -108,6 +105,17 @@ msgstr "Rhowch eich cyfeiriad ebost i ailosod eich cyfrinair"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr ""
+" \n"
+"Term Chwilio"
+
+msgid "Search"
+msgstr "Chwillio"
+
+msgid "Collection"
+msgstr "Casgliad"
+
 msgid "Parent"
 msgstr "Rhiant"
 
@@ -124,9 +132,6 @@ msgstr "Dwiswch rhiant arall os gwelwch yn dda"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ni allwch gael cofnodion caniatâd lluosog ar gyfer yr un casgliad."
 
-msgid "Collection"
-msgstr "Casgliad"
-
 msgid "Add"
 msgstr "Ychwanegu"
 
@@ -138,6 +143,9 @@ msgstr "Golygu"
 
 msgid "Edit collections"
 msgstr "Golygu casgliad"
+
+msgid "Delete"
+msgstr "Dileu"
 
 msgid "Delete collections"
 msgstr "Dileu casgliad"
@@ -226,14 +234,6 @@ msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
 msgid "Expiry date/time must be in the future"
 msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
 
-msgid "Search"
-msgstr "Chwillio"
-
-msgid "Search term"
-msgstr ""
-" \n"
-"Term Chwilio"
-
 msgid "Visibility"
 msgstr "Gwelededd"
 
@@ -245,9 +245,6 @@ msgstr "Dewiswch o leiaf un grwp os gwelwch yn dda."
 
 msgid "Scheduled publishing"
 msgstr "Cyhoeddi wedi'i drefnu"
-
-msgid "Privacy"
-msgstr "Preifatrwydd"
 
 msgid "For search engines"
 msgstr "Ar gyfer peiriannau chwilio"
@@ -264,12 +261,6 @@ msgstr "Hyrwyddo"
 msgid "Settings"
 msgstr "Gosodiadau"
 
-msgid "Status"
-msgstr "Statws"
-
-msgid "Preview"
-msgstr "Rhagolwg"
-
 msgid "Error 404"
 msgstr "Gwall 404"
 
@@ -281,9 +272,6 @@ msgstr "Cyfrif"
 
 msgid "Save account details"
 msgstr "Cadw manylion cyfrif"
-
-msgid "Change password"
-msgstr "Newid cyfrinair"
 
 msgid "Reset password"
 msgstr "Ailosod cyfrinair"
@@ -312,6 +300,9 @@ msgstr "Dewisiwch tudalen"
 msgid "Save"
 msgstr "Cadw"
 
+msgid "Privacy"
+msgstr "Preifatrwydd"
+
 msgid "Name"
 msgstr "Enw"
 
@@ -338,6 +329,12 @@ msgstr "Yn fyw"
 
 msgid "Type"
 msgstr "Math"
+
+msgid "Preview"
+msgstr "Rhagolwg"
+
+msgid "Status"
+msgstr "Statws"
 
 msgid "Date"
 msgstr "Dyddiad"
@@ -366,10 +363,6 @@ msgstr "Gweithred"
 msgid "Comment"
 msgstr "Sylw"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yn ôl"
-
 msgid "Pagination"
 msgstr "Tudaleniad"
 
@@ -379,11 +372,11 @@ msgstr "Blaenorol"
 msgid "Next"
 msgstr "Nesaf"
 
-msgid "Close"
-msgstr "Cau"
+msgid "Confirm"
+msgstr "Cadarnhau"
 
-msgid "Lock"
-msgstr "Clo"
+msgid "History"
+msgstr "Hanes"
 
 msgid "Started at"
 msgstr "Dechreuwyd yn"
@@ -400,9 +393,6 @@ msgstr "Lawrlwythwch XSLX"
 msgid "Download CSV"
 msgstr "Lawrlwythwch CSV"
 
-msgid "Filter"
-msgstr "Hidlydd"
-
 msgid "Workflow"
 msgstr "Llif gwaith"
 
@@ -415,17 +405,21 @@ msgstr "Wedi'i gwblhau yn"
 msgid "Breadcrumb"
 msgstr "Briwsion Bara"
 
-msgid "Home"
-msgstr "Adref"
+msgid "Filter"
+msgstr "Hidlydd"
 
-msgid "History"
-msgstr "Hanes"
+msgid "Lock"
+msgstr "Clo"
 
 msgid "New"
 msgstr "Newydd"
 
 msgid "Published"
 msgstr "Wedi cyhoeddi"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yn ôl"
 
 msgid "Password"
 msgstr "Cyfrinair"
@@ -448,14 +442,8 @@ msgstr "Analluogi"
 msgid "Enable"
 msgstr "Galluogi"
 
-msgid "Server Error"
-msgstr "Gwall Gweinydd"
-
-msgid ""
-"Report this error to your website administrator with the following "
-"information:"
-msgstr ""
-"Riportiwch y gwall hwn i weinyddwr eich gwefan gyda'r wybodaeth ganlynol:"
+msgid "Change"
+msgstr "Newid"
 
 msgid "Pages"
 msgstr "Tudalennau"
@@ -464,5 +452,8 @@ msgstr "Tudalennau"
 msgid "Edit '%(title)s'"
 msgstr "Golygu '%(title)s'"
 
-msgid "Clear choice"
-msgstr "Dewis clir"
+msgid "Translate"
+msgstr "Cyfieithu"
+
+msgid "Translate this page"
+msgstr "Gyfieithu'r tudalen hon"

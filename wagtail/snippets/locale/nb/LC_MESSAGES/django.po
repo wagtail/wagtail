@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -20,6 +20,12 @@ msgstr ""
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publiser"
+
+msgid "Unpublish"
+msgstr "Avpublisér"
+
 msgid "Delete"
 msgstr "Slett"
 
@@ -29,18 +35,15 @@ msgstr "Lagre"
 msgid "Wagtail snippets"
 msgstr "Wagtail-snutter"
 
-msgid "Choose"
-msgstr "Velg"
-
-msgid "Search"
-msgstr "Søk"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s «%(instance)s» slettet."
 
 #, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "Beklager, ingen snutter samsvarer med <em>\"%(query_string)s\"</em>"
-
-msgid "Saving…"
-msgstr "Lagrer…"
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s slettet."
+msgstr[1] "%(count)d %(snippet_type)s slettet."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -69,6 +72,18 @@ msgstr "Ja, slett"
 msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
+msgid "Publishing…"
+msgstr "Publiserer..."
+
+msgid "Saving…"
+msgstr "Lagrer…"
+
+msgid "Replace current draft"
+msgstr "Erstatt nåværende kladd"
+
+msgid "Save draft"
+msgstr "Lagre kladd"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Ny %(snippet_type_name)s"
@@ -79,29 +94,14 @@ msgstr "Ny"
 msgid "Actions"
 msgstr "Handlinger"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Redigerer %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Redigerer"
-
 msgid "Usage"
 msgstr "Bruk"
 
+msgid "Breadcrumb"
+msgstr "Brødsmuler"
+
 msgid "Snippets"
 msgstr "Snutter"
-
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Velg alle %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Tittel"
-
-#, python-format
-msgid "Select %(snippet)s"
-msgstr "Velg %(snippet)s"
 
 #, python-format
 msgid ""
@@ -111,13 +111,27 @@ msgstr ""
 "Ingen %(snippet_type_name_plural)s har blitt opprettet. Hvorfor ikke <a href="
 "\"%(wagtailsnippets_create_url)s\">legge til en</a>?"
 
+msgid "Live version"
+msgstr "Publisert versjon"
+
+msgid "Current draft"
+msgstr "Nåværende kladd"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Live"
+msgstr "Publisert"
+
+msgid "Draft"
+msgstr "Kladd"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snutter %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Snutter <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -129,6 +143,9 @@ msgstr "Bruk av %(title)s"
 
 msgid "Usage of"
 msgstr "Bruk av"
+
+msgid "Title"
+msgstr "Tittel"
 
 msgid "Parent"
 msgstr "Forelder"
@@ -142,9 +159,11 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Rediger denne siden"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Søk etter %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Velg"
+
+msgid "Name"
+msgstr "Navn"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunne ikke opprettes grunnet feil."
@@ -153,25 +172,12 @@ msgstr "Snutten kunne ikke opprettes grunnet feil."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s «%(instance)s» opprettet."
 
-msgid "Edit"
-msgstr "Rediger"
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s «%(instance)s» oppdatert."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunne ikke lagres grunnet feil."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s «%(instance)s» slettet."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s slettet."
-msgstr[1] "%(count)d %(snippet_type)s slettet."
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s «%(instance)s» oppdatert."
 
 msgid "Date"
 msgstr "Dato"
@@ -183,11 +189,3 @@ msgstr "Endre «%(title)s»"
 #, python-format
 msgid "Choose %s"
 msgstr "Velg %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Velg en annen %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Endre %s"

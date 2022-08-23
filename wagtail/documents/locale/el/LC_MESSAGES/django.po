@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -78,25 +78,13 @@ msgstr "Ναι, να διαγραφεί"
 msgid "No, don't delete"
 msgstr "Ακύρωση διαγραφής"
 
-msgid "Choose a document"
-msgstr "Επιλογή εγγράφου"
-
-msgid "Search"
-msgstr "Αναζήτηση"
-
-msgid "Upload"
-msgstr "Ανέβασμα"
-
 msgid "Latest documents"
 msgstr "Τελευταία έγγραφα"
 
 #, python-format
-msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
-
-msgid "Uploading…"
-msgstr "Ανέβασμα εγγράφου .."
+"Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(search_query)s</em>\""
 
 msgid "Change document:"
 msgstr "Αλλαγή εγγράφου:"
@@ -106,6 +94,12 @@ msgstr "Προσθήκη εγγράφου"
 
 msgid "Add document"
 msgstr "Προσθήκη εγγράφου"
+
+msgid "Uploading…"
+msgstr "Ανέβασμα εγγράφου .."
+
+msgid "Upload"
+msgstr "Ανέβασμα"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -146,8 +140,9 @@ msgid "Created"
 msgstr "Δημιουργήθηκε"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -214,8 +209,8 @@ msgstr "Προσθήκη δικαιώματος εγγράφου"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-msgid "Server Error"
-msgstr "Σφάλμα"
+msgid "Choose a document"
+msgstr "Επιλογή εγγράφου"
 
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
@@ -249,9 +244,3 @@ msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s έγγραφο"
 msgstr[1] "%(count)s έγγραφα"
-
-msgid "Choose another document"
-msgstr "Επιλογή άλλου εγγράφου"
-
-msgid "Edit this document"
-msgstr "Επεξεργασία αυτού του εγγράφου"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -78,6 +78,10 @@ msgstr "%s kopieren"
 msgid "image"
 msgstr "Bild"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Zurück zur %(model_name)s Liste"
+
 msgid "Choose a parent page"
 msgstr "Wählen Sie eine übergeordnete Seite aus"
 
@@ -123,15 +127,12 @@ msgstr "Ja, löschen"
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
 
-msgid "Home"
-msgstr "Home"
-
 #, python-format
 msgid "By %(filter_title)s"
 msgstr "Von %(filter_title)s"
 
 msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
+msgstr "Zuletzt aktualisiert:"
 
 msgid "History"
 msgstr "Historie"
@@ -151,6 +152,9 @@ msgstr "Suchen"
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)s suchen"
+
+msgid "Search"
+msgstr "Suche"
 
 msgid "Download XLSX"
 msgstr "XLSX herunterladen"
@@ -183,10 +187,6 @@ msgstr "Seitennummerierung"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Seite %(current_page)s von %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "Zurück zur %(model_name)s Liste"
 
 msgid "Previous"
 msgstr "Vorherige"

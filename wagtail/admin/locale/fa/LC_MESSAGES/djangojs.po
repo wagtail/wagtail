@@ -1,13 +1,13 @@
 #
 # Translators:
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2022
-# pyzenberg <pyzenberg@gmail.com>, 2022
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2022
 # Mostafa Heidarian <tabvar@gmail.com>, 2022
+# pyzenberg <pyzenberg@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mostafa Heidarian <tabvar@gmail.com>, 2022\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2022\n"
 "Language-Team: Persian (https://www.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
@@ -64,9 +64,6 @@ msgstr "کاوشگر صفحه"
 msgid "Pages"
 msgstr "صفحه ها"
 
-msgid "Redo"
-msgstr "حذف برگشت"
-
 msgid "Reload saved content"
 msgstr "بارگذاری مجدد محتوای ذخیره شده"
 
@@ -98,11 +95,8 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "ویراستار از کار افتاد. محتوا به آخرین نسخه ذخیره شده برگردانده شد."
 
-msgid "Undo"
-msgstr "برگشت"
+msgid "This field is required."
+msgstr "این فیلد لازم است."
 
 msgid "View child pages of '{title}'"
 msgstr "دیدن صفحات فرزند {title}"
-
-msgid "Write here…"
-msgstr "اینجا بنویسید..."

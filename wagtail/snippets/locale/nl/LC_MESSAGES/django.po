@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,12 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publiceren"
+
+msgid "Unpublish"
+msgstr "Depubliceren"
+
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -32,42 +38,15 @@ msgstr "Opslaan"
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
 
-msgid "Choose"
-msgstr "Kies"
-
-msgid "Search"
-msgstr "Zoeken"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' verwijderd."
 
 #, python-format
-msgid "There is %(counter)s match"
-msgid_plural "There are %(counter)s matches"
-msgstr[0] "Er is %(counter)s resultaat"
-msgstr[1] "Er zijn %(counter)s resultaten"
-
-#, python-format
-msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Helaas, er komen geen snippets overeen met de zoekterm \"<em>"
-"%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
-msgstr ""
-"Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">Voeg er nu eentje toe!</a>"
-
-msgid "Last updated"
-msgstr "Laatst bijgewerkt"
-
-msgid "History"
-msgstr "Geschiedenis"
-
-msgid "Saving…"
-msgstr "Bezig met opslaan…"
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s verwijderd."
+msgstr[1] "%(count)d %(snippet_type)s verwijderd."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -98,6 +77,37 @@ msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
 
 #, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Voeg er nu eentje toe!</a>"
+
+msgid "Last updated"
+msgstr "Laatst bijgewerkt"
+
+msgid "History"
+msgstr "Geschiedenis"
+
+msgid "Publishing…"
+msgstr "Bezig met publiceren..."
+
+msgid "Publish this version"
+msgstr "Publiceer deze versie"
+
+msgid "Saving…"
+msgstr "Bezig met opslaan…"
+
+msgid "Replace current draft"
+msgstr "Vervang huidig concept"
+
+msgid "Save draft"
+msgstr "Bewaar concept"
+
+#, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Nieuw  %(snippet_type_name)s"
 
@@ -107,29 +117,29 @@ msgstr "Nieuw"
 msgid "Actions"
 msgstr "Acties"
 
-#, python-format
-msgid "Editing %(snippet_type_name)s - %(instance)s"
-msgstr "Wijzigen %(snippet_type_name)s - %(instance)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
 msgid "Usage"
 msgstr "Gebruik"
+
+msgid "Toggle breadcrumbs"
+msgstr "Toon/verberg kruimelpad"
+
+msgid "Breadcrumb"
+msgstr "Broodkruimel"
 
 msgid "Snippets"
 msgstr "Snippets"
 
-#, python-format
-msgid "Select all %(snippet_type_name_plural)s"
-msgstr "Selecteer alle %(snippet_type_name_plural)s"
+msgid "New: "
+msgstr "Nieuw:"
 
-msgid "Title"
-msgstr "Titel"
+msgid "No log entries found."
+msgstr "Geen logboekvermeldingen gevonden."
 
 #, python-format
-msgid "Select %(snippet)s"
-msgstr "Selecteer %(snippet)s"
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Er is %(counter)s resultaat"
+msgstr[1] "Er zijn %(counter)s resultaten"
 
 #, python-format
 msgid ""
@@ -139,13 +149,42 @@ msgstr ""
 "Er zijn nog geen %(snippet_type_name_plural)s aangemaakt. Waarom <a href="
 "\"%(wagtailsnippets_create_url)s\">voegt u er niet een toe</a>?"
 
+msgid "Live version"
+msgstr "Live versie"
+
+msgid "Current draft"
+msgstr "Huidig concept"
+
+msgid "Preview"
+msgstr "Voorvertoning"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Review this version"
+msgstr "Beoordeel deze versie"
+
+msgid "Compare with previous version"
+msgstr "Vergelijk met vorige versie"
+
+msgid "Compare with current version"
+msgstr "Vergelijk met huidige versie"
+
+msgid "Live"
+msgstr "Openbaar"
+
+msgid "Draft"
+msgstr "Concept"
+
+msgid "View history"
+msgstr "Bekijk historie"
+
+msgid "This will publish at "
+msgstr "Zal gepubliceerd worden op"
+
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Snippets %(snippet_type_name_plural)s"
-
-#, python-format
-msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Snippets <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -157,6 +196,9 @@ msgstr "Gebruik van %(title)s"
 
 msgid "Usage of"
 msgstr "Gebruik van"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Parent"
 msgstr "Bovenliggende"
@@ -170,9 +212,11 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
 
-#, python-format
-msgid "Search %(snippet_type_name)s"
-msgstr "Zoek %(snippet_type_name)s"
+msgid "Choose"
+msgstr "Kies"
+
+msgid "Name"
+msgstr "Naam"
 
 msgid "The snippet could not be created due to errors."
 msgstr "De snippet kon niet worden aangemaakt door fouten."
@@ -181,34 +225,21 @@ msgstr "De snippet kon niet worden aangemaakt door fouten."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' aangemaakt."
 
-msgid "Edit"
-msgstr "Wijzig"
+msgid "The snippet could not be saved due to errors."
+msgstr "De snippet kon niet worden opgeslagen door fouten."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' gewijzigd."
 
-msgid "The snippet could not be saved due to errors."
-msgstr "De snippet kon niet worden opgeslagen door fouten."
-
-#, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' verwijderd."
-
-#, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s verwijderd."
-msgstr[1] "%(count)d %(snippet_type)s verwijderd."
+msgid "Date"
+msgstr "Datum"
 
 msgid "Snippet history"
 msgstr "Snippet geschiedenis"
 
 msgid "Action"
 msgstr "Actie"
-
-msgid "Date"
-msgstr "Datum"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -221,11 +252,3 @@ msgstr "Verwijder '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Kies %s"
-
-#, python-format
-msgid "Choose another %s"
-msgstr "Kies een andere %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Wijzig %s"

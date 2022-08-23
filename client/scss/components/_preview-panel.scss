@@ -160,9 +160,15 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    margin-bottom: 0;
+    background-color: theme('colors.white.DEFAULT');
 
-    label {
+    .w-field__label {
       margin-bottom: 0;
     }
+  }
+
+  &__mode-select {
+    @apply w-outline-offset-inside;
   }
 }

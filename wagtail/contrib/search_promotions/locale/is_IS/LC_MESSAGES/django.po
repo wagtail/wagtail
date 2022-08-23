@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022
-# saevarom <saevar@saevar.is>, 2016,2018-2020
+# saevarom <saevar@saevar.is>, 2016,2018-2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2016,2022\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +52,17 @@ msgstr ""
 "framlagssíðu við notanda sem er að leita að leitarfrasanum \"<em>gefa</em>\"."
 "</p>            "
 
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>\"Leitarorð/frasar\" reiturinn fyrir neðan verður að innihalda alla og "
+"nákvæmlega þá leit sem þú vilt að sýni þessar niðurstöður, <em>þar með "
+"taldar</em> allar misritanir og stafsetningarvillur. Til að hjálpa þér eru "
+"hérna leitarorð og frasar sem eru vinsæl meðal notenda á vefnum.</p>"
+
 msgid "Save"
 msgstr "Vista"
 
@@ -83,7 +93,10 @@ msgstr "Færa upp"
 msgid "Move down"
 msgstr "Færa niður"
 
-msgid "Promoted search result"
+msgid "Recommended page"
+msgstr "Meðmælt síða"
+
+msgid "Promoted search results"
 msgstr "Meðmæltar leitar niðurstöður"
 
 msgid "Add recommended page"
@@ -91,9 +104,6 @@ msgstr "Bæta við meðmæltri síðu"
 
 msgid "Search Terms"
 msgstr "Leitarfrasi"
-
-msgid "Promoted search results"
-msgstr "Meðmæltar leitar niðurstöður"
 
 msgid "Add new promoted result"
 msgstr "Bæta við nýjum meðmæltum niðurstöðum"

@@ -19,7 +19,7 @@ from wagtail.admin.views.generic.chooser import (
     CreationFormMixin,
 )
 from wagtail.admin.viewsets.chooser import ChooserViewSet
-from wagtail.admin.widgets import BaseChooser
+from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.blocks import ChooserBlock
 from wagtail.documents import get_document_model
 from wagtail.documents.permissions import permission_policy
@@ -168,6 +168,18 @@ class BaseAdminDocumentChooser(BaseChooser):
         )
 
 
+class DocumentChooserAdapter(BaseChooserAdapter):
+    js_constructor = "wagtail.documents.widgets.DocumentChooser"
+
+    @cached_property
+    def media(self):
+        return forms.Media(
+            js=[
+                versioned_static("wagtaildocs/js/document-chooser-telepath.js"),
+            ]
+        )
+
+
 class BaseDocumentChooserBlock(ChooserBlock):
     def render_basic(self, value, context=None):
         if value:
@@ -182,6 +194,7 @@ class DocumentChooserViewSet(ChooserViewSet):
     chosen_view_class = DocumentChosenView
     create_view_class = DocumentChooserUploadView
     base_widget_class = BaseAdminDocumentChooser
+    widget_telepath_adapter_class = DocumentChooserAdapter
     base_block_class = BaseDocumentChooserBlock
     permission_policy = permission_policy
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 21:18+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019,2021\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -57,9 +57,6 @@ msgstr "Megtekintések (elmúlt hétben)"
 
 msgid "No results found"
 msgstr "Nincs találat."
-
-msgid "Date"
-msgstr "Dátum"
 
 msgid "Choose from popular search terms"
 msgstr "Válassz a népszerű keresések közül"

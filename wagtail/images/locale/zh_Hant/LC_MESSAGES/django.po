@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2020-2021\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -153,15 +153,6 @@ msgstr "是的，刪除吧。"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
-msgid "Choose an image"
-msgstr "選擇一個圖片"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Upload"
-msgstr "上傳"
-
 msgid "Popular tags"
 msgstr "熱門標籤"
 
@@ -179,9 +170,6 @@ msgstr "選擇格式"
 
 msgid "Insert image"
 msgstr "插入圖片"
-
-msgid "Uploading…"
-msgstr "正在上傳…"
 
 msgid "Change image file:"
 msgstr "修改圖片文件："
@@ -237,9 +225,6 @@ msgstr "圖片"
 
 msgid "Popular Tags:"
 msgstr "熱門標籤"
-
-msgid "Clear choice"
-msgstr "清除選擇"
 
 msgid "pixels"
 msgstr "像素"
@@ -353,6 +338,15 @@ msgstr "刪除"
 msgid "Delete selected images"
 msgstr "刪除選擇的圖片"
 
+msgid "Upload"
+msgstr "上傳"
+
+msgid "Uploading…"
+msgstr "正在上傳…"
+
+msgid "Choose an image"
+msgstr "選擇一個圖片"
+
 msgid "Search images"
 msgstr "搜索圖片"
 
@@ -389,9 +383,3 @@ msgstr "圖片"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s 個圖片"
-
-msgid "Change image"
-msgstr "修改圖片"
-
-msgid "Edit this image"
-msgstr "編輯此圖片"

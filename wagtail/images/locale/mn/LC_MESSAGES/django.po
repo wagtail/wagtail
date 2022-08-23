@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -133,15 +133,6 @@ msgstr[1] "Used %(usage_count)s times"
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
-msgid "Choose an image"
-msgstr "Зургаа сонгоно уу"
-
-msgid "Search"
-msgstr "Хайх"
-
-msgid "Upload"
-msgstr "Хуулах"
-
 msgid "Popular tags"
 msgstr "Түгээмэл шошгууд"
 
@@ -156,9 +147,6 @@ msgstr "Форматаа сонгоно уу"
 
 msgid "Insert image"
 msgstr "Зураг оруулах"
-
-msgid "Uploading…"
-msgstr "Хуулж байна..."
 
 msgid "Change image file:"
 msgstr "Зургийн файл солих:"
@@ -216,9 +204,6 @@ msgstr "Хэрэглээ"
 
 msgid "Images"
 msgstr "Зургууд"
-
-msgid "Clear choice"
-msgstr "Сонголтыг цэвэрлэх"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -289,6 +274,15 @@ msgstr "Зургийн хандах эрх нэмэх"
 msgid "Delete"
 msgstr "Устгах"
 
+msgid "Upload"
+msgstr "Хуулах"
+
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
+msgid "Choose an image"
+msgstr "Зургаа сонгоно уу"
+
 msgid "Search images"
 msgstr "Зураг хайх"
 
@@ -320,9 +314,3 @@ msgstr "Зураг энэ алдаануудаас шалтгаалан хадг
 
 msgid "Image"
 msgstr "Зураг"
-
-msgid "Change image"
-msgstr "Зураг солих"
-
-msgid "Edit this image"
-msgstr "Энэ зургийг засах"

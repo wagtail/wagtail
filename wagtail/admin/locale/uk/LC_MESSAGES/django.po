@@ -8,17 +8,16 @@
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -50,9 +49,6 @@ msgstr "Скасувати робочий процес"
 
 msgid "Unpublish"
 msgstr "Зняти з публікації"
-
-msgid "Delete"
-msgstr "Видалити"
 
 msgid "Save Draft"
 msgstr "Зберегти чернентку"
@@ -116,6 +112,18 @@ msgstr "Введіть вашу е-мейл адресу для скидання
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Пошуковий термін"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "All collections"
+msgstr "Усі колекції"
+
+msgid "Collection"
+msgstr "Колекція"
+
 msgid "Parent"
 msgstr "Предок"
 
@@ -133,9 +141,6 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
 
-msgid "Collection"
-msgstr "Колекція"
-
 msgid "Add"
 msgstr "Додати"
 
@@ -147,6 +152,9 @@ msgstr "Редагування"
 
 msgid "Edit collections"
 msgstr "Редагувати колекції"
+
+msgid "Delete"
+msgstr "Видалити"
 
 msgid "Delete collections"
 msgstr "Видалити колекції"
@@ -235,11 +243,8 @@ msgstr "Дата/час наживо має знаходитись перед д
 msgid "Expiry date/time must be in the future"
 msgstr "Дата/час закінчення має бути у майбутньому"
 
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Search term"
-msgstr "Пошуковий термін"
+msgid "Select a new parent for this page."
+msgstr "Виберіть нову батьківську сторінку для цієї сторінки"
 
 msgid "Visibility"
 msgstr "Видимість"
@@ -266,6 +271,9 @@ msgstr "Дайте назву робочому процесу"
 
 msgid "Add tasks to your workflow"
 msgstr "Додати завдання до робочого процесу"
+
+msgid "Task"
+msgstr "Завдання"
 
 msgid "1 page selected"
 msgstr "Обрано 1 сторінку"
@@ -340,8 +348,8 @@ msgstr "Обрано всі об'єкти у списку"
 msgid "Scheduled publishing"
 msgstr "Запланована публікація"
 
-msgid "Privacy"
-msgstr "Приватність"
+msgid "Page title"
+msgstr "Заголовок сторінки"
 
 msgid "For search engines"
 msgstr "Для пошукових систем"
@@ -357,15 +365,6 @@ msgstr "Просування"
 
 msgid "Settings"
 msgstr "Налаштування"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Comments"
-msgstr "Коментарі"
-
-msgid "Preview"
-msgstr "Попередній перегляд"
 
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
@@ -387,14 +386,6 @@ msgstr "Більше дій"
 
 msgid "Save account details"
 msgstr "Зберегти дані облікового запису"
-
-msgid "Change password"
-msgstr "Зміна паролю"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ваш пароль неможливо змінити. Будь-ласка, зверніться до адміністратора."
 
 msgid "Reset password"
 msgstr "Скинути пароль"
@@ -506,6 +497,13 @@ msgstr "Вставити зовнішнє посилання"
 msgid "Add a phone link"
 msgstr "Додати посилання на телефон"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Переглянути вкладені сторінки для '%(title)s'"
+
+msgid "Explore"
+msgstr "Переглянути"
+
 msgid "Collection privacy"
 msgstr "Загальнодоступність колекції"
 
@@ -515,14 +513,17 @@ msgstr "Батьківська колекція зробила цю колекц
 msgid "You can edit the privacy settings on:"
 msgstr "Ви можете редагувати налаштування приватності для:"
 
+msgid "Save"
+msgstr "Зберегти"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Налаштування приватності визначають, хто зможе переглядати документи у цій "
 "колекції."
 
-msgid "Save"
-msgstr "Зберегти"
+msgid "Privacy"
+msgstr "Приватність"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "Встановити конфіденційність колекції. Поточний статус: Public"
@@ -558,8 +559,21 @@ msgstr "Так, видалити"
 msgid "Update"
 msgstr "Оновити"
 
-msgid "Dashboard"
-msgstr "Панель"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Порівняння %(title)s"
+
+msgid "Comparing"
+msgstr "Порівняння"
+
+msgid "Fields"
+msgstr "Поля"
+
+msgid "Changes"
+msgstr "Зміни"
+
+msgid "There are no differences between these two versions"
+msgstr "Немає ніяких відмінностей між цими двома версіями"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -593,10 +607,6 @@ msgstr "Чернетка"
 msgid "Live"
 msgstr "Наживо"
 
-#, python-format
-msgid "%(time_period)s"
-msgstr "%(time_period)s"
-
 msgid "Pages awaiting moderation"
 msgstr "Сторінки очікують на модерацію"
 
@@ -615,8 +625,14 @@ msgstr "Підтвердити"
 msgid "Reject"
 msgstr "Відхилити"
 
+msgid "Preview"
+msgstr "Попередній перегляд"
+
 msgid "Your most recent edits"
 msgstr "Найостанніші зміни, зроблені вами"
+
+msgid "Status"
+msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
@@ -626,9 +642,6 @@ msgstr "Резюме сайту"
 
 msgid "Your pages in a workflow"
 msgstr "Ваші сторінки в робочому процесі"
-
-msgid "Task"
-msgstr "Завдання"
 
 msgid "Task started"
 msgstr "Завдання запущене"
@@ -648,20 +661,20 @@ msgstr "Завдання"
 msgid "Sign in"
 msgstr "Увійдіть"
 
+msgid "Sign in to Wagtail"
+msgstr "Увійдіть до Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Ваші %(username_field)s та пароль не відповідають один одному. Будь ласка, "
 "спробуйте ще раз."
 
-msgid "Sign in to Wagtail"
-msgstr "Увійдіть до Wagtail"
+msgid "Forgotten password?"
+msgstr "Забули пароль?"
 
 msgid "Signing in…"
 msgstr "Здійснюється вхід..."
-
-msgid "Forgotten password?"
-msgstr "Забули пароль?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -827,23 +840,6 @@ msgstr "Приватність сторінки"
 
 msgid "This page has been made private by a parent page."
 msgstr "Батьківська сторінка зробила цю сторінку приватною."
-
-msgid "Privacy changes apply to all children of this page too."
-msgstr ""
-"Зміни приватності також будуть застосовані до усіх дочірніх сторінок цієї "
-"сторінки."
-
-msgid "Set page privacy. Current status: Public"
-msgstr "Встановити конфіденційність сторінки. Поточний статус: Публічний"
-
-msgid "Set page privacy. Current status: Private"
-msgstr "Встановити конфіденційність сторінки. Поточний статус: Приватний"
-
-msgid "Page privacy. Current status: Public"
-msgstr "Конфіденційність сторінки. Поточний статус: Публічний"
-
-msgid "Page privacy. Current status: Private"
-msgstr "Конфіденційність сторінки. Поточний статус: Приватний"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "У вас є <span>незбережені зміни</span>"
@@ -1034,15 +1030,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Так, перемістити цю сторінку"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Зняти з публікації %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ви впевнені, що хочете зняти з публікації цю сторінку?"
-
-msgid "Yes, unpublish it"
-msgstr "Так, зняти з публікації"
 
 msgid "Publish page"
 msgstr "Опублікувати сторінку"
@@ -1118,10 +1107,6 @@ msgstr "Версія наживо"
 msgid "Current draft"
 msgstr "Поточна чернетка"
 
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "1%(time_period)s тому"
-
 msgid "No log entries found."
 msgstr "Записи в журналі не знайдені. "
 
@@ -1138,9 +1123,6 @@ msgstr "Обрати сторінку"
 msgid "Drag"
 msgstr "Перетягнути"
 
-msgid "Updated"
-msgstr "Оновлено"
-
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
 
@@ -1153,13 +1135,6 @@ msgstr "Чому б <a href=\"%(add_page_url)s\">не створити одну<
 
 msgid "This page is locked to further editing"
 msgstr "Сторінку заблоковану для майбутнього редагування"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Переглянути вкладені сторінки для '%(title)s'"
-
-msgid "Explore"
-msgstr "Переглянути"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -1193,25 +1168,14 @@ msgstr "Сортувати"
 msgid "Enable ordering of child pages"
 msgstr "Увімкнути впорядковування дочірніх сторінок"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Обрати нову батьківську сторінку для %(title)s"
+msgid "Updated"
+msgstr "Оновлено"
 
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Обрати нову батьківську сторінку для <span>%(title)s</span>"
+msgid "Confirm"
+msgstr "Підтвердити"
 
-msgid "Preview error"
-msgstr "Помилка попереднього перегляду"
-
-msgid "Close"
-msgstr "Закрити"
-
-msgid "Current status:"
-msgstr "Поточний статус: "
-
-msgid "Set page privacy"
-msgstr "Встановити конфіденційність сторінки "
+msgid "History"
+msgstr "Історія змін"
 
 msgid "Review this version"
 msgstr "Переглянути цю версію"
@@ -1224,25 +1188,6 @@ msgstr "Порівняти з поточною версією"
 
 msgid "Cancel scheduled publish"
 msgstr "Скасувати заплановану публікацію"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Порівняння %(title)s"
-
-msgid "Comparing"
-msgstr "Порівняння"
-
-msgid "Page history"
-msgstr "Історія змін"
-
-msgid "Fields"
-msgstr "Поля"
-
-msgid "Changes"
-msgstr "Зміни"
-
-msgid "There are no differences between these two versions"
-msgstr "Немає ніяких відмінностей між цими двома версіями"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1269,18 +1214,6 @@ msgstr "Вибачте, жодна сторінка не відповідає <e
 
 msgid "Enter a search term above"
 msgstr "Введіть пошукову фразу"
-
-msgid "Locked"
-msgstr "Заблоковано"
-
-msgid "Unlocked"
-msgstr "Розблоковано"
-
-msgid "Lock"
-msgstr "Блокувати"
-
-msgid "since"
-msgstr "від"
 
 msgid "No pages use"
 msgstr "Не використовується жодна сторінка"
@@ -1359,9 +1292,6 @@ msgstr "Пересунути вгору"
 msgid "Move down"
 msgstr "Пересунути вниз"
 
-msgid "Add comment"
-msgstr "Додати коментар"
-
 msgid "Comment notifications"
 msgstr "Сповіщення про коментарі"
 
@@ -1383,14 +1313,11 @@ msgstr "Завантажити XLSX"
 msgid "Download CSV"
 msgstr "Завантажити CSV"
 
-msgid "Filter"
-msgstr "Фільтр"
-
-msgid "Apply filters"
-msgstr "Застосувати фільтри"
-
 msgid "Locking status"
 msgstr "Статус блокування"
+
+msgid "Locked"
+msgstr "Заблоковано"
 
 msgid "No locked pages found."
 msgstr "Заблокованих сторінок немає."
@@ -1426,14 +1353,21 @@ msgstr "Ланцюжок навігації"
 msgid "Root"
 msgstr "Корінь"
 
-msgid "Home"
-msgstr "Головна"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Зняти з публікації %(title)s"
 
-msgid "All collections"
-msgstr "Усі колекції"
+msgid "Yes, unpublish it"
+msgstr "Так, зняти з публікації"
 
-msgid "History"
-msgstr "Історія змін"
+msgid "Add comment"
+msgstr "Додати коментар"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "Apply filters"
+msgstr "Застосувати фільтри"
 
 msgid "Visit the live page"
 msgstr "Відвідати сторінку"
@@ -1443,6 +1377,17 @@ msgstr "Поточний статус сторінки:"
 
 msgid "Other searches"
 msgstr "Інші пошуки"
+
+msgid "Unlocked"
+msgstr "Розблоковано"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Зміни приватності також будуть застосовані до усіх дочірніх сторінок цієї "
+"сторінки."
 
 msgid "Skip to main content"
 msgstr "Перейти до основного вмісту "
@@ -1592,14 +1537,6 @@ msgstr "Сторінки, які використовують робочий п�
 msgid "Pages that use workflow"
 msgstr "Сторінки, які використовують робочий процес"
 
-#, python-format
-msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
-msgstr "Застосовано до <em>%(workflow_name)s</em> о %(started_at)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "користувачем %(modified_by)s"
-
 msgid "Submitted"
 msgstr "Застосовано"
 
@@ -1654,20 +1591,15 @@ msgstr "0 хвилин"
 msgid "Just now"
 msgstr "Щойно"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s тому"
+
 msgid "Log out"
 msgstr "Вийти"
 
-msgid "live"
-msgstr "наживо"
-
-msgid "draft"
-msgstr "чернетка"
-
-msgid "live + draft"
-msgstr "наживо + чернетка"
-
-msgid "Test"
-msgstr "Тест"
+msgid "Comments"
+msgstr "Коментарі"
 
 msgid "Profile"
 msgstr "Профіль"
@@ -1725,6 +1657,15 @@ msgstr "Ви впевнені, що хочете видалили цю коле�
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Earliest"
+msgstr "Найбільш раннє"
+
+msgid "Latest"
+msgstr "Останнє"
+
+msgid "Dashboard"
+msgstr "Панель"
 
 msgid "Delete selected pages"
 msgstr "Видалити обрані сторінки"
@@ -1911,27 +1852,6 @@ msgstr "Сторінку '{0}' було замінено версією від {
 msgid "Page '{0}' has been updated."
 msgstr "Сторінку '{0}' оновлено."
 
-msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Сторінка '{}' заблокована</b> <b>вами</b>  на <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Сторінка '{}' заблокована </b> <b>вами</b>."
-
-msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Сторінка '{}' заблокована </b> користувачем <b>{}</b> на <b>{}</b>."
-
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Сторінка '{}' заблокована</b>."
-
-msgid "This page is currently awaiting moderation."
-msgstr "Ця сторінка очікує на модерацію."
-
-msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
-msgstr "Ця сторінка очікує <b>'{}'</b> в робочому процесі <b>'{}'</b>."
-
-msgid "Only reviewers for this task can edit the page."
-msgstr "Лише рецензенти цього завдання можуть редагувати сторінку. "
-
 #, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Робочий процес на сторінці '{0}' було скасовано."
@@ -1974,6 +1894,9 @@ msgstr "Сторінку не можна зберегти через помил�
 msgid "Hide commenting actions"
 msgstr "Приховати дії коментування"
 
+msgid "Page history"
+msgstr "Історія змін"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Сторінку '{0}' розблоковано."
@@ -2015,12 +1938,6 @@ msgid ""
 msgstr ""
 "Ви переглядаєте колишню версію цієї сторінки від <b>%(created_at)s</b> "
 "створену %(user)s "
-
-msgid "Earliest"
-msgstr "Найбільш раннє"
-
-msgid "Latest"
-msgstr "Останнє"
 
 #, python-brace-format
 msgid "revision {0} of \"{1}\""
@@ -2190,8 +2107,8 @@ msgstr[3] ""
 msgid "Task '{0}' enabled."
 msgstr "Завдання \"{0}\" увімкнено."
 
-msgid "Server Error"
-msgstr "Помилка Сервера"
+msgid "Change"
+msgstr "Змінити"
 
 msgid "Pages"
 msgstr "Сторінки"
@@ -2246,6 +2163,12 @@ msgstr "Сортувати порядок меню"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
 
+msgid "Translate"
+msgstr "Перекласти"
+
+msgid "Translate this page"
+msgstr "Перекладіть цю сторінку"
+
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Заголовок %(level)d"
@@ -2291,18 +2214,3 @@ msgstr "Так"
 
 msgid "Choose an item"
 msgstr "Оберіть елемент"
-
-msgid "Choose another item"
-msgstr "Оберіть інший елемент"
-
-msgid "Clear choice"
-msgstr "Очистити вибір"
-
-msgid "Choose another page"
-msgstr "Оберіть іншу сторінку"
-
-msgid "Choose another task"
-msgstr "Оберіть інше завдання"
-
-msgid "Edit this task"
-msgstr "Редагувати це завдання"

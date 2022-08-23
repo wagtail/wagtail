@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -73,6 +73,10 @@ msgstr "%s kopyala"
 msgid "image"
 msgstr "resim"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "%(model_name)s listesine geri dön"
+
 msgid "Choose a parent page"
 msgstr "Üst sayfa seçin"
 
@@ -116,9 +120,6 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-msgid "Home"
-msgstr "Anasayfa"
-
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Üzgünüm, aramanızla eşleşen %(name)s yok."
@@ -129,6 +130,9 @@ msgstr "Arama terimi"
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)s ara"
+
+msgid "Search"
+msgstr "Ara"
 
 msgid "Download XLSX"
 msgstr "XLSX İndir"
@@ -157,10 +161,6 @@ msgstr "Sayfalandırma"
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Sayfa %(current_page)s / %(num_pages)s."
-
-#, python-format
-msgid "Back to %(model_name)s list"
-msgstr "%(model_name)s listesine geri dön"
 
 msgid "Previous"
 msgstr "Önceki"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-12 14:06+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,11 +218,11 @@ msgstr ""
 msgid "Add document"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:191
+#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:204
 msgid "Uploading…"
 msgstr ""
 
-#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:190
+#: templates/wagtaildocs/documents/add.html:68 views/chooser.py:203
 msgid "Upload"
 msgstr ""
 
@@ -444,7 +444,7 @@ msgid_plural "%(num_parent_objects)d documents have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/chooser.py:189
+#: views/chooser.py:202
 msgid "Choose a document"
 msgstr ""
 

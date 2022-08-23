@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -146,24 +146,6 @@ msgstr "Formulariu"
 msgid "Pages"
 msgstr "Pajina sira"
 
-#, python-format
-msgid "Submissions of %(form_title)s"
-msgstr "Submisaun husi%(form_title)s"
-
-#, python-format
-msgid "Form data <span>%(form_title)s</span>"
-msgstr "Formulariu data%(form_title)s"
-
-msgid "Filter"
-msgstr "Filtru"
-
-msgid "Download CSV"
-msgstr "Download CSV"
-
-#, python-format
-msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Neba sei la iha nafatin submisaun husi %(title)sformulariu."
-
 msgid "Title"
 msgstr "Titlu"
 
@@ -181,6 +163,20 @@ msgstr "Submisaun foun"
 
 msgid "No form pages have been created."
 msgstr "La iha pajina formulariu nebe kria tiha ona."
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Submisaun husi%(form_title)s"
+
+msgid "Download CSV"
+msgstr "Download CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Neba sei la iha nafatin submisaun husi %(title)sformulariu."
+
+msgid "Filter"
+msgstr "Filtru"
 
 #, python-format
 msgid "One submission has been deleted."

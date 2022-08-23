@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:45+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -59,6 +59,45 @@ msgstr "Kata sandi yang dimasukkan salah. Harap coba lagi."
 msgid "Comment"
 msgstr "Komentar"
 
+msgid "live"
+msgstr "aktif"
+
+msgid "has unpublished changes"
+msgstr "memiliki perubahan yang belum dipublikasi"
+
+msgid "first published at"
+msgstr "pertama kali dipublikasi"
+
+msgid "last published at"
+msgstr "terakhir kali dipublikasi"
+
+msgid "go live date/time"
+msgstr "tanggal/jam aktif"
+
+msgid "expiry date/time"
+msgstr "tanggal/jam kadaluarsa"
+
+msgid "expired"
+msgstr "kadaluarsa"
+
+msgid "draft"
+msgstr "konsep"
+
+msgid "live + draft"
+msgstr "aktif + konsep"
+
+msgid "Default"
+msgstr "Utama"
+
+msgid "locked"
+msgstr "terkunci"
+
+msgid "locked at"
+msgstr "Terkunci pada"
+
+msgid "locked by"
+msgstr "Dikunci oleh"
+
 msgid "title"
 msgstr "judul"
 
@@ -78,12 +117,6 @@ msgstr ""
 msgid "content type"
 msgstr "tipe konten"
 
-msgid "live"
-msgstr "aktif"
-
-msgid "has unpublished changes"
-msgstr "memiliki perubahan yang belum dipublikasi"
-
 msgid "URL path"
 msgstr "jalur URL"
 
@@ -99,30 +132,6 @@ msgstr ""
 "Apakah tautan ke halaman ini akan tampil dalam menu yang dibuat secara "
 "otomatis"
 
-msgid "go live date/time"
-msgstr "tanggal/jam aktif"
-
-msgid "expiry date/time"
-msgstr "tanggal/jam kadaluarsa"
-
-msgid "expired"
-msgstr "kadaluarsa"
-
-msgid "locked"
-msgstr "terkunci"
-
-msgid "locked at"
-msgstr "Terkunci pada"
-
-msgid "locked by"
-msgstr "Dikunci oleh"
-
-msgid "first published at"
-msgstr "pertama kali dipublikasi"
-
-msgid "last published at"
-msgstr "terakhir kali dipublikasi"
-
 msgid "latest revision created at"
 msgstr "revisi terakhir dibuat pada"
 
@@ -135,17 +144,8 @@ msgstr "terjadwalkan"
 msgid "in moderation"
 msgstr "dalam moderasi"
 
-msgid "draft"
-msgstr "konsep"
-
 msgid "live + scheduled"
 msgstr "akitf + terjadwal"
-
-msgid "live + draft"
-msgstr "aktif + konsep"
-
-msgid "Default"
-msgstr "Utama"
 
 msgid "page"
 msgstr "halaman"
@@ -167,12 +167,6 @@ msgstr "JSON konten"
 
 msgid "approved go live at"
 msgstr "disetujui untuk tampil aktif pada"
-
-msgid "page revision"
-msgstr "revisi halaman"
-
-msgid "page revisions"
-msgstr "daftar revisi halaman"
 
 msgid "Add/edit pages you own"
 msgstr "Tambah/ubah halaman anda sendiri"
@@ -227,6 +221,9 @@ msgstr "grup"
 
 msgid "Approve"
 msgstr "Menyetujui"
+
+msgid "page revision"
+msgstr "revisi halaman"
 
 msgid "collection"
 msgstr "koleksi"
@@ -340,15 +337,6 @@ msgstr "Anda perlu kata sandi untuk mengakses halaman ini."
 
 msgid "Continue"
 msgstr "Lanjut"
-
-msgid "English"
-msgstr "Inggris"
-
-msgid "French"
-msgstr "Perancis"
-
-msgid "German"
-msgstr "Jerman"
 
 msgid "Edited"
 msgstr "Telah diubah"

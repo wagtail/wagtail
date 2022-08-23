@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -72,7 +72,7 @@ msgstr "Mine üles"
 msgid "Move down"
 msgstr "Mine alla"
 
-msgid "Promoted search result"
+msgid "Promoted search results"
 msgstr "Reklaamitud otsingutulemus"
 
 msgid "Add recommended page"
@@ -80,9 +80,6 @@ msgstr "Lisa soovitatud leht"
 
 msgid "Search Terms"
 msgstr "Otsinguterminid"
-
-msgid "Promoted search results"
-msgstr "Reklaamitud otsingutulemus"
 
 msgid "Add new promoted result"
 msgstr "Lisa uus reklaamitud otsingutulemus"

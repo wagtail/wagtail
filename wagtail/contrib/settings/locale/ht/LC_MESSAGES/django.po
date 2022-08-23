@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Hantz Vius <vhantz@protonmail.com>, 2020\n"
 "Language-Team: Haitian (Haitian Creole) (http://www.transifex.com/torchbox/"
@@ -18,13 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ht\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#, python-format
-msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Modifikasyon %(setting_type_name)s-%(instance)s"
-
-msgid "Editing"
-msgstr "Modifikasyon"
 
 msgid "Site"
 msgstr "Sit"

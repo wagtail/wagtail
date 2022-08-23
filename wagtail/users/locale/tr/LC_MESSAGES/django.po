@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Basitlik İyidir, 2020\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -25,10 +25,6 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail kullanıcılar"
-
-msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Gerekli. 30 karakter veya daha az. Sadece harfler, sayılar ve @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Bu değer sadece harf, sayı ya da @/./+/-/_ karakterlerinden oluşur."
@@ -142,9 +138,6 @@ msgstr "Düzenleniyor"
 msgid "Save"
 msgstr "Kaydet"
 
-msgid "Permissions"
-msgstr "İzinler"
-
 msgid "Object permissions"
 msgstr "Nesne izinleri"
 
@@ -222,10 +215,6 @@ msgstr "Aktif"
 
 msgid "Inactive"
 msgstr "Pasif"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

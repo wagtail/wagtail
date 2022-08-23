@@ -3,14 +3,14 @@
 # Alessio Di Stasio <aledista@gmail.com>, 2022
 # Stefano Marchetto <airbatum@gmail.com>, 2022
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
-# gcm, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
 # Marco Badan <marco.badan@gmail.com>, 2022
+# gcm, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2022\n"
+"Last-Translator: gcm, 2022\n"
 "Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
@@ -95,9 +95,6 @@ msgstr "Esplora pagine"
 msgid "Pages"
 msgstr "Pagine"
 
-msgid "Redo"
-msgstr "Ripristina"
-
 msgid "Reload saved content"
 msgstr "Ricarica il contenuto salvato"
 
@@ -106,6 +103,13 @@ msgstr "Ricarica la pagina"
 
 msgid "Reply"
 msgstr "Rispondi"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Segnala questo errore all'amministratore del tuo sito web con le seguenti "
+"informazioni:"
 
 msgid "Resolve"
 msgstr "Risolvi"
@@ -155,17 +159,14 @@ msgstr ""
 "L'editor è appena andato in crash. Il contenuto è stato reimpostato "
 "sull'ultima versione salvata."
 
+msgid "This field is required."
+msgstr "Questo campo è obbligatorio."
+
 msgid "Toggle sidebar"
 msgstr "Attiva/disattiva barra laterale"
-
-msgid "Undo"
-msgstr "Annulla"
 
 msgid "Unfocus comment"
 msgstr "Deseleziona commento"
 
 msgid "View child pages of '{title}'"
 msgstr "Mostra sotto-pagine di '{title}'"
-
-msgid "Write here…"
-msgstr "Scrivi qui..."

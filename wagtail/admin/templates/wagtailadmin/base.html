@@ -8,7 +8,7 @@
     <main class="content-wrapper w-overflow-x-hidden" id="main">
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
-            <div class="messages">
+            <div class="messages" role="status">
                 {% if messages %}
                     <ul>
                         {% for message in messages %}

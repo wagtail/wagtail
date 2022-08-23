@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 14:46+0100\n"
+"POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Benjamin Bach <benjaoming@gmail.com>, 2022\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -33,9 +33,6 @@ msgstr "Annuller arbejdsgang"
 
 msgid "Unpublish"
 msgstr "Afpublicer"
-
-msgid "Delete"
-msgstr "Slet"
 
 msgid "Save Draft"
 msgstr "Gem skitse"
@@ -99,6 +96,12 @@ msgstr "Skriv din email addresse for at genindstille din adgangskode"
 msgid "URL"
 msgstr "URL"
 
+msgid "Search term"
+msgstr "Søge term"
+
+msgid "Search"
+msgstr "Søg"
+
 msgid "Parent"
 msgstr "Forældre"
 
@@ -111,6 +114,9 @@ msgstr "Tilføj"
 
 msgid "Edit"
 msgstr "Rediger"
+
+msgid "Delete"
+msgstr "Slet"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -176,12 +182,6 @@ msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
 msgid "Expiry date/time must be in the future"
 msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
 
-msgid "Search"
-msgstr "Søg"
-
-msgid "Search term"
-msgstr "Søge term"
-
 msgid "Visibility"
 msgstr "Synlighed"
 
@@ -193,9 +193,6 @@ msgstr "Vælg venligst mindst én gruppe."
 
 msgid "Scheduled publishing"
 msgstr "Planlagt udgivning"
-
-msgid "Privacy"
-msgstr "Privatliv"
 
 msgid "For search engines"
 msgstr "Til søgemaskiner"
@@ -212,12 +209,6 @@ msgstr "Promover"
 msgid "Settings"
 msgstr "Indstillinger"
 
-msgid "Status"
-msgstr "Status"
-
-msgid "Preview"
-msgstr "Forhåndsvis"
-
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"
 
@@ -232,14 +223,6 @@ msgstr "Gå til Wagtail admin"
 
 msgid "Account"
 msgstr "Konto"
-
-msgid "Change password"
-msgstr "Skift adgangskode"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Dit kodeord kan ikke blive ændret her. Kontakt venligst en administrator"
 
 msgid "Reset password"
 msgstr "Genindstil adgangskode"
@@ -311,6 +294,13 @@ msgstr "Indsæt link"
 msgid "Add an external link"
 msgstr "Tilføj et eksternt link"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Udforsk undersider af '%(title)s'?"
+
+msgid "Explore"
+msgstr "Udforsk"
+
 msgid "Collection privacy"
 msgstr "Indsamling af privatfølsomme data"
 
@@ -320,14 +310,17 @@ msgstr "Denne samling er blevet gjort privat af en forældre samling."
 msgid "You can edit the privacy settings on:"
 msgstr "Du kan sætte opdatere dine konto indstillinger her:"
 
+msgid "Save"
+msgstr "Gem"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Indstillingerne bestemmer hvem der er i stand til at se documenter fra denne "
 "side."
 
-msgid "Save"
-msgstr "Gem"
+msgid "Privacy"
+msgstr "Privatliv"
 
 msgid "Public"
 msgstr "Offentlig"
@@ -344,8 +337,18 @@ msgstr "Ja, slet"
 msgid "Update"
 msgstr "Opdater"
 
-msgid "Dashboard"
-msgstr "Dashboard"
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Sammenligner %(title)s"
+
+msgid "Comparing"
+msgstr "Sammenligner"
+
+msgid "Fields"
+msgstr "Felter"
+
+msgid "Changes"
+msgstr "Ændringer"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -378,8 +381,14 @@ msgstr "Godkend"
 msgid "Reject"
 msgstr "Afvis"
 
+msgid "Preview"
+msgstr "Forhåndsvis"
+
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Date"
 msgstr "Dato"
@@ -390,13 +399,13 @@ msgstr "Side opsummering"
 msgid "Sign in"
 msgstr "Log Ind"
 
+msgid "Sign in to Wagtail"
+msgstr "Log ind i Wagtail"
+
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
 msgstr ""
 "Dit %(username_field)s og adgangskode matcher ikke. Prøv venligst igen."
-
-msgid "Sign in to Wagtail"
-msgstr "Log ind i Wagtail"
 
 msgid "Signing in…"
 msgstr "Logger ind..."
@@ -488,15 +497,8 @@ msgstr ""
 msgid "Yes, move this page"
 msgstr "Ja, flyt denne side"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Afpublicer %(title)s"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på, at du vil afpublicere denne side?"
-
-msgid "Yes, unpublish it"
-msgstr "Ja, afpublicer den"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -533,18 +535,11 @@ msgid "Current draft"
 msgstr "Nuværende skitse"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Udforsker %(title)s"
 
 msgid "Drag"
 msgstr "Træk"
-
-msgid "Updated"
-msgstr "Opdateret"
 
 msgid "Configure a site now."
 msgstr "Konfigurer en side nu."
@@ -555,13 +550,6 @@ msgstr "Ingen sider er blevet lavet på denne lokation."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Hvorfor ikke <a href=\"%(add_page_url)s\">lave én</a>?"
-
-#, python-format
-msgid "Explore subpages of '%(title)s'"
-msgstr "Udforsk undersider af '%(title)s'?"
-
-msgid "Explore"
-msgstr "Udforsk"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
@@ -589,41 +577,8 @@ msgstr "Deaktiver arrangering af undersider"
 msgid "Enable ordering of child pages"
 msgstr "Aktiver arrangering af undersider"
 
-#, python-format
-msgid "Select a new parent page for %(title)s"
-msgstr "Vælg en ny forældreside til %(title)s"
-
-#, python-format
-msgid "Select a new parent page for <span>%(title)s</span>"
-msgstr "Vælg en ny forældreside til <span>%(title)s</span>"
-
-msgid "Preview error"
-msgstr "Forhåndsvis fejl"
-
-msgid "Close"
-msgstr "Luk"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Sammenligner %(title)s"
-
-msgid "Comparing"
-msgstr "Sammenligner"
-
-msgid "Fields"
-msgstr "Felter"
-
-msgid "Changes"
-msgstr "Ændringer"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
-
-msgid "Lock"
-msgstr "Lås"
+msgid "Updated"
+msgstr "Opdateret"
 
 #, python-format
 msgid "Add %(label)s"
@@ -635,6 +590,9 @@ msgstr "Bevæg op"
 msgid "Move down"
 msgstr "Bevæg ned"
 
+msgid "Locked"
+msgstr "Låst"
+
 msgid "Edit this item"
 msgstr "Rediger denne enhed"
 
@@ -644,8 +602,18 @@ msgstr "Side"
 msgid "Root"
 msgstr "Rod"
 
-msgid "Home"
-msgstr "Hjem"
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Afpublicer %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ja, afpublicer den"
+
+msgid "Unlocked"
+msgstr "Ulåst"
+
+msgid "Lock"
+msgstr "Lås"
 
 msgid "Add a child page"
 msgstr "Tilføj en underside"
@@ -656,21 +624,27 @@ msgstr "Vis i Udforsker"
 msgid "New"
 msgstr "Ny"
 
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "af %(modified_by)s"
-
 msgid "More"
 msgstr "Mere"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 msgid "Log out"
 msgstr "Log ud"
 
-msgid "Test"
-msgstr "Test"
-
 msgid "Editing"
 msgstr "Redigerer"
+
+msgid "Earliest"
+msgstr "Tidligste"
+
+msgid "Latest"
+msgstr "Seneste"
+
+msgid "Dashboard"
+msgstr "Dashboard"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -710,18 +684,9 @@ msgstr "Side '{0}' er blivet indsendt til moderation."
 msgid "Page '{0}' moved."
 msgstr "SIde '{0}' flyttet."
 
-msgid "Earliest"
-msgstr "Tidligste"
-
-msgid "Latest"
-msgstr "Seneste"
-
 #, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "SIde '{0}' afpubliceret."
-
-msgid "Server Error"
-msgstr "Server Fejl"
 
 msgid "Pages"
 msgstr "Sider"
@@ -746,12 +711,3 @@ msgstr "Link"
 
 msgid "Choose an item"
 msgstr "Vælg en enhed"
-
-msgid "Choose another item"
-msgstr "Vælg en til enhed"
-
-msgid "Clear choice"
-msgstr "Nulstil valg"
-
-msgid "Choose another page"
-msgstr "Vælg en anden side"

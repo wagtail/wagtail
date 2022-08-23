@@ -185,16 +185,16 @@ class PublishRevisionAction:
                 )
 
             logger.info(
-                'Published: "%s" id=%d revision_id=%d',
+                'Published: "%s" pk=%s revision_id=%d',
                 str(object),
-                object.id,
+                str(object.pk),
                 revision.id,
             )
         elif object.go_live_at:
             logger.info(
-                'Scheduled for publish: "%s" id=%d revision_id=%d go_live_at=%s',
+                'Scheduled for publish: "%s" pk=%s revision_id=%d go_live_at=%s',
                 str(object),
-                object.id,
+                str(object.pk),
                 revision.id,
                 object.go_live_at.isoformat(),
             )
