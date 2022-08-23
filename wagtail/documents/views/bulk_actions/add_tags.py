@@ -7,7 +7,7 @@ from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBu
 
 
 class TagForm(forms.Form):
-    tags = forms.Field(widget=widgets.AdminTagWidget)
+    tags = forms.Field(label=_("Tags"), widget=widgets.AdminTagWidget)
 
 
 class AddTagsBulkAction(DocumentBulkAction):
