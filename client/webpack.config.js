@@ -221,7 +221,8 @@ module.exports = function exports(env, argv) {
         {
           test: /\.(js|ts)x?$/,
           loader: 'ts-loader',
-          exclude: /node_modules/,
+          // ensure stimulus (ES6 npm module) is transpiled to ES5 - required until whole code base is moved to ES6
+          exclude: /[\\/]node_modules[\\/](?!(@hotwired\/stimulus)[\\/])/,
         },
         {
           // Legacy support for font icon loading, to be removed.

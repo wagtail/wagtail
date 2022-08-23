@@ -31,6 +31,10 @@
     "transform": {
       "^.+\\.(js|ts|tsx)$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "/[\\/]node_modules[\\/](?!(@hotwired\\/stimulus)[\\/])/",
+      "\\.pnp\\.[^\\/]+$"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/build/",
@@ -101,6 +105,7 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "@hotwired/stimulus": "^3.1.0",
     "@tippyjs/react": "^4.2.6",
     "a11y-dialog": "^7.4.0",
     "draft-js": "^0.10.5",

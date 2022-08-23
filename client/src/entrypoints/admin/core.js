@@ -1,5 +1,10 @@
 import $ from 'jquery';
+import { controllerDefinitions } from '../../controllers';
+import { initStimulus } from '../../includes/stimulus';
 import { initTooltips } from '../../includes/initTooltips';
+
+/** initialise Wagtail Stimulus application with core controller definitions */
+initStimulus({ definitions: controllerDefinitions });
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {

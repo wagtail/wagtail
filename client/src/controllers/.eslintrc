@@ -1,0 +1,60 @@
+{
+  "rules": {
+    "@typescript-eslint/member-ordering": [
+      "error",
+      {
+        "classes": {
+          "memberTypes": ["constructor", "field", "method", "signature"]
+        }
+      }
+    ],
+    "class-methods-use-this": "off",
+    "lines-between-class-members": [
+      "error",
+      "always",
+      { "exceptAfterSingleLine": true }
+    ],
+    "prefer-destructuring": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*Controller.ts"],
+      "excludedFiles": ["AbstractController.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "method",
+            "format": ["camelCase"],
+            "custom": {
+              // Use connect or initialize instead of constructor, avoid generic 'render' or 'update' methods and instead be more specific.
+              "regex": "^(constructor|render|update)$",
+              "match": false
+            }
+          },
+          {
+            "selector": "property",
+            "format": ["camelCase"],
+            "custom": {
+              // Use Stimulus values where possible for internal state, avoid a generic state object.
+              "regex": "^(state)$",
+              "match": false
+            }
+          }
+        ],
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "@hotwired/stimulus",
+                "importNames": ["Controller"],
+                "message": "Import and extend the `import { AbstractController } from './AbstractController'`."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
