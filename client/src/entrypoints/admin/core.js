@@ -1,8 +1,14 @@
 import $ from 'jquery';
+
+import { coreControllerDefinitions } from '../../controllers';
 import { escapeHtml } from '../../utils/text';
 import { initButtonSelects } from '../../includes/initButtonSelects';
+import { initStimulus } from '../../includes/initStimulus';
 import { initTagField } from '../../includes/initTagField';
 import { initTooltips } from '../../includes/initTooltips';
+
+/** initialise Wagtail Stimulus application with core controller definitions */
+window.Stimulus = initStimulus({ definitions: coreControllerDefinitions });
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
