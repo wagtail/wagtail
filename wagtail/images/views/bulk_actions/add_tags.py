@@ -7,7 +7,7 @@ from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
 class TagForm(forms.Form):
-    tags = forms.Field(widget=widgets.AdminTagWidget)
+    tags = forms.Field(label=_("Tags"), widget=widgets.AdminTagWidget)
 
 
 class AddTagsBulkAction(ImageBulkAction):
