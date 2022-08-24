@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    upgrading
+   4.1
    4.0
    3.0.2
    3.0.1
