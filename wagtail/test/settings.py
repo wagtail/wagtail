@@ -54,6 +54,12 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+if os.environ.get("STATICFILES_STORAGE", "") == "manifest":
+    STATICFILES_STORAGE = (
+        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    )
+
+
 USE_TZ = not os.environ.get("DISABLE_TIMEZONE")
 if not USE_TZ:
     print("Timezone support disabled")  # noqa
