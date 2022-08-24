@@ -90,6 +90,8 @@ The process for creating new features is described in the following pages:
 -   [](../../extending/rich_text_internals)
 -   [](../../extending/extending_draftail)
 
+You can also provide a setting for naming a group of rich text features. See [WAGTAILADMIN_RICH_TEXT_EDITORS](wagtailadmin_rich_text_editors).
+
 (rich_text_image_formats)=
 
 ### Image Formats in the Rich Text Editor
