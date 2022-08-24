@@ -11,6 +11,7 @@ Changelog
  * Allow setting default attributes on image tags (Jake Howard)
  * Optimise the performance of the Wagtail userbar to remove duplicated queries, improving page loads when viewing live pages while signed in (Jake Howard)
  * Remove legacy `unbutton` styling for buttons (Paarth Agarwal)
+ * Add button variations to the pattern library (Paarth Agarwal)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
 
 
