@@ -143,11 +143,25 @@ window.comments = (() => {
     }
   }
 
+  class MissingElementError extends Error {
+    constructor(element, ...params) {
+      super(...params);
+      this.name = 'MissingElementError';
+      this.element = element;
+    }
+  }
+
   class FieldLevelCommentWidget {
     constructor({ fieldNode, commentAdditionNode, annotationTemplateNode }) {
       this.fieldNode = fieldNode;
       this.contentpath = getContentPath(fieldNode);
+      if (!commentAdditionNode) {
+        throw new MissingElementError(commentAdditionNode);
+      }
       this.commentAdditionNode = commentAdditionNode;
+      if (!annotationTemplateNode) {
+        throw new MissingElementError(annotationTemplateNode);
+      }
       this.annotationTemplateNode = annotationTemplateNode;
       this.shown = false;
     }
@@ -259,13 +273,28 @@ window.comments = (() => {
   }
 
   function initAddCommentButton(buttonElement) {
-    const widget = new FieldLevelCommentWidget({
-      fieldNode: buttonElement.closest('[data-contentpath]'),
-      commentAdditionNode: buttonElement,
-      annotationTemplateNode: document.querySelector('#comment-icon'),
-    });
-    if (widget.contentpath) {
-      widget.register();
+    const initWidget = () => {
+      const widget = new FieldLevelCommentWidget({
+        fieldNode: buttonElement.closest('[data-contentpath]'),
+        commentAdditionNode: buttonElement,
+        annotationTemplateNode: document.querySelector('#comment-icon'),
+      });
+      if (widget.contentpath) {
+        widget.register();
+      }
+    };
+    try {
+      initWidget();
+    } catch (e) {
+      if (
+        e.name === 'MissingElementError' &&
+        document.readyState === 'loading'
+      ) {
+        // Our template node doesn't exist yet - let's hold off until the DOM loads
+        document.addEventListener('DOMContentLoaded', initWidget);
+      } else {
+        throw e;
+      }
     }
   }
 
