@@ -102,6 +102,7 @@ jobs:
           command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: reports/jest
+      - run: pipenv run ./wagtail/test/manage.py collectstatic --noinput
       - store_test_results:
           path: ./reports/jest
 
