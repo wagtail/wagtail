@@ -66,3 +66,24 @@ export function escapeHtml(unsafe: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+/**
+ * Converts a camel case string (e.g. UpgradeNotification) to a kebab-case string
+ * with an optional prefix (e.g. 'w-upgrade-controller') which defaults to `w`.
+ *
+ * @example
+ * // returns 'w-some-special-value'
+ * kebabCase('someSpecialValue');
+ *
+ */
+export const kebabCase = (
+  name?: string,
+  { prefix = null }: { prefix?: string | null } = {},
+): string => {
+  if (!name) return '';
+  const kebabCaseName = name
+    .replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1')
+    .toLowerCase();
+
+  return prefix ? [prefix, kebabCaseName].join('-') : kebabCaseName;
+};

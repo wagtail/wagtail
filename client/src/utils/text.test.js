@@ -1,4 +1,4 @@
-import { cleanForSlug, escapeHtml } from './text';
+import { cleanForSlug, escapeHtml, kebabCase } from './text';
 
 describe('escapeHtml', () => {
   it('should escape the supplied HTML', () => {
@@ -75,5 +75,29 @@ describe('cleanForSlug', () => {
         'the-price-is-7200',
       );
     });
+  });
+});
+
+describe('kebabCase', () => {
+  it('should return an empty string if nothing/empty is provided', () => {
+    expect(kebabCase()).toEqual('');
+    expect(kebabCase('')).toEqual('');
+    expect(kebabCase(null)).toEqual('');
+  });
+
+  it('should return a prefixed kebab-case string from any CamelCase value', () => {
+    expect(kebabCase('UpgradeNotification')).toEqual('upgrade-notification');
+    expect(kebabCase('otherUpgradeNotification')).toEqual(
+      'other-upgrade-notification',
+    );
+  });
+
+  it('should allow for an override prefix', () => {
+    expect(kebabCase('UpgradeNotification', { prefix: 'w' })).toEqual(
+      'w-upgrade-notification',
+    );
+    expect(kebabCase('otherUpgradeNotification', { prefix: 'w' })).toEqual(
+      'w-other-upgrade-notification',
+    );
   });
 });
