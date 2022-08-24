@@ -6,6 +6,7 @@ Changelog
 
  * Fix: Ensure string representation of `FormSubmission` returns a string (LB (Ben Johnston))
  * Fix: Fix `updatemodulepaths` command for Python 3.7 (Matt Westcott)
+ * Fix: Fix issue where comments could not be added in StreamField that were already already saved (Jacob Topp-Mugglestone)
 
 
 3.0.1 (16.06.2022)
