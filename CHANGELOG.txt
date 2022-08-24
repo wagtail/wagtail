@@ -52,6 +52,8 @@ Changelog
  * Fix: Ensure the capitalisation of the `timesince_simple` tag is consistently added in the template based on usage in context (Stefan Hammer)
  * Fix: Add missing translation usage for the `timesince_last_update` and ensure the translated labels can be easier to work with in Transifex (Stefan Hammer)
  * Fix: Add additional checks for duplicate form field `clean_name` values in the Form Builder validation and increase performance of checks (Dan Bentley)
+ * Fix: Use correct color for labels of radio and checkbox fields (Steven Steinwand)
+ * Fix: Adjust spacing of fields’ error messages and position in tables (Steven Steinwand)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
