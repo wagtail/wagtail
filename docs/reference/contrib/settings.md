@@ -267,7 +267,7 @@ settings for the default site instead:
 
 **Note:** You can not reliably get the correct settings instance for the
 current site from this template tag if the request object is not available.
-This is only relevant for multisite instances of Wagtail.
+This is only relevant for multi-site instances of Wagtail.
 
 You can store the settings instance in a variable to save some typing,
 if you have to use multiple values from one model:

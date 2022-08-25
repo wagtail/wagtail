@@ -26,7 +26,7 @@ class TestContextProcessor(TemplateTestCase):
             self.default_settings.title,
         )
 
-    def test_multisite(self):
+    def test_multi_site(self):
         """Check that the correct setting for the current site is returned"""
         request = self.get_request(site=self.default_site)
         self.assertEqual(
@@ -219,7 +219,7 @@ class TestSiteSettingsJinja(TemplateTestCase):
             self.default_settings.title,
         )
 
-    def test_multisite(self):
+    def test_multi_site(self):
         """Check that the correct setting for the current site is returned"""
         context = {"site": self.default_site}
         self.assertEqual(
