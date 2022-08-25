@@ -22,6 +22,13 @@
   text-decoration-color: #3beccd;
   text-underline-offset: 3px;
 }
+
 .pagination-button[aria-current='page'] {
   background-color: #40efc5;
+}
+
+body.theme-dark .pagination-button:not([aria-current]),
+body.theme-dark .pagination-next,
+body.theme-dark .pagination-previous {
+  color: #fff;
 }
