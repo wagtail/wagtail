@@ -103,6 +103,12 @@
     // no need for margin bottom due to padding on content-wrapper
     margin-top: theme('spacing.8');
     text-align: center;
+
+    .button-longrunning {
+      &-active {
+        justify-content: center;
+      }
+    }
   }
 
   .login-form .w-field__errors {
