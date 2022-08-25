@@ -403,8 +403,8 @@
     "pk": 24,
     "model": "wagtailcore.page",
     "fields": {
-      "title": "Home page multi site",
-      "draft_title": "Home page multi site",
+      "title": "Home page multi-site",
+      "draft_title": "Home page multi-site",
       "numchild": 1,
       "show_in_menus": true,
       "live": true,
@@ -423,8 +423,8 @@
     "pk": 25,
     "model": "wagtailcore.page",
     "fields": {
-      "title": "Events index multi site",
-      "draft_title": "Events index multi site",
+      "title": "Events index multi-site",
+      "draft_title": "Events index multi-site",
       "numchild": 0,
       "show_in_menus": true,
       "live": true,

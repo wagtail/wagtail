@@ -541,7 +541,7 @@ Changelog
  * Added instructions on copying and aliasing pages to the editor's guide in documentation (Vlad Podgurschi)
  * Allow ListBlock to raise validation errors that are not attached to an individual child block (Matt Westcott)
  * Use `DATETIME_FORMAT` for localization in templates (Andrew Stone)
- * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
+ * Added documentation on multi-site, multi instance and multi tenancy setups (Coen Van Der Kamp)
  * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
  * Performance improvements for admin listing pages (Jake Howard, Dan Braghis, Tom Usher)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidiane Dia)
