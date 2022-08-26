@@ -862,7 +862,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # We should have an error page because we are unable to
         # preview; the page key was not in the session.
         self.assertContains(
-            response, "<title>Wagtail - Preview not available</title>", html=True
+            response, "<title>Preview not available - Wagtail</title>", html=True
         )
         self.assertContains(
             response,

@@ -50,7 +50,7 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
-            "<title>Wagtail - Preview not available</title>",
+            "<title>Preview not available - Wagtail</title>",
             html=True,
         )
         self.assertContains(
@@ -81,7 +81,7 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
-            "<title>Wagtail - Preview not available</title>",
+            "<title>Preview not available - Wagtail</title>",
             html=True,
         )
         self.assertContains(
@@ -220,7 +220,7 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
-            "<title>Wagtail - Preview not available</title>",
+            "<title>Preview not available - Wagtail</title>",
             html=True,
         )
         self.assertContains(
@@ -250,7 +250,7 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/generic/preview_error.html")
         self.assertContains(
             response,
-            "<title>Wagtail - Preview not available</title>",
+            "<title>Preview not available - Wagtail</title>",
             html=True,
         )
         self.assertContains(
