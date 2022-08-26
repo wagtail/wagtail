@@ -67,6 +67,7 @@ def breadcrumbs(
     page_perms=None,
     querystring_value=None,
     trailing_breadcrumb_title=None,
+    classes=None,
 ):
     user = context["request"].user
 
@@ -87,6 +88,7 @@ def breadcrumbs(
         "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
         "url_name": url_name,
         "url_root_name": url_root_name,
+        'classes': classes,
     }
 
 
