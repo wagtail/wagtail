@@ -793,3 +793,31 @@ class FormPage(AbstractEmailForm):
     class FormPage(AbstractEmailForm):
         # ... page definitions
 ```
+
+(form_builder_mixins)=
+
+## Using `FormMixin` or `EmailFormMixin` to use with other `Page` subclasses
+
+If you need to add form behaviour while extending an additional class, you can use the base mixins instead of the abstract modals.
+
+```python
+from wagtail.models import Page
+from wagtail.contrib.forms.models import EmailFormMixin, FormMixin
+
+
+class BasePage(Page):
+    """
+    A shared base page used throughout the project.
+    """
+
+    # ...
+
+class FormPage(FormMixin, BasePage):
+    intro = RichTextField(blank=True)
+    # ...
+
+class EmailFormPage(EmailFormMixin, FormMixin, BasePage):
+    intro = RichTextField(blank=True)
+    # ...
+
+```
