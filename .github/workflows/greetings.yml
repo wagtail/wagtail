@@ -10,4 +10,4 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: 'Thanks for submitting your first issue to Wagtail!'
-        pr-message: 'Thanks for submitting your first PR to Wagtail!'
+        pr-message: 'Thanks for submitting your first PR to Wagtail! We know how hard you worked on this. Please give us some time to review, and we'll be in touch as soon as we can.'
