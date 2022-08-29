@@ -21,19 +21,28 @@ export const Base = Template.bind({});
 
 Base.args = {
   self: {
-    visible_children: [
-      {
-        heading: 'Content',
-        render_as_object: `<h2>Content</h2><div>Content Body</div>`,
-      },
-      {
-        heading: 'Promote',
-        render_as_object: `<h2>Promote</h2><div>Promote Body</div>`,
-      },
-      {
-        heading: 'Settings',
-        render_as_object: `<h2>Settings</h2><div>Settings Body</div>`,
-      },
+    visible_children_with_identifiers: [
+      [
+        {
+          heading: 'Content',
+          render_as_object: `<h2>Content</h2><div>Content Body</div>`,
+        },
+        'content',
+      ],
+      [
+        {
+          heading: 'Promote',
+          render_as_object: `<h2>Promote</h2><div>Promote Body</div>`,
+        },
+        'promote',
+      ],
+      [
+        {
+          heading: 'Settings',
+          render_as_object: `<h2>Settings</h2><div>Settings Body</div>`,
+        },
+        'settings',
+      ],
     ],
   },
 };
@@ -42,11 +51,14 @@ export const Single = Template.bind({});
 
 Single.args = {
   self: {
-    visible_children: [
-      {
-        heading: 'Tab1',
-        render_as_object: `<h2>Title1</h2><div>Body Text</div>`,
-      },
+    visible_children_with_identifiers: [
+      [
+        {
+          heading: 'Tab1',
+          render_as_object: `<h2>Title1</h2><div>Body Text</div>`,
+        },
+        '1',
+      ],
     ],
   },
 };
@@ -55,27 +67,42 @@ export const Multiple = Template.bind({});
 
 Multiple.args = {
   self: {
-    visible_children: [
-      {
-        heading: 'Tab1',
-        render_as_object: `<h1>Title 1</h1><div>Body Text</div>`,
-      },
-      {
-        heading: 'Tab2',
-        render_as_object: `<h1>Title 2</h1><div>Body Text</div>`,
-      },
-      {
-        heading: 'Tab3',
-        render_as_object: `<h1>Title 3</h1><div>Body Text</div>`,
-      },
-      {
-        heading: 'Tab4',
-        render_as_object: `<h1>Title 4</h1><div>Body Text</div>`,
-      },
-      {
-        heading: 'Tab5',
-        render_as_object: `<h1>Title 5</h1><div>Body Text</div>`,
-      },
+    visible_children_with_identifiers: [
+      [
+        {
+          heading: 'Tab1',
+          render_as_object: `<h1>Title 1</h1><div>Body Text</div>`,
+        },
+        '1',
+      ],
+      [
+        {
+          heading: 'Tab2',
+          render_as_object: `<h1>Title 2</h1><div>Body Text</div>`,
+        },
+        '2',
+      ],
+      [
+        {
+          heading: 'Tab3',
+          render_as_object: `<h1>Title 3</h1><div>Body Text</div>`,
+        },
+        '3',
+      ],
+      [
+        {
+          heading: 'Tab4',
+          render_as_object: `<h1>Title 4</h1><div>Body Text</div>`,
+        },
+        '4',
+      ],
+      [
+        {
+          heading: 'Tab5',
+          render_as_object: `<h1>Title 5</h1><div>Body Text</div>`,
+        },
+        '5',
+      ],
     ],
   },
 };
