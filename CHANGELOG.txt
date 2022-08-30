@@ -121,7 +121,7 @@ Changelog
  * Move commenting trigger to inline toolbar and move block splitting to the block toolbar and command palette only in Draftail (Thibaud Colas)
  * Pages are now locked when they are scheduled for publishing (Karl Hobley)
  * Simplify page chooser views by converting to class-based views (Matt Westcott)
- * Add reference documentation and snippets usage guide for `RevisionMixin`, `DraftStateMixin`, and `PreviewableMixin` (Sage Abdullah)
+ * Add support for previews, revisions and drafts on snippets (Sage Abdullah)
  * Add "Translate" button within pages’ Actions dropdown when editing pages (Sage Abdullah)
  * Add translated labels to the bulk actions tags and collections bulk update fields (Stefan Hammer)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
