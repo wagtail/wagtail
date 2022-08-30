@@ -183,6 +183,7 @@ Changelog
  * Fix: Ensure that there is a larger hoverable area for add block (+) within the Drafttail editor (Steven Steinwand)
  * Fix: Resolve multiple header styling issues for modal, alignment on small devices, outside click handling target on medium devices, close button target size and hover styles (Paarth Agarwal)
  * Fix: Fix issue where comments could not be added in StreamField that were already already saved (Jacob Topp-Mugglestone)
+ * Fix: Remove outdated reference to Image.LoaderError (Matt Westcott)
 
 
 3.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
