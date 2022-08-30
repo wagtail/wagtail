@@ -47,9 +47,9 @@
   // Use w-header--with-padding for headers that don't contain .row elements.
   &.w-header--with-padding,
   > .row {
-    padding-top: theme('spacing.2');
+    padding-top: theme('spacing.6');
     padding-bottom: theme('spacing.6');
-    padding-inline-start: 110px;
+    padding-inline-start: 75px;
     padding-inline-end: theme('spacing.5');
   }
 
@@ -58,6 +58,7 @@
   }
 
   .col {
+    // TODO: Refactor headers to not use floats
     float: left;
     margin-inline-end: 2em;
   }
@@ -128,6 +129,14 @@
 
 @include media-breakpoint-up(sm) {
   .w-header {
+
+     //TODO: Refine this to look nice with all variations
+     &:not(.w-header--merged, .w-header--hasform) {
+      padding-top: theme('spacing.5');
+      padding-inline-start: theme('spacing.12');
+    }
+
+
     .row {
       padding-inline-start: $desktop-nice-padding;
       padding-inline-end: $desktop-nice-padding;
@@ -177,6 +186,36 @@
 
     .col9 {
       @include column(9);
+    }
+
+    &--home {
+      @include nice-padding();
+      padding-top: theme('spacing.16');
+
+      .row {
+        padding-inline-start: 6.0625rem;
+      }
+
+      .w-header__glyph.avatar {
+        margin-inline-start: -3.25rem;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .w-header {
+    $root: &;
+
+    &:not(.w-header--merged, .w-header--hasform) {
+      padding-top: theme('spacing.10');
+    }
+
+    &--home {
+      #{$root}__title {
+        // Font size only to be used on the home header
+        font-size: 3.125rem;
+      }
     }
   }
 }

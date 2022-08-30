@@ -1,5 +1,4 @@
 .w-summary {
-  @include nice-padding();
 
   // set up responsive font size for icon and number as local custom property
   --w-summary-item-font-size: clamp(

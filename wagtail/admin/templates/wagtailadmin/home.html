@@ -13,7 +13,7 @@
     {% endfragment %}
 
     {% avatar_url user as avatar %}
-    {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar merged=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar avatar_size='medium' merged=1 classname='w-header--home' %}
 
     <div class="nice-padding">
         {% if panels %}
