@@ -13,7 +13,7 @@ def has_jpeg_support():
     with open(wagtail_jpg, "rb") as f:
         try:
             Image.open(f)
-        except (IOError, Image.LoaderError):
+        except IOError:
             succeeded = False
 
     return succeeded
@@ -27,7 +27,7 @@ def has_png_support():
     with open(wagtail_png, "rb") as f:
         try:
             Image.open(f)
-        except (IOError, Image.LoaderError):
+        except IOError:
             succeeded = False
 
     return succeeded
