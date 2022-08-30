@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Matt Westcott <matthew@torchbox.com>, 2022
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +46,7 @@ msgstr "Gambar %s tidak valid."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Berkas terlalu besar (%%). Ukuran berkas maksimum %s."
+msgstr "Berkas terlalu besar (%%s). Ukuran berkas maksimum %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

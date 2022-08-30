@@ -7,6 +7,7 @@
 # José Luis <alagunajs@gmail.com>, 2016
 # José Luis <alagunajs@gmail.com>, 2016,2018
 # Oscar Luciano Espirilla Flores, 2020
+# X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,10 @@ msgstr ""
 
 msgid "default"
 msgstr "predeterminado"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Editando %(instance)s"
 
 msgid "Site"
 msgstr "Sitio"

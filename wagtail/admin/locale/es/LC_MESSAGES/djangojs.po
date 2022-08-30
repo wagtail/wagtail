@@ -7,10 +7,11 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
 # Hector Garcia <torkoff@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: José Luis <alagunajs@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
@@ -26,11 +27,17 @@ msgstr "Texto alternativo"
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
+msgid "Blocks"
+msgstr "Bloques"
+
 msgid "Broken link"
 msgstr "Enlace roto"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "Character count:"
+msgstr "Número de caracteres:"
 
 msgid "Close"
 msgstr "Cerrar"
@@ -62,11 +69,23 @@ msgstr "Editar '{title}'"
 msgid "Edit your account"
 msgstr "Editar tu cuenta"
 
+msgid "Enter your comments..."
+msgstr "Introduce tus comentarios..."
+
+msgid "Enter your reply..."
+msgstr "Introduce tu respuesta"
+
+msgid "Error while sending preview data."
+msgstr "Error al enviar datos de vista previa."
+
 msgid "Focus comment"
 msgstr "Enfocar comentario"
 
 msgid "Horizontal line"
 msgstr "Línea horizontal"
+
+msgid "Insert a block"
+msgstr "Insertar un bloque"
 
 msgid "Line break"
 msgstr "Linea de quiebre"
@@ -116,6 +135,9 @@ msgstr "Resolver"
 msgid "Retry"
 msgstr "Reintentar"
 
+msgid "Rich text"
+msgstr "Texto enriquecido"
+
 msgid "Save"
 msgstr "Guardar"
 
@@ -136,6 +158,9 @@ msgstr "Guardando..."
 
 msgid "Search"
 msgstr "Buscar"
+
+msgid "Search blocks"
+msgstr "Buscar bloques"
 
 msgid "See all"
 msgstr "Ver todo"
@@ -169,3 +194,6 @@ msgstr "Desenfocar comentario"
 
 msgid "View child pages of '{title}'"
 msgstr "Ver páginas hijas de '{title}'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Escribe algo o pulsa '/' para insertar un bloque"

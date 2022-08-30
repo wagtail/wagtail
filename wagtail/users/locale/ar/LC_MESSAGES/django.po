@@ -7,13 +7,14 @@
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
+# Younes Oumakhou, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -201,6 +202,9 @@ msgstr "مستوى"
 
 msgid "Status"
 msgstr "الحالة"
+
+msgid "Last Login"
+msgstr "آخر تسجيل دخول"
 
 msgid "Admin"
 msgstr "إدارة"

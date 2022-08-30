@@ -14,6 +14,7 @@
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oscar Luciano Espirilla Flores, 2020
+# X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -172,6 +173,13 @@ msgstr "Imagen"
 msgid "images"
 msgstr "Imágenes"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Añadir etiquedas a 1 imagen"
+msgstr[1] "Añadir etiquetas a %(counter)s imágenes"
+msgstr[2] "Añadir etiquetas a %(counter)s imágenes"
+
 msgid "Add tags to images"
 msgstr "Añadir etiquetas a imágenes"
 
@@ -192,6 +200,13 @@ msgstr "Sí, añadir"
 
 msgid "No, don't add"
 msgstr "No, no añadir"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Añadir 1 imagen a nueva colección"
+msgstr[1] "Añadir %(counter)s imágenes a nueva colección"
+msgstr[2] "Añadir %(counter)s imágenes a nueva colección"
 
 msgid "Add images to collection"
 msgstr "Añadir imágenes a colección"
@@ -253,20 +268,63 @@ msgstr "No, no eliminar"
 msgid "Popular tags"
 msgstr "Etiquetas populares"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Subida con éxito. De todas formas, la nueva imagen parece un duplicado de "
+"una que ya existía. Puedes eliminarla si no era necesaria."
+
 msgid "Existing"
 msgstr "Existentes"
 
 msgid "New"
 msgstr "Nuevo"
 
+msgid "Use new image"
+msgstr "Usar nueva imagen"
+
+msgid "Use existing and delete new"
+msgstr "Usar la existente y eliminar la nueva"
+
 msgid "Latest images"
 msgstr "Últimas imágenes"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "No has subido ninguna imagen en esta colección."
+
+msgid "You haven't uploaded any images."
+msgstr "No has subido ninguna imagen."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"¿Por qué no <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>subir uno ahora</a>?"
 
 msgid "Choose a format"
 msgstr "Selecciona un formato"
 
 msgid "Insert image"
 msgstr "Insertar imagen"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Imagen <span class=\"visuallyhidden\">creada en "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Imágenes <span class=\"visuallyhidden\">creadas en "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Imágenes <span class=\"visuallyhidden\">creadas en "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Cambiar archivo de imagen:"
@@ -283,12 +341,21 @@ msgstr "Guardar"
 msgid "Delete image"
 msgstr "Eliminar imagen"
 
+msgid "Keep new image"
+msgstr "Mantener nueva imagen"
+
+msgid "Delete new image"
+msgstr "Eliminar nueva imagen"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Editando imagen %(title)s"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Image focal point"
+msgstr "Punto focal de la imagen"
 
 msgid "URL Generator"
 msgstr "Generador de URL"
@@ -327,11 +394,27 @@ msgstr "Uso"
 msgid "Images"
 msgstr "Imágenes"
 
+msgid "Sort by"
+msgstr "Ordenar por"
+
+msgid "Entries per page"
+msgstr "Entradas por página"
+
 msgid "Popular Tags:"
 msgstr "Etiquetas populares"
 
+msgid "Clear"
+msgstr "Limpiar"
+
 msgid "Select all images in listing"
 msgstr "Seleccionar todas las imágenes de la lista"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
 
 msgid "Select image"
 msgstr "Seleccionar imagen"
@@ -426,6 +509,13 @@ msgstr ""
 "más apropiado si lo cree conveniente. También puede eliminar la imagen "
 "completamente si la subida no era necesaria."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Subida con éxito. De todas formas, la nueva imagen parece un duplicado de "
+"esta que ya existía. Puedes eliminarla si no era necesaria."
+
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."
 
@@ -496,6 +586,24 @@ msgstr "Subiendo..."
 
 msgid "Choose an image"
 msgstr "Seleccionar una imagen"
+
+msgid "Newest"
+msgstr "Más reciente"
+
+msgid "Oldest"
+msgstr "Más antigua"
+
+msgid "Title: (A -> Z)"
+msgstr "Título: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Título: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Tamaño de archivo: (de menor a mayor)"
+
+msgid "File size: (high to low)"
+msgstr "Tamaño de archivo: (de mayor a menor)"
 
 msgid "Search images"
 msgstr "Buscar imágenes"

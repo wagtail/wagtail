@@ -14,6 +14,7 @@
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
 # Matti Borchers, 2022
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
@@ -71,7 +72,7 @@ msgstr "Die Datei ist zu groß (%%s). Maximale Dateigröße %s."
 
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Dieses Bild hat zu viele Pixel (%%). Das Maximum ist %s."
+msgstr "Dieses Bild hat zu viele Pixel (%%s). Das Maximum ist %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -189,10 +190,8 @@ msgstr "Schlagwörter zu Bildern hinzufügen"
 
 msgid "Are you sure you want to tag the following image?"
 msgid_plural "Are you sure you want to tag the following images?"
-msgstr[0] ""
-"Sind Sie sich sicher, dass Sie das das folgende Bild taggen möchten?"
-msgstr[1] ""
-"Sind Sie sich sicher, dass Sie das die folgenden Bilder taggen möchten?"
+msgstr[0] "Sind Sie sich sicher, dass Sie das folgende Bild taggen möchten?"
+msgstr[1] "Sind Sie sich sicher, dass Sie die folgenden Bilder taggen möchten?"
 
 msgid "You don't have permission to add tags to this image"
 msgid_plural "You don't have permission to add tags to these images"
@@ -221,11 +220,11 @@ msgid ""
 msgid_plural ""
 "Are you sure you want to add the following images to the selected collection?"
 msgstr[0] ""
-"Sind Sie sich sicher, dass Sie das folgende Bilder der ausgewälten Sammlung "
+"Sind Sie sich sicher, dass Sie das folgende Bild zur ausgewählten Sammlung "
 "hinzufügen möchten?"
 msgstr[1] ""
-"Sind Sie sich sicher, dass Sie die folgenden Bilder der ausgewälten Sammlung "
-"hinzufügen möchten?"
+"Sind Sie sich sicher, dass Sie die folgenden Bilder zur ausgewählten "
+"Sammlung hinzufügen möchten?"
 
 msgid "You don't have permission to add this image to a collection"
 msgid_plural "You don't have permission to add these images to a collection"
@@ -349,7 +348,7 @@ msgid "Editing image %(title)s"
 msgstr "Bild %(title)s bearbeiten"
 
 msgid "Editing"
-msgstr "Bearbeiten"
+msgstr "Bearbeite"
 
 msgid "Image focal point"
 msgstr "Bildfokuspunkt"
@@ -429,7 +428,7 @@ msgid ""
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Sie haben noch keine Bilder in dieser Sammlung hochgeladen. Warum nicht "
-"jetzt <a href=\"%(wagtailimages_add_image_url)s\">eins hochladen</a>?"
+"jetzt <a href=\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
 
 #, python-format
 msgid ""
@@ -437,7 +436,7 @@ msgid ""
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Sie haben noch keine Bilder hochgeladen. Warum nicht jetzt <a href="
-"\"%(wagtailimages_add_image_url)s\">eins hochladen</a>?"
+"\"%(wagtailimages_add_image_url)s\">eines hochladen</a>?"
 
 msgid "Generating URL"
 msgstr "URL wird erzeugt"

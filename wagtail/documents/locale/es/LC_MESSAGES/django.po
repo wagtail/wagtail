@@ -14,6 +14,7 @@
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oscar Luciano Espirilla Flores, 2020
+# X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +77,13 @@ msgstr "documento"
 msgid "documents"
 msgstr "documentos"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Añadir etiquetas a 1 documento"
+msgstr[1] "Añadir etiquetas a %(counter)s documentos"
+msgstr[2] "Añadir etiquetas a %(counter)s documentos"
+
 msgid "Add tags to documents"
 msgstr "Añadir etiquetas a documentos"
 
@@ -96,6 +104,13 @@ msgstr "Sí, añadir"
 
 msgid "No, don't add"
 msgstr "No, no añadir"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Añadir 1 documento a nueva colección"
+msgstr[1] "Añadir %(counter)s documentos a nueva colección"
+msgstr[2] "Añadir %(counter)s documentos a nueva colección"
 
 msgid "Add documents to collection"
 msgstr "Añadir documentos a colección"
@@ -121,6 +136,13 @@ msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "No tienes permiso para añadir este documento a una colección"
 msgstr[1] "No tienes permiso para añadir estos documentos a una colección"
 msgstr[2] "No tienes permiso para añadir estos documentos a una colección"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Eliminar 1 documento"
+msgstr[1] "Eliminar %(counter)s documentos"
+msgstr[2] "Eliminar %(counter)s documentos"
 
 msgid "Delete documents"
 msgstr "Eliminar documentos"
@@ -162,6 +184,13 @@ msgstr "No has subido documentos en esta colección."
 
 msgid "You haven't uploaded any documents."
 msgstr "No has subido documentos."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"¿Por qué no <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>subir uno ahora</a>?"
 
 msgid "Change document:"
 msgstr "Cambiar documento:"
@@ -223,6 +252,13 @@ msgid "Select document"
 msgstr "Seleccionar documento"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)scoincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Lo sentimos, ningún documento contiene \"<em>%(query_string)s</em>\""
 
@@ -260,6 +296,23 @@ msgstr "Estado"
 
 msgid "Edit this page"
 msgstr "Editar esta página"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"%(total)s<span> Documento <span class=\"visuallyhidden\">creado en "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Documentos <span class=\"visuallyhidden\">creados en "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Documentos <span class=\"visuallyhidden\">creados en "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Añadir múltiples documentos"

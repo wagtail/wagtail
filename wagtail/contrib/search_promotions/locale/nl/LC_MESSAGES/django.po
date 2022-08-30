@@ -9,6 +9,7 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
 # Meteor0id, 2018
+# Storm Heg <storm@stormbase.digital>, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +101,9 @@ msgstr "Verplaats naar boven"
 
 msgid "Move down"
 msgstr "Verplaats naar beneden"
+
+msgid "Recommended page"
+msgstr "Aanbevolen pagina"
 
 msgid "Promoted search results"
 msgstr "Gepromoveerde zoekresultaten"

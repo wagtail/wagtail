@@ -26,6 +26,9 @@ msgstr ""
 msgid "Wagtail users"
 msgstr "Utenti Wagtail"
 
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Obbligatorio. Sono ammessi soltanto lettere, cifre e @/./+/-/_."
+
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Questo valore può contenere soltanto lettere, numeri e @/./+/-/_"
 

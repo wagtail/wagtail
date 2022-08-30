@@ -100,6 +100,9 @@ msgstr "átmeneti"
 msgid "redirect"
 msgstr "átirányítás"
 
+msgid "redirects"
+msgstr "átirányítások"
+
 msgid "Add redirect"
 msgstr "Átírányítás hozzáadása"
 
@@ -111,6 +114,18 @@ msgstr "Átirányítások"
 
 msgid "Import redirects"
 msgstr "Átirányítások importálása"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Kérjük adjon meg egy fájlt, ahol az átirányítások oszlopokba vannak "
+"rendezve, és tartalmazza az <code>eredeti linket</code>, amiről át kell "
+"irányítani, és a <code>cél linket</code>, ahová megy a látogató (az oszlopok "
+"neve bármi lehet). </p><p>A beküldés után egy megerősítő oldalt fog látni, "
+"ahol a végrehajtás előtt még módosíthat az átirányításokon.</p> "
 
 msgid "Import"
 msgstr "Importálás"
@@ -183,6 +198,12 @@ msgstr "Átirányítás szerkesztése"
 
 msgid "No redirects found."
 msgstr "Nincs átirányítás."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s találat van"
+msgstr[1] "%(counter)s találat van"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

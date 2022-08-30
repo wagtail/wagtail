@@ -160,6 +160,12 @@ msgstr "kép"
 msgid "images"
 msgstr "képek"
 
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Címke hozzáadása 1 képhez"
+msgstr[1] "Címke hozzáadása %(counter)s képhez"
+
 msgid "Add tags to images"
 msgstr "Képek címkézése"
 
@@ -178,6 +184,12 @@ msgstr "Igen, hozzáadom"
 
 msgid "No, don't add"
 msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "1 kép hozzáadása új gyűjteményhez"
+msgstr[1] "%(counter)s kép hozzáadása új gyűjteményhez"
 
 msgid "Add images to collection"
 msgstr "Képek mozgatása gyűjteménybe"
@@ -230,20 +242,60 @@ msgstr "Nem, ne töröljük"
 msgid "Popular tags"
 msgstr "Gyakori címkék"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"A feltöltés sikeres volt. Azonban az új feltöltött kép egy meglévő kép "
+"másolatának tűnik. Ha így erre a képre nincs szükség, törölhető."
+
 msgid "Existing"
 msgstr "Létező"
 
 msgid "New"
 msgstr "Új"
 
+msgid "Use new image"
+msgstr "Az új kép használata"
+
+msgid "Use existing and delete new"
+msgstr "Meglévő kép használata és az új törlése"
+
 msgid "Latest images"
 msgstr "Legfrissebb képek"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Ebbe a gyűjteménybe még nincs kép feltöltve."
+
+msgid "You haven't uploaded any images."
+msgstr "Még nem töltött fel képet."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Miért nem <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>tölt fel egyet most</a>?"
 
 msgid "Choose a format"
 msgstr "Formátum kiválasztása"
 
 msgid "Insert image"
 msgstr "Kép beillesztése"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> kép <span class=\"visuallyhidden\">létrehozva itt: "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> kép <span class=\"visuallyhidden\">létrehozva itt: "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Kép cseréje:"
@@ -260,12 +312,21 @@ msgstr "Mentés"
 msgid "Delete image"
 msgstr "Kép törlése"
 
+msgid "Keep new image"
+msgstr "Új kép megtartása"
+
+msgid "Delete new image"
+msgstr "Új kép törlése"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s kép szerkesztése"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "Image focal point"
+msgstr "Kép fókuszpontja"
 
 msgid "URL Generator"
 msgstr "URL generáló"
@@ -304,11 +365,26 @@ msgstr "Használat"
 msgid "Images"
 msgstr "Képek"
 
+msgid "Sort by"
+msgstr "Sorrend"
+
+msgid "Entries per page"
+msgstr "Elemek száma oldalanként"
+
 msgid "Popular Tags:"
 msgstr "Gyakori címkék:"
 
+msgid "Clear"
+msgstr "Alapállapot"
+
 msgid "Select all images in listing"
 msgstr "Összes kép kiválasztása a listában"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s találat van"
+msgstr[1] "%(counter)s találat van"
 
 msgid "Select image"
 msgstr "Kép kiválasztása"
@@ -399,6 +475,13 @@ msgstr ""
 "A feltöltés sikeres volt. Ha szükséges, adjon érthetőbb nevet a feltöltött "
 "képnek. Ha a feltöltésre nincs szükség, a képet bármikor törölheti."
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"A feltöltés sikeres volt. Azonban az új feltöltött kép ezen meglévő kép "
+"másolatának tűnik. Ha így erre a képre nincs szükség, törölhető."
+
 msgid "Sorry, upload failed."
 msgstr "Sajnáljuk, de a feltöltés sikertelen volt."
 
@@ -463,6 +546,24 @@ msgstr "Feltöltés folyamatban…"
 
 msgid "Choose an image"
 msgstr "Válasszon képet"
+
+msgid "Newest"
+msgstr "Legújabb"
+
+msgid "Oldest"
+msgstr "Legrégebbi"
+
+msgid "Title: (A -> Z)"
+msgstr "Cím: (A -> Z)"
+
+msgid "Title: (Z -> A)"
+msgstr "Cím: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Fájlméret: (növekvő)"
+
+msgid "File size: (high to low)"
+msgstr "Fájlméret: (csökkenő)"
 
 msgid "Search images"
 msgstr "Képek keresése"

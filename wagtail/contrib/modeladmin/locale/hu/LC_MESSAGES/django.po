@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2019
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,10 @@ msgstr "Igen, törlés"
 msgid "No, don't delete"
 msgstr "Nem, ne töröljük"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "ez alapján: %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Utolsó frissítés"
 
@@ -166,6 +170,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Még nincs %(name)s létrehozva."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Miért nem <a href=\"%(url)s\">ad hozzá egyet</a>?"
 
 msgid "Pagination"
 msgstr "Lapozó"

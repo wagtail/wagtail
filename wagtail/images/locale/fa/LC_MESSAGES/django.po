@@ -4,6 +4,7 @@
 #
 # Translators:
 # Amir Mahmoodi, 2022
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Amir Mahmoodi, 2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +48,7 @@ msgstr "تصویر %s معتبری نیست."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "این فایل بیش از حد بزرگ است (%%). حداکثر ظرفیت ممکن %s است."
+msgstr "این فایل بیش از حد بزرگ است (%%s). حداکثر ظرفیت ممکن %s است."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

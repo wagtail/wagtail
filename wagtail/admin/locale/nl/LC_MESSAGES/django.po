@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2016,2020,2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -249,6 +249,9 @@ msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst liggen"
 
+msgid "Select a new parent for this page."
+msgstr "Kies een nieuwe bovenliggende pagina"
+
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr ""
@@ -339,6 +342,20 @@ msgstr "Alle {0} gebruikers op dit scherm geselecteerd"
 
 msgid "All users in listing selected"
 msgstr "Alle gebruikers in lijst geselecteerd"
+
+msgid "1 snippet selected"
+msgstr "1 snippet geselecteerd"
+
+#, python-brace-format
+msgid "{0} snippets selected"
+msgstr "{0} snippets geselecteerd"
+
+#, python-brace-format
+msgid "All {0} snippets on this screen selected"
+msgstr "Alle {0} snippets op dit scherm geselecteerd"
+
+msgid "All snippets in listing selected"
+msgstr "Alle snippets in lijst geselecteerd"
 
 msgid "1 item selected"
 msgstr "1 item geselecteerd"
@@ -525,6 +542,16 @@ msgstr ""
 "met de URL <a target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
 "%(internal_url)s</a> van de interne pagina %(page)s."
 
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Door het omzetten naar een interne link naar %(page)s wordt de link "
+"automatisch aangepast als de URL van de onderliggende pagina wijzigt. Wil je "
+"deze link omzetten naar een interne link?"
+
 msgid "Use external link"
 msgstr "Gebruik externe link"
 
@@ -600,11 +627,28 @@ msgstr ""
 "Er zijn nog geen collecties aangemaakt. Waarom <a href="
 "\"%(add_collection_url)s\">voegt u er niet een toe</a>?"
 
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Sorry, er zijn geen resultaten voor \"<em>%(search_query)s</em>\""
+
+msgid "No items have been created."
+msgstr "Er zijn geen items aangemaakt."
+
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
 
 msgid "Update"
 msgstr "Bijwerken"
+
+msgid "Preview not available"
+msgstr "Voorvertoning niet beschikbaar"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Voortvertoning kon niet worden getoond vanwege validatiefouten.<br />Klik op "
+"opslaan om de relevante velden te markeren."
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -687,6 +731,10 @@ msgstr "Keur af"
 msgid "Preview"
 msgstr "Voorbeeld"
 
+#, python-format
+msgid "by %(name)s"
+msgstr "op %(name)s"
+
 msgid "Your most recent edits"
 msgstr "Laatste wijzigingen"
 
@@ -712,6 +760,17 @@ msgstr[0] ""
 msgstr[1] ""
 "<span>%(total)s</span> pagina's <span class=\"visuallyhidden\">aangemaakt in "
 "%(site_name)s</span>"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-upgrade-version></strong>."
+msgstr ""
+"Wagtail upgrade beschikbaar. Huidige versie: <strong>%(current_version)s</"
+"strong>. Nieuwe versie: <strong data-upgrade-version></strong>"
+
+msgid "Read the release notes."
+msgstr "Lees de release notes"
 
 msgid "Your pages in a workflow"
 msgstr "Jouw pagina's in een workflow"
@@ -968,6 +1027,9 @@ msgstr "Maak een pagina in"
 msgid "Choose which type of page you'd like to create."
 msgstr "Kies wat voor type pagina u wilt maken."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Sorry, je kan geen pagina aanmaken op deze locatie."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Pagina's van het type '%(page_type)s'"
@@ -1124,6 +1186,103 @@ msgstr "Verwijder %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Weet u zeker dat u deze pagina wilt verwijderen?"
 
+#, python-format
+msgid "Deleting this page will also delete %(descendant_count)s child page."
+msgid_plural ""
+"Deleting this page will also delete %(descendant_count)s more child pages."
+msgstr[0] ""
+"Deze pagina verwijderen zal ook %(descendant_count)s onderliggende pagina "
+"verwijderen."
+msgstr[1] ""
+"Deze pagina verwijderen zal ook %(descendant_count)s onderliggende pagina's "
+"verwijderen."
+
+#, python-format
+msgid ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Er zal ook 1 vertaling van deze pagina en %(translation_descendant_count)s "
+"onderliggende vertaalde pagina verwijderd worden."
+msgstr[1] ""
+"Er zal ook 1 vertaling van deze pagina en %(translation_descendant_count)s "
+"onderliggende vertaalde pagina's verwijderd worden."
+
+#, python-format
+msgid ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Er zullen ook %(translation_count)s vertalingen van deze pagina en "
+"%(translation_descendant_count)s onderliggende vertaalde pagina verwijderd "
+"worden."
+msgstr[1] ""
+"Er zullen ook %(translation_count)s vertalingen van deze pagina en "
+"%(translation_descendant_count)sonderliggende vertaalde pagina's verwijderd "
+"worden."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Er zal ook %(translation_count)s vertaling verwijderd worden"
+msgstr[1] "Er zullen ook %(translation_count)s vertalingen verwijderd worden"
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Deze pagina verwijderen zal ook 1 vertaling en "
+"%(translation_descendant_count)s onderliggende vertaalde pagina verwijderen"
+msgstr[1] ""
+"Deze pagina verwijderen zal ook 1 vertaling en "
+"%(translation_descendant_count)s onderliggende vertaalde pagina's verwijderen"
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Deze pagina verwijderen zal ook %(translation_count)s vertalingen en "
+"%(translation_descendant_count)s onderliggende vertaalde pagina verwijderen"
+msgstr[1] ""
+"Deze pagina verwijderen zal ook %(translation_count)s vertalingen en "
+"%(translation_descendant_count)s onderliggende vertaalde pagina's verwijderen"
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] ""
+"Er zal ook %(translation_count)s vertaling van deze pagina verwijderd worden."
+msgstr[1] ""
+"Er zullen ook %(descendant_count)s onderliggende pagina's verwijderd worden. "
+"Ook zullen %(translation_count)s vertalingen van deze pagina worden "
+"verwijderd."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Deze actie zal in totaal <b>%(total_pages)s</b> pagina's verwijderen."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Typ alsjeblieft <b>%(wagtail_site_name)s</b> om te bevestigen."
+
 msgid "Yes, delete it"
 msgstr "Ja, verwijderen"
 
@@ -1156,11 +1315,65 @@ msgstr ""
 "Weet u zeker dat u deze en alle onderliggende pagina's wilt verplaatsen naar "
 "'%(title)s'?"
 
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] ""
+"Er zal ook één vertaling en onderliggende pagina's verplaatst worden"
+msgstr[1] ""
+"Er zullen ook %(translations_to_move_count)s vertalingen en onderliggende "
+"pagina's verplaatst worden"
+
 msgid "Yes, move this page"
 msgstr "Ja, verplaats deze pagina"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Weet u zeker dat u de publicatie van deze pagina wilt intrekken?"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] ""
+"De publicatie van één vertaling van deze pagina zal worden ingetrokken."
+msgstr[1] ""
+"De publicatie van %(translation_count)s vertalingen van deze pagina zullen "
+"worden ingetrokken."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"Deze pagina heeft één onderliggende pagina en de vertalingen hiervan hebben "
+"in totaal één onderliggende pagina. Publicatie van deze pagina's ook "
+"intrekken?"
+msgstr[1] ""
+"Deze pagina heeft %(live_descendant_count)s onderliggende pagina's en de "
+"vertalingen hiervan hebben in totaal één onderliggende pagina. Publicatie "
+"van deze pagina's ook intrekken?"
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"Deze pagina heeft één onderliggende pagina en de vertalingen hiervan hebben "
+"in totaal %(translation_descendant_count)s onderliggende vertaalde pagina's. "
+"Publicatie van deze pagina's ook intrekken?"
+msgstr[1] ""
+"Deze pagina heeft %(live_descendant_count)s onderliggende pagina's en de "
+"vertalingen hiervan hebben in totaal %(translation_descendant_count)s "
+"onderliggende vertaalde pagina's. Publicatie van deze pagina's ook intrekken?"
 
 #, python-format
 msgid "This page has one subpage. Unpublish this too"
@@ -1595,8 +1808,15 @@ msgstr "Root"
 msgid "Unpublish %(title)s"
 msgstr "Publicatie intrekken van %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Weet u zeker dat u de publicatie van %(model_name)s wilt intrekken?"
+
 msgid "Yes, unpublish it"
 msgstr "Ja, trek de publicatie in"
+
+msgid "Close dialog"
+msgstr "Sluit dialoog"
 
 msgid "Add comment"
 msgstr "Voeg opmerking toe"
@@ -1629,6 +1849,9 @@ msgstr "Afgeschermd. Bekijk de live-versie."
 msgid "Visible to all"
 msgstr "Zichtbaar voor iedereen"
 
+msgid "Toggle section"
+msgstr "Toon/verberg sectie"
+
 msgid "Other searches"
 msgstr "Andere zoekacties"
 
@@ -1637,6 +1860,13 @@ msgstr "Toon/verberg zijbalk"
 
 msgid "Page Locale: "
 msgstr "Paginataal:"
+
+msgid "Locale: "
+msgstr "Taalregio:"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Beschikbaar in %(translations_total)s taalregio's"
 
 msgid "No other translations"
 msgstr "Geen andere vertalingen"
@@ -1647,8 +1877,33 @@ msgstr "Taal wijzigen"
 msgid "Page locking: "
 msgstr "Paginavergrendeling:"
 
+msgid ""
+"You can edit this page, but others may not. Unlock it to allow others to "
+"edit."
+msgstr ""
+"U kunt deze pagina bewerken maar anderen kunnen dit niet. Deblokkeer deze "
+"pagina zodat anderen ook kunnen bewerken."
+
+msgid "You can edit this page, but others may not."
+msgstr "U kunt deze pagina bewerken maar anderen kunnen dit niet."
+
+msgid "You cannot edit this page. Unlock it to edit."
+msgstr ""
+"U kunt deze pagina niet bewerken. Deblokkeer de pagina om te kunnen bewerken."
+
+msgid "You cannot edit this page."
+msgstr "U kunt deze pagina niet bewerken."
+
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
+
+msgid "Anyone can edit this page. Lock it to prevent others from editing."
+msgstr ""
+"Iedereen kan deze pagina bewerken. Vergrendel de pagina zodat alleen jij de "
+"pagina nog kan bewerken."
+
+msgid "Anyone can edit this page."
+msgstr "Iedereen kan deze pagina bewerken."
 
 msgid "Lock"
 msgstr "Blokkeren"
@@ -1662,6 +1917,9 @@ msgstr "Eenmaal live kan iedereen deze bekijken"
 msgid "Not visible to the public"
 msgstr "Niet openbaar"
 
+msgid "Choose who can view the live version of this page"
+msgstr "Kies wie de live versie van deze pagina kan bekijken"
+
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Wijzigingen in de zichtbaarheid hebben ook effect op alle onderliggende "
@@ -1670,17 +1928,58 @@ msgstr ""
 msgid "Page status: "
 msgstr "Paginastatus:"
 
+msgid "Status: "
+msgstr "Status:"
+
 msgid "In Moderation"
 msgstr "ter beoordeling"
 
 msgid "View details"
 msgstr "Bekijk details"
 
+msgid "Moderators approval"
+msgstr "Content goedkeuring"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "door %(user)s"
+
 msgid "View history"
 msgstr "Bekijk historie"
 
 msgid "This will publish at "
 msgstr "Zal gepubliceerd worden op"
+
+msgid "Preview in mobile size"
+msgstr "Voorvertoning op mobiel formaat"
+
+msgid "Preview in tablet size"
+msgstr "Voorvertoning op tablet formaat"
+
+msgid "Preview in desktop size"
+msgstr "Voorvertoning op desktop formaat"
+
+msgid "Preview in new tab"
+msgstr "Voorvertoning in een nieuw tabblad"
+
+msgid "Loading"
+msgstr "Laden"
+
+msgid "Preview is out of date"
+msgstr "Voorvertoning is verouderd"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Corrigeer de validatiefouten om door te gaan met voorvertoning (opslaan zal "
+"de fouten markeren)"
+
+msgid "Preview mode"
+msgstr "Voorvertoning modus"
+
+msgid "First published "
+msgstr "Voor het eerst gepubliceerd"
 
 msgid "Errors Count: "
 msgstr "Aantal fouten:"
@@ -1927,6 +2226,18 @@ msgstr "%(time_period)s geleden"
 msgid "Log out"
 msgstr "Uitloggen"
 
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "Wijzigingsverzoek %(finished_at)s"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "Verstuurd naar %(task_name)s %(started_at)s"
+
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s%(task_name)s%(started_at)s"
+
 msgid "Toggle status"
 msgstr "Toon/verberg status"
 
@@ -1993,14 +2304,48 @@ msgstr "Collectie '{0}' is verwijderd."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
 
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
+msgstr ""
+"Je bekijkt de vorige versie van %(model_name)s op <b>%(created_at)s</b> door "
+"%(user)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{instance}' has been replaced with version from {timestamp}."
+msgstr "{model_name} '{instance}' is vervangen door de versie van {timestamp}."
+
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been published."
+msgstr "Versie van {timestamp} van {model_name} '{instance}' is gepubliceerd."
+
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Zoek %(model_name)s"
+
+#, python-brace-format
+msgid "'{0}' has been created and published."
+msgstr "'{0}' is aangemaakt en gepubliceerd."
+
 msgid "Editing"
 msgstr "Wijzigen"
+
+#, python-brace-format
+msgid "'{0}' has been published."
+msgstr "'{0}' is gepubliceerd."
 
 msgid "Earliest"
 msgstr "Eerste"
 
 msgid "Latest"
 msgstr "Laatste"
+
+#, python-brace-format
+msgid "'{object_name}' unpublished."
+msgstr "Publicatie van '{object_name}' ingetrokken."
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -2527,6 +2872,9 @@ msgstr "Ja"
 
 msgid "Choose an item"
 msgstr "Kies een item"
+
+msgid "Clear"
+msgstr "Leegmaken"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "

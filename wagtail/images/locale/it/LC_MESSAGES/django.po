@@ -341,6 +341,13 @@ msgstr "Tag Popolari:"
 msgid "Select all images in listing"
 msgstr "Seleziona tutte le immagini nella lista"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "C'è %(counter)s corrispondenza"
+msgstr[1] "Ci sono %(counter)s corrispondenze"
+msgstr[2] "Ci sono %(counter)s corrispondenze"
+
 msgid "Select image"
 msgstr "Seleziona immagine"
 

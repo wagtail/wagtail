@@ -732,7 +732,7 @@ msgid "Draft"
 msgstr "Entwurf"
 
 msgid "Live"
-msgstr "Seite anzeigen"
+msgstr "Veröffentlicht"
 
 msgid "Pages awaiting moderation"
 msgstr "Seiten, die auf Freischaltung warten"
@@ -1164,8 +1164,8 @@ msgstr "Nein, nicht veröffentlichen"
 #, python-format
 msgid "Unpublish 1 page"
 msgid_plural "Unpublish %(counter)s pages"
-msgstr[0] "1 Seite depublizieren"
-msgstr[1] "%(counter)s Seiten depublizieren"
+msgstr[0] "Veröffentlichung von 1 Seite aufheben"
+msgstr[1] "Veröffentlichung von %(counter)s Seiten aufheben"
 
 msgid "Are you sure you want to unpublish these pages?"
 msgstr ""
@@ -1388,11 +1388,11 @@ msgid_plural ""
 "have a combined one translated child page. Unpublish these too"
 msgstr[0] ""
 "Diese Seite hat eine Unterseite und ihre Übersetzungen haben zusammengezählt "
-"eine übersetzte Unterseite. Diese ebenfalls depublizieren"
+"eine übersetzte Unterseite. Deren Veröffentlichung ebenfalls aufheben"
 msgstr[1] ""
 "Diese Seite hat %(live_descendant_count)s Unterseiten und ihre Übersetzungen "
-"haben zusammengezählt eine übersetzte Unterseite. Diese ebenfalls "
-"depublizieren"
+"haben zusammengezählt eine übersetzte Unterseite. Deren Veröffentlichung "
+"ebenfalls aufheben"
 
 #, python-format
 msgid ""
@@ -1404,12 +1404,12 @@ msgid_plural ""
 "Unpublish these too"
 msgstr[0] ""
 "Diese Seite hat eine Unterseite und ihre Übersetzungen haben zusammengezählt "
-"%(translation_descendant_count)s übersetzte Unterseiten. Diese ebenfalls "
-"depublizieren"
+"%(translation_descendant_count)s übersetzte Unterseiten. Deren "
+"Veröffentlichung ebenfalls aufheben"
 msgstr[1] ""
 "Diese Seite hat %(live_descendant_count)s Unterseiten und ihre Übersetzungen "
 "haben zusammengezählt %(translation_descendant_count)s übersetzte "
-"Unterseiten. Diese ebenfalls depublizieren"
+"Unterseiten. Deren Veröffentlichung ebenfalls aufheben"
 
 #, python-format
 msgid "This page has one subpage. Unpublish this too"
@@ -1941,7 +1941,7 @@ msgstr "Entsperrt"
 
 msgid "Anyone can edit this page. Lock it to prevent others from editing."
 msgstr ""
-"Jeder kann diese Seite bearbeiten. Sperre sie, damit andere sie nicht "
+"Jeder kann diese Seite bearbeiten. Sperren Sie sie, damit andere sie nicht "
 "bearbeiten können."
 
 msgid "Anyone can edit this page."
@@ -2379,7 +2379,7 @@ msgid "'{0}' has been created and published."
 msgstr "'{0}' wurde erstellt und veröffentlicht."
 
 msgid "Editing"
-msgstr "Bearbeiten"
+msgstr "Bearbeite"
 
 #, python-brace-format
 msgid "'{0}' has been published."
@@ -2393,7 +2393,7 @@ msgstr "Späteste"
 
 #, python-brace-format
 msgid "'{object_name}' unpublished."
-msgstr "'{object_name}' depubliziert."
+msgstr "Veröffentlichung von '{object_name}' aufgehoben."
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -2818,7 +2818,7 @@ msgid "Task '{0}' enabled."
 msgstr "Aufgabe ‚{0}‘ aktiviert."
 
 msgid "Change"
-msgstr "Ändern"
+msgstr "Auswahl ändern"
 
 msgid "Pages"
 msgstr "Seiten"
@@ -2926,7 +2926,7 @@ msgid "Choose an item"
 msgstr "Eintrag wählen"
 
 msgid "Clear"
-msgstr "Zurücksetzen"
+msgstr "Auswahl löschen"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "

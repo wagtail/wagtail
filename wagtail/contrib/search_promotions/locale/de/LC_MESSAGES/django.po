@@ -95,7 +95,7 @@ msgid "Editing %(query)s"
 msgstr "%(query)s bearbeiten"
 
 msgid "Editing"
-msgstr "Bearbeiten"
+msgstr "Bearbeite"
 
 msgid "Move up"
 msgstr "Nach oben"

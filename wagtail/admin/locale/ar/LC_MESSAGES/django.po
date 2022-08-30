@@ -13,13 +13,14 @@
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
+# Younes Oumakhou, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: HossamElDin Mohamed <garo5070@gmail.com>, 2021\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -39,10 +40,10 @@ msgid "Resubmit to {}"
 msgstr "إعادة اﻹدخال إلي {}"
 
 msgid "Unpublish"
-msgstr "غير منشور"
+msgstr "إلغاء نشر"
 
 msgid "Save Draft"
-msgstr "حفظ مسودة"
+msgstr "حفظ المسودة"
 
 msgid "Page locked"
 msgstr "الصفحة مغلقة"
@@ -55,7 +56,7 @@ msgid "Wagtail admin"
 msgstr "مشرف Wagtail"
 
 msgid "Sorry, you do not have permission to access this area."
-msgstr "عذرًا ، ليس لديك إذن للوصول إلى هذه المنطقة."
+msgstr "عذرًا، ليس لديك صلاحيات تخول لك الدخول لهذا المكان."
 
 msgid "You do not have permission to access the admin"
 msgstr "ليس لديك الصلاحيات الدخول ك Admin"
@@ -68,6 +69,9 @@ msgstr "التاريخ من"
 
 msgid "Date to"
 msgstr "تاريخ لـ"
+
+msgid "All"
+msgstr "الكل"
 
 msgid "Preferred language"
 msgstr "اللغة المفضلة"
@@ -196,6 +200,10 @@ msgstr "يجب أن يكون تاريخ / وقت البث المباشر قبل 
 msgid "Expiry date/time must be in the future"
 msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
 
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "الوسم (أو الوسوم) %(value_too_long)s تخطَّو%(max_tag_length)d حرفا "
+
 msgid "Visibility"
 msgstr "امكانية الظهور"
 
@@ -205,11 +213,40 @@ msgstr "هذا الحقل مقتضى"
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
 
+msgid "All types"
+msgstr "جميع الأنواع"
+
+msgid "1 page selected"
+msgstr "تم تحديد 1 صفحة"
+
+#, python-brace-format
+msgid "{0} pages selected"
+msgstr "تم تحديد {0} صفحة"
+
+msgid "1 document selected"
+msgstr "تم تحديد 1 وثيقة"
+
+msgid "1 user selected"
+msgstr "تم تحديد 1 مُستخدم"
+
+#, python-brace-format
+msgid "{0} users selected"
+msgstr "تم تحديد {0} مُستخدم"
+
+msgid "1 item selected"
+msgstr "تم تحديد 1 عنصر"
+
 msgid "Scheduled publishing"
 msgstr "نشر مجدول زمنيا"
 
 msgid "Page title"
 msgstr "عنوان الصفحة"
+
+msgid "For search engines"
+msgstr "خاص بمحركات البحث"
+
+msgid "For site menus"
+msgstr "خاص بقوائم الموقع"
 
 msgid "Content"
 msgstr "محتوى"
@@ -234,6 +271,12 @@ msgstr "اذهب الى لوحة تحكم Wagtail"
 
 msgid "Account"
 msgstr "حساب"
+
+msgid "More actions"
+msgstr "المزيد من الإجراءات"
+
+msgid "Save account details"
+msgstr "حِفظ تفاصيل الحساب"
 
 msgid "Reset password"
 msgstr "غير كلمة السر"
@@ -281,6 +324,21 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
 
+msgid "Upload a profile picture:"
+msgstr "رَفع صورة الملف الشخصي"
+
+msgid "Sidebar"
+msgstr "الشريط الجانبي"
+
+msgid "Go back"
+msgstr "رجوع"
+
+msgid "Select row"
+msgstr "تحديد صف"
+
+msgid "Select all"
+msgstr "تحديد الكل"
+
 msgid "Internal link"
 msgstr "حلقة داخلية"
 
@@ -292,6 +350,16 @@ msgstr "حلقة إلكتترونية"
 
 msgid "Phone link"
 msgstr "رابط الهاتف"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "هنالك %(counter)sتَطابق"
+msgstr[1] "هنالك %(counter)sتَطابق"
+msgstr[2] "هنالك %(counter)sتَطابق"
+msgstr[3] "هنالك %(counter)sتَطابق"
+msgstr[4] "هنالك %(counter)sتَطابق"
+msgstr[5] "هنالك %(counter)sتَطابق"
 
 msgid "Choose"
 msgstr "اختر"
@@ -384,6 +452,9 @@ msgid ""
 msgstr ""
 "هذه هي لوحة التحكم الخاصة بك والتي سيتم عرض معلومات مفيدة حول المحتوى الذي "
 "قمت بإنشائها."
+
+msgid "Your locked pages"
+msgstr "صفحاتُك المقفلة"
 
 msgid "Title"
 msgstr "عنوان"
@@ -519,11 +590,47 @@ msgstr "اختر نوع الصفحة التي تريد إنشائها"
 msgid "Pages using %(page_type)s"
 msgstr "صفحات مستخدمة %(page_type)s"
 
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحة"
+msgstr[1] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحة"
+msgstr[2] "ليست لديك الصلاحية التي تخول لك حذف هذين الصفحتين"
+msgstr[3] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحات"
+msgstr[4] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحات"
+msgstr[5] "ليست لديك الصلاحية التي تخول لك حذف هذه الصفحات"
+
 msgid "No, don't delete"
 msgstr "لا, لا تذف"
 
 msgid "Move"
 msgstr "انقل"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "ليست لديك الصلاحية التي تخول لك نقل هذه الصفحة"
+msgstr[1] "ليست لديك الصلاحية التي تخول لك نقل هذه الصفحة"
+msgstr[2] "ليست لديك الصلاحية التي تخول لك نقل هذين الصفحتين"
+msgstr[3] "ليست لديك الصلاحية التي تخول لك نقل هذه الصفحات"
+msgstr[4] "ليست لديك الصلاحية التي تخول لك نقل هذه الصفحات"
+msgstr[5] "ليست لديك الصلاحيات التي تخول لك نقل هذه الصفحات"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "ليست لديك الصلاحية التي تخول لك نشر هذه الصفحة"
+msgstr[1] "ليست لديك الصلاحية التي تخول لك نشر هذه الصفحة"
+msgstr[2] "ليست لديك الصلاحية التي تخول لك نشر هذين الصفحتين"
+msgstr[3] "ليست لديك الصلاحية التي تخول لك نشر هذه الصفحات"
+msgstr[4] "ليست لديك الصلاحية التي تخول لك نشر هذه الصفحات"
+msgstr[5] "ليست لديك الصلاحية التي تخول لك نشر هذه الصفحات"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحة"
+msgstr[1] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحة"
+msgstr[2] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذين الصفحتين"
+msgstr[3] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحات"
+msgstr[4] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحات"
+msgstr[5] "ليست لديك الصلاحية التي تخول لك إلغاء نشر هذه الصفحات"
 
 msgid "No, don't unpublish"
 msgstr "لا ,ألغ النشر"
@@ -570,6 +677,9 @@ msgstr "تعم انقل هذه الصفحة"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "هل تريد فعلا إلغاء نشر هذه الصفحة؟"
 
+msgid "Publish page"
+msgstr "نشر الصفحة"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "صفحات مستخدمة%(page_class_verbose_name)s"
@@ -603,6 +713,9 @@ msgstr "قيد التعديل %(page_type)s :%(title)s"
 
 msgid "User"
 msgstr "مستعمل"
+
+msgid "Comment"
+msgstr "تعليق"
 
 msgid "Live version"
 msgstr "نسخة حية"
@@ -693,6 +806,9 @@ msgstr "أدخل مصطلح البحث أعلاه"
 msgid "No pages use"
 msgstr "لا توجد صفحات تستخدم"
 
+msgid "Edit page"
+msgstr "تعديل الصفحة"
+
 #, python-format
 msgid "Add %(label)s"
 msgstr "اضف %(label)s"
@@ -703,11 +819,20 @@ msgstr "تقدم إلى فوق "
 msgid "Move down"
 msgstr "تقدم إلى تحت"
 
+msgid "No pages found."
+msgstr "لم يتم العثور على صفحات."
+
+msgid "Download XLSX"
+msgstr "حمل XLSX"
+
 msgid "Download CSV"
 msgstr "تنزيل ملف CSV"
 
 msgid "Locked"
 msgstr "مغلق"
+
+msgid "No locked pages found."
+msgstr "لم يتم العثور على صفحات مقفلة"
 
 msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
@@ -750,8 +875,14 @@ msgstr "إضافة صفحة فرعية"
 msgid "Show in Explorer"
 msgstr "اعرض في المستكشف"
 
+msgid "Creating…"
+msgstr "يتم إنشاء..."
+
 msgid "New"
 msgstr "جديد"
+
+msgid "Published"
+msgstr "تم نشره"
 
 msgid "Compare with live version"
 msgstr "مقارنة مع النسخة الحية"
@@ -910,18 +1041,59 @@ msgstr "مراجعة {0} من \"{1}\""
 msgid "Page '{0}' unpublished."
 msgstr "الصفحة '{0}' غير منشورة."
 
+msgid "ID"
+msgstr "المُعَرِّفْ"
+
+msgid "Date/Time"
+msgstr "التاريخ/التوقيت"
+
+msgid "Locked pages"
+msgstr "الصفحات المقفلة"
+
 msgid "Change"
 msgstr "غيّر"
 
 msgid "Pages"
 msgstr "صفحات"
 
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "عَدِّلْ '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "معاينة النسخة المسودة من '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "معاينة النسخة المباشرة من '%(title)s'"
+
 msgid "Add child page"
 msgstr "أضف صفحة لطفل "
 
 #, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "أضف صفحة فرعية إلى '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "نقل الصفحة '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "نسخ الصفحة '%(title)s'"
+
+#, python-format
 msgid "Delete page '%(title)s'"
 msgstr "حذف الصفحة '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "إلغاء نشر الصفحة '%(title)s'"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "ترويسة %(level)d"
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"
@@ -940,6 +1112,9 @@ msgstr "رابط"
 
 msgid "Code"
 msgstr "كود"
+
+msgid "Locked Pages"
+msgstr "الصفحات المقفلة"
 
 msgid "Reports"
 msgstr "التقارير"

@@ -179,7 +179,7 @@ msgid "Editing %(title)s"
 msgstr "%(title)s bearbeiten"
 
 msgid "Editing"
-msgstr "Bearbeiten"
+msgstr "Bearbeite"
 
 msgid "Delete redirect"
 msgstr "Weiterleitung löschen"

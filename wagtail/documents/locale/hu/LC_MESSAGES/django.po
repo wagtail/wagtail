@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,12 @@ msgstr "dokumentum"
 msgid "documents"
 msgstr "dokumentumok"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Címkék hozzáadva 1 dokumentumhoz"
+msgstr[1] "Címkék hozzáadva %(counter)s dokumentumhoz. "
+
 msgid "Add tags to documents"
 msgstr "Dokumentumok címkézése"
 
@@ -83,6 +89,12 @@ msgstr "Igen, hozzáadom"
 
 msgid "No, don't add"
 msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "1 dokumentum hozzáadás új gyűjteményhez"
+msgstr[1] "%(counter)s dokumentum hozzáadása új gyűjteményhez"
 
 msgid "Add documents to collection"
 msgstr "Dokumentumok mozgatása gyűjteménybe"
@@ -105,6 +117,12 @@ msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Nincs jogosultsága hozzáadni a dokumentumot a gyűjteményhez"
 msgstr[1] ""
 "Nincs jogosultsága hozzáadni ezeket a dokumentumokat a gyűjteményhez"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "1 dokumentum törlése"
+msgstr[1] "%(counter)s dokumentum törlése"
 
 msgid "Delete documents"
 msgstr "Dokumentumok törlése"
@@ -134,11 +152,24 @@ msgstr "Nem, ne töröljük"
 msgid "Latest documents"
 msgstr "Legutóbbi dokumentumok"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Sajnáljuk, de egyetlen dokumentum sem felel meg a következő feltételeknek: "
+"\"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Ebbe a gyűjteménybe még nincs dokumentum feltöltve."
 
 msgid "You haven't uploaded any documents."
 msgstr "Még nem töltött fel dokumentumot."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Miért nem <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>tölt fel egyet most</a>?"
 
 msgid "Change document:"
 msgstr "Dokumentum módosítása"
@@ -200,6 +231,12 @@ msgid "Select document"
 msgstr "Dokumentum kíválasztása"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s találat van"
+msgstr[1] "%(counter)s találat van"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Sajnos nincs találat a \"<em>%(query_string)s</em>\" kifejezésre"
 
@@ -237,6 +274,20 @@ msgstr "Állapot"
 
 msgid "Edit this page"
 msgstr "Oldal szerkesztése"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> dokumentum <span class=\"visuallyhidden\">létrehozva "
+"itt: %(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> dokumentum <span class=\"visuallyhidden\">létrehozva "
+"itt: %(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Több dokumentum hozzáadása"

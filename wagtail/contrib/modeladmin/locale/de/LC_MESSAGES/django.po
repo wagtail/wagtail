@@ -210,7 +210,7 @@ msgid "Create new %s"
 msgstr "%s erstellen"
 
 msgid "Editing"
-msgstr "Bearbeiten"
+msgstr "Bearbeite"
 
 #, python-format
 msgid "Editing %s"

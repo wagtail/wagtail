@@ -12,13 +12,14 @@
 # Matt Westcott <matthew@torchbox.com>, 2021
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
+# X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +52,29 @@ msgstr "Añadir promoción de búsqueda"
 msgid "Add search pick"
 msgstr "Añadir selección de búsqueda"
 
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Los resultados de búsqueda promocionados son la forma de recomendar "
+"páginas específicas que podrían no aparecer en los primeros puestos de los "
+"resultados de búsqueda. Por ejemplo, recomendar tu página principal de "
+"donaciones a un usuario buscando el término menos común \"<em>dar</em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>El campo \"término(s)/frase de Búsqueda\" debe contener la búsqueda "
+"completa y exacta con la que deseas que se proporcionen los resultados "
+"recomendados, <em>incluyendo</em> cualquier error de de ortografía/usuario. "
+"Como ayuda, puedes elegir entre los términos de búsqueda que han sido "
+"populares entre los usuarios de tu sitio.</p>        "
+
 msgid "Save"
 msgstr "Guardar"
 
@@ -82,6 +106,9 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Bajar"
+
+msgid "Recommended page"
+msgstr "Página recomendada"
 
 msgid "Promoted search results"
 msgstr "Resultados de busqueda promocionados"

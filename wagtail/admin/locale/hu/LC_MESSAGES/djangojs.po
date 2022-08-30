@@ -21,11 +21,17 @@ msgstr "Alt szöveg"
 msgid "Are you sure?"
 msgstr "Biztos benne?"
 
+msgid "Blocks"
+msgstr "Blokkok"
+
 msgid "Broken link"
 msgstr "Törött link"
 
 msgid "Cancel"
 msgstr "Mégsem"
+
+msgid "Character count:"
+msgstr "Karakterszám:"
 
 msgid "Close"
 msgstr "Bezár"
@@ -45,6 +51,9 @@ msgstr "Törlés"
 msgid "Delete error"
 msgstr "Hiba a törlés közben"
 
+msgid "Deleting"
+msgstr "Törlés"
+
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -54,11 +63,23 @@ msgstr "'{title}' szerkesztése"
 msgid "Edit your account"
 msgstr "Fiók szerkesztése"
 
+msgid "Enter your comments..."
+msgstr "Írja be a megjegyzést..."
+
+msgid "Enter your reply..."
+msgstr "Kérjük adja meg válaszát..."
+
+msgid "Error while sending preview data."
+msgstr "Hiba történt az előnézet közben."
+
 msgid "Focus comment"
 msgstr "Megjegyzés fókuszba állítása"
 
 msgid "Horizontal line"
 msgstr "Vízszintes vonal"
+
+msgid "Insert a block"
+msgstr "Blokk beszúrása"
 
 msgid "Line break"
 msgstr "Sortörés"
@@ -107,6 +128,9 @@ msgstr "Megoldás"
 msgid "Retry"
 msgstr "Újra"
 
+msgid "Rich text"
+msgstr "Formázott szöveg"
+
 msgid "Save"
 msgstr "Mentés"
 
@@ -128,6 +152,9 @@ msgstr "Mentés..."
 msgid "Search"
 msgstr "Keresés"
 
+msgid "Search blocks"
+msgstr "Blokkok keresése"
+
 msgid "See all"
 msgstr "Összes megjelenítése"
 
@@ -139,6 +166,9 @@ msgstr "Hiba megtekintése"
 
 msgid "Show latest content"
 msgstr "Legfrissebb tartalom megtekintése"
+
+msgid "Split block"
+msgstr "Blokk megosztása"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
@@ -157,3 +187,6 @@ msgstr "Megjegyzés kivétele a fókuszból"
 
 msgid "View child pages of '{title}'"
 msgstr "'{title}' gyerekoldalainak megtekintése"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Írjon valamit, vagy nyomja meg a \"/\" gombot egy blokk beszúrásához"

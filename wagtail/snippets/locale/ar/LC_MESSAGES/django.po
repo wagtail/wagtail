@@ -160,5 +160,9 @@ msgid "Date"
 msgstr "تاريخ"
 
 #, python-format
+msgid "Edit '%(title)s'"
+msgstr "عَدِّلْ '%(title)s'"
+
+#, python-format
 msgid "Choose %s"
 msgstr "اختر %s"
