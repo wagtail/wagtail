@@ -5,14 +5,16 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Younes Oumakhou, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +48,7 @@ msgstr "%s ليست صورة صالحة."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "هذا الملف كبير جدًا (%%). حجم الملف الأقصى %s ."
+msgstr "هذا الملف كبير جدًا (%%s). حجم الملف الأقصى %s ."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -139,6 +141,25 @@ msgstr "صورة"
 msgid "images"
 msgstr "صور"
 
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "هل أنت متأكد من حذف هذه الصورة؟"
+msgstr[1] "هل أنت متأكد من حذف هذه الصورة؟"
+msgstr[2] "هل أنت متأكد من حذف هاتين الصورتين؟"
+msgstr[3] "هل أنت متأكد من حذف هذه الصور؟"
+msgstr[4] "هل أنت متأكد من حذف هذه الصور؟"
+msgstr[5] "هل أنت متأكد من حذف هذه الصور؟"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "تم استخدامه %(usage_count)sمرة"
+msgstr[1] "تم استخدامه %(usage_count)s مرة"
+msgstr[2] "تم استخدامه %(usage_count)s مرة"
+msgstr[3] "تم استخدامه %(usage_count)s مرة"
+msgstr[4] "تم استخدامه %(usage_count)s مرة"
+msgstr[5] "تم استخدامه %(usage_count)s مرة"
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
@@ -185,6 +206,9 @@ msgstr "تنقيح"
 msgid "URL Generator"
 msgstr "مولد URL"
 
+msgid "(optional)"
+msgstr "(إختياري)"
+
 msgid "Current focal point shown"
 msgstr "تظهر نقطة التركز الجارية"
 
@@ -205,6 +229,9 @@ msgstr "استعمال"
 
 msgid "Images"
 msgstr "صور"
+
+msgid "Popular Tags:"
+msgstr "الوسوم الشائعة:"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

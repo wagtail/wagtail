@@ -5,7 +5,7 @@
 # Translators:
 # Harmen <sigmo@sigmo.nl>, 2022
 # Kees Hink <keeshink@gmail.com>, 2017
-# Storm Heg <storm@stormbase.digital>, 2021
+# Storm Heg <storm@stormbase.digital>, 2021-2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail gebruikers"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Vereist. Alleen letters, nummers en de tekens @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""

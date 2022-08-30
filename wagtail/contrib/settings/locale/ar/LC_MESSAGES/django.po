@@ -6,6 +6,7 @@
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Bashar Al-Abdulhadi, 2020
 # Khaled Arnaout <khaledarnaout@live.com>, 2018
+# Younes Oumakhou, 2022
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Bashar Al-Abdulhadi, 2020\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,10 @@ msgstr ""
 
 msgid "default"
 msgstr "الإفتراضي"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "تعديل %(instance)s"
 
 msgid "Site"
 msgstr "موقع"
@@ -43,7 +48,7 @@ msgstr "لايمكن فتح الاعدادات لعدم وجود موقع مُع
 
 #, python-format
 msgid "%(setting_type)s updated."
-msgstr "%(setting_type)s تم تحديثه."
+msgstr "تم تحديث %(setting_type)s"
 
 msgid "The setting could not be saved due to errors."
 msgstr "لايمكن حفظ الاعدادات بسبب وجود اخطاء"

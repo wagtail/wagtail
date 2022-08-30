@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2021
+# Dan Braghis, 2014-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Dan Braghis, 2014-2021\n"
+"Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Nucleu Wagtail"
@@ -60,6 +63,15 @@ msgstr "Acest bloc nu are nici o opțiune."
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
 
+msgid "Wagtail frontend cache"
+msgstr "Cache-ul frontend Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Pagină rutabilă Wagtail"
+
+msgid "Wagtail sitemaps"
+msgstr "Hărți de site Wagtail"
+
 msgid "Password"
 msgstr "Parolă"
 
@@ -89,6 +101,12 @@ msgstr "Acestă pagină așteaptă <b>'{}'</b> în fluxul de lucru <b>'{}'</b>"
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Numai revizuitorii acestei sarcini pot să editeze pagina."
+
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr "Pagina '{}' este încuiată și programată să devină live la {}"
+
+msgid "latest revision"
+msgstr "ultima revizie"
 
 msgid "live"
 msgstr "live"
@@ -209,6 +227,9 @@ msgstr "pagină"
 msgid "pages"
 msgstr "pagini"
 
+msgid "object id"
+msgstr "id obiect"
+
 msgid "submitted for moderation"
 msgstr "trimisă pentru moderare."
 
@@ -223,6 +244,12 @@ msgstr "conținut JSON"
 
 msgid "approved go live at"
 msgstr "aprobat pentru publicare la"
+
+msgid "revision"
+msgstr "revizie"
+
+msgid "revisions"
+msgstr "reviziuni"
 
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
@@ -892,6 +919,10 @@ msgstr "Sarcina de lucru respinsă. Flux de lucru finalizat"
 
 msgid "Workflow: resume task"
 msgstr "Flux de lucru: reluare sarcină"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Sarcina '%(task)s' retrimisă. Flux de lucru rezumat"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"

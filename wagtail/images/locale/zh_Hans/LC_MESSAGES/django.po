@@ -9,6 +9,7 @@
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # First Last <abc+github@mynook.info>, 2019
 # Yin Guanhao <sopium@mysterious.site>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2021
 # 汇民 王 <whuim@qq.com>, 2017-2021
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Favo Yang <favoyang@gmail.com>, 2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +58,7 @@ msgstr "文件过大 (%%s)，文件大小上限为 %s。"
 
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "文件包含像素过多（%%）。像素数量上限为 %s。"
+msgstr "文件包含像素过多（%%s）。像素数量上限为 %s。"
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

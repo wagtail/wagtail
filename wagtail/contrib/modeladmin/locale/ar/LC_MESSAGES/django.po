@@ -6,13 +6,14 @@
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ultraify media <ultraify@gmail.com>, 2018
+# Younes Oumakhou, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2018\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +133,9 @@ msgstr "بحث %(name)s"
 msgid "Search"
 msgstr "بحث"
 
+msgid "Download XLSX"
+msgstr "تنزيل XLSX"
+
 msgid "Download CSV"
 msgstr "تنزيل ملف CSV"
 
@@ -164,6 +168,10 @@ msgid "Next"
 msgstr "التالي"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "تم إنشاء '%(instance)s' '%(model_name)s'"
+
+#, python-format
 msgid "The %s could not be created due to errors."
 msgstr "لا يمكن إنشاء %s بسبب أخطاء."
 
@@ -182,6 +190,10 @@ msgid "Editing %s"
 msgstr "جاري التعديل %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "تم تحديث '%(instance)s' '%(model_name)s'."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "لا يمكن حفظ %s بسبب الأخطاء."
 
@@ -196,6 +208,10 @@ msgid ""
 msgstr ""
 "هل أنت متأكد أنك تريد حذف هذا %s؟ إذا كانت هناك أشياء أخرى في موقعك مرتبطة "
 "بها ، فقد تتأثر أيضًا."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "تم حذف '%(instance)s' '%(model_name)s'."
 
 msgid "Inspecting"
 msgstr "يتم الفحص"

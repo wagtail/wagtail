@@ -14,6 +14,7 @@
 # LB (Ben Johnston) <mail@lb.ee>, 2019
 # Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Marco Lerco <marcolerco@gmail.com>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
@@ -235,6 +236,10 @@ msgstr "Go live data/ora deve precedere data/ora di scadenza"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Data/ora di scadenza deve essere nel futuro"
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tag %(value_too_long)s sono sopra i %(max_tag_length)d caratteri"
 
 msgid "Visibility"
 msgstr "Visibilità"
@@ -480,8 +485,37 @@ msgstr "Scegli"
 msgid "Choose a page"
 msgstr "Scegli una pagina"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Soltanto pagine del tipo \"%(type)s\" possono essere scelte per questo "
+"campo. I risultati della ricerca escluderanno pagine di altri tipi."
+msgstr[1] ""
+"Soltanto i seguenti tipi di pagina possono essere scelti per questo campo: "
+"%(type)s. I risultati della ricerca escluderanno pagine di altri tipi."
+msgstr[2] ""
+"Soltanto i seguenti tipi di pagina possono essere scelti per questo campo: "
+"%(type)s. I risultati della ricerca escluderanno pagine di altri tipi."
+
 msgid "Convert to internal link"
 msgstr "Converti in link interno"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"L'URL che hai inserito, <a target=\"_blank\" rel=\"noreferrer noopener\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>,  sembra che corrisponda "
+"alla pagina interna %(page)s, che ha URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 msgid "Use external link"
 msgstr "Utilizza link esterno"
@@ -560,6 +594,9 @@ msgstr "Sì, elimina"
 msgid "Update"
 msgstr "Aggiorna"
 
+msgid "Preview not available"
+msgstr "Anteprima non disponibile"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Compara %(title)s"
@@ -629,6 +666,10 @@ msgstr "Rifiuta"
 msgid "Preview"
 msgstr "Anteprima"
 
+#, python-format
+msgid "by %(name)s"
+msgstr "per %(name)s"
+
 msgid "Your most recent edits"
 msgstr "Le tue modifiche recenti"
 
@@ -640,6 +681,26 @@ msgstr "Data"
 
 msgid "Site summary"
 msgstr "Riepilogo del sito"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> pagina <span class=\"visuallyhidden\">creata in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> pagine <span class=\"visuallyhidden\">create in "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> pagine <span class=\"visuallyhidden\">create in "
+"%(site_name)s</span>"
+
+msgid "Read the release notes."
+msgstr "Leggi le note di rilascio."
 
 msgid "Your pages in a workflow"
 msgstr "Le tue pagine in un flusso di lavoro"
@@ -971,6 +1032,13 @@ msgstr[2] "Pubblica %(counter)s pagine"
 msgid "Are you sure you want to publish these pages?"
 msgstr "Sei sicuro di voler pubblicare queste pagine?"
 
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Questa pagina ha una sottopagina non pubblicata"
+msgstr[1] "Questa pagina ha %(counter)s sottopagine non pubblicate."
+msgstr[2] "Questa pagina ha %(counter)s sottopagine non pubblicate."
+
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
 msgstr[0] "Non hai i permessi per pubblicare questa pagina"
@@ -983,8 +1051,22 @@ msgstr "Sì, pubblica"
 msgid "No, don't publish"
 msgstr "No, non pubblicare"
 
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Annulla pubblicazione per 1 pagina"
+msgstr[1] "Annulla pubblicazione per %(counter)s pagine"
+msgstr[2] "Annulla pubblicazione per %(counter)s pagine"
+
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Sei sicuro di voler annullare la pubblicazione per queste pagine?"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Questa pagina ha una sottopagina"
+msgstr[1] "Questa pagina ha %(counter)s sottopagine"
+msgstr[2] "Questa pagina ha %(counter)s sottopagine"
 
 msgid "You don't have permission to unpublish this page"
 msgid_plural "You don't have permission to unpublish these pages"
@@ -1060,6 +1142,19 @@ msgstr "Si, va a questa pagina"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sei sicuro di voler annullare la pubblicazione di questa pagina?"
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] ""
+"Questa pagina ha  una sottopagina. Annulla la pubblicazione anche di questa."
+msgstr[1] ""
+"Questa pagina ha %(live_descendant_count)s sottopagine. Annulla la "
+"pubblicazione anche di queste."
+msgstr[2] ""
+"Questa pagina ha %(live_descendant_count)s sottopagine. Annulla la "
+"pubblicazione anche di queste."
 
 msgid "Publish page"
 msgstr "Pubblica pagina"
@@ -1656,8 +1751,17 @@ msgstr "%(time_period)s fa"
 msgid "Log out"
 msgstr "Esci"
 
+msgid "Toggle status"
+msgstr "Attiva/disattiva stato"
+
 msgid "Comments"
 msgstr "Commenti"
+
+msgid "Toggle comments"
+msgstr "Attiva/disattiva commenti"
+
+msgid "Toggle preview"
+msgstr "Attiva/disattiva anteprima"
 
 msgid "Profile"
 msgstr "Profilo"
@@ -2171,7 +2275,7 @@ msgid "Task '{0}' enabled."
 msgstr "Attività '{0}' abilitata."
 
 msgid "Change"
-msgstr "Modifica"
+msgstr "Cambia"
 
 msgid "Pages"
 msgstr "Pagine"

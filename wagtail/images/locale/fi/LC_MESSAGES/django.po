@@ -8,6 +8,7 @@
 # Eetu Häivälä, 2016-2017
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +60,7 @@ msgstr "Tiedosto on liian suuri (%%s). Tiedoston koko voi olla enintään %s."
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
 msgstr ""
-"Tässä tiedostossa on liian monta kuvapistettä (%% s). Enimmäismäärä on %s, "
+"Tässä tiedostossa on liian monta kuvapistettä (%%s). Enimmäismäärä on %s, "
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

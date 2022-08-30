@@ -4,6 +4,7 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Halim Turan <halim_turan_61@hotmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # Py Data Geek <pydatageek@gmail.com>, 2019
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
+"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>, 2022\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +63,11 @@ msgstr "belge"
 
 msgid "documents"
 msgstr "belgeler"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Bu dokümanları silmek istediğinize emin misiniz?"
+msgstr[1] "Bu dokümanları silmek istediğinize emin misiniz?"
 
 #, python-format
 msgid "Used %(usage_count)s time"

@@ -231,6 +231,13 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
+msgid "Select a new parent for this page."
+msgstr "Alege o pagină de bază nouă pentru această pagină."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Etichetele %(value_too_long)s au peste %(max_tag_length)d caractere"
+
 msgid "Visibility"
 msgstr "Vizibilitate"
 
@@ -316,6 +323,20 @@ msgstr "Toți {0} utilizatori selectați pe acest ecran"
 
 msgid "All users in listing selected"
 msgstr "Toți utilizatorii din listă selectați"
+
+msgid "1 snippet selected"
+msgstr "1 fragment selectat"
+
+#, python-brace-format
+msgid "{0} snippets selected"
+msgstr "{0} fragmente selectate"
+
+#, python-brace-format
+msgid "All {0} snippets on this screen selected"
+msgstr "Toate {0} fragmentele selectate pe acest ecran"
+
+msgid "All snippets in listing selected"
+msgstr "Toate fragmentele din listă selectate"
 
 msgid "1 item selected"
 msgstr "1 articol selectat"
@@ -425,6 +446,9 @@ msgstr "Încarca poza profil"
 msgid "Reset to default"
 msgstr "Resetează la starea implicită"
 
+msgid "Sidebar"
+msgstr "Bara laterală"
+
 msgid "Go back"
 msgstr "Înapoi"
 
@@ -452,6 +476,13 @@ msgstr "Link telefonic"
 msgid "Anchor link"
 msgstr "Link de ancorare"
 
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Există %(counter)s potrivire"
+msgstr[1] "Sunt %(counter)s potriviri"
+msgstr[2] "Sunt %(counter)s potriviri   "
+
 msgid "Add an anchor link"
 msgstr "Adaugă link de ancorare"
 
@@ -464,8 +495,37 @@ msgstr "Alege"
 msgid "Choose a page"
 msgstr "Alege o pagină"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Numai pagini de tip \"%(type)s\" pot fi selectate pentru acest câmp. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+msgstr[1] ""
+"Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+msgstr[2] ""
+"Numai pagini de tipul următor pot fi selectate pentru acest câmp: %(type)s. "
+"Rezultatele căutării vor exclude pagini de alt tip."
+
 msgid "Convert to internal link"
 msgstr "Convertește în link internă"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
+"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"Adresa de internet introdusă, <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a>, se potrivește paginii interne "
+"%(page)s, cu adresa <a target=\"_blank\" rel=\"noreferrer\" href="
+"\"%(internal_url)s\">%(internal_url)s</a> ."
 
 msgid "Use external link"
 msgstr "Folosește link extern"
@@ -500,6 +560,9 @@ msgstr "Puteți edita setările de confidențialitate la:"
 
 msgid "Save"
 msgstr "Salvează"
+
+msgid "Change privacy"
+msgstr "Schimbă confidențialitatea"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -537,11 +600,28 @@ msgstr ""
 "Nu a fost creată nici o colecție. De ce să nu <a href="
 "\"%(add_collection_url)s\">adăugați una</a>?"
 
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Ne pare rău, nu există potriviri pentru \"<em>%(search_query)s</em>\""
+
+msgid "No items have been created."
+msgstr "Nu a fost creat nici un articol."
+
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
 msgid "Update"
 msgstr "Actualizează"
+
+msgid "Preview not available"
+msgstr "Previzualizare nu este disponibilă"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Previzualizarea nu poate fi afișată din cauza erorilor de validare. <br /"
+">Faceți click pe \"salvare\" pentru a evidenția câmpurile relevante."
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -555,6 +635,20 @@ msgstr "Câmpuri"
 
 msgid "Changes"
 msgstr "Modificări"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Mutat cu 1 loc mai în jos."
+msgstr[1] "Mutat %(counter)s locuri mai în jos."
+msgstr[2] "Mutat %(counter)s locuri mai în jos."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Mutat cu 1 loc mai în sus."
+msgstr[1] "Mutat %(counter)s locuri mai în sus."
+msgstr[2] "Mutat %(counter)s locuri mai în sus."
 
 msgid "There are no differences between these two versions"
 msgstr "Aceste două versiuni nu au nici o diferență"
@@ -610,6 +704,10 @@ msgstr "Respinge"
 msgid "Preview"
 msgstr "Examinare"
 
+#, python-format
+msgid "by %(name)s"
+msgstr "de către %(name)s"
+
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
 
@@ -621,6 +719,34 @@ msgstr "Dată"
 
 msgid "Site summary"
 msgstr "Rezumat sait"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Pagină <span class=\"visuallyhidden\">creată în "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Pagini <span class=\"visuallyhidden\">create în "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Pagini <span class=\"visuallyhidden\">create în "
+"%(site_name)s</span>"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-upgrade-version></strong>."
+msgstr ""
+"Upgrade Wagtail disponibil. Versiunea ta: <strong>%(current_version)s</"
+"strong>. Versiunea nouă: <strong data-upgrade-version></strong>."
+
+msgid "Read the release notes."
+msgstr "Citește notele de lansare."
 
 msgid "Your pages in a workflow"
 msgstr "Paginile D-stră în flux de lucru"
@@ -1127,6 +1253,10 @@ msgstr "Meniu saituri"
 msgid "Pagination"
 msgstr "Paginare"
 
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Pagina %(page_number)s din %(num_pages)s."
+
 msgid "Previous"
 msgstr "Precedent"
 
@@ -1181,6 +1311,13 @@ msgstr "Da, anulează programarea"
 
 msgid "No, don't unschedule"
 msgstr "Nu, nu anulează programarea"
+
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Există o pagină care se potrivește"
+msgstr[1] "Sunt %(counter)s pagini care se potrivesc"
+msgstr[2] "Sunt %(counter)s pagini care se potrivesc"
 
 msgid "Page types"
 msgstr "Tipuri pagini"
@@ -1300,6 +1437,10 @@ msgstr "Descarcă CSV"
 msgid "Locking status"
 msgstr "Stare blocare"
 
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "încuiat la <b>%(locking_date)s</b>"
+
 msgid "Locked"
 msgstr "Blocat"
 
@@ -1331,6 +1472,9 @@ msgstr "Completat la"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
 
+msgid "Toggle breadcrumbs"
+msgstr "Comută breadcrumb"
+
 msgid "Breadcrumb"
 msgstr "Traseu navigare"
 
@@ -1341,8 +1485,15 @@ msgstr "Pagină de bază"
 msgid "Unpublish %(title)s"
 msgstr "Anulează publicarea %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Sigur doriți să ștergeți acest %(model_name)s?"
+
 msgid "Yes, unpublish it"
 msgstr "Da, anulează publicarea"
+
+msgid "Close dialog"
+msgstr "Închide dialog"
 
 msgid "Add comment"
 msgstr "Adaugă comentariu"
@@ -1353,14 +1504,32 @@ msgstr "Filtrează"
 msgid "Apply filters"
 msgstr "Aplică filtre"
 
+msgid "New: "
+msgstr "Nou:"
+
 msgid "Visit the live page"
 msgstr "Accesați pagina live"
 
 msgid "Current page status:"
 msgstr "Starea paginii curente:"
 
+msgid "Visible to all. Visit the live page"
+msgstr "Vizibilă tuturor. Vizitează pagina live"
+
+msgid "Private. Visit the live page"
+msgstr "Privată. Vizitează pagina live"
+
+msgid "Visible to all"
+msgstr "Vizibilă tuturor"
+
+msgid "Toggle section"
+msgstr "Comută secțiunea"
+
 msgid "Other searches"
 msgstr "Alte căutări"
+
+msgid "Toggle side panel"
+msgstr "Comută panou lateral"
 
 msgid "Unlocked"
 msgstr "A deblochat"

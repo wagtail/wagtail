@@ -7,6 +7,7 @@
 # Andrey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019-2020
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
@@ -24,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +68,7 @@ msgstr "Файл слишком большой (%%s). Максимальный �
 
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "В этом файле слишком много пикселей (%%). Максимум пикселей %s."
+msgstr "В этом файле слишком много пикселей (%%s). Максимум пикселей %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

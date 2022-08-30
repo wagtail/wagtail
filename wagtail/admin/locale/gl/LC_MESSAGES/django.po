@@ -530,6 +530,9 @@ msgstr "Esta páxina ten cambios sen gardar."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editando %(page_type)s: %(title)s"
 
+msgid "Comment"
+msgstr "Comentario"
+
 msgid "Current draft"
 msgstr "Borrador actual"
 

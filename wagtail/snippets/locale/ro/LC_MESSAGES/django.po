@@ -111,11 +111,17 @@ msgstr "Acțiuni"
 msgid "Usage"
 msgstr "Utilizare"
 
+msgid "Toggle breadcrumbs"
+msgstr "Comută breadcrumb"
+
 msgid "Breadcrumb"
 msgstr "Traseu navigare"
 
 msgid "Snippets"
 msgstr "Fragmente"
+
+msgid "New: "
+msgstr "Nou:"
 
 msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."

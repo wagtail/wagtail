@@ -239,7 +239,7 @@ msgid "Add group"
 msgstr "Gruppe hinzufügen"
 
 msgid "Editing"
-msgstr "Bearbeiten"
+msgstr "Bearbeite"
 
 msgid "View users in this group"
 msgstr "Benutzer in dieser Gruppe anzeigen"

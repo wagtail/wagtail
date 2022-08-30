@@ -71,6 +71,9 @@ msgstr "Questo campo è obbligatorio."
 msgid "Wagtail frontend cache"
 msgstr "Wagtail cache frontend"
 
+msgid "Wagtail sitemaps"
+msgstr "Sitemap Wagtail"
+
 msgid "Password"
 msgstr "Password"
 

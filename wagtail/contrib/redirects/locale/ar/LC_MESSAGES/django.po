@@ -33,6 +33,9 @@ msgstr "نوع"
 msgid "Permanent"
 msgstr "دتئم"
 
+msgid "All"
+msgstr "الكل"
+
 msgid "From site"
 msgstr "من الموقع"
 

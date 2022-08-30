@@ -6,6 +6,7 @@
 # Ahmet Sarıcan <asarican@gmail.com>, 2019
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019
 # Fatih Koç koç <fatihinemaili@gmail.com>, 2021
+# Halim Turan <halim_turan_61@hotmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2017
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Fatih Koç koç <fatihinemaili@gmail.com>, 2021\n"
+"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>, 2022\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,10 @@ msgstr ""
 
 msgid "default"
 msgstr "varsayılan"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Düzenleme %(instance)s"
 
 msgid "Site"
 msgstr "Site"

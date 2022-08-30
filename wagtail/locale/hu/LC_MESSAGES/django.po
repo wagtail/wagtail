@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Alapok"
@@ -61,6 +64,15 @@ msgstr "Ehhez az elemhez nincsenek beállítások."
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend gyorstár"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sitemaps"
+
 msgid "Password"
 msgstr "Jelszó"
 
@@ -93,6 +105,12 @@ msgstr ""
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Csak az ellenőrzők szerkeszthetik az oldalt."
+
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr "A(z) '{}' oldal le van zárva, és {} időpontban élesedik"
+
+msgid "latest revision"
+msgstr "utolsó verzió"
 
 msgid "live"
 msgstr "közzétett oldal"
@@ -208,6 +226,9 @@ msgstr "oldal"
 msgid "pages"
 msgstr "oldalak"
 
+msgid "object id"
+msgstr "azonosító"
+
 msgid "submitted for moderation"
 msgstr "moderálásra beküld"
 
@@ -222,6 +243,12 @@ msgstr "JSON tartalom"
 
 msgid "approved go live at"
 msgstr "jóváhagyott közzététel időpontja"
+
+msgid "revision"
+msgstr "verzió"
+
+msgid "revisions"
+msgstr "verziók"
 
 msgid "Add/edit pages you own"
 msgstr "Saját oldalaim létrehozása/szerkesztése"
@@ -889,6 +916,10 @@ msgstr "Munkafolyamat lépés elutasítva. Munkafolyamat befejeződött"
 
 msgid "Workflow: resume task"
 msgstr "Munkafolyamat: lépés folytatása"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "'%(task)s' újra beköltve. Munkafolyamat újraindult"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Munkafolyamat lépés újrakezdve. A munkafolyamat folytatódik"

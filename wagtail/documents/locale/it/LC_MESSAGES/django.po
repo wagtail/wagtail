@@ -97,6 +97,13 @@ msgstr "Sì, aggiungi"
 msgid "No, don't add"
 msgstr "Sì non aggiungere"
 
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Aggiungi 1 documento alla nuova raccolta"
+msgstr[1] "Aggiungi %(counter)s documenti alla nuova raccolta"
+msgstr[2] "Aggiungi %(counter)s documenti alla nuova raccolta"
+
 msgid "Add documents to collection"
 msgstr "Aggiungi documenti alla raccolta"
 
@@ -121,6 +128,13 @@ msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Non hai i permessi per aggiungere questo documento alla raccolta"
 msgstr[1] "Non hai i permessi per aggiungere questi documenti alla raccolta"
 msgstr[2] "Non hai i permessi per aggiungere questi documenti alla raccolta"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Elimina 1 documento"
+msgstr[1] "Elimina %(counter)s documenti"
+msgstr[2] "Elimina %(counter)s documenti"
 
 msgid "Delete documents"
 msgstr "Elimina documenti"
@@ -217,6 +231,13 @@ msgstr "Creato"
 
 msgid "Select document"
 msgstr "Seleziona documento"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "C'è %(counter)s corrispondenza"
+msgstr[1] "Ci sono %(counter)s corrispondenze"
+msgstr[2] "Ci sono %(counter)s corrispondenze"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""

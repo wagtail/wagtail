@@ -22,11 +22,17 @@ msgstr "Text alternativ"
 msgid "Are you sure?"
 msgstr "Ești sigur?"
 
+msgid "Blocks"
+msgstr "Blocuri"
+
 msgid "Broken link"
 msgstr "Link nefuncțional"
 
 msgid "Cancel"
 msgstr "Anulează"
+
+msgid "Character count:"
+msgstr "Număr de caractere:"
 
 msgid "Close"
 msgstr "Închideți"
@@ -46,6 +52,9 @@ msgstr "Șterge"
 msgid "Delete error"
 msgstr "Eroare de ștergere"
 
+msgid "Deleting"
+msgstr "În curs de ștergere"
+
 msgid "Edit"
 msgstr "Editează"
 
@@ -55,11 +64,23 @@ msgstr "Editează '{title}'"
 msgid "Edit your account"
 msgstr "Editează contul utilizator"
 
+msgid "Enter your comments..."
+msgstr "Introduceți comentariile Dvs"
+
+msgid "Enter your reply..."
+msgstr "Introduceți răspunsul Dvs"
+
+msgid "Error while sending preview data."
+msgstr "Eroare în timpul transmiterii datelor pentru previzualizare."
+
 msgid "Focus comment"
 msgstr "Focalizează comentariu"
 
 msgid "Horizontal line"
 msgstr "Linie orizontală"
+
+msgid "Insert a block"
+msgstr "Inserează un bloc"
 
 msgid "Line break"
 msgstr "Sfârșit de linie"
@@ -110,6 +131,9 @@ msgstr "Rezolva"
 msgid "Retry"
 msgstr "Încearcă din nou"
 
+msgid "Rich text"
+msgstr "Text bogat"
+
 msgid "Save"
 msgstr "Salvează"
 
@@ -131,6 +155,9 @@ msgstr "În curs de salvare..."
 msgid "Search"
 msgstr "Căută"
 
+msgid "Search blocks"
+msgstr "Caută blocuri"
+
 msgid "See all"
 msgstr "Vezi toate"
 
@@ -142,6 +169,9 @@ msgstr "Afișează eroare"
 
 msgid "Show latest content"
 msgstr "Afișează conținutul cel mai recent"
+
+msgid "Split block"
+msgstr "Despică bloc"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
@@ -158,3 +188,6 @@ msgstr "Defocalizează comentariu"
 
 msgid "View child pages of '{title}'"
 msgstr "Vezi paginile dependente de '{title}'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Scrie ceva, sau ‘/‘ pentru a insera un bloc"

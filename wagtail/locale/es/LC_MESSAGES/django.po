@@ -16,6 +16,7 @@
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020-2021\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,9 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
+msgid "Wagtail API v2"
+msgstr "API de Wagtail v2"
 
 msgid "Wagtail core"
 msgstr "Núcleo Wagtail"
@@ -72,6 +76,15 @@ msgstr "Este bloque no tiene opciones."
 msgid "This field is required."
 msgstr "Este campo es necesario."
 
+msgid "Wagtail frontend cache"
+msgstr "Cache frontal Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Página enrutable Wagtal"
+
+msgid "Wagtail sitemaps"
+msgstr "Mapas de sitio Wagtail"
+
 msgid "Password"
 msgstr "Contraseña"
 
@@ -102,6 +115,13 @@ msgstr ""
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Solo los revisores de esta tarea pueden editar la página."
+
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr ""
+"La página '{}' está bloqueada y ha sido programada para estar en vivo en {}"
+
+msgid "latest revision"
+msgstr "última revisión"
 
 msgid "live"
 msgstr "Ver en vivo"
@@ -221,6 +241,9 @@ msgstr "página"
 msgid "pages"
 msgstr "páginas"
 
+msgid "object id"
+msgstr "id del objeto"
+
 msgid "submitted for moderation"
 msgstr "enviado para moderación"
 
@@ -235,6 +258,12 @@ msgstr "contenido JSON"
 
 msgid "approved go live at"
 msgstr "aprovado para publicación a las"
+
+msgid "revision"
+msgstr "revisión"
+
+msgid "revisions"
+msgstr "revisiones"
 
 msgid "Add/edit pages you own"
 msgstr "Añadir/editar tus propias páginas"
@@ -904,6 +933,10 @@ msgstr "Tarea de flujo de trabajo rechazada. Flujo de trabajo completo"
 
 msgid "Workflow: resume task"
 msgstr "Flujo de trabajo: reanudar tarea"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Reenviada '%(task)s'. Flujo de trabajo reanudado'"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Tarea de flujo de trabajo reenviada. Flujo de trabajo reanudado"

@@ -7,6 +7,7 @@
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +57,7 @@ msgstr "Soubor je příliš velký (%%s). Maximální velikost souboru %s."
 
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Soubor má příliš mnoho bodů (%%). Maximum je %s."
+msgstr "Soubor má příliš mnoho bodů (%%s). Maximum je %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

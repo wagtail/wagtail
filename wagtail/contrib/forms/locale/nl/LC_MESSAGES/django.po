@@ -5,6 +5,7 @@
 # Translators:
 # Bram <bram2w@live.nl>, 2015
 # Franklin Kingma <franklin@statix.net>, 2015
+# Storm Heg <storm@stormbase.digital>, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -216,3 +217,6 @@ msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Inzending verwijderd."
 msgstr[1] "%(count)d inzendingen verwijderd."
+
+msgid "Form data"
+msgstr "Formulier data"

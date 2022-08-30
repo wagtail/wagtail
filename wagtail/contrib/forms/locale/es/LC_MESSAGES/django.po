@@ -14,6 +14,7 @@
 # Mauricio Baeza <python@amigos.email>, 2014
 # Mauricio Baeza <python@amigos.email>, 2014
 # Oscar Luciano Espirilla Flores, 2020
+# X Bello <xbello@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -229,3 +230,6 @@ msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Un evío ha sido eliminado."
 msgstr[1] "%(count)d envíos han sido borrados."
 msgstr[2] "%(count)d envíos han sido borrados."
+
+msgid "Form data"
+msgstr "Datos del formulario"

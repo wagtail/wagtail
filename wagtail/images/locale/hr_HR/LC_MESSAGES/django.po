@@ -5,13 +5,14 @@
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -49,11 +50,11 @@ msgstr "Neispravan %s format."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Datoteka je prevelika (%%). Najveća dopuštena veličina: %s."
+msgstr "Datoteka je prevelika (%%s). Najveća dopuštena veličina: %s."
 
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Datoteka ima previše piksela (%%). Najveća dopuštena količina; %s."
+msgstr "Datoteka ima previše piksela (%%s). Najveća dopuštena količina; %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

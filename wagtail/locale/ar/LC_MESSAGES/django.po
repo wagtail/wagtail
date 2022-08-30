@@ -58,6 +58,9 @@ msgstr "كلمة سر"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
 
+msgid "Comment"
+msgstr "تعليق"
+
 msgid "live"
 msgstr "حي"
 
@@ -327,8 +330,14 @@ msgstr "هذه الصفحة تتطلب كلمة مرور."
 msgid "Continue"
 msgstr "أكمل"
 
+msgid "Created"
+msgstr "تم إنشاؤه"
+
 msgid "Edited"
 msgstr "محررة"
+
+msgid "Published"
+msgstr "تم نشره"
 
 msgid "Unpublish"
 msgstr "غير منشور"

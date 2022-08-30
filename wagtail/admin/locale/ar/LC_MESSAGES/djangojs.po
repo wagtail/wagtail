@@ -5,10 +5,11 @@
 # Mohammed Abdul gadir <weekmo@aol.com>, 2022
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2022
 # ultraify media <ultraify@gmail.com>, 2022
+# Younes Oumakhou, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: ultraify media <ultraify@gmail.com>, 2022\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/torchbox/teams/8009/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ar\n"
@@ -23,6 +24,9 @@ msgstr "رابط معطوب"
 
 msgid "Close"
 msgstr "اغلاق"
+
+msgid "Comment"
+msgstr "تعليق"
 
 msgid "Dashboard"
 msgstr "لوحة التحكم"
@@ -50,6 +54,9 @@ msgstr "تحميل..."
 
 msgid "Missing document"
 msgstr "مستند مفقود"
+
+msgid "More actions"
+msgstr "المزيد من الإجراءات"
 
 msgid "No results"
 msgstr "لاتوجد نتائج"
