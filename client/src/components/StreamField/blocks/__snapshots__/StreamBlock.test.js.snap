@@ -144,11 +144,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"fake-uuid-v4-value\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-order\\" value=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-type\\" value=\\"test_block_b\\">
-        <input type=\\"hidden\\" name=\\"the-prefix-2-id\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-2-id\\" value=\\"fake-uuid-v4-value\\">
 
         <div>
           <div class=\\"c-sf-container__block-container\\">
