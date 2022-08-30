@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3.0.2 (30.08.2022)
+~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure string representation of `FormSubmission` returns a string (LB (Ben Johnston))
  * Fix: Fix `updatemodulepaths` command for Python 3.7 (Matt Westcott)
