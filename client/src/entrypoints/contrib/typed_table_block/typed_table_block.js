@@ -466,10 +466,7 @@ export class TypedTableBlock {
 
   getState() {
     const state = {
-      columns: this.columns.map((column) => ({
-        type: column.blockDef.name,
-        heading: column.headingInput.value,
-      })),
+      columns: this.getColumnStates(),
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getState()),
       })),
@@ -477,17 +474,34 @@ export class TypedTableBlock {
     return state;
   }
 
+  getDuplicatedState() {
+    return {
+      columns: this.getColumnStates(),
+      rows: this.rows.map((row) => ({
+        values: row.blocks.map((block) =>
+          block.getDuplicatedState === undefined
+            ? block.getState()
+            : block.getDuplicatedState(),
+        ),
+      })),
+    };
+  }
+
   getValue() {
     const value = {
-      columns: this.columns.map((column) => ({
-        type: column.blockDef.name,
-        heading: column.headingInput.value,
-      })),
+      columns: this.getColumnStates(),
       rows: this.rows.map((row) => ({
         values: row.blocks.map((block) => block.getValue()),
       })),
     };
     return value;
+  }
+
+  getColumnStates() {
+    return this.columns.map((column) => ({
+      type: column.blockDef.name,
+      heading: column.headingInput.value,
+    }));
   }
 
   getTextLabel(opts) {

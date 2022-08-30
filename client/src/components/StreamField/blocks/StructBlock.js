@@ -111,6 +111,19 @@ export class StructBlock {
     return state;
   }
 
+  getDuplicatedState() {
+    const state = {};
+    // eslint-disable-next-line guard-for-in
+    for (const name in this.childBlocks) {
+      const block = this.childBlocks[name];
+      state[name] =
+        block.getDuplicatedState === undefined
+          ? block.getState()
+          : block.getDuplicatedState();
+    }
+    return state;
+  }
+
   getValue() {
     const value = {};
     // eslint-disable-next-line guard-for-in

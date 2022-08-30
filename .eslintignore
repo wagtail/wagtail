@@ -14,3 +14,4 @@ wagtail/snippets/static
 wagtail/users/static
 wagtail/contrib/*/static
 wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js
+.mypy_cache

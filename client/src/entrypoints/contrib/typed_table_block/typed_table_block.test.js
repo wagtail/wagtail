@@ -2,6 +2,7 @@ import '../../admin/telepath/telepath';
 import $ from 'jquery';
 import { TypedTableBlockDefinition } from './typed_table_block';
 import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
+import { StreamBlockDefinition } from '../../../components/StreamField/blocks/StreamBlock';
 
 window.$ = $;
 
@@ -189,5 +190,152 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     boundBlock.insertRow(0);
     expect(boundBlock.rows.length).toBe(2);
     expect(document.getElementsByName('mytable-row-count')[0].value).toBe('3');
+  });
+});
+
+describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBlock', () => {
+  let boundBlock;
+  let innerStreamDef;
+
+  beforeEach(() => {
+    innerStreamDef = new StreamBlockDefinition(
+      'inner_stream',
+      [
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A Widget'),
+              {
+                label: 'Test Block A',
+                required: false,
+                icon: 'pilcrow',
+                classname:
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
+              },
+            ),
+          ],
+        ],
+      ],
+      {},
+      {
+        label: 'Inner Stream',
+        required: false,
+        icon: 'placeholder',
+        classname: null,
+        helpText: '',
+        helpIcon: '',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    const streamBlockDef = new StreamBlockDefinition(
+      '',
+      [
+        [
+          '',
+          [
+            new TypedTableBlockDefinition(
+              'table',
+              [innerStreamDef],
+              {},
+              {
+                label: '',
+                required: true,
+                icon: 'placeholder',
+                classname: null,
+                helpText: 'use <strong>plenty</strong> of these',
+                helpIcon: '<div class="icon-help">?</div>',
+                strings: {
+                  ADD_COLUMN: 'Add column',
+                  ADD_ROW: 'Add row',
+                  COLUMN_HEADING: 'Column heading',
+                  INSERT_COLUMN: 'Insert column',
+                  DELETE_COLUMN: 'Delete column',
+                  INSERT_ROW: 'Insert row',
+                  DELETE_ROW: 'Delete row',
+                },
+              },
+            ),
+          ],
+        ],
+      ],
+      {},
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = streamBlockDef.render($('#placeholder'), 'the-prefix', []);
+  });
+
+  test('duplicateBlock does not duplicate stream block ids in typed table blocks', () => {
+    // Insert a typed table block at the top level
+    boundBlock.insert(
+      {
+        type: 'table',
+        value: { rows: [], columns: [] },
+        id: 'old-id-1',
+      },
+      0,
+    );
+
+    const tableBlock = boundBlock.children[0].block;
+
+    // Add a column and row for the nested stream block
+    tableBlock.insertColumn(0, innerStreamDef);
+    tableBlock.insertRow(0);
+    const innerStreamBlock = tableBlock.rows[0].blocks[0];
+
+    // Insert a block into the inner stream
+    innerStreamBlock.insert(
+      { type: 'test_block_a', value: 'foobar', id: 'old-inner-stream-id-1' },
+      0,
+    );
+
+    // Duplicate the outermost block (typed table block)
+    boundBlock.duplicateBlock(0);
+
+    // Check the ids on the top level blocks
+    expect(boundBlock.children[1].id).not.toBeNull();
+    expect(boundBlock.children[1].id).not.toEqual(boundBlock.children[0].id);
+
+    // Check the ids on the nested blocks
+    expect(
+      boundBlock.children[1].block.rows[0].blocks[0].children[0].id,
+    ).not.toBeNull();
+
+    expect(
+      boundBlock.children[1].block.rows[0].blocks[0].children[0].id,
+    ).not.toEqual(
+      boundBlock.children[0].block.rows[0].blocks[0].children[0].id,
+    );
   });
 });

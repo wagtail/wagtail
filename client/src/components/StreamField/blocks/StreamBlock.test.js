@@ -1,9 +1,16 @@
 import $ from 'jquery';
+import * as uuid from 'uuid';
 import { FieldBlockDefinition } from './FieldBlock';
 import {
   StreamBlockDefinition,
   StreamBlockValidationError,
 } from './StreamBlock';
+import { StructBlockDefinition } from './StructBlock';
+
+// Mock uuid for consistent snapshot results
+jest.mock('uuid');
+const uuidSpy = jest.spyOn(uuid, 'v4');
+uuidSpy.mockReturnValue('fake-uuid-v4-value');
 
 window.$ = $;
 
@@ -327,6 +334,134 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
+  });
+});
+
+describe('telepath: wagtail.blocks.StreamBlock with nested stream blocks', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Define a test block
+    const innerStreamDef = new StreamBlockDefinition(
+      'inner_stream',
+      [
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A Widget'),
+              {
+                label: 'Test Block A',
+                required: false,
+                icon: 'pilcrow',
+                classname:
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
+              },
+            ),
+          ],
+        ],
+      ],
+      {},
+      {
+        label: 'Inner Stream',
+        required: false,
+        icon: 'placeholder',
+        classname: null,
+        helpText: '',
+        helpIcon: '',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [
+        [
+          '',
+          [
+            new StructBlockDefinition(
+              'struct_with_inner_stream',
+              [innerStreamDef],
+              {
+                label: 'Struct with inner stream',
+                required: false,
+                icon: 'placeholder',
+                classname: 'struct-block',
+                helpText: '',
+                helpIcon: '',
+              },
+            ),
+          ],
+        ],
+      ],
+      {},
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', []);
+  });
+
+  test('duplicateBlock does not duplicate block ids', () => {
+    // Insert an instance of our struct block
+    boundBlock.insert(
+      {
+        type: 'struct_with_inner_stream',
+        value: { inner_stream: [] },
+        id: 'struct-1',
+      },
+      0,
+    );
+
+    // Insert a block into its nested stream field
+    boundBlock.children[0].block.childBlocks.inner_stream.insert(
+      {
+        type: 'test_block_a',
+        value: 'hello',
+        id: 'inner-id-1',
+      },
+      0,
+    );
+
+    // Duplicate the struct block (outermost) instance
+    boundBlock.children[0].duplicate();
+
+    expect(boundBlock.children[1].id).not.toBeNull();
+    expect(boundBlock.children[1].id).not.toEqual(boundBlock.children[0].id);
+
+    expect(
+      boundBlock.children[1].block.childBlocks.inner_stream.children[0].id,
+    ).not.toEqual(
+      boundBlock.children[0].block.childBlocks.inner_stream.children[0].id,
+    );
   });
 });
 
