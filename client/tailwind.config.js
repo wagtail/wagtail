@@ -151,6 +151,10 @@ module.exports = {
         },
       });
     }),
+    /** Support for aria-expanded=true variant */
+    plugin(({ addVariant }) => {
+      addVariant('expanded', '&[aria-expanded=true]');
+    }),
   ],
   corePlugins: {
     ...vanillaRTL.disabledCorePlugins,
