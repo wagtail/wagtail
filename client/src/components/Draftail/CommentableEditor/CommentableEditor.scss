@@ -2,8 +2,8 @@
   color: theme('colors.secondary.100');
 
   .icon {
-    width: 1.875rem;
-    height: 1.875rem;
+    width: theme('spacing.5');
+    height: theme('spacing.5');
   }
 
   &:not(:hover) .icon-comment-add-reversed {
