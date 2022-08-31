@@ -1,18 +1,17 @@
+// stylelint-disable max-nesting-depth
+
+// Core button styles
+
 @use 'sass:color';
-// Core button style
-// Note that these styles include methods to render buttons the same x-browser, described here:
-// http: //cbjdigital.com/blog/2010/08/bulletproof_css_input_button_heights
-// input[type=submit],
-// input[type=reset],
-// input[type=button],
+
 .button {
-  border-radius: 3px;
-  font-family: $font-sans;
+  border-radius: theme('borderRadius.sm');
   width: auto;
-  height: 2.4em;
+  height: 2.25em;
   padding: 0 1em;
-  font-size: 0.9em;
-  font-weight: normal;
+  font-size: theme('fontSize.14');
+  font-weight: theme('fontWeight.normal');
+  line-height: 2.25em;
   vertical-align: middle;
   display: inline-block;
   background-color: $color-button;
@@ -22,15 +21,27 @@
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  box-sizing: border-box;
-  -webkit-font-smoothing: auto;
+  box-sizing: content-box;
+  transition: background-color 0.1s ease;
   // stylelint-disable-next-line property-no-vendor-prefix
   -moz-appearance: none;
+  -webkit-font-smoothing: auto;
 
-  transition: background-color 0.1s ease;
+  + .button {
+    // ensure buttons can sit next to each other with a nice margin
+    margin-inline-start: theme('spacing.4');
+  }
 
-  &:hover {
-    color: $color-teal;
+  &.button-small {
+    padding: 0 0.8em;
+    height: 2em;
+    font-size: calc(theme('fontSize.14') * 0.87);
+    line-height: 2em;
+  }
+
+  &.button-secondary {
+    color: $color-button;
+    background-color: transparent;
   }
 
   &.yes {
@@ -91,12 +102,12 @@
 
     &:before {
       // iconfont
-      font-size: 1rem;
+      font-size: theme('fontSize.15');
       position: absolute;
       inset-inline-start: 0;
       top: 0;
       width: 2em;
-      line-height: 1.85em;
+      line-height: inherit;
       height: 100%;
       text-align: center;
       background-color: theme('colors.black-20');
@@ -137,6 +148,10 @@
       &:before {
         display: none; // TODO: remove once the icon font styles are gone
       }
+
+      .icon {
+        @include svg-icon(1.5em);
+      }
     }
 
     &.button--icon-flipped {
@@ -148,37 +163,18 @@
     &.button-secondary {
       border: 1px solid theme('colors.black-20');
     }
-  }
 
-  &.button-small.bicolor {
-    padding-inline-start: 3.5em;
+    &.button-small {
+      padding-inline-start: 3.5em;
 
-    .icon-wrapper {
-      width: 2em;
-    }
+      .icon-wrapper {
+        width: theme('spacing.8');
+      }
 
-    &.button--icon .icon {
-      @include svg-icon(0.9rem);
-      padding: 0.25em;
-    }
-  }
-
-  // + input[type=submit],
-  // + input[type=reset],
-  // + input[type=button],
-  + .button {
-    // + button {
-    margin-inline-start: 1em;
-  }
-
-  // stylelint-disable-next-line no-duplicate-selectors
-  &:hover {
-    background-color: $color-button-hover;
-    color: $color-white;
-    border-color: transparent;
-
-    &.hover-no {
-      background-color: $color-button-no;
+      &.button--icon .icon {
+        @include svg-icon(0.9rem);
+        padding: 0.25em;
+      }
     }
   }
 
@@ -188,7 +184,7 @@
       @include transition(all 0.3s ease);
       transform: scale(0.9);
       display: inline-block;
-      height: 0.9em;
+      height: 1em;
       position: relative;
       opacity: 0;
       width: 0;
@@ -199,21 +195,6 @@
 
     em {
       font-style: normal;
-    }
-
-    &-active {
-      display: inline-flex;
-      align-items: center;
-    }
-
-    &-active span {
-      // iconfont
-      transform: scale(1);
-      visibility: visible;
-      width: 1em;
-      height: 1em;
-      opacity: 0.8;
-      padding-inline-end: 0.5em;
     }
 
     span.icon-spinner:after {
@@ -231,19 +212,42 @@
       @include transition(all 0.3s ease);
       display: none;
     }
+  }
 
-    &-active svg.icon-spinner {
+  &.button-longrunning-active {
+    display: inline-flex;
+    align-items: center;
+
+    span {
+      // iconfont
+      transform: scale(1);
+      visibility: visible;
+      width: 1em;
+      height: 1em;
+      opacity: 0.8;
+      padding-inline-end: 0.5em;
+    }
+
+    svg.icon-spinner {
       @include svg-icon();
       display: inline-block;
       opacity: 0.8;
       padding: 0;
     }
 
-    &-active .button-longrunning__icon {
+    .button-longrunning__icon {
       display: none;
     }
   }
 
+  // Base hover state
+  &:hover {
+    background-color: $color-button-hover;
+    color: $color-white;
+    border-color: transparent;
+  }
+
+  // Disabled state
   &:disabled,
   &[disabled],
   &.disabled {
@@ -251,6 +255,7 @@
     border-color: $color-grey-3;
     color: $color-grey-2;
     cursor: default;
+
     @media (forced-colors: active) {
       color: GrayText;
       border-color: GrayText;
@@ -266,221 +271,91 @@
     color: $color-grey-3;
   }
 
-  &.button-strokeonhover {
-    border: 1px solid transparent;
-
-    &:hover {
-      border-color: $color-grey-2;
-    }
-  }
-
-  &.button--icon {
-    .icon {
-      @include svg-icon(1.5em);
-    }
-  }
-
-  @include media-breakpoint-up(sm) {
-    font-size: 0.95em;
-    padding: 0 1.4em;
-    height: 3em;
-
-    &.bicolor {
-      padding-inline-start: 3.7em;
-
-      &:before {
-        width: 2em;
-        line-height: 2.2em;
-        font-size: 1.1rem;
-      }
-    }
-
-    &.button-small.bicolor {
-      // line-height: 2.2em;
-      padding-inline-start: 3em;
-
-      &:before {
-        width: 1.8em;
-        line-height: 1.65em;
-      }
-    }
-  }
-}
-
-.button-small {
-  padding: 0 0.8em;
-  height: 2em;
-  font-size: 0.95em;
-}
-
-.button-secondary {
-  color: $color-button;
-  background-color: transparent;
-}
-
-// Buttons which are only an icon
-.button.icon.text-replace {
-  // iconfont
-  font-size: 0; // unavoidable duplication of setting in icons.scss
-  width: 1.8rem;
-  height: 1.8rem;
-  box-sizing: content-box;
-
-  &:before {
-    line-height: 1.7em;
-  }
-
-  @include media-breakpoint-up(sm) {
-    width: 2.2rem;
-    height: 2.2rem;
-
-    &:before {
-      line-height: 2.1em;
-    }
-
-    &.button-small {
-      height: 1.8rem;
-      width: 1.8rem;
+  // Buttons which are only an icon
+  &.text-replace {
+    &.icon {
+      // iconfont
+      font-size: 0; // unavoidable duplication of setting in icons.scss
+      height: inherit;
+      width: inherit;
+      box-sizing: content-box;
 
       &:before {
         line-height: 1.7em;
       }
     }
-  }
-}
 
-.button--icon.text-replace {
-  background-color: transparent;
-  color: $color-grey-2;
-  border-color: transparent;
-  font-size: 0;
-  text-align: center;
+    &.button--icon {
+      background-color: transparent;
+      color: $color-grey-2;
+      border-color: transparent;
+      font-size: 0;
+      text-align: center;
+      height: inherit;
+      width: inherit;
 
-  &:hover {
-    color: $color-grey-1;
-  }
+      &:hover {
+        color: $color-grey-1;
+      }
 
-  .icon {
-    font-size: initial;
-    @include svg-icon(1rem, middle);
-    padding: 0.5em;
-    box-sizing: content-box;
-  }
+      .icon {
+        @include svg-icon(1rem, middle);
 
-  &.button-small {
-    line-height: 1.7rem;
-    height: 1.8rem;
-    width: 1.8rem;
+        font-size: initial;
+        padding: 0.5em;
+        box-sizing: content-box;
+      }
 
-    .icon {
-      padding: 0.25em;
+      &.button-small {
+        line-height: 1.75em;
+
+        .icon {
+          padding: 0.25em;
+        }
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      &.icon {
+        &:before {
+          line-height: 2.1em;
+        }
+
+        &.button-small {
+          width: 1.75em;
+          height: 1.75em;
+
+          &:before {
+            line-height: 1.7em;
+          }
+        }
+      }
     }
   }
 
-  @include media-breakpoint-up(sm) {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-}
-
-button.button.bicolor .icon-wrapper {
-  line-height: 1.65em; // work around differences in a and button elements
-}
-
-.button-neutral {
-  color: $color-grey-2;
-
-  &:hover {
-    color: $color-teal;
-  }
-}
-
-.yes {
-  background-color: $color-button-yes;
-  border: 1px solid $color-button-yes;
-
-  &.button-secondary {
-    border: 1px solid $color-button-yes;
-    color: $color-button-yes;
-    background-color: transparent;
-  }
-
-  &:hover {
-    color: $color-white;
-    border-color: transparent;
-    background-color: $color-button-yes;
-  }
-}
-
-.no,
-.serious {
-  background-color: $color-button-no;
-  border: 1px solid $color-button-no;
-
-  &.button-secondary {
-    border: 1px solid $color-button-no;
-    color: $color-button-no;
-    background-color: transparent;
-  }
-
-  &:hover {
-    color: $color-white;
-    border-color: transparent;
-    background-color: $color-button-no;
-  }
-}
-
-.bicolor {
-  border: 0;
-  padding-inline-start: 3.5em;
-
-  &:before {
-    font-size: 1rem;
-    position: absolute;
-    inset-inline-start: 0;
-    top: 0;
-    width: 2em;
-    line-height: 1.85em;
-    height: 100%;
-    text-align: center;
-    background-color: theme('colors.black-20');
-    display: block;
-  }
-}
-
-.button-small.bicolor {
-  padding-inline-start: 3.5em;
-
-  &:before {
-    width: 2em;
-    font-size: 0.8rem;
-    line-height: 1.65em;
-  }
-}
-
-a.button {
-  line-height: 2.4em;
-  height: auto;
-
-  &.button-small {
-    line-height: 1.85em;
-  }
+  // Larger viewport width adjustments
 
   @include media-breakpoint-up(sm) {
-    line-height: 2.9em;
-  }
-}
+    font-size: theme('fontSize.14');
+    padding: 0 1.4em;
+    height: 3em;
+    line-height: 3em;
 
-// Special styles to counteract Firefox's completely unwarranted assumptions about button styles
-input[type='submit'],
-input[type='reset'],
-input[type='button'],
-button {
-  padding: 0 1em;
+    &.bicolor {
+      padding-inline-start: 3.5em;
 
-  @include media-breakpoint-up(sm) {
-    &.button-small {
-      height: 2em;
+      &:before {
+        width: 2em;
+        font-size: theme('fontSize.16');
+      }
+
+      &.button-small {
+        padding-inline-start: 3em;
+
+        &:before {
+          width: 1.75em;
+        }
+      }
     }
   }
 }
