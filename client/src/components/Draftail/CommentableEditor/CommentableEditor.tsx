@@ -886,16 +886,16 @@ function CommentableEditor({
                 // Use the focused colour if one of the comments is focused
                 background = focusedHighlight;
                 return {
-                  'background-color': background,
-                  'color': standardHighlight,
+                  backgroundColor: background,
+                  fontWeight: '700',
                 };
               } else if (numStyles > 1) {
-                // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
+                // Otherwise if we're in a region with overlapping comments, use a different colour than usual
                 // to indicate that
                 background = overlappingHighlight;
               }
               return {
-                'background-color': background,
+                backgroundColor: background,
               };
             }
             return undefined;
