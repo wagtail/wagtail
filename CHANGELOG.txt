@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0 (xx.xx.xxxx) - IN DEVELOPMENT
+4.0 (31.08.2022)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 4.1
