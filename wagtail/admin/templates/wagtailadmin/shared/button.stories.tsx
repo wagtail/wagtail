@@ -118,7 +118,7 @@ const Template = ({ url }) => (
     <h3>Colour signifiers</h3>
 
     <h4>Positive</h4>
-    <a href={url} className="button yes">
+    <a href={url} className="button button-small yes">
       yes
     </a>
     <a href={url} className="button button-small yes">
@@ -126,7 +126,7 @@ const Template = ({ url }) => (
     </a>
 
     <h4>Negative</h4>
-    <a href={url} className="button no">
+    <a href={url} className="button button-small no">
       No
     </a>
     <a href={url} className="button button-small no">

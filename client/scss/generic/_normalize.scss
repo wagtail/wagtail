@@ -485,6 +485,18 @@ input[type='search']::-webkit-search-decoration {
 }
 
 /**
+ * Special styles to counteract Firefox's completely unwarranted assumptions
+ * about button styles
+ */
+
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
+button {
+  padding: 0 1em;
+}
+
+/**
  * Remove inner padding and border in Firefox 3+.
  */
 
