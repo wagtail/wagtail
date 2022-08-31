@@ -149,8 +149,8 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(set(backends.keys()), {"azure_cdn"})
         client = backends["azure_cdn"]._get_client()
         self.assertIsInstance(client, CdnManagementClient)
-        self.assertEqual(client.config.subscription_id, "fake-subscription-id")
-        self.assertIs(client.config.credentials, mock_credentials)
+        self.assertEqual(client._config.subscription_id, "fake-subscription-id")
+        self.assertIs(client._config.credential, mock_credentials)
 
     def test_azure_front_door_get_client(self):
         mock_credentials = mock.MagicMock()
@@ -168,8 +168,8 @@ class TestBackendConfiguration(TestCase):
         client = backends["azure_front_door"]._get_client()
         self.assertEqual(set(backends.keys()), {"azure_front_door"})
         self.assertIsInstance(client, FrontDoorManagementClient)
-        self.assertEqual(client.config.subscription_id, "fake-subscription-id")
-        self.assertIs(client.config.credentials, mock_credentials)
+        self.assertEqual(client._config.subscription_id, "fake-subscription-id")
+        self.assertIs(client._config.credential, mock_credentials)
 
     @mock.patch(
         "wagtail.contrib.frontend_cache.backends.AzureCdnBackend._make_purge_call"
@@ -183,6 +183,7 @@ class TestBackendConfiguration(TestCase):
                     "CDN_PROFILE_NAME": "wagtail-io-profile",
                     "CDN_ENDPOINT_NAME": "wagtail-io-endpoint",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
@@ -224,6 +225,7 @@ class TestBackendConfiguration(TestCase):
                     "RESOURCE_GROUP_NAME": "test-resource-group",
                     "FRONT_DOOR_NAME": "wagtail-io-front-door",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
