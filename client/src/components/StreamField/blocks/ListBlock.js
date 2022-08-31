@@ -219,11 +219,13 @@ export class ListBlock extends BaseSequenceBlock {
 
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    // child.getState() is the state of the ListChild, which is a dict of value and id;
-    // for inserting a new child block, we just want the value (and will assign a new id).
-    const childState = child.getState().value;
+    const { id: newId, value: childValue } = child.getDuplicatedState();
     const animate = opts && opts.animate;
-    this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
+    this.insert(childValue, index + 1, {
+      animate,
+      collapsed: child.collapsed,
+      id: newId,
+    });
     this.children[index + 1].focus({ soft: true });
   }
 

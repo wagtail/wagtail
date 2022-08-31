@@ -33,12 +33,8 @@ class StreamChild extends BaseSequenceChild {
 
   getDuplicatedState() {
     return {
+      ...super.getDuplicatedState(),
       type: this.type,
-      value:
-        this.block.getDuplicatedState === undefined
-          ? this.block.getState()
-          : this.block.getDuplicatedState(),
-      id: uuidv4(),
     };
   }
 
@@ -393,10 +389,6 @@ export class StreamBlock extends BaseSequenceBlock {
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
-  }
-
-  getDuplicatedState() {
-    return this.children.map((streamChild) => streamChild.getDuplicatedState());
   }
 
   splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
