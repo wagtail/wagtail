@@ -1,6 +1,13 @@
 import $ from 'jquery';
+import * as uuid from 'uuid';
 import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
+import { StreamBlockDefinition } from './StreamBlock';
+
+// Mock uuid for consistent snapshot results
+jest.mock('uuid');
+const uuidSpy = jest.spyOn(uuid, 'v4');
+uuidSpy.mockReturnValue('fake-uuid-v4-value');
 
 window.$ = $;
 
@@ -269,6 +276,13 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
+  test('duplicated blocks have unique ids', () => {
+    boundBlock.duplicateBlock(0);
+    expect(boundBlock.children[1].id).not.toBeUndefined();
+    expect(boundBlock.children[1].id).not.toBeNull();
+    expect(boundBlock.children[1].id).not.toEqual(boundBlock.children[0].id);
+  });
+
   test('blocks can be split', () => {
     boundBlock.splitBlock(0, 'first', 'value');
 
@@ -439,5 +453,189 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     boundBlock.deleteBlock(2);
 
     assertCanAddBlock();
+  });
+});
+
+describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Define test blocks - ListBlock[StreamBlock[FieldBlock]]
+    const blockDef = new ListBlockDefinition(
+      'list',
+      new StreamBlockDefinition(
+        '',
+        [
+          [
+            '',
+            [
+              new FieldBlockDefinition(
+                'test_block_a',
+                new DummyWidgetDefinition('Block A Widget'),
+                {
+                  label: 'Test Block A',
+                  required: false,
+                  icon: 'pilcrow',
+                  classname:
+                    'w-field w-field--char_field w-field--admin_auto_height_text_input',
+                },
+              ),
+            ],
+          ],
+        ],
+        {},
+        {
+          label: '',
+          required: true,
+          icon: 'placeholder',
+          classname: null,
+          helpText: 'use <strong>plenty</strong> of these',
+          helpIcon: '<div class="icon-help">?</div>',
+          maxNum: null,
+          minNum: null,
+          blockCounts: {},
+          strings: {
+            MOVE_UP: 'Move up',
+            MOVE_DOWN: 'Move down',
+            DELETE: 'Delete',
+            DUPLICATE: 'Duplicate',
+            ADD: 'Add',
+          },
+        },
+      ),
+      null,
+      {
+        label: 'Test listblock',
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>a few</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: 'stream-block-1',
+        value: [
+          {
+            type: 'test_block_a',
+            value: 'hello',
+            id: 'inner-block-1',
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('ids in nested stream blocks are not duplicated', () => {
+    // Duplicate the outermost stream block list item
+    boundBlock.duplicateBlock(0);
+
+    const duplicatedStreamBlock = boundBlock.children[1].block;
+    const originalStreamBlock = boundBlock.children[0].block;
+
+    // Test the ids on the duplicated stream child of the stream-block-in-list-block
+    expect(duplicatedStreamBlock.children[0].id).not.toBeUndefined();
+    expect(duplicatedStreamBlock.children[0].id).not.toBeNull();
+
+    expect(duplicatedStreamBlock.children[0].id).not.toEqual(
+      originalStreamBlock.children[0].id,
+    );
+  });
+});
+
+describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Create test blocks - StreamBlock[ListBlock[FieldBlock]]
+    const listBlockDef = new ListBlockDefinition(
+      'list',
+      new ParanoidFieldBlockDefinition(
+        '',
+        new DummyWidgetDefinition('The widget'),
+        {
+          label: '',
+          required: true,
+          icon: 'pilcrow',
+          classname:
+            'w-field w-field--char_field w-field--admin_auto_height_text_input',
+        },
+      ),
+      null,
+      {
+        label: 'Test listblock',
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>a few</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [['', [listBlockDef]]],
+      {},
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        type: 'list',
+        id: 'list-1',
+        value: [{ id: 'list-item-1', value: 'foobar' }],
+      },
+    ]);
+  });
+
+  test('ids of list blocks in a stream block are not duplicated', () => {
+    boundBlock.duplicateBlock(0);
+    const originalStreamChild = boundBlock.children[0];
+    const duplicatedStreamChild = boundBlock.children[1];
+
+    expect(duplicatedStreamChild.id).not.toBeNull();
+    expect(duplicatedStreamChild.id).not.toBeUndefined();
+    expect(duplicatedStreamChild.id).not.toEqual(originalStreamChild.id);
+
+    expect(duplicatedStreamChild.block.children[0].id).not.toBeNull();
+    expect(duplicatedStreamChild.block.children[0].id).not.toBeUndefined();
+    expect(duplicatedStreamChild.block.children[0].id).not.toEqual(
+      originalStreamChild.block.children[0].id,
+    );
   });
 });

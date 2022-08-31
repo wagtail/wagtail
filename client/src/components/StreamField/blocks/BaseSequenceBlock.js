@@ -2,6 +2,7 @@
 
 /* global $ */
 
+import { v4 as uuidv4 } from 'uuid';
 import EventEmitter from 'events';
 import { escapeHtml as h } from '../../../utils/text';
 
@@ -362,6 +363,16 @@ export class BaseSequenceChild extends EventEmitter {
       this.collapse();
     }
   }
+
+  getDuplicatedState() {
+    return {
+      id: uuidv4(),
+      value:
+        this.block.getDuplicatedState === undefined
+          ? this.block.getState()
+          : this.block.getDuplicatedState(),
+    };
+  }
 }
 
 export class BaseInsertionControl {
@@ -627,6 +638,10 @@ export class BaseSequenceBlock {
 
   getState() {
     return this.children.map((child) => child.getState());
+  }
+
+  getDuplicatedState() {
+    return this.children.map((child) => child.getDuplicatedState());
   }
 
   getValue() {

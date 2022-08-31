@@ -130,11 +130,11 @@ exports[`telepath: wagtail.blocks.ListBlock blocks can be duplicated 1`] = `
         </div>
       </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
         <svg class=\\"icon icon-plus\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
-      </button><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
+      </button><div aria-hidden=\\"false\\" data-contentpath=\\"fake-uuid-v4-value\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-order\\" value=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-type\\" value=\\"\\">
-        <input type=\\"hidden\\" name=\\"the-prefix-2-id\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-2-id\\" value=\\"fake-uuid-v4-value\\">
 
         <div>
           <div class=\\"c-sf-container__block-container\\">
