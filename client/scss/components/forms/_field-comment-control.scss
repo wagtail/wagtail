@@ -1,4 +1,4 @@
-$button-size: theme('spacing.8');
+$button-size: theme('spacing.5');
 
 .w-field__comment-button {
   @include transition(opacity 0.2s ease);
@@ -54,7 +54,7 @@ $button-size: theme('spacing.8');
 
     @include media-breakpoint-up(sm) {
       // Partial offset to reduce the change in layout with/without comments.
-      padding-inline-end: calc($button-size / 2);
+      padding-inline-end: calc($button-size / 1.5);
     }
   }
 }
@@ -87,12 +87,6 @@ $button-size: theme('spacing.8');
 
 .w-field__comment-button--reveal {
   display: none;
-
-  .icon-comment {
-    // TODO Refactor: this needs different styles only because the icon symbols are drawn at different sizes.
-    width: theme('spacing.5');
-    height: theme('spacing.5');
-  }
 
   .tab-content--comments-enabled & {
     display: block;
