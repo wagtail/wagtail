@@ -38,6 +38,14 @@ textarea {
 .w-field--date_field,
 .w-field--date_time_field,
 .w-field--time_field {
+  // If these fields are in an inline panels' row then allow them to take up their grid size
+  .w-field-row & {
+    input {
+      width: 100%;
+      max-width: 15.625rem;
+    }
+  }
+
   input {
     width: auto;
   }
