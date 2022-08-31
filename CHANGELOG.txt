@@ -17,7 +17,7 @@ Changelog
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
 
 
-4.0 (xx.xx.xxxx) - IN DEVELOPMENT
+4.0 (31.08.2022)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Django 4.1
