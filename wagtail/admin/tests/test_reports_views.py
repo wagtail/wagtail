@@ -31,6 +31,16 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         # Initially there should be no locked pages
         self.assertContains(response, "No locked pages found.")
 
+        # No user locked anything
+        self.assertInHTML(
+            """
+            <select name="locked_by" id="id_locked_by">
+                <option value="" selected>---------</option>
+            </select>
+            """,
+            response.content.decode(),
+        )
+
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user
@@ -43,6 +53,16 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/reports/locked_pages.html')
         self.assertNotContains(response, "No locked pages found.")
         self.assertContains(response, self.page.title)
+
+        self.assertInHTML(
+            f"""
+            <select name="locked_by" id="id_locked_by">
+                <option value="" selected>---------</option>
+                <option value="{self.user.pk}">{self.user}</option>
+            </select>
+            """,
+            response.content.decode(),
+        )
 
     def test_csv_export(self):
 
