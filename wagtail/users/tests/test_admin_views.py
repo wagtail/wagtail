@@ -124,13 +124,13 @@ class TestGroupUsersView(TestCase, WagtailTestUtils):
     def test_search_query_one_field(self):
         response = self.get({"q": "first name"})
         self.assertEqual(response.status_code, 200)
-        results = response.context["users"].object_list
+        results = response.context["users"]
         self.assertIn(self.test_user, results)
 
     def test_search_query_multiple_fields(self):
         response = self.get({"q": "first name last name"})
         self.assertEqual(response.status_code, 200)
-        results = response.context["users"].object_list
+        results = response.context["users"]
         self.assertIn(self.test_user, results)
 
     def test_pagination(self):
@@ -180,13 +180,13 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
     def test_search_query_one_field(self):
         response = self.get({"q": "first name"})
         self.assertEqual(response.status_code, 200)
-        results = response.context["users"].object_list
+        results = response.context["users"]
         self.assertIn(self.test_user, results)
 
     def test_search_query_multiple_fields(self):
         response = self.get({"q": "first name last name"})
         self.assertEqual(response.status_code, 200)
-        results = response.context["users"].object_list
+        results = response.context["users"]
         self.assertIn(self.test_user, results)
 
     def test_pagination(self):
@@ -1817,31 +1817,27 @@ class TestAuthorisationIndexView(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse("wagtailusers_users:index"))
 
-    def gain_permissions(self):
-        self._user.user_permissions.add(
-            *Permission.objects.filter(
-                content_type__app_label=AUTH_USER_APP_LABEL,
-                codename__in=(
-                    "add_{}".format(AUTH_USER_MODEL_NAME.lower()),
-                    "change_{}".format(AUTH_USER_MODEL_NAME.lower()),
-                    "delete_{}".format(AUTH_USER_MODEL_NAME.lower()),
-                ),
-            )
-        )
-
     def test_simple(self):
         response = self.get()
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
         )
 
     def test_authorised(self):
-        self.gain_permissions()
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailusers/users/index.html")
+        for permission in ("add", "change", "delete"):
+            permission_name = "{}_{}".format(permission, AUTH_USER_MODEL_NAME.lower())
+            permission_object = Permission.objects.get(codename=permission_name)
+            self._user.user_permissions.add(permission_object)
+
+            response = self.get()
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, "wagtailusers/users/index.html")
+            self.assertContains(response, "auth_user")
+
+            self._user.user_permissions.remove(permission_object)
 
 
 class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
@@ -1866,7 +1862,8 @@ class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
@@ -1889,13 +1886,14 @@ class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
                 "password2": "password",
             }
         )
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
         )
-        users = get_user_model().objects.filter(email="test@user.com")
-        self.assertEqual(users.count(), 0)
+        user = get_user_model().objects.filter(email="test@user.com")
+        self.assertFalse(user.exists())
 
     def test_authorised_post(self):
         self.gain_permissions()
@@ -1910,8 +1908,8 @@ class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
             }
         )
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
-        users = get_user_model().objects.filter(email="test@user.com")
-        self.assertEqual(users.count(), 1)
+        user = get_user_model().objects.filter(email="test@user.com")
+        self.assertTrue(user.exists())
 
 
 class TestAuthorisationEditView(TestCase, WagtailTestUtils):
@@ -1949,7 +1947,8 @@ class TestAuthorisationEditView(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
@@ -1973,7 +1972,8 @@ class TestAuthorisationEditView(TestCase, WagtailTestUtils):
                 "is_active": "on",
             }
         )
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
@@ -2032,7 +2032,8 @@ class TestAuthorisationDeleteView(TestCase, WagtailTestUtils):
 
     def test_simple(self):
         response = self.get()
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
@@ -2046,17 +2047,18 @@ class TestAuthorisationDeleteView(TestCase, WagtailTestUtils):
 
     def test_unauthorised_post(self):
         response = self.post()
-        self.assertEqual(response.status_code, 302)
+        # Should redirect to admin index (permission denied)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
             response.context["message"],
             "Sorry, you do not have permission to access this area.",
         )
-        users = get_user_model().objects.filter(email="test_user@email.com")
-        self.assertEqual(users.count(), 1)
+        user = get_user_model().objects.filter(email="test_user@email.com")
+        self.assertTrue(user.exists())
 
     def test_authorised_post(self):
         self.gain_permissions()
         response = self.post()
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
-        users = get_user_model().objects.filter(email="test_user@email.com")
-        self.assertEqual(users.count(), 0)
+        user = get_user_model().objects.filter(email="test_user@email.com")
+        self.assertFalse(user.exists())

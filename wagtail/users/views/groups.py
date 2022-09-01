@@ -7,7 +7,7 @@ from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.users.views.users import index
+from wagtail.users.views.users import Index
 
 _permission_panel_classes = None
 
@@ -171,7 +171,7 @@ class GroupViewSet(ModelViewSet):
 
     @property
     def users_view(self):
-        return index
+        return Index.as_view()
 
     def get_form_class(self, for_update=False):
         return GroupForm

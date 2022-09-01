@@ -1,6 +1,5 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% trans "Users" %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
     <script>
@@ -32,6 +31,6 @@
             {% include "wagtailusers/users/results.html" %}
         </div>
         {% trans "Select all users in listing" as select_all_text %}
-        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=users %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=page_obj %}
     </div>
 {% endblock %}

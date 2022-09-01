@@ -15,7 +15,7 @@
     {% include "wagtailusers/users/list.html" %}
 
     {# call pagination_nav with no linkurl, to generate general-purpose links like <a href="?p=2"> #}
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=users %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
 {% else %}
     {% if is_searching %}
         <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
