@@ -621,6 +621,7 @@ Contributors
 * ariadi
 * Thomas van der Hoeven
 * Kurt Wall
+* Adam Johnson
 
 
 Translators
