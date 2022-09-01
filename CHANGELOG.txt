@@ -1,7 +1,6 @@
 Changelog
 =========
 
-
 4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -15,6 +14,12 @@ Changelog
  * Provide a more accessible page title where the unique information is shown first and the CMS name is shown last (Mehrdad Moradizadeh)
  * Pull out behaviour from `AbstractFormField` to `FormMixin` and `AbstractEmailForm` to `EmailFormMixin` to allow use with subclasses of `Page` (Mehrdad Moradizadeh, Kurt Wall)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
+
+
+4.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
 
 
 4.0 (31.08.2022)
