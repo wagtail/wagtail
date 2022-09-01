@@ -1,6 +1,12 @@
 Changelog
 =========
 
+4.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+
+
 4.0 (31.08.2022)
 ~~~~~~~~~~~~~~~~
 
