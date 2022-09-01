@@ -278,9 +278,10 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
 
   test('duplicated blocks have unique ids', () => {
     boundBlock.duplicateBlock(0);
-    expect(boundBlock.children[1].id).not.toBeUndefined();
-    expect(boundBlock.children[1].id).not.toBeNull();
-    expect(boundBlock.children[1].id).not.toEqual(boundBlock.children[0].id);
+
+    expect(boundBlock.children[1]).not.toHaveSameBlockIdAs(
+      boundBlock.children[0],
+    );
   });
 
   test('blocks can be split', () => {
@@ -544,11 +545,8 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
     const originalStreamBlock = boundBlock.children[0].block;
 
     // Test the ids on the duplicated stream child of the stream-block-in-list-block
-    expect(duplicatedStreamBlock.children[0].id).not.toBeUndefined();
-    expect(duplicatedStreamBlock.children[0].id).not.toBeNull();
-
-    expect(duplicatedStreamBlock.children[0].id).not.toEqual(
-      originalStreamBlock.children[0].id,
+    expect(duplicatedStreamBlock.children[0]).not.toHaveSameBlockIdAs(
+      originalStreamBlock.children[0],
     );
   });
 });
@@ -628,14 +626,10 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
     const originalStreamChild = boundBlock.children[0];
     const duplicatedStreamChild = boundBlock.children[1];
 
-    expect(duplicatedStreamChild.id).not.toBeNull();
-    expect(duplicatedStreamChild.id).not.toBeUndefined();
-    expect(duplicatedStreamChild.id).not.toEqual(originalStreamChild.id);
+    expect(duplicatedStreamChild).not.toHaveSameBlockIdAs(originalStreamChild);
 
-    expect(duplicatedStreamChild.block.children[0].id).not.toBeNull();
-    expect(duplicatedStreamChild.block.children[0].id).not.toBeUndefined();
-    expect(duplicatedStreamChild.block.children[0].id).not.toEqual(
-      originalStreamChild.block.children[0].id,
+    expect(duplicatedStreamChild.block.children[0]).not.toHaveSameBlockIdAs(
+      originalStreamChild.block.children[0],
     );
   });
 });

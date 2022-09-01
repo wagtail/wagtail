@@ -423,12 +423,12 @@ describe('telepath: wagtail.blocks.StreamBlock with nested stream block', () => 
     const duplicatedStreamChild = boundBlock.children[1];
     const originalStreamChild = boundBlock.children[0];
 
-    expect(duplicatedStreamChild.id).not.toBeNull();
-    expect(duplicatedStreamChild.id).not.toBeUndefined();
-    expect(duplicatedStreamChild.id).not.toEqual(originalStreamChild.id);
+    // Test the outermost stream child
+    expect(duplicatedStreamChild).not.toHaveSameBlockIdAs(originalStreamChild);
 
-    expect(duplicatedStreamChild.block.children[0].id).not.toEqual(
-      originalStreamChild.block.children[0].id,
+    // Test the nested child
+    expect(duplicatedStreamChild.block.children[0]).not.toHaveSameBlockIdAs(
+      originalStreamChild.block.children[0],
     );
   });
 });
