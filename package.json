@@ -46,6 +46,9 @@
       "./client/tests/mock-fetch.js",
       "./client/tests/mock-jquery.js"
     ],
+    "setupFilesAfterEnv": [
+      "./client/tests/utils.js"
+    ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]

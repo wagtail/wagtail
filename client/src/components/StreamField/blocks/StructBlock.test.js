@@ -421,26 +421,20 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
   });
 
   test('ids are not duplicated when duplicating struct blocks', () => {
-    const testIds = (oldChild, newChild) => {
-      expect(newChild.id).not.toBeNull();
-      expect(newChild.id).not.toBeUndefined();
-      expect(newChild.id).not.toEqual(oldChild.id);
-    };
-
     boundBlock.children[0].duplicate();
 
     const duplicatedStreamChild = boundBlock.children[1];
     const originalStreamChild = boundBlock.children[0];
 
-    testIds(originalStreamChild, duplicatedStreamChild);
+    expect(duplicatedStreamChild).not.toHaveSameBlockIdAs(originalStreamChild);
 
     const duplicatedStreamBlockInStruct =
       duplicatedStreamChild.block.childBlocks.inner_stream;
     const originalStreamBlockInStruct =
       originalStreamChild.block.childBlocks.inner_stream;
-    testIds(
+
+    expect(duplicatedStreamBlockInStruct.children[0]).not.toHaveSameBlockIdAs(
       originalStreamBlockInStruct.children[0],
-      duplicatedStreamBlockInStruct.children[0],
     );
   });
 });

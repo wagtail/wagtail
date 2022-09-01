@@ -324,18 +324,15 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock in StreamBloc
     boundBlock.duplicateBlock(0);
 
     // Check the ids on the top level blocks
-    expect(boundBlock.children[1].id).not.toBeNull();
-    expect(boundBlock.children[1].id).not.toEqual(boundBlock.children[0].id);
+    expect(boundBlock.children[1]).not.toHaveSameBlockIdAs(
+      boundBlock.children[0],
+    );
 
     // Check the ids on the nested blocks
     expect(
-      boundBlock.children[1].block.rows[0].blocks[0].children[0].id,
-    ).not.toBeNull();
-
-    expect(
-      boundBlock.children[1].block.rows[0].blocks[0].children[0].id,
-    ).not.toEqual(
-      boundBlock.children[0].block.rows[0].blocks[0].children[0].id,
+      boundBlock.children[1].block.rows[0].blocks[0].children[0],
+    ).not.toHaveSameBlockIdAs(
+      boundBlock.children[0].block.rows[0].blocks[0].children[0],
     );
   });
 });
