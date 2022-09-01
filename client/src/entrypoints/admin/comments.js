@@ -272,6 +272,27 @@ window.comments = (() => {
     }
   }
 
+  function onNextEnable(fn) {
+    // Run a function once, when comments are enabled
+    const { selectEnabled } = commentApp.selectors;
+    const getEnabled = () => selectEnabled(commentApp.store.getState());
+    let enabled = getEnabled();
+    if (enabled) {
+      // If we're starting off enabled, run the function immediately
+      fn();
+      return;
+    }
+    const unsubscribe = commentApp.store.subscribe(() => {
+      // Otherwise, subscribe to updates and run the function when comments change to enabled
+      const newEnabled = getEnabled();
+      if (newEnabled && !enabled) {
+        enabled = newEnabled;
+        unsubscribe();
+        fn();
+      }
+    });
+  }
+
   function initAddCommentButton(buttonElement) {
     const initWidget = () => {
       const widget = new FieldLevelCommentWidget({
@@ -283,19 +304,8 @@ window.comments = (() => {
         widget.register();
       }
     };
-    try {
-      initWidget();
-    } catch (e) {
-      if (
-        e.name === 'MissingElementError' &&
-        document.readyState === 'loading'
-      ) {
-        // Our template node doesn't exist yet - let's hold off until the DOM loads
-        document.addEventListener('DOMContentLoaded', initWidget);
-      } else {
-        throw e;
-      }
-    }
+    // Our template node may not exist yet - let's hold off until comments are loaded and enabled
+    onNextEnable(initWidget);
   }
 
   function initCommentsInterface(formElement) {
