@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { FieldBlockDefinition } from './FieldBlock';
+import { StreamBlockDefinition } from './StreamBlock';
 import {
   StructBlockDefinition,
   StructBlockValidationError,
@@ -304,6 +305,142 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
   test('getTextLabel() returns text label according to labelFormat', () => {
     expect(boundBlock.getTextLabel()).toBe(
       'label: the-prefix-heading_text - label: the-prefix-size',
+    );
+  });
+});
+
+describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Setup test blocks - StreamBlock[StructBlock[StreamBlock[FieldBlock], FieldBlock]]
+    const innerStreamDef = new StreamBlockDefinition(
+      'inner_stream',
+      [
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A Widget'),
+              {
+                label: 'Test Block A',
+                required: false,
+                icon: 'pilcrow',
+                classname:
+                  'w-field w-field--char_field w-field--admin_auto_height_text_input',
+              },
+            ),
+          ],
+        ],
+      ],
+      {},
+      {
+        label: 'Inner Stream',
+        required: false,
+        icon: 'placeholder',
+        classname: null,
+        helpText: '',
+        helpIcon: '',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    const structBlockDef = new StructBlockDefinition(
+      'struct_block',
+      [
+        innerStreamDef,
+        new FieldBlockDefinition(
+          'test_block_b',
+          new DummyWidgetDefinition('Block A Widget'),
+          {
+            label: 'Test Block B',
+            required: false,
+            icon: 'pilcrow',
+            classname: '',
+          },
+        ),
+      ],
+      {
+        label: 'Heading block',
+        required: false,
+        icon: 'title',
+        classname: 'struct-block',
+        helpText: 'use <strong>lots</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+      },
+    );
+
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [['', [structBlockDef]]],
+      {},
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
+          ADD: 'Add',
+        },
+      },
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        type: 'struct_block',
+        id: 'struct-block-1',
+        value: {
+          inner_stream: [
+            { type: 'test_block_a', id: 'very-nested-1', value: 'foobar' },
+          ],
+          test_block_b: 'hello, world',
+        },
+      },
+    ]);
+  });
+
+  test('ids are not duplicated when duplicating struct blocks', () => {
+    const testIds = (oldChild, newChild) => {
+      expect(newChild.id).not.toBeNull();
+      expect(newChild.id).not.toBeUndefined();
+      expect(newChild.id).not.toEqual(oldChild.id);
+    };
+
+    boundBlock.children[0].duplicate();
+
+    const duplicatedStreamChild = boundBlock.children[1];
+    const originalStreamChild = boundBlock.children[0];
+
+    testIds(originalStreamChild, duplicatedStreamChild);
+
+    const duplicatedStreamBlockInStruct =
+      duplicatedStreamChild.block.childBlocks.inner_stream;
+    const originalStreamBlockInStruct =
+      originalStreamChild.block.childBlocks.inner_stream;
+    testIds(
+      originalStreamBlockInStruct.children[0],
+      duplicatedStreamBlockInStruct.children[0],
     );
   });
 });
