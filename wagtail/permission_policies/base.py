@@ -5,6 +5,8 @@ from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Q
 from django.utils.functional import cached_property
 
+from wagtail.coreutils import resolve_model_string
+
 
 class BasePermissionPolicy:
     """
@@ -25,7 +27,19 @@ class BasePermissionPolicy:
     """
 
     def __init__(self, model):
-        self.model = model
+        self._model_or_name = model
+
+    @cached_property
+    def model(self):
+        model = resolve_model_string(self._model_or_name)
+        self.check_model(model)
+        return model
+
+    def check_model(self, model):
+        # a hook that is called at the point that the model argument (which may be a string
+        # rather than a model class) is resolved to a model class, for subclasses to perform
+        # any necessary validation checks on that model class
+        pass
 
     # Basic user permission tests. Most policies are expected to override these,
     # since the default implementation is to query the set of permitted users
@@ -175,9 +189,19 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
         # records might use a custom User model but will typically still refer to the
         # permission records for auth.user.
         super().__init__(model)
-        self.auth_model = auth_model or self.model
-        self.app_label = self.auth_model._meta.app_label
-        self.model_name = self.auth_model._meta.model_name
+        self._auth_model_or_name = auth_model or model
+
+    @cached_property
+    def auth_model(self):
+        return resolve_model_string(self._auth_model_or_name)
+
+    @cached_property
+    def app_label(self):
+        return self.auth_model._meta.app_label
+
+    @cached_property
+    def model_name(self):
+        return self.auth_model._meta.model_name
 
     @cached_property
     def _content_type(self):
@@ -255,14 +279,17 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         super().__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
 
+    def check_model(self, model):
+        super().check_model(model)
+
         # make sure owner_field_name is a field that exists on the model
         try:
-            self.model._meta.get_field(self.owner_field_name)
+            model._meta.get_field(self.owner_field_name)
         except FieldDoesNotExist:
             raise ImproperlyConfigured(
                 "%s has no field named '%s'. To use this model with OwnershipPermissionPolicy, "
                 "you must specify a valid field name as owner_field_name."
-                % (self.model, self.owner_field_name)
+                % (model, self.owner_field_name)
             )
 
     def user_has_permission(self, user, action):
