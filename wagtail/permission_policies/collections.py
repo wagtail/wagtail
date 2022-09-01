@@ -218,14 +218,17 @@ class CollectionOwnershipPermissionPolicy(
         super().__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
 
+    def check_model(self, model):
+        super().check_model(model)
+
         # make sure owner_field_name is a field that exists on the model
         try:
-            self.model._meta.get_field(self.owner_field_name)
+            model._meta.get_field(self.owner_field_name)
         except FieldDoesNotExist:
             raise ImproperlyConfigured(
                 "%s has no field named '%s'. To use this model with "
                 "CollectionOwnershipPermissionPolicy, you must specify a valid field name as "
-                "owner_field_name." % (self.model, self.owner_field_name)
+                "owner_field_name." % (model, self.owner_field_name)
             )
 
     def user_has_permission(self, user, action):

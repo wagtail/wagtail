@@ -21,7 +21,7 @@ from wagtail.admin.views.generic.chooser import (
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.blocks import ChooserBlock
-from wagtail.documents import get_document_model
+from wagtail.documents import get_document_model, get_document_model_string
 from wagtail.documents.permissions import permission_policy
 
 
@@ -153,7 +153,7 @@ class BaseAdminDocumentChooser(BaseChooser):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.model = get_document_model()
+        self.model = get_document_model_string()
 
     def render_js_init(self, id_, name, value_data):
         return "new DocumentChooser({0});".format(json.dumps(id_))
@@ -206,6 +206,6 @@ class DocumentChooserViewSet(ChooserViewSet):
 
 viewset = DocumentChooserViewSet(
     "wagtaildocs_chooser",
-    model=get_document_model(),
+    model=get_document_model_string(),
     url_prefix="documents/chooser",
 )
