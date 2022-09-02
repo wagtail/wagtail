@@ -208,6 +208,13 @@ Changelog
  * Fix: Remove outdated reference to Image.LoaderError (Matt Westcott)
 
 
+3.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: Prevent JavaScript error when using StreamField on views without commenting support, such as snippets (Jacob Topp-Mugglestone)
+
+
 3.0.2 (30.08.2022)
 ~~~~~~~~~~~~~~~~~~
 
