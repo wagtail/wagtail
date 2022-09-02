@@ -21,6 +21,7 @@ Changelog
 
  * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
  * Fix: Prevent JavaScript error when using StreamField on views without commenting support, such as snippets (Jacob Topp-Mugglestone)
+ * Fix: Modify base template for new projects so that links opened from the preview panel open in a new window (Sage Abdullah)
 
 
 4.0 (31.08.2022)

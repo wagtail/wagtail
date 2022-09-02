@@ -16,6 +16,11 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+        {% templatetag opencomment %} Force all links in the live preview panel to be opened in a new tab {% templatetag closecomment %}
+        {% templatetag openblock %} if request.in_preview_panel {% templatetag closeblock %}
+        <base target="_blank">
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+
         {% templatetag opencomment %} Global stylesheets {% templatetag closecomment %}
         <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
 
