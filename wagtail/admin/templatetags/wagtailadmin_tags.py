@@ -156,6 +156,7 @@ def page_permissions(context, page):
 @register.simple_tag
 def classnames(*classes):
     """
+    Usage <div class="{% classnames "w-base" classname active|yesno:"w-base--active," any_other_var %}"></div>
     Returns any args as a space-separated joined string for using in HTML class names.
     """
     return " ".join([classname.strip() for classname in classes if classname])
