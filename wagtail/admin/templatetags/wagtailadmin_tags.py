@@ -895,7 +895,7 @@ def fragment(parser, token):
     Usage:
         {% fragment as header_title %}
             {% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}
-        {% fragment %}
+        {% endfragment %}
 
     Copy-paste of slippers’ fragment template tag.
     See https://github.com/mixxorz/slippers/blob/254c720e6bb02eb46ae07d104863fce41d4d3164/slippers/templatetags/slippers.py#L173.
