@@ -369,3 +369,73 @@ class FragmentTagTest(TestCase):
         """
 
         self.assertHTMLEqual(expected, Template(template).render(context))
+
+
+class ClassnamesTagTest(TestCase):
+    def test_with_single_arg(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <p class="{% classnames "w-header" classname  %}">Hello!</p>
+        """
+
+        expected = """
+            <p class="w-header">Hello!</p>
+        """
+
+        actual = Template(template).render(Context())
+
+        self.assertHTMLEqual(expected, actual)
+
+    def test_with_multiple_args(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <p class="{% classnames "w-header" classname "w-header--merged" "w-header--hasform" %}">
+                Hello!
+            </p>
+        """
+
+        expected = """
+            <p class="w-header w-header--merged w-header--hasform">
+                Hello!
+            </p>
+        """
+
+        actual = Template(template).render(Context())
+
+        self.assertHTMLEqual(expected, actual)
+
+    def test_with_falsy_args(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <p class="{% classnames "w-header" classname "" %}">Hello!</p>
+        """
+
+        expected = """
+            <p class="w-header">Hello!</p>
+        """
+
+        actual = Template(template).render(Context())
+
+        self.assertEqual(expected.strip(), actual.strip())
+
+    def test_with_args_with_extra_whitespace(self):
+        context = Context(
+            {
+                "merged": "w-header--merged ",
+                "search_form": " w-header--hasform",
+                "name": " wagtail ",
+            }
+        )
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <p class="{% classnames "w-header" classname merged search_form name %}">Hello!</p>
+        """
+
+        expected = """
+            <p class="w-header w-header--merged w-header--hasform wagtail">Hello!</p>
+        """
+
+        actual = Template(template).render(context)
+
+        self.assertEqual(expected.strip(), actual.strip())
