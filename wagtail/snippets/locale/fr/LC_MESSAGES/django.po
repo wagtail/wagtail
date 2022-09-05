@@ -79,11 +79,25 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce %(snippet_type_name)s ?"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer %(count)s %(snippet_type_name)s?"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr ""
+"Vous n’avez pas l’autorisation de supprimer ce(tte) %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+"Vous n’avez pas l’autorisation de supprimer ces %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
 msgid "No, don't delete"
 msgstr "Non, ne pas supprimer"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Désolé, aucun snippet ne correspond à « <em>%(search_query)s</em> »"
 
 #, python-format
 msgid ""
@@ -129,6 +143,10 @@ msgstr "Nouveau"
 msgid "Actions"
 msgstr "Actions"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Modification de %(snippet_type_name)s - %(object)s"
+
 msgid "Usage"
 msgstr "Utilisation"
 
@@ -144,6 +162,14 @@ msgstr "Blocs"
 msgid "New: "
 msgstr "Nouveau :"
 
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Modification de %(snippet_type)s « %(title)s »"
+
+#, python-format
+msgid "Snippet history for %(subtitle)s"
+msgstr "Historique du snippet pour « %(subtitle)s »"
+
 msgid "Edit this snippet"
 msgstr "Modifier ce bloc"
 
@@ -156,6 +182,11 @@ msgid_plural "There are %(counter)s matches"
 msgstr[0] "Il y a %(counter)s correspondance"
 msgstr[1] "Il y a %(counter)s correspondances"
 msgstr[2] "Il y a %(counter)s correspondances"
+
+#, python-format
+msgid "Sorry, no %(snippet_type_name_plural)s match your query"
+msgstr ""
+"Désolé, aucun(e) %(snippet_type_name_plural)s ne correspond à votre recherche"
 
 #, python-format
 msgid ""
@@ -186,6 +217,9 @@ msgstr "Comparer avec la version précédente"
 msgid "Compare with current version"
 msgstr "Comparer avec la version actuelle"
 
+msgid "Status: "
+msgstr "Status :"
+
 msgid "Live"
 msgstr "Publié(e)"
 
@@ -205,6 +239,9 @@ msgstr "Blocs %(snippet_type_name_plural)s"
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Ajouter un %(snippet_type_name)s"
+
+msgid "Select all snippets in listing"
+msgstr "Sélectionner tous les snippets dans la liste"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -234,6 +271,9 @@ msgstr "Choisir"
 msgid "Name"
 msgstr "Nom"
 
+msgid "Instances"
+msgstr "Occurrences"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Le bloc ne peut être créé du fait d'erreurs."
 
@@ -241,12 +281,20 @@ msgstr "Le bloc ne peut être créé du fait d'erreurs."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' créé(e)."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and published."
+msgstr "%(snippet_type)s « %(instance)s » créé(e) et publié(e)."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Le bloc ne peut être enregistré du fait d'erreurs."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' modifié(e)."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated and published."
+msgstr "%(snippet_type)s « %(instance)s » modifié(e) et publié(e)."
 
 msgid "Date"
 msgstr "Date"

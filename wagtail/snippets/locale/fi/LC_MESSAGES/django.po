@@ -38,6 +38,9 @@ msgstr "Tallenna"
 msgid "Wagtail snippets"
 msgstr "Wagtailin pätkät"
 
+msgid "Delete selected snippets"
+msgstr "Poista valitut pätkät"
+
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' deleted."
 msgstr "%(snippet_type)s-pätkä '%(instance)s' poistettu."
@@ -93,6 +96,9 @@ msgstr "Tallennetaan…"
 msgid "Replace current draft"
 msgstr "Korvaa nykyinen luonnos"
 
+msgid "Replace current revision"
+msgstr "Korvaa nykyinen versio"
+
 msgid "Save draft"
 msgstr "Tallenna luonnos"
 
@@ -105,6 +111,10 @@ msgstr "Uusi"
 
 msgid "Actions"
 msgstr "Toimet"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(object)s"
+msgstr "Muokataan %(snippet_type_name)s - %(object)s"
 
 msgid "Usage"
 msgstr "Käyttö"
@@ -120,6 +130,13 @@ msgstr "Pätkät"
 
 msgid "New: "
 msgstr "Uusi: "
+
+#, python-format
+msgid "Editing %(snippet_type)s %(title)s"
+msgstr "Muokataan %(snippet_type)s %(title)s"
+
+msgid "Edit this snippet"
+msgstr "Muokkaa tätä pätkää"
 
 msgid "No log entries found."
 msgstr "Lokimerkintöjä ei löytynyt."
@@ -158,6 +175,9 @@ msgstr "Vertaa edelliseen versioon"
 
 msgid "Compare with current version"
 msgstr "Vertaa nykyiseen versioon"
+
+msgid "Status: "
+msgstr "Tila:"
 
 msgid "Live"
 msgstr "Julkinen"
@@ -211,12 +231,20 @@ msgstr "Pätkää ei voitu luoda virheiden vuoksi."
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s-pätkä '%(instance)s' luotu."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and published."
+msgstr "%(snippet_type)s '%(instance)s' luotu ja julkaistu."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Pätkää ei voitu tallentaa virheiden vuoksi."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s-pätkä '%(instance)s' päivitetty."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated and published."
+msgstr "%(snippet_type)s '%(instance)s' päivitetty ja julkaistu."
 
 msgid "Date"
 msgstr "Pvm"

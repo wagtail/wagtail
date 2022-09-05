@@ -218,3 +218,6 @@ msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "Yksi lähetys poistettu."
 msgstr[1] "%(count)d lähetystä on poistettu."
+
+msgid "Form data"
+msgstr "Lomakedata"

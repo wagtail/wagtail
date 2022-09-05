@@ -114,6 +114,10 @@ msgstr ""
 msgid "Only reviewers for this task can edit the page."
 msgstr "Seul les modérateurs pour cette tâche peuvent modifier cette page."
 
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr ""
+"La page « {} » est verrouillée et a été planifiée pour la publication le {}"
+
 msgid "latest revision"
 msgstr "dernière version"
 
@@ -236,6 +240,9 @@ msgstr "page"
 
 msgid "pages"
 msgstr "pages"
+
+msgid "object id"
+msgstr "ID de l'objet"
 
 msgid "submitted for moderation"
 msgstr "soumis pour modération"
@@ -936,6 +943,10 @@ msgstr "La tâche de workflow a été rejetée. Le workflow est terminé"
 
 msgid "Workflow: resume task"
 msgstr "Workflow : reprendre la tâche"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "La tâche « %(task)s » a été resoumisse. Le workflow a repris"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "La tâche du workflow a été resoumisse. Le workflow a repris"

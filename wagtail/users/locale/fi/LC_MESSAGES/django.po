@@ -28,6 +28,9 @@ msgstr ""
 msgid "Wagtail users"
 msgstr "Wagtailin käyttäjät"
 
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Vaadittu. Vain kirjaimia, numeroita ja merkkejä @/./+/-/_."
+
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ -"

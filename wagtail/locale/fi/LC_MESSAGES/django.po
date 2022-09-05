@@ -25,6 +25,9 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail API v2"
+msgstr "Wagtailin API v2"
+
 msgid "Wagtail core"
 msgstr "Wagtailin ydinominaisuudet"
 
@@ -93,6 +96,9 @@ msgstr "<b>Sivu '{}' on lukittu.</b>"
 
 msgid "This page is currently awaiting moderation."
 msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Tämä sivu odottaa <b>'{}'</b> työnkulussa <b>'{}'</b>."
 
 msgid "Only reviewers for this task can edit the page."
 msgstr "Vain tämän tehtävän tarkastajat voivat muokata sivua."

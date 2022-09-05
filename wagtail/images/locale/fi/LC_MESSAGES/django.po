@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -269,6 +269,12 @@ msgstr "Käytä olemassa olevaa ja poista uusi"
 msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
 
+msgid "You haven't uploaded any images in this collection."
+msgstr "Et ole tuonut kuvia tähän kokoelmaan."
+
+msgid "You haven't uploaded any images."
+msgstr "Et ole tuonut kuvia."
+
 msgid "Choose a format"
 msgstr "Valitse muoto"
 
@@ -354,8 +360,17 @@ msgstr "Käyttö"
 msgid "Images"
 msgstr "Kuvat"
 
+msgid "Sort by"
+msgstr "Järjestys"
+
+msgid "Entries per page"
+msgstr "Kohteita per sivu"
+
 msgid "Popular Tags:"
 msgstr "Suositut tunnisteet:"
+
+msgid "Clear"
+msgstr "Tyhjennä"
 
 msgid "Select all images in listing"
 msgstr "Valitse listauksen kaikki kuvat"
@@ -526,6 +541,24 @@ msgstr "Lähetetään…"
 
 msgid "Choose an image"
 msgstr "Valitse kuva"
+
+msgid "Newest"
+msgstr "Uusin"
+
+msgid "Oldest"
+msgstr "Vanhin"
+
+msgid "Title: (A -> Z)"
+msgstr "Nimi: (A -> Ö)"
+
+msgid "Title: (Z -> A)"
+msgstr "Nimi: (Ö -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Tiedostokoko: (pienimmästä suurimpaan)"
+
+msgid "File size: (high to low)"
+msgstr "Tiedostokoko: (suurimmasta pienimpään)"
 
 msgid "Search images"
 msgstr "Hae kuvia"

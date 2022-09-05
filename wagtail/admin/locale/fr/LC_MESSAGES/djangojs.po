@@ -5,12 +5,12 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2022
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
+# Loic Teixeira, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Aurélien Debord <contact@aureliendebord.com>, 2022\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -26,11 +26,17 @@ msgstr "Texte alternatif"
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr(e) ?"
 
+msgid "Blocks"
+msgstr "Blocs"
+
 msgid "Broken link"
 msgstr "Lien mort"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Character count:"
+msgstr "Nombre de caractères  :"
 
 msgid "Close"
 msgstr "Fermer"
@@ -62,11 +68,24 @@ msgstr "Modifier '{title}'"
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
 
+msgid "Enter your comments..."
+msgstr "Entrez votre commentaire…"
+
+msgid "Enter your reply..."
+msgstr "Entrez votre réponse…"
+
+msgid "Error while sending preview data."
+msgstr ""
+"Une erreur est survenue lors de l'envoi des données de prévisualisation."
+
 msgid "Focus comment"
 msgstr "Mettre le commentaire au premier-plan"
 
 msgid "Horizontal line"
 msgstr "Ligne horizontale"
+
+msgid "Insert a block"
+msgstr "Insérer un bloc"
 
 msgid "Line break"
 msgstr "Retour à la ligne"
@@ -116,6 +135,9 @@ msgstr "Archiver"
 msgid "Retry"
 msgstr "Réessayer"
 
+msgid "Rich text"
+msgstr "Texte riche"
+
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -136,6 +158,9 @@ msgstr "Enregistrement…"
 
 msgid "Search"
 msgstr "Rechercher"
+
+msgid "Search blocks"
+msgstr "Blocs de recherche"
 
 msgid "See all"
 msgstr "Tout voir"
@@ -169,3 +194,6 @@ msgstr "Mettre le commentaire en arrière-plan"
 
 msgid "View child pages of '{title}'"
 msgstr "Voir les sous-pages de '{title}'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Écrivez quelque chose ou tapez « / » pour insérer un bloc"
