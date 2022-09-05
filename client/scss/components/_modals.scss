@@ -85,7 +85,7 @@ $zindex-modal-background: 500;
   }
 }
 
-.modal .close {
+.modal .close.button {
   position: absolute;
   display: inline-flex;
   justify-content: center;
@@ -138,7 +138,7 @@ $zindex-modal-background: 500;
     width: auto;
   }
 
-  .modal .close {
+  .modal .close.button {
     width: theme('spacing.12');
     height: theme('spacing.12');
   }
