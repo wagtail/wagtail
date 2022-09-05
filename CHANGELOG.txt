@@ -16,7 +16,7 @@ Changelog
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
 
 
-4.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+4.0.1 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
