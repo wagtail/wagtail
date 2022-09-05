@@ -11,7 +11,7 @@
   padding: 0 1em;
   font-size: theme('fontSize.14');
   font-weight: theme('fontWeight.normal');
-  line-height: 2.25em;
+  line-height: calc(2.25em - 2px); // account for border
   vertical-align: middle;
   display: inline-block;
   background-color: $color-button;
@@ -21,7 +21,6 @@
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  box-sizing: content-box;
   transition: background-color 0.1s ease;
   // stylelint-disable-next-line property-no-vendor-prefix
   -moz-appearance: none;
@@ -36,7 +35,7 @@
     padding: 0 0.8em;
     height: 2em;
     font-size: calc(theme('fontSize.14') * 0.87);
-    line-height: 2em;
+    line-height: calc(2em - 2px); // account for border
   }
 
   &.button-secondary {
@@ -46,10 +45,10 @@
 
   &.yes {
     background-color: $color-button-yes;
-    border: 1px solid $color-button-yes;
+    border-color: $color-button-yes;
 
     &.button-secondary {
-      border: 1px solid $color-button-yes;
+      border-color: $color-button-yes;
       color: $color-button-yes;
       background-color: transparent;
     }
@@ -63,10 +62,10 @@
 
   &.warning {
     background-color: $color-button-warning;
-    border: 1px solid $color-button-warning;
+    border-color: $color-button-warning;
 
     &.button-secondary {
-      border: 1px solid $color-button-warning;
+      border-color: $color-button-warning;
       color: $color-button-warning;
       background-color: transparent;
     }
@@ -81,10 +80,10 @@
   &.no,
   &.serious {
     background-color: $color-button-no;
-    border: 1px solid $color-button-no;
+    border-color: $color-button-no;
 
     &.button-secondary {
-      border: 1px solid $color-button-no;
+      border-color: $color-button-no;
       color: $color-button-no;
       background-color: transparent;
     }
@@ -97,7 +96,6 @@
   }
 
   &.bicolor {
-    border: 1px solid transparent;
     padding-inline-start: 3.5em;
 
     &:before {
@@ -161,7 +159,7 @@
     }
 
     &.button-secondary {
-      border: 1px solid theme('colors.black-20');
+      border-color: theme('colors.black-20');
     }
 
     &.button-small {
@@ -339,7 +337,7 @@
     font-size: theme('fontSize.14');
     padding: 0 1.4em;
     height: 3em;
-    line-height: 3em;
+    line-height: calc(3em - 2px); // account for border
 
     &.bicolor {
       padding-inline-start: 3.5em;

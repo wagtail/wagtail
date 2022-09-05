@@ -16,6 +16,16 @@ const Template = ({ url }) => (
       button element
     </button>
 
+    <h4>
+      Basic buttons <small>(small)</small>
+    </h4>
+    <a href={url} className="button button-small">
+      button link
+    </a>
+    <button type="button" className="button button-small">
+      button element
+    </button>
+
     <h3>Secondary buttons</h3>
     <a href={url} className="button button-secondary">
       button link
@@ -24,19 +34,13 @@ const Template = ({ url }) => (
       button element
     </button>
 
-    <h3>Small buttons</h3>
-    <a href={url} className="button button-small">
+    <h4>
+      Secondary buttons <small>(small)</small>
+    </h4>
+    <a href={url} className="button button-secondary button-small">
       button link
     </a>
-    <button type="button" className="button button-small">
-      button element
-    </button>
-
-    <h4>Secondary buttons</h4>
-    <a href={url} className="button button-small button-secondary">
-      button link
-    </a>
-    <button type="button" className="button button-small button-secondary">
+    <button type="button" className="button button-secondary button-small">
       button element
     </button>
 
@@ -44,7 +48,27 @@ const Template = ({ url }) => (
     <a href={url} className="button disabled">
       button link
     </a>
+    <button type="button" className="button" disabled>
+      button element
+    </button>
+    <button type="button" className="button button-secondary" disabled>
+      button element
+    </button>
+
+    <h4>
+      Disabled buttons <small>(small)</small>
+    </h4>
+    <a href={url} className="button button-small disabled">
+      button link
+    </a>
     <button type="button" className="button button-small disabled">
+      button element
+    </button>
+    <button
+      type="button"
+      className="button button-small button-secondary"
+      disabled
+    >
       button element
     </button>
 
@@ -65,8 +89,18 @@ const Template = ({ url }) => (
       </span>
       button element
     </button>
+    <button type="button" className="button bicolor button--icon" disabled>
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button disabled
+    </button>
 
-    <h4>(small)</h4>
+    <h4>
+      Bi-color icon buttons with text <small>(small)</small>
+    </h4>
     <a href={url} className="button button-small bicolor button--icon">
       <span className="icon-wrapper">
         <svg className="icon icon-plus icon" aria-hidden="true">
@@ -83,6 +117,18 @@ const Template = ({ url }) => (
       </span>
       button element
     </button>
+    <button
+      type="button"
+      className="button button-small bicolor button--icon"
+      disabled
+    >
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button disabled
+    </button>
 
     <h3>Icon buttons without text</h3>
     <a href={url} className="button text-replace button--icon">
@@ -98,7 +144,9 @@ const Template = ({ url }) => (
       button element
     </button>
 
-    <h4>(small)</h4>
+    <h4>
+      Icon buttons without text <small>(small)</small>
+    </h4>
     <a href={url} className="button button-small text-replace button--icon">
       <svg className="icon icon-cog icon" aria-hidden="true">
         <use href="#icon-cog" />
@@ -115,36 +163,66 @@ const Template = ({ url }) => (
       button element
     </button>
 
-    <h3>Colour signifiers</h3>
-
-    <h4>Positive</h4>
-    <a href={url} className="button button-small yes">
-      yes
+    <h3>Colour signifiers - Positive</h3>
+    <a href={url} className="button yes">
+      Yes link
     </a>
-    <a href={url} className="button button-small yes">
-      yes
-    </a>
+    <button type="button" className="button yes">
+      Yes button
+    </button>
+    <button type="button" className="button yes" disabled>
+      Yes disabled
+    </button>
 
-    <h4>Negative</h4>
+    <h4>
+      Positive <small>(small)</small>
+    </h4>
+    <a href={url} className="button button-small yes">
+      Yes
+    </a>
+    <button type="button" className="button button-small yes">
+      Yes
+    </button>
+    <button type="button" className="button button-small yes" disabled>
+      Yes disabled
+    </button>
+
+    <h3>Colour signifiers - Negative</h3>
+
+    <a href={url} className="button no">
+      No link
+    </a>
+    <button type="button" className="button no">
+      No button
+    </button>
+    <button type="button" className="button no" disabled>
+      No disabled
+    </button>
+
+    <h4>
+      Negative <small>(small)</small>
+    </h4>
     <a href={url} className="button button-small no">
       No
     </a>
-    <a href={url} className="button button-small no">
+    <button type="button" className="button button-small no">
       No
-    </a>
+    </button>
+    <button type="button" className="button button-small no" disabled>
+      Disabled
+    </button>
 
-    <h3>
-      Buttons with internal loading indicators (currently only{' '}
-      <code>button</code> supported)
-    </h3>
+    <h3>Buttons with internal loading indicators</h3>
+    <p>
+      Currently only <code>button</code> elements are supported.
+    </p>
+
     <button type="button" className="button button-longrunning">
       <svg className="icon icon-spinner icon" aria-hidden="true">
         <use href="#icon-spinner" />
       </svg>
       Click me
     </button>
-
-    <h4>Secondary</h4>
     <button
       type="button"
       className="button button-secondary button-longrunning"
@@ -154,8 +232,6 @@ const Template = ({ url }) => (
       </svg>
       Click me
     </button>
-
-    <h4>Small</h4>
     <button type="button" className="button button-small button-longrunning">
       <svg className="icon icon-spinner icon" aria-hidden="true">
         <use href="#icon-spinner" />
