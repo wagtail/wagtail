@@ -5,14 +5,14 @@
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2016,2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020
+# Loic Teixeira, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Loic Teixeira, 2020\n"
+"Last-Translator: Loic Teixeira, 2020,2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,10 @@ msgstr ""
 
 msgid "default"
 msgstr "défaut"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Modification de %(instance)s"
 
 msgid "Site"
 msgstr "Site"

@@ -293,6 +293,13 @@ msgstr "Kaikki {0} käyttäjää tässä näytössä valittu"
 msgid "All users in listing selected"
 msgstr "Kaikki listauksen käyttäjät valittu"
 
+msgid "1 snippet selected"
+msgstr "1 pätkä valittu"
+
+#, python-brace-format
+msgid "{0} snippets selected"
+msgstr "{0} pätkää valittu"
+
 msgid "1 item selected"
 msgstr "1 tietue valittu"
 
@@ -485,6 +492,9 @@ msgstr "Voit muokata yksityisyysasetuksia:"
 msgid "Save"
 msgstr "Tallenna"
 
+msgid "Change privacy"
+msgstr "Muuta yksityisyyttä"
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -522,11 +532,18 @@ msgstr ""
 "Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
 "\">loisi kokoelmaa</a>?"
 
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Ei tuloksia haulla \"<em>%(search_query)s</em>\""
+
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
 msgid "Update"
 msgstr "Päivitä"
+
+msgid "Preview not available"
+msgstr "Esikatselu ei ole saatavilla"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -608,6 +625,17 @@ msgstr "Pvm"
 
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-upgrade-version></strong>."
+msgstr ""
+"Wagtail-versiopäivitys saatavilla. Versiosi: <strong>%(current_version)s</"
+"strong>. Uusi versio: <strong data-upgrade-version></strong>."
+
+msgid "Read the release notes."
+msgstr "Lue julkaisutiedot."
 
 msgid "Your pages in a workflow"
 msgstr "Sivusi työnkulussa"
@@ -773,6 +801,9 @@ msgstr "Luo sivu kohteeseen"
 msgid "Choose which type of page you'd like to create."
 msgstr "Valitse minkätyyppisen sivun haluat luoda."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Et voi luoda sivua tähän sijaintiin."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "SIvut tyyppiä %(page_type)s"
@@ -890,6 +921,20 @@ msgstr "Poista %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Haluatko varmasti poistaa tämän sivun?"
 
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Se tulee myös poistamaan %(translation_count)s käännöksen."
+msgstr[1] "Se tulee myös poistamaan %(translation_count)s käännöstä."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Tämä toiminto tulee poistamaan <b>%(total_pages)s</b> sivua."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Kirjoita <b>%(wagtail_site_name)s</b> vahvistaaksesi."
+
 msgid "Yes, delete it"
 msgstr "Kyllä, poista"
 
@@ -978,6 +1023,10 @@ msgstr "Muokkaa alkuperäistä sivua"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Muunna tämä alias tavalliseksi sivuksi"
+
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "Sivun %(subtitle)s sivuhistoria"
 
 msgid "Action"
 msgstr "Toiminto"
@@ -1275,6 +1324,10 @@ msgstr "Toteuta suodatukset"
 msgid "New: "
 msgstr "Uusi: "
 
+#, python-format
+msgid "Editing %(page_type)s %(title)s"
+msgstr "Muokataan %(page_type)s %(title)s"
+
 msgid "Visit the live page"
 msgstr "Vieraile sivulla"
 
@@ -1293,6 +1346,13 @@ msgstr "Sivupaneeli päälle/pois"
 msgid "Page Locale: "
 msgstr "Sivun maa-asetus:"
 
+msgid "Locale: "
+msgstr "Maa-asetusto:"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Saatavilla %(translations_total)s maa-asetustolla"
+
 msgid "No other translations"
 msgstr "Ei muita käännöksiä"
 
@@ -1302,8 +1362,32 @@ msgstr "Vaihda maa-asetustoja"
 msgid "Page locking: "
 msgstr "Sivun lukitus:"
 
+msgid ""
+"You can edit this page, but others may not. Unlock it to allow others to "
+"edit."
+msgstr ""
+"Voi muokata tätä sivua, mutta muut eivät voi. Avaa sivun lukitus, jotta muut "
+"voivat muokata sivua."
+
+msgid "You can edit this page, but others may not."
+msgstr "Voit muokata tätä sivua, mutta muut eivät voi."
+
+msgid "You cannot edit this page. Unlock it to edit."
+msgstr "Et voi muokata tätä sivua. Avaa sivun lukitus muokataksesi sitä."
+
+msgid "You cannot edit this page."
+msgstr "Et voi muokata tätä sivua."
+
 msgid "Unlocked"
 msgstr "Ei lukittu"
+
+msgid "Anyone can edit this page. Lock it to prevent others from editing."
+msgstr ""
+"Kuka tahansa voi muokata tätä sivua. Lukitse sivu estääksesi muita "
+"muokkaamasta sivua."
+
+msgid "Anyone can edit this page."
+msgstr "Kuka tahansa voi muokata tätä sivua."
 
 msgid "Lock"
 msgstr "Lukitse"
@@ -1322,6 +1406,9 @@ msgstr ""
 msgid "Page status: "
 msgstr "Sivun tila:"
 
+msgid "Status: "
+msgstr "Tila:"
+
 msgid "In Moderation"
 msgstr "Tarkastatettavana"
 
@@ -1330,6 +1417,24 @@ msgstr "Näytä tiedot"
 
 msgid "View history"
 msgstr "Näytä historia"
+
+msgid "Preview in mobile size"
+msgstr "Esikatsele mobiiliversiona"
+
+msgid "Preview in tablet size"
+msgstr "Esikatsele tablettiversiona"
+
+msgid "Preview in desktop size"
+msgstr "Esikatsele työpöytäversiona"
+
+msgid "Preview in new tab"
+msgstr "Esikatsele uudessa välilehdessä"
+
+msgid "Loading"
+msgstr "Ladataan"
+
+msgid "Preview is out of date"
+msgstr "Esikatselu ei ole ajan tasalla"
 
 msgid "Errors Count: "
 msgstr "Virheiden määrä:"
@@ -1588,8 +1693,16 @@ msgstr "Kokoelma '{0}' poistettu."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
+#, python-brace-format
+msgid "'{0}' has been created and published."
+msgstr "'{0}' on luotu ja julkaistu."
+
 msgid "Editing"
 msgstr "Muokataan"
+
+#, python-brace-format
+msgid "'{0}' has been published."
+msgstr "'{0}' on julkaistu."
 
 msgid "Earliest"
 msgstr "Aikaisin"
@@ -1953,6 +2066,9 @@ msgstr "Kyllä"
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"
+
+msgid "Clear"
+msgstr "Tyhjennä"
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr ""

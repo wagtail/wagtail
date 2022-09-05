@@ -247,6 +247,9 @@ msgstr "La date de publication doit être antérieure à la date d'expiration"
 msgid "Expiry date/time must be in the future"
 msgstr "La date d'expiration doit être dans le futur"
 
+msgid "Select a new parent for this page."
+msgstr "Sélectionner une nouvelle page parente pour cette page"
+
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr ""
@@ -541,6 +544,16 @@ msgstr ""
 "interne « %(page)s » dont l'URL est <a target=\"_blank\" rel=\"noreferrer\" "
 "href=\"%(internal_url)s\">%(internal_url)s</a>."
 
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Le convertir en un lien interne vers la page « %(page)s » le mettra "
+"automatiquement à jour si la page de destination change d'URL. Voulez-vous "
+"effectuer cette conversion ?"
+
 msgid "Use external link"
 msgstr "Utiliser un lien externe"
 
@@ -755,6 +768,15 @@ msgstr[1] ""
 msgstr[2] ""
 "<span>%(total)s</span> Pages <span class=\"visuallyhidden\">créées dans "
 "%(site_name)s</span>"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-upgrade-version></strong>."
+msgstr ""
+"Une mise à jour de Wagtail est disponible. Votre version : <strong>"
+"%(current_version)s</strong>. Nouvelle version :<strong data-upgrade-"
+"version></strong>."
 
 msgid "Read the release notes."
 msgstr "Lire les notes de mise à jour."
@@ -1189,6 +1211,117 @@ msgstr "Supprimer %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette page ?"
 
+#, python-format
+msgid "Deleting this page will also delete %(descendant_count)s child page."
+msgid_plural ""
+"Deleting this page will also delete %(descendant_count)s more child pages."
+msgstr[0] ""
+"Supprimer cette page supprimera aussi %(descendant_count)s sous-page."
+msgstr[1] ""
+"Supprimer cette page supprimera aussi %(descendant_count)s sous-pages."
+msgstr[2] ""
+"Supprimer cette page supprimera aussi %(descendant_count)s sous-pages."
+
+#, python-format
+msgid ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Cela supprimera également 1 traduction et ses "
+"%(translation_descendant_count)s sous-page(s) traduite(s)."
+msgstr[1] ""
+"Cela supprimera également 1 traduction et ses "
+"%(translation_descendant_count)s sous-pages traduites."
+msgstr[2] ""
+"Cela supprimera également 1 traduction et ses "
+"%(translation_descendant_count)s sous-pages traduites."
+
+#, python-format
+msgid ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Cela supprimera également %(translation_count)s traduction et ses "
+"%(translation_descendant_count)s sous-page(s) traduite(s)."
+msgstr[1] ""
+"Cela supprimera également %(translation_count)s traductions et ses "
+"%(translation_descendant_count)s sous-pages traduites."
+msgstr[2] ""
+"Cela supprimera également %(translation_count)s traductions et ses "
+"%(translation_descendant_count)s sous-pages traduites."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Cela supprimera également %(translation_count)s traduction."
+msgstr[1] "Cela supprimera également %(translation_count)s traductions."
+msgstr[2] "Cela supprimera également %(translation_count)s traductions."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Supprimer cette page supprimera également 1 traduction et ses "
+"%(translation_descendant_count)s sous-page(s) traduite(s)."
+msgstr[1] ""
+"Supprimer cette page supprimera également 1 traduction et ses "
+"%(translation_descendant_count)s sous-pages traduites."
+msgstr[2] ""
+"Supprimer cette page supprimera également 1 traduction et ses "
+"%(translation_descendant_count)s sous-pages traduites."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Supprimer cette page supprimera également %(translation_count)s traductions "
+"et ses %(translation_descendant_count)s sous-page(s) traduite(s)."
+msgstr[1] ""
+"Supprimer cette page supprimera également %(translation_count)s traductions "
+"et ses %(translation_descendant_count)s sous-pages traduites."
+msgstr[2] ""
+"Supprimer cette page supprimera également %(translation_count)s traductions "
+"et ses %(translation_descendant_count)s sous-pages traduites."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] ""
+"Supprimer cette page supprimera également %(translation_count)s traduction "
+"associée."
+msgstr[1] ""
+"Cela supprimera également %(descendant_count)s sous-page(s) et les "
+"%(translation_count)s traductions associées."
+msgstr[2] ""
+"Cela supprimera également %(descendant_count)s sous-page(s) et les "
+"%(translation_count)s traductions associées."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Cette action supprimera <b>%(total_pages)s</b> pages."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Veuillez taper <b>%(wagtail_site_name)s</b> pour confirmer."
+
 msgid "Yes, delete it"
 msgstr "Oui, le supprimer"
 
@@ -1221,11 +1354,75 @@ msgstr ""
 "Êtes-vous sûr(e) de vouloir déplacer cette page et l'ensemble de ses sous-"
 "pages dans '%(title)s' ?"
 
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] ""
+"Cela déplacera également une traduction de cette page et ses sous-pages."
+msgstr[1] ""
+"Cela déplacera également %(translations_to_move_count)s traductions de cette "
+"page et ses sous-pages."
+msgstr[2] ""
+"Cela déplacera également %(translations_to_move_count)s traductions de cette "
+"page et ses sous-pages."
+
 msgid "Yes, move this page"
 msgstr "Oui, déplacer cette page"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Êtes-vous sûr(e) de vouloir dépublier cette page ?"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] "Cela dépubliera également une traduction de cette page"
+msgstr[1] ""
+"Cela dépubliera également toutes les %(translation_count)s traductions de "
+"cette page"
+msgstr[2] ""
+"Cela dépubliera également toutes les %(translation_count)s traductions de "
+"cette page"
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"Cette page a une sous-page et ses traductions ont un total d'une sous-page "
+"traduite. La dépublier également"
+msgstr[1] ""
+"Cette page a %(live_descendant_count)s sous-pages et ses traductions ont un "
+"total d'une sous-page traduite. La dépublier également"
+msgstr[2] ""
+"Cette page a %(live_descendant_count)s sous-pages et ses traductions ont un "
+"total d'une sous-page traduite. La dépublier également"
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"Cette page a une sous-page et ses traductions ont un total de "
+"%(translation_descendant_count)s sous-pages traduites. Les dépublier "
+"également"
+msgstr[1] ""
+"Cette page a %(live_descendant_count)s sous-pages et ses traductions ont un "
+"total de %(translation_descendant_count)s sous-pages traduites. Les "
+"dépublier également"
+msgstr[2] ""
+"Cette page a %(live_descendant_count)s sous-pages et ses traductions ont un "
+"total de %(translation_descendant_count)s sous-pages traduites. Les "
+"dépublier également"
 
 #, python-format
 msgid "This page has one subpage. Unpublish this too"
@@ -1662,8 +1859,15 @@ msgstr "Racine"
 msgid "Unpublish %(title)s"
 msgstr "Dépublier %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir dépublier ce(tte) %(model_name)s ?"
+
 msgid "Yes, unpublish it"
 msgstr "Oui, la dépublier"
+
+msgid "Close dialog"
+msgstr "Fermer"
 
 msgid "Add comment"
 msgstr "Ajouter un commentaire"
@@ -1696,6 +1900,9 @@ msgstr "Privée. Voir la page publiée"
 msgid "Visible to all"
 msgstr "Visible pour tous"
 
+msgid "Toggle section"
+msgstr "Afficher/masquer la section"
+
 msgid "Other searches"
 msgstr "Autres recherches"
 
@@ -1704,6 +1911,13 @@ msgstr "Afficher/masquer le panneau latéral"
 
 msgid "Page Locale: "
 msgstr "Région de la page :"
+
+msgid "Locale: "
+msgstr "Région :"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "Disponible dans %(translations_total)s rrégions"
 
 msgid "No other translations"
 msgstr "Aucune autre traduction"
@@ -1714,8 +1928,37 @@ msgstr "Changer les régions"
 msgid "Page locking: "
 msgstr "Verrou de page :"
 
+msgid ""
+"You can edit this page, but others may not. Unlock it to allow others to "
+"edit."
+msgstr ""
+"Vous pouvez modifier cette page, mais d'autres utilisateurs ne le peuvent "
+"peut-être pas. Déverrouillez là afin de permettre à tous les autres "
+"utilisateurs de la modifier."
+
+msgid "You can edit this page, but others may not."
+msgstr ""
+"Vous pouvez modifier cette page, mais d'autres utilisateurs ne le peuvent "
+"peut-être pas."
+
+msgid "You cannot edit this page. Unlock it to edit."
+msgstr ""
+"Vous ne pouvez pas modifier cette page. Déverrouillez-la afin de pouvoir la "
+"modifier."
+
+msgid "You cannot edit this page."
+msgstr "Vous ne pouvez pas modifier cette page."
+
 msgid "Unlocked"
 msgstr "Déverrouillé(e)"
+
+msgid "Anyone can edit this page. Lock it to prevent others from editing."
+msgstr ""
+"Page modifiable par tous. Verrouillez cette page afin d'empêcher d'autres "
+"utilisateurs de la modifier."
+
+msgid "Anyone can edit this page."
+msgstr "Page modifiable par tous."
 
 msgid "Lock"
 msgstr "Verrouiller"
@@ -1729,6 +1972,9 @@ msgstr "Visible pour tous une fois publiée"
 msgid "Not visible to the public"
 msgstr "Non visible publiquement"
 
+msgid "Choose who can view the live version of this page"
+msgstr "Choisissez qui peut voir la version publiée de cette page"
+
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Les changements de confidentialité s'appliquent également à toutes les sous-"
@@ -1737,17 +1983,58 @@ msgstr ""
 msgid "Page status: "
 msgstr "Statut de la page :"
 
+msgid "Status: "
+msgstr "Status :"
+
 msgid "In Moderation"
 msgstr "En cours de modération"
 
 msgid "View details"
 msgstr "Voir les détails"
 
+msgid "Moderators approval"
+msgstr "Approbation des modérateurs"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "par %(user)s"
+
 msgid "View history"
 msgstr "Voir l'historique"
 
 msgid "This will publish at "
 msgstr "La publication aura lieu à"
+
+msgid "Preview in mobile size"
+msgstr "Prévisualiser au format mobile"
+
+msgid "Preview in tablet size"
+msgstr "Prévisualiser au format tablette"
+
+msgid "Preview in desktop size"
+msgstr "Prévisualiser au format ordinateur de bureau"
+
+msgid "Preview in new tab"
+msgstr "Prévisualiser dans un nouvel onglet"
+
+msgid "Loading"
+msgstr "Chargement…"
+
+msgid "Preview is out of date"
+msgstr "La prévisualisation n'est pas à jour"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Corrigez les erreurs de validation afin de reprendre la prévisualisation "
+"(sauvegardez la page pour mettre en avant les erreurs)"
+
+msgid "Preview mode"
+msgstr "Mode prévisualisation"
+
+msgid "First published "
+msgstr "Première publication"
 
 msgid "Errors Count: "
 msgstr "Nombre d'erreurs :"
@@ -1994,6 +2281,18 @@ msgstr "il y a %(time_period)s"
 msgid "Log out"
 msgstr "Se déconnecter"
 
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "Modifications demandées %(finished_at)s"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "Envoyé vers %(task_name)s %(started_at)s"
+
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
 msgid "Toggle status"
 msgstr "Afficher/masquer le statut"
 
@@ -2060,14 +2359,50 @@ msgstr "Collection '{0}' supprimée."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from <b>"
+"%(created_at)s</b> by %(user)s"
+msgstr ""
+"Vous passez en revue une version passée de ce(tte) %(model_name)s du <b>"
+"%(created_at)s</b> par %(user)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{instance}' has been replaced with version from {timestamp}."
+msgstr ""
+"{model_name} « {instance} » a été remplacé(e) par la version du {timestamp}."
+
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been published."
+msgstr ""
+"La version du « {timestamp} » de {model_name} « {instance} » a été publiée."
+
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Rechercher %(model_name)s"
+
+#, python-brace-format
+msgid "'{0}' has been created and published."
+msgstr "« {0} » a été créé(e) et publié(e)."
+
 msgid "Editing"
 msgstr "Modification"
+
+#, python-brace-format
+msgid "'{0}' has been published."
+msgstr "« {0} » a été publié(e)."
 
 msgid "Earliest"
 msgstr "Première"
 
 msgid "Latest"
 msgstr "Dernière"
+
+#, python-brace-format
+msgid "'{object_name}' unpublished."
+msgstr "« ​{object_name} » a été dépublié(e)."
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -2610,6 +2945,9 @@ msgstr "Oui"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"
+
+msgid "Clear"
+msgstr "Effacer"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "

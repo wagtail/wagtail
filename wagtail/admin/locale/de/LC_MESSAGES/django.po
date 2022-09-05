@@ -714,13 +714,13 @@ msgstr ""
 "Sie erstellen, zusammengestellt werden."
 
 msgid "Your locked pages"
-msgstr "Ihre gesperrte Seiten"
+msgstr "Ihre gesperrten Seiten"
 
 msgid "Title"
 msgstr "Titel"
 
 msgid "Locked at"
-msgstr "Gesperrt um"
+msgstr "Gesperrt"
 
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"

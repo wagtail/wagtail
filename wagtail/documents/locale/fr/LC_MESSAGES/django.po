@@ -183,6 +183,10 @@ msgstr "Non, ne pas supprimer"
 msgid "Latest documents"
 msgstr "Derniers documents"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Désolé, aucun document ne correspond à « <em>%(search_query)s</em> »"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Vous n’avez pas encore transféré de document dans cette collection."
 

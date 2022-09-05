@@ -74,6 +74,9 @@ msgstr "Siirrä ylös"
 msgid "Move down"
 msgstr "Siirrä alas"
 
+msgid "Recommended page"
+msgstr "Suositeltu sivu"
+
 msgid "Promoted search results"
 msgstr "Nostetut hakutulokset"
 

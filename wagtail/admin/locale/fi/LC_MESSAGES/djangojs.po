@@ -2,12 +2,12 @@
 # Translators:
 # Eetu Häivälä, 2022
 # Aarni Koskela, 2022
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2022
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2022\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2022\n"
 "Language-Team: Finnish (https://www.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -22,11 +22,17 @@ msgstr "Vaihtoehtoinen teksti"
 msgid "Are you sure?"
 msgstr "Oletko varma?"
 
+msgid "Blocks"
+msgstr "Lohkot"
+
 msgid "Broken link"
 msgstr "Särkynyt linkki"
 
 msgid "Cancel"
 msgstr "Peruuta"
+
+msgid "Character count:"
+msgstr "Merkkimäärä:"
 
 msgid "Close"
 msgstr "Sulje"
@@ -58,11 +64,23 @@ msgstr "Muokkaa '{title}'"
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
 
+msgid "Enter your comments..."
+msgstr "Kirjoita kommentit..."
+
+msgid "Enter your reply..."
+msgstr "Kirjoita vastaus..."
+
+msgid "Error while sending preview data."
+msgstr "Virhe lähettäessä esikatseludataa."
+
 msgid "Focus comment"
 msgstr "Kohdista kommentti"
 
 msgid "Horizontal line"
 msgstr "Vaakaviiva"
+
+msgid "Insert a block"
+msgstr "Lisää lohko"
 
 msgid "Line break"
 msgstr "Rivinvaihto"
@@ -132,6 +150,9 @@ msgstr "Tallennetaan..."
 msgid "Search"
 msgstr "Haku"
 
+msgid "Search blocks"
+msgstr "Hae lohkoja"
+
 msgid "See all"
 msgstr "Katso kaikki"
 
@@ -164,3 +185,6 @@ msgstr "Poista kommentin kohdistus"
 
 msgid "View child pages of '{title}'"
 msgstr "Näytä sivun '{title}' alasivut"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Kirjoita jotain tai kirjoita ‘/’ lisätäksesi lohkon"

@@ -296,6 +296,12 @@ msgstr "Utiliser l'image existante et supprimer la nouvelle"
 msgid "Latest images"
 msgstr "Dernières images"
 
+msgid "You haven't uploaded any images in this collection."
+msgstr "Vous n’avez pas encore transféré d'images dans cette collection."
+
+msgid "You haven't uploaded any images."
+msgstr "Vous n’avez pas encore transféré d'images."
+
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
 "trigger>upload one now</a>?"
@@ -397,8 +403,14 @@ msgstr "Images"
 msgid "Sort by"
 msgstr "Ordonner par"
 
+msgid "Entries per page"
+msgstr "Entrées par page"
+
 msgid "Popular Tags:"
 msgstr "Mots-clés populaires :"
+
+msgid "Clear"
+msgstr "Effacer"
 
 msgid "Select all images in listing"
 msgstr "Sélectionner toutes les images dans la liste"
