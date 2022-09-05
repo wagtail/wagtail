@@ -15,8 +15,10 @@ Changelog
  * Pull out behaviour from `AbstractFormField` to `FormMixin` and `AbstractEmailForm` to `EmailFormMixin` to allow use with subclasses of `Page` (Mehrdad Moradizadeh, Kurt Wall)
  * Add a `docs.wagtail.org/.well-known/security.txt` so that the security policy is available as per the specification on https://securitytxt.org/ (Jake Howard)
  * Add unit tests for the `classnames` Wagtail admin template tag (Mehrdad Moradizadeh)
+ * Show an inverse locked indicator when the page has been locked by the current user in reports and dashboard listings (Vaibhav Shukla, LB (Ben Johnston))
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
+ * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
 
 
 4.0.1 (05.09.2022)
