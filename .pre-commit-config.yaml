@@ -50,3 +50,8 @@ repos:
     rev: v1.4.13
     hooks:
       - id: djhtml
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v0.117.0
+    hooks:
+      - id: semgrep
+        args: ['--config', '.semgrep.yml', '--error']
