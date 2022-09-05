@@ -195,7 +195,7 @@ Changelog
  * Fix: Remove outdated reference to Image.LoaderError (Matt Westcott)
 
 
-3.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+3.0.3 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
