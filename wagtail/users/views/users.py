@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.auth import permission_required
-from wagtail.admin.views.generic import IndexView
+from wagtail.admin.views.generic import CreateView, IndexView
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.log_actions import log
 from wagtail.permission_policies import ModelPermissionPolicy
@@ -140,44 +140,43 @@ class Index(IndexView):
         return context_data
 
 
-@permission_required(add_user_perm)
-def create(request):
-    for fn in hooks.get_hooks("before_create_user"):
-        result = fn(request)
-        if hasattr(result, "status_code"):
-            return result
-    if request.method == "POST":
-        form = get_user_creation_form()(request.POST, request.FILES)
-        if form.is_valid():
-            with transaction.atomic():
-                user = form.save()
-                log(user, "wagtail.create")
-            messages.success(
-                request,
-                _("User '{0}' created.").format(user),
-                buttons=[
-                    messages.button(
-                        reverse("wagtailusers_users:edit", args=(user.pk,)), _("Edit")
-                    )
-                ],
-            )
-            for fn in hooks.get_hooks("after_create_user"):
-                result = fn(request, user)
-                if hasattr(result, "status_code"):
-                    return result
-            return redirect("wagtailusers_users:index")
-        else:
-            messages.error(request, _("The user could not be created due to errors."))
-    else:
-        form = get_user_creation_form()()
+class Create(CreateView):
+    """
+    Provide the ability to create a user within the admin.
+    """
 
-    return TemplateResponse(
-        request,
-        "wagtailusers/users/create.html",
-        {
-            "form": form,
-        },
-    )
+    permission_policy = ModelPermissionPolicy(User)
+    permission_required = "add"
+    form_class = get_user_creation_form()
+    template_name = "wagtailusers/users/create.html"
+    add_url_name = "wagtailusers_users:add"
+    index_url_name = "wagtailusers_users:index"
+    edit_url_name = "wagtailusers_users:edit"
+    success_message = "User '{0}' created."
+    page_title = gettext_lazy("Add user")
+
+    def run_before_hook(self):
+        return self.run_hook(
+            "before_create_user",
+            self.request,
+        )
+
+    def run_after_hook(self):
+        return self.run_hook(
+            "after_create_user",
+            self.request,
+            self.object,
+        )
+
+    def get_add_url(self):
+        return None
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.pk,)), _("Edit")
+            )
+        ]
 
 
 @permission_required(change_user_perm)
