@@ -3,8 +3,8 @@
     "url":     "https://docs.wagtail.org/en/stable/releases/4.0.1.html",
     "minorUrl": "https://docs.wagtail.org/en/stable/releases/4.0.html",
     "lts": {
-        "version": "2.15.5",
-        "url": "https://docs.wagtail.org/en/stable/releases/2.15.5.html",
+        "version": "2.15.6",
+        "url": "https://docs.wagtail.org/en/v2.15.6/releases/2.15.6.html",
         "minorUrl": "https://docs.wagtail.org/en/stable/releases/2.15.html"
     }
 }
