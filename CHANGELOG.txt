@@ -199,6 +199,14 @@ Changelog
  * Fix: Add missing translation usage in Workflow templates (Anuja Verma, Saurabh Kumar)
 
 
+2.15.6 (05.09.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
+ * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: Ensure Python 3.10 compatibility when using Elasticsearch backend (Przemysław Buczkowski, Matt Westcott)
+
+
 2.15.5 (11.04.2022)
 ~~~~~~~~~~~~~~~~~~~
 
