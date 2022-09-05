@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.16.3 (05.09.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
+ * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: Ensure Python 3.10 compatibility when using Elasticsearch backend (Przemysław Buczkowski, Matt Westcott)
+
+
 2.16.2 (11.04.2022)
 ~~~~~~~~~~~~~~~~~~~
 
