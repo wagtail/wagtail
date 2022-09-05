@@ -5,15 +5,15 @@ $button-space: theme('spacing.3');
   $root: &;
 
   @include transition(opacity 0.2s ease);
-  // Text input’s default top margin.
   color: $color-teal;
   background: none;
   border: 0;
   padding: 0;
-  margin-inline-start: $button-space;
-  display: flex;
-  align-items: center;
-
+  top: 50%;
+  inset-inline-end: 0;
+  transform: translateY(-50%);
+  margin-inline-start: 10px;
+  position: absolute;
   visibility: hidden;
   opacity: 0;
 
@@ -42,19 +42,49 @@ $button-space: theme('spacing.3');
       opacity: 1;
     }
   }
+
+  // TODO: Chat with thibaud about this
+  .tab-content--comments-enabled .chooser & {
+    position: unset;
+    opacity: 1;
+    visibility: visible;
+    inset-inline-end: 0;
+    margin-inline-start: 0;
+    transform: translateY(3px);
+  }
 }
 
+// Hide chooser comments if they aren't commentable
+//.w-field:not(&.w-field--commentable) .chooser .w-field__comment-button  {
+//  display: none;
+//}
+
 .w-field--commentable {
-  // Allow comment buttons to be placed along side the field by display flex
-  .tab-content--comments-enabled & .w-field__input {
-    display: flex;
-    align-items: center;
+  margin-inline-end: calc($button-size + $button-space);
+
+  .w-field__input {
+    padding-right: calc($button-size + $button-space);
   }
+
+  // Allow comment buttons to be placed along side the field by display flex
+  //.tab-content--comments-enabled & .w-field__input {
+  //  display: flex;
+  //  align-items: center;
+  //}
+  .w-field-row & {
+    margin-inline-end: 0;
+  }
+
+  //@include media-breakpoint-up(sm) {
+  //  // Partial offset to reduce the change in layout with/without comments.
+  //  padding-inline-end: calc($button-size / 1.5);
+  //}
 
   textarea ~ .w-field__comment-button,
   &.w-field--checkbox_select_multiple .w-field__comment-button,
   &.w-field--admin_tag_widget .w-field__comment-button {
-    align-self: flex-start;
+    transform: translateY(0);
+    top: 5px;
   }
 }
 

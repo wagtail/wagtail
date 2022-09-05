@@ -1,7 +1,7 @@
 /* global $ */
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { escapeHtml as h } from '../../../utils/text';
+import {escapeHtml as h} from '../../../utils/text';
 import Icon from '../../Icon/Icon';
 
 export class FieldBlock {
@@ -80,20 +80,50 @@ export class FieldBlock {
       addCommentButtonElement.classList.add(
         'w-field__comment-button',
         'w-field__comment-button--add',
-        'u-hidden',
       );
 
       ReactDOM.render(
         <>
-          <Icon name="comment-add" />
-          <Icon name="comment-add-reversed" />
+          <Icon name="warning"/>
+          <Icon name="comment-add-reversed"/>
         </>,
         addCommentButtonElement,
       );
       this.field.classList.add('w-field--commentable');
-      this.field
-        .querySelector('[data-field-input]')
-        .appendChild(addCommentButtonElement);
+
+      // Insert comment button inside of chooser fields action sections or the default field location
+      const chooserField = this.field.querySelector('[data-field-input] .chooser');
+      if (chooserField) {
+        const li = document.createElement('li');
+        const chooserActions = chooserField.querySelector('.chooser__actions');
+        const unchosenChooserActions = chooserField.querySelector('.unchosen');
+        if (chooserActions) {
+          const chooserCommentButton = chooserActions.querySelector('[data-comment-add]')
+          console.log(chooserCommentButton)
+          // if (chooserCommentButton) {
+          //   chooserCommentButton.replaceWith(addCommentButtonElement)
+          // } else {
+          //   chooserActions.appendChild(li.appendChild(addCommentButtonElement));
+          // }
+        }
+
+        if (unchosenChooserActions) {
+          // const unchosenCommentButton = unchosenChooserActions.querySelector('[data-comment-add]')
+          // if (unchosenCommentButton) {
+          //   unchosenCommentButton.replaceWith(addCommentButtonElement)
+          // } else {
+          //   unchosenChooserActions.appendChild(addCommentButtonElement);
+          // }
+        }
+
+      } else {
+        this.field
+          .querySelector('[data-field-input]')
+          .appendChild(addCommentButtonElement);
+      }
+
+      // this.field.querySelector('[data-field-input]').appendChild(addCommentButtonElement);
+
       window.comments.initAddCommentButton(addCommentButtonElement);
     }
 

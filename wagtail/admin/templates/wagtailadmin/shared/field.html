@@ -65,11 +65,8 @@
                 {% endif %}
             {% endblock %}
 
-            {% if show_add_comment_button %}
-                <button class="w-field__comment-button w-field__comment-button--add" type="button" data-component="add-comment-button" data-comment-add aria-label="{% trans 'Add comment' %}" {% if label_for %}aria-describedby="{{ label_id }}"{% endif %}>
-                    {% icon name="comment-add" %}
-                    {% icon name="comment-add-reversed" %}
-                </button>
+            {% if show_add_comment_button and 'model_choice_field' not in field|fieldtype and 'block_field' not in field|fieldtype  %}
+                {% include 'wagtailadmin/shared/add-comment-button.html' %}
             {% endif %}
         </div>
 
