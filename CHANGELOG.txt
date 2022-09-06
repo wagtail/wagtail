@@ -26,6 +26,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure tag autocompletion dropdown has a solid background (LB (Ben) Johnston)
+ * Fix: Allow inline panels to be ordered (LB (Ben) Johnston)
 
 
 4.0.1 (05.09.2022)
