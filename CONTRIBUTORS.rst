@@ -622,6 +622,7 @@ Contributors
 * Thomas van der Hoeven
 * Kurt Wall
 * Adam Johnson
+* Josh Thomas
 
 
 Translators
