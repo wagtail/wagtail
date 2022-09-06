@@ -30,7 +30,7 @@ If you do find yourself needing to customise the add, edit or other behaviour fo
 
 ### Wagtail's `ModelAdmin` class is 'modular'
 
-Unlike Django's class of the same name, wagtailadmin's `ModelAmin` acts primarily as a 'controller' class. While it does have a set of attributes and methods to enable you to configure how various components should treat your model, it has been deliberately designed to do as little work as possible by itself; it designates all of the real work to a set of
+Unlike Django's class of the same name, wagtailadmin's `ModelAdmin` acts primarily as a 'controller' class. While it does have a set of attributes and methods to enable you to configure how various components should treat your model, it has been deliberately designed to do as little work as possible by itself; it designates all of the real work to a set of
 separate, swappable components.
 
 The theory is: If you want to do something differently, or add some functionality that `modeladmin` doesn't already have, you can create new classes (or extend the ones provided by `modeladmin`) and easily configure your `ModelAdmin` class to use them instead of the defaults.
