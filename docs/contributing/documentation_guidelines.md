@@ -168,6 +168,12 @@ Warnings can be scary.
 
 </details>
 
+These call-outs do not support titles, so be careful not to include them, titles will just be moved to the body of the call-out.
+
+    ```{note} Title's here will not work correctly
+    Notes can provide complementary information.
+    ```
+
 ### Images
 
 Images are hard to keep up-to-date as documentation evolves, but can be worthwhile nonetheless. Here are guidelines when adding images:
@@ -305,7 +311,7 @@ There is some formatting in the documentation which is technically supported, bu
 
 ### Call-outs
 
-We only use `{note}` and `{warning}` call-outs. Avoid `{important}`, `{topic}`, and `{tip}`. If you find one of these, please replace it with `{note}`.
+We only use `{note}` and `{warning}` call-outs. Avoid `{admonition}`, `{important}`, `{topic}`, and `{tip}`. If you find one of these, please replace it with `{note}`.
 
 ### Glossary
 
