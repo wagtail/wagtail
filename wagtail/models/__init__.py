@@ -19,7 +19,11 @@ from urllib.parse import urlparse
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.fields import (
+    GenericForeignKey,
+    GenericRel,
+    GenericRelation,
+)
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
@@ -50,6 +54,7 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
+    get_all_child_relations,
     get_serializable_data_for_fields,
     model_from_serializable_data,
 )
@@ -789,6 +794,7 @@ class LockableMixin(models.Model):
         on_delete=models.SET_NULL,
         related_name="locked_pages",
     )
+    locked_by.wagtail_reference_index_ignore = True
 
     class Meta:
         abstract = True
@@ -871,6 +877,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         related_name="pages",
         on_delete=models.SET(get_default_page_content_type),
     )
+    content_type.wagtail_reference_index_ignore = True
     url_path = models.TextField(verbose_name=_("URL path"), blank=True, editable=False)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -881,6 +888,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         on_delete=models.SET_NULL,
         related_name="owned_pages",
     )
+    owner.wagtail_reference_index_ignore = True
 
     seo_title = models.CharField(
         verbose_name=_("title tag"),
@@ -924,6 +932,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         editable=False,
         related_name="aliases",
     )
+    alias_of.wagtail_reference_index_ignore = True
 
     search_fields = [
         index.SearchField("title", partial_match=True, boost=2),
@@ -2666,6 +2675,8 @@ class Revision(models.Model):
     content_object = GenericForeignKey(
         "content_type", "object_id", for_concrete_model=False
     )
+
+    wagtail_reference_index_ignore = True
 
     @cached_property
     def base_content_object(self):
@@ -4620,3 +4631,187 @@ class PageSubscription(models.Model):
         unique_together = [
             ("page", "user"),
         ]
+
+
+class ReferenceIndex(models.Model):
+    """
+    Records references between objects for quick retrieval of object usage.
+
+    References are extracted from Foreign Keys, Chooser Blocks in StreamFields, and links in Rich Text Fields.
+    This index allows us to efficiently find all of the references to a particular object from all of these sources.
+    """
+
+    # The object where the reference was extracted from
+
+    # content_type represents the content type of the model that contains
+    # the field where the reference came from. If the model sub-classes another
+    # concrete model (such as Page), that concrete model will be set in
+    # base_content_type, otherwise it would be the same as content_type
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    base_content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    object_id = models.CharField(
+        max_length=255,
+        verbose_name=_("object id"),
+    )
+
+    # The object that has been referenced
+    # to_content_type is always the base content type of the referenced object
+    to_content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    to_object_id = models.CharField(
+        max_length=255,
+        verbose_name=_("object id"),
+    )
+
+    # The model_path is the path to the field on content_type where the reference was extracted from.
+    # the content_path is the path to a specific block on the instance where the reference is extracted from.
+
+    # These are dotted path, always starting with a field orchild relation name. If
+    # the reference was extracted from an inline panel or streamfield, other components
+    # of the path can be used to locate where the reference was extracted.
+    #
+    # For example, say we have a StreamField called 'body' which has a struct block type
+    # called 'my_struct_block' that has a field called 'my_field'. If we extracted a
+    # reference from that field, the model_path would be set to the following:
+    #
+    # 'body.my_struct_block.my_field'
+    #
+    # The content path would follow the same format, but anything repeatable would be replaced by an ID.
+    # For example:
+    #
+    # 'body.bdc70d8b-e7a2-4c2a-bf43-2a3e3fcbbe86.my_field'
+    #
+    # We can use the model_path with the 'content_type' to find the original definition of
+    # the field block and display information to the user about where the reference was
+    # extracted from.
+    #
+    # We can use the content_path to link the user directly to the block/field that contains
+    # the reference.
+    model_path = models.TextField()
+    content_path = models.TextField()
+
+    wagtail_reference_index_ignore = True
+
+    class Meta:
+        unique_together = [
+            (
+                "base_content_type",
+                "object_id",
+                "to_content_type",
+                "to_object_id",
+                "content_path",
+            )
+        ]
+
+    @classmethod
+    def _get_base_content_type(cls, model_or_object):
+        parents = model_or_object._meta.get_parent_list()
+        if parents:
+            return ContentType.objects.get_for_model(
+                parents[-1], for_concrete_model=False
+            )
+        else:
+            return ContentType.objects.get_for_model(
+                model_or_object, for_concrete_model=False
+            )
+
+    @classmethod
+    def _extract_references_from_object(cls, object):
+        if getattr(object, "wagtail_reference_index_ignore", False):
+            return
+
+        # Extract references from fields
+        for field in object._meta.get_fields():
+            if field.is_relation and field.many_to_one:
+                if getattr(field, "wagtail_reference_index_ignore", False):
+                    continue
+
+                if getattr(
+                    field.related_model, "wagtail_reference_index_ignore", False
+                ):
+                    continue
+
+                if isinstance(field, (ParentalKey, GenericRel)):
+                    continue
+
+                if isinstance(field, GenericForeignKey):
+                    ct_field = object._meta.get_field(field.ct_field)
+                    fk_field = object._meta.get_field(field.fk_field)
+
+                    yield ct_field.value_from_object(object), str(
+                        fk_field.value_from_object(object)
+                    ), field.name, field.name
+                    continue
+
+                if isinstance(field, GenericRel):
+                    continue
+
+                value = field.value_from_object(object)
+                if value is not None:
+                    yield cls._get_base_content_type(field.related_model).id, str(
+                        value
+                    ), field.name, field.name
+
+        # Extract references from child relations
+        if isinstance(object, ClusterableModel):
+            for child_relation in get_all_child_relations(object):
+                relation_name = child_relation.get_accessor_name()
+                child_objects = getattr(object, relation_name).all()
+
+                for child_object in child_objects:
+                    yield from (
+                        (
+                            to_content_type_id,
+                            to_object_id,
+                            f"{relation_name}.item.{model_path}",
+                            f"{relation_name}.{str(child_object.id)}.{content_path}",
+                        )
+                        for to_content_type_id, to_object_id, model_path, content_path in cls._extract_references_from_object(
+                            child_object
+                        )
+                    )
+
+    @classmethod
+    def create_or_update_for_object(cls, object):
+        # Extract new references
+        references = set(cls._extract_references_from_object(object))
+
+        # Find existing references in the database so we know what to add/delete
+        content_type = ContentType.objects.get_for_model(object)
+        base_content_type = cls._get_base_content_type(object)
+        existing_references = {
+            (to_content_type_id, to_object_id, model_path, content_path): id
+            for id, to_content_type_id, to_object_id, model_path, content_path in cls.objects.filter(
+                base_content_type=base_content_type, object_id=object.pk
+            ).values_list(
+                "id", "to_content_type", "to_object_id", "model_path", "content_path"
+            )
+        }
+
+        # Add new references
+        new_references = references - set(existing_references.keys())
+        cls.objects.bulk_create(
+            [
+                cls(
+                    content_type=content_type,
+                    base_content_type=base_content_type,
+                    object_id=object.pk,
+                    to_content_type_id=to_content_type_id,
+                    to_object_id=to_object_id,
+                    model_path=model_path,
+                    content_path=content_path,
+                )
+                for to_content_type_id, to_object_id, model_path, content_path in new_references
+            ]
+        )
+
+        # Delete removed references
+        deleted_references = set(existing_references.keys()) - references
+        cls.objects.filter(
+            id__in=[existing_references[reference] for reference in deleted_references]
+        ).delete()

@@ -34,6 +34,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         editable=False,
         on_delete=models.SET_NULL,
     )
+    uploaded_by_user.wagtail_reference_index_ignore = True
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_("tags"))
 
@@ -235,3 +236,4 @@ class UploadedDocument(models.Model):
         editable=False,
         on_delete=models.SET_NULL,
     )
+    uploaded_by_user.wagtail_reference_index_ignore = True
