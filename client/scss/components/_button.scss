@@ -79,14 +79,9 @@
 
   &.no,
   &.serious {
-    background-color: $color-button-no;
-    border-color: $color-button-no;
-
-    &.button-secondary {
-      border-color: $color-button-no;
-      color: $color-button-no;
-      background-color: transparent;
-    }
+    background-color: $color-white;
+    border: 1px solid $color-button-no;
+    color: $color-button-no;
 
     &:hover {
       color: $color-white;
@@ -253,6 +248,13 @@
     border-color: $color-grey-3;
     color: $color-grey-2;
     cursor: default;
+
+    &:hover {
+      background-color: $color-grey-3;
+      border-color: $color-grey-3;
+      color: $color-grey-2;
+      cursor: default;
+    }
 
     @media (forced-colors: active) {
       color: GrayText;
