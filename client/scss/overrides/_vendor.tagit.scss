@@ -1,4 +1,5 @@
 @use 'sass:map';
+
 // taggit tagging
 .tagit {
   padding: 0.6em 1.2em;
@@ -25,6 +26,40 @@
   z-index: 1000;
 }
 
+.ui-widget-content,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  background-color: $color-white;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  background-color: theme('colors.secondary.100');
+}
+
+.ui-widget-header {
+  background-color: theme('colors.secondary.100');
+  border-color: theme('colors.grey.100');
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+  background-color: theme('colors.grey.50');
+}
+
+.ui-menu .ui-menu-item .ui-menu-item-wrapper {
+  border: 1px solid transparent; // ensure border on hover (active) does not move content
+}
+
 .tagit-close {
   .ui-icon-close {
     margin-inline-start: 1rem;
@@ -43,5 +78,19 @@
 
   .ui-icon-close:hover:before {
     color: theme('colors.critical.200');
+  }
+}
+
+@media (forced-colors: $media-forced-colours) {
+  .ui-state-hover,
+  .ui-widget-content .ui-state-hover,
+  .ui-widget-header .ui-state-hover,
+  .ui-state-focus,
+  .ui-widget-content .ui-state-focus,
+  .ui-widget-header .ui-state-focus,
+  .ui-state-active,
+  .ui-widget-content .ui-state-active,
+  .ui-widget-header .ui-state-active {
+    background-color: $system-color-button-text;
   }
 }
