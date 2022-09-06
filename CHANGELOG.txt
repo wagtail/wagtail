@@ -22,6 +22,12 @@ Changelog
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
 
 
+4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure tag autocompletion dropdown has a solid background (LB (Ben) Johnston)
+
+
 4.0.1 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
 
