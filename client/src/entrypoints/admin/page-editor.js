@@ -25,15 +25,18 @@ function InlinePanel(opts) {
 
     if (opts.canOrder) {
       $up.on('click', () => {
-        const currentChildOrderElem = currentChild.children(
-          'input[name$="-ORDER"]',
+        const currentChildOrderElem = currentChild.find(
+          `input[name="${prefix}-ORDER"]`,
         );
         const currentChildOrder = currentChildOrderElem.val();
 
         /* find the previous visible 'inline_child' li before this one */
         const prevChild = currentChild.prevAll(':not(.deleted)').first();
         if (!prevChild.length) return;
-        const prevChildOrderElem = prevChild.children('input[name$="-ORDER"]');
+        const prevChildPrefix = prevChild[0].id.replace('inline_child_', '');
+        const prevChildOrderElem = prevChild.find(
+          `input[name="${prevChildPrefix}-ORDER"]`,
+        );
         const prevChildOrder = prevChildOrderElem.val();
 
         // async swap animation must run before the insertBefore line below, but doesn't need to finish first
@@ -47,15 +50,18 @@ function InlinePanel(opts) {
       });
 
       $down.on('click', () => {
-        const currentChildOrderElem = currentChild.children(
-          'input[name$="-ORDER"]',
+        const currentChildOrderElem = currentChild.find(
+          `input[name="${prefix}-ORDER"]`,
         );
         const currentChildOrder = currentChildOrderElem.val();
 
         /* find the next visible 'inline_child' li after this one */
         const nextChild = currentChild.nextAll(':not(.deleted)').first();
         if (!nextChild.length) return;
-        const nextChildOrderElem = nextChild.children('input[name$="-ORDER"]');
+        const nextChildPrefix = nextChild[0].id.replace('inline_child_', '');
+        const nextChildOrderElem = nextChild.find(
+          `input[name="${nextChildPrefix}-ORDER"]`,
+        );
         const nextChildOrder = nextChildOrderElem.val();
 
         // async swap animation must run before the insertAfter line below, but doesn't need to finish first
