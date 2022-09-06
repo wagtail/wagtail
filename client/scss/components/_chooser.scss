@@ -38,6 +38,12 @@
   align-items: center;
 }
 
+.unchosen {
+  @media (hover: hover) {
+
+  }
+}
+
 .chooser__preview {
   display: grid;
   align-items: center;
@@ -67,19 +73,6 @@
 
 // Hiding for devices capable of hover states only,
 // with opacity only so keyboard focus can move to the first interactive element to reveal it.
-//@media (hover: hover) {
-//  .chooser__actions {
-//    opacity: 0;
-//  }
-//
-//  .w-field__input:hover,
-//  .w-field__input:focus-within {
-//    .chooser__actions {
-//      opacity: 1;
-//    }
-//  }
-//}
-
 .chooser__actions {
   @media (hover: hover) {
     opacity: 0;

@@ -66,7 +66,7 @@
             {% endblock %}
 
             {% if show_add_comment_button and 'model_choice_field' not in field|fieldtype and 'block_field' not in field|fieldtype  %}
-                {% include 'wagtailadmin/shared/add-comment-button.html' %}
+                {% include 'wagtailadmin/shared/add-comment-button.html' with label_for=label_for label_id=label_id %}
             {% endif %}
         </div>
 

@@ -43,15 +43,22 @@ $button-space: theme('spacing.3');
     }
   }
 
-  // TODO: Chat with thibaud about this
+  // TODO: Chat with thibaud about this (positioning beside the field itself)
+  // Position comment icons in choosers beside the other actions
   .tab-content--comments-enabled .chooser & {
     position: unset;
-    opacity: 1;
-    visibility: visible;
     inset-inline-end: 0;
     margin-inline-start: 0;
     transform: translateY(3px);
   }
+
+  .tab-content--comments-enabled .unchosen:hover &,
+  .tab-content--comments-enabled .unchosen:focus-within &,
+  .tab-content--comments-enabled .chooser .chosen & {
+    opacity: 1;
+    visibility: visible;
+  }
+
 }
 
 // Hide chooser comments if they aren't commentable
