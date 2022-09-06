@@ -263,17 +263,6 @@ ul.listing {
     border-color: $color-grey-4;
     background: $color-white;
 
-    &.no {
-      // Override `background-color: transparent;` from _buttons.scss
-      background: $color-white;
-
-      &:hover {
-        border-color: $color-button-no;
-        background-color: $color-button-no;
-        color: $color-white;
-      }
-    }
-
     &:hover {
       border-color: $color-teal;
       background-color: $color-teal;
