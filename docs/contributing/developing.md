@@ -14,7 +14,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 
 ## Setting up the Wagtail codebase
 
-The preferred way to install the correct version of Node is to use [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) or [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `nvm install` or `fnm install` from the project root.
+The preferred way to install the correct version of Node is to use [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
