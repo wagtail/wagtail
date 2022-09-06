@@ -184,6 +184,8 @@ class BaseLogEntry(models.Model):
 
     objects = BaseLogEntryManager()
 
+    wagtail_reference_index_ignore = True
+
     class Meta:
         abstract = True
         verbose_name = _("log entry")
