@@ -94,6 +94,7 @@ class TranslatableMixin(models.Model):
     locale = models.ForeignKey(
         Locale, on_delete=models.PROTECT, related_name="+", editable=False
     )
+    locale.wagtail_reference_index_ignore = True
 
     class Meta:
         abstract = True

@@ -22,6 +22,8 @@ from .utils import get_descendants_content_types_pks
 class Query(models.Model):
     query_string = models.CharField(max_length=MAX_QUERY_STRING_LENGTH, unique=True)
 
+    wagtail_reference_index_ignore = True
+
     def save(self, *args, **kwargs):
         # Normalise query string
         self.query_string = normalise_query_string(self.query_string)
@@ -156,6 +158,8 @@ class BaseIndexEntry(models.Model):
     # This allows us to apply a boost to results with shorter titles
     # elevating more specific matches to the top.
     title_norm = models.FloatField(default=1.0)
+
+    wagtail_reference_index_ignore = True
 
     class Meta:
         unique_together = ("content_type", "object_id")
