@@ -117,18 +117,18 @@ class BlogPageAuthor(Orderable):
     ]
 
 
-class BlogPage(page):
+class BlogPage(Page):
     published_date = models.DateTimeField()
     body = RichTextField()
-    feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=true, ...)
+    feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, ...)
     private_field = models.CharField(max_length=255)
 
-    # export fields over the api
+    # Export fields over the API
     api_fields = [
         APIField('published_date'),
         APIField('body'),
         APIField('feed_image'),
-        APIField('authors'),  # this will nest the relevant BlogPageAuthor objects in the api response
+        APIField('authors'),  # This will nest the relevant BlogPageAuthor objects in the API response
     ]
 ```
 
