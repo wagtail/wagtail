@@ -340,7 +340,7 @@ Each inline model requires the following:
 -   It must inherit from {class}`wagtail.models.Orderable`
 -   It must have a `ParentalKey` to the parent model
 
-````{note} django-modelcluster and ParentalKey
+````{note}
 The model inlining feature is provided by [django-modelcluster](https://github.com/torchbox/django-modelcluster) and the `ParentalKey` field type must be imported from there:
 
 ```python
