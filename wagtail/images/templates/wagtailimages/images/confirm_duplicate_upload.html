@@ -9,7 +9,7 @@
         <button class="button button-longrunning confirm-upload">{% icon name="spinner" %}{% trans 'Keep new image' %}</button>
         <form method="POST">
             {% csrf_token %}
-            <a href="{{ delete_action }}" class="delete button button-secondary no">{% trans "Delete new image" %}</a>
+            <a href="{{ delete_action }}" class="delete button no">{% trans "Delete new image" %}</a>
         </form>
     </div>
 </div>

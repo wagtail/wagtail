@@ -49,7 +49,7 @@
                                 <li class="no-border">
                                     <form action="{% url 'wagtailadmin_pages:reject_moderation' revision.id %}" method="POST">
                                         {% csrf_token %}
-                                        <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
+                                        <input type="submit" class="button button-small no" value="{% trans 'Reject' %}">
                                     </form>
                                 </li>
                                 {% if page_perms.can_edit %}
