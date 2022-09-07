@@ -22,3 +22,7 @@ class PageLinkHandler(LinkHandler):
             return '<a href="%s">' % escape(page.localized.specific.url)
         except Page.DoesNotExist:
             return "<a>"
+
+    @classmethod
+    def extract_references(self, attrs):
+        yield Page, attrs["id"], "", ""

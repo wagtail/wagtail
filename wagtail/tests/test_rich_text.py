@@ -4,6 +4,7 @@ from django.forms.models import modelform_factory
 from django.test import TestCase, override_settings
 from django.utils import translation
 
+from wagtail.fields import RichTextField
 from wagtail.models import Locale, Page
 from wagtail.rich_text import RichText, RichTextMaxLengthValidator, expand_db_html
 from wagtail.rich_text.feature_registry import FeatureRegistry
@@ -275,6 +276,16 @@ class TestRichTextField(TestCase):
             }
         )
         self.assertTrue(form.is_valid())
+
+    def test_extract_references(self):
+        self.assertEqual(
+            list(
+                RichTextField().extract_references(
+                    '<a linktype="page" id="1">Link to an internal page</a>'
+                )
+            ),
+            [(Page, "1", "", "")],
+        )
 
 
 class TestRichTextMaxLengthValidator(TestCase):
