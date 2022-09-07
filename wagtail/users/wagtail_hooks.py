@@ -139,6 +139,7 @@ def user_listing_buttons(context, user):
     yield UserListingButton(
         _("Edit"),
         reverse("wagtailusers_users:edit", args=[user.pk]),
+        classes={"button-secondary"},
         attrs={"title": _("Edit this user")},
         priority=10,
     )
