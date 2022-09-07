@@ -406,7 +406,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
     def get_buttons_for_obj(self, obj):
         return self.button_helper.get_buttons_for_obj(
-            obj, classnames_add=["button-small", "button-secondary"]
+            obj, classnames_add=["button-small"]
         )
 
     def get_search_results(self, request, queryset, search_term):

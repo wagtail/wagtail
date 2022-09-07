@@ -7,8 +7,8 @@ class ButtonHelper:
 
     default_button_classnames = ["button"]
     add_button_classnames = ["bicolor", "icon", "icon-plus"]
-    inspect_button_classnames = []
-    edit_button_classnames = []
+    inspect_button_classnames = ["button-secondary"]
+    edit_button_classnames = ["button-secondary"]
     delete_button_classnames = ["no"]
 
     def __init__(self, view, request):
