@@ -249,6 +249,8 @@ WAGTAIL_AUTO_UPDATE_PREVIEW = True
 When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
 This behaviour is enabled by default.
 
+To completely disable the preview panel, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model `preview_modes = []`.
+
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
 
 ```python
