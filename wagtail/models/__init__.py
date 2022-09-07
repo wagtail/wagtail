@@ -700,7 +700,7 @@ class PreviewableMixin:
         will only have one display mode, but subclasses can override this -
         for example, a page containing a form might have a default view of the form,
         and a post-submission 'thank you' page.
-        Set to `[]` to completely disable previewing for this model.
+        Set to ``[]`` to completely disable previewing for this model.
         """
         return PreviewableMixin.DEFAULT_PREVIEW_MODES
 
