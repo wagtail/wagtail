@@ -17,9 +17,11 @@ Changelog
  * Add unit tests for the `classnames` Wagtail admin template tag (Mehrdad Moradizadeh)
  * Show an inverse locked indicator when the page has been locked by the current user in reports and dashboard listings (Vaibhav Shukla, LB (Ben Johnston))
  * Add clarity to the development documentation that `admonition` should not be used and titles for `note` are not supported, including clean up of some existing incorrect usage (LB (Ben Johnston))
+ * Unify the styling of delete/destructive button styles across the admin interface (Paarth Agarwal)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
+ * Fix: Ensure that disabled buttons have a consistent presentation on hover to indicate no interaction is available (Paarth Agarwal)
 
 
 4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
