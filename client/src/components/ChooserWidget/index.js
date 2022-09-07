@@ -1,4 +1,4 @@
-import {chooserModalOnloadHandlers} from '../../includes/chooserModal';
+import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
