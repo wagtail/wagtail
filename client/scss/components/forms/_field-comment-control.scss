@@ -5,15 +5,15 @@ $button-space: theme('spacing.3');
   $root: &;
 
   @include transition(opacity 0.2s ease);
+  position: absolute;
   color: $color-teal;
   background: none;
   border: 0;
   padding: 0;
-  top: 50%;
   inset-inline-end: 0;
+  top: 50%;
   transform: translateY(-50%);
-  margin-inline-start: 10px;
-  position: absolute;
+  margin-inline-start: theme('spacing.[2.5]');
   visibility: hidden;
   opacity: 0;
 
