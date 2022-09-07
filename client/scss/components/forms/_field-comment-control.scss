@@ -61,11 +61,6 @@ $button-space: theme('spacing.3');
 
 }
 
-// Hide chooser comments if they aren't commentable
-//.w-field:not(&.w-field--commentable) .chooser .w-field__comment-button  {
-//  display: none;
-//}
-
 .w-field--commentable {
   .w-field__input {
     padding-right: calc($button-size + $button-space);
