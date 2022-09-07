@@ -279,6 +279,29 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             "?p=3&amp;tag=even" in response_body or "?tag=even&amp;p=3" in response_body
         )
 
+    def test_tag_filtering_with_search_term(self):
+        Image.objects.create(
+            title="Test image with no tags",
+            file=get_test_image_file(),
+        )
+
+        image_one_tag = Image.objects.create(
+            title="Test image with one tag",
+            file=get_test_image_file(),
+        )
+        image_one_tag.tags.add("one")
+
+        image_two_tags = Image.objects.create(
+            title="Test image with two tags",
+            file=get_test_image_file(),
+        )
+        image_two_tags.tags.add("one", "two")
+
+        # The tag gets ignored, if a valid search term is present, so this will find all
+        # images, as all of them contain "test" in their titles.
+        response = self.get({"tag": "one", "q": "test"})
+        self.assertEqual(response.context["images"].paginator.count, 3)
+
     def test_search_form_rendered(self):
         response = self.get()
         html = response.content.decode()
