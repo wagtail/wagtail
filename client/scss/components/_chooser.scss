@@ -64,7 +64,6 @@
   @apply w-body-text-large;
 }
 
-
 .chooser__actions {
   display: flex;
   gap: theme('spacing.[1.5]');
@@ -73,7 +72,6 @@
     // Subdued border as there can be a lot of chooser action buttons on a page.
     border-color: theme('colors.grey.150');
   }
-
 
   // Hiding for devices capable of hover states only,
   // with opacity only so keyboard focus can move to the first interactive element to reveal it.

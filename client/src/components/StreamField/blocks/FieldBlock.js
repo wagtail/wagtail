@@ -80,23 +80,21 @@ export class FieldBlock {
       addCommentButtonElement.classList.add(
         'w-field__comment-button',
         'w-field__comment-button--add',
-        'u-hidden'
+        'u-hidden',
       );
 
       ReactDOM.render(
         <>
-          <Icon name="comment-add"/>
-          <Icon name="comment-add-reversed"/>
+          <Icon name="comment-add" />
+          <Icon name="comment-add-reversed" />
         </>,
         addCommentButtonElement,
       );
       this.field.classList.add('w-field--commentable');
-
       this.field
         .querySelector('[data-field-input]')
         .appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
-
     }
 
     if (initialError) {

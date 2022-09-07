@@ -1,7 +1,4 @@
 import {chooserModalOnloadHandlers} from '../../includes/chooserModal';
-import ReactDOM from "react-dom";
-import Icon from "../Icon/Icon";
-import React from "react";
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
