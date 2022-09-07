@@ -96,14 +96,6 @@ class BaseListingView(TemplateView):
             except (ValueError, Collection.DoesNotExist):
                 pass
 
-        # Filter by tag
-        self.current_tag = self.request.GET.get("tag")
-        if self.current_tag:
-            try:
-                images = images.filter(tags__name=self.current_tag)
-            except (AttributeError):
-                self.current_tag = None
-
         # Search
         query_string = None
         if "q" in self.request.GET:
@@ -114,6 +106,14 @@ class BaseListingView(TemplateView):
                 images = images.search(query_string)
         else:
             self.form = SearchForm(placeholder=_("Search images"))
+
+        # Filter by tag
+        self.current_tag = self.request.GET.get("tag")
+        if self.current_tag:
+            try:
+                images = images.filter(tags__name=self.current_tag)
+            except (AttributeError):
+                self.current_tag = None
 
         entries_per_page = self.get_num_entries_per_page()
         paginator = Paginator(images, per_page=entries_per_page)
