@@ -31,17 +31,10 @@
   }
 }
 
-.chosen,
-.unchosen {
+.chosen {
   display: flex;
   gap: theme('spacing.4');
   align-items: center;
-}
-
-.unchosen {
-  @media (hover: hover) {
-
-  }
 }
 
 .chooser__preview {
@@ -71,18 +64,6 @@
   @apply w-body-text-large;
 }
 
-// Hiding for devices capable of hover states only,
-// with opacity only so keyboard focus can move to the first interactive element to reveal it.
-.chooser__actions {
-  @media (hover: hover) {
-    opacity: 0;
-
-    .chooser:hover &,
-    .chooser:focus-within & {
-      opacity: 1;
-    }
-  }
-}
 
 .chooser__actions {
   display: flex;
@@ -91,6 +72,20 @@
   .button {
     // Subdued border as there can be a lot of chooser action buttons on a page.
     border-color: theme('colors.grey.150');
+  }
+
+
+  // Hiding for devices capable of hover states only,
+  // with opacity only so keyboard focus can move to the first interactive element to reveal it.
+  @media (hover: hover) {
+    opacity: 0;
+
+    .chooser:hover &,
+    .chooser:focus-within &,
+      // When fields are commentable - ensure the hovering over the comment icon will still show chooser actions for these specific ones
+    .w-field--model_choice_field.w-field--commentable:hover & {
+      opacity: 1;
+    }
   }
 }
 

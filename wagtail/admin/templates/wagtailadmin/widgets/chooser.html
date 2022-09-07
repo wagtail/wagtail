@@ -39,19 +39,19 @@
             {% endif %}
 
             {# TODO: Chat with thibaud about this #}
-            {% if comments_enabled %}
-                <li>
-                    {% include 'wagtailadmin/shared/add-comment-button.html' %}
-                </li>
-            {% endif %}
+{#            {% if comments_enabled %}#}
+{#                <li>#}
+{#                    {% include 'wagtailadmin/shared/add-comment-button.html' %}#}
+{#                </li>#}
+{#            {% endif %}#}
         </ul>
     </div>
 
     <div class="unchosen">
         <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">{% block unchosen_icon %}{% icon name=icon|default:"plus-inverse" %}{% endblock unchosen_icon %}{{ widget.choose_one_text }}</button>
-        {% if comments_enabled %}
-            {% include 'wagtailadmin/shared/add-comment-button.html' %}
-        {% endif %}
+{#        {% if comments_enabled %}#}
+{#            {% include 'wagtailadmin/shared/add-comment-button.html' %}#}
+{#        {% endif %}#}
     </div>
 </div>
 

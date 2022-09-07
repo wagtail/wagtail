@@ -37,13 +37,13 @@ $button-space: theme('spacing.3');
     .tab-content--comments-enabled .w-field__input:focus-within > &,
     &:hover,
     &:focus,
-    &.w-field__comment-button--focused {
+    &.w-field__comment-button--focused,
+    .w-field--admin_model_chooser.w-field--commentable:hover & {
       visibility: visible;
       opacity: 1;
     }
   }
 
-  // TODO: Chat with thibaud about this (positioning beside the field itself)
   // Position comment icons in choosers beside the other actions
   .tab-content--comments-enabled .chooser & {
     position: unset;
@@ -67,25 +67,14 @@ $button-space: theme('spacing.3');
 //}
 
 .w-field--commentable {
-  margin-inline-end: calc($button-size + $button-space);
-
   .w-field__input {
     padding-right: calc($button-size + $button-space);
   }
 
   // Allow comment buttons to be placed along side the field by display flex
-  //.tab-content--comments-enabled & .w-field__input {
-  //  display: flex;
-  //  align-items: center;
-  //}
   .w-field-row & {
     margin-inline-end: 0;
   }
-
-  //@include media-breakpoint-up(sm) {
-  //  // Partial offset to reduce the change in layout with/without comments.
-  //  padding-inline-end: calc($button-size / 1.5);
-  //}
 
   textarea ~ .w-field__comment-button,
   &.w-field--checkbox_select_multiple .w-field__comment-button,

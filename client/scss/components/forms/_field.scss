@@ -72,3 +72,17 @@
     padding-inline-start: $text-input-height;
   }
 }
+
+// Display these as inline block so that action icons such as comments can appear as close as possible
+// We remove the padding here to let the chooser itself handle the padding
+.w-field--model_choice_field .w-field__input {
+  display: inline-block;
+  padding-inline-end: 0;
+}
+
+// Add space to the end for hoverable area to extend outside of the field without impacting layout
+.w-field--model_choice_field .chooser {
+  padding-inline-end: theme('spacing.8');
+  margin-inline-end: calc(0 - theme('spacing.8'));
+}
+
