@@ -4136,6 +4136,18 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(args, (Advert,))
         self.assertEqual(kwargs, {"required": False})
 
+    def test_extract_references(self):
+        block = SnippetChooserBlock(Advert)
+        test_advert = Advert.objects.get(text="test_advert")
+
+        self.assertListEqual(
+            list(block.extract_references(test_advert)),
+            [(Advert, str(test_advert.id), "", "")],
+        )
+
+        # None should not yield any references
+        self.assertListEqual(list(block.extract_references(None)), [])
+
 
 class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
     def test_adapt(self):

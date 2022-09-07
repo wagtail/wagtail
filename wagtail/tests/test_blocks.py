@@ -2884,6 +2884,36 @@ class TestListBlockWithFixtures(TestCase):
             ],
         )
 
+    def test_extract_references(self):
+        block = blocks.ListBlock(blocks.PageChooserBlock())
+        christmas_page = Page.objects.get(slug="christmas")
+        saint_patrick_page = Page.objects.get(slug="saint-patrick")
+
+        self.assertListEqual(
+            list(
+                block.extract_references(
+                    block.to_python(
+                        [
+                            {
+                                "id": "block1",
+                                "type": "item",
+                                "value": christmas_page.id,
+                            },
+                            {
+                                "id": "block2",
+                                "type": "item",
+                                "value": saint_patrick_page.id,
+                            },
+                        ]
+                    )
+                )
+            ),
+            [
+                (Page, str(christmas_page.id), "item", "block1"),
+                (Page, str(saint_patrick_page.id), "item", "block2"),
+            ],
+        )
+
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):
@@ -4126,6 +4156,27 @@ class TestStructBlockWithFixtures(TestCase):
             ],
         )
 
+    def test_extract_references(self):
+        block = blocks.StructBlock(
+            [
+                ("page", blocks.PageChooserBlock(required=False)),
+                ("link_text", blocks.CharBlock(default="missing title")),
+            ]
+        )
+
+        christmas_page = Page.objects.get(slug="christmas")
+
+        self.assertListEqual(
+            list(
+                block.extract_references(
+                    {"page": christmas_page, "link_text": "Christmas"}
+                )
+            ),
+            [
+                (Page, str(christmas_page.id), "page", "page"),
+            ],
+        )
+
 
 class TestStreamBlockWithFixtures(TestCase):
     fixtures = ["test.json"]
@@ -4193,6 +4244,47 @@ class TestStreamBlockWithFixtures(TestCase):
                 ["interesting pages", Page.objects.get(id=2), Page.objects.get(id=3)],
                 ["pages written by dogs"],
                 ["boring pages", Page.objects.get(id=4)],
+            ],
+        )
+
+    def test_extract_references(self):
+        block = blocks.StreamBlock(
+            [
+                ("page", blocks.PageChooserBlock()),
+                ("heading", blocks.CharBlock()),
+            ]
+        )
+
+        christmas_page = Page.objects.get(slug="christmas")
+        saint_patrick_page = Page.objects.get(slug="saint-patrick")
+
+        self.assertListEqual(
+            list(
+                block.extract_references(
+                    block.to_python(
+                        [
+                            {
+                                "id": "block1",
+                                "type": "heading",
+                                "value": "Some events that you might like",
+                            },
+                            {
+                                "id": "block2",
+                                "type": "page",
+                                "value": christmas_page.id,
+                            },
+                            {
+                                "id": "block3",
+                                "type": "page",
+                                "value": saint_patrick_page.id,
+                            },
+                        ]
+                    )
+                )
+            ),
+            [
+                (Page, str(christmas_page.id), "page", "block2"),
+                (Page, str(saint_patrick_page.id), "page", "block3"),
             ],
         )
 
@@ -4401,6 +4493,18 @@ class TestPageChooserBlock(TestCase):
             pages = block.bulk_to_python(page_ids)
 
         self.assertSequenceEqual(pages, expected_pages)
+
+    def test_extract_references(self):
+        block = blocks.PageChooserBlock()
+        christmas_page = Page.objects.get(slug="christmas")
+
+        self.assertListEqual(
+            list(block.extract_references(christmas_page)),
+            [(Page, str(christmas_page.id), "", "")],
+        )
+
+        # None should not yield any references
+        self.assertListEqual(list(block.extract_references(None)), [])
 
 
 class TestStaticBlock(unittest.TestCase):
