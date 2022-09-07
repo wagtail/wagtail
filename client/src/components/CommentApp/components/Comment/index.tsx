@@ -418,7 +418,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           </button>
           <button
             type="button"
-            className="comment__button comment__button--primary"
+            className="comment__button button button-small no"
             onClick={onClickDelete}
           >
             {gettext('Delete')}
