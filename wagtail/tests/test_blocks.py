@@ -664,6 +664,12 @@ class TestRichTextBlock(TestCase):
         result = block.get_searchable_content(value)
         self.assertEqual(result, ["mashed potatoes"])
 
+    def test_extract_references(self):
+        block = blocks.RichTextBlock()
+        value = RichText('<a linktype="page" id="1">Link to an internal page</a>')
+
+        self.assertEqual(list(block.extract_references(value)), [(Page, "1", "", "")])
+
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):

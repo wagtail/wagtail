@@ -75,7 +75,7 @@ from wagtail.coreutils import (
     get_supported_content_language_variant,
     resolve_model_string,
 )
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.forms import TaskStateCommentForm
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
@@ -4749,7 +4749,7 @@ class ReferenceIndex(models.Model):
                         value
                     ), field.name, field.name
 
-            if isinstance(field, StreamField):
+            if isinstance(field, (StreamField, RichTextField)):
                 value = field.value_from_object(object)
                 if value is not None:
                     yield from (

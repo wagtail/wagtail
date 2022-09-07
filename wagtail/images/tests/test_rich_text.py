@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
+from wagtail.fields import RichTextField
 from wagtail.images.rich_text import ImageEmbedHandler as FrontendImageEmbedHandler
 from wagtail.images.rich_text.editor_html import (
     ImageEmbedHandler as EditorHtmlImageEmbedHandler,
@@ -128,4 +129,16 @@ class TestFrontendImageEmbedHandler(TestCase, WagtailTestUtils):
         )
         self.assertTagInHTML(
             '<img class="richtext-image left" alt="" />', result, allow_extra_attrs=True
+        )
+
+
+class TestExtractReferencesWithImage(TestCase, WagtailTestUtils):
+    def test_extract_references(self):
+        self.assertEqual(
+            list(
+                RichTextField().extract_references(
+                    '<embed alt="Olivia Ava" embedtype="image" format="left" id="52"/>'
+                )
+            ),
+            [(Image, "52", "", "")],
         )
