@@ -85,3 +85,14 @@ class TestImageChooserBlock(TestCase):
         self.assertEqual(path, "wagtail.images.blocks.ImageChooserBlock")
         self.assertEqual(args, ())
         self.assertEqual(kwargs, {"required": False})
+
+    def test_extract_references(self):
+        block = ImageChooserBlock()
+
+        self.assertListEqual(
+            list(block.extract_references(self.image)),
+            [(Image, str(self.image.id), "", "")],
+        )
+
+        # None should not yield any references
+        self.assertListEqual(list(block.extract_references(None)), [])

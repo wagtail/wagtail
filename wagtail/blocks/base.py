@@ -249,6 +249,9 @@ class Block(metaclass=BaseBlock):
         """
         return []
 
+    def extract_references(self, value):
+        return []
+
     def check(self, **kwargs):
         """
         Hook for the Django system checks framework -

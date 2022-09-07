@@ -319,6 +319,20 @@ class ListBlock(Block):
 
         return content
 
+    def extract_references(self, value):
+        for child in value.bound_blocks:
+            for (
+                model,
+                object_id,
+                model_path,
+                content_path,
+            ) in child.block.extract_references(child.value):
+                model_path = f"item.{model_path}" if model_path else "item"
+                content_path = (
+                    f"{child.id}.{content_path}" if content_path else child.id
+                )
+                yield model, object_id, model_path, content_path
+
     def check(self, **kwargs):
         errors = super().check(**kwargs)
         errors.extend(self.child_block.check(**kwargs))

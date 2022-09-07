@@ -329,6 +329,24 @@ class BaseStreamBlock(Block):
 
         return content
 
+    def extract_references(self, value):
+        for child in value:
+            for (
+                model,
+                object_id,
+                model_path,
+                content_path,
+            ) in child.block.extract_references(child.value):
+                model_path = (
+                    f"{child.block_type}.{model_path}"
+                    if model_path
+                    else child.block_type
+                )
+                content_path = (
+                    f"{child.id}.{content_path}" if content_path else child.id
+                )
+                yield model, object_id, model_path, content_path
+
     def deconstruct(self):
         """
         Always deconstruct StreamBlock instances as if they were plain StreamBlocks with all of the
