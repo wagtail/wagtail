@@ -7,7 +7,6 @@
     Any element with the 'action-choose' class will open the page chooser modal
     when clicked.
 {% endcomment %}
-{% get_comments_enabled as comments_enabled %}
 {% fragment as title_id %}{{ attrs.id }}-title{% endfragment %}
 <div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}{% if classname %}{{ classname }}{% endif %}{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% if chooser_url %}data-chooser-url="{{ chooser_url }}"{% endif %}{% endblock %}>
 
@@ -22,9 +21,7 @@
         {% endblock %}
 
         <ul class="chooser__actions">
-            <li>
-                <button type="button" class="button action-choose button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.choose_another_text }}</button>
-            </li>
+            <li><button type="button" class="button action-choose button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.choose_another_text }}</button></li>
             {% if widget.show_edit_link %}
                 <li>
                     {% block edit_link %}
@@ -33,25 +30,13 @@
                 </li>
             {% endif %}
             {% if not widget.is_required and widget.show_clear_link %}
-                <li>
-                    <button type="button" class="button action-clear button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.clear_choice_text }}</button>
-                </li>
+                <li><button type="button" class="button action-clear button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.clear_choice_text }}</button></li>
             {% endif %}
-
-            {# TODO: Chat with thibaud about this #}
-{#            {% if comments_enabled %}#}
-{#                <li>#}
-{#                    {% include 'wagtailadmin/shared/add-comment-button.html' %}#}
-{#                </li>#}
-{#            {% endif %}#}
         </ul>
     </div>
 
     <div class="unchosen">
         <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">{% block unchosen_icon %}{% icon name=icon|default:"plus-inverse" %}{% endblock unchosen_icon %}{{ widget.choose_one_text }}</button>
-{#        {% if comments_enabled %}#}
-{#            {% include 'wagtailadmin/shared/add-comment-button.html' %}#}
-{#        {% endif %}#}
     </div>
 </div>
 
