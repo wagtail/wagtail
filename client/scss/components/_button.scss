@@ -38,6 +38,12 @@
     line-height: calc(2em - 2px); // account for border
   }
 
+  &.button--icon {
+    .icon {
+      @include svg-icon(1.5em);
+    }
+  }
+
   &.button-secondary {
     color: $color-button;
     background-color: transparent;
