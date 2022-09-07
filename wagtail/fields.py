@@ -238,6 +238,9 @@ class StreamField(models.Field):
     def get_searchable_content(self, value):
         return self.stream_block.get_searchable_content(value)
 
+    def extract_references(self, value):
+        yield from self.stream_block.extract_references(value)
+
     def check(self, **kwargs):
         errors = super().check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))

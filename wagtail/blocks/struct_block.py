@@ -234,6 +234,15 @@ class BaseStructBlock(Block):
 
         return content
 
+    def extract_references(self, value):
+        for name, block in self.child_blocks.items():
+            for model, object_id, model_path, content_path in block.extract_references(
+                value.get(name, block.get_default())
+            ):
+                model_path = f"{name}.{model_path}" if model_path else name
+                content_path = f"{name}.{content_path}" if content_path else name
+                yield model, object_id, model_path, content_path
+
     def deconstruct(self):
         """
         Always deconstruct StructBlock instances as if they were plain StructBlocks with all of the

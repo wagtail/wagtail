@@ -4749,6 +4749,21 @@ class ReferenceIndex(models.Model):
                         value
                     ), field.name, field.name
 
+            if isinstance(field, StreamField):
+                value = field.value_from_object(object)
+                if value is not None:
+                    yield from (
+                        (
+                            cls._get_base_content_type(to_model).id,
+                            to_object_id,
+                            f"{field.name}.{model_path}",
+                            f"{field.name}.{content_path}",
+                        )
+                        for to_model, to_object_id, model_path, content_path in field.extract_references(
+                            value
+                        )
+                    )
+
         # Extract references from child relations
         if isinstance(object, ClusterableModel):
             for child_relation in get_all_child_relations(object):

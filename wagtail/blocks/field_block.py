@@ -822,6 +822,10 @@ class ChooserBlock(FieldBlock):
             value = value.pk
         return super().clean(value)
 
+    def extract_references(self, value):
+        if value is not None:
+            yield self.target_model, str(value.pk), "", ""
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
