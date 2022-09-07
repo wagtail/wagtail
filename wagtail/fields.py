@@ -8,7 +8,11 @@ from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
-from wagtail.rich_text import RichTextMaxLengthValidator, get_text_for_indexing
+from wagtail.rich_text import (
+    RichTextMaxLengthValidator,
+    extract_references_from_rich_text,
+    get_text_for_indexing,
+)
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
@@ -51,6 +55,9 @@ class RichTextField(models.TextField):
         # Strip HTML tags to prevent search backend from indexing them
         source = force_str(value)
         return [get_text_for_indexing(source)]
+
+    def extract_references(self, value):
+        yield from extract_references_from_rich_text(force_str(value))
 
 
 # https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44

@@ -16,6 +16,7 @@ from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
+    extract_references_from_rich_text,
     get_text_for_indexing,
 )
 from wagtail.telepath import Adapter, register
@@ -700,6 +701,10 @@ class RichTextBlock(FieldBlock):
         # Strip HTML tags to prevent search backend from indexing them
         source = force_str(value.source)
         return [get_text_for_indexing(source)]
+
+    def extract_references(self, value):
+        # Extracts any references to images/pages/embeds
+        yield from extract_references_from_rich_text(force_str(value.source))
 
     class Meta:
         icon = "doc-full"
