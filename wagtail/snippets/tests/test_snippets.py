@@ -2260,6 +2260,14 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
             args=[self.revisable_snippet.pk, self.initial_revision.pk],
         )
 
+        # Should not show the "live version" or "current draft" status tags
+        self.assertNotContains(
+            response, '<span class="status-tag primary">Live version</span>'
+        )
+        self.assertNotContains(
+            response, '<span class="status-tag primary">Current draft</span>'
+        )
+
         # The latest revision should have an "Edit" action instead of "Review"
         self.assertContains(
             response,
@@ -2274,13 +2282,25 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
             count=1,
         )
 
-    def test_use_latest_draft_as_title(self):
+    def test_with_live_and_draft_status(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
         snippet.save_revision().publish()
+        snippet.refresh_from_db()
+
         snippet.text = "Draft-enabled Bar, In Draft"
-        snippet.save_revision()
+        snippet.save_revision(log_action=True)
 
         response = self.get(snippet)
+
+        # Should show the "live version" status tag for the published revision
+        self.assertContains(
+            response, '<span class="status-tag primary">Live version</span>', count=1
+        )
+
+        # Should show the "current draft" status tag for the draft revision
+        self.assertContains(
+            response, '<span class="status-tag primary">Current draft</span>', count=1
+        )
 
         # Should use the latest draft title in the header subtitle
         self.assertContains(
