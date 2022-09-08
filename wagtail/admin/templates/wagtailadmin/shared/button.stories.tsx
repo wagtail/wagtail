@@ -163,32 +163,7 @@ const Template = ({ url }) => (
       button element
     </button>
 
-    <h3>Colour signifiers - Positive</h3>
-    <a href={url} className="button yes">
-      Yes link
-    </a>
-    <button type="button" className="button yes">
-      Yes button
-    </button>
-    <button type="button" className="button yes" disabled>
-      Yes disabled
-    </button>
-
-    <h4>
-      Positive <small>(small)</small>
-    </h4>
-    <a href={url} className="button button-small yes">
-      Yes
-    </a>
-    <button type="button" className="button button-small yes">
-      Yes
-    </button>
-    <button type="button" className="button button-small yes" disabled>
-      Yes disabled
-    </button>
-
-    <h3>Colour signifiers - Negative</h3>
-
+    <h3>Negative</h3>
     <a href={url} className="button no">
       No link
     </a>
