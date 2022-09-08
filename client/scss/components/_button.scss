@@ -49,23 +49,6 @@
     background-color: transparent;
   }
 
-  &.yes {
-    background-color: $color-button-yes;
-    border-color: $color-button-yes;
-
-    &.button-secondary {
-      border-color: $color-button-yes;
-      color: $color-button-yes;
-      background-color: transparent;
-    }
-
-    &:hover {
-      color: $color-white;
-      border-color: transparent;
-      background-color: $color-button-yes;
-    }
-  }
-
   &.warning {
     background-color: $color-button-warning;
     border-color: $color-button-warning;

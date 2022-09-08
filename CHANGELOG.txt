@@ -9,7 +9,7 @@ Changelog
  * Most images in the admin will now only load once they are visible on screen (Jake Howard)
  * Allow setting default attributes on image tags (Jake Howard)
  * Optimise the performance of the Wagtail userbar to remove duplicated queries, improving page loads when viewing live pages while signed in (Jake Howard)
- * Remove legacy styling classes for buttons (`unbutton`, `button-neutral`, `button-strokeonhover`, `hover-no`) and refactor button styles to be more maintainable (Paarth Agarwal, LB (Ben Johnston))
+ * Remove legacy styling classes for buttons (`unbutton`, `button-neutral`, `button-strokeonhover`, `hover-no`, `yes`) and refactor button styles to be more maintainable (Paarth Agarwal, LB (Ben Johnston))
  * Add button variations to the pattern library (Paarth Agarwal)
  * Provide a more accessible page title where the unique information is shown first and the CMS name is shown last (Mehrdad Moradizadeh)
  * Pull out behaviour from `AbstractFormField` to `FormMixin` and `AbstractEmailForm` to `EmailFormMixin` to allow use with subclasses of `Page` (Mehrdad Moradizadeh, Kurt Wall)
