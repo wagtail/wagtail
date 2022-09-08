@@ -21,9 +21,7 @@ function buildExpandingFormset(prefix, opts = {}) {
     emptyFormTemplate = emptyFormTemplate.textContent;
   }
 
-  // eslint-disable-next-line consistent-return
   addButton.on('click', () => {
-    if (addButton.hasClass('disabled')) return false;
     const newFormHtml = emptyFormTemplate
       .replace(/__prefix__(.*?['"])/g, formCount + '$1')
       .replace(/<-(-*)\/script>/g, '<$1/script>');
