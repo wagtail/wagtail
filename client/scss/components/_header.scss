@@ -88,20 +88,6 @@
     padding-bottom: 0;
   }
 
-  .button {
-    background-color: $color-teal-darker;
-
-    &:hover {
-      color: $color-white;
-      background-color: $color-teal-dark;
-    }
-  }
-
-  .button-secondary {
-    color: $color-teal-darker;
-    background-color: transparent;
-  }
-
   .error-message {
     color: inherit;
   }

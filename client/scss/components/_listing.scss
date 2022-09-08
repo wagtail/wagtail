@@ -259,21 +259,6 @@ ul.listing {
     }
   }
 
-  .button-secondary {
-    border-color: $color-grey-4;
-    background: $color-white;
-
-    &:hover {
-      border-color: $color-teal;
-      background-color: $color-teal;
-    }
-  }
-
-  // stylelint-disable-next-line no-duplicate-selectors
-  .button-secondary {
-    background-color: $color-white;
-  }
-
   .moderate-actions form {
     float: left;
     margin: 0 1em 1em 0;
