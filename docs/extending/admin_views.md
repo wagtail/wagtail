@@ -142,11 +142,10 @@ A 'Calendar' item will now appear in the menu.
 Sometimes you want to group custom views together in a single menu item in the sidebar. Let's create another view to display only the current calendar month:
 
 ```{code-block} python
-:emphasize-lines: 13-18
+:emphasize-lines: 15-23
 
 import calendar
-
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.utils import timezone
 
 
@@ -154,14 +153,20 @@ def index(request):
     current_year = timezone.now().year
     calendar_html = calendar.HTMLCalendar().formatyear(current_year)
 
-    return HttpResponse(calendar_html)
+    return render(request, 'wagtailcalendar/index.html', {
+        'current_year': current_year,
+        'calendar_html': calendar_html,
+    })
 
 def month(request):
     current_year = timezone.now().year
     current_month = timezone.now().month
     calendar_html = calendar.HTMLCalendar().formatmonth(current_year, current_month)
 
-    return HttpResponse(calendar_html)
+    return render(request, 'wagtailcalendar/index.html', {
+        'current_year': current_year,
+        'calendar_html': calendar_html,
+    })
 ```
 
 We also need to update `wagtail_hooks.py` to register our URL in the admin interface:
@@ -216,13 +221,9 @@ def register_calendar_menu_item():
         MenuItem('Current month', reverse('calendar-month'), icon_name='date'),
     ])
 
-    return SubmenuMenuItem('Calendar', submenu, classnames='icon icon-date')
+    return SubmenuMenuItem('Calendar', submenu, icon_name='date')
 ```
 
-The 'Calendar' item will now appear as a group of menu items.
+The 'Calendar' item will now appear as a group of menu items. When expanded, the 'Calendar' item will now show our two custom menu items.
 
-![Wagtail admin sidebar menu, showing a "Calendar" group menu item with a date icon](../_static/images/adminviews_menu_group.png)
-
-When expanded, the 'Calendar' item will now show our two custom menu items.
-
-![Wagtail admin sidebar 'Calendar' menu expaned, showing two child menu items, 'Calendar' and 'Month'.](../_static/images/adminviews_menu_group_expanded.png)
+![Wagtail admin sidebar menu, showing an expanded "Calendar" group menu item with a date icon, showing two child menu items, 'Calendar' and 'Month'.](../_static/images/adminviews_menu_group_expanded.png)
