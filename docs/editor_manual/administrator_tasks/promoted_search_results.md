@@ -14,8 +14,6 @@ The promoted result will only work if the user types _exactly_ the phrase that y
 
 To set up the promoted search results, click on the 'Promoted search results' menu item in the 'Settings' menu.
 
-![](../../_static/images/screen37_promoted_menu_item.png)
-
 Add a new promoted result from the button in the top right of the resulting screen, or edit an existing promoted result by clicking on it.
 
 ![](../../_static/images/screen38_promoted_results_listing.png)
