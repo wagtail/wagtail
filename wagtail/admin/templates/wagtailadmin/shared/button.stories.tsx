@@ -45,6 +45,12 @@ const Template = ({ url }) => (
     </button>
 
     <h3>Disabled buttons</h3>
+    <p>
+      <strong>Important</strong>: Adding <code>disabled</code> as a class should
+      be avoided on buttons, instead use the disabled attribute. Some examples
+      below use classes to validate existing styling still works.
+    </p>
+
     <a href={url} className="button disabled">
       button link
     </a>

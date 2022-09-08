@@ -242,13 +242,14 @@
   &.disabled {
     background-color: $color-grey-3;
     border-color: $color-grey-3;
-    color: $color-grey-2;
+    color: $color-white;
     cursor: default;
+    pointer-events: none;
 
     &:hover {
       background-color: $color-grey-3;
       border-color: $color-grey-3;
-      color: $color-grey-2;
+      color: $color-white;
       cursor: default;
     }
 
@@ -263,7 +264,7 @@
   &.button-secondary[disabled],
   &.button-secondary.disabled {
     background-color: $color-white;
-    border-color: $color-grey-3;
+    border-color: $color-grey-4;
     color: $color-grey-3;
   }
 
