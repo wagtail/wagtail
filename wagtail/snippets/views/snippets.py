@@ -582,6 +582,7 @@ class ActionColumn(Column):
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
         context["revision_enabled"] = isinstance(self.object, RevisionMixin)
+        context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
         context["preview_enabled"] = isinstance(self.object, PreviewableMixin)
         context["object"] = self.object
         context["view"] = self.view
