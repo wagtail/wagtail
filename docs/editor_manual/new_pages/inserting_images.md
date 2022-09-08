@@ -6,7 +6,7 @@ There will obviously be many instances in which you will want to add images to a
 
 ## Inserting images using the image chooser field
 
-Often a specific image field will be used for a main image on a page, or for an image to be used when sharing the page on social media. For the standard page on Torchbox.com, the former is used.
+Often a specific image field will be used for a main image on a page, or for an image to be used when sharing the page on social media. For the standard page on the bakerydemo site, the former is used.
 
 ![](../../_static/images/screen14_add_main_image.png)
 

@@ -1,8 +1,8 @@
 # Creating new pages
 
-![](../../_static/images/screen08_add_page_button.png)
+![](../../_static/images/screen09.1_page_more_dropdown.png)
 
-Create new pages by clicking the **Add child page** button. This creates a child page of the section you are currently in. In this case a child page of the 'School of Fine Art' page.
+Create new pages by clicking the **Add child page** button. This creates a child page of the section you are currently in. In this case a child page of the 'Breads' page.
 
 % ADD IN OTHER WAYS A CHILD PAGE CAN BE ADDED?>>
 
