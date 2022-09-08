@@ -13,10 +13,9 @@ Access to specific sets of images and documents can be controlled by setting up 
 ## Add images / documents to a collection
 
 -   Navigate to the **Images** or **Documents** section and select a collection from the dropdown menu.
+-   You can also select a collection as part of uploading multiple images or documents.
 
 ![](../../_static/images/collections_create_collection_upload_images.png)
-
-![](../../_static/images/collections_add_to_collection.png)
 
 -   You can also edit an image or document directly by clicking on it to assign it to a collection.
 

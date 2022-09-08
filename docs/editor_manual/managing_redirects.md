@@ -24,8 +24,6 @@ As a best practice Wagtail will check redirects as permanent by default, in orde
 
 ## Configuring redirects
 
-![](../_static/images/screen41_redirects_menu_item.png)
-
 To configure redirects head over to 'Redirects', which can be found in the Settings menu, accessible via the left-hand menu bar.
 
 ![](../_static/images/screen42_redirects_interface.png)

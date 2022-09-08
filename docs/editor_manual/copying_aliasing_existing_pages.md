@@ -18,8 +18,6 @@ Here is how to copy an existing page:
 
 -   Once you completed this form, press _Copy this page_. The page will then be copied and appear in the Explorer page.
 
-![Successful copying of a page results in it being available in the Explorer page.](../_static/images/screen12.6_3_copy_success.png)
-
 (aliasing_page_label)=
 
 ## Aliasing pages
@@ -35,18 +33,12 @@ Here is how to create an alias to an existing page:
 ![Clicking the change button during the copy page form in order to change the parent of the copied page.](../_static/images/screen12.7_1_alias_choose_parent_page_button.png)
 
 -   Select and click on the desired parent page.
-
-![Selecting and clicking the desired parent page.](../_static/images/screen12.7_2_alias_choose_new_parent_page.png)
-
 -   Make sure the _Alias_ checkbox is ticked.
 -   You can then complete the page aliasing by clicking on the _Copy this page_ button.
 
 ![Clicking on the Copy this page button to confirm aliasing.](../_static/images/screen12.7_3_alias_confirm_changes.png)
 
 -   The aliased page will then appear under the new parent in the Explorer.
-
-![The aliased page appearing under the new parent page in the Explorer page.](../_static/images/screen12.7_3_alias_page_new_parent.png)
-
 -   When you try to edit the aliased page, you are notified that it is an alias of another page. You will then be offered two options: edit the original page (with changes appearing in both places) or convert the alias page into an ordinary page (a conventional copy, not updated when the original changes).
 
 ![Editing an alias page notifies it is an alias and offers to either edit the original page or change the alias to an ordinary page.](../_static/images/screen12.7_4_alias_page_edit_notification.png)

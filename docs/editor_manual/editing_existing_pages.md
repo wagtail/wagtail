@@ -10,7 +10,8 @@ Here is how you can access the edit screen of an existing page:
 
 -   When editing an existing page the title of the page being edited is displayed at the top of the page.
 -   You can perform various actions (such as copy, move or delete a page) by opening the secondary menu at the right of the top breadcrumb.
--   Underneath the title, you can find the page type and a link to the page history.
+-   The header has a link to the page history.
+-   In the Info side panel, you can find the page type and other important page information.
 -   If published, a link to the live version of the page is shown on the top right.
 -   You can toggle commenting mode by clicking the icon in the top right, which also shows the number of comments.
 -   You can change the title of the page by clicking into the title field.
@@ -18,7 +19,7 @@ Here is how you can access the edit screen of an existing page:
 
 ## Workflow
 
-If the page is currently in a workflow, you'll see an additional indicator underneath the title, showing the current workflow task. Clicking this will
+If the page is currently in a workflow, you'll see an additional indicator in the Info side panel, showing the current workflow task. Clicking the "View details" button will
 show more information about the page's progress through the workflow, as well as any comments left by reviewers.
 
 ![](../_static/images/screen12.5_edit_screen_in_moderation.png)
