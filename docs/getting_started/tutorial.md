@@ -547,7 +547,7 @@ Adjust your blog page template to include the images:
 
 Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
 
-![](../_static/images/tutorial/tutorial_6.jpg)
+![](../_static/images/tutorial/tutorial_6.png)
 
 Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
 
@@ -848,7 +848,7 @@ Finally, we can update the `blog_page.html` template to display the categories:
 {% endwith %}
 ```
 
-![](../_static/images/tutorial/tutorial_10.jpg)
+![](../_static/images/tutorial/tutorial_10.png)
 
 ## Where next
 
