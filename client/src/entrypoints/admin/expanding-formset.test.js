@@ -106,7 +106,7 @@ describe('buildExpandingFormset', () => {
         `,
         )}
       </ul>
-      <button class="button disabled" id="${prefix}-ADD" type="button">
+      <button class="button" id="${prefix}-ADD" type="button" disabled>
         Add form fields (DISABLED)
       </button>
       <script type="text/django-form-template" id="${prefix}-EMPTY_FORM_TEMPLATE">
@@ -137,9 +137,7 @@ describe('buildExpandingFormset', () => {
     expect(onInit).toHaveBeenNthCalledWith(2, 1);
 
     // click the 'add' button
-    document
-      .getElementById(`${prefix}-ADD`)
-      .dispatchEvent(new MouseEvent('click'));
+    document.getElementById(`${prefix}-ADD`).click();
 
     // check that no template was generated and additional onInit / onAdd not called
     expect(onAdd).not.toHaveBeenCalled();
