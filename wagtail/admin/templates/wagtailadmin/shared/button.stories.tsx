@@ -177,6 +177,10 @@ const Template = ({ url }) => (
     <h4>
       Negative <small>(small)</small>
     </h4>
+    <p>
+      Should not be used with <code>.button-secondary</code> on the same
+      element.
+    </p>
     <a href={url} className="button button-small no">
       No
     </a>

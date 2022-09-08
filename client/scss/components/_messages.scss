@@ -37,8 +37,22 @@
     height: 1.5em;
   }
 
+  .button.button-secondary {
+    border-color: currentColor;
+    color: inherit;
+
+    &:hover {
+      background-color: transparent;
+      color: $color-white;
+    }
+  }
+
   .error {
     background-color: theme('colors.critical.200');
+
+    .button:hover {
+      color: $color-grey-1;
+    }
   }
 
   .warning {
@@ -48,19 +62,9 @@
 
   .success {
     background-color: theme('colors.positive.100');
-  }
 
-  .success .button:hover {
-    background-color: $color-teal-dark;
-  }
-
-  .button-secondary {
-    border-color: currentColor;
-    color: inherit;
-
-    &:hover {
-      border-color: transparent;
-      color: $color-white;
+    .button:hover {
+      background-color: $color-teal-dark;
     }
   }
 

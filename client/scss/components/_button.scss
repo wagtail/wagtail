@@ -47,6 +47,12 @@
   &.button-secondary {
     color: $color-button;
     background-color: transparent;
+
+    &:hover {
+      background-color: theme('colors.secondary.50');
+      border-color: currentColor;
+      color: $color-button;
+    }
   }
 
   &.warning {
@@ -66,6 +72,7 @@
     }
   }
 
+  // no/serious is not compatible with the button-secondary class
   &.no,
   &.serious {
     background-color: $color-white;
