@@ -9,6 +9,7 @@ import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
   initCollapsiblePanels,
+  initCollapseAllPanels,
 } from '../../includes/panels';
 
 if (process.env.NODE_ENV === 'development') {
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
+  initCollapseAllPanels();
 });
 
 /**

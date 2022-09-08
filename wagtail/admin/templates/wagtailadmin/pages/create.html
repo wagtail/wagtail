@@ -14,6 +14,10 @@
 
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
         {% csrf_token %}
+
+        {# Note that the position of the button within the form allows the js to collapse / expand only those panels within the same form #}
+        {% include "wagtailadmin/shared/collapse_all_toggle.html" %}
+
         <input type="hidden" name="next" value="{{ next }}">
 
         {% if parent_page.is_root %}
