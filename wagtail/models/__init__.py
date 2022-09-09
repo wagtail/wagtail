@@ -4717,10 +4717,39 @@ class ReferenceIndex(models.Model):
             )
 
     @classmethod
-    def _extract_references_from_object(cls, object):
-        if getattr(object, "wagtail_reference_index_ignore", False):
-            return
+    def _model_could_have_outbound_references(cls, model):
+        if getattr(model, "wagtail_reference_index_ignore", False):
+            return False
 
+        for field in model._meta.get_fields():
+            if field.is_relation and field.many_to_one:
+                if getattr(field, "wagtail_reference_index_ignore", False):
+                    continue
+
+                if getattr(
+                    field.related_model, "wagtail_reference_index_ignore", False
+                ):
+                    continue
+
+                if isinstance(field, (ParentalKey, GenericRel)):
+                    continue
+
+                return True
+
+            if isinstance(field, (StreamField, RichTextField)):
+                return True
+
+        if issubclass(model, ClusterableModel):
+            for child_relation in get_all_child_relations(model):
+                if cls._model_could_have_outbound_references(
+                    child_relation.related_model
+                ):
+                    return True
+
+        return False
+
+    @classmethod
+    def _extract_references_from_object(cls, object):
         # Extract references from fields
         for field in object._meta.get_fields():
             if field.is_relation and field.many_to_one:
