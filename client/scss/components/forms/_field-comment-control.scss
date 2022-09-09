@@ -62,7 +62,7 @@ $button-space: theme('spacing.3');
 
 .w-field--commentable {
   .w-field__input {
-    padding-right: calc($button-size + $button-space);
+    padding-inline-end: calc($button-size + $button-space);
   }
 
   // Allow comment buttons to be placed along side the field by display flex
