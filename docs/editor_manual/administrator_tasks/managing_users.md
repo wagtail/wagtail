@@ -8,11 +8,11 @@ In this interface you can see all of your users, their usernames, their 'level' 
 
 You can sort this listing either via Name or Username.
 
-![](../../_static/images/screen36_users_interface.png)
+![The users’ listing, with search and a CTA to add users. This shows three rows with users Olivia Ava, Admin User, and Muddy Waters](../../_static/images/screen36_users_interface.png)
 
 -   Select multiple users by checking the checkbox on the left of each row, then use the bulk actions bar at the bottom to perform an action on all selected users.
 
-![](../../_static/images/screen36.5_users_bulk_actions.png)
+![The users’ listing, with checkboxes in the first column. The checkbox for the "Admin user" row has been checked, and a footer with different actions shows at the bottom of the screen](../../_static/images/screen36.5_users_bulk_actions.png)
 
 Clicking on a user's name will open their profile details. From here you can then edit that users details.
 

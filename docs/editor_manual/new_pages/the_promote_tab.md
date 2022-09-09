@@ -16,7 +16,7 @@ The Promote tab is where you can configure a page's metadata, to help search eng
 
 -   **Show in menus:** Ticking this box will ensure that the page is included in automatically generated menus on your site. Note: A page will only display in menus if all of its parent pages also have _Show in menus_ ticked.
 
-![](../../_static/images/screen26.5_promote_tab.png)
+![Promote tab of the page editor form, with three "For search engines" fields, and the "Show in menus" checkbox underneath](../../_static/images/screen26.5_promote_tab.png)
 
 ```{note}
 You may see more fields than this in your promote tab. These are just the default fields, but you are free to add other fields to this section as necessary.

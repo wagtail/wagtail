@@ -115,11 +115,11 @@ $ python manage.py runserver
 
 If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
 
-![](../_static/images/tutorial/tutorial_1.png)
+![Browser screenshot of "Welcome to your new Wagtail site!" page, with teal egg above the title, and links to different resources. The page is shown inside a browswer tab, with browser URL bar at the top](../_static/images/tutorial/tutorial_1.png)
 
 You can now access the administrative area at <http://127.0.0.1:8000/admin>
 
-![](../_static/images/tutorial/tutorial_2.png)
+![Screenshot of Wagtail’s dashboard, with "Welcome to the mysite Wagtail CMS" heading, 1 page, 0 images, 0 documents. Underneath is a "Your most recent edits" section, with the Home page listed](../_static/images/tutorial/tutorial_2.png)
 
 ## Extend the HomePage model
 
@@ -181,7 +181,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 
 `wagtailcore_tags` must also be loaded at the top of the template and provide additional tags to those provided by Django.
 
-![](../_static/images/tutorial/tutorial_3.png)
+![Screenshot of an almost empty page – white background, "Welcome to our new site!" in the top left, and Wagtail logo in circled cyan in the bottom right](../_static/images/tutorial/tutorial_3.png)
 
 ### Wagtail template tags
 
@@ -332,22 +332,22 @@ URL of the blog this post is a part of.
 Now create a few blog posts as children of `BlogIndexPage`.
 Be sure to select type "Blog Page" when creating your posts.
 
-![](../_static/images/tutorial/tutorial_4a.png)
+![Page listing for Home page, with the "Actions" dropdown expanded, and the "Add child page" highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 
-![](../_static/images/tutorial/tutorial_4b.png)
+!["Create a page in our blog" page type selector, with Blog page button highlighted in red](../_static/images/tutorial/tutorial_4b.png)
 
 Wagtail gives you full control over what kinds of content can be created under
 various parent content types. By default, any page type can be a child of any
 other page type.
 
-![](../_static/images/tutorial/tutorial_5.png)
+![Page editor for "First blog post" page, with Post date, Intro, Body fields](../_static/images/tutorial/tutorial_5.png)
 
 Publish each blog post when you are done editing.
 
 You should now have the very beginnings of a working blog.
 Access the `/blog` URL and you should see something like this:
 
-![](../_static/images/tutorial/tutorial_7.png)
+![Basic "Our blog" page with three blogs listed, with their title, content](../_static/images/tutorial/tutorial_7.png)
 
 Titles should link to post pages, and a link back to the blog's
 homepage should appear in the footer of each post page.
@@ -547,7 +547,7 @@ Adjust your blog page template to include the images:
 
 Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
 
-![](../_static/images/tutorial/tutorial_6.png)
+!["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
 Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
 
@@ -662,7 +662,7 @@ to group the date and tags fields together for readability.
 
 Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 
-![](../_static/images/tutorial/tutorial_8.png)
+![Screenshot of the "Second Post" page in the editor form, showing the Content tab](../_static/images/tutorial/tutorial_8.png)
 
 To render tags on a `BlogPage`, add this to `blog_page.html`:
 
@@ -751,7 +751,7 @@ a Profile model for authors - we'll leave those as an exercise for the reader.
 Clicking the tag button at the bottom of a BlogPost should now render a page
 something like this:
 
-![](../_static/images/tutorial/tutorial_9.png)
+![A page titled "Showing pages tagged bread", with two page links underneath](../_static/images/tutorial/tutorial_9.png)
 
 (tutorial_categories)=
 
@@ -848,7 +848,7 @@ Finally, we can update the `blog_page.html` template to display the categories:
 {% endwith %}
 ```
 
-![](../_static/images/tutorial/tutorial_10.png)
+!["Second Post" page, with title, date, categories, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_10.png)
 
 ## Where next
 

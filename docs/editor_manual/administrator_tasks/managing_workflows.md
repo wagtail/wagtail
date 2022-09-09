@@ -7,7 +7,7 @@ before the workflow completes (by default, this results in the publication of th
 
 The workflow management interface is accessed via the `Workflows` item in the `Settings` submenu, found in the left menu bar.
 
-![](../../_static/images/screen45_workflow_index.png)
+![Listing of workflows, with a single "Moderators approval" workflow shown, that has a single step](../../_static/images/screen45_workflow_index.png)
 
 In this interface you can see all of the workflows on your site, and the order of tasks in each. You can click on a workflow to edit it or to assign it
 to part of the page tree, or use the `Add a workflow` button to create a new workflow. The number of pages each workflow applies to is also shown, and can be
@@ -15,7 +15,7 @@ clicked for a complete listing.
 
 ## Editing workflows
 
-![](../../_static/images/screen44_workflow_edit.png)
+![Workflow editing UI, with a name field, a list of tasks, and pages](../../_static/images/screen44_workflow_edit.png)
 
 Under `Add tasks to your workflow`, you can add, remove, or reorder tasks in a workflow. When adding a task to a workflow, you will be given the
 option to create a new task, or reuse an existing one.
@@ -29,7 +29,7 @@ On a previously disabled workflow, there is also the option to enable it again.
 
 ## Creating and editing tasks
 
-![](../../_static/images/screen46_task_index.png)
+![Tasks listing, with a single item](../../_static/images/screen46_task_index.png)
 
 In the tasks interface, accessible via the `Workflow Tasks` item in the `Settings` submenu, you can see a list of the tasks
 currently available, as well as which workflows use each task. Similarly to workflows, you can click an existing task to edit it, or the `Add a task` button to create a new task.
@@ -38,7 +38,7 @@ When creating a task, if you have multiple task types available, these will be o
 Creating a `group approval task`, you will be able to select one or multiple groups: members of any of these, as well as administrators, will be able to
 approve or reject moderation for this task.
 
-![](../../_static/images/screen47_task_create.png)
+![Tasks creation form, with Name field and Groups checkboxes, with two Moderators and Editors options](../../_static/images/screen47_task_create.png)
 
 When editing a task, you may find that some fields - including the name - are uneditable. This is to ensure workflow history
 remains consistent - if you find yourself needing to change the name, it is recommended that you disable the old task, and create a new one with the name
