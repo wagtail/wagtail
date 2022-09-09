@@ -617,6 +617,7 @@ Contributors
 * Paritosh Kabra
 * Akash Kumar Sen
 * Xabier Bello
+* Christophe Bastin
 
 
 Translators
