@@ -1,6 +1,6 @@
 # The Explorer menu
 
-![](../../_static/images/screen03_explorer_menu.png)
+![Wagtail’s explorer menu, with 7 entries. One is marked "Live + moderation". There is a button with a left-pointing arrow to the top](../../_static/images/screen03_explorer_menu.png)
 
 -   Click the Pages button in the sidebar to open the explorer. This allows you to navigate through the sections of the site.
 -   Clicking the name of a page will take you to the Explorer page for that section.

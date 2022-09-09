@@ -6,7 +6,7 @@ Wagtail supports a number of basic fields for creating content, as well as our u
 
 StreamField allows you to create complex layouts of content on a page by combining a number of different arrangements of content, 'blocks', in any order.
 
-![](../../_static/images/screen11_empty_streamfield.png)
+![Page body field, with a grid of 6 blocks underneath](../../_static/images/screen11_empty_streamfield.png)
 
 When you first edit a page, you will be presented with the empty StreamField area, with the option to choose one of several block types. The block types on your website may be different from the screenshot here, but the principles are the same.
 
@@ -26,15 +26,15 @@ Basic text fields have no formatting options. How these display will be determin
 
 Most of the time though, you need formatting options to create beautiful looking pages. Wagtail provides "rich text" fields, which have formatting options similar to those of word processors.
 
-![](../../_static/images/screen11.1_streamfield_richtext.png)
+![Paragraph block containing a rich text field, with "Hello" text selected and the toolbar showing different formatting options over the selection](../../_static/images/screen11.1_streamfield_richtext.png)
 
 Those fields present a set of tools which allow you to format and style your text. These tools also allow you to insert links, images, videos clips and links to documents. If you want to know more about a specific tool, hover your mouse on the corresponding button so the tooltip appears:
 
-![](../../_static/images/screen11.2_toolbar_tooltips.png)
+![Close-up of the rich text toolbar, with "H2" button outlined, and "H3" button having its tooltip "Heading 3 ###"](../../_static/images/screen11.2_toolbar_tooltips.png)
 
 This tooltip shows a longer description of the tool, and displays its keyboard shortcut if there is one. If the keyboard shortcut does not start with CTRL or ⌘, it's a [Markdown](https://en.wikipedia.org/wiki/Markdown) shortcut to type directly in the editor:
 
-![](../../_static/images/screen11.3_keyboard_shortcuts_.gif)
+![Screen recording of the rich text field, first typing ###, then the current line switches to heading 3 formatting, then the user types "Differences with Django"](../../_static/images/screen11.3_keyboard_shortcuts_.gif)
 
 ---
 
@@ -42,7 +42,7 @@ That’s the gist of it! If you want more information about the editor, please h
 
 ### Adding further blocks in StreamField
 
-![](../../_static/images/screen11.8_adding_new_blocks.png)
+![The Body StreamField, with Paragraph block, and 6 block options in a grid underneath](../../_static/images/screen11.8_adding_new_blocks.png)
 
 -   To add new blocks, click the '+' icons above or below the existing blocks.
 -   You'll then be presented once again with the different blocks from which you may choose.
@@ -51,7 +51,7 @@ That’s the gist of it! If you want more information about the editor, please h
 
 ### Reordering and deleting content in StreamField
 
-![](../../_static/images/screen11.9_streamfield_reordering.png)
+![Close-up of a paragraph block, with block reodering, delete, duplicate controls visible to the right](../../_static/images/screen11.9_streamfield_reordering.png)
 
 -   Click the arrows on the right-hand side of each block to move blocks up and down in the StreamField order of content.
 -   The blocks will be displayed in the front-end in the order that they are placed in this interface.

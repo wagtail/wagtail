@@ -2,15 +2,15 @@
 
 If you want to edit, add or remove images from the CMS outside of the individual pages you can do so from the Images interface. This is accessed from the left-hand menu.
 
-![](../../_static/images/screen31_images_page.png)
+![Images listing, with header and images grid](../../_static/images/screen31_images_page.png)
 
 -   Select multiple images by checking the checkbox on the top left of each image block, then use the bulk actions bar at the bottom to perform an action on all selected images.
 
-![](../../_static/images/screen31.5_images_bulk_actions.png)
+![Images listing, with checkboxes shown next to images. Five images are selected, and a bottom menu shows different actions as well as a "5 images selected" label](../../_static/images/screen31.5_images_bulk_actions.png)
 
 -   Clicking an image will allow you to edit the data associated with it. This includes the title, the focal point of the image and much more.
 
-![](../../_static/images/screen32_image_edit_page.png)
+![Image editing form for Olivia Ava image. To the right of the form is an image preview, focal point controls, and metadata about the image](../../_static/images/screen32_image_edit_page.png)
 
 ## Changing the image
 
