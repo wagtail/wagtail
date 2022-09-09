@@ -95,6 +95,7 @@ class TestCreateOrUpdateForObject(TestCase):
             to_object_id=self.test_feed_image.pk,
             model_path="feed_image",
             content_path="feed_image",
+            content_path_hash=ReferenceIndex._get_content_path_hash("feed_image"),
         )
         reference_to_remove = ReferenceIndex.objects.create(
             base_content_type=ReferenceIndex._get_base_content_type(self.event_page),
@@ -104,6 +105,7 @@ class TestCreateOrUpdateForObject(TestCase):
             to_object_id=self.test_image_1.pk,  # Image ID is not used in this field
             model_path="feed_image",
             content_path="feed_image",
+            content_path_hash=ReferenceIndex._get_content_path_hash("feed_image"),
         )
 
         ReferenceIndex.create_or_update_for_object(self.event_page)
