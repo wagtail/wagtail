@@ -4695,6 +4695,10 @@ class ReferenceIndex(models.Model):
     model_path = models.TextField()
     content_path = models.TextField()
 
+    # We need a separate hash field for content_path in order to use it in a unique key because
+    # MySQL has a limit to the size of fields that are included in unique keys
+    content_path_hash = models.UUIDField()
+
     wagtail_reference_index_ignore = True
 
     class Meta:
@@ -4704,7 +4708,7 @@ class ReferenceIndex(models.Model):
                 "object_id",
                 "to_content_type",
                 "to_object_id",
-                "content_path",
+                "content_path_hash",
             )
         ]
 
@@ -4792,6 +4796,12 @@ class ReferenceIndex(models.Model):
                     )
 
     @classmethod
+    def _get_content_path_hash(cls, content_path):
+        return uuid.uuid5(
+            uuid.UUID("bdc70d8b-e7a2-4c2a-bf43-2a3e3fcbbe86"), content_path
+        )
+
+    @classmethod
     def create_or_update_for_object(cls, object):
         # Extract new references
         references = set(cls._extract_references_from_object(object))
@@ -4820,6 +4830,7 @@ class ReferenceIndex(models.Model):
                     to_object_id=to_object_id,
                     model_path=model_path,
                     content_path=content_path,
+                    content_path_hash=cls._get_content_path_hash(content_path),
                 )
                 for to_content_type_id, to_object_id, model_path, content_path in new_references
             ]

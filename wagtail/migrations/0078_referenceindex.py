@@ -34,6 +34,7 @@ class Migration(migrations.Migration):
                 ),
                 ("model_path", models.TextField()),
                 ("content_path", models.TextField()),
+                ("content_path_hash", models.UUIDField()),
                 (
                     "base_content_type",
                     models.ForeignKey(
@@ -66,7 +67,7 @@ class Migration(migrations.Migration):
                         "object_id",
                         "to_content_type",
                         "to_object_id",
-                        "content_path",
+                        "content_path_hash",
                     )
                 },
             },
