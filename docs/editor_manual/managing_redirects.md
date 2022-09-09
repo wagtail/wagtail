@@ -26,13 +26,13 @@ As a best practice Wagtail will check redirects as permanent by default, in orde
 
 To configure redirects head over to 'Redirects', which can be found in the Settings menu, accessible via the left-hand menu bar.
 
-![](../_static/images/screen42_redirects_interface.png)
+![Redirects listing, with a search field in the header, buttons to add and import redirects, and rows of existing underneath](../_static/images/screen42_redirects_interface.png)
 
 -   Add a redirect by clicking the _Add redirect_ button in the top-right.
 -   Search for redirects already configured by entering your search term in the search bar. The results will be automatically updated as you type.
 -   Edit the details of a redirect by clicking the URL path in the listing.
 
-![](../_static/images/screen43_redirects_edit_redirect.png)
+![Editing form for a redirect, with from fields, Site field, permanent checkbox, and destination fields for page and URL options](../_static/images/screen43_redirects_edit_redirect.png)
 
 -   Set _Redirect from_ to the URL pattern which is no longer available on your site.
 -   Set the _From site_ if applicable (for eg: a multisite environment).

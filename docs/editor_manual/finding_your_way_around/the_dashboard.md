@@ -9,7 +9,7 @@ The Dashboard provides information on:
 
 You can return to the Dashboard at any time by clicking the Wagtail logo in the top-left of the screen.
 
-![](../../_static/images/screen02_dashboard_editor.png)
+![Screenshot of Wagtail’s dashboard, with sidebar, header, summary metrics, and listing for pages in different states](../../_static/images/screen02_dashboard_editor.png)
 
 -   Clicking the logo returns you to your Dashboard.
 

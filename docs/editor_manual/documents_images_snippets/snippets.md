@@ -11,7 +11,7 @@ How snippets are used can vary widely between websites. Here are a few examples 
 
 ## The Snippets menu
 
-![](../../_static/images/screen33_snippet_menu.png)
+![Snippets listing, with five rows. For each row, we show the snippets name and number of instances](../../_static/images/screen33_snippet_menu.png)
 
 -   You can access the Snippets menu by clicking on the 'Snippets' link in the left-hand menu bar.
 -   To add or edit a snippet, click on the snippet type you are interested in (often help text will be included to help you in selecting the right type)
@@ -22,7 +22,7 @@ How snippets are used can vary widely between websites. Here are a few examples 
 Editing a snippet will change it on all of the pages on which it has been used. In the top-right of the Snippet edit screen you will see a label saying how many times the snippet has been used. Clicking this label will display a listing of all of these pages.
 ```
 
-![](../../_static/images/screen34_snippet_used_times.png)
+![Snippet editing form for a People snippet instance. To the right of the form is a "Usage Used 2 times" label](../../_static/images/screen34_snippet_used_times.png)
 
 ## Adding snippets whilst editing a page
 

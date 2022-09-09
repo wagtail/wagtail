@@ -16,12 +16,12 @@ To set up the promoted search results, click on the 'Promoted search results' me
 
 Add a new promoted result from the button in the top right of the resulting screen, or edit an existing promoted result by clicking on it.
 
-![](../../_static/images/screen38_promoted_results_listing.png)
+![Promoted results listing, with search field, "Add" button, and four results listed under as rows](../../_static/images/screen38_promoted_results_listing.png)
 
 When adding a new promoted result, Wagtail provides you with a 'Choose from popular search terms' option. This will show you the most popular terms entered by users into your internal search. You can match this list against your existing promoted results to ensure that users are able to find what they are looking for.
 
-![](../../_static/images/screen38.5_popular_search_results.png)
+![Popular search terms modal dialog, with close button, search fields, and a table showing multiple terms with their respective Views (past week)](../../_static/images/screen38.5_popular_search_results.png)
 
 You then add a the result itself by clicking 'Add recommended page'. You can add multiple results, but be careful about adding too many, as you may end up hiding all of your organic results with promoted results, which may not be helpful for users who aren't really sure what they are looking for.
 
-![](../../_static/images/screen39_add_promoted_result.png)
+![Promoted result editing form, with search term field and associated pages](../../_static/images/screen39_add_promoted_result.png)
