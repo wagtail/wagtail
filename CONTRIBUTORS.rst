@@ -623,6 +623,7 @@ Contributors
 * Kurt Wall
 * Adam Johnson
 * Josh Thomas
+* Christophe Bastin
 
 
 Translators

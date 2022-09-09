@@ -106,14 +106,14 @@ For example:
 ```python
 # blog/models.py
 
-from wagtail.api import apifield
+from wagtail.api import APIField
 
 class blogpageauthor(orderable):
     page = models.foreignkey('blog.blogpage', on_delete=models.cascade, related_name='authors')
     name = models.charfield(max_length=255)
 
     api_fields = [
-        apifield('name'),
+        APIField('name'),
     ]
 
 
@@ -125,10 +125,10 @@ class blogpage(page):
 
     # export fields over the api
     api_fields = [
-        apifield('published_date'),
-        apifield('body'),
-        apifield('feed_image'),
-        apifield('authors'),  # this will nest the relevant blogpageauthor objects in the api response
+        APIField('published_date'),
+        APIField('body'),
+        APIField('feed_image'),
+        APIField('authors'),  # this will nest the relevant blogpageauthor objects in the api response
     ]
 ```
 
