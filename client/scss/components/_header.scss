@@ -187,19 +187,6 @@
     .col9 {
       @include column(9);
     }
-
-    &--home {
-      @include nice-padding();
-      padding-top: theme('spacing.16');
-
-      .row {
-        padding-inline-start: 6.0625rem;
-      }
-
-      .w-header__glyph.avatar {
-        margin-inline-start: -3.25rem;
-      }
-    }
   }
 }
 
@@ -209,13 +196,6 @@
 
     &:not(.w-header--merged, .w-header--hasform) {
       padding-top: theme('spacing.10');
-    }
-
-    &--home {
-      #{$root}__title {
-        // Font size only to be used on the home header
-        font-size: 3.125rem;
-      }
     }
   }
 }

@@ -7,4 +7,46 @@
     // pull out the icon so it aligns with no-icon text
     margin-inline-start: -1.75em;
   }
+
+  .w-header {
+    @include nice-padding();
+    padding-top: theme('spacing.16');
+
+    @include media-breakpoint-up(sm) {
+      .w-header__title {
+        // Font size only to be used on the home header
+        font-size: 3.125rem;
+      }
+    }
+
+    .row {
+      padding-inline-start: 4.6875rem; // 75rem
+
+      @include media-breakpoint-up(sm) {
+        padding-inline-start: 6.56rem; // 105px
+      }
+    }
+
+    .w-header__glyph.avatar {
+      margin-inline-start: calc(0 - theme('spacing.5'));
+      margin-top: 0;
+
+      @include media-breakpoint-up(sm) {
+        margin-inline-start: -3.75rem;
+      }
+    }
+
+    .w-panel-upgrade-notification {
+      padding: 0;
+    }
+  }
+
+  .homepage-panels {
+    @include nice-padding();
+
+    // Remove nice padding on all the panels because this is handled by the wrapper itself
+    .nice-padding {
+      padding: 0;
+    }
+  }
 }

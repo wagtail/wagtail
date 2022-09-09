@@ -9,13 +9,13 @@
 
 {% block content %}
     {% fragment as header_title %}
-        {% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}
+        {% block branding_welcome %}{% blocktrans trimmed %}{{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}
     {% endfragment %}
 
     {% avatar_url user as avatar %}
-    {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar avatar_size='medium' merged=1 classname='w-header--home' %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar avatar_size='medium' merged=1 %}
 
-    <div class="nice-padding">
+    <div class="homepage-panels">
         {% if panels %}
             {% for panel in panels %}
                 {% component panel fallback_render_method=True %}
