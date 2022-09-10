@@ -2436,7 +2436,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.depth = self.depth
         obj.numchild = self.numchild
 
-        # Update url_path to reflect potential slug changes, but maintining the page's
+        # Update url_path to reflect potential slug changes, but maintaining the page's
         # existing tree position
         obj.set_url_path(self.get_parent())
 
