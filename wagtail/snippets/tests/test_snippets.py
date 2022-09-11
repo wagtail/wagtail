@@ -598,6 +598,42 @@ class TestSnippetListViewWithFilterSet(TestCase, WagtailTestUtils):
         )
 
 
+class TestListViewWithCustomColumns(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        FilterableSnippet.objects.create(text="From Indonesia", country_code="ID")
+        FilterableSnippet.objects.create(text="From the UK", country_code="UK")
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse("wagtailsnippets_snippetstests_filterablesnippet:list"),
+            params,
+        )
+
+    def test_custom_columns(self):
+        response = self.get()
+        self.assertContains(response, "Text")
+        self.assertContains(response, "Country Code")
+        self.assertContains(response, "Custom Foo Column")
+        self.assertContains(response, "Updated")
+
+        self.assertContains(response, "Foo UK")
+
+        list_url = reverse("wagtailsnippets_snippetstests_filterablesnippet:list")
+        sort_country_code_url = list_url + "?ordering=country_code"
+
+        # One from the country code column, another from the custom foo column
+        self.assertContains(response, sort_country_code_url, count=2)
+
+        html = response.content.decode()
+
+        # The bulk actions column plus 4 columns defined in FilterableSnippetViewSet
+        self.assertTagInHTML("<th>", html, count=5, allow_extra_attrs=True)
+
+
 class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
