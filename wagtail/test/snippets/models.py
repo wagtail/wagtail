@@ -80,6 +80,12 @@ class FilterableSnippet(index.Indexed, models.Model):
     def __str__(self):
         return self.text
 
+    def get_foo_country_code(self):
+        return f"Foo {self.country_code}"
+
+    get_foo_country_code.admin_order_field = "country_code"
+    get_foo_country_code.short_description = "Custom foo column"
+
 
 class FilterableSnippetFilterSet(WagtailFilterSet):
     class Meta:
