@@ -224,11 +224,6 @@ def hook_output(hook_name):
 
 
 @register.simple_tag
-def usage_count_enabled():
-    return getattr(settings, "WAGTAIL_USAGE_COUNT_ENABLED", False)
-
-
-@register.simple_tag
 def base_url_setting(default=None):
     return get_admin_base_url() or default
 

@@ -332,7 +332,7 @@ Specifies the number of images per page shown on the main Images listing in the 
 WAGTAILIMAGES_USAGE_PAGE_SIZE = 20
 ```
 
-Specifies the number of items per page shown when viewing an image's usage (see [`WAGTAIL_USAGE_COUNT_ENABLED`](wagtail_usage_count_enabled)).
+Specifies the number of items per page shown when viewing an image's usage.
 
 ### `WAGTAILIMAGES_CHOOSER_PAGE_SIZE`
 
@@ -662,28 +662,6 @@ TAG_LIMIT = 5
 ```
 
 Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `None`, meaning no limit on tags.
-
-(wagtail_usage_count_enabled)=
-
-## Usage for images, documents and snippets
-
-### `WAGTAIL_USAGE_COUNT_ENABLED`
-
-```python
-WAGTAIL_USAGE_COUNT_ENABLED = True
-```
-
-When enabled Wagtail shows where a particular image, document or snippet is being used on your site.
-This is disabled by default because it generates a query which may run slowly on sites with large numbers of pages.
-
-A link will appear on the edit page (in the rightmost column) showing you how many times the item is used.
-Clicking this link takes you to the "Usage" page, which shows you where the snippet, document or image is used.
-
-The link is also shown on the delete page, above the "Delete" button.
-
-```{note}
-The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
-```
 
 ## Static files
 

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Permission
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.images import get_image_model
@@ -82,7 +81,6 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
         for image in self.images:
             self.assertFalse(Image.objects.filter(id=image.id).exists())
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)

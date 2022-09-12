@@ -11,7 +11,6 @@
 
     <div class="row row-flush">
 
-        {% usage_count_enabled as uc_enabled %}
         <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
             <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
                 {% csrf_token %}
@@ -32,19 +31,15 @@
             </form>
         </div>
 
-        {% if uc_enabled %}
-            <div class="col2 ">
-                <dl>
-                    <dt>{% trans "Usage" %}</dt>
-                    <dd>
-                        <a href="{{ object.usage_url }}">{% blocktrans trimmed count usage_count=object.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                    </dd>
-                </dl>
-            </div>
-        {% endif %}
+        <div class="col2 ">
+            <dl>
+                <dt>{% trans "Usage" %}</dt>
+                <dd>
+                    <a href="{{ object.usage_url }}">{% blocktrans trimmed count usage_count=object.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                </dd>
+            </dl>
+        </div>
     </div>
-
-
 {% endblock %}
 
 {% block extra_css %}

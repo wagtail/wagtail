@@ -544,7 +544,6 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, "File not found")
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.client.get(
             reverse("wagtaildocs:edit", args=(self.document.id,))
@@ -736,7 +735,6 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
         # Document should be deleted
         self.assertFalse(models.Document.objects.filter(id=self.document.id).exists())
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.client.get(
             reverse("wagtaildocs:delete", args=(self.document.id,))
@@ -1737,12 +1735,10 @@ class TestUsageCount(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_document_usage_count(self):
         doc = models.Document.objects.get(id=1)
         self.assertEqual(doc.get_usage().count(), 0)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_document_usage_count(self):
         doc = models.Document.objects.get(id=1)
         page = EventPage.objects.get(id=4)
@@ -1752,17 +1748,6 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         event_page_related_link.save()
         self.assertEqual(doc.get_usage().count(), 1)
 
-    def test_usage_count_does_not_appear(self):
-        doc = models.Document.objects.get(id=1)
-        page = EventPage.objects.get(id=4)
-        event_page_related_link = EventPageRelatedLink()
-        event_page_related_link.page = page
-        event_page_related_link.link_document = doc
-        event_page_related_link.save()
-        response = self.client.get(reverse("wagtaildocs:edit", args=(1,)))
-        self.assertNotContains(response, "Used 1 time")
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_count_appears(self):
         doc = models.Document.objects.get(id=1)
         page = EventPage.objects.get(id=4)
@@ -1773,7 +1758,6 @@ class TestUsageCount(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtaildocs:edit", args=(1,)))
         self.assertContains(response, "Used 1 time")
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_count_zero_appears(self):
         response = self.client.get(reverse("wagtaildocs:edit", args=(1,)))
         self.assertContains(response, "Used 0 times")
@@ -1785,16 +1769,10 @@ class TestGetUsage(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-    def test_document_get_usage_not_enabled(self):
-        doc = models.Document.objects.get(id=1)
-        self.assertEqual(list(doc.get_usage()), [])
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_document_get_usage(self):
         doc = models.Document.objects.get(id=1)
         self.assertEqual(list(doc.get_usage()), [])
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_document_get_usage(self):
         doc = models.Document.objects.get(id=1)
         page = EventPage.objects.get(id=4)
@@ -1808,7 +1786,6 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         self.assertIsInstance(doc.get_usage()[0][1], list)
         self.assertIsInstance(doc.get_usage()[0][1][0], ReferenceIndex)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_page(self):
         doc = models.Document.objects.get(id=1)
         page = EventPage.objects.get(id=4)
@@ -1819,7 +1796,6 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
         self.assertContains(response, "Christmas")
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_page_no_usage(self):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
         # There's no usage so there should be no table rows
