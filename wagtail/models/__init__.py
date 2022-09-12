@@ -4759,8 +4759,17 @@ class ReferenceIndex(models.Model):
             )
 
     @classmethod
-    def _model_could_have_outbound_references(cls, model):
+    def model_is_indexible(cls, model, allow_child_models=False):
+        """
+        Returns True if the given model may have outbound references that we would be interested in recording in the index.
+        """
         if getattr(model, "wagtail_reference_index_ignore", False):
+            return False
+
+        # Don't check any models that have a parental key, references from these will be collected from the parent
+        if not allow_child_models and any(
+            [isinstance(field, ParentalKey) for field in model._meta.get_fields()]
+        ):
             return False
 
         for field in model._meta.get_fields():
@@ -4783,8 +4792,9 @@ class ReferenceIndex(models.Model):
 
         if issubclass(model, ClusterableModel):
             for child_relation in get_all_child_relations(model):
-                if cls._model_could_have_outbound_references(
-                    child_relation.related_model
+                if cls.model_is_indexible(
+                    child_relation.related_model,
+                    allow_child_models=True,
                 ):
                     return True
 
@@ -4904,6 +4914,20 @@ class ReferenceIndex(models.Model):
         cls.objects.filter(
             id__in=[existing_references[reference] for reference in deleted_references]
         ).delete()
+
+    @classmethod
+    def remove_for_object(cls, object):
+        base_content_type = cls._get_base_content_type(object)
+        cls.objects.filter(
+            base_content_type=base_content_type, object_id=object.pk
+        ).delete()
+
+    @classmethod
+    def get_references_for_object(cls, object):
+        return cls.objects.filter(
+            base_content_type_id=cls._get_base_content_type(object),
+            object_id=object.pk,
+        )
 
     @classmethod
     def get_references_to(cls, object):
