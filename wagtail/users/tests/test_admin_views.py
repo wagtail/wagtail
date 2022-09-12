@@ -1806,3 +1806,257 @@ class TestGroupViewSet(TestCase):
                 'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
                 str(exc_info.exception),
             )
+
+
+class TestAuthorisationIndexView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self._user = self.create_user(username="auth_user", password="password")
+        self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
+        self.login(username="auth_user", password="password")
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailusers_users:index"))
+
+    def gain_permissions(self):
+        self._user.user_permissions.add(
+            *Permission.objects.filter(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename__in=(
+                    "add_{}".format(AUTH_USER_MODEL_NAME.lower()),
+                    "change_{}".format(AUTH_USER_MODEL_NAME.lower()),
+                    "delete_{}".format(AUTH_USER_MODEL_NAME.lower()),
+                ),
+            )
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+    def test_authorised(self):
+        self.gain_permissions()
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/users/index.html")
+
+
+class TestAuthorisationCreateView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self._user = self.create_user(username="auth_user", password="password")
+        self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
+        self.login(username="auth_user", password="password")
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailusers_users:add"), params)
+
+    def post(self, post_data={}):
+        return self.client.post(reverse("wagtailusers_users:add"), post_data)
+
+    def gain_permissions(self):
+        self._user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename="add_{}".format(AUTH_USER_MODEL_NAME.lower()),
+            )
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+    def test_authorised(self):
+        self.gain_permissions()
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/users/create.html")
+
+    def test_unauthorised_post(self):
+        response = self.post(
+            {
+                "username": "testuser",
+                "email": "test@user.com",
+                "first_name": "Test",
+                "last_name": "User",
+                "password1": "password",
+                "password2": "password",
+            }
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+        users = get_user_model().objects.filter(email="test@user.com")
+        self.assertEqual(users.count(), 0)
+
+    def test_authorised_post(self):
+        self.gain_permissions()
+        response = self.post(
+            {
+                "username": "testuser",
+                "email": "test@user.com",
+                "first_name": "Test",
+                "last_name": "User",
+                "password1": "password",
+                "password2": "password",
+            }
+        )
+        self.assertRedirects(response, reverse("wagtailusers_users:index"))
+        users = get_user_model().objects.filter(email="test@user.com")
+        self.assertEqual(users.count(), 1)
+
+
+class TestAuthorisationEditView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self._user = self.create_user(username="auth_user", password="password")
+        self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
+        self.login(username="auth_user", password="password")
+        self.test_user = self.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            first_name="Original",
+            last_name="User",
+            password="password",
+        )
+
+    def get(self, params={}, user_id=None):
+        return self.client.get(
+            reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
+            params,
+        )
+
+    def post(self, post_data={}, user_id=None):
+        return self.client.post(
+            reverse("wagtailusers_users:edit", args=(user_id or self.test_user.pk,)),
+            post_data,
+        )
+
+    def gain_permissions(self):
+        self._user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename="change_{}".format(AUTH_USER_MODEL_NAME.lower()),
+            )
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+    def test_authorised_get(self):
+        self.gain_permissions()
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
+
+    def test_unauthorised_post(self):
+        response = self.post(
+            {
+                "username": "testuser",
+                "email": "test@user.com",
+                "first_name": "Edited",
+                "last_name": "User",
+                "password1": "newpassword",
+                "password2": "newpassword",
+                "is_active": "on",
+            }
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertNotEqual(user.first_name, "Edited")
+        self.assertFalse(user.check_password("newpassword"))
+
+    def test_authorised_post(self):
+        self.gain_permissions()
+        response = self.post(
+            {
+                "username": "testuser",
+                "email": "test@user.com",
+                "first_name": "Edited",
+                "last_name": "User",
+                "password1": "newpassword",
+                "password2": "newpassword",
+                "is_active": "on",
+            }
+        )
+        self.assertRedirects(response, reverse("wagtailusers_users:index"))
+        user = get_user_model().objects.get(pk=self.test_user.pk)
+        self.assertEqual(user.first_name, "Edited")
+        self.assertTrue(user.check_password("newpassword"))
+
+
+class TestAuthorisationDeleteView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self._user = self.create_user(username="auth_user", password="password")
+        self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
+        self.login(username="auth_user", password="password")
+        self.test_user = self.create_user(
+            username="test_user",
+            email="test_user@email.com",
+            password="password",
+        )
+
+    def get(self, params={}):
+        return self.client.get(
+            reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), params
+        )
+
+    def post(self, post_data={}):
+        return self.client.post(
+            reverse("wagtailusers_users:delete", args=(self.test_user.pk,)), post_data
+        )
+
+    def gain_permissions(self):
+        self._user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label=AUTH_USER_APP_LABEL,
+                codename="delete_{}".format(AUTH_USER_MODEL_NAME.lower()),
+            )
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+    def test_authorised_get(self):
+        self.gain_permissions()
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailusers/users/confirm_delete.html")
+
+    def test_unauthorised_post(self):
+        response = self.post()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+        users = get_user_model().objects.filter(email="test_user@email.com")
+        self.assertEqual(users.count(), 1)
+
+    def test_authorised_post(self):
+        self.gain_permissions()
+        response = self.post()
+        self.assertRedirects(response, reverse("wagtailusers_users:index"))
+        users = get_user_model().objects.filter(email="test_user@email.com")
+        self.assertEqual(users.count(), 0)
