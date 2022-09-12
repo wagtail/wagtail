@@ -68,7 +68,7 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
         [
           new LinkMenuItemDefinition({
             name: 'locked-pages',
-            label: 'Locked Pages',
+            label: 'Locked pages',
             url: '/admin/reports/locked/',
             icon_name: 'lock',
             classnames: '',
@@ -404,7 +404,7 @@ function arabicMenuModule(): MainMenuModuleDefinition {
         [
           new LinkMenuItemDefinition({
             name: 'locked-pages',
-            label: 'Locked Pages',
+            label: 'Locked pages',
             url: '/admin/reports/locked/',
             icon_name: 'lock',
             classnames: '',

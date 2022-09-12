@@ -624,6 +624,7 @@ Contributors
 * Adam Johnson
 * Josh Thomas
 * Christophe Bastin
+* Nicholas Johnson
 
 
 Translators

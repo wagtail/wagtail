@@ -1,7 +1,7 @@
 # Adding reports
 
 Reports are views with listings of pages matching a specific query. They can also export these listings in spreadsheet format.
-They are found in the _Reports_ submenu: by default, the _Locked Pages_ report is provided, allowing an overview of locked pages on the site.
+They are found in the _Reports_ submenu: by default, the _Locked pages_ report is provided, allowing an overview of locked pages on the site.
 
 It is possible to create your own custom reports in the Wagtail admin. Two base classes are provided:
 `wagtail.admin.views.reports.ReportView`, which provides basic listing and spreadsheet export functionality, and

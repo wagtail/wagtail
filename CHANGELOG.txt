@@ -26,6 +26,7 @@ Changelog
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
  * Fix: Ensure that disabled buttons have a consistent presentation on hover to indicate no interaction is available (Paarth Agarwal)
+ * Fix: Update the 'Locked pages' report menu title so that it is consistent with other pages reports and its own title on viewing (Nicholas Johnson)
 
 
 4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -48,7 +49,7 @@ Changelog
 4.0.1 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: On the Locked pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
  * Fix: Prevent JavaScript error when using StreamField on views without commenting support, such as snippets (Jacob Topp-Mugglestone)
  * Fix: Modify base template for new projects so that links opened from the preview panel open in a new window (Sage Abdullah)
  * Fix: Prevent circular import error between custom document models and document chooser blocks (Matt Westcott)
@@ -242,7 +243,7 @@ Changelog
 3.0.3 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: On the Locked pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
  * Fix: Prevent JavaScript error when using StreamField on views without commenting support, such as snippets (Jacob Topp-Mugglestone)
 
 
@@ -355,7 +356,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
- * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: On the Locked pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
  * Fix: Ensure Python 3.10 compatibility when using Elasticsearch backend (Przemysław Buczkowski, Matt Westcott)
 
 
@@ -449,7 +450,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure the upgrade notification request for the latest release, which can be disabled via the `WAGTAIL_ENABLE_UPDATE_CHECK` sends the referrer origin with `strict-origin-when-cross-origin` (Karl Hobley)
- * Fix: On the Locked Pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
+ * Fix: On the Locked pages report, limit the "locked by" filter to just users who have locked pages (Stefan Hammer)
  * Fix: Ensure Python 3.10 compatibility when using Elasticsearch backend (Przemysław Buczkowski, Matt Westcott)
 
 
