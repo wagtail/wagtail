@@ -60,13 +60,10 @@
                     <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
                 {% endif %}
 
-                {% usage_count_enabled as uc_enabled %}
-                {% if uc_enabled %}
-                    <dt>{% trans "Usage" %}</dt>
-                    <dd>
-                        <a href="{{ document.usage_url }}">{% blocktrans trimmed count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                    </dd>
-                {% endif %}
+                <dt>{% trans "Usage" %}</dt>
+                <dd>
+                    <a href="{{ document.usage_url }}">{% blocktrans trimmed count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                </dd>
             </dl>
         </div>
     </div>

@@ -530,11 +530,9 @@ class TestUsageCount(TestCase):
             file=get_test_image_file(),
         )
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_image_usage_count(self):
         self.assertEqual(self.image.get_usage().count(), 0)
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_image_document_usage_count(self):
         page = EventPage.objects.get(id=4)
         event_page_carousel_item = EventPageCarouselItem()
@@ -553,14 +551,9 @@ class TestGetUsage(TestCase):
             file=get_test_image_file(),
         )
 
-    def test_image_get_usage_not_enabled(self):
-        self.assertEqual(list(self.image.get_usage()), [])
-
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_unused_image_get_usage(self):
         self.assertEqual(list(self.image.get_usage()), [])
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_used_image_document_get_usage(self):
         page = EventPage.objects.get(id=4)
         event_page_carousel_item = EventPageCarouselItem()
