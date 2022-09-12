@@ -43,12 +43,9 @@
     font-weight: theme('fontWeight.normal');
   }
 
-  // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
-  // Use w-header--with-padding for headers that don't contain .row elements.
-  &.w-header--with-padding,
   > .row {
     padding-top: theme('spacing.6');
-    padding-bottom: theme('spacing.6');
+    padding-bottom: theme('spacing.3');
     padding-inline-start: 75px;
     padding-inline-end: theme('spacing.5');
   }
@@ -129,18 +126,10 @@
 
 @include media-breakpoint-up(sm) {
   .w-header {
-
-     //TODO: Refine this to look nice with all variations
-     &:not(.w-header--merged, .w-header--hasform) {
-      padding-top: theme('spacing.5');
-      padding-inline-start: theme('spacing.12');
-    }
-
-
     .row {
       padding-inline-start: $desktop-nice-padding;
       padding-inline-end: $desktop-nice-padding;
-      padding-top: theme('spacing.6');
+      padding-top: theme('spacing.10');
     }
 
     &.w-header--merged .w-breadcrumb {
@@ -193,9 +182,5 @@
 @include media-breakpoint-up(lg) {
   .w-header {
     $root: &;
-
-    &:not(.w-header--merged, .w-header--hasform) {
-      padding-top: theme('spacing.10');
-    }
   }
 }
