@@ -4,8 +4,6 @@
 
 Create new pages by clicking the **Add child page** button. This creates a child page of the section you are currently in. In this case a child page of the 'Breads' page.
 
-% ADD IN OTHER WAYS A CHILD PAGE CAN BE ADDED?>>
-
 ```{toctree}
 :maxdepth: 3
 
