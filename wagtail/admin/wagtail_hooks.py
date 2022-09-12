@@ -937,7 +937,7 @@ class AgingPagesReportMenuItem(MenuItem):
 @hooks.register("register_reports_menu_item")
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(
-        _("Locked Pages"),
+        _("Locked pages"),
         reverse("wagtailadmin_reports:locked_pages"),
         icon_name="lock",
         order=700,
