@@ -1,7 +1,6 @@
 from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from modelcluster.fields import ParentalKey
 
 from wagtail.models import ReferenceIndex
 
@@ -29,16 +28,7 @@ class Command(BaseCommand):
             ReferenceIndex.objects.all().delete()
 
             for model in apps.get_models():
-                if not ReferenceIndex._model_could_have_outbound_references(model):
-                    continue
-
-                # Don't check any models that have a parental key, references from these will be collected from the parent
-                if any(
-                    [
-                        isinstance(field, ParentalKey)
-                        for field in model._meta.get_fields()
-                    ]
-                ):
+                if not ReferenceIndex.model_is_indexible(model):
                     continue
 
                 self.stdout.write(str(model))

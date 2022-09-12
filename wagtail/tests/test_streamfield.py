@@ -14,6 +14,7 @@ from wagtail.fields import StreamField
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.rich_text import RichText
+from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.testapp.models import (
     BlockCountsStreamModel,
     JSONBlockCountsStreamModel,
@@ -177,8 +178,9 @@ class TestLazyStreamField(TestCase):
 
         # Expect a single UPDATE to update the model, without any additional
         # SELECT related to the image block that has not been accessed.
-        with self.assertNumQueries(1):
-            instance.save()
+        with disable_reference_index_auto_update():
+            with self.assertNumQueries(1):
+                instance.save()
 
 
 class TestJSONLazyStreamField(TestLazyStreamField):
