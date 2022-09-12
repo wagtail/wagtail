@@ -753,7 +753,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
             response, f'<input type="hidden" value="{expected_next_url}" name="next">'
         )
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_with_usage_count(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -1091,14 +1090,11 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
             reverse("wagtailimages:delete", args=(self.image.id,)), post_data
         )
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=False)
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
-        self.assertNotIn("Used ", str(response.content))
 
-    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)

@@ -17,13 +17,10 @@
             {% endblocktrans %}
         </p>
         <ul>
-            {% usage_count_enabled as uc_enabled %}
             {% for image in items %}
                 <li>
                     <a href="{% url 'wagtailimages:edit' image.item.id %}"  target="_blank" rel="noreferrer">{{image.item.title}}</a>
-                    {% if uc_enabled %}
-                        (<a href="{{ image.item.usage_url }}">{% blocktrans trimmed count usage_count=image.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
-                    {% endif %}
+                    (<a href="{{ image.item.usage_url }}">{% blocktrans trimmed count usage_count=image.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
                 </li>
             {% endfor %}
         </ul>

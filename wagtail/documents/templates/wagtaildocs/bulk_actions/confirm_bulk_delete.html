@@ -20,10 +20,7 @@
             {% for document in items %}
                 <li>
                     <a href="{% url 'wagtaildocs:edit' document.item.id %}"  target="_blank" rel="noreferrer">{{document.item.title}}</a>
-                    {% usage_count_enabled as uc_enabled %}
-                    {% if uc_enabled %}
-                        (<a href="{{ document.item.usage_url }}">{% blocktrans trimmed count usage_count=document.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
-                    {% endif %}
+                    (<a href="{{ document.item.usage_url }}">{% blocktrans trimmed count usage_count=document.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
                 </li>
             {% endfor %}
         </ul>
