@@ -50,11 +50,9 @@ class TestCreateOrUpdateForObject(TestCase):
         self.root_page.add_child(instance=self.event_page)
 
     def test(self):
-        ReferenceIndex.create_or_update_for_object(self.event_page)
-
         self.assertSetEqual(
             set(
-                ReferenceIndex.objects.values_list(
+                ReferenceIndex.get_references_for_object(self.event_page).values_list(
                     "to_content_type", "to_object_id", "model_path", "content_path"
                 )
             ),
@@ -87,25 +85,20 @@ class TestCreateOrUpdateForObject(TestCase):
         )
 
     def test_update(self):
-        reference_to_keep = ReferenceIndex.objects.create(
+        reference_to_keep = ReferenceIndex.objects.get(
             base_content_type=ReferenceIndex._get_base_content_type(self.event_page),
             content_type=ContentType.objects.get_for_model(self.event_page),
-            object_id=self.event_page.pk,
-            to_content_type=self.image_content_type,
-            to_object_id=self.test_feed_image.pk,
-            model_path="feed_image",
             content_path="feed_image",
-            content_path_hash=ReferenceIndex._get_content_path_hash("feed_image"),
         )
         reference_to_remove = ReferenceIndex.objects.create(
             base_content_type=ReferenceIndex._get_base_content_type(self.event_page),
             content_type=ContentType.objects.get_for_model(self.event_page),
             object_id=self.event_page.pk,
             to_content_type=self.image_content_type,
-            to_object_id=self.test_image_1.pk,  # Image ID is not used in this field
-            model_path="feed_image",
-            content_path="feed_image",
-            content_path_hash=ReferenceIndex._get_content_path_hash("feed_image"),
+            to_object_id=self.test_image_1.pk,
+            model_path="hero_image",  # Field doesn't exist
+            content_path="hero_image",
+            content_path_hash=ReferenceIndex._get_content_path_hash("hero_image"),
         )
 
         ReferenceIndex.create_or_update_for_object(self.event_page)
@@ -121,7 +114,7 @@ class TestCreateOrUpdateForObject(TestCase):
         # Check that the current stored references are correct
         self.assertSetEqual(
             set(
-                ReferenceIndex.objects.values_list(
+                ReferenceIndex.get_references_for_object(self.event_page).values_list(
                     "to_content_type", "to_object_id", "model_path", "content_path"
                 )
             ),
