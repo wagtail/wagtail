@@ -4,7 +4,7 @@
 
 This documentation will explain how to:
 
--   navigate the main user interface of Wagtail Loda
+-   navigate the main user interface of Wagtail
 -   create pages of all different types
 -   modify, save, publish and unpublish pages
 -   set up users, and provide them with specific roles to create a publishing workflow
