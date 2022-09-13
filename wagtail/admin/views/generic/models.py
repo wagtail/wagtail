@@ -22,7 +22,6 @@ from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
@@ -372,14 +371,17 @@ class CreateView(
     success_message = None
     error_message = None
     submit_button_label = gettext_lazy("Create")
-    actions = ["create", "publish"]
+    actions = ["create"]
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
 
+    def get_available_actions(self):
+        return self.actions
+
     def get_action(self, request):
-        for action in self.actions:
+        for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
                 return action
         return "create"
@@ -433,24 +435,11 @@ class CreateView(
         Called after the form is successfully validated - saves the object to the db
         and returns the new object. Override this to implement custom save logic.
         """
-        if self.model and issubclass(self.model, DraftStateMixin):
-            instance = self.form.save(commit=False)
-            instance.live = False
-            instance.save()
-            self.form.save_m2m()
-        else:
-            instance = self.form.save()
-
-        self.new_revision = None
-
-        # Save revision if the model inherits from RevisionMixin
-        if isinstance(instance, RevisionMixin):
-            self.new_revision = instance.save_revision(user=self.request.user)
+        instance = self.form.save()
 
         log(
             instance=instance,
             action="wagtail.create",
-            revision=self.new_revision,
             content_changed=True,
         )
 
@@ -467,28 +456,10 @@ class CreateView(
             )
         return redirect(self.get_success_url())
 
-    def publish_action(self):
-        hook_response = self.run_hook("before_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        self.new_revision.publish(user=self.request.user)
-
-        hook_response = self.run_hook("after_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        return None
-
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-
-        if self.action == "publish" and isinstance(self.object, DraftStateMixin):
-            response = self.publish_action()
-            if response is not None:
-                return response
 
         response = self.save_action()
 
@@ -527,16 +498,17 @@ class EditView(
     success_message = None
     error_message = None
     submit_button_label = gettext_lazy("Save")
-    actions = ["edit", "publish"]
+    actions = ["edit"]
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
-        self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
-        self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+
+    def get_available_actions(self):
+        return self.actions
 
     def get_action(self, request):
-        for action in self.actions:
+        for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
                 return action
         return "edit"
@@ -545,13 +517,7 @@ class EditView(
         if "pk" not in self.kwargs:
             self.kwargs["pk"] = self.args[0]
         self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
-        self.live_object = super().get_object(queryset)
-
-        # Cannot use self.draftstate_enabled here as there are subclasses
-        # that rely on get_object to determine the model
-        if isinstance(self.live_object, DraftStateMixin):
-            return self.live_object.get_latest_revision_as_object()
-        return self.live_object
+        return super().get_object(queryset)
 
     def get_page_subtitle(self):
         return str(self.object)
@@ -581,23 +547,13 @@ class EditView(
         Called after the form is successfully validated - saves the object to the db.
         Override this to implement custom save logic.
         """
-        commit = not self.draftstate_enabled
-        instance = self.form.save(commit=commit)
-        self.new_revision = None
-
+        instance = self.form.save()
         self.has_content_changes = self.form.has_changed()
-
-        # Save revision if the model inherits from RevisionMixin
-        if self.revision_enabled:
-            self.new_revision = instance.save_revision(
-                user=self.request.user,
-                changed=self.has_content_changes,
-            )
 
         log(
             instance=instance,
             action="wagtail.edit",
-            revision=self.new_revision,
+            revision=None,
             content_changed=self.has_content_changes,
         )
 
@@ -614,27 +570,7 @@ class EditView(
             )
         return redirect(self.get_success_url())
 
-    def publish_action(self):
-        hook_response = self.run_hook("before_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        self.new_revision.publish(user=self.request.user)
-
-        hook_response = self.run_hook("after_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        return None
-
     def get_success_message(self):
-        if self.draftstate_enabled and self.action == "publish":
-            if self.object.go_live_at and self.object.go_live_at > timezone.now():
-                return _("'{0}' updated and scheduled for publishing.").format(
-                    self.object
-                )
-            return _("'{0}' updated and published.").format(self.object)
-
         if self.success_message is None:
             return None
         return self.success_message.format(self.object)
@@ -651,37 +587,10 @@ class EditView(
             return None
         return self.error_message
 
-    def get_live_last_updated_info(self):
-        # DraftStateMixin is applied but object is not live
-        if self.draftstate_enabled and not self.object.live:
-            return None
-
-        revision = None
-        # DraftStateMixin is applied and object is live
-        if self.draftstate_enabled and self.object.live_revision:
-            revision = self.object.live_revision
-        # RevisionMixin is applied, so object is assumed to be live
-        elif self.revision_enabled and self.object.latest_revision:
-            revision = self.object.latest_revision
-
-        # No mixin is applied or no revision exists, fall back to latest log entry
-        if not revision:
-            return log_registry.get_logs_for_instance(self.object).first()
-
-        return {
-            "timestamp": revision.created_at,
-            "user_display_name": user_display_name(revision.user),
-        }
-
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-
-        if self.action == "publish" and self.draftstate_enabled:
-            response = self.publish_action()
-            if response is not None:
-                return response
 
         response = self.save_action()
 
@@ -709,11 +618,6 @@ class EditView(
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label
-
-        context["revision_enabled"] = self.revision_enabled
-        context["draftstate_enabled"] = self.draftstate_enabled
-
-        context["live_last_updated_info"] = self.get_live_last_updated_info()
         return context
 
 

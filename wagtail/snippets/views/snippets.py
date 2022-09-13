@@ -29,7 +29,13 @@ from wagtail.admin.ui.tables import (
     UserColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
+from wagtail.admin.views.generic.mixins import (
+    CreateViewDraftStateMixin,
+    CreateViewRevisionMixin,
+    EditViewDraftStateMixin,
+    EditViewRevisionMixin,
+    RevisionsRevertMixin,
+)
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
@@ -817,6 +823,26 @@ class SnippetViewSet(ViewSet):
             self.list_display = self.index_view_class.list_display.copy()
             if self.draftstate_enabled:
                 self.list_display += [LiveStatusTagColumn()]
+
+    @property
+    def add_view_class(self):
+        bases = []
+        if issubclass(self.model, DraftStateMixin):
+            bases.append(CreateViewDraftStateMixin)
+        elif issubclass(self.model, RevisionMixin):
+            bases.append(CreateViewRevisionMixin)
+        bases.append(CreateView)
+        return type("_Create", tuple(bases), {})
+
+    @property
+    def edit_view_class(self):
+        bases = []
+        if issubclass(self.model, DraftStateMixin):
+            bases.append(EditViewDraftStateMixin)
+        elif issubclass(self.model, RevisionMixin):
+            bases.append(EditViewRevisionMixin)
+        bases.append(EditView)
+        return type("_Edit", tuple(bases), {})
 
     @property
     def revisions_revert_view_class(self):

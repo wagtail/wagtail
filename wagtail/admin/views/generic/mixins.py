@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.db import transaction
 from django.forms import Media
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -11,6 +12,9 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
+from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, TranslatableMixin
 
 
@@ -148,6 +152,232 @@ class PanelMixin:
             }
         )
 
+        return context
+
+
+class CreateViewDraftStateMixin:
+    def get_available_actions(self):
+        return [*super().get_available_actions(), "publish"]
+
+    def save_instance(self):
+        """
+        Called after the form is successfully validated.
+
+        Before saving the new object, the live field is set to False.
+        A new revision is created.
+        """
+        instance = self.form.save(commit=False)
+        instance.live = False
+        instance.save()
+        self.form.save_m2m()
+
+        self.new_revision = instance.save_revision(user=self.request.user)
+
+        log(
+            instance=instance,
+            action="wagtail.create",
+            revision=self.new_revision,
+            content_changed=True,
+        )
+
+        return instance
+
+    def publish_action(self):
+        hook_response = self.run_hook("before_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        self.new_revision.publish(user=self.request.user)
+
+        hook_response = self.run_hook("after_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        return None
+
+    def form_valid(self, form):
+        self.form = form
+        with transaction.atomic():
+            self.object = self.save_instance()
+
+        if self.action == "publish":
+            response = self.publish_action()
+            if response is not None:
+                return response
+
+        response = self.save_action()
+
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
+
+        return response
+
+
+class EditViewDraftStateMixin:
+    def get_available_actions(self):
+        return [*super().get_available_actions(), "publish"]
+
+    def get_object(self, queryset=None):
+        object = super().get_object(queryset)
+        return object.get_latest_revision_as_object()
+
+    def save_instance(self):
+        """
+        Called after the form is successfully validated.
+
+        Instead of saving a new object, a new revision is created.
+        """
+        instance = self.form.save(commit=False)
+        self.has_content_changes = self.form.has_changed()
+        self.new_revision = instance.save_revision(
+            user=self.request.user,
+            changed=self.has_content_changes,
+        )
+
+        log(
+            instance=instance,
+            action="wagtail.edit",
+            revision=self.new_revision,
+            content_changed=self.has_content_changes,
+        )
+
+        return instance
+
+    def publish_action(self):
+        hook_response = self.run_hook("before_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        self.new_revision.publish(user=self.request.user)
+
+        hook_response = self.run_hook("after_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        return None
+
+    def get_success_message(self):
+        if self.draftstate_enabled and self.action == "publish":
+            if self.object.go_live_at and self.object.go_live_at > timezone.now():
+                return _("'{0}' updated and scheduled for publishing.").format(
+                    self.object
+                )
+            return _("'{0}' updated and published.").format(self.object)
+        return super().get_success_message()
+
+    def get_live_last_updated_info(self):
+        if not self.object.live:
+            return None
+
+        revision = self.object.live_revision
+
+        # No revision exists, fall back to latest log entry
+        if not revision:
+            return log_registry.get_logs_for_instance(self.object).first()
+
+        return {
+            "timestamp": revision.created_at,
+            "user_display_name": user_display_name(revision.user),
+        }
+
+    def get_draft_last_updated_info(self):
+        if not self.object.has_unpublished_changes:
+            return None
+
+        revision = self.object.latest_revision
+
+        return {
+            "timestamp": revision.created_at,
+            "user_display_name": user_display_name(revision.user),
+        }
+
+    def form_valid(self, form):
+        self.form = form
+        with transaction.atomic():
+            self.object = self.save_instance()
+
+        if self.action == "publish":
+            response = self.publish_action()
+            if response is not None:
+                return response
+
+        response = self.save_action()
+
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
+
+        return response
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["revision_enabled"] = True
+        context["draftstate_enabled"] = True
+        context["live_last_updated_info"] = self.get_live_last_updated_info()
+        context["draft_last_updated_info"] = self.get_draft_last_updated_info()
+        return context
+
+
+class CreateViewRevisionMixin:
+    def save_instance(self):
+        """
+        Called after the form is successfully validated.
+
+        In addition to saving the object, a new revision is created.
+        """
+        instance = self.form.save()
+        self.new_revision = instance.save_revision(user=self.request.user)
+
+        log(
+            instance=instance,
+            action="wagtail.create",
+            revision=self.new_revision,
+            content_changed=True,
+        )
+
+        return instance
+
+
+class EditViewRevisionMixin:
+    def save_instance(self):
+        """
+        Called after the form is successfully validated.
+
+        In addition to saving the object, a new revision is created.
+        """
+        instance = self.form.save()
+        self.has_content_changes = self.form.has_changed()
+        self.new_revision = instance.save_revision(
+            user=self.request.user,
+            changed=self.has_content_changes,
+        )
+
+        log(
+            instance=instance,
+            action="wagtail.edit",
+            revision=self.new_revision,
+            content_changed=self.has_content_changes,
+        )
+
+        return instance
+
+    def get_live_last_updated_info(self):
+        revision = self.object.latest_revision
+
+        # No revision exists, fall back to latest log entry
+        if not revision:
+            return log_registry.get_logs_for_instance(self.object).first()
+
+        return {
+            "timestamp": revision.created_at,
+            "user_display_name": user_display_name(revision.user),
+        }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["revision_enabled"] = True
+        context["live_last_updated_info"] = self.get_live_last_updated_info()
         return context
 
 
