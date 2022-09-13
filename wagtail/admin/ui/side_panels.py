@@ -45,12 +45,7 @@ class BaseStatusSidePanel(BaseSidePanel):
         self.in_explorer = in_explorer
 
     def get_status_templates(self, context):
-        templates = []
-
-        if self.object.pk:
-            templates += [
-                "wagtailadmin/shared/side_panels/includes/status/workflow.html",
-            ]
+        templates = ["wagtailadmin/shared/side_panels/includes/status/workflow.html"]
 
         if context.get("locale"):
             templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
@@ -76,8 +71,9 @@ class BaseStatusSidePanel(BaseSidePanel):
             "live_expire_at": None,
         }
 
-        # Only consider draft schedule if there are unpublished changes
-        if self.object.has_unpublished_changes:
+        # Only consider draft schedule if the page hasn't been created
+        # or if there are unpublished changes
+        if not self.object.pk or self.object.has_unpublished_changes:
             context["draft_go_live_at"] = self.object.go_live_at
             context["draft_expire_at"] = self.object.expire_at
 
