@@ -231,7 +231,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
             <ul class="chooser__actions">
               <li>
                 <button type="button" class="button action-choose button-small button-secondary" aria-describedby="__ID__-title">
-                  Change
+                  Choose another page
                 </button>
               </li>
               <li>
@@ -242,7 +242,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
                   rel="noreferrer"
                   aria-describedby="__ID__-title"
                 >
-                  Edit
+                  Edit this page
                 </a>
               </li>
             </ul>

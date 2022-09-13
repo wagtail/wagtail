@@ -28,9 +28,9 @@ For example, let's say you have a page about Brioche in the Breads section. You 
 Here is how to create an alias to an existing page:
 
 -   The first step is the same as it is for [](copying_page_label). When you hover over a page in the {doc}`Explorer page <finding_your_way_around/the_explorer_page>`, click on _More_ and then _Copy_.
--   When you get to the copy page form, you can then choose another page as the parent page. Click the New parent page’s _Change_ button.
+-   When you get to the copy page form, you can then choose another page as the parent page. Click the _Choose another page_ button.
 
-![Clicking the change button during the copy page form in order to change the parent of the copied page.](../_static/images/screen12.7_1_alias_choose_parent_page_button.png)
+![Clicking the "choose another page" button during the copy page form in order to change the parent of the copied page.](../_static/images/screen12.7_1_alias_choose_parent_page_button.png)
 
 -   Select and click on the desired parent page.
 -   Make sure the _Alias_ checkbox is ticked.

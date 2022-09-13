@@ -906,7 +906,7 @@ class TestPageChooserPanel(TestCase):
             result,
         )
         self.assertIn(
-            '<a href="/admin/pages/%d/edit/" aria-describedby="id_page-title" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">Edit</a>'
+            '<a href="/admin/pages/%d/edit/" aria-describedby="id_page-title" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">Edit this page</a>'
             % self.christmas_page.id,
             result,
         )

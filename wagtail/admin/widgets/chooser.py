@@ -22,9 +22,9 @@ from wagtail.widget_adapters import WidgetAdapter
 
 class AdminChooser(WidgetWithScript, widgets.Input):
     choose_one_text = _("Choose an item")
-    choose_another_text = _("Change")
-    clear_choice_text = _("Clear")
-    link_to_chosen_text = _("Edit")
+    choose_another_text = _("Choose another item")
+    clear_choice_text = _("Clear choice")
+    link_to_chosen_text = _("Edit this item")
     show_edit_link = True
     show_clear_link = True
 
@@ -89,9 +89,9 @@ class AdminChooser(WidgetWithScript, widgets.Input):
 
 class BaseChooser(widgets.Input):
     choose_one_text = _("Choose an item")
-    choose_another_text = _("Change")
-    clear_choice_text = _("Clear")
-    link_to_chosen_text = _("Edit")
+    choose_another_text = _("Choose another item")
+    clear_choice_text = _("Clear choice")
+    link_to_chosen_text = _("Edit this item")
     show_edit_link = True
     show_clear_link = True
     template_name = "wagtailadmin/widgets/chooser.html"
@@ -266,6 +266,8 @@ register(BaseChooserAdapter(), BaseChooser)
 
 class AdminPageChooser(BaseChooser):
     choose_one_text = _("Choose a page")
+    choose_another_text = _("Choose another page")
+    link_to_chosen_text = _("Edit this page")
     display_title_key = "display_title"
     chooser_modal_url_name = "wagtailadmin_choose_page"
     icon = "doc-empty-inverse"
