@@ -6,6 +6,12 @@
   &:not(.blank) .unchosen {
     display: none;
   }
+
+  // Add space to the end for hoverable area to extend outside of the field without impacting layout
+  .w-field--model_choice_field & {
+    padding-inline-end: theme('spacing.8');
+    margin-inline-end: calc(0 - theme('spacing.8'));
+  }
 }
 
 // Very subdued button style specifically for choosers, as there can be a lot of
@@ -78,10 +84,12 @@
   @media (hover: hover) {
     opacity: 0;
 
-    .chooser:hover &,
-    .chooser:focus-within &,
-      // When fields are commentable - ensure the hovering over the comment icon will still show chooser actions for these specific ones
-    .w-field--model_choice_field.w-field--commentable:hover & {
+    // Ensure the hovering over the comment icon will still show chooser actions for these specific ones
+    :is(.w-field--admin_task_chooser,
+    .w-field--admin_page_chooser,
+    .w-field--document_chooser_widget,
+    .w-field--admin_image_chooser,
+    .w-field--admin_snippet_chooser):is(:hover, :focus-within) & {
       opacity: 1;
     }
   }
@@ -92,4 +100,15 @@
   max-height: 140px;
   height: auto;
   width: auto;
+}
+
+// Display these as inline block so that action icons such as comments can appear as close as possible
+// We remove the padding here to let the chooser itself handle the padding
+.w-field--admin_task_chooser,
+.w-field--admin_page_chooser,
+.w-field--document_chooser_widget,
+.w-field--admin_image_chooser,
+.w-field--admin_snippet_chooser {
+  display: inline-block;
+  padding-inline-end: 0;
 }

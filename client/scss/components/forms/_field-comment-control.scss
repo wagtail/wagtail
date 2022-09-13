@@ -1,6 +1,3 @@
-$button-size: theme('spacing.5');
-$button-space: theme('spacing.3');
-
 .w-field__comment-button {
   $root: &;
 
@@ -18,8 +15,8 @@ $button-space: theme('spacing.3');
   opacity: 0;
 
   .icon {
-    width: $button-size;
-    height: $button-size;
+    width: $comment-button-size;
+    height: $comment-button-size;
     color: inherit;
   }
 
@@ -37,45 +34,41 @@ $button-space: theme('spacing.3');
     .tab-content--comments-enabled .w-field__input:focus-within > &,
     &:hover,
     &:focus,
-    &.w-field__comment-button--focused,
-    .w-field--admin_model_chooser.w-field--commentable:hover & {
+    &.w-field__comment-button--focused, {
       visibility: visible;
       opacity: 1;
     }
   }
 
   // Position comment icons in choosers beside the other actions
-  .tab-content--comments-enabled .chooser & {
+  .chooser & {
     position: unset;
     inset-inline-end: 0;
     margin-inline-start: 0;
     transform: translateY(3px);
   }
 
-  .tab-content--comments-enabled .unchosen:hover &,
-  .tab-content--comments-enabled .unchosen:focus-within &,
-  .tab-content--comments-enabled .chooser .chosen & {
+  .unchosen:hover &,
+  .unchosen:focus-within &,
+  .chooser .chosen & {
     opacity: 1;
     visibility: visible;
+  }
+
+  // Special positioning of comment icons to sit at the top right of these fields
+  textarea ~ &,
+  .w-field--checkbox_select_multiple &,
+  .w-field--admin_tag_widget & {
+    transform: translateY(0);
+    top: 0.3125rem;
   }
 }
 
 .w-field--commentable {
-  .w-field__input {
-    padding-inline-end: calc($button-size + $button-space);
-  }
 
   // Allow comment buttons to be placed along side the field by display flex
   .w-field-row & {
     margin-inline-end: 0;
-  }
-
-  // Special positioning of comment icons to sit at the top of these fields
-  textarea ~ .w-field__comment-button,
-  &.w-field--checkbox_select_multiple .w-field__comment-button,
-  &.w-field--admin_tag_widget .w-field__comment-button {
-    transform: translateY(0);
-    top: 0.3125rem;
   }
 }
 
