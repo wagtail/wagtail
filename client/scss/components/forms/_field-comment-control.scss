@@ -34,7 +34,7 @@
     .tab-content--comments-enabled .w-field__input:focus-within > &,
     &:hover,
     &:focus,
-    &.w-field__comment-button--focused, {
+    &.w-field__comment-button--focused {
       visibility: visible;
       opacity: 1;
     }
@@ -65,7 +65,6 @@
 }
 
 .w-field--commentable {
-
   // Allow comment buttons to be placed along side the field by display flex
   .w-field-row & {
     margin-inline-end: 0;
