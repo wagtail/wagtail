@@ -46,33 +46,36 @@ $draftail-editor-font-family: $font-sans;
   h6 {
     // Overrides for heading styles of Wagtail itself.
     color: inherit;
-    line-height: 1;
-  }
-
-  h1,
-  h2,
-  h3 {
-    line-height: 1.1;
+    light-height: theme('lineHeight.tight');
+    font-weight: theme('fontWeight.bold');
   }
 
   h1 {
-    font-size: 2em;
+    font-size: theme('fontSize.30');
+
+    span {
+       font-weight: theme('fontWeight.bold');
+    }
   }
 
   h2 {
-    font-size: 1.8em;
+    font-size: theme('fontSize.24');
   }
 
   h3 {
-    font-size: 1.5em;
+    font-size: theme('fontSize.22');
   }
 
   h4 {
-    font-size: 1.2em;
+    font-size: theme('fontSize.18');
   }
 
   h5 {
-    font-size: 1.1em;
+    font-size: theme('fontSize.16');
+  }
+
+  h6 {
+    font-size: theme('fontSize.14');
   }
 }
 
