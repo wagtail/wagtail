@@ -80,9 +80,9 @@
     color: $color-button-no;
 
     &:hover {
-      color: $color-white;
-      border-color: transparent;
-      background-color: $color-button-no;
+      color: $color-button-no;
+      border-color: $color-button-no;
+      background-color: theme('colors.critical.50');
     }
   }
 
