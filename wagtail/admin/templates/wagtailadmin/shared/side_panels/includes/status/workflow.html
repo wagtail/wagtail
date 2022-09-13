@@ -35,7 +35,7 @@
                     {% endwith %}
                     {% if has_live_publishing_schedule %}
                         {% page_permissions object as page_perms %}
-                        <div class="w-mt-3 w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
+                        <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
                             {% icon name='calendar-check' class_name='w-w-4 w-h-4 w-text-info-100' %}
                             <div class="w-flex w-flex-1 w-items-start w-justify-between">
                                 <div class="w-flex w-flex-col w-flex-1 w-pr-5 w-space-y-1 w-help-text">
@@ -118,7 +118,7 @@
     {% page_permissions object as page_perms %}
     {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision %}
         {% if workflow_state %}
-            <div class="w-flex w-space-x-4 w-mt-3">
+            <div class="w-flex w-space-x-4">
                 {% icon name='info-circle' class_name='w-w-4 w-h-4 w-text-info-100 w-shrink-0' %}
                 <div class="w-label-3 w-flex-1">
                     {% workflow_status_with_date workflow_state %}
@@ -128,7 +128,7 @@
 
         {# Scheduled publishing #}
         {% if has_draft_publishing_schedule %}
-            <div class="w-mt-3 w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
+            <div class="w-p-4 w-bg-info-50 w-rounded w-flex w-space-x-3">
                 {% if scheduled_go_live_at or scheduled_expire_at %}
                     {% icon name='calendar-check' class_name='w-w-4 w-h-4 w-text-info-100' %}
                 {% else %}
@@ -159,7 +159,7 @@
                 </div>
             </div>
         {% elif not has_live_publishing_schedule %}
-            <div class="w-flex w-justify-between w-items-center w-w-full w-mt-3">
+            <div class="w-flex w-justify-between w-items-center w-w-full">
                 <div class="w-ml-8 w-pr-4 w-label-3">{% trans 'No publishing schedule set' %}</div>
                 {% if not page_perms.page_locked and not in_explorer %}
                     {% trans 'Set schedule' as set_schedule_text %}
