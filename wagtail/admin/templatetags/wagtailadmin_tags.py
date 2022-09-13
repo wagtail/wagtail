@@ -88,7 +88,7 @@ def breadcrumbs(
         "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
         "url_name": url_name,
         "url_root_name": url_root_name,
-        'classes': classes,
+        "classes": classes,
     }
 
 

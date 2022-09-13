@@ -44,9 +44,9 @@
   }
 
   > .row {
-    padding-top: theme('spacing.6');
+    padding-top: theme('spacing.[2.5]');
     padding-bottom: theme('spacing.3');
-    padding-inline-start: 75px;
+    padding-inline-start: 110px;
     padding-inline-end: theme('spacing.5');
   }
 
@@ -55,7 +55,6 @@
   }
 
   .col {
-    // TODO: Refactor headers to not use floats
     float: left;
     margin-inline-end: 2em;
   }
