@@ -40,14 +40,6 @@
     }
   }
 
-  // Position comment icons in choosers beside the other actions
-  .chooser & {
-    position: unset;
-    inset-inline-end: 0;
-    margin-inline-start: 0;
-    transform: translateY(3px);
-  }
-
   .unchosen:hover &,
   .unchosen:focus-within &,
   .chooser .chosen & {
@@ -61,13 +53,6 @@
   .w-field--admin_tag_widget & {
     transform: translateY(0);
     top: 0.3125rem;
-  }
-}
-
-.w-field--commentable {
-  // Allow comment buttons to be placed along side the field by display flex
-  .w-field-row & {
-    margin-inline-end: 0;
   }
 }
 

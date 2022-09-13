@@ -1,4 +1,8 @@
 .chooser {
+  // Add space to the end for hoverable area to extend outside of the field without impacting layout
+  padding-inline-end: theme('spacing.8');
+  margin-inline-end: calc(0 - theme('spacing.8'));
+
   &.blank .chosen {
     display: none;
   }
@@ -7,11 +11,6 @@
     display: none;
   }
 
-  // Add space to the end for hoverable area to extend outside of the field without impacting layout
-  .w-field--model_choice_field & {
-    padding-inline-end: theme('spacing.8');
-    margin-inline-end: calc(0 - theme('spacing.8'));
-  }
 }
 
 // Very subdued button style specifically for choosers, as there can be a lot of
@@ -86,7 +85,7 @@
 
     // Ensure the hovering over the comment icon will still show chooser actions for these specific ones
     :is(.w-field--admin_task_chooser, .w-field--admin_page_chooser, .w-field--document_chooser_widget, .w-field--admin_image_chooser, .w-field--admin_snippet_chooser):is(:hover, :focus-within)
-      & {
+    & {
       opacity: 1;
     }
   }
