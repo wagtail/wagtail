@@ -31,7 +31,7 @@ from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
-from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
+from .mixins import HookResponseMixin, LocaleMixin, PanelMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
@@ -357,7 +357,7 @@ class CreateView(
     LocaleMixin,
     PanelMixin,
     PermissionCheckedMixin,
-    BeforeAfterHookMixin,
+    HookResponseMixin,
     WagtailAdminTemplateMixin,
     BaseCreateView,
 ):
@@ -463,10 +463,6 @@ class CreateView(
 
         response = self.save_action()
 
-        hook_response = self.run_after_hook()
-        if hook_response is not None:
-            return hook_response
-
         return response
 
     def form_invalid(self, form):
@@ -481,7 +477,7 @@ class EditView(
     LocaleMixin,
     PanelMixin,
     PermissionCheckedMixin,
-    BeforeAfterHookMixin,
+    HookResponseMixin,
     WagtailAdminTemplateMixin,
     BaseUpdateView,
 ):
@@ -594,10 +590,6 @@ class EditView(
 
         response = self.save_action()
 
-        hook_response = self.run_after_hook()
-        if hook_response is not None:
-            return hook_response
-
         return response
 
     def form_invalid(self, form):
@@ -625,7 +617,7 @@ class DeleteView(
     LocaleMixin,
     PanelMixin,
     PermissionCheckedMixin,
-    BeforeAfterHookMixin,
+    HookResponseMixin,
     WagtailAdminTemplateMixin,
     BaseDeleteView,
 ):
@@ -676,9 +668,6 @@ class DeleteView(
         success_url = self.get_success_url()
         self.delete_action()
         messages.success(self.request, self.get_success_message())
-        hook_response = self.run_after_hook()
-        if hook_response is not None:
-            return hook_response
         return HttpResponseRedirect(success_url)
 
 

@@ -1,10 +1,5 @@
 from .base import WagtailAdminTemplateMixin  # noqa
-from .mixins import (  # noqa
-    BeforeAfterHookMixin,
-    HookResponseMixin,
-    LocaleMixin,
-    PanelMixin,
-)
+from .mixins import HookResponseMixin, LocaleMixin, PanelMixin  # noqa
 from .models import (  # noqa
     CreateView,
     DeleteView,

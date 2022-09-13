@@ -226,11 +226,11 @@ class CreateView(generic.CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = gettext_lazy("The snippet could not be created due to errors.")
 
-    def run_before_hook(self):
-        return self.run_hook("before_create_snippet", self.request, self.model)
-
-    def run_after_hook(self):
-        return self.run_hook("after_create_snippet", self.request, self.object)
+    def dispatch(self, request, *args, **kwargs):
+        response = self.run_hook("before_create_snippet", self.request, self.model)
+        if response:
+            return response
+        return super().dispatch(request, *args, **kwargs)
 
     def get_panel(self):
         return get_edit_handler(self.model)
@@ -329,6 +329,13 @@ class CreateView(generic.CreateView):
 
         return context
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        hook_response = self.run_hook("after_create_snippet", self.request, self.object)
+        if hook_response:
+            return hook_response
+        return response
+
 
 class EditView(generic.EditView):
     view_name = "edit"
@@ -338,16 +345,16 @@ class EditView(generic.EditView):
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
 
-    def run_before_hook(self):
-        return self.run_hook("before_edit_snippet", self.request, self.object)
-
-    def run_after_hook(self):
-        return self.run_hook("after_edit_snippet", self.request, self.object)
-
     def setup(self, request, *args, pk, **kwargs):
         self.pk = pk
         self.object = self.get_object()
         super().setup(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        response = self.run_hook("before_edit_snippet", self.request, self.object)
+        if response:
+            return response
+        return super().dispatch(request, *args, **kwargs)
 
     def get_panel(self):
         return get_edit_handler(self.model)
@@ -466,6 +473,13 @@ class EditView(generic.EditView):
 
         return context
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        hook_response = self.run_hook("after_edit_snippet", self.request, self.object)
+        if hook_response:
+            return hook_response
+        return response
+
 
 class DeleteView(generic.DeleteView):
     view_name = "delete"
@@ -473,16 +487,16 @@ class DeleteView(generic.DeleteView):
     permission_required = "delete"
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
-    def run_before_hook(self):
-        return self.run_hook("before_delete_snippet", self.request, self.objects)
-
-    def run_after_hook(self):
-        return self.run_hook("after_delete_snippet", self.request, self.objects)
-
     def setup(self, request, *args, pk=None, **kwargs):
         super().setup(request, *args, **kwargs)
         self.pk = pk
         self.objects = self.get_objects()
+
+    def dispatch(self, request, *args, **kwargs):
+        response = self.run_hook("before_delete_snippet", self.request, self.objects)
+        if response:
+            return response
+        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         # DeleteView requires either a pk kwarg or a positional arg, but we use
@@ -545,6 +559,15 @@ class DeleteView(generic.DeleteView):
             }
         )
         return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        hook_response = self.run_hook(
+            "after_delete_snippet", self.request, self.objects
+        )
+        if hook_response:
+            return hook_response
+        return response
 
 
 class UsageView(generic.IndexView):

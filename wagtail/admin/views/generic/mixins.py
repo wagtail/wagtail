@@ -35,54 +35,6 @@ class HookResponseMixin:
         return None
 
 
-class BeforeAfterHookMixin(HookResponseMixin):
-    """
-    A mixin for class-based views to support hooks like `before_edit_page` and
-    `after_edit_page`, which are triggered during execution of some operation and
-    can return a response to halt that operation and/or change the view response.
-    """
-
-    def run_before_hook(self):
-        """
-        Define how to run the hooks before the operation is executed.
-        The `self.run_hook(hook_name, *args, **kwargs)` from HookResponseMixin
-        can be utilised to call the hooks.
-
-        If this method returns a response, the operation will be aborted and the
-        hook response will be returned as the view response, skipping the default
-        response.
-        """
-        return None
-
-    def run_after_hook(self):
-        """
-        Define how to run the hooks after the operation is executed.
-        The `self.run_hook(hook_name, *args, **kwargs)` from HookResponseMixin
-        can be utilised to call the hooks.
-
-        If this method returns a response, it will be returned as the view
-        response immediately after the operation finishes, skipping the default
-        response.
-        """
-        return None
-
-    def dispatch(self, *args, **kwargs):
-        hooks_result = self.run_before_hook()
-        if hooks_result is not None:
-            return hooks_result
-
-        return super().dispatch(*args, **kwargs)
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-
-        hooks_result = self.run_after_hook()
-        if hooks_result is not None:
-            return hooks_result
-
-        return response
-
-
 class LocaleMixin:
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -207,10 +159,6 @@ class CreateViewDraftStateMixin:
 
         response = self.save_action()
 
-        hook_response = self.run_after_hook()
-        if hook_response is not None:
-            return hook_response
-
         return response
 
 
@@ -303,10 +251,6 @@ class EditViewDraftStateMixin:
                 return response
 
         response = self.save_action()
-
-        hook_response = self.run_after_hook()
-        if hook_response is not None:
-            return hook_response
 
         return response
 
