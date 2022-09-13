@@ -1,12 +1,13 @@
 {% load i18n wagtailadmin_tags %}
-{% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle merged=1 icon=header_icon %}
+{% include "wagtailadmin/shared/header.html" with title=page_title merged=1 subtitle=page_subtitle icon=header_icon %}
 
 {% if creation_form %}
     {{ creation_form.media.js }}
     {{ creation_form.media.css }}
 {% endif %}
 
-<div class="w-tabs" data-tabs data-tabs-disable-url>
+{% comment %} Do not attach JavaScript behaviour (data-tabs) below if there are no actual tabs used {% endcomment %}
+<div class="w-tabs" {% if creation_form %}data-tabs data-tabs-disable-url{% endif %}>
     {% if creation_form %}
         <div class="w-tabs__wrapper w-overflow-hidden">
             <div role="tablist" class="w-tabs__list w-w-full">
@@ -14,6 +15,9 @@
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=view.creation_tab_id title=creation_tab_label %}
             </div>
         </div>
+    {% else %}
+        {% comment %} Ensure layout still works as expected (gap under header from tabs wrapper) even if no tabs used {% endcomment %}
+        <div class="w-tabs__wrapper"></div>
     {% endif %}
 
     <div class="tab-content">

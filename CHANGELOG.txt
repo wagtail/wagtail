@@ -9,6 +9,8 @@ Changelog
  * Fix: Ensure tag autocompletion dropdown has a solid background (LB (Ben) Johnston)
  * Fix: Allow inline panels to be ordered (LB (Ben) Johnston)
  * Fix: Only show draft / live status tags on snippets that have `DraftStateMixin` applied (Sage Abdullah)
+ * Fix: Prevent JS error when initialising chooser modals with no tabs (LB (Ben) Johnston)
+ * Fix: Add missing vertical spacing between chooser modal header and body when there are no tabs (LB (Ben) Johnston)
 
 
 4.0.1 (05.09.2022)
