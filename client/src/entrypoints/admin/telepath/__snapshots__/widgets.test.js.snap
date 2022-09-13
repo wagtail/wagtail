@@ -10,12 +10,12 @@ exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
             <ul class=\\"chooser__actions\\">
               <li>
                 <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
-                  Change
+                  Choose another page
                 </button>
               </li>
               <li>
                 <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
-                  Edit
+                  Edit this page
                 </a>
               </li>
             </ul>
@@ -37,12 +37,12 @@ exports[`telepath: wagtail.widgets.PageChooser setState() changes the current pa
             <ul class=\\"chooser__actions\\">
               <li>
                 <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
-                  Change
+                  Choose another page
                 </button>
               </li>
               <li>
                 <a href=\\"/admin/pages/34/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
-                  Edit
+                  Edit this page
                 </a>
               </li>
             </ul>
@@ -64,12 +64,12 @@ exports[`telepath: wagtail.widgets.PageChooser setState() to null clears the fie
             <ul class=\\"chooser__actions\\">
               <li>
                 <button type=\\"button\\" class=\\"button action-choose button-small button-secondary\\" aria-describedby=\\"the-id-title\\">
-                  Change
+                  Choose another page
                 </button>
               </li>
               <li>
                 <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\" aria-describedby=\\"the-id-title\\">
-                  Edit
+                  Edit this page
                 </a>
               </li>
             </ul>

@@ -11,6 +11,7 @@ Changelog
  * Fix: Only show draft / live status tags on snippets that have `DraftStateMixin` applied (Sage Abdullah)
  * Fix: Prevent JS error when initialising chooser modals with no tabs (LB (Ben) Johnston)
  * Fix: Add missing vertical spacing between chooser modal header and body when there are no tabs (LB (Ben) Johnston)
+ * Fix: Reinstate specific labels for chooser buttons (for example 'Choose another page', 'Edit this page' not 'Change', 'Edit') so that it is clearer for users and non-English translations (Matt Westcott)
 
 
 4.0.1 (05.09.2022)
