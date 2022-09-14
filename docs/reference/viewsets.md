@@ -71,3 +71,23 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: creation_tab_label
    .. autoattribute:: search_tab_label
 ```
+
+## SnippetViewSet
+
+```{eval-rst}
+.. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
+
+   .. autoattribute:: filterset_class
+   .. autoattribute:: index_view_class
+   .. autoattribute:: add_view_class
+   .. autoattribute:: edit_view_class
+   .. autoattribute:: delete_view_class
+   .. autoattribute:: usage_view_class
+   .. autoattribute:: history_view_class
+   .. autoattribute:: revisions_view_class
+   .. autoattribute:: revisions_revert_view_class
+   .. autoattribute:: revisions_compare_view_class
+   .. autoattribute:: unpublish_view_class
+   .. autoattribute:: preview_on_add_view_class
+   .. autoattribute:: preview_on_edit_view_class
+```
