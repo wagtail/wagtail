@@ -16,7 +16,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
-from wagtail.admin.admin_url_finder import register_admin_url_finder
+from wagtail.admin.admin_url_finder import AdminURLFinder, register_admin_url_finder
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import (
@@ -572,6 +572,12 @@ class UsageView(generic.IndexView):
 
         page_number = self.request.GET.get(self.page_kwarg)
         page = paginator.get_page(page_number)
+
+        # Add edit URLs to each source object
+        url_finder = AdminURLFinder(self.request.user)
+        for object, references in page:
+            object.edit_url = url_finder.get_edit_url(object)
+
         return (paginator, page, page.object_list, page.has_other_pages())
 
     def get_context_data(self, **kwargs):

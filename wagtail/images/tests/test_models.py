@@ -14,7 +14,7 @@ from willow.image import Image as WillowImage
 
 from wagtail.images.models import Rendition, SourceImageIOError, get_rendition_storage
 from wagtail.images.rect import Rect
-from wagtail.models import Collection, GroupCollectionPermission, Page
+from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
 from wagtail.test.testapp.models import (
     EventPage,
     EventPageCarouselItem,
@@ -567,7 +567,11 @@ class TestGetUsage(TestCase):
         event_page_carousel_item.page = page
         event_page_carousel_item.image = self.image
         event_page_carousel_item.save()
-        self.assertTrue(issubclass(Page, type(self.image.get_usage()[0])))
+
+        self.assertIsInstance(self.image.get_usage()[0], tuple)
+        self.assertIsInstance(self.image.get_usage()[0][0], Page)
+        self.assertIsInstance(self.image.get_usage()[0][1], list)
+        self.assertIsInstance(self.image.get_usage()[0][1][0], ReferenceIndex)
 
 
 class TestGetWillowImage(TestCase):

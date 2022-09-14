@@ -6,7 +6,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.contrib.contenttypes.models import ContentType
-from django.core import checks
+from django.core import checks, management
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -24,7 +24,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, ObjectList, Panel, get_edit_handler
 from wagtail.blocks.field_block import FieldBlockAdapter
-from wagtail.models import Locale, ModelLogEntry, Page, Revision
+from wagtail.models import Locale, ModelLogEntry, Page, ReferenceIndex, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
@@ -2804,6 +2804,8 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_link(self):
+        management.call_command("rebuild_references_index")
+
         response = self.client.get(
             reverse(
                 "wagtailsnippets_tests_advert:delete",
@@ -3043,6 +3045,11 @@ class TestSnippetOrdering(TestCase):
 class TestUsageCount(TestCase):
     fixtures = ["test.json"]
 
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        management.call_command("rebuild_references_index")
+
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_usage_count(self):
         advert = Advert.objects.get(pk=1)
@@ -3052,10 +3059,19 @@ class TestUsageCount(TestCase):
 class TestUsedBy(TestCase):
     fixtures = ["test.json"]
 
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        management.call_command("rebuild_references_index")
+
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_snippet_used_by(self):
         advert = Advert.objects.get(pk=1)
-        self.assertEqual(type(advert.get_usage()[0]), Page)
+
+        self.assertIsInstance(advert.get_usage()[0], tuple)
+        self.assertIsInstance(advert.get_usage()[0][0], Page)
+        self.assertIsInstance(advert.get_usage()[0][1], list)
+        self.assertIsInstance(advert.get_usage()[0][1][0], ReferenceIndex)
 
 
 @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)

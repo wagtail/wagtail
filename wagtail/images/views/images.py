@@ -14,6 +14,7 @@ from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
@@ -401,6 +402,11 @@ def usage(request, image_id):
 
     paginator = Paginator(image.get_usage(), per_page=USAGE_PAGE_SIZE)
     used_by = paginator.get_page(request.GET.get("p"))
+
+    # Add edit URLs to each source object
+    url_finder = AdminURLFinder(request.user)
+    for object, references in used_by:
+        object.edit_url = url_finder.get_edit_url(object)
 
     return TemplateResponse(
         request, "wagtailimages/images/usage.html", {"image": image, "used_by": used_by}
