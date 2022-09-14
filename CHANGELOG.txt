@@ -15,6 +15,7 @@ Changelog
  * Fix: Resolve issue where searches with a tag and a query param in the image listing would result in an `FilterFieldError` (Stefan Hammer)
  * Fix: Add missing vertical space between header and content in embed chooser modal (LB (Ben) Johnston)
  * Fix: Use the correct type scale for heading levels in rich text (Steven Steinwand)
+ * Fix: Update alignment and reveal logic of fields’ comment buttons (Steven Steinwand)
 
 
 4.0.1 (05.09.2022)

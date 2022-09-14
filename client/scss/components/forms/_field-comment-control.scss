@@ -1,30 +1,24 @@
-$button-size: theme('spacing.5');
-
 .w-field__comment-button {
+  $root: &;
+
   @include transition(opacity 0.2s ease);
   position: absolute;
-  // Text input’s default top margin.
-  top: theme('spacing.[1.5]');
-  inset-inline-end: 0;
   color: $color-teal;
   background: none;
   border: 0;
-  width: $button-size;
-  height: $button-size;
   padding: 0;
-
-  @include media-breakpoint-up(sm) {
-    inset-inline-end: calc(-1 * $button-size);
-  }
-
-  .icon {
-    width: $button-size;
-    height: $button-size;
-    color: inherit;
-  }
-
+  inset-inline-end: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-inline-start: theme('spacing.[2.5]');
   visibility: hidden;
   opacity: 0;
+
+  .icon {
+    width: $comment-button-size;
+    height: $comment-button-size;
+    color: inherit;
+  }
 
   // For devices without hover support, always show when comments are enabled.
   @media (hover: none) {
@@ -45,17 +39,13 @@ $button-size: theme('spacing.5');
       opacity: 1;
     }
   }
-}
 
-// Add extra space to the right of commentable fields for the buttons.
-.w-field--commentable {
-  .tab-content--comments-enabled & .w-field__input {
-    padding-inline-end: $button-size;
-
-    @include media-breakpoint-up(sm) {
-      // Partial offset to reduce the change in layout with/without comments.
-      padding-inline-end: calc($button-size / 1.5);
-    }
+  // Special positioning of comment icons to sit at the top right of these fields
+  textarea ~ &,
+  .w-field--checkbox_select_multiple &,
+  .w-field--admin_tag_widget & {
+    transform: translateY(0);
+    top: 0.3125rem;
   }
 }
 

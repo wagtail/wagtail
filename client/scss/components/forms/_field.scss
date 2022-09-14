@@ -53,6 +53,8 @@
 
 .w-field__input {
   position: relative;
+  // This padding gives room for widgets such as comments beside of inputs
+  padding-inline-end: calc($comment-button-size + $comment-button-space);
 }
 
 .w-field__icon {
