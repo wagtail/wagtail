@@ -386,3 +386,69 @@ class Advert(ClusterableModel):
 ```
 
 The [documentation on tagging pages](tagging) has more information on how to use tags in views.
+
+
+## Customising snippets admin views
+
+You can customise the admin views for snippets by specifying a custom subclass of {class}`~wagtail.snippets.views.snippets.SnippetViewSet` to `register_snippet`.
+
+This can be done by removing the `@register_snippet` decorator on your model class and calling `register_snippet` (as a function, not a decorator) in your `wagtail_hooks.py` file instead as follows:
+
+```
+register_snippet(MyModel, viewset=MyModelViewSet)
+```
+
+For example, with the following `Member` model:
+
+```python
+# models.py
+from django.db import models
+from wagtail.admin.filters import WagtailFilterSet
+
+
+class Member(models.Model):
+    class ShirtSize(models.TextChoices):
+        SMALL = "S", "Small"
+        MEDIUM = "M", "Medium"
+        LARGE = "L", "Large"
+        EXTRA_LARGE = "XL", "Extra Large"
+
+    name = models.CharField(max_length=255)
+    shirt_size = models.CharField(max_length=5, choices=ShirtSize.choices, default=ShirtSize.MEDIUM)
+
+
+class MemberFilterSet(WagtailFilterSet):
+    class Meta:
+        model = Member
+        fields = ["shirt_size"]
+```
+
+You can add a `filterset_class` to the listing view by defining a subclass of `SnippetViewSet` as below:
+
+```python
+# views.py
+from wagtail.snippets.views.snippets import SnippetViewSet
+
+from myapp.models import MemberFilterSet
+
+
+class MemberViewSet(SnippetViewSet):
+    filterset_class = MemberFilterSet
+```
+
+Then, pass the viewset to the `register_snippet` call.
+
+```python
+# wagtail_hooks.py
+from wagtail.snippets.model import register_snippet
+
+from myapp.models import Member
+from myapp.views import MemberViewSet
+
+
+register_snippet(Member, viewset=MemberViewSet)
+```
+
+The `viewset` parameter of `register_snippet` also accepts a dotted module path to the subclass, e.g. `"myapp.views.MemberViewSet"`.
+
+Various additional attributes are available to customise the viewset - see {class}`~wagtail.snippets.views.snippets.SnippetViewSet`.
