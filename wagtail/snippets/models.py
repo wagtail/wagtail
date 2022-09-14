@@ -6,8 +6,8 @@ from django.utils.module_loading import import_string
 
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.forms.models import register_form_field_override
-from wagtail.admin.models import get_object_usage
 from wagtail.admin.viewsets import viewsets
+from wagtail.models import ReferenceIndex
 
 from .widgets import AdminSnippetChooser
 
@@ -46,7 +46,9 @@ def register_snippet(model, viewset=None):
         from wagtail.snippets.views.chooser import SnippetChooserViewSet
         from wagtail.snippets.views.snippets import SnippetViewSet
 
-        model.get_usage = get_object_usage
+        model.get_usage = lambda obj: ReferenceIndex.get_references_to(
+            obj
+        ).group_by_source_object()
         model.usage_url = get_snippet_usage_url
         model.get_admin_base_path = get_admin_base_path
         model.get_admin_url_namespace = get_admin_url_namespace

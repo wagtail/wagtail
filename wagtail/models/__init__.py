@@ -4625,6 +4625,46 @@ class PageSubscription(models.Model):
         ]
 
 
+class ReferenceGroups:
+    def __init__(self, qs):
+        self.qs = qs
+
+    def __iter__(self):
+        object = None
+        references = []
+        for reference in self.qs.order_by("base_content_type", "object_id"):
+            if object != (reference.base_content_type, reference.object_id):
+                if object is not None:
+                    yield object[0].get_object_for_this_type(pk=object[1]), references
+                    references = []
+
+                object = (reference.base_content_type, reference.object_id)
+
+            references.append(reference)
+
+        if references:
+            yield object[0].get_object_for_this_type(pk=object[1]), references
+
+    def __len__(self):
+        return (
+            self.qs.order_by("base_content_type", "object_id")
+            .values("base_content_type", "object_id")
+            .distinct()
+            .count()
+        )
+
+    def count(self):
+        return len(self)
+
+    def __getitem__(self, key):
+        return list(self)[key]
+
+
+class ReferenceIndexQuerySet(models.QuerySet):
+    def group_by_source_object(self):
+        return ReferenceGroups(self)
+
+
 class ReferenceIndex(models.Model):
     """
     Records references between objects for quick retrieval of object usage.
@@ -4690,6 +4730,8 @@ class ReferenceIndex(models.Model):
     # We need a separate hash field for content_path in order to use it in a unique key because
     # MySQL has a limit to the size of fields that are included in unique keys
     content_path_hash = models.UUIDField()
+
+    objects = ReferenceIndexQuerySet.as_manager()
 
     wagtail_reference_index_ignore = True
 
@@ -4862,3 +4904,22 @@ class ReferenceIndex(models.Model):
         cls.objects.filter(
             id__in=[existing_references[reference] for reference in deleted_references]
         ).delete()
+
+    @classmethod
+    def get_references_to(cls, object):
+        return cls.objects.filter(
+            to_content_type_id=cls._get_base_content_type(object),
+            to_object_id=object.pk,
+        )
+
+    def describe_source_field(self):
+        model_path_components = self.model_path.split(".")
+        field_name = model_path_components[0]
+        field = self.content_type.model_class()._meta.get_field(field_name)
+
+        # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
+        if isinstance(field, models.ManyToOneRel):
+            child_field = field.related_model._meta.get_field(model_path_components[2])
+            return capfirst(child_field.verbose_name)
+        else:
+            return capfirst(field.verbose_name)

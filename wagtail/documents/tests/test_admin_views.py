@@ -12,7 +12,7 @@ from django.utils.http import urlencode
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
-from wagtail.models import Collection, GroupCollectionPermission, Page
+from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
 from wagtail.test.testapp.models import (
     CustomDocument,
     CustomDocumentWithAuthor,
@@ -1802,7 +1802,11 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         event_page_related_link.page = page
         event_page_related_link.link_document = doc
         event_page_related_link.save()
-        self.assertTrue(issubclass(Page, type(doc.get_usage()[0])))
+
+        self.assertIsInstance(doc.get_usage()[0], tuple)
+        self.assertIsInstance(doc.get_usage()[0][0], Page)
+        self.assertIsInstance(doc.get_usage()[0][1], list)
+        self.assertIsInstance(doc.get_usage()[0][1][0], ReferenceIndex)
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_usage_page(self):
