@@ -5,7 +5,6 @@ from django.template.response import TemplateResponse
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.snippets.views.snippets import List as SnippetListView
 from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.test.snippets.models import FilterableSnippetFilterSet
 
@@ -40,9 +39,4 @@ class CustomSubmissionsListView(SubmissionsListView):
 
 
 class FilterableSnippetViewSet(SnippetViewSet):
-    @property
-    def index_view_class(self):
-        class FilterableSnippetList(SnippetListView):
-            filterset_class = FilterableSnippetFilterSet
-
-        return FilterableSnippetList
+    filterset_class = FilterableSnippetFilterSet
