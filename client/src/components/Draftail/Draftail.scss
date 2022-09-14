@@ -46,7 +46,7 @@ $draftail-editor-font-family: $font-sans;
   h6 {
     // Overrides for heading styles of Wagtail itself.
     color: inherit;
-    light-height: theme('lineHeight.tight');
+    line-height: theme('lineHeight.tight');
     font-weight: theme('fontWeight.bold');
   }
 
