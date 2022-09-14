@@ -676,6 +676,7 @@ class Unpublish(PermissionCheckedMixin, UnpublishView):
 
 
 class SnippetViewSet(ViewSet):
+    filterset_class = None
     index_view_class = List
     add_view_class = Create
     edit_view_class = Edit
@@ -705,6 +706,7 @@ class SnippetViewSet(ViewSet):
     def index_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             index_results_url_name=self.get_url_name("list_results"),
@@ -717,6 +719,7 @@ class SnippetViewSet(ViewSet):
     def index_results_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
             results_only=True,
             index_url_name=self.get_url_name("list"),
