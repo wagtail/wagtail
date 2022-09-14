@@ -24,7 +24,6 @@ from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
 from wagtail import hooks
-from wagtail.admin.models import get_object_usage
 from wagtail.coreutils import string_to_ascii
 from wagtail.images.exceptions import (
     InvalidFilterSpecError,
@@ -36,7 +35,7 @@ from wagtail.images.image_operations import (
     TransformOperation,
 )
 from wagtail.images.rect import Rect
-from wagtail.models import CollectionMember
+from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 
@@ -270,7 +269,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return full_path
 
     def get_usage(self):
-        return get_object_usage(self)
+        return ReferenceIndex.get_references_to(self).group_by_source_object()
 
     @property
     def usage_url(self):
@@ -755,6 +754,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
     focal_point_key = models.CharField(
         max_length=16, blank=True, default="", editable=False
     )
+
+    wagtail_reference_index_ignore = True
 
     @property
     def url(self):

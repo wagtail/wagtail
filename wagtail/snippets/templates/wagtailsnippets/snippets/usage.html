@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 {% block titletag %}{% blocktrans trimmed with title=object %}Usage of {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}model-{{ model_opts.model_name }}{% endblock %}
 
@@ -11,34 +11,32 @@
 
     <div class="nice-padding">
         <table class="listing">
-            <col />
-            <col width="30%"/>
-            <col width="15%"/>
-            <col width="15%"/>
             <thead>
                 <tr>
                     <th class="title">{% trans "Title" %}</th>
-                    <th>{% trans "Parent" %}</th>
-                    <th>{% trans "Type" %}</th>
-                    <th>{% trans "Status" %}</th>
+                    <th>Field</th>
                 </tr>
             </thead>
             <tbody>
-                {% for page in used_by %}
+                {% for object, references in used_by %}
                     <tr>
                         <td class="title" valign="top">
-                            <div class="title-wrapper"><a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></div>
+                            <div class="title-wrapper">
+                                {% if object.edit_url %}<a href="{{ object.edit_url }}" title="{% trans 'Edit this page' %}">{% endif %}
+                                {{ object }}
+                                {% if object.edit_url %}</a>{% endif %}
+                            </div>
                         </td>
                         <td>
-                            {% if page.get_parent %}
-                                <a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ page.specific_class.get_verbose_name }}
-                        </td>
-                        <td>
-                            {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                            <ul>
+                                {% for reference in references %}
+                                    <li>
+                                        {% if object.edit_url %}<a href="{{ object.edit_url }}#content-path-{{ reference.content_path }}">{% endif %}
+                                        {{ reference.describe_source_field }}
+                                        {% if object.edit_url %}</a>{% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </td>
                     </tr>
                 {% endfor %}
