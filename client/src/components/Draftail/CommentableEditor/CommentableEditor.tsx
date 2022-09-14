@@ -887,7 +887,6 @@ function CommentableEditor({
                 background = focusedHighlight;
                 return {
                   backgroundColor: background,
-                  fontWeight: '700',
                 };
               } else if (numStyles > 1) {
                 // Otherwise if we're in a region with overlapping comments, use a different colour than usual
