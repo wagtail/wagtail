@@ -15,7 +15,7 @@
     {% avatar_url user as avatar %}
     {% include "wagtailadmin/shared/headers/header_with_avatar.html" with title=header_title avatar=avatar subtitle=user|user_display_name %}
 
-    <div class="homepage-panels">
+    <div class="nice-padding">
         {% if panels %}
             {% for panel in panels %}
                 {% component panel fallback_render_method=True %}

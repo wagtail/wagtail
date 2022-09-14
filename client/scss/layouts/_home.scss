@@ -7,13 +7,4 @@
     // pull out the icon so it aligns with no-icon text
     margin-inline-start: -1.75em;
   }
-
-  .homepage-panels {
-    @include nice-padding();
-
-    // Remove nice padding on all the panels because this is handled by the wrapper itself
-    .nice-padding {
-      padding: 0;
-    }
-  }
 }
