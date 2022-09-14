@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.auth import permission_required
-from wagtail.admin.views.generic import CreateView, IndexView
+from wagtail.admin.views.generic import CreateView, DeleteView, IndexView
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.log_actions import log
 from wagtail.permission_policies import ModelPermissionPolicy
@@ -232,32 +232,37 @@ def edit(request, user_id):
     )
 
 
-@permission_required(delete_user_perm)
-def delete(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+class Delete(DeleteView):
+    """
+    Provide the ability to delete a user within the admin.
+    """
 
-    if not user_can_delete_user(request.user, user):
-        raise PermissionDenied
+    permission_policy = ModelPermissionPolicy(User)
+    permission_required = "delete"
+    model = User
+    template_name = "wagtailusers/users/confirm_delete.html"
+    delete_url_name = "wagtailusers_users:delete"
+    index_url_name = "wagtailusers_users:index"
+    page_title = gettext_lazy("Delete user")
+    context_object_name = "user"
+    success_message = _("User '{0}' deleted.")
 
-    for fn in hooks.get_hooks("before_delete_user"):
-        result = fn(request, user)
-        if hasattr(result, "status_code"):
-            return result
-    if request.method == "POST":
-        with transaction.atomic():
-            log(user, "wagtail.delete")
-            user.delete()
-        messages.success(request, _("User '{0}' deleted.").format(user))
-        for fn in hooks.get_hooks("after_delete_user"):
-            result = fn(request, user)
-            if hasattr(result, "status_code"):
-                return result
-        return redirect("wagtailusers_users:index")
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not user_can_delete_user(self.request.user, self.object):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
-    return TemplateResponse(
-        request,
-        "wagtailusers/users/confirm_delete.html",
-        {
-            "user": user,
-        },
-    )
+    def run_before_hook(self):
+        return self.run_hook(
+            "before_delete_user",
+            self.request,
+            self.object,
+        )
+
+    def run_after_hook(self):
+        return self.run_hook(
+            "after_delete_user",
+            self.request,
+            self.object,
+        )
