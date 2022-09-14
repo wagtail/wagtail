@@ -295,12 +295,13 @@ def page_listing_more_buttons(page, page_perms, next_url=None):
         )
     if page_perms.can_delete():
         url = reverse("wagtailadmin_pages:delete", args=[page.id])
+        include_next_url = True
 
         # After deleting the page, it is impossible to redirect to it.
         if next_url == reverse("wagtailadmin_explore", args=[page.id]):
-            next_url = None
+            include_next_url = False
 
-        if next_url:
+        if next_url and include_next_url:
             url += "?" + urlencode({"next": next_url})
 
         yield Button(
@@ -402,11 +403,16 @@ def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_delete():
         url = reverse("wagtailadmin_pages:delete", args=[page.id])
 
+        include_next_url = True
+
         # After deleting the page, it is impossible to redirect to it.
         if next_url == reverse("wagtailadmin_explore", args=[page.id]):
-            next_url = None
+            include_next_url = False
 
-        if next_url:
+        if next_url == reverse("wagtailadmin_pages:edit", args=[page.id]):
+            include_next_url = False
+
+        if next_url and include_next_url:
             url += "?" + urlencode({"next": next_url})
 
         yield Button(
