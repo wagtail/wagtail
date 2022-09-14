@@ -13,15 +13,7 @@
     {% endfragment %}
 
     {% avatar_url user as avatar %}
-    <header class="nice-padding w-pt-20 sm:w-pt-16 w-flex w-flex-row w-items-start w-gap-5">
-        {% if avatar %}<div class="w-header__glyph avatar sm:w-w-20 sm:w-h-20 w-flex-shrink-0"><img src="{{ avatar }}" alt=""/></div>{% endif %}
-        <div>
-            <h1 id="header-title" class="w-h1 md:w-text-[3.125rem] w-my-0 w-font-extrabold w-leading-none">
-                {{ header_title }}
-            </h1>
-            <span class="w-body-text-large w-text-primary">{{ user|user_display_name }}</span>
-        </div>
-    </header>
+    {% include "wagtailadmin/shared/headers/header_with_avatar.html" with title=header_title avatar=avatar subtitle=user|user_display_name %}
 
     <div class="homepage-panels">
         {% if panels %}

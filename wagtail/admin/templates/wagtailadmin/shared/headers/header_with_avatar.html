@@ -1,0 +1,17 @@
+{% comment "text/markdown" %}
+
+    Variables accepted by this template:
+
+    - `title` - Displayed as `h1`
+    - `subtitle` - Within the `h1` tag but smaller
+    - `avatar` - if present, display an 'avatar' in place of icon. This is the URL to be used as the img src for avatar
+{% endcomment %}
+<header class="w-header w-header--with-avatar">
+    {% if avatar %}<div class="avatar"><img src="{{ avatar }}" alt=""/></div>{% endif %}
+    <div>
+        <h1 id="header-title" class="w-header__title">
+            {{ title }}
+            {% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
+        </h1>
+    </div>
+</header>
