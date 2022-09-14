@@ -207,9 +207,3 @@
     }
   }
 }
-
-@include media-breakpoint-up(lg) {
-  .w-header {
-    $root: &;
-  }
-}
