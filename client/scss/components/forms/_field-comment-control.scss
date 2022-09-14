@@ -40,13 +40,6 @@
     }
   }
 
-  .unchosen:hover &,
-  .unchosen:focus-within &,
-  .chooser .chosen & {
-    opacity: 1;
-    visibility: visible;
-  }
-
   // Special positioning of comment icons to sit at the top right of these fields
   textarea ~ &,
   .w-field--checkbox_select_multiple &,
