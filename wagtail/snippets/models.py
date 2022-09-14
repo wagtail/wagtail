@@ -4,7 +4,6 @@ from django.db.models import ForeignKey
 from django.urls import reverse
 from django.utils.module_loading import import_string
 
-from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.models import get_object_usage
@@ -74,11 +73,6 @@ def register_snippet(model, viewset=None):
 
         SNIPPET_MODELS.append(model)
         SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
-
-        url_finder_class = type(
-            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": model}
-        )
-        register_admin_url_finder(model, url_finder_class)
 
         @checks.register("panels")
         def modeladmin_model_check(app_configs, **kwargs):

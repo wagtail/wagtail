@@ -15,6 +15,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.admin import messages
+from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.tables import (
@@ -42,7 +43,7 @@ from wagtail.models import DraftStateMixin, Locale, PreviewableMixin, RevisionMi
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
-from wagtail.snippets.models import get_snippet_models
+from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetSidePanels
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
@@ -907,3 +908,10 @@ class SnippetViewSet(ViewSet):
         ]
 
         return urlpatterns + legacy_redirects
+
+    def on_register(self):
+        super().on_register()
+        url_finder_class = type(
+            "_SnippetAdminURLFinder", (SnippetAdminURLFinder,), {"model": self.model}
+        )
+        register_admin_url_finder(self.model, url_finder_class)
