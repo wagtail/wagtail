@@ -1,8 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import $ from 'jquery';
-import { initTabs } from './tabs';
-import { initTooltips } from './initTooltips';
-import { gettext } from '../utils/gettext';
+import {initTabs} from './tabs';
+import {initTooltips} from './initTooltips';
+import initChooserCreationForm from './initChooserCreationForm';
+import initChooserFilters from "./chooserFilters";
+import {gettext} from '../utils/gettext';
 
 const validateCreationForm = (form) => {
   let hasErrors = false;
@@ -32,7 +34,7 @@ const validateCreationForm = (form) => {
   return !hasErrors;
 };
 
-const submitCreationForm = (modal, form, { errorContainerSelector }) => {
+const submitCreationForm = (modal, form, {errorContainerSelector}) => {
   const formdata = new FormData(form);
 
   $.ajax({
@@ -54,11 +56,11 @@ const submitCreationForm = (modal, form, { errorContainerSelector }) => {
         response.status;
       $(errorContainerSelector, modal.body).append(
         '<div class="help-block help-critical">' +
-          '<strong>' +
-          gettext('Server Error') +
-          ': </strong>' +
-          message +
-          '</div>',
+        '<strong>' +
+        gettext('Server Error') +
+        ': </strong>' +
+        message +
+        '</div>',
       );
     },
   });
@@ -66,7 +68,7 @@ const submitCreationForm = (modal, form, { errorContainerSelector }) => {
 
 const initPrefillTitleFromFilename = (
   modal,
-  { fileFieldSelector, titleFieldSelector, eventName },
+  {fileFieldSelector, titleFieldSelector, eventName},
 ) => {
   const fileWidget = $(fileFieldSelector, modal.body);
   fileWidget.on('change', () => {
@@ -81,7 +83,7 @@ const initPrefillTitleFromFilename = (
       // allow event handler to override filename (used for title) & provide maxLength as int to event
       const maxTitleLength =
         parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
-      const data = { title: filename.replace(/\.[^.]+$/, '') };
+      const data = {title: filename.replace(/\.[^.]+$/, '')};
 
       // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
       const form = fileWidget.closest('form').get(0);
@@ -196,10 +198,11 @@ class ChooserModalOnloadHandlerFactory {
     ];
     this.chosenResponseName = opts?.chosenResponseName || 'chosen';
     this.searchInputDelay = opts?.searchInputDelay || 200;
-    this.creationFormSelector =
-      opts?.creationFormSelector || 'form[data-chooser-modal-creation-form]';
+    this.creationFormSelector = opts?.creationFormSelector || '[data-chooser-creation-form]';
+    this.chooserWithCreationFormSelector =
+      opts?.chooserWithCreationFormSelector || '[data-chooser-with-creation-form]';
     this.creationFormTabSelector =
-      opts?.creationFormTabSelector || '#tab-create';
+      opts?.creationFormTabSelector || '[data-chooser-creation-form-wrapper]';
     this.creationFormFileFieldSelector = opts?.creationFormFileFieldSelector;
     this.creationFormTitleFieldSelector = opts?.creationFormTitleFieldSelector;
     this.creationFormEventName = opts?.creationFormEventName;
@@ -208,6 +211,13 @@ class ChooserModalOnloadHandlerFactory {
   }
 
   ajaxifyLinks(modal, containerElement) {
+    if (modal) {
+      modal.container.$el.dispatchEvent(
+        new CustomEvent('wagtail:ajaxify-chooser-links', {
+          bubbles: true,
+        }))
+    }
+
     if (!this.searchController) {
       throw new Error(
         'Cannot call ajaxifyLinks until a SearchController is set up',
@@ -223,6 +233,9 @@ class ChooserModalOnloadHandlerFactory {
       this.searchController.fetchResults(event.currentTarget.href);
       return false;
     });
+
+    initChooserFilters();
+    initChooserCreationForm();
 
     // Reinitialize tabs to hook up tab event listeners in the modal
     if (this.modalHasTabs(modal)) initTabs();
@@ -290,9 +303,11 @@ class ChooserModalOnloadHandlerFactory {
   }
 
   onLoadReshowCreationFormStep(modal, jsonData) {
-    $(this.creationFormTabSelector, modal.body).replaceWith(
+    $(this.creationFormTabSelector, modal.body).html(
       jsonData.htmlFragment,
     );
+
+    initChooserCreationForm();
     if (this.modalHasTabs(modal)) initTabs();
     this.ajaxifyCreationForm(modal);
   }

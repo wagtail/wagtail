@@ -201,6 +201,7 @@ class DocumentChooserViewSet(ChooserViewSet):
     icon = "doc-full-inverse"
     choose_one_text = _("Choose a document")
     create_action_label = _("Upload")
+    creation_tab_label = _("Upload a document")
     create_action_clicked_label = _("Uploading…")
     choose_another_text = _("Choose another document")
     edit_item_text = _("Edit this document")

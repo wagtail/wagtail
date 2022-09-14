@@ -17,6 +17,7 @@ import {
   initCollapsiblePanels,
 } from '../../includes/panels';
 import { initMinimap } from '../../components/Minimap';
+import initChooserCreationForm from '../../includes/initChooserCreationForm';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
+  initChooserCreationForm();
 });
 
 /**

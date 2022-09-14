@@ -1,13 +1,19 @@
-{% load wagtailadmin_tags %}
-<section
-    id="tab-{{ view.creation_tab_id }}"
-    class="w-tabs__panel"
-    role="tabpanel"
-    hidden
-    aria-labelledby="tab-label-{{ view.creation_tab_id }}"
+{% load i18n wagtailadmin_tags %}
+<div
+    id="creation-form-{{ view.creation_tab_id }}"
+    class="w-chooser-creation-form"
+    data-chooser-creation-form-wrapper
+    aria-hidden="true"
 >
+    <header class="w-chooser-header">
+        <div class="w-chooser-header__wrapper">
+            <button data-chooser-form-back class="w-chooser-header__back-button" aria-label="{% trans 'Back to choose' %}">{% icon name='chevron-left' class_name="w-w-3 w-h-3" %}</button>
+            {{ create_action_label }}
+        </div>
+    </header>
+
     {% include "wagtailadmin/shared/non_field_errors.html" with form=creation_form %}
-    <form data-chooser-modal-creation-form action="{{ create_action_url }}" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
+    <form data-chooser-creation-form action="{{ create_action_url }}" method="POST" {% if creation_form.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
         {% csrf_token %}
         {% for field in creation_form.hidden_fields %}{{ field }}{% endfor %}
 
@@ -24,4 +30,4 @@
             </li>
         </ul>
     </form>
-</section>
+</div>

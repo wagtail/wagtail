@@ -6,8 +6,10 @@
 }
 
 .c-dropdown__button {
-  display: inline-block;
-  padding-inline-start: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding-inline-start: 0.25rem;
   padding-inline-end: 0.25rem;
   // Make this the same as the other buttons
   line-height: 1.85;

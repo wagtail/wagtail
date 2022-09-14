@@ -374,6 +374,16 @@
     }
   }
 
+  // For buttons we want to look like inline links
+  &.plain {
+    padding: 0;
+    display: inline-block;
+    text-decoration: underline;
+    border: 0;
+    background: transparent;
+    color: theme('colors.secondary.DEFAULT');
+  }
+
   // Larger viewport width adjustments
 
   @include media-breakpoint-up(sm) {

@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/generic/chooser/results.html" %}
 {% load i18n wagtailimages_tags wagtailadmin_tags %}
 
-{% block listing_title %}<h2>{% trans "Latest images" %}</h2>{% endblock %}
+{% block listing_title %}<h2 class="w-sr-only">{% trans "Latest images" %}</h2>{% endblock %}
 
 {% block results_listing %}
     <ul class="listing horiz images chooser">
@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block no_items_message %}
-    <p>
+    <p class="no-items-message">
         {% if is_filtering_by_collection %}
             {% trans "You haven't uploaded any images in this collection." %}
         {% else %}
@@ -25,7 +25,7 @@
         {% endif %}
         {% if can_create %}
             {% blocktrans trimmed %}
-                Why not <a class="upload-one-now" href="#tab-upload" data-tab-trigger>upload one now</a>?
+                <button class="button plain" data-chooser-form-toggle>Upload an image</button>
             {% endblocktrans %}
         {% endif %}
     </p>

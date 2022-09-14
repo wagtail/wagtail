@@ -286,17 +286,20 @@ ul.listing {
     color: $color-teal;
     display: block;
 
-    &:before {
-      font-size: 3rem;
+    .icon {
+      width: 100%;
+      max-height: theme('spacing.9');
     }
   }
 
   .no-children a {
     color: $color-grey-3;
     display: block;
+    text-align: center;
 
-    &:before {
-      font-size: 1.5rem;
+    .icon {
+      width: theme('spacing.6');
+      max-height: theme('spacing.9');
     }
 
     &:hover,
@@ -307,10 +310,6 @@ ul.listing {
     &:focus {
       opacity: 1; //opacity is already changed on hover on the parent tr
     }
-  }
-
-  &.small .children a:before {
-    font-size: 30px;
   }
 
   th.ord {
@@ -519,6 +518,10 @@ table.listing {
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
       align-items: flex-end;
       justify-items: initial;
+
+      .w-dialog--chooser & {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
     }
 
     &.images {
@@ -617,7 +620,7 @@ table.listing {
     tr:hover .children {
       background-color: $color-teal;
 
-      a:before {
+      a .icon  {
         color: $color-white;
       }
     }
