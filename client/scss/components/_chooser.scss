@@ -10,7 +10,6 @@
   &:not(.blank) .unchosen {
     display: none;
   }
-
 }
 
 // Very subdued button style specifically for choosers, as there can be a lot of
@@ -85,7 +84,7 @@
 
     // Ensure the hovering over the comment icon will still show chooser actions for these specific ones
     :is(.w-field--admin_task_chooser, .w-field--admin_page_chooser, .w-field--document_chooser_widget, .w-field--admin_image_chooser, .w-field--admin_snippet_chooser):is(:hover, :focus-within)
-    & {
+      & {
       opacity: 1;
     }
   }
