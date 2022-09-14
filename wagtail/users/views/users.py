@@ -2,20 +2,15 @@ from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_required
-from wagtail.admin.views.generic import CreateView, DeleteView, IndexView
+from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.log_actions import log
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
@@ -179,57 +174,82 @@ class Create(CreateView):
         ]
 
 
-@permission_required(change_user_perm)
-def edit(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    can_delete = user_can_delete_user(request.user, user)
-    editing_self = request.user == user
+class Edit(EditView):
+    """
+    Provide the ability to edit a user within the admin.
+    """
 
-    for fn in hooks.get_hooks("before_edit_user"):
-        result = fn(request, user)
-        if hasattr(result, "status_code"):
-            return result
-    if request.method == "POST":
-        form = get_user_edit_form()(
-            request.POST, request.FILES, instance=user, editing_self=editing_self
+    model = User
+    permission_policy = ModelPermissionPolicy(User)
+    form_class = get_user_edit_form()
+    template_name = "wagtailusers/users/edit.html"
+    index_url_name = "wagtailusers_users:index"
+    edit_url_name = "wagtailusers_users:edit"
+    delete_url_name = "wagtailusers_users:delete"
+    success_message = _("User '{0}' updated.")
+    context_object_name = "user"
+    error_message = gettext_lazy("The user could not be saved due to errors.")
+
+    def get_page_title(self):
+        return _("Editing %s") % self.object.get_username()
+
+    def get_page_subtitle(self):
+        return ""
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.object = self.get_object()
+        self.can_delete = user_can_delete_user(request.user, self.object)
+        self.editing_self = request.user == self.object
+
+    def save_instance(self):
+        instance = super().save_instance()
+        if self.object == self.request.user and "password1" in self.form.changed_data:
+            # User is changing their own password; need to update their session hash
+            update_session_auth_hash(self.request, self.object)
+        return instance
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update(
+            {
+                "editing_self": self.editing_self,
+            }
         )
-        if form.is_valid():
-            with transaction.atomic():
-                user = form.save()
-                log(user, "wagtail.edit")
+        return kwargs
 
-            if user == request.user and "password1" in form.changed_data:
-                # User is changing their own password; need to update their session hash
-                update_session_auth_hash(request, user)
+    def run_before_hook(self):
+        return self.run_hook(
+            "before_edit_user",
+            self.request,
+            self.object,
+        )
 
-            messages.success(
-                request,
-                _("User '{0}' updated.").format(user),
-                buttons=[
-                    messages.button(
-                        reverse("wagtailusers_users:edit", args=(user.pk,)), _("Edit")
-                    )
-                ],
+    def run_after_hook(self):
+        return self.run_hook(
+            "after_edit_user",
+            self.request,
+            self.object,
+        )
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.pk,)), _("Edit")
             )
-            for fn in hooks.get_hooks("after_edit_user"):
-                result = fn(request, user)
-                if hasattr(result, "status_code"):
-                    return result
-            return redirect("wagtailusers_users:index")
-        else:
-            messages.error(request, _("The user could not be saved due to errors."))
-    else:
-        form = get_user_edit_form()(instance=user, editing_self=editing_self)
+        ]
 
-    return TemplateResponse(
-        request,
-        "wagtailusers/users/edit.html",
-        {
-            "user": user,
-            "form": form,
-            "can_delete": can_delete,
-        },
-    )
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(self.object.pk,))
+
+    def get_delete_url(self):
+        return reverse(self.delete_url_name, args=(self.object.pk,))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.pop("action_url")
+        context["can_delete"] = self.can_delete
+        return context
 
 
 class Delete(DeleteView):
