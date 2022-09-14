@@ -63,10 +63,7 @@ class SearchableSnippet(index.Indexed, models.Model):
         return self.text
 
 
-@register_snippet
 class FilterableSnippet(index.Indexed, models.Model):
-    admin_viewset = "wagtail.test.testapp.wagtail_hooks.FilterableSnippetViewSet"
-
     class CountryCode(models.TextChoices):
         INDONESIA = "ID"
         PHILIPPINES = "PH"

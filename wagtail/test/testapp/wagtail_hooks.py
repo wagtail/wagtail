@@ -11,9 +11,9 @@ from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
-from wagtail.snippets.views.snippets import List as SnippetListView
-from wagtail.snippets.views.snippets import SnippetViewSet
-from wagtail.test.snippets.models import FilterableSnippetFilterSet
+from wagtail.snippets.models import register_snippet
+from wagtail.test.snippets.models import FilterableSnippet
+from wagtail.test.testapp.views import FilterableSnippetViewSet
 
 from .forms import FavouriteColourForm
 
@@ -225,10 +225,4 @@ def add_broken_links_summary_item(request, items):
     items.append(BrokenLinksSummaryItem(request))
 
 
-class FilterableSnippetViewSet(SnippetViewSet):
-    @property
-    def index_view_class(self):
-        class FilterableSnippetList(SnippetListView):
-            filterset_class = FilterableSnippetFilterSet
-
-        return FilterableSnippetList
+register_snippet(FilterableSnippet, viewset=FilterableSnippetViewSet)

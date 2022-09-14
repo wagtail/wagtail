@@ -2,11 +2,13 @@ from django.contrib.admin.utils import quote
 from django.core import checks
 from django.db.models import ForeignKey
 from django.urls import reverse
+from django.utils.module_loading import import_string
 
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.models import get_object_usage
+from wagtail.admin.viewsets import viewsets
 
 from .widgets import AdminSnippetChooser
 
@@ -40,12 +42,36 @@ class SnippetAdminURLFinder:
             )
 
 
-def register_snippet(model):
+def register_snippet(model, viewset=None):
     if model not in SNIPPET_MODELS:
+        from wagtail.snippets.views.chooser import SnippetChooserViewSet
+        from wagtail.snippets.views.snippets import SnippetViewSet
+
         model.get_usage = get_object_usage
         model.usage_url = get_snippet_usage_url
         model.get_admin_base_path = get_admin_base_path
         model.get_admin_url_namespace = get_admin_url_namespace
+
+        if viewset is None:
+            viewset = getattr(model, "admin_viewset", SnippetViewSet)
+        if isinstance(viewset, str):
+            viewset = import_string(viewset)
+
+        admin_viewset = viewset(
+            model.get_admin_url_namespace(),
+            model=model,
+            url_prefix=model.get_admin_base_path(),
+        )
+
+        chooser_viewset = SnippetChooserViewSet(
+            f"wagtailsnippetchoosers_{model._meta.app_label}_{model._meta.model_name}",
+            model=model,
+            url_prefix=f"snippets/choose/{model._meta.app_label}/{model._meta.model_name}",
+        )
+
+        viewsets.register(admin_viewset)
+        viewsets.register(chooser_viewset)
+
         SNIPPET_MODELS.append(model)
         SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
 
