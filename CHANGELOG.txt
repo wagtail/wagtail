@@ -13,6 +13,7 @@ Changelog
  * Fix: Add missing vertical spacing between chooser modal header and body when there are no tabs (LB (Ben) Johnston)
  * Fix: Reinstate specific labels for chooser buttons (for example 'Choose another page', 'Edit this page' not 'Change', 'Edit') so that it is clearer for users and non-English translations (Matt Westcott)
  * Fix: Resolve issue where searches with a tag and a query param in the image listing would result in an `FilterFieldError` (Stefan Hammer)
+ * Fix: Add missing vertical space between header and content in embed chooser modal (LB (Ben) Johnston)
 
 
 4.0.1 (05.09.2022)
