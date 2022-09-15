@@ -222,7 +222,7 @@ Changelog
  * Fix: Layout issue with page explorer's inner header item on small device widths (Akash Kumar Sen)
  * Fix: Ensure that `BaseSiteSetting` / `BaseGenericSetting` objects can be pickled (Andy Babic)
  * Fix: Ensure `DocumentChooserBlock` can be deconstructed for migrations (Matt Westcott)
- * Fix: Resolve frontent console error and unintented console logging issues (Matt Westcott, Paarth Agarwal)
+ * Fix: Resolve frontend console error and unintented console logging issues (Matt Westcott, Paarth Agarwal)
  * Fix: Resolve issue with sites that have not yet migrated away from `BaseSetting` when upgrading to Wagtail 4.0 (Stefan Hammer)
  * Fix: Use correct classnames for showing/hiding edit button on chooser widget (Matt Westcott)
  * Fix: Render MultiFieldPanel’s heading even when nested (Thibaud Colas)
