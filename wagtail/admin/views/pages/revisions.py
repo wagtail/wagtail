@@ -57,6 +57,7 @@ def revisions_revert(request, page_id, revision_id):
         page,
         preview_enabled=True,
         comments_enabled=form.show_comments_toggle,
+        show_schedule_publishing_toggle=form.show_schedule_publishing_toggle,
     )
 
     user_avatar = render_to_string(

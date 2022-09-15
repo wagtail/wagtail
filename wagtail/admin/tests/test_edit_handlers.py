@@ -22,6 +22,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
+    PublishingPanel,
     TabbedInterface,
     extract_panel_definitions_from_model_class,
     get_form_for_model,
@@ -1617,3 +1618,54 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
 
         self.assertTrue(reply_forms[1].is_valid())
         # The existing reply was from the same user, so should be deletable
+
+
+class TestPublishingPanel(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.login()
+
+        unbound_object_list = ObjectList([PublishingPanel()])
+        self.object_list = unbound_object_list.bind_to_model(EventPage)
+        self.tabbed_interface = TabbedInterface([unbound_object_list]).bind_to_model(
+            EventPage
+        )
+
+        self.EventPageForm = self.object_list.get_form_class()
+        self.event_page = EventPage.objects.get(slug="christmas")
+
+    def test_schedule_publishing_toggle_toggle_shown(self):
+        """
+        Test that the schedule publishing toggle is shown for a TabbedInterface containing PublishingPanel, and disabled otherwise
+        """
+        form_class = self.tabbed_interface.get_form_class()
+        form = form_class()
+        self.assertTrue(form.show_schedule_publishing_toggle)
+
+        tabbed_interface_without_publishing_panel = TabbedInterface(
+            [ObjectList(self.event_page.content_panels)]
+        ).bind_to_model(EventPage)
+        form_class = tabbed_interface_without_publishing_panel.get_form_class()
+        form = form_class()
+        self.assertFalse(form.show_schedule_publishing_toggle)
+
+    def test_publishing_panel_shown_by_default(self):
+        """
+        Test that the publishing panel is present by default
+        """
+        self.assertTrue(
+            any(isinstance(panel, PublishingPanel) for panel in Page.settings_panels)
+        )
+        form_class = Page.get_edit_handler().get_form_class()
+        form = form_class()
+        self.assertTrue(form.show_schedule_publishing_toggle)
+
+    def test_form(self):
+        """
+        Check that the form has the scheduled publishing fields
+        """
+        form = self.EventPageForm(instance=self.event_page, for_user=self.user)
+
+        self.assertIn("go_live_at", form.base_fields)
+        self.assertIn("expire_at", form.base_fields)

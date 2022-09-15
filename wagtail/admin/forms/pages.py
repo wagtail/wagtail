@@ -155,6 +155,10 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
             del self.fields["comment_notifications"]
 
     @property
+    def show_schedule_publishing_toggle(self):
+        return "go_live_at" in self.__class__.base_fields
+
+    @property
     def show_comments_toggle(self):
         return "comments" in self.__class__.formsets
 
