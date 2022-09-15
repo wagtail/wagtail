@@ -66,8 +66,8 @@
                     </select>
                 {% endfield %}
 
-                {% trans "Entries per page" as entries_per_page %}
-                {% field label_text=entries_per_page id_for_label="entries_per_page" %}
+                {% trans "Entries per page" as entries_per_page_label %}
+                {% field label_text=entries_per_page_label id_for_label="entries_per_page_label" %}
                     <select id="entries_per_page" name="entries_per_page">
                         {% for value in ENTRIES_PER_PAGE_CHOICES %}
                             <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
