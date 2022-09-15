@@ -34,12 +34,16 @@ class BaseStatusSidePanel(BaseSidePanel):
     def __init__(
         self,
         *args,
+        show_schedule_publishing_toggle=None,
         live_object=None,
         scheduled_page=None,
         in_explorer=False,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
+        self.show_schedule_publishing_toggle = (
+            show_schedule_publishing_toggle and not in_explorer
+        )
         self.live_object = live_object
         self.scheduled_page = scheduled_page
         self.in_explorer = in_explorer
@@ -57,6 +61,9 @@ class BaseStatusSidePanel(BaseSidePanel):
             return {}
 
         context = {
+            # The dialog toggle can be hidden (e.g. if PublishingPanel is not present)
+            # but the scheduled publishing info should still be shown
+            "show_schedule_publishing_toggle": self.show_schedule_publishing_toggle,
             # These are the dates that show up with the unticked calendar icon,
             # aka "draft schedule"
             "draft_go_live_at": None,
@@ -277,6 +284,7 @@ class PageSidePanels(BaseSidePanels):
         *,
         preview_enabled,
         comments_enabled,
+        show_schedule_publishing_toggle,
         live_page=None,
         scheduled_page=None,
         in_explorer=False,
@@ -287,6 +295,7 @@ class PageSidePanels(BaseSidePanels):
             PageStatusSidePanel(
                 page,
                 self.request,
+                show_schedule_publishing_toggle=show_schedule_publishing_toggle,
                 live_object=live_page,
                 scheduled_page=scheduled_page,
                 in_explorer=in_explorer,

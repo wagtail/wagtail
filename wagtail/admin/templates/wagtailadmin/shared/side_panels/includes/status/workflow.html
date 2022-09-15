@@ -44,7 +44,7 @@
                                         {{ live_expire_at }}
                                     </div>
                                 </div>
-                                {% if not has_draft_publishing_schedule and not page_perms.page_locked and not in_explorer %}
+                                {% if show_schedule_publishing_toggle and not has_draft_publishing_schedule and not page_perms.page_locked %}
                                     {% trans 'Edit schedule' as edit_schedule_text %}
                                     {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                                 {% endif %}
@@ -152,7 +152,7 @@
                             {% endif %}
                         {% endif %}
                     </div>
-                    {% if not page_perms.page_locked and not in_explorer %}
+                    {% if show_schedule_publishing_toggle and not page_perms.page_locked %}
                         {% trans 'Edit schedule' as edit_schedule_text %}
                         {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                     {% endif %}
@@ -161,7 +161,7 @@
         {% elif not has_live_publishing_schedule %}
             <div class="w-flex w-justify-between w-items-center w-w-full">
                 <div class="w-ml-8 w-pr-4 w-label-3">{% trans 'No publishing schedule set' %}</div>
-                {% if not page_perms.page_locked and not in_explorer %}
+                {% if show_schedule_publishing_toggle and not page_perms.page_locked %}
                     {% trans 'Set schedule' as set_schedule_text %}
                     {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=set_schedule_text %}
                 {% endif %}
