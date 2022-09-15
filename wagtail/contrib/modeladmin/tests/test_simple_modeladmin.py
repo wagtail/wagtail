@@ -156,6 +156,13 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
             response, '<span class="result-count">2 out of 4</span>', html=True
         )
 
+        # The search form should retain the filter
+        self.assertContains(
+            response,
+            '<input type="hidden" name="author__id__exact" value="1">',
+            html=True,
+        )
+
         for book in response.context["object_list"]:
             self.assertEqual(book.author_id, 1)
 
