@@ -78,6 +78,12 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             response = self.get({"p": page})
             self.assertEqual(response.status_code, 200)
 
+    def test_per_page(self):
+        response = self.get({"entries_per_page": 60})
+        self.assertContains(
+            response, '<option value="60" selected="selected">60</option>', html=True
+        )
+
     def test_pagination_preserves_other_params(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
