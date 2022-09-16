@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<button
+    type="button"
+    {# Temporary styles pending addition of the minimap component. #}
+    class="button button-small button-secondary w-absolute w-right-0 w-m-4"
+    data-all-panels-toggle
+    data-expand-text="{% trans 'Expand all' %}"
+    data-collapse-text="{% trans 'Collapse all' %}"
+    aria-expanded="true"
+>
+    {% trans "Collapse all" %}
+</button>

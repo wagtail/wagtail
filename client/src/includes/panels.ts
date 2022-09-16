@@ -4,13 +4,20 @@
  */
 const toggleCollapsiblePanel = (
   toggle: HTMLButtonElement,
-  content: HTMLElement,
   // If a specific state isn’t requested, read the DOM and toggle.
-  expanded = !(toggle.getAttribute('aria-expanded') === 'true'),
+  isExpanding = !(toggle.getAttribute('aria-expanded') === 'true'),
 ) => {
-  toggle.setAttribute('aria-expanded', `${expanded}`);
+  const content = document.querySelector<HTMLDivElement>(
+    `#${toggle.getAttribute('aria-controls')}`,
+  );
 
-  if (expanded) {
+  if (!content) {
+    return;
+  }
+
+  toggle.setAttribute('aria-expanded', `${isExpanding}`);
+
+  if (isExpanding) {
     content.removeAttribute('hidden');
   } else if ('onbeforematch' in document.body) {
     // Use experimental `until-found` value, so users can search inside the panels.
@@ -27,7 +34,7 @@ const toggleCollapsiblePanel = (
     new CustomEvent('wagtail:panel-toggle', {
       bubbles: true,
       cancelable: false,
-      detail: { expanded },
+      detail: { expanded: isExpanding },
     }),
   );
 };
@@ -46,7 +53,7 @@ function initCollapsiblePanel(toggle: HTMLButtonElement) {
     return;
   }
 
-  const togglePanel = toggleCollapsiblePanel.bind(null, toggle, content);
+  const togglePanel = toggleCollapsiblePanel.bind(null, toggle);
 
   // Collapse panels marked as `collapsed`, unless they contain invalid fields.
   const hasCollapsed = panel.classList.contains('collapsed');
@@ -76,6 +83,51 @@ export function initCollapsiblePanels(
   toggles = document.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]'),
 ) {
   toggles.forEach(initCollapsiblePanel);
+}
+
+/**
+ * Initialises event handlers for collapsing / expanding all panels
+ */
+export function initCollapseAllPanels(
+  button = document.querySelector<HTMLButtonElement>(
+    '[data-all-panels-toggle]',
+  ),
+) {
+  if (!button) {
+    return;
+  }
+
+  const expandText = button.getAttribute('data-expand-text');
+  const collapseText = button.getAttribute('data-collapse-text');
+
+  if (!button || !expandText || !collapseText) {
+    return;
+  }
+
+  button.addEventListener('click', () => {
+    const isExpanding = !(button.getAttribute('aria-expanded') === 'true');
+
+    // Find all panel toggles within the same form as the button,
+    // excluding the special "title" panel that has no toggle.
+    const toggles = button
+      .closest('form')
+      ?.querySelectorAll<HTMLButtonElement>(
+        '[data-panel]:not(.title) [data-panel-toggle]',
+      );
+
+    if (!toggles) {
+      return;
+    }
+
+    button.setAttribute('aria-expanded', `${isExpanding}`);
+
+    toggles.forEach((toggle: HTMLButtonElement) => {
+      toggleCollapsiblePanel(toggle, isExpanding);
+    });
+
+    // eslint-disable-next-line no-param-reassign
+    button.innerText = isExpanding ? collapseText : expandText;
+  });
 }
 
 /**
