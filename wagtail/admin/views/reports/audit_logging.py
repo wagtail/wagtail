@@ -40,7 +40,10 @@ def get_content_types_for_filter():
 
 
 class SiteHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
+    action = django_filters.ChoiceFilter(
+        label=_("Action"),
+        choices=log_action_registry.get_choices,
+    )
     hide_commenting_actions = django_filters.BooleanFilter(
         label=_("Hide commenting actions"),
         method="filter_hide_commenting_actions",
@@ -51,7 +54,9 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
     )
     label = django_filters.CharFilter(label=_("Name"), lookup_expr="icontains")
     user = django_filters.ModelChoiceFilter(
-        field_name="user", queryset=lambda request: get_users_for_filter()
+        label=_("User"),
+        field_name="user",
+        queryset=lambda request: get_users_for_filter(),
     )
     object_type = ContentTypeFilter(
         label=_("Type"),

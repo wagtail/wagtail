@@ -24,13 +24,17 @@ from wagtail.models import (
 
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
+    action = django_filters.ChoiceFilter(
+        label=_("Action"),
+        choices=log_action_registry.get_choices,
+    )
     hide_commenting_actions = django_filters.BooleanFilter(
         label=_("Hide commenting actions"),
         method="filter_hide_commenting_actions",
         widget=forms.CheckboxInput,
     )
     user = django_filters.ModelChoiceFilter(
+        label=_("User"),
         field_name="user",
         queryset=lambda request: PageLogEntry.objects.all().get_users(),
     )
