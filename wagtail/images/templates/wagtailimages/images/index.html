@@ -15,9 +15,9 @@
 
         const submitFormOnDropdownChange = (dropdownSelector) => {
             const dropdown = document.querySelector(dropdownSelector);
-            dropdown.addEventListener('change', () => {
-                dropdown.form.submit();
-            })
+            if (dropdown !== null) {
+                dropdown.addEventListener('change', () => dropdown.form.submit());
+            }
         };
         const dropdownSelectors = [
             "#collection_chooser_collection_id",
