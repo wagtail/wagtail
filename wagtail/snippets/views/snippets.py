@@ -557,8 +557,12 @@ def redirect_to_usage(request, app_label, model_name, pk):
 
 
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(choices=log_registry.get_choices)
+    action = django_filters.ChoiceFilter(
+        label=_("Action"),
+        choices=log_registry.get_choices,
+    )
     user = django_filters.ModelChoiceFilter(
+        label=_("User"),
         field_name="user",
         queryset=lambda request: ModelLogEntry.objects.all().get_users(),
     )
