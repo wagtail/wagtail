@@ -31,6 +31,7 @@ Changelog
  * Fix: Update the 'Locked pages' report menu title so that it is consistent with other pages reports and its own title on viewing (Nicholas Johnson)
  * Fix: Support `formfield_callback` handling on `ModelForm.Meta` for future Django 4.2 release (Matt Westcott)
  * Fix: Ensure that `ModelAdmin` correctly supports filters in combination with subsequent searches without clearing the applied filters (Stefan Hammer)
+ * Fix: Add missing translated values to site settings' headers and models presented in listings (Stefan Hammer)
 
 
 4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
