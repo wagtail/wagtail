@@ -3,7 +3,8 @@ from io import BytesIO
 
 from django.conf import settings
 from django.conf.locale import LANG_INFO
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -11,8 +12,9 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import GroupPagePermission, ModelLogEntry, Page, PageLogEntry
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.testapp.models import Advert
 
 
 class TestLockedPagesView(TestCase, WagtailTestUtils):
@@ -186,8 +188,25 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
         self.home_page = Page.objects.get(url_path="/home/")
+        self.sub_page = Page.objects.get(url_path="/home/events/")
+        self.custom_model = Advert.objects.get(pk=1)
 
-        self.create_log = PageLogEntry.objects.log_action(
+        # Create an editor which only has permissions for the sub_page (and below).
+        self.editor = self.create_user(
+            username="the_editor", email="the_editor@example.com", password="password"
+        )
+        sub_editors = Group.objects.create(name="Sub editors")
+        sub_editors.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.editor.groups.add(sub_editors)
+        GroupPagePermission.objects.create(
+            group=sub_editors, page=self.sub_page, permission_type="edit"
+        )
+
+        self.create_log_1 = PageLogEntry.objects.log_action(
             self.home_page, "wagtail.create"
         )
         self.edit_log_1 = PageLogEntry.objects.log_action(
@@ -198,6 +217,12 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         )
         self.edit_log_3 = PageLogEntry.objects.log_action(
             self.home_page, "wagtail.edit"
+        )
+        self.create_sub_log = PageLogEntry.objects.log_action(
+            self.sub_page, "wagtail.create"
+        )
+        self.edit_sub_log = PageLogEntry.objects.log_action(
+            self.sub_page, "wagtail.edit"
         )
 
         self.create_comment_log = PageLogEntry.objects.log_action(
@@ -231,6 +256,16 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
             },
         )
 
+        self.create_custom_log = ModelLogEntry.objects.log_action(
+            self.custom_model,
+            "wagtail.create",
+        )
+
+        self.edit_custom_log = ModelLogEntry.objects.log_action(
+            self.custom_model,
+            "wagtail.edit",
+        )
+
     def get(self, params={}):
         return self.client.get(reverse("wagtailadmin_reports:site_history"), params)
 
@@ -244,13 +279,29 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         self.assert_log_entries(
             response,
             [
-                self.create_log,
+                self.create_log_1,
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
+                self.create_sub_log,
+                self.edit_sub_log,
                 self.create_comment_log,
                 self.edit_comment_log,
                 self.create_reply_log,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        # The editor should only see logs for the sub_page.
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_sub_log,
+                self.edit_sub_log,
             ],
         )
 
@@ -263,6 +314,18 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
+                self.edit_sub_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
+        response = self.get(params={"action": "wagtail.edit"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.edit_sub_log,
             ],
         )
 
@@ -272,10 +335,25 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         self.assert_log_entries(
             response,
             [
-                self.create_log,
+                self.create_log_1,
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
+                self.create_sub_log,
+                self.edit_sub_log,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
+        response = self.get(params={"hide_commenting_actions": "on"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_sub_log,
+                self.edit_sub_log,
             ],
         )
 

@@ -22,19 +22,21 @@ from wagtail.models import PageLogEntry
 from .base import ReportView
 
 
-def get_users_for_filter():
+def get_users_for_filter(user):
     user_ids = set()
     for log_model in log_action_registry.get_log_entry_models():
-        user_ids.update(log_model.objects.all().get_user_ids())
+        user_ids.update(log_model.objects.viewable_by_user(user).get_user_ids())
 
     User = get_user_model()
     return User.objects.filter(pk__in=user_ids).order_by(User.USERNAME_FIELD)
 
 
-def get_content_types_for_filter():
+def get_content_types_for_filter(user):
     content_type_ids = set()
     for log_model in log_action_registry.get_log_entry_models():
-        content_type_ids.update(log_model.objects.all().get_content_type_ids())
+        content_type_ids.update(
+            log_model.objects.viewable_by_user(user).get_content_type_ids()
+        )
 
     return ContentType.objects.filter(pk__in=content_type_ids).order_by("model")
 
@@ -56,12 +58,12 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
     user = django_filters.ModelChoiceFilter(
         label=_("User"),
         field_name="user",
-        queryset=lambda request: get_users_for_filter(),
+        queryset=lambda request: get_users_for_filter(request.user),
     )
     object_type = ContentTypeFilter(
         label=_("Type"),
         method="filter_object_type",
-        queryset=lambda request: get_content_types_for_filter(),
+        queryset=lambda request: get_content_types_for_filter(request.user),
     )
 
     def filter_hide_commenting_actions(self, queryset, name, value):

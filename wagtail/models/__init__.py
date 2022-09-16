@@ -2955,6 +2955,29 @@ class UserPagePermissionsProxy:
         permission to perform specific tasks on the given page"""
         return PagePermissionTester(self, page)
 
+    def viewable_pages(self):
+        """Return a queryset of pages that the user has access to view (e.g. add/edit/publish permission).
+        Includes all pages with specific group permissions."""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        viewable_pages = Page.objects.none()
+
+        # Creates a union queryset of all objects the user has access to add,
+        # edit and publish
+        for perm in self.permissions.filter(
+            Q(permission_type="add")
+            | Q(permission_type="edit")
+            | Q(permission_type="publish")
+            | Q(permission_type="lock")
+        ):
+            viewable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return viewable_pages
+
     def explorable_pages(self):
         """Return a queryset of pages that the user has access to view in the
         explorer (e.g. add/edit/publish permission). Includes all pages with
@@ -2966,17 +2989,7 @@ class UserPagePermissionsProxy:
         if self.user.is_superuser:
             return Page.objects.all()
 
-        explorable_pages = Page.objects.none()
-
-        # Creates a union queryset of all objects the user has access to add,
-        # edit and publish
-        for perm in self.permissions.filter(
-            Q(permission_type="add")
-            | Q(permission_type="edit")
-            | Q(permission_type="publish")
-            | Q(permission_type="lock")
-        ):
-            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+        explorable_pages = self.viewable_pages()
 
         # For all pages with specific permissions, add their ancestors as
         # explorable. This will allow deeply nested pages to be accessed in the
@@ -4407,7 +4420,7 @@ class PageLogEntryManager(BaseLogEntryManager):
     def viewable_by_user(self, user):
         q = Q(
             page__in=UserPagePermissionsProxy(user)
-            .explorable_pages()
+            .viewable_pages()
             .values_list("pk", flat=True)
         )
 
