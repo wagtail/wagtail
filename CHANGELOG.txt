@@ -53,6 +53,7 @@ Changelog
  * Fix: Update alignment and reveal logic of fields’ comment buttons (Steven Steinwand)
  * Fix: Regression from Markdown conversion in documentation for API configuration - update to correctly use PEP-8 for example code (Storm Heg)
  * Fix: Prevent 'Delete' link on page edit view from redirecting back to the deleted page (LB (Ben) Johnston)
+ * Fix: Prevent JS error on images index view when collections dropdown is omitted (Tidiane Dia)
 
 
 4.0.1 (05.09.2022)
