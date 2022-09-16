@@ -2,6 +2,7 @@ import warnings
 
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
 from wagtail.models import Site
@@ -144,7 +145,10 @@ class BaseSiteSetting(AbstractSetting):
         return instance
 
     def __str__(self):
-        return "%s for %s" % (self._meta.verbose_name.capitalize(), self.site)
+        return _("%(site_setting)s for %(site)s") % {
+            "site_setting": self._meta.verbose_name.capitalize(),
+            "site": self.site,
+        }
 
 
 class BaseGenericSetting(AbstractSetting):
