@@ -124,7 +124,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
       /* Set up behaviour of choose-page links, to pass control back to the calling page */
       // eslint-disable-next-line func-names
-      $('a.choose-page', modal.body).on('click', function () {
+      $('[data-choose-item]', modal.body).on('click', function () {
         const pageData = $(this).data();
         pageData.parentId = jsonData.parent_page_id;
         modal.respond('pageChosen', pageData);

@@ -113,6 +113,7 @@ ul.listing {
     }
 
     tbody .parent-page .title {
+      button,
       a {
         display: inline-block;
       }
@@ -133,6 +134,8 @@ ul.listing {
 
       .title a,
       .title a:hover,
+      .title button,
+      .title button:hover,
       .title label {
         color: $color-white;
       }
@@ -204,11 +207,17 @@ ul.listing {
       @apply w-label-1;
       margin: 0;
 
-      a {
+      a,
+      button {
+        background: inherit;
         color: inherit;
+        font-weight: inherit;
+        padding: 0;
+        text-align: start;
         text-decoration: none;
+        width: 100%;
 
-        // stylelint-disable max-nesting-depth
+        // stylelint-disable-next-line max-nesting-depth
         &:hover {
           color: $color-link;
         }
@@ -230,8 +239,6 @@ ul.listing {
       float: left;
       padding: 0 0.5em 0 0;
       margin: 0 0 0.5em;
-
-      // line-height: 1em;
     }
   }
 
@@ -554,6 +561,7 @@ table.listing {
           text-align: center;
           height: 180px;
 
+          // stylelint-disable-next-line max-nesting-depth
           &:before {
             content: '';
             display: inline-block;
@@ -562,6 +570,7 @@ table.listing {
             margin-inline-end: -0.25em;
           }
 
+          // stylelint-disable-next-line max-nesting-depth
           img {
             display: inline-block;
             vertical-align: middle;
@@ -569,6 +578,7 @@ table.listing {
         }
 
         &:hover {
+          // stylelint-disable-next-line max-nesting-depth
           img {
             border-color: $color-teal;
           }
