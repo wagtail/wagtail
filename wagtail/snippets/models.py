@@ -52,8 +52,8 @@ def register_snippet(model, viewset=None):
         model.get_admin_url_namespace = get_admin_url_namespace
 
         if viewset is None:
-            viewset = getattr(model, "admin_viewset", SnippetViewSet)
-        if isinstance(viewset, str):
+            viewset = SnippetViewSet
+        elif isinstance(viewset, str):
             viewset = import_string(viewset)
 
         admin_viewset = viewset(
