@@ -4,7 +4,6 @@ from io import BytesIO
 from django.conf import settings
 from django.conf.locale import LANG_INFO
 from django.contrib.auth.models import Group, Permission
-from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -13,8 +12,8 @@ from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.models import GroupPagePermission, ModelLogEntry, Page, PageLogEntry
-from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.testapp.models import Advert
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestLockedPagesView(TestCase, WagtailTestUtils):
@@ -206,7 +205,7 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
             group=sub_editors, page=self.sub_page, permission_type="edit"
         )
 
-        self.create_log_1 = PageLogEntry.objects.log_action(
+        self.create_log = PageLogEntry.objects.log_action(
             self.home_page, "wagtail.create"
         )
         self.edit_log_1 = PageLogEntry.objects.log_action(
@@ -279,7 +278,7 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         self.assert_log_entries(
             response,
             [
-                self.create_log_1,
+                self.create_log,
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
@@ -335,7 +334,7 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         self.assert_log_entries(
             response,
             [
-                self.create_log_1,
+                self.create_log,
                 self.edit_log_1,
                 self.edit_log_2,
                 self.edit_log_3,
