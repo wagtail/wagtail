@@ -412,7 +412,7 @@ class CreateView(
     def get_success_buttons(self):
         return [
             messages.button(
-                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
             )
         ]
 
@@ -543,6 +543,7 @@ class EditView(
     def get_object(self, queryset=None):
         if "pk" not in self.kwargs:
             self.kwargs["pk"] = self.args[0]
+        self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
         self.live_object = super().get_object(queryset)
 
         # Cannot use self.draftstate_enabled here as there are subclasses
@@ -560,11 +561,11 @@ class EditView(
                 "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
                 "edit_url_name attribute or a get_edit_url method"
             )
-        return reverse(self.edit_url_name, args=(self.object.id,))
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_delete_url(self):
         if self.delete_url_name:
-            return reverse(self.delete_url_name, args=(self.object.id,))
+            return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_success_url(self):
         if not self.index_url_name:
@@ -640,7 +641,7 @@ class EditView(
     def get_success_buttons(self):
         return [
             messages.button(
-                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
             )
         ]
 
@@ -734,6 +735,7 @@ class DeleteView(
     def get_object(self, queryset=None):
         if "pk" not in self.kwargs:
             self.kwargs["pk"] = self.args[0]
+        self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
         return super().get_object(queryset)
 
     def get_success_url(self):
@@ -753,7 +755,7 @@ class DeleteView(
                 "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide a "
                 "delete_url_name attribute or a get_delete_url method"
             )
-        return reverse(self.delete_url_name, args=(self.object.id,))
+        return reverse(self.delete_url_name, args=(quote(self.object.pk),))
 
     def get_success_message(self):
         if self.success_message is None:
