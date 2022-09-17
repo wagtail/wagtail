@@ -1,3 +1,4 @@
+from django.contrib.admin.utils import quote
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -124,3 +125,52 @@ class TestPasswordResetView(TestCase):
         self.assertContains(
             response, '<input type="text" name="captcha" required id="id_captcha">'
         )
+
+
+class TestGenericIndexView(TestCase, WagtailTestUtils):
+
+    fixtures = ["test.json"]
+
+    def test_with_non_integer_primary_key(self):
+        response = self.client.get(reverse("testapp_generic_index"))
+        self.assertEqual(response.status_code, 200)
+        response_object_count = response.context_data["object_list"].count()
+        self.assertEqual(response_object_count, 3)
+        self.assertContains(response, "first modelwithstringtypeprimarykey model")
+        self.assertContains(response, "second modelwithstringtypeprimarykey model")
+
+
+class TestGenericEditView(TestCase, WagtailTestUtils):
+
+    fixtures = ["test.json"]
+
+    def test_with_non_integer_primary_key(self):
+        object_pk = "string-pk-2"
+        response = self.client.get(reverse("testapp_generic_edit", args=(object_pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "second modelwithstringtypeprimarykey model")
+
+    def test_with_non_url_safe_primary_key(self):
+        object_pk = 'string-pk-:#?;@&=+$,"[]<>%'
+        object_pk = quote(object_pk)
+        response = self.client.get(reverse("testapp_generic_edit", args=(object_pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "non-url-safe pk modelwithstringtypeprimarykey model"
+        )
+
+
+class TestGenericDeleteView(TestCase, WagtailTestUtils):
+
+    fixtures = ["test.json"]
+
+    def test_with_non_integer_primary_key(self):
+        object_pk = "string-pk-2"
+        response = self.client.get(reverse("testapp_generic_delete", args=(object_pk,)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_with_non_url_safe_primary_key(self):
+        object_pk = 'string-pk-:#?;@&=+$,"[]<>%'
+        object_pk = quote(object_pk)
+        response = self.client.get(reverse("testapp_generic_delete", args=(object_pk,)))
+        self.assertEqual(response.status_code, 200)

@@ -8,7 +8,6 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail.admin import messages
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
@@ -166,13 +165,6 @@ class Create(CreateView):
     def get_add_url(self):
         return None
 
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(self.edit_url_name, args=(self.object.pk,)), _("Edit")
-            )
-        ]
-
 
 class Edit(EditView):
     """
@@ -231,13 +223,6 @@ class Edit(EditView):
             self.request,
             self.object,
         )
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(self.edit_url_name, args=(self.object.pk,)), _("Edit")
-            )
-        ]
 
     def get_edit_url(self):
         return reverse(self.edit_url_name, args=(self.object.pk,))

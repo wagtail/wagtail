@@ -1960,3 +1960,12 @@ class CustomRestaurantImage(AbstractImage):
         help_text=None, blank=True, verbose_name="tags", through=TaggedRestaurantImage
     )
     admin_form_fields = Image.admin_form_fields
+
+
+class ModelWithStringTypePrimaryKey(models.Model):
+    """
+    This model intentionally uses `CharField` as a primary key for testing purpose.
+    """
+
+    custom_id = models.CharField(max_length=255, primary_key=True)
+    content = models.CharField(max_length=255)

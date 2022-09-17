@@ -979,5 +979,26 @@
       "text": "test_advert",
       "url": "http://www.example.com"
     }
+  },
+  {
+    "pk": "string-pk-1",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "first modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "string-pk-2",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "second modelwithstringtypeprimarykey model"
+    }
+  },
+  {
+    "pk": "string-pk-:#?;@&=+$,\"[]<>%",
+    "model": "tests.modelwithstringtypeprimarykey",
+    "fields": {
+      "content": "non-url-safe pk modelwithstringtypeprimarykey model"
+    }
   }
 ]
