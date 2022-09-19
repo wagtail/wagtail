@@ -34,6 +34,9 @@ concurrency:
 # - elasticsearch 7, django 4.0, python 3.8, postgres
 # - elasticsearch 7, django 4.1, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
 
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
 jobs:
   test-sqlite:
     runs-on: ubuntu-latest
