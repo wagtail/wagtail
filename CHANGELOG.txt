@@ -26,6 +26,7 @@ Changelog
  * Avoid assuming an integer PK named 'id' on multiple upload views (Matt Westcott)
  * Add a toggle to collapse/expand all page panels at once (Helen Chapman)
  * Improve the GitHub Workflows (CI) security (Alex (sashashura))
+ * Use `search` type input in documentation search (LB (Ben) Johnston)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
