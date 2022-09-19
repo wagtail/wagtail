@@ -170,6 +170,7 @@ Changelog
  * Add support for previews, revisions and drafts on snippets (Sage Abdullah)
  * Add "Translate" button within pages’ Actions dropdown when editing pages (Sage Abdullah)
  * Add translated labels to the bulk actions tags and collections bulk update fields (Stefan Hammer)
+ * Add bulk actions support for snippet listings (Shohan Dutta Roy)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)

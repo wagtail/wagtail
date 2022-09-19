@@ -207,6 +207,8 @@ class CustomUserBulkAction(UserBulkAction):
     ...
 ```
 
+(wagtailsnippets_custom_bulk_actions)=
+
 ## Adding bulk actions to the snippets listing
 
 When creating a custom bulk action class for snippets, subclass from `wagtail.snippets.bulk_actions.snippet_bulk_action.SnippetBulkAction`

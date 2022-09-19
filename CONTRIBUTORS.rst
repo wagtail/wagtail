@@ -625,6 +625,7 @@ Contributors
 * Josh Thomas
 * Christophe Bastin
 * Nicholas Johnson
+* Shohan Dutta Roy
 
 
 Translators
