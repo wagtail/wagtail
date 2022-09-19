@@ -48,6 +48,7 @@ Changelog
  * Fix: Add missing vertical space between header and content in embed chooser modal (LB (Ben) Johnston)
  * Fix: Use the correct type scale for heading levels in rich text (Steven Steinwand)
  * Fix: Update alignment and reveal logic of fields’ comment buttons (Steven Steinwand)
+ * Fix: Regression from Markdown conversion in documentation for API configuration - update to correctly use PEP-8 for example code (Storm Heg)
 
 
 4.0.1 (05.09.2022)

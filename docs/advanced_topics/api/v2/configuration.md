@@ -108,27 +108,27 @@ For example:
 
 from wagtail.api import APIField
 
-class blogpageauthor(orderable):
-    page = models.foreignkey('blog.blogpage', on_delete=models.cascade, related_name='authors')
-    name = models.charfield(max_length=255)
+class BlogPageAuthor(Orderable):
+    page = models.ForeignKey('blog.BlogPage', on_delete=models.CASCADE, related_name='authors')
+    name = models.CharField(max_length=255)
 
     api_fields = [
         APIField('name'),
     ]
 
 
-class blogpage(page):
-    published_date = models.datetimefield()
-    body = richtextfield()
-    feed_image = models.foreignkey('wagtailimages.image', on_delete=models.set_null, null=true, ...)
-    private_field = models.charfield(max_length=255)
+class BlogPage(page):
+    published_date = models.DateTimeField()
+    body = RichTextField()
+    feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=true, ...)
+    private_field = models.CharField(max_length=255)
 
     # export fields over the api
     api_fields = [
         APIField('published_date'),
         APIField('body'),
         APIField('feed_image'),
-        APIField('authors'),  # this will nest the relevant blogpageauthor objects in the api response
+        APIField('authors'),  # this will nest the relevant BlogPageAuthor objects in the api response
     ]
 ```
 
