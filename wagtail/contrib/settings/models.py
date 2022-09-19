@@ -146,7 +146,7 @@ class BaseSiteSetting(AbstractSetting):
 
     def __str__(self):
         return _("%(site_setting)s for %(site)s") % {
-            "site_setting": self._meta.verbose_name.capitalize(),
+            "site_setting": self._meta.verbose_name,
             "site": self.site,
         }
 
@@ -203,7 +203,7 @@ class BaseGenericSetting(AbstractSetting):
         return obj
 
     def __str__(self):
-        return self._meta.verbose_name.capitalize()
+        return self._meta.verbose_name
 
 
 class BaseSetting(BaseSiteSetting):

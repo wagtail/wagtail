@@ -16,7 +16,7 @@ from django.db.models.base import ModelBase
 from django.dispatch import receiver
 from django.http import HttpRequest
 from django.utils.encoding import force_str
-from django.utils.text import slugify
+from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 
 if TYPE_CHECKING:
@@ -157,10 +157,10 @@ def get_content_type_label(content_type):
     """
     model = content_type.model_class()
     if model:
-        return model._meta.verbose_name.capitalize()
+        return str(capfirst(model._meta.verbose_name))
     else:
         # no corresponding model class found; fall back on the name field of the ContentType
-        return content_type.model.capitalize()
+        return capfirst(content_type.model)
 
 
 def accepts_kwarg(func, kwarg):

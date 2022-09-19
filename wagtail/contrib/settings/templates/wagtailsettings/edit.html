@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed %}Editing {{ instance }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with instance=instance|capfirst %}Editing {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
 
 {% block content %}
