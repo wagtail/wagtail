@@ -39,6 +39,7 @@ Changelog
  * Fix: Add missing translated values to site settings' headers plus models presented in listings and audit report filtering labels (Stefan Hammer)
  * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan Hammer)
  * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
+ * Fix: Ensure `for_user` argument is passed to the form class when previewing pages (Matt Westcott)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~

@@ -733,6 +733,47 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 404)
 
+    def test_custom_validation(self):
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "validatedpage", self.root_page.id),
+            ),
+            {
+                "title": "New page!",
+                "foo": "not bar",
+                "slug": "hello-world",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, "form", "foo", "Field foo must be bar")
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).exists()
+        )
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "validatedpage", self.root_page.id),
+            ),
+            {
+                "title": "New page!",
+                "foo": "superbar",
+                "slug": "hello-world",
+            },
+        )
+
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        )
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
     def test_preview_on_create(self):
         post_data = {
             "title": "New page!",
@@ -764,6 +805,52 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["self"].depth, self.root_page.depth + 1)
         self.assertTrue(response.context["self"].path.startswith(self.root_page.path))
         self.assertEqual(response.context["self"].get_parent(), self.root_page)
+
+    def test_preview_with_custom_validation(self):
+        post_data = {
+            "title": "New page!",
+            "foo": "not bar",
+            "slug": "hello-world",
+            "action-submit": "Submit",
+        }
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "validatedpage", self.root_page.id),
+        )
+        response = self.client.post(preview_url, post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": False, "is_available": False},
+        )
+
+        post_data = {
+            "title": "New page!",
+            "foo": "superbar",
+            "slug": "hello-world",
+            "action-submit": "Submit",
+        }
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "validatedpage", self.root_page.id),
+        )
+        response = self.client.post(preview_url, post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/validated_page.html")
+        self.assertContains(response, "foo = superbar")
 
     def test_whitespace_titles(self):
         post_data = {

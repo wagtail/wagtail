@@ -11,7 +11,9 @@ class ValidatedPageForm(WagtailAdminPageForm):
             return
 
         value = self.cleaned_data["foo"]
-        if value != "bar":
+        if self.for_user.is_superuser and value == "superbar":
+            pass
+        elif value != "bar":
             raise forms.ValidationError("Field foo must be bar")
         return value
 
