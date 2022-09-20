@@ -45,14 +45,7 @@ from wagtail.admin.views.pages.bulk_actions import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
-from wagtail.models import (
-    Collection,
-    Locale,
-    Page,
-    Task,
-    UserPagePermissionsProxy,
-    Workflow,
-)
+from wagtail.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
 from wagtail.permissions import (
     collection_permission_policy,
     task_permission_policy,
@@ -453,34 +446,6 @@ def page_header_buttons(page, page_perms, next_url=None):
             },
             priority=70,
         )
-    if Permission.objects.filter(
-        content_type__app_label="simple_translation", codename="submit_translation"
-    ):
-        if (
-            page_perms.user.has_perm("simple_translation.submit_translation")
-            and not page.is_root()
-        ):
-            # If there's at least one locale that we haven't translated into yet, show "Translate this page" button
-            has_locale_to_translate_to = Locale.objects.exclude(
-                id__in=page.get_translations(inclusive=True).values_list(
-                    "locale_id", flat=True
-                )
-            ).exists()
-
-            if has_locale_to_translate_to:
-                url = reverse(
-                    "simple_translation:submit_page_translation", args=[page.id]
-                )
-                yield Button(
-                    _("Translate"),
-                    url,
-                    icon_name="globe",
-                    attrs={
-                        "title": _("Translate this page")
-                        % {"title": page.get_admin_display_title()}
-                    },
-                    priority=80,
-                )
 
 
 @hooks.register("register_admin_urls")

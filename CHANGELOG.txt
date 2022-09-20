@@ -22,6 +22,7 @@ Changelog
  * Fix: Prevent "Entries per page" dropdown on images index view from reverting to 10 (Tidiane Dia)
  * Fix: Set related_name on user revision relation to avoid conflict with django-reversion (Matt Westcott)
  * Fix: Ensure the "recent edits" panel on the Dashboard (home) page works when page record is missing (Matt Westcott)
+ * Fix: Only add Translate buttons when the `simple_translation` app is installed (Dan Braghis)
 
 
 4.0.1 (05.09.2022)
