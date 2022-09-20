@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { initCollapsiblePanels } from './panels';
 
-// eslint-disable-next-line prefer-destructuring
 const buildExpandingFormset = window.buildExpandingFormset;
 
 /**
