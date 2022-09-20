@@ -2635,6 +2635,7 @@ class Revision(models.Model):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="wagtail_revisions",
     )
     object_str = models.TextField(default="")
     content = models.JSONField(
