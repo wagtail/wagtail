@@ -11,7 +11,6 @@ const legacyCode = {
   'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
-  'prefer-destructuring': 'off',
 };
 
 module.exports = {
@@ -59,6 +58,8 @@ module.exports = {
       'error',
       { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
     ],
+    // this rule can be confusing as it forces some non-intuitive code for variable assignment
+    'prefer-destructuring': 'off',
   },
   settings: {
     'import/core-modules': ['jquery'],
