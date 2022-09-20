@@ -1,10 +1,5 @@
-/* eslint no-use-before-define: 0 */
-/* eslint @typescript-eslint/no-use-before-define: 0 */
-/* eslint no-underscore-dangle: 0 */
-/* eslint no-undef: 0 */
-/* eslint no-restricted-syntax: 0 */
-/* eslint prefer-destructuring: 0 */
-/* eslint no-console: 0 */
+import docSearchReady from "./layout";
+import { getVersionFacetFilter } from "./layout";
 
 function setStartEndForPaginator(
   currentPage,
@@ -89,7 +84,7 @@ function addResultsList(hits, query, parentElement) {
 
 function displayPagination(page, totalPages) {
   const pagination = document.querySelector('#pagination');
-  const paginationItem = pagination.querySelector('.pagination-item');
+  const paginationList = pagination.querySelector('.pagination-list');
   const paginationPrevious = pagination.querySelector('.pagination-previous');
   const paginationNext = pagination.querySelector('.pagination-next');
 
@@ -103,6 +98,7 @@ function displayPagination(page, totalPages) {
   const [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed);
 
   for (let i = start; i < end; i += 1) {
+    const newPaginationItem = document.createElement("li");
     const newPaginationbutton = document.createElement('button');
     const previousPaginationbutton = document.createElement('button');
     const nextPaginationbutton = document.createElement('button');
@@ -120,7 +116,7 @@ function displayPagination(page, totalPages) {
       flag = true;
     }
 
-    // Register event handlers - Replaced onclick with AddEventListeners
+    // Register event listeners
     newPaginationbutton.addEventListener('click', () => {
       runSearchPageSearch(page);
     });
@@ -131,15 +127,14 @@ function displayPagination(page, totalPages) {
       runSearchPageSearch(page + 1);
     });
 
-    const currentButton = document.querySelector(
-      '#pagination > div.pagination-item > button',
-    );
+    const currentButton = document.querySelector("#pagination > ul > li > button");
     const nextButton = document.querySelector('#pagination-next > button');
     const prevButton = document.querySelector('#pagination-previous > button');
     if (currentButton && flag === true) {
-      paginationItem.replaceChild(newPaginationbutton, currentButton);
+      paginationList.replaceChild(newPaginationbutton, currentButton);
     } else if (!currentButton && flag === true) {
-      paginationItem.append(newPaginationbutton);
+        newPaginationItem.append(newPaginationbutton)
+        paginationList.append(newPaginationItem)
     }
     if (nextButton && flag === true) {
       paginationNext.replaceChild(nextPaginationbutton, nextButton);
@@ -162,7 +157,7 @@ function runSearchPageSearch(page) {
 
   // Erase previous results
   searchResultsContainer.innerHTML = '';
-  document.querySelector('.pagination-item').innerHTML = '';
+  document.querySelector('.pagination-list').innerHTML = '';
   addHeadingForQuery(query, searchResultsContainer);
 
   const docSearch = docSearchReady();
@@ -175,17 +170,17 @@ function runSearchPageSearch(page) {
     })
     .then((result) => {
       // Display pagination if more than 1 page returned
-      const nbPages = result.nbPages;
+      const { nbPages } = result.nbPages;
       if (nbPages > 1) {
         document.querySelector('#pagination').hidden = false;
         displayPagination(page, nbPages);
       }
 
       // Display hits
-      const hits = result.hits;
+      const { hits } = result.hits;
       addResultsList(hits, query, searchResultsContainer);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => console.log(error)); // eslint-disable-line
 }
 
 window.addEventListener('DOMContentLoaded', () => runSearchPageSearch(0));
