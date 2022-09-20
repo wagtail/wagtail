@@ -37,9 +37,18 @@ class PreviewOnEdit(GenericPreviewOnEdit):
 
         if not query_dict:
             # Query dict is empty, return null form
-            return form_class(instance=self.object, parent_page=parent_page)
+            return form_class(
+                instance=self.object,
+                parent_page=parent_page,
+                for_user=self.request.user,
+            )
 
-        return form_class(query_dict, instance=self.object, parent_page=parent_page)
+        return form_class(
+            query_dict,
+            instance=self.object,
+            parent_page=parent_page,
+            for_user=self.request.user,
+        )
 
 
 class PreviewOnCreate(PreviewOnEdit):

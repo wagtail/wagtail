@@ -38,7 +38,7 @@ def revisions_revert(request, page_id, revision_id):
     edit_handler = page_class.get_edit_handler()
     form_class = edit_handler.get_form_class()
 
-    form = form_class(instance=revision_page)
+    form = form_class(instance=revision_page, for_user=request.user)
     edit_handler = edit_handler.get_bound_panel(
         instance=revision_page, request=request, form=form
     )

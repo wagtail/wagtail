@@ -58,9 +58,9 @@ class PreviewOnEdit(View):
 
         if not query_dict:
             # Query dict is empty, return null form
-            return form_class(instance=self.object)
+            return form_class(instance=self.object, for_user=self.request.user)
 
-        return form_class(query_dict, instance=self.object)
+        return form_class(query_dict, instance=self.object, for_user=self.request.user)
 
     def _get_data_from_session(self):
         post_data, _ = self.request.session.get(self.session_key, (None, None))
