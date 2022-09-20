@@ -33,7 +33,7 @@ Changelog
  * Fix: Support `formfield_callback` handling on `ModelForm.Meta` for future Django 4.2 release (Matt Westcott)
  * Fix: Ensure that `ModelAdmin` correctly supports filters in combination with subsequent searches without clearing the applied filters (Stefan Hammer)
  * Fix: Add missing translated values to site settings' headers plus models presented in listings and audit report filtering labels (Stefan Hammer)
- * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan hammer)
+ * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan Hammer)
 
 
 4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
