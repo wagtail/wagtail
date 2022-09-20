@@ -5,7 +5,6 @@ const legacyCode = {
   'constructor-super': 'off',
   'default-param-last': 'off',
   'max-classes-per-file': 'off',
-  'no-await-in-loop': 'off',
   'no-continue': 'off',
   'no-else-return': 'off',
   'no-plusplus': 'off',
@@ -13,7 +12,6 @@ const legacyCode = {
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
   'prefer-destructuring': 'off',
-  'prefer-promise-reject-errors': 'off',
 };
 
 module.exports = {
