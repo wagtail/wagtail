@@ -563,7 +563,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # because the changes are not visible as a live page yet
         self.assertTrue(
             child_page_new.has_unpublished_changes,
-            "A page scheduled for future publishing should have has_unpublished_changes=True",
+            msg="A page scheduled for future publishing should have has_unpublished_changes=True",
         )
 
         self.assertEqual(child_page_new.status_string, "scheduled")
@@ -676,7 +676,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # because the changes are not visible as a live page yet
         self.assertTrue(
             child_page_new.has_unpublished_changes,
-            "A page scheduled for future publishing should have has_unpublished_changes=True",
+            msg="A page scheduled for future publishing should have has_unpublished_changes=True",
         )
 
         self.assertNotEqual(
@@ -688,7 +688,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(
             child_page_new.title,
             original_title,
-            "A live page with scheduled revisions should still have original content",
+            msg="A live page with scheduled revisions should still have original content",
         )
 
     def test_edit_post_publish_now_an_already_scheduled_published_page(self):
@@ -1281,7 +1281,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
     def test_page_edit_num_queries(self):
-        with self.assertNumQueries(46):
+        with self.assertNumQueries(45):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
