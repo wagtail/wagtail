@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 
 from wagtail import __version__
 from wagtail.utils.setup import assets, check_bdist_egg, sdist
@@ -78,26 +79,49 @@ documentation_extras = [
     "myst_parser==0.17.0",
 ]
 
-setup(
-    name="wagtail",
-    version=__version__,
-    description="A Django content management system.",
-    author="Wagtail core team + contributors",
-    author_email="hello@wagtail.org",  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
-    url="https://wagtail.org/",
-    project_urls={
-        "Documentation": "https://docs.wagtail.org",
-        "Source": "https://github.com/wagtail/wagtail",
-    },
-    packages=find_packages(),
-    include_package_data=True,
-    license="BSD",
-    long_description="Wagtail is an open source content management \
+name = os.getenv("WAGTAIL_PACKAGE_META_NAME", "wagtail")
+
+version = os.getenv("WAGTAIL_PACKAGE_META_VERSION", __version__)
+description = os.getenv(
+    "WAGTAIL_PACKAGE_META_DESCRIPTION", "A Django content management system."
+)
+author = os.getenv("WAGTAIL_PACKAGE_META_AUTHOR", "Wagtail core team + contributors")
+author_email = os.getenv(
+    "WAGTAIL_PACKAGE_META_AUTHOR_EMAIL", "hello@wagtail.org"
+)  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
+url = os.getenv("WAGTAIL_PACKAGE_META_URL", "https://wagtail.org/")
+project_urls_docs = os.getenv(
+    "WAGTAIL_PACKAGE_META_PROJECT_URLS_DOCS", "https://docs.wagtail.org"
+)
+project_urls_src = os.getenv(
+    "WAGTAIL_PACKAGE_META_PROJECT_URLS_SRC", "https://github.com/wagtail/wagtail"
+)
+long_description = os.getenv(
+    "WAGTAIL_PACKAGE_META_LONG_DESCRIPTION",
+    "Wagtail is an open source content management \
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
 designers and developers.\n\n\
 For more details, see https://wagtail.org, https://docs.wagtail.org and \
 https://github.com/wagtail/wagtail/.",
+)
+
+
+setup(
+    name=name,
+    version=version,
+    description=description,
+    author=author,
+    author_email=author_email,
+    url=url,
+    project_urls={
+        "Documentation": project_urls_docs,
+        "Source": project_urls_src,
+    },
+    packages=find_packages(),
+    include_package_data=True,
+    license="BSD",
+    long_description=long_description,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
