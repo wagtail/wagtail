@@ -626,6 +626,7 @@ Contributors
 * Christophe Bastin
 * Nicholas Johnson
 * Shohan Dutta Roy
+* Alex (sashashura)
 
 
 Translators
