@@ -207,9 +207,12 @@ class RecentEditsPanel(Component):
         # The revision's object_id is a string, so cast it to int first.
         page_keys = [int(pr.object_id) for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
-        context["last_edits"] = [
-            [revision, pages.get(int(revision.object_id))] for revision in last_edits
-        ]
+        context["last_edits"] = []
+        for revision in last_edits:
+            page = pages.get(int(revision.object_id))
+            if page:
+                context["last_edits"].append([revision, page])
+
         context["request"] = request
         return context
 

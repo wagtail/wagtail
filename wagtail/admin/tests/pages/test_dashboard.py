@@ -20,10 +20,11 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
             content="Some content here",
         )
         self.root_page.add_child(instance=child_page)
-        child_page.save_revision().publish()
+        self.revision = child_page.save_revision()
+        self.revision.publish()
         self.child_page = SimplePage.objects.get(id=child_page.id)
 
-        self.create_superuser(username="alice", password="password")
+        self.user_alice = self.create_superuser(username="alice", password="password")
         self.create_superuser(username="bob", password="password")
 
     def change_something(self, title):
@@ -80,6 +81,21 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         # Alice's dashboard should still list that first edit
         response = self.go_to_dashboard_response()
         self.assertIn("Your most recent edits", response.content.decode("utf-8"))
+
+    def test_missing_page_record(self):
+        # Ensure that the panel still renders when one of the returned revision records
+        # has no corresponding Page object. It's unclear how this happens, since revisions
+        # are deleted on page deletion, but there are reports of this happening in
+        # https://github.com/wagtail/wagtail/issues/9185
+
+        # edit the revision object to be owned by Alice and have an unrecognised object ID
+        self.revision.user = self.user_alice
+        self.revision.object_id = "999999"
+        self.revision.save()
+
+        self.login(username="alice", password="password")
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
 
     def test_panel(self):
         """Test if the panel actually returns expected pages"""
