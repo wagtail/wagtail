@@ -1,5 +1,78 @@
-import docSearchReady from "./layout";
-import { getVersionFacetFilter } from "./layout";
+/**
+ * Get version of the currently served docs.
+ *
+ * PR builds have their version set to the PR ID (for example "6753").
+ * If the docs are built for a PR, use the "latest" search index.
+ * Otherwise, use the search index for the current version.
+ */
+function getReadTheDocsVersion() {
+  const RTD_VERSION = (window.READTHEDOCS_DATA || {}).version || 'latest';
+  const version = RTD_VERSION.match(/^\d+$/) ? 'latest' : RTD_VERSION;
+  return version;
+}
+
+function getVersionFacetFilter() {
+  return `version:${getReadTheDocsVersion()}`;
+}
+
+/**
+ * Return true (debug: on) for local builds or Read the Docs PR previews.
+ *
+ * The debug mode allows inspection of the dropodown.
+ */
+function getSearchDebugMode() {
+  let debug = false;
+  if (window.READTHEDOCS_DATA === undefined) {
+    // When developing locally, the `window.READTHEDOCS_DATA` object does not exist.
+    debug = true;
+  } else {
+    // When PR preview on Readthedocs, then the version can be converted into
+    // a number. This does not work for the production version identifiers
+    // like 'stable', 'latest', 'v2.12', etc. In that case `Number()` is `NaN`.
+    const versionNumber = Number(window.READTHEDOCS_DATA.version);
+    debug = !Number.isNaN(versionNumber);
+  }
+  return debug;
+}
+
+function docSearchReady() {
+  /**
+   * Configure Algolia DocSearch.
+   * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
+   */
+
+  try {
+    // eslint-disable-next-line
+    const search = docsearch({
+      apiKey: '8325c57d16798633e29d211c26c7b6f9',
+      indexName: 'wagtail',
+      inputSelector: '#searchbox [name="q"]',
+      algoliaOptions: {
+        facetFilters: [getVersionFacetFilter()],
+      },
+      autocompleteOptions: {
+        // Do NOT automatically select the first suggestion in the dropdown.
+        // https://github.com/algolia/autocomplete/blob/45fa32d008620cf52bf4a90530be338543dfba7f/README.md#global-options
+        autoSelect: false,
+      },
+      debug: getSearchDebugMode(),
+    });
+
+    // Change page styles when the dropdown is open, to lock scrolling.
+    search.autocomplete.on('autocomplete:updated', (event) => {
+      const isOpen = event.target.value.trim() !== '';
+      document.body.classList.toggle('body--autocomplete-open', isOpen);
+    });
+    search.autocomplete.on('autocomplete:closed', () => {
+      document.body.classList.toggle('body--autocomplete-open', false);
+    });
+    return search;
+  } catch (err) {
+    return null;
+  }
+}
+
+docSearchReady();
 
 function setStartEndForPaginator(
   currentPage,
@@ -36,7 +109,7 @@ function createHitElement(hitData, query) {
   pageURL.searchParams.set('highlight', query);
   const anchorURL = new URL(hitData.url);
   anchorURL.searchParams.set('highlight', query);
-  const result = hitData._highlightResult;
+  const result = hitData._highlightResult; // eslint-disable-line
 
   const hitListElement = document.createElement('li');
 
@@ -74,12 +147,49 @@ function createHitElement(hitData, query) {
 function addResultsList(hits, query, parentElement) {
   const searchResultsList = document.createElement('ul');
   searchResultsList.className = 'search';
-  let hit;
-  for (hit of hits) {
+  hits.forEach((hit) => {
     const hitElement = createHitElement(hit, query);
     searchResultsList.appendChild(hitElement);
-  }
+  });
   parentElement.appendChild(searchResultsList);
+}
+
+function runSearchPageSearch(page) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get('q');
+
+  const searchResultsContainer = document.getElementById('search-results');
+
+  // Erase previous results
+
+  if (page > 0) {
+    searchResultsContainer.innerHTML = '';
+    document.querySelector('.pagination-list').innerHTML = '';
+    addHeadingForQuery(query, searchResultsContainer);
+  }
+
+  const docSearch = docSearchReady();
+  const index = docSearch.client.initIndex('wagtail');
+
+  index
+    .search(query, {
+      hitsPerPage: 100,
+      page: page,
+      facetFilters: [getVersionFacetFilter()],
+    })
+    .then((result) => {
+      // Display pagination if more than 1 page returned
+      const { nbPages } = result;
+      if (nbPages > 1) {
+        document.querySelector('#pagination').hidden = false;
+        displayPagination(page, nbPages); // eslint-disable-line
+      }
+
+      // Display hits
+      const { hits } = result;
+      addResultsList(hits, query, searchResultsContainer);
+    })
+    .catch((error) => console.log(error)); // eslint-disable-line
 }
 
 function displayPagination(page, totalPages) {
@@ -98,19 +208,18 @@ function displayPagination(page, totalPages) {
   const [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed);
 
   for (let i = start; i < end; i += 1) {
-    const newPaginationItem = document.createElement("li");
+    const newPaginationItem = document.createElement('li');
     const newPaginationbutton = document.createElement('button');
     const previousPaginationbutton = document.createElement('button');
     const nextPaginationbutton = document.createElement('button');
     newPaginationbutton.classList.add('pagination-button');
     previousPaginationbutton.classList.add('pagination-button');
     nextPaginationbutton.classList.add('pagination-button');
-
+    newPaginationbutton.innerHTML = 'Page ' + (i + 1) + ' of ' + end;
+    previousPaginationbutton.innerText = '← Previous';
+    nextPaginationbutton.innerHTML = 'Next →';
     let flag = false;
     if (i === page) {
-      newPaginationbutton.innerHTML = 'Page ' + (i + 1) + ' of ' + end;
-      previousPaginationbutton.innerHTML = '← Previous';
-      nextPaginationbutton.innerHTML = 'Next →';
       newPaginationbutton.setAttribute('aria-label', `page ${i + 1}`);
       newPaginationbutton.setAttribute('aria-current', `${i}`);
       flag = true;
@@ -127,14 +236,16 @@ function displayPagination(page, totalPages) {
       runSearchPageSearch(page + 1);
     });
 
-    const currentButton = document.querySelector("#pagination > ul > li > button");
+    const currentButton = document.querySelector(
+      '#pagination > ul > li > button',
+    );
     const nextButton = document.querySelector('#pagination-next > button');
     const prevButton = document.querySelector('#pagination-previous > button');
     if (currentButton && flag === true) {
       paginationList.replaceChild(newPaginationbutton, currentButton);
     } else if (!currentButton && flag === true) {
-        newPaginationItem.append(newPaginationbutton)
-        paginationList.append(newPaginationItem)
+      newPaginationItem.append(newPaginationbutton);
+      paginationList.append(newPaginationItem);
     }
     if (nextButton && flag === true) {
       paginationNext.replaceChild(nextPaginationbutton, nextButton);
@@ -149,38 +260,6 @@ function displayPagination(page, totalPages) {
   }
 }
 
-function runSearchPageSearch(page) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const query = urlParams.get('q');
-
-  const searchResultsContainer = document.getElementById('search-results');
-
-  // Erase previous results
-  searchResultsContainer.innerHTML = '';
-  document.querySelector('.pagination-list').innerHTML = '';
-  addHeadingForQuery(query, searchResultsContainer);
-
-  const docSearch = docSearchReady();
-  const index = docSearch.client.initIndex('wagtail');
-  index
-    .search(query, {
-      hitsPerPage: 100,
-      page: page,
-      facetFilters: [getVersionFacetFilter()],
-    })
-    .then((result) => {
-      // Display pagination if more than 1 page returned
-      const { nbPages } = result.nbPages;
-      if (nbPages > 1) {
-        document.querySelector('#pagination').hidden = false;
-        displayPagination(page, nbPages);
-      }
-
-      // Display hits
-      const { hits } = result.hits;
-      addResultsList(hits, query, searchResultsContainer);
-    })
-    .catch((error) => console.log(error)); // eslint-disable-line
-}
-
-window.addEventListener('DOMContentLoaded', () => runSearchPageSearch(0));
+window.addEventListener('DOMContentLoaded', () => {
+  runSearchPageSearch(0);
+});

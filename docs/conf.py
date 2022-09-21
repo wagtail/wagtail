@@ -299,4 +299,3 @@ texinfo_documents = [
 def setup(app):
     app.add_js_file("js/banner.js")
     app.add_js_file("js/search.js")
-    app.add_js_file("js/layout.js")
