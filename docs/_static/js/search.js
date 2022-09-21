@@ -34,16 +34,13 @@ function getSearchDebugMode() {
   }
   return debug;
 }
-
-function docSearchReady() {
-  /**
+ /**
    * Configure Algolia DocSearch.
    * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
    */
-
+function docSearchReady() {
   try {
-    // eslint-disable-next-line
-    const search = docsearch({
+    const search = window.docsearch({
       apiKey: '8325c57d16798633e29d211c26c7b6f9',
       indexName: 'wagtail',
       inputSelector: '#searchbox [name="q"]',
