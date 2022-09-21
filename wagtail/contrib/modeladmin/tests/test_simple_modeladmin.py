@@ -2,7 +2,7 @@ import datetime
 from io import BytesIO
 from unittest import mock
 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.test import TestCase
@@ -927,40 +927,101 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
 
     def setUp(self):
         # Create a user
-        user = self.create_user(username="test2", password="password")
-        user.groups.add(Group.objects.get(pk=2))
-        self.user = user
+        self.user = self.create_user(username="test2", password="password")
+        self.group = Group.objects.get(name="Editors")
+        self.user.groups.add(self.group)
+        self.book_content_type = ContentType.objects.get_for_model(Book)
+
         # Login
         self.login(username="test2", password="password")
-
-        return user
 
     def test_index_permitted(self):
         response = self.client.get("/admin/modeladmintest/book/")
         self.assertRedirects(response, "/admin/")
 
-    def test_inpspect_permitted(self):
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="add_book", content_type=self.book_content_type
+            )
+        )
+        response = self.client.get("/admin/modeladmintest/book/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_inspect_permitted(self):
         response = self.client.get("/admin/modeladmintest/book/inspect/2/")
         self.assertRedirects(response, "/admin/")
+
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="add_book", content_type=self.book_content_type
+            )
+        )
+        response = self.client.get("/admin/modeladmintest/book/inspect/2/")
+        self.assertEqual(response.status_code, 200)
 
     def test_create_permitted(self):
         response = self.client.get("/admin/modeladmintest/book/create/")
         self.assertRedirects(response, "/admin/")
 
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="add_book", content_type=self.book_content_type
+            )
+        )
+        response = self.client.get("/admin/modeladmintest/book/create/")
+        self.assertEqual(response.status_code, 200)
+
     def test_edit_permitted(self):
         response = self.client.get("/admin/modeladmintest/book/edit/2/")
         self.assertRedirects(response, "/admin/")
 
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="change_book", content_type=self.book_content_type
+            )
+        )
+        response = self.client.get("/admin/modeladmintest/book/edit/2/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_url_finder_without_permission(self):
         url_finder = AdminURLFinder(self.user)
         self.assertIsNone(url_finder.get_edit_url(Book.objects.get(id=2)))
+
+    def test_admin_url_finder_with_permission(self):
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="change_book", content_type=self.book_content_type
+            )
+        )
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(
+            url_finder.get_edit_url(Book.objects.get(id=2)),
+            "/admin/modeladmintest/book/edit/2/",
+        )
 
     def test_delete_get_permitted(self):
         response = self.client.get("/admin/modeladmintest/book/delete/2/")
         self.assertRedirects(response, "/admin/")
 
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="delete_book", content_type=self.book_content_type
+            )
+        )
+        response = self.client.get("/admin/modeladmintest/book/delete/2/")
+        self.assertEqual(response.status_code, 200)
+
     def test_delete_post_permitted(self):
         response = self.client.post("/admin/modeladmintest/book/delete/2/")
         self.assertRedirects(response, "/admin/")
+
+        self.group.permissions.add(
+            Permission.objects.get(
+                codename="delete_book", content_type=self.book_content_type
+            )
+        )
+        response = self.client.post("/admin/modeladmintest/book/delete/2/")
+        self.assertRedirects(response, "/admin/modeladmintest/book/")
 
 
 class TestHistoryView(TestCase, WagtailTestUtils):
