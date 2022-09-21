@@ -109,9 +109,9 @@ If you need to use a different user, password, host or port, use the `PGUSER`, `
 
 ### Testing against a different database
 
-:::{note}
+```{note}
 In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](https://docs.djangoproject.com/en/stable/ref/databases/) or 3rd-party database backend's documentation.
-:::
+```
 
 If you need to test against a different database, set the `DATABASE_ENGINE`
 environment variable to the name of the Django database backend to test against:
