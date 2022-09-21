@@ -119,12 +119,19 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
         self.assertContains(response, 'id="status-sidebar-live"')
 
-        # Test InlinePanel labels/headings
+        # Test help text defined on FieldPanel
+        self.assertContains(response, "Who this event is for")
+
+        # Test InlinePanel labels/headings/help text
         self.assertContains(
             response,
             '<label class="w-field__label" for="id_speakers-__prefix__-last_name" id="id_speakers-__prefix__-last_name-label">',
         )
         self.assertContains(response, "Add speakers")
+        self.assertContains(response, "Put the keynote speaker first")
+
+        # Test MultiFieldPanel help text
+        self.assertContains(response, "For SEO nerds only")
 
         # test register_page_action_menu_item hook
         self.assertContains(

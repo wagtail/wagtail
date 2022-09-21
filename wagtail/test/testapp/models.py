@@ -382,12 +382,17 @@ class EventPage(Page):
         FieldPanel("time_from"),
         FieldPanel("time_to"),
         FieldPanel("location"),
-        FieldPanel("audience"),
+        FieldPanel("audience", help_text="Who this event is for"),
         FieldPanel("cost"),
         FieldPanel("signup_link"),
         InlinePanel("carousel_items", label="Carousel items"),
         FieldPanel("body"),
-        InlinePanel("speakers", label="Speakers", heading="Speaker lineup"),
+        InlinePanel(
+            "speakers",
+            label="Speakers",
+            heading="Speaker lineup",
+            help_text="Put the keynote speaker first",
+        ),
         InlinePanel("related_links", label="Related links"),
         FieldPanel("categories"),
         # InlinePanel related model uses `pk` not `id`
@@ -395,7 +400,9 @@ class EventPage(Page):
     ]
 
     promote_panels = [
-        MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
+        MultiFieldPanel(
+            COMMON_PANELS, "Common page configuration", help_text="For SEO nerds only"
+        ),
         FieldPanel("feed_image"),
     ]
 
@@ -948,8 +955,11 @@ class AdvertWithTabbedInterface(models.Model):
     edit_handler = TabbedInterface(
         [
             ObjectList(advert_panels, heading="Advert"),
-            ObjectList(other_panels, heading="Other"),
-        ]
+            ObjectList(
+                other_panels, heading="Other", help_text="Other panels help text"
+            ),
+        ],
+        help_text="Top-level help text",
     )
 
     def __str__(self):

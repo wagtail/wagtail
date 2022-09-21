@@ -2,14 +2,25 @@
 
 {{ self.formset.management_form }}
 
+{% if self.formset.non_form_errors %}
+    <div class="error-message">
+        {% for error in self.formset.non_form_errors %}
+            <span>{{ error|escape }}</span>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if self.help_text %}
+    {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
+{% endif %}
+
 <div id="id_{{ self.formset.prefix }}-FORMS">
-    {% if self.formset.non_form_errors %}
-        <div class="error-message">
-            {% for error in self.formset.non_form_errors %}
-                <span>{{ error|escape }}</span>
-            {% endfor %}
-        </div>
-    {% endif %}
+    {% comment %}
+
+    Child elements of this div will become orderable elements. Do not place additional
+    "furniture" elements here unless you intend them to be part of the child ordering.
+
+    {% endcomment %}
 
     {% for child in self.children %}
         {% include "wagtailadmin/panels/inline_panel_child.html" %}
