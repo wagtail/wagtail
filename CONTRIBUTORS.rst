@@ -627,6 +627,7 @@ Contributors
 * Nicholas Johnson
 * Shohan Dutta Roy
 * Alex (sashashura)
+* Adinapunyo Banerjee
 
 
 Translators

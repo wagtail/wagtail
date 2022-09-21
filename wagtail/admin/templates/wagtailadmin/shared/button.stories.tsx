@@ -104,6 +104,39 @@ const Template = ({ url }) => (
       button disabled
     </button>
 
+    <h4>Bi-color secondary icon buttons with text</h4>
+    <a href={url} className="button bicolor button--icon button-secondary">
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button link
+    </a>
+    <button
+      type="button"
+      className="button bicolor button--icon button-secondary"
+    >
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button element
+    </button>
+    <button
+      type="button"
+      className="button bicolor button--icon button-secondary"
+      disabled
+    >
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button disabled
+    </button>
+
     <h4>
       Bi-color icon buttons with text <small>(small)</small>
     </h4>
@@ -126,6 +159,44 @@ const Template = ({ url }) => (
     <button
       type="button"
       className="button button-small bicolor button--icon"
+      disabled
+    >
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button disabled
+    </button>
+
+    <h4>
+      Bi-color secondary icon buttons with text <small>(small)</small>
+    </h4>
+    <a
+      href={url}
+      className="button button-small bicolor button--icon button-secondary"
+    >
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button link
+    </a>
+    <button
+      type="button"
+      className="button button-small bicolor button--icon button-secondary"
+    >
+      <span className="icon-wrapper">
+        <svg className="icon icon-plus icon" aria-hidden="true">
+          <use href="#icon-plus" />
+        </svg>
+      </span>
+      button element
+    </button>
+    <button
+      type="button"
+      className="button button-small bicolor button--icon button-secondary"
       disabled
     >
       <span className="icon-wrapper">
