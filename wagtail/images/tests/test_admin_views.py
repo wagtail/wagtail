@@ -323,7 +323,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
     def test_num_queries(self):
         # Initial number of queries.
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(23):
             self.get()
 
         # Add 5 images.
@@ -333,11 +333,11 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
                 file=get_test_image_file(size=(1, 1)),
             )
 
-        with self.assertNumQueries(35):
+        with self.assertNumQueries(45):
             # The renditions needed don't exist yet. We have 20 = 5 * 4 + 2 additional queries.
             self.get()
 
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(25):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()

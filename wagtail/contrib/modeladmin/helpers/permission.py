@@ -1,9 +1,6 @@
-from functools import lru_cache
-
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.utils.functional import cached_property
 
 from wagtail.models import Page, UserPagePermissionsProxy
 
@@ -31,14 +28,6 @@ class PermissionHelper:
             content_type__model=self.opts.model_name,
         )
 
-    @cached_property
-    def all_permission_codenames(self):
-        return list(
-            self.get_all_model_permissions()
-            .values_list("codename", flat=True)
-            .distinct()
-        )
-
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
 
@@ -50,14 +39,13 @@ class PermissionHelper:
 
         return user.has_perm("%s.%s" % (self.opts.app_label, perm_codename))
 
-    @lru_cache(maxsize=128)
     def user_has_any_permissions(self, user):
         """
         Return a boolean to indicate whether `user` has any model-wide
         permissions
         """
-        for perm_codename in self.all_permission_codenames:
-            if self.user_has_specific_permission(user, perm_codename):
+        for perm in self.get_all_model_permissions().values("codename"):
+            if self.user_has_specific_permission(user, perm["codename"]):
                 return True
         return False
 
