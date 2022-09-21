@@ -30,8 +30,10 @@ class TestAutocreateRedirects(TestCase, WagtailTestUtils):
         page.slug += "-extra"
         page.save(log_action="wagtail.publish", user=self.user, clean=False)
         # simulate database transaction commit:
-        for _, func in connection.run_on_commit:
-            func()
+        for callback in connection.run_on_commit:
+            # callback is a tuple of (sids, func) on Django <=4.1
+            # and (sids, func, robust) on Django >=4.2; call func
+            callback[1]()
 
     def test_golden_path(self):
         # the page we'll be triggering the change for here is...
