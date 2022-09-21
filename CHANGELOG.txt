@@ -35,6 +35,7 @@ Changelog
  * Adopt `wagtail.admin.views.generic.CreateView` for the User creation view (Mehrdad Moradizadeh)
  * Adopt `wagtail.admin.views.generic.DeleteView` for the User delete view (Mehrdad Moradizadeh)
  * Adopt `wagtail.admin.views.generic.EditView` for the User edit view (Mehrdad Moradizadeh)
+ * Add `button-secondary bicolor` variants to the pattern library and styleguide (Adinapunyo Banerjee)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
