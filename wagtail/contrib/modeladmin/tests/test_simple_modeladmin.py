@@ -11,9 +11,7 @@ from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.models import Admin
 from wagtail.admin.panels import FieldPanel, TabbedInterface
-from wagtail.contrib.modeladmin.helpers.permission import PermissionHelper
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
@@ -963,18 +961,6 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
     def test_delete_post_permitted(self):
         response = self.client.post("/admin/modeladmintest/book/delete/2/")
         self.assertRedirects(response, "/admin/")
-
-    def test_permission_helper(self):
-        permission_helper = PermissionHelper(Admin)
-
-        # Populate user permissions cache
-        with self.assertNumQueries(2):
-            self.assertTrue(self.user.has_perm("wagtailadmin.access_admin"))
-
-        with self.assertNumQueries(1):
-            # Only one query - to retrieve the model's codenames - should be performed.
-            self.assertTrue(permission_helper.user_has_any_permissions(self.user))
-            self.assertTrue(permission_helper.user_can_list(self.user))
 
 
 class TestHistoryView(TestCase, WagtailTestUtils):
