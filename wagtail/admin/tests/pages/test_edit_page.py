@@ -1698,6 +1698,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
     def test_page_edit_num_queries(self):
+        # Warm up cache so that result is the same when running this test in isolation
+        # as when running it within the full test suite
+        self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
+
         with self.assertNumQueries(40):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
