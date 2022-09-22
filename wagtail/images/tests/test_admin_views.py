@@ -322,6 +322,10 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         )
 
     def test_num_queries(self):
+        # Warm up cache so that result is the same when running this test in isolation
+        # as when running it within the full test suite.
+        self.get()
+
         # Initial number of queries.
         with self.assertNumQueries(13):
             self.get()
