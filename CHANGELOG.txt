@@ -4,6 +4,7 @@ Changelog
 4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
+ * New scheduled publishing UI, available from the Status side panel (Sage Abdullah)
  * Add basic keyboard control and screen reader support for page listing re-ordering (Paarth Agarwal, Thomas van der Hoeven)
  * Add `PageQuerySet.private` method as an alias of `not_public` (Mehrdad Moradizadeh)
  * Most images in the admin will now only load once they are visible on screen (Jake Howard)
