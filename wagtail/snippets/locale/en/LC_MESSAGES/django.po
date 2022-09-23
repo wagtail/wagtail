@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,32 +236,32 @@ msgid ""
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:7
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:8
 msgid "Live version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:8
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:9
 msgid "Current draft"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:11
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:13
 msgid "Preview"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:14
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:16
 #: views/snippets.py:250 views/snippets.py:371 wagtail_hooks.py:85
 msgid "Edit"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:16
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:18
 msgid "Review this version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:19
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:21
 msgid "Compare with previous version"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/revisions/_actions.html:22
+#: templates/wagtailsnippets/snippets/revisions/_actions.html:24
 msgid "Compare with current version"
 msgstr ""
 
@@ -368,24 +368,24 @@ msgstr ""
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr ""
 
-#: views/snippets.py:566 views/snippets.py:631
+#: views/snippets.py:566 views/snippets.py:632
 msgid "Date"
 msgstr ""
 
-#: views/snippets.py:600
+#: views/snippets.py:601
 msgid "Snippet history"
 msgstr ""
 
-#: views/snippets.py:628
+#: views/snippets.py:629
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:657
+#: views/snippets.py:658
 #, python-brace-format
 msgid "Edit this {model_name}"
 msgstr ""
 
-#: views/snippets.py:663
+#: views/snippets.py:664
 #, python-brace-format
 msgid "{model_name} history"
 msgstr ""
@@ -403,4 +403,14 @@ msgstr ""
 #: widgets.py:24
 #, python-format
 msgid "Choose %s"
+msgstr ""
+
+#: widgets.py:25
+#, python-format
+msgid "Choose another %s"
+msgstr ""
+
+#: widgets.py:26
+#, python-format
+msgid "Edit this %s"
 msgstr ""

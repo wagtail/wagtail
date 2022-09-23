@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgid "Wagtail documents"
 msgstr ""
 
 #: forms.py:24 templates/wagtaildocs/documents/list.html:24
-#: views/chooser.py:104
+#: views/bulk_actions/add_to_collection.py:13 views/chooser.py:104
 msgid "Collection"
 msgstr ""
 
@@ -398,6 +398,10 @@ msgstr ""
 msgid "Add a document permission"
 msgstr ""
 
+#: views/bulk_actions/add_tags.py:10
+msgid "Tags"
+msgstr ""
+
 #: views/bulk_actions/add_tags.py:14
 msgid "Tag"
 msgstr ""
@@ -413,15 +417,15 @@ msgid_plural "New tags have been added to %(num_parent_objects)d documents"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/add_to_collection.py:20
+#: views/bulk_actions/add_to_collection.py:21
 msgid "Add to collection"
 msgstr ""
 
-#: views/bulk_actions/add_to_collection.py:22
+#: views/bulk_actions/add_to_collection.py:23
 msgid "Add selected documents to collection"
 msgstr ""
 
-#: views/bulk_actions/add_to_collection.py:53
+#: views/bulk_actions/add_to_collection.py:54
 #, python-format
 msgid "%(num_parent_objects)d document has been added to %(collection)s"
 msgid_plural ""
@@ -446,6 +450,14 @@ msgstr[1] ""
 
 #: views/chooser.py:202
 msgid "Choose a document"
+msgstr ""
+
+#: views/chooser.py:205
+msgid "Choose another document"
+msgstr ""
+
+#: views/chooser.py:206
+msgid "Edit this document"
 msgstr ""
 
 #: views/documents.py:62 views/documents.py:67

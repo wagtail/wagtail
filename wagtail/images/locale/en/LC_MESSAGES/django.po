@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Right-aligned"
 msgstr ""
 
-#: forms.py:28
+#: forms.py:28 views/bulk_actions/add_to_collection.py:13
 msgid "Collection"
 msgstr ""
 
@@ -616,6 +616,10 @@ msgstr ""
 msgid "Add an image permission"
 msgstr ""
 
+#: views/bulk_actions/add_tags.py:10
+msgid "Tags"
+msgstr ""
+
 #: views/bulk_actions/add_tags.py:14
 msgid "Tag"
 msgstr ""
@@ -631,15 +635,15 @@ msgid_plural "New tags have been added to %(num_parent_objects)d images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/add_to_collection.py:20
+#: views/bulk_actions/add_to_collection.py:21
 msgid "Add to collection"
 msgstr ""
 
-#: views/bulk_actions/add_to_collection.py:22
+#: views/bulk_actions/add_to_collection.py:23
 msgid "Add selected images to collection"
 msgstr ""
 
-#: views/bulk_actions/add_to_collection.py:53
+#: views/bulk_actions/add_to_collection.py:54
 #, python-format
 msgid "%(num_parent_objects)d image has been added to %(collection)s"
 msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
@@ -673,6 +677,14 @@ msgstr ""
 msgid "Choose an image"
 msgstr ""
 
+#: views/chooser.py:303
+msgid "Choose another image"
+msgstr ""
+
+#: views/chooser.py:304 widgets.py:17
+msgid "Edit this image"
+msgstr ""
+
 #: views/images.py:38
 msgid "Newest"
 msgstr ""
@@ -697,7 +709,7 @@ msgstr ""
 msgid "File size: (high to low)"
 msgstr ""
 
-#: views/images.py:110 views/images.py:116
+#: views/images.py:102 views/images.py:108
 msgid "Search images"
 msgstr ""
 
@@ -744,3 +756,7 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] ""
 msgstr[1] ""
+
+#: widgets.py:16
+msgid "Change image"
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,8 +48,8 @@ msgstr ""
 #: action_menu.py:196
 #: templates/wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html:7
 #: templates/wagtailadmin/shared/confirm_unpublish.html:5
-#: views/pages/bulk_actions/unpublish.py:8 wagtail_hooks.py:321
-#: wagtail_hooks.py:428
+#: views/pages/bulk_actions/unpublish.py:8 wagtail_hooks.py:315
+#: wagtail_hooks.py:427
 msgid "Unpublish"
 msgstr ""
 
@@ -145,7 +145,7 @@ msgstr ""
 
 #: forms/choosers.py:70 forms/search.py:8 forms/workflows.py:21
 #: templates/wagtailadmin/pages/search.html:3
-#: templates/wagtailadmin/pages/search.html:21 views/generic/chooser.py:263
+#: templates/wagtailadmin/pages/search.html:21 views/generic/chooser.py:266
 #: viewsets/chooser.py:69
 msgid "Search"
 msgstr ""
@@ -199,8 +199,8 @@ msgstr ""
 #: views/pages/create.py:152 views/pages/edit.py:285
 #: views/pages/moderation.py:42 views/pages/moderation.py:80
 #: views/pages/move.py:114 views/pages/revisions.py:165 views/workflows.py:128
-#: views/workflows.py:233 viewsets/chooser.py:30 wagtail_hooks.py:213
-#: wagtail_hooks.py:356 widgets/chooser.py:27 widgets/chooser.py:94
+#: views/workflows.py:233 viewsets/chooser.py:30 wagtail_hooks.py:206
+#: wagtail_hooks.py:350
 msgid "Edit"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgstr ""
 #: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:16
 #: templates/wagtailadmin/workflows/includes/workflow_pages_form.html:8
 #: views/generic/models.py:519 views/pages/bulk_actions/delete.py:8
-#: wagtail_hooks.py:307 wagtail_hooks.py:413
+#: wagtail_hooks.py:301 wagtail_hooks.py:412
 msgid "Delete"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgstr ""
 msgid "Promote"
 msgstr ""
 
-#: panels.py:1202 wagtail_hooks.py:118
+#: panels.py:1202 wagtail_hooks.py:111
 msgid "Settings"
 msgstr ""
 
@@ -662,7 +662,7 @@ msgstr ""
 msgid "Insert anchor"
 msgstr ""
 
-#: templates/wagtailadmin/chooser/browse.html:3 views/generic/chooser.py:79
+#: templates/wagtailadmin/chooser/browse.html:3 views/generic/chooser.py:80
 #: viewsets/chooser.py:24
 msgid "Choose"
 msgstr ""
@@ -901,7 +901,7 @@ msgstr ""
 #: templates/wagtailadmin/reports/aging_pages.html:10
 #: templates/wagtailadmin/reports/listing/_list_page_report.html:8
 #: templates/wagtailadmin/workflows/usage.html:16 views/chooser.py:164
-#: views/chooser.py:382 views/generic/chooser.py:143
+#: views/chooser.py:382 views/generic/chooser.py:146
 msgid "Title"
 msgstr ""
 
@@ -918,6 +918,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:13
 #: templates/wagtailadmin/userbar/item_page_edit.html:7
 #: templates/wagtailadmin/workflows/usage.html:26 views/pages/revisions.py:120
+#: widgets/chooser.py:270
 msgid "Edit this page"
 msgstr ""
 
@@ -1435,8 +1436,8 @@ msgstr[1] ""
 #: templates/wagtailadmin/pages/bulk_actions/confirm_bulk_move.html:8
 #: templates/wagtailadmin/pages/confirm_move.html:5
 #: templates/wagtailadmin/pages/move_choose_destination.html:5
-#: views/pages/bulk_actions/move.py:31 wagtail_hooks.py:274
-#: wagtail_hooks.py:367
+#: views/pages/bulk_actions/move.py:31 wagtail_hooks.py:267
+#: wagtail_hooks.py:361
 msgid "Move"
 msgstr ""
 
@@ -1795,8 +1796,8 @@ msgstr ""
 msgid "Copy %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/copy.html:5 wagtail_hooks.py:288
-#: wagtail_hooks.py:382
+#: templates/wagtailadmin/pages/copy.html:5 wagtail_hooks.py:281
+#: wagtail_hooks.py:376
 msgid "Copy"
 msgstr ""
 
@@ -2015,7 +2016,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/page_listing_header.html:29
 #: templates/wagtailadmin/shared/headers/page_edit_header.html:25
 #: templates/wagtailadmin/shared/headers/page_edit_header.html:28
-#: views/generic/models.py:782 wagtail_hooks.py:331
+#: views/generic/models.py:782 wagtail_hooks.py:325
 msgid "History"
 msgstr ""
 
@@ -2275,7 +2276,8 @@ msgstr ""
 msgid "No locked pages found."
 msgstr ""
 
-#: templates/wagtailadmin/reports/site_history.html:31
+#: templates/wagtailadmin/reports/site_history.html:31 widgets/chooser.py:27
+#: widgets/chooser.py:94
 msgid "Edit this item"
 msgstr ""
 
@@ -2621,7 +2623,7 @@ msgstr ""
 #: templates/wagtailadmin/workflows/create.html:39
 #: templates/wagtailadmin/workflows/create_task.html:35
 #: templates/wagtailadmin/workflows/task_chooser/includes/create_form.html:22
-#: views/generic/chooser.py:194 views/generic/models.py:370
+#: views/generic/chooser.py:197 views/generic/models.py:370
 #: viewsets/chooser.py:71
 msgid "Create"
 msgstr ""
@@ -2826,7 +2828,7 @@ msgid ""
 "descending order."
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:568 wagtail_hooks.py:255
+#: templatetags/wagtailadmin_tags.py:568 wagtail_hooks.py:248
 msgid "More"
 msgstr ""
 
@@ -2914,7 +2916,7 @@ msgstr ""
 msgid "You have been successfully logged out."
 msgstr ""
 
-#: views/collections.py:20 wagtail_hooks.py:162
+#: views/collections.py:20 wagtail_hooks.py:155
 msgid "Collections"
 msgstr ""
 
@@ -3004,7 +3006,7 @@ msgstr ""
 msgid "'{object_name}' unpublished."
 msgstr ""
 
-#: views/home.py:220
+#: views/home.py:223
 msgid "Dashboard"
 msgstr ""
 
@@ -3136,12 +3138,12 @@ msgstr ""
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages/create.py:158 views/pages/edit.py:291 wagtail_hooks.py:223
+#: views/pages/create.py:158 views/pages/edit.py:291 wagtail_hooks.py:216
 msgid "View draft"
 msgstr ""
 
 #: views/pages/create.py:163 views/pages/edit.py:296
-#: views/pages/moderation.py:36 wagtail_hooks.py:234
+#: views/pages/moderation.py:36 wagtail_hooks.py:227
 msgid "View live"
 msgstr ""
 
@@ -3316,7 +3318,7 @@ msgstr ""
 msgid "Last published before"
 msgstr ""
 
-#: views/reports/aging_pages.py:35 wagtail_hooks.py:980
+#: views/reports/aging_pages.py:35 wagtail_hooks.py:951
 msgid "Aging pages"
 msgstr ""
 
@@ -3324,7 +3326,7 @@ msgstr ""
 msgid "Last published at"
 msgstr ""
 
-#: views/reports/audit_logging.py:84 wagtail_hooks.py:970
+#: views/reports/audit_logging.py:84 wagtail_hooks.py:941
 msgid "Site history"
 msgstr ""
 
@@ -3340,7 +3342,7 @@ msgstr ""
 msgid "Date/Time"
 msgstr ""
 
-#: views/reports/locked_pages.py:24
+#: views/reports/locked_pages.py:33
 msgid "Locked pages"
 msgstr ""
 
@@ -3353,7 +3355,7 @@ msgid "Awaiting my review"
 msgstr ""
 
 #: views/reports/workflows.py:112 views/workflows.py:50 views/workflows.py:407
-#: wagtail_hooks.py:192 wagtail_hooks.py:950
+#: wagtail_hooks.py:185 wagtail_hooks.py:921
 msgid "Workflows"
 msgstr ""
 
@@ -3369,8 +3371,8 @@ msgstr ""
 msgid "Page Title"
 msgstr ""
 
-#: views/reports/workflows.py:145 views/workflows.py:360 wagtail_hooks.py:202
-#: wagtail_hooks.py:960
+#: views/reports/workflows.py:145 views/workflows.py:360 wagtail_hooks.py:195
+#: wagtail_hooks.py:931
 msgid "Workflow tasks"
 msgstr ""
 
@@ -3488,136 +3490,128 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr ""
 
-#: viewsets/chooser.py:28 widgets/chooser.py:25 widgets/chooser.py:92
-msgid "Change"
+#: viewsets/chooser.py:28
+msgid "Choose another"
 msgstr ""
 
-#: wagtail_hooks.py:96 wagtail_hooks.py:131
+#: wagtail_hooks.py:89 wagtail_hooks.py:124
 msgid "Pages"
 msgstr ""
 
-#: wagtail_hooks.py:216 wagtail_hooks.py:360
+#: wagtail_hooks.py:209 wagtail_hooks.py:354
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:226
+#: wagtail_hooks.py:219
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:238
+#: wagtail_hooks.py:231
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:245 wagtail_hooks.py:393
+#: wagtail_hooks.py:238 wagtail_hooks.py:387
 msgid "Add child page"
 msgstr ""
 
-#: wagtail_hooks.py:248 wagtail_hooks.py:397
+#: wagtail_hooks.py:241 wagtail_hooks.py:391
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr ""
 
-#: wagtail_hooks.py:263
+#: wagtail_hooks.py:256
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:277 wagtail_hooks.py:371
+#: wagtail_hooks.py:270 wagtail_hooks.py:365
 #, python-format
 msgid "Move page '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:291 wagtail_hooks.py:386
+#: wagtail_hooks.py:284 wagtail_hooks.py:380
 #, python-format
 msgid "Copy page '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:310 wagtail_hooks.py:417
+#: wagtail_hooks.py:304 wagtail_hooks.py:416
 #, python-format
 msgid "Delete page '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:324 wagtail_hooks.py:432
+#: wagtail_hooks.py:318 wagtail_hooks.py:431
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:334
+#: wagtail_hooks.py:328
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:342 wagtail_hooks.py:441
+#: wagtail_hooks.py:336 wagtail_hooks.py:440
 msgid "Sort menu order"
 msgstr ""
 
-#: wagtail_hooks.py:345 wagtail_hooks.py:445
+#: wagtail_hooks.py:339 wagtail_hooks.py:444
 #, python-format
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:469
-msgid "Translate"
-msgstr ""
-
-#: wagtail_hooks.py:473
-msgid "Translate this page"
-msgstr ""
-
-#: wagtail_hooks.py:565 wagtail_hooks.py:586 wagtail_hooks.py:607
-#: wagtail_hooks.py:628 wagtail_hooks.py:649 wagtail_hooks.py:670
+#: wagtail_hooks.py:536 wagtail_hooks.py:557 wagtail_hooks.py:578
+#: wagtail_hooks.py:599 wagtail_hooks.py:620 wagtail_hooks.py:641
 #, python-format
 msgid "Heading %(level)d"
 msgstr ""
 
-#: wagtail_hooks.py:691
+#: wagtail_hooks.py:662
 msgid "Bulleted list"
 msgstr ""
 
-#: wagtail_hooks.py:715
+#: wagtail_hooks.py:686
 msgid "Numbered list"
 msgstr ""
 
-#: wagtail_hooks.py:739
+#: wagtail_hooks.py:710
 msgid "Blockquote"
 msgstr ""
 
-#: wagtail_hooks.py:761
+#: wagtail_hooks.py:732
 msgid "Bold"
 msgstr ""
 
-#: wagtail_hooks.py:783
+#: wagtail_hooks.py:754
 msgid "Italic"
 msgstr ""
 
-#: wagtail_hooks.py:806
+#: wagtail_hooks.py:777
 msgid "Link"
 msgstr ""
 
-#: wagtail_hooks.py:838
+#: wagtail_hooks.py:809
 msgid "Superscript"
 msgstr ""
 
-#: wagtail_hooks.py:859
+#: wagtail_hooks.py:830
 msgid "Subscript"
 msgstr ""
 
-#: wagtail_hooks.py:880
+#: wagtail_hooks.py:851
 msgid "Strikethrough"
 msgstr ""
 
-#: wagtail_hooks.py:901
+#: wagtail_hooks.py:872
 msgid "Code"
 msgstr ""
 
-#: wagtail_hooks.py:940
+#: wagtail_hooks.py:911
 msgid "Locked Pages"
 msgstr ""
 
-#: wagtail_hooks.py:989
+#: wagtail_hooks.py:960
 msgid "Reports"
 msgstr ""
 
@@ -3629,8 +3623,16 @@ msgstr ""
 msgid "Choose an item"
 msgstr ""
 
+#: widgets/chooser.py:25 widgets/chooser.py:92
+msgid "Choose another item"
+msgstr ""
+
 #: widgets/chooser.py:26 widgets/chooser.py:93
-msgid "Clear"
+msgid "Clear choice"
+msgstr ""
+
+#: widgets/chooser.py:269
+msgid "Choose another page"
 msgstr ""
 
 #: widgets/tags.py:38
@@ -3641,4 +3643,12 @@ msgstr ""
 
 #: widgets/tags.py:41
 msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr ""
+
+#: widgets/workflows.py:13
+msgid "Choose another task"
+msgstr ""
+
+#: widgets/workflows.py:14
+msgid "Edit this task"
 msgstr ""
