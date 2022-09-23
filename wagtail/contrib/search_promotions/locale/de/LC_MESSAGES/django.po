@@ -92,7 +92,7 @@ msgstr "Ja, löschen"
 
 #, python-format
 msgid "Editing %(query)s"
-msgstr "%(query)s bearbeiten"
+msgstr "Bearbeite %(query)s"
 
 msgid "Editing"
 msgstr "Bearbeite"

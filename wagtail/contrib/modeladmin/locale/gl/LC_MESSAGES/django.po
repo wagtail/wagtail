@@ -5,13 +5,14 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2016\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "ModelAdmin de Wagtail"
 
 msgid "Parent page"
 msgstr "Páxina pai"
@@ -114,12 +118,29 @@ msgstr "Retorna ao listado"
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
+msgid "No, don't delete"
+msgstr "Non, non eliminar."
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Por %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Actualizado por última vez"
+
+msgid "History"
+msgstr "Historial"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s de %(all_count)s"
+
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Síntoo, non hai %(name)s que coincidan cos teus parámetros de procura."
 
 msgid "Search for"
-msgstr "Propcurar por"
+msgstr "Procurar por"
 
 #, python-format
 msgid "Search %(name)s"
@@ -127,6 +148,9 @@ msgstr "Procura %(name)s"
 
 msgid "Search"
 msgstr "Porcurar"
+
+msgid "Download XLSX"
+msgstr "Baixar XLSX"
 
 msgid "Download CSV"
 msgstr "Descargar CSV"
@@ -147,6 +171,13 @@ msgid "No %(name)s have been created yet."
 msgstr "Non foron aínda creados %(name)s."
 
 #, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "¿Por qué non <a href=\"%(url)s\">engadir unha</a>?"
+
+msgid "Pagination"
+msgstr "Paxinación"
+
+#, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Páxina %(current_page)s de %(num_pages)s."
 
@@ -155,6 +186,10 @@ msgstr "Previa"
 
 msgid "Next"
 msgstr "Seguinte"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' creada."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -175,6 +210,10 @@ msgid "Editing %s"
 msgstr "Editando %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' actualizada."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "A %s non puido ser gardada debido a erros."
 
@@ -190,12 +229,19 @@ msgstr ""
 "¿Seguro que queres eliminar esta %s? Se outras cosas no teu sitio web fan "
 "referencia a ela, poderían tamén verse afectadas."
 
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' eliminada"
+
 msgid "Inspecting"
 msgstr "Inspeccionando"
 
 #, python-format
 msgid "Inspecting %s"
 msgstr "Inspeccionando %s"
+
+msgid "Action"
+msgstr "Acción"
 
 msgid "Date"
 msgstr "Data"

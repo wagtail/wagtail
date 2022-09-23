@@ -8,6 +8,7 @@
 # Matthias Martin, 2019
 # Matti Borchers, 2022
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 # Tibor <tibor@lpld.io>, 2020
 # Scriptim <Scriptim@gmx.de>, 2020
 msgid ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Matti Borchers, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +31,7 @@ msgstr "Standard"
 
 #, python-format
 msgid "Editing %(instance)s"
-msgstr "%(instance)sbearbeiten"
+msgstr "Bearbeite %(instance)s"
 
 msgid "Site"
 msgstr "Webseite"

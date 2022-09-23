@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +22,11 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail embeds"
+msgstr "Incrustados de Wagtail"
+
 msgid "Cannot find an embed for this URL."
-msgstr "Non se pode atopar un embed para esta URL."
+msgstr "Non se pode atopar un incrustado para esta URL."
 
 msgid "URL"
 msgstr "URL"
@@ -33,8 +37,11 @@ msgstr "Por favor introduce unha URL válida"
 msgid "embed"
 msgstr "embebido"
 
+msgid "embeds"
+msgstr "incrustados"
+
 msgid "Insert embed"
-msgstr "Insertar embed"
+msgstr "Insertar incrustado"
 
 msgid "Insert"
 msgstr "Insertar"
@@ -52,3 +59,6 @@ msgid ""
 msgstr ""
 "Parece que hai un erro con Embedly mentres se intenta incrustar esta URL. "
 "Por favor inténtao de novo máis tarde."
+
+msgid "Embed"
+msgstr "Incrustado"

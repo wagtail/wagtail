@@ -33,6 +33,9 @@ msgstr "Labot"
 msgid "Choose"
 msgstr "Izvēlēties"
 
+msgid "title"
+msgstr "virsraksts"
+
 msgid "Yes, delete"
 msgstr "Dzēst"
 

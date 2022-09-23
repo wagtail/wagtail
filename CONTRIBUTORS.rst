@@ -664,7 +664,7 @@ Translators
 * Italian: Sandro Badalamenti, Marco Badan, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, gcm, Giacomo Ghizzani, LB (Ben Johnston), Marco Lerco, Stefano Marchetto, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Goto Hayato, Shuhei Hirota, Shu Ishida, Yudai Kobayashi, Tri Minh, Koji Miyazawa, Tetsuya Morimoto, Hideaki Oguchi, Tomo Mizoe, Safu9, Hiroki Sawano, Kinoshita Shinji, Daigo Shitara, Shimizu Taku, umepon0626, Takuya Yamamoto
 * Korean: Kyungil Choi, Jihan Chung
-* Latvian: Reinis Rozenbergs, Maris Serzans
+* Latvian: Aleksandrs Korņijenko, Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda, Naglis Jonaitis
 * Maori: Awatea Randall
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu

@@ -129,7 +129,7 @@ msgstr "Nein, nicht löschen"
 
 #, python-format
 msgid "By %(filter_title)s"
-msgstr "Von %(filter_title)s"
+msgstr "Nach %(filter_title)s"
 
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert:"
@@ -214,7 +214,7 @@ msgstr "Bearbeite"
 
 #, python-format
 msgid "Editing %s"
-msgstr "%s bearbeiten"
+msgstr "Bearbeite %s"
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' updated."

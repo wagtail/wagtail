@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Aktionen"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
-msgstr "%(snippet_type_name)s - %(object)s bearbeiten"
+msgstr "Bearbeite %(snippet_type_name)s - %(object)s"
 
 msgid "Usage"
 msgstr "Benutzung"
@@ -177,7 +177,7 @@ msgstr "Neu:"
 
 #, python-format
 msgid "Editing %(snippet_type)s %(title)s"
-msgstr "%(snippet_type)s %(title)s wird bearbeitet"
+msgstr "Bearbeite %(snippet_type)s %(title)s"
 
 #, python-format
 msgid "Snippet history for %(subtitle)s"

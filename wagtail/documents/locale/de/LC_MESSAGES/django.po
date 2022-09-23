@@ -216,7 +216,7 @@ msgstr "Dokument löschen"
 
 #, python-format
 msgid "Editing %(title)s"
-msgstr "%(title)s bearbeiten"
+msgstr "Bearbeite %(title)s"
 
 msgid "Editing"
 msgstr "Bearbeite"

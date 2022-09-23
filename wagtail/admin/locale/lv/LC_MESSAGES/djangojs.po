@@ -2,10 +2,11 @@
 # Translators:
 # Reinis Rozenbergs <reinisr@gmail.com>, 2022
 # Maris Serzans <maris.serzans@gmail.com>, 2022
+# Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2022\n"
+"Last-Translator: Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022\n"
 "Language-Team: Latvian (https://www.transifex.com/torchbox/teams/8009/lv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
@@ -20,6 +21,9 @@ msgstr "Bojāta saite"
 
 msgid "Close"
 msgstr "Aizvērt"
+
+msgid "Comment"
+msgstr "Komentārs"
 
 msgid "Dashboard"
 msgstr "Informācijas panelis"

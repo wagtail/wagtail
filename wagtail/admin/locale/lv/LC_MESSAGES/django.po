@@ -606,6 +606,9 @@ msgstr "Labo %(page_type)s: %(title)s"
 msgid "User"
 msgstr "Lietotājs"
 
+msgid "Comment"
+msgstr "Komentārs"
+
 msgid "Current draft"
 msgstr "Patreizējā sagatave"
 
