@@ -38,7 +38,7 @@ Changelog
  * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan Hammer)
 
 
-4.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+4.0.2 (23.09.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Update all images and sections of the Wagtail Editor's guide to align with the new admin interface changes from Wagtail 3.0 and 4.0 (Thibaud Colas)
