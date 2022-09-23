@@ -29,6 +29,7 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomSubmissionListView,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 
 
 class TestFormResponsesPanel(TestCase):
@@ -1733,6 +1734,46 @@ class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
         self.assertContains(
             response,
             text="There is another field with the label duplicate 1, please change one of them.",
+        )
+
+    def test_rename_existing_field_and_add_new_field_with_clashing_clean_name(
+        self,
+    ):
+        """Ensure duplicate field names are checked against existing field clean_names."""
+
+        form_page = FormPage(
+            title="Form page!",
+            form_fields=[FormField(label="Test field", field_type="singleline")],
+        )
+        self.root_page.add_child(instance=form_page)
+
+        # Rename existing field and add new field with label matching original field
+        post_data = nested_form_data(
+            {
+                "title": "Form page!",
+                "slug": "form-page",
+                "form_fields": inline_formset(
+                    [
+                        {
+                            "id": form_page.form_fields.first().pk,
+                            "label": "Other field",
+                            "field_type": "singleline",
+                        },
+                        {"id": "", "label": "Test field", "field_type": "singleline"},
+                    ],
+                    initial=1,
+                ),
+                "action-publish": "action-publish",
+            }
+        )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=[form_page.pk]), post_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            text="There is another field with the label Test field, please change one of them.",
         )
 
 

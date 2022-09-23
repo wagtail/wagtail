@@ -51,6 +51,7 @@ Changelog
  * Fix: Ensure `for_user` argument is passed to the form class when previewing pages (Matt Westcott)
  * Fix: Ensure the capitalisation of the `timesince_simple` tag is consistently added in the template based on usage in context (Stefan Hammer)
  * Fix: Add missing translation usage for the `timesince_last_update` and ensure the translated labels can be easier to work with in Transifex (Stefan Hammer)
+ * Fix: Add additional checks for duplicate form field `clean_name` values in the Form Builder validation and increase performance of checks (Dan Bentley)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
