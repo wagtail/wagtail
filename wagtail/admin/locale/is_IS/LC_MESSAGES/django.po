@@ -2714,7 +2714,7 @@ msgid "Task '{0}' enabled."
 msgstr "Skref '{0}' virkt."
 
 msgid "Change"
-msgstr "Breyta"
+msgstr "Velja"
 
 msgid "Pages"
 msgstr "Síður"

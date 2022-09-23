@@ -6,13 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +22,17 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail redirects"
+msgstr "Redireccións de Wagtail"
+
 msgid "Type"
 msgstr "Tipo"
 
 msgid "Permanent"
 msgstr "Permanente"
+
+msgid "Temporary"
+msgstr "Temporal"
 
 msgid "All"
 msgstr "Todos"
@@ -39,9 +46,18 @@ msgstr "Todos os sitios web"
 msgid "A redirect with this path already exists."
 msgstr "Unha redirección con esta ruta xa existe"
 
+msgid "File to import"
+msgstr "Arquivo a importar"
+
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Formatos soportados: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Campo Dende"
+
+msgid "To field"
+msgstr "Campo Cara"
 
 msgid "redirect from"
 msgstr "redireccionar dende"
@@ -63,14 +79,33 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "redireccionar a unha páxina"
 
+msgid "target page route"
+msgstr "ruta da páxina de destino"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcionalmente especifica unha ruta na páxina de destino a que redirixir. "
+"Déixao en blanco para redirixir á páxina por defecto."
+
 msgid "redirect to any URL"
 msgstr "redireccionar a calquera URL"
+
+msgid "automatically created"
+msgstr "creada automáticamente"
 
 msgid "created at"
 msgstr "creado en"
 
+msgid "temporary"
+msgstr "temporal"
+
 msgid "redirect"
 msgstr "redireccionar"
+
+msgid "redirects"
+msgstr "redireccións"
 
 msgid "Add redirect"
 msgstr "Engadir redirección"
@@ -80,6 +115,24 @@ msgstr "Gardar"
 
 msgid "Redirects"
 msgstr "Redirecciona"
+
+msgid "Import redirects"
+msgstr "Importar redireccións"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Selecciona un arquivo no que as redireccións estén separados en filas e "
+"conteñan as columnas que representen <code>dende</code> e <code>cara</code> "
+"(poden ter calquer nome).</p> <p>Despóis de envialo serás levado a unha "
+"páxina de confirmación na que poderás afinar as redireccións antes de "
+"importalas.</p>"
+
+msgid "Import"
+msgstr "Importar"
 
 #, python-format
 msgid "Delete redirect %(title)s"
@@ -94,6 +147,15 @@ msgstr "¿Seguro que queres eliminar esta redirección?"
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
+msgid "Confirm import"
+msgstr "Confirmar importación"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
 msgid "Preview"
 msgstr "Previsualizar"
 
@@ -107,20 +169,45 @@ msgstr "Editando"
 msgid "Delete redirect"
 msgstr "Eliminar redirección"
 
+msgid "Summary"
+msgstr "Sumario"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Atopáronse %(total)s redireccións, creáronse %(successes)s e atopáronse "
+"%(errors)s erros."
+
 msgid "From"
 msgstr "Dende"
 
 msgid "To"
 msgstr "A"
 
+msgid "Error"
+msgstr "Erro"
+
 msgid "Continue"
 msgstr "Continuar"
+
+msgid "Export redirects"
+msgstr "Exportar redireccións"
 
 msgid "Site"
 msgstr "Sitio web"
 
 msgid "Edit this redirect"
 msgstr "Editar esta redirección"
+
+msgid "No redirects found."
+msgstr "Non se atoparon redireccións."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hai %(counter)s coincidencia"
+msgstr[1] "Hai %(counter)s coincidencias."
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -157,3 +244,23 @@ msgstr "Redirección '{0}' engadida."
 
 msgid "The redirect could not be created due to errors."
 msgstr "A redirección non pede ser creada debido a erros."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "O formato de arquivo \"{}\" non está permitido"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "O arquivo importado ten unha codificación inválida: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s atopados mentras se tentaba ler o arquivo: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Importouse %(total)d redirección"
+msgstr[1] "Importáronse %(total)d redireccións"
+
+msgid "Export Redirects"
+msgstr "Exportar Redireccións"

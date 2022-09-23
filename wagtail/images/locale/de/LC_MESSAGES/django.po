@@ -345,7 +345,7 @@ msgstr "Neues Bild löschen"
 
 #, python-format
 msgid "Editing image %(title)s"
-msgstr "Bild %(title)s bearbeiten"
+msgstr "Bearbeite Bild %(title)s"
 
 msgid "Editing"
 msgstr "Bearbeite"

@@ -5,13 +5,14 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# X Bello <xbello@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-18 12:14+0100\n"
 "PO-Revision-Date: 2015-08-26 14:07+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2016\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Libro de estilo de Wagtail"
 
 msgid "Styleguide"
 msgstr "Guía de estilo"

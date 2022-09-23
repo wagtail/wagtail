@@ -850,40 +850,40 @@ msgstr "Kommentar bearbeiten"
 
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
-msgstr "Ein Kommentar beim Feld %(field)s bearbeitet: \"%(text)s\""
+msgstr "Einen Kommentar beim Feld %(field)s bearbeitet: \"%(text)s\""
 
 msgid "Edited a comment"
-msgstr "Ein Kommentar bearbeitet"
+msgstr "Einen Kommentar bearbeitet"
 
 msgid "Delete comment"
 msgstr "Kommentar löschen"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
-msgstr "Ein Kommentar beim Feld %(field)s gelöscht: \"%(text)s\""
+msgstr "Einen Kommentar beim Feld %(field)s gelöscht: \"%(text)s\""
 
 msgid "Deleted a comment"
-msgstr "Ein Kommentar gelöscht"
+msgstr "Einen Kommentar gelöscht"
 
 msgid "Resolve comment"
 msgstr "Kommentar auflösen"
 
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
-msgstr "Ein Kommentar beim Feld %(field)s gelöst: \"%(text)s\""
+msgstr "Einen Kommentar beim Feld %(field)s gelöst: \"%(text)s\""
 
 msgid "Resolved a comment"
-msgstr "Ein Kommentar gelöst"
+msgstr "Einen Kommentar gelöst"
 
 msgid "Reply to comment"
 msgstr "Auf Kommentar antworten"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
-msgstr "Auf ein Kommentar beim Feld %(field)s geantwortet: \"%(text)s\""
+msgstr "Auf einen Kommentar beim Feld %(field)s geantwortet: \"%(text)s\""
 
 msgid "Replied to a comment"
-msgstr "Auf ein Kommentar geantwortet"
+msgstr "Auf einen Kommentar geantwortet"
 
 msgid "Edit reply to comment"
 msgstr "Antwort zum Kommentar bearbeiten"

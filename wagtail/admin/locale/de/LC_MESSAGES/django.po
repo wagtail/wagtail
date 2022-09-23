@@ -1874,7 +1874,7 @@ msgstr "Neu:"
 
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
-msgstr "%(page_type)s%(title)swird bearbeitet"
+msgstr "Bearbeite %(page_type)s%(title)s"
 
 msgid "Visit the live page"
 msgstr "Live-Seite besuchen"
@@ -2678,7 +2678,7 @@ msgid "Last published at"
 msgstr "Zuletzt veröffentlicht am"
 
 msgid "Site history"
-msgstr "Seitenhistorie"
+msgstr "Webseitenverlauf"
 
 msgid "ID"
 msgstr "ID"
@@ -2727,7 +2727,7 @@ msgid "Workflow '{0}' created."
 msgstr "Workflow ‚{0}‘ erstellt."
 
 msgid "Editing workflow"
-msgstr "Workflow bearbeiten"
+msgstr "Bearbeite Workflow"
 
 #, python-brace-format
 msgid "Workflow '{0}' updated."
@@ -2776,7 +2776,7 @@ msgid "Task '{0}' created."
 msgstr "Aufgabe ‚{0}‘ erstellt."
 
 msgid "Editing workflow task"
-msgstr "Workflow-Aufgabe bearbeiten"
+msgstr "Bearbeite Workflow-Aufgabe"
 
 #, python-brace-format
 msgid "Task '{0}' updated."
@@ -2784,7 +2784,7 @@ msgstr "Aufgabe ‚{0}‘ aktualisiert."
 
 #, python-format
 msgid "Editing %(task_type)s"
-msgstr "%(task_type)s bearbeiten"
+msgstr "Bearbeite %(task_type)s"
 
 msgid "Disable task"
 msgstr "Aufgabe deaktivieren"
@@ -2926,7 +2926,7 @@ msgid "Choose an item"
 msgstr "Eintrag wählen"
 
 msgid "Clear"
-msgstr "Auswahl löschen"
+msgstr "Zurücksetzen"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
