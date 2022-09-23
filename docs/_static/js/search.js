@@ -34,10 +34,10 @@ function getSearchDebugMode() {
   }
   return debug;
 }
- /**
-   * Configure Algolia DocSearch.
-   * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
-   */
+/**
+ * Configure Algolia DocSearch.
+ * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
+ */
 function docSearchReady() {
   try {
     const search = window.docsearch({
