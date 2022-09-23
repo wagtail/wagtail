@@ -61,7 +61,8 @@ Changelog
  * Fix: Ensure the "recent edits" panel on the Dashboard (home) page works when page record is missing (Matt Westcott)
  * Fix: Only add Translate buttons when the `simple_translation` app is installed (Dan Braghis)
  * Fix: Ensure that `MultiFieldPanel` correctly outputs all child classnames in the template (Matt Westcott)
-
+ * Fix: Remove over-eager caching on ModelAdmin permission checks (Matt Westcott, Stefan Hammer)
+ 
 
 4.0.1 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
