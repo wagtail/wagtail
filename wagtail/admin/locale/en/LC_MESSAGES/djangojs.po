@@ -96,7 +96,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:181
+#: src/entrypoints/admin/preview-panel.js:192
 msgid "Error while sending preview data."
 msgstr ""
 
