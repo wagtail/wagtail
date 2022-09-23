@@ -1,4 +1,4 @@
-.PHONY: clean-pyc develop lint test coverage
+.PHONY: clean-pyc develop lint-server lint-client lint-docs lint format-server format-client format test coverage
 
 help:
 	@echo "clean-pyc - remove Python file artifacts"
