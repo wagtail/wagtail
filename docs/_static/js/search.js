@@ -159,7 +159,7 @@ function runSearchPageSearch(page) {
 
   // Erase previous results
 
-  if (page > 0) {
+  if (searchResultsContainer) {
     searchResultsContainer.innerHTML = '';
     document.querySelector('.pagination-list').innerHTML = '';
     addHeadingForQuery(query, searchResultsContainer);
@@ -179,7 +179,7 @@ function runSearchPageSearch(page) {
       const { nbPages } = result;
       if (nbPages > 1) {
         document.querySelector('#pagination').hidden = false;
-        displayPagination(page, nbPages); // eslint-disable-line
+        window.displayPagination(page, nbPages);
       }
 
       // Display hits
@@ -189,32 +189,36 @@ function runSearchPageSearch(page) {
     .catch((error) => console.log(error)); // eslint-disable-line
 }
 
+function runPreviousPage() {
+  const currentPage = Number(
+    document.querySelector('#pagination > ul > li > button').ariaCurrent,
+  );
+  runSearchPageSearch(currentPage - 1);
+}
+
+function runNextPage() {
+  const currentPage = Number(
+    document.querySelector('#pagination > ul > li > button').ariaCurrent,
+  );
+  runSearchPageSearch(currentPage + 1);
+}
+// eslint-disable-next-line
 function displayPagination(page, totalPages) {
   const pagination = document.querySelector('#pagination');
   const paginationList = pagination.querySelector('.pagination-list');
-  const paginationPrevious = pagination.querySelector('.pagination-previous');
-  const paginationNext = pagination.querySelector('.pagination-next');
 
-  // Hide previous/next button if showing first/last page
   pagination.querySelector('.pagination-previous').hidden = false;
   pagination.querySelector('.pagination-previous').hidden = page === 0;
   pagination.querySelector('.pagination-next').hidden = page === totalPages - 1;
 
-  // Display at most "toBeDisplayed" page links in the paginator
   const toBeDisplayed = 7;
   const [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed);
 
   for (let i = start; i < end; i += 1) {
     const newPaginationItem = document.createElement('li');
     const newPaginationbutton = document.createElement('button');
-    const previousPaginationbutton = document.createElement('button');
-    const nextPaginationbutton = document.createElement('button');
     newPaginationbutton.classList.add('pagination-button');
-    previousPaginationbutton.classList.add('pagination-button');
-    nextPaginationbutton.classList.add('pagination-button');
     newPaginationbutton.innerHTML = 'Page ' + (i + 1) + ' of ' + end;
-    previousPaginationbutton.innerText = '← Previous';
-    nextPaginationbutton.innerHTML = 'Next →';
     let flag = false;
     if (i === page) {
       newPaginationbutton.setAttribute('aria-label', `page ${i + 1}`);
@@ -226,33 +230,35 @@ function displayPagination(page, totalPages) {
     newPaginationbutton.addEventListener('click', () => {
       runSearchPageSearch(page);
     });
-    previousPaginationbutton.addEventListener('click', () => {
-      runSearchPageSearch(page - 1);
-    });
-    nextPaginationbutton.addEventListener('click', () => {
-      runSearchPageSearch(page + 1);
-    });
+
+    if (flag === true) {
+      if (page > 0) {
+        pagination
+          .querySelector('.pagination-previous')
+          .removeEventListener('click', runPreviousPage);
+        pagination
+          .querySelector('.pagination-next')
+          .removeEventListener('click', runNextPage);
+      }
+      pagination
+        .querySelector('.pagination-previous')
+        .addEventListener('click', runPreviousPage);
+      pagination
+        .querySelector('.pagination-next')
+        .addEventListener('click', runNextPage);
+    }
 
     const currentButton = document.querySelector(
-      '#pagination > ul > li > button',
+      '#pagination > ul > li >button',
     );
-    const nextButton = document.querySelector('#pagination-next > button');
-    const prevButton = document.querySelector('#pagination-previous > button');
+    const currentList = document.querySelector('#pagination > ul > li');
     if (currentButton && flag === true) {
-      paginationList.replaceChild(newPaginationbutton, currentButton);
+      paginationList.replaceChild(newPaginationItem, currentList);
+      newPaginationItem.append(newPaginationbutton);
+      currentButton.remove();
     } else if (!currentButton && flag === true) {
       newPaginationItem.append(newPaginationbutton);
       paginationList.append(newPaginationItem);
-    }
-    if (nextButton && flag === true) {
-      paginationNext.replaceChild(nextPaginationbutton, nextButton);
-    } else if (!nextButton && flag === true) {
-      paginationNext.append(nextPaginationbutton);
-    }
-    if (prevButton && flag === true) {
-      paginationPrevious.replaceChild(previousPaginationbutton, prevButton);
-    } else if (!prevButton && flag === true) {
-      paginationPrevious.append(previousPaginationbutton);
     }
   }
 }
