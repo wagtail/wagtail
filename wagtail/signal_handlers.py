@@ -84,7 +84,7 @@ def update_reference_index_on_save(instance, **kwargs):
 
         instance = getattr(instance, parental_keys[0].name)
 
-    if ReferenceIndex.model_is_indexible(type(instance)):
+    if ReferenceIndex.model_is_indexable(type(instance)):
         with transaction.atomic():
             ReferenceIndex.create_or_update_for_object(instance)
 
