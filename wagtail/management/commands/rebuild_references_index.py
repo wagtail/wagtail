@@ -28,7 +28,7 @@ class Command(BaseCommand):
             ReferenceIndex.objects.all().delete()
 
             for model in apps.get_models():
-                if not ReferenceIndex.model_is_indexible(model):
+                if not ReferenceIndex.model_is_indexable(model):
                     continue
 
                 self.stdout.write(str(model))

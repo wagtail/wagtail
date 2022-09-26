@@ -145,7 +145,7 @@ class ReferenceIndex(models.Model):
             )
 
     @classmethod
-    def model_is_indexible(cls, model, allow_child_models=False):
+    def model_is_indexable(cls, model, allow_child_models=False):
         """
         Returns True if the given model may have outbound references that we would be interested in recording in the index.
         """
@@ -178,7 +178,7 @@ class ReferenceIndex(models.Model):
 
         if issubclass(model, ClusterableModel):
             for child_relation in get_all_child_relations(model):
-                if cls.model_is_indexible(
+                if cls.model_is_indexable(
                     child_relation.related_model,
                     allow_child_models=True,
                 ):
