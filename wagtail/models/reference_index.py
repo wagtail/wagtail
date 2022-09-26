@@ -12,6 +12,19 @@ from wagtail.fields import RichTextField, StreamField
 
 
 class ReferenceGroups:
+    """
+    Groups records in a ReferenceIndex queryset by their source object.
+
+    Args:
+        qs: (QuerySet[ReferenceIndex]) A QuerySet on the ReferenceIndex model
+
+    Yields:
+        A tuple (source_object, references) for each source object that appears
+        in the queryset. source_object is the model instance of the source object
+        and references is a list of references that occur in the QuerySet from
+        that source object.
+    """
+
     def __init__(self, qs):
         self.qs = qs
 
@@ -40,6 +53,13 @@ class ReferenceGroups:
         )
 
     def count(self):
+        """
+        Returns the number of rows that will be returned by iterating this
+        ReferenceGroups.
+
+        Just calls len(self) internally, this method only exists to allow
+        instances of this class to be used in a Paginator.
+        """
         return len(self)
 
     def __getitem__(self, key):
@@ -48,6 +68,10 @@ class ReferenceGroups:
 
 class ReferenceIndexQuerySet(models.QuerySet):
     def group_by_source_object(self):
+        """
+        Returns a ReferenceGroups object for this queryset that will yield
+        references grouped by their source instance.
+        """
         return ReferenceGroups(self)
 
 
@@ -134,6 +158,14 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def _get_base_content_type(cls, model_or_object):
+        """
+        Returns the ContentType record that represents the base model of the
+        given model or object.
+
+        For a model that uses multi-table-inheritance, this returns the model
+        that contains the primary key. For example, for any page object, this
+        will return the content type of the Page model.
+        """
         parents = model_or_object._meta.get_parent_list()
         if parents:
             return ContentType.objects.get_for_model(
@@ -148,6 +180,13 @@ class ReferenceIndex(models.Model):
     def model_is_indexable(cls, model, allow_child_models=False):
         """
         Returns True if the given model may have outbound references that we would be interested in recording in the index.
+
+
+        Args:
+            model (type): a Django model class
+            allow_child_models (boolean): Child models are not indexable on their own. If you are looking at
+                                          a child model from the perspective of indexing it through its parent,
+                                          set this to True to disable checking for this. Default False.
         """
         if getattr(model, "wagtail_reference_index_ignore", False):
             return False
@@ -188,6 +227,28 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def _extract_references_from_object(cls, object):
+        """
+        Generator that scans the given object and yields any references it finds.
+
+        Args:
+            object (Model): an instance of a Django model to scan for references
+
+        Yields:
+            A tuple (content_type_id, object_id, model_path, content_path) for each
+            reference found.
+
+            content_type_id (int): The ID of the ContentType record representing
+                                   the model of the referenced object
+
+            object_id (str): The primary key of hte referenced object, converted
+                             to a string
+
+            model_path (str): The path to the field on the model of the source
+                              object where the reference was found
+
+            content_path (str): The path to the piece of content on the source
+                                object instance where the reference was found
+        """
         # Extract references from fields
         for field in object._meta.get_fields():
             if field.is_relation and field.many_to_one:
@@ -256,12 +317,35 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def _get_content_path_hash(cls, content_path):
+        """
+        Returns a UUID for the given content path. Used to enforce uniqueness.
+
+        Note: MySQL has a limit on the length of fields that are used in unique keys so
+              we need a separate hash field to allow us to support long content paths.
+
+        Args:
+            content_path (str): The content path to get a hash for
+
+        Returns:
+            A UUID instance containing the hash of the given content path
+        """
         return uuid.uuid5(
             uuid.UUID("bdc70d8b-e7a2-4c2a-bf43-2a3e3fcbbe86"), content_path
         )
 
     @classmethod
     def create_or_update_for_object(cls, object):
+        """
+        Creates or updates ReferenceIndex records for the given object.
+
+        This method will extract any outbound references from the given object
+        and insert/update them in the database.
+
+        Note: This method must be called within a `django.db.transaction.atomic()` block.
+
+        Args:
+            object (Model): The model instance to create/update ReferenceIndex records for
+        """
         # Extract new references
         references = set(cls._extract_references_from_object(object))
 
@@ -303,6 +387,14 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def remove_for_object(cls, object):
+        """
+        Deletes all outbound references for the given object.
+
+        Use this before deleting the object itself.
+
+        Args:
+            object (Model): The model instance to delete ReferenceIndex records for
+        """
         base_content_type = cls._get_base_content_type(object)
         cls.objects.filter(
             base_content_type=base_content_type, object_id=object.pk
@@ -310,6 +402,15 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def get_references_for_object(cls, object):
+        """
+        Returns all outbound references for the given object.
+
+        Args:
+            object (Model): The model instance to fetch ReferenceIndex records for
+
+        Returns:
+            A QuerySet of ReferenceIndex records
+        """
         return cls.objects.filter(
             base_content_type_id=cls._get_base_content_type(object),
             object_id=object.pk,
@@ -317,12 +418,27 @@ class ReferenceIndex(models.Model):
 
     @classmethod
     def get_references_to(cls, object):
+        """
+        Returns all inboud references for the given object.
+
+        Args:
+            object (Model): The model instance to fetch ReferenceIndex records for
+
+        Returns:
+            A QuerySet of ReferenceIndex records
+        """
         return cls.objects.filter(
             to_content_type_id=cls._get_base_content_type(object),
             to_object_id=object.pk,
         )
 
     def describe_source_field(self):
+        """
+        Returns a string describing the field that this reference was extracted from.
+
+        At the moment, this will return the label of the model field that the reference
+        was extracted from.
+        """
         model_path_components = self.model_path.split(".")
         field_name = model_path_components[0]
         field = self.content_type.model_class()._meta.get_field(field_name)
