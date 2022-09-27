@@ -323,7 +323,7 @@ You can also save revisions programmatically by calling the {meth}`~wagtail.mode
 The `DraftStateMixin` class was introduced.
 ```
 
-If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically change the "Save" action menu in the snippets admin to "Save draft" and add a new "Publish" action menu. Any changes you save in the snippets admin will be saved as revisions and will not be reflected to the "live" snippet instance until you publish the changes. For example, the `Advert` snippet could save draft changes by defining it as follows:
+If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected to the "live" snippet instance until you publish the changes. For example, the `Advert` snippet could save draft changes by defining it as follows:
 
 ```python
 # ...
@@ -400,7 +400,7 @@ This can be done by removing the `@register_snippet` decorator on your model cla
 register_snippet(MyModel, viewset=MyModelViewSet)
 ```
 
-For example, with the following `Member` model:
+For example, with the following `Member` model and a `MemberFilterSet` class:
 
 ```python
 # models.py
@@ -418,6 +418,12 @@ class Member(models.Model):
     name = models.CharField(max_length=255)
     shirt_size = models.CharField(max_length=5, choices=ShirtSize.choices, default=ShirtSize.MEDIUM)
 
+    def get_shirt_size_display(self):
+        return self.ShirtSize(self.shirt_size).label
+
+    get_shirt_size_display.admin_order_field = "shirt_size"
+    get_shirt_size_display.short_description = "Size description"
+
 
 class MemberFilterSet(WagtailFilterSet):
     class Meta:
@@ -425,16 +431,18 @@ class MemberFilterSet(WagtailFilterSet):
         fields = ["shirt_size"]
 ```
 
-You can add a `filterset_class` to the listing view by defining a subclass of `SnippetViewSet` as below:
+You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute to specify the columns shown on the listing view. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.  For example:
 
 ```python
 # views.py
+from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.snippets.views.snippets import SnippetViewSet
 
 from myapp.models import MemberFilterSet
 
 
 class MemberViewSet(SnippetViewSet):
+    list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
     filterset_class = MemberFilterSet
 ```
 
