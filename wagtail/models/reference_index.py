@@ -8,8 +8,6 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel, get_all_child_relations
 
-from wagtail.fields import RichTextField, StreamField
-
 
 class ReferenceGroups:
     """
@@ -212,7 +210,7 @@ class ReferenceIndex(models.Model):
 
                 return True
 
-            if isinstance(field, (StreamField, RichTextField)):
+            if hasattr(field, "extract_references"):
                 return True
 
         if issubclass(model, ClusterableModel):
@@ -281,7 +279,7 @@ class ReferenceIndex(models.Model):
                         value
                     ), field.name, field.name
 
-            if isinstance(field, (StreamField, RichTextField)):
+            if hasattr(field, "extract_references"):
                 value = field.value_from_object(object)
                 if value is not None:
                     yield from (
