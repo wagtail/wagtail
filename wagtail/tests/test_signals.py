@@ -1,6 +1,5 @@
 from unittest import mock
 
-from django.db import connection
 from django.test import TestCase
 
 from wagtail.models import Site
@@ -45,11 +44,8 @@ class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
 
         try:
             self.test_page.slug = "updated"
-            self.test_page.save()
-            # TODO: When Django 3.1< support is dropped, wrap save in
-            # self.captureOnCommitCallbacks and remove this code
-            for _, func in connection.run_on_commit:
-                func()
+            with self.captureOnCommitCallbacks(execute=True):
+                self.test_page.save()
         finally:
             # Disconnect mock handler to prevent cross-test pollution
             page_slug_changed.disconnect(handler)
@@ -71,13 +67,12 @@ class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
 
         try:
             self.test_page.title = "Goodnight Moon!"
-            self.test_page.save()
             # NOTE: Even though we're not expecting anything to happen here,
-            # we need to invoke the callbacks in run_on_commit the same way
+            # we need to invoke the callbacks via captureOnCommitCallbacks the same way
             # the same way we do in ``test_signal_emitted_on_slug_change``,
             # otherwise this test wouldn't prove anything.
-            for _, func in connection.run_on_commit:
-                func()
+            with self.captureOnCommitCallbacks(execute=True):
+                self.test_page.save()
         finally:
             # Disconnect mock handler to prevent cross-test pollution
             page_slug_changed.disconnect(handler)
@@ -91,13 +86,12 @@ class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
         page_slug_changed.connect(handler)
 
         try:
-            self.test_page.move(self.section_b, pos="last-child")
             # NOTE: Even though we're not expecting anything to happen here,
-            # we need to invoke the callbacks in run_on_commit the same way
+            # we need to invoke the callbacks via captureOnCommitCallbacks the same way
             # the same way we do in ``test_signal_emitted_on_slug_change``,
             # otherwise this test wouldn't prove anything.
-            for _, func in connection.run_on_commit:
-                func()
+            with self.captureOnCommitCallbacks(execute=True):
+                self.test_page.move(self.section_b, pos="last-child")
         finally:
             # Disconnect mock handler to prevent cross-test pollution
             page_slug_changed.disconnect(handler)

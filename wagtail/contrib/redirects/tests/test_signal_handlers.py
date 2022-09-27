@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.db import connection
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.redirects.models import Redirect
@@ -28,10 +27,8 @@ class TestAutocreateRedirects(TestCase, WagtailTestUtils):
 
     def trigger_page_slug_changed_signal(self, page):
         page.slug += "-extra"
-        page.save(log_action="wagtail.publish", user=self.user, clean=False)
-        # simulate database transaction commit:
-        for _, func in connection.run_on_commit:
-            func()
+        with self.captureOnCommitCallbacks(execute=True):
+            page.save(log_action="wagtail.publish", user=self.user, clean=False)
 
     def test_golden_path(self):
         # the page we'll be triggering the change for here is...
