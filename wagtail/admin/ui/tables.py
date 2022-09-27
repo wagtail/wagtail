@@ -9,6 +9,7 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
+from django.utils.translation import gettext as _
 
 from wagtail.admin.ui.components import Component
 from wagtail.coreutils import multigetattr
@@ -197,10 +198,35 @@ class StatusTagColumn(Column):
         return context
 
 
+class LiveStatusTagColumn(StatusTagColumn):
+    """Represents a live/draft status tag"""
+
+    def __init__(self, **kwargs):
+        super().__init__(
+            "status_string",
+            label=kwargs.pop("label", _("Status")),
+            sort_key=kwargs.pop("sort_key", "live"),
+            primary=lambda instance: instance.live,
+            **kwargs,
+        )
+
+
 class DateColumn(Column):
     """Outputs a date in human-readable format"""
 
     cell_template_name = "wagtailadmin/tables/date_cell.html"
+
+
+class UpdatedAtColumn(DateColumn):
+    """Outputs the _updated_at date annotation in human-readable format"""
+
+    def __init__(self, **kwargs):
+        super().__init__(
+            "_updated_at",
+            label=kwargs.pop("label", _("Updated")),
+            sort_key=kwargs.pop("sort_key", "_updated_at"),
+            **kwargs,
+        )
 
 
 class UserColumn(Column):

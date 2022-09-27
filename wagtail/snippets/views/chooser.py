@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.ui.tables import StatusTagColumn
+from wagtail.admin.ui.tables import LiveStatusTagColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
@@ -27,13 +27,7 @@ class BaseSnippetChooseView(BaseChooseView):
     def columns(self):
         columns = super().columns
         if issubclass(self.model, DraftStateMixin):
-            columns += [
-                StatusTagColumn(
-                    "status_string",
-                    label=_("Status"),
-                    primary=lambda instance: instance.live,
-                ),
-            ]
+            columns += [LiveStatusTagColumn(sort_key=None)]
         return columns
 
     def get_context_data(self, **kwargs):
