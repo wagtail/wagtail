@@ -399,6 +399,23 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             allow_extra_attrs=True,
         )
 
+        self.assertContains(
+            response,
+            "This publishing schedule will only take effect after you have published",
+        )
+
+    def test_schedule_panel_without_publish_permission(self):
+        editor = self.create_user("editor", password="password")
+        editor.groups.add(Group.objects.get(name="Editors"))
+        self.login(username="editor")
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "Anyone with editing permissions can create schedules"
+        )
+
     def test_edit_scheduled_go_live_before_expiry(self):
         post_data = {
             "title": "I've been edited!",
