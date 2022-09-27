@@ -23,6 +23,7 @@ from wagtail.admin.ui.tables import (
     Column,
     DateColumn,
     InlineActionsTable,
+    LiveStatusTagColumn,
     TitleColumn,
     UserColumn,
 )
@@ -158,8 +159,19 @@ class IndexView(generic.IndexView):
     results_only = False
     table_class = InlineActionsTable
 
-    def _get_title_column(self, column_class=SnippetTitleColumn):
-        return super()._get_title_column(column_class)
+    def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
+        accessor = kwargs.pop("accessor", None)
+
+        if not accessor and field_name == "__str__":
+
+            def accessor(obj):
+                if isinstance(obj, DraftStateMixin) and obj.latest_revision:
+                    return obj.latest_revision.object_str
+                return str(obj)
+
+        return super()._get_title_column(
+            field_name, column_class, accessor=accessor, **kwargs
+        )
 
     def get_columns(self):
         return [
@@ -680,6 +692,21 @@ class SnippetViewSet(ViewSet):
     #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = None
 
+    #: A list or tuple, where each item is either:
+    #:
+    #: - The name of a field on the model;
+    #: - The name of a callable or property on the model that accepts a single parameter for the model instance; or
+    #: - An instance of the ``wagtail.admin.ui.tables.Column`` class.
+    #:
+    #: If the name refers to a database field, the ability to sort the listing by the database column will be offerred and the field's verbose name will be used as the column header.
+    #:
+    #: If the name refers to a callable or property, a ``admin_order_field`` attribute can be defined on it to point to the database column for sorting.
+    #: A ``short_description`` attribute can also be defined on the callable or property to be used as the column header.
+    #:
+    #: This list will be passed to the ``list_display`` attribute of the index view.
+    #: If left unset, the ``list_display`` attribute of the index view will be used instead, which by default is defined as ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+    list_display = None
+
     #: The view class to use for the index view; must be a subclass of ``wagtail.snippet.views.snippets.IndexView``.
     index_view_class = IndexView
 
@@ -713,6 +740,17 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEditView``.
     preview_on_edit_view_class = PreviewOnEditView
 
+    def __init__(self, name, **kwargs):
+        super().__init__(name, **kwargs)
+        self.preview_enabled = issubclass(self.model, PreviewableMixin)
+        self.revision_enabled = issubclass(self.model, RevisionMixin)
+        self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
+
+        if not self.list_display:
+            self.list_display = self.index_view_class.list_display.copy()
+            if self.draftstate_enabled:
+                self.list_display += [LiveStatusTagColumn()]
+
     @property
     def revisions_revert_view_class(self):
         """
@@ -745,6 +783,7 @@ class SnippetViewSet(ViewSet):
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
             delete_multiple_url_name=self.get_url_name("delete-multiple"),
+            list_display=self.list_display,
         )
 
     @property
@@ -759,6 +798,7 @@ class SnippetViewSet(ViewSet):
             add_url_name=self.get_url_name("add"),
             edit_url_name=self.get_url_name("edit"),
             delete_multiple_url_name=self.get_url_name("delete-multiple"),
+            list_display=self.list_display,
         )
 
     @property
@@ -896,7 +936,7 @@ class SnippetViewSet(ViewSet):
             path("history/<str:pk>/", self.history_view, name="history"),
         ]
 
-        if issubclass(self.model, PreviewableMixin):
+        if self.preview_enabled:
             urlpatterns += [
                 path("preview/", self.preview_on_add_view, name="preview_on_add"),
                 path(
@@ -906,8 +946,8 @@ class SnippetViewSet(ViewSet):
                 ),
             ]
 
-        if issubclass(self.model, RevisionMixin):
-            if issubclass(self.model, PreviewableMixin):
+        if self.revision_enabled:
+            if self.preview_enabled:
                 urlpatterns += [
                     path(
                         "history/<str:pk>/revisions/<int:revision_id>/view/",
@@ -929,7 +969,7 @@ class SnippetViewSet(ViewSet):
                 ),
             ]
 
-        if issubclass(self.model, DraftStateMixin):
+        if self.draftstate_enabled:
             urlpatterns += [
                 path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
             ]
