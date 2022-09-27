@@ -26,15 +26,12 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
     UserColumn,
 )
-from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.views import generic
 from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
-from wagtail.admin.views.generic.models import RevisionsCompareView, UnpublishView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.generic.preview import (
-    PreviewOnCreate,
-    PreviewOnEdit,
-    PreviewRevision,
-)
+from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
+from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
+from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
@@ -78,7 +75,7 @@ def get_snippet_edit_handler(model):
 # == Views ==
 
 
-class Index(IndexView):
+class ModelIndexView(generic.IndexView):
     template_name = "wagtailadmin/generic/index.html"
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
@@ -150,7 +147,7 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class List(IndexView):
+class IndexView(generic.IndexView):
     view_name = "list"
     index_results_url_name = None
     delete_multiple_url_name = None
@@ -203,7 +200,7 @@ class List(IndexView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-class Create(CreateView):
+class CreateView(generic.CreateView):
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
@@ -301,7 +298,7 @@ class Create(CreateView):
         return context
 
 
-class Edit(EditView):
+class EditView(generic.EditView):
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
@@ -414,7 +411,7 @@ class Edit(EditView):
         return context
 
 
-class Delete(DeleteView):
+class DeleteView(generic.DeleteView):
     view_name = "delete"
     delete_multiple_url_name = None
     permission_required = "delete"
@@ -494,7 +491,7 @@ class Delete(DeleteView):
         return context
 
 
-class Usage(IndexView):
+class UsageView(generic.IndexView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     paginate_by = 20
@@ -594,7 +591,7 @@ class ActionColumn(Column):
         return context
 
 
-class History(ReportView):
+class HistoryView(ReportView):
     view_name = "history"
     index_url_name = None
     edit_url_name = None
@@ -650,11 +647,11 @@ class History(ReportView):
         )
 
 
-class RevisionsView(PermissionCheckedMixin, PreviewRevision):
+class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
     permission_required = "change"
 
 
-class RevisionsCompare(PermissionCheckedMixin, RevisionsCompareView):
+class RevisionsCompareView(PermissionCheckedMixin, generic.models.RevisionsCompareView):
     permission_required = "change"
     header_icon = "snippet"
 
@@ -671,7 +668,7 @@ class RevisionsCompare(PermissionCheckedMixin, RevisionsCompareView):
         )
 
 
-class Unpublish(PermissionCheckedMixin, UnpublishView):
+class UnpublishView(PermissionCheckedMixin, generic.models.UnpublishView):
     permission_required = "publish"
 
 
@@ -683,38 +680,38 @@ class SnippetViewSet(ViewSet):
     #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = None
 
-    #: The view class to use for the list view; must be a subclass of ``wagtail.snippet.views.snippets.List``.
-    index_view_class = List
+    #: The view class to use for the index view; must be a subclass of ``wagtail.snippet.views.snippets.IndexView``.
+    index_view_class = IndexView
 
-    #: The view class to use for the create view; must be a subclass of ``wagtail.snippet.views.snippets.Create``.
-    add_view_class = Create
+    #: The view class to use for the create view; must be a subclass of ``wagtail.snippet.views.snippets.CreateView``.
+    add_view_class = CreateView
 
-    #: The view class to use for the edit view; must be a subclass of ``wagtail.snippet.views.snippets.Edit``.
-    edit_view_class = Edit
+    #: The view class to use for the edit view; must be a subclass of ``wagtail.snippet.views.snippets.EditView``.
+    edit_view_class = EditView
 
-    #: The view class to use for the delete view; must be a subclass of ``wagtail.snippet.views.snippets.Delete``.
-    delete_view_class = Delete
+    #: The view class to use for the delete view; must be a subclass of ``wagtail.snippet.views.snippets.DeleteView``.
+    delete_view_class = DeleteView
 
-    #: The view class to use for the usage view; must be a subclass of ``wagtail.snippet.views.snippets.Usage``.
-    usage_view_class = Usage
+    #: The view class to use for the usage view; must be a subclass of ``wagtail.snippet.views.snippets.UsageView``.
+    usage_view_class = UsageView
 
-    #: The view class to use for the history view; must be a subclass of ``wagtail.snippet.views.snippets.History``.
-    history_view_class = History
+    #: The view class to use for the history view; must be a subclass of ``wagtail.snippet.views.snippets.HistoryView``.
+    history_view_class = HistoryView
 
-    #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsView``.
-    revisions_view_class = RevisionsView
+    #: The view class to use for previewing revisions; must be a subclass of ``wagtail.snippet.views.snippets.PreviewRevisionView``.
+    revisions_view_class = PreviewRevisionView
 
-    #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsCompare``.
-    revisions_compare_view_class = RevisionsCompare
+    #: The view class to use for comparing revisions; must be a subclass of ``wagtail.snippet.views.snippets.RevisionsCompareView``.
+    revisions_compare_view_class = RevisionsCompareView
 
-    #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippet.views.snippets.Unpublish``.
-    unpublish_view_class = Unpublish
+    #: The view class to use for unpublishing a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnpublishView``.
+    unpublish_view_class = UnpublishView
 
-    #: The view class to use for previewing on the create view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnCreate``.
-    preview_on_add_view_class = PreviewOnCreate
+    #: The view class to use for previewing on the create view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnCreateView``.
+    preview_on_add_view_class = PreviewOnCreateView
 
-    #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEdit``.
-    preview_on_edit_view_class = PreviewOnEdit
+    #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEditView``.
+    preview_on_edit_view_class = PreviewOnEditView
 
     @property
     def revisions_revert_view_class(self):
@@ -723,11 +720,11 @@ class SnippetViewSet(ViewSet):
 
         By default, this class is generated by combining the edit view with
         ``wagtail.admin.views.generic.mixins.RevisionsRevertMixin``. As a result,
-        this class must be a subclass of ``wagtail.snippet.views.snippets.Edit``
+        this class must be a subclass of ``wagtail.snippet.views.snippets.EditView``
         and must handle the reversion correctly.
         """
         revisions_revert_view_class = type(
-            "_RevisionsRevert",
+            "_RevisionsRevertView",
             (RevisionsRevertMixin, self.edit_view_class),
             {"view_name": "revisions_revert"},
         )

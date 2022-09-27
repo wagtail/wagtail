@@ -21,7 +21,7 @@ from wagtail.snippets.widgets import SnippetListingButton
 def register_admin_urls():
     snippet_index_patterns = (
         [
-            path("", snippet_views.Index.as_view(), name="index"),
+            path("", snippet_views.ModelIndexView.as_view(), name="index"),
         ],
         "wagtailsnippets",
     )
