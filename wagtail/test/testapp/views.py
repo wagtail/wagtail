@@ -5,8 +5,6 @@ from django.template.response import TemplateResponse
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.snippets.views.snippets import SnippetViewSet
-from wagtail.test.snippets.models import FilterableSnippetFilterSet
 
 
 def user_is_called_bob(user):
@@ -36,7 +34,3 @@ class CustomSubmissionsListView(SubmissionsListView):
         """Returns the filename for CSV file with page title at start"""
         filename = super().get_csv_filename()
         return self.form_page.slug + "-" + filename
-
-
-class FilterableSnippetViewSet(SnippetViewSet):
-    filterset_class = FilterableSnippetFilterSet
