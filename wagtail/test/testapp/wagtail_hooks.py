@@ -13,7 +13,7 @@ from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.snippets.models import register_snippet
 from wagtail.test.snippets.models import FilterableSnippet
-from wagtail.test.testapp.views import FilterableSnippetViewSet
+from wagtail.test.snippets.views import FilterableSnippetViewSet
 
 from .forms import FavouriteColourForm
 
