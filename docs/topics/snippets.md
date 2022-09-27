@@ -388,6 +388,8 @@ class Advert(ClusterableModel):
 The [documentation on tagging pages](tagging) has more information on how to use tags in views.
 
 
+(wagtailsnippets_custom_admin_views)=
+
 ## Customising snippets admin views
 
 You can customise the admin views for snippets by specifying a custom subclass of {class}`~wagtail.snippets.views.snippets.SnippetViewSet` to `register_snippet`.
