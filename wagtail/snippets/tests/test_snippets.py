@@ -1,5 +1,6 @@
 import datetime
 import json
+from io import StringIO
 from unittest import mock
 
 from django.contrib.admin.utils import quote
@@ -1897,7 +1898,8 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
     def test_usage_link(self):
-        management.call_command("rebuild_references_index")
+        output = StringIO()
+        management.call_command("rebuild_references_index", stdout=output)
 
         response = self.client.get(
             reverse(
@@ -2141,7 +2143,8 @@ class TestUsageCount(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        management.call_command("rebuild_references_index")
+        output = StringIO()
+        management.call_command("rebuild_references_index", stdout=output)
 
     def test_snippet_usage_count(self):
         advert = Advert.objects.get(pk=1)
@@ -2154,7 +2157,8 @@ class TestUsedBy(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        management.call_command("rebuild_references_index")
+        output = StringIO()
+        management.call_command("rebuild_references_index", stdout=output)
 
     def test_snippet_used_by(self):
         advert = Advert.objects.get(pk=1)
