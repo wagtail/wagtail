@@ -728,7 +728,8 @@ class TestFieldRowPanel(TestCase):
             [
                 FieldPanel("date_from", classname="col4", heading="Start"),
                 FieldPanel("date_to", classname="coltwo"),
-            ]
+            ],
+            help_text="Confirmed event dates only",
         ).bind_to_model(EventPage)
 
     def test_render_html(self):
@@ -756,8 +757,11 @@ class TestFieldRowPanel(TestCase):
             result,
         )
 
-        # check that help text is included
+        # check that field help text is included
         self.assertIn("Not required if event is on a single day", result)
+
+        # check that row help text is included
+        self.assertIn("Confirmed event dates only", result)
 
         # check that the populated form field is included
         self.assertIn('value="2014-07-22"', result)

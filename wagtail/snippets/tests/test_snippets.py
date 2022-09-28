@@ -686,6 +686,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             response,
             '<a id="tab-label-other" href="#tab-other" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
+        self.assertContains(response, "Other panels help text")
+        self.assertContains(response, "Top-level help text")
 
     def test_create_with_limited_permissions(self):
         self.user.is_superuser = False

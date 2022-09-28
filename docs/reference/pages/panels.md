@@ -41,6 +41,10 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
         This allows you to override the heading for the panel, which will otherwise be set automatically using the form field's label (taken in turn from a model field's ``verbose_name``).
 
+    .. attribute:: FieldPanel.help_text (optional)
+
+        Help text to be displayed against the field. This takes precedence over any help text set on the model field.
+
     .. attribute:: FieldPanel.disable_comments (optional)
 
         This allows you to prevent a field level comment button showing for this panel if set to ``True`` (see :ref:`commenting`).
@@ -76,6 +80,10 @@ Here are some Wagtail-specific types that you might include as fields in your mo
     .. attribute:: MultiFieldPanel.heading
 
         A heading for the fields
+
+    .. attribute:: MultiFieldPanel.help_text
+
+        Help text to be displayed against the panel.
 ```
 
 ### InlinePanel
@@ -108,6 +116,10 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
     .. attribute:: FieldRowPanel.classname
 
         A class to apply to the FieldRowPanel as a whole
+
+    .. attribute:: FieldRowPanel.help_text
+
+        Help text to be displayed against the panel.
 ```
 
 ### HelpPanel

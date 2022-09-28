@@ -717,7 +717,7 @@ class FieldPanel(Panel):
             else:
                 self.heading = self.bound_field.label
 
-            self.help_text = self.bound_field.help_text
+            self.help_text = self.panel.help_text or self.bound_field.help_text
 
         @property
         def field_name(self):
