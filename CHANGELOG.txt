@@ -40,6 +40,11 @@ Changelog
  * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan Hammer)
  * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
 
+4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+* Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
+* Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
 
 4.0.2 (23.09.2022)
 ~~~~~~~~~~~~~~~~~~
