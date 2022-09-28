@@ -35,6 +35,7 @@ from wagtail.utils.deprecation import RemovedInWagtail50Warning
 from .forms.models import (  # NOQA
     DIRECT_FORM_FIELD_OVERRIDES,
     FORM_FIELD_OVERRIDES,
+    WagtailAdminDraftStateFormMixin,
     WagtailAdminModelForm,
     formfield_for_dbfield,
 )
@@ -70,7 +71,10 @@ def get_form_for_model(
     form_class_attrs = {"Meta": Meta}
 
     metaclass = type(form_class)
-    return metaclass(class_name, (form_class,), form_class_attrs)
+    bases = [form_class]
+    if issubclass(model, DraftStateMixin):
+        bases.insert(0, WagtailAdminDraftStateFormMixin)
+    return metaclass(class_name, tuple(bases), form_class_attrs)
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
