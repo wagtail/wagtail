@@ -28,6 +28,7 @@ Changelog
  * Add a toggle to collapse/expand all page panels at once (Helen Chapman)
  * Improve the GitHub Workflows (CI) security (Alex (sashashura))
  * Use `search` type input in documentation search (LB (Ben) Johnston)
+ * Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
@@ -37,6 +38,7 @@ Changelog
  * Fix: Ensure that `ModelAdmin` correctly supports filters in combination with subsequent searches without clearing the applied filters (Stefan Hammer)
  * Fix: Add missing translated values to site settings' headers plus models presented in listings and audit report filtering labels (Stefan Hammer)
  * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan Hammer)
+ * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
 
 
 4.0.2 (23.09.2022)
@@ -63,7 +65,7 @@ Changelog
  * Fix: Only add Translate buttons when the `simple_translation` app is installed (Dan Braghis)
  * Fix: Ensure that `MultiFieldPanel` correctly outputs all child classnames in the template (Matt Westcott)
  * Fix: Remove over-eager caching on ModelAdmin permission checks (Matt Westcott, Stefan Hammer)
- 
+
 
 4.0.1 (05.09.2022)
 ~~~~~~~~~~~~~~~~~~
