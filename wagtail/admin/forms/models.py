@@ -1,8 +1,11 @@
 import copy
 
 from django import VERSION as DJANGO_VERSION
+from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import gettext as _
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass, ClusterFormOptions
 from permissionedforms import (
     PermissionedForm,
@@ -144,3 +147,39 @@ class WagtailAdminModelForm(
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
 # the nice form fields defined in FORM_FIELD_OVERRIDES.
+
+
+class WagtailAdminDraftStateFormMixin:
+    @property
+    def show_schedule_publishing_toggle(self):
+        return "go_live_at" in self.__class__.base_fields
+
+    def clean(self):
+        super().clean()
+
+        # Check scheduled publishing fields
+        go_live_at = self.cleaned_data.get("go_live_at")
+        expire_at = self.cleaned_data.get("expire_at")
+
+        # Go live must be before expire
+        if go_live_at and expire_at:
+            if go_live_at > expire_at:
+                msg = _("Go live date/time must be before expiry date/time")
+                self.add_error("go_live_at", forms.ValidationError(msg))
+                self.add_error("expire_at", forms.ValidationError(msg))
+
+        # Expire at must be in the future
+        if expire_at and expire_at < timezone.now():
+            self.add_error(
+                "expire_at",
+                forms.ValidationError(_("Expiry date/time must be in the future")),
+            )
+
+        # Don't allow an existing first_published_at to be unset by clearing the field
+        if (
+            "first_published_at" in self.cleaned_data
+            and not self.cleaned_data["first_published_at"]
+        ):
+            del self.cleaned_data["first_published_at"]
+
+        return self.cleaned_data
