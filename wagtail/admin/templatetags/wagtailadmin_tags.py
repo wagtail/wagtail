@@ -694,6 +694,7 @@ def timesince_simple(d):
     1 week, 1 day ago -> 1 week ago
     0 minutes ago -> just now
     """
+    # Note: Duplicate code in timesince_last_update()
     time_period = timesince(d).split(",")[0]
     if time_period == avoid_wrapping(_("0 minutes")):
         return _("Just now")
@@ -702,29 +703,59 @@ def timesince_simple(d):
 
 @register.simple_tag
 def timesince_last_update(
-    last_update, time_prefix="", user_display_name="", use_shorthand=True
+    last_update, show_time_prefix=False, user_display_name="", use_shorthand=True
 ):
     """
     Returns:
-         - the time of update if last_update is today, if any prefix is supplied, the output will use it
+         - the time of update if last_update is today, if show_time_prefix=True, the output will be prefixed with "at "
          - time since last update otherwise. Defaults to the simplified timesince,
            but can return the full string if needed
     """
+    # translation usage below is intentionally verbose to be easier to work with translations
+
     if last_update.date() == datetime.today().date():
         if timezone.is_aware(last_update):
             time_str = timezone.localtime(last_update).strftime("%H:%M")
         else:
             time_str = last_update.strftime("%H:%M")
 
-        time_prefix = f"{time_prefix} " if time_prefix else time_prefix
-        by_user = f" by {user_display_name}" if user_display_name else user_display_name
-
-        return f"{time_prefix}{time_str}{by_user}"
-
+        if show_time_prefix:
+            if user_display_name:
+                return _("at %(time)s by %(user_display_name)s") % {
+                    "time": time_str,
+                    "user_display_name": user_display_name,
+                }
+            else:
+                return _("at %(time)s") % {"time": time_str}
+        else:
+            if user_display_name:
+                return _("%(time)s by %(user_display_name)s") % {
+                    "time": time_str,
+                    "user_display_name": user_display_name,
+                }
+            else:
+                return _("%(time)s") % {"time": time_str}
     else:
         if use_shorthand:
-            return timesince_simple(last_update)
-        return _("%(time_period)s ago") % {"time_period": timesince(last_update)}
+            # Note: Duplicate code in timesince_simple()
+            time_period = timesince(last_update).split(",")[0]
+            if time_period == avoid_wrapping(_("0 minutes")):
+                if user_display_name:
+                    return _("just now by %(user_display_name)s") % {
+                        "user_display_name": user_display_name
+                    }
+                else:
+                    return _("just now")
+        else:
+            time_period = timesince(last_update)
+
+        if user_display_name:
+            return _("%(time_period)s ago by %(user_display_name)s") % {
+                "time_period": time_period,
+                "user_display_name": user_display_name,
+            }
+        else:
+            return _("%(time_period)s ago") % {"time_period": time_period}
 
 
 @register.filter
