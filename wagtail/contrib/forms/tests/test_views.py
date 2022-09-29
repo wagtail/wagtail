@@ -1734,3 +1734,71 @@ class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
             response,
             text="There is another field with the label duplicate 1, please change one of them.",
         )
+
+
+class TestPreview(TestCase, WagtailTestUtils):
+
+    post_data = {
+        "title": "Form page!",
+        "content": "Some content",
+        "slug": "contact-us",
+        "form_fields-TOTAL_FORMS": "1",
+        "form_fields-INITIAL_FORMS": "1",
+        "form_fields-MIN_NUM_FORMS": "0",
+        "form_fields-MAX_NUM_FORMS": "1000",
+        "form_fields-0-id": "",
+        "form_fields-0-label": "Field One",
+        "form_fields-0-field_type": "singleline",
+    }
+
+    def setUp(self):
+        self.login()
+
+        self.homepage = Page.objects.get(id=2)
+
+    def test_form_is_rendered(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "formpage", self.homepage.pk),
+        )
+
+        response = self.client.post(preview_url, self.post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        response = self.client.get(preview_url)
+
+        self.assertContains(response, '<form action="/contact-us/" method="post">')
+        self.assertContains(response, '<label for="id_field_one">Field One</label>')
+        self.assertContains(
+            response,
+            '<input type="text" name="field_one" maxlength="255" id="id_field_one">',
+        )
+
+    def test_preview_modes(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "formpage", self.homepage.pk),
+        )
+
+        response = self.client.post(preview_url, data=self.post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        cases = [
+            ("", "tests/form_page.html"),
+            ("?mode=form", "tests/form_page.html"),
+            ("?mode=landing", "tests/form_page_landing.html"),
+        ]
+
+        for params, template in cases:
+            with self.subTest(params=params, template=template):
+                response = self.client.get(preview_url + params)
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, template)
