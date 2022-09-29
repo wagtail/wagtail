@@ -142,8 +142,8 @@ class TestTimesinceTags(TestCase):
         self.assertEqual(timesince, formatted_time)
 
         # Check prefix output
-        timesince = timesince_last_update(dt, time_prefix="my prefix")
-        self.assertEqual(timesince, "my prefix {}".format(formatted_time))
+        timesince = timesince_last_update(dt, show_time_prefix=True)
+        self.assertEqual(timesince, "at {}".format(formatted_time))
 
         # Check user output
         timesince = timesince_last_update(dt, user_display_name="Gary")
@@ -151,18 +151,47 @@ class TestTimesinceTags(TestCase):
 
         # Check user and prefix output
         timesince = timesince_last_update(
-            dt, time_prefix="my prefix", user_display_name="Gary"
+            dt, show_time_prefix=True, user_display_name="Gary"
         )
-        self.assertEqual(timesince, "my prefix {} by Gary".format(formatted_time))
+        self.assertEqual(timesince, "at {} by Gary".format(formatted_time))
 
     def test_timesince_last_update_before_today_shows_timeago(self):
         dt = timezone.now() - timedelta(weeks=1, days=2)
 
+        # 1) use_shorthand=False
+
         timesince = timesince_last_update(dt, use_shorthand=False)
         self.assertEqual(timesince, "1\xa0week, 2\xa0days ago")
+        # The prefix is not used, if the date is older than the current day.
+        self.assertEqual(
+            timesince_last_update(dt, use_shorthand=False, show_time_prefix=True),
+            timesince,
+        )
+
+        # Check user output
+        timesince = timesince_last_update(
+            dt, use_shorthand=False, user_display_name="Gary"
+        )
+        self.assertEqual(timesince, "1\xa0week, 2\xa0days ago by Gary")
+        self.assertEqual(
+            timesince_last_update(
+                dt, use_shorthand=False, user_display_name="Gary", show_time_prefix=True
+            ),
+            timesince,
+        )
+
+        # 2) use_shorthand=True
 
         timesince = timesince_last_update(dt)
         self.assertEqual(timesince, "1\xa0week ago")
+        self.assertEqual(timesince_last_update(dt, show_time_prefix=True), timesince)
+
+        timesince = timesince_last_update(dt, user_display_name="Gary")
+        self.assertEqual(timesince, "1\xa0week ago by Gary")
+        self.assertEqual(
+            timesince_last_update(dt, user_display_name="Gary", show_time_prefix=True),
+            timesince,
+        )
 
 
 class TestComponentTag(TestCase):
