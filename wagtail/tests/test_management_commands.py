@@ -10,8 +10,13 @@ from django.test import TestCase
 from django.utils import timezone
 
 from wagtail.models import Collection, Page, PageLogEntry, Revision
-from wagtail.signals import page_published, page_unpublished
-from wagtail.test.testapp.models import EventPage, SecretPage, SimplePage
+from wagtail.signals import page_published, page_unpublished, published, unpublished
+from wagtail.test.testapp.models import (
+    DraftStateModel,
+    EventPage,
+    SecretPage,
+    SimplePage,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -406,6 +411,181 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 object_id=p.id, submitted_for_moderation=True
             ).exists()
         )
+
+
+class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.snippet = DraftStateModel.objects.create(text="Hello world!", live=False)
+
+    def test_go_live_will_be_published(self):
+        # Connect a mock signal handler to published signal
+        signal_fired = [False]
+        signal_obj = [None]
+
+        def published_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+            signal_obj[0] = instance
+
+        published.connect(published_handler)
+
+        go_live_at = timezone.now() - timedelta(days=1)
+        self.snippet.has_unpublished_changes = True
+        self.snippet.go_live_at = go_live_at
+
+        self.snippet.save_revision(approved_go_live_at=go_live_at)
+
+        self.snippet.refresh_from_db()
+        self.assertFalse(self.snippet.live)
+        self.assertTrue(
+            Revision.objects.for_instance(self.snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        management.call_command("publish_scheduled")
+
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+        self.assertTrue(self.snippet.first_published_at)
+        self.assertFalse(self.snippet.has_unpublished_changes)
+        self.assertFalse(
+            Revision.objects.for_instance(self.snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # Check that the published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_obj[0], self.snippet)
+
+    def test_go_live_created_by_editor_will_be_published(self):
+        # Connect a mock signal handler to published signal
+        signal_fired = [False]
+        signal_obj = [None]
+
+        editor = self.create_user("ed")
+        editor.groups.add(Group.objects.get(name="Site-wide editors"))
+
+        def published_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+            signal_obj[0] = instance
+
+        published.connect(published_handler)
+
+        go_live_at = timezone.now() - timedelta(days=1)
+        self.snippet.has_unpublished_changes = True
+        self.snippet.go_live_at = go_live_at
+
+        self.snippet.save_revision(user=editor, approved_go_live_at=go_live_at)
+
+        self.snippet.refresh_from_db()
+        self.assertFalse(self.snippet.live)
+        self.assertTrue(
+            Revision.objects.for_instance(self.snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        management.call_command("publish_scheduled")
+
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+        self.assertTrue(self.snippet.first_published_at)
+        self.assertFalse(self.snippet.has_unpublished_changes)
+        self.assertFalse(
+            Revision.objects.for_instance(self.snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        # Check that the published signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_obj[0], self.snippet)
+
+    def test_go_live_when_newer_revision_exists(self):
+        go_live_at = timezone.now() - timedelta(days=1)
+        self.snippet.has_unpublished_changes = True
+        self.snippet.go_live_at = go_live_at
+
+        self.snippet.save_revision(approved_go_live_at=go_live_at)
+
+        self.snippet.text = "Goodbye world!"
+        self.snippet.save_revision(submitted_for_moderation=False)
+
+        management.call_command("publish_scheduled")
+
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+        self.assertTrue(self.snippet.has_unpublished_changes)
+        self.assertEqual(self.snippet.text, "Hello world!")
+
+    def test_future_go_live_will_not_be_published(self):
+        self.snippet.has_unpublished_changes = True
+        self.snippet.go_live_at = timezone.now() + timedelta(days=1)
+
+        self.snippet.save_revision(
+            approved_go_live_at=timezone.now() - timedelta(days=1)
+        )
+
+        self.snippet.refresh_from_db()
+        self.assertFalse(self.snippet.live)
+        self.assertTrue(
+            Revision.objects.for_instance(self.snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+        management.call_command("publish_scheduled")
+
+        self.assertFalse(self.snippet.live)
+        self.assertTrue(
+            Revision.objects.for_instance(self.snippet)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
+
+    def test_expired_will_be_unpublished(self):
+        # Connect a mock signal handler to unpublished signal
+        signal_fired = [False]
+        signal_obj = [None]
+
+        def unpublished_handler(sender, instance, **kwargs):
+            signal_fired[0] = True
+            signal_obj[0] = instance
+
+        unpublished.connect(unpublished_handler)
+
+        self.snippet.expire_at = timezone.now() - timedelta(days=1)
+        self.snippet.save_revision().publish()
+
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+
+        management.call_command("publish_scheduled")
+
+        self.snippet.refresh_from_db()
+        self.assertFalse(self.snippet.live)
+        self.assertTrue(self.snippet.has_unpublished_changes)
+        self.assertTrue(self.snippet.expired)
+
+        # Check that the unpublished signal was fired
+        self.assertTrue(signal_fired[0])
+        self.assertEqual(signal_obj[0], self.snippet)
+
+    def test_future_expired_will_not_be_unpublished(self):
+        self.snippet.expire_at = timezone.now() + timedelta(days=1)
+        self.snippet.save_revision().publish()
+
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+
+        management.call_command("publish_scheduled")
+
+        self.snippet.refresh_from_db()
+        self.assertTrue(self.snippet.live)
+        self.assertFalse(self.snippet.expired)
 
 
 class TestPurgeRevisionsCommand(TestCase):
