@@ -1,3 +1,4 @@
+import datetime
 import json
 import urllib
 
@@ -16,8 +17,13 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
 from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
-from wagtail.models import Collection, GroupCollectionPermission, get_root_collection_id
-from wagtail.test.testapp.models import CustomImage, CustomImageWithAuthor
+from wagtail.models import (
+    Collection,
+    GroupCollectionPermission,
+    Page,
+    get_root_collection_id,
+)
+from wagtail.test.testapp.models import CustomImage, CustomImageWithAuthor, EventPage
 from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
@@ -1123,6 +1129,99 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.user.save()
 
         response = self.post()
+        self.assertEqual(response.status_code, 302)
+
+
+class TestUsage(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_usage_page(self):
+        home_page = Page.objects.get(id=2)
+        home_page.add_child(
+            instance=EventPage(
+                title="Christmas",
+                slug="christmas",
+                feed_image=self.image,
+                date_from=datetime.date.today(),
+                audience="private",
+                location="Test",
+                cost="Test",
+            )
+        ).save_revision().publish()
+
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+        self.assertContains(response, "Christmas")
+
+    def test_usage_page_no_usage(self):
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+        # There's no usage so there should be no table rows
+        self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
+
+    def test_usage_page_with_only_change_permission(self):
+        # Create a user with change_image permission but not add_image
+        user = self.create_user(
+            username="changeonly", email="changeonly@example.com", password="password"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="change_image"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.changers_group = Group.objects.create(name="Image changers")
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group,
+            collection=Collection.get_first_root_node(),
+            permission=change_permission,
+        )
+        user.groups.add(self.changers_group)
+
+        user.user_permissions.add(admin_permission)
+        self.login(username="changeonly", password="password")
+
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_usage_page_without_change_permission(self):
+        # Create a user with add_image permission but not change_image
+        user = self.create_user(
+            username="addonly", email="addonly@example.com", password="password"
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label="wagtailimages", codename="add_image"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.adders_group = Group.objects.create(name="Image adders")
+        GroupCollectionPermission.objects.create(
+            group=self.adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=add_permission,
+        )
+        user.groups.add(self.adders_group)
+
+        user.user_permissions.add(admin_permission)
+        self.login(username="addonly", password="password")
+
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+
         self.assertEqual(response.status_code, 302)
 
 

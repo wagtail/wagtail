@@ -397,8 +397,14 @@ def add(request):
     )
 
 
+@permission_checker.require("change")
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
+
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", image
+    ):
+        raise PermissionDenied
 
     paginator = Paginator(image.get_usage(), per_page=USAGE_PAGE_SIZE)
     used_by = paginator.get_page(request.GET.get("p"))

@@ -1801,6 +1801,58 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         # There's no usage so there should be no table rows
         self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
 
+    def test_usage_page_with_only_change_permission(self):
+        # Create a user with change_document permission but not add_document
+        user = self.create_user(
+            username="changeonly", email="changeonly@example.com", password="password"
+        )
+        change_permission = Permission.objects.get(
+            content_type__app_label="wagtaildocs", codename="change_document"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.changers_group = Group.objects.create(name="Document changers")
+        GroupCollectionPermission.objects.create(
+            group=self.changers_group,
+            collection=Collection.get_first_root_node(),
+            permission=change_permission,
+        )
+        user.groups.add(self.changers_group)
+
+        user.user_permissions.add(admin_permission)
+        self.login(username="changeonly", password="password")
+
+        response = self.client.get(reverse("wagtaildocs:document_usage", args=[1]))
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_usage_page_without_change_permission(self):
+        # Create a user with add_document permission but not change_document
+        user = self.create_user(
+            username="addonly", email="addonly@example.com", password="password"
+        )
+        add_permission = Permission.objects.get(
+            content_type__app_label="wagtaildocs", codename="add_document"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.adders_group = Group.objects.create(name="Document adders")
+        GroupCollectionPermission.objects.create(
+            group=self.adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=add_permission,
+        )
+        user.groups.add(self.adders_group)
+
+        user.user_permissions.add(admin_permission)
+        self.login(username="addonly", password="password")
+
+        response = self.client.get(reverse("wagtaildocs:document_usage", args=[1]))
+
+        self.assertEqual(response.status_code, 302)
+
 
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
