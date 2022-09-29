@@ -92,7 +92,7 @@ You can apply custom behaviour to this process by overriding `Page` class method
 ## Scheduled Publishing
 
 Page publishing can be scheduled through the _Go live date/time_ feature in the _Settings_ tab of the _Edit_ page. This allows you to set set up initial page publishing or a page update in advance.
-In order for pages to be published at the scheduled time you should set up the [publish_scheduled_pages](publish_scheduled_pages) management command.
+In order for pages to be published at the scheduled time you should set up the [publish_scheduled](publish_scheduled) management command.
 
 The basic workflow is as follows:
 
