@@ -323,12 +323,21 @@ You can also save revisions programmatically by calling the {meth}`~wagtail.mode
 The `DraftStateMixin` class was introduced.
 ```
 
-If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected to the "live" snippet instance until you publish the changes. For example, the `Advert` snippet could save draft changes by defining it as follows:
+```{versionadded} 4.1
+Support for scheduled publishing via `PublishingPanel` was introduced.
+```
+
+If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected to the "live" snippet instance until you publish the changes.
+
+Wagtail will also allow you to set publishing schedules for instances of the model if there is a `PublishingPanel` in the model's panels definition.
+
+For example, the `Advert` snippet could save draft changes and publishing schedules by defining it as follows:
 
 ```python
 # ...
 
 from django.contrib.contenttypes.fields import GenericRelation
+from wagtail.admin.panels import PublishingPanel
 from wagtail.models import DraftStateMixin, RevisionMixin
 
 # ...
@@ -342,6 +351,7 @@ class Advert(DraftStateMixin, RevisionMixin, models.Model):
     panels = [
         FieldPanel('url'),
         FieldPanel('text'),
+        PublishingPanel(),
     ]
 
     @property
@@ -349,16 +359,14 @@ class Advert(DraftStateMixin, RevisionMixin, models.Model):
         return self._revisions
 ```
 
+The `DraftStateMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
+
 You can publish revisions programmatically by calling {meth}`instance.publish(revision) <wagtail.models.DraftStateMixin.publish>` or by calling {meth}`revision.publish() <wagtail.models.Revision.publish>`. After applying the mixin, it is recommended to publish at least one revision for each instance of the snippet that already exists (if any), so that the `latest_revision` and `live_revision` fields are populated in the database table.
+
+If you use the scheduled publishing feature, make sure that you run the [`publish_scheduled`](publish_scheduled) management command periodically. For more details, see [](scheduled_publishing).
 
 ```{warning}
 Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (e.g. by checking its `live` field). We are planning to improve this in the future.
-```
-
-```{note}
-The `DraftStateMixin` includes fields used by Wagtail's publishing mechanism that may currently be inapplicable for snippets. For example, the scheduled publishing fields (i.e. `go_live_at`, `expire_at`, and `expired`) are added to snippet models that inherit from the mixin, but the scheduled publishing feature itself is not yet officially supported for snippets.
-
-We are introducing these fields early to make adding new features easier in the future. Until the features become available and officially supported, we recommend explicitly defining the `panels` in your snippets with only your relevant model fields.
 ```
 
 ## Tagging snippets
