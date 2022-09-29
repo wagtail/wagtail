@@ -547,6 +547,7 @@ class UsageView(generic.IndexView):
     paginate_by = 20
     page_kwarg = "p"
     is_searchable = False
+    permission_required = "change"
 
     def setup(self, request, *args, pk, **kwargs):
         super().setup(request, *args, **kwargs)
