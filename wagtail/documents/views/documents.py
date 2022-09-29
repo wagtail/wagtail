@@ -260,9 +260,15 @@ def delete(request, document_id):
     )
 
 
+@permission_checker.require("change")
 def usage(request, document_id):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
+
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", doc
+    ):
+        raise PermissionDenied
 
     paginator = Paginator(doc.get_usage(), per_page=20)
     used_by = paginator.get_page(request.GET.get("p"))
