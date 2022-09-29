@@ -293,6 +293,11 @@ class AbstractForm(Page):
         else:
             return super().serve_preview(request, mode_name)
 
+    def get_preview_context(self, request, mode_name):
+        context = super().get_preview_context(request, mode_name)
+        context["form"] = self.get_form(page=self, user=request.user)
+        return context
+
 
 def validate_to_address(value):
     for address in value.split(","):
