@@ -2,15 +2,20 @@
 
 # Management commands
 
-(publish_scheduled_pages)=
+(publish_scheduled)=
 
-## publish_scheduled_pages
+## publish_scheduled
 
-```console
-$ ./manage.py publish_scheduled_pages
+```{versionchanged} 4.1
+This command has been renamed from `publish_scheduled_pages` to `publish_scheduled` and it now also handles non-page objects.
+The `publish_scheduled_pages` command is still available as an alias, but it is recommended to update your configuration to run the `publish_scheduled` command instead.
 ```
 
-This command publishes, updates or unpublishes pages that have had these actions scheduled by an editor. We recommend running this command once an hour.
+```console
+$ ./manage.py publish_scheduled
+```
+
+This command publishes, updates or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
 
 (fixtree)=
 

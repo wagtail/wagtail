@@ -65,10 +65,10 @@ The `log` function was added. Previously, logging was only implemented for pages
 | `wagtail.delete`                  | The object was deleted. Will only surface in the Site History for administrators |
 | `wagtail.publish`                 | The page was published                                                           |
 | `wagtail.publish.schedule`        | Draft is scheduled for publishing                                                |
-| `wagtail.publish.scheduled`       | Draft published via `publish_scheduled_pages` management command                 |
+| `wagtail.publish.scheduled`       | Draft published via `publish_scheduled` management command                       |
 | `wagtail.schedule.cancel`         | Draft scheduled for publishing cancelled via "Cancel scheduled publish"          |
 | `wagtail.unpublish`               | The page was unpublished                                                         |
-| `wagtail.unpublish.scheduled`     | Page unpublished via `publish_scheduled_pages` management command                |
+| `wagtail.unpublish.scheduled`     | Page unpublished via `publish_scheduled` management command                      |
 | `wagtail.lock`                    | Page was locked                                                                  |
 | `wagtail.unlock`                  | Page was unlocked                                                                |
 | `wagtail.moderation.approve`      | The revision was approved for moderation                                         |
