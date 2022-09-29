@@ -750,7 +750,9 @@ class FieldPanel(Panel):
 class RichTextFieldPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
         warn(
-            "wagtail.admin.edit_handlers.RichTextFieldPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
+            "RichTextFieldPanel is no longer required for rich text fields, and should be replaced by FieldPanel. "
+            "RichTextFieldPanel will be removed in a future release. "
+            "See https://docs.wagtail.org/en/stable/releases/3.0.html#removal-of-special-purpose-field-panel-types",
             category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
@@ -1128,7 +1130,9 @@ def reset_page_edit_handler_cache(**kwargs):
 class StreamFieldPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
         warn(
-            "wagtail.admin.edit_handlers.StreamFieldPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
+            "StreamFieldPanel is no longer required when using StreamField, and should be replaced by FieldPanel. "
+            "StreamFieldPanel will be removed in a future release. "
+            "See https://docs.wagtail.org/en/stable/releases/3.0.html#removal-of-special-purpose-field-panel-types",
             category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
