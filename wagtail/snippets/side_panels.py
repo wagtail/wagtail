@@ -10,19 +10,6 @@ from wagtail.models import PreviewableMixin
 
 
 class SnippetStatusSidePanel(BaseStatusSidePanel):
-    def get_status_templates(self, context):
-        templates = []
-
-        if self.object.pk:
-            templates += [
-                "wagtailadmin/shared/side_panels/includes/status/workflow.html",
-            ]
-
-        if context.get("locale"):
-            templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
-
-        return templates
-
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         inherit = [
@@ -31,7 +18,6 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
             "revision_enabled",
             "draftstate_enabled",
             "live_last_updated_info",
-            "draft_last_updated_info",
             "locale",
             "translations",
         ]
