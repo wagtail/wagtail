@@ -1163,7 +1163,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             content_type=ContentType.objects.get_for_model(Advert),
             label="Test Advert",
             action="wagtail.create",
-            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            timestamp=now() - datetime.timedelta(weeks=3),
+            user=self.user,
             object_id="1",
         )
 
@@ -1181,14 +1182,26 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
     def test_simple(self):
         response = self.get()
+        html = response.content.decode()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
         self.assertNotContains(response, 'role="tablist"')
 
-        # History link should be present
-        self.assertContains(
-            response,
-            'href="/admin/snippets/tests/advert/history/%d/"' % self.test_snippet.pk,
+        # Without DraftStateMixin, there should be no "No publishing schedule set" info
+        self.assertNotContains(response, "No publishing schedule set")
+
+        history_url = reverse(
+            "wagtailsnippets_tests_advert:history", args=[quote(self.test_snippet.pk)]
+        )
+        # History link should be present, one in the header and one in the status side panel
+        self.assertContains(response, history_url, count=2)
+
+        # Live status and last updated info should be shown, with a link to the history page
+        self.assertContains(response, "3\xa0weeks ago")
+        self.assertTagInHTML(
+            f'<a href="{history_url}" aria-describedby="status-sidebar-live">View history</a>',
+            html,
+            allow_extra_attrs=True,
         )
 
         url_finder = AdminURLFinder(self.user)
@@ -1500,6 +1513,9 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             response,
             '<button type="submit" name="action-publish" value="action-publish" class="button action-save button-longrunning" data-clicked-text="Publishing…">',
         )
+
+        # The status side panel should show "No publishing schedule set" info
+        self.assertContains(response, "No publishing schedule set")
 
         # Should not show the Unpublish action menu item
         unpublish_url = reverse(
