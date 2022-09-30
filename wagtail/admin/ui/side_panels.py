@@ -58,9 +58,11 @@ class BaseStatusSidePanel(BaseSidePanel):
 
     def get_scheduled_publishing_context(self):
         if not isinstance(self.object, DraftStateMixin):
-            return {}
+            return {"draftstate_enabled": False}
 
         context = {
+            # Used for hiding the info completely if the model doesn't extend DraftStateMixin
+            "draftstate_enabled": True,
             # The dialog toggle can be hidden (e.g. if PublishingPanel is not present)
             # but the scheduled publishing info should still be shown
             "show_schedule_publishing_toggle": self.show_schedule_publishing_toggle,

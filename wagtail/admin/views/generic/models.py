@@ -671,16 +671,6 @@ class EditView(
             "user_display_name": user_display_name(revision.user),
         }
 
-    def get_draft_last_updated_info(self):
-        if not (self.draftstate_enabled and self.object.has_unpublished_changes):
-            return None
-
-        revision = self.object.latest_revision
-        return {
-            "timestamp": revision.created_at,
-            "user_display_name": user_display_name(revision.user),
-        }
-
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
@@ -722,7 +712,6 @@ class EditView(
         context["draftstate_enabled"] = self.draftstate_enabled
 
         context["live_last_updated_info"] = self.get_live_last_updated_info()
-        context["draft_last_updated_info"] = self.get_draft_last_updated_info()
         return context
 
 

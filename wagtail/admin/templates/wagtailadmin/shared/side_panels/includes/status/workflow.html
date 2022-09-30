@@ -18,10 +18,12 @@
             {% with workflow_state=object.current_workflow_state draft_revision=object.get_latest_revision live_revision=object.live_revision %}
 
                 {# Live section #}
-                {% if object.live %}
+                {% if not draftstate_enabled or object.live %}
                     {% trans 'Live' as title %}
                     {% if live_revision %}
                         {% timesince_last_update live_revision.created_at user_display_name=live_revision.user|user_display_name use_shorthand=True as help_text %}
+                    {% elif live_last_updated_info %}
+                        {% timesince_last_update live_last_updated_info.timestamp user_display_name=live_last_updated_info.user_display_name use_shorthand=True as help_text %}
                     {% endif %}
 
                     {% with icon_name='doc-full-inverse' %}
@@ -162,7 +164,7 @@
                     {% endif %}
                 </div>
             </div>
-        {% elif not has_live_publishing_schedule %}
+        {% elif draftstate_enabled and not has_live_publishing_schedule %}
             <div class="w-flex w-justify-between w-items-center w-w-full">
                 <div class="w-ml-8 w-pr-4 w-label-3">{% trans 'No publishing schedule set' %}</div>
                 {% if show_schedule_publishing_toggle and not page_perms.page_locked %}
