@@ -955,6 +955,16 @@ def register_aging_pages_report_menu_item():
     )
 
 
+@hooks.register("register_reports_menu_item")
+def register_block_usage_report_menu_item():
+    return MenuItem(
+        _("Block usage"),
+        reverse("wagtailadmin_reports:block_usage"),
+        icon_name="form",
+        order=1200,
+    )
+
+
 @hooks.register("register_admin_menu_item")
 def register_reports_menu():
     return SubmenuMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)

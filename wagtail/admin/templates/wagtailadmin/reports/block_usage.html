@@ -1,0 +1,37 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block results %}
+    {% if blocks %}
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th class="title">
+                        {% trans 'Name' %}
+                    </th>
+                    <th class="status">
+                        {% trans 'Usage' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for label, usage in blocks %}
+                    <tr>
+                        <td class="title" valign="top">
+                            {{ label }}
+                        </td>
+                        <td class="status" valign="top">
+                            {{ usage }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No blocks found." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block no_results %}
+    <p>{% trans "No blocks found." %}</p>
+{% endblock %}
