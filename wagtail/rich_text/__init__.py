@@ -23,6 +23,7 @@ features = FeatureRegistry()
 def get_rewriter():
     embed_rules = features.get_embed_types()
     link_rules = features.get_link_types()
+    extra_rewriters = features.get_frontend_rewriters()
     return MultiRuleRewriter(
         [
             LinkRewriter(
@@ -46,6 +47,7 @@ def get_rewriter():
                 },
             ),
         ]
+        + extra_rewriters
     )
 
 

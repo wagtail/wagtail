@@ -153,6 +153,18 @@ class TestFeatureRegistry(TestCase):
         self.assertIsNone(features.get_editor_plugin("made_up_editor", "blockquote"))
         self.assertIsNone(features.get_editor_plugin("draftail", "made_up_feature"))
 
+    def test_rewriters_registry(self):
+        # testapp/wagtail_hooks.py defines a 'green' rich text feature and rewriter - test
+        # that it comes back in the list, and is in the correct order
+        features = FeatureRegistry()
+
+        rewriters = features.get_frontend_rewriters()
+        # Expect only the Green rewriter -- Link and Embed are added later
+        self.assertEqual(len(rewriters), 1)
+
+        green_rewriter = rewriters[-1]
+        self.assertEqual(green_rewriter.__class__.__name__, "GreenRewriter")
+
 
 class TestLinkRewriterTagReplacing(TestCase):
     def test_should_follow_default_behaviour(self):
@@ -317,3 +329,10 @@ class TestRichTextMaxLengthValidator(TestCase):
         self.assertEqual(validator.clean("<p>U+2764 U+FE0F ❤️</p>"), 16)
         # Counts symbols with zero-width joiners.
         self.assertEqual(validator.clean("<p>👨‍👨‍👧</p>"), 5)
+
+
+class TestCustomRichTextRewriter(TestCase):
+    def test_custom_tag_replacement(self):
+        expanded = expand_db_html("<green>traffic light</green>")
+        self.assertNotIn("<green>", expanded)
+        self.assertEqual(expanded, '<span style="color: green">traffic light</span>')
