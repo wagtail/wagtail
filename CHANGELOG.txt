@@ -44,6 +44,7 @@ Changelog
  * Add anchor links to StreamField blocks so users can navigate straight to a given block (Thibaud Colas)
  * Support "Ctrl + f" in-page search within collapsed StreamField blocks (Thibaud Colas)
  * Remember the last opened side panel in the page editor, activating it on page load (Sage Abdullah)
+ * Ensure that the `update_index` command can run without console output if called with `--verbosity 0` (Ben Sturmfels, Oliver Parker)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
