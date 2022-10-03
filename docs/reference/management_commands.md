@@ -97,6 +97,16 @@ You can prevent the `update_index` command from indexing any data by using the `
 python manage.py update_index --schema-only
 ```
 
+### Silencing the command
+
+You can prevent logs to the console by providing `--verbosity 0` as an argument:
+
+```console
+$ python manage.py update_index --verbosity 0
+```
+
+If this is omitted or provided with any number above 0 it will produce the same logs.
+
 (wagtail_update_index)=
 
 ## wagtail_update_index
