@@ -54,25 +54,30 @@ def group_models_by_index(backend, models):
 
 
 class Command(BaseCommand):
+    def write(self, *args, **kwargs):
+        """Helper function that respects verbosity when printing."""
+        if self.verbosity > 0:
+            self.stdout.write(*args, **kwargs)
+
     def update_backend(
         self, backend_name, schema_only=False, chunk_size=DEFAULT_CHUNK_SIZE
     ):
-        self.stdout.write("Updating backend: " + backend_name)
+        self.write("Updating backend: " + backend_name)
 
         backend = get_search_backend(backend_name)
 
         if not backend.rebuilder_class:
-            self.stdout.write("Backend '%s' doesn't require rebuilding" % backend_name)
+            self.write("Backend '%s' doesn't require rebuilding" % backend_name)
             return
 
         models_grouped_by_index = group_models_by_index(
             backend, get_indexed_models()
         ).items()
         if not models_grouped_by_index:
-            self.stdout.write(backend_name + ": No indices to rebuild")
+            self.write(backend_name + ": No indices to rebuild")
 
         for index, models in models_grouped_by_index:
-            self.stdout.write(backend_name + ": Rebuilding index %s" % index.name)
+            self.write(backend_name + ": Rebuilding index %s" % index.name)
 
             # Start rebuild
             rebuilder = backend.rebuilder_class(index)
@@ -86,7 +91,7 @@ class Command(BaseCommand):
             object_count = 0
             if not schema_only:
                 for model in models:
-                    self.stdout.write(
+                    self.write(
                         "{}: {}.{} ".format(
                             backend_name, model._meta.app_label, model.__name__
                         ).ljust(35),
@@ -107,7 +112,7 @@ class Command(BaseCommand):
             # Finish rebuild
             rebuilder.finish()
 
-            self.stdout.write(backend_name + ": indexed %d objects" % object_count)
+            self.write(backend_name + ": indexed %d objects" % object_count)
             self.print_newline()
 
     def add_arguments(self, parser):
@@ -135,6 +140,8 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
+        self.verbosity = options["verbosity"]
+
         # Get list of backends to index
         if options["backend_name"]:
             # index only the passed backend
@@ -155,7 +162,7 @@ class Command(BaseCommand):
             )
 
     def print_newline(self):
-        self.stdout.write("")
+        self.write("")
 
     def print_iter_progress(self, iterable):
         """
@@ -170,13 +177,13 @@ class Command(BaseCommand):
         """
         for i, value in enumerate(iterable, start=1):
             yield value
-            self.stdout.write(".", ending="")
+            self.write(".", ending="")
             if i % 40 == 0:
                 self.print_newline()
-                self.stdout.write(" " * 35, ending="")
+                self.write(" " * 35, ending="")
 
             elif i % 10 == 0:
-                self.stdout.write(" ", ending="")
+                self.write(" ", ending="")
 
             self.stdout.flush()
 
