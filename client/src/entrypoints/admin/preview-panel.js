@@ -43,6 +43,7 @@ function initPreview() {
     const deviceWidth = event.target.dataset.deviceWidth;
 
     setPreviewWidth(deviceWidth);
+    localStorage.setItem('wagtail-preview-panel-device', device);
 
     // Ensure only one device class is applied
     sizeInputs.forEach((input) => {
@@ -150,6 +151,9 @@ function initPreview() {
   };
 
   const setPreviewData = () => {
+    // Bail out if there is already a pending update
+    if (hasPendingUpdate) return Promise.resolve();
+
     hasPendingUpdate = true;
     spinnerTimeout = setTimeout(
       () => loadingSpinner.classList.remove('w-hidden'),
@@ -274,7 +278,13 @@ function initPreview() {
   clearPreviewData()
     .then(() => setPreviewData())
     .then(() => reloadIframe());
-  setPreviewWidth();
+
+  // Remember last selected device size
+  const lastDevice = localStorage.getItem('wagtail-preview-panel-device');
+  const lastDeviceInput =
+    previewPanel.querySelector(`[data-device-width][value="${lastDevice}"]`) ||
+    defaultSizeInput;
+  lastDeviceInput.click();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
