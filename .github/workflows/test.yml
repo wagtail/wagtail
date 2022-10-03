@@ -59,9 +59,14 @@ jobs:
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
-          ./runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   test-postgres:
     runs-on: ubuntu-latest
@@ -113,7 +118,7 @@ jobs:
           ${{ matrix.install_extras }}
       - name: Test
         run: |
-          ./runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
@@ -121,6 +126,11 @@ jobs:
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   test-mysql:
     runs-on: ubuntu-latest
@@ -162,11 +172,16 @@ jobs:
           pip install "${{ matrix.django }}"
       - name: Test
         run: |
-          ./runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py
         env:
           DATABASE_ENGINE: django.db.backends.mysql
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: root
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
   # but https://github.com/getong/elasticsearch-action does
@@ -206,9 +221,14 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch5
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch5
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   test-sqlite-elasticsearch7:
     runs-on: ubuntu-latest
@@ -247,10 +267,15 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
   # but https://github.com/elastic/elastic-github-actions does
@@ -296,13 +321,18 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch6
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch6
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
 
   test-postgres-elasticsearch7:
     runs-on: ubuntu-latest
@@ -348,10 +378,54 @@ jobs:
           pip install certifi
       - name: Test
         run: |
-          ./runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
+          coverage run --parallel-mode --source wagtail runtests.py wagtail.search wagtail.documents wagtail.images --elasticsearch7
         env:
           DATABASE_ENGINE: django.db.backends.postgresql
           DATABASE_HOST: localhost
           DATABASE_USER: postgres
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data
+          path: .coverage.*
+
+  coverage:
+    needs:
+      - test-sqlite
+      - test-postgres
+      - test-mysql
+      - test-sqlite-elasticsearch5
+      - test-sqlite-elasticsearch7
+      - test-postgres-elasticsearch6
+      - test-postgres-elasticsearch7
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-data
+
+      - name: Combine coverage data
+        run: |
+          coverage combine
+          coverage report -m --skip-covered
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          flags: backend
