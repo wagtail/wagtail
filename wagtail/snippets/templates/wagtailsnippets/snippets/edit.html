@@ -30,15 +30,6 @@
                 </footer>
             </form>
         </div>
-
-        <div class="col2 ">
-            <dl>
-                <dt>{% trans "Usage" %}</dt>
-                <dd>
-                    <a href="{{ object.usage_url }}">{% blocktrans trimmed count usage_count=object.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                </dd>
-            </dl>
-        </div>
     </div>
 {% endblock %}
 
