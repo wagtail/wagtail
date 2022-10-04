@@ -21,3 +21,7 @@ class DocumentLinkHandler(LinkHandler):
             return '<a href="%s">' % escape(doc.url)
         except (ObjectDoesNotExist, KeyError):
             return "<a>"
+
+    @classmethod
+    def extract_references(cls, attrs):
+        yield cls.get_model(), attrs["id"], "", ""

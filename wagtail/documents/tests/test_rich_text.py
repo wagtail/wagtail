@@ -1,12 +1,14 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
+from wagtail.documents import get_document_model
 from wagtail.documents.rich_text import (
     DocumentLinkHandler as FrontendDocumentLinkHandler,
 )
 from wagtail.documents.rich_text.editor_html import (
     DocumentLinkHandler as EditorHtmlDocumentLinkHandler,
 )
+from wagtail.fields import RichTextField
 
 
 class TestEditorHtmlDocumentLinkHandler(TestCase):
@@ -48,3 +50,13 @@ class TestFrontendDocumentLinkHandler(TestCase):
     def test_expand_db_attributes_with_missing_id(self):
         result = FrontendDocumentLinkHandler.expand_db_attributes({})
         self.assertEqual(result, "<a>")
+
+    def test_extract_references(self):
+        self.assertEqual(
+            list(
+                RichTextField().extract_references(
+                    '<a linktype="document" id="1">Link to a document</a>'
+                )
+            ),
+            [(get_document_model(), "1", "", "")],
+        )
