@@ -49,6 +49,33 @@ class TestCreateOrUpdateForObject(TestCase):
         self.root_page = Page.objects.get(id=2)
         self.root_page.add_child(instance=self.event_page)
 
+        self.expected_references = {
+            (
+                self.image_content_type.id,
+                str(self.test_feed_image.pk),
+                "feed_image",
+                "feed_image",
+            ),
+            (
+                self.image_content_type.id,
+                str(self.test_image_1.pk),
+                "carousel_items.item.image",
+                f"carousel_items.{self.event_page.carousel_items.get(sort_order=1).id}.image",
+            ),
+            (
+                self.image_content_type.id,
+                str(self.test_image_2.pk),
+                "carousel_items.item.image",
+                f"carousel_items.{self.event_page.carousel_items.get(sort_order=2).id}.image",
+            ),
+            (
+                self.image_content_type.id,
+                str(self.test_image_1.pk),
+                "carousel_items.item.image",
+                f"carousel_items.{self.event_page.carousel_items.get(sort_order=3).id}.image",
+            ),
+        }
+
     def test(self):
         self.assertSetEqual(
             set(
@@ -56,32 +83,7 @@ class TestCreateOrUpdateForObject(TestCase):
                     "to_content_type", "to_object_id", "model_path", "content_path"
                 )
             ),
-            {
-                (
-                    self.image_content_type.id,
-                    str(self.test_feed_image.pk),
-                    "feed_image",
-                    "feed_image",
-                ),
-                (
-                    self.image_content_type.id,
-                    str(self.test_image_1.pk),
-                    "carousel_items.item.image",
-                    f"carousel_items.{self.event_page.carousel_items.get(sort_order=1).id}.image",
-                ),
-                (
-                    self.image_content_type.id,
-                    str(self.test_image_2.pk),
-                    "carousel_items.item.image",
-                    f"carousel_items.{self.event_page.carousel_items.get(sort_order=2).id}.image",
-                ),
-                (
-                    self.image_content_type.id,
-                    str(self.test_image_1.pk),
-                    "carousel_items.item.image",
-                    f"carousel_items.{self.event_page.carousel_items.get(sort_order=3).id}.image",
-                ),
-            },
+            self.expected_references,
         )
 
     def test_update(self):
@@ -144,4 +146,16 @@ class TestCreateOrUpdateForObject(TestCase):
                     f"carousel_items.{self.event_page.carousel_items.get(sort_order=3).id}.image",
                 ),
             },
+        )
+
+    def test_saving_base_model_does_not_remove_references(self):
+        page = Page.objects.get(pk=self.event_page.pk)
+        page.save()
+        self.assertSetEqual(
+            set(
+                ReferenceIndex.get_references_for_object(self.event_page).values_list(
+                    "to_content_type", "to_object_id", "model_path", "content_path"
+                )
+            ),
+            self.expected_references,
         )

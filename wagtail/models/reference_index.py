@@ -347,15 +347,31 @@ class ReferenceIndex(models.Model):
         # Extract new references
         references = set(cls._extract_references_from_object(object))
 
+        # Find content types for this model and all of its ancestor classes,
+        # ordered from most to least specific
+        content_types = [
+            ContentType.objects.get_for_model(model_or_object, for_concrete_model=False)
+            for model_or_object in ([object] + object._meta.get_parent_list())
+        ]
+        content_type = content_types[0]
+        base_content_type = content_types[-1]
+        known_content_type_ids = [ct.id for ct in content_types]
+
         # Find existing references in the database so we know what to add/delete
-        content_type = ContentType.objects.get_for_model(object)
-        base_content_type = cls._get_base_content_type(object)
         existing_references = {
-            (to_content_type_id, to_object_id, model_path, content_path): id
-            for id, to_content_type_id, to_object_id, model_path, content_path in cls.objects.filter(
+            (to_content_type_id, to_object_id, model_path, content_path): (
+                content_type_id,
+                id,
+            )
+            for id, content_type_id, to_content_type_id, to_object_id, model_path, content_path in cls.objects.filter(
                 base_content_type=base_content_type, object_id=object.pk
             ).values_list(
-                "id", "to_content_type", "to_object_id", "model_path", "content_path"
+                "id",
+                "content_type_id",
+                "to_content_type",
+                "to_object_id",
+                "model_path",
+                "content_path",
             )
         }
 
@@ -377,11 +393,19 @@ class ReferenceIndex(models.Model):
             ]
         )
 
-        # Delete removed references
-        deleted_references = set(existing_references.keys()) - references
-        cls.objects.filter(
-            id__in=[existing_references[reference] for reference in deleted_references]
-        ).delete()
+        # Delete removed references. Ignore any with a content type not in known_content_type_ids -
+        # the presence of these indicate that this object exists as a more specific subclass than
+        # the one we're currently indexing, and this is likely to have additional relations that we
+        # don't know about from inspecting the current object.
+        deleted_reference_ids = [
+            id
+            for (reference_data, (content_type_id, id)) in existing_references.items()
+            if (
+                reference_data not in references
+                and content_type_id in known_content_type_ids
+            )
+        ]
+        cls.objects.filter(id__in=deleted_reference_ids).delete()
 
     @classmethod
     def remove_for_object(cls, object):
