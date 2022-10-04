@@ -697,7 +697,7 @@ def timesince_simple(d):
     # Note: Duplicate code in timesince_last_update()
     time_period = timesince(d).split(",")[0]
     if time_period == avoid_wrapping(_("0 minutes")):
-        return _("Just now")
+        return _("just now")
     return _("%(time_period)s ago") % {"time_period": time_period}
 
 
