@@ -271,15 +271,23 @@ def usage(request, document_id):
         raise PermissionDenied
 
     paginator = Paginator(doc.get_usage(), per_page=20)
-    used_by = paginator.get_page(request.GET.get("p"))
+    object_page = paginator.get_page(request.GET.get("p"))
 
     # Add edit URLs to each source object
     url_finder = AdminURLFinder(request.user)
-    for object, references in used_by:
-        object.edit_url = url_finder.get_edit_url(object)
+    results = []
+    for object, references in object_page:
+        edit_url = url_finder.get_edit_url(object)
+        if edit_url is None:
+            label = _("(Private %s)") % object._meta.verbose_name
+            edit_link_title = None
+        else:
+            label = str(object)
+            edit_link_title = _("Edit this %s") % object._meta.verbose_name
+        results.append((label, edit_url, edit_link_title, references))
 
     return TemplateResponse(
         request,
         "wagtaildocs/documents/usage.html",
-        {"document": doc, "used_by": used_by},
+        {"document": doc, "results": results, "object_page": object_page},
     )

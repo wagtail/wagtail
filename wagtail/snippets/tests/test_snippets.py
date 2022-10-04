@@ -3076,6 +3076,8 @@ class TestUsedBy(TestCase):
 
 
 class TestSnippetUsageView(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
     def setUp(self):
         self.user = self.login()
 
@@ -3097,6 +3099,67 @@ class TestSnippetUsageView(TestCase, WagtailTestUtils):
             response,
             '<span class="w-header__subtitle">Draft-enabled Bar, In Draft</span>',
         )
+
+    def test_usage(self):
+        # resave so that usage count gets updated
+        page = Page.objects.get(pk=2)
+        page.save()
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_advert:usage",
+                args=["1"],
+            )
+        )
+        self.assertContains(response, "Welcome to the Wagtail test site!")
+
+    def test_usage_without_edit_permission_on_snippet(self):
+        # Create a user with basic admin backend access
+        user = self.create_user(
+            username="basicadmin", email="basicadmin@example.com", password="password"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        user.user_permissions.add(admin_permission)
+        self.login(username="basicadmin", password="password")
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_advert:usage",
+                args=["1"],
+            )
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def test_usage_without_edit_permission_on_page(self):
+        # resave so that usage count gets updated
+        page = Page.objects.get(pk=2)
+        page.save()
+
+        # Create a user with edit access to snippets but not pages
+        user = self.create_user(
+            username="basicadmin", email="basicadmin@example.com", password="password"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        advert_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="change_advert"
+        )
+        user.user_permissions.add(admin_permission)
+        user.user_permissions.add(advert_permission)
+        self.login(username="basicadmin", password="password")
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_advert:usage",
+                args=["1"],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Welcome to the Wagtail test site!")
+        self.assertContains(response, "(Private page)")
 
 
 class TestSnippetHistory(TestCase, WagtailTestUtils):

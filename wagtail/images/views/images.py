@@ -407,13 +407,23 @@ def usage(request, image_id):
         raise PermissionDenied
 
     paginator = Paginator(image.get_usage(), per_page=USAGE_PAGE_SIZE)
-    used_by = paginator.get_page(request.GET.get("p"))
+    object_page = paginator.get_page(request.GET.get("p"))
 
     # Add edit URLs to each source object
     url_finder = AdminURLFinder(request.user)
-    for object, references in used_by:
-        object.edit_url = url_finder.get_edit_url(object)
+    results = []
+    for object, references in object_page:
+        edit_url = url_finder.get_edit_url(object)
+        if edit_url is None:
+            label = _("(Private %s)") % object._meta.verbose_name
+            edit_link_title = None
+        else:
+            label = str(object)
+            edit_link_title = _("Edit this %s") % object._meta.verbose_name
+        results.append((label, edit_url, edit_link_title, references))
 
     return TemplateResponse(
-        request, "wagtailimages/images/usage.html", {"image": image, "used_by": used_by}
+        request,
+        "wagtailimages/images/usage.html",
+        {"image": image, "results": results, "object_page": object_page},
     )
