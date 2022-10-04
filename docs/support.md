@@ -10,7 +10,7 @@ If you have any problems or questions about working with Wagtail, you are invite
 
 ## Mailing list
 
-For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is a Wagtail Support mailing list at [groups.google.com/d/forum/wagtail](https://groups.google.com/d/forum/wagtail).
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is a Wagtail Support mailing list at [groups.google.com/d/forum/wagtail](https://groups.google.com/g/wagtail).
 
 (slack)=
 

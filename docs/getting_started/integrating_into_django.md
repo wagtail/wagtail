@@ -8,7 +8,7 @@ Wagtail is currently compatible with Django 3.2, 4.0 and 4.1. First, install the
 $ pip install wagtail
 ```
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
 ## Settings
 

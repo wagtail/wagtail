@@ -2,7 +2,7 @@
 
 ## PEP8
 
-We ask that all Python contributions adhere to the [PEP8](https://www.python.org/dev/peps/pep-0008/) style guide.
+We ask that all Python contributions adhere to the [PEP8](https://peps.python.org/pep-0008/) style guide.
 All files should be formatted using the [black](https://github.com/psf/black) auto-formatter. This will be
 run by `pre-commit` if that is configured.
 
