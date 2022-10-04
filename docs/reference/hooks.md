@@ -835,7 +835,7 @@ from django.http import HttpResponse
 from wagtail import hooks
 
 @hooks.register('after_create_user')
-def do_after_page_create(request, user):
+def do_after_create_user(request, user):
     return HttpResponse("Congrats on creating a new user!", content_type="text/plain")
 ```
 
@@ -860,7 +860,7 @@ from .models import AwesomePage
 from .admin_views import edit_awesome_page
 
 @hooks.register('before_create_user')
-def before_create_page(request):
+def do_before_create_user(request):
     return HttpResponse("A user creation form", content_type="text/plain")
 ```
 
