@@ -583,10 +583,24 @@ class UsageView(generic.IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Add edit URLs to each source object
+        url_finder = AdminURLFinder(self.request.user)
+        results = []
+        for object, references in context.get("page_obj"):
+            edit_url = url_finder.get_edit_url(object)
+            if edit_url is None:
+                label = _("(Private %s)") % object._meta.verbose_name
+                edit_link_title = None
+            else:
+                label = str(object)
+                edit_link_title = _("Edit this %s") % object._meta.verbose_name
+            results.append((label, edit_url, edit_link_title, references))
+
         context.update(
             {
                 "object": self.object,
-                "used_by": context.get("page_obj"),
+                "results": results,
                 "model_opts": self.model._meta,
             }
         )

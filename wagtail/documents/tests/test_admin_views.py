@@ -1802,6 +1802,13 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
 
     def test_usage_page_with_only_change_permission(self):
+        doc = models.Document.objects.get(id=1)
+        page = EventPage.objects.get(id=4)
+        event_page_related_link = EventPageRelatedLink()
+        event_page_related_link.page = page
+        event_page_related_link.link_document = doc
+        event_page_related_link.save()
+
         # Create a user with change_document permission but not add_document
         user = self.create_user(
             username="changeonly", email="changeonly@example.com", password="password"
@@ -1826,6 +1833,9 @@ class TestGetUsage(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=[1]))
 
         self.assertEqual(response.status_code, 200)
+        # User has no permission over the page linked to, so should not see its details
+        self.assertNotContains(response, "Christmas")
+        self.assertContains(response, "(Private page)")
 
     def test_usage_page_without_change_permission(self):
         # Create a user with add_document permission but not change_document

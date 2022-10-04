@@ -1169,6 +1169,19 @@ class TestUsage(TestCase, WagtailTestUtils):
         self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
 
     def test_usage_page_with_only_change_permission(self):
+        home_page = Page.objects.get(id=2)
+        home_page.add_child(
+            instance=EventPage(
+                title="Christmas",
+                slug="christmas",
+                feed_image=self.image,
+                date_from=datetime.date.today(),
+                audience="private",
+                location="Test",
+                cost="Test",
+            )
+        ).save_revision().publish()
+
         # Create a user with change_image permission but not add_image
         user = self.create_user(
             username="changeonly", email="changeonly@example.com", password="password"
@@ -1195,6 +1208,9 @@ class TestUsage(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
+        # User has no permission over the page linked to, so should not see its details
+        self.assertNotContains(response, "Christmas")
+        self.assertContains(response, "(Private page)")
 
     def test_usage_page_without_change_permission(self):
         # Create a user with add_image permission but not change_image

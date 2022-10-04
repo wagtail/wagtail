@@ -14,22 +14,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% for object, references in used_by %}
+                {% for label, edit_url, edit_link_title, references in results %}
                     <tr>
                         <td class="title" valign="top">
                             <div class="title-wrapper">
-                                {% if object.edit_url %}<a href="{{ object.edit_url }}" title="{% trans 'Edit this page' %}">{% endif %}
-                                {{ object }}
-                                {% if object.edit_url %}</a>{% endif %}
+                                {% if edit_url %}<a href="{{ edit_url }}" title="{{ edit_link_title }}">{% endif %}
+                                {{ label }}
+                                {% if edit_url %}</a>{% endif %}
                             </div>
                         </td>
                         <td>
                             <ul>
                                 {% for reference in references %}
                                     <li>
-                                        {% if object.edit_url %}<a href="{{ object.edit_url }}#content-path-{{ reference.content_path }}">{% endif %}
+                                        {% if edit_url %}<a href="{{ edit_url }}#content-path-{{ reference.content_path }}">{% endif %}
                                         {{ reference.describe_source_field }}
-                                        {% if object.edit_url %}</a>{% endif %}
+                                        {% if edit_url %}</a>{% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -39,5 +39,5 @@
             </tbody>
         </table>
     </div>
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=used_by %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=object_page %}
 {% endblock %}
