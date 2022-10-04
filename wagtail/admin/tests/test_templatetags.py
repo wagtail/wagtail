@@ -124,7 +124,7 @@ class TestTimesinceTags(TestCase):
     def test_timesince_simple(self):
         now = timezone.now()
         ts = timesince_simple(now)
-        self.assertEqual(ts, "Just now")
+        self.assertEqual(ts, "just now")
 
         ts = timesince_simple(now - timedelta(hours=1, minutes=10))
         self.assertEqual(ts, "1\xa0hour ago")
@@ -192,6 +192,21 @@ class TestTimesinceTags(TestCase):
             timesince_last_update(dt, user_display_name="Gary", show_time_prefix=True),
             timesince,
         )
+
+    def test_human_readable_date(self):
+        now = timezone.now()
+        template = """
+            {% load wagtailadmin_tags %}
+            {% human_readable_date date %}
+        """
+
+        html = Template(template).render(Context({"date": now}))
+        self.assertIn("Just now", html)
+
+        html = Template(template).render(
+            Context({"date": now - timedelta(hours=1, minutes=10)})
+        )
+        self.assertIn("1\xa0hour ago", html)
 
 
 class TestComponentTag(TestCase):
