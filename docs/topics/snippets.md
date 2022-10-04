@@ -395,7 +395,6 @@ class Advert(ClusterableModel):
 
 The [documentation on tagging pages](tagging) has more information on how to use tags in views.
 
-
 (wagtailsnippets_custom_admin_views)=
 
 ## Customising snippets admin views
@@ -439,7 +438,7 @@ class MemberFilterSet(WagtailFilterSet):
         fields = ["shirt_size"]
 ```
 
-You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute to specify the columns shown on the listing view. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.  For example:
+You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute to specify the columns shown on the listing view. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`. For example:
 
 ```python
 # views.py

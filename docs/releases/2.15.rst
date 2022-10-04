@@ -67,7 +67,7 @@ Individual fixes were implemented by a large number of first-time and seasoned c
  * Update tab styles so the active tab can be identified (Dmitrii Faiazov, LB (Ben Johnston))
  * Make hamburger menu a button for tab and high contrast accessibility (Amy Chan, Dan Braghis)
  * Tag fields now have the correct background (Desai Akshata, LB (Ben Johnston))
- * Added sidebar vertical seperation with main content (Onkar Apte, LB (Ben Johnston))
+ * Added sidebar vertical separation with main content (Onkar Apte, LB (Ben Johnston))
  * Added vertical separation between field panels (Chakita Muttaraju, LB (Ben Johnston))
  * Switch widgets on/off states are now visually distinguishable (Sakshi Uppoor, Thibaud Colas)
  * Checkbox widgets on/off states are now visually distinguishable (Thibaud Colas, Jacob Topp-Mugglestone, LB (Ben Johnston))
