@@ -19,6 +19,7 @@
   }
 
   &__wrapper {
+    position: relative;
     width: calc(var(--preview-iframe-width) * var(--preview-width-ratio));
     height: 100%;
     margin-inline-start: auto;
