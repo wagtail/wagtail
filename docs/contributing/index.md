@@ -14,7 +14,7 @@ issue_tracking
 
 ## Pull requests
 
-If you're a Python or Django developer, [fork it](https://github.com/wagtail/wagtail/) and read the [developing docs](developing_for_wagtail) to get stuck in! We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the [issue list](https://github.com/wagtail/wagtail/issues?state=open), or email us directly on [hello@wagtail.org](mailto:hello@wagtail.org) if you'd like us to suggest something!
+If you're a Python or Django developer, [fork it](https://github.com/wagtail/wagtail/) and read the [developing docs](developing_for_wagtail) to get stuck in! We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the [issue list](https://github.com/wagtail/wagtail/issues?q=is%3Aopen), or email us directly on [hello@wagtail.org](mailto:hello@wagtail.org) if you'd like us to suggest something!
 
 For large-scale changes, we'd generally recommend breaking them down into smaller pull requests that achieve a single well-defined task and can be reviewed individually. If this isn't possible, we recommend opening a pull request on the [Wagtail RFCs](https://github.com/wagtail/rfcs/) repository, so that there's a chance for the community to discuss the change before it gets implemented.
 
@@ -29,7 +29,7 @@ committing
 
 Wagtail has internationalisation support so if you are fluent in a non-English language you can contribute by localising the interface.
 
-Translation work should be submitted through [Transifex](https://www.transifex.com/torchbox/wagtail/).
+Translation work should be submitted through [Transifex](https://explore.transifex.com/torchbox/wagtail/).
 
 ## Other contributions
 

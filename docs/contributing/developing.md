@@ -17,7 +17,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 The preferred way to install the correct version of Node is to use [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) or [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `nvm install` or `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
-You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
 Clone a copy of [the Wagtail codebase](https://github.com/wagtail/wagtail):
 

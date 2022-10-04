@@ -113,10 +113,10 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
 ### Third-Party Apps
 
 **`taggit`**  
- Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See [](tagging) for a Wagtail model recipe or the [Taggit Documentation](https://django-taggit.readthedocs.org/en/latest/index.html).
+ Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See [](tagging) for a Wagtail model recipe or the [Taggit Documentation](https://django-taggit.readthedocs.io/en/stable/).
 
 **`modelcluster`**  
- Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see [](inline_panels) or [the django-modelcluster github project page](https://github.com/torchbox/django-modelcluster).
+ Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see [](inline_panels) or [the django-modelcluster github project page](https://github.com/wagtail/django-modelcluster).
 
 ## URL Patterns
 

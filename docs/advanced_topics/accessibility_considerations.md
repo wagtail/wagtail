@@ -116,9 +116,9 @@ The [Form builder](form_builder) uses Django’s forms API. Here are considerati
 -   Take the time to group related fields together in `fieldset`, with an appropriate `legend`, in particular for radios and checkboxes (see Django ticket [#32338](https://code.djangoproject.com/ticket/32338)).
 -   If relevant, use the appropriate `autocomplete` and `autocapitalize` attributes.
 -   For Date and Datetime fields, make sure to display the expected format or an example value (see Django ticket [#32340](https://code.djangoproject.com/ticket/32340)). Or use [input type="date"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date).
--   For Number fields, consider whether `input type="number"` really is appropriate, or whether there may be [better alternatives such as inputmode](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers).
+-   For Number fields, consider whether `input type="number"` really is appropriate, or whether there may be [better alternatives such as inputmode](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/).
 
-Make sure to test your forms’ implementation with assistive technologies, and review [official W3C guidance on accessible forms development](https://www.w3.org/WAI/tutorials/forms) for further information.
+Make sure to test your forms’ implementation with assistive technologies, and review [official W3C guidance on accessible forms development](https://www.w3.org/WAI/tutorials/forms/) for further information.
 
 (authoring_accessible_content)=
 

@@ -22,7 +22,7 @@ If this does not return a version number or returns a version lower than 3.7, yo
 ```{note}
 Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
 The way to do this varies by platform—see Pillow's
-[platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
+[platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
 
 ### Create and activate a virtual environment
