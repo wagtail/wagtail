@@ -1,0 +1,17 @@
+{% load i18n %}
+<div class="w-py-6 w-space-y-3">
+    <section class="w-flex w-space-x-3">
+        <div class="w-flex w-flex-1">
+            <div class="w-flex w-flex-col w-flex-1 w-pr-5">
+                <h3 class="w-label-1 !w-mt-0 w-mb-1">
+                    {% trans "Usage" %}
+                </h3>
+            </div>
+            <a class="w-text-14 w-text-secondary hover:w-text-secondary-600 w-no-underline w-transition"
+                href="{{ object.usage_url }}"
+            >
+                {% blocktrans trimmed count usage_count=object.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
+            </a>
+        </div>
+    </section>
+</div>
