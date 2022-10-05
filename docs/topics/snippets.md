@@ -458,7 +458,7 @@ Then, pass the viewset to the `register_snippet` call.
 
 ```python
 # wagtail_hooks.py
-from wagtail.snippets.model import register_snippet
+from wagtail.snippets.models import register_snippet
 
 from myapp.models import Member
 from myapp.views import MemberViewSet
