@@ -628,6 +628,7 @@ Contributors
 * Shohan Dutta Roy
 * Alex (sashashura)
 * Adinapunyo Banerjee
+* Dan Hayden
 
 
 Translators
