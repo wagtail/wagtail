@@ -195,6 +195,16 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
             response = self.get({"p": page})
             self.assertEqual(response.status_code, 200)
 
+    def test_valid_ordering(self):
+        # checking that only valid ordering used, in case of `IndexView` the valid
+        # ordering fields are "name" and "username".
+        response = self.get({"ordering": "email"})
+        self.assertNotEqual(response.context_data["ordering"], "email")
+        # name is default ordering in `IndexView`.
+        self.assertEqual(response.context_data["ordering"], "name")
+        response = self.get({"ordering": "username"})
+        self.assertEqual(response.context_data["ordering"], "username")
+
 
 class TestUserCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
