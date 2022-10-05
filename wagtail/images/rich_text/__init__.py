@@ -30,4 +30,5 @@ class ImageEmbedHandler(EmbedHandler):
 
     @classmethod
     def extract_references(cls, attrs):
+        # Yields tuples of (content_type_id, object_id, model_path, content_path)
         yield cls.get_model(), attrs["id"], "", ""
