@@ -105,6 +105,14 @@ An alias for the `update_index` command that can be used when another installed 
 
 (search_garbage_collect)=
 
+## rebuild_references_index
+
+```console
+$ ./manage.py rebuild_references_index
+```
+
+This command populates the table that tracks cross-references between objects, used for the usage reports on images, documents and snippets. This table is updated automatically saving objects, but it is recommended to run this command periodically to ensure that the data remains consistent.
+
 ## search_garbage_collect
 
 ```console

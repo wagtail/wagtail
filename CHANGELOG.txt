@@ -7,6 +7,7 @@ Changelog
  * New scheduled publishing UI, available from the Status side panel (Sage Abdullah)
  * Allow snippet admin views to be customised via `SnippetViewSet` (Sage Abdullah)
  * Implement scheduled publishing for snippets inheriting from `DraftStateMixin` (Sage Abdullah)
+ * Add reference index and usage reports for images, documents and snippets (Karl Hobley, Matt Westcott)
  * Add basic keyboard control and screen reader support for page listing re-ordering (Paarth Agarwal, Thomas van der Hoeven)
  * Add `PageQuerySet.private` method as an alias of `not_public` (Mehrdad Moradizadeh)
  * Most images in the admin will now only load once they are visible on screen (Jake Howard)
