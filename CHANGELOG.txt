@@ -49,6 +49,8 @@ Changelog
  * Fix: Remove `capitalize()` calls to avoid issues with other languages or incorrectly presented model names for reporting and parts of site settings (Stefan Hammer)
  * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
  * Fix: Ensure `for_user` argument is passed to the form class when previewing pages (Matt Westcott)
+ * Fix: Ensure the capitalisation of the `timesince_simple` tag is consistently added in the template based on usage in context (Stefan Hammer)
+ * Fix: Add missing translation usage for the `timesince_last_update` and ensure the translated labels can be easier to work with in Transifex (Stefan Hammer)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
