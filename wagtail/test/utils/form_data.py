@@ -5,6 +5,8 @@ page types, it can be difficult to construct this data structure by hand;
 the ``wagtail.test.utils.form_data`` module provides a set of helper
 functions to assist with this.
 """
+import bs4
+from django.http import QueryDict
 
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 
@@ -137,3 +139,62 @@ def rich_text(value, editor="default", features=None):
     """
     widget = get_rich_text_editor_widget(editor, features)
     return widget.format_value(value)
+
+
+def _querydict_from_form(form: bs4.Tag, exclude_csrf: bool = True) -> QueryDict:
+    data = QueryDict(mutable=True)
+    for input in form.find_all("input"):
+        name = input.attrs.get("name")
+        if (
+            name
+            and input.attrs.get("type", "") not in ("checkbox", "radio")
+            and (not exclude_csrf or name != "csrfmiddlewaretoken")
+        ):
+            data[name] = input.attrs.get("value", "")
+
+    for input in form.find_all("input", type="radio", checked=True):
+        name = input.attrs.get("name")
+        if name:
+            data[name] = input.attrs.get("value")
+
+    for input in form.find_all("input", type="checkbox", checked=True):
+        name = input.attrs.get("name")
+        if name:
+            data.appendlist(name, input.attrs.get("value", ""))
+
+    for textarea in form.find_all("textarea"):
+        name = textarea.attrs.get("name")
+        if name:
+            data[name] = textarea.get_text()
+
+    for select in form.find_all("select"):
+        name = select.attrs.get("name")
+        if name:
+            selected_value = False
+            for option in select.find_all("option", selected=True):
+                selected_value = True
+                data.appendlist(name, option.attrs.get("value", option.get_text()))
+            if not selected_value:
+                first_option = select.find("option")
+                if first_option:
+                    data[name] = first_option.attrs.get(
+                        "value", first_option.get_text()
+                    )
+    return data
+
+
+def querydict_from_html(
+    html: str, form_id: str = None, form_index: int = 0, exclude_csrf: bool = True
+) -> QueryDict:
+    soup = bs4.BeautifulSoup(html, "html5lib")
+    if form_id is not None:
+        form = soup.find("form", attrs={"id": form_id})
+        if form is None:
+            raise ValueError(f'No form was found with id "{form_id}".')
+        return _querydict_from_form(form, exclude_csrf)
+    else:
+        index = int(form_index)
+        for i, form in enumerate(soup.find_all("form", limit=index + 1)):
+            if i == index:
+                return _querydict_from_form(form, exclude_csrf)
+    raise ValueError(f"No form was found with index: {form_index}.")
