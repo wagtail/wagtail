@@ -135,6 +135,11 @@ class EntityHandler:
 
     @classmethod
     def extract_references(cls, attrs):
+        """
+        Yields a sequence of (content_type_id, object_id, model_path, content_path) tuples for the
+        database objects referenced by this entity, as per
+        wagtail.models.ReferenceIndex._extract_references_from_object
+        """
         return []
 
 

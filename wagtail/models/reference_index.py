@@ -344,7 +344,11 @@ class ReferenceIndex(models.Model):
         Args:
             object (Model): The model instance to create/update ReferenceIndex records for
         """
-        # Extract new references
+        # For the purpose of this method, a "reference record" is a tuple of
+        # (to_content_type_id, to_object_id, model_path, content_path) - the properties that
+        # uniquely define a reference
+
+        # Extract new references and construct a set of reference records
         references = set(cls._extract_references_from_object(object))
 
         # Find content types for this model and all of its ancestor classes,
@@ -357,7 +361,9 @@ class ReferenceIndex(models.Model):
         base_content_type = content_types[-1]
         known_content_type_ids = [ct.id for ct in content_types]
 
-        # Find existing references in the database so we know what to add/delete
+        # Find existing references in the database so we know what to add/delete.
+        # Construct a dict mapping reference records to the (content_type_id, id) pair that the
+        # existing database entry is found under
         existing_references = {
             (to_content_type_id, to_object_id, model_path, content_path): (
                 content_type_id,
@@ -375,8 +381,10 @@ class ReferenceIndex(models.Model):
             )
         }
 
-        # Add new references
+        # Construct the set of reference records that have been found on the object but are not
+        # already present in the database
         new_references = references - set(existing_references.keys())
+        # Create database records for thos reference records
         cls.objects.bulk_create(
             [
                 cls(
@@ -393,18 +401,28 @@ class ReferenceIndex(models.Model):
             ]
         )
 
-        # Delete removed references. Ignore any with a content type not in known_content_type_ids -
-        # the presence of these indicate that this object exists as a more specific subclass than
-        # the one we're currently indexing, and this is likely to have additional relations that we
-        # don't know about from inspecting the current object.
-        deleted_reference_ids = [
-            id
-            for (reference_data, (content_type_id, id)) in existing_references.items()
-            if (
-                reference_data not in references
-                and content_type_id in known_content_type_ids
-            )
-        ]
+        # Delete removed references
+        deleted_reference_ids = []
+        # Look at the reference record and the supporting content_type / id for each existing
+        # reference in the database
+        for (reference_data, (content_type_id, id)) in existing_references.items():
+            if reference_data in references:
+                # Do not delete this reference, as it is still present in the new set
+                continue
+
+            if content_type_id not in known_content_type_ids:
+                # The content type for the existing record does not match the current model or any
+                # superclass. We can infer that the existing record is for a more specific subclass
+                # than the one we're currently indexing - e.g. we are indexing <Page id=123> while
+                # the existing reference was recorded against <BlogPage id=123>. In this case, do
+                # not treat the missing reference as a deletion - it likely still exists, but on a
+                # relation which can only be seen on the more specific model.
+                continue
+
+            # If we reach here, this is a legitimate deletion - add it to the list of IDs to delete
+            deleted_reference_ids.append(id)
+
+        # Perform the deletion
         cls.objects.filter(id__in=deleted_reference_ids).delete()
 
     @classmethod

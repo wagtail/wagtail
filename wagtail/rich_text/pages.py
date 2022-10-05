@@ -25,4 +25,5 @@ class PageLinkHandler(LinkHandler):
 
     @classmethod
     def extract_references(self, attrs):
+        # Yields tuples of (content_type_id, object_id, model_path, content_path)
         yield Page, attrs["id"], "", ""
