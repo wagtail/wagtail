@@ -63,4 +63,4 @@ class RoutablePageTest(RoutablePage):
 class RoutablePageWithOverriddenIndexRouteTest(RoutablePage):
     @route(r"^$")
     def main(self, request):
-        return HttpResponse("OVERRIDDEN INDEX ROUTE")
+        return HttpResponse("OVERRIDDEN INDEX ROUTE title=" + self.title)
