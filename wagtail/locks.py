@@ -38,8 +38,7 @@ class BasicLock(BaseLock):
     def for_user(self, user):
         if getattr(settings, "WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK", False):
             return True
-        else:
-            return user.pk != self.page.locked_by_id
+        return user.pk != self.page.locked_by_id
 
     def get_message(self, user):
         if self.page.locked_by_id == user.pk:
@@ -49,26 +48,22 @@ class BasicLock(BaseLock):
                     self.page.get_admin_display_title(),
                     self.page.locked_at.strftime("%d %b %Y %H:%M"),
                 )
-
-            else:
-                return format_html(
-                    _("<b>Page '{}' is locked</b> by <b>you</b>."),
-                    self.page.get_admin_display_title(),
-                )
-        else:
-            if self.page.locked_by and self.page.locked_at:
-                return format_html(
-                    _("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."),
-                    self.page.get_admin_display_title(),
-                    str(self.page.locked_by),
-                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
-                )
-            else:
-                # Page was probably locked with an old version of Wagtail, or a script
-                return format_html(
-                    _("<b>Page '{}' is locked</b>."),
-                    self.page.get_admin_display_title(),
-                )
+            return format_html(
+                _("<b>Page '{}' is locked</b> by <b>you</b>."),
+                self.page.get_admin_display_title(),
+            )
+        if self.page.locked_by and self.page.locked_at:
+            return format_html(
+                _("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."),
+                self.page.get_admin_display_title(),
+                str(self.page.locked_by),
+                self.page.locked_at.strftime("%d %b %Y %H:%M"),
+            )
+        # Page was probably locked with an old version of Wagtail, or a script
+        return format_html(
+            _("<b>Page '{}' is locked</b>."),
+            self.page.get_admin_display_title(),
+        )
 
 
 class WorkflowLock(BaseLock):

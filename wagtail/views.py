@@ -35,9 +35,8 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     """
     restriction = get_object_or_404(PageViewRestriction, id=page_view_restriction_id)
     page = get_object_or_404(Page, id=page_id).specific
-
+    form = PasswordViewRestrictionForm(instance=restriction, request.POST or None)
     if request.method == "POST":
-        form = PasswordViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
             return_url = form.cleaned_data["return_url"]
 
@@ -48,8 +47,6 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
 
             restriction.mark_as_passed(request)
             return redirect(return_url)
-    else:
-        form = PasswordViewRestrictionForm(instance=restriction)
 
     action_url = reverse(
         "wagtailcore_authenticate_with_password", args=[restriction.id, page.id]

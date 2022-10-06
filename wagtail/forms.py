@@ -1,12 +1,11 @@
 from django import forms
 from django.utils.crypto import constant_time_compare
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
 
 
 class PasswordViewRestrictionForm(forms.Form):
     password = forms.CharField(
-        label=gettext_lazy("Password"), widget=forms.PasswordInput
+        label=_("Password"), widget=forms.PasswordInput
     )
     return_url = forms.CharField(widget=forms.HiddenInput)
 
