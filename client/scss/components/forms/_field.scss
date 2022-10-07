@@ -28,7 +28,7 @@
   top: 0.125em;
   width: 1em;
   height: 1em;
-  margin-inline-end: 0.375em;
+  margin-inline-end: 0.625rem;
   color: theme('colors.critical.200');
 
   // Avoid displaying the error message icon if we already have an icon.
@@ -49,6 +49,11 @@
   // be wrapped into groups (for example a row), so it’s safer to add a margin regardless
   // of what the next element is.
   margin-bottom: theme('spacing.5');
+
+  // Inside of listing tables we don't need the bottom margin because the table row will handle it.
+  table.listing td & {
+    margin-bottom: 0;
+  }
 }
 
 .w-field__input {

@@ -14,6 +14,7 @@
 
   label {
     @apply w-label-3;
+    color: theme('colors.grey.600');
     display: inline-flex;
     align-items: center;
     line-height: normal;
