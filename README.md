@@ -25,6 +25,9 @@
     <a href="https://pypi.python.org/pypi/wagtail/">
         <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
     </a>
+    <a href="https://twitter.com/WagtailCMS">
+        <img src="https://img.shields.io/twitter/follow/WagtailCMS?style=social&logo=twitter" alt="follow on Twitter">
+    </a>
 </p>
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
