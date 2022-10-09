@@ -2,7 +2,6 @@
     <img width="343" src=".github/wagtail.svg#gh-light-mode-only" alt="Wagtail">
     <img width="343" src=".github/wagtail-inverse.svg#gh-dark-mode-only" alt="Wagtail">
 </h1>
-
 <p align="center">
     <br>
     <a href="https://github.com/wagtail/wagtail/actions">
