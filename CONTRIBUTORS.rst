@@ -629,6 +629,7 @@ Contributors
 * Alex (sashashura)
 * Adinapunyo Banerjee
 * Dan Hayden
+* Jadesola Kareem
 
 
 Translators
