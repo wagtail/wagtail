@@ -3,10 +3,6 @@
     <img width="343" src=".github/wagtail-inverse.svg#gh-dark-mode-only" alt="Wagtail">
 </h1>
 
-<a href="https://twitter.com/WagtailCMS">
-        <img src="https://img.shields.io/twitter/follow/WagtailCMS?style=social&logo=twitter"
-            alt="follow on Twitter"></a>
-</p>
 <p align="center">
     <br>
     <a href="https://github.com/wagtail/wagtail/actions">
@@ -29,6 +25,9 @@
     </a>
     <a href="https://pypi.python.org/pypi/wagtail/">
         <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
+    </a>
+    <a href="https://twitter.com/WagtailCMS">
+        <img src="https://img.shields.io/twitter/follow/WagtailCMS?style=social&logo=twitter" alt="follow on Twitter">
     </a>
 </p>
 
