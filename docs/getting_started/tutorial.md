@@ -334,7 +334,7 @@ URL of the blog this post is a part of.
 Now create a few blog posts as children of `BlogIndexPage`.
 Be sure to select type "Blog Page" when creating your posts.
 
-![Page listing for Home page, with the "Actions" dropdown expanded, and the "Add child page" highlighted in red](../_static/images/tutorial/tutorial_4a.png)
+![Page listing for Home page with the "Add Child Page" button highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 
 !["Create a page in our blog" page type selector, with Blog page button highlighted in red](../_static/images/tutorial/tutorial_4b.png)
 
