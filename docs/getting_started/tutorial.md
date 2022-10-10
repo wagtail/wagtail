@@ -46,7 +46,6 @@ python3 -m venv mysite/env
 source mysite/env/bin/activate
 ```
 
-
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
 ```{note}
@@ -117,6 +116,10 @@ python manage.py runserver
 If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
 
 ![Browser screenshot of "Welcome to your new Wagtail site!" page, with teal egg above the title, and links to different resources. The page is shown inside a browswer tab, with browser URL bar at the top](../_static/images/tutorial/tutorial_1.png)
+
+```{note}
+Throughout this tutorial we will use `http://127.0.0.1:8000` but depending on your setup, this could be `http://localhost:8000/` or a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct url for your local site.
+```
 
 You can now access the administrative area at <http://127.0.0.1:8000/admin>
 
@@ -237,8 +240,14 @@ class BlogIndexPage(Page):
 Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 Since the model is called `BlogIndexPage`, the default template name
-(unless we override it) will be `blog/templates/blog/blog_index_page.html`. Create this file
-with the following content:
+(unless we override it) will be `blog_index_page.html`. Django will look for a template whose name matches the name of your Page model within the templates directory in your blog app folder. This default behaviour can be overridden if needed.  
+To create a template for the `BlogIndexPage` model, create a file at the location `blog/templates/blog/blog_index_page.html`.
+
+```{note}
+You may need to create the folders `templates/blog` within your `blog` app folder
+```
+
+In your `blog_index_page.html` file enter the following content:
 
 ```html+django
 {% extends "base.html" %}
@@ -265,8 +274,10 @@ Most of this should be familiar, but we'll explain `get_children` a bit later.
 Note the `pageurl` tag, which is similar to Django's `url` tag but
 takes a Wagtail Page object as an argument.
 
-In the Wagtail admin, create a `BlogIndexPage` as a child of the Homepage,
-make sure it has the slug "blog" on the Promote tab, and publish it.
+In the Wagtail admin, go to Pages, then Home.
+Add a child page to the Home page by clicking on the "Actions" icon and selecting the option "Add child page".
+Choose "Blog index page" from the list of the page types.
+Use "Our Blog" as your page title, make sure it has the slug "blog" on the Promote tab, and publish it.
 You should now be able to access the url `http://127.0.0.1:8000/blog` on your site
 (note how the slug from the Promote tab defines the page URL).
 
@@ -305,7 +316,7 @@ In the model above, we import `index` as this makes the model searchable. You ca
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
 
-Create a template at `blog/templates/blog/blog_page.html`:
+Create a new template file at the location `blog/templates/blog/blog_page.html`. Now add the following content to your newly created `blog_page.html` file:
 
 ```html+django
 {% extends "base.html" %}
@@ -790,9 +801,9 @@ class BlogCategory(models.Model):
 Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
 ```
 
-Migrate this change in, and create a few categories through the Snippets area which now appears in the admin menu.
+Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few categories through the Snippets area which now appears in the admin menu.
 
-We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.
+We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.To add categories to the `BlogPage`, modify `models.py` in your blog app folder:
 
 ```python
 # New imports added for forms and ParentalManyToManyField
