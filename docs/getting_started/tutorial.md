@@ -11,7 +11,7 @@ If you'd like to add Wagtail to an existing Django project instead, see [](integ
 
 Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
 
-To check the current version of python currently installed on your machine, run the command bellow:
+To check whether you have an appropriate version of Python 3:
 
 ```console
 $ python3 --version
@@ -36,13 +36,9 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 > python3 -m venv mysite\env
 > mysite\env\Scripts\activate.bat
 
-```
-Or 
+Or:
 
-```doscon
-> python3 -m venv "name-of-your-virtual-environment"
-> "name-of-your-virtual-environment"\Scripts\activate
-
+> mysite\env\Scripts\activate
 ```
 
 **On GNU/Linux or MacOS** (bash):
@@ -78,7 +74,7 @@ and a sample "search" app.
 Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
 ```console
-$ wagtail start mysite
+$ wagtail start mysite mysite
 ```
 
 ```{note}
@@ -92,8 +88,8 @@ $ cd mysite
 $ pip install -r requirements.txt
 ```
 
-the `requirements.txt` file contains all the dependencies needed
-in order to run the project.
+This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
+The `requirements.txt` file contains all the dependencies needed in order to run the project.
 
 ### Create the database
 
@@ -183,7 +179,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 {% endblock %}
 ```
 
-`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting codes and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
+`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
 
 `wagtailcore_tags` must also be loaded at the top of the template and provide additional tags to those provided by Django.
 

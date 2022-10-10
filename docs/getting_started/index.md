@@ -25,7 +25,7 @@ Run the following commands in a virtual environment of your choice:
 $ pip install wagtail
 ```
 
-(Installing wagtail outside a virtual environment may require `sudo`. sudo is a program for unix-like computer operating system that enables users to run programs with the security privileges of another user, by default the superuser)
+(Installing wagtail outside a virtual environment may require `sudo`. sudo is a program to run other programs with the security privileges of another user, by default the superuser)
 
 Once installed, Wagtail provides a command similar to Django\'s `django-admin startproject` to generate a new site/project:
 

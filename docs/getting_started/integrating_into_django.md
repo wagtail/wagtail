@@ -113,6 +113,6 @@ Superuser accounts receive automatic access to the Wagtail admin interface; use 
 
 ## Start developing
 
-You're now ready to add a new app to your Django project (via `python manage.py startapp` - remember to add it to `INSTALLED_APPS`) in your settings.py file and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
+You're now ready to add a new app to your Django project (via `python manage.py startapp` - remember to add it to `INSTALLED_APPS` in your settings.py file) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
 
 Note that there's one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which does not include any content fields beyond the title. You'll probably want to replace this with your own `HomePage` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
