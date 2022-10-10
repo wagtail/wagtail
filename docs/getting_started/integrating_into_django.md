@@ -12,7 +12,7 @@ or add the package to your existing requirements file. This will also install th
 
 ## Settings
 
-In your settings file, add the following apps to `INSTALLED_APPS`:
+In your settings.py file, add the following apps to `INSTALLED_APPS`:
 
 ```python
 'wagtail.contrib.forms',
@@ -105,14 +105,14 @@ urlpatterns = [
 
 Note that this only works in development mode (`DEBUG = True`); in production, you will need to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](https://docs.djangoproject.com/en/stable/howto/static-files/deployment/).
 
-With this configuration in place, you are ready to run `./manage.py migrate` to create the database tables used by Wagtail.
+With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 
 ## User accounts
 
-Superuser accounts receive automatic access to the Wagtail admin interface; use `./manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
+Superuser accounts receive automatic access to the Wagtail admin interface; use `python manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
 ## Start developing
 
-You're now ready to add a new app to your Django project (via `./manage.py startapp` - remember to add it to `INSTALLED_APPS`) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
+You're now ready to add a new app to your Django project (via `python manage.py startapp` - remember to add it to `INSTALLED_APPS` in your settings.py file) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
 
 Note that there's one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which does not include any content fields beyond the title. You'll probably want to replace this with your own `HomePage` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
