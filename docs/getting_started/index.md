@@ -19,13 +19,13 @@
 
 ## Quick install
 
-Run the following in a virtual environment of your choice:
+Run the following commands in a virtual environment of your choice:
 
 ```sh
 $ pip install wagtail
 ```
 
-(Installing outside a virtual environment may require `sudo`.)
+(Installing wagtail outside a virtual environment may require `sudo`. sudo is a program for unix-like computer operating system that enables users to run programs with the security privileges of another user, by default the superuser)
 
 Once installed, Wagtail provides a command similar to Django\'s `django-admin startproject` to generate a new site/project:
 
@@ -41,9 +41,9 @@ Inside your `mysite` folder, run the setup steps necessary for any Django projec
 
 ```sh
 $ pip install -r requirements.txt
-$ ./manage.py migrate
-$ ./manage.py createsuperuser
-$ ./manage.py runserver
+$ python manage.py migrate
+$ python manage.py createsuperuser
+$ python manage.py runserver
 ```
 
 Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
