@@ -631,6 +631,7 @@ Contributors
 * Dan Hayden
 * Jadesola Kareem
 * Dauda Yusuf
+* Damilola Oladele
 
 
 Translators
