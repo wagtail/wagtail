@@ -1067,6 +1067,7 @@ def register_icons(icons):
         "site.svg",
         "snippet.svg",
         "spinner.svg",
+        "spinner-slow.svg",
         "strikethrough.svg",
         "success.svg",
         "subscript.svg",

@@ -69,11 +69,24 @@
   display: inline-block;
 }
 
+.icon-spinner-slow:after,
+.icon-spinner-slow:before {
+  // iconfont
+  width: 1em;
+  animation: spin-wag 2.0s infinite linear;
+  display: inline-block;
+}
+
 // For SVG icons, add spinner styles onto the use element,
 // so an icon can be turned into a spinner by changing the href only.
 // This allows us to switch any icon to a spinner with much less boilerplate.
 use[href='#icon-spinner'] {
   animation: spin-wag 0.5s infinite linear;
+  transform-origin: center;
+}
+
+use[href='#icon-spinner-slow'] {
+  animation: spin-wag 2.0s infinite linear;
   transform-origin: center;
 }
 

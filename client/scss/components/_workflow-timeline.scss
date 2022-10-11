@@ -57,6 +57,16 @@
       theme('colors.grey.200');
   }
 
+  &__line-solid {
+    position: absolute;
+    margin-inline-start: -1px;
+    height: 100%;
+    top: theme('spacing.4');
+    inset-inline-start: theme('spacing.[2.5]');
+    border-inline-start: theme('borderWidth.DEFAULT') solid
+      theme('colors.grey.200');
+  }
+
   &__footer {
     display: flex;
     flex-wrap: wrap;

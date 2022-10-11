@@ -3,7 +3,7 @@
 <ol class="workflow-timeline">
 
     <li class="workflow-timeline__item workflow-timeline__item--approved">
-        <div class="workflow-timeline__line"></div>
+        <div class="workflow-timeline__line-solid"></div>
         {% icon name="circle-check" class_name="workflow-timeline__icon" %}
         {% trans "Submitted" %}
     </li>
@@ -13,8 +13,8 @@
     {% if workflow_state %}
         {% for task in workflow_state.all_tasks_with_state %}
             {% with status=task.task_state.status status_display=task.task_state.get_status_display|default:not_started_text %}
-                <li class="workflow-timeline__item workflow-timeline__item--{{ status|default:"pending" }}">
-                    <div class="workflow-timeline__line"></div>
+                <li class="workflow-timeline__item workflow-timeline__item--{{ status|default:"pending" }}" {% if status == "in_progress" %}aria-current="step"{% endif %}>
+                    <div class="workflow-timeline__line{% if status == "approved" %}-solid{% endif %}"></div>
                     {% if status == "rejected" %}
                         <div class="w-flex">
                             {% icon name="warning" class_name="workflow-timeline__icon" title=status_display %}
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     {% else %}
-                        {% icon name="circle-check" class_name="workflow-timeline__icon" title=status_display %}
+                        {% if status == "in_progress" %}{% icon name="spinner-slow" class_name="workflow-timeline__icon" title=status_display %}{% else %}{% icon name="circle-check" class_name="workflow-timeline__icon" title=status_display %}{% endif %}
                         {{ task.name }}
                         {% if task.task_state.finished_by %}
                             {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
