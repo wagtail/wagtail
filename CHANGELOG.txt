@@ -39,6 +39,7 @@ Changelog
  * Add `button-secondary bicolor` variants to the pattern library and styleguide (Adinapunyo Banerjee)
  * Add better support for non-integer / non-`id` primary keys into Wagtail's generic views, including for Snippets and custom User models (Mehrdad Moradizadeh)
  * Upgrade jQuery UI to version 1.13.2 (LB (Ben) Johnston)
+ * Update pattern library background & text examples (Albina Starykova)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
