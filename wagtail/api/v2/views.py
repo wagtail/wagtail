@@ -3,7 +3,7 @@ from collections import OrderedDict
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, reverse
 from modelcluster.fields import ParentalKey
 from rest_framework import status
@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import Locale, Page, PageViewRestriction, Site
 
 from .filters import (
     AncestorOfFilter,
@@ -581,11 +581,26 @@ class PagesAPIViewSet(BaseAPIViewSet):
     def find_object(self, queryset, request):
         site = Site.find_for_request(request)
         if "html_path" in request.GET and site is not None:
-            path = request.GET["html_path"]
-            path_components = [component for component in path.split("/") if component]
+            path_components = [
+                component
+                for component in request.GET["html_path"].split("/")
+                if component
+            ]
+            root_page = site.root_page
+
+            if "locale" in request.GET:
+                try:
+                    locale = get_object_or_404(
+                        Locale, language_code=request.GET["locale"]
+                    )
+                    root_page = Page.objects.get(
+                        locale=locale, translation_key=root_page.translation_key
+                    )
+                except (Http404, Page.DoesNotExist):
+                    pass
 
             try:
-                page, _, _ = site.root_page.specific.route(request, path_components)
+                page, _, _ = root_page.specific.route(request, path_components)
             except Http404:
                 return
 
