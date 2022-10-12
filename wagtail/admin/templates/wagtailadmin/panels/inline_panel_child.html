@@ -10,7 +10,7 @@
         {% endif %}
         <button type="button" class="button button--icon text-replace white" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% icon name="bin" %}</button>
     {% endfragment %}
-    {% panel id=panel_id heading=self.label heading_size="label" header_controls=header_controls %}
+    {% panel id=panel_id heading=self.label heading_size="label" heading_level="3" header_controls=header_controls %}
         {% if child.form.non_field_errors %}
             <ul>
                 {% for error in child.form.non_field_errors %}
