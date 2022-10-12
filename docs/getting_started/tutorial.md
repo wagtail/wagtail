@@ -79,7 +79,7 @@ $ wagtail start mysite mysite
 ```
 
 ```{note}
-Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings.py` file. Look at this file to see how the `start` command has listed them in there.
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `base.py` file in the `mysite/settings` directory. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
