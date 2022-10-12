@@ -635,6 +635,7 @@ Contributors
 * Albina Starykova
 * Sam Moran
 * Toyibat Adele
+* Umar Farouk Yunusa
 
 
 Translators
