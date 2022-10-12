@@ -744,8 +744,8 @@ Migrate this in, then create a new `BlogTagIndexPage` in the admin.
 You'll probably want to create the new page/view as a child of Homepage,
 parallel to your Blog index. Give it the slug "tags" on the Promote tab.
 
-Access `/tags` and Django will tell you what you probably already knew:
-you need to create a template `blog/blog_tag_index_page.html`:
+Add `/tags` to the server url in your browser and Django will tell you what you probably already knew:
+you need to create a template `blog/template/blog/blog_tag_index_page.html`:
 
 ```html+django
 {% extends "base.html" %}
