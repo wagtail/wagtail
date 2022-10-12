@@ -166,6 +166,70 @@ window.telepath.register(
   AdminAutoHeightTextInput,
 );
 
+class BoundDraftailWidget {
+  constructor(input, originalOptions, getFullOptions, parentCapabilities) {
+    this.input = input;
+    this.capabilities = new Map(parentCapabilities);
+    this.originalOptions = originalOptions;
+    this.getFullOptions = getFullOptions;
+
+    // eslint-disable-next-line no-undef
+    const [, setOptions] = draftail.initEditor(
+      '#' + this.input.id,
+      getFullOptions(originalOptions, parentCapabilities),
+      document.currentScript,
+    );
+    this.setOptions = setOptions;
+  }
+
+  getValue() {
+    return this.input.value;
+  }
+
+  getState() {
+    return this.input.draftailEditor.getEditorState();
+  }
+
+  setState(editorState) {
+    this.input.draftailEditor.onChange(editorState);
+  }
+
+  getTextLabel(opts) {
+    const maxLength = opts && opts.maxLength;
+    if (!this.input.value) return '';
+    const value = JSON.parse(this.input.value);
+    if (!value || !value.blocks) return '';
+
+    let result = '';
+    for (const block of value.blocks) {
+      if (block.text) {
+        result += result ? ' ' + block.text : block.text;
+        if (maxLength && result.length > maxLength) {
+          return result.substring(0, maxLength - 1) + '…';
+        }
+      }
+    }
+    return result;
+  }
+
+  focus() {
+    setTimeout(() => {
+      this.input.draftailEditor.focus();
+    }, 50);
+  }
+
+  setCapabilityOptions(capability, capabilityOptions) {
+    const newCapability = Object.assign(
+      this.capabilities.get(capability),
+      capabilityOptions,
+    );
+    this.capabilities.set(capability, newCapability);
+    this.setOptions(
+      this.getFullOptions(this.originalOptions, this.capabilities),
+    );
+  }
+}
+
 class DraftailRichTextArea {
   constructor(options) {
     this.options = options;
@@ -295,7 +359,6 @@ class DraftailRichTextArea {
 
   render(container, name, id, initialState, parentCapabilities) {
     const originalOptions = this.options;
-    const capabilities = new Map(parentCapabilities);
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
@@ -308,54 +371,13 @@ class DraftailRichTextArea {
     container.appendChild(input);
 
     const getFullOptions = this.getFullOptions.bind(this);
-    // eslint-disable-next-line no-undef
-    const [, setOptions] = draftail.initEditor(
-      '#' + id,
-      getFullOptions(originalOptions, parentCapabilities),
-      document.currentScript,
+
+    const boundDraftail = new BoundDraftailWidget(
+      input,
+      originalOptions,
+      getFullOptions,
+      parentCapabilities,
     );
-
-    const boundDraftail = {
-      getValue() {
-        return input.value;
-      },
-      getState() {
-        return input.draftailEditor.getEditorState();
-      },
-      setState(editorState) {
-        input.draftailEditor.onChange(editorState);
-      },
-      getTextLabel(opts) {
-        const maxLength = opts && opts.maxLength;
-        if (!input.value) return '';
-        const value = JSON.parse(input.value);
-        if (!value || !value.blocks) return '';
-
-        let result = '';
-        for (const block of value.blocks) {
-          if (block.text) {
-            result += result ? ' ' + block.text : block.text;
-            if (maxLength && result.length > maxLength) {
-              return result.substring(0, maxLength - 1) + '…';
-            }
-          }
-        }
-        return result;
-      },
-      focus: () => {
-        setTimeout(() => {
-          input.draftailEditor.focus();
-        }, 50);
-      },
-      setCapabilityOptions(capability, capabilityOptions) {
-        const newCapability = Object.assign(
-          capabilities.get(capability),
-          capabilityOptions,
-        );
-        capabilities.set(capability, newCapability);
-        setOptions(getFullOptions(originalOptions, capabilities));
-      },
-    };
 
     if (initialiseBlank) {
       boundDraftail.setState(initialState);
