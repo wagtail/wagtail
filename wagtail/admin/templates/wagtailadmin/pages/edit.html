@@ -20,7 +20,7 @@
             {% csrf_token %}
 
             {# Note that the position of the button within the form allows the js to collapse / expand only those panels within the same form #}
-            {% include "wagtailadmin/shared/collapse_all_toggle.html" %}
+            {# {% include "wagtailadmin/shared/collapse_all_toggle.html" %} #}
 
             <input type="hidden" name="next" value="{{ next }}">
             {{ edit_handler.render_form_content }}

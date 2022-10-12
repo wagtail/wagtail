@@ -151,7 +151,7 @@ export class BaseSequenceChild extends EventEmitter {
     )}">
         <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" data-panel>
           <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
                 <use href="#icon-link"></use>
               </svg>
@@ -162,7 +162,7 @@ export class BaseSequenceChild extends EventEmitter {
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
-              <span data-block-title class="c-sf-block__title"></span>
+              <span data-panel-heading-text class="c-sf-block__title"></span>
               <span class="c-sf-block__type">${blockTypeLabel}</span>
               ${
                 blockDef.meta.required
@@ -195,7 +195,7 @@ export class BaseSequenceChild extends EventEmitter {
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
     this.actionsContainerElement = dom.find('[data-panel-controls]').get(0);
-    this.titleElement = dom.find('[data-block-title]');
+    this.titleElement = dom.find('[data-panel-heading-text]');
     this.toggleElement = this.element.querySelector('[data-panel-toggle]');
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
     this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);

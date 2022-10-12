@@ -68,8 +68,9 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
+  const isCollapsed = hasCollapsed && !hasError;
 
-  if (hasCollapsed && !hasError) {
+  if (isCollapsed) {
     togglePanel(false);
   }
 
@@ -82,6 +83,14 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
 
   // Set the toggle back to expanded upon reveal.
   content.addEventListener('beforematch', togglePanel.bind(null, true));
+
+  toggle.dispatchEvent(
+    new CustomEvent('wagtail:panel-init', {
+      bubbles: true,
+      cancelable: false,
+      detail: { expanded: !isCollapsed },
+    }),
+  );
 }
 
 /**

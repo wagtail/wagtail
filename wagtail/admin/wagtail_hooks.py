@@ -1093,6 +1093,7 @@ def register_icons(icons):
         "logout.svg",
         "mail.svg",
         "media.svg",
+        "minus.svg",
         "mobile-alt.svg",
         "no-view.svg",
         "openquote.svg",
