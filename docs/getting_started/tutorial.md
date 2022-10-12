@@ -134,10 +134,13 @@ Edit `home/models.py` as follows, to add a `body` field to the model:
 from django.db import models
 
 from wagtail.models import Page
+
+# add these new imports
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 
 
+# replace the existing class definition of 'HomePage' with this:
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -151,16 +154,18 @@ it means that this field is not required and can be empty. You
 can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the
 capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. [More on creating Page models](../topics/pages).
 
-Run `python manage.py makemigrations` (this will create the migrations file), then
-`python manage.py migrate` (this executes the migrations and updates the database with your model
-changes). You must run the above commands each time you make changes to
-the model definition.
+Run:
 
-You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish
-the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
+```console
+$ python manage.py makemigrations # creates the migrations file
+$ python manage.py migrate # executes the migrations and updates the database with your model changes 
+```
 
-The page template now needs to be updated to reflect the changes made
-to the model. Wagtail uses normal Django templates to render each page
+You must run the above commands each time you make changes to the model definition.
+
+You can now edit the homepage within the Wagtail admin area (on the side bar go to _Pages_ and click the edit button beside _Homepage_) to see the new body field. Enter some text into the body field, and publish the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
+
+The page template now needs to be updated to reflect the changes made to the model. Wagtail uses normal Django templates to render each page
 type. By default, it will look for a template filename formed from the app and model name,
 separating capital letters with underscores (for example HomePage within the 'home' app becomes
 `home/home_page.html`). This template file can exist in any location recognised by
