@@ -636,6 +636,7 @@ Contributors
 * Sam Moran
 * Toyibat Adele
 * Umar Farouk Yunusa
+* Chizoba Nweke
 
 
 Translators
