@@ -167,19 +167,18 @@ window.telepath.register(
 );
 
 class BoundDraftailWidget {
-  constructor(input, originalOptions, getFullOptions, parentCapabilities) {
+  constructor(input, options, parentCapabilities) {
     this.input = input;
     this.capabilities = new Map(parentCapabilities);
-    this.originalOptions = originalOptions;
-    this.getFullOptions = getFullOptions;
+    this.options = options;
 
     // eslint-disable-next-line no-undef
     const [, setOptions] = draftail.initEditor(
       '#' + this.input.id,
-      getFullOptions(originalOptions, parentCapabilities),
+      this.getFullOptions(),
       document.currentScript,
     );
-    this.setOptions = setOptions;
+    this.setDraftailOptions = setOptions;
   }
 
   getValue() {
@@ -224,22 +223,16 @@ class BoundDraftailWidget {
       capabilityOptions,
     );
     this.capabilities.set(capability, newCapability);
-    this.setOptions(
-      this.getFullOptions(this.originalOptions, this.capabilities),
-    );
-  }
-}
-
-class DraftailRichTextArea {
-  constructor(options) {
-    this.options = options;
+    this.setDraftailOptions(this.getFullOptions());
   }
 
   /**
-   * Given original options object, return the options overrides
-   * that account for its contextual abilities (splitting or adding additional blocks)
+   * Given a mapping of the capabilities supported by this widget's container,
+   * return the options overrides that enable additional widget functionality
+   * (e.g. splitting or adding additional blocks).
+   * Non-context-dependent Draftail options are available here as this.options.
    */
-  getCapabilityOptions(originalOptions, parentCapabilities) {
+  getCapabilityOptions(parentCapabilities) {
     const options = {};
     const capabilities = parentCapabilities;
     const split = capabilities.get('split');
@@ -350,15 +343,20 @@ class DraftailRichTextArea {
     return options;
   }
 
-  getFullOptions(originalOptions, parentCapabilities) {
+  getFullOptions() {
     return {
-      ...originalOptions,
-      ...this.getCapabilityOptions(originalOptions, parentCapabilities),
+      ...this.options,
+      ...this.getCapabilityOptions(this.capabilities),
     };
+  }
+}
+
+class DraftailRichTextArea {
+  constructor(options) {
+    this.options = options;
   }
 
   render(container, name, id, initialState, parentCapabilities) {
-    const originalOptions = this.options;
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
@@ -370,12 +368,9 @@ class DraftailRichTextArea {
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
 
-    const getFullOptions = this.getFullOptions.bind(this);
-
     const boundDraftail = new BoundDraftailWidget(
       input,
-      originalOptions,
-      getFullOptions,
+      this.options,
       parentCapabilities,
     );
 
