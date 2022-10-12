@@ -117,6 +117,20 @@ class TestGenericSettingCreateView(BaseTestGenericSettingView):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+    def test_edit_creates_new_instance_if_unexisting(self):
+        self.assertEqual(TestGenericSetting.objects.count(), 0)
+        self.client.get(
+            reverse(
+                "wagtailsettings:edit",
+                args=[
+                    TestGenericSetting._meta.app_label,
+                    TestGenericSetting._meta.model_name,
+                    1,
+                ],
+            )
+        )
+        self.assertEqual(TestGenericSetting.objects.count(), 1)
+
 
 class TestGenericSettingEditView(BaseTestGenericSettingView):
     def setUp(self):
@@ -129,12 +143,6 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
     def test_get_edit(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-
-    def test_non_existent_model(self):
-        response = self.client.get(
-            reverse("wagtailsettings:edit", args=["test", "foo", 1])
-        )
-        self.assertEqual(response.status_code, 404)
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
