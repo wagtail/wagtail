@@ -66,12 +66,13 @@ $ pip install wagtail
 ### Generate your site
 
 Wagtail provides a `start` command similar to `django-admin startproject`.
-Running `wagtail start mysite` in your project will generate a new `mysite` folder with a few Wagtail-specific extras, including
-the required project settings,
-a "home" app with a blank `HomePage` model and basic templates,
-and a sample "search" app.
+Running `wagtail start mysite` in your project will generate:
+- a new `mysite` folder containing the required project settings with a few Wagtail-specific extras,
+- a "home" app with a blank `HomePage` model and basic templates,
+- a sample "search" app
+- and other dependencies for wagtail to run in the the project.
 
-Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
+Appending `mysite` (which is a folder that was created when we ran `python3 -m venv mysite\env`) to `wagtail start mysite` specifies the destination directory for the above items. So the code looks like this:
 
 ```console
 $ wagtail start mysite mysite
