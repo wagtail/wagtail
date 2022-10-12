@@ -632,6 +632,7 @@ Contributors
 * Jadesola Kareem
 * Dauda Yusuf
 * Damilola Oladele
+* Albina Starykova
 
 
 Translators
