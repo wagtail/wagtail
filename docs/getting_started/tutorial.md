@@ -13,8 +13,8 @@ Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 
-```console
-$ python3 --version
+```sh
+python3 --version
 ```
 
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
@@ -33,20 +33,19 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 **On Windows** (cmd.exe):
 
 ```doscon
-> python3 -m venv mysite\env
-> mysite\env\Scripts\activate.bat
-
-Or:
-
-> mysite\env\Scripts\activate
+python3 -m venv mysite\env
+mysite\env\Scripts\activate.bat
+# or:
+mysite\env\Scripts\activate
 ```
 
 **On GNU/Linux or MacOS** (bash):
 
-```console
-$ python3 -m venv mysite/env
-$ source mysite/env/bin/activate
+```sh
+python3 -m venv mysite/env
+source mysite/env/bin/activate
 ```
+
 
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
@@ -59,8 +58,8 @@ The `env` directory inside of it should be excluded from any version control.
 
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 
-```console
-$ pip install wagtail
+```sh
+pip install wagtail
 ```
 
 ### Generate your site
@@ -73,8 +72,8 @@ and a sample "search" app.
 
 Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
-```console
-$ wagtail start mysite mysite
+```sh
+wagtail start mysite mysite
 ```
 
 ```{note}
@@ -83,9 +82,9 @@ Generally, in Wagtail, each page type, or content type, is represented by a sing
 
 ### Install project dependencies
 
-```console
-$ cd mysite
-$ pip install -r requirements.txt
+```sh
+cd mysite
+pip install -r requirements.txt
 ```
 
 This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
@@ -95,24 +94,24 @@ The `requirements.txt` file contains all the dependencies needed in order to run
 
 If you haven't updated the project settings, this will be a SQLite database file in the project directory.
 
-```console
-$ python manage.py migrate
+```sh
+python manage.py migrate
 ```
 
 This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command in order to update the database.
 
 ### Create an admin user
 
-```console
-$ python manage.py createsuperuser
+```sh
+python manage.py createsuperuser
 ```
 
 When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database.
 
 ### Start the server
 
-```console
-$ python manage.py runserver
+```sh
+python manage.py runserver
 ```
 
 If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
