@@ -218,14 +218,19 @@ if the tags aren't loaded.
 
 ## A basic blog
 
-We are now ready to create a blog. To do so, run
-`python manage.py startapp blog` to create a new app in your Wagtail site.
+We are now ready to create a blog. To do so, run:
 
-Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
+```
+python manage.py startapp blog
+```
+
+to create a new app in your Wagtail site.
+
+Add the new `blog` app to `INSTALLED_APPS` list in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
-Lets start with a simple index page for our blog. In `blog/models.py`:
+Lets start with a simple index page for our blog. In `blog/models.py`, add this snippet:
 
 ```python
 from wagtail.models import Page
@@ -241,11 +246,14 @@ class BlogIndexPage(Page):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Since you have made changes to `model.py` run the migrations:
 
-Since the model is called `BlogIndexPage`, the default template name
-(unless we override it) will be `blog/templates/blog/blog_index_page.html`. Create this file
-with the following content:
+```console
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
+
+Since the model is called `BlogIndexPage`, the default template name (unless we override it) will be `templates/blog/blog_index_page.html`. Create this file and its parent folders with the following content in the `blog` app you recently created:
 
 ```html+django
 {% extends "base.html" %}
@@ -282,6 +290,7 @@ Now we need a model and template for our blog posts. In `blog/models.py`:
 ```python
 from django.db import models
 
+# Add these new imports
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
@@ -310,7 +319,12 @@ class BlogPage(Page):
 
 In the model above, we import `index` as this makes the model searchable. You can then list fields that you want to be searchable for the user.
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run 
+
+```console
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
 
 Create a template at `blog/templates/blog/blog_page.html`:
 
