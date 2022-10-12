@@ -475,7 +475,7 @@ posts first.
 
 Let's add the ability to attach an image gallery to our blog posts. While it's possible to simply insert images into the `body` rich text field, there are several advantages to setting up our gallery images as a new dedicated object type within the database - this way, you have full control of the layout and styling of the images on the template, rather than having to lay them out in a particular way within the rich text field. It also makes it possible for the images to be used elsewhere, independently of the blog text - for example, displaying a thumbnail on the blog index page.
 
-Add a new `BlogPageGalleryImage` model to `models.py`:
+Add a new `BlogPageGalleryImage` model to `blog/models.py`:
 
 ```python
 from django.db import models
@@ -490,7 +490,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.search import index
 
 
-# ... (Keep the definition of BlogIndexPage, and update BlogPage:)
+# ... (Keep the definition of BlogIndexPage, and update the content_panels of BlogPage:)
 
 
 class BlogPage(Page):
@@ -510,6 +510,7 @@ class BlogPage(Page):
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
+# add a new BlogPageGalleryImage class
 
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
@@ -524,7 +525,12 @@ class BlogPageGalleryImage(Orderable):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run 
+
+```console
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
 
 There are a few new concepts here, so let's take them one at a time:
 
@@ -537,6 +543,8 @@ The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specifi
 Specifying `on_delete=models.CASCADE` on the foreign key means that if the image is deleted from the system, the gallery entry is deleted as well. (In other situations, it might be appropriate to leave the entry in place - for example, if an "our staff" page included a list of people with headshots, and one of those photos was deleted, we'd rather leave the person in place on the page without a photo. In this case, we'd set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.)
 
 Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
+
+After editing `blog/models.py` you should see a _Gallery images_ field with an option to upload images and provide a caption for it when editing a blog page in your Wagtail admin area.
 
 Adjust your blog page template to include the images:
 
@@ -567,11 +575,13 @@ Adjust your blog page template to include the images:
 {% endblock %}
 ```
 
+Make sure to upload some images when editing the blog page on your Wagtail admin if you want them to be displayed after editing your blog page template.
+
 Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
 
 !["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
-Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
+Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist) in `blog/models.py`:
 
 ```python
 class BlogPage(Page):
