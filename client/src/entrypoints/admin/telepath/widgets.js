@@ -166,6 +166,53 @@ window.telepath.register(
   AdminAutoHeightTextInput,
 );
 
+class DraftailInsertBlockCommand {
+  /* Definition for a command in the Draftail context menu that inserts a block.
+   * Constructor args:
+   * blockDef - block definition for the block to be inserted
+   * addSibling, split - capability descriptors from the containing block's capabilities definition
+   */
+  constructor(blockDef, addSibling, split) {
+    this.blockDef = blockDef;
+    this.addSibling = addSibling;
+    this.split = split;
+
+    this.blockMax = addSibling.getBlockMax(blockDef.name);
+    this.icon = `#icon-${blockDef.meta.icon}`;
+    this.description = blockDef.meta.label;
+    this.type = blockDef.name;
+  }
+
+  render({ option }) {
+    // If the specific block has a limit, render the current number/max alongside the description
+    const limitText =
+      typeof blockMax === 'number'
+        ? ` (${this.addSibling.getBlockCount(this.blockDef.name)}/${
+            this.blockMax
+          })`
+        : '';
+    return `${option.description}${limitText}`;
+  }
+
+  onSelect({ editorState }) {
+    // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
+    const result = window.draftail.splitState(
+      window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
+    );
+    // Run the split after a timeout to circumvent potential race condition.
+    setTimeout(() => {
+      if (result) {
+        this.split.fn(
+          result.stateBefore,
+          result.stateAfter,
+          result.shouldMoveCommentFn,
+        );
+      }
+      this.addSibling.fn({ type: this.blockDef.name });
+    }, 50);
+  }
+}
+
 class BoundDraftailWidget {
   constructor(input, options, parentCapabilities) {
     this.input = input;
@@ -246,42 +293,10 @@ class BoundDraftailWidget {
       // Create commands for splitting + inserting a block. This requires both the split
       // and addSibling capabilities to be available and enabled
       blockCommands = blockGroups.map(([group, blocks]) => {
-        const blockControls = blocks.map((blockDef) => {
-          const blockMax = addSibling.getBlockMax(blockDef.name);
-          return {
-            icon: `#icon-${blockDef.meta.icon}`,
-            description: blockDef.meta.label,
-            type: blockDef.name,
-            render: ({ option }) => {
-              // If the specific block has a limit, render the current number/max alongside the description
-              const limitText =
-                typeof blockMax === 'number'
-                  ? ` (${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
-                  : '';
-              return `${option.description}${limitText}`;
-            },
-            onSelect: ({ editorState }) => {
-              // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
-              const result = window.draftail.splitState(
-                window.draftail.DraftUtils.resetBlockWithType(
-                  editorState,
-                  'unstyled',
-                ),
-              );
-              // Run the split after a timeout to circumvent potential race condition.
-              setTimeout(() => {
-                if (result) {
-                  split.fn(
-                    result.stateBefore,
-                    result.stateAfter,
-                    result.shouldMoveCommentFn,
-                  );
-                }
-                addSibling.fn({ type: blockDef.name });
-              }, 50);
-            },
-          };
-        });
+        const blockControls = blocks.map(
+          (blockDef) =>
+            new DraftailInsertBlockCommand(blockDef, addSibling, split),
+        );
         return {
           label: group || gettext('Blocks'),
           type: `streamfield-${group}`,
