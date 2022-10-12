@@ -677,7 +677,7 @@ To render tags on a `BlogPage`, add this to `blog_page.html`:
 {% endif %}
 ```
 
-Notice that we're linking to pages here with the builtin `slugurl`
+Notice that we're linking to pages here with the built-in `slugurl`
 tag rather than `pageurl`, which we used earlier. The difference is that `slugurl` takes a
 Page slug (from the Promote tab) as an argument. `pageurl` is more commonly used because it
 is unambiguous and avoids extra database lookups. But in the case of this loop, the Page object
