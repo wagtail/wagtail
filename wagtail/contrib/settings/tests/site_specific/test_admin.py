@@ -132,12 +132,6 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
-    def test_non_existant_model(self):
-        response = self.client.get(
-            reverse("wagtailsettings:edit", args=["test", "foo", 1])
-        )
-        self.assertEqual(response.status_code, 404)
-
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The setting could not be saved due to errors.")
