@@ -17,7 +17,6 @@ npm-debug.log*
 /.cache/
 /.pytest_cache/
 /storybook-static
-./wagtail-venv/*
 
 ### JetBrains
 .idea/
