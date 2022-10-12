@@ -79,7 +79,6 @@ class Registry(list):
         # Don't bother registering this if it is already registered
         if model in self:
             return model
-        self.append(model)
 
         # Register a new menu item in the settings menu
         @hooks.register("register_settings_menu_item")
@@ -113,6 +112,7 @@ class Registry(list):
 
         register_admin_url_finder(model, finder_class)
 
+        self.append(model)
         return model
 
     def register_decorator(self, model=None, **kwargs):
