@@ -29,6 +29,7 @@ function inlinePanel(opts) {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
       currentChild.addClass('deleted').slideUp(() => {
+        self.updateChildCount();
         self.updateMoveButtonDisabledStates();
         self.updateAddButtonState();
       });
@@ -57,6 +58,7 @@ function inlinePanel(opts) {
         currentChildOrderElem.val(prevChildOrder);
         prevChildOrderElem.val(currentChildOrder);
 
+        self.updateChildCount();
         self.updateMoveButtonDisabledStates();
       });
 
@@ -82,6 +84,7 @@ function inlinePanel(opts) {
         currentChildOrderElem.val(nextChildOrder);
         nextChildOrderElem.val(currentChildOrder);
 
+        self.updateChildCount();
         self.updateMoveButtonDisabledStates();
       });
     }
@@ -93,6 +96,7 @@ function inlinePanel(opts) {
       $('#' + childId)
         .addClass('deleted')
         .hide(0, () => {
+          self.updateChildCount();
           self.updateMoveButtonDisabledStates();
           self.updateAddButtonState();
         });
@@ -115,6 +119,16 @@ function inlinePanel(opts) {
         $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
       });
     }
+  };
+
+  /**
+   * Adds the child’s count next to its heading label, ignoring deleted items.
+   */
+  self.updateChildCount = function updateChildCount() {
+    const forms = self.formsElt.children(':not(.deleted)');
+    forms.each(function updateCountState(i) {
+      $('[data-inline-panel-child-count]', this).text(` ${i + 1}`);
+    });
   };
 
   self.updateAddButtonState = function updateAddButtonState() {
@@ -191,6 +205,7 @@ function inlinePanel(opts) {
         $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
       }
 
+      self.updateChildCount();
       self.updateMoveButtonDisabledStates();
       self.updateAddButtonState();
       initCollapsiblePanels(
