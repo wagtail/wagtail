@@ -8,6 +8,7 @@ Changelog
 * Update special-purpose `FieldPanel` deprecation message to add clarity for developers (Matt Westcott)
 * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
 * Fix: Ensure that `AbstractForm` & `AbstractEmailForm` page models correctly pass the form to the preview context (Dan Bentley)
+* Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
 
 4.0.2 (23.09.2022)
 ~~~~~~~~~~~~~~~~~~

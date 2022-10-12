@@ -618,7 +618,7 @@ Contributors
 * Akash Kumar Sen
 * Xabier Bello
 * Christophe Bastin
-
+* Umar Farouk Yunusa
 
 Translators
 ===========
