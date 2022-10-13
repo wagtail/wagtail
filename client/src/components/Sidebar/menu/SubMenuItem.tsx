@@ -3,10 +3,11 @@ import * as React from 'react';
 import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
 
-import { renderMenu } from '../modules/MainMenu';
+import { isDismissed, renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import { gettext } from '../../../utils/gettext';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;
@@ -39,6 +40,13 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
   }, [isOpen]);
 
   const onClick = () => {
+    if (!isDismissed(item, state)) {
+      dispatch({
+        type: 'set-dismissible-state',
+        item,
+      });
+    }
+
     if (isOpen) {
       const pathComponents = path.split('.');
       pathComponents.pop();
@@ -64,6 +72,10 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
     'sidebar-sub-menu-trigger-icon' +
     (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '');
 
+  const dismissibleCount = item.menuItems.filter(
+    (subItem) => !isDismissed(subItem, state),
+  ).length;
+
   return (
     <li className={className}>
       <Tippy disabled={isOpen || !slim} content={item.label} placement="right">
@@ -79,6 +91,19 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
             <Icon name={item.iconName} className="icon--menuitem" />
           )}
           <span className="menuitem-label">{item.label}</span>
+          {dismissibleCount > 0 && !isDismissed(item, state) && (
+            <span className="w-dismissible-badge w-dismissible-badge--count">
+              <span aria-hidden="true">{dismissibleCount}</span>
+              <span className="w-sr-only">
+                {dismissibleCount === 1
+                  ? gettext('(1 new item in this menu)')
+                  : gettext('({number} new items in this menu)').replace(
+                      '{number}',
+                      `${dismissibleCount}`,
+                    )}
+              </span>
+            </span>
+          )}
           <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
         </button>
       </Tippy>
