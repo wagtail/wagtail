@@ -19,6 +19,11 @@
     --w-login-fullscreen-background,
     theme('colors.primary.DEFAULT')
   );
+  
+  @media (forced-colors: active) {
+      border: 5px solid transparent;
+    }
+  
 }
 
 .login {
@@ -64,10 +69,6 @@
     @include media-breakpoint-up(sm) {
       max-width: calc(theme('spacing.32') * 3.5);
       padding: theme('spacing.12') theme('spacing.14');
-    }
-
-    @media (forced-colors: active) {
-      border: 5px solid transparent;
     }
   }
 
