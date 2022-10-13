@@ -634,6 +634,7 @@ Contributors
 * Damilola Oladele
 * Albina Starykova
 * Sam Moran
+* Toyibat Adele
 
 
 Translators
