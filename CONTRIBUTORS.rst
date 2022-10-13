@@ -630,6 +630,7 @@ Contributors
 * Adinapunyo Banerjee
 * Dan Hayden
 * Jadesola Kareem
+* Toyibat Adele
 
 
 Translators
