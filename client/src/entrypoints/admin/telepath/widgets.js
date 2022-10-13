@@ -201,17 +201,25 @@ class DraftailInsertBlockCommand {
     const result = window.draftail.splitState(
       window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
     );
-    // Run the split after a timeout to circumvent potential race condition.
-    setTimeout(() => {
-      if (result) {
-        this.split.fn(
-          result.stateBefore,
-          result.stateAfter,
-          result.shouldMoveCommentFn,
-        );
-      }
+    if (result.stateAfter.getCurrentContent().hasText()) {
+      // There is content after the insertion point, so need to split the existing block.
+      // Run the split after a timeout to circumvent potential race condition.
+      setTimeout(() => {
+        if (result) {
+          this.split.fn(
+            result.stateBefore,
+            result.stateAfter,
+            result.shouldMoveCommentFn,
+          );
+        }
+        this.addSibling.fn({ type: this.blockDef.name });
+      }, 50);
+    } else {
+      // Set the current block's content to the 'before' state, to remove the '/' separator and
+      // reset the editor state (closing the context menu)
+      this.widget.setState(result.stateBefore);
       this.addSibling.fn({ type: this.blockDef.name });
-    }, 50);
+    }
   }
 }
 
