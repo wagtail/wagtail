@@ -102,7 +102,7 @@ class SettingsMenuItem(SubmenuMenuItem):
             self.menu.render_component(request),
             icon_name=self.icon_name,
             classnames=self.classnames,
-            footer_text="Wagtail v." + __version__,
+            footer_text="Wagtail v" + __version__,
         )
 
 
