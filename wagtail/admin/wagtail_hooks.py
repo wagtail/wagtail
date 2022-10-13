@@ -14,7 +14,15 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.forms.collections import GroupCollectionManagementPermissionFormSet
-from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
+from wagtail.admin.menu import (
+    DismissibleMenuItem,
+    DismissibleSubmenuMenuItem,
+    MenuItem,
+    SubmenuMenuItem,
+    help_menu,
+    reports_menu,
+    settings_menu,
+)
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text.converters.contentstate import link_entity
 from wagtail.admin.rich_text.converters.editor_html import (
@@ -50,6 +58,10 @@ from wagtail.permissions import (
     collection_permission_policy,
     task_permission_policy,
     workflow_permission_policy,
+)
+from wagtail.templatetags.wagtailcore_tags import (
+    wagtail_feature_release_editor_guide_link,
+    wagtail_feature_release_whats_new_link,
 )
 from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
 
@@ -958,6 +970,42 @@ def register_aging_pages_report_menu_item():
 @hooks.register("register_admin_menu_item")
 def register_reports_menu():
     return SubmenuMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)
+
+
+@hooks.register("register_help_menu_item")
+def register_whats_new_in_wagtail_version_menu_item():
+    version = "4.1"
+    return DismissibleMenuItem(
+        _("What's new in Wagtail {version}").format(version=version),
+        wagtail_feature_release_whats_new_link(),
+        icon_name="help",
+        order=1000,
+        attrs={"target": "_blank", "rel": "noreferrer"},
+        name=f"whats-new-in-wagtail-{version}",
+    )
+
+
+@hooks.register("register_help_menu_item")
+def register_editors_guide_menu_item():
+    return DismissibleMenuItem(
+        _("Editor Guide"),
+        wagtail_feature_release_editor_guide_link(),
+        icon_name="help",
+        order=1100,
+        attrs={"target": "_blank", "rel": "noreferrer"},
+        name="editor-guide",
+    )
+
+
+@hooks.register("register_admin_menu_item")
+def register_help_menu():
+    return DismissibleSubmenuMenuItem(
+        _("Help"),
+        help_menu,
+        icon_name="help",
+        order=11000,
+        name="help",
+    )
 
 
 @hooks.register("register_icons")

@@ -41,6 +41,28 @@ class MenuItem(metaclass=MediaDefiningClass):
         )
 
 
+class DismissibleMenuItemMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.attrs["data-wagtail-dismissible-id"] = self.name
+
+    def render_component(self, request):
+        profile = getattr(request.user, "wagtail_userprofile", None)
+
+        # Menu item instances are cached, so make sure the existence of the
+        # data-wagtail-dismissed attribute is correct for the user
+        if profile and profile.dismissibles.get(self.name):
+            self.attrs["data-wagtail-dismissed"] = ""
+        else:
+            self.attrs.pop("data-wagtail-dismissed", None)
+
+        return super().render_component(request)
+
+
+class DismissibleMenuItem(DismissibleMenuItemMixin, MenuItem):
+    pass
+
+
 class Menu:
     def __init__(self, register_hook_name=None, construct_hook_name=None, items=None):
         if register_hook_name is not None and not isinstance(register_hook_name, str):
@@ -128,6 +150,10 @@ class SubmenuMenuItem(MenuItem):
         )
 
 
+class DismissibleSubmenuMenuItem(DismissibleMenuItemMixin, SubmenuMenuItem):
+    pass
+
+
 class AdminOnlyMenuItem(MenuItem):
     """A MenuItem which is only shown to superusers"""
 
@@ -146,4 +172,8 @@ settings_menu = Menu(
 reports_menu = Menu(
     register_hook_name="register_reports_menu_item",
     construct_hook_name="construct_reports_menu",
+)
+help_menu = Menu(
+    register_hook_name="register_help_menu_item",
+    construct_hook_name="construct_help_menu",
 )
