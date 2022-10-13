@@ -3,6 +3,8 @@ import * as React from 'react';
 import Tippy from '@tippyjs/react';
 import Icon from '../../Icon/Icon';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import { gettext } from '../../../utils/gettext';
+import { isDismissed } from '../modules/MainMenu';
 
 export const LinkMenuItem: React.FunctionComponent<
   MenuItemProps<LinkMenuItemDefinition>
@@ -11,10 +13,17 @@ export const LinkMenuItem: React.FunctionComponent<
   const isActive = state.activePath.startsWith(path);
   const isInSubMenu = path.split('.').length > 2;
 
-  const onClick = (e: React.MouseEvent) => {
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Do not capture click events with modifier keys or non-main buttons.
     if (e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button !== 0)) {
       return;
+    }
+
+    if (!isDismissed(item, state)) {
+      dispatch({
+        type: 'set-dismissible-state',
+        item,
+      });
     }
 
     // For compatibility purposes – do not capture clicks for links with a target.
@@ -61,7 +70,14 @@ export const LinkMenuItem: React.FunctionComponent<
           {item.iconName && (
             <Icon name={item.iconName} className="icon--menuitem" />
           )}
-          <span className="menuitem-label">{item.label}</span>
+          <div className="menuitem">
+            <span className="menuitem-label">{item.label}</span>
+            {!isDismissed(item, state) && (
+              <span className="w-dismissible-badge">
+                <span className="w-sr-only">{gettext('(New)')}</span>
+              </span>
+            )}
+          </div>
         </a>
       </Tippy>
     </li>
