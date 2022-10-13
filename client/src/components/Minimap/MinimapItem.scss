@@ -29,7 +29,10 @@
 
   &:hover {
     color: currentColor;
-    text-decoration: underline;
+
+    .w-minimap-item__label {
+      text-decoration: underline;
+    }
   }
 
   &--h2 {

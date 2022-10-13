@@ -53,7 +53,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
       {item.icon ? (
         <Icon name={item.icon} className="w-minimap-item__icon" />
       ) : null}
-      {item.label}
+      <span className="w-minimap-item__label">{item.label}</span>
       {item.required ? requiredMark : null}
     </a>
   );
