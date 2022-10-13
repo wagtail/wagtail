@@ -68,6 +68,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
     <li className={className}>
       <Tippy disabled={isOpen || !slim} content={item.label} placement="right">
         <button
+          {...item.attrs}
           onClick={onClick}
           className={`sidebar-menu-item__link ${item.classNames}`}
           aria-haspopup="menu"
@@ -112,6 +113,7 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
   name: string;
   label: string;
   menuItems: MenuItemDefinition[];
+  attrs: { [key: string]: any };
   iconName: string | null;
   classNames?: string;
   footerText: string;
@@ -120,6 +122,7 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
     {
       name,
       label,
+      attrs,
       icon_name: iconName = null,
       classnames = undefined,
       footer_text: footerText = '',
@@ -129,6 +132,7 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
     this.name = name;
     this.label = label;
     this.menuItems = menuItems;
+    this.attrs = attrs;
     this.iconName = iconName;
     this.classNames = classnames;
     this.footerText = footerText;
