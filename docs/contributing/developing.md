@@ -31,6 +31,10 @@ $ cd wagtail
 ```console
 $ pip install -e '.[testing,docs]' -U
 ```
+On Windows(cmd.exe)
+```console
+> pip install -e .[testing,docs] -U
+```
 
 Install the tool chain for building static assets:
 
