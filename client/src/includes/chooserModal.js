@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import $ from 'jquery';
 import { initTabs } from './tabs';
 import { initTooltips } from './initTooltips';

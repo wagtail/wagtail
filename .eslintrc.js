@@ -4,7 +4,6 @@ const legacyCode = {
   'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
-  'max-classes-per-file': 'off',
   'no-continue': 'off',
   'no-else-return': 'off',
   'no-restricted-syntax': 'off',
@@ -49,6 +48,7 @@ module.exports = {
       'always',
       { exceptAfterSingleLine: true },
     ],
+    'max-classes-per-file': 'off',
     // note you must disable the base rule as it can report incorrect errors
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.tsx'] }],
@@ -67,7 +67,6 @@ module.exports = {
     // Legacy Code - remove from `files` when adopting desired rules in new code progressively
     {
       files: [
-        'client/src/entrypoints/admin/comments.js',
         'client/src/entrypoints/admin/core.js',
         'client/src/entrypoints/admin/page-chooser.js',
         'client/src/entrypoints/admin/page-editor.js',
