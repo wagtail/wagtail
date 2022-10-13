@@ -341,7 +341,7 @@ Each inline model requires the following:
 -   It must have a `ParentalKey` to the parent model
 
 ````{note}
-The model inlining feature is provided by [django-modelcluster](https://github.com/torchbox/django-modelcluster) and the `ParentalKey` field type must be imported from there:
+The model inlining feature is provided by [django-modelcluster](https://github.com/wagtail/django-modelcluster) and the `ParentalKey` field type must be imported from there:
 
 ```python
 from modelcluster.fields import ParentalKey

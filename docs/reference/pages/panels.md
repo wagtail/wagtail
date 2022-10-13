@@ -373,4 +373,4 @@ The `relation_name` is the `related_name` label given to the cluster's `Parental
 For another example of using model clusters, see {ref}`tagging`.
 
 For more on `django-modelcluster`, visit
-[the django-modelcluster github project page](https://github.com/torchbox/django-modelcluster)
+[the django-modelcluster github project page](https://github.com/wagtail/django-modelcluster)

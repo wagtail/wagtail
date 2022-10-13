@@ -40,22 +40,22 @@ Set `WAGTAILFRONTENDCACHE_LANGUAGES` to a list of languages (typically equal to 
 
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
--   [Varnish](https://www.varnish-cache.org/docs/3.0/tutorial/purging.html)
+-   [Varnish](https://varnish-cache.org/docs/3.0/tutorial/purging.html)
 -   [Squid](https://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F)
 
 (frontendcache_cloudflare)=
 
 ### Cloudflare
 
-Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: [Cloudflare Sign up](https://www.cloudflare.com/sign-up).
+Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: [Cloudflare Sign up](https://dash.cloudflare.com/sign-up).
 
 Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.CloudflareBackend`.
 
 This backend can be configured to use an account-wide API key, or an API token with restricted access.
 
-To use an account-wide API key, find the key [as described in the Cloudflare documentation](https://support.cloudflare.com/hc/en-us/articles/200167836-Managing-API-Tokens-and-Keys#12345682) and specify `EMAIL` and `API_KEY` parameters.
+To use an account-wide API key, find the key [as described in the Cloudflare documentation](https://developers.cloudflare.com/api/get-started/keys/#view-your-api-key) and specify `EMAIL` and `API_KEY` parameters.
 
-To use a limited API token, [create a token](https://support.cloudflare.com/hc/en-us/articles/200167836-Managing-API-Tokens-and-Keys#12345680) configured with the 'Zone, Cache Purge' permission and specify the `BEARER_TOKEN` parameter.
+To use a limited API token, [create a token](https://developers.cloudflare.com/api/get-started/create-token/) configured with the 'Zone, Cache Purge' permission and specify the `BEARER_TOKEN` parameter.
 
 A `ZONEID` parameter will need to be set for either option. To find the `ZONEID` for your domain, read the [Cloudflare API Documentation](https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/).
 
@@ -105,7 +105,7 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
-Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.readthedocs.org/en/latest/guide/configuration.html).
+Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html).
 
 In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure the mapping matches with the hostnames provided in your site settings.
 
@@ -127,7 +127,7 @@ In most cases, absolute URLs with ``www`` prefixed domain names should be used i
 
 ### Azure CDN
 
-With [Azure CDN](https://azure.microsoft.com/en-gb/services/cdn/) you will need a CDN profile with an endpoint configured.
+With [Azure CDN](https://azure.microsoft.com/en-gb/products/cdn/) you will need a CDN profile with an endpoint configured.
 
 The third-party dependencies of this backend are:
 
@@ -154,7 +154,7 @@ Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `
     }
 ```
 
-By default the credentials will use `azure.identity.DefaultAzureCredential`. To modify the credential object used, please use `CREDENTIALS` setting. Read about your options on the [Azure documentation](https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate).
+By default the credentials will use `azure.identity.DefaultAzureCredential`. To modify the credential object used, please use `CREDENTIALS` setting. Read about your options on the [Azure documentation](https://learn.microsoft.com/en-us/azure/developer/python/sdk/authentication-overview).
 
 ```python
 from azure.common.credentials import ServicePrincipalCredentials
@@ -177,7 +177,7 @@ Another option that can be set is `SUBSCRIPTION_ID`. By default the first encoun
 
 ### Azure Front Door
 
-With [Azure Front Door](https://azure.microsoft.com/en-gb/services/frontdoor/) you will need a Front Door instance with caching enabled.
+With [Azure Front Door](https://azure.microsoft.com/en-gb/products/frontdoor/) you will need a Front Door instance with caching enabled.
 
 The third-party dependencies of this backend are:
 
@@ -202,7 +202,7 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
-By default the credentials will use `azure.identity.DefaultAzureCredential`. To modify the credential object used, please use `CREDENTIALS` setting. Read about your options on the [Azure documentation](https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate).
+By default the credentials will use `azure.identity.DefaultAzureCredential`. To modify the credential object used, please use `CREDENTIALS` setting. Read about your options on the [Azure documentation](https://learn.microsoft.com/en-us/azure/developer/python/sdk/authentication-overview).
 
 ```python
 from azure.common.credentials import ServicePrincipalCredentials

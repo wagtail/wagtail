@@ -23,8 +23,8 @@ It includes a Python interface to OpenCV, as well as the statically-built OpenCV
 
 To install:
 
-```console
-$ pip install opencv-python
+```sh
+pip install opencv-python
 ```
 
 Depending on what else is installed on your system, this may be all that is required. On lighter-weight Linux systems, you may need to identify and install missing system libraries (for example, a slim version of Debian Stretch requires `libsm6 libxrender1 libxext6` to be installed with `apt`).
@@ -66,9 +66,9 @@ If you don't get an import error, installation has probably been successful.
 
 [Rustface](https://github.com/torchbox/rustface-py/) is Python library with prebuilt wheel files provided for Linux and macOS. Although implemented in Rust it is pip-installable:
 
-```console
-$ pip install wheel
-$ pip install rustface
+```sh
+pip install wheel
+pip install rustface
 ```
 
 #### Registering with Willow
