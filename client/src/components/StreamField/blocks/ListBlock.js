@@ -223,10 +223,10 @@ export class ListBlock extends BaseSequenceBlock {
     const animate = opts && opts.animate;
     this.insert(childValue, index + 1, {
       animate,
+      focus: true,
       collapsed: child.collapsed,
       id: newId,
     });
-    this.children[index + 1].focus({ soft: true });
   }
 
   splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
@@ -235,6 +235,7 @@ export class ListBlock extends BaseSequenceBlock {
     child.setValue(valueBefore);
     const newChild = this.insert(valueAfter, index + 1, {
       animate,
+      focus: true,
       collapsed: child.collapsed,
     });
     const oldContentPath = child.getContentPath();
@@ -253,8 +254,6 @@ export class ListBlock extends BaseSequenceBlock {
         }
       });
     }
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    this.children[index + 1].focus({ soft: true });
   }
 
   setError(errorList) {
