@@ -213,6 +213,36 @@ class DraftailInsertBlockCommand {
   }
 }
 
+class DraftailSplitCommand {
+  /* Definition for a command in the Draftail context menu that splits the block.
+   * Constructor args:
+   * split - capability descriptor from the containing block's capabilities definition
+   */
+  constructor(split) {
+    this.split = split;
+    this.description = gettext('Split block');
+  }
+
+  icon = '#icon-cut';
+  type = 'split';
+
+  onSelect({ editorState }) {
+    const result = window.draftail.splitState(
+      window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
+    );
+    // Run the split after a timeout to circumvent potential race condition.
+    setTimeout(() => {
+      if (result) {
+        this.split.fn(
+          result.stateBefore,
+          result.stateAfter,
+          result.shouldMoveCommentFn,
+        );
+      }
+    }, 50);
+  }
+}
+
 class BoundDraftailWidget {
   constructor(input, options, parentCapabilities) {
     this.input = input;
@@ -308,31 +338,7 @@ class BoundDraftailWidget {
         blockCommands.push({
           label: 'Actions',
           type: 'custom-actions',
-          items: [
-            {
-              icon: '#icon-cut',
-              description: gettext('Split block'),
-              type: 'split',
-              onSelect: ({ editorState }) => {
-                const result = window.draftail.splitState(
-                  window.draftail.DraftUtils.resetBlockWithType(
-                    editorState,
-                    'unstyled',
-                  ),
-                );
-                // Run the split after a timeout to circumvent potential race condition.
-                setTimeout(() => {
-                  if (result) {
-                    split.fn(
-                      result.stateBefore,
-                      result.stateAfter,
-                      result.shouldMoveCommentFn,
-                    );
-                  }
-                }, 50);
-              },
-            },
-          ],
+          items: [new DraftailSplitCommand(split)],
         });
       }
     }
