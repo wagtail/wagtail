@@ -212,13 +212,19 @@ class DraftailInsertBlockCommand {
             result.shouldMoveCommentFn,
           );
         }
-        this.addSibling.fn({ type: this.blockDef.name });
+        // setTimeout required to stop Draftail from giving itself focus again
+        setTimeout(() => {
+          this.addSibling.fn({ type: this.blockDef.name });
+        }, 20);
       }, 50);
     } else {
       // Set the current block's content to the 'before' state, to remove the '/' separator and
       // reset the editor state (closing the context menu)
       this.widget.setState(result.stateBefore);
-      this.addSibling.fn({ type: this.blockDef.name });
+      // setTimeout required to stop Draftail from giving itself focus again
+      setTimeout(() => {
+        this.addSibling.fn({ type: this.blockDef.name });
+      }, 20);
     }
   }
 }
