@@ -17,6 +17,11 @@ To check whether you have an appropriate version of Python 3:
 python3 --version
 ```
 
+**On Windows**:
+```sh
+py -3 --version
+```
+
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
 
 ```{note}
@@ -33,7 +38,7 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 **On Windows** (cmd.exe):
 
 ```doscon
-python3 -m venv mysite\env
+py -3 -m venv mysite\env
 mysite\env\Scripts\activate.bat
 # or:
 mysite\env\Scripts\activate
