@@ -169,10 +169,12 @@ window.telepath.register(
 class DraftailInsertBlockCommand {
   /* Definition for a command in the Draftail context menu that inserts a block.
    * Constructor args:
+   * widget - the bound Draftail widget
    * blockDef - block definition for the block to be inserted
    * addSibling, split - capability descriptors from the containing block's capabilities definition
    */
-  constructor(blockDef, addSibling, split) {
+  constructor(widget, blockDef, addSibling, split) {
+    this.widget = widget;
     this.blockDef = blockDef;
     this.addSibling = addSibling;
     this.split = split;
@@ -216,9 +218,11 @@ class DraftailInsertBlockCommand {
 class DraftailSplitCommand {
   /* Definition for a command in the Draftail context menu that splits the block.
    * Constructor args:
+   * widget - the bound Draftail widget
    * split - capability descriptor from the containing block's capabilities definition
    */
-  constructor(split) {
+  constructor(widget, split) {
+    this.widget = widget;
     this.split = split;
     this.description = gettext('Split block');
   }
@@ -325,7 +329,7 @@ class BoundDraftailWidget {
       blockCommands = blockGroups.map(([group, blocks]) => {
         const blockControls = blocks.map(
           (blockDef) =>
-            new DraftailInsertBlockCommand(blockDef, addSibling, split),
+            new DraftailInsertBlockCommand(this, blockDef, addSibling, split),
         );
         return {
           label: group || gettext('Blocks'),
@@ -338,7 +342,7 @@ class BoundDraftailWidget {
         blockCommands.push({
           label: 'Actions',
           type: 'custom-actions',
-          items: [new DraftailSplitCommand(split)],
+          items: [new DraftailSplitCommand(this, split)],
         });
       }
     }
