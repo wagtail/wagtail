@@ -57,6 +57,7 @@ Changelog
  * Fix: Use correct color for labels of radio and checkbox fields (Steven Steinwand)
  * Fix: Adjust spacing of fields’ error messages and position in tables (Steven Steinwand)
  * Fix: Update dead or redirected links throughout the documentation (LB (Ben) Johnston)
+ * Fix: Use different icons for workflow timeline component, so the steps can be distinguished with other means than color (Sam Moran)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
