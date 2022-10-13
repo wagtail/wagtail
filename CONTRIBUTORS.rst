@@ -639,6 +639,7 @@ Contributors
 * Chizoba Nweke
 * Seremba Patrick
 * Ruqouyyah Muhammad
+* Loveth Omokaro
 
 
 Translators
