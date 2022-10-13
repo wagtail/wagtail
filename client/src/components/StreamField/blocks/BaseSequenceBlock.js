@@ -121,6 +121,7 @@ export class BaseSequenceChild extends EventEmitter {
     this.sequence = sequence;
 
     const animate = opts && opts.animate;
+    const focus = opts && opts.focus;
     this.collapsed = opts && opts.collapsed;
     this.strings = (opts && opts.strings) || {};
 
@@ -223,7 +224,14 @@ export class BaseSequenceChild extends EventEmitter {
       dom.hide();
       setTimeout(() => {
         dom.slideDown();
+        if (focus) {
+          // focus this field if we can do so without obtrusive UI behaviour
+          this.block.focus({ soft: true });
+        }
       }, 10);
+    } else if (focus) {
+      // focus this field if we can do so without obtrusive UI behaviour
+      this.block.focus({ soft: true });
     }
   }
 
@@ -452,11 +460,10 @@ export class BaseSequenceBlock {
   _onRequestInsert(index, opts) {
     /* handler for an 'insert new block' action */
     const [blockDef, initialState, id] = this._getChildDataForInsertion(opts);
-    const newChild = this._insert(blockDef, initialState, id || null, index, {
+    this._insert(blockDef, initialState, id || null, index, {
       animate: true,
+      focus: true,
     });
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    newChild.focus({ soft: true });
   }
 
   blockCountChanged() {
@@ -467,6 +474,7 @@ export class BaseSequenceBlock {
   _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
+    const focus = opts && opts.focus;
     const collapsed = opts && opts.collapsed;
     this.blockCounter++;
 
@@ -501,6 +509,7 @@ export class BaseSequenceBlock {
       this,
       {
         animate,
+        focus,
         collapsed,
         strings: this.blockDef.meta.strings,
       },
