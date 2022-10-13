@@ -13,8 +13,8 @@ Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 
-```console
-$ python3 --version
+```sh
+python3 --version
 ```
 
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
@@ -22,7 +22,7 @@ If this does not return a version number or returns a version lower than 3.7, yo
 ```{note}
 Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
 The way to do this varies by platform—see Pillow's
-[platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
+[platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
 
 ### Create and activate a virtual environment
@@ -33,16 +33,19 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 **On Windows** (cmd.exe):
 
 ```doscon
-> python3 -m venv mysite\env
-> mysite\env\Scripts\activate.bat
+python3 -m venv mysite\env
+mysite\env\Scripts\activate.bat
+# or:
+mysite\env\Scripts\activate
 ```
 
 **On GNU/Linux or MacOS** (bash):
 
-```console
-$ python3 -m venv mysite/env
-$ source mysite/env/bin/activate
+```sh
+python3 -m venv mysite/env
+source mysite/env/bin/activate
 ```
+
 
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
@@ -55,8 +58,8 @@ The `env` directory inside of it should be excluded from any version control.
 
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 
-```console
-$ pip install wagtail
+```sh
+pip install wagtail
 ```
 
 ### Generate your site
@@ -69,48 +72,46 @@ and a sample "search" app.
 
 Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
-```console
-$ wagtail start mysite mysite
+```sh
+wagtail start mysite mysite
 ```
 
 ```{note}
-Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings` file. Look at this file to see how the `start` command has listed them in there.
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings.py` file. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
 
-```console
-$ cd mysite
-$ pip install -r requirements.txt
+```sh
+cd mysite
+pip install -r requirements.txt
 ```
 
-This ensures that you have the relevant versions of
-Wagtail,
-Django,
-and any other dependencies for the project you have just created.
+This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
+The `requirements.txt` file contains all the dependencies needed in order to run the project.
 
 ### Create the database
 
 If you haven't updated the project settings, this will be a SQLite database file in the project directory.
 
-```console
-$ python manage.py migrate
+```sh
+python manage.py migrate
 ```
 
 This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command in order to update the database.
 
 ### Create an admin user
 
-```console
-$ python manage.py createsuperuser
+```sh
+python manage.py createsuperuser
 ```
 
 When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database.
 
 ### Start the server
 
-```console
-$ python manage.py runserver
+```sh
+python manage.py runserver
 ```
 
 If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
@@ -266,7 +267,7 @@ takes a Wagtail Page object as an argument.
 
 In the Wagtail admin, create a `BlogIndexPage` as a child of the Homepage,
 make sure it has the slug "blog" on the Promote tab, and publish it.
-You should now be able to access the url `/blog` on your site
+You should now be able to access the url `http://127.0.0.1:8000/blog` on your site
 (note how the slug from the Promote tab defines the page URL).
 
 Now we need a model and template for our blog posts. In `blog/models.py`:
@@ -332,7 +333,7 @@ URL of the blog this post is a part of.
 Now create a few blog posts as children of `BlogIndexPage`.
 Be sure to select type "Blog Page" when creating your posts.
 
-![Page listing for Home page, with the "Actions" dropdown expanded, and the "Add child page" highlighted in red](../_static/images/tutorial/tutorial_4a.png)
+![Page listing for Home page with the "Add Child Page" button highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 
 !["Create a page in our blog" page type selector, with Blog page button highlighted in red](../_static/images/tutorial/tutorial_4b.png)
 

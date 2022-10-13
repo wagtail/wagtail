@@ -58,7 +58,7 @@ To get started with using Wagtail, run the following in a virtual environment:
 
 ![Installing Wagtail](.github/install-animation.gif)
 
-```bash
+```sh
 pip install wagtail
 wagtail start mysite
 cd mysite
@@ -134,7 +134,7 @@ If you're a Python or Django developer, fork the repo and get stuck in! We have 
 
 You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
-We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/torchbox/wagtail/).
+We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://explore.transifex.com/torchbox/wagtail/).
 
 ### 🔓 License
 

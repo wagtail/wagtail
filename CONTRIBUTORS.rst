@@ -630,6 +630,10 @@ Contributors
 * Adinapunyo Banerjee
 * Dan Hayden
 * Jadesola Kareem
+* Dauda Yusuf
+* Damilola Oladele
+* Albina Starykova
+* Sam Moran
 * Toyibat Adele
 
 
