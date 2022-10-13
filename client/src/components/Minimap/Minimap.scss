@@ -12,7 +12,7 @@ $minimap-collapsed-width: 30px;
   overflow-y: auto;
   z-index: calc(theme('zIndex.header') - 20);
   padding-inline-start: theme('spacing.4');
-  width: $minimap-collapsed-width;
+  width: calc($minimap-collapsed-width + theme('spacing.4'));
   // transform: translateX($minimap-width - $minimap-collapsed-width);
 
   &--expanded,
