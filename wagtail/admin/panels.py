@@ -1201,7 +1201,7 @@ def set_default_page_edit_handlers(cls):
         FieldPanel(
             "title",
             classname="title",
-            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title")}),
+            widget=forms.TextInput(attrs={'style': 'border-style:double; placeholder: gettext_lazy("Page title*")'}),
         ),
     ]
 
