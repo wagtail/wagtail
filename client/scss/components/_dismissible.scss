@@ -1,0 +1,31 @@
+@keyframes pulse-warning {
+  0% {
+    box-shadow: 0 0 0 0
+      hsla(
+        var(--w-color-warning-100-hue),
+        var(--w-color-warning-100-saturation),
+        var(--w-color-warning-100-lightness),
+        0.7
+      );
+  }
+
+  25% {
+    box-shadow: 0 0 0 10px
+      hsla(
+        var(--w-color-warning-100-hue),
+        var(--w-color-warning-100-saturation),
+        var(--w-color-warning-100-lightness),
+        0
+      );
+  }
+
+  50% {
+    box-shadow: 0 0 0 0
+      hsla(
+        var(--w-color-warning-100-hue),
+        var(--w-color-warning-100-saturation),
+        var(--w-color-warning-100-lightness),
+        0
+      );
+  }
+}

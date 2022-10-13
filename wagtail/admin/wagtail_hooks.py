@@ -985,6 +985,7 @@ def register_icons(icons):
         "chevron-down.svg",
         "circle-check.svg",
         "circle-plus.svg",
+        "circle-xmark.svg",
         "clipboard-list.svg",
         "code.svg",
         "cog.svg",
