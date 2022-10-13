@@ -17,32 +17,34 @@ const createMinimapLink = (
   anchor: HTMLAnchorElement,
 ): MinimapMenuItem | null => {
   const panel = anchor.closest<HTMLElement>('[data-panel]');
+  const heading = panel?.querySelector<HTMLHeadingElement>(
+    `#${panel?.getAttribute('aria-labelledby')}`,
+  );
   const inlinePanelDeleted = anchor.closest(
     '[data-inline-panel-child].deleted',
   );
-  if (!panel || inlinePanelDeleted) {
+  if (!panel || !heading || inlinePanelDeleted) {
     return null;
   }
 
-  const heading = panel.querySelector<HTMLHeadingElement>(
-    `#${panel.getAttribute('aria-labelledby')}`,
-  );
-  const label = heading?.querySelector<HTMLSpanElement>(
-    '[data-panel-heading-text]',
-  )?.textContent;
+  const label =
+    heading.querySelector<HTMLSpanElement>('[data-panel-heading-text]')
+      ?.textContent || heading.textContent?.replace(/\s+\*\s+$/g, '').trim();
   const isRequired =
     panel.querySelector<HTMLElement>('[data-panel-required]') !== null;
-  const headingARIALevel = heading?.getAttribute('aria-level');
+  const headingARIALevel = heading.getAttribute('aria-level');
   const headingLevel = headingARIALevel
     ? `h${headingARIALevel}`
-    : heading?.tagName.toLowerCase() || 'h2';
+    : heading.tagName.toLowerCase() || 'h2';
   return {
     anchor,
     icon: 'minus',
     label: label || '',
     href: anchor.getAttribute('href') || '',
     required: isRequired,
-    errorCount: panel.querySelectorAll('.error-message').length,
+    errorCount: [].slice
+      .call(panel.querySelectorAll('.error-message'))
+      .filter((err) => err.closest('[data-panel]') === panel).length,
     level: headingLevel as MinimapMenuItem['level'],
   };
 };
@@ -175,13 +177,12 @@ const renderMinimap = (container: HTMLElement) => {
     anchorsContainer = activeTabpanel || anchorsContainer;
   }
 
-  const links = [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    ...anchorsContainer.querySelectorAll<HTMLAnchorElement>(
-      '[data-panel-anchor]',
-    ),
-  ]
+  const links = [].slice
+    .call(
+      anchorsContainer.querySelectorAll<HTMLAnchorElement>(
+        '[data-panel-anchor]',
+      ),
+    )
     .map(createMinimapLink)
     .filter(Boolean);
 

@@ -33,7 +33,7 @@
             {% if heading %}
                 <h2 class="w-panel__heading {% if heading_size == "label" %}w-panel__heading--label{% endif %}" {% if heading_level %}aria-level="{{ heading_level }}"{% endif %} id="{{ heading_id }}" data-panel-heading>
                     {% if id_for_label %}
-                        <label for="{{ id_for_label }}" id="{{ id_for_label }}-label"><span data-panel-heading-text>{{ heading }}</span>{% if is_required %}<span class="w-required-mark">*</span>{% endif %}</label>
+                        <label for="{{ id_for_label }}" id="{{ id_for_label }}-label"><span data-panel-heading-text>{{ heading }}</span>{% if is_required %}<span class="w-required-mark" data-panel-required>*</span>{% endif %}</label>
                     {% else %}
                         <span data-panel-heading-text>{{ heading }}</span>{% if is_required %}<span class="w-required-mark" data-panel-required>*</span>{% endif %}
                     {% endif %}

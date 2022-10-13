@@ -166,7 +166,7 @@ export class BaseSequenceChild extends EventEmitter {
               <span class="c-sf-block__type">${blockTypeLabel}</span>
               ${
                 blockDef.meta.required
-                  ? '<span class="w-required-mark">*</span>'
+                  ? '<span class="w-required-mark" data-panel-required>*</span>'
                   : ''
               }
             </h2>
