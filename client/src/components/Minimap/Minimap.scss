@@ -8,13 +8,16 @@ $item-padding-start: theme('spacing.7');
   max-height: calc(100vh - 100%);
   overflow-y: auto;
   z-index: calc(theme('zIndex.header') - 20);
-  padding-inline-start: theme('spacing.8');
+  padding-inline-start: theme('spacing.4');
   transform: translateX(75%);
 
   &--expanded,
   &:hover {
     transform: translateX(0);
-    padding-inline-start: theme('spacing.2');
+
+    .w-minimap-item__placeholder {
+      display: none;
+    }
   }
 }
 

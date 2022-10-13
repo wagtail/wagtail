@@ -20,10 +20,11 @@ const createMinimapLink = (
   const heading = panel?.querySelector<HTMLHeadingElement>(
     `#${panel?.getAttribute('aria-labelledby')}`,
   );
+  const toggle = panel?.querySelector<HTMLButtonElement>('[data-panel-toggle]');
   const inlinePanelDeleted = anchor.closest(
     '[data-inline-panel-child].deleted',
   );
-  if (!panel || !heading || inlinePanelDeleted) {
+  if (!panel || !heading || !toggle || inlinePanelDeleted) {
     return null;
   }
 
@@ -36,9 +37,14 @@ const createMinimapLink = (
   const headingLevel = headingARIALevel
     ? `h${headingARIALevel}`
     : heading.tagName.toLowerCase() || 'h2';
+  const icon = toggle
+    .querySelector<SVGUseElement>('use')
+    ?.getAttribute('href')
+    ?.replace('#icon-', '');
   return {
     anchor,
-    icon: 'minus',
+    toggle,
+    icon: icon || '',
     label: label || '',
     href: anchor.getAttribute('href') || '',
     required: isRequired,
@@ -115,8 +121,8 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
     links.forEach(({ anchor, href }, i) => {
       // Special-case for the "title" field, for which the anchor is hidden.
       const isFirst = i === 0;
-      const isTitle = href.includes('title');
-      if (isFirst && isTitle) {
+      const isTitle = isFirst && href.includes('title');
+      if (isTitle) {
         obs.observe(document.querySelector(href) as HTMLElement);
       } else {
         obs.observe(anchor);

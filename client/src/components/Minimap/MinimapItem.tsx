@@ -5,6 +5,7 @@ import Icon from '../Icon/Icon';
 
 export interface MinimapMenuItem {
   anchor: HTMLAnchorElement;
+  toggle: HTMLButtonElement;
   href: string;
   label: string;
   icon: string;
@@ -29,11 +30,12 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
   intersects,
   onClick,
 }) => {
-  const hasError = item.errorCount > 0;
+  const { href, label, icon, required, errorCount, level } = item;
+  const hasError = errorCount > 0;
   return (
     <a
-      href={item.href}
-      className={`w-minimap-item w-minimap-item--${item.level} ${
+      href={href}
+      className={`w-minimap-item w-minimap-item--${level} ${
         intersects ? 'w-minimap-item--active' : ''
       } ${hasError ? 'w-minimap-item--error' : ''}`}
       onClick={onClick}
@@ -43,18 +45,20 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
           className="w-minimap-item__errors"
           aria-label={gettext('{count} errors').replace(
             '{count}',
-            `${item.errorCount}`,
+            `${errorCount}`,
           )}
         >
-          {item.errorCount}
+          {errorCount}
         </div>
       ) : null}
       <Icon name="minus" className="w-minimap-item__placeholder" />
-      {item.icon ? (
-        <Icon name={item.icon} className="w-minimap-item__icon" />
+      {level !== 'h1' && level !== 'h2' ? (
+        <Icon name={icon || ' arrow-right'} className="w-minimap-item__icon" />
       ) : null}
-      <span className="w-minimap-item__label">{item.label}</span>
-      {item.required ? requiredMark : null}
+      <span className="w-minimap-item__label">
+        <span className="w-minimap-item__text">{label}</span>
+        {required ? requiredMark : null}
+      </span>
     </a>
   );
 };

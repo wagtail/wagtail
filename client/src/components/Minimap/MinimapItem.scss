@@ -19,10 +19,6 @@
     padding: theme('spacing.1');
   }
 
-  .w-minimap-item__icon {
-    display: none;
-  }
-
   .w-minimap-item__placeholder {
     color: theme('colors.grey.200');
   }
@@ -30,13 +26,17 @@
   &:hover {
     color: currentColor;
 
-    .w-minimap-item__label {
+    .w-minimap-item__text {
       text-decoration: underline;
     }
   }
 
   &--h2 {
     font-weight: theme('fontWeight.bold');
+
+    .w-minimap-item__placeholder {
+      color: theme('colors.grey.200');
+    }
   }
 
   &--active {
@@ -45,16 +45,6 @@
 
   &--error {
     color: theme('colors.critical.200');
-  }
-
-  .w-minimap--expanded & {
-    .w-minimap-item__icon {
-      display: block;
-    }
-
-    .w-minimap-item__placeholder {
-      display: none;
-    }
   }
 }
 
