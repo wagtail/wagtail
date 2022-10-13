@@ -71,7 +71,8 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
         (newEntries) => {
           intersectionsRef.current = newEntries.reduce(
             (acc, { target, isIntersecting }: IntersectionObserverEntry) => {
-              const href = target.getAttribute('href') || '';
+              // Use the target id when we observe sections rather than anchors.
+              const href = target.getAttribute('href') || `#${target.id}` || '';
               acc[href] = isIntersecting;
               return acc;
             },
@@ -99,7 +100,8 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
             }
           });
         },
-        { root: null, rootMargin: '0px', threshold: 0.1 },
+        // Count an element as "in", accounting for the 50px slim header and 70px actions footer.
+        { root: null, rootMargin: '-50px 0px -70px 0px', threshold: 0.1 },
       );
 
     if (!observer) {
@@ -108,8 +110,15 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       obs.disconnect();
     }
 
-    links.forEach(({ anchor }) => {
-      obs.observe(anchor);
+    links.forEach(({ anchor, href }, i) => {
+      // Special-case for the "title" field, for which the anchor is hidden.
+      const isFirst = i === 0;
+      const isTitle = href.includes('title');
+      if (isFirst && isTitle) {
+        obs.observe(document.querySelector(href) as HTMLElement);
+      } else {
+        obs.observe(anchor);
+      }
     });
 
     return () => {
