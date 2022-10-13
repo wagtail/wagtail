@@ -633,6 +633,7 @@ Contributors
 * Dauda Yusuf
 * Damilola Oladele
 * Albina Starykova
+* Sam Moran
 
 
 Translators
