@@ -150,7 +150,22 @@
     }
 
     &.button-secondary {
-      border-color: theme('colors.black-20');
+      .icon-wrapper {
+        border-inline-end: 1px solid $color-button;
+        background-color: transparent;
+      }
+
+      &:hover {
+        background-color: theme('colors.secondary.50');
+      }
+
+      &:disabled,
+      &[disabled],
+      &.disabled {
+        .icon-wrapper {
+          border-color: $color-grey-4;
+        }
+      }
     }
 
     &.button-small {
@@ -163,6 +178,35 @@
       &.button--icon .icon {
         @include svg-icon(0.9rem);
         padding: 0.25em;
+      }
+
+      &.button-secondary {
+        border: 0;
+        padding-inline-start: 2.2em;
+
+        .icon-wrapper {
+          border: 1px solid $color-button;
+          border-radius: 50%;
+          height: fit-content;
+          width: fit-content;
+        }
+
+        &:hover {
+          background-color: transparent;
+
+          .icon-wrapper {
+            background-color: $color-button;
+            color: $color-white;
+          }
+        }
+
+        &:disabled,
+        &[disabled],
+        &.disabled {
+          .icon-wrapper {
+            background-color: transparent;
+          }
+        }
       }
     }
   }
