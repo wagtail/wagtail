@@ -32,6 +32,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
 }) => {
   const { href, label, icon, required, errorCount, level } = item;
   const hasError = errorCount > 0;
+  const text = label.length > 30 ? `${label.substring(0, 30)}…` : label;
   return (
     <a
       href={href}
@@ -53,10 +54,10 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
       ) : null}
       <Icon name="minus" className="w-minimap-item__placeholder" />
       {level !== 'h1' && level !== 'h2' ? (
-        <Icon name={icon || ' arrow-right'} className="w-minimap-item__icon" />
+        <Icon name={icon} className="w-minimap-item__icon" />
       ) : null}
       <span className="w-minimap-item__label">
-        <span className="w-minimap-item__text">{label}</span>
+        <span className="w-minimap-item__text">{text}</span>
         {required ? requiredMark : null}
       </span>
     </a>

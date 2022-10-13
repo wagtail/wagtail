@@ -15,7 +15,6 @@ import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
   initCollapsiblePanels,
-  initCollapseAllPanels,
 } from '../../includes/panels';
 import { initMinimap } from '../../components/Minimap/Minimap';
 
@@ -47,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
-  initCollapseAllPanels();
   initMinimap();
 });
 

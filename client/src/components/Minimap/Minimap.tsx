@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { toggleCollapsiblePanel } from '../../includes/panels';
 
 import { debounce } from '../../utils/debounce';
 import Icon from '../Icon/Icon';
+import CollapseAll from './CollapseAll';
 
 import MinimapItem, { MinimapMenuItem } from './MinimapItem';
 
@@ -156,6 +158,18 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       >
         {expanded ? <Icon name="expand-right" /> : <Icon name="minus" />}
       </button>
+      <CollapseAll
+        onClick={(newExpanded: boolean) => {
+          links.forEach((link, i) => {
+            // Special-case for the "title" field, for which the anchor is hidden.
+            const isFirst = i === 0;
+            const isTitle = isFirst && link.href.includes('title');
+            if (!isTitle) {
+              toggleCollapsiblePanel(link.toggle, newExpanded);
+            }
+          });
+        }}
+      />
       <ol className="w-minimap__list">
         {links.map((link) => (
           <li key={link.href}>

@@ -103,51 +103,6 @@ export function initCollapsiblePanels(
 }
 
 /**
- * Initialises event handlers for collapsing / expanding all panels
- */
-export function initCollapseAllPanels(
-  button = document.querySelector<HTMLButtonElement>(
-    '[data-all-panels-toggle]',
-  ),
-) {
-  if (!button) {
-    return;
-  }
-
-  const expandText = button.getAttribute('data-expand-text');
-  const collapseText = button.getAttribute('data-collapse-text');
-
-  if (!button || !expandText || !collapseText) {
-    return;
-  }
-
-  button.addEventListener('click', () => {
-    const isExpanding = !(button.getAttribute('aria-expanded') === 'true');
-
-    // Find all panel toggles within the same form as the button,
-    // excluding the special "title" panel that has no toggle.
-    const toggles = button
-      .closest('form')
-      ?.querySelectorAll<HTMLButtonElement>(
-        '[data-panel]:not(.title) [data-panel-toggle]',
-      );
-
-    if (!toggles) {
-      return;
-    }
-
-    button.setAttribute('aria-expanded', `${isExpanding}`);
-
-    toggles.forEach((toggle: HTMLButtonElement) => {
-      toggleCollapsiblePanel(toggle, isExpanding);
-    });
-
-    // eslint-disable-next-line no-param-reassign
-    button.innerText = isExpanding ? collapseText : expandText;
-  });
-}
-
-/**
  * Smooth scroll onto any active panel.
  * Needs to run after the whole page is loaded so the browser can resolve any
  * JS-rendered :target.

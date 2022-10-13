@@ -2,13 +2,13 @@
   @apply w-label-3;
   display: inline-flex;
   align-items: center;
-  width: 300px;
-  padding-inline-start: $item-padding-start;
-  padding-top: theme('spacing.2');
-  padding-bottom: theme('spacing.2');
+  width: $minimap-width;
+  padding-inline-start: theme('spacing.2');
+  padding-inline-end: theme('spacing.2');
+  height: theme('spacing.8');
   gap: theme('spacing[2.5]');
   font-weight: theme('fontWeight.normal');
-  border-inline-start: 1px solid theme('colors.grey.100');
+  border-inline-start: 1px solid transparent;
 
   .icon {
     width: theme('spacing.4');
@@ -19,32 +19,43 @@
     padding: theme('spacing.1');
   }
 
-  .w-minimap-item__placeholder {
-    color: theme('colors.grey.200');
+  .icon-arrow-down-big {
+    transform: rotate(-90deg);
   }
 
-  &:hover {
-    color: currentColor;
-
-    .w-minimap-item__text {
-      text-decoration: underline;
-    }
-  }
-
-  &--h2 {
-    font-weight: theme('fontWeight.bold');
-
-    .w-minimap-item__placeholder {
-      color: theme('colors.grey.200');
-    }
+  :where(.w-minimap--expanded, .w-minimap:hover, .w-minimap:focus-within) & {
+    border-color: theme('colors.grey.100');
+    padding-inline-start: theme('spacing.8');
   }
 
   &--active {
     border-color: theme('colors.primary.DEFAULT');
   }
 
+  &:hover {
+    color: theme('colors.secondary.DEFAULT');
+    border-color: theme('colors.secondary.100');
+    background-color: theme('colors.secondary.50');
+  }
+
   &--error {
     color: theme('colors.critical.200');
+  }
+
+  &--h2 {
+    font-weight: theme('fontWeight.bold');
+
+    .w-minimap-item__placeholder {
+      color: theme('colors.primary.DEFAULT');
+    }
+  }
+}
+
+.w-minimap-item__placeholder {
+  color: theme('colors.grey.200');
+
+  :where(.w-minimap--expanded, .w-minimap:hover, .w-minimap:focus-within) & {
+    display: none;
   }
 }
 
@@ -57,7 +68,7 @@
   // Improve the alignment of "1".
   padding-inline-end: theme('spacing.px');
   text-align: center;
-  margin-inline-start: calc(-1 * ($item-padding-start + $badge-size / 2));
+  margin-inline-start: calc(-1 * (theme('spacing.2') + $badge-size / 2));
   margin-inline-end: theme('spacing[2.5]');
   font-size: 0.5625rem;
   font-weight: theme('fontWeight.bold');

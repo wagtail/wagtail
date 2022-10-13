@@ -1,32 +1,41 @@
-$item-padding-start: theme('spacing.7');
+// If unset, default to the "mobile" height of the slim header.
+$minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
+$minimap-width: 300px;
+$minimap-collapsed-width: 30px;
 
 .w-minimap {
   @include transition(transform 0.3s ease);
   position: absolute;
-  top: var(--offset-top, calc(theme('spacing.slim-header') * 2));
+  top: $minimap-top-offset;
   right: 0;
   max-height: calc(100vh - 100%);
   overflow-y: auto;
   z-index: calc(theme('zIndex.header') - 20);
   padding-inline-start: theme('spacing.4');
-  transform: translateX(75%);
+  width: $minimap-collapsed-width;
+  // transform: translateX($minimap-width - $minimap-collapsed-width);
 
   &--expanded,
-  &:hover {
-    transform: translateX(0);
-
-    .w-minimap-item__placeholder {
-      display: none;
-    }
+  &:hover,
+  &:focus-within {
+    width: $minimap-width;
+    // transform: translateX(0);
+    // Take up the whole height so overlap with the page looks better.
+    height: calc(100vh - $minimap-top-offset);
   }
 }
 
 .w-minimap__toggle {
+  display: none;
   color: theme('colors.primary.DEFAULT');
 
   .icon {
     width: theme('spacing.4');
     height: theme('spacing.4');
+  }
+
+  :where(.w-minimap--expanded, .w-minimap:hover, .w-minimap:focus-within) & {
+    display: inline-block;
   }
 }
 
@@ -38,6 +47,16 @@ $item-padding-start: theme('spacing.7');
 
   > li {
     display: flex;
+  }
+}
+
+.w-minimap__collapse-all {
+  border-color: theme('colors.grey.150');
+
+  .icon {
+    width: theme('spacing[2.5]');
+    height: theme('spacing[2.5]');
+    margin-inline-end: theme('spacing[2.5]');
   }
 }
 
