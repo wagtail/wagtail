@@ -17,7 +17,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         self.classnames = classnames
         self.icon_name = icon_name
         self.name = name or cautious_slugify(str(label))
-        self.attrs = attrs
+        self.attrs = attrs or {}
         self.order = order
 
     def is_shown(self, request):
@@ -124,6 +124,7 @@ class SubmenuMenuItem(MenuItem):
             self.menu.render_component(request),
             icon_name=self.icon_name,
             classnames=self.classnames,
+            attrs=self.attrs,
         )
 
 

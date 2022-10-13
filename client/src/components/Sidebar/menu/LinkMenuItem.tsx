@@ -18,7 +18,7 @@ export const LinkMenuItem: React.FunctionComponent<
     }
 
     // For compatibility purposes – do not capture clicks for links with a target.
-    if (item.attrs && item.attrs.target) {
+    if (item.attrs.target) {
       return;
     }
 
@@ -72,24 +72,24 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
   name: string;
   label: string;
   url: string;
+  attrs: { [key: string]: any };
   iconName: string | null;
   classNames?: string;
-  attrs: { [key: string]: any } | null;
 
   constructor({
     name,
     label,
     url,
+    attrs,
     icon_name: iconName = null,
     classnames = undefined,
-    attrs = null,
   }) {
     this.name = name;
     this.label = label;
     this.url = url;
+    this.attrs = attrs;
     this.iconName = iconName;
     this.classNames = classnames;
-    this.attrs = attrs;
   }
 
   render({ path, slim, state, dispatch, navigate }) {
