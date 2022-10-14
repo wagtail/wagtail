@@ -6,6 +6,7 @@ import Icon from '../Icon/Icon';
 export interface MinimapMenuItem {
   anchor: HTMLAnchorElement;
   toggle: HTMLButtonElement;
+  panel: HTMLElement;
   href: string;
   label: string;
   icon: string;
@@ -17,22 +18,24 @@ export interface MinimapMenuItem {
 interface MinimapItemProps {
   item: MinimapMenuItem;
   intersects: boolean;
+  expanded: boolean;
   onClick: (e: React.MouseEvent) => void;
 }
 
 const requiredMark = <span className="w-required-mark">*</span>;
 
 /**
- * TODO;
+ * A single menu item inside the minimap, linking to a section of the page.
  */
 const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
   item,
   intersects,
+  expanded,
   onClick,
 }) => {
   const { href, label, icon, required, errorCount, level } = item;
   const hasError = errorCount > 0;
-  const text = label.length > 30 ? `${label.substring(0, 30)}…` : label;
+  const text = label.length > 29 ? `${label.substring(0, 29)}…` : label;
   return (
     <a
       href={href}
@@ -40,6 +43,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
         intersects ? 'w-minimap-item--active' : ''
       } ${hasError ? 'w-minimap-item--error' : ''}`}
       onClick={onClick}
+      tabIndex={expanded ? undefined : -1}
     >
       {hasError ? (
         <div

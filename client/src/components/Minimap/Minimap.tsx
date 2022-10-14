@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { toggleCollapsiblePanel } from '../../includes/panels';
 
 import { debounce } from '../../utils/debounce';
+import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 import CollapseAll from './CollapseAll';
 
@@ -46,6 +47,7 @@ const createMinimapLink = (
   return {
     anchor,
     toggle,
+    panel,
     icon: icon || '',
     label: label || '',
     href: anchor.getAttribute('href') || '',
@@ -68,11 +70,27 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
 }) => {
   const [observer, setObserver] = useState<IntersectionObserver | null>(null);
   const [expanded, setExpanded] = useState<boolean>(false);
+  const [keepExpanded, setKeepExpanded] = useState<boolean>(false);
+  const [panelsExpanded, setPanelsExpanded] = useState<boolean>(true);
   const [intersections, setIntersections] = useState<{
     [href: string]: boolean;
   }>({});
   const intersectionsRef = useRef(intersections);
   const updateMinimap = useRef<CallableFunction | null>(null);
+  const toggleAllPanels = () => {
+    const newExpanded = !panelsExpanded;
+
+    setPanelsExpanded(newExpanded);
+
+    links.forEach((link, i) => {
+      // Special-case for the "title" field, for which the anchor is hidden.
+      const isFirst = i === 0;
+      const isTitle = isFirst && link.href.includes('title');
+      if (!isTitle) {
+        toggleCollapsiblePanel(link.toggle, newExpanded);
+      }
+    });
+  };
 
   useEffect(() => {
     const obs =
@@ -81,8 +99,7 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
         (newEntries) => {
           intersectionsRef.current = newEntries.reduce(
             (acc, { target, isIntersecting }: IntersectionObserverEntry) => {
-              // Use the target id when we observe sections rather than anchors.
-              const href = target.getAttribute('href') || `#${target.id}` || '';
+              const href = `#${target.closest('[data-panel]')?.id}` || '';
               acc[href] = isIntersecting;
               return acc;
             },
@@ -120,15 +137,13 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       obs.disconnect();
     }
 
-    links.forEach(({ anchor, href }, i) => {
-      // Special-case for the "title" field, for which the anchor is hidden.
-      const isFirst = i === 0;
-      const isTitle = isFirst && href.includes('title');
-      if (isTitle) {
-        obs.observe(document.querySelector(href) as HTMLElement);
-      } else {
-        obs.observe(anchor);
-      }
+    links.forEach(({ panel, toggle }) => {
+      // Special-case for top-level InlinePanel and StreamField, where the
+      // link only shows as active if the anchor is in view.
+      const isTopLevelNested =
+        panel.matches('.w-panel--nested') &&
+        panel.closest('[data-field]') === null;
+      obs.observe(isTopLevelNested ? toggle : panel);
     });
 
     return () => {
@@ -142,6 +157,7 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
       (e: MouseEvent) => {
         if (!container.contains(e.target as HTMLElement)) {
           setExpanded(false);
+          setKeepExpanded(false);
         }
       },
       true,
@@ -149,39 +165,60 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
   }, [container, expanded]);
 
   return (
-    <div className={`w-minimap${expanded ? ' w-minimap--expanded' : ''}`}>
-      <button
-        type="button"
-        aria-expanded={expanded}
-        onClick={() => setExpanded(false)}
-        className="w-minimap__toggle"
-      >
-        {expanded ? <Icon name="expand-right" /> : <Icon name="minus" />}
-      </button>
+    <>
       <CollapseAll
-        onClick={(newExpanded: boolean) => {
-          links.forEach((link, i) => {
-            // Special-case for the "title" field, for which the anchor is hidden.
-            const isFirst = i === 0;
-            const isTitle = isFirst && link.href.includes('title');
-            if (!isTitle) {
-              toggleCollapsiblePanel(link.toggle, newExpanded);
-            }
-          });
-        }}
+        expanded={panelsExpanded}
+        onClick={toggleAllPanels}
+        floating
+        insideMinimap={expanded}
       />
-      <ol className="w-minimap__list">
-        {links.map((link) => (
-          <li key={link.href}>
-            <MinimapItem
-              item={link}
-              intersects={intersections[link.href]}
-              onClick={() => setExpanded(true)}
-            />
-          </li>
-        ))}
-      </ol>
-    </div>
+      {/* Keyboard support is implemented with the toggle button. */}
+      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
+      <div
+        className={`w-minimap${expanded ? ' w-minimap--expanded' : ''}`}
+        onMouseOver={() => {
+          // Opening with hover should not keep the menu expanded.
+          setExpanded(true);
+        }}
+        onMouseOut={() => {
+          if (!keepExpanded) {
+            setExpanded(false);
+            setKeepExpanded(false);
+          }
+        }}
+      >
+        <div className="w-minimap__header">
+          <button
+            type="button"
+            aria-expanded={expanded}
+            onClick={() => {
+              setExpanded(!expanded);
+              setKeepExpanded(!expanded);
+            }}
+            className="w-minimap__toggle"
+            aria-label={gettext('Toggle side panel')}
+          >
+            <Icon name="expand-right" />
+          </button>
+        </div>
+        <ol className="w-minimap__list">
+          {links.map((link) => (
+            <li key={link.href}>
+              <MinimapItem
+                item={link}
+                intersects={intersections[link.href]}
+                expanded={expanded}
+                onClick={() => {
+                  setExpanded(true);
+                  setKeepExpanded(true);
+                }}
+              />
+            </li>
+          ))}
+        </ol>
+        <div className="w-minimap__footer" />
+      </div>
+    </>
   );
 };
 
