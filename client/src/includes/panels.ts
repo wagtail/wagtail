@@ -68,8 +68,9 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
+  const isCollapsed = hasCollapsed && !hasError;
 
-  if (hasCollapsed && !hasError) {
+  if (isCollapsed) {
     togglePanel(false);
   }
 
