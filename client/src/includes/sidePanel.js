@@ -61,7 +61,11 @@ export default function initSidePanel() {
 
     // Remember last opened side panel if not in explorer
     if (!inExplorer) {
-      localStorage.setItem('wagtail-side-panel-open', panelName);
+      try {
+        localStorage.setItem('wagtail:side-panel-open', panelName);
+      } catch (e) {
+        // Proceed without saving the last-open panel.
+      }
     }
   };
 
@@ -95,9 +99,13 @@ export default function initSidePanel() {
   // Open the last opened panel if not in explorer,
   // use timeout to allow comments to load first
   setTimeout(() => {
-    const sidePanelOpen = localStorage.getItem('wagtail-side-panel-open');
-    if (!inExplorer && sidePanelOpen) {
-      setPanel(sidePanelOpen);
+    try {
+      const sidePanelOpen = localStorage.getItem('wagtail:side-panel-open');
+      if (!inExplorer && sidePanelOpen) {
+        setPanel(sidePanelOpen);
+      }
+    } catch (e) {
+      // Proceed without remembering the last-open panel.
     }
 
     // Skip the animation on initial load only,
