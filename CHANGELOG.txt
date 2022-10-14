@@ -40,6 +40,9 @@ Changelog
  * Add better support for non-integer / non-`id` primary keys into Wagtail's generic views, including for Snippets and custom User models (Mehrdad Moradizadeh)
  * Upgrade jQuery UI to version 1.13.2 (LB (Ben) Johnston)
  * Update pattern library background & text examples (Albina Starykova)
+ * Switch StreamField blocks to use a `<section>` element so screen reader users can bypass them more easily (Thibaud Colas)
+ * Add anchor links to StreamField blocks so users can navigate straight to a given block (Thibaud Colas)
+ * Support "Ctrl + f" in-page search within collapsed StreamField blocks (Thibaud Colas)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
@@ -59,6 +62,10 @@ Changelog
  * Fix: Update dead or redirected links throughout the documentation (LB (Ben) Johnston)
  * Fix: Use different icons for workflow timeline component, so the steps can be distinguished with other means than color (Sam Moran)
  * Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
+ * Fix: StreamField blocks are now collapsible with the keyboard (Thibaud Colas)
+ * Fix: StreamField block headings now have a label for screen reader users (Thibaud Colas)
+ * Fix: Display the "*" required field indicator for StreamField blocks (Thibaud Colas)
+ * Fix: Resolve inconsistency in action button positions in InlinePanel (Thibaud Colas)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~

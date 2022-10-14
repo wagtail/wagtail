@@ -216,7 +216,7 @@ export class StreamBlock extends BaseSequenceBlock {
     this.prefix = prefix;
 
     const dom = $(`
-      <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
+      <div class="${h(this.blockDef.meta.classname || '')}">
         <input type="hidden" name="${h(
           prefix,
         )}-count" data-streamfield-stream-count value="0">
