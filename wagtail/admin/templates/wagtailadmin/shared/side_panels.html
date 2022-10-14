@@ -12,3 +12,7 @@
         </div>
     {% endfor %}
 </aside>
+{% if not in_explorer %}
+    {# Rendering for the minimap is done with React. #}
+    <aside aria-label="{% trans 'Minimap' %}" data-minimap-container></aside>
+{% endif %}
