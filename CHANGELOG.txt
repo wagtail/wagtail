@@ -77,6 +77,7 @@ Changelog
 * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
 * Fix: Ensure that `AbstractForm` & `AbstractEmailForm` page models correctly pass the form to the preview context (Dan Bentley)
 * Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
+* Fix: Ensure that buttons on custom chooser widgets are correctly shown on hover (Thibaud Colas)
 
 4.0.2 (23.09.2022)
 ~~~~~~~~~~~~~~~~~~
