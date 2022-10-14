@@ -25,6 +25,7 @@ Run the following commands in a virtual environment of your choice:
 pip install wagtail
 ```
 
+pip is a package manager for wagtail. It comes preinstalled with latest versions of python.
 (Installing wagtail outside a virtual environment may require `sudo`. sudo is a program to run other programs with the security privileges of another user, by default the superuser)
 
 Once installed, Wagtail provides a command similar to Django\'s `django-admin startproject` to generate a new site/project:
@@ -37,7 +38,8 @@ This will create a new folder `mysite`, based on a template containing everythin
 More information on that template is available in
 [the project template reference](/reference/project_template).
 
-Inside your `mysite` folder, run the setup steps necessary for any Django project:
+Inside your `mysite` folder, run the following setup steps necessary for any Django project:
+_**Note:** `createsuperuser` will ask for your username, email and password, and doesn't show anything when typing passwords (ensure to type characters you can easily remember)._
 
 ```sh
 pip install -r requirements.txt
@@ -45,6 +47,7 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
+These will install necessary dependencies for your project, create a database for your project, create an admin user, and finally get your application started on the server.
 
 Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
 
