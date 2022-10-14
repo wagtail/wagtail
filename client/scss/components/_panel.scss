@@ -23,6 +23,8 @@ $header-button-size: theme('spacing.8');
   @apply w-h3;
   display: inline-block;
   margin: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   cursor: pointer;
   padding-inline-end: theme('spacing.2');
 
@@ -45,6 +47,7 @@ $header-button-size: theme('spacing.8');
   align-content: center;
   color: theme('colors.primary.DEFAULT');
   border-radius: theme('borderRadius.full');
+  margin: 0;
   padding: 0;
   width: $header-button-size-mobile;
   height: $header-button-size-mobile;
@@ -125,6 +128,8 @@ $header-button-size: theme('spacing.8');
 }
 
 .w-panel__controls {
+  // Prevent shrinking of the buttons when header text is long.
+  flex-shrink: 0;
   // Add additional invisible padding for a more forgiving hover area.
   padding: theme('spacing.4');
   margin: calc(-1 * theme('spacing.4'));
