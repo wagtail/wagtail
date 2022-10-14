@@ -66,6 +66,7 @@ Changelog
  * Fix: StreamField block headings now have a label for screen reader users (Thibaud Colas)
  * Fix: Display the "*" required field indicator for StreamField blocks (Thibaud Colas)
  * Fix: Resolve inconsistency in action button positions in InlinePanel (Thibaud Colas)
+ * Fix: Use h3 elements with a counter in InlinePanel so screen reader users can navigate by heading (Thibaud Colas)
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
