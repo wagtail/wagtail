@@ -31,6 +31,10 @@
     @apply w-translate-x-0;
   }
 
+  &--initial {
+    @apply w-transition-none;
+  }
+
   &__close-button {
     @apply w-text-primary w-absolute w-left-3 w-top-3 hover:w-text-primary-200 w-bg-white w-p-3 w-hidden w-transition;
 
