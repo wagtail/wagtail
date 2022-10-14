@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 
-<aside class="form-side form-side--initial" aria-label="{% trans 'Side panels' %}" data-form-side {% if in_explorer %}data-form-side-explorer{% endif %}>
+<aside class="form-side form-side--initial" aria-label="{% trans 'Side panels' %}" data-form-side{% if in_explorer %} data-form-side-explorer{% endif %}>
     <button type="button" class="form-side__close-button" data-form-side-close-button aria-label="{% trans 'Toggle side panel' %}">
         {% icon name="expand-right" %}
     </button>
