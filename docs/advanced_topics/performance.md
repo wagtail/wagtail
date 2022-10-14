@@ -66,26 +66,6 @@ For details on configuring Wagtail for Elasticsearch, see [](wagtailsearch_backe
 
 Wagtail is tested on PostgreSQL, SQLite and MySQL. It may work on some third-party database backends as well, but this is not guaranteed. We recommend PostgreSQL for production use.
 
-## Templates
-
-The overhead from reading and compiling templates adds up. Django wraps its default loaders with [cached template loader](django.template.loaders.cached.Loader) which stores the compiled `Template` in memory and returns it for subsequent requests. The cached loader is automatically enabled when `DEBUG` is `False`. If you are using custom loaders, update your settings to use it:
-
-```python
-TEMPLATES = [{
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [os.path.join(BASE_DIR, 'templates')],
-    'OPTIONS': {
-        'loaders': [
-            ('django.template.loaders.cached.Loader', [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-                'path.to.custom.Loader',
-            ]),
-        ],
-    },
-}]
-```
-
 (caching_proxy)=
 
 ## Caching proxy
@@ -99,3 +79,7 @@ Wagtail supports automatic cache invalidation for Varnish/Squid. See [](frontend
 For some images, it may be beneficial to lazy load images, so the rest of the page can continue to load. It can be configured site-wide [](adding_default_attributes_to_images) or per-image [](image_tag_alt). For more details you can read about the [`loading='lazy'` attribute](https://developer.mozilla.org/en-US/docs/Web/Performance/Lazy_loading#images_and_iframes) and the [`'decoding='async'` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-decoding) or this [web.dev article on lazy loading images](https://web.dev/lazy-loading-images/).
 
 This optimisation is already handled for you for images in the admin site.
+
+## Django
+
+Wagtail is built on Django. Many of the [performance tips](https://docs.djangoproject.com/en/stable/topics/performance/) set out by Django are also applicable to Wagtail.
