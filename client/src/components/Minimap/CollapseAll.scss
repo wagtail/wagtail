@@ -6,8 +6,12 @@
   align-items: center;
   justify-content: space-between;
   border-color: theme('colors.grey.150');
-  background-color: theme('colors.white.DEFAULT');
   z-index: calc($minimap-z-index + 1);
+
+  &.button-secondary {
+    // Important for overlap with "Comment notifications" switch.
+    background-color: theme('colors.white.DEFAULT');
+  }
 
   @include media-breakpoint-up(sm) {
     display: inline-flex;

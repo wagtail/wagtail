@@ -91,6 +91,7 @@ const renderMinimap = (container: HTMLElement) => {
   ReactDOM.render(
     <Minimap
       container={container}
+      anchorsContainer={anchorsContainer}
       links={links}
       onUpdate={renderMinimap}
       toggleAllPanels={toggleAllPanels}

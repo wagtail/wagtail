@@ -9,6 +9,7 @@ import MinimapItem, { MinimapMenuItem } from './MinimapItem';
 
 export interface MinimapProps {
   container: HTMLElement;
+  anchorsContainer: HTMLElement;
   links: readonly MinimapMenuItem[];
   onUpdate: (container: HTMLElement) => void;
   toggleAllPanels: (expanded: boolean) => void;
@@ -26,13 +27,46 @@ type LinkIntersections = {
   [href: string]: boolean;
 };
 
-const findIntersections = (
+const mapIntersections = (
   acc: LinkIntersections,
   { target, isIntersecting }: IntersectionObserverEntry,
 ) => {
   const href = `#${target.closest('[data-panel]')?.id}` || '';
   acc[href] = isIntersecting;
   return acc;
+};
+
+/**
+ * For cases where the minimap has more item than can fit in the viewport,
+ * we need to keep its scroll position updated to follow page scrolling.
+ */
+const updateScrollPosition = (list: HTMLOListElement) => {
+  const activeLinks = list.querySelectorAll<HTMLElement>(
+    'a[aria-current="true"]',
+  );
+
+  if (activeLinks.length === 0) {
+    return;
+  }
+
+  const firstActive = activeLinks[0];
+  const lastActive = activeLinks[activeLinks.length - 1];
+  let newScroll = list.scrollTop;
+  if (firstActive) {
+    if (firstActive.offsetTop < list.scrollTop) {
+      newScroll = firstActive.offsetTop;
+    }
+  }
+  if (lastActive) {
+    if (lastActive.offsetTop > list.scrollTop + list.offsetHeight) {
+      newScroll =
+        lastActive.offsetTop - list.offsetHeight + lastActive.offsetHeight;
+    }
+  }
+
+  // Scroll changes require mutating this property.
+  // eslint-disable-next-line no-param-reassign
+  list.scrollTop = newScroll;
 };
 
 /**
@@ -45,6 +79,7 @@ const findIntersections = (
  */
 const Minimap: React.FunctionComponent<MinimapProps> = ({
   container,
+  anchorsContainer,
   links,
   onUpdate,
   toggleAllPanels,
@@ -58,6 +93,7 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
   const observer = useRef<IntersectionObserver | null>(null);
   const lastIntersections = useRef({});
   const updateLinks = useRef<CallableFunction | null>(null);
+  const listRef = useRef<HTMLOListElement>(null);
 
   // Keep track of all the different ways the minimap can be opened and closed.
   const onMouseOver = () => {
@@ -106,12 +142,15 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
    */
   useEffect(() => {
     const obsCallback = (newEntries) => {
-      lastIntersections.current = newEntries.reduce(findIntersections, {
+      lastIntersections.current = newEntries.reduce(mapIntersections, {
         ...lastIntersections.current,
       });
 
       if (!updateLinks.current) {
-        updateLinks.current = debounce(setIntersections, 100);
+        updateLinks.current = debounce((newIntersections) => {
+          setIntersections(newIntersections);
+          updateScrollPosition(listRef.current as HTMLOListElement);
+        }, 100);
       }
 
       updateLinks.current(lastIntersections.current);
@@ -147,6 +186,11 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
     };
   }, [links, container]);
 
+  useEffect(() => {
+    // Reset the "collapse all" when switching tabs.
+    setPanelsExpanded(true);
+  }, [anchorsContainer, setPanelsExpanded]);
+
   return (
     // Keyboard support is implemented with the toggle button.
     // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
@@ -173,7 +217,7 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
             <Icon name="expand-right" />
           </button>
         </div>
-        <ol className="w-minimap__list">
+        <ol className="w-minimap__list" ref={listRef}>
           {links.map((link) => (
             <li key={link.href}>
               <MinimapItem
