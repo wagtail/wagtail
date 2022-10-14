@@ -127,7 +127,9 @@ function inlinePanel(opts) {
   self.updateChildCount = function updateChildCount() {
     const forms = self.formsElt.children(':not(.deleted)');
     forms.each(function updateCountState(i) {
-      $('[data-inline-panel-child-count]', this).text(` ${i + 1}`);
+      $('[data-inline-panel-child-count]', this)
+        .first()
+        .text(` ${i + 1}`);
     });
   };
 
