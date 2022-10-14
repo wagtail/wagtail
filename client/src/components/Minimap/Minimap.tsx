@@ -1,141 +1,137 @@
 import React, { useEffect, useState, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import { toggleCollapsiblePanel } from '../../includes/panels';
 
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
-import CollapseAll from './CollapseAll';
 
+import CollapseAll from './CollapseAll';
 import MinimapItem, { MinimapMenuItem } from './MinimapItem';
 
 export interface MinimapProps {
   container: HTMLElement;
-  anchorsContainer: HTMLElement;
   links: readonly MinimapMenuItem[];
-  onUpdate: () => void;
+  onUpdate: (container: HTMLElement) => void;
+  toggleAllPanels: (expanded: boolean) => void;
 }
 
-const createMinimapLink = (
-  anchor: HTMLAnchorElement,
-): MinimapMenuItem | null => {
-  const panel = anchor.closest<HTMLElement>('[data-panel]');
-  const heading = panel?.querySelector<HTMLHeadingElement>(
-    `#${panel?.getAttribute('aria-labelledby')}`,
-  );
-  const toggle = panel?.querySelector<HTMLButtonElement>('[data-panel-toggle]');
-  const inlinePanelDeleted = anchor.closest(
-    '[data-inline-panel-child].deleted',
-  );
-  if (!panel || !heading || !toggle || inlinePanelDeleted) {
-    return null;
-  }
+const observerOptions = {
+  root: null,
+  // Count an element as "in", accounting for the 50px slim header and 70px actions footer.
+  rootMargin: '-50px 0px -70px 0px',
+  // 10% visibility within the boxed viewport is enough.
+  threshold: 0.1,
+};
 
-  const label =
-    heading.querySelector<HTMLSpanElement>('[data-panel-heading-text]')
-      ?.textContent || heading.textContent?.replace(/\s+\*\s+$/g, '').trim();
-  const isRequired =
-    panel.querySelector<HTMLElement>('[data-panel-required]') !== null;
-  const headingARIALevel = heading.getAttribute('aria-level');
-  const headingLevel = headingARIALevel
-    ? `h${headingARIALevel}`
-    : heading.tagName.toLowerCase() || 'h2';
-  const icon = toggle
-    .querySelector<SVGUseElement>('use')
-    ?.getAttribute('href')
-    ?.replace('#icon-', '');
-  return {
-    anchor,
-    toggle,
-    panel,
-    icon: icon || '',
-    label: label || '',
-    href: anchor.getAttribute('href') || '',
-    required: isRequired,
-    errorCount: [].slice
-      .call(panel.querySelectorAll('.error-message'))
-      .filter((err) => err.closest('[data-panel]') === panel).length,
-    level: headingLevel as MinimapMenuItem['level'],
-  };
+type LinkIntersections = {
+  [href: string]: boolean;
+};
+
+const findIntersections = (
+  acc: LinkIntersections,
+  { target, isIntersecting }: IntersectionObserverEntry,
+) => {
+  const href = `#${target.closest('[data-panel]')?.id}` || '';
+  acc[href] = isIntersecting;
+  return acc;
 };
 
 /**
- * TODO;
+ * Minimap sidebar menu, with one internal link per section of the page.
+ * The minimap has a lot of advanced behavior:
+ * - It opens and closes based on hover, except if interacted with.
+ * - It also opens and closes when clicking its toggle.
+ * - It closes when clicking outside.
+ * - It uses IntersectionObserver to display which menu items are currently "visible" on the page.
  */
 const Minimap: React.FunctionComponent<MinimapProps> = ({
   container,
-  anchorsContainer,
   links,
   onUpdate,
+  toggleAllPanels,
 }) => {
-  const [observer, setObserver] = useState<IntersectionObserver | null>(null);
   const [expanded, setExpanded] = useState<boolean>(false);
+  // Keep track of whether we should keep the minimap expanded (should auto-close on mouseout if not interacted with).
   const [keepExpanded, setKeepExpanded] = useState<boolean>(false);
+  // Collapse all yes/no state.
   const [panelsExpanded, setPanelsExpanded] = useState<boolean>(true);
-  const [intersections, setIntersections] = useState<{
-    [href: string]: boolean;
-  }>({});
-  const intersectionsRef = useRef(intersections);
-  const updateMinimap = useRef<CallableFunction | null>(null);
-  const toggleAllPanels = () => {
-    const newExpanded = !panelsExpanded;
+  const [intersections, setIntersections] = useState<LinkIntersections>({});
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastIntersections = useRef({});
+  const updateLinks = useRef<CallableFunction | null>(null);
 
-    setPanelsExpanded(newExpanded);
-
-    links.forEach((link, i) => {
-      // Special-case for the "title" field, for which the anchor is hidden.
-      const isFirst = i === 0;
-      const isTitle = isFirst && link.href.includes('title');
-      if (!isTitle) {
-        toggleCollapsiblePanel(link.toggle, newExpanded);
+  // Keep track of all the different ways the minimap can be opened and closed.
+  const onMouseOver = () => {
+    if (window.matchMedia('(hover: hover)').matches) {
+      // Opening with hover should not keep the menu expanded.
+      setExpanded(true);
+    }
+  };
+  const onMouseOut = () => {
+    if (window.matchMedia('(hover: hover)').matches) {
+      if (!keepExpanded) {
+        setExpanded(false);
+        setKeepExpanded(false);
       }
-    });
+    }
+  };
+  const onClickToggle = () => {
+    setExpanded(!expanded);
+    setKeepExpanded(!expanded);
+  };
+  const onClickLink = (e: React.MouseEvent) => {
+    // Prevent navigating if the link is only partially shown.
+    if (!expanded) {
+      e.preventDefault();
+    }
+    setExpanded(true);
+    setKeepExpanded(true);
   };
 
   useEffect(() => {
-    const obs =
-      observer ||
-      new IntersectionObserver(
-        (newEntries) => {
-          intersectionsRef.current = newEntries.reduce(
-            (acc, { target, isIntersecting }: IntersectionObserverEntry) => {
-              const href = `#${target.closest('[data-panel]')?.id}` || '';
-              acc[href] = isIntersecting;
-              return acc;
-            },
-            { ...intersectionsRef.current },
-          );
+    const onClickOutside = (e: MouseEvent) => {
+      if (container.contains(e.target as HTMLElement)) {
+        return;
+      }
+      setExpanded(false);
+      setKeepExpanded(false);
+    };
+    document.addEventListener('click', onClickOutside, true);
+  }, []);
 
-          if (!updateMinimap.current) {
-            updateMinimap.current = debounce((latestIntersections) => {
-              setIntersections(latestIntersections);
+  /**
+   * Performance-sensitive intersections calculations with a double debounce:
+   * - With the IntersectionObserver API, the browser decides how often to update us, compared to constant `scroll`.
+   * - We keep track of intersecting elements on every IntersectionObserver update,
+   * - but only update the links after updates have stopped for 100ms.
+   */
+  useEffect(() => {
+    const obsCallback = (newEntries) => {
+      lastIntersections.current = newEntries.reduce(findIntersections, {
+        ...lastIntersections.current,
+      });
 
-              const latestAnchorsCount = anchorsContainer.querySelectorAll(
-                '[data-panel-anchor]',
-              ).length;
-              if (latestAnchorsCount !== links.length) {
-                onUpdate();
-              }
-            }, 300);
-          }
+      if (!updateLinks.current) {
+        updateLinks.current = debounce(setIntersections, 100);
+      }
 
-          updateMinimap.current(intersectionsRef.current);
+      updateLinks.current(lastIntersections.current);
 
-          newEntries.forEach(({ target }) => {
-            if (!document.body.contains(target) || target.closest('.deleted')) {
-              onUpdate();
-            }
-          });
-        },
-        // Count an element as "in", accounting for the 50px slim header and 70px actions footer.
-        { root: null, rootMargin: '-50px 0px -70px 0px', threshold: 0.1 },
-      );
+      // Support for InlinePanel removals: when they stop intersecting, re-render the whole minimap.
+      newEntries.forEach(({ target }) => {
+        const deletedInlinePanel = target.closest('.deleted');
+        if (deletedInlinePanel) {
+          onUpdate(container);
+        }
+      });
+    };
 
-    if (!observer) {
-      setObserver(obs);
-    } else {
-      obs.disconnect();
+    if (!observer.current) {
+      observer.current = new IntersectionObserver(obsCallback, observerOptions);
     }
+
+    const obs = observer.current as IntersectionObserver;
+
+    obs.disconnect();
 
     links.forEach(({ panel, toggle }) => {
       // Special-case for top-level InlinePanel and StreamField, where the
@@ -149,53 +145,29 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
     return () => {
       obs.disconnect();
     };
-  }, [observer, links, setIntersections]);
-
-  useEffect(() => {
-    document.addEventListener(
-      'click',
-      (e: MouseEvent) => {
-        if (!container.contains(e.target as HTMLElement)) {
-          setExpanded(false);
-          setKeepExpanded(false);
-        }
-      },
-      true,
-    );
-  }, [container, expanded]);
+  }, [links, container]);
 
   return (
-    <>
+    // Keyboard support is implemented with the toggle button.
+    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+    <div onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
       <CollapseAll
         expanded={panelsExpanded}
-        onClick={toggleAllPanels}
+        onClick={() => {
+          setPanelsExpanded(!panelsExpanded);
+          toggleAllPanels(!panelsExpanded);
+        }}
         floating
         insideMinimap={expanded}
       />
-      {/* Keyboard support is implemented with the toggle button. */}
-      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
-      <div
-        className={`w-minimap${expanded ? ' w-minimap--expanded' : ''}`}
-        onMouseOver={() => {
-          // Opening with hover should not keep the menu expanded.
-          setExpanded(true);
-        }}
-        onMouseOut={() => {
-          if (!keepExpanded) {
-            setExpanded(false);
-            setKeepExpanded(false);
-          }
-        }}
-      >
+      <div className={`w-minimap ${expanded ? 'w-minimap--expanded' : ''}`}>
         <div className="w-minimap__header">
           <button
             type="button"
             aria-expanded={expanded}
-            onClick={() => {
-              setExpanded(!expanded);
-              setKeepExpanded(!expanded);
-            }}
+            onClick={onClickToggle}
             className="w-minimap__toggle"
+            // Not the most correct label, but matches side panels with similar toggles.
             aria-label={gettext('Toggle side panel')}
           >
             <Icon name="expand-right" />
@@ -208,73 +180,15 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
                 item={link}
                 intersects={intersections[link.href]}
                 expanded={expanded}
-                onClick={() => {
-                  setExpanded(true);
-                  setKeepExpanded(true);
-                }}
+                onClick={onClickLink}
               />
             </li>
           ))}
         </ol>
         <div className="w-minimap__footer" />
       </div>
-    </>
+    </div>
   );
-};
-
-const renderMinimap = (container: HTMLElement) => {
-  const tabs = document.querySelector('[data-tabs]');
-  let anchorsContainer: HTMLElement = document.body;
-
-  if (tabs) {
-    const activeTab = tabs.querySelector('[role="tab"][aria-selected="true"]');
-    const activeTabpanel = tabs.querySelector<HTMLDivElement>(
-      `#${activeTab?.getAttribute('aria-controls')}`,
-    );
-    anchorsContainer = activeTabpanel || anchorsContainer;
-  }
-
-  const links = [].slice
-    .call(
-      anchorsContainer.querySelectorAll<HTMLAnchorElement>(
-        '[data-panel-anchor]',
-      ),
-    )
-    .map(createMinimapLink)
-    .filter(Boolean);
-
-  ReactDOM.render(
-    <Minimap
-      container={container}
-      anchorsContainer={anchorsContainer}
-      links={links as MinimapMenuItem[]}
-      onUpdate={renderMinimap.bind(null, container)}
-    />,
-    container,
-  );
-};
-
-export const initMinimap = (
-  container = document.querySelector<HTMLDivElement>(
-    '[data-minimap-container]',
-  ),
-) => {
-  if (!container) {
-    return;
-  }
-
-  const updateMinimap = debounce(renderMinimap.bind(null, container), 300);
-  const tabs = document.querySelector('[data-tabs]');
-
-  if (tabs) {
-    document.addEventListener('wagtail:tab-changed', updateMinimap);
-  }
-
-  document.addEventListener('wagtail:panel-init', updateMinimap);
-
-  container.style.setProperty('--offset-top', `${container.offsetTop}px`);
-
-  renderMinimap(container);
 };
 
 export default Minimap;

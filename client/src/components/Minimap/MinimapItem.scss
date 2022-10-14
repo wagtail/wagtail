@@ -26,6 +26,8 @@
     transform: rotate(-90deg);
   }
 
+  // Minimap items have a lot of different states denoted with their text color, border color, and background.
+  // The order of the following declaration blocks is essential so the correct states take priority.
   :where(.w-minimap--expanded) & {
     border-color: theme('colors.grey.100');
     padding-inline-start: theme('spacing.8');
@@ -89,7 +91,7 @@
 
   :where(.w-minimap--expanded) & {
     margin-inline-start: calc(-1 * (theme('spacing.8') + $badge-size / 2));
-    // Improve the alignment of "1".
+    // Improve the alignment of "1" with the item’s border.
     padding-inline-end: theme('spacing.px');
   }
 }

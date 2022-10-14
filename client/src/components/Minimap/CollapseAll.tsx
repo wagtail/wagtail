@@ -11,7 +11,7 @@ export interface CollapseAllProps {
 }
 
 /**
- * TODO;
+ * "Collapse all" button UI, without any collapsing logic.
  */
 const CollapseAll: React.FunctionComponent<CollapseAllProps> = ({
   expanded,

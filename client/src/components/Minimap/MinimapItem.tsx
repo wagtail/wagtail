@@ -35,6 +35,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
 }) => {
   const { href, label, icon, required, errorCount, level } = item;
   const hasError = errorCount > 0;
+  const errorsLabel = gettext('{num} errors').replace('{num}', `${errorCount}`);
   const text = label.length > 29 ? `${label.substring(0, 29)}…` : label;
   return (
     <a
@@ -43,16 +44,11 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
         intersects ? 'w-minimap-item--active' : ''
       } ${hasError ? 'w-minimap-item--error' : ''}`}
       onClick={onClick}
+      // Prevent interacting with the links when they are only partially shown.
       tabIndex={expanded ? undefined : -1}
     >
       {hasError ? (
-        <div
-          className="w-minimap-item__errors"
-          aria-label={gettext('{count} errors').replace(
-            '{count}',
-            `${errorCount}`,
-          )}
-        >
+        <div className="w-minimap-item__errors" aria-label={errorsLabel}>
           {errorCount}
         </div>
       ) : null}

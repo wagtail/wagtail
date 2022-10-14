@@ -1,5 +1,6 @@
 .w-minimap__collapse-all {
   display: none;
+  // Keep the icon at a stable position and reduce the amount of shifting of the button.
   min-width: 110px;
   text-align: end;
   align-items: center;
@@ -9,7 +10,6 @@
   z-index: calc($minimap-z-index + 1);
 
   @include media-breakpoint-up(sm) {
-    // Keep the icon at a stable position and reduce the amount of shifting of the button.
     display: inline-flex;
   }
 

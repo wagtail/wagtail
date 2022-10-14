@@ -1,6 +1,7 @@
 // If unset, default to the "mobile" height of the slim header.
 $minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
 $minimap-width: 300px;
+$minimap-collapsed-width-mobile: 20px;
 $minimap-collapsed-width: 30px;
 $minimap-overflow: theme('spacing.2');
 $minimap-z-index: calc(theme('zIndex.header') - 20);
@@ -16,7 +17,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-direction: column;
   height: calc(100vh - 100%);
   z-index: $minimap-z-index;
-  width: 20px;
+  width: $minimap-collapsed-width-mobile;
 
   @include media-breakpoint-up(sm) {
     padding-inline-start: $minimap-overflow;

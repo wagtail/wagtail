@@ -16,7 +16,7 @@ import {
   initAnchoredPanels,
   initCollapsiblePanels,
 } from '../../includes/panels';
-import { initMinimap } from '../../components/Minimap/Minimap';
+import { initMinimap } from '../../components/Minimap';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
-  initMinimap();
 });
 
 /**
@@ -55,4 +54,5 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 window.addEventListener('load', () => {
   initAnchoredPanels();
+  initMinimap();
 });
