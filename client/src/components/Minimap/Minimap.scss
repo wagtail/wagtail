@@ -45,19 +45,20 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   transform: rotate(180deg);
 
   @include media-breakpoint-up(sm) {
+    margin-top: theme('spacing.9');
     padding: theme('spacing.[1.5]');
-  }
 
-  // On devices supporting hover, this is available for keyboard users only.
-  // Mouse users open the minimap by hovering.
-  @media (hover: hover) {
-    opacity: 0;
-    pointer-events: none;
-  }
+    // On devices supporting hover, this is available for keyboard users only.
+    // Mouse users open the minimap by hovering.
+    @media (hover: hover) {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-  &:focus {
-    opacity: 1;
-    pointer-events: auto;
+    &:focus {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
   .icon {
