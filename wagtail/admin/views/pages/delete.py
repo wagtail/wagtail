@@ -67,7 +67,8 @@ def delete(request, page_id):
 
                 messages.success(
                     request,
-                    _("Page '{0}' deleted.").format(page.get_admin_display_title()),
+                    _("Page '%(page_title)s' deleted.")
+                    % {"page_title": page.get_admin_display_title()},
                 )
 
                 for fn in hooks.get_hooks("after_delete_page"):

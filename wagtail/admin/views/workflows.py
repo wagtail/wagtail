@@ -71,7 +71,7 @@ class Create(CreateView):
     model = Workflow
     page_title = _("New workflow")
     template_name = "wagtailadmin/workflows/create.html"
-    success_message = _("Workflow '{0}' created.")
+    success_message = _("Workflow '%(object)s' created.")
     add_url_name = "wagtailadmin_workflows:add"
     edit_url_name = "wagtailadmin_workflows:edit"
     index_url_name = "wagtailadmin_workflows:index"
@@ -142,7 +142,7 @@ class Edit(EditView):
     model = Workflow
     page_title = _("Editing workflow")
     template_name = "wagtailadmin/workflows/edit.html"
-    success_message = _("Workflow '{0}' updated.")
+    success_message = _("Workflow '%(object)s' updated.")
     add_url_name = "wagtailadmin_workflows:add"
     edit_url_name = "wagtailadmin_workflows:edit"
     delete_url_name = "wagtailadmin_workflows:disable"
@@ -244,7 +244,7 @@ class Disable(DeleteView):
     model = Workflow
     page_title = _("Disable workflow")
     template_name = "wagtailadmin/workflows/confirm_disable.html"
-    success_message = _("Workflow '{0}' disabled.")
+    success_message = _("Workflow '%(object)s' disabled.")
     add_url_name = "wagtailadmin_workflows:add"
     edit_url_name = "wagtailadmin_workflows:edit"
     delete_url_name = "wagtailadmin_workflows:disable"
@@ -305,7 +305,11 @@ def enable_workflow(request, pk):
     if not workflow.active:
         workflow.active = True
         workflow.save()
-        messages.success(request, _("Workflow '{0}' enabled.").format(workflow.name))
+        messages.success(
+            request,
+            _("Workflow '%(workflow_name)s' enabled.")
+            % {"workflow_name": workflow.name},
+        )
 
     # Redirect
     redirect_to = request.POST.get("next", None)
@@ -334,9 +338,8 @@ def remove_workflow(request, page_pk, workflow_pk=None):
             page.workflowpage.delete()
             messages.success(
                 request,
-                _("Workflow removed from Page '{0}'.").format(
-                    page.get_admin_display_title()
-                ),
+                _("Workflow removed from Page '%(page_title)s'.")
+                % {"page_title": page.get_admin_display_title()},
             )
 
     # Redirect
@@ -414,7 +417,7 @@ class CreateTask(CreateView):
     model = None
     page_title = _("New workflow task")
     template_name = "wagtailadmin/workflows/create_task.html"
-    success_message = _("Task '{0}' created.")
+    success_message = _("Task '%(object)s' created.")
     add_url_name = "wagtailadmin_workflows:add_task"
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
@@ -456,7 +459,7 @@ class EditTask(EditView):
     model = None
     page_title = _("Editing workflow task")
     template_name = "wagtailadmin/workflows/edit_task.html"
-    success_message = _("Task '{0}' updated.")
+    success_message = _("Task '%(object)s' updated.")
     add_url_name = "wagtailadmin_workflows:select_task_type"
     edit_url_name = "wagtailadmin_workflows:edit_task"
     delete_url_name = "wagtailadmin_workflows:disable_task"
@@ -510,7 +513,7 @@ class DisableTask(DeleteView):
     model = Task
     page_title = _("Disable task")
     template_name = "wagtailadmin/workflows/confirm_disable_task.html"
-    success_message = _("Task '{0}' disabled.")
+    success_message = _("Task '%(object)s' disabled.")
     add_url_name = "wagtailadmin_workflows:add_task"
     edit_url_name = "wagtailadmin_workflows:edit_task"
     delete_url_name = "wagtailadmin_workflows:disable_task"
@@ -552,7 +555,9 @@ def enable_task(request, pk):
     if not task.active:
         task.active = True
         task.save()
-        messages.success(request, _("Task '{0}' enabled.").format(task.name))
+        messages.success(
+            request, _("Task '%(task_name)s' enabled.") % {"task_name": task.name}
+        )
 
     # Redirect
     redirect_to = request.POST.get("next", None)

@@ -201,9 +201,10 @@ class BaseLogEntry(models.Model):
         if not log_action_registry.action_exists(self.action):
             raise ValidationError(
                 {
-                    "action": _("The log action '{}' has not been registered.").format(
-                        self.action
+                    "action": _(
+                        "The log action '%(action_name)s' has not been registered."
                     )
+                    % {"action_name": self.action}
                 }
             )
 

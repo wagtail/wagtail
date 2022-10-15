@@ -74,8 +74,10 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
                         form.cleaned_data["locales"][0]
                     )
                 else:
-                    # Note: always plural
-                    locales = _("{} locales").format(len(form.cleaned_data["locales"]))
+                    # Translators: always plural
+                    locales = _("%(locales_count)s locales") % {
+                        "locales_count": len(form.cleaned_data["locales"])
+                    }
 
                 messages.success(self.request, self.get_success_message(locales))
 
@@ -117,15 +119,15 @@ class SubmitPageTranslationView(SubmitTranslationView):
 
     def get_success_message(self, locales):
         return _(
-            "The page '{page_title}' was successfully created in {locales}"
-        ).format(page_title=self.object.get_admin_display_title(), locales=locales)
+            "The page '%(page_title)s' was successfully created in %(locales)s"
+        ) % {"page_title": self.object.get_admin_display_title(), "locales": locales}
 
 
 class SubmitSnippetTranslationView(SubmitTranslationView):
     def get_title(self):
-        return _("Translate {model_name}").format(
-            model_name=self.object._meta.verbose_name
-        )
+        return _("Translate %(model_name)s") % {
+            "model_name": self.object._meta.verbose_name
+        }
 
     def get_object(self):
         model = get_snippet_model_from_url_params(
@@ -153,8 +155,8 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
         )
 
     def get_success_message(self, locales):
-        return _("Successfully created {locales} for {model_name} '{object}'").format(
-            model_name=self.object._meta.verbose_name,
-            object=str(self.object),
-            locales=locales,
-        )
+        return _("Successfully created %(locales)s for %(model_name)s '%(object)s'") % {
+            "model_name": self.object._meta.verbose_name,
+            "object": str(self.object),
+            "locales": locales,
+        }

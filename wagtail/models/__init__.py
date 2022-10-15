@@ -3871,9 +3871,13 @@ class WorkflowState(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return _("Workflow '{0}' on Page '{1}': {2}").format(
-            self.workflow, self.page, self.status
-        )
+        return _(
+            "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+        ) % {
+            "workflow_name": self.workflow,
+            "page_title": self.page,
+            "status": self.status,
+        }
 
     def resume(self, user=None):
         """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
@@ -4231,9 +4235,13 @@ class TaskState(models.Model):
                 self.content_type = ContentType.objects.get_for_model(self)
 
     def __str__(self):
-        return _("Task '{0}' on Page Revision '{1}': {2}").format(
-            self.task, self.page_revision, self.status
-        )
+        return _(
+            "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
+        ) % {
+            "task_name": self.task,
+            "revision_info": self.page_revision,
+            "status": self.status,
+        }
 
     @cached_property
     def specific(self):

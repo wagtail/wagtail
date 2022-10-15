@@ -111,7 +111,8 @@ def edit(request, redirect_id):
                 log(instance=theredirect, action="wagtail.edit")
             messages.success(
                 request,
-                _("Redirect '{0}' updated.").format(theredirect.title),
+                _("Redirect '%(redirect_title)s' updated.")
+                % {"redirect_title": theredirect.title},
                 buttons=[
                     messages.button(
                         reverse("wagtailredirects:edit", args=(theredirect.id,)),
@@ -152,7 +153,9 @@ def delete(request, redirect_id):
             log(instance=theredirect, action="wagtail.delete")
             theredirect.delete()
         messages.success(
-            request, _("Redirect '{0}' deleted.").format(theredirect.title)
+            request,
+            _("Redirect '%(redirect_title)s' deleted.")
+            % {"redirect_title": theredirect.title},
         )
         return redirect("wagtailredirects:index")
 
@@ -176,7 +179,8 @@ def add(request):
 
             messages.success(
                 request,
-                _("Redirect '{0}' added.").format(theredirect.title),
+                _("Redirect '%(redirect_title)s' added.")
+                % {"redirect_title": theredirect.title},
                 buttons=[
                     messages.button(
                         reverse("wagtailredirects:edit", args=(theredirect.id,)),
@@ -239,7 +243,9 @@ def start_import(request):
 
     if extension not in supported_extensions:
         messages.error(
-            request, _('File format of type "{}" is not supported').format(extension)
+            request,
+            _('File format of type "%(extension)s" is not supported')
+            % {"extension": extension},
         )
         return redirect("wagtailredirects:start_import")
 
@@ -253,7 +259,11 @@ def start_import(request):
             data = force_str(data, from_encoding)
         dataset = input_format.create_dataset(data)
     except UnicodeDecodeError as e:
-        messages.error(request, _("Imported file has a wrong encoding: %s") % e)
+        messages.error(
+            request,
+            _("Imported file has a wrong encoding: %(error_message)s")
+            % {"error_message": e},
+        )
         return redirect("wagtailredirects:start_import")
     except Exception as e:  # pragma: no cover
         messages.error(

@@ -403,12 +403,14 @@ class CreateView(
     def get_success_message(self, instance):
         if isinstance(instance, DraftStateMixin) and self.action == "publish":
             if instance.go_live_at and instance.go_live_at > timezone.now():
-                return _("'{0}' created and scheduled for publishing.").format(instance)
-            return _("'{0}' created and published.").format(instance)
+                return _("'%(object)s' created and scheduled for publishing.") % {
+                    "object": instance
+                }
+            return _("'%(object)s' created and published.") % {"object": instance}
 
         if self.success_message is None:
             return None
-        return self.success_message.format(instance)
+        return self.success_message % {"object": instance}
 
     def get_success_buttons(self):
         return [
@@ -630,14 +632,14 @@ class EditView(
     def get_success_message(self):
         if self.draftstate_enabled and self.action == "publish":
             if self.object.go_live_at and self.object.go_live_at > timezone.now():
-                return _("'{0}' updated and scheduled for publishing.").format(
-                    self.object
-                )
-            return _("'{0}' updated and published.").format(self.object)
+                return _("'%(object)s' updated and scheduled for publishing.") % {
+                    "object": self.object
+                }
+            return _("'%(object)s' updated and published.") % {"object": self.object}
 
         if self.success_message is None:
             return None
-        return self.success_message.format(self.object)
+        return self.success_message % {"object": self.object}
 
     def get_success_buttons(self):
         return [
@@ -761,7 +763,7 @@ class DeleteView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(self.object)
+        return self.success_message % {"object": self.object}
 
     def delete_action(self):
         with transaction.atomic():
@@ -883,7 +885,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
     index_url_name = None
     edit_url_name = None
     unpublish_url_name = None
-    success_message = _("'{object_name}' unpublished.")
+    success_message = _("'%(object)s' unpublished.")
     template_name = "wagtailadmin/shared/confirm_unpublish.html"
 
     def setup(self, request, pk, *args, **kwargs):
@@ -910,7 +912,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(object_name=str(self.object))
+        return self.success_message % {"object": str(self.object)}
 
     def get_success_buttons(self):
         if self.edit_url_name:
@@ -977,7 +979,9 @@ class RevisionsUnscheduleView(TemplateView):
     edit_url_name = None
     history_url_name = None
     revisions_unschedule_url_name = None
-    success_message = gettext_lazy('Version {revision_id} of "{object}" unscheduled.')
+    success_message = gettext_lazy(
+        'Version %(revision_id)s of "%(object)s" unscheduled.'
+    )
     template_name = "wagtailadmin/shared/revisions/confirm_unschedule.html"
 
     def setup(self, request, pk, revision_id, *args, **kwargs):
@@ -1007,9 +1011,10 @@ class RevisionsUnscheduleView(TemplateView):
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(
-            revision_id=self.revision.id, object=self.get_object_display_title()
-        )
+        return self.success_message % {
+            "revision_id": self.revision.id,
+            "object": self.get_object_display_title(),
+        }
 
     def get_success_buttons(self):
         return [
@@ -1031,9 +1036,10 @@ class RevisionsUnscheduleView(TemplateView):
         return reverse(self.history_url_name, args=(quote(self.object.pk),))
 
     def get_page_subtitle(self):
-        return _('revision {revision_id} of "{object}"').format(
-            revision_id=self.revision.id, object=self.get_object_display_title()
-        )
+        return _('revision %(revision_id)s of "%(object)s"') % {
+            "revision_id": self.revision.id,
+            "object": self.get_object_display_title(),
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

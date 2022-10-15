@@ -201,8 +201,8 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
                     "label",
                     django.forms.ValidationError(
                         _(
-                            "There is another field with the label %s, please change one of them."
-                            % duplicate_form_field.instance.label
+                            "There is another field with the label %(label_name)s, please change one of them."
                         )
+                        % {"label_name": duplicate_form_field.instance.label}
                     ),
                 )

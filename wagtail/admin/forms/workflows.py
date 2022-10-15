@@ -96,9 +96,10 @@ class WorkflowPageForm(forms.ModelForm):
                 self.add_error(
                     "page",
                     ValidationError(
-                        _("This page already has workflow '{0}' assigned.").format(
-                            existing_workflow
-                        ),
+                        _(
+                            "This page already has workflow '%(workflow_name)s' assigned."
+                        )
+                        % {"workflow_name": existing_workflow},
                         code="existing_workflow",
                     ),
                 )

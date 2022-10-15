@@ -137,7 +137,7 @@ def add(request):
                     log(search_pick, "wagtail.create")
                 messages.success(
                     request,
-                    _("Editor's picks for '{0}' created.").format(query),
+                    _("Editor's picks for '%(query)s' created.") % {"query": query},
                     buttons=[
                         messages.button(
                             reverse("wagtailsearchpromotions:edit", args=(query.id,)),
@@ -197,7 +197,7 @@ def edit(request, query_id):
             if save_searchpicks(query, new_query, searchpicks_formset):
                 messages.success(
                     request,
-                    _("Editor's picks for '{0}' updated.").format(new_query),
+                    _("Editor's picks for '%(query)s' updated.") % {"query": new_query},
                     buttons=[
                         messages.button(
                             reverse("wagtailsearchpromotions:edit", args=(query.id,)),

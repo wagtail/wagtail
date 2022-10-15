@@ -80,7 +80,7 @@ class IndexView(generic.IndexView):
 
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
-    success_message = _("Group '{0}' created.")
+    success_message = _("Group '%(object)s' created.")
     template_name = "wagtailusers/groups/create.html"
 
     def post(self, request, *args, **kwargs):
@@ -116,7 +116,7 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
 
 
 class EditView(PermissionPanelFormsMixin, generic.EditView):
-    success_message = _("Group '{0}' updated.")
+    success_message = _("Group '%(object)s' updated.")
     error_message = _("The group could not be saved due to errors.")
     delete_item_label = _("Delete group")
     context_object_name = "group"
@@ -154,7 +154,7 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
 
 
 class DeleteView(generic.DeleteView):
-    success_message = _("Group '{0}' deleted.")
+    success_message = _("Group '%(object)s' deleted.")
     page_title = _("Delete group")
     confirmation_message = _("Are you sure you want to delete this group?")
     template_name = "wagtailusers/groups/confirm_delete.html"

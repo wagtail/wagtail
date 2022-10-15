@@ -56,8 +56,9 @@ def move_confirm(request, page_to_move_id, destination_id):
         messages.error(
             request,
             _(
-                "The slug '{0}' is already in use at the selected parent page. Make sure the slug is unique and try again"
-            ).format(page_to_move.slug),
+                "The slug '%(page_slug)s' is already in use at the selected parent page. Make sure the slug is unique and try again"
+            )
+            % {"page_slug": page_to_move.slug},
         )
         return redirect(
             "wagtailadmin_pages:move",
@@ -107,7 +108,8 @@ def move_confirm(request, page_to_move_id, destination_id):
 
         messages.success(
             request,
-            _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()),
+            _("Page '%(page_title)s' moved.")
+            % {"page_title": page_to_move.get_admin_display_title()},
             buttons=[
                 messages.button(
                     reverse("wagtailadmin_pages:edit", args=(page_to_move.id,)),

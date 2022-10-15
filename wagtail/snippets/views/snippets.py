@@ -590,11 +590,15 @@ class UsageView(generic.IndexView):
         for object, references in context.get("page_obj"):
             edit_url = url_finder.get_edit_url(object)
             if edit_url is None:
-                label = _("(Private %s)") % object._meta.verbose_name
+                label = _("(Private %(object)s)") % {
+                    "object": object._meta.verbose_name
+                }
                 edit_link_title = None
             else:
                 label = str(object)
-                edit_link_title = _("Edit this %s") % object._meta.verbose_name
+                edit_link_title = _("Edit this %(object)s") % {
+                    "object": object._meta.verbose_name
+                }
             results.append((label, edit_url, edit_link_title, references))
 
         context.update(
@@ -729,15 +733,15 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
 
     @property
     def edit_label(self):
-        return _("Edit this {model_name}").format(
-            model_name=self.model._meta.verbose_name
-        )
+        return _("Edit this %(model_name)s") % {
+            "model_name": self.model._meta.verbose_name
+        }
 
     @property
     def history_label(self):
-        return _("{model_name} history").format(
-            model_name=self.model._meta.verbose_name
-        )
+        return _("%(model_name)s history") % {
+            "model_name": self.model._meta.verbose_name
+        }
 
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):

@@ -52,7 +52,8 @@ def unlock(request, page_id):
 
         messages.success(
             request,
-            _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()),
+            _("Page '%(page_title)s' is now unlocked.")
+            % {"page_title": page.get_admin_display_title()},
             extra_tags="unlock",
         )
 

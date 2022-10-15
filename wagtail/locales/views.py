@@ -48,12 +48,12 @@ class IndexView(generic.IndexView):
 
 class CreateView(generic.CreateView):
     page_title = gettext_lazy("Add locale")
-    success_message = gettext_lazy("Locale '{0}' created.")
+    success_message = gettext_lazy("Locale '%(object)s' created.")
     template_name = "wagtaillocales/create.html"
 
 
 class EditView(generic.EditView):
-    success_message = gettext_lazy("Locale '{0}' updated.")
+    success_message = gettext_lazy("Locale '%(object)s' updated.")
     error_message = gettext_lazy("The locale could not be saved due to errors.")
     delete_item_label = gettext_lazy("Delete locale")
     context_object_name = "locale"
@@ -62,7 +62,7 @@ class EditView(generic.EditView):
 
 
 class DeleteView(generic.DeleteView):
-    success_message = gettext_lazy("Locale '{0}' deleted.")
+    success_message = gettext_lazy("Locale '%(object)s' deleted.")
     page_title = gettext_lazy("Delete locale")
     confirmation_message = gettext_lazy("Are you sure you want to delete this locale?")
     template_name = "wagtaillocales/confirm_delete.html"

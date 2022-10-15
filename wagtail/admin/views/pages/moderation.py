@@ -17,18 +17,19 @@ def approve_moderation(request, revision_id):
     if not revision.submitted_for_moderation:
         messages.error(
             request,
-            _("The page '{0}' is not currently awaiting moderation.").format(
-                revision.content_object.specific_deferred.get_admin_display_title()
-            ),
+            _("The page '%(page_title)s' is not currently awaiting moderation.")
+            % {
+                "page_title": revision.content_object.specific_deferred.get_admin_display_title()
+            },
         )
         return redirect("wagtailadmin_home")
 
     if request.method == "POST":
         revision.approve_moderation(user=request.user)
 
-        message = _("Page '{0}' published.").format(
-            revision.content_object.specific_deferred.get_admin_display_title()
-        )
+        message = _("Page '%(page_title)s' published.") % {
+            "page_title": revision.content_object.specific_deferred.get_admin_display_title()
+        }
         buttons = []
         if revision.content_object.url is not None:
             buttons.append(
@@ -58,9 +59,10 @@ def reject_moderation(request, revision_id):
     if not revision.submitted_for_moderation:
         messages.error(
             request,
-            _("The page '{0}' is not currently awaiting moderation.").format(
-                revision.content_object.specific_deferred.get_admin_display_title()
-            ),
+            _("The page '%(page_title)s' is not currently awaiting moderation.")
+            % {
+                "page_title": revision.content_object.specific_deferred.get_admin_display_title()
+            },
         )
         return redirect("wagtailadmin_home")
 
@@ -69,9 +71,10 @@ def reject_moderation(request, revision_id):
 
         messages.success(
             request,
-            _("Page '{0}' rejected for publication.").format(
-                revision.content_object.specific_deferred.get_admin_display_title()
-            ),
+            _("Page '%(page_title)s' rejected for publication.")
+            % {
+                "page_title": revision.content_object.specific_deferred.get_admin_display_title()
+            },
             buttons=[
                 messages.button(
                     reverse(
@@ -97,9 +100,10 @@ def preview_for_moderation(request, revision_id):
     if not revision.submitted_for_moderation:
         messages.error(
             request,
-            _("The page '{0}' is not currently awaiting moderation.").format(
-                revision.content_object.specific_deferred.get_admin_display_title()
-            ),
+            _("The page '%(page_title)s' is not currently awaiting moderation.")
+            % {
+                "page_title": revision.content_object.specific_deferred.get_admin_display_title()
+            },
         )
         return redirect("wagtailadmin_home")
 
