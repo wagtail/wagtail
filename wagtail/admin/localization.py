@@ -57,50 +57,38 @@ def get_js_translation_strings():
         "BULK_ACTIONS": {
             "PAGE": {
                 "SINGULAR": _("1 page selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "PLURAL": _("{0} pages selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "ALL": _("All {0} pages on this screen selected"),
+                "PLURAL": _("%(objects)s pages selected"),
+                "ALL": _("All %(objects)s pages on this screen selected"),
                 "ALL_IN_LISTING": _("All pages in listing selected"),
             },
             "DOCUMENT": {
                 "SINGULAR": _("1 document selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "PLURAL": _("{0} documents selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "ALL": _("All {0} documents on this screen selected"),
+                "PLURAL": _("%(objects)s documents selected"),
+                "ALL": _("All %(objects)s documents on this screen selected"),
                 "ALL_IN_LISTING": _("All documents in listing selected"),
             },
             "IMAGE": {
                 "SINGULAR": _("1 image selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "PLURAL": _("{0} images selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "ALL": _("All {0} images on this screen selected"),
+                "PLURAL": _("%(objects)s images selected"),
+                "ALL": _("All %(objects)s images on this screen selected"),
                 "ALL_IN_LISTING": _("All images in listing selected"),
             },
             "USER": {
                 "SINGULAR": _("1 user selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "PLURAL": _("{0} users selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "ALL": _("All {0} users on this screen selected"),
+                "PLURAL": _("%(objects)s users selected"),
+                "ALL": _("All %(objects)s users on this screen selected"),
                 "ALL_IN_LISTING": _("All users in listing selected"),
             },
             "SNIPPET": {
                 "SINGULAR": _("1 snippet selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "PLURAL": _("{0} snippets selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "ALL": _("All {0} snippets on this screen selected"),
+                "PLURAL": _("%(objects)s snippets selected"),
+                "ALL": _("All %(objects)s snippets on this screen selected"),
                 "ALL_IN_LISTING": _("All snippets in listing selected"),
             },
             "ITEM": {
                 "SINGULAR": _("1 item selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "PLURAL": _("{0} items selected"),
-                # nosemgrep: translation-no-new-style-formatting (used by JS)
-                "ALL": _("All {0} items on this screen selected"),
+                "PLURAL": _("%(objects)s items selected"),
+                "ALL": _("All %(objects)s items on this screen selected"),
                 "ALL_IN_LISTING": _("All items in listing selected"),
             },
         },
