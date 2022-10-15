@@ -83,16 +83,19 @@ Make sure to include the correct language code for syntax highlighting, and to f
     ```
 
 <details>
-    <summary>Rendered output</summary>
-    ```python<br>
-    INSTALLED_APPS = [<br>
-        ...<br>
-        "wagtail",<br>
-        ...<br>
-    ]
-    ```
+
+<summary>Rendered output</summary>
+
+```python
+INSTALLED_APPS = [
+    ...
+    "wagtail",
+    ...
+]
+```
     
 </details>
+
 #### When using console (terminal) code blocks
 
 ```{note}
@@ -107,14 +110,16 @@ Use `sh` as it has better support for comment and code syntax highlighting in My
     ```
     
 <details>
-    <summary>Rendered output</summary>
 
-    ```sh
-    # some comment
-    some command
-    ```
+<summary>Rendered output</summary>
+
+```sh
+# some comment
+some command
+```
 
 </details>
+
 Use `doscon` (DOS Console) only if explicitly calling out Windows commands alongside their bash equivalent.
 
     ```doscon
