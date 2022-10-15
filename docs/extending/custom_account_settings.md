@@ -2,7 +2,7 @@
 
 # Customising the user account settings form
 
-This document describes how to customise the user account settings form that can be found by clicking "Account settings"
+This document describes how to customise the user account settings form that can be found by clicking "Account settings" 
 at the bottom of the main menu.
 
 ## Adding new panels

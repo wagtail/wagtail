@@ -85,7 +85,7 @@ class UserApprovalTask(Task):
 ## Custom TaskState models
 
 You might also need to store custom state information for the task: for example, a rating left by an approving user.
-Normally, this is done on an instance of `TaskState`, which is created when a page starts the task. However, this can
+Normally, this is done on an instance of `TaskState`, which is created when a page starts the task. However, this can 
 also be subclassed equivalently to `Task`:
 
 ```python

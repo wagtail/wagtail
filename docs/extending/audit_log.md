@@ -4,7 +4,7 @@
 
 Wagtail provides a mechanism to log actions performed on its objects. Common activities such as page creation, update, deletion, locking and unlocking, revision scheduling and privacy changes are automatically logged at the model level.
 
-The Wagtail admin uses the action log entries to provide a site-wide and page specific history of changes. It uses a
+The Wagtail admin uses the action log entries to provide a site-wide and page specific history of changes. It uses a 
 registry of 'actions' that provide additional context for the logged action.
 
 The audit log-driven Page history replaces the revisions list page, but provide a filter for revision-specific entries.
@@ -109,7 +109,7 @@ All `log` calls within the block will then be attributed to the specified user, 
 
 Logs are stored in the database via the models `wagtail.models.PageLogEntry` (for actions on Page instances) and
 `wagtail.models.ModelLogEntry` (for actions on all other models). Page logs are stored in their own model to
-ensure that reports can be filtered according to the current user's permissions, which could not be done efficiently
+ensure that reports can be filtered according to the current user's permissions, which could not be done efficiently 
 with a generic foreign key.
 
 If your own models have complex reporting requirements that would make `ModelLogEntry` unsuitable, you can configure

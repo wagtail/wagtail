@@ -30,7 +30,7 @@ The attributes are as follows:
 
 -   `display_name` - The label that will be displayed on the button in the user interface
 -   `aria_label` - The `aria-label` attribute that will be applied to the button in the user interface
--   `action_type` - A unique identifier for the action. Will be required in the url for bulk actions
+-   `action_type` - A unique identifier for the action will be required in the url for bulk actions
 -   `template_name` - The path to the confirmation template
 -   `models` - A list of models on which the bulk action can act
 -   `action_priority` (optional) - A number that is used to determine the placement of the button in the list of buttons
