@@ -121,13 +121,15 @@ Use `doscon` (DOS Console) only if explicitly calling out Windows commands along
     # some comment
     some command
     ```
-<details>
-    <summary>Rendered output</summary>
 
-    ```doscon
-    # some comment
-    some command
-    ```
+<details>
+
+<summary>Rendered output</summary>
+
+```doscon
+# some comment
+some command
+```
 
 </details>
 
