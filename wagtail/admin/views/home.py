@@ -297,7 +297,7 @@ def icons():
         )
         combined_icon_markup = ""
         for icon in all_icons:
-            combined_icon_markup += render_to_string(icon).replace("svg", "symbol")
+            combined_icon_markup += render_to_string(icon).replace("svg", "symbol").replace('xmlns="http://www.w3.org/2000/svg"', "")
 
         _full_sprite_html = render_to_string(
             "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}
