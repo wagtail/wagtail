@@ -46,3 +46,12 @@ We aim to release a new version every 2 months. To keep to this schedule, we wil
 
 -   See the [Release Schedule wiki page](https://github.com/wagtail/wagtail/wiki/Release-schedule) for a full list of dates.
 -   See the [Roadmap wiki page](https://github.com/wagtail/wagtail/wiki/Roadmap) for a general guide of project planning.
+
+## Branch Naming Convention
+In order to ensure good communication within the project, we intend to follow this naming convention for each branch.
+Branchnames must be written in lowercase.
+- Use issue tracker IDs in branch names
+- Hypen should be used in place of every space.
+- Add a short descriptor of the task
+- The branch name for each feature should begin with: ID-feature-text
+- The branch name for all fixes should begin with: ID-fix-text
