@@ -638,6 +638,7 @@ Contributors
 * Umar Farouk Yunusa
 * Chizoba Nweke
 * Seremba Patrick
+* Ruqouyyah Muhammad
 
 
 Translators
