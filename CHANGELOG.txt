@@ -78,6 +78,7 @@ Changelog
  * Fix: Avoid creating an extra rich text block when inserting a new block at the end of the content (Matt Westcott)
  * Fix: Removed the extra dot in the Wagtail version shown within the admin settings menu item (Loveth Omokaro)
  * Fix: Fully remove the obsolete `wagtailsearch_editorspick` table that prevents flushing the database (Matt Westcott)
+ * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
 
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
