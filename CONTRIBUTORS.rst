@@ -642,6 +642,7 @@ Contributors
 * Loveth Omokaro
 * Abayomi Victory
 * Toria
+* Dokua Asiedu
 
 
 Translators
