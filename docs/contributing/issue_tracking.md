@@ -26,6 +26,14 @@ On some occasions it may take longer for the core team to classify an issue into
 
 We will endeavour to make sure that issues don't remain in this state for prolonged periods. Issues and PRs tagged "design decision needed" will be revisited regularly and discussed with at least two core contributors - we aim to review each ticket at least once per release cycle (= 6 weeks) as part of weekly core team meetings.
 
+## Branch Naming Convention
+In order to ensure good communication within the project, we intend to follow this naming convention for each branch.
+Branchnames must be written in lowercase.
+- Use issue tracker IDs in branch names
+- Hypen should be used in place of every space.
+- Add a short descriptor of the task
+- The branch name for each feature should begin with: ID-feature-text
+- The branch name for all fixes should begin with: ID-fix-text
 ## Pull requests
 
 As with issues, the core team will classify pull requests as soon as they are opened, usually within one day. Unless the change is invalid or particularly contentious (in which case it will be closed or marked as "design decision needed"). It will generally be classified under the next applicable version - the next minor release for new features, or the next patch release for bugfixes - and marked as 'Needs review'.
@@ -46,12 +54,3 @@ We aim to release a new version every 2 months. To keep to this schedule, we wil
 
 -   See the [Release Schedule wiki page](https://github.com/wagtail/wagtail/wiki/Release-schedule) for a full list of dates.
 -   See the [Roadmap wiki page](https://github.com/wagtail/wagtail/wiki/Roadmap) for a general guide of project planning.
-
-## Branch Naming Convention
-In order to ensure good communication within the project, we intend to follow this naming convention for each branch.
-Branchnames must be written in lowercase.
-- Use issue tracker IDs in branch names
-- Hypen should be used in place of every space.
-- Add a short descriptor of the task
-- The branch name for each feature should begin with: ID-feature-text
-- The branch name for all fixes should begin with: ID-fix-text
