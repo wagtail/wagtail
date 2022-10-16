@@ -14,12 +14,12 @@ Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
 To check whether you have an appropriate version of Python 3:
 
 ```sh
-python3 --version
+python --version
 ```
 
 **On Windows**:
 ```sh
-py -3 --version
+py --version
 ```
 
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
@@ -38,7 +38,7 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 **On Windows** (cmd.exe):
 
 ```doscon
-py -3 -m venv mysite\env
+py -m venv mysite\env
 mysite\env\Scripts\activate.bat
 # or:
 mysite\env\Scripts\activate
