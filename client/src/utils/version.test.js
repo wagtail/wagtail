@@ -116,6 +116,16 @@ describe('version.VersionNumber initialisation', () => {
     expect(result.preReleaseVersion).toBe(23);
   });
 
+  it('initialises dev 4.1.dev20220912', () => {
+    const result = new VersionNumber('4.1.dev20220912');
+
+    expect(result.major).toBe(4);
+    expect(result.minor).toBe(1);
+    expect(result.patch).toBe(0);
+    expect(result.preReleaseStep).toBe('.dev');
+    expect(result.preReleaseVersion).toBe(20220912);
+  });
+
   it('initialisation throws error for 1', () => {
     expect(() => new VersionNumber('1')).toThrow(VersionNumberFormatError);
   });
