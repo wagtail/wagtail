@@ -669,6 +669,7 @@ Contributors
 * Suyash Singh
 * Temidayo Azeez
 * ChickenF622
+* Benita Anawonah
 
 Translators
 ===========
