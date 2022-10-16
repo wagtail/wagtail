@@ -418,6 +418,26 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
 
 
+class TestPageExplorerSidePanel(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def test_side_panel_present(self):
+        self.user = self.login()
+
+        # get the explorer view for a subpage of a SimplePage
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+
+        # The side panel should be present with data-form-side-explorer attribute
+        html = response.content.decode()
+        self.assertTagInHTML(
+            "<aside data-form-side data-form-side-explorer>",
+            html,
+            allow_extra_attrs=True,
+        )
+
+
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
