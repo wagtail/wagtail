@@ -91,7 +91,7 @@ describe('initCollapsibleBreadcrumbs', () => {
 
       expect(spy).toHaveBeenLastCalledWith('keydown', expect.any(Function));
       expect(containerSpy).toHaveBeenLastCalledWith(
-        'mouseenter',
+        'mouseleave',
         expect.any(Function),
       );
     });

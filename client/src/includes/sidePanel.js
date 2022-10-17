@@ -47,7 +47,10 @@ export default function initSidePanel() {
         // eslint-disable-next-line no-param-reassign
         panel.hidden = true;
         panel.dispatchEvent(new CustomEvent('hide'));
-        body.classList.remove('side-panel-open');
+
+        if (panelName === '') {
+          body.classList.remove('side-panel-open');
+        }
       }
     });
 
