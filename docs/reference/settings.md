@@ -601,6 +601,8 @@ For admins only, Wagtail performs a check on the dashboard to see if newer relea
 
 If admins should only be informed of new long term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
 
+(wagtail_enable_whats_new_banner)=
+
 ### `WAGTAIL_ENABLE_WHATS_NEW_BANNER`
 
 ```python
