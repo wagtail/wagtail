@@ -72,7 +72,7 @@ Use **bold** and _italic_ sparingly, inline `code` when relevant.
 
 ### Code blocks
 
-Make sure to include the correct language code for syntax highlighting, and to format your code according to our coding guidelines. Frequently used: `python`, `css`, `html`, `html+django`, `javascript`, `console`.
+Make sure to include the correct language code for syntax highlighting, and to format your code according to our coding guidelines. Frequently used: `python`, `css`, `html`, `html+django`, `javascript`, `sh`.
 
     ```python
     INSTALLED_APPS = [
@@ -81,6 +81,62 @@ Make sure to include the correct language code for syntax highlighting, and to f
         ...
     ]
     ```
+
+<details>
+
+<summary>Rendered output</summary>
+
+```python
+INSTALLED_APPS = [
+    ...
+    "wagtail",
+    ...
+]
+```
+    
+</details>
+
+#### When using console (terminal) code blocks
+
+```{note}
+`$` or `>` prompts are not needed, this makes it harder to copy and paste the lines and can be difficult to consistently add in every single code snippet.
+```
+
+Use `sh` as it has better support for comment and code syntax highlighting in MyST's parser, plus is more compatible with GitHub and VSCode.
+
+    ```sh
+    # some comment
+    some command
+    ```
+    
+<details>
+
+<summary>Rendered output</summary>
+
+```sh
+# some comment
+some command
+```
+
+</details>
+
+Use `doscon` (DOS Console) only if explicitly calling out Windows commands alongside their bash equivalent.
+
+    ```doscon
+    # some comment
+    some command
+    ```
+
+<details>
+
+<summary>Rendered output</summary>
+
+```doscon
+# some comment
+some command
+```
+
+</details>
 
 ### Links
 

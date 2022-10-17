@@ -59,6 +59,37 @@ class UpgradeNotificationPanel(Component):
             return ""
 
 
+class WhatsNewInWagtailVersionPanel(Component):
+    name = "whats_new_in_wagtail_version"
+    template_name = "wagtailadmin/home/whats_new_in_wagtail_version.html"
+    order = 110
+    _version = "4"
+
+    def get_whats_new_banner_setting(self) -> Union[bool, str]:
+        return getattr(settings, "WAGTAIL_ENABLE_WHATS_NEW_BANNER", True)
+
+    def get_dismissible_id(self) -> str:
+        return f"{self.name}_{self._version}"
+
+    def get_context_data(self, parent_context: Mapping[str, Any]) -> Mapping[str, Any]:
+        return {"dismissible_id": self.get_dismissible_id(), "version": self._version}
+
+    def is_shown(self, parent_context: Mapping[str, Any] = None) -> bool:
+        if not self.get_whats_new_banner_setting():
+            return False
+
+        profile = getattr(parent_context["request"].user, "wagtail_userprofile", None)
+        if profile and profile.dismissibles.get(self.get_dismissible_id()):
+            return False
+
+        return True
+
+    def render_html(self, parent_context: Mapping[str, Any] = None) -> str:
+        if not self.is_shown(parent_context):
+            return ""
+        return super().render_html(parent_context)
+
+
 class PagesForModerationPanel(Component):
     name = "pages_for_moderation"
     template_name = "wagtailadmin/home/pages_for_moderation.html"
@@ -245,6 +276,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
         request = self.request
         panels = [
             SiteSummaryPanel(request),
+            WhatsNewInWagtailVersionPanel(),
             UpgradeNotificationPanel(),
             WorkflowPagesToModeratePanel(),
             PagesForModerationPanel(),

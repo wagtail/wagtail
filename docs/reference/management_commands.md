@@ -11,8 +11,8 @@ This command has been renamed from `publish_scheduled_pages` to `publish_schedul
 The `publish_scheduled_pages` command is still available as an alias, but it is recommended to update your configuration to run the `publish_scheduled` command instead.
 ```
 
-```console
-$ ./manage.py publish_scheduled
+```sh
+./manage.py publish_scheduled
 ```
 
 This command publishes, updates or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
@@ -21,8 +21,8 @@ This command publishes, updates or unpublishes objects that have had these actio
 
 ## fixtree
 
-```console
-$ ./manage.py fixtree
+```sh
+./manage.py fixtree
 ```
 
 This command scans for errors in your database and attempts to fix any issues it finds.
@@ -31,8 +31,8 @@ This command scans for errors in your database and attempts to fix any issues it
 
 ## move_pages
 
-```console
-$ manage.py move_pages from to
+```sh
+manage.py move_pages from to
 ```
 
 This command moves a selection of pages from one section of the tree to another.
@@ -49,8 +49,8 @@ Options:
 
 ## purge_revisions
 
-```console
-$ manage.py purge_revisions [--days=<number of days>]
+```sh
+manage.py purge_revisions [--days=<number of days>]
 ```
 
 This command deletes old page revisions which are not in moderation, live, approved to go live, or the latest
@@ -61,8 +61,8 @@ days will be deleted.
 
 ## update_index
 
-```console
-$ ./manage.py update_index [--backend <backend name>]
+```sh
+./manage.py update_index [--backend <backend name>]
 ```
 
 This command rebuilds the search index from scratch.
@@ -82,8 +82,8 @@ If you have multiple backends and would only like to update one of them, you can
 
 For example, to update just the default backend:
 
-```console
-$ python manage.py update_index --backend default
+```sh
+python manage.py update_index --backend default
 ```
 
 The `--chunk_size` option can be used to set the size of chunks that are indexed at a time. This defaults to
@@ -93,9 +93,19 @@ The `--chunk_size` option can be used to set the size of chunks that are indexed
 
 You can prevent the `update_index` command from indexing any data by using the `--schema-only` option:
 
-```console
-$ python manage.py update_index --schema-only
+```sh
+python manage.py update_index --schema-only
 ```
+
+### Silencing the command
+
+You can prevent logs to the console by providing `--verbosity 0` as an argument:
+
+```console
+$ python manage.py update_index --verbosity 0
+```
+
+If this is omitted or provided with any number above 0 it will produce the same logs.
 
 (wagtail_update_index)=
 
@@ -107,16 +117,16 @@ An alias for the `update_index` command that can be used when another installed 
 
 ## rebuild_references_index
 
-```console
-$ ./manage.py rebuild_references_index
+```sh
+./manage.py rebuild_references_index
 ```
 
 This command populates the table that tracks cross-references between objects, used for the usage reports on images, documents and snippets. This table is updated automatically saving objects, but it is recommended to run this command periodically to ensure that the data remains consistent.
 
 ## search_garbage_collect
 
-```console
-$ ./manage.py search_garbage_collect
+```sh
+./manage.py search_garbage_collect
 ```
 
 Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the [`WAGTAILSEARCH_HITS_MAX_AGE`](wagtailsearch_hits_max_age) setting).
@@ -125,8 +135,8 @@ Wagtail keeps a log of search queries that are popular on your website. On high 
 
 ## wagtail_update_image_renditions
 
-```console
-$ ./manage.py wagtail_update_image_renditions
+```sh
+./manage.py wagtail_update_image_renditions
 ```
 
 This command provides the ability to regenerate image renditions.

@@ -601,6 +601,16 @@ For admins only, Wagtail performs a check on the dashboard to see if newer relea
 
 If admins should only be informed of new long term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
 
+(wagtail_enable_whats_new_banner)=
+
+### `WAGTAIL_ENABLE_WHATS_NEW_BANNER`
+
+```python
+WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
+```
+
+For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users are able to dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
+
 ## Frontend authentication
 
 ### `PASSWORD_REQUIRED_TEMPLATE`
