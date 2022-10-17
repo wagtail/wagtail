@@ -60,7 +60,6 @@ class GenericSettingAdminURLFinder(ModelAdminURLFinder):
         return get_edit_setting_url(
             self.model._meta.app_label,
             self.model._meta.model_name,
-            instance.id,
             locale=get_locale_for(instance=instance),
         )
 

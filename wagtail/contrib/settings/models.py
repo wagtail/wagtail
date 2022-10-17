@@ -106,6 +106,10 @@ class AbstractSetting(models.Model):
         self._page_url_cache[attribute_name] = url
         return url
 
+    @classmethod
+    def _get_locale(cls, *args, **kwargs):
+        return None
+
     def __getstate__(self):
         # Ignore 'page_url' when pickling
         state = super().__getstate__()
@@ -139,9 +143,7 @@ class AbstractSiteSetting(AbstractSetting):
             return getattr(request, attr_name)
 
         site = Site.find_for_request(request)
-        site_settings = cls.for_site(
-            site, locale=get_locale_for(request=request, model=cls)
-        )
+        site_settings = cls.for_site(site, locale=cls._get_locale(request=request))
 
         # For more efficient page url generation
         site_settings._request = request
@@ -190,6 +192,10 @@ class BaseTranslatableSiteSetting(TranslatableMixin, AbstractSiteSetting):
             uuid.UUID("4e47faf7-d91f-411f-8a8f-51a05d75f992"), str(site_id)
         )
 
+    @classmethod
+    def _get_locale(cls, request):
+        return get_locale_for(request=request, model=cls)
+
     @staticmethod
     def get_instance(queryset, site, locale=None):
         return queryset.get_or_create(
@@ -213,7 +219,7 @@ class AbstractGenericSetting(AbstractSetting):
         raise NotImplementedError
 
     @classmethod
-    def load(cls, request_or_site=None):
+    def load(cls, request_or_site=None, locale=None):
         """
         Get or create an instance of this model.
         If `request_or_site` is present and is a request object, then we cache
@@ -222,16 +228,15 @@ class AbstractGenericSetting(AbstractSetting):
         # We can only cache on the request, so if there is no request then
         # we know there's nothing in the cache.
         if request_or_site is None or isinstance(request_or_site, Site):
-            return cls._get_or_create()
+            return cls._get_or_create(locale=locale)
 
         # Check if we already have this in the cache and return it if so.
         attr_name = cls.get_cache_attr_name()
         if hasattr(request_or_site, attr_name):
             return getattr(request_or_site, attr_name)
 
-        obj = cls._get_or_create(
-            locale=get_locale_for(request=request_or_site, model=cls)
-        )
+        locale = cls._get_locale(locale=locale, request=request_or_site)
+        obj = cls._get_or_create(locale=locale)
 
         # Cache for next time.
         setattr(request_or_site, attr_name, obj)
@@ -271,6 +276,10 @@ class BaseTranslatableGenericSetting(TranslatableMixin, AbstractGenericSetting):
     class Meta:
         abstract = True
         unique_together = [("translation_key", "locale")]
+
+    @classmethod
+    def _get_locale(cls, locale, request):
+        return locale or get_locale_for(request=request, model=cls)
 
     @classmethod
     def _get_or_create(cls, locale=None):

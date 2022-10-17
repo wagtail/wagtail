@@ -6,11 +6,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
-from wagtail.admin.panels import (
-    ObjectList,
-    TabbedInterface,
-    extract_panel_definitions_from_model_class,
-)
+from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.views import generic
 from wagtail.models import Locale, Site
 from wagtail.permission_policies import ModelPermissionPolicy
@@ -49,7 +45,6 @@ def get_setting_edit_handler(model):
 
 def redirect_to_relevant_instance(request, app_name, model_name):
     model = get_model_from_url_params(app_name, model_name)
-    pk = None
 
     if issubclass(model, AbstractSiteSetting):
         # Redirect the user to the edit page for the current site
@@ -57,7 +52,10 @@ def redirect_to_relevant_instance(request, app_name, model_name):
         site_request = Site.find_for_request(request)
         site = site_request or Site.objects.first()
         if site:
-            pk = site.pk
+            locale = get_locale_for(request=request, model=model)
+            return redirect(
+                get_edit_setting_url(app_name, model_name, site.pk, locale=locale)
+            )
         else:
             messages.error(
                 request,
@@ -65,18 +63,14 @@ def redirect_to_relevant_instance(request, app_name, model_name):
             )
             return redirect("wagtailadmin_home")
     elif issubclass(model, AbstractGenericSetting):
-        pk = model.load(request_or_site=request).id
+        return edit_generic_settings(request, app_name, model_name, model)
     else:
         raise NotImplementedError
-
-    locale = get_locale_for(request=request, model=model)
-    return redirect(get_edit_setting_url(app_name, model_name, pk, locale=locale))
 
 
 class EditView(generic.EditView):
     template_name = "wagtailsettings/edit.html"
     site = None
-    form_id = None
 
     def setup(self, request, app_name, model_name, model, *args, **kwargs):
         self.app_name = app_name
@@ -87,11 +81,6 @@ class EditView(generic.EditView):
 
     def get_panel(self):
         return get_setting_edit_handler(self.model)
-
-    def get_edit_url(self):
-        return get_edit_setting_url(
-            self.app_name, self.model_name, self.form_id, self.locale
-        )
 
     def get_success_buttons(self):
         return []
@@ -119,15 +108,7 @@ class EditView(generic.EditView):
         return self.form.save()
 
     def get_translations(self):
-        return [
-            {
-                "locale": locale,
-                "url": get_edit_setting_url(
-                    self.app_name, self.model_name, self.form_id, locale
-                ),
-            }
-            for locale in Locale.objects.all().exclude(id=self.locale.id)
-        ]
+        raise NotImplementedError
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -136,12 +117,8 @@ class EditView(generic.EditView):
 
         context.update(
             {
-                "opts": self.model._meta,
                 "site": self.site,
-                "instance": self.object,
-                "form_id": self.form_id,
                 "setting_type_name": self.model._meta.verbose_name,
-                "tabbed": isinstance(context["panel"].panel, TabbedInterface),
             }
         )
         return context
@@ -150,18 +127,36 @@ class EditView(generic.EditView):
 class EditSiteSettingsView(EditView):
     def get_object(self):
         self.site = get_object_or_404(Site, pk=self.kwargs["pk"])
-        self.form_id = self.site.pk
         return self.model.for_site(self.site, locale=self.locale)
 
+    def _get_edit_url(self, site_pk, locale):
+        return get_edit_setting_url(
+            self.app_name, self.model_name, site_pk, locale=locale
+        )
+
+    def get_edit_url(self):
+        return self._get_edit_url(self.site.pk, self.locale)
+
     def get_site_choices(self):
+        current_locale = self.locale
+
         return [
             {
                 "site": site_choice,
-                "url": get_edit_setting_url(
-                    self.app_name, self.model_name, site_choice.pk, self.locale
-                ),
+                "url": self._get_edit_url(site_choice.pk, current_locale),
             }
-            for site_choice in Site.objects.all().exclude(id=self.site.id)
+            for site_choice in Site.objects.all().exclude(pk=self.site.pk)
+        ]
+
+    def get_translations(self):
+        site_pk = self.site.pk
+
+        return [
+            {
+                "locale": locale,
+                "url": self._get_edit_url(site_pk, locale),
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
         ]
 
     def get_context_data(self, **kwargs):
@@ -176,25 +171,27 @@ edit_site_settings = EditSiteSettingsView.as_view()
 
 class EditGenericSettingsView(EditView):
     def get_object(self):
-        obj = self.model._get_or_create(locale=self.locale)
-        if obj.pk != self.kwargs["pk"]:
-            raise Http404
+        return self.model._get_or_create(locale=self.locale)
 
-        self.form_id = obj.pk
-        return obj
+    def _get_edit_url(self, locale):
+        return get_edit_setting_url(self.app_name, self.model_name, locale=locale)
+
+    def get_edit_url(self):
+        return self._get_edit_url(self.locale)
+
+    def get_translations(self):
+        return [
+            {
+                "locale": locale,
+                "url": self._get_edit_url(locale),
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
 
 
 edit_generic_settings = EditGenericSettingsView.as_view()
 
 
 def edit(request, app_name, model_name, pk):
-    # The following will raise a 404 error
-    # if app_name-model_name is an invalid setting type.
     model = get_model_from_url_params(app_name, model_name)
-
-    if issubclass(model, AbstractSiteSetting):
-        view = edit_site_settings
-    elif issubclass(model, AbstractGenericSetting):
-        view = edit_generic_settings
-
-    return view(request, app_name, model_name, model, pk=pk)
+    return edit_site_settings(request, app_name, model_name, model, pk=pk)
