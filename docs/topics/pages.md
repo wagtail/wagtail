@@ -213,7 +213,7 @@ request or `None` if no request exists in the context.
 
 For more information, please see {meth}`wagtail.models.Page.get_url`.
 
-If you need the full URL (includes the protocol and domain), you can use `Page.get_full_url(request)`. To enable per-request caching of site-level URLs, the optional `request` argument should be included whenever possible.
+If you need the full URL (includes the protocol and domain), you can use `Page.get_full_url(request)` method. To enable per-request caching of site-level URLs, the optional `request` argument should be included whenever possible.
 
 For more information, please see {meth}`wagtail.models.Page.get_full_url`.
 
