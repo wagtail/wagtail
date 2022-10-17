@@ -55,7 +55,7 @@ The calendar will now be visible at the URL `/admin/calendar/`.
 Currently, this view is outputting a plain HTML fragment. Let's insert this into the usual Wagtail admin page furniture, by creating a template that extends Wagtail's base template `"wagtailadmin/base.html"`.
 
 ```{note}
-The base template and HTML structure are not considered an astable part of Wagtail's API and may change in future releases.
+The base template and HTML structure are not considered a stable part of Wagtail's API and may change in future releases.
 ```
 
 Update `views.py` as follows:

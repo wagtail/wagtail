@@ -4,7 +4,7 @@ The Workflow system allows users to create tasks, which represent stages of mode
 
 Wagtail provides one built-in task type: `GroupApprovalTask`, which allows any user in specific groups to approve or reject moderation.
 
-However, it is possible to add your own task types in the code. Instances of your custom task can then be created in the `Tasks` section of the Wagtail Admin.
+However, it is possible to implement your own task types. Instances of your custom task can then be created in the `Tasks` section of the Wagtail Admin.
 
 ## Task models
 
