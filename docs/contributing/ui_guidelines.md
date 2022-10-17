@@ -11,7 +11,7 @@ Wagtail’s user interface is built with:
 
 Here are the available commands:
 
--   `make lint` will run all linting, `make lint-server` lints templates and `make lint-client` lints JS/CSS.
+-   `make lint` will run all linting, `make lint-server` lints templates, and `make lint-client` lints JS/CSS.
 -   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
 
 Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
@@ -29,7 +29,7 @@ We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](h
 
 We use [Prettier](https://prettier.io/) for formatting and [Stylelint](https://stylelint.io/) for linting.
 
--   We follow [BEM](http://getbem.com/) and [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), with a large number of utilities created with [Tailwind](https://tailwindcss.com/).
+-   We follow [BEM](https://getbem.com/) and [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), with a large amount of utilities created with [Tailwind](https://tailwindcss.com/).
 -   Familiarise yourself with our [stylelint-config-wagtail](https://github.com/wagtail/stylelint-config-wagtail) configuration, which details our preferred code style.
 -   Use `rems` for `font-size`, because they offer absolute control over text. Additionally, unit-less `line-height` is preferred because it does not inherit a percentage value of its parent element, but instead is based on a multiplier of the `font-size`.
 -   Always use variables for design tokens such as colours or font sizes, rather than hard-coding specific values.
