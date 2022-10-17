@@ -52,6 +52,7 @@ Changelog
  * Add "What's New" dashboard banner and "Help" menu in sidebar (Sage Abdullah)
  * Implement new "minimap" component for the page editor (Thibaud Colas)
  * The `image_url` template tag, when using the serve view to redirect rather than serve directly, will now use temporary redirects with a cache header instead of permanent redirects (Jake Howard)
+ * Add new test assertions to `WagtailPageTestCase` - `assertPageIsRoutable`, `assertPageIsRenderable`, `assertPageIsEditable`, `assertPageIsPreviewable` (Andy Babic)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
