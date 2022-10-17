@@ -7,6 +7,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
+from wagtail.contrib.settings.utils import get_edit_setting_url
 from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.models import Page, Site
 from wagtail.test.testapp.models import (
@@ -220,11 +221,17 @@ class TestMultiSite(BaseTestSiteSettingView):
         )
         self.assertEqual(302, response.redirect_chain[0][1])
 
-    def test_switcher(self):
-        """Check that the switcher form exists in the page"""
+    def test_site_selector(self):
+        """Check that the site selector appears on the page"""
+        other_site_url = get_edit_setting_url(
+            "tests", "testsitesetting", self.other_site.pk
+        )
+        DEFAULT_SITE_SELECTOR_HTML = f'<a href="javascript:void(0)" aria-label="{self.default_site}" class="c-dropdown__button u-btn-current w-no-underline">'
+        OTHER_SITE_SELECTOR_HTML = f'<a href="{other_site_url}" aria-label="{self.other_site}" class="u-link is-live w-no-underline">'
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'id="settings-site-switch"')
+        self.assertContains(response, DEFAULT_SITE_SELECTOR_HTML)
+        self.assertContains(response, OTHER_SITE_SELECTOR_HTML)
 
     def test_unknown_site(self):
         """Check that unknown sites throw a 404"""

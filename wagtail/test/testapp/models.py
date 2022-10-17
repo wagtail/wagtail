@@ -48,6 +48,7 @@ from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
     BaseSiteSetting,
+    BaseTranslatableSiteSetting,
     register_setting,
 )
 from wagtail.contrib.sitemaps import Sitemap
@@ -1455,6 +1456,12 @@ class TestSiteSetting(BaseSiteSetting):
 
 
 @register_setting
+class TestTranslatableSiteSetting(BaseTranslatableSiteSetting):
+    title = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50)
+
+
+@register_setting
 class TestGenericSetting(BaseGenericSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
@@ -1462,6 +1469,19 @@ class TestGenericSetting(BaseGenericSetting):
 
 @register_setting
 class ImportantPagesSiteSetting(BaseSiteSetting):
+    sign_up_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+    general_terms_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+    privacy_policy_page = models.ForeignKey(
+        "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
+    )
+
+
+@register_setting
+class ImportantPagesTranslatableSiteSetting(BaseTranslatableSiteSetting):
     sign_up_page = models.ForeignKey(
         "wagtailcore.Page", related_name="+", null=True, on_delete=models.SET_NULL
     )
@@ -1492,11 +1512,20 @@ class IconSiteSetting(BaseSiteSetting):
 
 
 @register_setting(icon="icon-setting-tag")
+class IconTranslatableSiteSetting(BaseTranslatableSiteSetting):
+    pass
+
+
+@register_setting(icon="icon-setting-tag")
 class IconGenericSetting(BaseGenericSetting):
     pass
 
 
 class NotYetRegisteredSiteSetting(BaseSiteSetting):
+    pass
+
+
+class NotYetRegisteredTranslatableSiteSetting(BaseTranslatableSiteSetting):
     pass
 
 
@@ -1506,6 +1535,11 @@ class NotYetRegisteredGenericSetting(BaseGenericSetting):
 
 @register_setting
 class FileSiteSetting(BaseSiteSetting):
+    file = models.FileField()
+
+
+@register_setting
+class FileTranslatableSiteSetting(BaseTranslatableSiteSetting):
     file = models.FileField()
 
 
@@ -1750,11 +1784,24 @@ class PanelSiteSettings(TestSiteSetting):
     panels = [FieldPanel("title")]
 
 
+class PanelTranslatableSiteSettings(TestSiteSetting):
+    panels = [FieldPanel("title")]
+
+
 class PanelGenericSettings(TestGenericSetting):
     panels = [FieldPanel("title")]
 
 
 class TabbedSiteSettings(TestSiteSetting):
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("title")], heading="First tab"),
+            ObjectList([FieldPanel("email")], heading="Second tab"),
+        ]
+    )
+
+
+class TabbedTranslatableSiteSettings(TestSiteSetting):
     edit_handler = TabbedInterface(
         [
             ObjectList([FieldPanel("title")], heading="First tab"),
