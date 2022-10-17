@@ -116,10 +116,17 @@ export class PageExplorerMenuItemDefinition extends LinkMenuItemDefinition {
   startPageId: number;
 
   constructor(
-    { name, label, url, icon_name: iconName = null, classnames = undefined },
+    {
+      name,
+      label,
+      url,
+      attrs,
+      icon_name: iconName = null,
+      classnames = undefined,
+    },
     startPageId: number,
   ) {
-    super({ name, label, url, icon_name: iconName, classnames });
+    super({ name, label, url, attrs, icon_name: iconName, classnames });
     this.startPageId = startPageId;
   }
 

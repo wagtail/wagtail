@@ -43,6 +43,8 @@ page of any image by clicking the "URL generator" button on the right hand side.
 
 This interface allows editors to generate URLs to cropped versions of the image.
 
+(dynamic_image_urls)=
+
 ### Generating dynamic image URLs in Python
 
 Dynamic image URLs can also be generated using Python code and served to a

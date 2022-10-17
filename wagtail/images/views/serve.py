@@ -2,14 +2,11 @@ import imghdr
 from wsgiref.util import FileWrapper
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
-from django.http import (
-    HttpResponse,
-    HttpResponsePermanentRedirect,
-    StreamingHttpResponse,
-)
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, StreamingHttpResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.decorators import classonlymethod
+from django.utils.decorators import classonlymethod, method_decorator
+from django.views.decorators.cache import cache_control
 from django.views.generic import View
 
 from wagtail.images import get_image_model
@@ -41,6 +38,7 @@ class ServeView(View):
 
         return super(ServeView, cls).as_view(**initkwargs)
 
+    @method_decorator(cache_control(max_age=3600, public=True))
     def get(self, request, signature, image_id, filter_spec, filename=None):
         if not verify_signature(
             signature.encode(), image_id, filter_spec, key=self.key
@@ -75,7 +73,7 @@ class ServeView(View):
 
     def redirect(self, rendition):
         # Redirect to the file's public location
-        return HttpResponsePermanentRedirect(rendition.url)
+        return redirect(rendition.url)
 
 
 serve = ServeView.as_view()

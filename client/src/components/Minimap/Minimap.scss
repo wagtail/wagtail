@@ -1,0 +1,105 @@
+// If unset, default to the "mobile" height of the slim header.
+$minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
+$minimap-width: 300px;
+$minimap-collapsed-width-mobile: 20px;
+$minimap-collapsed-width: 30px;
+$minimap-overflow: theme('spacing.2');
+$minimap-z-index: calc(theme('zIndex.header') - 20);
+
+@import './CollapseAll';
+@import './MinimapItem';
+
+.w-minimap {
+  position: absolute;
+  top: $minimap-top-offset;
+  inset-inline-end: 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100%);
+  z-index: $minimap-z-index;
+  width: $minimap-collapsed-width-mobile;
+
+  @include media-breakpoint-up(sm) {
+    padding-inline-start: $minimap-overflow;
+    width: calc($minimap-collapsed-width + $minimap-overflow);
+  }
+
+  &--expanded {
+    width: $minimap-width;
+    // Take up the whole height so overlap with the page looks better.
+    height: calc(100vh - $minimap-top-offset);
+  }
+
+  > * {
+    // Set the background on the contents of the minimap only to reduce overlapping area with fields and comments.
+    background-color: theme('colors.white.DEFAULT');
+  }
+}
+
+.w-minimap__toggle {
+  // Keep the icon at a stable position and reduce the amount of shifting of the button.
+  display: inline-flex;
+  padding: theme('spacing.[0.5]');
+  background-color: theme('colors.white.DEFAULT');
+  color: theme('colors.primary.DEFAULT');
+  transform: rotate(180deg);
+
+  @include media-breakpoint-up(sm) {
+    margin-top: theme('spacing.9');
+    padding: theme('spacing.[1.5]');
+
+    // On devices supporting hover, this is available for keyboard users only.
+    // Mouse users open the minimap by hovering.
+    @media (hover: hover) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:focus {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .icon {
+    width: theme('spacing.4');
+    height: theme('spacing.4');
+  }
+
+  :where(.w-minimap--expanded) & {
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: theme('spacing.[0.5]');
+    margin-inline-start: theme('spacing.3');
+    padding: theme('spacing.3');
+    transform: rotate(0deg);
+  }
+}
+
+.w-minimap__header {
+  min-height: 70px;
+
+  :where(.w-minimap--expanded) & {
+    border-inline-start: 1px solid theme('colors.grey.100');
+  }
+}
+
+.w-minimap__list {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style-type: none;
+
+  > li {
+    display: flex;
+  }
+}
+
+.w-minimap__footer {
+  flex-grow: 1;
+
+  :where(.w-minimap--expanded) & {
+    border-inline-start: 1px solid theme('colors.grey.100');
+  }
+}
