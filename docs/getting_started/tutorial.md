@@ -219,7 +219,7 @@ Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
-Lets start with a simple index page for our blog. In `blog/models.py`:
+Let's start with a simple index page for our blog. In `blog/models.py`:
 
 ```python
 from wagtail.models import Page
