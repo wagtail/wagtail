@@ -7,6 +7,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
+from wagtail.contrib.settings.utils import get_edit_setting_url
 from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.test.testapp.models import (
     FileGenericSetting,
@@ -36,8 +37,7 @@ class TestGenericSettingMenu(TestCase, WagtailTestUtils):
 
         self.assertContains(response, capfirst(TestGenericSetting._meta.verbose_name))
         self.assertContains(
-            response,
-            reverse("wagtailsettings:edit", args=("tests", "testgenericsetting")),
+            response, get_edit_setting_url("tests", "testgenericsetting")
         )
 
     def test_menu_item_no_permissions(self):
@@ -46,8 +46,7 @@ class TestGenericSettingMenu(TestCase, WagtailTestUtils):
 
         self.assertNotContains(response, TestGenericSetting._meta.verbose_name)
         self.assertNotContains(
-            response,
-            reverse("wagtailsettings:edit", args=("tests", "testgenericsetting")),
+            response, get_edit_setting_url("tests", "testgenericsetting")
         )
 
     def test_menu_item_icon(self):
@@ -78,9 +77,7 @@ class BaseTestGenericSettingView(TestCase, WagtailTestUtils):
         return self.client.post(url, post_data)
 
     def edit_url(self, setting):
-        pk = setting._get_or_create().pk
-        args = [setting._meta.app_label, setting._meta.model_name, pk]
-        return reverse("wagtailsettings:edit", args=args)
+        return get_edit_setting_url(setting._meta.app_label, setting._meta.model_name)
 
 
 class TestGenericSettingCreateView(BaseTestGenericSettingView):
@@ -109,7 +106,7 @@ class TestGenericSettingCreateView(BaseTestGenericSettingView):
         self.assertEqual(setting.title, "Edited setting title")
 
         url_finder = AdminURLFinder(self.user)
-        expected_url = "/admin/settings/tests/testgenericsetting/%d/" % setting.pk
+        expected_url = "/admin/settings/tests/testgenericsetting/"
         self.assertEqual(url_finder.get_edit_url(setting), expected_url)
 
     def test_file_upload_multipart(self):
@@ -119,16 +116,7 @@ class TestGenericSettingCreateView(BaseTestGenericSettingView):
 
     def test_edit_creates_new_instance_if_unexisting(self):
         self.assertEqual(TestGenericSetting.objects.count(), 0)
-        self.client.get(
-            reverse(
-                "wagtailsettings:edit",
-                args=[
-                    TestGenericSetting._meta.app_label,
-                    TestGenericSetting._meta.model_name,
-                    1,
-                ],
-            )
-        )
+        self.get()
         self.assertEqual(TestGenericSetting.objects.count(), 1)
 
 
@@ -162,14 +150,8 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
         self.assertEqual(setting.title, "Edited setting title")
 
     def test_for_request(self):
-        url = reverse("wagtailsettings:edit", args=("tests", "testgenericsetting"))
-
-        response = self.client.get(url)
-        self.assertRedirects(
-            response,
-            status_code=302,
-            expected_url="%s%s/" % (url, TestGenericSetting.objects.first().pk),
-        )
+        response = self.client.get(get_edit_setting_url("tests", "testgenericsetting"))
+        self.assertEqual(response.status_code, 200)
 
 
 class TestAdminPermission(TestCase, WagtailTestUtils):

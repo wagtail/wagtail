@@ -14,6 +14,7 @@ from .utils import get_locale_for
 
 __all__ = [
     "AbstractSiteSetting",
+    "AbstractGenericSetting",
     "BaseSetting",  # RemovedInWagtail50Warning
     "BaseGenericSetting",
     "BaseSiteSetting",
@@ -197,7 +198,7 @@ class BaseTranslatableSiteSetting(TranslatableMixin, AbstractSiteSetting):
         )[0]
 
 
-class BaseGenericSetting(AbstractSetting):
+class AbstractGenericSetting(AbstractSetting):
     """
     Generic settings are singleton models - only one instance of each model
     can be created.
@@ -207,7 +208,42 @@ class BaseGenericSetting(AbstractSetting):
         abstract = True
 
     @classmethod
-    def _get_or_create(cls):
+    def _get_or_create(cls, **kwargs):
+        raise NotImplementedError
+
+    @classmethod
+    def load(cls, request_or_site=None):
+        """
+        Get or create an instance of this model.
+        If `request_or_site` is present and is a request object, then we cache
+        the result on the request for faster repeat access.
+        """
+        # We can only cache on the request, so if there is no request then
+        # we know there's nothing in the cache.
+        if request_or_site is None or isinstance(request_or_site, Site):
+            return cls._get_or_create()
+
+        # Check if we already have this in the cache and return it if so.
+        attr_name = cls.get_cache_attr_name()
+        if hasattr(request_or_site, attr_name):
+            return getattr(request_or_site, attr_name)
+
+        obj = cls._get_or_create(locale=get_locale_for(request=request_or_site))
+
+        # Cache for next time.
+        setattr(request_or_site, attr_name, obj)
+        return obj
+
+    def __str__(self):
+        return self._meta.verbose_name
+
+
+class BaseGenericSetting(AbstractGenericSetting):
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def _get_or_create(cls, **kwargs):
         """
         Internal convenience method to get or create the first instance.
 
@@ -219,37 +255,6 @@ class BaseGenericSetting(AbstractSetting):
         if first_obj is None:
             return cls.objects.create()
         return first_obj
-
-    @classmethod
-    def load(cls, request_or_site=None):
-        """
-        Get or create an instance of this model. There is only ever one
-        instance of models inheriting from `AbstractSetting` so we can
-        use `pk=1`.
-
-        If `request_or_site` is present and is a request object, then we cache
-        the result on the request for faster repeat access.
-        """
-
-        # We can only cache on the request, so if there is no request then
-        # we know there's nothing in the cache.
-        if request_or_site is None or isinstance(request_or_site, Site):
-            return cls._get_or_create()
-
-        # Check if we already have this in the cache and return it if so.
-        attr_name = cls.get_cache_attr_name()
-        if hasattr(request_or_site, attr_name):
-            return getattr(request_or_site, attr_name)
-
-        obj = cls._get_or_create()
-
-        # Cache for next time.
-        setattr(request_or_site, attr_name, obj)
-
-        return obj
-
-    def __str__(self):
-        return self._meta.verbose_name
 
 
 class BaseSetting(BaseSiteSetting):
