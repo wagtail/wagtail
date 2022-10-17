@@ -1,3 +1,4 @@
+import uuid
 import warnings
 
 from django.db import models
@@ -5,15 +6,18 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
-from wagtail.models import Site
+from wagtail.models import Locale, Site, TranslatableMixin
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .registry import register_setting
+from .utils import get_locale_for
 
 __all__ = [
+    "AbstractSiteSetting",
     "BaseSetting",  # RemovedInWagtail50Warning
     "BaseGenericSetting",
     "BaseSiteSetting",
+    "BaseTranslatableSiteSetting",
     "register_setting",
 ]
 
@@ -107,7 +111,49 @@ class AbstractSetting(models.Model):
         return state
 
 
-class BaseSiteSetting(AbstractSetting):
+class AbstractSiteSetting(AbstractSetting):
+    class Meta:
+        abstract = True
+
+    @staticmethod
+    def get_instance(queryset, site, **kwargs):
+        raise NotImplementedError
+
+    @classmethod
+    def for_site(cls, site, **kwargs):
+        """
+        Get or create an instance of this setting for the site.
+        """
+        return cls.get_instance(cls.base_queryset(), site, **kwargs)
+
+    @classmethod
+    def for_request(cls, request):
+        """
+        Get or create an instance of this model for the request,
+        and cache the result on the request for faster repeat access.
+        """
+        attr_name = cls.get_cache_attr_name()
+        if hasattr(request, attr_name):
+            return getattr(request, attr_name)
+
+        site = Site.find_for_request(request)
+        site_settings = cls.for_site(
+            site, locale=get_locale_for(request=request, model=cls)
+        )
+
+        # For more efficient page url generation
+        site_settings._request = request
+        setattr(request, attr_name, site_settings)
+        return site_settings
+
+    def __str__(self):
+        return _("%(site_setting)s for %(site)s") % {
+            "site_setting": self._meta.verbose_name,
+            "site": self.site,
+        }
+
+
+class BaseSiteSetting(AbstractSiteSetting):
     site = models.OneToOneField(
         Site,
         unique=True,
@@ -119,36 +165,36 @@ class BaseSiteSetting(AbstractSetting):
     class Meta:
         abstract = True
 
-    @classmethod
-    def for_request(cls, request):
-        """
-        Get or create an instance of this model for the request,
-        and cache the result on the request for faster repeat access.
-        """
-        attr_name = cls.get_cache_attr_name()
-        if hasattr(request, attr_name):
-            return getattr(request, attr_name)
-        site = Site.find_for_request(request)
-        site_settings = cls.for_site(site)
-        # to allow more efficient page url generation
-        site_settings._request = request
-        setattr(request, attr_name, site_settings)
-        return site_settings
+    @staticmethod
+    def get_instance(queryset, site, **kwargs):
+        return queryset.get_or_create(site=site)[0]
 
-    @classmethod
-    def for_site(cls, site):
-        """
-        Get or create an instance of this setting for the site.
-        """
-        queryset = cls.base_queryset()
-        instance, created = queryset.get_or_create(site=site)
-        return instance
 
-    def __str__(self):
-        return _("%(site_setting)s for %(site)s") % {
-            "site_setting": self._meta.verbose_name,
-            "site": self.site,
-        }
+class BaseTranslatableSiteSetting(TranslatableMixin, AbstractSiteSetting):
+    site = models.ForeignKey(
+        Site, db_index=True, editable=False, on_delete=models.CASCADE
+    )
+
+    class Meta:
+        abstract = True
+        unique_together = [("site", "locale"), ("translation_key", "locale")]
+
+    @staticmethod
+    def _get_translation_key(site_id):
+        # The translation key should be derived from the site ID
+        # because we want only one instance per site/locale,
+        # so the site ID is basically the translation key.
+        return uuid.uuid5(
+            uuid.UUID("4e47faf7-d91f-411f-8a8f-51a05d75f992"), str(site_id)
+        )
+
+    @staticmethod
+    def get_instance(queryset, site, locale=None):
+        return queryset.get_or_create(
+            site=site,
+            locale=locale or Locale.get_active(),
+            translation_key=BaseTranslatableSiteSetting._get_translation_key(site.id),
+        )[0]
 
 
 class BaseGenericSetting(AbstractSetting):
