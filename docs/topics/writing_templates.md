@@ -104,7 +104,7 @@ See [](image_tag) for full documentation.
 
 This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images, and links made in the Wagtail editor, into fully-baked HTML ready for display.
 
-This should be applied to only fields using `RichTextField`.
+You should apply this only to fields using `RichTextField
 
 ```html+django
 {% load wagtailcore_tags %}
