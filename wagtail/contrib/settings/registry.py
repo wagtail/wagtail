@@ -12,6 +12,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
 
 from .permissions import user_can_edit_setting_type
+from .utils import get_edit_setting_url, get_locale_for
 
 
 class SettingMenuItem(MenuItem):
@@ -46,31 +47,27 @@ class SettingMenuItem(MenuItem):
 
 class SiteSettingAdminURLFinder(ModelAdminURLFinder):
     def construct_edit_url(self, instance):
-        return reverse(
-            "wagtailsettings:edit",
-            args=[
-                self.model._meta.app_label,
-                self.model._meta.model_name,
-                instance.site_id,
-            ],
+        return get_edit_setting_url(
+            self.model._meta.app_label,
+            self.model._meta.model_name,
+            instance.site_id,
+            locale=get_locale_for(instance=instance),
         )
 
 
 class GenericSettingAdminURLFinder(ModelAdminURLFinder):
     def construct_edit_url(self, instance):
-        return reverse(
-            "wagtailsettings:edit",
-            args=[
-                self.model._meta.app_label,
-                self.model._meta.model_name,
-                instance.id,
-            ],
+        return get_edit_setting_url(
+            self.model._meta.app_label,
+            self.model._meta.model_name,
+            instance.id,
+            locale=get_locale_for(instance=instance),
         )
 
 
 class Registry(list):
     def register(self, model, **kwargs):
-        from .models import BaseGenericSetting, BaseSiteSetting
+        from .models import AbstractSiteSetting, BaseGenericSetting
 
         """
         Register a model as a setting, adding it to the wagtail admin menu
@@ -95,7 +92,7 @@ class Registry(list):
         # Register an admin URL finder
         permission_policy = ModelPermissionPolicy(model)
 
-        if issubclass(model, BaseSiteSetting):
+        if issubclass(model, AbstractSiteSetting):
             finder_class = type(
                 "_SiteSettingAdminURLFinder",
                 (SiteSettingAdminURLFinder,),

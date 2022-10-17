@@ -1,0 +1,27 @@
+{# Based on listing/_button_with_dropdown.html #}
+{% load wagtailadmin_tags %}
+{% if site_choices %}
+    <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;" data-dropdown>
+        <a href="javascript:void(0)" aria-label="{{ site }}" class="c-dropdown__button u-btn-current w-no-underline">
+            {% icon name="site" class_name="default" %}
+            {{ site }}
+            <div data-dropdown-toggle class="o-icon c-dropdown__toggle c-dropdown__togle--icon [ icon icon-arrow-down ]">
+                {% icon name="arrow-down" %}{% icon name="arrow-up" %}
+            </div>
+        </a>
+        <div class="t-dark">
+            <ul class="c-dropdown__menu u-toggle  u-arrow u-arrow--tl u-background">
+                {% for site_choice in site_choices %}
+                    <li class="c-dropdown__item ">
+                        <a href="{{ site_choice.url }}" aria-label="{{ site_choice.site }}" class="u-link is-live w-no-underline">
+                            {{ site_choice.site }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% else %}
+    {% icon name="site" class_name="default" %}
+    {{ site }}
+{% endif %}

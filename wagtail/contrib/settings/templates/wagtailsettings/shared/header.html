@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/shared/header.html" %}
+
+{% block right_column_classname %}right col w-flex w-items-center{% endblock %}
+{% block right_column %}
+    {% if site %}
+        <li class="col">
+            <div class="field">
+                {% include 'wagtailadmin/shared/site_selector.html' with class='c-dropdown--large' %}
+            </div>
+        </li>
+    {% endif %}
+    {% if locale %}
+        <li class="col">
+            <div class="field">
+                {% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}
+            </div>
+        </li>
+    {% endif %}
+{% endblock %}
