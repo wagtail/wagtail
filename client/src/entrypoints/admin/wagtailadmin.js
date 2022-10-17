@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Icon, Portal, initUpgradeNotification, initSkipLink } from '../..';
+import {
+  Icon,
+  Portal,
+  initDismissibles,
+  initUpgradeNotification,
+  initSkipLink,
+} from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
@@ -34,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initModernDropdown();
   initTabs();
+  initDismissibles();
   initSkipLink();
   dialog();
   initCollapsibleBreadcrumbs();

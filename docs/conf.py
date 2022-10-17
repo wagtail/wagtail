@@ -56,6 +56,7 @@ os.environ["DATABASE_ENGINE"] = "django.db.backends.sqlite3"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
+    "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
 ]

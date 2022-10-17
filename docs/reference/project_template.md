@@ -83,7 +83,7 @@ Location: `/mysite/Dockerfile`
 
 Contains configuration for building and deploying the site as a [Docker](https://docs.docker.com/) container. To build and use the Docker image for your project, run:
 
-```console
+```sh
 docker build -t mysite .
 docker run -p 8000:8000 mysite
 ```

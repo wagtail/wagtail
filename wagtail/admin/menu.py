@@ -17,7 +17,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         self.classnames = classnames
         self.icon_name = icon_name
         self.name = name or cautious_slugify(str(label))
-        self.attrs = attrs
+        self.attrs = attrs or {}
         self.order = order
 
     def is_shown(self, request):
@@ -39,6 +39,28 @@ class MenuItem(metaclass=MediaDefiningClass):
             classnames=self.classnames,
             attrs=self.attrs,
         )
+
+
+class DismissibleMenuItemMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.attrs["data-wagtail-dismissible-id"] = self.name
+
+    def render_component(self, request):
+        profile = getattr(request.user, "wagtail_userprofile", None)
+
+        # Menu item instances are cached, so make sure the existence of the
+        # data-wagtail-dismissed attribute is correct for the user
+        if profile and profile.dismissibles.get(self.name):
+            self.attrs["data-wagtail-dismissed"] = ""
+        else:
+            self.attrs.pop("data-wagtail-dismissed", None)
+
+        return super().render_component(request)
+
+
+class DismissibleMenuItem(DismissibleMenuItemMixin, MenuItem):
+    pass
 
 
 class Menu:
@@ -124,7 +146,12 @@ class SubmenuMenuItem(MenuItem):
             self.menu.render_component(request),
             icon_name=self.icon_name,
             classnames=self.classnames,
+            attrs=self.attrs,
         )
+
+
+class DismissibleSubmenuMenuItem(DismissibleMenuItemMixin, SubmenuMenuItem):
+    pass
 
 
 class AdminOnlyMenuItem(MenuItem):
@@ -145,4 +172,8 @@ settings_menu = Menu(
 reports_menu = Menu(
     register_hook_name="register_reports_menu_item",
     construct_hook_name="construct_reports_menu",
+)
+help_menu = Menu(
+    register_hook_name="register_help_menu_item",
+    construct_hook_name="construct_help_menu",
 )
