@@ -48,6 +48,7 @@ Changelog
  * Improve side panels’ resizing in page editor and listings (Steven Steinwand)
  * Adjust breadcrumb text alignment and size in page listings & page editor (Steven Steinwand)
  * Improvements to getting started tutorial aimed at developers who are very new to Python and have no Django experience (Damilola Oladele)
+ * Update documentation dependencies; Sphinx Wagtail Theme to v5.3.2, MyST Parser to v0.18.1, add Sphinx Copy Button (LB (Ben) Johnston)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
