@@ -4,7 +4,7 @@ import jinja2
 from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
-from wagtail.contrib.settings.models import AbstractSiteSetting, BaseGenericSetting
+from wagtail.contrib.settings.models import AbstractGenericSetting, AbstractSiteSetting
 from wagtail.contrib.settings.registry import registry
 from wagtail.models import Site
 
@@ -46,7 +46,7 @@ class Setting(dict):
         if Model is None:
             raise RuntimeError(f"Could not find model matching `{key}`.")
 
-        if issubclass(Model, BaseGenericSetting):
+        if issubclass(Model, AbstractGenericSetting):
             out = self[key] = Model.load(request_or_site=self.site)
         elif issubclass(Model, AbstractSiteSetting):
             if self.site is None or not isinstance(self.site, Site):

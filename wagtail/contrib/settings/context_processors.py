@@ -1,6 +1,6 @@
 from django.utils.functional import SimpleLazyObject
 
-from wagtail.contrib.settings.models import AbstractSiteSetting, BaseGenericSetting
+from wagtail.contrib.settings.models import AbstractGenericSetting, AbstractSiteSetting
 from wagtail.models import Site
 
 from .registry import registry
@@ -51,7 +51,7 @@ class SettingModuleProxy(dict):
                 f"Could not find model matching `{self.app_label}.{model_name}`."
             )
 
-        if issubclass(Model, BaseGenericSetting):
+        if issubclass(Model, AbstractGenericSetting):
             return Model.load(request_or_site=self.request_or_site)
         elif issubclass(Model, AbstractSiteSetting):
             if self.request_or_site is not None:
@@ -68,8 +68,8 @@ class SettingModuleProxy(dict):
             )
 
         raise NotImplementedError(
-            "Setting models should inherit from either `BaseGenericSetting` "
-            "or `BaseSiteSetting`."
+            "Setting models should inherit from either `AbstractGenericSetting` "
+            "or `AbstractSiteSetting`."
         )
 
 

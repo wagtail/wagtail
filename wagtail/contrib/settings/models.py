@@ -17,6 +17,7 @@ __all__ = [
     "AbstractGenericSetting",
     "BaseSetting",  # RemovedInWagtail50Warning
     "BaseGenericSetting",
+    "BaseTranslatableGenericSetting",
     "BaseSiteSetting",
     "BaseTranslatableSiteSetting",
     "register_setting",
@@ -228,7 +229,9 @@ class AbstractGenericSetting(AbstractSetting):
         if hasattr(request_or_site, attr_name):
             return getattr(request_or_site, attr_name)
 
-        obj = cls._get_or_create(locale=get_locale_for(request=request_or_site))
+        obj = cls._get_or_create(
+            locale=get_locale_for(request=request_or_site, model=cls)
+        )
 
         # Cache for next time.
         setattr(request_or_site, attr_name, obj)
@@ -255,6 +258,30 @@ class BaseGenericSetting(AbstractGenericSetting):
         if first_obj is None:
             return cls.objects.create()
         return first_obj
+
+
+class BaseTranslatableGenericSetting(TranslatableMixin, AbstractGenericSetting):
+    # The translation key should be derived from a constant
+    # because we want only one instance per locale,
+    # so the first instance's ID (=1) is basically the translation key.
+    _translation_key = uuid.uuid5(
+        uuid.UUID("4e47faf7-d91f-411f-8a8f-51a05d75f992"), "1"
+    )
+
+    class Meta:
+        abstract = True
+        unique_together = [("translation_key", "locale")]
+
+    @classmethod
+    def _get_or_create(cls, locale=None):
+        """
+        Internal convenience method to get or create the instance associated
+        to the locale requested.
+        """
+        return cls.base_queryset().get_or_create(
+            locale=locale or Locale.get_active(),
+            translation_key=cls._translation_key,
+        )[0]
 
 
 class BaseSetting(BaseSiteSetting):

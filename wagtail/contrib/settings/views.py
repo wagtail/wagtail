@@ -15,7 +15,7 @@ from wagtail.admin.views import generic
 from wagtail.models import Locale, Site
 from wagtail.permission_policies import ModelPermissionPolicy
 
-from .models import AbstractSiteSetting, BaseGenericSetting
+from .models import AbstractGenericSetting, AbstractSiteSetting
 from .registry import registry
 from .utils import get_edit_setting_url, get_locale_for
 
@@ -38,7 +38,7 @@ def get_setting_edit_handler(model):
     else:
         if issubclass(model, AbstractSiteSetting):
             panels = extract_panel_definitions_from_model_class(model, ["site"])
-        elif issubclass(model, BaseGenericSetting):
+        elif issubclass(model, AbstractGenericSetting):
             panels = extract_panel_definitions_from_model_class(model)
         else:
             raise NotImplementedError
@@ -64,7 +64,7 @@ def redirect_to_relevant_instance(request, app_name, model_name):
                 _("This setting could not be opened because there is no site defined."),
             )
             return redirect("wagtailadmin_home")
-    elif issubclass(model, BaseGenericSetting):
+    elif issubclass(model, AbstractGenericSetting):
         pk = model.load(request_or_site=request).id
     else:
         raise NotImplementedError
@@ -176,14 +176,12 @@ edit_site_settings = EditSiteSettingsView.as_view()
 
 class EditGenericSettingsView(EditView):
     def get_object(self):
-        queryset = self.model.base_queryset()
+        obj = self.model._get_or_create(locale=self.locale)
+        if obj.pk != self.kwargs["pk"]:
+            raise Http404
 
-        # Create the instance if we haven't already.
-        if queryset.count() == 0:
-            self.model.objects.create()
-
-        self.form_id = self.kwargs["pk"]
-        return get_object_or_404(self.model, pk=self.form_id)
+        self.form_id = obj.pk
+        return obj
 
 
 edit_generic_settings = EditGenericSettingsView.as_view()
@@ -196,7 +194,7 @@ def edit(request, app_name, model_name, pk):
 
     if issubclass(model, AbstractSiteSetting):
         view = edit_site_settings
-    elif issubclass(model, BaseGenericSetting):
+    elif issubclass(model, AbstractGenericSetting):
         view = edit_generic_settings
 
     return view(request, app_name, model_name, model, pk=pk)

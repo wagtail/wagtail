@@ -67,7 +67,7 @@ class GenericSettingAdminURLFinder(ModelAdminURLFinder):
 
 class Registry(list):
     def register(self, model, **kwargs):
-        from .models import AbstractSiteSetting, BaseGenericSetting
+        from .models import AbstractGenericSetting, AbstractSiteSetting
 
         """
         Register a model as a setting, adding it to the wagtail admin menu
@@ -98,7 +98,7 @@ class Registry(list):
                 (SiteSettingAdminURLFinder,),
                 {"model": model, "permission_policy": permission_policy},
             )
-        elif issubclass(model, BaseGenericSetting):
+        elif issubclass(model, AbstractGenericSetting):
             finder_class = type(
                 "_GenericSettingAdminURLFinder",
                 (GenericSettingAdminURLFinder,),
