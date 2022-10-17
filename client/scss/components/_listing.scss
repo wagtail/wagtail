@@ -68,6 +68,11 @@ ul.listing {
   &.full-width td:first-child,
   &.full-width th:first-child {
     padding-inline-start: 20px;
+    padding-inline-end: 20px;
+
+    input[type='checkbox'] {
+      margin-inline-end: 0;
+    }
   }
 
   &.full-width {
@@ -411,12 +416,16 @@ table.listing {
   width: 100%;
 }
 
-// explorer specific tweaks
 .page-explorer .w-breadcrumb {
   li[hidden] ~ li:last-child,
   li:only-child {
     a {
       font-size: theme('fontSize.18');
+      font-weight: theme('fontWeight.extrabold');
+
+      @include media-breakpoint-up(md) {
+        font-size: theme('fontSize.30');
+      }
     }
   }
 }
@@ -624,7 +633,15 @@ table.listing {
 
     &.full-width td:first-child,
     &.full-width th:first-child {
-      padding-inline-start: 25px;
+      padding-inline-start: 30px;
+      padding-inline-end: 30px;
+    }
+
+    // Reduce padding on sort order controls so total width matches previous state
+    &.full-width td.ord,
+    &.full-width th.ord {
+      padding-inline-end: 20px;
+      padding-inline-start: 20px;
     }
 
     &.full-width .divider td {
@@ -661,10 +678,12 @@ table.listing {
 
 // Ordering
 td.ord {
+  // Align with the row's title text, and the column's label.
+  vertical-align: top;
+
   .handle {
-    // Align with the row's title text, and the column's label.
-    margin-top: -28px;
-    margin-inline-start: 13px;
+    width: 100%;
+    text-align: center;
   }
 }
 

@@ -44,6 +44,11 @@ Changelog
  * Add anchor links to StreamField blocks so users can navigate straight to a given block (Thibaud Colas)
  * Support "Ctrl + f" in-page search within collapsed StreamField blocks (Thibaud Colas)
  * Remember the last opened side panel in the page editor, activating it on page load (Sage Abdullah)
+ * Ensure that the `update_index` command can run without console output if called with `--verbosity 0` (Ben Sturmfels, Oliver Parker)
+ * Improve side panels’ resizing in page editor and listings (Steven Steinwand)
+ * Adjust breadcrumb text alignment and size in page listings & page editor (Steven Steinwand)
+ * Improvements to getting started tutorial aimed at developers who are very new to Python and have no Django experience (Damilola Oladele)
+ * Update documentation dependencies; Sphinx Wagtail Theme to v5.3.2, MyST Parser to v0.18.1, add Sphinx Copy Button (LB (Ben) Johnston)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
@@ -71,6 +76,9 @@ Changelog
  * Fix: Ensure that buttons on custom chooser widgets are correctly shown on hover (Thibaud Colas)
  * Fix: Add missing asterisk to title field placeholder (Seremba Patrick)
  * Fix: Avoid creating an extra rich text block when inserting a new block at the end of the content (Matt Westcott)
+ * Fix: Removed the extra dot in the Wagtail version shown within the admin settings menu item (Loveth Omokaro)
+ * Fix: Fully remove the obsolete `wagtailsearch_editorspick` table that prevents flushing the database (Matt Westcott)
+ * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
 
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
