@@ -17,7 +17,8 @@ To check whether you have an appropriate version of Python 3:
 python --version
 ```
 
-**On Windows**:
+**On Windows** (cmd.exe, with the Python Launcher for Windows):
+
 ```sh
 py --version
 ```
@@ -47,7 +48,7 @@ mysite\env\Scripts\activate
 **On GNU/Linux or MacOS** (bash):
 
 ```sh
-python3 -m venv mysite/env
+python -m venv mysite/env
 source mysite/env/bin/activate
 ```
 
