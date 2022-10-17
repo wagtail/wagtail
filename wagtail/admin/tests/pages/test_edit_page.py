@@ -152,7 +152,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # test that side panel is shown
         self.assertContains(
             response,
-            '<aside class="form-side form-side--initial" data-form-side >',
+            '<aside class="form-side form-side--initial" aria-label="Side panels" data-form-side>',
         )
         self.assertNotContains(response, "data-form-side-explorer")
 
