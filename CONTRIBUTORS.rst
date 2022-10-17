@@ -637,6 +637,9 @@ Contributors
 * Toyibat Adele
 * Umar Farouk Yunusa
 * Chizoba Nweke
+* Seremba Patrick
+* Ruqouyyah Muhammad
+* Loveth Omokaro
 
 
 Translators

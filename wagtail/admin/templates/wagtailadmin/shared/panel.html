@@ -7,6 +7,7 @@
     id - Unique to the page.
     heading - The text of the panel’s heading.
     heading_size - The size of the heading.
+    heading_level - ARIA override to the default heading level (2).
     icon - Displayed alongside the heading.
     id_for_label - id of an associated field.
     is_required - If the panel contains a required field.
@@ -30,7 +31,7 @@
                 {% icon name=icon_name class_name="w-panel__icon" %}
             </button>
             {% if heading %}
-                <h2 class="w-panel__heading {% if heading_size == "label" %}w-panel__heading--label{% endif %}" id="{{ heading_id }}" data-panel-heading>
+                <h2 class="w-panel__heading {% if heading_size == "label" %}w-panel__heading--label{% endif %}" {% if heading_level %}aria-level="{{ heading_level }}"{% endif %} id="{{ heading_id }}" data-panel-heading>
                     {% if id_for_label %}
                         <label for="{{ id_for_label }}" id="{{ id_for_label }}-label">{{ heading }}{% if is_required %}<span class="w-required-mark">*</span>{% endif %}</label>
                     {% else %}
@@ -43,7 +44,7 @@
             </a>
             <div class="w-panel__divider"></div>
             {% if header_controls %}
-                <div class="w-panel__controls">
+                <div class="w-panel__controls" data-panel-controls>
                     <div class="w-panel__controls-cue">
                         {% icon name="dots-horizontal" class_name="w-panel__icon" %}
                     </div>

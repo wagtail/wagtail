@@ -1,7 +1,21 @@
 export default function initSidePanel() {
+  const sidePanelWrapper = document.querySelector('[data-form-side]');
+
+  // Abort if the side panel isn't available
+  if (!sidePanelWrapper) return;
+
+  // For now, we do not want to persist the side panel state in the explorer
+  const inExplorer = 'formSideExplorer' in sidePanelWrapper.dataset;
+
   const setPanel = (panelName) => {
-    const sidePanelWrapper = document.querySelector('[data-form-side]');
     const body = document.querySelector('body');
+    const selectedPanel = document.querySelector(
+      `[data-side-panel-toggle="${panelName}"]`,
+    );
+
+    // Abort if panelName is specified but it does not exist
+    if (panelName && !selectedPanel) return;
+
     // Open / close side panel
 
     // HACK: For now, the comments will show without the side-panel opening.
@@ -44,6 +58,15 @@ export default function initSidePanel() {
         toggle.dataset.sidePanelToggle === panelName ? 'true' : 'false',
       );
     });
+
+    // Remember last opened side panel if not in explorer
+    if (!inExplorer) {
+      try {
+        localStorage.setItem('wagtail:side-panel-open', panelName);
+      } catch (e) {
+        // Proceed without saving the last-open panel.
+      }
+    }
   };
 
   const togglePanel = (panelName) => {
@@ -72,4 +95,23 @@ export default function initSidePanel() {
       setPanel('');
     });
   }
+
+  // Open the last opened panel if not in explorer,
+  // use timeout to allow comments to load first
+  setTimeout(() => {
+    try {
+      const sidePanelOpen = localStorage.getItem('wagtail:side-panel-open');
+      if (!inExplorer && sidePanelOpen) {
+        setPanel(sidePanelOpen);
+      }
+    } catch (e) {
+      // Proceed without remembering the last-open panel.
+    }
+
+    // Skip the animation on initial load only,
+    // use timeout to ensure the panel has been triggered to open
+    setTimeout(() => {
+      sidePanelWrapper.classList.remove('form-side--initial');
+    });
+  });
 }
