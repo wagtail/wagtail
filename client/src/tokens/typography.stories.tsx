@@ -28,6 +28,19 @@ export const FontFamilies = () => (
   </div>
 );
 
+const exampleText = {
+  'w-h1': 'Heading level (h1)',
+  'w-h2': 'Heading level 2 (h2)',
+  'w-h3': 'Heading level 3 (h3)',
+  'w-h4': 'Heading level 4 (h4)',
+  'w-label-1': 'Large label',
+  'w-label-2': 'Medium label',
+  'w-label-3': 'Small label',
+  'w-body-text-large': 'Large body text',
+  'w-body-text': 'Basic body text',
+  'w-help-text': 'Help text',
+};
+
 export const TypeScale = () => (
   <table>
     <caption>All text styles</caption>
@@ -42,7 +55,7 @@ export const TypeScale = () => (
         <tr key={textStyle}>
           <td>
             <span className={`${textStyle} w-mt-4`}>
-              {textStyle.replace('w-', '')}
+              {exampleText[textStyle] || textStyle.replace('w-', '')}
             </span>
           </td>
           <td>

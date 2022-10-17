@@ -1,4 +1,9 @@
-import { ADMIN_API, ADMIN_URLS, MAX_EXPLORER_PAGES } from './wagtailConfig';
+import {
+  ADMIN_API,
+  ADMIN_URLS,
+  MAX_EXPLORER_PAGES,
+  WAGTAIL_CONFIG,
+} from './wagtailConfig';
 
 describe('wagtailConfig', () => {
   describe('ADMIN_API', () => {
@@ -16,6 +21,12 @@ describe('wagtailConfig', () => {
   describe('MAX_EXPLORER_PAGES', () => {
     it('exists', () => {
       expect(MAX_EXPLORER_PAGES).toBeDefined();
+    });
+  });
+
+  describe('WAGTAIL_CONFIG', () => {
+    it('exists', () => {
+      expect(WAGTAIL_CONFIG).toBeDefined();
     });
   });
 });

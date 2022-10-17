@@ -8,27 +8,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # EditorsPicks have been moved to the "wagtailsearchpromotions" module.
-        # Remove EditorsPick from wagtailsearch but don't drop the underlying table
-        # so wagtailsearchpromotions can pick it up in its initial migration.
-        # If wagtailsearchpromotions isn't installed, this table will remain
-        # in the database unmanaged until it is. This could potentially happen
-        # at any point in the future so it's important to keep this behaviour
-        # even if we decide to squash these migrations.
-        migrations.SeparateDatabaseAndState(
-            state_operations=[
-                migrations.RemoveField(
-                    model_name="editorspick",
-                    name="page",
-                ),
-                migrations.RemoveField(
-                    model_name="editorspick",
-                    name="query",
-                ),
-                migrations.DeleteModel(
-                    name="EditorsPick",
-                ),
-            ],
-            database_operations=[],
-        )
+        # Do nothing. Previously this migration dropped the EditorsPick model from the application
+        # state but kept the database intact so that the wagtail.contrib.search_promotions app
+        # could subsequently adopt it by renaming the table. wagtail.contrib.search_promotions
+        # now creates its own table, so we don't want to keep the table from wagtailsearch around;
+        # we will delete it properly in wagtailsearch migration 0007.
+        # See https://github.com/wagtail/wagtail/issues/1824#issuecomment-1271840741
     ]

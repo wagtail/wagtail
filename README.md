@@ -58,7 +58,7 @@ To get started with using Wagtail, run the following in a virtual environment:
 
 ![Installing Wagtail](.github/install-animation.gif)
 
-```bash
+```sh
 pip install wagtail
 wagtail start mysite
 cd mysite

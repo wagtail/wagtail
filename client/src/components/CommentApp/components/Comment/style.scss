@@ -10,6 +10,7 @@
   box-sizing: border-box;
   padding-bottom: 0;
   inset-inline-end: -2000px;
+  background-color: theme('colors.white.DEFAULT');
 
   @include media-breakpoint-up(sm) {
     width: calc(100vw - 40px);
