@@ -302,6 +302,8 @@ WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # 20MB
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
 
+(wagtailimages_max_image_pixels)=
+
 ### `WAGTAILIMAGES_MAX_IMAGE_PIXELS`
 
 ```python
