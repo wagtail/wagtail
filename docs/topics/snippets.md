@@ -59,7 +59,7 @@ def adverts(context):
     }
 ```
 
-`@register.inclusion_tag()` takes two variables: a template and a boolean on whether that template should be passed a request context. It's a good idea to include request contexts in your custom template tags, since some Wagtail-specific template tags like `pageurl` need the context to work properly. The template tag function could take arguments and filter the adverts to return a specific instance of the model, but for brevity we'll just use `Advert.objects.all()`.
+`@register.inclusion_tag()` takes two variables: a template and a boolean on whether that template should be passed a request context. It's a good idea to include request contexts in your custom template tags, since some Wagtail-specific template tags like `pageurl` need the context to work properly. The template tag function could take arguments and filter the adverts to return a specific instance of the model, but for brevity, we'll just use `Advert.objects.all()`.
 
 Here's what's in the template used by this template tag:
 
@@ -112,7 +112,7 @@ In the above example, the list of adverts is a fixed list that is displayed via 
 
 The snippet could then be accessed within your template as `page.advert`.
 
-To attach multiple adverts to a page, the `FieldPanel` can be placed on an inline child object of `BookPage` rather than on `BookPage` itself. Here, this child model is named `BookPageAdvertPlacement` (so called because there is one such object for each time that an advert is placed on a BookPage):
+To attach multiple adverts to a page, the `FieldPanel` can be placed on an inline child object of `BookPage` rather than on `BookPage` itself. Here, this child model is named `BookPageAdvertPlacement` (so-called because there is one such object for each time that an advert is placed on a BookPage):
 
 ```python
 from django.db import models
@@ -327,7 +327,7 @@ The `DraftStateMixin` class was introduced.
 Support for scheduled publishing via `PublishingPanel` was introduced.
 ```
 
-If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected to the "live" snippet instance until you publish the changes.
+If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected in the "live" snippet instance until you publish the changes.
 
 Wagtail will also allow you to set publishing schedules for instances of the model if there is a `PublishingPanel` in the model's panels definition.
 
