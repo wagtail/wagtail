@@ -31,7 +31,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 ```
 
-If you have disabled auto update, you must run the [](update_index) command on a regular basis to keep the index in sync with the database.
+If you have disabled auto-update, you must run the [](update_index) command on a regular basis to keep the index in sync with the database.
 
 (wagtailsearch_backends_atomic_rebuild)=
 
@@ -41,9 +41,9 @@ If you have disabled auto update, you must run the [](update_index) command on a
 This option may not work on Elasticsearch version 5.4.x, due to [a bug in the handling of aliases](https://github.com/elastic/elasticsearch/issues/24644) - please upgrade to 5.5 or later.
 ```
 
-By default (when using the Elasticsearch backend), when the `update_index` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
+By default (when using the Elasticsearch backend), when the `update_index` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't roll back if an error occurs.
 
-Setting the `ATOMIC_REBUILD` setting to `True` makes Wagtail rebuild into a separate index while keep the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
+Setting the `ATOMIC_REBUILD` setting to `True` makes Wagtail rebuild into a separate index while keeping the old index active until the new one is fully built. When the rebuild is finished, the indexes are swapped atomically and the old index is deleted.
 
 ## `BACKEND`
 
@@ -55,7 +55,7 @@ Here's a list of backends that Wagtail supports out of the box.
 
 `wagtail.search.backends.database`
 
-The database search backend searches content in the database using the full text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
+The database search backend searches content in the database using the full-text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
 This backend is intended to be used for development and also should be good enough to use in production on sites that don't require any Elasticsearch specific features.
 
 (wagtailsearch_backends_elasticsearch)=
@@ -101,9 +101,9 @@ WAGTAILSEARCH_BACKENDS = {
 }
 ```
 
-Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as case-sensitive keyword argument (for example `'max_retries': 1`).
+Other than `BACKEND`, the keys are optional and default to the values shown. Any defined key in `OPTIONS` is passed directly to the Elasticsearch constructor as a case-sensitive keyword argument (for example `'max_retries': 1`).
 
-A username and password may be optionally be supplied to the `URL` field to provide authentication credentials for the Elasticsearch service:
+A username and password may be optionally supplied to the `URL` field to provide authentication credentials for the Elasticsearch service:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
@@ -115,7 +115,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 ```
 
-`INDEX_SETTINGS` is a dictionary used to override the default settings to create the index. The default settings are defined inside the `ElasticsearchSearchBackend` class in the module `wagtail/wagtail/search/backends/elasticsearch7.py`. Any new key is added, any existing key, if not a dictionary, is replaced with the new value. Here's a sample on how to configure the number of shards and setting the Italian LanguageAnalyzer as the default analyzer:
+`INDEX_SETTINGS` is a dictionary used to override the default settings to create the index. The default settings are defined inside the `ElasticsearchSearchBackend` class in the module `wagtail/wagtail/search/backends/elasticsearch7.py`. Any new key is added and any existing key, if not a dictionary, is replaced with the new value. Here's a sample of how to configure the number of shards and set the Italian LanguageAnalyzer as the default analyzer:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
@@ -138,7 +138,7 @@ WAGTAILSEARCH_BACKENDS = {
     }
 ```
 
-If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including [Bonsai](https://bonsai.io/), who offer a free account suitable for testing and development. To use Bonsai:
+If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including [Bonsai](https://bonsai.io/), which offers a free account suitable for testing and development. To use Bonsai:
 
 -   Sign up for an account at `Bonsai`
 -   Use your Bonsai dashboard to create a Cluster.
