@@ -77,6 +77,7 @@ Changelog
  * Fix: Add missing asterisk to title field placeholder (Seremba Patrick)
  * Fix: Avoid creating an extra rich text block when inserting a new block at the end of the content (Matt Westcott)
  * Fix: Removed the extra dot in the Wagtail version shown within the admin settings menu item (Loveth Omokaro)
+ * Fix: Fully remove the obsolete `wagtailsearch_editorspick` table that prevents flushing the database (Matt Westcott)
 
 
 4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
