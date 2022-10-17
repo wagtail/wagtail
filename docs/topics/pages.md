@@ -1,6 +1,6 @@
 # Page models
 
-Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the {class}`wagtail.models.Page` class.
+In Wagtail, a Django model represents each page type (a.k.a. content type). All page models must inherit from the {class}`wagtail.models.Page` class.
 
 As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/stable/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides `wagtail.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
@@ -86,7 +86,7 @@ Ensure that none of your field names are the same as your class names. This will
 
 ## Writing page models
 
-Here we'll describe each section of the above example to help you create your own page models.
+Here, we'll describe each section of the above example to help you create your own page models.
 
 ### Database fields
 
@@ -152,9 +152,9 @@ The page editor can be customised further. See [Customising the editing interfac
 
 ### Parent page / subpage type rules
 
-These two attributes allow you to control where page types may be used in your site. It allows you to define rules like "blog entries may only be created under a blog index".
+These two attributes allow you to control where page types may be used in your site. They allow you to define rules like "blog entries may only be created under a blog index".
 
-Both take a list of model classes or model names. Model names are of the format `app_label.ModelName`. If the `app_label` is omitted, the same app is assumed.
+Both parent and subpage types take a list of model classes or model names. Model names are of the format `app_label.ModelName`. If the `app_label` is omitted, the same app is assumed.
 
 -   `parent_page_types` limits which page types this type can be created under
 -   `subpage_types` limits which page types can be created under this type
@@ -167,7 +167,7 @@ Setting `parent_page_types` to an empty list is a good way of preventing a parti
 
 ### Page descriptions
 
-With every Wagtail Page you are able to add a helpful description text, similar to a `help_text` model attribute. By adding `page_description` to your Page model you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
+You can add helpful description text to every Wagtail Page, similar to a model attribute called help_text attribute. By adding `page_description` to your Page model, you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
 
 ```python
 class LandingPage(Page):
@@ -206,14 +206,14 @@ For more information, please see {meth}`wagtail.models.Page.get_url_parts`.
 
 #### Obtaining URLs for page instances
 
-The `Page.get_url(request)` method can be called whenever a page URL is needed. It defaults to returning local URLs (not including the protocol or domain) if it determines that the page is on the current site (via the hostname in `request`); otherwise, a full URL including the protocol and domain is returned. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
+You can call the `Page.get_url(request)` method whenever you need a page URL. It defaults to returning local URLs (not including the protocol or domain) if it determines that the page is on the current site (via the hostname in `request`); otherwise, it would return a full URL including the protocol and domain. Whenever possible, you should include the optional `request` argument to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
 
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and use `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
 For more information, please see {meth}`wagtail.models.Page.get_url`.
 
-In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information.
+If you need the full URL (includes the protocol and domain), you can use `Page.get_full_url(request)`. To enable per-request caching of site-level URLs, the optional `request` argument should be included whenever possible.
 
 For more information, please see {meth}`wagtail.models.Page.get_full_url`.
 
@@ -333,7 +333,7 @@ class BlogPage(Page):
 
 ## Inline models
 
-Wagtail can nest the content of other models within the page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page content.
+Wagtail allows the nesting of other models within a page. This is useful for creating repeated fields, such as related links or items to display in a carousel. The inline model content is also versioned with the rest of the page..
 
 Each inline model requires the following:
 
