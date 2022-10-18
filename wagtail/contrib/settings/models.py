@@ -130,7 +130,11 @@ class AbstractSiteSetting(AbstractSetting):
         """
         Get or create an instance of this setting for the site.
         """
-        return cls.get_instance(cls.base_queryset(), site, **kwargs)
+        site_setting = cls.get_instance(cls.base_queryset(), site, **kwargs)
+        # Cache the site instance associated to this setting to avoid an
+        # extra query when writing `site_setting.site` as in the `__str__` method.
+        cls._meta.get_field("site").set_cached_value(site_setting, site)
+        return site_setting
 
     @classmethod
     def for_request(cls, request):
