@@ -151,7 +151,7 @@ Making embedded media resizable is also possible, but typically requires custom 
 
 ### `pageurl`
 
-`pageurl` takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`http://example.com/foo/bar/`) if not.
+Takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`http://example.com/foo/bar/`) if not.
 
 ```html+django
 {% load wagtailcore_tags %}
