@@ -2,6 +2,22 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: src/components/Sidebar/menu/SubMenuItem.tsx:100
+msgid "({number} new items in this menu)"
+msgstr ""
+
+#: src/components/Sidebar/menu/SubMenuItem.tsx:99
+msgid "(1 new item in this menu)"
+msgstr ""
+
+#: src/components/Sidebar/menu/LinkMenuItem.tsx:77
+msgid "(New)"
+msgstr ""
+
+#: src/components/Minimap/MinimapItem.tsx:38
+msgid "{num} errors"
+msgstr ""
+
 #: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:326
 msgid "Add a comment"
 msgstr ""
@@ -15,7 +31,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:229
+#: src/entrypoints/admin/telepath/widgets.js:349
 msgid "Blocks"
 msgstr ""
 
@@ -40,6 +56,10 @@ msgstr ""
 
 #: src/entrypoints/admin/modal-workflow.js:50
 msgid "Close"
+msgstr ""
+
+#: src/components/Minimap/CollapseAll.tsx:31
+msgid "Collapse all"
 msgstr ""
 
 #: src/components/CommentApp/components/Comment/index.tsx:249
@@ -83,8 +103,8 @@ msgstr ""
 msgid "Edit '{title}'"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:234
-#: src/components/Sidebar/modules/MainMenu.tsx:236
+#: src/components/Sidebar/modules/MainMenu.tsx:313
+#: src/components/Sidebar/modules/MainMenu.tsx:315
 msgid "Edit your account"
 msgstr ""
 
@@ -96,8 +116,12 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:192
+#: src/entrypoints/admin/preview-panel.js:200
 msgid "Error while sending preview data."
+msgstr ""
+
+#: src/components/Minimap/CollapseAll.tsx:31
+msgid "Expand all"
 msgstr ""
 
 #: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:521
@@ -121,7 +145,7 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: src/components/Sidebar/modules/MainMenu.tsx:204
+#: src/components/Sidebar/modules/MainMenu.tsx:283
 msgid "Main menu"
 msgstr ""
 
@@ -179,7 +203,7 @@ msgstr ""
 msgid "Retry"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:277
+#: src/entrypoints/admin/telepath/widgets.js:366
 msgid "Rich text"
 msgstr ""
 
@@ -240,7 +264,7 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:242
+#: src/entrypoints/admin/telepath/widgets.js:241
 msgid "Split block"
 msgstr ""
 
@@ -250,6 +274,10 @@ msgstr ""
 
 #: src/includes/chooserModal.js:23
 msgid "This field is required."
+msgstr ""
+
+#: src/components/Minimap/Minimap.tsx:215
+msgid "Toggle side panel"
 msgstr ""
 
 #: src/components/Sidebar/Sidebar.tsx:188
