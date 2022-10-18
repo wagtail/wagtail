@@ -87,7 +87,7 @@ Changelog
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
 
 
-4.0.3 (18.10.2022)
+4.0.4 (18.10.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
@@ -96,6 +96,12 @@ Changelog
  * Fix: Ensure that `AbstractForm` & `AbstractEmailForm` page models correctly pass the form to the preview context (Dan Bentley)
  * Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
  * Fix: Ensure that buttons on custom chooser widgets are correctly shown on hover (Thibaud Colas)
+
+
+4.0.3 (18.10.2022)
+~~~~~~~~~~~~~~~~~~
+
+[release withdrawn due to packaging issues]
 
 
 4.0.2 (23.09.2022)
