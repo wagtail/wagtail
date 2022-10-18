@@ -16,7 +16,7 @@ If `myimage` had a filename of `foo.jpg`, a new rendition of the image file call
 Argument options are identical to the `{% image %}` template tag's filter spec, and should be separated with `|`.
 
 The generated `Rendition` object will have properties specific to that version of the image, such as
-`url`, `width` and `height`, so something like this could be used in an API generator, for example:
+`url`, `width` and `height`. Hence, something like this could be used in an API generator, for example:
 
 ```python
 url = myimage.get_rendition('fill-300x186|jpegquality-60').url
@@ -48,7 +48,7 @@ The `prefetch_renditions` method is only applicable in Wagtail versions 4.0 and 
 
 When working with an Image QuerySet, you can make use of Wagtail's built-in `prefetch_renditions` queryset method to prefetch the renditions needed.
 
-For example, say you were rendering a list of all the images uploaded by a certain user:
+For example, say you were rendering a list of all the images uploaded by a user:
 
 ```python
 def get_images_uploaded_by_user(user):
@@ -119,7 +119,7 @@ def get_events():
 The following method references are only applicable to Wagtail versions 3.0 and above.
 ```
 
-The following `AbstractImage` model methods are involved in finding and generating a renditions. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
+The following `AbstractImage` model methods are involved in finding and generating a rendition. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
 
 ```{eval-rst}
 .. automodule:: wagtail.images.models

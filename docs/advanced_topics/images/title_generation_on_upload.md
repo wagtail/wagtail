@@ -57,7 +57,7 @@ def get_global_admin_js():
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
-Using the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Image` upload page, only on page editors.
+Use the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Image` upload page, only on page editors.
 
 ```python
 # wagtail_hooks.py

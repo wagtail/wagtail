@@ -8,7 +8,7 @@ Feature detection uses third-party tools to detect faces/features in an image wh
 
 ## Installation
 
-Two third-party tools are known to work with Wagtail: One based on [OpenCV](https://opencv.org/) for general feature detection and one based on [Rustface](https://github.com/torchbox/rustface-py/) for face detection.
+Two third-party tools are known to work with Wagtail for feature detection: One based on [OpenCV](https://opencv.org/) for general feature detection and one based on [Rustface](https://github.com/torchbox/rustface-py/) for face detection.
 
 ### OpenCV on Debian/Ubuntu
 
@@ -90,7 +90,7 @@ For example, in an app's [AppConfig.ready](https://docs.djangoproject.com/en/2.2
 
 The face detection algorithm produces a focal area that is tightly cropped to the face rather than the whole head.
 
-For images with a single face this can be okay in some cases (thumbnails for example), it might be overly tight for "headshots".
+For images with a single face, this can be okay in some cases (thumbnails for example), however, it might be overly tight for "headshots".
 Image renditions can encompass more of the head by reducing the crop percentage (`-c<percentage>`), at the end of the resize-rule, down to as low as 0%:
 
 ```html+django
