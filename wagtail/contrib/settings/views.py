@@ -110,13 +110,19 @@ class EditView(generic.EditView):
     def save_instance(self):
         return self.form.save()
 
-    def get_translations(self):
+    def get_translations(self, all_locales):
         raise NotImplementedError
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.locale:
-            context["translations"] = self.get_translations()
+            all_locales = Locale.objects.annotate_default_language().all()
+            context.update(
+                {
+                    "all_locales": all_locales,
+                    "translations": self.get_translations(all_locales),
+                }
+            )
 
         context.update(
             {
@@ -151,17 +157,17 @@ class EditSiteSettingsView(EditView):
             for site_choice in Site.objects.all().exclude(pk=self.site.pk)
         ]
 
-    def get_translations(self):
-        site_pk = self.site.pk
+    def get_translations(self, all_locales):
+        current_site_pk = self.site.pk
+        current_locale_pk = self.locale.pk
 
         return [
             {
                 "locale": locale,
-                "url": self._get_edit_url(site_pk, locale),
+                "url": self._get_edit_url(current_site_pk, locale),
             }
-            for locale in Locale.objects.annotate_default_language().exclude(
-                id=self.locale.id
-            )
+            for locale in all_locales
+            if locale.pk != current_locale_pk
         ]
 
     def get_context_data(self, **kwargs):
@@ -184,15 +190,16 @@ class EditGenericSettingsView(EditView):
     def get_edit_url(self):
         return self._get_edit_url(self.locale)
 
-    def get_translations(self):
+    def get_translations(self, all_locales):
+        current_locale_pk = self.locale.pk
+
         return [
             {
                 "locale": locale,
                 "url": self._get_edit_url(locale),
             }
-            for locale in Locale.objects.annotate_default_language().exclude(
-                id=self.locale.id
-            )
+            for locale in all_locales
+            if locale.pk != current_locale_pk
         ]
 
 
