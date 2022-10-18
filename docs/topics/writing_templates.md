@@ -37,7 +37,7 @@ The data/content entered into each page is accessed/output through Django's `{{ 
 
 A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
-Additionally request. is available and contains Django’s request object.
+Additionally `request`. is available and contains Django’s request object.
 
 ## Static assets
 
@@ -223,7 +223,7 @@ This tag provides a contextual flyout menu for logged-in users. The menu gives e
 
 This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
 
-We recommend putting the tag near the top of the <body> element to allow keyboard users to reach it. You should consider putting the tag after any `[skip links](https://webaim.org/techniques/skipnav/) but before the navigation and main content of your page.
+We recommend putting the tag near the top of the `<body>` element to allow keyboard users to reach it. You should consider putting the tag after any `[skip links](https://webaim.org/techniques/skipnav/)` but before the navigation and main content of your page.
 
 ```html+django
 {% load wagtailuserbar %}
