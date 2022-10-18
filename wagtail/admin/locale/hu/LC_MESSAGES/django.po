@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2721,9 +2721,6 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "'{0}' feladat bekapcsolva."
 
-msgid "Change"
-msgstr "Megváltoztatás"
-
 msgid "Pages"
 msgstr "Oldalak"
 
@@ -2777,12 +2774,6 @@ msgstr "Menü sorrend rendezése"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 
-msgid "Translate"
-msgstr "Fordítás"
-
-msgid "Translate this page"
-msgstr "Oldal lefordítása"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Fejléc %(level)d"
@@ -2829,8 +2820,14 @@ msgstr "Igen"
 msgid "Choose an item"
 msgstr "Elem kiválasztása"
 
-msgid "Clear"
-msgstr "Alapállapot"
+msgid "Choose another item"
+msgstr "Másik elem kiválasztása"
+
+msgid "Clear choice"
+msgstr "Kiválasztás törlése"
+
+msgid "Choose another page"
+msgstr "Másik oldal választása"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2841,3 +2838,9 @@ msgstr ""
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "A címkék csak egy szóból állhatnak, szóköz nem lehet bennük."
+
+msgid "Choose another task"
+msgstr "Másik feladat kiválasztása"
+
+msgid "Edit this task"
+msgstr "Feladat szerkesztése"

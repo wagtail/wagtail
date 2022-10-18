@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Gilad Levi <gilad.x@blobim.com>, 2022\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -645,9 +645,6 @@ msgstr "עמוד {0} הוזז"
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
 
-msgid "Change"
-msgstr "שנה"
-
 msgid "Pages"
 msgstr "עמודים"
 
@@ -656,3 +653,12 @@ msgstr "הוספת תת-עמוד"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"
+
+msgid "Choose another item"
+msgstr "בחרו פריט נוסף"
+
+msgid "Clear choice"
+msgstr "נקה בחירה"
+
+msgid "Choose another page"
+msgstr "בחרו עמוד נוסף"
