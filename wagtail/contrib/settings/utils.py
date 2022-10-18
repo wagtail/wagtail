@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.urls import reverse
 
+from wagtail.coreutils import get_supported_content_language_variant
 from wagtail.models import Locale, TranslatableMixin
 
 
@@ -20,6 +21,8 @@ def get_locale_for(*, request=None, model=None, instance=None):
     if not i18n_enabled:
         return None
 
+    locales = Locale.objects.annotate_default_language()
+
     if instance:
         # Check if the instance's locale was already prefetched
         # and use it if so to avoid an additional query.
@@ -32,7 +35,7 @@ def get_locale_for(*, request=None, model=None, instance=None):
     selected_locale = request.GET.get("locale") if request is not None else None
     if selected_locale:
         try:
-            return Locale.objects.get(language_code=selected_locale)
+            return locales.get(language_code=selected_locale)
         except Locale.DoesNotExist:
             pass
 
@@ -56,7 +59,7 @@ def is_default_locale(locale):
 
 
 def add_locale_query_string(url, locale):
-    if locale and locale != Locale.get_default():
+    if locale and not is_default_locale(locale):
         url += f"?locale={locale.language_code}"
     return url
 

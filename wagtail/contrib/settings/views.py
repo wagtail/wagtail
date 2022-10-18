@@ -79,6 +79,9 @@ class EditView(generic.EditView):
         self.permission_policy = ModelPermissionPolicy(self.model)
         super().setup(request, *args, **kwargs)
 
+    def get_locale(self):
+        return get_locale_for(request=self.request, model=self.model)
+
     def get_panel(self):
         return get_setting_edit_handler(self.model)
 
@@ -156,7 +159,9 @@ class EditSiteSettingsView(EditView):
                 "locale": locale,
                 "url": self._get_edit_url(site_pk, locale),
             }
-            for locale in Locale.objects.all().exclude(id=self.locale.id)
+            for locale in Locale.objects.annotate_default_language().exclude(
+                id=self.locale.id
+            )
         ]
 
     def get_context_data(self, **kwargs):
@@ -185,7 +190,9 @@ class EditGenericSettingsView(EditView):
                 "locale": locale,
                 "url": self._get_edit_url(locale),
             }
-            for locale in Locale.objects.all().exclude(id=self.locale.id)
+            for locale in Locale.objects.annotate_default_language().exclude(
+                id=self.locale.id
+            )
         ]
 
 
