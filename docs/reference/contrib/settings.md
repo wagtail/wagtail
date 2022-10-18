@@ -25,6 +25,7 @@ Create a model that inherits from either:
 
 -   `BaseGenericSetting` for generic settings across all sites
 -   `BaseSiteSetting` for site-specific settings
+-   `BaseTranslatableGenericSetting` or `BaseTranslatableSiteSetting` for translatable settings
 
 and register it using the `register_setting` decorator:
 
@@ -33,6 +34,8 @@ from django.db import models
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
     BaseSiteSetting,
+    BaseTranslatableSiteSetting,
+    BaseTranslatableGenericSetting,
     register_setting,
 )
 
@@ -43,6 +46,14 @@ class GenericSocialMediaSettings(BaseGenericSetting):
 @register_setting
 class SiteSpecificSocialMediaSettings(BaseSiteSetting):
     facebook = models.URLField()
+
+@register_setting
+class TranslatableGenericFooterSettings(BaseTranslatableGenericSetting):
+    copyright = models.CharField(max_length=255)
+
+@register_setting
+class TranslatableSiteSpecificFooterSettings(BaseTranslatableSiteSetting):
+    copyright = models.CharField(max_length=255)
 ```
 
 Links to your settings will appear in the Wagtail admin 'Settings' menu.
@@ -125,6 +136,18 @@ class SiteSpecificSocialMediaSettings(BaseSiteSetting):
     ...
     class Meta:
         verbose_name = "Site-specific social media settings"
+
+@register_setting(icon='placeholder')
+class TranslatableGenericFooterSettings(BaseTranslatableGenericSetting):
+    ...
+    class Meta:
+        verbose_name = "Footer settings for all sites"
+
+@register_setting(icon='placeholder')
+class TranslatableSiteSpecificFooterSettings(BaseTranslatableSiteSetting):
+    ...
+    class Meta:
+        verbose_name = "Site-specific footer settings"
 ```
 
 For a list of all available icons, please see the [styleguide](styleguide).
@@ -144,6 +167,19 @@ settings:
 ```python
 def view(request):
     social_media_settings = GenericSocialMediaSettings.load(request_or_site=request)
+    ...
+```
+
+For translatable settings, you can optionnaly pass a `locale` parameter to retrieve the setting associated to that locale.
+
+```python
+def view(request):
+    if request.GET.get("locale"):
+        locale = get_object_or_404(Locale, language_code=request.GET["locale"])
+    else:
+        locale = Locale.get_active()
+
+    footer_settings = TranslatableGenericFooterSettings.load(request_or_site=request, locale=locale)
     ...
 ```
 
@@ -168,6 +204,14 @@ retrieve settings for, you can use
 ```python
 def view(request):
     social_media_settings = SiteSpecificSocialMediaSettings.for_site(site=user.origin_site)
+    ...
+```
+
+You can optionally pass a `locale` parameter when working with translatable models to retrieve the setting for that locale:
+
+```python
+def view(request):
+    footer_settings_es = TranslatableSiteSpecificFooterSettings.for_site(site=user.origin_site, locale=es_locale)
     ...
 ```
 
@@ -197,6 +241,9 @@ Then access the generic settings through `{{ settings }}`:
 ```html+django
 {{ settings.app_label.GenericSocialMediaSettings.facebook }}
 {{ settings.app_label.SiteSpecificSocialMediaSettings.facebook }}
+
+{{ settings.app_label.TranslatableGenericFooterSettings.copyright }}
+{{ settings.app_label.TranslatableSiteSpecificFooterSettings.copyright }}
 ```
 
 **Note:** Replace `app_label` with the label of the app containing your
@@ -211,6 +258,9 @@ run, and the `settings` variable will not be available. To get the
 {% get_settings %}
 {{ settings.app_label.GenericSocialMediaSettings.facebook }}
 {{ settings.app_label.SiteSpecificSocialMediaSettings.facebook }}
+
+{{ settings.app_label.TranslatableGenericFooterSettings.copyright }}
+{{ settings.app_label.TranslatableSiteSpecificFooterSettings.copyright }}
 ```
 
 By default, the tag will create or update a `settings` variable in the
@@ -222,6 +272,9 @@ context. If you want to assign to a different context variable instead, use
 {% get_settings as wagtail_settings %}
 {{ wagtail_settings.app_label.GenericSocialMediaSettings.facebook }}
 {{ wagtail_settings.app_label.SiteSpecificSocialMediaSettings.facebook }}
+
+{{ wagtail_settings.app_label.TranslatableGenericFooterSettings.copyright }}
+{{ wagtail_settings.app_label.TranslatableSiteSpecificFooterSettings.copyright }}
 ```
 
 ### Using in Jinja2 templates
@@ -252,6 +305,9 @@ Then access the settings through the `settings()` template function:
 ```html+jinja
 {{ settings("app_label.GenericSocialMediaSettings").facebook }}
 {{ settings("app_label.SiteSpecificSocialMediaSettings").facebook }}
+
+{{ settings("app_label.TranslatableGenericFooterSettings").copyright }}
+{{ settings("app_label.TranslatableSiteSpecificFooterSettings").copyright }}
 ```
 
 **Note:** Replace `app_label` with the label of the app containing your
@@ -263,11 +319,14 @@ settings for the default site instead:
 ```html+jinja
 {{ settings("app_label.GenericSocialMediaSettings", use_default_site=True).facebook }}
 {{ settings("app_label.SiteSpecificSocialMediaSettings", use_default_site=True).facebook }}
+
+{{ settings("app_label.TranslatableGenericFooterSettings", use_default_site=True).copyright }}
+{{ settings("app_label.TranslatableSiteSpecificFooterSettings", use_default_site=True).copyright }}
 ```
 
 **Note:** You can not reliably get the correct settings instance for the
-current site from this template tag if the request object is not available.
-This is only relevant for multi-site instances of Wagtail.
+current site or locale from this template tag if the request object is not available.
+This is only relevant for multi-site or translatable instances of Wagtail.
 
 You can store the settings instance in a variable to save some typing,
 if you have to use multiple values from one model:
@@ -282,6 +341,16 @@ if you have to use multiple values from one model:
     Follow us on Twitter at @{{ site_social_settings.facebook }},
     or Instagram at @{{ site_social_settings.instagram }}.
 {% endwith %}
+
+{% with footer_settings=settings("app_label.TranslatableGenericFooterSettings") %}
+    {{ footer_settings.copyright }},
+    {{ footer_settings.opening_hours }}
+{% endwith %}
+
+{% with footer_settings=settings("app_label.TranslatableSiteSpecificFooterSettings") %}
+    {{ footer_settings.copyright }},
+    {{ footer_settings.opening_hours }}
+{% endwith %}
 ```
 
 Or, alternately, using the `set` tag:
@@ -289,6 +358,9 @@ Or, alternately, using the `set` tag:
 ```html+jinja
 {% set generic_social_settings=settings("app_label.GenericSocialMediaSettings") %}
 {% set site_social_settings=settings("app_label.SiteSpecificSocialMediaSettings") %}
+
+{% set generic_footer_settings=settings("app_label.TranslatableGenericFooterSettings") %}
+{% set site_footer_settings=settings("app_label.TranslatableSiteSpecificFooterSettings") %}
 ```
 
 ## Utilising `select_related` to improve efficiency
