@@ -119,7 +119,7 @@ def get_events():
 The following method references are only applicable to Wagtail versions 3.0 and above.
 ```
 
-The following `AbstractImage` model methods are involved in finding and generating a rendition. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
+The following `AbstractImage` model methods are involved in finding and generating renditions. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
 
 ```{eval-rst}
 .. automodule:: wagtail.images.models
