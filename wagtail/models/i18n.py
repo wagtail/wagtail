@@ -4,6 +4,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core import checks
 from django.db import migrations, models, transaction
+from django.db.models import Case, When
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import translation
@@ -33,6 +34,22 @@ class LocaleManager(models.Manager):
         """
         return self.get(
             language_code=get_supported_content_language_variant(language_code)
+        )
+
+    def annotate_default_language(self):
+        """
+        Performance optimisation for locales.
+        Annotates each object with whether it is the default language.
+        """
+        default_language_code = get_supported_content_language_variant(
+            settings.LANGUAGE_CODE
+        )
+
+        return self.annotate(
+            is_default_language=Case(
+                When(language_code=default_language_code, then=True),
+                default=False,
+            )
         )
 
 
