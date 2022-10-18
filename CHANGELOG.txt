@@ -87,7 +87,7 @@ Changelog
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
 
 
-4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+4.0.3 (18.10.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
