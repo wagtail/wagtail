@@ -2,7 +2,7 @@
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
  */
-const toggleCollapsiblePanel = (
+export const toggleCollapsiblePanel = (
   toggle: HTMLButtonElement,
   // If a specific state isn’t requested, read the DOM and toggle.
   isExpanding = !(toggle.getAttribute('aria-expanded') === 'true'),
@@ -27,10 +27,11 @@ const toggleCollapsiblePanel = (
     content.setAttribute('hidden', '');
   }
 
-  content.dispatchEvent(
+  // Fire events on the toggle so we can retrieve the content with aria-controls.
+  toggle.dispatchEvent(
     new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
   );
-  content.dispatchEvent(
+  toggle.dispatchEvent(
     new CustomEvent('wagtail:panel-toggle', {
       bubbles: true,
       cancelable: false,
@@ -43,15 +44,22 @@ const toggleCollapsiblePanel = (
  * Initialises event handlers for a collapsible panel,
  * and applies the correct initial state based on classes.
  */
-function initCollapsiblePanel(toggle: HTMLButtonElement) {
+export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const panel = toggle.closest<HTMLElement>('[data-panel]');
   const content = document.querySelector<HTMLDivElement>(
     `#${toggle.getAttribute('aria-controls')}`,
   );
 
-  if (!content || !panel) {
+  // Avoid initialising the same panel twice.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (!content || !panel || panel.collapsibleInitialised) {
     return;
   }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  panel.collapsibleInitialised = true;
 
   const togglePanel = toggleCollapsiblePanel.bind(null, toggle);
 

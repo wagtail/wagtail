@@ -633,6 +633,13 @@ Contributors
 * Dauda Yusuf
 * Damilola Oladele
 * Albina Starykova
+* Sam Moran
+* Toyibat Adele
+* Umar Farouk Yunusa
+* Chizoba Nweke
+* Seremba Patrick
+* Ruqouyyah Muhammad
+* Loveth Omokaro
 
 
 Translators
