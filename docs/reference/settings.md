@@ -302,6 +302,8 @@ WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # 20MB
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
 
+(wagtailimages_max_image_pixels)=
+
 ### `WAGTAILIMAGES_MAX_IMAGE_PIXELS`
 
 ```python
@@ -600,6 +602,16 @@ WAGTAIL_ENABLE_UPDATE_CHECK = True
 For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
 If admins should only be informed of new long term support (LTS) versions, then set this setting to `"lts"` (the setting is case-insensitive).
+
+(wagtail_enable_whats_new_banner)=
+
+### `WAGTAIL_ENABLE_WHATS_NEW_BANNER`
+
+```python
+WAGTAIL_ENABLE_WHATS_NEW_BANNER = True
+```
+
+For new releases, Wagtail may show a notification banner on the dashboard that helps users learn more about the UI changes and new features in the release. Users are able to dismiss this banner, which will hide it until the next release. If you'd rather not show these banners, you can disable it with this setting.
 
 ## Frontend authentication
 

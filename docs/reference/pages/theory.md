@@ -110,10 +110,10 @@ In addition to scheduling a page to be published, it is also possible to schedul
 
 -   Scheduling is done by setting the _expire at_ field of the page and clicking _Publish_. If the _go-live at_ field is also set, then the unpublishing schedule will only be applied after the revision goes live.
 -   Consider a live page that is scheduled to be unpublished on e.g. 14 June. Then sometime before the schedule, consider that a new revision is scheduled to be published on a date that's **earlier** than the unpublishing schedule, e.g. 9 June. When the new revision goes live on 9 June, the _expire at_ field contained in the new revision will replace the existing unpublishing schedule. This means:
-    -    If the new revision contains a different _expire at_ field (e.g. 17 June), the new revision will go live on 9 June and the page will not be unpublished on 14 June but it will be unpublished on 17 June.
-    -    If the new revision has the _expire at_ field unset, the new revision will go live on 9 June and the unpublishing schedule will be unset, thus the page will not be unpublished.
+    -   If the new revision contains a different _expire at_ field (e.g. 17 June), the new revision will go live on 9 June and the page will not be unpublished on 14 June but it will be unpublished on 17 June.
+    -   If the new revision has the _expire at_ field unset, the new revision will go live on 9 June and the unpublishing schedule will be unset, thus the page will not be unpublished.
 -   Consider another live page that is scheduled to be unpublished on e.g. 14 June. Then sometime before the schedule, consider that a new revision is scheduled to be published on a date that's **later** than the unpublishing schedule, e.g. 21 June. The new revision will not take effect until it goes live on 21 June, so the page will still be unpublished on 14 June. This means:
-    -    If the new revision contains a different _expire at_ field (e.g. 25 June), the page will be unpublished on 14 June, the new revision will go live on 21 June and the page will be unpublished again on 25 June.
-    -    If the new revision has the _expire at_ field unset, the page will be unpublished on 14 June and the new revision will go live on 21 June.
+    -   If the new revision contains a different _expire at_ field (e.g. 25 June), the page will be unpublished on 14 June, the new revision will go live on 21 June and the page will be unpublished again on 25 June.
+    -   If the new revision has the _expire at_ field unset, the page will be unpublished on 14 June and the new revision will go live on 21 June.
 
 The same scheduling mechanism also applies to snippets with {class}`~wagtail.models.DraftStateMixin` applied. For more details, see [](wagtailsnippets_saving_draft_changes_of_snippets).

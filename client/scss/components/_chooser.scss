@@ -82,8 +82,9 @@
   @media (hover: hover) {
     opacity: 0;
 
-    // Ensure the hovering over the comment icon will still show chooser actions for these specific ones
-    :is(.w-field--admin_task_chooser, .w-field--admin_page_chooser, .w-field--document_chooser_widget, .w-field--admin_image_chooser, .w-field--admin_snippet_chooser):is(:hover, :focus-within)
+    // Ensure the hovering over the comment icon will still show chooser actions.
+    // Uses a form-field class as well as widget classes, as all core and custom choosers use different widgets.
+    :is(.w-field--model_choice_field, .w-field--admin_task_chooser, .w-field--admin_page_chooser, .w-field--document_chooser_widget, .w-field--admin_image_chooser, .w-field--admin_snippet_chooser):is(:hover, :focus-within)
       & {
       opacity: 1;
     }

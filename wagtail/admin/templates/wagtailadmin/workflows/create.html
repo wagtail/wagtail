@@ -20,7 +20,7 @@
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
-        <div class="nice-padding">
+        <div class="nice-padding w-form-width">
             {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
             {% trans "Assign your workflow to pages" as heading %}

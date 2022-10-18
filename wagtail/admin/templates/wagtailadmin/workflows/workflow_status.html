@@ -13,7 +13,7 @@
     {% if workflow_state %}
         {% for task in workflow_state.all_tasks_with_state %}
             {% with status=task.task_state.status status_display=task.task_state.get_status_display|default:not_started_text %}
-                <li class="workflow-timeline__item workflow-timeline__item--{{ status|default:"pending" }}">
+                <li class="workflow-timeline__item workflow-timeline__item--{{ status|default:"pending" }}" {% if status == "in_progress" %}aria-current="step"{% endif %}>
                     <div class="workflow-timeline__line"></div>
                     {% if status == "rejected" %}
                         <div class="w-flex">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     {% else %}
-                        {% icon name="circle-check" class_name="workflow-timeline__icon" title=status_display %}
+                        {% if status == "in_progress" %}{% icon name="radio-full" class_name="workflow-timeline__icon" title=status_display %}{% else %}{% icon name="radio-empty" class_name="workflow-timeline__icon" title=status_display %}{% endif %}
                         {{ task.name }}
                         {% if task.task_state.finished_by %}
                             {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
@@ -51,7 +51,7 @@
 
     {# Published status #}
     <li class="workflow-timeline__item workflow-timeline__item--pending">
-        {% icon name="circle-check" class_name="workflow-timeline__icon" %}{% trans "Published" %}
+        {% icon name="radio-empty" class_name="workflow-timeline__icon" %}{% trans "Published" %}
     </li>
 </ol>
 

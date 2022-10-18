@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -348,6 +348,9 @@ msgstr "이미지 권한"
 msgid "Add an image permission"
 msgstr "이미지 권한 추가"
 
+msgid "Tags"
+msgstr "태그"
+
 msgid "Tag"
 msgstr "테그"
 
@@ -365,6 +368,12 @@ msgstr "업로드 중…"
 
 msgid "Choose an image"
 msgstr "이미지 선택"
+
+msgid "Choose another image"
+msgstr "다른 이미지 선택"
+
+msgid "Edit this image"
+msgstr "이 이미지 수정"
 
 msgid "Search images"
 msgstr "이미지 검색"
@@ -404,3 +413,6 @@ msgstr "이미지"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s개의 이미지"
+
+msgid "Change image"
+msgstr "이미지 변경"

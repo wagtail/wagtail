@@ -166,16 +166,168 @@ window.telepath.register(
   AdminAutoHeightTextInput,
 );
 
-class DraftailRichTextArea {
-  constructor(options) {
+class DraftailInsertBlockCommand {
+  /* Definition for a command in the Draftail context menu that inserts a block.
+   * Constructor args:
+   * widget - the bound Draftail widget
+   * blockDef - block definition for the block to be inserted
+   * addSibling, split - capability descriptors from the containing block's capabilities definition
+   */
+  constructor(widget, blockDef, addSibling, split) {
+    this.widget = widget;
+    this.blockDef = blockDef;
+    this.addSibling = addSibling;
+    this.split = split;
+
+    this.blockMax = addSibling.getBlockMax(blockDef.name);
+    this.icon = `#icon-${blockDef.meta.icon}`;
+    this.description = blockDef.meta.label;
+    this.type = blockDef.name;
+  }
+
+  render({ option }) {
+    // If the specific block has a limit, render the current number/max alongside the description
+    const limitText =
+      typeof blockMax === 'number'
+        ? ` (${this.addSibling.getBlockCount(this.blockDef.name)}/${
+            this.blockMax
+          })`
+        : '';
+    return `${option.description}${limitText}`;
+  }
+
+  onSelect({ editorState }) {
+    // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
+    const result = window.draftail.splitState(
+      window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
+    );
+    if (result.stateAfter.getCurrentContent().hasText()) {
+      // There is content after the insertion point, so need to split the existing block.
+      // Run the split after a timeout to circumvent potential race condition.
+      setTimeout(() => {
+        if (result) {
+          this.split.fn(
+            result.stateBefore,
+            result.stateAfter,
+            result.shouldMoveCommentFn,
+          );
+        }
+        // setTimeout required to stop Draftail from giving itself focus again
+        setTimeout(() => {
+          this.addSibling.fn({ type: this.blockDef.name });
+        }, 20);
+      }, 50);
+    } else {
+      // Set the current block's content to the 'before' state, to remove the '/' separator and
+      // reset the editor state (closing the context menu)
+      this.widget.setState(result.stateBefore);
+      // setTimeout required to stop Draftail from giving itself focus again
+      setTimeout(() => {
+        this.addSibling.fn({ type: this.blockDef.name });
+      }, 20);
+    }
+  }
+}
+
+class DraftailSplitCommand {
+  /* Definition for a command in the Draftail context menu that splits the block.
+   * Constructor args:
+   * widget - the bound Draftail widget
+   * split - capability descriptor from the containing block's capabilities definition
+   */
+  constructor(widget, split) {
+    this.widget = widget;
+    this.split = split;
+    this.description = gettext('Split block');
+  }
+
+  icon = '#icon-cut';
+  type = 'split';
+
+  onSelect({ editorState }) {
+    const result = window.draftail.splitState(
+      window.draftail.DraftUtils.resetBlockWithType(editorState, 'unstyled'),
+    );
+    // Run the split after a timeout to circumvent potential race condition.
+    setTimeout(() => {
+      if (result) {
+        this.split.fn(
+          result.stateBefore,
+          result.stateAfter,
+          result.shouldMoveCommentFn,
+        );
+      }
+    }, 50);
+  }
+}
+
+class BoundDraftailWidget {
+  constructor(input, options, parentCapabilities) {
+    this.input = input;
+    this.capabilities = new Map(parentCapabilities);
     this.options = options;
+
+    // eslint-disable-next-line no-undef
+    const [, setOptions] = draftail.initEditor(
+      '#' + this.input.id,
+      this.getFullOptions(),
+      document.currentScript,
+    );
+    this.setDraftailOptions = setOptions;
+  }
+
+  getValue() {
+    return this.input.value;
+  }
+
+  getState() {
+    return this.input.draftailEditor.getEditorState();
+  }
+
+  setState(editorState) {
+    this.input.draftailEditor.onChange(editorState);
+  }
+
+  getTextLabel(opts) {
+    const maxLength = opts && opts.maxLength;
+    if (!this.input.value) return '';
+    const value = JSON.parse(this.input.value);
+    if (!value || !value.blocks) return '';
+
+    let result = '';
+    for (const block of value.blocks) {
+      if (block.text) {
+        result += result ? ' ' + block.text : block.text;
+        if (maxLength && result.length > maxLength) {
+          return result.substring(0, maxLength - 1) + '…';
+        }
+      }
+    }
+    return result;
+  }
+
+  focus() {
+    setTimeout(() => {
+      this.input.draftailEditor.focus();
+    }, 50);
+  }
+
+  setCapabilityOptions(capability, capabilityOptions) {
+    const newCapability = Object.assign(
+      this.capabilities.get(capability),
+      capabilityOptions,
+    );
+    this.capabilities.set(capability, newCapability);
+    this.setDraftailOptions(this.getFullOptions());
   }
 
   /**
-   * Given original options object, return the options overrides
-   * that account for its contextual abilities (splitting or adding additional blocks)
+   * Given a mapping of the capabilities supported by this widget's container,
+   * return the options overrides that enable additional widget functionality
+   * (e.g. splitting or adding additional blocks).
+   * Non-context-dependent Draftail options are available here as this.options.
    */
-  getCapabilityOptions(originalOptions, parentCapabilities) {
+  getCapabilityOptions(parentCapabilities) {
     const options = {};
     const capabilities = parentCapabilities;
     const split = capabilities.get('split');
@@ -189,42 +341,10 @@ class DraftailRichTextArea {
       // Create commands for splitting + inserting a block. This requires both the split
       // and addSibling capabilities to be available and enabled
       blockCommands = blockGroups.map(([group, blocks]) => {
-        const blockControls = blocks.map((blockDef) => {
-          const blockMax = addSibling.getBlockMax(blockDef.name);
-          return {
-            icon: `#icon-${blockDef.meta.icon}`,
-            description: blockDef.meta.label,
-            type: blockDef.name,
-            render: ({ option }) => {
-              // If the specific block has a limit, render the current number/max alongside the description
-              const limitText =
-                typeof blockMax === 'number'
-                  ? ` (${addSibling.getBlockCount(blockDef.name)}/${blockMax})`
-                  : '';
-              return `${option.description}${limitText}`;
-            },
-            onSelect: ({ editorState }) => {
-              // Reset the current block to unstyled and empty before splitting, so we remove the command prompt if used.
-              const result = window.draftail.splitState(
-                window.draftail.DraftUtils.resetBlockWithType(
-                  editorState,
-                  'unstyled',
-                ),
-              );
-              // Run the split after a timeout to circumvent potential race condition.
-              setTimeout(() => {
-                if (result) {
-                  split.fn(
-                    result.stateBefore,
-                    result.stateAfter,
-                    result.shouldMoveCommentFn,
-                  );
-                }
-                addSibling.fn({ type: blockDef.name });
-              }, 50);
-            },
-          };
-        });
+        const blockControls = blocks.map(
+          (blockDef) =>
+            new DraftailInsertBlockCommand(this, blockDef, addSibling, split),
+        );
         return {
           label: group || gettext('Blocks'),
           type: `streamfield-${group}`,
@@ -236,38 +356,7 @@ class DraftailRichTextArea {
         blockCommands.push({
           label: 'Actions',
           type: 'custom-actions',
-          items: [
-            {
-              icon: '#icon-cut',
-              description: gettext('Split block'),
-              type: 'split',
-              render: ({ option, getEditorState }) => {
-                const editorState = getEditorState();
-                const content = editorState.getCurrentContent();
-                const blocks = content.getBlockMap();
-                const text = `${option.description} (will split ${blocks.size} blocks)`;
-                return text;
-              },
-              onSelect: ({ editorState }) => {
-                const result = window.draftail.splitState(
-                  window.draftail.DraftUtils.resetBlockWithType(
-                    editorState,
-                    'unstyled',
-                  ),
-                );
-                // Run the split after a timeout to circumvent potential race condition.
-                setTimeout(() => {
-                  if (result) {
-                    split.fn(
-                      result.stateBefore,
-                      result.stateAfter,
-                      result.shouldMoveCommentFn,
-                    );
-                  }
-                }, 50);
-              },
-            },
-          ],
+          items: [new DraftailSplitCommand(this, split)],
         });
       }
     }
@@ -286,16 +375,20 @@ class DraftailRichTextArea {
     return options;
   }
 
-  getFullOptions(originalOptions, parentCapabilities) {
+  getFullOptions() {
     return {
-      ...originalOptions,
-      ...this.getCapabilityOptions(originalOptions, parentCapabilities),
+      ...this.options,
+      ...this.getCapabilityOptions(this.capabilities),
     };
+  }
+}
+
+class DraftailRichTextArea {
+  constructor(options) {
+    this.options = options;
   }
 
   render(container, name, id, initialState, parentCapabilities) {
-    const originalOptions = this.options;
-    const capabilities = new Map(parentCapabilities);
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
@@ -307,55 +400,11 @@ class DraftailRichTextArea {
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
 
-    const getFullOptions = this.getFullOptions.bind(this);
-    // eslint-disable-next-line no-undef
-    const [, setOptions] = draftail.initEditor(
-      '#' + id,
-      getFullOptions(originalOptions, parentCapabilities),
-      document.currentScript,
+    const boundDraftail = new BoundDraftailWidget(
+      input,
+      this.options,
+      parentCapabilities,
     );
-
-    const boundDraftail = {
-      getValue() {
-        return input.value;
-      },
-      getState() {
-        return input.draftailEditor.getEditorState();
-      },
-      setState(editorState) {
-        input.draftailEditor.onChange(editorState);
-      },
-      getTextLabel(opts) {
-        const maxLength = opts && opts.maxLength;
-        if (!input.value) return '';
-        const value = JSON.parse(input.value);
-        if (!value || !value.blocks) return '';
-
-        let result = '';
-        for (const block of value.blocks) {
-          if (block.text) {
-            result += result ? ' ' + block.text : block.text;
-            if (maxLength && result.length > maxLength) {
-              return result.substring(0, maxLength - 1) + '…';
-            }
-          }
-        }
-        return result;
-      },
-      focus: () => {
-        setTimeout(() => {
-          input.draftailEditor.focus();
-        }, 50);
-      },
-      setCapabilityOptions(capability, capabilityOptions) {
-        const newCapability = Object.assign(
-          capabilities.get(capability),
-          capabilityOptions,
-        );
-        capabilities.set(capability, newCapability);
-        setOptions(getFullOptions(originalOptions, capabilities));
-      },
-    };
 
     if (initialiseBlank) {
       boundDraftail.setState(initialState);

@@ -7,6 +7,8 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.http.request import HttpHeaders
+from django.middleware.csrf import get_token
 from django.shortcuts import resolve_url as resolve_url_func
 from django.template import Context
 from django.template.base import token_kwargs
@@ -67,6 +69,7 @@ def breadcrumbs(
     page_perms=None,
     querystring_value=None,
     trailing_breadcrumb_title=None,
+    classname=None,
 ):
     user = context["request"].user
 
@@ -87,6 +90,7 @@ def breadcrumbs(
         "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
         "url_name": url_name,
         "url_root_name": url_root_name,
+        "classname": classname,
     }
 
 
@@ -870,6 +874,22 @@ def preview_settings():
         option: getattr(settings, option, default)
         for option, default in default_options.items()
     }
+
+
+@register.simple_tag(takes_context=True)
+def wagtail_config(context):
+    request = context["request"]
+    config = {
+        "CSRF_TOKEN": get_token(request),
+        "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(
+            getattr(settings, "CSRF_HEADER_NAME")
+        ),
+        "ADMIN_URLS": {
+            "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
+        },
+    }
+
+    return config
 
 
 @register.simple_tag

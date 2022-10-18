@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -542,6 +542,12 @@ msgstr "Lähetetään…"
 msgid "Choose an image"
 msgstr "Valitse kuva"
 
+msgid "Choose another image"
+msgstr "Valitse toinen kuva"
+
+msgid "Edit this image"
+msgstr "Muokkaa tätä kuvaa"
+
 msgid "Newest"
 msgstr "Uusin"
 
@@ -599,3 +605,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s kuva"
 msgstr[1] "%(count)s kuvaa"
+
+msgid "Change image"
+msgstr "Vaihda kuva"
