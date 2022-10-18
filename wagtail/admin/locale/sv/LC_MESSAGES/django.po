@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2044,9 +2044,6 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Uppgift '{0}' aktiverad."
 
-msgid "Change"
-msgstr "Ändra"
-
 msgid "Pages"
 msgstr "Sidor"
 
@@ -2100,12 +2097,6 @@ msgstr "Sortera menyordning"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Ändra sortering på undersidor till '%(title)s'"
 
-msgid "Translate"
-msgstr "Översätt"
-
-msgid "Translate this page"
-msgstr "Översätt den här sidan"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Rubrik %(level)d"
@@ -2151,3 +2142,18 @@ msgstr "Ja"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"
+
+msgid "Choose another item"
+msgstr "Välj ett annat objekt"
+
+msgid "Clear choice"
+msgstr "Rensa val"
+
+msgid "Choose another page"
+msgstr "Välj annan sida"
+
+msgid "Choose another task"
+msgstr "Välj en annan uppgift"
+
+msgid "Edit this task"
+msgstr "Redigera denna uppgift"
