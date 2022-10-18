@@ -5,7 +5,7 @@ from unittest import mock
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Permission
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
@@ -374,6 +374,9 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
         user = self.create_superuser(username="admin")
         self.request.user = user
         self.user = self.login()
+        self.other_user = self.create_user(username="admin2", email="test2@email.com")
+        p = Permission.objects.get(codename="custom_see_panel_setting")
+        self.other_user.user_permissions.add(p)
         # a custom tabbed interface for EventPage
         self.event_page_tabbed_interface = TabbedInterface(
             [
@@ -397,6 +400,20 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
                         FieldPanel("cost", permission="superuser"),
                     ],
                     heading="Secret",
+                ),
+                ObjectList(
+                    [
+                        FieldPanel("cost"),
+                    ],
+                    permission="tests.custom_see_panel_setting",
+                    heading="Custom Setting",
+                ),
+                ObjectList(
+                    [
+                        FieldPanel("cost"),
+                    ],
+                    permission="tests.other_custom_see_panel_setting",
+                    heading="Other Custom Setting",
                 ),
             ]
         ).bind_to_model(EventPage)
@@ -477,47 +494,101 @@ class TestTabbedInterface(TestCase, WagtailTestUtils):
         event = EventPage(title="Abergavenny sheepdog trials")
         form = EventPageForm(instance=event)
 
-        # when signed in as a superuser all three tabs should be visible
-        tabbed_interface = self.event_page_tabbed_interface.get_bound_panel(
-            instance=event,
-            form=form,
-            request=self.request,
-        )
-        result = tabbed_interface.render_html()
-        self.assertIn(
-            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-            result,
-        )
-        self.assertIn(
-            '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-            result,
-        )
-        self.assertIn(
-            '<a id="tab-label-secret" href="#tab-secret" ',
-            result,
-        )
+        with self.subTest("Super user test"):
+            # when signed in as a superuser all tabs should be visible
+            tabbed_interface = self.event_page_tabbed_interface.get_bound_panel(
+                instance=event,
+                form=form,
+                request=self.request,
+            )
+            result = tabbed_interface.render_html()
+            self.assertIn(
+                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-secret" href="#tab-secret" ',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-other_custom_setting" href="#tab-other_custom_setting" ',
+                result,
+            )
 
-        # Login as non superuser to check that the third tab does not show
-        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
-        self.request.user = user
-        tabbed_interface = self.event_page_tabbed_interface.get_bound_panel(
-            instance=event,
-            form=form,
-            request=self.request,
-        )
-        result = tabbed_interface.render_html()
-        self.assertIn(
-            '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
-            result,
-        )
-        self.assertIn(
-            '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-            result,
-        )
-        self.assertNotIn(
-            '<a id="tab-label-secret" href="#tab-secret" ',
-            result,
-        )
+        with self.subTest("Not superuser permissions"):
+            """
+            The super user panel should not show, nor should the panel they dont have
+            permission for.
+            """
+            self.request.user = self.other_user
+
+            tabbed_interface = self.event_page_tabbed_interface.get_bound_panel(
+                instance=event,
+                form=form,
+                request=self.request,
+            )
+            result = tabbed_interface.render_html()
+            self.assertIn(
+                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+                result,
+            )
+            self.assertNotIn(
+                '<a id="tab-label-secret" href="#tab-secret" ',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
+                result,
+            )
+            self.assertNotIn(
+                '<a id="tab-label-other_custom_setting" href="#tab-other-custom_setting" ',
+                result,
+            )
+
+        with self.subTest("Non superuser"):
+            # Login as non superuser to check that the third tab does not show
+            user = (
+                AnonymousUser()
+            )  # technically, Anonymous users cannot access the admin
+            self.request.user = user
+            tabbed_interface = self.event_page_tabbed_interface.get_bound_panel(
+                instance=event,
+                form=form,
+                request=self.request,
+            )
+            result = tabbed_interface.render_html()
+            self.assertIn(
+                '<a id="tab-label-event_details" href="#tab-event_details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
+                result,
+            )
+            self.assertIn(
+                '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+                result,
+            )
+            self.assertNotIn(
+                '<a id="tab-label-secret" href="#tab-secret" ',
+                result,
+            )
+            self.assertNotIn(
+                '<a id="tab-label-custom_setting" href="#tab-custom_setting" ',
+                result,
+            )
+            self.assertNotIn(
+                '<a id="tab-label-other_custom_setting" href="#tab-other-custom_setting" ',
+                result,
+            )
 
 
 class TestObjectList(TestCase):
