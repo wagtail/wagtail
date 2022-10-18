@@ -37,7 +37,7 @@ The data/content entered into each page is accessed/output through Django's `{{ 
 
 A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
-Additionally `request`. is available and contains Django’s request object.
+Additionally `request.` is available and contains Django’s request object.
 
 ## Static assets
 
