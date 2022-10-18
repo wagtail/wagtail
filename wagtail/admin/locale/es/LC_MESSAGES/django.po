@@ -14,6 +14,7 @@
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <python@amigos.email>, 2015
+# Oluwadamilare Ogunbanjo, 2022
 # Oscar Luciano Espirilla Flores, 2020
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # X Bello <xbello@gmail.com>, 2022
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: Oluwadamilare Ogunbanjo, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -2832,8 +2833,8 @@ msgstr[2] ""
 msgid "Task '{0}' enabled."
 msgstr "Tarea '{0}' activada."
 
-msgid "Change"
-msgstr "Cambiar"
+msgid "Choose another"
+msgstr "eliga ortro"
 
 msgid "Pages"
 msgstr "Páginas"
@@ -2888,12 +2889,6 @@ msgstr "Ordenar menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar el orden de las páginas hijas de '%(title)s'"
 
-msgid "Translate"
-msgstr "Traducir"
-
-msgid "Translate this page"
-msgstr "Traducir esta página"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Encabezado %(level)d"
@@ -2940,8 +2935,14 @@ msgstr "Sí"
 msgid "Choose an item"
 msgstr "Seleccionar un elemento"
 
-msgid "Clear"
-msgstr "Limpiar"
+msgid "Choose another item"
+msgstr "Seleccionar otro elemento"
+
+msgid "Clear choice"
+msgstr "Borrar selección"
+
+msgid "Choose another page"
+msgstr "Seleccionar otra página"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2952,3 +2953,9 @@ msgstr ""
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "Las etiquetas solo pueden tener una palabra, sin espacios."
+
+msgid "Choose another task"
+msgstr "Seleccionar otra tarea"
+
+msgid "Edit this task"
+msgstr "Editar esta tarea"

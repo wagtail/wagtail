@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -200,6 +200,12 @@ msgstr "Hapus"
 
 msgid "Choose a document"
 msgstr "Pilih Dokumen"
+
+msgid "Choose another document"
+msgstr "Pilih dokumen lain"
+
+msgid "Edit this document"
+msgstr "Ubah dokumen ini"
 
 msgid "Search documents"
 msgstr "Cari dokumen"
