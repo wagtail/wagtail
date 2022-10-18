@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dan Braghis, 2014-2016,2018-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -426,6 +426,9 @@ msgstr "Permisiuni imagine"
 msgid "Add an image permission"
 msgstr "Adaugă o permisiune imagine"
 
+msgid "Tags"
+msgstr "Etichete"
+
 msgid "Tag"
 msgstr "Adaugă etichetă"
 
@@ -474,6 +477,12 @@ msgstr "În curs de încărcare…"
 msgid "Choose an image"
 msgstr "Alege imagine"
 
+msgid "Choose another image"
+msgstr "Alege altă imagine"
+
+msgid "Edit this image"
+msgstr "Editează această imagine"
+
 msgid "Search images"
 msgstr "Caută imagini"
 
@@ -514,3 +523,6 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagine"
 msgstr[1] "%(count)s imagini"
 msgstr[2] "%(count)s de imagini"
+
+msgid "Change image"
+msgstr "Schimbă imagine"

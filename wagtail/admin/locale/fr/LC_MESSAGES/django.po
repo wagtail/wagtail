@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Loic Teixeira, 2018,2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2838,8 +2838,8 @@ msgstr[2] ""
 msgid "Task '{0}' enabled."
 msgstr "La tâche « {0} » a été activée."
 
-msgid "Change"
-msgstr "Modifier"
+msgid "Choose another"
+msgstr "Choisir un(e) autre"
 
 msgid "Pages"
 msgstr "Pages"
@@ -2894,12 +2894,6 @@ msgstr "Ordre de tri des sous-pages"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Modifier l'ordre des sous-pages de « %(title)s »"
 
-msgid "Translate"
-msgstr "Traduire"
-
-msgid "Translate this page"
-msgstr "Traduire cette page"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "En-tête %(level)d "
@@ -2946,8 +2940,14 @@ msgstr "Oui"
 msgid "Choose an item"
 msgstr "Choisissez un élément"
 
-msgid "Clear"
-msgstr "Effacer"
+msgid "Choose another item"
+msgstr "Choisir un autre élément"
+
+msgid "Clear choice"
+msgstr "Effacer ce choix"
+
+msgid "Choose another page"
+msgstr "Choisir une autre page"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2960,3 +2960,9 @@ msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr ""
 "Les mots-clés ne peuvent être constitués que d'un seul mot, les espaces ne "
 "sont pas autorisés."
+
+msgid "Choose another task"
+msgstr "Choisir une autre tâche"
+
+msgid "Edit this task"
+msgstr "Modifier cette tâche"

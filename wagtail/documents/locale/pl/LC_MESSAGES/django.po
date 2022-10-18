@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -308,6 +308,9 @@ msgstr "Uprawnienia dokumentów"
 msgid "Add a document permission"
 msgstr "Dodaj uprawnienie dokumentu"
 
+msgid "Tags"
+msgstr "Tagi"
+
 msgid "Tag"
 msgstr "Tag"
 
@@ -328,6 +331,12 @@ msgstr "Usuń wybrane dokumenty"
 
 msgid "Choose a document"
 msgstr "Wybierz dokument"
+
+msgid "Choose another document"
+msgstr "Wybierz inny dokument"
+
+msgid "Edit this document"
+msgstr "Edytuj ten dokument"
 
 msgid "Search documents"
 msgstr "Szukaj dokumentów"

@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Loic Teixeira, 2021
+# Loic Teixeira, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Loic Teixeira, 2021\n"
+"Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,6 +78,9 @@ msgid "Successfully created {locales} for {model_name} '{object}'"
 msgstr ""
 "Vertalingen in {locales} voor {model_name} '{object}' zijn succesvol "
 "aangemaakt"
+
+msgid "Translate this page"
+msgstr "Vertaal deze pagina"
 
 #, python-format
 msgid "Translate '%(title)s'"
