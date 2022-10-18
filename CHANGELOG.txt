@@ -50,6 +50,11 @@ Changelog
  * Improvements to getting started tutorial aimed at developers who are very new to Python and have no Django experience (Damilola Oladele)
  * Update documentation dependencies; Sphinx Wagtail Theme to v5.3.2, MyST Parser to v0.18.1, add Sphinx Copy Button (LB (Ben) Johnston)
  * Add "What's New" dashboard banner and "Help" menu in sidebar (Sage Abdullah)
+ * Implement new "minimap" component for the page editor (Thibaud Colas)
+ * The `image_url` template tag, when using the serve view to redirect rather than serve directly, will now use temporary redirects with a cache header instead of permanent redirects (Jake Howard)
+ * Add new test assertions to `WagtailPageTestCase` - `assertPageIsRoutable`, `assertPageIsRenderable`, `assertPageIsEditable`, `assertPageIsPreviewable` (Andy Babic)
+ * Add documentation to the performance section about how to better create image URLs when not used directly on the page (Jake Howard)
+ * Add ability to provide a required `permission` to `PanelGroup`, used by `TabbedInterface`, `ObjectList`, `FieldRowPanel` and `MultiFieldPanel` (Oliver Parker)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
@@ -82,7 +87,7 @@ Changelog
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
 
 
-4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+4.0.4 (18.10.2022)
 ~~~~~~~~~~~~~~~~~~
 
  * Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
@@ -91,6 +96,12 @@ Changelog
  * Fix: Ensure that `AbstractForm` & `AbstractEmailForm` page models correctly pass the form to the preview context (Dan Bentley)
  * Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
  * Fix: Ensure that buttons on custom chooser widgets are correctly shown on hover (Thibaud Colas)
+
+
+4.0.3 (18.10.2022)
+~~~~~~~~~~~~~~~~~~
+
+[release withdrawn due to packaging issues]
 
 
 4.0.2 (23.09.2022)
