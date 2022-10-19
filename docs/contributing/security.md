@@ -13,7 +13,7 @@ Once you've submitted an issue via email, you should receive an acknowledgement 
 
 If you want to send an encrypted email (optional), the public key ID for <security@wagtail.org> is `0xbed227b4daf93ff9`, and this public key is available from most commonly-used keyservers.
 
-Django security issues should be reported directly to the Django Project, following [Django\'s security policies](https://docs.djangoproject.com/en/dev/internals/security/) (upon which Wagtail\'s own policies are based).
+Django security issues should be reported directly to the Django Project, following [Django's security policies](https://docs.djangoproject.com/en/dev/internals/security/) (upon which Wagtail's own policies are based).
 
 ## Supported versions
 
@@ -37,10 +37,10 @@ There is no fixed period of time by which a confirmed security issue will be res
 The reporter of the issue will receive notification of the date on which we plan to take the issue public.
 On the day of disclosure, we will take the following steps:
 
-1. Apply the relevant patch(es) to Wagtail\'s codebase.
+1. Apply the relevant patch(es) to Wagtail's codebase.
    The commit messages for these patches will indicate that they are for security issues, but will not describe the issue in any detail; instead, they will warn of upcoming disclosure.
-2. Issue the relevant release(s), by placing new packages on [the Python Package Index](https://pypi.org/project/wagtail/), tagging the new release(s) in Wagtail\'s GitHub repository and updating Wagtail\'s [release notes](../releases/index).
-3. Post a public entry on [Wagtail\'s blog](https://wagtail.org/blog/), describing the issue and its resolution in detail, pointing to the relevant patches and new releases, and crediting the reporter of the issue (if the reporter wishes to be publicly identified).
+2. Issue the relevant release(s), by placing new packages on [the Python Package Index](https://pypi.org/project/wagtail/), tagging the new release(s) in Wagtail\'s GitHub repository and updating Wagtail's [release notes](../releases/index).
+3. Post a public entry on [Wagtail's blog](https://wagtail.org/blog/), describing the issue and its resolution in detail, pointing to the relevant patches and new releases, and crediting the reporter of the issue (if the reporter wishes to be publicly identified).
 4. Post a notice to the [Wagtail support forum](https://groups.google.com/g/wagtail) and Twitter feed ([\@WagtailCMS](https://twitter.com/wagtailcms)) that links to the blog post.
 
 If a reported issue is believed to be particularly time-sensitive -- due to a known exploit in the wild, for example -- the time between advance notification and public disclosure may be shortened considerably.
