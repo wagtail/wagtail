@@ -19,7 +19,7 @@ by running `make format-server`.
 
 ## Django compatibility
 
-Wagtail is written to be compatible with multiple versions of Django. Sometimes, this requires running one piece of code for the recent version of Django, and another piece of code for older versions of Django. In these cases, always check which version of Django is being used by inspecting `django.VERSION`:
+Wagtail is written to be compatible with multiple versions of Django. Sometimes, this requires running one piece of code for recent versions of Django, and another piece of code for older versions of Django. In these cases, always check which version of Django is being used by inspecting `django.VERSION`:
 
 ```python
 import django

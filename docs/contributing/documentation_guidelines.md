@@ -84,7 +84,7 @@ Make sure to include the correct language code for syntax highlighting, and to f
 
 ### Links
 
-Links are fundamental in the documentation. Use internal links to tie your content to other docs, and external links as needed. Pick relevant text for links, so readers know where they will land.
+Links are fundamental in documentation. Use internal links to tie your content to other docs, and external links as needed. Pick relevant text for links, so readers know where they will land.
 
 Don’t rely on [`links over code`](https://www.example.com/), as they are impossible to spot.
 
@@ -176,7 +176,7 @@ These call-outs do not support titles, so be careful not to include them, titles
 
 ### Images
 
-Images are hard to keep up-to-date as documentation evolves, but can be worthwhile nonetheless. Here are the guidelines when adding images:
+Images are hard to keep up-to-date as documentation evolves, but can be worthwhile nonetheless. Here are guidelines when adding images:
 
 -   All images should have meaningful [alt text](https://axesslab.com/alt-texts/) unless they are decorative.
 -   Images are served as-is – pick the correct format, and losslessly compress all images.

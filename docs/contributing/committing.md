@@ -114,7 +114,7 @@ git commit -m 'Release notes for #xxxx'
 
 ## Push to `main`
 
-The changes are ready to be pushed to the `main` now.
+The changes are ready to be pushed to `main` now.
 
 ```console
 # Check that everything looks OK

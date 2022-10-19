@@ -27,7 +27,7 @@ Writing documentation in a specific mode will help our users to understand and q
 
 Tutorials are designed to be **learning-oriented** resources that guide newcomers through a specific topic. To help effective learning, tutorials should provide examples to illustrate the subjects they cover.
 
-Tutorials may not necessarily follow best practices. They are designed to make it easier to get started. A tutorial is concrete and particular. It must be repeatable, instill confidence, and should result in success, every time, for every learner.
+Tutorials may not necessarily follow best practices. They are designed to make it easier to get started. A tutorial is concrete and particular. It must be repeatable, instil confidence, and should result in success, every time, for every learner.
 
 ### Do
 
