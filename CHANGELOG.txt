@@ -4,7 +4,7 @@ Changelog
 4.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
 
 
 4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
