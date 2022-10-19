@@ -211,7 +211,7 @@ if the tags aren't loaded.
 ## A basic blog
 
 We are now ready to create a blog. To do so, run
-`python manage.py startapp blog` to create a new app on your Wagtail site.
+`python manage.py startapp blog` to create a new app in your Wagtail project.
 
 Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
