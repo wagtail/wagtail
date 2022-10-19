@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2107,9 +2107,6 @@ msgstr[3] ""
 msgid "Task '{0}' enabled."
 msgstr "Завдання \"{0}\" увімкнено."
 
-msgid "Change"
-msgstr "Змінити"
-
 msgid "Pages"
 msgstr "Сторінки"
 
@@ -2163,12 +2160,6 @@ msgstr "Сортувати порядок меню"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
 
-msgid "Translate"
-msgstr "Перекласти"
-
-msgid "Translate this page"
-msgstr "Перекладіть цю сторінку"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Заголовок %(level)d"
@@ -2214,3 +2205,18 @@ msgstr "Так"
 
 msgid "Choose an item"
 msgstr "Оберіть елемент"
+
+msgid "Choose another item"
+msgstr "Оберіть інший елемент"
+
+msgid "Clear choice"
+msgstr "Очистити вибір"
+
+msgid "Choose another page"
+msgstr "Оберіть іншу сторінку"
+
+msgid "Choose another task"
+msgstr "Оберіть інше завдання"
+
+msgid "Edit this task"
+msgstr "Редагувати це завдання"

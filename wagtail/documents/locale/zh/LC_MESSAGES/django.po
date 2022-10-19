@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adeline Link, 2022
 # shengsheng gz <gzshengsheng@139.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: shengsheng gz <gzshengsheng@139.com>, 2018\n"
+"Last-Translator: Adeline Link, 2022\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +43,10 @@ msgstr "标签"
 
 msgid "document"
 msgstr "文档"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "你确定要删除这些文档吗？"
 
 msgid "Yes, delete"
 msgstr "是的，删除"
@@ -130,11 +135,17 @@ msgstr "添加多份文档"
 msgid "Add documents"
 msgstr "添加文档"
 
+msgid "Tags"
+msgstr "标签"
+
 msgid "Delete"
 msgstr "删除"
 
 msgid "Choose a document"
 msgstr "选择一个文档"
+
+msgid "Choose another document"
+msgstr "选择另外一份文档"
 
 msgid "Search documents"
 msgstr "查找文档"

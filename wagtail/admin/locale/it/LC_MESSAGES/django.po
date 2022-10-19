@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2274,9 +2274,6 @@ msgstr[2] ""
 msgid "Task '{0}' enabled."
 msgstr "Attività '{0}' abilitata."
 
-msgid "Change"
-msgstr "Cambia"
-
 msgid "Pages"
 msgstr "Pagine"
 
@@ -2330,12 +2327,6 @@ msgstr "Ordina l'ordine del menu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambia l'ordinamento delle pagine figlio di '%(title)s'"
 
-msgid "Translate"
-msgstr "Traduci"
-
-msgid "Translate this page"
-msgstr "Traduci questa pagina"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Titolo %(level)d"
@@ -2381,3 +2372,18 @@ msgstr "Sì"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"
+
+msgid "Choose another item"
+msgstr "Scegli un' altro elemento"
+
+msgid "Clear choice"
+msgstr "Azzera scelta"
+
+msgid "Choose another page"
+msgstr "Scegli un'altra pagina"
+
+msgid "Choose another task"
+msgstr "Scegli un'altra attività"
+
+msgid "Edit this task"
+msgstr "Modifica questa attività"
