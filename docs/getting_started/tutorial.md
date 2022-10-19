@@ -70,19 +70,20 @@ pip install wagtail
 ### Generate your site
 
 Wagtail provides a `start` command similar to `django-admin startproject`.
-Running `wagtail start mysite` in your project will generate a new `mysite` folder with a few Wagtail-specific extras, including
-the required project settings,
-a "home" app with a blank `HomePage` model and basic templates,
-and a sample "search" app.
+Running `wagtail start mysite` in your project will generate:
+- a new `mysite` folder containing the required project settings with a few Wagtail-specific extras,
+- a "home" app with a blank `HomePage` model and basic templates,
+- a sample "search" app
+- and other dependencies for wagtail to run in the the project.
 
-Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
+Appending `mysite` (which is a folder that was created when we ran `python3 -m venv mysite\env`) to `wagtail start mysite` specifies the destination directory for the above items. So the code looks like this:
 
 ```sh
 wagtail start mysite mysite
 ```
 
 ```{note}
-Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings.py` file. Look at this file to see how the `start` command has listed them in there.
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `base.py` file in the `mysite/settings` directory. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
@@ -111,7 +112,7 @@ This command ensures that the tables in your database are matched to the models 
 python manage.py createsuperuser
 ```
 
-When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database.
+When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database. Follow the prompts to add your username, email address and password
 
 ### Start the server
 
@@ -141,10 +142,13 @@ Edit `home/models.py` as follows, to add a `body` field to the model:
 from django.db import models
 
 from wagtail.models import Page
+
+# add these new imports
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 
 
+# replace the existing class definition of 'HomePage' with this:
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -158,16 +162,18 @@ it means that this field is not required and can be empty. You
 can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the
 capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. [More on creating Page models](../topics/pages).
 
-Run `python manage.py makemigrations` (this will create the migrations file), then
-`python manage.py migrate` (this executes the migrations and updates the database with your model
-changes). You must run the above commands each time you make changes to
-the model definition.
+Run:
 
-You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish
-the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
+```console
+$ python manage.py makemigrations # creates the migrations file
+$ python manage.py migrate # executes the migrations and updates the database with your model changes 
+```
 
-The page template now needs to be updated to reflect the changes made
-to the model. Wagtail uses normal Django templates to render each page
+You must run the above commands each time you make changes to the model definition.
+
+You can now edit the homepage within the Wagtail admin area (on the side bar go to _Pages_ and click the edit button beside _Homepage_) to see the new body field. Enter some text into the body field, and publish the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
+
+The page template now needs to be updated to reflect the changes made to the model. Wagtail uses normal Django templates to render each page
 type. By default, it will look for a template filename formed from the app and model name,
 separating capital letters with underscores (for example HomePage within the 'home' app becomes
 `home/home_page.html`). This template file can exist in any location recognised by
@@ -220,14 +226,19 @@ if the tags aren't loaded.
 
 ## A basic blog
 
-We are now ready to create a blog. To do so, run
-`python manage.py startapp blog` to create a new app in your Wagtail site.
+We are now ready to create a blog. To do so, run:
 
-Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
+```
+python manage.py startapp blog
+```
+
+to create a new app in your Wagtail site.
+
+Add the new `blog` app to `INSTALLED_APPS` list in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
-Lets start with a simple index page for our blog. In `blog/models.py`:
+Lets start with a simple index page for our blog. In `blog/models.py`, add this snippet:
 
 ```python
 from wagtail.models import Page
@@ -243,17 +254,16 @@ class BlogIndexPage(Page):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Since you have made changes to `model.py` run the migrations:
 
-Since the model is called `BlogIndexPage`, the default template name
-(unless we override it) will be `blog_index_page.html`. Django will look for a template whose name matches the name of your Page model within the templates directory in your blog app folder. This default behaviour can be overridden if needed.  
-To create a template for the `BlogIndexPage` model, create a file at the location `blog/templates/blog/blog_index_page.html`.
-
-```{note}
-You may need to create the folders `templates/blog` within your `blog` app folder
+```console
+$ python manage.py makemigrations
+$ python manage.py migrate
 ```
 
-In your `blog_index_page.html` file enter the following content:
+Since the model is called `BlogIndexPage`, the default template name
+(unless we override it) will be `blog/templates/blog/blog_index_page.html`. Create this file
+with the following content:
 
 ```html+django
 {% extends "base.html" %}
@@ -292,6 +302,7 @@ Now we need a model and template for our blog posts. In `blog/models.py`:
 ```python
 from django.db import models
 
+# Add these new imports
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
@@ -320,7 +331,12 @@ class BlogPage(Page):
 
 In the model above, we import `index` as this makes the model searchable. You can then list fields that you want to be searchable for the user.
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run 
+
+```console
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
 
 Create a new template file at the location `blog/templates/blog/blog_page.html`. Now add the following content to your newly created `blog_page.html` file:
 
@@ -471,7 +487,7 @@ posts first.
 
 Let's add the ability to attach an image gallery to our blog posts. While it's possible to simply insert images into the `body` rich text field, there are several advantages to setting up our gallery images as a new dedicated object type within the database - this way, you have full control of the layout and styling of the images on the template, rather than having to lay them out in a particular way within the rich text field. It also makes it possible for the images to be used elsewhere, independently of the blog text - for example, displaying a thumbnail on the blog index page.
 
-Add a new `BlogPageGalleryImage` model to `models.py`:
+Add a new `BlogPageGalleryImage` model to `blog/models.py`:
 
 ```python
 from django.db import models
@@ -486,7 +502,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.search import index
 
 
-# ... (Keep the definition of BlogIndexPage, and update BlogPage:)
+# ... (Keep the definition of BlogIndexPage, and update the content_panels of BlogPage:)
 
 
 class BlogPage(Page):
@@ -506,6 +522,7 @@ class BlogPage(Page):
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
+# add a new BlogPageGalleryImage class
 
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
@@ -520,7 +537,12 @@ class BlogPageGalleryImage(Orderable):
     ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run 
+
+```console
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
 
 There are a few new concepts here, so let's take them one at a time:
 
@@ -533,6 +555,8 @@ The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specifi
 Specifying `on_delete=models.CASCADE` on the foreign key means that if the image is deleted from the system, the gallery entry is deleted as well. (In other situations, it might be appropriate to leave the entry in place - for example, if an "our staff" page included a list of people with headshots, and one of those photos was deleted, we'd rather leave the person in place on the page without a photo. In this case, we'd set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.)
 
 Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery images available on the editing interface for `BlogPage`.
+
+After editing `blog/models.py` you should see a _Gallery images_ field with an option to upload images and provide a caption for it when editing a blog page in your Wagtail admin area.
 
 Adjust your blog page template to include the images:
 
@@ -563,11 +587,13 @@ Adjust your blog page template to include the images:
 {% endblock %}
 ```
 
+Make sure to upload some images when editing the blog page on your Wagtail admin if you want them to be displayed after editing your blog page template.
+
 Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
 
 !["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
-Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
+Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist) in `blog/models.py`:
 
 ```python
 class BlogPage(Page):
@@ -730,8 +756,8 @@ Migrate this in, then create a new `BlogTagIndexPage` in the admin.
 You'll probably want to create the new page/view as a child of Homepage,
 parallel to your Blog index. Give it the slug "tags" on the Promote tab.
 
-Access `/tags` and Django will tell you what you probably already knew:
-you need to create a template `blog/blog_tag_index_page.html`:
+Add `/tags` to the server url in your browser and Django will tell you what you probably already knew:
+you need to create a template `blog/template/blog/blog_tag_index_page.html`:
 
 ```html+django
 {% extends "base.html" %}
