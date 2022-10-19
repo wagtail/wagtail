@@ -14,9 +14,11 @@ class TestWhatsNewInWagtailVersionPanel(TestCase, WagtailTestUtils):
         cls.request_factory = RequestFactory()
         cls.user = cls.create_user(username="tester")
         cls.profile = UserProfile.get_for_user(cls.user)
-        cls.request = cls.request_factory.get("/")
-        cls.request.user = cls.user
-        cls.parent_context = {"request": cls.request}
+
+    def get_parent_context(self):
+        request = self.request_factory.get("/")
+        request.user = self.user
+        return {"request": request}
 
     def test_get_whats_new_banner_setting_default(self):
         self.assertTrue(self.panel.get_whats_new_banner_setting())
@@ -26,7 +28,7 @@ class TestWhatsNewInWagtailVersionPanel(TestCase, WagtailTestUtils):
         self.assertFalse(self.panel.get_whats_new_banner_setting())
 
     def test_render_html_user_initial(self):
-        result = self.panel.render_html(self.parent_context)
+        result = self.panel.render_html(self.get_parent_context())
         self.assertIn(
             f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
             result,
@@ -35,13 +37,13 @@ class TestWhatsNewInWagtailVersionPanel(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAIL_ENABLE_WHATS_NEW_BANNER=False)
     def test_render_html_setting_false(self):
-        result = self.panel.render_html(self.parent_context)
+        result = self.panel.render_html(self.get_parent_context())
         self.assertEqual(result, "")
 
     def test_render_html_user_no_profile(self):
         self.profile.delete()
         self.user.refresh_from_db()
-        result = self.panel.render_html(self.parent_context)
+        result = self.panel.render_html(self.get_parent_context())
         self.assertIn(
             f'<section class="w-whats-new w-dismissible" aria-labelledby="whats-new-heading" data-wagtail-dismissible-id="{self.dismissible_id}">',
             result,
@@ -51,7 +53,7 @@ class TestWhatsNewInWagtailVersionPanel(TestCase, WagtailTestUtils):
     def test_render_html_user_dismissed(self):
         self.profile.dismissibles[self.dismissible_id] = True
         self.profile.save(update_fields=["dismissibles"])
-        result = self.panel.render_html(self.parent_context)
+        result = self.panel.render_html(self.get_parent_context())
         self.assertEqual(result, "")
 
 
