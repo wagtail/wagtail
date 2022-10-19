@@ -650,6 +650,7 @@ Contributors
 * Oluwaloseyi Adeleye
 * Dennis Onyeka
 * Precious Arinda
+* Ogunbanjo Oluwadamilare
 
 Translators
 ===========
