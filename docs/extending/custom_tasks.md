@@ -2,13 +2,13 @@
 
 The Workflow system allows users to create tasks, which represent stages of moderation.
 
-Wagtail provides one built in task type: `GroupApprovalTask`, which allows any user in specific groups to approve or reject moderation.
+Wagtail provides one built-in task type: `GroupApprovalTask`, which allows any user in specific groups to approve or reject moderation.
 
-However, it is possible to add your own task types in code. Instances of your custom task can then be created in the `Tasks` section of the Wagtail Admin.
+However, it is possible to implement your own task types. Instances of your custom task can then be created in the `Tasks` section of the Wagtail Admin.
 
 ## Task models
 
-All custom tasks must be models inheriting from `wagtailcore.Task`. In this set of examples, we'll set up a task which can be approved by only one specific user.
+All custom tasks must be models inheriting from `wagtailcore.Task`. In this set of examples, we'll set up a task that can be approved by only one specific user.
 
 ```python
 # <project>/models.py
@@ -122,11 +122,11 @@ class UserApprovalTask(Task):
 
 ## Customising behaviour
 
-Both `Task` and `TaskState` have a number of methods which can be overridden to implement custom behaviour. Here are some of the most useful:
+Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behaviour. Here are some of the most useful:
 
 `Task.user_can_access_editor(page, user)`, `Task.user_can_lock(page, user)`, `Task.user_can_unlock(page, user)`:
 
-These methods determine if users usually without permissions can access the editor, lock, or unlock the page, by returning True or False.
+These methods determine if users usually without permission can access the editor, and lock, or unlock the page, by returning True or False.
 Note that returning `False` will not prevent users who would normally be able to perform those actions. For example, for our `UserApprovalTask`:
 
 ```python
@@ -172,7 +172,7 @@ Returns the name of a custom template to be used in rendering the data entry mod
 
 `Task.on_action(task_state, user, action_name, **kwargs)`:
 
-This performs the actions specified in `Task.get_actions(page, user)`: it is passed an action name, for example `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
+This performs the actions specified in `Task.get_actions(page, user)`: it is passed an action name, for example, `approve`, and the relevant task state. By default, it calls `approve` and `reject` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal (see `get_form_for_action` and `get_actions`) is supplied as kwargs.
 
 For example, let's say we wanted to add an additional option: cancelling the entire workflow:
 
@@ -265,7 +265,7 @@ class UserApprovalTaskStateSubmissionEmailNotifier(BaseUserApprovalTaskStateEmai
 
 Similarly, you could define notifier subclasses for approval and rejection notifications.
 
-Next, you need to instantiate the notifier, and connect it to the `task_submitted` signal.
+Next, you need to instantiate the notifier and connect it to the `task_submitted` signal.
 
 ```python
 # <project>/signal_handlers.py

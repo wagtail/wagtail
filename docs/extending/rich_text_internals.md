@@ -178,7 +178,7 @@ def register_external_link(features):
     features.register_link_type(NoFollowExternalLinkHandler)
 ```
 
-Similarly you can use `email` linktype to add a custom rewrite handler for email links (for example to obfuscate emails in rich text).
+Similarly, you can use `email` linktype to add a custom rewrite handler for email links (for example to obfuscate emails in rich text).
 
 ```{eval-rst}
 .. method:: FeatureRegistry.register_embed_type(handler)
@@ -241,7 +241,7 @@ class CustomRichTextArea(widgets.TextArea):
 ```{eval-rst}
 .. method:: FeatureRegistry.register_editor_plugin(editor_name, feature_name, plugin_definition)
 
-Rich text editors often provide a plugin mechanism to allow extending the editor with new functionality. The ``register_editor_plugin`` method provides a standardised way for ``register_rich_text_features`` hooks to define plugins to be pulled in to the editor when a given rich text feature is enabled.
+Rich text editors often provide a plugin mechanism to allow extending the editor with new functionality. The ``register_editor_plugin`` method provides a standardised way for ``register_rich_text_features`` hooks to define plugins to be pulled into the editor when a given rich text feature is enabled.
 
 ``register_editor_plugin`` is passed an editor name (a string uniquely identifying the editor widget - Wagtail uses the identifier ``draftail`` for the built-in editor), a feature identifier, and a plugin definition object. This object is specific to the editor widget and can be any arbitrary value, but will typically include a :doc:`Django form media <django:topics/forms/media>` definition referencing the plugin's JavaScript code - which will then be merged into the editor widget's own media definition - along with any relevant configuration options to be passed when instantiating the editor.
 
@@ -258,9 +258,9 @@ For details of the plugin formats for Wagtail's built-in editors, see :doc:`./ex
 
 Editor widgets will often be unable to work directly with Wagtail's rich text format, and require conversion to their own native format. For Draftail, this is a JSON-based format known as ContentState (see [How Draft.js Represents Rich Text Data](https://rajaraodv.medium.com/how-draft-js-represents-rich-text-data-eeabb5f25cf2)). Editors based on HTML's `contentEditable` mechanism require valid HTML, and so Wagtail uses a convention referred to as "editor HTML", where the additional data required on link and embed elements is stored in `data-` attributes, for example: `<a href="/contact-us/" data-linktype="page" data-id="3">Contact us</a>`.
 
-Wagtail provides two utility classes, `wagtail.admin.rich_text.converters.contentstate.ContentstateConverter` and `wagtail.admin.rich_text.converters.editor_html.EditorHTMLConverter`, to perform conversions between rich text format and the native editor formats. These classes are independent of any editor widget, and distinct from the rewriting process that happens when rendering rich text onto a template.
+Wagtail provides two utility classes, `wagtail.admin.rich_text.converters.contentstate.ContentstateConverter` and `wagtail.admin.rich_text.converters.editor_html.EditorHTMLConverter`, to perform conversions between rich text format and the native editor formats. These classes are independent of any editor widget and distinct from the rewriting process that happens when rendering rich text onto a template.
 
-Both classes accept a `features` list as an argument to their constructor, and implement two methods, `from_database_format(data)` which converts Wagtail rich text data to the editor's format, and `to_database_format(data)` which converts editor data to Wagtail rich text format.
+Both classes accept a `features` list as an argument to their constructor and implement two methods, `from_database_format(data)` which converts Wagtail rich text data to the editor's format, and `to_database_format(data)` which converts editor data to Wagtail rich text format.
 
 As with editor plugins, the behaviour of a converter class can vary according to the feature list passed to it. In particular, it can apply whitelisting rules to ensure that the output only contains HTML elements corresponding to the currently active feature set. The feature registry provides a `register_converter_rule` method to allow `register_rich_text_features` hooks to define conversion rules that will be activated when a given feature is enabled.
 
