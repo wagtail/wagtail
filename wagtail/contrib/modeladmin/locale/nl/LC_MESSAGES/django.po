@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2021-2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -122,7 +123,7 @@ msgstr "Nee, niet verwijderen"
 
 #, python-format
 msgid "By %(filter_title)s"
-msgstr "Door %(filter_title)s"
+msgstr "Op %(filter_title)s"
 
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"

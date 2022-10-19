@@ -9,13 +9,14 @@
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
+# Tomas Walch <tomas@alternaliv.se>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
+"Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +115,7 @@ msgid "Breadcrumb"
 msgstr "Sökvägsnavigering"
 
 msgid "Snippets"
-msgstr "Snutt"
+msgstr "Snuttar"
 
 msgid "No log entries found."
 msgstr "Inga loggposter funna"
@@ -224,3 +225,11 @@ msgstr "Radera '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Välj %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Välj annan %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Redigera %s"

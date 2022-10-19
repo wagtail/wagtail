@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -369,6 +369,12 @@ msgstr[1] "%(num_parent_objects)d dokumentum törölve"
 
 msgid "Choose a document"
 msgstr "dokumentum kiválasztása"
+
+msgid "Choose another document"
+msgstr "Válasszon másik dokumentumot"
+
+msgid "Edit this document"
+msgstr "Dokumentum szerkesztése"
 
 msgid "Search documents"
 msgstr "Keresés a dokumentumokban"
