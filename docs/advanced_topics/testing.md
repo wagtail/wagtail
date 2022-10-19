@@ -140,10 +140,12 @@ def test_cant_create_under_event_page(self):
     self.assertCanNotCreateAt(EventPage, ContentPage)
 ```
 
-**assertCanCreate(_parent, child_model, data, msg=None_)**
+**assertCanCreate(_parent, child_model, data, msg=None_, publish=true)**
 Assert that a child of the given Page type can be created under the parent, using the supplied POST data.
 
-`parent` should be a Page instance, and `child_model` should be a Page subclass. `data` should be a dict that will be POSTed at the Wagtail admin Page creation method.
+`parent` should be a Page instance, and `child_model` should be a Page subclass. `data` should be a dict that will be POSTed at the Wagtail admin Page creation method. 
+
+`publish` has a default value of true to maintain the original functionality in addition to setting the action-publish key of `data` to action-publish. When this argument is false, and the response url does not include the edit url of the last created page, an error message is displayed.
 
 ```python
 from wagtail.test.utils.form_data import nested_form_data, streamfield
