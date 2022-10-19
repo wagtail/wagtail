@@ -39,7 +39,7 @@ On the day of disclosure, we will take the following steps:
 
 1. Apply the relevant patch(es) to Wagtail's codebase.
    The commit messages for these patches will indicate that they are for security issues, but will not describe the issue in any detail; instead, they will warn of upcoming disclosure.
-2. Issue the relevant release(s), by placing new packages on [the Python Package Index](https://pypi.org/project/wagtail/), tagging the new release(s) in Wagtail\'s GitHub repository and updating Wagtail's [release notes](../releases/index).
+2. Issue the relevant release(s), by placing new packages on [the Python Package Index](https://pypi.org/project/wagtail/), tagging the new release(s) in Wagtail's GitHub repository and updating Wagtail's [release notes](../releases/index).
 3. Post a public entry on [Wagtail's blog](https://wagtail.org/blog/), describing the issue and its resolution in detail, pointing to the relevant patches and new releases, and crediting the reporter of the issue (if the reporter wishes to be publicly identified).
 4. Post a notice to the [Wagtail support forum](https://groups.google.com/g/wagtail) and Twitter feed ([\@WagtailCMS](https://twitter.com/wagtailcms)) that links to the blog post.
 
@@ -51,4 +51,4 @@ In various places Wagtail provides the option to export data in CSV format, and 
 
 Since the CSV format has no concept of formulae or macros, there is also no agreed-upon convention for escaping data to prevent it from being interpreted in that way; commonly-suggested approaches such as prefixing the field with a quote character would corrupt legitimate data (such as phone numbers beginning with '+') when interpreted by software correctly following the CSV specification.
 
-Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimises the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
+Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimises the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format. 
