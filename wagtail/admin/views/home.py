@@ -331,8 +331,8 @@ def icons():
         for icon in all_icons:
             combined_icon_markup += (
                 render_to_string(icon)
-                .replace("svg", "symbol")
                 .replace('xmlns="http://www.w3.org/2000/svg"', "")
+                .replace("svg", "symbol")
             )
 
         _full_sprite_html = render_to_string(
