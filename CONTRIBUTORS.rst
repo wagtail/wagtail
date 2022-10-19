@@ -641,6 +641,7 @@ Contributors
 * Ruqouyyah Muhammad
 * Loveth Omokaro
 * Abayomi Victory
+* Toria
 
 
 Translators
