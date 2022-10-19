@@ -11,7 +11,7 @@ Wagtail’s user interface is built with:
 
 Here are the available commands:
 
--   `make lint` will run all linting, `make lint-server` lints templates, `make lint-client` lints JS/CSS.
+-   `make lint` will run all linting, `make lint-server` lints templates, and `make lint-client` lints JS/CSS.
 -   `make format` will run all formatting and fixing of linting issues. There is also `make format-server` and `make format-client`.
 
 Have a look at our `Makefile` tasks and `package.json` scripts if you prefer more granular options.
@@ -21,7 +21,7 @@ Have a look at our `Makefile` tasks and `package.json` scripts if you prefer mor
 We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](https://www.curlylint.org/) for linting.
 
 -   Write [valid](https://validator.w3.org/nu/), [semantic](https://html5doctor.com/element-index/) HTML.
--   Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
+-   Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular, [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
 -   Use classes for styling, `data-` attributes for JavaScript behaviour, IDs for semantics only.
 -   For comments, use [Django template syntax](https://docs.djangoproject.com/en/stable/ref/templates/language/#comments) instead of HTML.
 
