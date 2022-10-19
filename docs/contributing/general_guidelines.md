@@ -6,7 +6,7 @@ British English is preferred for user-facing text; this text should also be mark
 
 ### Latin phrases and abbreviations
 
-Try to avoid Latin phrases (such as `ergo` or `de facto`) and abbreviations (such as `i.e.` or `e.g.`), and use common English phrases instead. Alternatively find a simpler way to communicate the concept or idea to the reader. The exception is `etc.` which can be used when space is limited.
+Try to avoid Latin phrases (such as `ergo` or `de facto`) and abbreviations (such as `i.e.` or `e.g.`), and use common English phrases instead. Alternatively, find a simpler way to communicate the concept or idea to the reader. The exception is `etc.` which can be used when space is limited.
 
 Examples:
 

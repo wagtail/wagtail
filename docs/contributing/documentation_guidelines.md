@@ -64,10 +64,10 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 
 ### Inline styles
 
-Use **bold** and _italic_ sparingly, inline `code` when relevant.
+Use **bold** and _italic_ sparingly and inline `code` when relevant.
 
 ```md
-Use **bold** and _italic_ sparingly, inline `code` when relevant.
+Use **bold** and _italic_ sparingly and inline `code` when relevant.
 ```
 
 ### Code blocks
@@ -252,7 +252,7 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 
 ### Autodoc
 
-With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature which we highly recommend using to document Wagtail’s APIs.
+With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature that we highly recommend using to document Wagtail’s APIs.
 
     ```{eval-rst}
     .. module:: wagtail.coreutils
