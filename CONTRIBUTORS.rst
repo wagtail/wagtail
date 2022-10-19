@@ -13,6 +13,7 @@ Core team
 * Loïc Teixeira (Springload)
 * Matthew Westcott (Torchbox)
 * Naomi Morduch Toubman
+* Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
 * Storm Heg
 * Thibaud Colas (Torchbox)
@@ -566,7 +567,6 @@ Contributors
 * Dennis McGregor
 * Joshua Munn
 * Gianluca De Cola
-* Sage Abdullah
 * Paarth Agarwal
 * Nicolas Ferrari
 * Vibhakar Solanki
