@@ -49,7 +49,7 @@ See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51) for a
 Missing embed titles are common failures in accessibility audits of Wagtail websites. In some cases, Wagtail embeds’ iframe doesn’t have a `title` attribute set. This is generally a problem with OEmbed providers like YouTube ([#5982](https://github.com/wagtail/wagtail/issues/5982)).
 This is very problematic for screen reader users, who rely on the title to understand what the embed is, and whether to interact with it or not.
 
-If your website relies on embeds that have are missing titles, make sure to either:
+If your website relies on embeds that have missing titles, make sure to either:
 
 -   Add the OEmbed _title_ field as a `title` on the `iframe`.
 -   Add a custom mandatory Title field to your embeds, and add it as the `iframe`’s `title`.
@@ -73,14 +73,14 @@ If this is a concern to you, you can change which tags are used when saving cont
 
 ### TableBlock
 
-The [TableBlock](../reference/contrib/table_block) default implementation makes it too easy for end-users to miss they need either row or column headers ([#5989](https://github.com/wagtail/wagtail/issues/5989>)). Make sure to always have either row headers or column headers set.
+The [TableBlock](../reference/contrib/table_block) default implementation makes it too easy for end-users to miss. They need either row or column headers ([#5989](https://github.com/wagtail/wagtail/issues/5989>)). Make sure to always have either row headers or column headers set.
 Always add a Caption, so screen reader users navigating the site’s tables know where they are.
 
 (accessibility_in_templates)=
 
 ## Accessibility in templates
 
-Here are common gotchas to be aware of to make the site’s templates as accessible as possible,
+Here are common gotchas to be aware of to make the site’s templates as accessible as possible.
 
 ### Alt text in templates
 
