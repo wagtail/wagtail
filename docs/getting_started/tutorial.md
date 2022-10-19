@@ -9,7 +9,7 @@ If you'd like to add Wagtail to an existing Django project instead, see [](integ
 
 ### Install dependencies
 
-Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
+Wagtail supports Python 3.7, 3.8, 3.9, and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 
@@ -26,7 +26,7 @@ py --version
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
 
 ```{note}
-Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
+Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG, and GIF images (via the Python **Pillow** library).
 The way to do this varies by platform—see Pillow's
 [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
@@ -103,7 +103,7 @@ If you haven't updated the project settings, this will be a SQLite database file
 python manage.py migrate
 ```
 
-This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command in order to update the database.
+This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command to update the database.
 
 ### Create an admin user
 
@@ -187,7 +187,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 {% endblock %}
 ```
 
-`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
+`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you can override specific content within the parent template).
 
 `wagtailcore_tags` must also be loaded at the top of the template and provide additional tags to those provided by Django.
 
@@ -221,13 +221,13 @@ if the tags aren't loaded.
 ## A basic blog
 
 We are now ready to create a blog. To do so, run
-`python manage.py startapp blog` to create a new app in your Wagtail site.
+`python manage.py startapp blog` to create a new app in your Wagtail project.
 
 Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
-Lets start with a simple index page for our blog. In `blog/models.py`:
+Let's start with a simple index page for our blog. In `blog/models.py`:
 
 ```python
 from wagtail.models import Page
