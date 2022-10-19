@@ -86,7 +86,6 @@ jobs:
             postgres: 'postgres:12'
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
-            install_extras: 'pip uninstall -y djangorestframework ; pip install git+https://github.com/encode/django-rest-framework.git@master#egg=djangorestframework'
             experimental: true
             postgres: 'postgres:12'
 
