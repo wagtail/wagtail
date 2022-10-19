@@ -167,7 +167,7 @@ Setting `parent_page_types` to an empty list is a good way of preventing a parti
 
 ### Page descriptions
 
-You can add helpful description text to every Wagtail Page, similar to a model attribute called help_text attribute. By adding `page_description` to your Page model, you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
+You can add helpful description text to every Wagtail Page, similar to a `help_text` model attribute. By adding `page_description` to your Page model, you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
 
 ```python
 class LandingPage(Page):
