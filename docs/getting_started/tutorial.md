@@ -119,7 +119,7 @@ When logged into the admin site, a superuser has full permissions and is able to
 python manage.py runserver
 ```
 
-If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
+After running the above command,the server generates a URL <http://127.0.0.1:8000>. Copy and paste the link into your browser tab, which displays the welcome page.
 
 ![Browser screenshot of "Welcome to your new Wagtail site!" page, with teal egg above the title, and links to different resources. The page is shown inside a browswer tab, with browser URL bar at the top](../_static/images/tutorial/tutorial_1.png)
 
@@ -127,7 +127,7 @@ If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
 Throughout this tutorial we will use `http://127.0.0.1:8000` but depending on your setup, this could be `http://localhost:8000/` or a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct url for your local site.
 ```
 
-You can now access the administrative area at <http://127.0.0.1:8000/admin>
+You can now access the administrative section by clicking on the **Admin Interface** on the welcome page at port <http://127.0.0.1:8000/admin>.
 
 ![Screenshot of Wagtail’s dashboard, with "Welcome to the mysite Wagtail CMS" heading, 1 page, 0 images, 0 documents. Underneath is a "Your most recent edits" section, with the Home page listed](../_static/images/tutorial/tutorial_2.png)
 
@@ -870,6 +870,6 @@ Finally, we can update the `blog_page.html` template to display the categories:
 
 ## Where next
 
--   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
--   Learn how to implement [StreamField](../topics/streamfield) for freeform page content
--   Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials)
+-   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation.
+-   Learn how to implement [StreamField](../topics/streamfield) for freeform page content.
+-   Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials).
