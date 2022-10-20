@@ -8,9 +8,9 @@ There will obviously be many instances in which you will want to add images to a
 
 Often a specific image field will be used for a main image on a page, or for an image to be used when sharing the page on social media. For the standard page on the bakerydemo site, the former is used.
 
-| ![Close-up of an empty Image field, showing its "Choose an image" button, and help text underneath](../../_static/images/screen14_add_main_image.png) |
-|:--:|
-| *Figure 1: Close-up of an empty "Image" field, showing its "Choose an image" button, and help text underneath* |
+![Close-up of an empty Image field, showing its "Choose an image" button, and help text underneath](../../_static/images/screen14_add_main_image.png)
+
+*Figure 1: Image field*
 
 -   You insert an image by clicking the _Choose an image_ button.
 
@@ -27,9 +27,9 @@ When you click the _Choose an image_ button you will be presented with a pop-up 
 
 The image below demonstrates finding and inserting an image that is already present in the CMS image library.
 
-| !["Choose an image" modal dialog, with Search and Upload tabs, showing a grid of images underneath Search, Collection, Popular tags filters](../../_static/images/screen16_selecting_image_from_library.png) |
-|:--:|
-| *Figure 2: "Search" tab in "Choose an image" modal dialog, showing "Search terms" input bar, "Collection" drop-down, "Popular tags" filters and a grid of "Latest images"* |
+!["Choose an image" modal dialog, with Search and Upload tabs, showing a grid of images underneath Search, Collection, Popular tags filters](../../_static/images/screen16_selecting_image_from_library.png)
+
+*Figure 2: "Search" tab in "Choose an image" Pop-Up*
 
 1. Typing into the search box will automatically display the results below.
 2. Clicking one of the Popular tags will filter the search results by that tag.
@@ -37,9 +37,9 @@ The image below demonstrates finding and inserting an image that is already pres
 
 **Uploading a new image to the CMS**
 
-| ![Upload tab in "Choose an image" dialog, with form fields for an image, including a file field](../../_static/images/screen17_upload_image.png)|
-|:--:|
-| *Figure 3: "Upload" tab in "Choose an image" dialog, showing "Title" input, "File" field, "Collection" drop-down, "Tags" filters and "Upload" button* |
+![Upload tab in "Choose an image" dialog, with form fields for an image, including a file field](../../_static/images/screen17_upload_image.png)
+
+*Figure 3: "Upload" tab in "Choose an image" Pop-Up*
 
 1. You must include an image title for your uploaded image
 2. Click the _Choose file_ button to choose an image from your computer.
@@ -52,9 +52,9 @@ Images can also be inserted into the body text of a page via the rich text edito
 
 In addition, Wagtail allows you to choose the format of your image.
 
-! !["Choose a format" modal dialog, with "Format" radio field with three options, an "Image is decorative" checkbox, and an Alt text field underneath, with "Insert image" button](../../_static/images/screen18_image_format.png) |
-|:--:|
-| *Figure 4: "Choose a format" modal dialog showing Format radio field with three options, an "Image is decorative" checkbox, and an "Alt text" input field underneath, and "Insert image" button* |
+!["Choose a format" modal dialog, with "Format" radio field with three options, an "Image is decorative" checkbox, and an Alt text field underneath, with "Insert image" button](../../_static/images/screen18_image_format.png)
+
+*Figure 4: "Choose a format" modal dialog*
 
 1. You can select how the image is displayed by selecting one of the format options.
 2. You can choose if the image is [decorative](https://www.w3.org/WAI/tutorials/images/decorative/), in which case you will not need to enter alt text for your image.
