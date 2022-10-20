@@ -1,12 +1,12 @@
 # Creating admin views
 
-The most common use for adding custom views to the Wagtail admin is to provide an interface for managing a Django model. The [Index](../reference/contrib/modeladmin/index) app makes this simple, providing ready-made views for listing, creating and editing objects with minimal configuration.
+The most common use for adding custom views to the Wagtail admin is to provide an interface for managing a Django model. The [Index](../reference/contrib/modeladmin/index) app makes this simple, providing ready-made views for listing, creating, and editing objects with minimal configuration.
 
-For other kinds of admin view that don't fit this pattern, you can write your own Django views and register them as part of the Wagtail admin through [hooks](admin_hooks). In this example, we'll implement a view that displays a calendar for the current year, using [the calendar module](https://docs.python.org/3/library/calendar.html) from Python's standard library.
+For other kinds of admin views that don't fit this pattern, you can write your own Django views and register them as part of the Wagtail admin through [hooks](admin_hooks). In this example, we'll implement a view that displays a calendar for the current year, using [the calendar module](https://docs.python.org/3/library/calendar.html) from Python's standard library.
 
 ## Defining a view
 
-Within a Wagtail project, create a new `wagtailcalendar` app with `./manage.py startapp wagtailcalendar` and add it to your project's `INSTALLED_APPS`. (In this case we're using the name 'wagtailcalendar' to avoid clashing with the standard library's `calendar` module - in general there is no need to use a 'wagtail' prefix.)
+Within a Wagtail project, create a new `wagtailcalendar` app with `./manage.py startapp wagtailcalendar` and add it to your project's `INSTALLED_APPS`. (In this case, we're using the name 'wagtailcalendar' to avoid clashing with the standard library's `calendar` module - in general, there is no need to use a 'wagtail' prefix.)
 
 Edit `views.py` as follows - note that this is a plain Django view with no Wagtail-specific code.
 
@@ -26,9 +26,9 @@ def index(request):
 
 ## Registering a URL route
 
-At this point, the standard practice for a Django project would be to add a URL route for this view to your project's top-level URL config module. However, in this case we want the view to only be available to logged-in users, and to appear within the `/admin/` URL namespace which is managed by Wagtail. This is done through the [Register Admin URLs](register_admin_urls) hook.
+At this point, the standard practice for a Django project would be to add a URL route for this view to your project's top-level URL config module. However, in this case, we want the view to only be available to logged-in users, and to appear within the `/admin/` URL namespace which is managed by Wagtail. This is done through the [Register Admin URLs](register_admin_urls) hook.
 
-On startup, Wagtail looks for a `wagtail_hooks` submodule within each installed app. In this submodule, you can define functions to be run at various points in Wagtail's operation, such as building the URL config for the admin, and constructing the main menu.
+On startup, Wagtail looks for a `wagtail_hooks` submodule within each installed app. In this submodule, you can define functions to be run at various points in Wagtail's operation, such as building the URL config for the admin and constructing the main menu.
 
 Create a `wagtail_hooks.py` file within the `wagtailcalendar` app containing the following:
 
@@ -52,10 +52,10 @@ The calendar will now be visible at the URL `/admin/calendar/`.
 
 ## Adding a template
 
-Currently this view is outputting a plain HTML fragment. Let's insert this into the usual Wagtail admin page furniture, by creating a template that extends Wagtail's base template `"wagtailadmin/base.html"`.
+Currently, this view is outputting a plain HTML fragment. Let's insert this into the usual Wagtail admin page furniture, by creating a template that extends Wagtail's base template `"wagtailadmin/base.html"`.
 
 ```{note}
-The base template and HTML structure are not considered astable part of Wagtail's API, and may change in futurereleases.
+The base template and HTML structure are not considered a stable part of Wagtail's API and may change in future releases.
 ```
 
 Update `views.py` as follows:
@@ -139,7 +139,7 @@ A 'Calendar' item will now appear in the menu.
 
 ## Adding a group of menu items
 
-Sometimes you want to group custom views together in a single menu item in the sidebar. Let's create another view to display only the current calendar month:
+Sometimes you want to group custom views in a single menu item in the sidebar. Let's create another view to display only the current calendar month:
 
 ```{code-block} python
 :emphasize-lines: 15-23
