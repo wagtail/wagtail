@@ -50,6 +50,7 @@ testing_extras = [
     "azure-mgmt-cdn>=12.0,<13.0",
     "azure-mgmt-frontdoor>=1.0,<1.1",
     "django-pattern-library>=0.7",
+    "embedly2==0.6.0",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
     "doc8==0.8.1",
