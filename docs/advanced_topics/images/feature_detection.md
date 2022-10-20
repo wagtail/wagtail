@@ -90,7 +90,7 @@ For example, in an app's [AppConfig.ready](https://docs.djangoproject.com/en/2.2
 
 The face detection algorithm produces a focal area that is tightly cropped to the face rather than the whole head.
 
-For images with a single face this can be okay in some cases (thumbnails for example), it might be overly tight for "headshots".
+For images with a single face, this can be okay in some cases (thumbnails for example), however, it might be overly tight for "headshots".
 Image renditions can encompass more of the head by reducing the crop percentage (`-c<percentage>`), at the end of the resize-rule, down to as low as 0%:
 
 ```html+django
