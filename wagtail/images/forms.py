@@ -1,7 +1,6 @@
 from django import forms
 from django.conf import settings
 from django.forms.models import modelform_factory
-from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.collections import (
@@ -10,7 +9,6 @@ from wagtail.admin.forms.collections import (
     collection_member_permission_formset_factory,
 )
 from wagtail.admin.widgets import AdminTagWidget
-from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
 from wagtail.images.permissions import permission_policy as images_permission_policy
@@ -21,9 +19,7 @@ from wagtail.search import index as search_index
 # Callback to allow us to override the default form field for the image file field and collection field.
 def formfield_for_dbfield(db_field, **kwargs):
     # Check if this is the file field
-    if db_field.name == "file":
-        return WagtailImageField(label=capfirst(db_field.verbose_name), **kwargs)
-    elif db_field.name == "collection":
+    if db_field.name == "collection":
         return CollectionChoiceField(
             label=_("Collection"),
             queryset=Collection.objects.all(),

@@ -187,9 +187,21 @@ class ImageFileMixin:
             yield WillowImage.open(image_file)
 
 
+class ImageField(models.ImageField):
+    def formfield(self, **kwargs):
+        from .fields import WagtailImageField
+
+        return super().formfield(
+            **{
+                "form_class": WagtailImageField,
+                **kwargs,
+            }
+        )
+
+
 class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_("title"))
-    file = models.ImageField(
+    file = ImageField(
         verbose_name=_("file"),
         upload_to=get_upload_to,
         width_field="width",
@@ -743,7 +755,7 @@ class Filter:
 
 class AbstractRendition(ImageFileMixin, models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
-    file = models.ImageField(
+    file = ImageField(
         upload_to=get_rendition_upload_to,
         storage=get_rendition_storage,
         width_field="width",
@@ -901,7 +913,7 @@ class UploadedImage(models.Model):
     has been filled in.
     """
 
-    file = models.ImageField(upload_to="uploaded_images", max_length=200)
+    file = ImageField(upload_to="uploaded_images", max_length=200)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("uploaded by user"),
