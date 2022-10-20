@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1553,9 +1553,6 @@ msgstr "Ülesanne '{0}' on keelatud."
 msgid "Task '{0}' enabled."
 msgstr "Ülesanne '{0}' on lubatud."
 
-msgid "Change"
-msgstr "Muuda"
-
 msgid "Pages"
 msgstr "Lehed"
 
@@ -1647,3 +1644,18 @@ msgstr "Jah"
 
 msgid "Choose an item"
 msgstr "Valige üksus"
+
+msgid "Choose another item"
+msgstr "Valige teine ​​üksus"
+
+msgid "Clear choice"
+msgstr "Selge valik"
+
+msgid "Choose another page"
+msgstr "Valige teine ​​leht"
+
+msgid "Choose another task"
+msgstr "Valige mõni teine ​​ülesanne"
+
+msgid "Edit this task"
+msgstr "Muutke seda ülesannet"

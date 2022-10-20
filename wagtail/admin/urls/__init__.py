@@ -17,7 +17,7 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
-from wagtail.admin.views import account, chooser, home, tags, userbar
+from wagtail.admin.views import account, chooser, dismissibles, home, tags, userbar
 from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -92,6 +92,11 @@ urlpatterns = [
         "jsi18n/",
         JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
         name="wagtailadmin_javascript_catalog",
+    ),
+    path(
+        "dismissibles/",
+        dismissibles.DismissiblesView.as_view(),
+        name="wagtailadmin_dismissibles",
     ),
 ]
 

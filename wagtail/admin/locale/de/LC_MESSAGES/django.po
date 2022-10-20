@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2021-2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1990,7 +1990,7 @@ msgid "View history"
 msgstr "Historie anschauen"
 
 msgid "This will publish at "
-msgstr "Dies wird veröffentlich am"
+msgstr "Dies wird veröffentlicht am "
 
 msgid "Preview in mobile size"
 msgstr "Vorschau als Smartphone-Variante"
@@ -2817,7 +2817,7 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Aufgabe ‚{0}‘ aktiviert."
 
-msgid "Change"
+msgid "Choose another"
 msgstr "Auswahl ändern"
 
 msgid "Pages"
@@ -2873,12 +2873,6 @@ msgstr "Menüreihenfolge sortieren"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Reihenfolge der Unterseiten von %(title)s ändern"
 
-msgid "Translate"
-msgstr "Übersetzen"
-
-msgid "Translate this page"
-msgstr "Diese Seite übersetzen"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Überschrift %(level)d"
@@ -2925,8 +2919,14 @@ msgstr "Ja"
 msgid "Choose an item"
 msgstr "Eintrag wählen"
 
-msgid "Clear"
-msgstr "Zurücksetzen"
+msgid "Choose another item"
+msgstr "Anderen Eintrag wählen"
+
+msgid "Clear choice"
+msgstr "Auswahl löschen"
+
+msgid "Choose another page"
+msgstr "Andere Seite auswählen"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2939,3 +2939,9 @@ msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr ""
 "Schlagwörter dürfen nur aus einzelnen Wörtern bestehen, es sind keine "
 "Leerzeichen erlaubt."
+
+msgid "Choose another task"
+msgstr "Eine andere Aufgabe auswählen"
+
+msgid "Edit this task"
+msgstr "Diese Aufgabe bearbeiten"

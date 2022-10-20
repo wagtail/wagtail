@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -312,3 +312,11 @@ msgstr "Eyða '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "Veldu %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Velja aðra %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Breyta þessu %s"

@@ -93,6 +93,16 @@ def wagtail_release_notes_path():
     return "%s.html" % get_main_version(VERSION)
 
 
+@register.simple_tag
+def wagtail_feature_release_whats_new_link():
+    return "https://wagtail.org/wagtail-4-1-new-in-wagtail"
+
+
+@register.simple_tag
+def wagtail_feature_release_editor_guide_link():
+    return "https://wagtail.org/wagtail-4-1-editor-guide"
+
+
 @register.filter
 def richtext(value):
     if isinstance(value, RichText):

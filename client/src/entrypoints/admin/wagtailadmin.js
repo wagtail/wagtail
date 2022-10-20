@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Icon, Portal, initUpgradeNotification, initSkipLink } from '../..';
+import {
+  Icon,
+  Portal,
+  initDismissibles,
+  initUpgradeNotification,
+  initSkipLink,
+} from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';
 import { dialog } from '../../includes/dialog';
@@ -9,8 +15,8 @@ import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
   initCollapsiblePanels,
-  initCollapseAllPanels,
 } from '../../includes/panels';
+import { initMinimap } from '../../components/Minimap';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -34,12 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initModernDropdown();
   initTabs();
+  initDismissibles();
   initSkipLink();
   dialog();
   initCollapsibleBreadcrumbs();
   initSidePanel();
   initCollapsiblePanels();
-  initCollapseAllPanels();
 });
 
 /**
@@ -48,4 +54,5 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 window.addEventListener('load', () => {
   initAnchoredPanels();
+  initMinimap();
 });
