@@ -70,6 +70,8 @@ class UserProfile(models.Model):
         blank=True,
     )
 
+    dismissibles = models.JSONField(default=dict, blank=True)
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]

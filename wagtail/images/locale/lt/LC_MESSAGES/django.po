@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -404,6 +404,12 @@ msgstr "Įkeliama..."
 msgid "Choose an image"
 msgstr "Pasirinkti paveiksliuką"
 
+msgid "Choose another image"
+msgstr "Pasirinkti kitą paveiksliuką"
+
+msgid "Edit this image"
+msgstr "Redaguoti šį paveiksliuką"
+
 msgid "Search images"
 msgstr "Ieškoti paveiksliukų"
 
@@ -445,3 +451,6 @@ msgstr[0] "%(count)s paveiksliukas"
 msgstr[1] "%(count)s paveiksliukai"
 msgstr[2] "%(count)s paveiksliukų"
 msgstr[3] "%(count)s paveiksliukų"
+
+msgid "Change image"
+msgstr "Keisti paveiksliuką"

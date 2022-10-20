@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2021
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2021\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -73,6 +73,9 @@ msgstr "Þýða {model_name}"
 #, python-brace-format
 msgid "Successfully created {locales} for {model_name} '{object}'"
 msgstr "Tókst að búa til {locales} fyrir {model_name} '{object}'"
+
+msgid "Translate this page"
+msgstr "Þýða þessa síðu"
 
 #, python-format
 msgid "Translate '%(title)s'"

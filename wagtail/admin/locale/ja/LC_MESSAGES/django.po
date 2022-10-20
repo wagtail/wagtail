@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hiroki Sawano, 2021\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1210,9 +1210,6 @@ msgstr "ワークフローの新規タスク"
 msgid "Editing workflow task"
 msgstr "ワークフローのタスクを編集"
 
-msgid "Change"
-msgstr "変更"
-
 msgid "Pages"
 msgstr "ページ"
 
@@ -1257,3 +1254,12 @@ msgstr "レポート"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"
+
+msgid "Choose another item"
+msgstr "別のアイテムを選択"
+
+msgid "Clear choice"
+msgstr "選択を解除"
+
+msgid "Choose another page"
+msgstr "別のページを選択"

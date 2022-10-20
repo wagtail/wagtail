@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -335,6 +335,12 @@ msgstr[2] "%(num_parent_objects)ddocumentos foram apagados"
 
 msgid "Choose a document"
 msgstr "Escolher um documento"
+
+msgid "Choose another document"
+msgstr "Escolher outro documento"
+
+msgid "Edit this document"
+msgstr "Alterar este documento"
 
 msgid "Search documents"
 msgstr "Pesquisar documentos"

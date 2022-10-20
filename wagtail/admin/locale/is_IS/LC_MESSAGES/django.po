@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -2713,9 +2713,6 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Skref '{0}' virkt."
 
-msgid "Change"
-msgstr "Velja"
-
 msgid "Pages"
 msgstr "Síður"
 
@@ -2769,12 +2766,6 @@ msgstr "Röðun undirsíðna"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Breyta röðun undirsíðna '%(title)s'"
 
-msgid "Translate"
-msgstr "Þýða"
-
-msgid "Translate this page"
-msgstr "Þýða þessa síðu"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Fyrirsögn %(level)d"
@@ -2821,8 +2812,14 @@ msgstr "Já"
 msgid "Choose an item"
 msgstr "Veldu"
 
-msgid "Clear"
+msgid "Choose another item"
+msgstr "Veldu annað"
+
+msgid "Clear choice"
 msgstr "Hreinsa"
+
+msgid "Choose another page"
+msgstr "Veldu aðra síðu"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2833,3 +2830,9 @@ msgstr ""
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "Merki geta eingöngu verið eitt orð, engin stafabil leyfð."
+
+msgid "Choose another task"
+msgstr "Velja annað skref"
+
+msgid "Edit this task"
+msgstr "Breyta þessu skrefi"

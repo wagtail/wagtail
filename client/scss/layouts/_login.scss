@@ -51,7 +51,8 @@
   }
 
   .content-wrapper {
-    border: 0;
+    // border style needed in forced color mode
+    border: 3px solid transparent;
     height: auto;
     float: none;
     padding: theme('spacing.10') theme('spacing.12');

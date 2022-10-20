@@ -430,12 +430,15 @@ class PanelGroup(Panel):
     """
 
     def __init__(self, children=(), *args, **kwargs):
+        permission = kwargs.pop("permission", None)
         super().__init__(*args, **kwargs)
         self.children = children
+        self.permission = permission
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs["children"] = self.children
+        kwargs["permission"] = self.permission
         return kwargs
 
     def get_form_options(self):
@@ -543,6 +546,15 @@ class PanelGroup(Panel):
             return any(child.show_panel_furniture() for child in self.children)
 
         def is_shown(self):
+            """
+            Check permissions on the panel group overall then check if any children
+            are shown.
+            """
+
+            if self.panel.permission:
+                if not self.request.user.has_perm(self.panel.permission):
+                    return False
+
             return any(child.is_shown() for child in self.children)
 
         @property
@@ -1201,7 +1213,7 @@ def set_default_page_edit_handlers(cls):
         FieldPanel(
             "title",
             classname="title",
-            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title")}),
+            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title*")}),
         ),
     ]
 

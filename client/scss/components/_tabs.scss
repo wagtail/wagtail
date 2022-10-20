@@ -15,8 +15,7 @@
   }
 
   &__list {
-    @include nice-padding();
-    @apply w-flex w-my-[3px] w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
+    @apply w-flex w-pr-0 w-my-[3px] w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
   }
 
   &__tab {
@@ -65,8 +64,15 @@
     w-rounded-[1rem];
   }
 
-  &__panel {
-    @include nice-padding();
+  &__list,
+  .tab-content {
+    @apply w-px-5 sm:w-px-10 md:w-px-20;
+
+    // If tab contents are nested inside of a nice-padding block then don't apply the admin padding
+    .nice-padding & {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+    }
   }
 
   // Optional animate attr for tabs to animate in

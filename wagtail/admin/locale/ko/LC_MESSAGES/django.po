@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2292,9 +2292,6 @@ msgstr[0] ""
 msgid "Task '{0}' enabled."
 msgstr "작업 '{0}' 불가"
 
-msgid "Change"
-msgstr "변화"
-
 msgid "Pages"
 msgstr "페이지"
 
@@ -2348,9 +2345,6 @@ msgstr "메뉴 순서 분류"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "파생 페이지의 '%(title)s' 순서를 바꿈"
 
-msgid "Translate"
-msgstr "번역하다"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "머리말 %(level)d"
@@ -2397,6 +2391,15 @@ msgstr "예"
 msgid "Choose an item"
 msgstr "아이템 선택"
 
+msgid "Choose another item"
+msgstr "다른 아이템 선택"
+
+msgid "Clear choice"
+msgstr "선택 초기화"
+
+msgid "Choose another page"
+msgstr "다른 페이지 선택"
+
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
 "(\")."
@@ -2404,3 +2407,9 @@ msgstr "다중 단어 태그는 자동적으로 큰따옴표로 들어갑니다"
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "태그는 한 단어로만 이루어져야합니다. 띄어쓰기는 사용하실 수 없습니다."
+
+msgid "Choose another task"
+msgstr "다른 작업 선택"
+
+msgid "Edit this task"
+msgstr "이 작업 수정"
