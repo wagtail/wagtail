@@ -119,16 +119,11 @@ class ImageTransform:
 
     @staticmethod
     def _check_size(size):
-        if (
-            not isinstance(size, tuple)
-            or len(size) != 2
-            or int(size[0]) != size[0]
-            or int(size[1]) != size[1]
-        ):
-            raise TypeError("Image size must be a 2-tuple of integers")
+        if not isinstance(size, tuple) or len(size) != 2:
+            raise TypeError("Image size must be a 2-tuple of positive numbers")
 
-        if size[0] < 1 or size[1] < 1:
-            raise ValueError("Image width and height must both be 1 or greater")
+        if size[0] <= 0 or size[1] <= 0:
+            raise ValueError("Image width and height must both be 0 or greater")
 
 
 class TransformOperation(Operation):

@@ -6,13 +6,17 @@ from wagtail.images.rect import Rect, Vector
 
 class TestTransform(TestCase):
     def test_resize(self):
-        context = ImageTransform((640, 480))
+        context = ImageTransform((640.5, 480.5))
         resized = context.resize((320, 240))
+        # scale = (320/640.5, 240/480.5) = (0.4996096799, 0.4994797086)
 
         vector = Vector(100, 200)
+        # expected = (100 * 0.4996096799, 200 * 0.4994797086) = (49.96096799, 99.8959417)
+        expected = Vector(49.96096799, 99.8959417)
         transformed = resized.transform_vector(vector)
 
-        self.assertEqual(transformed, Vector(50, 100))
+        self.assertAlmostEqual(transformed.x, expected.x)
+        self.assertAlmostEqual(transformed.y, expected.y)
 
         untransformed = resized.untransform_vector(transformed)
 

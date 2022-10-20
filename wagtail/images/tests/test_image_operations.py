@@ -9,7 +9,7 @@ from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
 )
-from wagtail.images.image_operations import TransformOperation
+from wagtail.images.image_operations import ImageTransform, TransformOperation
 from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import (
     get_test_image_file,
@@ -57,16 +57,7 @@ class DummyImageTransform:
 
     @staticmethod
     def _check_size(size):
-        if (
-            not isinstance(size, tuple)
-            or len(size) != 2
-            or int(size[0]) != size[0]
-            or int(size[1]) != size[1]
-        ):
-            raise TypeError("Image size must be a 2-tuple of integers")
-
-        if size[0] < 1 or size[1] < 1:
-            raise ValueError("Image width and height must both be 1 or greater")
+        return ImageTransform._check_size(size)
 
 
 class ImageTransformOperationTestCase(TestCase):
