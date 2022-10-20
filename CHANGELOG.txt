@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add custom permissions section to permissions documentation page (Dan Hayden)
+ * Remove unsquashed `testapp` migrations (Matt Westcott)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
 
 
