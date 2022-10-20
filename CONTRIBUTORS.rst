@@ -641,7 +641,7 @@ Contributors
 * Ruqouyyah Muhammad
 * Loveth Omokaro
 * Abayomi Victory
-* Toria
+* Victoria Poromon
 * Dokua Asiedu
 
 
