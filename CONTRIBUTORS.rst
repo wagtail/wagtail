@@ -640,6 +640,7 @@ Contributors
 * Seremba Patrick
 * Ruqouyyah Muhammad
 * Loveth Omokaro
+* Victoria Poromon
 
 
 Translators
