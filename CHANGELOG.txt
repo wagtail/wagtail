@@ -4,6 +4,7 @@ Changelog
 4.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add custom permissions section to permissions documentation page (Dan Hayden)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
 
 
