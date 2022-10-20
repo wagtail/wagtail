@@ -54,7 +54,7 @@ name_of_project/
         models.py
 ```
 
-(The names "css", "js" etc are not important, only their position within the tree.)
+(The names "css", "js" etc aren't important, only their position within the tree.)
 
 Any file within the static folder should be inserted into your HTML using the `{% static %}` tag. More about it: [](static_tag).
 
@@ -104,7 +104,7 @@ See [](image_tag) for full documentation.
 
 This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images, and links made in the Wagtail editor, into fully-baked HTML ready for display.
 
-You should apply this only to fields using `RichTextField
+Only fields using `RichTextField` need this applied in the template.
 
 ```html+django
 {% load wagtailcore_tags %}
@@ -151,7 +151,7 @@ Making embedded media resizable is also possible, but typically requires custom 
 
 ### `pageurl`
 
-`pageurl` takes a Page object and returns a relative URL (`/foo/bar/`) if the Page object is within the same Site as the current page. If the Page object is not within the same Site as the current page, `pageurl` will return an absolute URL like: (`http://example.com/foo/bar/`).
+Takes a Page object and returns a relative URL (`/foo/bar/`) if within the same Site as the current page, or absolute (`http://example.com/foo/bar/`) if not.
 
 ```html+django
 {% load wagtailcore_tags %}
