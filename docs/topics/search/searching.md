@@ -30,7 +30,7 @@ All other methods of `PageQuerySet` can be used with `search()`. For example:
 The `search()` method will convert your `QuerySet` into an instance of one of Wagtail's `SearchResults` classes (depending on backend). This means that you must perform filtering before calling `search()`.
 ```
 
-Before the `autocomplete()` method was introduced, the search method also did partial matching. This behaviour is will be deprecated and you should either switch to the new `autocomplete()` method or pass `partial_match=False` into the search method to opt-in to the new behaviour.
+Before the `autocomplete()` method was introduced, the search method also did partial matching. This behaviour is deprecated and you should either switch to the new `autocomplete()` method or pass `partial_match=False` into the search method to opt-in to the new behaviour.
 The partial matching in `search()` will be completely removed in a future release.
 
 ### Autocomplete searches
@@ -71,7 +71,7 @@ Wagtail's document and image models provide a `search` method on their QuerySets
 [<Book: Great Expectations>, <Book: The Great Gatsby>]
 ```
 
-You can also pass a QuerySet into the `search` method which allows you to add filters to your search results:
+You can also pass a QuerySet into the `search` method, which allows you to add filters to your search results:
 
 ```python
 >>> from myapp.models import Book
@@ -101,7 +101,7 @@ This can be limited to a certain set of fields by using the `fields` keyword arg
 
 ### Faceted search
 
-Wagtail supports faceted search which is a kind of filtering based on a taxonomy
+Wagtail supports faceted search, which is a kind of filtering based on a taxonomy
 field (such as category or page type).
 
 The `.facet(field_name)` method returns an `OrderedDict`. The keys are
@@ -318,7 +318,7 @@ def search(request):
 
 ### Custom ordering
 
-By default, search results are ordered by relevance, if the backend supports it. To preserve the QuerySet's existing ordering, the `order_by_relevance` keyword argument needs to be set to `False` on the `search()` method.
+By default, search results are ordered by relevance if the backend supports it. To preserve the QuerySet's existing ordering, the `order_by_relevance` keyword argument needs to be set to `False` on the `search()` method.
 
 For example:
 
