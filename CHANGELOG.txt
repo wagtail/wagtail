@@ -97,6 +97,7 @@ Changelog
  * Fix: Removed the extra dot in the Wagtail version shown within the admin settings menu item (Loveth Omokaro)
  * Fix: Fully remove the obsolete `wagtailsearch_editorspick` table that prevents flushing the database (Matt Westcott)
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
+ * Fix: references extraction for ChooserBlock (Alex Tomkins)
 
 
 4.0.4 (18.10.2022)
