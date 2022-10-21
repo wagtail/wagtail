@@ -14,7 +14,7 @@ The key to using Wagtail effectively is to recognise that there are multiple rol
 
 A common mistake is to push too much power and responsibility into the hands of the content author and site administrator - indeed, if those people are your clients, they'll probably be loudly clamouring for exactly that. The success of your site depends on your ability to say no. The real power of content management comes not from handing control over to CMS users, but from setting clear boundaries between the different roles. Amongst other things, this means not having editors doing design and layout within the content editing interface, and not having site administrators building complex interaction workflows that would be better achieved in code.
 
-## A CMS should get information out of an editor's head and into a database as efficiently and directly as possible.
+## A CMS should get information out of an editor's head and into a database, as efficiently and directly as possible.
 
 Whether your site is about cars, cats, cakes or conveyancing, your content authors will be arriving at the Wagtail admin interface with some domain-specific information they want to put up on the website. Your aim as a site builder is to extract and store this information in its raw form - not one particular author's idea of how that information should look.
 
