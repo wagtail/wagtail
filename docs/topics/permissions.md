@@ -55,6 +55,14 @@ Permission for managing collections themselves can be attached at any point in t
 Users are not allowed to move or delete the collection that is used to assign them permission to manage collections.
 ```
 
+## Adding custom permissions
+
+See Django's documentation on [custom permissions](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#custom-permissions) for details on how to set permissions up.
+
+```{note}
+Custom permissions starting with `add_`, `change_` or `delete_` are not currently supported in Wagtail as these will conflict with standard model permissions.
+```
+
 ## Displaying custom permissions in the admin
 
 Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the `register_permissions` hook (see [](register_permissions)).
