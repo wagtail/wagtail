@@ -43,13 +43,16 @@ from wagtail.contrib.settings.models import (
 class GenericSocialMediaSettings(BaseGenericSetting):
     facebook = models.URLField()
 
+
 @register_setting
 class SiteSpecificSocialMediaSettings(BaseSiteSetting):
     facebook = models.URLField()
 
+
 @register_setting
 class TranslatableGenericFooterSettings(BaseTranslatableGenericSetting):
     copyright = models.CharField(max_length=255)
+
 
 @register_setting
 class TranslatableSiteSpecificFooterSettings(BaseTranslatableSiteSetting):
@@ -79,6 +82,7 @@ class GenericImportantPages(BaseGenericSetting):
         FieldPanel('donate_page'),
         FieldPanel('sign_up_page'),
     ]
+
 
 @register_setting
 class SiteSpecificImportantPages(BaseSiteSetting):
@@ -131,17 +135,20 @@ class GenericSocialMediaSettings(BaseGenericSetting):
     class Meta:
         verbose_name = "Social media settings for all sites"
 
+
 @register_setting(icon='placeholder')
 class SiteSpecificSocialMediaSettings(BaseSiteSetting):
     ...
     class Meta:
         verbose_name = "Site-specific social media settings"
 
+
 @register_setting(icon='placeholder')
 class TranslatableGenericFooterSettings(BaseTranslatableGenericSetting):
     ...
     class Meta:
         verbose_name = "Footer settings for all sites"
+
 
 @register_setting(icon='placeholder')
 class TranslatableSiteSpecificFooterSettings(BaseTranslatableSiteSetting):
