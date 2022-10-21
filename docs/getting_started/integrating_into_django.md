@@ -1,6 +1,6 @@
 # Integrating Wagtail into a Django project
 
-Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
+Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project in no time, but it's equally easy to integrate Wagtail into an existing Django project.
 
 Wagtail is currently compatible with Django 3.2, 4.0, and 4.1. First, install the `wagtail` package from PyPI:
 
