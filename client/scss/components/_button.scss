@@ -150,7 +150,15 @@
     }
 
     &.button-secondary {
-      border-color: theme('colors.black-20');
+      color: $color-button;
+      background-color: transparent;
+      border: 1px solid $color-button;
+
+      .icon-wrapper {
+        border: 1px solid $color-button;
+        background-color: transparent;
+        height: 100%;
+      }
     }
 
     &.button-small {
