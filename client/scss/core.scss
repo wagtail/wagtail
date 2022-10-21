@@ -27,7 +27,7 @@ REFERENCE
 SCSS: https://sass-lang.com/guide
 ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
 Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
-BEM: http://getbem.com/
+BEM: https://getbem.com/
 
 
 OTHER PREFIXES
@@ -129,6 +129,7 @@ These are classes for components.
 @import 'components/tabs';
 @import 'components/panel';
 @import 'components/dialog';
+@import 'components/dismissible';
 @import 'components/dropdown';
 @import 'components/dropdown.legacy';
 @import 'components/help-block';
@@ -145,6 +146,7 @@ These are classes for components.
 @import 'components/search-bar';
 @import 'components/progressbar';
 @import 'components/summary';
+@import 'components/whats-new';
 @import 'components/tooltips';
 @import 'components/grid.legacy';
 @import 'components/footer';
@@ -163,6 +165,7 @@ These are classes for components.
 @import 'components/form-side';
 
 @import '../src/components/Sidebar/Sidebar';
+@import '../src/components/Minimap/Minimap';
 
 /* OVERRIDES
 These are classes that provide overrides.

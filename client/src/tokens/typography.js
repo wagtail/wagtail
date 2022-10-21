@@ -155,13 +155,13 @@ const typeScale = {
     color: 'colors.primary.DEFAULT',
     lineHeight: 'lineHeight.tight',
   },
-  'w-body-text': {
-    fontSize: 'fontSize.16',
+  'w-body-text-large': {
+    fontSize: 'fontSize.18',
     fontWeight: 'fontWeight.normal',
     lineHeight: 'lineHeight.normal',
   },
-  'w-body-text-large': {
-    fontSize: 'fontSize.18',
+  'w-body-text': {
+    fontSize: 'fontSize.16',
     fontWeight: 'fontWeight.normal',
     lineHeight: 'lineHeight.normal',
   },

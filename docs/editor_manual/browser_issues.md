@@ -20,7 +20,7 @@ Wagtail has officially removed support for the legacy Internet Explorer browser 
 -   Wagtail will no longer support IE11 as of version 2.15 and beyond, for any releases after 2.16 there will no longer be a warning to users.
 
 If this affects you or your organisation, consider which alternative browsers you may be able to use.
-Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its [IE mode](https://docs.microsoft.com/en-us/deployedge/edge-ie-mode) to keep access to IE11-only sites, while other sites and apps like Wagtail can use modern browser capabilities.
+Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its [IE mode](https://learn.microsoft.com/en-us/deployedge/edge-ie-mode) to keep access to IE11-only sites, while other sites and apps like Wagtail can use modern browser capabilities.
 
 ## Assistive technologies
 

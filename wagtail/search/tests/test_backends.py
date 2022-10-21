@@ -906,6 +906,13 @@ class BackendTests(WagtailTestUtils):
         )
         self.assertSetEqual({r.title for r in results}, {"Programming Rust"})
 
+    def test_update_index_no_verbosity(self):
+        stdout = StringIO()
+        management.call_command(
+            "update_index", verbosity=0, backend_name=self.backend_name, stdout=stdout
+        )
+        self.assertFalse(stdout.read())
+
 
 @override_settings(
     WAGTAILSEARCH_BACKENDS={"default": {"BACKEND": "wagtail.search.backends.database"}}

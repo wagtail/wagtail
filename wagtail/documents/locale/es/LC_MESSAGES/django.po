@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -355,6 +355,9 @@ msgstr "Permisos de documento"
 msgid "Add a document permission"
 msgstr "Agregar un permiso de documento"
 
+msgid "Tags"
+msgstr "Etiquetas"
+
 msgid "Tag"
 msgstr "Etiqueta"
 
@@ -402,6 +405,12 @@ msgstr[2] "%(num_parent_objects)d documentos han sido eliminados"
 
 msgid "Choose a document"
 msgstr "Seleccionar un documento"
+
+msgid "Choose another document"
+msgstr "Elegir otro documento"
+
+msgid "Edit this document"
+msgstr "Editar este docuemento"
 
 msgid "Search documents"
 msgstr "Buscar documentos"

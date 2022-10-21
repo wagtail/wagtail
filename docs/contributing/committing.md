@@ -46,7 +46,7 @@ If this is not possible because of the nature of the changes, it's acceptable
 to either squash into a commit or leave all commits unsquashed,
 depending on which will be more readable in the commit history.
 
-```console
+```sh
 # Get the latest commits from Wagtail
 git fetch upstream
 git checkout main
@@ -98,7 +98,7 @@ If the changes to be merged are small enough to be a single commit,
 amend this single commit with the additions to
 the `CHANGELOG.txt`, release notes, and contributors:
 
-```console
+```sh
 git add CHANGELOG.txt docs/releases/x.x.x.md CONTRIBUTORS.md
 git commit --amend --no-edit
 ```
@@ -107,7 +107,7 @@ If the changes do not fit in a single commit, make a new commit with the updates
 the `CHANGELOG.txt`, release notes, and contributors.
 The commit message should say `Release notes for #xxxx`:
 
-```console
+```sh
 git add CHANGELOG.txt docs/releases/x.x.x.md CONTRIBUTORS.md
 git commit -m 'Release notes for #xxxx'
 ```
@@ -116,7 +116,7 @@ git commit -m 'Release notes for #xxxx'
 
 The changes are ready to be pushed to `main` now.
 
-```console
+```sh
 # Check that everything looks OK
 git log upstream/main..main --oneline
 git push --dry-run upstream main
@@ -127,19 +127,19 @@ git branch -d pr/xxxx
 
 ## When you have made a mistake
 
-It's ok! Everyone makes mistakes. If you realise that recent merged changes
+It's ok! Everyone makes mistakes. If you realise that recently merged changes
 have a negative impact, create a new pull request with a revert of the changes
 and merge it without waiting for a review. The PR will serve as additional
-documentation for the changes, and will run through the CI tests.
+documentation for the changes and will run through the CI tests.
 
 ## Add commits to someone else's pull request
 
-Github users with write access to wagtail/wagtail (core members) can add
+GitHub users with write access to wagtail/wagtail (core members) can add
 commits to the pull request branch of the contributor.
 
 Given that the contributor username is johndoe and his pull request branch is called foo:
 
-```console
+```sh
 git clone git@github.com:wagtail/wagtail.git
 cd wagtail
 git remote add johndoe git@github.com:johndoe/wagtail.git

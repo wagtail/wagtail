@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -237,6 +237,12 @@ msgstr "Ištrinti"
 
 msgid "Choose a document"
 msgstr "Pasirinkti dokumentą"
+
+msgid "Choose another document"
+msgstr "Pasirinkti kitą dokumentą"
+
+msgid "Edit this document"
+msgstr "Redaguoti šį dokumentą"
 
 msgid "Search documents"
 msgstr "Ieškoti dokumentų"

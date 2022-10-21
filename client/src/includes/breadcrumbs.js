@@ -29,7 +29,6 @@ export default function initCollapsibleBreadcrumbs() {
   let open = false;
   let mouseExitedToggle = true;
   let keepOpen = false;
-  let hideBreadcrumbsWithDelay;
 
   function hideBreadcrumbs() {
     breadcrumbItems.forEach((breadcrumb) => {
@@ -49,15 +48,10 @@ export default function initCollapsibleBreadcrumbs() {
   }
 
   function showBreadcrumbs() {
-    breadcrumbItems.forEach((breadcrumb, index) => {
-      setTimeout(() => {
-        // eslint-disable-next-line no-param-reassign
-        breadcrumb.hidden = false;
-
-        setTimeout(() => {
-          breadcrumb.classList.add(cssClass.maxWidth);
-        }, 50);
-      }, index * 10);
+    breadcrumbItems.forEach((breadcrumb) => {
+      // eslint-disable-next-line no-param-reassign
+      breadcrumb.hidden = false;
+      breadcrumb.classList.add(cssClass.maxWidth);
     });
     breadcrumbsToggle.setAttribute('aria-expanded', 'true');
     open = true;
@@ -121,15 +115,8 @@ export default function initCollapsibleBreadcrumbs() {
 
   header.addEventListener('mouseleave', () => {
     if (!keepOpen) {
-      hideBreadcrumbsWithDelay = setTimeout(() => {
-        hideBreadcrumbs();
-        //  Give a little bit of time before closing in case the user changes their mind
-      }, 500);
+      hideBreadcrumbs();
     }
-  });
-
-  header.addEventListener('mouseenter', () => {
-    clearTimeout(hideBreadcrumbsWithDelay);
   });
 
   document.addEventListener('keydown', (e) => {

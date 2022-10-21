@@ -414,7 +414,7 @@ class TestFrontendServeView(TestCase):
         self.assertRedirects(
             response,
             expected_redirect_url,
-            status_code=301,
+            status_code=302,
             fetch_redirect_response=False,
         )
 
@@ -522,6 +522,16 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 410)
+
+    def test_get_cache_control(self):
+        signature = generate_signature(self.image.id, "fill-800x600")
+        response = self.client.get(
+            reverse(
+                "wagtailimages_serve_action_serve",
+                args=(signature, self.image.id, "fill-800x600"),
+            )
+        )
+        self.assertEqual(response["Cache-Control"], "max-age=3600, public")
 
 
 class TestFrontendSendfileView(TestCase):

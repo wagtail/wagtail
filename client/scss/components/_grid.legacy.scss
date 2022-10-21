@@ -29,6 +29,7 @@
 
 .content-wrapper {
   @include slim-header-scroll-offset();
+  scroll-behavior: smooth;
   box-sizing: border-box;
   width: 100%;
   height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action

@@ -68,7 +68,7 @@ Elasticsearch versions 5, 6 and 7 are supported. Use the appropriate backend for
 -   `wagtail.search.backends.elasticsearch6` (Elasticsearch 6.x)
 -   `wagtail.search.backends.elasticsearch7` (Elasticsearch 7.x)
 
-Prerequisites are the [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) service itself and, via pip, the [elasticsearch-py](https://elasticsearch-py.readthedocs.org) package. The major version of the package must match the installed version of Elasticsearch:
+Prerequisites are the [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) service itself and, via pip, the [elasticsearch-py](https://elasticsearch-py.readthedocs.io/) package. The major version of the package must match the installed version of Elasticsearch:
 
 ```sh
 pip install "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
@@ -147,7 +147,7 @@ If you prefer not to run an Elasticsearch server in development or production, t
 
 ### Amazon AWS Elasticsearch
 
-The Elasticsearch backend is compatible with [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.python.org/pypi/requests-aws4auth) package along with the following configuration:
+The Elasticsearch backend is compatible with [Amazon Elasticsearch Service](https://aws.amazon.com/opensearch-service/), but requires additional configuration to handle IAM based authentication. This can be done with the [requests-aws4auth](https://pypi.org/project/requests-aws4auth/) package along with the following configuration:
 
 ```python
 from elasticsearch import RequestsHttpConnection

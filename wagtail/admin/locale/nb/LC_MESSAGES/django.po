@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -976,9 +976,6 @@ msgstr "revisjon {0} av \"{1}\""
 msgid "Page '{0}' unpublished."
 msgstr "Siden \"{0}\" er avpublisert."
 
-msgid "Change"
-msgstr "Endre"
-
 msgid "Pages"
 msgstr "Sider"
 
@@ -1063,3 +1060,12 @@ msgstr "Rapporter"
 
 msgid "Choose an item"
 msgstr "Velg et element"
+
+msgid "Choose another item"
+msgstr "Velg et annet element"
+
+msgid "Clear choice"
+msgstr "Nullstill valg"
+
+msgid "Choose another page"
+msgstr "Velg en annen side"

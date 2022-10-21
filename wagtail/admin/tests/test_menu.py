@@ -2,9 +2,17 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail import hooks
-from wagtail.admin.menu import AdminOnlyMenuItem, Menu, MenuItem, SubmenuMenuItem
+from wagtail.admin.menu import (
+    AdminOnlyMenuItem,
+    DismissibleMenuItem,
+    DismissibleSubmenuMenuItem,
+    Menu,
+    MenuItem,
+    SubmenuMenuItem,
+)
 from wagtail.admin.ui import sidebar
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.users.models import UserProfile
 
 
 def menu_item_hook(*args, cls=MenuItem, **kwargs):
@@ -18,6 +26,7 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
     def setUp(self):
         self.request = RequestFactory().get("/admin")
         self.request.user = self.create_superuser(username="admin")
+        self.profile = UserProfile.get_for_user(self.request.user)
         self.user = self.login()
 
     def test_remember_collapsed(self):
@@ -103,6 +112,174 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
             rendered[0].menu_items,
             [
                 sidebar.LinkMenuItem("pages", "Pages", "/pages/"),
+            ],
+        )
+
+    def test_dismissible_initial(self):
+        menu = Menu(register_hook_name="register_menu_item")
+        submenu = Menu(register_hook_name="register_submenu_item")
+
+        with hooks.register_temporarily(
+            [
+                (
+                    "register_menu_item",
+                    menu_item_hook(
+                        "My dismissible submenu",
+                        submenu,
+                        cls=DismissibleSubmenuMenuItem,
+                        name="dismissible-submenu-menu-item",
+                    ),
+                ),
+                (
+                    "register_submenu_item",
+                    menu_item_hook(
+                        "Pages",
+                        "/pages/",
+                        cls=DismissibleMenuItem,
+                        name="dismissible-menu-item",
+                    ),
+                ),
+            ]
+        ):
+            rendered = menu.render_component(self.request)
+
+        self.assertIsInstance(rendered, list)
+        self.assertEqual(len(rendered), 1)
+        self.assertIsInstance(rendered[0], sidebar.SubMenuItem)
+        self.assertEqual(rendered[0].name, "dismissible-submenu-menu-item")
+        self.assertEqual(rendered[0].label, "My dismissible submenu")
+        self.assertEqual(
+            rendered[0].attrs,
+            # Should not be dismissed
+            {"data-wagtail-dismissible-id": "dismissible-submenu-menu-item"},
+        )
+        self.assertListEqual(
+            rendered[0].menu_items,
+            [
+                sidebar.LinkMenuItem(
+                    "dismissible-menu-item",
+                    "Pages",
+                    "/pages/",
+                    # Should not be dismissed
+                    attrs={"data-wagtail-dismissible-id": "dismissible-menu-item"},
+                ),
+            ],
+        )
+
+    def test_dismissible_dismissed(self):
+        self.profile.dismissibles = {
+            "dismissible-submenu-menu-item": True,
+            "dismissible-menu-item": True,
+        }
+        self.profile.save()
+        self.request.user.refresh_from_db()
+
+        menu = Menu(register_hook_name="register_menu_item")
+        submenu = Menu(register_hook_name="register_submenu_item")
+
+        with hooks.register_temporarily(
+            [
+                (
+                    "register_menu_item",
+                    menu_item_hook(
+                        "My dismissible submenu",
+                        submenu,
+                        cls=DismissibleSubmenuMenuItem,
+                        name="dismissible-submenu-menu-item",
+                    ),
+                ),
+                (
+                    "register_submenu_item",
+                    menu_item_hook(
+                        "Pages",
+                        "/pages/",
+                        cls=DismissibleMenuItem,
+                        name="dismissible-menu-item",
+                    ),
+                ),
+            ]
+        ):
+            rendered = menu.render_component(self.request)
+
+        self.assertIsInstance(rendered, list)
+        self.assertEqual(len(rendered), 1)
+        self.assertIsInstance(rendered[0], sidebar.SubMenuItem)
+        self.assertEqual(rendered[0].name, "dismissible-submenu-menu-item")
+        self.assertEqual(rendered[0].label, "My dismissible submenu")
+        self.assertEqual(
+            rendered[0].attrs,
+            {
+                "data-wagtail-dismissible-id": "dismissible-submenu-menu-item",
+                # Should be dismissed
+                "data-wagtail-dismissed": "",
+            },
+        )
+        self.assertListEqual(
+            rendered[0].menu_items,
+            [
+                sidebar.LinkMenuItem(
+                    "dismissible-menu-item",
+                    "Pages",
+                    "/pages/",
+                    # Should be dismissed
+                    attrs={
+                        "data-wagtail-dismissible-id": "dismissible-menu-item",
+                        "data-wagtail-dismissed": "",
+                    },
+                ),
+            ],
+        )
+
+    def test_dismissible_no_userprofile(self):
+        # Without a user profile, dismissible menu items should not be dismissed
+        self.profile.delete()
+        self.request.user.refresh_from_db()
+
+        menu = Menu(register_hook_name="register_menu_item")
+        submenu = Menu(register_hook_name="register_submenu_item")
+
+        with hooks.register_temporarily(
+            [
+                (
+                    "register_menu_item",
+                    menu_item_hook(
+                        "My dismissible submenu",
+                        submenu,
+                        cls=DismissibleSubmenuMenuItem,
+                        name="dismissible-submenu-menu-item",
+                    ),
+                ),
+                (
+                    "register_submenu_item",
+                    menu_item_hook(
+                        "Pages",
+                        "/pages/",
+                        cls=DismissibleMenuItem,
+                        name="dismissible-menu-item",
+                    ),
+                ),
+            ]
+        ):
+            rendered = menu.render_component(self.request)
+
+        self.assertIsInstance(rendered, list)
+        self.assertEqual(len(rendered), 1)
+        self.assertIsInstance(rendered[0], sidebar.SubMenuItem)
+        self.assertEqual(rendered[0].name, "dismissible-submenu-menu-item")
+        self.assertEqual(rendered[0].label, "My dismissible submenu")
+        self.assertEqual(
+            rendered[0].attrs,
+            {"data-wagtail-dismissible-id": "dismissible-submenu-menu-item"},
+        )
+        self.assertListEqual(
+            rendered[0].menu_items,
+            [
+                sidebar.LinkMenuItem(
+                    "dismissible-menu-item",
+                    "Pages",
+                    "/pages/",
+                    attrs={"data-wagtail-dismissible-id": "dismissible-menu-item"},
+                ),
             ],
         )
 

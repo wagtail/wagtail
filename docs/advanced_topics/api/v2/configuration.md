@@ -139,7 +139,7 @@ fields, you must select the `blog.BlogPage` type using the `?type`
 
 ### Custom serializers
 
-[Serializers](https://www.django-rest-framework.org/api-guide/fields) are used to convert the database representation of a model into
+[Serializers](https://www.django-rest-framework.org/api-guide/fields/) are used to convert the database representation of a model into
 JSON format. You can override the serializer for any field using the
 `serializer` keyword argument:
 

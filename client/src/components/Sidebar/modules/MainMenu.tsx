@@ -8,6 +8,7 @@ import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
 import { ModuleDefinition } from '../Sidebar';
+import { updateDismissibles } from '../../../includes/initDismissibles';
 
 export function renderMenu(
   path: string,
@@ -32,6 +33,17 @@ export function renderMenu(
   );
 }
 
+export function isDismissed(item: MenuItemDefinition, state: MenuState) {
+  return (
+    // Non-dismissibles are considered as dismissed
+    !item.attrs['data-wagtail-dismissible-id'] ||
+    // Dismissed on the server
+    'data-wagtail-dismissed' in item.attrs ||
+    // Dismissed on the client
+    state.dismissibles[item.name]
+  );
+}
+
 interface SetActivePath {
   type: 'set-active-path';
   path: string;
@@ -42,23 +54,89 @@ interface SetNavigationPath {
   path: string;
 }
 
-export type MenuAction = SetActivePath | SetNavigationPath;
+interface SetDismissibleState {
+  type: 'set-dismissible-state';
+  item: MenuItemDefinition;
+  value?: boolean;
+}
+
+export type MenuAction =
+  | SetActivePath
+  | SetNavigationPath
+  | SetDismissibleState;
 
 export interface MenuState {
   navigationPath: string;
   activePath: string;
+  dismissibles: Record<string, boolean>;
+}
+
+function walkDismissibleMenuItems(
+  menuItems: MenuItemDefinition[],
+  action: (item: MenuItemDefinition) => void,
+) {
+  menuItems.forEach((menuItem) => {
+    const id = menuItem.attrs['data-wagtail-dismissible-id'];
+    if (id) {
+      action(menuItem);
+    }
+
+    if (menuItem instanceof SubMenuItemDefinition) {
+      walkDismissibleMenuItems(menuItem.menuItems, action);
+    }
+  });
+}
+
+function computeDismissibleState(
+  state: MenuState,
+  { item, value = true }: SetDismissibleState,
+) {
+  const update: Record<string, boolean> = {};
+
+  // Recursively update all dismissible items
+  walkDismissibleMenuItems([item], (menuItem) => {
+    update[menuItem.attrs['data-wagtail-dismissible-id']] = value;
+  });
+
+  // Send the update to the server
+  if (Object.keys(update).length > 0) {
+    updateDismissibles(update);
+  }
+
+  // Only update the top-level item in the client state so that the submenus
+  // are not immediately dismissed until the next page load
+  return { ...state.dismissibles, [item.name]: value };
 }
 
 function menuReducer(state: MenuState, action: MenuAction) {
   const newState = { ...state };
 
-  if (action.type === 'set-active-path') {
-    newState.activePath = action.path;
-  } else if (action.type === 'set-navigation-path') {
-    newState.navigationPath = action.path;
+  switch (action.type) {
+    case 'set-active-path':
+      newState.activePath = action.path;
+      break;
+    case 'set-navigation-path':
+      newState.navigationPath = action.path;
+      break;
+    case 'set-dismissible-state':
+      newState.dismissibles = computeDismissibleState(state, action);
+      break;
+    default:
+      break;
   }
 
   return newState;
+}
+
+function getInitialDismissibleState(menuItems: MenuItemDefinition[]) {
+  const result: Record<string, boolean> = {};
+
+  walkDismissibleMenuItems(menuItems, (menuItem) => {
+    result[menuItem.attrs['data-wagtail-dismissible-id']] =
+      'data-wagtail-dismissed' in menuItem.attrs;
+  });
+
+  return result;
 }
 
 interface MenuProps {
@@ -91,6 +169,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   const [state, dispatch] = React.useReducer(menuReducer, {
     navigationPath: '',
     activePath: '',
+    dismissibles: getInitialDismissibleState(menuItems),
   });
   const isVisible = !slim || expandingOrCollapsing;
   const accountSettingsOpen = state.navigationPath.startsWith('.account');

@@ -10,7 +10,7 @@ If you have any problems or questions about working with Wagtail, you are invite
 
 ## Mailing list
 
-For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is a Wagtail Support mailing list at [groups.google.com/d/forum/wagtail](https://groups.google.com/d/forum/wagtail).
+For topics and discussions that do not fit Stack Overflow's question-and-answer format, there is a Wagtail Support mailing list at [groups.google.com/d/forum/wagtail](https://groups.google.com/g/wagtail).
 
 (slack)=
 
@@ -28,7 +28,7 @@ Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) a
 
 If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at [github.com/wagtail/wagtail/issues](https://github.com/wagtail/wagtail/issues). If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
 
-If your bug report is a security issue, **do not** report it with an issue. Please read our ​guide to [reporting security issues](../contributing/security).
+If your bug report is a security issue, **do not** report it with an issue. Please read our guide to [reporting security issues](../contributing/security).
 
 ## Torchbox
 

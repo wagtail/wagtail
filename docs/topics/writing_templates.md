@@ -16,7 +16,7 @@ Every type of page or "content type" in Wagtail is defined as a "model" in a fil
 
 For each page model in `models.py`, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by referring to `models.py` to infer template names from the models defined therein.
 
-To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a `BlogPage`, a template `blog_page.html` will be expected. The name of the template file can be overridden per model if necessary.
+To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a `BlogPage` model, a template `blog_page.html` will be expected. The name of the template file can be overridden per model if necessary.
 
 Template files are assumed to exist here:
 
@@ -179,7 +179,7 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 
 Takes any `slug` as defined in a page's "Promote" tab and returns the URL for the matching Page. If multiple pages exist with the same slug, the page chosen is undetermined.
 
-Like `pageurl`, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, for example top level navigation or site-wide links.
+Like `pageurl`, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, for example, top-level navigation or site-wide links.
 
 ```html+django
 {% load wagtailcore_tags %}
@@ -223,7 +223,7 @@ This tag provides a contextual flyout menu for logged-in users. The menu gives e
 
 This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
 
-We recommend putting the tag near the top of the `<body>` element so keyboard users can reach it. You should consider putting the tag after any `[skip links](https://webaim.org/techniques/skipnav/) but before the navigation and main content of your page.
+We recommend putting the tag near the top of the `<body>` element to allow keyboard users to reach it. You should consider putting the tag after any `[skip links](https://webaim.org/techniques/skipnav/)` but before the navigation and main content of your page.
 
 ```html+django
 {% load wagtailuserbar %}
