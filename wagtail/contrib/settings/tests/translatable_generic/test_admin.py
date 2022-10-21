@@ -81,6 +81,11 @@ class TestTranslatableGenericSettingMenu(TestCase, WagtailTestUtils):
 
 
 class BaseTestTranslatableGenericSettingView(TestCase, WagtailTestUtils):
+    @classmethod
+    def setUpTestData(cls):
+        cls.en_locale = Locale.get_default()
+        cls.fr_locale = Locale.objects.create(language_code="fr")
+
     def get(self, params={}, setting=TestTranslatableGenericSetting, locale=None):
         url = self.edit_url(setting=setting, locale=locale)
         return self.client.get(url, params)
@@ -99,9 +104,6 @@ class BaseTestTranslatableGenericSettingView(TestCase, WagtailTestUtils):
 class TestTranslatableGenericSettingCreateView(BaseTestTranslatableGenericSettingView):
     def setUp(self):
         self.user = self.login()
-
-        self.en_locale = Locale.get_default()
-        self.fr_locale = Locale.objects.create(language_code="fr")
 
     def test_get_edit(self):
         for locale in [None, self.fr_locale]:
@@ -173,9 +175,6 @@ class TestTranslatableGenericSettingCreateView(BaseTestTranslatableGenericSettin
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableGenericSettingEditView(BaseTestTranslatableGenericSettingView):
     def setUp(self):
-        self.en_locale = Locale.get_default()
-        self.fr_locale = Locale.objects.create(language_code="fr")
-
         self.test_setting = TestTranslatableGenericSetting()
         self.test_setting.title = "Setting title"
         self.test_setting.translation_key = self.test_setting._translation_key
@@ -294,7 +293,6 @@ class TestLocaleSelector(
     LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'
 
     def setUp(self):
-        super().setUp()
         base_url = get_edit_setting_url("tests", "testtranslatablegenericsetting")
         locale_query_string = f"?locale={self.fr_locale.language_code}"
         switch_to_french_url = base_url + locale_query_string

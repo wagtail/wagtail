@@ -80,6 +80,11 @@ class TestTranslatableSiteSettingMenu(TestCase, WagtailTestUtils):
 
 
 class BaseTestTranslatableSiteSettingView(TestCase, WagtailTestUtils):
+    @classmethod
+    def setUpTestData(cls):
+        cls.en_locale = Locale.get_default()
+        cls.fr_locale = Locale.objects.create(language_code="fr")
+
     def get(self, site_pk=1, setting=TestTranslatableSiteSetting, locale=None):
         url = self.edit_url(setting=setting, site_pk=site_pk, locale=locale)
         return self.client.get(url)
@@ -98,8 +103,6 @@ class BaseTestTranslatableSiteSettingView(TestCase, WagtailTestUtils):
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableSiteSettingCreateView(BaseTestTranslatableSiteSettingView):
     def setUp(self):
-        self.en_locale = Locale.get_default()
-        self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
 
     def test_get_edit(self):
@@ -210,7 +213,6 @@ class TestTranslatableSiteSettingCreateView(BaseTestTranslatableSiteSettingView)
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestTranslatableSiteSettingEditView(BaseTestTranslatableSiteSettingView):
     def setUp(self):
-        self.fr_locale = Locale.objects.create(language_code="fr")
         default_site = Site.objects.get(is_default_site=True)
 
         self.test_setting = TestTranslatableSiteSetting()
@@ -310,7 +312,6 @@ class TestTranslatableSiteSettingEditView(BaseTestTranslatableSiteSettingView):
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestMultiSite(BaseTestTranslatableSiteSettingView):
     def setUp(self):
-        self.fr_locale = Locale.objects.create(language_code="fr")
         self.default_site = Site.objects.get(is_default_site=True)
         self.other_site = Site.objects.create(
             hostname="example.com", root_page=Page.objects.get(pk=2)
@@ -509,7 +510,6 @@ class TestLocaleSelector(
     LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button u-btn-current w-no-underline">'
 
     def setUp(self):
-        super().setUp()
         base_url = get_edit_setting_url(
             "tests", "testtranslatablesitesetting", self.default_site.pk
         )

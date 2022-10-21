@@ -5,15 +5,16 @@ from wagtail.test.testapp.models import TestGenericSetting
 
 
 class GenericSettingsTestMixin:
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         root = Page.objects.first()
         other_root = Page(title="Other Root")
         root.add_child(instance=other_root)
 
-        self.default_site = Site.objects.get(is_default_site=True)
-        self.other_site = Site.objects.create(hostname="other", root_page=other_root)
+        cls.default_site = Site.objects.get(is_default_site=True)
+        cls.other_site = Site.objects.create(hostname="other", root_page=other_root)
 
-        self.default_settings = TestGenericSetting.objects.create(
+        cls.default_settings = TestGenericSetting.objects.create(
             title="Default GenericSettings title", email="email@example.com"
         )
 
