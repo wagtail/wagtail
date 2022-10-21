@@ -290,7 +290,7 @@ class TestTranslatableSiteSettingEditView(BaseTestTranslatableSiteSettingView):
                     expected_url="%s%s/%s" % (url, default_site.pk, query_string),
                 )
 
-    def test_get_redirect_to_relevant_instance_invalid(self):
+    def test_get_redirect_to_relevant_instance_when_no_sites_defined(self):
         Site.objects.all().delete()
         url = reverse(
             "wagtailsettings:edit", args=("tests", "testtranslatablesitesetting")
@@ -302,8 +302,13 @@ class TestTranslatableSiteSettingEditView(BaseTestTranslatableSiteSettingView):
             (self.fr_locale, locale_query_string),
         ]:
             with self.subTest(locale=locale):
-                response = self.client.get(url + query_string)
+                response = self.client.get(url + query_string, follow=True)
                 self.assertRedirects(response, status_code=302, expected_url="/admin/")
+                messages = [m.message for m in response.context["messages"]]
+                self.assertIn(
+                    "This setting could not be opened because there is no site defined.",
+                    messages[0],
+                )
 
 
 @override_settings(
