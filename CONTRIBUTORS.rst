@@ -645,6 +645,7 @@ Contributors
 * Dokua Asiedu
 * Darrel O'Pry
 * Mary Ayobami
+* Bolarinwa Comfort Ajayi
 
 Translators
 ===========
