@@ -11,15 +11,14 @@ def get_locale_for(*, request=None, model=None, instance=None):
     If a locale is returned, it is annotated to indicate whether
     it's the default language when possible.
     """
+    if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        return
+
     if instance and not model:
         model = type(instance)
 
-    i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-    if model:
-        i18n_enabled = i18n_enabled and issubclass(model, TranslatableMixin)
-
-    if not i18n_enabled:
-        return None
+    if model and not issubclass(model, TranslatableMixin):
+        return
 
     locales = Locale.objects.annotate_default_language()
 
