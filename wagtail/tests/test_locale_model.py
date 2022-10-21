@@ -16,7 +16,8 @@ def make_test_page(**kwargs):
 
 
 class TestLocaleModel(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         language_codes = dict(settings.LANGUAGES).keys()
 
         for language_code in language_codes:
