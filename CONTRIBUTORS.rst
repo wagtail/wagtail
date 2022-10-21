@@ -651,6 +651,7 @@ Contributors
 * Dennis Onyeka
 * Precious Arinda
 * Ogunbanjo Oluwadamilare
+* Damee Zivah Olawuyi
 
 Translators
 ===========
