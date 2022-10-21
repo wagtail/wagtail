@@ -46,7 +46,7 @@ class LocaleManager(models.Manager):
         )
 
         return self.annotate(
-            is_default_language=Case(
+            _is_default=Case(
                 When(language_code=default_language_code, then=True),
                 default=False,
             )
@@ -75,7 +75,9 @@ class Locale(models.Model):
         """
         Returns the default Locale based on the site's LANGUAGE_CODE setting
         """
-        return cls.objects.get_for_language(settings.LANGUAGE_CODE)
+        locale = cls.objects.get_for_language(settings.LANGUAGE_CODE)
+        setattr(locale, "_is_default", True)
+        return locale
 
     @classmethod
     def get_active(cls):
@@ -101,6 +103,15 @@ class Locale(models.Model):
 
     def get_display_name(self):
         return get_content_languages().get(self.language_code)
+
+    def is_default_locale(self):
+        """
+        Returns True if this locale is the current default.
+        """
+        if not hasattr(self, "_is_default"):
+            setattr(self, "_is_default", Locale.get_default() == self)
+
+        return self._is_default
 
     def __str__(self):
         return force_str(self.get_display_name() or self.language_code)

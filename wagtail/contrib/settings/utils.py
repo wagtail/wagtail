@@ -44,21 +44,8 @@ def get_locale_for(*, request=None, model=None, instance=None):
     )
 
 
-def is_default_locale(locale):
-    """Determines whether the given locale is the current default."""
-    # Use the `is_default_language` annotation if present.
-    if hasattr(locale, "is_default_language"):
-        return locale.is_default_language
-
-    is_default_language = locale == Locale.get_default()
-
-    # Set `is_default_language` for subsequent calls.
-    setattr(locale, "is_default_language", is_default_language)
-    return is_default_language
-
-
 def add_locale_query_string(url, locale):
-    if locale and not is_default_locale(locale):
+    if locale and not locale.is_default_locale():
         url += f"?locale={locale.language_code}"
     return url
 

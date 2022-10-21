@@ -1,3 +1,5 @@
+import random
+
 from django.conf import settings
 from django.test import TestCase, override_settings
 from django.utils import translation
@@ -53,6 +55,38 @@ class TestLocaleModel(TestCase):
         # This language is not in LANGUAGES so it should just return the language code
         locale = Locale.objects.create(language_code="foo")
         self.assertEqual(str(locale), "foo")
+
+    def test_is_default_locale(self):
+        en_locale = Locale.objects.get_for_language("en")
+        self.assertTrue(en_locale.is_default_locale())
+
+        fr_locale = Locale.objects.get_for_language("fr")
+        self.assertFalse(fr_locale.is_default_locale())
+
+    def test_is_default_locale_caches_result(self):
+        fr_locale = Locale.objects.get_for_language("fr")
+        with self.assertNumQueries(1):
+            self.assertFalse(fr_locale.is_default_locale())
+
+        with self.assertNumQueries(0):
+            self.assertFalse(fr_locale.is_default_locale())
+
+    def test_get_default_caches_result(self):
+        with self.assertNumQueries(1):
+            locale = Locale.get_default()
+
+        with self.assertNumQueries(0):
+            self.assertTrue(locale.is_default_locale())
+
+    def test_annotate_default_language(self):
+        locales = list(Locale.objects.annotate_default_language())
+
+        with self.assertNumQueries(0):
+            for locale in random.sample(locales, 5):
+                if locale.language_code != "en":
+                    self.assertFalse(locale.is_default_locale())
+                else:
+                    self.assertTrue(locale.is_default_locale())
 
     @override_settings(LANGUAGES=[("en", _("English")), ("fr", _("French"))])
     def test_str_when_languages_uses_gettext(self):
