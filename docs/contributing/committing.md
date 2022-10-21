@@ -62,7 +62,7 @@ git merge --ff-only pr/xxxx
 ## Update `CHANGELOG.txt` and release notes
 
 ```{note}
-This should only be done by core committers, once the changes have been reviewed and accepted.
+Only core committers should do this after the modifications have been examined and approved.
 ```
 
 Every significant change to Wagtail should get an entry in the `CHANGELOG.txt`,
