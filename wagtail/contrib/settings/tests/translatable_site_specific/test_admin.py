@@ -111,6 +111,13 @@ class TestTranslatableSiteSettingCreateView(BaseTestTranslatableSiteSettingView)
                 response = self.get(locale=locale)
                 self.assertEqual(response.status_code, 200)
 
+        # Initial instances are created and cache is warmed up,
+        # track number of queries.
+        for i, locale in enumerate([None, self.fr_locale]):
+            with self.subTest(locale=locale):
+                with self.assertNumQueries(15):
+                    response = self.get(locale=locale)
+
     def test_edit_invalid(self):
         for i, locale in enumerate([None, self.fr_locale]):
             with self.subTest(locale=locale):

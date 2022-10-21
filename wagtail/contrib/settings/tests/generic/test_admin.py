@@ -88,6 +88,9 @@ class TestGenericSettingCreateView(BaseTestGenericSettingView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+        with self.assertNumQueries(12):
+            self.get()
+
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The setting could not be saved due to errors.")
