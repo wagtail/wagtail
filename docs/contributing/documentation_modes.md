@@ -14,10 +14,10 @@ We are following Daniele Procida's [Diátaxis documentation framework](https://d
 
 ## Choose a writing mode
 
-Each page of the Wagtail documentation should be written in single mode of information delivery.
+Each page of the Wagtail documentation should be written in a single mode of information delivery.
 Single pages with mixed modes are harder to understand.
 If you have documents that mix the types of information delivery,
-it’s best to split them up. Add links to the first section of each document to cross reference other documents on the same topic.
+it’s best to split them up. Add links to the first section of each document to cross-reference other documents on the same topic.
 
 Writing documentation in a specific mode will help our users to understand and quickly find what they are looking for.
 
@@ -25,15 +25,14 @@ Writing documentation in a specific mode will help our users to understand and q
 
 ## Tutorial
 
-Tutorials are designed to be **learning-oriented** resources which guide newcomers through a specific topic. To help effective learning, tutorials should provide examples to illustrate the subjects they cover.
+Tutorials are designed to be **learning-oriented** resources that guide newcomers through a specific topic. To help effective learning, tutorials should provide examples to illustrate the subjects they cover.
 
 Tutorials may not necessarily follow best practices. They are designed to make it easier to get started. A tutorial is concrete and particular. It must be repeatable, instil confidence, and should result in success, every time, for every learner.
 
 ### Do
 
 -   Use conversational language
--   Use contractions, speak in the first person plural,
-    be reassuring. For example: “We’re going to do this.”
+-   Use contractions, speak in the first person plural, and be reassuring. For example: “We’re going to do this.”
 -   Use pictures or concrete outputs of code to reassure people that they’re on the right track.
     For example: “Your new login page should look like this:” or “Your directory should now have three files”.
 

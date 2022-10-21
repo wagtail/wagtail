@@ -640,6 +640,9 @@ Contributors
 * Seremba Patrick
 * Ruqouyyah Muhammad
 * Loveth Omokaro
+* Abayomi Victory
+* Victoria Poromon
+* Dokua Asiedu
 
 
 Translators
