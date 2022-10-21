@@ -110,17 +110,17 @@ class EditView(generic.EditView):
     def save_instance(self):
         return self.form.save()
 
-    def get_translations(self, all_locales):
+    def get_translations(self, locales):
         raise NotImplementedError
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.locale:
-            all_locales = Locale.objects.annotate_default_language().all()
+            locales = Locale.objects.annotate_default_language().all()
             context.update(
                 {
-                    "all_locales": all_locales,
-                    "translations": self.get_translations(all_locales),
+                    "wagtail_locales": locales,
+                    "translations": self.get_translations(locales),
                 }
             )
 
@@ -157,7 +157,7 @@ class EditSiteSettingsView(EditView):
             for site_choice in Site.objects.all().exclude(pk=self.site.pk)
         ]
 
-    def get_translations(self, all_locales):
+    def get_translations(self, locales):
         current_site_pk = self.site.pk
         current_locale_pk = self.locale.pk
 
@@ -166,7 +166,7 @@ class EditSiteSettingsView(EditView):
                 "locale": locale,
                 "url": self._get_edit_url(current_site_pk, locale),
             }
-            for locale in all_locales
+            for locale in locales
             if locale.pk != current_locale_pk
         ]
 
@@ -190,7 +190,7 @@ class EditGenericSettingsView(EditView):
     def get_edit_url(self):
         return self._get_edit_url(self.locale)
 
-    def get_translations(self, all_locales):
+    def get_translations(self, locales):
         current_locale_pk = self.locale.pk
 
         return [
@@ -198,7 +198,7 @@ class EditGenericSettingsView(EditView):
                 "locale": locale,
                 "url": self._get_edit_url(locale),
             }
-            for locale in all_locales
+            for locale in locales
             if locale.pk != current_locale_pk
         ]
 
