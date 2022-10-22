@@ -82,6 +82,10 @@
     font-weight: theme('fontWeight.bold');
   }
 
+  .w-field__input {
+    padding: 0; // reset padding for field not used inside the admin interface
+  }
+
   .w-field__wrapper {
     margin-bottom: theme('spacing.6');
   }
