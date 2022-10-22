@@ -119,7 +119,7 @@ When logged into the admin site, a superuser has full permissions and is able to
 python manage.py runserver
 ```
 
-After running the above command,the server generates a URL <http://127.0.0.1:8000>. Copy and paste the link into your browser tab, which displays the welcome page.
+If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
 
 ![Browser screenshot of "Welcome to your new Wagtail site!" page, with teal egg above the title, and links to different resources. The page is shown inside a browswer tab, with browser URL bar at the top](../_static/images/tutorial/tutorial_1.png)
 
