@@ -127,7 +127,7 @@ After running the above command,the server generates a URL <http://127.0.0.1:800
 Throughout this tutorial we will use `http://127.0.0.1:8000` but depending on your setup, this could be `http://localhost:8000/` or a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct url for your local site.
 ```
 
-You can now access the administrative section by clicking on the **Admin Interface** on the welcome page at port <http://127.0.0.1:8000/admin>.
+You can now access the administrative area at <http://127.0.0.1:8000/admin>
 
 ![Screenshot of Wagtail’s dashboard, with "Welcome to the mysite Wagtail CMS" heading, 1 page, 0 images, 0 documents. Underneath is a "Your most recent edits" section, with the Home page listed](../_static/images/tutorial/tutorial_2.png)
 
