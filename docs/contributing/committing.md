@@ -65,7 +65,7 @@ git merge --ff-only pr/xxxx
 Only core committers should do this after the modifications have been examined and approved.
 ```
 
-Every significant change to Wagtail should get an entry in the `CHANGELOG.txt`,
+Every significant change to Wagtail should be recorded in the `CHANGELOG.txt`,
 and the release notes for the current version.
 
 The `CHANGELOG.txt` contains a short summary of each new feature, refactoring, or bug fix in each release.
