@@ -17,6 +17,35 @@ Here is how you can access the edit screen of an existing page:
 -   You can change the title of the page by clicking into the title field.
 -   When you're typing into a field, help text is often displayed on the right-hand side of the screen.
 
+## Managing Revisions
+
+If you need to go back to retrieve a version of the content you need, click the "history" option from the **More** dropdown menu.
+
+Alternatively, you can access the page history from the top right corner of the page you're editing.
+
+![The page dropdown menu showing the history option](../_static/images/Page_history_dropdown.png)
+
+Once you're on the history page, you'll see:
+
+- Actions that have been done on that particular page.
+- The user that carried out that action.
+- The date/time the action occurred.
+
+You can also apply a filter to find specific versions of your content.
+
+![The actions and filters for page history](../_static/images/page_history_filters.gif)
+
+If you want to compare different draft versions, hover over the draft and click  **"Compare with previous version"** or  **"Compare with current version"**.
+
+Here's how you can replace the current version of a draft with a previous version:
+
+- Hover over the preferred version of your draft and click "Review this version".
+- Click on "Replace current version", located at the bottom of the screen. 
+- This action will be logged as a "Revert" action and you can always go back to review it.
+
+![The replace current draft feature](../_static/images/replace_current_draft.png)
+
+
 ## Workflow
 
 If the page is currently in a workflow, you'll see an additional indicator in the Info side panel, showing the current workflow task. Clicking the "View details" button will
