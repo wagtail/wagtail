@@ -155,9 +155,55 @@
       border: 1px solid $color-button;
 
       .icon-wrapper {
-        border: 1px solid $color-button;
+        border-right: 1px solid $color-button;
         background-color: transparent;
-        height: 100%;
+      }
+
+      &:hover {
+        background-color: theme('colors.secondary.50');
+        color: $color-button;
+      }
+
+      &:disabled,
+      &[disabled] {
+        background-color: transparent;
+        border-color: $color-grey-3;
+        color: $color-grey-3;
+        cursor: default;
+        pointer-events: none;
+
+        .icon-wrapper {
+          border-right: 1px solid $color-grey-3;
+          background-color: transparent;
+        }
+      }
+
+      &.button-small {
+        border: none;
+
+        &:hover {
+          background-color: transparent;
+          color: $color-button;
+        }
+
+        .icon-wrapper {
+          border: 2px solid $color-button;
+          border-radius: 50%;
+          border-color: $color-button;
+          background-color: transparent;
+          height: fit-content;
+          width: fit-content;
+
+          &:hover {
+            background-color: $color-button;
+            color: $color-white;
+          }
+        }
+
+        &:disabled,
+        &[disabled] {
+          display: none;
+        }
       }
     }
 
