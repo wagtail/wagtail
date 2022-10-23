@@ -653,6 +653,7 @@ Contributors
 * Ogunbanjo Oluwadamilare
 * Damee Zivah Olawuyi
 * Harry Percival
+* Akua Dokua Asiedu
 
 Translators
 ===========
