@@ -12,6 +12,7 @@ Changelog
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
  * Fix: references extraction for ChooserBlock (Alex Tomkins)
  * Fix: Incorrectly formatted link in the documentation for Wagtail community support (Bolarinwa Comfort Ajayi)
+ * Fix: Text within status tags text will now resize correctly when customizing browser font size (Mary Ojo)
 
 
 4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
