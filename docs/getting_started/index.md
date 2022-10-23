@@ -14,8 +14,8 @@
 ## Dependencies needed for installation
 
 -   [Python 3](https://www.python.org/downloads/)
--   **libjpeg** and **zlib**, libraries required for Django\'s **Pillow** library.
-    See Pillow\'s [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+-   **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
+    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
 ## Quick install
 
@@ -27,7 +27,7 @@ pip install wagtail
 
 (Installing wagtail outside a virtual environment may require `sudo`. sudo is a program to run other programs with the security privileges of another user, by default the superuser)
 
-Once installed, Wagtail provides a command similar to Django\'s `django-admin startproject` to generate a new site/project:
+Once installed, Wagtail provides a command similar to Django's `django-admin startproject` to generate a new site/project:
 
 ```sh
 wagtail start mysite
@@ -49,12 +49,12 @@ python manage.py runserver
 Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
 
 This will set you up with a new stand-alone Wagtail project.
-If you\'d like to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](/getting_started/integrating_into_django).
+If you'd like to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](/getting_started/integrating_into_django).
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
--   [Elasticsearch](/advanced_topics/performance).
--   [Feature Detection](image_feature_detection).
+-   [Elasticsearch](/advanced_topics/performance)
+-   [Feature Detection](image_feature_detection)
 
 ```{toctree}
 ---
