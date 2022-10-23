@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -2091,9 +2091,6 @@ msgstr[0] ""
 msgid "Task '{0}' enabled."
 msgstr "任务 '{0}' 已启用。"
 
-msgid "Change"
-msgstr "更改"
-
 msgid "Pages"
 msgstr "页面"
 
@@ -2147,12 +2144,6 @@ msgstr "排序菜单顺序"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "更改“%(title)s”的子页面顺序"
 
-msgid "Translate"
-msgstr "翻译"
-
-msgid "Translate this page"
-msgstr "翻译此页"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "标题%(level)d"
@@ -2199,6 +2190,15 @@ msgstr "是"
 msgid "Choose an item"
 msgstr "选择一项"
 
+msgid "Choose another item"
+msgstr "选择其它项"
+
+msgid "Clear choice"
+msgstr "清除选择"
+
+msgid "Choose another page"
+msgstr "选择其它页面"
+
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
 "(\")."
@@ -2206,3 +2206,9 @@ msgstr "带空格的多词标签将自动加上双引号(\")。"
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "标签只能由单个词组成，不允许有空格。"
+
+msgid "Choose another task"
+msgstr "选择其它任务"
+
+msgid "Edit this task"
+msgstr "编辑此任务"

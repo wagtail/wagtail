@@ -41,6 +41,9 @@
     position: relative;
     flex-shrink: 0;
     background: theme('colors.white.DEFAULT');
+    @media (forced-colors: active) {
+      background: Canvas;
+    }
     margin-inline-end: theme('spacing.[2.5]');
     width: theme('spacing.5');
     height: theme('spacing.5');

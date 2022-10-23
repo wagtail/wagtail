@@ -1,6 +1,7 @@
 $header-icon-size: theme('spacing.4');
 $header-button-size-mobile: $mobile-nice-padding;
 $header-button-size: theme('spacing.8');
+$header-gap: theme('spacing.1');
 
 .w-panel {
   margin-bottom: theme('spacing.10');
@@ -13,9 +14,12 @@ $header-button-size: theme('spacing.8');
   margin-inline-start: -1 * $mobile-nice-padding;
 
   @include media-breakpoint-up(sm) {
-    $gap: theme('spacing.1');
-    gap: $gap;
-    margin-inline-start: calc(-1 * 2 * ($header-button-size + $gap));
+    gap: $header-gap;
+    margin-inline-start: calc(-1 * 1 * ($header-button-size + $header-gap));
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-inline-start: calc(-1 * 2 * ($header-button-size + $header-gap));
   }
 }
 
@@ -28,7 +32,7 @@ $header-button-size: theme('spacing.8');
   cursor: pointer;
   padding-inline-end: theme('spacing.2');
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     padding-inline-end: theme('spacing.5');
   }
 }
@@ -89,7 +93,7 @@ $header-button-size: theme('spacing.8');
 
 // The suffix anchor is intended for small viewports only.
 .w-panel__anchor--suffix {
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     display: none;
   }
 }
@@ -98,7 +102,7 @@ $header-button-size: theme('spacing.8');
 .w-panel__anchor--prefix {
   display: none;
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     display: inline-grid;
   }
 }

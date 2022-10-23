@@ -28,7 +28,7 @@ By default all `bmp` and `webp` images are converted to the `png` format
 when no image output format is given.
 
 The default conversion mapping can be changed by setting the
-`WAGTAILIMAGES_FORMAT_CONVERSIONS` to a dictionary which maps the input type
+`WAGTAILIMAGES_FORMAT_CONVERSIONS` to a dictionary, which maps the input type
 to an output type.
 
 For example:

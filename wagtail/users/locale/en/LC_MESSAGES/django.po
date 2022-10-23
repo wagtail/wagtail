@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-18 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,11 +136,11 @@ msgstr ""
 msgid "profile picture"
 msgstr ""
 
-#: models.py:87
+#: models.py:89
 msgid "user profile"
 msgstr ""
 
-#: models.py:88
+#: models.py:90
 msgid "user profiles"
 msgstr ""
 
@@ -185,7 +185,7 @@ msgstr[1] ""
 #: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:7
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:21
 #: templates/wagtailusers/groups/includes/page_permissions_form.html:13
-#: views/bulk_actions/delete.py:9 wagtail_hooks.py:147
+#: views/bulk_actions/delete.py:9 wagtail_hooks.py:148
 msgid "Delete"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgstr[1] ""
 
 #: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:33
 #: templates/wagtailusers/groups/confirm_delete.html:26
-#: templates/wagtailusers/users/confirm_delete.html:13
+#: templates/wagtailusers/users/confirm_delete.html:12
 msgid "Yes, delete"
 msgstr ""
 
@@ -271,8 +271,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/edit.html:4
 #: templates/wagtailusers/groups/edit.html:14
-#: templates/wagtailusers/users/edit.html:4
-#: templates/wagtailusers/users/edit.html:7
+#: templates/wagtailusers/users/edit.html:6
 msgid "Editing"
 msgstr ""
 
@@ -281,8 +280,8 @@ msgid "View users in this group"
 msgstr ""
 
 #: templates/wagtailusers/groups/edit.html:41
-#: templates/wagtailusers/users/edit.html:52
-#: templates/wagtailusers/users/edit.html:73
+#: templates/wagtailusers/users/edit.html:51
+#: templates/wagtailusers/users/edit.html:72
 msgid "Save"
 msgstr ""
 
@@ -340,45 +339,42 @@ msgid ""
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 
-#: templates/wagtailusers/users/confirm_delete.html:3
-#: templates/wagtailusers/users/confirm_delete.html:6
-#: templates/wagtailusers/users/edit.html:54
-#: templates/wagtailusers/users/edit.html:75
+#: templates/wagtailusers/users/confirm_delete.html:5
+#: templates/wagtailusers/users/edit.html:53
+#: templates/wagtailusers/users/edit.html:74 views/users.py:251
 msgid "Delete user"
 msgstr ""
 
-#: templates/wagtailusers/users/confirm_delete.html:10
+#: templates/wagtailusers/users/confirm_delete.html:9
 msgid "Are you sure you want to delete this user?"
 msgstr ""
 
-#: templates/wagtailusers/users/create.html:4
-#: templates/wagtailusers/users/create.html:7
-#: templates/wagtailusers/users/create.html:64
+#: templates/wagtailusers/users/create.html:6
+#: templates/wagtailusers/users/create.html:63 views/users.py:150
 msgid "Add user"
 msgstr ""
 
-#: templates/wagtailusers/users/create.html:13
-#: templates/wagtailusers/users/edit.html:13
+#: templates/wagtailusers/users/create.html:12
+#: templates/wagtailusers/users/edit.html:12
 msgid "Account"
 msgstr ""
 
-#: templates/wagtailusers/users/create.html:15
-#: templates/wagtailusers/users/create.html:49
-#: templates/wagtailusers/users/edit.html:15
+#: templates/wagtailusers/users/create.html:14
+#: templates/wagtailusers/users/create.html:48
+#: templates/wagtailusers/users/edit.html:14
 msgid "Roles"
 msgstr ""
 
-#: templates/wagtailusers/users/index.html:3
-#: templates/wagtailusers/users/index.html:24 wagtail_hooks.py:79
-#: wagtail_hooks.py:129
+#: templates/wagtailusers/users/index.html:23 views/users.py:83
+#: wagtail_hooks.py:79 wagtail_hooks.py:129
 msgid "Users"
 msgstr ""
 
-#: templates/wagtailusers/users/index.html:25
+#: templates/wagtailusers/users/index.html:24
 msgid "Add a user"
 msgstr ""
 
-#: templates/wagtailusers/users/index.html:34
+#: templates/wagtailusers/users/index.html:33
 msgid "Select all users in listing"
 msgstr ""
 
@@ -510,41 +506,33 @@ msgstr ""
 msgid "Group '{0}' deleted."
 msgstr ""
 
-#: views/users.py:88 views/users.py:96
-msgid "Search users"
-msgstr ""
-
-#: views/users.py:157
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr ""
-
-#: views/users.py:160 views/users.py:211 wagtail_hooks.py:140
-msgid "Edit"
-msgstr ""
-
-#: views/users.py:170
-msgid "The user could not be created due to errors."
-msgstr ""
-
-#: views/users.py:208
+#: views/users.py:181
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:221
+#: views/users.py:183
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:251
+#: views/users.py:186
+#, python-format
+msgid "Editing %s"
+msgstr ""
+
+#: views/users.py:253
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:142
+#: wagtail_hooks.py:140
+msgid "Edit"
+msgstr ""
+
+#: wagtail_hooks.py:143
 msgid "Edit this user"
 msgstr ""
 
-#: wagtail_hooks.py:150
+#: wagtail_hooks.py:151
 msgid "Delete this user"
 msgstr ""

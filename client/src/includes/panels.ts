@@ -68,8 +68,9 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
+  const isCollapsed = hasCollapsed && !hasError;
 
-  if (hasCollapsed && !hasError) {
+  if (isCollapsed) {
     togglePanel(false);
   }
 
@@ -82,6 +83,14 @@ export function initCollapsiblePanel(toggle: HTMLButtonElement) {
 
   // Set the toggle back to expanded upon reveal.
   content.addEventListener('beforematch', togglePanel.bind(null, true));
+
+  toggle.dispatchEvent(
+    new CustomEvent('wagtail:panel-init', {
+      bubbles: true,
+      cancelable: false,
+      detail: { expanded: !isCollapsed },
+    }),
+  );
 }
 
 /**
@@ -91,51 +100,6 @@ export function initCollapsiblePanels(
   toggles = document.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]'),
 ) {
   toggles.forEach(initCollapsiblePanel);
-}
-
-/**
- * Initialises event handlers for collapsing / expanding all panels
- */
-export function initCollapseAllPanels(
-  button = document.querySelector<HTMLButtonElement>(
-    '[data-all-panels-toggle]',
-  ),
-) {
-  if (!button) {
-    return;
-  }
-
-  const expandText = button.getAttribute('data-expand-text');
-  const collapseText = button.getAttribute('data-collapse-text');
-
-  if (!button || !expandText || !collapseText) {
-    return;
-  }
-
-  button.addEventListener('click', () => {
-    const isExpanding = !(button.getAttribute('aria-expanded') === 'true');
-
-    // Find all panel toggles within the same form as the button,
-    // excluding the special "title" panel that has no toggle.
-    const toggles = button
-      .closest('form')
-      ?.querySelectorAll<HTMLButtonElement>(
-        '[data-panel]:not(.title) [data-panel-toggle]',
-      );
-
-    if (!toggles) {
-      return;
-    }
-
-    button.setAttribute('aria-expanded', `${isExpanding}`);
-
-    toggles.forEach((toggle: HTMLButtonElement) => {
-      toggleCollapsiblePanel(toggle, isExpanding);
-    });
-
-    // eslint-disable-next-line no-param-reassign
-    button.innerText = isExpanding ? collapseText : expandText;
-  });
 }
 
 /**

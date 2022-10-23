@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -334,6 +334,9 @@ msgstr "Bildetillatelser"
 msgid "Add an image permission"
 msgstr "Legg til bildetillatelse"
 
+msgid "Tags"
+msgstr "Tags"
+
 msgid "Delete"
 msgstr "Slett"
 
@@ -345,6 +348,12 @@ msgstr "Laster opp…"
 
 msgid "Choose an image"
 msgstr "Velg et bilde"
+
+msgid "Choose another image"
+msgstr "Velg et annet bilde"
+
+msgid "Edit this image"
+msgstr "Rediger dette bildet"
 
 msgid "Search images"
 msgstr "Søk i bilder"
@@ -383,3 +392,6 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s bilde"
 msgstr[1] "%(count)s bilder"
+
+msgid "Change image"
+msgstr "Velg et annet bilde"

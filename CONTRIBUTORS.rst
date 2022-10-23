@@ -13,6 +13,7 @@ Core team
 * Loïc Teixeira (Springload)
 * Matthew Westcott (Torchbox)
 * Naomi Morduch Toubman
+* Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
 * Storm Heg
 * Thibaud Colas (Torchbox)
@@ -566,7 +567,6 @@ Contributors
 * Dennis McGregor
 * Joshua Munn
 * Gianluca De Cola
-* Sage Abdullah
 * Paarth Agarwal
 * Nicolas Ferrari
 * Vibhakar Solanki
@@ -638,8 +638,15 @@ Contributors
 * Umar Farouk Yunusa
 * Chizoba Nweke
 * Seremba Patrick
+* Ruqouyyah Muhammad
+* Loveth Omokaro
+* Abayomi Victory
+* Victoria Poromon
+* Dokua Asiedu
+* Darrel O'Pry
+* Mary Ayobami
+* Bolarinwa Comfort Ajayi
 * Mary Ojo
-
 
 Translators
 ===========
@@ -654,7 +661,7 @@ Translators
 * Bulgarian: Lyuboslav Petrov
 * Burmese: ime11
 * Catalan: Antoni Aloy, David Llop, Roger Pons
-* Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
+* Chinese: hanfeng, Lihan Li, Leway Colin, Adeline Link, Orangle Liu, shengsheng gz
 * Chinese (Simplified): Ed, Yin Guanhao, hanfeng, Fan Hei, Yi Huang, Daniel Hwang, Jian Li, Aosp T, Listeng Teng, Feng Wang, whuim, Favo Yang, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Traditional): gogobook, Andy Kong, Lihan Li, Ocin Leung, Jp Shieh, ChihWei Wang, Brian Xu, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
@@ -690,7 +697,7 @@ Translators
 * Serbian: Nikola Kadić
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly
 * Slovenian: Andrej, Mitja Pagon, Lev Predan Kowarski, Urban Prevc, Matej Stavanja
-* Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, Hector Garcia, José Luis, Amós Oviedo, Maylon Pedroso, Joaquín Tita, Daniel Wohlgemuth, Unai Zalakain
+* Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, Hector Garcia, José Luis, Oluwadamilare Ogunbanjo, Amós Oviedo, Maylon Pedroso, Joaquín Tita, Daniel Wohlgemuth, Unai Zalakain
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström, Tomas Walch
 * Tamil: Ramakrishnan Sathyanarayanan
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto

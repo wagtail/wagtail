@@ -30,7 +30,7 @@ class TestAdaptLinkMenuItem(TestCase):
                         "label": "Link",
                         "name": "link",
                         "url": "/link/",
-                        "attrs": None,
+                        "attrs": {},
                     }
                 ],
             },
@@ -90,6 +90,7 @@ class TestAdaptSubMenuItem(TestCase):
                         "icon_name": "",
                         "classnames": "",
                         "footer_text": "Footer text",
+                        "attrs": {},
                     },
                     [
                         {
@@ -101,7 +102,7 @@ class TestAdaptSubMenuItem(TestCase):
                                     "icon_name": "link-icon",
                                     "classnames": "",
                                     "url": "/link/",
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         }
@@ -132,6 +133,7 @@ class TestAdaptSubMenuItem(TestCase):
                         "icon_name": "",
                         "classnames": "",
                         "footer_text": "",
+                        "attrs": {},
                     },
                     [
                         {
@@ -143,7 +145,7 @@ class TestAdaptSubMenuItem(TestCase):
                                     "icon_name": "link-icon",
                                     "classnames": "",
                                     "url": "/link/",
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         }
@@ -163,7 +165,7 @@ class TestAdaptPageExplorerMenuItem(TestCase):
                 "_type": "wagtail.sidebar.PageExplorerMenuItem",
                 "_args": [
                     {
-                        "attrs": None,
+                        "attrs": {},
                         "classnames": "",
                         "icon_name": "",
                         "label": "Pages",
@@ -217,7 +219,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "icon_name": "",
                                     "classnames": "",
                                     "url": "/pages/",
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         }
@@ -232,7 +234,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "icon_name": "user",
                                     "classnames": "",
                                     "url": reverse("wagtailadmin_account"),
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         },
@@ -245,7 +247,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                                     "icon_name": "logout",
                                     "classnames": "",
                                     "url": reverse("wagtailadmin_logout"),
-                                    "attrs": None,
+                                    "attrs": {},
                                 }
                             ],
                         },
