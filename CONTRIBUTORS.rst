@@ -646,6 +646,7 @@ Contributors
 * Darrel O'Pry
 * Mary Ayobami
 * Bolarinwa Comfort Ajayi
+* Mary Ojo
 
 Translators
 ===========
