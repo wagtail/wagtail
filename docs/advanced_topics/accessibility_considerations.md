@@ -1,6 +1,6 @@
 # Accessibility considerations
 
-Accessibility for CMS-driven websites is a matter of [modeling content appropriately](content_modeling), [creating accessible templates](accessibility_in_templates), and [authoring accessible content](authoring_accessible_content) with readability and accessibility guidelines in mind.
+Accessibility for CMS-driven websites is a matter of [modeling content appropriately](content_modeling), [creating accessible templates](accessibility_in_templates) and [authoring accessible content](authoring_accessible_content) with readability and accessibility guidelines in mind.
 
 Wagtail generally puts developers in control of content modeling and front-end markup, but there are a few areas to be aware of nonetheless, and ways to help authors be aware of readability best practices.
 Note there is much more to building accessible websites than we cover here – see our list of [accessibility resources](accessibility_resources) for more information.
@@ -29,7 +29,7 @@ Ideally, always add an optional “alt text” field wherever an image is used, 
 -   For StreamField, add an extra field to your image block.
 -   For rich text – Wagtail already makes it possible to customise alt text for rich text images.
 
-When defining the alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. Take the time to provide `help_text` with appropriate guidance.
+When defining the alt text fields, make sure they are optional so that editors can choose not to write any alt text for decorative images. Take the time to provide `help_text` with appropriate guidance.
 For example, linking to [established resources on alt text](https://axesslab.com/alt-texts/).
 
 ```{note}
@@ -49,7 +49,7 @@ See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51) for a
 Missing embed titles are common failures in accessibility audits of Wagtail websites. In some cases, Wagtail embeds’ iframe doesn’t have a `title` attribute set. This is generally a problem with OEmbed providers like YouTube ([#5982](https://github.com/wagtail/wagtail/issues/5982)).
 This is very problematic for screen reader users, who rely on the title to understand what the embed is, and whether to interact with it or not.
 
-If your website relies on embeds that have are missing titles, make sure to either:
+If your website relies on embeds that have missing titles, make sure to either:
 
 -   Add the OEmbed _title_ field as a `title` on the `iframe`.
 -   Add a custom mandatory Title field to your embeds, and add it as the `iframe`’s `title`.
@@ -67,7 +67,7 @@ If managing headings via StreamField, make sure to apply the same restrictions t
 
 ### Bold and italic formatting in rich text
 
-By default, Wagtail stores its bold formatting as a `b` tag, and italic as `i` ([#4665](https://github.com/wagtail/wagtail/issues/4665)). While those tags don’t necessarily always have correct semantics (`strong` and `em` are more ubiquitous), there isn’t much consequence for screen reader users, as by default screen readers do not announce content differently based on emphasis.
+By default, Wagtail stores its bold formatting as a `b` tag, and italic as `i` ([#4665](https://github.com/wagtail/wagtail/issues/4665)). While those tags don’t necessarily always have correct semantics (`strong` and `em` are more ubiquitous), there isn’t much consequence for screen reader users, as by default, screen readers do not announce content differently based on emphasis.
 
 If this is a concern to you, you can change which tags are used when saving content with [rich text format converters](rich_text_format_converters). In the future, [rich text rewrite handlers](rich_text_rewrite_handlers) should also support this being done without altering the storage format ([#4223](https://github.com/wagtail/wagtail/issues/4223)).
 
