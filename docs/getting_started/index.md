@@ -4,12 +4,10 @@
 
 # Getting started
 
-```{note}
-   These instructions assume familiarity with virtual environments and the
-   [Django web framework](https://www.djangoproject.com/).
-   For more detailed instructions, see [](tutorial).
-   To add Wagtail to an existing Django project, see [](integrating_into_django).
-```
+> **Note**  
+> These instructions assume familiarity with virtual environments and the [Django web framework](https://www.djangoproject.com/). 
+> For more detailed instructions, see [](tutorial). 
+> To add Wagtail to an existing Django project, see [](integrating_into_django).
 
 ## Dependencies needed for installation
 
