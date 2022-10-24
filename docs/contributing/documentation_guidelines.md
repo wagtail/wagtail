@@ -239,14 +239,14 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 -   Use absolute paths for image files so they are more portable.
 
 ```md
-![Screenshot of the workflow editing interface, with fields to change the workflow name, tasks, and assigned pages](/_static/images/screen44_workflow_edit.png)
+![The TableBlock component in StreamField, with row header, column header, caption fields - and then the editable table](/_static/images/screen40_table_block.png)
 ```
 
 <details>
 
 <summary>Rendered output</summary>
 
-![Screenshot of the workflow editing interface, with fields to change the workflow name, tasks, and assigned pages](/_static/images/screen44_workflow_edit.png)
+![The TableBlock component in StreamField, with row header, column header, caption fields - and then the editable table](/_static/images/screen40_table_block.png)
 
 </details>
 
