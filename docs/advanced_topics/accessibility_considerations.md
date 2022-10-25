@@ -73,7 +73,7 @@ If this is a concern to you, you can change which tags are used when saving cont
 
 ### TableBlock
 
-The [TableBlock](../reference/contrib/table_block) default implementation makes it too easy for end-users to miss. They need either row or column headers ([#5989](https://github.com/wagtail/wagtail/issues/5989>)). Make sure to always have either row headers or column headers set.
+The [TableBlock](../reference/contrib/table_block) default implementation makes it too easy for end-users to miss they need either row or column headers ([#5989](https://github.com/wagtail/wagtail/issues/5989>)). Make sure to always have either row headers or column headers set.
 Always add a Caption, so screen reader users navigating the site’s tables know where they are.
 
 (accessibility_in_templates)=
