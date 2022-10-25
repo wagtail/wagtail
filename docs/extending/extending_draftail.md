@@ -303,7 +303,7 @@ const Stock = (props) => {
 
 This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript.
 
-Finally, we register the JS components of our plugin:
+Finally, we register the JS components of our plugin *note this is ran outside of an event listener such as DOMContentLoaded*:
 
 ```javascript
 window.draftail.registerPlugin({
