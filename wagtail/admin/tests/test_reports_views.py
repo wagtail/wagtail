@@ -272,6 +272,13 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         actual = set(response.context["object_list"])
         self.assertSetEqual(actual, set(expected))
 
+    def assert_filter_actions(self, response, expected):
+        actual = {
+            choice[0]
+            for choice in response.context["filters"].filters["action"].extra["choices"]
+        }
+        self.assertSetEqual(actual, set(expected))
+
     def test_unfiltered(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -292,6 +299,17 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
             ],
         )
 
+        self.assert_filter_actions(
+            response,
+            [
+                "wagtail.create",
+                "wagtail.edit",
+                "wagtail.comments.create",
+                "wagtail.comments.edit",
+                "wagtail.comments.create_reply",
+            ],
+        )
+
         # The editor should only see logs for the sub_page.
         self.login(user=self.editor)
         response = self.get()
@@ -301,6 +319,14 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
             [
                 self.create_sub_log,
                 self.edit_sub_log,
+            ],
+        )
+
+        self.assert_filter_actions(
+            response,
+            [
+                "wagtail.create",
+                "wagtail.edit",
             ],
         )
 

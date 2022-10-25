@@ -20,6 +20,12 @@ from wagtail.log_actions import registry as log_action_registry
 
 
 class LogEntryQuerySet(models.QuerySet):
+    def get_actions(self):
+        """
+        Returns a set of actions used by at least one log entry in this QuerySet
+        """
+        return set(self.order_by().values_list("action", flat=True).distinct())
+
     def get_user_ids(self):
         """
         Returns a set of user IDs of users who have created at least one log entry in this QuerySet

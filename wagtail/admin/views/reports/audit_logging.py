@@ -41,10 +41,21 @@ def get_content_types_for_filter(user):
     return ContentType.objects.filter(pk__in=content_type_ids).order_by("model")
 
 
+def get_actions_for_filter(user):
+    # Only return those actions used by log entries visible to the user.
+    actions = set()
+    for log_model in log_action_registry.get_log_entry_models():
+        actions.update(log_model.objects.viewable_by_user(user).get_actions())
+
+    return [
+        action for action in log_action_registry.get_choices() if action[0] in actions
+    ]
+
+
 class SiteHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(
         label=_("Action"),
-        choices=log_action_registry.get_choices,
+        # choices are set dynamically in __init__()
     )
     hide_commenting_actions = django_filters.BooleanFilter(
         label=_("Hide commenting actions"),
@@ -84,6 +95,12 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
             "timestamp",
             "hide_commenting_actions",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filters["action"].extra["choices"] = get_actions_for_filter(
+            self.request.user
+        )
 
 
 class LogEntriesView(ReportView):
