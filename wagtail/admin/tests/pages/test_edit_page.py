@@ -149,6 +149,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">',
         )
 
+        # test that side panel is shown
+        self.assertContains(
+            response,
+            '<aside class="form-side form-side--initial" aria-label="Side panels" data-form-side>',
+        )
+        self.assertNotContains(response, "data-form-side-explorer")
+
         # test that AdminURLFinder returns the edit view for the page
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id

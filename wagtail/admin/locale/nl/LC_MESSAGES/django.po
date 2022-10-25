@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2765,8 +2765,8 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Taak '{0}' ingeschakeld."
 
-msgid "Change"
-msgstr "Wijzigen"
+msgid "Choose another"
+msgstr "Kies een ander"
 
 msgid "Pages"
 msgstr "Pagina's"
@@ -2821,12 +2821,6 @@ msgstr "Sorteer menu volgorde"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Verander volgorde van onderliggende pagina's van '%(title)s'"
 
-msgid "Translate"
-msgstr "Vertaal"
-
-msgid "Translate this page"
-msgstr "Vertaal deze pagina"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Kop %(level)d"
@@ -2873,8 +2867,14 @@ msgstr "Ja"
 msgid "Choose an item"
 msgstr "Kies een item"
 
-msgid "Clear"
-msgstr "Leegmaken"
+msgid "Choose another item"
+msgstr "Kies een ander item"
+
+msgid "Clear choice"
+msgstr "Keuze leegmaken"
+
+msgid "Choose another page"
+msgstr "Kies een andere pagina"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2886,3 +2886,9 @@ msgstr ""
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr ""
 "Een tag mag alleen uit een enkel woord bestaan, en mag geen spaties bevatten."
+
+msgid "Choose another task"
+msgstr "Kies andere taak"
+
+msgid "Edit this task"
+msgstr "Bewerk deze taak"

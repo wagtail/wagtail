@@ -1,9 +1,11 @@
 import os
+from io import BytesIO
 
 import willow
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.forms.fields import ImageField
+from django.core.validators import FileExtensionValidator
+from django.forms.fields import FileField, ImageField
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
@@ -12,6 +14,8 @@ SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP")
 
 
 class WagtailImageField(ImageField):
+    default_validators = [FileExtensionValidator(ALLOWED_EXTENSIONS)]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -43,7 +47,9 @@ class WagtailImageField(ImageField):
             % SUPPORTED_FORMATS_TEXT
         )
 
-        self.error_messages["invalid_image_known_format"] = _("Not a valid %s image.")
+        self.error_messages["invalid_image_known_format"] = _(
+            "Not a valid .%s image. The extension does not match the file format (%s)"
+        )
 
         self.error_messages["file_too_large"] = (
             _("This file is too big (%%s). Maximum filesize %s.") % max_upload_size_text
@@ -68,19 +74,15 @@ class WagtailImageField(ImageField):
                 code="invalid_image_extension",
             )
 
-        image_format = extension.upper()
-        if image_format == "JPG":
-            image_format = "JPEG"
-
-        internal_image_format = f.image.format.upper()
-        if internal_image_format == "MPO":
-            internal_image_format = "JPEG"
+        if extension == "jpg":
+            extension = "jpeg"
 
         # Check that the internal format matches the extension
         # It is possible to upload PSD files if their extension is set to jpg, png or gif. This should catch them out
-        if internal_image_format != image_format:
+        if extension != f.image.format_name:
             raise ValidationError(
-                self.error_messages["invalid_image_known_format"] % (image_format,),
+                self.error_messages["invalid_image_known_format"]
+                % (extension, f.image.format_name),
                 code="invalid_image_known_format",
             )
 
@@ -102,9 +104,8 @@ class WagtailImageField(ImageField):
             return
 
         # Check the pixel size
-        image = willow.Image.open(f)
-        width, height = image.get_size()
-        frames = image.get_frame_count()
+        width, height = f.image.get_size()
+        frames = f.image.get_frame_count()
         num_pixels = width * height * frames
 
         if num_pixels > self.max_image_pixels:
@@ -114,7 +115,40 @@ class WagtailImageField(ImageField):
             )
 
     def to_python(self, data):
-        f = super().to_python(data)
+        """
+        Check that the file-upload field data contains a valid image (GIF, JPG,
+        PNG, etc. -- whatever Willow supports). Overridden from ImageField to use
+        Willow instead of Pillow as the image library in order to enable SVG support.
+        """
+        f = FileField.to_python(self, data)
+        if f is None:
+            return None
+
+        # We need to get a file object for Pillow. We might have a path or we might
+        # have to read the data into memory.
+        if hasattr(data, "temporary_file_path"):
+            file = data.temporary_file_path()
+        else:
+            if hasattr(data, "read"):
+                file = BytesIO(data.read())
+            else:
+                file = BytesIO(data["content"])
+
+        try:
+            # Annotate the python representation of the FileField with the image
+            # property so subclasses can reuse it for their own validation
+            f.image = willow.Image.open(file)
+            f.content_type = image_format_name_to_content_type(f.image.format_name)
+
+        except Exception as exc:
+            # Willow doesn't recognize it as an image.
+            raise ValidationError(
+                self.error_messages["invalid_image"],
+                code="invalid_image",
+            ) from exc
+
+        if hasattr(f, "seek") and callable(f.seek):
+            f.seek(0)
 
         if f is not None:
             self.check_image_file_size(f)
@@ -122,3 +156,27 @@ class WagtailImageField(ImageField):
             self.check_image_pixel_size(f)
 
         return f
+
+
+def image_format_name_to_content_type(image_format_name):
+    """
+    Convert a Willow image format name to a content type.
+    TODO: Replace once https://github.com/wagtail/Willow/pull/102 and
+          a new Willow release is out
+    """
+    if image_format_name == "svg":
+        return "image/svg+xml"
+    elif image_format_name == "jpeg":
+        return "image/jpeg"
+    elif image_format_name == "png":
+        return "image/png"
+    elif image_format_name == "gif":
+        return "image/gif"
+    elif image_format_name == "bmp":
+        return "image/bmp"
+    elif image_format_name == "tiff":
+        return "image/tiff"
+    elif image_format_name == "webp":
+        return "image/webp"
+    else:
+        raise ValueError("Unknown image format name")

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1601,9 +1601,6 @@ msgstr "S'ha deshabilitat el fluxe de treball '{0}'."
 msgid "Workflow '{0}' enabled."
 msgstr "S'ha habilitat el fluxe de treball '{0}'."
 
-msgid "Change"
-msgstr "Canviar"
-
 msgid "Pages"
 msgstr "Pàgines"
 
@@ -1659,3 +1656,18 @@ msgstr "Sí"
 
 msgid "Choose an item"
 msgstr "Escull un element"
+
+msgid "Choose another item"
+msgstr "Escull un altre element"
+
+msgid "Clear choice"
+msgstr "Esborrar selecció"
+
+msgid "Choose another page"
+msgstr "Escull una altra pàgina"
+
+msgid "Choose another task"
+msgstr "Tria una altra tasca"
+
+msgid "Edit this task"
+msgstr "Edita aquesta tasca"

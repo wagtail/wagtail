@@ -2,7 +2,7 @@
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
  */
-const toggleCollapsiblePanel = (
+export const toggleCollapsiblePanel = (
   toggle: HTMLButtonElement,
   // If a specific state isn’t requested, read the DOM and toggle.
   isExpanding = !(toggle.getAttribute('aria-expanded') === 'true'),
@@ -27,10 +27,11 @@ const toggleCollapsiblePanel = (
     content.setAttribute('hidden', '');
   }
 
-  content.dispatchEvent(
+  // Fire events on the toggle so we can retrieve the content with aria-controls.
+  toggle.dispatchEvent(
     new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
   );
-  content.dispatchEvent(
+  toggle.dispatchEvent(
     new CustomEvent('wagtail:panel-toggle', {
       bubbles: true,
       cancelable: false,
@@ -43,15 +44,22 @@ const toggleCollapsiblePanel = (
  * Initialises event handlers for a collapsible panel,
  * and applies the correct initial state based on classes.
  */
-function initCollapsiblePanel(toggle: HTMLButtonElement) {
+export function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const panel = toggle.closest<HTMLElement>('[data-panel]');
   const content = document.querySelector<HTMLDivElement>(
     `#${toggle.getAttribute('aria-controls')}`,
   );
 
-  if (!content || !panel) {
+  // Avoid initialising the same panel twice.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (!content || !panel || panel.collapsibleInitialised) {
     return;
   }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  panel.collapsibleInitialised = true;
 
   const togglePanel = toggleCollapsiblePanel.bind(null, toggle);
 
@@ -60,8 +68,9 @@ function initCollapsiblePanel(toggle: HTMLButtonElement) {
   const hasError = content.querySelector(
     '[aria-invalid="true"], .error, .w-field--error',
   );
+  const isCollapsed = hasCollapsed && !hasError;
 
-  if (hasCollapsed && !hasError) {
+  if (isCollapsed) {
     togglePanel(false);
   }
 
@@ -74,6 +83,14 @@ function initCollapsiblePanel(toggle: HTMLButtonElement) {
 
   // Set the toggle back to expanded upon reveal.
   content.addEventListener('beforematch', togglePanel.bind(null, true));
+
+  toggle.dispatchEvent(
+    new CustomEvent('wagtail:panel-init', {
+      bubbles: true,
+      cancelable: false,
+      detail: { expanded: !isCollapsed },
+    }),
+  );
 }
 
 /**
@@ -83,51 +100,6 @@ export function initCollapsiblePanels(
   toggles = document.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]'),
 ) {
   toggles.forEach(initCollapsiblePanel);
-}
-
-/**
- * Initialises event handlers for collapsing / expanding all panels
- */
-export function initCollapseAllPanels(
-  button = document.querySelector<HTMLButtonElement>(
-    '[data-all-panels-toggle]',
-  ),
-) {
-  if (!button) {
-    return;
-  }
-
-  const expandText = button.getAttribute('data-expand-text');
-  const collapseText = button.getAttribute('data-collapse-text');
-
-  if (!button || !expandText || !collapseText) {
-    return;
-  }
-
-  button.addEventListener('click', () => {
-    const isExpanding = !(button.getAttribute('aria-expanded') === 'true');
-
-    // Find all panel toggles within the same form as the button,
-    // excluding the special "title" panel that has no toggle.
-    const toggles = button
-      .closest('form')
-      ?.querySelectorAll<HTMLButtonElement>(
-        '[data-panel]:not(.title) [data-panel-toggle]',
-      );
-
-    if (!toggles) {
-      return;
-    }
-
-    button.setAttribute('aria-expanded', `${isExpanding}`);
-
-    toggles.forEach((toggle: HTMLButtonElement) => {
-      toggleCollapsiblePanel(toggle, isExpanding);
-    });
-
-    // eslint-disable-next-line no-param-reassign
-    button.innerText = isExpanding ? collapseText : expandText;
-  });
 }
 
 /**

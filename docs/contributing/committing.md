@@ -127,14 +127,14 @@ git branch -d pr/xxxx
 
 ## When you have made a mistake
 
-It's ok! Everyone makes mistakes. If you realise that recent merged changes
+It's ok! Everyone makes mistakes. If you realise that recently merged changes
 have a negative impact, create a new pull request with a revert of the changes
 and merge it without waiting for a review. The PR will serve as additional
-documentation for the changes, and will run through the CI tests.
+documentation for the changes and will run through the CI tests.
 
 ## Add commits to someone else's pull request
 
-Github users with write access to wagtail/wagtail (core members) can add
+GitHub users with write access to wagtail/wagtail (core members) can add
 commits to the pull request branch of the contributor.
 
 Given that the contributor username is johndoe and his pull request branch is called foo:

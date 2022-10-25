@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2195,9 +2195,6 @@ msgstr[3] ""
 msgid "Task '{0}' enabled."
 msgstr "Задача '{0}' включена."
 
-msgid "Change"
-msgstr "Изменить"
-
 msgid "Pages"
 msgstr "Страницы"
 
@@ -2251,12 +2248,6 @@ msgstr "Задать порядок сортировки"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Изменить порядок дочерних страниц '%(title)s'"
 
-msgid "Translate"
-msgstr "Перевести"
-
-msgid "Translate this page"
-msgstr "Перевести эту страницу"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Заголовок %(level)d"
@@ -2303,6 +2294,15 @@ msgstr "Да"
 msgid "Choose an item"
 msgstr "Выбрать элемент"
 
+msgid "Choose another item"
+msgstr "Выбрать другой элемент"
+
+msgid "Clear choice"
+msgstr "Очистить выбор"
+
+msgid "Choose another page"
+msgstr "Выбрать другую страницу"
+
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
 "(\")."
@@ -2312,3 +2312,9 @@ msgstr ""
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "Теги могут состоять только из одного слова, без пробелов."
+
+msgid "Choose another task"
+msgstr "Выбрать другую задачу"
+
+msgid "Edit this task"
+msgstr "Редактировать эту задачу"

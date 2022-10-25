@@ -253,7 +253,7 @@
       cursor: default;
     }
 
-    @media (forced-colors: active) {
+    @media (forced-colors: $media-forced-colours) {
       color: GrayText;
       border-color: GrayText;
       border-style: dashed;
@@ -352,6 +352,19 @@
         &:before {
           width: 1.75em;
         }
+      }
+    }
+  }
+
+  // Ensure visual consistency between button and a elements in WHCM
+
+  @media (forced-colors: $media-forced-colours) {
+    &:not(:disabled):not(.disabled):not([disabled]) {
+      color: ButtonText;
+      border-color: ButtonText;
+
+      &:hover {
+        border-color: Highlight;
       }
     }
   }

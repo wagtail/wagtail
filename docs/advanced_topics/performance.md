@@ -44,6 +44,20 @@ CACHES = {
 }
 ```
 
+### Image URLs
+
+If all you need is the URL to an image (such as for use in meta tags or other tag attributes), it is likely more efficient to use the [image serve view](using_images_outside_wagtail) and `{% image_url %}` tag:
+
+```html+django
+<meta property="og:image" content="{% image_url page.hero_image width-600 %}" />
+```
+
+Rather than finding or creating the rendition in the page request, the image serve view offloads this to a separate view, which only creates the rendition when the user requests the image (or returning an existing rendition if it already exists). This can drastically speed up page loads with many images. This may increase the number of requests handled by Wagtail if you're using an external storage backend (for example Amazon S3).
+
+Another side benefit is it prevents errors during conversation from causing page errors. If an image is too large for Willow to handle (the size of an image can be constrained with [`WAGTAILIMAGES_MAX_IMAGE_PIXELS`](wagtailimages_max_image_pixels)), Willow may crash. As the resize is done outside the page load, the image will be missing, but the rest of the page content will remain.
+
+The same can be achieved in Python using [`generate_image_url`](dynamic_image_urls).
+
 ### Search
 
 Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](http://www.searchly.com/).
