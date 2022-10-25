@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 12:16+0100\n"
+"POT-Creation-Date: 2022-10-25 11:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -469,27 +469,27 @@ msgstr ""
 msgid "All items in listing selected"
 msgstr ""
 
-#: panels.py:1216
-msgid "Page title*"
+#: panels.py:1220
+msgid "Page title"
 msgstr ""
 
-#: panels.py:1227
+#: panels.py:1234
 msgid "For search engines"
 msgstr ""
 
-#: panels.py:1233
+#: panels.py:1240
 msgid "For site menus"
 msgstr ""
 
-#: panels.py:1263
+#: panels.py:1270
 msgid "Content"
 msgstr ""
 
-#: panels.py:1265
+#: panels.py:1272
 msgid "Promote"
 msgstr ""
 
-#: panels.py:1268 wagtail_hooks.py:123
+#: panels.py:1275 wagtail_hooks.py:123
 msgid "Settings"
 msgstr ""
 
