@@ -649,6 +649,7 @@ Contributors
 * Mary Ojo
 * Oluwaloseyi Adeleye
 * Dennis Onyeka
+* Precious Arinda
 
 Translators
 ===========
