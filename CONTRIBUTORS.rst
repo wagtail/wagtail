@@ -648,6 +648,7 @@ Contributors
 * Bolarinwa Comfort Ajayi
 * Mary Ojo
 * Oluwaloseyi Adeleye
+* Dennis Onyeka
 
 Translators
 ===========
