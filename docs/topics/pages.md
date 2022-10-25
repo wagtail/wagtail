@@ -338,10 +338,10 @@ Wagtail can nest the content of other models within the page. This is useful for
 Each inline model requires the following:
 
 -   It must inherit from {class}`wagtail.models.Orderable`
--   It must have a `ParentalKey` to the parent model
+-   It must have a `ParentalKey` or `ParentalManyToManyField` to the parent model
 
 ````{note}
-The model inlining feature is provided by [django-modelcluster](https://github.com/wagtail/django-modelcluster) and the `ParentalKey` field type must be imported from there:
+The model inlining feature is provided by [django-modelcluster](https://github.com/wagtail/django-modelcluster) and the `ParentalKey` or `ParentalManyToManyField` field type must be imported from there:
 
 ```python
 from modelcluster.fields import ParentalKey
@@ -349,6 +349,7 @@ from modelcluster.fields import ParentalKey
 
 `ParentalKey` is a subclass of Django's `ForeignKey`, and takes the same arguments.
 
+The `ParentalManyToManyField` is for use in implementing a model inlining feature for many to many relations. Like `ParentalKey`, it subclasses the Django's `ManyToManyField`, and takes the same arguments.
 ````
 
 For example, the following inline model can be used to add related links (a list of name, url pairs) to the `BlogPage` model:
