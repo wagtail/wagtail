@@ -647,6 +647,7 @@ Contributors
 * Mary Ayobami
 * Bolarinwa Comfort Ajayi
 * Mary Ojo
+* Oluwaloseyi Adeleye
 
 Translators
 ===========
