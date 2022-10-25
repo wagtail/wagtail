@@ -2956,8 +2956,10 @@ class UserPagePermissionsProxy:
         return PagePermissionTester(self, page)
 
     def viewable_pages(self):
-        """Return a queryset of pages that the user has access to view (e.g. add/edit/publish permission).
-        Includes all pages with specific group permissions."""
+        """
+        Returns a queryset of pages that the user has access to view (e.g. add/edit/publish/lock permission).
+        Includes all pages with specific group permissions.
+        """
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
@@ -2967,7 +2969,7 @@ class UserPagePermissionsProxy:
         viewable_pages = Page.objects.none()
 
         # Creates a union queryset of all objects the user has access to add,
-        # edit and publish
+        # edit, publish and lock.
         for perm in self.permissions.filter(
             Q(permission_type="add")
             | Q(permission_type="edit")
@@ -2979,10 +2981,10 @@ class UserPagePermissionsProxy:
         return viewable_pages
 
     def explorable_pages(self):
-        """Return a queryset of pages that the user has access to view in the
-        explorer (e.g. add/edit/publish permission). Includes all pages with
-        specific group permissions and also the ancestors of those pages (in
-        order to enable navigation in the explorer)"""
+        """
+        Returns a queryset based on viewable_pages(), but further extended with all
+        ancestors of those pages, in order to enable navigation in the explorer.
+        """
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
