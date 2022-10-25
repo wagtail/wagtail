@@ -27,7 +27,7 @@ class CustomSettingsForm(forms.ModelForm):
 ```
 
 ```python
-# hooks.py
+# wagtail_hooks.py
 
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
@@ -70,7 +70,7 @@ class CustomProfileSettingsForm(forms.ModelForm):
 ```
 
 ```python
-# hooks.py
+# wagtail_hooks.py
 
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
@@ -90,7 +90,7 @@ class CustomSettingsPanel(BaseSettingsPanel):
 You can define a new tab using the `SettingsTab` class:
 
 ```python
-# hooks.py
+# wagtail_hooks.py
 
 from wagtail.admin.views.account import BaseSettingsPanel, SettingsTab
 from wagtail import hooks
@@ -118,7 +118,7 @@ class CustomSettingsPanel(BaseSettingsPanel):
 You can provide a custom template for the panel by specifying a template name:
 
 ```python
-# hooks.py
+# wagtail_hooks.py
 
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail import hooks
