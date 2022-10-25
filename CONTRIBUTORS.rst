@@ -637,6 +637,7 @@ Contributors
 * Toyibat Adele
 * Umar Farouk Yunusa
 * Chizoba Nweke
+* Dennis Onyeka
 
 
 Translators
