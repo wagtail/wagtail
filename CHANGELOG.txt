@@ -7,6 +7,7 @@ Changelog
  * Add custom permissions section to permissions documentation page (Dan Hayden)
  * Remove unsquashed `testapp` migrations (Matt Westcott)
  * Switch to using Willow instead of Pillow for images (Darrel O'Pry)
+ * Adopt `wagtail.admin.views.generic` views in contrib Settings (Tidiane Dia)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
