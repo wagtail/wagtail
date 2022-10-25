@@ -29,7 +29,7 @@ cd wagtail
 **With your preferred virtualenv activated,** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```sh
-pip install -e '.[testing,docs]' -U
+pip install -e ."[testing,docs]" -U
 ```
 
 Install the tool chain for building static assets:
