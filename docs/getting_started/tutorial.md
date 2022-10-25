@@ -105,10 +105,8 @@ This command ensures that the tables in your database are matched to the models 
 ```sh
 python manage.py createsuperuser
 ```
-When this command is exceuted it prompts the user to add a username, email and password.
 
-Note that when typing the password, the text remains unseen by the user because it's written in a command line interface. 
-The login details used here will be used to access the admin site, which gives you a superuser permission to view/create/manage the database.
+This will prompt you to create a new superuser account with full permissions. Note the password text won’t be visible when typed, for security reasons.
 
 ### Start the server
 
