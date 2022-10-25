@@ -77,13 +77,18 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 
         A ``list`` or ``tuple`` of child panels
 
-    .. attribute:: MultiFieldPanel.heading
+    .. attribute:: MultiFieldPanel.heading (optional)
 
         A heading for the fields
 
-    .. attribute:: MultiFieldPanel.help_text
+    .. attribute:: MultiFieldPanel.help_text (optional)
 
         Help text to be displayed against the panel.
+
+    .. attribute:: MultiFieldPanel.permission (optional)
+        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form.
+        Similar to `FieldPanel.permission`
+        The panel group will not be visible if the permission check does not pass.
 ```
 
 ### InlinePanel
@@ -103,7 +108,7 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
 ### FieldRowPanel
 
 ```{eval-rst}
-.. class:: FieldRowPanel(children, classname=None)
+.. class:: FieldRowPanel(children, classname=None, permission=None)
 
     This panel creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below.
 
@@ -113,13 +118,18 @@ Note that you can use `classname="collapsed"` to load the panel collapsed under 
 
         A ``list`` or ``tuple`` of child panels to display on the row
 
-    .. attribute:: FieldRowPanel.classname
+    .. attribute:: FieldRowPanel.classname (optional)
 
         A class to apply to the FieldRowPanel as a whole
 
-    .. attribute:: FieldRowPanel.help_text
+    .. attribute:: FieldRowPanel.help_text (optional)
 
         Help text to be displayed against the panel.
+
+    .. attribute:: FieldRowPanel.permission (optional)
+        Allows a panel to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form.
+        Similar to `FieldPanel.permission`
+        The panel group will not be visible if the permission check does not pass.
 ```
 
 ### HelpPanel
@@ -373,4 +383,4 @@ The `relation_name` is the `related_name` label given to the cluster's `Parental
 For another example of using model clusters, see {ref}`tagging`.
 
 For more on `django-modelcluster`, visit
-[the django-modelcluster github project page](https://github.com/torchbox/django-modelcluster)
+[the django-modelcluster github project page](https://github.com/wagtail/django-modelcluster)

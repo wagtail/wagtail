@@ -7,13 +7,13 @@ See the section on [performance](performance) for the non-Python services we rec
 
 ## On Divio Cloud
 
-[Divio Cloud](https://divio.com/) is a Dockerised cloud hosting platform for Python/Django that allows you to launch and deploy Wagtail projects in minutes.
+[Divio Cloud](https://www.divio.com/) is a Dockerised cloud hosting platform for Python/Django that allows you to launch and deploy Wagtail projects in minutes.
 With a free account, you can create a Wagtail project. Choose from a:
 
--   [site based on the Wagtail Bakery project](https://divio.com/wagtail), or
+-   [site based on the Wagtail Bakery project](https://www.divio.com/wagtail/), or
 -   [brand new Wagtail project](https://control.divio.com/control/project/create) (see the [how to get started notes](https://docs.divio.com/en/latest/introduction/wagtail/)).
 
-Divio Cloud also hosts a [live Wagtail Bakery demo](https://divio.com/wagtail) (no account required).
+Divio Cloud also hosts a [live Wagtail Bakery demo](https://www.divio.com/wagtail/) (no account required).
 
 ## On PythonAnywhere
 

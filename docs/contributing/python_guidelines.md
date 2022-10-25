@@ -2,7 +2,7 @@
 
 ## PEP8
 
-We ask that all Python contributions adhere to the [PEP8](https://www.python.org/dev/peps/pep-0008/) style guide.
+We ask that all Python contributions adhere to the [PEP8](https://peps.python.org/pep-0008/) style guide.
 All files should be formatted using the [black](https://github.com/psf/black) auto-formatter. This will be
 run by `pre-commit` if that is configured.
 
@@ -14,12 +14,12 @@ In addition, import lines should be sorted according to [isort](https://pycqa.gi
 If you have installed Wagtail's testing dependencies (`pip install -e '.[testing]'`), you can check your code by
 running `make lint`. You can also just check python related linting by running `make lint-server`.
 
-You can run all Python formatting with `make format`. Similar to linting you can format python/template only files
+You can run all Python formatting with `make format`. Similar to linting you can format python/template-only files
 by running `make format-server`.
 
 ## Django compatibility
 
-Wagtail is written to be compatible with multiple versions of Django. Sometimes, this requires running one piece of code for recent version of Django, and another piece of code for older versions of Django. In these cases, always check which version of Django is being used by inspecting `django.VERSION`:
+Wagtail is written to be compatible with multiple versions of Django. Sometimes, this requires running one piece of code for recent versions of Django, and another piece of code for older versions of Django. In these cases, always check which version of Django is being used by inspecting `django.VERSION`:
 
 ```python
 import django

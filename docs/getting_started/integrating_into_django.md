@@ -2,17 +2,17 @@
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 3.2, 4.0 and 4.1. First, install the `wagtail` package from PyPI:
+Wagtail is currently compatible with Django 3.2, 4.0, and 4.1. First, install the `wagtail` package from PyPI:
 
 ```sh
-$ pip install wagtail
+pip install wagtail
 ```
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 
 ## Settings
 
-In your settings file, add the following apps to `INSTALLED_APPS`:
+In your settings.py file, add the following apps to `INSTALLED_APPS`:
 
 ```python
 'wagtail.contrib.forms',
@@ -105,14 +105,14 @@ urlpatterns = [
 
 Note that this only works in development mode (`DEBUG = True`); in production, you will need to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](https://docs.djangoproject.com/en/stable/howto/static-files/deployment/).
 
-With this configuration in place, you are ready to run `./manage.py migrate` to create the database tables used by Wagtail.
+With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 
 ## User accounts
 
-Superuser accounts receive automatic access to the Wagtail admin interface; use `./manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
+Superuser accounts receive automatic access to the Wagtail admin interface; use `python manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
 ## Start developing
 
-You're now ready to add a new app to your Django project (via `./manage.py startapp` - remember to add it to `INSTALLED_APPS`) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
+You're now ready to add a new app to your Django project (via `python manage.py startapp` - remember to add it to `INSTALLED_APPS` in your settings.py file) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
 
 Note that there's one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which does not include any content fields beyond the title. You'll probably want to replace this with your own `HomePage` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.

@@ -74,8 +74,8 @@ WAGTAILREDIRECTS_AUTO_CREATE = False
 
 ### `import_redirects`
 
-```console
-$ ./manage.py import_redirects
+```sh
+./manage.py import_redirects
 ```
 
 This command imports and creates redirects from a file supplied by the user.

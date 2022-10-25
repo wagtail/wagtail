@@ -23,12 +23,18 @@ class BaseSidebarAdapter(Adapter):
 
 class MenuItem:
     def __init__(
-        self, name: str, label: str, icon_name: str = "", classnames: str = ""
+        self,
+        name: str,
+        label: str,
+        icon_name: str = "",
+        classnames: str = "",
+        attrs: Mapping[str, Any] = None,
     ):
         self.name = name
         self.label = label
         self.icon_name = icon_name
         self.classnames = classnames
+        self.attrs = attrs or {}
 
     def js_args(self):
         return [
@@ -37,6 +43,7 @@ class MenuItem:
                 "label": self.label,
                 "icon_name": self.icon_name,
                 "classnames": self.classnames,
+                "attrs": self.attrs,
             }
         ]
 
@@ -52,14 +59,18 @@ class LinkMenuItem(MenuItem):
         classnames: str = "",
         attrs: Mapping[str, Any] = None,
     ):
-        super().__init__(name, label, icon_name=icon_name, classnames=classnames)
+        super().__init__(
+            name,
+            label,
+            icon_name=icon_name,
+            classnames=classnames,
+            attrs=attrs,
+        )
         self.url = url
-        self.attrs = attrs
 
     def js_args(self):
         args = super().js_args()
         args[0]["url"] = self.url
-        args[0]["attrs"] = self.attrs
         return args
 
     def __eq__(self, other):
@@ -84,8 +95,15 @@ class SubMenuItem(MenuItem):
         icon_name: str = "",
         classnames: str = "",
         footer_text: str = "",
+        attrs: Mapping[str, Any] = None,
     ):
-        super().__init__(name, label, icon_name=icon_name, classnames=classnames)
+        super().__init__(
+            name,
+            label,
+            icon_name=icon_name,
+            classnames=classnames,
+            attrs=attrs,
+        )
         self.menu_items = menu_items
         self.footer_text = footer_text
 
@@ -104,6 +122,7 @@ class SubMenuItem(MenuItem):
             and self.icon_name == other.icon_name
             and self.classnames == other.classnames
             and self.footer_text == other.footer_text
+            and self.attrs == other.attrs
         )
 
 
@@ -117,8 +136,16 @@ class PageExplorerMenuItem(LinkMenuItem):
         start_page_id: int,
         icon_name: str = "",
         classnames: str = "",
+        attrs: Mapping[str, Any] = None,
     ):
-        super().__init__(name, label, url, icon_name=icon_name, classnames=classnames)
+        super().__init__(
+            name,
+            label,
+            url,
+            icon_name=icon_name,
+            classnames=classnames,
+            attrs=attrs,
+        )
         self.start_page_id = start_page_id
 
     def js_args(self):
@@ -135,6 +162,7 @@ class PageExplorerMenuItem(LinkMenuItem):
             and self.start_page_id == other.start_page_id
             and self.icon_name == other.icon_name
             and self.classnames == other.classnames
+            and self.attrs == other.attrs
         )
 
 

@@ -67,7 +67,7 @@ Individual fixes were implemented by a large number of first-time and seasoned c
  * Update tab styles so the active tab can be identified (Dmitrii Faiazov, LB (Ben Johnston))
  * Make hamburger menu a button for tab and high contrast accessibility (Amy Chan, Dan Braghis)
  * Tag fields now have the correct background (Desai Akshata, LB (Ben Johnston))
- * Added sidebar vertical seperation with main content (Onkar Apte, LB (Ben Johnston))
+ * Added sidebar vertical separation with main content (Onkar Apte, LB (Ben Johnston))
  * Added vertical separation between field panels (Chakita Muttaraju, LB (Ben Johnston))
  * Switch widgets on/off states are now visually distinguishable (Sakshi Uppoor, Thibaud Colas)
  * Checkbox widgets on/off states are now visually distinguishable (Thibaud Colas, Jacob Topp-Mugglestone, LB (Ben Johnston))
@@ -274,7 +274,7 @@ Removed support for Internet Explorer (IE11)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If this affects you or your organisation, consider which alternative browsers you may be able to use.
-Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://docs.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
+Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://learn.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
 
 
 ``search()`` method partial match future deprecation

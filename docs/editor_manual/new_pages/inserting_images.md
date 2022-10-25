@@ -12,14 +12,14 @@ Often a specific image field will be used for a main image on a page, or for an 
 
 -   You insert an image by clicking the _Choose an image_ button.
 
-## Choosing an image to insert
+### Choosing an image to insert
 
 You have two options when selecting an image to insert:
 
 1. Selecting an image from the existing image library, or…
 2. Uploading a new image to the CMS
 
-When you click the _Choose an image_ button you will be presented with a pop-up with two tabs at the top. The first, Search, allows you to search and select from the library. The second, _Upload_, allows you to upload a new image.
+When you click the _Choose an image_ button you will be presented with a pop-up with two tabs at the top. The first, _Search_, allows you to search and select from the library. The second, _Upload_, allows you to upload a new image.
 
 **Choosing an image from the image library**
 

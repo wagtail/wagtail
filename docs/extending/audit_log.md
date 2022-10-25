@@ -2,12 +2,12 @@
 
 # Audit log
 
-Wagtail provides a mechanism to log actions performed on its objects. Common activities such as page creation, update, deletion, locking and unlocking, revision scheduling and privacy changes are automatically logged at the model level.
+Wagtail provides a mechanism to log actions performed on its objects. Common activities such as page creation, update, deletion, locking and unlocking, revision scheduling, and privacy changes are automatically logged at the model level.
 
-The Wagtail admin uses the action log entries to provide a site-wide and page specific history of changes. It uses a
+The Wagtail admin uses the action log entries to provide a site-wide and page-specific history of changes. It uses a
 registry of 'actions' that provide additional context for the logged action.
 
-The audit log-driven Page history replaces the revisions list page, but provide a filter for revision-specific entries.
+The audit log-driven Page history replaces the revisions list page, but provides a filter for revision-specific entries.
 
 ```{note}
 The audit log does not replace revisions.
@@ -24,12 +24,12 @@ The `wagtail.log_actions.log` function can be used to add logging to your own co
    :param action: The code name for the action being performed. This can be one of the names listed below, or a custom action defined through the :ref:`register_log_actions` hook.
    :param user: Optional - the user initiating the action. For actions logged within an admin view, this defaults to the logged-in user.
    :param uuid: Optional - log entries given the same UUID indicates that they occurred as part of the same user action (for example a page being immediately published on creation).
-   :param title: The string representation of the instance being logged. By default, Wagtail will attempt to use the instance's ``str`` representation, or ``get_admin_display_title`` for page objects.
+   :param title: The string representation, of the instance being logged. By default, Wagtail will attempt to use the instance's ``str`` representation or ``get_admin_display_title`` for page objects.
    :param data: Optional - a dictionary of additional JSON-serialisable data to store against the log entry
 ```
 
 ```{note}
-When adding logging, you need to log the action or actions that happen to the object. For example, if the user creates and publishes a page, there should be a "create" entry and a "publish" entry. Or, if the user copies a published page and chooses to keep it published, there should be a "copy" and a "publish" entry for new page.
+When adding logging, you need to log the action or actions that happen to the object. For example, if the user creates and publishes a page, there should be a "create" entry and a "publish" entry. Or, if the user copies a published page and chooses to keep it published, there should be a "copy" and a "publish" entry for the new page.
 ```
 
 ```python
@@ -61,10 +61,10 @@ The `log` function was added. Previously, logging was only implemented for pages
 | Action                            | Notes                                                                            |
 | --------------------------------- | -------------------------------------------------------------------------------- |
 | `wagtail.create`                  | The object was created                                                           |
-| `wagtail.edit`                    | The object was edited (for pages, saved as draft)                                |
+| `wagtail.edit`                    | The object was edited (for pages, saved as a draft)                                |
 | `wagtail.delete`                  | The object was deleted. Will only surface in the Site History for administrators |
 | `wagtail.publish`                 | The page was published                                                           |
-| `wagtail.publish.schedule`        | Draft is scheduled for publishing                                                |
+| `wagtail.publish.schedule`        | The draft is scheduled for publishing                                                |
 | `wagtail.publish.scheduled`       | Draft published via `publish_scheduled` management command                       |
 | `wagtail.schedule.cancel`         | Draft scheduled for publishing cancelled via "Cancel scheduled publish"          |
 | `wagtail.unpublish`               | The page was unpublished                                                         |
@@ -78,13 +78,13 @@ The `log` function was added. Previously, logging was only implemented for pages
 | `wagtail.copy`                    | The page was copied to a new location                                            |
 | `wagtail.copy_for_translation`    | The page was copied into a new locale for translation                            |
 | `wagtail.move`                    | The page was moved to a new location                                             |
-| `wagtail.reorder`                 | The order of the page under it's parent was changed                              |
+| `wagtail.reorder`                 | The order of the page under its parent was changed                              |
 | `wagtail.view_restriction.create` | The page was restricted                                                          |
 | `wagtail.view_restriction.edit`   | The page restrictions were updated                                               |
 | `wagtail.view_restriction.delete` | The page restrictions were removed                                               |
 | `wagtail.workflow.start`          | The page was submitted for moderation in a Workflow                              |
 | `wagtail.workflow.approve`        | The draft was approved at a Workflow Task                                        |
-| `wagtail.workflow.reject`         | The draft was rejected, and changes requested at a Workflow Task                 |
+| `wagtail.workflow.reject`         | The draft was rejected, and changes were requested at a Workflow Task                 |
 | `wagtail.workflow.resume`         | The draft was resubmitted to the workflow                                        |
 | `wagtail.workflow.cancel`         | The workflow was cancelled                                                       |
 

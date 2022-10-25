@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -540,6 +540,9 @@ msgstr "Permissions d’image"
 msgid "Add an image permission"
 msgstr "Ajouter une permission d’image"
 
+msgid "Tags"
+msgstr "Mots-clés"
+
 msgid "Tag"
 msgstr "Mot-clé"
 
@@ -595,6 +598,12 @@ msgstr "Transfert…"
 
 msgid "Choose an image"
 msgstr "Choisir une image"
+
+msgid "Choose another image"
+msgstr "Choisir une autre image"
+
+msgid "Edit this image"
+msgstr "Modifier cette image"
 
 msgid "Newest"
 msgstr "Plus récent"
@@ -654,3 +663,6 @@ msgid_plural "%(count)s images"
 msgstr[0] "%(count)s image"
 msgstr[1] "%(count)s images"
 msgstr[2] "%(count)s images"
+
+msgid "Change image"
+msgstr "Changer l'image"

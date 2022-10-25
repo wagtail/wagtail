@@ -37,13 +37,13 @@ class TestHome(TestCase, WagtailTestUtils):
         # check that custom menu items (including classname / icon_name) are pulled in
         self.assertContains(
             response,
-            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/", "attrs": {"data-is-custom": "true"}}',
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
         # Check that the explorer menu item is here, with the right start page.
         self.assertContains(
             response,
-            '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classnames": "", "url": "/admin/pages/", "attrs": null}, 1]',
+            '[{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classnames": "", "attrs": {}, "url": "/admin/pages/"}, 1]',
         )
 
         # There should be a link to the friend admin in on the home page.
@@ -56,7 +56,7 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtailadmin_home") + "?hide-kittens=true")
         self.assertNotContains(
             response,
-            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/", "attrs": {"data-is-custom": "true"}}',
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "attrs": {"data-is-custom": "true"}, "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
     def test_dashboard_panels(self):

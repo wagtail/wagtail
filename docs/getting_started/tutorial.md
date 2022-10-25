@@ -9,20 +9,26 @@ If you'd like to add Wagtail to an existing Django project instead, see [](integ
 
 ### Install dependencies
 
-Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
+Wagtail supports Python 3.7, 3.8, 3.9, and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 
-```console
-$ python3 --version
+```sh
+python --version
+```
+
+**On Windows** (cmd.exe, with the Python Launcher for Windows):
+
+```sh
+py --version
 ```
 
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
 
 ```{note}
-Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
+Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG, and GIF images (via the Python **Pillow** library).
 The way to do this varies by platform—see Pillow's
-[platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
+[platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
 ```
 
 ### Create and activate a virtual environment
@@ -33,15 +39,17 @@ This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which
 **On Windows** (cmd.exe):
 
 ```doscon
-> python3 -m venv mysite\env
-> mysite\env\Scripts\activate.bat
+py -m venv mysite\env
+mysite\env\Scripts\activate.bat
+# or:
+mysite\env\Scripts\activate
 ```
 
 **On GNU/Linux or MacOS** (bash):
 
-```console
-$ python3 -m venv mysite/env
-$ source mysite/env/bin/activate
+```sh
+python -m venv mysite/env
+source mysite/env/bin/activate
 ```
 
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
@@ -55,8 +63,8 @@ The `env` directory inside of it should be excluded from any version control.
 
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 
-```console
-$ pip install wagtail
+```sh
+pip install wagtail
 ```
 
 ### Generate your site
@@ -69,53 +77,55 @@ and a sample "search" app.
 
 Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
-```console
-$ wagtail start mysite mysite
+```sh
+wagtail start mysite mysite
 ```
 
 ```{note}
-Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings` file. Look at this file to see how the `start` command has listed them in there.
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings.py` file. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
 
-```console
-$ cd mysite
-$ pip install -r requirements.txt
+```sh
+cd mysite
+pip install -r requirements.txt
 ```
 
-This ensures that you have the relevant versions of
-Wagtail,
-Django,
-and any other dependencies for the project you have just created.
+This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
+The `requirements.txt` file contains all the dependencies needed in order to run the project.
 
 ### Create the database
 
 If you haven't updated the project settings, this will be a SQLite database file in the project directory.
 
-```console
-$ python manage.py migrate
+```sh
+python manage.py migrate
 ```
 
-This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command in order to update the database.
+This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (for example you may add a field to a model) you will need to run this command to update the database.
 
 ### Create an admin user
 
-```console
-$ python manage.py createsuperuser
+```sh
+python manage.py createsuperuser
 ```
 
 When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database.
 
 ### Start the server
 
-```console
-$ python manage.py runserver
+```sh
+python manage.py runserver
 ```
 
 If everything worked, <http://127.0.0.1:8000> will show you a welcome page:
 
 ![Browser screenshot of "Welcome to your new Wagtail site!" page, with teal egg above the title, and links to different resources. The page is shown inside a browswer tab, with browser URL bar at the top](../_static/images/tutorial/tutorial_1.png)
+
+```{note}
+Throughout this tutorial we will use `http://127.0.0.1:8000` but depending on your setup, this could be `http://localhost:8000/` or a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct url for your local site.
+```
 
 You can now access the administrative area at <http://127.0.0.1:8000/admin>
 
@@ -177,7 +187,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 {% endblock %}
 ```
 
-`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
+`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you can override specific content within the parent template).
 
 `wagtailcore_tags` must also be loaded at the top of the template and provide additional tags to those provided by Django.
 
@@ -211,13 +221,13 @@ if the tags aren't loaded.
 ## A basic blog
 
 We are now ready to create a blog. To do so, run
-`python manage.py startapp blog` to create a new app in your Wagtail site.
+`python manage.py startapp blog` to create a new app in your Wagtail project.
 
 Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
-Lets start with a simple index page for our blog. In `blog/models.py`:
+Let's start with a simple index page for our blog. In `blog/models.py`:
 
 ```python
 from wagtail.models import Page
@@ -236,8 +246,14 @@ class BlogIndexPage(Page):
 Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 Since the model is called `BlogIndexPage`, the default template name
-(unless we override it) will be `blog/templates/blog/blog_index_page.html`. Create this file
-with the following content:
+(unless we override it) will be `blog_index_page.html`. Django will look for a template whose name matches the name of your Page model within the templates directory in your blog app folder. This default behaviour can be overridden if needed.  
+To create a template for the `BlogIndexPage` model, create a file at the location `blog/templates/blog/blog_index_page.html`.
+
+```{note}
+You may need to create the folders `templates/blog` within your `blog` app folder
+```
+
+In your `blog_index_page.html` file enter the following content:
 
 ```html+django
 {% extends "base.html" %}
@@ -264,9 +280,11 @@ Most of this should be familiar, but we'll explain `get_children` a bit later.
 Note the `pageurl` tag, which is similar to Django's `url` tag but
 takes a Wagtail Page object as an argument.
 
-In the Wagtail admin, create a `BlogIndexPage` as a child of the Homepage,
-make sure it has the slug "blog" on the Promote tab, and publish it.
-You should now be able to access the url `/blog` on your site
+In the Wagtail admin, go to Pages, then Home.
+Add a child page to the Home page by clicking on the "Actions" icon and selecting the option "Add child page".
+Choose "Blog index page" from the list of the page types.
+Use "Our Blog" as your page title, make sure it has the slug "blog" on the Promote tab, and publish it.
+You should now be able to access the url `http://127.0.0.1:8000/blog` on your site
 (note how the slug from the Promote tab defines the page URL).
 
 Now we need a model and template for our blog posts. In `blog/models.py`:
@@ -304,7 +322,7 @@ In the model above, we import `index` as this makes the model searchable. You ca
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
 
-Create a template at `blog/templates/blog/blog_page.html`:
+Create a new template file at the location `blog/templates/blog/blog_page.html`. Now add the following content to your newly created `blog_page.html` file:
 
 ```html+django
 {% extends "base.html" %}
@@ -332,7 +350,7 @@ URL of the blog this post is a part of.
 Now create a few blog posts as children of `BlogIndexPage`.
 Be sure to select type "Blog Page" when creating your posts.
 
-![Page listing for Home page, with the "Actions" dropdown expanded, and the "Add child page" highlighted in red](../_static/images/tutorial/tutorial_4a.png)
+![Page listing for Home page with the "Add Child Page" button highlighted in red](../_static/images/tutorial/tutorial_4a.png)
 
 !["Create a page in our blog" page type selector, with Blog page button highlighted in red](../_static/images/tutorial/tutorial_4b.png)
 
@@ -789,9 +807,9 @@ class BlogCategory(models.Model):
 Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
 ```
 
-Migrate this change in, and create a few categories through the Snippets area which now appears in the admin menu.
+Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few categories through the Snippets area which now appears in the admin menu.
 
-We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.
+We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.To add categories to the `BlogPage`, modify `models.py` in your blog app folder:
 
 ```python
 # New imports added for forms and ParentalManyToManyField

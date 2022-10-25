@@ -34,9 +34,9 @@ The attributes are as follows:
 -   `template_name` - The path to the confirmation template
 -   `models` - A list of models on which the bulk action can act
 -   `action_priority` (optional) - A number that is used to determine the placement of the button in the list of buttons
--   `classes` (optional) - A set of CSS classnames that will be used on the button in the user interface
+-   `classes` (optional) - A set of CSS class names that will be used on the button in the user interface
 
-An example for a confirmation template is as follows:
+An example of a confirmation template is as follows:
 
 ```html+django
 <!-- /path/to/confirm_bulk_delete.html -->

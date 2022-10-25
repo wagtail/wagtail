@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -1540,9 +1540,6 @@ msgstr "Onemogoči"
 msgid "Enable"
 msgstr "Omogoči"
 
-msgid "Change"
-msgstr "Spremeni"
-
 msgid "Pages"
 msgstr "Strani"
 
@@ -1579,12 +1576,6 @@ msgstr "Prekliči objavo strani '%(title)s'"
 
 msgid "Sort menu order"
 msgstr "Vrstni red menija"
-
-msgid "Translate"
-msgstr "Prevedi"
-
-msgid "Translate this page"
-msgstr "Prevedi to stran"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -1626,6 +1617,21 @@ msgstr "Da"
 msgid "Choose an item"
 msgstr "Izberite element"
 
+msgid "Choose another item"
+msgstr "Izberite drug element"
+
+msgid "Clear choice"
+msgstr "Počisti izbiro"
+
+msgid "Choose another page"
+msgstr "Izberite drugo stran"
+
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr ""
 "Oznake so lahko sestavljene samo iz ene besede, presledki niso dovoljeni."
+
+msgid "Choose another task"
+msgstr "Izberite drugo nalogo"
+
+msgid "Edit this task"
+msgstr "Uredite to nalogo"
