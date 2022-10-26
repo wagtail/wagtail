@@ -109,7 +109,6 @@
     "draftjs-filters": "^3.0.1",
     "focus-trap-react": "^8.4.2",
     "immer": "^9.0.6",
-    "jquery": "^3.6.1",
     "js-cookie": "^2.2.1",
     "prop-types": "^15.6.2",
     "react": "^16.14.0",
