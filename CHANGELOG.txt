@@ -76,6 +76,7 @@ Changelog
  * Add new test assertions to `WagtailPageTestCase` - `assertPageIsRoutable`, `assertPageIsRenderable`, `assertPageIsEditable`, `assertPageIsPreviewable` (Andy Babic)
  * Add documentation to the performance section about how to better create image URLs when not used directly on the page (Jake Howard)
  * Add ability to provide a required `permission` to `PanelGroup`, used by `TabbedInterface`, `ObjectList`, `FieldRowPanel` and `MultiFieldPanel` (Oliver Parker)
+ * Update documentation screenshots of the admin interface to align with changes in this release (Thibaud Colas)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
