@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { gettext } from '../../utils/gettext';
+import { ngettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 
 export interface MinimapMenuItem {
@@ -35,7 +35,7 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
 }) => {
   const { href, label, icon, required, errorCount, level } = item;
   const hasError = errorCount > 0;
-  const errorsLabel = gettext('{num} errors').replace('{num}', `${errorCount}`);
+  const errorsLabel = ngettext('error', 'errors', errorCount )
   const text = label.length > 26 ? `${label.substring(0, 26)}…` : label;
   return (
     <a
