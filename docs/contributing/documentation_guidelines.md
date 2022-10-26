@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     ...
 ]
 ```
-    
+
 </details>
 
 #### When using console (terminal) code blocks
@@ -108,7 +108,7 @@ Use `sh` as it has better support for comment and code syntax highlighting in My
     # some comment
     some command
     ```
-    
+
 <details>
 
 <summary>Rendered output</summary>
