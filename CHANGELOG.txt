@@ -89,6 +89,7 @@ Changelog
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
  * Fix: references extraction for ChooserBlock (Alex Tomkins)
  * Fix: Regression in field width for authentication pages (log in / password reset) (Chisom)
+ * Fix: Ensure the new minimap correctly pluralises error counts for `aria-label`s (Matt Westcott)
 
 
 4.0.4 (18.10.2022)
