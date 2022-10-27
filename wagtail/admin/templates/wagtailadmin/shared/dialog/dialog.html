@@ -4,7 +4,7 @@
         id="{{ id }}"
         aria-labelledby="title-{{ id }}"
         aria-hidden="true"
-        class="w-dialog"
+        class="w-dialog{% if classname %} {{ classname }}{% endif %}"
         {% if dialog_root_selector %}
             data-dialog-root-selector="{{ dialog_root_selector }}"
         {% endif %}
