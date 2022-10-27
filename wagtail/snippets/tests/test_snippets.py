@@ -1956,6 +1956,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             allow_extra_attrs=True,
         )
 
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
     def test_edit_scheduled_go_live_before_expiry(self):
         response = self.post(
             post_data={
@@ -2089,6 +2097,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             allow_extra_attrs=True,
         )
 
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
     def test_edit_post_publish_now_an_already_scheduled_unpublished(self):
         # First let's publish an object with a go_live_at in the future
         go_live_at = now() + datetime.timedelta(days=1)
@@ -2149,6 +2165,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         html = response.content.decode()
         self.assertTagInHTML(
             '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -2234,6 +2258,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         html = response.content.decode()
         self.assertTagInHTML(
             '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -2407,6 +2439,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             allow_extra_attrs=True,
         )
 
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
     def test_edit_post_publish_schedule_before_a_scheduled_expire(self):
         # First let's publish an object with *just* an expire_at in the future
         expire_at = now() + datetime.timedelta(days=20)
@@ -2500,6 +2540,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         html = response.content.decode()
         self.assertTagInHTML(
             '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
             html,
             count=1,
             allow_extra_attrs=True,
@@ -2601,6 +2649,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         html = response.content.decode()
         self.assertTagInHTML(
             '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
             html,
             count=1,
             allow_extra_attrs=True,
