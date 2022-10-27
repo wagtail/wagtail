@@ -1,3 +1,4 @@
+// prettier-ignore
 $(function() {
     var panel = InlinePanel({
         formsetPrefix: "id_{{ formset.prefix }}",
