@@ -71,7 +71,8 @@ $box-padding: 10px;
       vertical-align: text-bottom;
     }
   }
- & > &__notice-placeholder:last-child &__notice,
+
+  & > &__notice-placeholder:last-child &__notice,
   &__replies:last-child > :last-child &__notice
   {
     // Remove once we drop support for Safari 14.
