@@ -129,6 +129,16 @@ class TranslatableMixin(models.Model):
         abstract = True
         unique_together = [("translation_key", "locale")]
 
+    @property
+    def cached_locale(self):
+        """
+        Can be used instead of ``self.locale`` to retrieve a ``Locale``
+        from LocaleManager's in-memory cache. This is great for efficiently
+        displaying language information for objects without hitting the
+        database, but for all other purposes, it's safer to use `self.locale`.
+        """
+        return Locale.objects.get_for_id(self.locale_id)
+
     @classmethod
     def check(cls, **kwargs):
         errors = super(TranslatableMixin, cls).check(**kwargs)
