@@ -36,7 +36,7 @@ To configure redirects head over to 'Redirects', which can be found in the Setti
 
 -   Set _Redirect from_ to the URL pattern which is no longer available on your site.
 -   Set the _From site_ if applicable (for eg: a multi-site environment).
--   Check whether the redirect is _Permanent_ or temporary (unchecked).
+-   Check whether the redirect is _Permanent_ or _temporary_ (unchecked).
 
 As a last step you can either redirect to a new page within Wagtail **or** you can redirect the page to a different domain outside of Wagtail.
 
