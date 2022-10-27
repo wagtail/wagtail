@@ -641,7 +641,7 @@ Contributors
 * Ruqouyyah Muhammad
 * Loveth Omokaro
 * Victoria Poromon
-* Chisom
+* Chisom Okeoma
 
 Translators
 ===========
