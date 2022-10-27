@@ -1115,6 +1115,7 @@ class PublishingPanel(MultiFieldPanel):
             context = super().get_context_data(parent_context)
             context["request"] = self.request
             context["instance"] = self.instance
+            context["classname"] = self.classname
             if isinstance(self.instance, Page):
                 context["page"] = self.instance
             return context
