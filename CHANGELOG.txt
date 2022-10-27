@@ -15,6 +15,7 @@ Changelog
  * Run Python tests with coverage and upload coverage data to codecov (Sage Abdullah)
  * Clean up duplicate JavaScript for the `escapeHtml` function (Jordan Rob)
  * Add documentation for `register_user_listing_buttons` hook (LB (Ben Johnston))
+ * Clean up Prettier & Eslint usage for search promotions formset JS file (LB (Ben Johnston))
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
