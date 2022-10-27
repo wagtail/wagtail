@@ -43,6 +43,13 @@ def reset_locales_display_names_cache(sender, instance, **kwargs):
     get_locales_display_names.cache_clear()
 
 
+def clear_localemanager_cache(sender, *args, **kwargs):
+    # This will only affect the cache in the current running instance. Other
+    # instances will refresh their caches themselves if they come across a
+    # new Locale.
+    Locale.objects.clear_cache()
+
+
 reference_index_auto_update_disabled = Local()
 
 
@@ -119,6 +126,9 @@ def register_signal_handlers():
 
     post_save.connect(reset_locales_display_names_cache, sender=Locale)
     post_delete.connect(reset_locales_display_names_cache, sender=Locale)
+
+    post_delete.connect(clear_localemanager_cache, sender=Locale)
+    post_save.connect(clear_localemanager_cache, sender=Locale)
 
     # Reference index signal handlers
     connect_reference_index_signal_handlers()
