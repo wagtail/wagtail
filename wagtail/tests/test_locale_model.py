@@ -3,7 +3,7 @@ from django.test import TestCase, override_settings
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, LocaleManager, Page
 from wagtail.test.i18n.models import TestPage
 
 
@@ -13,12 +13,49 @@ def make_test_page(**kwargs):
     return root_page.add_child(instance=TestPage(**kwargs))
 
 
+class TestLocaleManager(TestCase):
+    def setUp(self):
+        Locale.objects.clear_cache()
+
+    def tearDown(self):
+        Locale.objects.clear_cache()
+
+    def test_get_for_id_cache(self):
+        # At this point, a lookup for a Locale should hit the DB
+        with self.assertNumQueries(1):
+            result = Locale.objects.get_for_id(1)
+
+        # A second hit, though, won't hit the DB
+        with self.assertNumQueries(0):
+            cached_result = Locale.objects.get_for_id(1)
+
+        self.assertIs(cached_result, result)
+
+    def test_cache_not_shared_between_managers(self):
+        with self.assertNumQueries(1):
+            Locale.objects.get_for_id(1)
+        with self.assertNumQueries(0):
+            Locale.objects.get_for_id(1)
+
+        other_manager = LocaleManager()
+        other_manager.model = Locale
+        with self.assertNumQueries(1):
+            other_manager.get_for_id(1)
+        with self.assertNumQueries(0):
+            other_manager.get_for_id(1)
+
+
 class TestLocaleModel(TestCase):
     def setUp(self):
         language_codes = dict(settings.LANGUAGES).keys()
 
         for language_code in language_codes:
             Locale.objects.get_or_create(language_code=language_code)
+
+        Locale.objects.clear_cache()
+
+    def tearDown(self):
+        Locale.objects.clear_cache()
 
     def test_default(self):
         locale = Locale.get_default()
@@ -72,3 +109,27 @@ class TestLocaleModel(TestCase):
         self.assertEqual(Page.get_first_root_node().locale.language_code, "en")
         Locale.objects.get(language_code="en").delete()
         self.assertEqual(Page.get_first_root_node().locale.language_code, "fr")
+
+    def test_translatablemixin_cached_locale(self):
+        page = Page.objects.filter(depth=2).first()
+
+        # there will be a datatabase hit if the locale hasn't been cached yet
+        with self.assertNumQueries(1):
+            result = page.cached_locale
+
+        # but a second request should hit the cache only
+        with self.assertNumQueries(0):
+            cached_result = page.cached_locale
+
+        self.assertIs(cached_result, result)
+
+        # if the locale on the object changes for any reason,
+        # cached_locale's return value will change to reflect that
+        different_locale = Locale.objects.all().exclude(id=page.locale_id).first()
+        page.locale = different_locale
+        with self.assertNumQueries(0):
+            # the first request will have fully populated the cache,
+            # so requests for different locales will benefit
+            cached_result = page.cached_locale
+
+        self.assertEqual(cached_result, different_locale)
