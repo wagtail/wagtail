@@ -27,6 +27,17 @@ def pk(obj):
 
 
 class LocaleManager(models.Manager):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._cache = {}
+
+    def clear_cache(self) -> None:
+        self._cache.clear()
+
+    def refresh_cache(self, using: str) -> None:
+        self._cache[using] = self.all().in_bulk()
+
     def get_for_language(self, language_code):
         """
         Gets a Locale from a language code.
@@ -34,6 +45,24 @@ class LocaleManager(models.Manager):
         return self.get(
             language_code=get_supported_content_language_variant(language_code)
         )
+
+    def get_for_id(self, id: int) -> "Locale":
+        """
+        Gets a Locale from it's `id` value, using an object from the cache where available.
+
+        NOTE: It us possible for this method to return stale data when running multiple
+        instances of the site and recent updates or deletions have been made. Where data
+        integrity is of importance, you should always use ``get(pk=id)`` instead.
+        """
+        id = int(id)
+        try:
+            return self._cache[self.db][id]
+        except KeyError:
+            self.refresh_cache(self.db)
+            try:
+                return self._cache[self.db][id]
+            except KeyError:
+                raise Locale.DoesNotExist
 
 
 class Locale(models.Model):
