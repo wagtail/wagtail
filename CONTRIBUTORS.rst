@@ -654,7 +654,7 @@ Contributors
 * Damee Zivah Olawuyi
 * Harry Percival
 * Akua Dokua Asiedu
-* Chisom
+* Chisom Okeoma
 
 Translators
 ===========
