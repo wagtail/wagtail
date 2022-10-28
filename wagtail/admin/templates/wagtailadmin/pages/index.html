@@ -30,6 +30,11 @@
     <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 
+    <script src="{% versioned_static 'wagtailadmin/js/lock-unlock-action.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' parent_page.id %}'));
+    </script>
+
     {% comment %}
     The first column will display checkboxes only if ordering is not being carried out, in which case
     that column will have the drag and drop buttons to enable ordering
