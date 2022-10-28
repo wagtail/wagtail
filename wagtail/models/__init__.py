@@ -4434,9 +4434,7 @@ class PageLogEntryManager(BaseLogEntryManager):
         ):
             # Include deleted entries
             q = q | Q(
-                page_id__in=Subquery(
-                    PageLogEntry.objects.filter(deleted=True).values("page_id")
-                )
+                page_id__in=PageLogEntry.objects.filter(deleted=True).values("page_id")
             )
 
         return PageLogEntry.objects.filter(q)
