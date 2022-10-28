@@ -62,7 +62,6 @@ $box-padding: 10px;
     width: calc(100% + #{$box-padding} * 2);
     padding: 5px 10px;
     box-sizing: border-box;
-    
     svg.icon {
       color: theme('colors.warning.100');
       width: 14px;
