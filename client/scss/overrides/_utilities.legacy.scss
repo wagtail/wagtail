@@ -21,10 +21,6 @@
   .divider-before {
     border-inline-start: 1px solid $color-grey-4;
   }
-
-  .divider-after {
-    border-inline-end: 1px solid $color-grey-4;
-  }
 }
 
 body.reordering {
@@ -47,10 +43,6 @@ body.reordering {
 
 .block {
   display: block;
-}
-
-.unlist {
-  @include unlist();
 }
 
 // utility class to allow things to be scrollable if their contents can't wrap more nicely
