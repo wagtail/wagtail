@@ -3,7 +3,7 @@
 Welcome to Wagtail's documentation
 ==================================
 
-Wagtail is an open source CMS written in `Python <https://www.python.org/>`_ and built on the `Django web framework <https://www.djangoproject.com/>`_.
+Wagtail is an open source CMS written in `Python <https://www.python.org/>`_, and built on the `Django web framework <https://www.djangoproject.com/>`_.
 
 Below are some useful links to help you get started with Wagtail.
 
