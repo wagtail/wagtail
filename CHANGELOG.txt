@@ -30,6 +30,7 @@ Changelog
  * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
  * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
  * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
+ * Fix: Move DateField, DateTimeField, TimeField comment buttons to be right next to the fields (Theresa Okoro)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
@@ -67,6 +68,7 @@ Changelog
  * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
  * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
  * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
+ * Fix: Move DateField, DateTimeField, TimeField comment buttons to be right next to the fields (Theresa Okoro)
 
 
 4.1.1 (11.11.2022)
