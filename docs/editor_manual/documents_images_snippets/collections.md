@@ -1,6 +1,6 @@
 # Collections
 
-Access to specific sets of images and documents can be controlled by setting up ‘collections’. By default all images and documents belong to the ‘root’ collection, but users with appropriate permissions can create new collections through the **Settings -> Collections** area of the admin interface.
+Access to specific sets of images and documents can be controlled by setting up ‘collections’. By default, all images and documents belong to the ‘root’ collection, but users with appropriate permissions can create new collections through the **Settings -> Collections** area of the admin interface.
 
 ![Collections listing with three rows: Bakeries, BreadPage Images, Other](../../_static/images/collections_list.png)
 
