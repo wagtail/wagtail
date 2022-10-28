@@ -62,7 +62,6 @@ $box-padding: 10px;
     width: calc(100% + #{$box-padding} * 2);
     padding: 5px 10px;
     box-sizing: border-box;
-    
     svg.icon {
       color: theme('colors.warning.100');
       width: 14px;
@@ -73,8 +72,7 @@ $box-padding: 10px;
   }
 
   & > &__notice-placeholder:last-child &__notice,
-  &__replies:last-child > :last-child &__notice
-  {
+  &__replies:last-child > :last-child &__notice {
     // Remove once we drop support for Safari 14.
     // stylelint-disable-next-line property-disallowed-list
     border-bottom-left-radius: $box-border-radius;
