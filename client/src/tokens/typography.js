@@ -110,7 +110,7 @@ const lineHeight = {
 
 const listStyleType = {
   none: 'none',
-}
+};
 
 const headingBaseStyles = {
   fontWeight: 'fontWeight.bold',
