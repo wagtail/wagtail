@@ -39,6 +39,7 @@
      border: 2px solid;
     }
   }
+  
   .tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
     @apply w-border-b-primary;
     clip-path: polygon(50% 0, 0 100%, 100% 100%)
