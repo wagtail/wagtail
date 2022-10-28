@@ -19,13 +19,29 @@
 
 .tippy-box[data-placement^='right'] > .tippy-arrow::before {
   @apply w-border-r-primary;
+
 }
 
 // Dropdown theme for tippy tooltips
 .tippy-box[data-theme='dropdown'] {
-  @apply w-rounded;
+  @apply w-rounded ;
 
   .tippy-content {
-    @apply w-p-0;
+    @apply w-p-0 ;
+ 
   }
+}
+
+// Media for Windows High Contrast mode
+@media (forced-colors: $media-forced-colours) {
+  .tippy-box[data-theme='dropdown'] {  
+    .tippy-content {
+     border: 2px solid;
+    }
+  }
+  .tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+    @apply w-border-b-primary;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%)
+  }
+  
 }
