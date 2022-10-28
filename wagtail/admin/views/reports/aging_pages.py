@@ -68,7 +68,10 @@ class AgingPagesView(PageReportView):
         }
         for page in queryset:
             if page.last_published_by:
-                page.last_published_by_user = username_mapping[page.last_published_by]
+                page.last_published_by_user = username_mapping.get(
+                    page.last_published_by,
+                    f"user {page.last_published_by} (deleted)",
+                )
 
         return queryset
 
