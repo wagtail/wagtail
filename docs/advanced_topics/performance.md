@@ -56,6 +56,14 @@ Another side benefit is it prevents errors during conversation from causing page
 
 The same can be achieved in Python using [`generate_image_url`](dynamic_image_urls).
 
+## Page URLs
+
+To fully resolve the URL of a page, Wagtail requires information from a few different sources.
+
+The methods used to get the URL of a `Page` such as `Page.get_url` and `Page.get_full_url` optionally accept extra arguments for `request` and `current_site`. Passing these arguments enable much of underlying site-level URL information to be reused for the current request. In situations such as navigation menu generation, plus any links that appear in page content, providing `request` or `current_site` can result in a drastic reduction in the number of cache or database queries your site will generate for a given page load.
+
+When using the [`{% pageurl %}`](page_urls) template tag, the request is automatically passed in, so no further optimisation is needed.
+
 ## Search
 
 Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](http://www.searchly.com/).
