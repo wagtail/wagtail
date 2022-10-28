@@ -11,7 +11,7 @@
 
     <div class="row row-flush">
 
-        <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
+        <div class="{% if uc_enabled %}col10 {% else %}col12{% endif %}">
             <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
                 {% csrf_token %}
                 <div class="nice-padding">

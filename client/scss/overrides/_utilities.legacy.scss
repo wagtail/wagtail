@@ -17,16 +17,6 @@
   }
 }
 
-@include media-breakpoint-up(sm) {
-  .divider-before {
-    border-inline-start: 1px solid $color-grey-4;
-  }
-
-  .divider-after {
-    border-inline-end: 1px solid $color-grey-4;
-  }
-}
-
 body.reordering {
   overflow: visible;
 }
