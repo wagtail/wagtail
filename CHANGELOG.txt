@@ -25,6 +25,7 @@ Changelog
  * Clean up linting on legacy code and add shared util `hasOwn` in TypeScript (Loveth Omokaro)
  * Remove unnecessary box-sizing: border-box declarations in SCSS (Albina Starykova)
  * Add full support for secondary buttons with icons in the Wagtail design system - `button bicolor button--icon button-secondary` including the `button-small` variant (Seremba Patrick)
+ * Migrated `initTooltips` to TypeScript add JSDoc and unit tests (Fatuma Abdullahi)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)

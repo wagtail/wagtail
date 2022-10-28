@@ -664,6 +664,7 @@ Contributors
 * Doug Harris
 * Mohammad Areeb
 * Florian Vogt
+* Fatuma Abdullahi
 
 Translators
 ===========
