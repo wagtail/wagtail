@@ -9,7 +9,7 @@ If you'd like to add Wagtail to an existing Django project instead, see [](integ
 
 ### Install dependencies
 
-Wagtail supports Python 3.7, 3.8, 3.9, and 3.10.
+Wagtail supports Python 3.7, 3.8, 3.9, 3.10, and 3.11.
 
 To check whether you have an appropriate version of Python 3:
 
@@ -111,7 +111,7 @@ This command ensures that the tables in your database are matched to the models 
 python manage.py createsuperuser
 ```
 
-When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database.
+This will prompt you to create a new superuser account with full permissions. Note the password text won’t be visible when typed, for security reasons.
 
 ### Start the server
 

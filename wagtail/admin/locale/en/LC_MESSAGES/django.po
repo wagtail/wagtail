@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 12:16+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -469,27 +469,27 @@ msgstr ""
 msgid "All items in listing selected"
 msgstr ""
 
-#: panels.py:1216
-msgid "Page title*"
+#: panels.py:1221
+msgid "Page title"
 msgstr ""
 
-#: panels.py:1227
+#: panels.py:1235
 msgid "For search engines"
 msgstr ""
 
-#: panels.py:1233
+#: panels.py:1241
 msgid "For site menus"
 msgstr ""
 
-#: panels.py:1263
+#: panels.py:1271
 msgid "Content"
 msgstr ""
 
-#: panels.py:1265
+#: panels.py:1273
 msgid "Promote"
 msgstr ""
 
-#: panels.py:1268 wagtail_hooks.py:123
+#: panels.py:1276 wagtail_hooks.py:123
 msgid "Settings"
 msgstr ""
 
@@ -1377,7 +1377,7 @@ msgid "Publish this version"
 msgstr ""
 
 #: templates/wagtailadmin/pages/action_menu/save_draft.html:2
-#: templates/wagtailadmin/panels/publishing/schedule_publishing_panel.html:20
+#: templates/wagtailadmin/panels/publishing/schedule_publishing_panel.html:19
 #: templates/wagtailadmin/workflows/edit.html:55
 #: templates/wagtailadmin/workflows/edit_task.html:45
 msgid "Saving…"
@@ -2235,7 +2235,7 @@ msgstr ""
 msgid "But only those with publishing permissions can make them effective."
 msgstr ""
 
-#: templates/wagtailadmin/panels/publishing/schedule_publishing_panel.html:21
+#: templates/wagtailadmin/panels/publishing/schedule_publishing_panel.html:20
 msgid "Save schedule"
 msgstr ""
 

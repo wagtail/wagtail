@@ -302,7 +302,7 @@ When reading back the content of a StreamField, the value of a StreamBlock is a 
 
 ### Limiting block counts
 
-By default, a StreamField can contain an unlimited number of blocks. The `min_num` and `max_num` options on `StreamField` or `StreamBlock` allow you to set a minimum or maximum number of blocks:
+By default, a StreamField can contain an unlimited number of blocks. The `min_num` and `max_num` options on `StreamField` or `StreamBlock` allow you to set a minimum or a maximum number of blocks:
 
 ```python
 body = StreamField([
@@ -325,7 +325,7 @@ class CommonContentBlock(blocks.StreamBlock):
         max_num = 5
 ```
 
-The `block_counts` option can be used to set a minimum or maximum count for specific block types. This accepts a dict, mapping block names to a dict containing either or both of `min_num` and `max_num`. For example, to permit between 1 and 3 'heading' blocks:
+The `block_counts` option can be used to set a minimum or maximum count for specific block types. This accepts a dict, mapping block names to a dict containing either or both `min_num` and `max_num`. For example, to permit between 1 and 3 'heading' blocks:
 
 ```python
 body = StreamField([
@@ -396,7 +396,7 @@ Within the template, the block value is accessible as the variable `value`:
 </div>
 ```
 
-Since `first_name`, `surname`, `photo` and `biography` are defined as blocks in their own right, this could also be written as:
+Since `first_name`, `surname`, `photo`, and `biography` are defined as blocks in their own right, this could also be written as:
 
 ```html+django
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -502,7 +502,7 @@ All block types implement a common API for rendering their front-end and form re
 
 ## Modifying StreamField data
 
-A StreamField's value behaves as a list, and blocks can be inserted, overwritten and deleted before saving the instance back to the database. A new item can be written to the list as a tuple of _(block_type, value)_ - when read back, it will be returned as a `BoundBlock` object.
+A StreamField's value behaves as a list, and blocks can be inserted, overwritten, and deleted before saving the instance back to the database. A new item can be written to the list as a tuple of _(block_type, value)_ - when read back, it will be returned as a `BoundBlock` object.
 
 ```python
 # Replace the first block with a new block of type 'heading'

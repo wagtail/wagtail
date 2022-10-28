@@ -87,7 +87,7 @@ Reduces the height of the image to the dimension specified.
 
 ### `scale`
 
-(takes percentage)
+(takes a percentage)
 
 ```html+django
 {% image page.photo scale-50 %}
@@ -188,7 +188,7 @@ Wagtail can assign the image data to another variable using Django's `as` syntax
 The image property used for the `src` attribute is `image.url`, not `image.src`.
 ```
 
-This syntax exposes the underlying image Rendition (`tmp_photo`) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, dimensions and source URL. The following properties are available:
+This syntax exposes the underlying image Rendition (`tmp_photo`) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, dimensions, and source URL. The following properties are available:
 
 ### `url`
 
@@ -208,7 +208,7 @@ Alternative text for the image, typically taken from the image title.
 
 ### `attrs`
 
-A shorthand for outputting the attributes `src`, `width`, `height` and `alt` in one go:
+A shorthand for outputting the attributes `src`, `width`, `height`, and `alt` in one go:
 
 ```html+django
 <img {{ tmp_photo.attrs }} class="my-custom-class" />
@@ -311,7 +311,7 @@ Creates an image rendition using `width-500`, giving the <img> tag the CSS class
 Creates an image rendition using `width-500`, giving the <img> tag the CSS class `right`.
 
 ```{note}
-The CSS classes added to images do **not** come with any accompanying stylesheets, or inline styles. For example the `left` class will do nothing, by default. The developer is expected to add these classes to their front end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
+The CSS classes added to images do **not** come with any accompanying stylesheets or inline styles. For example, the `left` class will do nothing, by default. The developer is expected to add these classes to their front-end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
 ```
 
 For more information about image formats, including creating your own, see [](rich_text_image_formats).
@@ -322,7 +322,7 @@ For more information about image formats, including creating your own, see [](ri
 
 Wagtail may automatically change the format of some images when they are resized:
 
--   PNG and JPEG images don't change format
+-   PNG and JPEG images don't change the format
 -   GIF images without animation are converted to PNGs
 -   BMP images are converted to PNGs
 -   WebP images are converted to PNGs
@@ -355,7 +355,7 @@ convert images to JPEG format, the transparency will need to be replaced with a 
 
 By default, Wagtail will set the background to white. But if a white background doesn't fit your design, you can specify a colour using the `bgcolor` filter.
 
-This filter takes a single argument, which is a CSS 3 or 6 digit hex code
+This filter takes a single argument, which is a CSS 3 or 6-digit hex code
 representing the colour you would like to use:
 
 ```html+django

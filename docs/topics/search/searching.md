@@ -106,7 +106,7 @@ field (such as category or page type).
 
 The `.facet(field_name)` method returns an `OrderedDict`. The keys are
 the IDs of the related objects that have been referenced by the specified field, and the
-values are the number of references found for each ID. The results are ordered by number
+values are the number of references found for each ID. The results are ordered by the number
 of references descending.
 
 For example, to find the most common page types in the search results:
@@ -126,12 +126,12 @@ OrderedDict([
 
 ### Search operator
 
-The search operator specifies how search should behave when the user has typed in multiple search terms. There are two possible values:
+The search operator specifies how the search should behave when the user has typed in multiple search terms. There are two possible values:
 
 -   "or" - The results must match at least one term (default for Elasticsearch)
 -   "and" - The results must match all terms (default for database search)
 
-Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
+Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but requires the user to be more precise with their query.
 
 We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
 
@@ -171,7 +171,7 @@ For page, image and document models, the `operator` keyword argument is also sup
 
 ### Phrase searching
 
-Phrase searching is used for finding whole sentence or phrase rather than individual terms.
+Phrase searching is used for finding whole sentences or phrases rather than individual terms.
 The terms must appear together and in the same order.
 
 For example:
@@ -237,7 +237,7 @@ For example:
 
 `Phrase(query_string)`
 
-This class wraps a string containing a phrase. See previous section for how this works.
+This class wraps a string containing a phrase. See the previous section for how this works.
 
 For example:
 
