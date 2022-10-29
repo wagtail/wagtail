@@ -472,6 +472,8 @@ The `locale` and `translation_key` fields have a unique key constraint to preven
 .. class:: TranslatableMixin
     :noindex:
 
+    .. autoattribute:: cached_locale
+
     .. automethod:: get_translations
 
     .. automethod:: get_translation
