@@ -29,9 +29,8 @@
                                     {% endif %}
 
                                     {% i18n_enabled as show_locale_labels %}
-                                    {% if show_locale_labels and workflow_state.page.locale_id %}
-                                        {% locale_label_from_id workflow_state.page.locale_id as locale_label %}
-                                        <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                                    {% if show_locale_labels %}
+                                        <span class="status-tag status-tag--label">{{ workflow_state.page.cached_locale }}</span>
                                     {% endif %}
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=workflow_state.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=workflow_state.page %}

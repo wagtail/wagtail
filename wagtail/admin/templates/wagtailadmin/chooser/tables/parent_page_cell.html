@@ -1,6 +1,6 @@
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     {% if value %}
         <a href="{% url 'wagtailadmin_choose_page_child' value.id %}" class="navigate-parent">{{ value.get_admin_display_title }}</a>
-        {% if column.show_locale_labels %}<span class="status-tag status-tag--label">{{ value.locale.get_display_name }}</span>{% endif %}
+        {% if column.show_locale_labels %}<span class="status-tag status-tag--label">{{ value.cached_locale }}</span>{% endif %}
     {% endif %}
 </td>

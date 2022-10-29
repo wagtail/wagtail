@@ -12,7 +12,7 @@
             <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;">
                 <div class="c-dropdown__button u-btn-current">
                     {% icon name="site" class_name="default" %}
-                    {{ parent_page.locale.get_display_name }}
+                    {{ parent_page.cached_locale }}
                 </div>
             </div>
         {% endif %}
