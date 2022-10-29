@@ -416,7 +416,17 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
         temp_user = self.create_superuser(
             "temp", email="temp@user.com", password="tempuser"
         )
-        temp_user_id = temp_user.pk.db_value
+
+        # Depending on which user model is used (EmailUser or CustomUser), the pk field
+        # will be a different type (UUIDField or ConvertedValueField, respectively). As
+        # the user id is added to the report's query set by annotation, it does not go
+        # through to_python processing, so we have to account for that when searching
+        # the response content for the "user deleted" string
+        if settings.AUTH_USER_MODEL == "emailuser.EmailUser":
+            temp_user_id = temp_user.pk.hex
+        else:
+            temp_user_id = temp_user.pk.db_value
+
         self.home.save_revision().publish(user=temp_user)
         temp_user.delete()
         response = self.get()
