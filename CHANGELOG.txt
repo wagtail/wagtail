@@ -20,6 +20,7 @@ Changelog
  * Ensure that changed or cleared selection from choosers will dispatch a DOM `change` event (George Sakkis)
  * Add the ability to disable model indexing by setting `search_fields = []` (Daniel Kirkham)
  * Enhance `wagtail.search.utils.parse_query_string` to allow inner single quotes for key/value parsing (Aman Pandey)
+ * Add helpful properties to `Locale` for more convenient usage within templates (Andy Babic)
  * Fix: Ensure `label_format` on StructBlock gracefully handles missing variables (Aadi jindal)
  * Fix: Adopt a no-JavaScript and more accessible solution for the 'Reset to default' switch to Gravatar when editing user profile (Loveth Omokaro)
  * Fix: Ensure `Site.get_site_root_paths` works on cache backends that do not preserve Python objects (Jaap Roes)

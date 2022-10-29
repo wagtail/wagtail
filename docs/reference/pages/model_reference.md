@@ -392,6 +392,8 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
     .. automethod:: get_site_root_paths
 ```
 
+(locale_model_ref)=
+
 ## `Locale`
 
 The `Locale` model defines the set of languages and/or locales that can be used on a site.
@@ -424,6 +426,18 @@ database queries making them unable to be edited or viewed.
     .. automethod:: get_default
 
     .. automethod:: get_active
+
+    .. autoattribute:: language_name
+
+    .. autoattribute:: language_name_local
+
+    .. autoattribute:: language_name_localized
+
+    .. autoattribute:: is_default
+
+    .. autoattribute:: is_active
+
+    .. autoattribute:: is_bidi
 
     .. automethod:: get_display_name
 ```
