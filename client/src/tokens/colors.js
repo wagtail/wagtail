@@ -137,8 +137,8 @@ const colors = {
       contrastText: 'white',
     },
     DEFAULT: {
-      hex: '#007D7E',
-      hsl: 'hsl(180 100% 25%)',
+      hex: '#17009b',
+      hsl: 'hsl(249deg 100% 30%)',
       bgUtility: 'w-bg-secondary',
       textUtility: 'w-text-secondary',
       cssVariable: '--w-color-secondary',
