@@ -2,6 +2,7 @@ import hashlib
 
 from django.conf import settings
 from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
@@ -44,3 +45,8 @@ def get_gravatar_url(email, size=50):
     )
 
     return gravatar_url
+
+
+def get_deleted_user_display_name(user_id):
+    # Use a string placeholder as the user id could be non-numeric
+    return _("user %(id)s (deleted)") % {"id": user_id}
