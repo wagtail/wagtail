@@ -45,7 +45,8 @@ const updateScrollPosition = (list: HTMLOListElement) => {
     'a[aria-current="true"]',
   );
 
-  if (activeLinks.length === 0) {
+  // Don’t update the scroll position if there are no links, or all links are visible.
+  if (activeLinks.length === 0 || list.scrollHeight === list.clientHeight) {
     return;
   }
 
