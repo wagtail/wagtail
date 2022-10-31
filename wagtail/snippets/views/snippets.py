@@ -625,10 +625,16 @@ def redirect_to_usage(request, app_label, model_name, pk):
     )
 
 
+def get_actions_for_filter():
+    # Only return those actions used by model log entries.
+    actions = set(ModelLogEntry.objects.all().get_actions())
+    return [action for action in log_registry.get_choices() if action[0] in actions]
+
+
 class SnippetHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(
         label=_("Action"),
-        choices=log_registry.get_choices,
+        # choices are set dynamically in __init__()
     )
     user = django_filters.ModelChoiceFilter(
         label=_("User"),
@@ -642,6 +648,10 @@ class SnippetHistoryReportFilterSet(WagtailFilterSet):
     class Meta:
         model = ModelLogEntry
         fields = ["action", "user", "timestamp"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filters["action"].extra["choices"] = get_actions_for_filter()
 
 
 class ActionColumn(Column):
