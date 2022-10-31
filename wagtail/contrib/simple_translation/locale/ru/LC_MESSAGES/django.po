@@ -6,15 +6,16 @@
 # Translators:
 # Anatoly <pandorinpan@gmail.com>, 2021
 # Влад <integration.into.society@gmail.com>, 2022
+# sergeybe <sergeybe@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,6 +88,9 @@ msgstr "Перевести {model_name}"
 #, python-brace-format
 msgid "Successfully created {locales} for {model_name} '{object}'"
 msgstr "Создано успешно {locales} для {model_name} '{object}'"
+
+msgid "Translate this page"
+msgstr "Перевести эту страницу"
 
 #, python-format
 msgid "Translate '%(title)s'"

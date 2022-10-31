@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -26,6 +26,9 @@ msgstr "Сайты Wagtail"
 
 msgid "Choose a root page"
 msgstr "Выберыце каранёвую старонку"
+
+msgid "Choose a different root page"
+msgstr "Выберыце іншую каранёвую старонку"
 
 msgid "Sites"
 msgstr "Сайты"

@@ -1,10 +1,10 @@
 # Generic views
 
-Wagtail provides a number of generic views for handling common tasks such as creating / editing model instances, and chooser modals. Since these often involve several related views with shared properties (such as the model that we're working with, and its associated icon) Wagtail also implements the concept of a _viewset_, which allows a bundle of views to be defined collectively, and their URLs to be registered with the admin app as a single operation through the `register_admin_viewset` hook.
+Wagtail provides several generic views for handling common tasks such as creating / editing model instances and chooser modals. Since these often involve several related views with shared properties (such as the model that we're working with, and its associated icon) Wagtail also implements the concept of a _viewset_, which allows a bundle of views to be defined collectively, and their URLs to be registered with the admin app as a single operation through the `register_admin_viewset` hook.
 
 ## ModelViewSet
 
-The `wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing and deleting model instances. For example, if we have the following model:
+The `wagtail.admin.viewsets.model.ModelViewSet` class provides the views for listing, creating, editing, and deleting model instances. For example, if we have the following model:
 
 ```python
 from django.db import models
@@ -116,7 +116,7 @@ Within `wagtail.admin.views.generic.chooser`:
 
 Within `wagtail.admin.widgets`:
 
--   `BaseChooser.get_instance(value)` - given a value that may be a record, a primary key or None, returns the corresponding record or None
+-   `BaseChooser.get_instance(value)` - given a value that may be a record, a primary key, or None, returns the corresponding record or None
 -   `BaseChooser.get_value_data_from_instance(item)` - given a record, returns the dictionary of data that will populate the chooser widget (consisting of items `id` and `title`, unless the widget's JavaScript has been customised)
 
 For example, the following code will implement a chooser that runs against a JSON endpoint for the User model at `http://localhost:8000/api/users/`, set up with Django REST Framework using the default configuration and no pagination:

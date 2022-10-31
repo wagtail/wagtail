@@ -14,7 +14,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 
 ## Setting up the Wagtail codebase
 
-The preferred way to install the correct version of Node is to use [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) or [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `nvm install` or `fnm install` from the project root.
+The preferred way to install the correct version of Node is to use [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
@@ -29,7 +29,7 @@ cd wagtail
 **With your preferred virtualenv activated,** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```sh
-pip install -e '.[testing,docs]' -U
+pip install -e ."[testing,docs]" -U
 ```
 
 Install the tool chain for building static assets:
@@ -105,12 +105,12 @@ using the `--postgres` argument:
 python runtests.py --postgres
 ```
 
-If you need to use a different user, password, host or port, use the `PGUSER`, `PGPASSWORD`, `PGHOST` and `PGPORT` environment variables respectively.
+If you need to use a different user, password, host, or port, use the `PGUSER`, `PGPASSWORD`, `PGHOST`, and `PGPORT` environment variables respectively.
 
 ### Testing against a different database
 
 ```{note}
-In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](https://docs.djangoproject.com/en/stable/ref/databases/) or 3rd-party database backend's documentation.
+In order to run these tests, you must install the required client libraries and modules for the given database as described in Django's [Databases documentation](https://docs.djangoproject.com/en/stable/ref/databases/) or the 3rd-party database backend's documentation.
 ```
 
 If you need to test against a different database, set the `DATABASE_ENGINE`
@@ -224,7 +224,7 @@ We want to make Wagtail accessible for users of a wide variety of assistive tech
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialised training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
--   [react-axe](https://github.com/dequelabs/react-axe) integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
+-   [react-axe](https://github.com/dequelabs/react-axe) integrated directly into our build tools, to identify actionable issues. Logs its results in the browser console.
 -   [@wordpress/jest-puppeteer-axe](https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe) running Axe checks as part of integration tests.
 -   [Axe](https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd) Chrome extension for more comprehensive automated tests of a given page.
 -   [Accessibility Insights for Web](https://accessibilityinsights.io/docs/en/web/overview) Chrome extension for semi-automated tests, and manual audits.

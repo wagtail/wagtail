@@ -404,8 +404,8 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         expected = (
             """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="%s">
-                                    Secret plans (simple page)
+                <a class="w-flex w-items-center w-h-full w-text-primary w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="%s">
+                    Secret plans (simple page)
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>
@@ -416,6 +416,26 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         )
 
         self.assertContains(response, expected, html=True)
+
+
+class TestPageExplorerSidePanel(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def test_side_panel_present(self):
+        self.user = self.login()
+
+        # get the explorer view for a subpage of a SimplePage
+        page = Page.objects.get(url_path="/home/secret-plans/steal-underpants/")
+        response = self.client.get(reverse("wagtailadmin_explore", args=(page.id,)))
+        self.assertEqual(response.status_code, 200)
+
+        # The side panel should be present with data-form-side-explorer attribute
+        html = response.content.decode()
+        self.assertTagInHTML(
+            "<aside data-form-side data-form-side-explorer>",
+            html,
+            allow_extra_attrs=True,
+        )
 
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
@@ -636,8 +656,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/">
-                                    Root
+                <a class="w-flex w-items-center w-h-full w-text-primary w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/">
+                    Root
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>
@@ -648,8 +668,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/4/">
-                                    Welcome to example.com!
+                <a class="w-flex w-items-center w-h-full w-text-primary w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/4/">
+                    Welcome to example.com!
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>
@@ -659,8 +679,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/5/">
-                                    Content
+                <a class="w-flex w-items-center w-h-full w-text-primary w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/5/">
+                    Content
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>
@@ -677,8 +697,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # since it's his Closest Common Ancestor.
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/4/">
-                                    Root
+                <a class="w-flex w-items-center w-h-full w-text-primary w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/4/">
+                    Root
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>
@@ -688,8 +708,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, expected, html=True)
         expected = """
             <li class="w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0 w-font-bold w-max-w-0" data-breadcrumb-item hidden>
-                <a class="w-flex w-items-center w-h-full w-text-primary w-px-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full w-transition w-transition-all w-duration-300" href="/admin/pages/5/">
-                                    Content
+                <a class="w-flex w-items-center w-h-full w-text-primary w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary w-h-full" href="/admin/pages/5/">
+                    Content
                 </a>
                 <svg class="icon icon-arrow-right w-w-4 w-h-4 w-ml-3" aria-hidden="true">
                     <use href="#icon-arrow-right"></use>

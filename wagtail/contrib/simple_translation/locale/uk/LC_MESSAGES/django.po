@@ -4,18 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Anastasiia La, 2021
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Anastasiia La, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Last-Translator: Anastasiia La, 2022\n"
 "Language-Team: Ukrainian (https://www.transifex.com/torchbox/teams/8009/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +87,9 @@ msgstr "Перекласти {model_name}"
 #, python-brace-format
 msgid "Successfully created {locales} for {model_name} '{object}'"
 msgstr "Успішно створено {locales} для {model_name} '{object}'"
+
+msgid "Translate this page"
+msgstr "Перекладіть цю сторінку"
 
 #, python-format
 msgid "Translate '%(title)s'"

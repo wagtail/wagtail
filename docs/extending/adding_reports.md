@@ -6,7 +6,7 @@ They are found in the _Reports_ submenu: by default, the _Locked pages_ report i
 It is possible to create your own custom reports in the Wagtail admin. Two base classes are provided:
 `wagtail.admin.views.reports.ReportView`, which provides basic listing and spreadsheet export functionality, and
 `wagtail.admin.views.reports.PageReportView`, which additionally provides a default set of fields suitable for page listings.
-For this example, we\'ll add a report which shows any pages with unpublished changes.
+For this example, we'll add a report which shows any pages with unpublished changes.
 
 ```python
 # <project>/views.py
@@ -117,7 +117,7 @@ preprocessing, set the preprocessing_function to ``None``.
 
 ## Customising templates
 
-For this example \"pages with unpublished changes\" report, we\'ll add an extra column to the listing template, showing the last publication date for each page. To do this, we\'ll extend two templates: `wagtailadmin/reports/base_page_report.html`, and `wagtailadmin/reports/listing/_list_page_report.html`.
+For this example \"pages with unpublished changes\" report, we'll add an extra column to the listing template, showing the last publication date for each page. To do this, we'll extend two templates: `wagtailadmin/reports/base_page_report.html`, and `wagtailadmin/reports/listing/_list_page_report.html`.
 
 ```html+django
 {# <project>/templates/reports/unpublished_changes_report.html #}
@@ -149,7 +149,7 @@ For this example \"pages with unpublished changes\" report, we\'ll add an extra 
 {% endblock %}
 ```
 
-Finally, we\'ll set `UnpublishedChangesReportView.template_name` to this new template: `'reports/unpublished_changes_report.html'`.
+Finally, we'll set `UnpublishedChangesReportView.template_name` to this new template: `'reports/unpublished_changes_report.html'`.
 
 ## Adding a menu item and admin URL
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -222,3 +222,11 @@ msgstr "刪除 '%(title)s'"
 #, python-format
 msgid "Choose %s"
 msgstr "選擇 %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "選擇其他 %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "編輯此 %s"

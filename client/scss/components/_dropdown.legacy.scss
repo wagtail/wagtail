@@ -62,8 +62,6 @@
 
       li a,
       li button {
-        forced-color-adjust: none;
-        background-color: $color-black;
         border-color: $color-white;
         color: $color-white;
       }
@@ -113,7 +111,6 @@
     .button,
     button {
       border-radius: 0;
-      font-size: 0.95em;
       -webkit-font-smoothing: auto;
     }
 

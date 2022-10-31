@@ -1,6 +1,26 @@
 Changelog
 =========
 
+4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Add custom permissions section to permissions documentation page (Dan Hayden)
+ * Remove unsquashed `testapp` migrations (Matt Westcott)
+ * Switch to using Willow instead of Pillow for images (Darrel O'Pry)
+ * Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
+ * Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
+ * Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
+ * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
+ * Mention the importance of passing `request` and `current_site` to `get_url` on the [performance](performance) documentation page (Jake Howard)
+ * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
+ * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
+ * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
+ * Fix: references extraction for ChooserBlock (Alex Tomkins)
+ * Fix: Incorrectly formatted link in the documentation for Wagtail community support (Bolarinwa Comfort Ajayi)
+ * Fix: Text within status tags text will now resize correctly when customizing browser font size (Mary Ojo)
+ * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
+
+
 4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -8,6 +28,7 @@ Changelog
  * Allow snippet admin views to be customised via `SnippetViewSet` (Sage Abdullah)
  * Implement scheduled publishing for snippets inheriting from `DraftStateMixin` (Sage Abdullah)
  * Add reference index and usage reports for images, documents and snippets (Karl Hobley, Matt Westcott)
+ * Formalised support for Python 3.11 (Matt Westcott)
  * Add basic keyboard control and screen reader support for page listing re-ordering (Paarth Agarwal, Thomas van der Hoeven)
  * Add `PageQuerySet.private` method as an alias of `not_public` (Mehrdad Moradizadeh)
  * Most images in the admin will now only load once they are visible on screen (Jake Howard)
@@ -40,6 +61,22 @@ Changelog
  * Add better support for non-integer / non-`id` primary keys into Wagtail's generic views, including for Snippets and custom User models (Mehrdad Moradizadeh)
  * Upgrade jQuery UI to version 1.13.2 (LB (Ben) Johnston)
  * Update pattern library background & text examples (Albina Starykova)
+ * Switch StreamField blocks to use a `<section>` element so screen reader users can bypass them more easily (Thibaud Colas)
+ * Add anchor links to StreamField blocks so users can navigate straight to a given block (Thibaud Colas)
+ * Support "Ctrl + f" in-page search within collapsed StreamField blocks (Thibaud Colas)
+ * Remember the last opened side panel in the page editor, activating it on page load (Sage Abdullah)
+ * Ensure that the `update_index` command can run without console output if called with `--verbosity 0` (Ben Sturmfels, Oliver Parker)
+ * Improve side panels’ resizing in page editor and listings (Steven Steinwand)
+ * Adjust breadcrumb text alignment and size in page listings & page editor (Steven Steinwand)
+ * Improvements to getting started tutorial aimed at developers who are very new to Python and have no Django experience (Damilola Oladele)
+ * Update documentation dependencies; Sphinx Wagtail Theme to v5.3.2, MyST Parser to v0.18.1, add Sphinx Copy Button (LB (Ben) Johnston)
+ * Add "What's New" dashboard banner and "Help" menu in sidebar (Sage Abdullah)
+ * Implement new "minimap" component for the page editor (Thibaud Colas)
+ * The `image_url` template tag, when using the serve view to redirect rather than serve directly, will now use temporary redirects with a cache header instead of permanent redirects (Jake Howard)
+ * Add new test assertions to `WagtailPageTestCase` - `assertPageIsRoutable`, `assertPageIsRenderable`, `assertPageIsEditable`, `assertPageIsPreviewable` (Andy Babic)
+ * Add documentation to the performance section about how to better create image URLs when not used directly on the page (Jake Howard)
+ * Add ability to provide a required `permission` to `PanelGroup`, used by `TabbedInterface`, `ObjectList`, `FieldRowPanel` and `MultiFieldPanel` (Oliver Parker)
+ * Update documentation screenshots of the admin interface to align with changes in this release (Thibaud Colas)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
@@ -58,14 +95,39 @@ Changelog
  * Fix: Adjust spacing of fields’ error messages and position in tables (Steven Steinwand)
  * Fix: Update dead or redirected links throughout the documentation (LB (Ben) Johnston)
  * Fix: Use different icons for workflow timeline component, so the steps can be distinguished with other means than color (Sam Moran)
+ * Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
+ * Fix: StreamField blocks are now collapsible with the keyboard (Thibaud Colas)
+ * Fix: StreamField block headings now have a label for screen reader users (Thibaud Colas)
+ * Fix: Display the "*" required field indicator for StreamField blocks (Thibaud Colas)
+ * Fix: Resolve inconsistency in action button positions in InlinePanel (Thibaud Colas)
+ * Fix: Use h3 elements with a counter in InlinePanel so screen reader users can navigate by heading (Thibaud Colas)
+ * Fix: Ensure that buttons on custom chooser widgets are correctly shown on hover (Thibaud Colas)
+ * Fix: Add missing asterisk to title field placeholder (Seremba Patrick, Stefan Hammer)
+ * Fix: Avoid creating an extra rich text block when inserting a new block at the end of the content (Matt Westcott)
+ * Fix: Removed the extra dot in the Wagtail version shown within the admin settings menu item (Loveth Omokaro)
+ * Fix: Fully remove the obsolete `wagtailsearch_editorspick` table that prevents flushing the database (Matt Westcott)
+ * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
+ * Fix: references extraction for ChooserBlock (Alex Tomkins)
+ * Fix: Regression in field width for authentication pages (log in / password reset) (Chisom)
+ * Fix: Ensure the new minimap correctly pluralises error counts for `aria-label`s (Matt Westcott)
 
-4.0.3 (xx.xx.xxxx) - IN DEVELOPMENT
+
+4.0.4 (18.10.2022)
 ~~~~~~~~~~~~~~~~~~
 
-* Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
-* Update special-purpose `FieldPanel` deprecation message to add clarity for developers (Matt Westcott)
-* Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
-* Fix: Ensure that `AbstractForm` & `AbstractEmailForm` page models correctly pass the form to the preview context (Dan Bentley)
+ * Render `help_text` when set on `FieldPanel`, `MultiFieldPanel`, `FieldRowPanel`, and other panel APIs where it previously worked without official support (Matt Westcott)
+ * Update special-purpose `FieldPanel` deprecation message to add clarity for developers (Matt Westcott)
+ * Fix: Add back rendering of `help_text` for InlinePanel (Matt Westcott)
+ * Fix: Ensure that `AbstractForm` & `AbstractEmailForm` page models correctly pass the form to the preview context (Dan Bentley)
+ * Fix: Use the correct custom font for the Wagtail userbar (Umar Farouk Yunusa)
+ * Fix: Ensure that buttons on custom chooser widgets are correctly shown on hover (Thibaud Colas)
+
+
+4.0.3 (18.10.2022)
+~~~~~~~~~~~~~~~~~~
+
+[release withdrawn due to packaging issues]
+
 
 4.0.2 (23.09.2022)
 ~~~~~~~~~~~~~~~~~~

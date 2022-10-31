@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -1594,9 +1594,6 @@ msgstr "Zadatak '{0}' je onemogućen."
 msgid "Task '{0}' enabled."
 msgstr "Zadatak '{0}' je omogućen."
 
-msgid "Change"
-msgstr "Promijeni"
-
 msgid "Pages"
 msgstr "Stranice"
 
@@ -1634,9 +1631,6 @@ msgstr "Pogledaj povijest stranice '%(title)s'"
 
 msgid "Sort menu order"
 msgstr "Sortiraj poredak izbornika"
-
-msgid "Translate"
-msgstr "Prevedi"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -1683,3 +1677,18 @@ msgstr "Da"
 
 msgid "Choose an item"
 msgstr "Odaberi stavku"
+
+msgid "Choose another item"
+msgstr "Odaberi drugu stavku"
+
+msgid "Clear choice"
+msgstr "Poništi odabir"
+
+msgid "Choose another page"
+msgstr "Odaberi drugu stranicu"
+
+msgid "Choose another task"
+msgstr "Odaberi drugi zadatak"
+
+msgid "Edit this task"
+msgstr "Uredi ovaj zadatak"

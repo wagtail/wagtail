@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020-2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -128,7 +128,7 @@ msgstr ""
 "filla de si mesma ou un dos seus descendentes."
 
 msgid "Please select another parent"
-msgstr "Por favor, escolle outro pai"
+msgstr "Por favor, elixe outra nai"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
@@ -228,7 +228,7 @@ msgid "Expiry date/time must be in the future"
 msgstr "A data/tempo de expiración debe ser no futuro"
 
 msgid "Select a new parent for this page."
-msgstr "Escolle outro pai para esta páxina."
+msgstr "Elixe outra nai para esta páxina."
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -2065,10 +2065,10 @@ msgstr ""
 "\">engadir un</a>?"
 
 msgid "Choose which type of task you'd like to create."
-msgstr "Escolle qué tipo de tarefa che gustaría crear."
+msgstr "Elixe qué tipo de tarefa che gustaría crear."
 
 msgid "Choose a task"
-msgstr "Escolle unha tarefa"
+msgstr "Elixe unha tarefa"
 
 msgid "New"
 msgstr "Nova"
@@ -2077,7 +2077,7 @@ msgid "Existing"
 msgstr "Xa existen"
 
 msgid "Choose a different task type"
-msgstr "Escolle unha tarefa de distinto tipo"
+msgstr "Elixe unha tarefa de distinto tipo"
 
 msgid "Task type"
 msgstr "Tipo de tarefa"
@@ -2714,8 +2714,8 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Tarefa '{0}' habilitada."
 
-msgid "Change"
-msgstr "Cambiar"
+msgid "Choose another"
+msgstr "Elixe outra"
 
 msgid "Pages"
 msgstr "Páxinas"
@@ -2770,12 +2770,6 @@ msgstr "Axustar orde do menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar orde das páxinas fillas de '%(title)s'"
 
-msgid "Translate"
-msgstr "Traducir"
-
-msgid "Translate this page"
-msgstr "Traducir esta páxina"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Cabeceira %(level)d"
@@ -2822,8 +2816,14 @@ msgstr "Si"
 msgid "Choose an item"
 msgstr "Seleccionar un elemento"
 
-msgid "Clear"
-msgstr "Limpar"
+msgid "Choose another item"
+msgstr "Seleccionar outro elemento"
+
+msgid "Clear choice"
+msgstr "Borrar selección"
+
+msgid "Choose another page"
+msgstr "Seleccionar outra páxina"
 
 msgid ""
 "Multi-word tags with spaces will automatically be enclosed in double quotes "
@@ -2834,3 +2834,9 @@ msgstr ""
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "As etiquetas so poden ter unha palabra, non se permiten espacios"
+
+msgid "Choose another task"
+msgstr "Seleccionar outra tarefa"
+
+msgid "Edit this task"
+msgstr "Editar esta tarefa"

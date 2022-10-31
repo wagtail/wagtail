@@ -316,6 +316,18 @@ As `register_admin_menu_item`, but registers menu items into the 'Reports' sub-m
 
 As `construct_main_menu`, but modifies the 'Reports' sub-menu rather than the top-level menu.
 
+(register_help_menu_item)=
+
+### `register_help_menu_item`
+
+As `register_admin_menu_item`, but registers menu items into the 'Help' sub-menu rather than the top-level menu.
+
+(construct_help_menu)=
+
+### `construct_help_menu`
+
+As `construct_main_menu`, but modifies the 'Help' sub-menu rather than the top-level menu.
+
 (register_admin_search_area)=
 
 ### `register_admin_search_area`
