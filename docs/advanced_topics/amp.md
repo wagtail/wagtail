@@ -1,7 +1,7 @@
 # How to build a site with AMP support
 
 This recipe document describes a method for creating an
-[AMP](https://amp.dev/) version of a Wagtail site and hosting it separately
+[AMP](https://amp.dev/) version of a Wagtail site, and hosting it separately
 to the rest of the site on a URL prefix. It also describes how to make Wagtail
 render images with the `<amp-img>` tag when a user is visiting a page on the
 AMP version of the site.
@@ -9,7 +9,7 @@ AMP version of the site.
 ## Overview
 
 In the next section, we will add a new URL entry that points at Wagtail's
-internal `serve()` view which will have the effect of rendering the whole
+internal `serve()` view. This will have the effect of rendering the whole
 site again under the `/amp` prefix.
 
 Then, we will add some utilities that will allow us to track whether the

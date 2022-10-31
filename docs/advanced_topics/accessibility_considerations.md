@@ -80,7 +80,7 @@ Always add a Caption, so screen reader users navigating the site’s tables know
 
 ## Accessibility in templates
 
-Here are common gotchas to be aware of to make the site’s templates as accessible as possible.
+Here are common gotchas to be aware of to make the site’s templates as accessible as possible:
 
 ### Alt text in templates
 
@@ -89,7 +89,7 @@ Even when your images have alt text coming directly from the image model, you st
 
 ### Empty heading tags
 
-In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site,
+In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site:
 
 -   Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the [StreamField](../topics/streamfield) `CharBlock` which is required by default.
 -   Consider adding similar validation rules for rich text fields ([#6526](https://github.com/wagtail/wagtail/issues/6526)).
@@ -124,7 +124,7 @@ Make sure to test your forms’ implementation with assistive technologies, and 
 
 ## Authoring accessible content
 
-Here are things you can do to help authors create accessible content.
+Here are things you can do to help authors create accessible content:
 
 ### wagtail-accessibility
 
