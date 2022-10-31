@@ -15,7 +15,7 @@ The `publish_scheduled_pages` command is still available as an alias, but it is 
 ./manage.py publish_scheduled
 ```
 
-This command publishes, updates or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
+This command publishes, updates, or unpublishes objects that have had these actions scheduled by an editor. We recommend running this command once an hour.
 
 (fixtree)=
 

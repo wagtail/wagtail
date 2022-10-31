@@ -244,12 +244,12 @@ Add an item to the Wagtail admin menu. The callable passed to this hook must ret
 
 -   `name` - an internal name used to identify the menu item; defaults to the slugified form of the label.
 -   `icon_name` - icon to display against the menu item; no defaults, optional, but should be set for top-level menu items so they can be identified when collapsed.
--   `classnames` - additional classnames applied to the link
--   `order` - an integer which determines the item's position in the menu
+-   `classnames` - additional classnames applied to the link.
+-   `order` - an integer which determines the item's position in the menu.
 
 For menu items that are only available to superusers, the subclass `wagtail.admin.menu.AdminOnlyMenuItem` can be used in place of `MenuItem`.
 
-`MenuItem` can be further subclassed to customise its initialisation or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (`wagtail/admin/menu.py`) for details.
+`MenuItem` can be further subclassed to customise its initialisation, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (`wagtail/admin/menu.py`) for details.
 
 ```python
 from django.urls import reverse
@@ -325,7 +325,7 @@ Add an item to the Wagtail admin search "Other Searches". Behaviour of this hook
 -   `label` - text displayed in the "Other Searches" option box.
 -   `name` - an internal name used to identify the search option; defaults to the slugified form of the label.
 -   `url` - the URL of the target search page.
--   `classnames` - arbitrary CSS classnames applied to the link
+-   `classnames` - arbitrary CSS classnames applied to the link.
 -   `icon_name` - icon to display next to the label.
 -   `attrs` - additional HTML attributes to apply to the link.
 -   `order` - an integer which determines the item's position in the list of options.
@@ -402,7 +402,7 @@ Hooks for customising the editing interface for pages and snippets.
 
 ### `register_rich_text_features`
 
-Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as `RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The `register_rich_text_features` hook allows new feature identifiers to be defined - see [](rich_text_features) for details.
+Rich text fields in Wagtail, work with a list of 'feature' identifiers. These determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as `RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The `register_rich_text_features` hook allows new feature identifiers to be defined - see [](rich_text_features) for details.
 
 (insert_editor_css)=
 
@@ -519,9 +519,9 @@ def page_header_buttons(page, page_perms, next_url=None):
 
 The arguments passed to the hook are as follows:
 
--   `page` - the page object to generate the button for
--   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page
--   `next_url` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
+-   `page` - the page object the button is generated for.
+-   `page_perms` - a `PagePermissionTester` object that can be queried to determine the current user's permissions on the given page.
+-   `next_url` - the URL that the linked action should redirect back to, on completion of the action, if the view supports it.
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
 
@@ -545,7 +545,7 @@ def do_after_page_create(request, page):
     return HttpResponse("Congrats on making content!", content_type="text/plain")
 ```
 
-If you set attributes on a `Page` object, you should also call `save_revision()`, since the edit and index view pick up their data from the revisions table rather than the actual saved page record.
+If you set attributes on a `Page` object, you should also call `save_revision()`. This is because the edit and index view pick up their data from the revisions table, rather than the actual saved page record.
 
 ```python
   @hooks.register('after_create_page')
@@ -730,12 +730,12 @@ We recommend they are non-aliased, direct translations of the pages from the fun
 Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of `wagtail.admin.action_menu.ActionMenuItem`. `ActionMenuItem` is a subclass of [Component](creating_template_components) and so the rendering of the menu item can be customised through `template_name`, `get_context_data`, `render_html` and `Media`. In addition, the following attributes and methods are available to be overridden:
 
 -   `order` - an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an `order` of 0).
--   `label` - the displayed text of the menu item
--   `get_url` - a method which returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead
--   `name` - value of the `name` attribute of the submit button, if no URL is specified
--   `icon_name` - icon to display against the menu item
--   `classname` - a `class` attribute value to add to the button element
--   `is_shown` - a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
+-   `label` - the displayed text of the menu item.
+-   `get_url` - a method which returns a URL for the menu item to link to; by default, returns `None` which causes the menu item to behave as a form submit button instead.
+-   `name` - value of the `name` attribute of the submit button, if no URL is specified.
+-   `icon_name` - icon to display against the menu item.
+-   `classname` - a `class` attribute value to add to the button element.
+-   `is_shown` - a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page.
 
 The `get_url`, `is_shown`, `get_context_data` and `render_html` methods all accept a context dictionary containing the following fields:
 
