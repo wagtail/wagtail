@@ -192,9 +192,7 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
   }, [anchorsContainer, setPanelsExpanded]);
 
   return (
-    // Keyboard support is implemented with the toggle button.
-    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-    <div onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+    <div>
       <CollapseAll
         expanded={panelsExpanded}
         onClick={() => {
@@ -204,7 +202,13 @@ const Minimap: React.FunctionComponent<MinimapProps> = ({
         floating
         insideMinimap={expanded}
       />
-      <div className={`w-minimap ${expanded ? 'w-minimap--expanded' : ''}`}>
+      {/* Keyboard support is implemented with the toggle button. */}
+      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
+      <div
+        className={`w-minimap ${expanded ? 'w-minimap--expanded' : ''}`}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+      >
         <div className="w-minimap__header">
           <button
             type="button"
