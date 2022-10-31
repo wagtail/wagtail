@@ -4,9 +4,9 @@ Wagtail’s rich text editor is built with [Draftail](https://www.draftail.org/)
 
 Plugins come in three types:
 
--   Inline styles – To format a portion of a line, for example `bold`, `italic`, `monospace`.
--   Blocks – To indicate the structure of the content, for example `blockquote`, `ol`.
--   Entities – To enter additional data/metadata, for example `link` (with a URL), `image` (with a file).
+-   Inline styles – To format a portion of a line, for example `bold`, `italic` or `monospace`.
+-   Blocks – To indicate the structure of the content, for example, `blockquote`, `ol`.
+-   Entities – To enter additional data/metadata, for example, `link` (with a URL) or `image` (with a file).
 
 All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of `mark`. Place the following in a `wagtail_hooks.py` file in any installed app:
 
@@ -134,13 +134,13 @@ But in the meantime, consider implementing your UI through [StreamField](../topi
 
 Here are the main requirements to create a new entity feature:
 
--   Like for inline styles and blocks, register an editor plugin.
+-   As for inline styles and blocks, register an editor plugin.
 -   The editor plugin must define a `source`: a React component responsible for creating new entity instances in the editor, using the Draft.js API.
 -   The editor plugin also needs a `decorator` (for inline entities) or `block` (for block entities): a React component responsible for displaying entity instances within the editor.
 -   Like for inline styles and blocks, set up the to/from DB conversion.
 -   The conversion usually is more involved, since entities contain data that needs to be serialised to HTML.
 
-To write the React components, Wagtail exposes its own React, Draft.js and Draftail dependencies as global variables. Read more about this in [ectending clientside components](extending_clientside_components).
+To write the React components, Wagtail exposes its own React, Draft.js, and Draftail dependencies as global variables. Read more about this in [ectending clientside components](extending_clientside_components).
 To go further, please look at the [Draftail documentation](https://www.draftail.org/docs/formatting-options) as well as the [Draft.js exporter documentation](https://github.com/springload/draftjs_exporter).
 
 Here is a detailed example to showcase how those tools are used in the context of Wagtail.
@@ -191,7 +191,7 @@ def register_stock_feature(features):
 
 The `js` and `css` keyword arguments on `EntityFeature` can be used to specify additional JS and CSS files to load when this feature is active. Both are optional. Their values are added to a `Media` object, more documentation on these objects is available in the [Django Form Assets documentation](django:topics/forms/media).
 
-Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
+Since entities hold data, the conversion to/from database format is more complicated. We have to create two handlers:
 
 ```python
 from draftjs_exporter.dom import DOM
@@ -342,5 +342,5 @@ Custom block entities can also be created (have a look at the separate [Draftail
 To further customise how the Draftail widgets are integrated into the UI, there are additional extension points for CSS and JS:
 
 -   In JavaScript, use the `[data-draftail-input]` attribute selector to target the input which contains the data, and `[data-draftail-editor-wrapper]` for the element which wraps the editor.
--   The editor instance is bound on the input field for imperative access. Use `document.querySelector('[data-draftail-input]').draftailEditor`.
+-   The editor instance is bound to the input field for imperative access. Use `document.querySelector('[data-draftail-input]').draftailEditor`.
 -   In CSS, use the classes prefixed with `Draftail-`.

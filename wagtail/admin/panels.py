@@ -13,6 +13,7 @@ from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
 
@@ -430,12 +431,15 @@ class PanelGroup(Panel):
     """
 
     def __init__(self, children=(), *args, **kwargs):
+        permission = kwargs.pop("permission", None)
         super().__init__(*args, **kwargs)
         self.children = children
+        self.permission = permission
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs["children"] = self.children
+        kwargs["permission"] = self.permission
         return kwargs
 
     def get_form_options(self):
@@ -543,6 +547,15 @@ class PanelGroup(Panel):
             return any(child.show_panel_furniture() for child in self.children)
 
         def is_shown(self):
+            """
+            Check permissions on the panel group overall then check if any children
+            are shown.
+            """
+
+            if self.panel.permission:
+                if not self.request.user.has_perm(self.panel.permission):
+                    return False
+
             return any(child.is_shown() for child in self.children)
 
         @property
@@ -1102,6 +1115,7 @@ class PublishingPanel(MultiFieldPanel):
             context = super().get_context_data(parent_context)
             context["request"] = self.request
             context["instance"] = self.instance
+            context["classname"] = self.classname
             if isinstance(self.instance, Page):
                 context["page"] = self.instance
             return context
@@ -1201,7 +1215,13 @@ def set_default_page_edit_handlers(cls):
         FieldPanel(
             "title",
             classname="title",
-            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title")}),
+            widget=forms.TextInput(
+                attrs={
+                    "placeholder": format_lazy(
+                        "{title}*", title=gettext_lazy("Page title")
+                    )
+                }
+            ),
         ),
     ]
 

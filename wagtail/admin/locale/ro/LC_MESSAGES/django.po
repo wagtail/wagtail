@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -2259,9 +2259,6 @@ msgstr[2] ""
 msgid "Task '{0}' enabled."
 msgstr "Sarcina '{0}' a fost activată."
 
-msgid "Change"
-msgstr "Modifică"
-
 msgid "Pages"
 msgstr "Pagini"
 
@@ -2315,12 +2312,6 @@ msgstr "Sortează ordinea de meniu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Schimbă ordinea paginilor dependente de '%(title)s'"
 
-msgid "Translate"
-msgstr "Traduce"
-
-msgid "Translate this page"
-msgstr "Traduceți această pagină"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Antet %(level)d"
@@ -2366,3 +2357,18 @@ msgstr "Da"
 
 msgid "Choose an item"
 msgstr "Alege un element"
+
+msgid "Choose another item"
+msgstr "Alege un alt element"
+
+msgid "Clear choice"
+msgstr "Curăță selecție"
+
+msgid "Choose another page"
+msgstr "Alege altă pagină"
+
+msgid "Choose another task"
+msgstr "Crează altă sarcină"
+
+msgid "Edit this task"
+msgstr "Editează sarcină"

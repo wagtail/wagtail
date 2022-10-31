@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 12:14+0100\n"
+"POT-Creation-Date: 2022-09-23 11:45+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -406,6 +406,9 @@ msgstr "图片权限"
 msgid "Add an image permission"
 msgstr "添加一个图片权限"
 
+msgid "Tags"
+msgstr "标签"
+
 msgid "Tag"
 msgstr "标签"
 
@@ -448,6 +451,12 @@ msgstr "正在上传…"
 msgid "Choose an image"
 msgstr "选择一个图片"
 
+msgid "Choose another image"
+msgstr "选择另一个图片"
+
+msgid "Edit this image"
+msgstr "编辑此图片"
+
 msgid "Search images"
 msgstr "搜索图片"
 
@@ -484,3 +493,6 @@ msgstr "图片"
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s 个图片"
+
+msgid "Change image"
+msgstr "修改图片"

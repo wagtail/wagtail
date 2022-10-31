@@ -18,8 +18,8 @@ extractor
     }),
     JsExtractors.callExpression('ngettext', {
       arguments: {
-        text: 1,
-        textPlural: 2,
+        text: 0,
+        textPlural: 1,
         context: 3,
       },
     }),

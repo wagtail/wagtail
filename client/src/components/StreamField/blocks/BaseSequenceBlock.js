@@ -5,6 +5,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import EventEmitter from 'events';
 import { escapeHtml as h } from '../../../utils/text';
+import {
+  initCollapsiblePanel,
+  toggleCollapsiblePanel,
+} from '../../../includes/panels';
 
 class ActionButton {
   constructor(sequenceChild) {
@@ -16,7 +20,7 @@ class ActionButton {
       this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
 
     this.dom = $(`
-      <button type="button" class="c-sf-block__actions__single" title="${h(
+      <button type="button" class="button button--icon text-replace white" title="${h(
         label,
       )}">
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
@@ -121,11 +125,18 @@ export class BaseSequenceChild extends EventEmitter {
     this.sequence = sequence;
 
     const animate = opts && opts.animate;
-    this.collapsed = opts && opts.collapsed;
+    const focus = opts && opts.focus;
+    const collapsed = opts && opts.collapsed;
     this.strings = (opts && opts.strings) || {};
 
+    const panelId = `block-${id}-section`;
+    const headingId = `block-${id}-heading`;
+    const contentId = `block-${id}-content`;
+    const blockTypeIcon = h(this.blockDef.meta.icon);
+    const blockTypeLabel = h(this.blockDef.meta.label);
+
     const dom = $(`
-      <div aria-hidden="false" ${
+      <div ${
         this.id
           ? `data-contentpath="${h(this.id)}"`
           : 'data-contentpath-disabled'
@@ -138,52 +149,56 @@ export class BaseSequenceChild extends EventEmitter {
         <input type="hidden" name="${this.prefix}-id" value="${h(
       this.id || '',
     )}">
-
-        <div>
-          <div class="c-sf-container__block-container">
-            <div class="c-sf-block">
-              <div data-block-header class="c-sf-block__header c-sf-block__header--collapsible">
-                <svg class="icon icon-${h(
-                  this.blockDef.meta.icon,
-                )} c-sf-block__header__icon" aria-hidden="true">
-                  <use href="#icon-${h(this.blockDef.meta.icon)}"></use>
+        <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" data-panel>
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
+              <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
+                <use href="#icon-${blockTypeIcon}"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
+              <span data-panel-heading-text class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">${blockTypeLabel}</span>
+              ${
+                blockDef.meta.required
+                  ? '<span class="w-required-mark" data-panel-required>*</span>'
+                  : ''
+              }
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#${panelId}" aria-labelledby="${headingId}">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls>
+              <div class="w-panel__controls-cue">
+                <svg class="icon icon-dots-horizontal w-panel__icon" aria-hidden="true">
+                  <use href="#icon-dots-horizontal"></use>
                 </svg>
-                <h3 data-block-title class="c-sf-block__header__title"></h3>
-                <div class="c-sf-block__type">${h(
-                  this.blockDef.meta.label,
-                )}</div>
-                <div class="c-sf-block__header__divider"></div>
-                <div class="c-sf-block__actions" data-block-actions>
-                  <div class="c-sf-block__actions__cue">
-                    <svg class="icon icon-dots-horizontal" aria-hidden="true">
-                      <use href="#icon-dots-horizontal"></use>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div data-block-content class="c-sf-block__content" aria-hidden="false">
-                <div class="c-sf-block__content-inner">
-                  <div data-streamfield-block></div>
-                </div>
               </div>
             </div>
           </div>
-        </div>
+          <div id="${contentId}" class="w-panel__content">
+            <div data-streamfield-block></div>
+          </div>
+        </section>
       </div>
     `);
 
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-    this.actionsContainerElement = dom.find('[data-block-actions]').get(0);
-    this.titleElement = dom.find('[data-block-title]');
-    this.contentElement = dom.find('[data-block-content]');
+    this.actionsContainerElement = dom.find('[data-panel-controls]').get(0);
+    this.titleElement = dom.find('[data-panel-heading-text]');
+    this.toggleElement = this.element.querySelector('[data-panel-toggle]');
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
     this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
-
-    dom.find('[data-block-header]').click(() => {
-      this.toggleCollapsedState();
-    });
 
     this.addActionButton(new MoveUpButton(this));
     this.addActionButton(new MoveDownButton(this));
@@ -215,15 +230,33 @@ export class BaseSequenceChild extends EventEmitter {
       capabilities,
     );
 
-    if (this.collapsed) {
+    initCollapsiblePanel(this.element.querySelector('[data-panel-toggle]'));
+
+    if (collapsed) {
       this.collapse();
     }
+
+    this.toggleElement.addEventListener('wagtail:panel-toggle', () => {
+      const label = this.getTextLabel({ maxLength: 50 });
+      this.titleElement.text(label || '');
+    });
+
+    // Set in initialisation regardless of block state for screen reader users.
+    const textLabel = this.getTextLabel({ maxLength: 50 });
+    this.titleElement.text(textLabel || '');
 
     if (animate) {
       dom.hide();
       setTimeout(() => {
         dom.slideDown();
+        if (focus) {
+          // focus this field if we can do so without obtrusive UI behaviour
+          this.block.focus({ soft: true });
+        }
       }, 10);
+    } else if (focus) {
+      // focus this field if we can do so without obtrusive UI behaviour
+      this.block.focus({ soft: true });
     }
   }
 
@@ -334,34 +367,7 @@ export class BaseSequenceChild extends EventEmitter {
   }
 
   collapse() {
-    this.contentElement.hide().attr('aria-hidden', 'true');
-    const label = this.getTextLabel({ maxLength: 50 });
-    this.titleElement.text(label || '');
-    this.collapsed = true;
-    this.contentElement
-      .get(0)
-      .dispatchEvent(
-        new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
-      );
-  }
-
-  expand() {
-    this.contentElement.show().attr('aria-hidden', 'false');
-    this.titleElement.text('');
-    this.collapsed = false;
-    this.contentElement
-      .get(0)
-      .dispatchEvent(
-        new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
-      );
-  }
-
-  toggleCollapsedState() {
-    if (this.collapsed) {
-      this.expand();
-    } else {
-      this.collapse();
-    }
+    toggleCollapsiblePanel(this.toggleElement, false);
   }
 
   getDuplicatedState() {
@@ -452,11 +458,10 @@ export class BaseSequenceBlock {
   _onRequestInsert(index, opts) {
     /* handler for an 'insert new block' action */
     const [blockDef, initialState, id] = this._getChildDataForInsertion(opts);
-    const newChild = this._insert(blockDef, initialState, id || null, index, {
+    this._insert(blockDef, initialState, id || null, index, {
       animate: true,
+      focus: true,
     });
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    newChild.focus({ soft: true });
   }
 
   blockCountChanged() {
@@ -467,6 +472,7 @@ export class BaseSequenceBlock {
   _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
+    const focus = opts && opts.focus;
     const collapsed = opts && opts.collapsed;
     this.blockCounter++;
 
@@ -501,6 +507,7 @@ export class BaseSequenceBlock {
       this,
       {
         animate,
+        focus,
         collapsed,
         strings: this.blockDef.meta.strings,
       },

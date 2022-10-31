@@ -16,7 +16,7 @@ Every type of page or "content type" in Wagtail is defined as a "model" in a fil
 
 For each page model in `models.py`, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by referring to `models.py` to infer template names from the models defined therein.
 
-To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a `BlogPage`, a template `blog_page.html` will be expected. The name of the template file can be overridden per model if necessary.
+To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a `BlogPage` model, a template `blog_page.html` will be expected. The name of the template file can be overridden per model if necessary.
 
 Template files are assumed to exist here:
 
@@ -37,7 +37,7 @@ The data/content entered into each page is accessed/output through Django's `{{ 
 
 A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
-Additionally `request.` is available and contains Django's request object.
+Additionally, `request.` is available and contains Django's request object.
 
 ## Static assets
 
@@ -62,7 +62,7 @@ Any file within the static folder should be inserted into your HTML using the `{
 
 Images uploaded to a Wagtail site by its users (as opposed to a developer's static files, mentioned above) go into the image library and from there are added to pages via the [page editor interface](inserting_images).
 
-Unlike other CMSs, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur _on the fly_ when the image is requested, via a special syntax within the template.
+Unlike other CMSs, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead, the template developer defines image manipulation to occur _on the fly_ when the image is requested, via a special syntax within the template.
 
 Images from the library must be requested using this syntax, but a developer's static images can be added via conventional means like `img` tags. Only images from the library can be manipulated on the fly.
 
@@ -102,7 +102,7 @@ See [](image_tag) for full documentation.
 
 ## Rich text (filter)
 
-This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images, and links made in the Wagtail editor, into fully-baked HTML ready for display.
+This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.
 
 Only fields using `RichTextField` need this applied in the template.
 
@@ -179,7 +179,7 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 
 Takes any `slug` as defined in a page's "Promote" tab and returns the URL for the matching Page. If multiple pages exist with the same slug, the page chosen is undetermined.
 
-Like `pageurl`, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, for example top level navigation or site-wide links.
+Like `pageurl`, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, for example, top-level navigation or site-wide links.
 
 ```html+django
 {% load wagtailcore_tags %}
@@ -191,7 +191,7 @@ Like `pageurl`, this will try to provide a relative link if possible, but will d
 
 ## Static files (tag)
 
-Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, as they might between development and live environments.
+Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, such as when moving from development to a live environment.
 
 ```html+django
 {% load static %}
@@ -223,7 +223,7 @@ This tag provides a contextual flyout menu for logged-in users. The menu gives e
 
 This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
 
-We recommend putting the tag near the top of the `<body>` element so keyboard users can reach it. You should consider putting the tag after any `[skip links](https://webaim.org/techniques/skipnav/) but before the navigation and main content of your page.
+We recommend putting the tag near the top of the `<body>` element to allow keyboard users to reach it. You should consider putting the tag after any `[skip links](https://webaim.org/techniques/skipnav/)` but before the navigation and main content of your page.
 
 ```html+django
 {% load wagtailuserbar %}
@@ -240,7 +240,7 @@ We recommend putting the tag near the top of the `<body>` element so keyboard us
 </body>
 ```
 
-By default the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
+By default, the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
 
 ```html+django
 ...
@@ -262,7 +262,7 @@ The userbar can be positioned where it works best with your design. Alternativel
 
 ## Varying output between preview and live
 
-Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` variable to distinguish between preview and live:
+Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` variable to distinguish between preview and live:
 
 ```html+django
 {% if not request.is_preview %}

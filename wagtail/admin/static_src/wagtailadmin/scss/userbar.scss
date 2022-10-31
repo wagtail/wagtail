@@ -52,6 +52,10 @@ $positions: (
 // =============================================================================
 .#{$namespace}-userbar-reset {
   all: initial;
+  // Copy our font sans variable so it can be used without Tailwind.
+  --w-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui,
+    Roboto, 'Helvetica Neue', Arial, sans-serif, Apple Color Emoji,
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 .#{$namespace}-userbar {

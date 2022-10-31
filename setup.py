@@ -74,8 +74,9 @@ documentation_extras = [
     "sphinxcontrib-spelling>=5.4.0,<6",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==5.3.0",
-    "myst_parser==0.17.0",
+    "sphinx-wagtail-theme==5.3.2",
+    "myst_parser==0.18.1",
+    "sphinx_copybutton>=0.5,<1.0",
 ]
 
 setup(
@@ -110,6 +111,7 @@ https://github.com/wagtail/wagtail/.",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: Django",
         "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",

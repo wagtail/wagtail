@@ -216,7 +216,7 @@ export class StreamBlock extends BaseSequenceBlock {
     this.prefix = prefix;
 
     const dom = $(`
-      <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
+      <div class="${h(this.blockDef.meta.classname || '')}">
         <input type="hidden" name="${h(
           prefix,
         )}-count" data-streamfield-stream-count value="0">
@@ -386,9 +386,11 @@ export class StreamBlock extends BaseSequenceBlock {
     const child = this.children[index];
     const childState = child.getDuplicatedState();
     const animate = opts && opts.animate;
-    this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    this.children[index + 1].focus({ soft: true });
+    this.insert(childState, index + 1, {
+      animate,
+      focus: true,
+      collapsed: child.collapsed,
+    });
   }
 
   splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
@@ -398,7 +400,7 @@ export class StreamBlock extends BaseSequenceBlock {
     const newChild = this.insert(
       { type: initialState.type, id: uuidv4(), value: valueAfter },
       index + 1,
-      { animate, collapsed: child.collapsed },
+      { animate, focus: true, collapsed: child.collapsed },
     );
     child.setState({
       type: initialState.type,
@@ -421,8 +423,6 @@ export class StreamBlock extends BaseSequenceBlock {
         }
       });
     }
-    // focus the newly added field if we can do so without obtrusive UI behaviour
-    this.children[index + 1].focus({ soft: true });
   }
 
   setState(values) {

@@ -1,6 +1,6 @@
 # Using forms in admin views
 
-[Django's forms framework](https://docs.djangoproject.com/en/stable/topics/forms/) can be used within Wagtail admin views just like in any other Django app. However, Wagtail also provides various admin-specific form widgets, such as date/time pickers and choosers for pages, documents, images and snippets. By constructing forms using `wagtail.admin.forms.models.WagtailAdminModelForm` as the base class instead of `django.forms.models.ModelForm`, the most appropriate widget will be selected for each model field. For example, given the model and form definition:
+[Django's forms framework](https://docs.djangoproject.com/en/stable/topics/forms/) can be used within Wagtail admin views just like in any other Django app. However, Wagtail also provides various admin-specific form widgets, such as date/time pickers and choosers for pages, documents, images, and snippets. By constructing forms using `wagtail.admin.forms.models.WagtailAdminModelForm` as the base class instead of `django.forms.models.ModelForm`, the most appropriate widget will be selected for each model field. For example, given the model and form definition:
 
 ```python
 from django.db import models
@@ -65,6 +65,7 @@ See [](/reference/pages/panels) for the set of panel types provided by Wagtail. 
 A view performs the following steps to render a model form through the panels mechanism:
 
 -   The top-level panel object for the model is retrieved. Usually this is done by looking up the model's `edit_handler` property and falling back on an `ObjectList` consisting of children given by the model's `panels` property. However, it may come from elsewhere - for example, the ModelAdmin module allows defining it on the ModelAdmin configuration object.
+-   If the `PanelsGroup`s permissions do not allow a user to see this panel, then nothing more will be done.
 -   The view calls `bind_to_model` on the top-level panel, passing the model class, and this returns a clone of the panel with a `model` property. As part of this process the `on_model_bound` method is invoked on each child panel, to allow it to perform additional initialisation that requires access to the model (for example, this is where `FieldPanel` retrieves the model field definition).
 -   The view then calls `get_form_class` on the top-level panel to retrieve a ModelForm subclass that can be used to edit the model. This proceeds as follows:
     -   Retrieve a base form class from the model's `base_form_class` property, falling back on `wagtail.admin.forms.WagtailAdminModelForm`

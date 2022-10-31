@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,11 @@ msgstr ""
 msgid "default"
 msgstr ""
 
+#: models.py:148
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr ""
+
 #: templates/wagtailsettings/edit.html:4
 #, python-format
 msgid "Editing %(instance)s"
@@ -31,15 +36,20 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: templates/wagtailsettings/edit.html:30
+#: templates/wagtailsettings/edit.html:18
+msgid "Editing"
+msgstr ""
+
+#: templates/wagtailsettings/edit.html:31
 msgid "Saving…"
 msgstr ""
 
-#: templates/wagtailsettings/edit.html:30
+#: templates/wagtailsettings/edit.html:31
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailsettings/index.html:3
+#: templates/wagtailsettings/index.html:7
 msgid "Settings"
 msgstr ""
 

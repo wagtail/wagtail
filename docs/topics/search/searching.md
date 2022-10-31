@@ -30,7 +30,7 @@ All other methods of `PageQuerySet` can be used with `search()`. For example:
 The `search()` method will convert your `QuerySet` into an instance of one of Wagtail's `SearchResults` classes (depending on backend). This means that you must perform filtering before calling `search()`.
 ```
 
-Before the `autocomplete()` method was introduced, the search method also did partial matching. This behaviour is will be deprecated and you should either switch to the new `autocomplete()` method or pass `partial_match=False` into the search method to opt-in to the new behaviour.
+Before the `autocomplete()` method was introduced, the search method also did partial matching. This behaviour is deprecated and you should either switch to the new `autocomplete()` method or pass `partial_match=False` into the search method to opt-in to the new behaviour.
 The partial matching in `search()` will be completely removed in a future release.
 
 ### Autocomplete searches
@@ -71,7 +71,7 @@ Wagtail's document and image models provide a `search` method on their QuerySets
 [<Book: Great Expectations>, <Book: The Great Gatsby>]
 ```
 
-You can also pass a QuerySet into the `search` method which allows you to add filters to your search results:
+You can also pass a QuerySet into the `search` method, which allows you to add filters to your search results:
 
 ```python
 >>> from myapp.models import Book
@@ -101,12 +101,12 @@ This can be limited to a certain set of fields by using the `fields` keyword arg
 
 ### Faceted search
 
-Wagtail supports faceted search which is a kind of filtering based on a taxonomy
+Wagtail supports faceted search, which is a kind of filtering based on a taxonomy
 field (such as category or page type).
 
 The `.facet(field_name)` method returns an `OrderedDict`. The keys are
 the IDs of the related objects that have been referenced by the specified field, and the
-values are the number of references found for each ID. The results are ordered by number
+values are the number of references found for each ID. The results are ordered by the number
 of references descending.
 
 For example, to find the most common page types in the search results:
@@ -126,12 +126,12 @@ OrderedDict([
 
 ### Search operator
 
-The search operator specifies how search should behave when the user has typed in multiple search terms. There are two possible values:
+The search operator specifies how the search should behave when the user has typed in multiple search terms. There are two possible values:
 
 -   "or" - The results must match at least one term (default for Elasticsearch)
 -   "and" - The results must match all terms (default for database search)
 
-Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
+Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but requires the user to be more precise with their query.
 
 We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
 
@@ -171,7 +171,7 @@ For page, image and document models, the `operator` keyword argument is also sup
 
 ### Phrase searching
 
-Phrase searching is used for finding whole sentence or phrase rather than individual terms.
+Phrase searching is used for finding whole sentences or phrases rather than individual terms.
 The terms must appear together and in the same order.
 
 For example:
@@ -237,7 +237,7 @@ For example:
 
 `Phrase(query_string)`
 
-This class wraps a string containing a phrase. See previous section for how this works.
+This class wraps a string containing a phrase. See the previous section for how this works.
 
 For example:
 
@@ -318,7 +318,7 @@ def search(request):
 
 ### Custom ordering
 
-By default, search results are ordered by relevance, if the backend supports it. To preserve the QuerySet's existing ordering, the `order_by_relevance` keyword argument needs to be set to `False` on the `search()` method.
+By default, search results are ordered by relevance if the backend supports it. To preserve the QuerySet's existing ordering, the `order_by_relevance` keyword argument needs to be set to `False` on the `search()` method.
 
 For example:
 
