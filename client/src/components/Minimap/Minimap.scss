@@ -55,7 +55,19 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
       pointer-events: none;
     }
 
-    &:focus {
+    *:focus {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    // Ensure the toggle button is only visible when it has **focus-visible**.
+    // With fallback focus styles for browsers that lack focus-visible support.
+    *:focus:not(:focus-visible) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:focus-visible {
       opacity: 1;
       pointer-events: auto;
     }
