@@ -656,6 +656,7 @@ Contributors
 * Akua Dokua Asiedu
 * Chisom Okeoma
 * Marvis Chukwudi
+* Jordan Rob
 
 Translators
 ===========
