@@ -72,8 +72,9 @@ $box-padding: 10px;
     }
   }
 
-  > :last-child &__notice {
-    bottom: -$box-padding;
+& > &__notice-placeholder:last-child &__notice,
+&__replies:last-child > :last-child &__notice {
+    
     // Remove once we drop support for Safari 14.
     // stylelint-disable-next-line property-disallowed-list
     border-bottom-left-radius: $box-border-radius;
