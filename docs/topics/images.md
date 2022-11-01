@@ -414,41 +414,6 @@ Note that this will have no effect on PNG or GIF files. If you want all images t
 {% image page.photo width-400 format-webp webpquality-50 %}
 ```
 
-### Custom image filter
-
-In `wagtail_hooks.py` register your custom image filter.
-
-This example assumes Willow in combination with Pillow. If you use another image library, or like to support multiple image libraries, you need to update the code inside the run method. See the [Willow documentation](https://willow.readthedocs.io/en/latest/index.html) for more information.
-
-```python
-from PIL import ImageFilter
-
-from wagtail import hooks
-from wagtail.images.image_operations import FilterOperation
-
-
-class BlurOperation(FilterOperation):
-    def construct(self, radius):
-        self.radius = int(radius)
-
-    def run(self, willow, image, env):
-        willow.image = willow.image.filter(ImageFilter.GaussianBlur(radius=self.radius))
-        return willow
-
-
-@hooks.register("register_image_operations")
-def register_image_operations():
-    return [
-        ("blur", BlurOperation),
-    ]
-```
-
-In your template:
-
-```html+Django
-{% image page.photo width-400 blur-7 %}
-```
-
 ### Generating image renditions in Python
 
 All of the image transformations mentioned above can also be used directly in Python code.
