@@ -1,5 +1,13 @@
+
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
+/**
+ * Sends a PATCH request and updates the dismissibles field
+ * of a UserProfile model.
+ * @param data 
+ * @returns 
+ * Ensures the state "What's New in Wagtail" remains dismissed after being dismissed in the UserProfile
+ */
 export function updateDismissibles(data: Record<string, boolean>) {
   return fetch(WAGTAIL_CONFIG.ADMIN_URLS.DISMISSIBLES, {
     method: 'PATCH',
@@ -12,6 +20,10 @@ export function updateDismissibles(data: Record<string, boolean>) {
   });
 }
 
+/**
+ * Initializes server rendered elements.
+ * Dismissible elements triggered on toggle click, which updates the server to dismiss the state "What's New in Wagtail"
+ */
 export function initDismissibles() {
   // A dismissible element is marked by the data-wagtail-dismissible-id attribute.
   const dismissibles = document.querySelectorAll<HTMLElement>(
