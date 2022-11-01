@@ -655,6 +655,7 @@ Contributors
 * Harry Percival
 * Akua Dokua Asiedu
 * Chisom Okeoma
+* Marvis Chukwudi
 
 Translators
 ===========
