@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.urls import reverse
 
@@ -66,3 +68,15 @@ class TransactionTestServeView(TransactionTestCase):
         # we expect the serve view to set and use the request page cache
         with self.assertNumQueries(0): 
             serve(request, page.url)
+    
+    def test_serve_calls_page_find_for_request(self):
+        page = Page.objects.all().first()
+        self.assertTrue(page)
+        
+        request = RequestFactory().get(page.url)
+        
+        with mock.patch(
+            "wagtail.models.Page.find_for_request",
+        ) as method:
+            serve(request, page.url)
+        method.assert_called_once_with(request, page.url)
