@@ -1,6 +1,6 @@
 from unittest import mock
 
-from django.test import RequestFactory, TestCase, TransactionTestCase
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail.models import Page
@@ -52,7 +52,7 @@ class TestLoginView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, self.events_index.url)
 
 
-class TransactionTestServeView(TransactionTestCase):
+class TestServeView(TestCase):
     fixtures = ["test.json"]
     
     def test_serve_query_count(self):
