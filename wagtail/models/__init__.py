@@ -980,7 +980,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     settings_panels = []
 
     @staticmethod
-    def find_for_request(request):
+    def find_for_request(request, path):
         """
         Find the page object for this HTTP request object. The page, args, and
         kwargs will be cached via request._wagtail_page_for_request
