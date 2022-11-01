@@ -1,8 +1,9 @@
-from django.test import TestCase
+from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.urls import reverse
 
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.views import serve
 
 
 class TestLoginView(TestCase, WagtailTestUtils):
@@ -47,3 +48,19 @@ class TestLoginView(TestCase, WagtailTestUtils):
             },
         )
         self.assertRedirects(response, self.events_index.url)
+
+
+class TransactionTestServeView(TransactionTestCase):
+    def test_serve_query_count(self):
+        page = Page.objects.all().first()
+        self.assertTrue(page)
+        
+        request = RequestFactory().get(page.url)
+        
+        with self.assertRaises(AssertionError):
+            with self.assertNumQueries(0): 
+                serve(request, page.url)
+        
+        # we expect the serve view to set and use the request page cache
+        with self.assertNumQueries(0): 
+            serve(request, page.url)
