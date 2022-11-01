@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -166,18 +166,6 @@ msgstr "%(title)sを使用"
 msgid "Usage of"
 msgstr "使用"
 
-msgid "Parent"
-msgstr "上位階層"
-
-msgid "Type"
-msgstr "タイプ"
-
-msgid "Status"
-msgstr "ステータス"
-
-msgid "Edit this page"
-msgstr "ページを編集"
-
 msgid "Add multiple documents"
 msgstr "複数のドキュメントを追加"
 
@@ -252,6 +240,10 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}'のドキュメントを削除しました。"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%sを編集"
 
 msgid "Document"
 msgstr "ドキュメント"

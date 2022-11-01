@@ -4,13 +4,14 @@
 #
 # Translators:
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
+"Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +101,9 @@ msgstr "тусламж текст"
 msgid "Submission date"
 msgstr "Илгээсэн өдөр"
 
+msgid "Form"
+msgstr "Форм"
+
 msgid "to address"
 msgstr "хаяг руу"
 
@@ -150,6 +154,9 @@ msgstr "Форм хуудас үүсээгүй байна."
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Бөглөсөн %(form_title)s"
+
+msgid "Download XLSX"
+msgstr "XLSX-р татах"
 
 msgid "Download CSV"
 msgstr "CSV татах"

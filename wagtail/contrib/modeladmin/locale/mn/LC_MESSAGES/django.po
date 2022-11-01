@@ -4,13 +4,14 @@
 #
 # Translators:
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
+"Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -71,8 +72,20 @@ msgstr "%s-г хуулах"
 msgid "image"
 msgstr "зураг"
 
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "%(model_name)s жагсаалт руу буцах"
+
 msgid "Choose a parent page"
 msgstr "Эцэг хуудас сонгох"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s -г сайтын олон газар нэмэх боломжтой. Аль нэгийг нь шинэ хуудасны "
+"эцэг болгох боломжтой."
 
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
@@ -83,11 +96,42 @@ msgstr "Хадгалж байна"
 msgid "Save"
 msgstr "Хадгалах"
 
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s устгаж чадсангүй"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"%(instance_name)s нь бусад обьекттой холбоотой, өгөгдлийн халдашгүй байдалд "
+"эрсдэлтэй тул устгах боломжгүй. Иймд бусад обьектоос салгасны дараа дахин "
+"оролдоно уу."
+
 msgid "Go back to listing"
 msgstr "Жагсаалт руу буцах"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
+
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "%(filter_title)s -аар"
+
+msgid "Last updated"
+msgstr "Шинэчлэгдсэн"
+
+msgid "History"
+msgstr "Түүх"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "Нийт %(all_count)s үр дүнгээс %(result_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -103,17 +147,51 @@ msgstr "%(name)s хайх"
 msgid "Search"
 msgstr "Хайлт"
 
+msgid "Download XLSX"
+msgstr "XLSX-р татах"
+
 msgid "Download CSV"
-msgstr "CSV татах"
+msgstr "CSV-р татах"
 
 msgid "Filter"
 msgstr "Шүүлтүүр"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Одоогоор %(name)s үүсээгүй байна. %(name)s үүсгэхээс өмнө дараах зүйл үүссэн "
+"байх ёстой."
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "%(name)s үүсээгүй байна."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Яагаад <a href=\"%(url)s\">линк</a> нэмж болохгүй гэж?"
+
+msgid "Pagination"
+msgstr "Хуудаслах"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Нийт %(num_pages)s -н %(current_page)s -р хуудас. "
 
 msgid "Previous"
 msgstr "Өмнөх"
 
 msgid "Next"
 msgstr "Дараагийнх"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s%(instance)s боллоо."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "%s -г үүсгэхэд алдаа гарлаа."
 
 msgid "New"
 msgstr "Шинэ"
@@ -128,6 +206,10 @@ msgstr "Засч байна"
 #, python-format
 msgid "Editing %s"
 msgstr "%s засч байна"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s%(instance)s шинэчлэгдлээ."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -145,12 +227,19 @@ msgstr ""
 "%s-г үнэхээр устгах уу? Үүнтэй холбоотой бусад зүйлст сөргөөр нөлөөлж "
 "болзошгүй."
 
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s%(instance)s устгагдлаа."
+
 msgid "Inspecting"
 msgstr "Шалгаж байна"
 
 #, python-format
 msgid "Inspecting %s"
 msgstr "%s-г шалгаж байна"
+
+msgid "Action"
+msgstr "Үйлдэл"
 
 msgid "Date"
 msgstr "Огноо"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -75,8 +75,14 @@ msgstr "Data/hora d'expiració"
 msgid "expired"
 msgstr "expirat"
 
+msgid "scheduled"
+msgstr "programat"
+
 msgid "draft"
 msgstr "esborrany"
+
+msgid "live + scheduled"
+msgstr "en viu + programada"
 
 msgid "live + draft"
 msgstr "en viu + esborrany"
@@ -132,14 +138,8 @@ msgstr "última revisió creada el"
 msgid "This slug is already in use"
 msgstr "Aquest slug ja està en ús"
 
-msgid "scheduled"
-msgstr "programat"
-
 msgid "in moderation"
 msgstr "en moderació"
-
-msgid "live + scheduled"
-msgstr "en viu + programada"
 
 msgid "live + in moderation"
 msgstr "en viu + en moderació"

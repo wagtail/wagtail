@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: suayip uzulmez <suayip.541@gmail.com>, 2021\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -128,6 +128,12 @@ msgstr "Düzenle"
 msgid "Delete"
 msgstr "Sil"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Bitiş tarihi ileri bir tarih olmalı"
+
 msgid "New title"
 msgstr "Yeni başlık"
 
@@ -187,12 +193,6 @@ msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız
 msgid "This slug is already in use"
 msgstr "Bu başlık url'si zaten kullanılıyor"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Yayın başlangıç tarih/saati bitiş tarih/saatinden öncesinde olmalı"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Bitiş tarihi ileri bir tarih olmalı"
-
 msgid "Visibility"
 msgstr "Görünürlük"
 
@@ -201,9 +201,6 @@ msgstr "Bu alan zorunludur."
 
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
-
-msgid "Scheduled publishing"
-msgstr "Planlanmış yayın"
 
 msgid "Content"
 msgstr "İçerik"
@@ -451,6 +448,9 @@ msgstr "Tarih"
 msgid "Site summary"
 msgstr "Site özeti"
 
+msgid "Close"
+msgstr "Kapat"
+
 msgid "Sign in"
 msgstr "Oturum aç"
 
@@ -689,22 +689,6 @@ msgstr "Güncellendi"
 msgid "Cancel scheduled publish"
 msgstr "Zamanlanmış yayını iptal et"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
-
-msgid "Unschedule"
-msgstr "Planı kaldır"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
-
-msgid "Yes, unschedule"
-msgstr "Evet, planı kaldır"
-
-msgid "No, don't unschedule"
-msgstr "Hayır, planı kaldırma"
-
 msgid "Page types"
 msgstr "Sayfa türleri"
 
@@ -780,6 +764,22 @@ msgstr "Yayındaki sayfayı gör"
 
 msgid "Current page status:"
 msgstr "Şimdiki sayfa durumu:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
+
+msgid "Unschedule"
+msgstr "Planı kaldır"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
+
+msgid "Yes, unschedule"
+msgstr "Evet, planı kaldır"
+
+msgid "No, don't unschedule"
+msgstr "Hayır, planı kaldırma"
 
 msgid "Other searches"
 msgstr "Diğer aramalar"
@@ -977,10 +977,6 @@ msgid "Page '{0}' moved."
 msgstr "Sayfa '{0}' taşındı."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "sürüm {0} / \"{1}\""
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sayfa '{0}' yayından kaldırıldı."
 
@@ -1062,9 +1058,6 @@ msgstr "Üstü çizgili"
 
 msgid "Code"
 msgstr "Kod"
-
-msgid "Locked Pages"
-msgstr "Kilitli Sayfalar"
 
 msgid "Reports"
 msgstr "Raporlar"

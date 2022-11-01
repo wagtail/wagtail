@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,12 @@ msgstr "Этот блок не имеет опций."
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
 
+msgid "Wagtail frontend cache"
+msgstr "Фронтенд кеш Wagtail"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail маршрутизируемая страница"
+
 msgid "Wagtail sitemaps"
 msgstr "Карта сайта Wagtail"
 
@@ -110,6 +116,12 @@ msgstr "Страница ожидает<b>'{}'</b> в рабочем проце�
 msgid "Only reviewers for this task can edit the page."
 msgstr "Только рецензенты данной задачи могут редактировать страницу."
 
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr "Страница '{}' заблокирована и должна быть опубликована по адресу {}"
+
+msgid "latest revision"
+msgstr "последняя версия"
+
 msgid "live"
 msgstr "опубликовано"
 
@@ -134,8 +146,14 @@ msgstr "дата/время истечения"
 msgid "expired"
 msgstr "истекло"
 
+msgid "scheduled"
+msgstr "запланированное"
+
 msgid "draft"
 msgstr "черновик"
+
+msgid "live + scheduled"
+msgstr "размещена + запланированна"
 
 msgid "live + draft"
 msgstr "опубликовано + черновик"
@@ -210,14 +228,8 @@ msgstr "последняя версия создана"
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
 
-msgid "scheduled"
-msgstr "запланированное"
-
 msgid "in moderation"
 msgstr "на модерации"
-
-msgid "live + scheduled"
-msgstr "размещена + запланированна"
 
 msgid "live + in moderation"
 msgstr "опубликовано + на модерации"
@@ -227,6 +239,9 @@ msgstr "страница"
 
 msgid "pages"
 msgstr "страницы"
+
+msgid "object id"
+msgstr "идентификатор объекта"
 
 msgid "submitted for moderation"
 msgstr "добавлено на модерацию"
@@ -242,6 +257,12 @@ msgstr "сожержимое JSON"
 
 msgid "approved go live at"
 msgstr "подтверждено к публикации"
+
+msgid "revision"
+msgstr "версия"
+
+msgid "revisions"
+msgstr "версии"
 
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
@@ -376,7 +397,7 @@ msgid "Approved"
 msgstr "Одобрено"
 
 msgid "Needs changes"
-msgstr "Нужные изменения"
+msgstr "Нужны изменения"
 
 msgid "Cancelled"
 msgstr "Отменено"
@@ -909,6 +930,10 @@ msgstr "Задача рабочего процесса отклонена. Пр�
 
 msgid "Workflow: resume task"
 msgstr "Рабочий процесс: возобновить задачу"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Повторно отправлено '%(task)s'. Рабочий процесс возобновлен"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Задача выполнена еще раз. Рабочий процесс возобновлен."

@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej Marsetič, 2022
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,9 @@ msgstr "Tip"
 
 msgid "Permanent"
 msgstr "Stalna"
+
+msgid "Temporary"
+msgstr "Začasno"
 
 msgid "All"
 msgstr "Vse"
@@ -127,6 +131,9 @@ msgstr "Ali ste prepričani, da želite izbrisati preusmeritev?"
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
+msgid "Confirm import"
+msgstr "Potrdite uvoz"
+
 msgid "Confirm"
 msgstr "Potrdi"
 
@@ -146,11 +153,17 @@ msgstr "Urejanje"
 msgid "Delete redirect"
 msgstr "Izbriši preusmeritev"
 
+msgid "Summary"
+msgstr "Povzetek"
+
 msgid "From"
 msgstr "Iz"
 
 msgid "To"
 msgstr "Na"
+
+msgid "Error"
+msgstr "Napaka"
 
 msgid "Continue"
 msgstr "Nadaljuj"
@@ -160,6 +173,9 @@ msgstr "Spletno mesto"
 
 msgid "Edit this redirect"
 msgstr "Uredi preusmeritev"
+
+msgid "No redirects found."
+msgstr "Preusmeritve niso bile najdene."
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -197,3 +213,6 @@ msgstr "Preusmeritev '{0}' dodana."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."
+
+msgid "Export Redirects"
+msgstr "Izvozite preusmeritve"

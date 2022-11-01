@@ -13,13 +13,14 @@
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # sergeybe <sergeybe@gmail.com>, 2020
+# Влад <integration.into.society@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Anatoly <pandorinpan@gmail.com>, 2021\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -33,8 +34,19 @@ msgstr ""
 msgid "default"
 msgstr "по умолчанию"
 
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s для %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Редактирование %(instance)s"
+
 msgid "Site"
 msgstr "Сайт"
+
+msgid "Editing"
+msgstr "Редактирование"
 
 msgid "Saving…"
 msgstr "Сохранение…"

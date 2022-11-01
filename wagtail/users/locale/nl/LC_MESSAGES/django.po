@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -397,19 +397,6 @@ msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 msgid "Group '{0}' deleted."
 msgstr "Groep '{0}' verwijderd."
 
-msgid "Search users"
-msgstr "Zoek gebruikers"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Gebruiker '{0}' aangemaakt."
-
-msgid "Edit"
-msgstr "Wijzig"
-
-msgid "The user could not be created due to errors."
-msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Gebruiker '{0}' is gewijzigd."
@@ -417,9 +404,16 @@ msgstr "Gebruiker '{0}' is gewijzigd."
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Wijzigen %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Gebruiker '{0}' is verwijderd."
+
+msgid "Edit"
+msgstr "Wijzig"
 
 msgid "Edit this user"
 msgstr "Bewerk deze gebruiker"

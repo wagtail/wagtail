@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -170,18 +170,6 @@ msgstr "%(title)s naudojimas"
 msgid "Usage of"
 msgstr "Naudojimas"
 
-msgid "Parent"
-msgstr "Tėvas"
-
-msgid "Type"
-msgstr "Tipas"
-
-msgid "Status"
-msgstr "Statusas"
-
-msgid "Edit this page"
-msgstr "Redaguoti šį puslapį"
-
 #, python-format
 msgid ""
 "<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
@@ -265,6 +253,10 @@ msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentas '{0}' ištrintas."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Redaguoti šį %s"
 
 msgid "Document"
 msgstr "Dokumentas"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Loic Teixeira, 2018,2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -41,14 +41,14 @@ msgid "Save"
 msgstr "Enregistrer"
 
 msgid "Wagtail snippets"
-msgstr "Snippets Wagtail"
+msgstr "Fragments Wagtail"
 
 msgid "Delete selected snippets"
-msgstr "Supprimer les blocs sélectionnés"
+msgstr "Supprimer les fragments sélectionnés"
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' supprimé(e)."
+msgstr "%(snippet_type)s « %(instance)s » supprimé(e)."
 
 #, python-format
 msgid "%(count)d %(snippet_type)s deleted."
@@ -97,7 +97,7 @@ msgstr "Non, ne pas supprimer"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
-msgstr "Désolé, aucun snippet ne correspond à « <em>%(search_query)s</em> »"
+msgstr "Désolé, aucun fragment ne correspond à « <em>%(search_query)s</em> »"
 
 #, python-format
 msgid ""
@@ -108,6 +108,9 @@ msgstr ""
 "Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noreferrer\">en créer un maintenant</a> ?"
+
+msgid "Usage"
+msgstr "Utilisation"
 
 msgid "Last updated"
 msgstr "Dernière mise à jour"
@@ -147,9 +150,6 @@ msgstr "Actions"
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Modification de %(snippet_type_name)s - %(object)s"
 
-msgid "Usage"
-msgstr "Utilisation"
-
 msgid "Toggle breadcrumbs"
 msgstr "Afficher/masquer le fil d'Ariane"
 
@@ -157,7 +157,7 @@ msgid "Breadcrumb"
 msgstr "Fil d'Ariane"
 
 msgid "Snippets"
-msgstr "Blocs"
+msgstr "Fragments"
 
 msgid "New: "
 msgstr "Nouveau :"
@@ -168,10 +168,10 @@ msgstr "Modification de %(snippet_type)s « %(title)s »"
 
 #, python-format
 msgid "Snippet history for %(subtitle)s"
-msgstr "Historique du snippet pour « %(subtitle)s »"
+msgstr "Historique du fragment pour « %(subtitle)s »"
 
 msgid "Edit this snippet"
-msgstr "Modifier ce bloc"
+msgstr "Modifier ce fragment"
 
 msgid "No log entries found."
 msgstr "Aucune entrée de journal trouvée."
@@ -217,31 +217,19 @@ msgstr "Comparer avec la version précédente"
 msgid "Compare with current version"
 msgstr "Comparer avec la version actuelle"
 
-msgid "Status: "
-msgstr "Status :"
-
-msgid "Live"
-msgstr "Publié(e)"
-
-msgid "Draft"
-msgstr "Brouillon"
-
-msgid "View history"
-msgstr "Voir l'historique"
-
-msgid "This will publish at "
-msgstr "La publication aura lieu à"
+msgid "Cancel scheduled publish"
+msgstr "Annuler la publication programmée"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Blocs %(snippet_type_name_plural)s"
+msgstr "Fragments %(snippet_type_name_plural)s"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
 msgstr "Ajouter un %(snippet_type_name)s"
 
 msgid "Select all snippets in listing"
-msgstr "Sélectionner tous les snippets dans la liste"
+msgstr "Sélectionner tous les fragments dans la liste"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -253,17 +241,8 @@ msgstr "Utilisation de"
 msgid "Title"
 msgstr "Titre"
 
-msgid "Parent"
-msgstr "Parent"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Statut"
-
-msgid "Edit this page"
-msgstr "Modifier cette page"
+msgid "Field"
+msgstr "Champ"
 
 msgid "Choose"
 msgstr "Choisir"
@@ -275,35 +254,63 @@ msgid "Instances"
 msgstr "Occurrences"
 
 msgid "The snippet could not be created due to errors."
-msgstr "Le bloc ne peut être créé du fait d'erreurs."
+msgstr "Le fragment ne peut être créé du fait d'erreurs."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' créé(e)."
+msgstr "%(snippet_type)s « %(instance)s » créé(e)."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created and published."
 msgstr "%(snippet_type)s « %(instance)s » créé(e) et publié(e)."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+msgstr ""
+"%(snippet_type)s « %(instance)s » créé(e) et planifié(e) pour la publication."
+
 msgid "The snippet could not be saved due to errors."
-msgstr "Le bloc ne peut être enregistré du fait d'erreurs."
+msgstr "Le fragment ne peut être enregistré du fait d'erreurs."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' modifié(e)."
+msgstr "%(snippet_type)s « %(instance)s » modifié(e)."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr "%(snippet_type)s « %(instance)s » modifié(e) et publié(e)."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+msgstr "%(snippet_type)s « %(instance)s » a été planifié pour la publication."
+
+#, python-format
+msgid ""
+"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
+"for publishing."
+msgstr ""
+"%(snippet_type)s « %(instance)s » est publié(e) et cette version a été "
+"planifié pour la publication."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(%s Privé(e))"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Modifier ce/cette %s"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "User"
+msgstr "Utilisateur"
+
 msgid "Date"
 msgstr "Date"
 
 msgid "Snippet history"
-msgstr "Historique du snippet"
-
-msgid "Action"
-msgstr "Action"
+msgstr "Historique du fragment"
 
 #, python-brace-format
 msgid "Edit this {model_name}"
@@ -315,11 +322,11 @@ msgstr "Historique de {model_name}"
 
 #, python-format
 msgid "Edit '%(title)s'"
-msgstr "Modifier '%(title)s'"
+msgstr "Modifier « %(title)s »"
 
 #, python-format
 msgid "Delete '%(title)s'"
-msgstr "Supprimer '%(title)s'"
+msgstr "Supprimer « %(title)s »"
 
 #, python-format
 msgid "Choose %s"
@@ -328,7 +335,3 @@ msgstr "Choisir %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Choisir un autre %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Modifier ce/cette %s"

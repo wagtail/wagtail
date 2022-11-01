@@ -7,13 +7,14 @@
 # Eugene <eugene.mechanism@gmail.com>, 2015
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Влад <integration.into.society@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +48,30 @@ msgstr "Добавить поисковое продвижение"
 msgid "Add search pick"
 msgstr "Добавить поисковую подборку"
 
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages that "
+"might not organically come high up in search results. E.g recommending your "
+"primary donation page to a user searching with the less common term "
+"\"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Рекламные результаты поиска — это средство рекомендации определенных "
+"страниц, которые могут не занимать первые места в результатах поиска. "
+"Например, рекомендуя вашу основную страницу донатов пользователю, "
+"выполняющему поиск по менее распространенному термину «<em>пожертвование</"
+"em>».</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>\"Поисковый запрос(ы)/фраза\" в поле ниже должны содержать полный и "
+"точный поисковый запрос, для которого вы хотите рекомендовать что-то, "
+"<em>включая</em> любые ошибки и опечатки, которые может допустить "
+"пользователь. Для помощи, вы можете выбрать из наиболее популярных поисковых "
+"запросов, которые совершали пользователи вашего сайта.</p>            "
+
 msgid "Save"
 msgstr "Сохранить"
 
@@ -78,6 +103,9 @@ msgstr "Двигать вверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
+
+msgid "Recommended page"
+msgstr "Рекомендуемая страница"
 
 msgid "Promoted search results"
 msgstr "Продвигаемые результаты поиска"
@@ -117,6 +145,14 @@ msgstr "Редактировать это продвижение"
 
 msgid "None"
 msgstr "Ничего"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Есть %(counter)s совпадение"
+msgstr[1] "Есть %(counter)s совпадений"
+msgstr[2] "Есть %(counter)s совпадений"
+msgstr[3] "Есть %(counter)s совпадений"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

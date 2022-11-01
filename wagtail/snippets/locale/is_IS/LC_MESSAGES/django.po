@@ -10,9 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +99,9 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noreferrer\">búa til eitt núna</a>?"
 
+msgid "Usage"
+msgstr "Notkun"
+
 msgid "Last updated"
 msgstr "Síðast uppfært"
 
@@ -135,9 +139,6 @@ msgstr "Aðgerðir"
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Breyti %(snippet_type_name)s - %(object)s"
-
-msgid "Usage"
-msgstr "Notkun"
 
 msgid "Toggle breadcrumbs"
 msgstr "Kveikja á brauðmolaslóð"
@@ -205,20 +206,8 @@ msgstr "Bera saman við fyrri útgáfu"
 msgid "Compare with current version"
 msgstr "Bera saman við núverandi útgáfu"
 
-msgid "Status: "
-msgstr "Staða:"
-
-msgid "Live"
-msgstr "Í birtingu"
-
-msgid "Draft"
-msgstr "Uppkast"
-
-msgid "View history"
-msgstr "Skoða sögu"
-
-msgid "This will publish at "
-msgstr "Þetta mun birtast"
+msgid "Cancel scheduled publish"
+msgstr "Hætta við tímasetta birtingu"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -241,17 +230,8 @@ msgstr "Notkun á"
 msgid "Title"
 msgstr "Titill"
 
-msgid "Parent"
-msgstr "Yfirsíða"
-
-msgid "Type"
-msgstr "Tegund"
-
-msgid "Status"
-msgstr "Staða"
-
-msgid "Edit this page"
-msgstr "Breyta þessari síðu"
+msgid "Field"
+msgstr "Reitur"
 
 msgid "Choose"
 msgstr "Velja"
@@ -273,6 +253,11 @@ msgstr "%(snippet_type)s '%(instance)s' búið til."
 msgid "%(snippet_type)s '%(instance)s' created and published."
 msgstr "%(snippet_type)s '%(instance)s' búin til og sett í loftið"
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+msgstr ""
+"%(snippet_type)s '%(instance)s' búin til og tímastillt til að setja í loftið."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófanir."
 
@@ -284,14 +269,38 @@ msgstr "%(snippet_type)s '%(instance)s' uppfært."
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr "%(snippet_type)s '%(instance)s' uppfært og sett í loftið"
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+msgstr ""
+"%(snippet_type)s '%(instance)s' hefur verið tímastillt til að setja í loftið."
+
+#, python-format
+msgid ""
+"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
+"for publishing."
+msgstr ""
+"%(snippet_type)s '%(instance)s' er í birtingu og þessi útgáfa hefur verið "
+"tímastillt fyrir birtingu."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Einka %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Breyta þessu %s"
+
+msgid "Action"
+msgstr "Aðgerð"
+
+msgid "User"
+msgstr "Notandi"
+
 msgid "Date"
 msgstr "Dagsetning"
 
 msgid "Snippet history"
 msgstr "Saga snifsis"
-
-msgid "Action"
-msgstr "Aðgerð"
 
 #, python-brace-format
 msgid "Edit this {model_name}"
@@ -316,7 +325,3 @@ msgstr "Veldu %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Velja aðra %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Breyta þessu %s"

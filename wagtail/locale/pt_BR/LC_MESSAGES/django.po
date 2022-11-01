@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2022\n"
@@ -144,8 +144,14 @@ msgstr "data/hora para expirar"
 msgid "expired"
 msgstr "expirado"
 
+msgid "scheduled"
+msgstr "agendado"
+
 msgid "draft"
 msgstr "rascunho"
+
+msgid "live + scheduled"
+msgstr "online + agendado"
 
 msgid "live + draft"
 msgstr "online + rascunho"
@@ -221,14 +227,8 @@ msgstr "revisão mais recente criada em"
 msgid "This slug is already in use"
 msgstr "Este slug já está em uso"
 
-msgid "scheduled"
-msgstr "agendado"
-
 msgid "in moderation"
 msgstr "em moderação"
-
-msgid "live + scheduled"
-msgstr "online + agendado"
 
 msgid "live + in moderation"
 msgstr "online + em moderação"

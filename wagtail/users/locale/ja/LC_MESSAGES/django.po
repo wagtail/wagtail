@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -248,19 +248,6 @@ msgstr "このグループはエラーにより保存されませんでした。
 msgid "Group '{0}' deleted."
 msgstr "グループ '{0}' は削除されました。"
 
-msgid "Search users"
-msgstr "ユーザを検索"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "ユーザ '{0}' が作成されました。"
-
-msgid "Edit"
-msgstr "編集"
-
-msgid "The user could not be created due to errors."
-msgstr "このユーザはエラーにより作成されませんでした。"
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "ユーザ '{0}' が更新されました。"
@@ -268,9 +255,16 @@ msgstr "ユーザ '{0}' が更新されました。"
 msgid "The user could not be saved due to errors."
 msgstr "このユーザはエラーにより保存されませんでした。"
 
+#, python-format
+msgid "Editing %s"
+msgstr "%sを編集中"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "ユーザ'{0}' を削除しました。"
+
+msgid "Edit"
+msgstr "編集"
 
 msgid "Edit this user"
 msgstr "このユーザを編集"

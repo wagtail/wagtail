@@ -4,10 +4,10 @@
 #
 # Translators:
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
-# oliverengel <codeangel@posteo.de>, 2022
+# Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
-# oliverengel <codeangel@posteo.de>, 2021
+# Oliver Engel <codeangel@posteo.de>, 2021
 # Bohreromir, 2020
 # Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
@@ -17,7 +17,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
-# oliverengel <codeangel@posteo.de>, 2021
+# Oliver Engel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -465,17 +465,8 @@ msgstr "Benutzung von"
 msgid "Title"
 msgstr "Titel"
 
-msgid "Parent"
-msgstr "Übergeordnet"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Diese Seite bearbeiten"
+msgid "Field"
+msgstr "Feld"
 
 msgid "Add multiple images"
 msgstr "Mehrere Bilder hinzufügen"
@@ -631,6 +622,14 @@ msgstr "Bild ‚{0}‘ hinzugefügt."
 
 msgid "The image could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Bild nicht erstellt werden."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(%s, privat)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s bearbeiten"
 
 msgid "Image"
 msgstr "Bild"

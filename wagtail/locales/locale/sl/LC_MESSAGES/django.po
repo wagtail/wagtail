@@ -5,16 +5,16 @@
 #
 # Translators:
 # Mitja Pagon <mitja.pagon@inueni.com>, 2021
-# Andrej, 2022
+# Andrej Marsetič, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,9 @@ msgstr "Jezik"
 msgid "Select a new language"
 msgstr "Izberite nov jezik"
 
+msgid "This locale's language code is not supported"
+msgstr "Jezikovna koda tega jezika ni podprta"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -50,6 +53,9 @@ msgstr "Uporaba"
 
 msgid "Add locale"
 msgstr "Dodaj jezik"
+
+msgid "The locale could not be saved due to errors."
+msgstr "Področne nastavitve ni bilo mogoče shraniti zaradi napak."
 
 msgid "Delete locale"
 msgstr "Odstrani jezik"

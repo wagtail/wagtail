@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,9 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
+msgid "Usage"
+msgstr "Defnydd"
+
 msgid "Last updated"
 msgstr "Diweddarwyd diwethaf"
 
@@ -95,9 +98,6 @@ msgstr "Newydd"
 
 msgid "Actions"
 msgstr "Gweithredoedd"
-
-msgid "Usage"
-msgstr "Defnydd"
 
 msgid "Breadcrumb"
 msgstr "Briwsion Bara"
@@ -119,12 +119,6 @@ msgstr "Rhagolwg"
 msgid "Edit"
 msgstr "Golygu"
 
-msgid "Live"
-msgstr "Yn fyw"
-
-msgid "Draft"
-msgstr "Drafft"
-
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
 msgstr "Pytiau %(snippet_type_name_plural)s"
@@ -142,18 +136,6 @@ msgstr "Defnydd o"
 
 msgid "Title"
 msgstr "Teitl"
-
-msgid "Parent"
-msgstr "Rhiant"
-
-msgid "Type"
-msgstr "Math"
-
-msgid "Status"
-msgstr "Statws"
-
-msgid "Edit this page"
-msgstr "Golygu tudalen hon"
 
 msgid "Choose"
 msgstr "Dewis"
@@ -175,14 +157,18 @@ msgstr "Nid oedd modd cadw'r pyt oherwydd gwallau."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' wedi'i diweddaru."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "Golygu %s"
+
+msgid "Action"
+msgstr "Gweithred"
+
 msgid "Date"
 msgstr "Dyddiad"
 
 msgid "Snippet history"
 msgstr "Hanes pytiau"
-
-msgid "Action"
-msgstr "Gweithred"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -199,7 +185,3 @@ msgstr "Dewis %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Dewis %s arall"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Golygu %s"
