@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -217,18 +217,6 @@ msgstr "Te whakamahi ō "
 msgid "Title"
 msgstr "Taitara"
 
-msgid "Parent"
-msgstr "Mātua"
-
-msgid "Type"
-msgstr "Momo"
-
-msgid "Status"
-msgstr "Tūnga"
-
-msgid "Edit this page"
-msgstr "Whakarerekē i tēnei whārangi"
-
 msgid "Or choose from your computer"
 msgstr "Kōhiti nō tō rorohiko rānei"
 
@@ -270,3 +258,7 @@ msgstr "Whakahua '{0}' kua tāpiri."
 
 msgid "The image could not be created due to errors."
 msgstr "Ehara ka taea ki te hangaia te whakahua nei, he raruraru "
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Whakarerekē i tēnei %s"

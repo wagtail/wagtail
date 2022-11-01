@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,6 +155,13 @@ msgstr "Șterge colecții"
 msgid "You cannot edit another user's comment."
 msgstr "Nu puteți edita comentariile altui utilizator"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Data/timpul de publicare trebuie să fie înaintea datei/timpului de expirare"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Data/timpul de expirare trebuie să fie în viitor"
+
 msgid "New title"
 msgstr "Titlu nou"
 
@@ -223,13 +230,6 @@ msgstr "Nu puteți copia o pagină în sine atunci când copiați subpagini"
 
 msgid "This slug is already in use"
 msgstr "Această fisă a fost deja folosită"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Data/timpul de publicare trebuie să fie înaintea datei/timpului de expirare"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
 msgid "Select a new parent for this page."
 msgstr "Alege o pagină de bază nouă pentru această pagină."
@@ -351,9 +351,6 @@ msgstr "Toate {0} articolele selectate pe acest ecran"
 
 msgid "All items in listing selected"
 msgstr "Toate articolele din listă selectate"
-
-msgid "Scheduled publishing"
-msgstr "Publicare programată"
 
 msgid "Page title"
 msgstr "Titlu pagină"
@@ -759,6 +756,9 @@ msgstr "Modificări solicitate la"
 
 msgid "Awaiting"
 msgstr "Așteaptă"
+
+msgid "Close"
+msgstr "Închideți"
 
 msgid "Awaiting your review"
 msgstr "Așteaptă recenzia ta"
@@ -1297,22 +1297,6 @@ msgid "Cancel scheduled publish"
 msgstr "Anulează publicarea programată"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Anulează programarea reviziei %(revision.id)s pentru %(title)s"
-
-msgid "Unschedule"
-msgstr "Anulează programare"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Sigur doriți să anulați programarea acestei revizii?"
-
-msgid "Yes, unschedule"
-msgstr "Da, anulează programarea"
-
-msgid "No, don't unschedule"
-msgstr "Nu, nu anulează programarea"
-
-#, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
 msgstr[0] "Există o pagină care se potrivește"
@@ -1524,6 +1508,22 @@ msgstr "Vizibilă tuturor"
 
 msgid "Toggle section"
 msgstr "Comută secțiunea"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Anulează programarea reviziei %(revision.id)s pentru %(title)s"
+
+msgid "Unschedule"
+msgstr "Anulează programare"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Sigur doriți să anulați programarea acestei revizii?"
+
+msgid "Yes, unschedule"
+msgstr "Da, anulează programarea"
+
+msgid "No, don't unschedule"
+msgstr "Nu, nu anulează programarea"
 
 msgid "Other searches"
 msgstr "Alte căutări"
@@ -1742,9 +1742,6 @@ msgstr "Vezi mai multe acțiuni în bloc"
 
 msgid "0 minutes"
 msgstr "0 minute"
-
-msgid "Just now"
-msgstr "Acum"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -2087,14 +2084,6 @@ msgstr ""
 "%(created_at)s</b> de către %(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revizia {0} pentru \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Programare anulată pentru versiunea {0} a paginii \"{1}\""
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Publicare anulată pentru pagina '{0}'."
 
@@ -2345,9 +2334,6 @@ msgstr "Text tăiat"
 
 msgid "Code"
 msgstr "Cod"
-
-msgid "Locked Pages"
-msgstr "Pagini blocate"
 
 msgid "Reports"
 msgstr "Rapoarte"

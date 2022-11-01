@@ -8,11 +8,13 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Bram <bram2w@live.nl>, 2015
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022
 # Huib Keemink <huib@creativedutchmen.com>, 2015
 # mahulst, 2014
 # mahulst, 2014
+# Matt Westcott <matthew@torchbox.com>, 2022
 # Meteor0id, 2019
 # Meteor0id, 2021
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
@@ -27,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -172,6 +174,12 @@ msgstr "Verwijder collecties"
 msgid "You cannot edit another user's comment."
 msgstr "Je kunt opmerkingen van een andere gebruiker niet wijzigen."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Vervaldatum moet in de toekomst liggen"
+
 msgid "New title"
 msgstr "Nieuwe titel"
 
@@ -242,12 +250,6 @@ msgstr ""
 
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Vervaldatum moet in de toekomst liggen"
 
 msgid "Select a new parent for this page."
 msgstr "Kies een nieuwe bovenliggende pagina"
@@ -370,9 +372,6 @@ msgstr "Alle {0} items op dit scherm geselecteerd"
 
 msgid "All items in listing selected"
 msgstr "Alle items in lijst geselecteerd"
-
-msgid "Scheduled publishing"
-msgstr "Geplande publicatie"
 
 msgid "Page title"
 msgstr "Paginatitel"
@@ -783,6 +782,25 @@ msgstr "Wijzigingsverzoek op"
 
 msgid "Awaiting"
 msgstr "In afwachting"
+
+msgid "Close"
+msgstr "Sluit"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Dingen in Wagtail %(version)s zijn veranderd!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
+msgstr ""
+"Maak je geen zorgen, wij helpen. Bekijk de <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"Editor Guide</a> voor meer informatie over wat er is veranderd en een aantal "
+"spannende nieuwe functies!"
 
 msgid "Awaiting your review"
 msgstr "In afwachting van jouw beoordeling"
@@ -1486,6 +1504,14 @@ msgstr "%(title)s aan het bekijken"
 msgid "Select all pages in listing"
 msgstr "Selecteer alle pagina's in lijst"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Druk op enter om een item te selecteren, gebruik de pijlen omhoog en omlaag "
+"om het item te verplaatsen, druk op enter om de verplaatsing te voltooien of "
+"op escape om de huidige verplaatsing te annuleren."
+
 msgid "Select page"
 msgstr "Selecteer pagina"
 
@@ -1540,6 +1566,9 @@ msgstr "Er zijn nog geen pagina's aangemaakt op deze locatie."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Waarom <a href=\"%(add_page_url)s\">voegt u er niet een toe</a>?"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Deze pagina is door u vergrendeld voor verdere bewerking."
 
 msgid "This page is locked to further editing"
 msgstr "Deze pagina is geblokkeerd voor verdere wijzigingen."
@@ -1600,22 +1629,6 @@ msgstr "Vergelijk met huidige versie"
 
 msgid "Cancel scheduled publish"
 msgstr "Cancel geplande publicatie"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Stop geplande publicatie versie %(revision.id)s voor %(title)s"
-
-msgid "Unschedule"
-msgstr "Stop publicatie planning"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Weet u zeker dat u deze versie niet meer wilt inplannen?"
-
-msgid "Yes, unschedule"
-msgstr "Ja, stop met planning"
-
-msgid "No, don't unschedule"
-msgstr "Nee, niet stoppen met plannen"
 
 #, python-format
 msgid "There is one matching page"
@@ -1721,6 +1734,25 @@ msgstr "Verplaats naar boven"
 
 msgid "Move down"
 msgstr "Verplaats naar beneden"
+
+msgid "Set publishing schedule"
+msgstr "Schema voor publicatie vaststellen"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Kies wanneer deze pagina live moet gaan en/of moet verlopen"
+
+msgid "This publishing schedule will only take effect after you have published"
+msgstr "Dit publicatieschema wordt pas van kracht nadat u heeft gepubliceerd"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Iedereen met bewerkingsrechten kan schema's maken"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr ""
+"Maar alleen degenen met publicatie-permissies kunnen ze effectief maken."
+
+msgid "Save schedule"
+msgstr "Schema opslaan"
 
 msgid "Comment notifications"
 msgstr "Opmerkingen notificaties"
@@ -1852,11 +1884,33 @@ msgstr "Zichtbaar voor iedereen"
 msgid "Toggle section"
 msgstr "Toon/verberg sectie"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Stop geplande publicatie versie %(revision.id)s voor %(title)s"
+
+msgid "Unschedule"
+msgstr "Stop publicatie planning"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Weet u zeker dat u deze versie niet meer wilt inplannen?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, stop met planning"
+
+msgid "No, don't unschedule"
+msgstr "Nee, niet stoppen met plannen"
+
 msgid "Other searches"
 msgstr "Andere zoekacties"
 
+msgid "Side panels"
+msgstr "Zijpanelen"
+
 msgid "Toggle side panel"
 msgstr "Toon/verberg zijbalk"
+
+msgid "Minimap"
+msgstr "Minimap"
 
 msgid "Page Locale: "
 msgstr "Paginataal:"
@@ -1931,6 +1985,12 @@ msgstr "Paginastatus:"
 msgid "Status: "
 msgstr "Status:"
 
+msgid "Expiry:"
+msgstr "Vervaldatum:"
+
+msgid "Edit schedule"
+msgstr "Schema bewerken"
+
 msgid "In Moderation"
 msgstr "ter beoordeling"
 
@@ -1947,8 +2007,17 @@ msgstr "door %(user)s"
 msgid "View history"
 msgstr "Bekijk historie"
 
-msgid "This will publish at "
-msgstr "Zal gepubliceerd worden op"
+msgid "Go-live:"
+msgstr "Live-gang:"
+
+msgid "Once published:"
+msgstr "Eenmaal gepubliceerd:"
+
+msgid "No publishing schedule set"
+msgstr "Geen schema voor publicatie vastgesteld"
+
+msgid "Set schedule"
+msgstr "Stel schema in"
 
 msgid "Preview in mobile size"
 msgstr "Voorvertoning op mobiel formaat"
@@ -2216,12 +2285,36 @@ msgstr "Bekijk meer bulk acties"
 msgid "0 minutes"
 msgstr "0 minuten"
 
-msgid "Just now"
-msgstr "Zojuist"
+msgid "just now"
+msgstr "zojuist"
 
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s geleden"
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "om %(time)s door %(user_display_name)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "om %(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(time)s door %(user_display_name)s"
+
+#, python-format
+msgid "%(time)s"
+msgstr "%(time)s"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "zojuist door %(user_display_name)s"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s geleden door %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Uitloggen"
@@ -2322,20 +2415,36 @@ msgid ""
 "Version from {timestamp} of {model_name} '{instance}' has been published."
 msgstr "Versie van {timestamp} van {model_name} '{instance}' is gepubliceerd."
 
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been scheduled for "
+"publishing."
+msgstr ""
+"Versie van {timestamp} van {model_name} '{instance}' is gepland voor "
+"publicatie."
+
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Zoek %(model_name)s"
 
 #, python-brace-format
-msgid "'{0}' has been created and published."
-msgstr "'{0}' is aangemaakt en gepubliceerd."
+msgid "'{0}' created and scheduled for publishing."
+msgstr "'{0}' gemaakt en gepland voor publicatie."
+
+#, python-brace-format
+msgid "'{0}' created and published."
+msgstr "{0}' gemaakt en gepubliceerd."
 
 msgid "Editing"
 msgstr "Wijzigen"
 
 #, python-brace-format
-msgid "'{0}' has been published."
-msgstr "'{0}' is gepubliceerd."
+msgid "'{0}' updated and scheduled for publishing."
+msgstr "{0}' bijgewerkt en gepland voor publicatie."
+
+#, python-brace-format
+msgid "'{0}' updated and published."
+msgstr "{0}' bijgewerkt en gepubliceerd."
 
 msgid "Earliest"
 msgstr "Eerste"
@@ -2346,6 +2455,14 @@ msgstr "Laatste"
 #, python-brace-format
 msgid "'{object_name}' unpublished."
 msgstr "Publicatie van '{object_name}' ingetrokken."
+
+#, python-brace-format
+msgid "Version {revision_id} of \"{object}\" unscheduled."
+msgstr "Versie {revision_id} van \"{object}\" planning ongedaan gemaakt."
+
+#, python-brace-format
+msgid "revision {revision_id} of \"{object}\""
+msgstr "revisie {revision_id} van \"{object}\""
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -2600,14 +2717,6 @@ msgstr ""
 "door %(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "Versie {0} van \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Versie {0} of \"{1}\" gestopt met inplannen."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Publicatie van pagina '{0}' is ingetrokken."
 
@@ -2855,11 +2964,18 @@ msgstr "Doorgestreept"
 msgid "Code"
 msgstr "Code"
 
-msgid "Locked Pages"
-msgstr "Blokkeer pagina's"
-
 msgid "Reports"
 msgstr "Rapporten"
+
+#, python-brace-format
+msgid "What's new in Wagtail {version}"
+msgstr "Wat is er nieuw in Wagtail {version}"
+
+msgid "Editor Guide"
+msgstr "Editor Guide"
+
+msgid "Help"
+msgstr "Help"
 
 msgid "Yes"
 msgstr "Ja"

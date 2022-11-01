@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -165,6 +165,12 @@ msgstr "Apagar coleções"
 msgid "You cannot edit another user's comment."
 msgstr "Não pode alterar o comentário de outro utilizador"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "A data/hora de publicação tem de ser anterior à data/hora final"
+
+msgid "Expiry date/time must be in the future"
+msgstr "A data/hora final deve ficar no futuro"
+
 msgid "New title"
 msgstr "Novo título"
 
@@ -236,12 +242,6 @@ msgstr ""
 
 msgid "This slug is already in use"
 msgstr "Esta referência já existe"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "A data/hora de publicação tem de ser anterior à data/hora final"
-
-msgid "Expiry date/time must be in the future"
-msgstr "A data/hora final deve ficar no futuro"
 
 msgid "Visibility"
 msgstr "Visibilidade"
@@ -341,9 +341,6 @@ msgstr "Todos os {0} itens neste ecrã foram selecionados"
 
 msgid "All items in listing selected"
 msgstr "Todos os itens da listagem foram selecionados"
-
-msgid "Scheduled publishing"
-msgstr "Publicação agendada"
 
 msgid "Page title"
 msgstr "Título da página"
@@ -700,6 +697,9 @@ msgstr "Mudanças solicitadas a"
 
 msgid "Awaiting"
 msgstr "A aguardar"
+
+msgid "Close"
+msgstr "Fechar"
 
 msgid "Awaiting your review"
 msgstr "À espera da sua revisão"
@@ -1285,22 +1285,6 @@ msgstr "Comparar com versão atual"
 msgid "Cancel scheduled publish"
 msgstr "Desmarcar publicação"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Desmarcar versão %(revision.id)s para %(title)s"
-
-msgid "Unschedule"
-msgstr "Desmarcar"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Tem a certeza que quer desmarcar esta versão?"
-
-msgid "Yes, unschedule"
-msgstr "Sim, desmarcar"
-
-msgid "No, don't unschedule"
-msgstr "Não, não desmarcar"
-
 msgid "Page types"
 msgstr "Tipos de página"
 
@@ -1476,6 +1460,22 @@ msgstr "Visitar a página publicada"
 
 msgid "Current page status:"
 msgstr "Estado atual da página:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Desmarcar versão %(revision.id)s para %(title)s"
+
+msgid "Unschedule"
+msgstr "Desmarcar"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Tem a certeza que quer desmarcar esta versão?"
+
+msgid "Yes, unschedule"
+msgstr "Sim, desmarcar"
+
+msgid "No, don't unschedule"
+msgstr "Não, não desmarcar"
 
 msgid "Other searches"
 msgstr "Outras pesquisas"
@@ -1689,9 +1689,6 @@ msgstr "Ver mais ações em bloco"
 
 msgid "0 minutes"
 msgstr "0 minutos"
-
-msgid "Just now"
-msgstr "Agora mesmo"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -2034,14 +2031,6 @@ msgstr ""
 "%(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "versão {0} de \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "A publicação da versão {0} de \"{1}\" foi desmarcada."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Página '{0}' despublicada."
 
@@ -2293,9 +2282,6 @@ msgstr "Rasurado"
 
 msgid "Code"
 msgstr "Código"
-
-msgid "Locked Pages"
-msgstr "Páginas bloqueadas"
 
 msgid "Reports"
 msgstr "Relatórios"

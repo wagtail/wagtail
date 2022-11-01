@@ -5,15 +5,15 @@
 # Translators:
 # Martin Sandström <martin@marteinn.se>, 2020,2022
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
-# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2022
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020,2022\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -103,6 +103,9 @@ msgstr "temporär"
 msgid "redirect"
 msgstr "omdirigering"
 
+msgid "redirects"
+msgstr "omdirigering"
+
 msgid "Add redirect"
 msgstr "Lägg omdirigering"
 
@@ -114,6 +117,17 @@ msgstr "Omdirigeringar"
 
 msgid "Import redirects"
 msgstr "Importera omdirigeringar"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Välj en fil där omdirigeringar är separerade i rader och inehåller "
+"kolumner som representerar <code>från</code> och <code>till</code> (de kan "
+"heta vad som helst).</p> <p>I nästa steg kommer en bekräftelsevy visas där "
+"du kan anpassa dina omdirigeringar innan import.</p>"
 
 msgid "Import"
 msgstr "Importera"
@@ -186,6 +200,12 @@ msgstr "Redigera denna omdirigering"
 
 msgid "No redirects found."
 msgstr "Inga omdirigeringar funna."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

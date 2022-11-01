@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -105,8 +105,14 @@ msgstr "만료 날짜/시간"
 msgid "expired"
 msgstr "만료"
 
+msgid "scheduled"
+msgstr "예약됨"
+
 msgid "draft"
 msgstr "초안"
+
+msgid "live + scheduled"
+msgstr "라이브 + 예약됨"
 
 msgid "live + draft"
 msgstr "라이브 + 초안"
@@ -160,12 +166,6 @@ msgstr "최근 수정안 작성일:"
 
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 사용되고 있습니다"
-
-msgid "scheduled"
-msgstr "예약됨"
-
-msgid "live + scheduled"
-msgstr "라이브 + 예약됨"
 
 msgid "page"
 msgstr "페이지"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -80,8 +80,14 @@ msgstr "tanggal/jam kadaluarsa"
 msgid "expired"
 msgstr "kadaluarsa"
 
+msgid "scheduled"
+msgstr "terjadwalkan"
+
 msgid "draft"
 msgstr "konsep"
+
+msgid "live + scheduled"
+msgstr "akitf + terjadwal"
 
 msgid "live + draft"
 msgstr "aktif + konsep"
@@ -138,14 +144,8 @@ msgstr "revisi terakhir dibuat pada"
 msgid "This slug is already in use"
 msgstr "Slug ini telah dipakai"
 
-msgid "scheduled"
-msgstr "terjadwalkan"
-
 msgid "in moderation"
 msgstr "dalam moderasi"
-
-msgid "live + scheduled"
-msgstr "akitf + terjadwal"
 
 msgid "page"
 msgstr "halaman"

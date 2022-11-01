@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Andrej, 2022
+# Andrej Marsetič, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "MIME-Version: 1.0\n"

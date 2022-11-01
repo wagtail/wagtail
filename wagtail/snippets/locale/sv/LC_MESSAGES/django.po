@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,9 @@ msgstr "Ja, radera"
 msgid "No, don't delete"
 msgstr "Nej, radera inte."
 
+msgid "Usage"
+msgstr "Användning"
+
 msgid "Last updated"
 msgstr "Senast ändrad"
 
@@ -107,9 +110,6 @@ msgstr "Ny"
 
 msgid "Actions"
 msgstr "Handlingar"
-
-msgid "Usage"
-msgstr "Användning"
 
 msgid "Breadcrumb"
 msgstr "Sökvägsnavigering"
@@ -149,11 +149,8 @@ msgstr "Jämför med föregående version"
 msgid "Compare with current version"
 msgstr "Jämför med nuvarande version"
 
-msgid "Live"
-msgstr "Publicerad"
-
-msgid "Draft"
-msgstr "Utkast"
+msgid "Cancel scheduled publish"
+msgstr "Avbryt schemalagd publicering"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -172,18 +169,6 @@ msgstr "Användning av"
 
 msgid "Title"
 msgstr "Rubrik"
-
-msgid "Parent"
-msgstr "Topp"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Redigera denna sida"
 
 msgid "Choose"
 msgstr "Välj"
@@ -205,14 +190,25 @@ msgstr "Snutten kunde inte sparas p.g.a. fel."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' uppdaterad."
 
+#, python-format
+msgid "(Private %s)"
+msgstr "(Privat %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Redigera %s"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "User"
+msgstr "Användare"
+
 msgid "Date"
 msgstr "Datum"
 
 msgid "Snippet history"
 msgstr "Snutthistorik"
-
-msgid "Action"
-msgstr "Handling"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -229,7 +225,3 @@ msgstr "Välj %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Välj annan %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Redigera %s"

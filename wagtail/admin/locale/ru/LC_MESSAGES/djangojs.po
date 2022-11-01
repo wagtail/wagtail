@@ -8,18 +8,27 @@
 # Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
 # Sergey Mazanov <mvver@outlook.com>, 2022
-# Влад <integration.into.society@gmail.com>, 2022
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mikalai Radchuk <radchuk.m@gmail.com>, 2022\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "({number} new items in this menu)"
+msgstr "({number} новых элементов в этом меню)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 новый элемент в этом меню)"
+
+msgid "(New)"
+msgstr "(New)"
 
 msgid "Add a comment"
 msgstr "Добавить комментарий"
@@ -30,14 +39,23 @@ msgstr "Текст подсказки"
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
+msgid "Blocks"
+msgstr "Блоки"
+
 msgid "Broken link"
 msgstr "Битая ссылка"
 
 msgid "Cancel"
 msgstr "Отменить"
 
+msgid "Character count:"
+msgstr "Количество символов:"
+
 msgid "Close"
 msgstr "Закрыть"
+
+msgid "Collapse all"
+msgstr "Свернуть все"
 
 msgid "Comment"
 msgstr "Оставить комментарий"
@@ -66,11 +84,26 @@ msgstr "Редактировать '{title}'"
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
 
+msgid "Enter your comments..."
+msgstr "Напишите ваши комментарии..."
+
+msgid "Enter your reply..."
+msgstr "Напишите ответ..."
+
+msgid "Error while sending preview data."
+msgstr "Ошибка при отправке данных предварительного просмотра."
+
+msgid "Expand all"
+msgstr "Развернуть все"
+
 msgid "Focus comment"
 msgstr "Сфокусироваться на комментарии"
 
 msgid "Horizontal line"
 msgstr "Горизонтальная линия"
+
+msgid "Insert a block"
+msgstr "Вставить блок"
 
 msgid "Line break"
 msgstr "Разрыв строки"
@@ -120,6 +153,9 @@ msgstr "Закрыть обсуждение"
 msgid "Retry"
 msgstr "Повторить"
 
+msgid "Rich text"
+msgstr "Расширенный текст"
+
 msgid "Save"
 msgstr "Сохранить"
 
@@ -140,6 +176,9 @@ msgstr "Сохранение..."
 
 msgid "Search"
 msgstr "Поиск"
+
+msgid "Search blocks"
+msgstr "Поиск блоков"
 
 msgid "See all"
 msgstr "Смотреть все"
@@ -164,6 +203,9 @@ msgstr ""
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
 
+msgid "Toggle side panel"
+msgstr "Переключить боковую панель"
+
 msgid "Toggle sidebar"
 msgstr "Переключить боковую панель"
 
@@ -172,3 +214,6 @@ msgstr "Убрать фокус"
 
 msgid "View child pages of '{title}'"
 msgstr "Показать дочерние страницы '{title}'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Напишите что-нибудь или введите «/», чтобы вставить блок"

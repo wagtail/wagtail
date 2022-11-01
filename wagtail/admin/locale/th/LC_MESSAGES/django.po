@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -109,6 +109,12 @@ msgstr "แก้ไข"
 msgid "Delete"
 msgstr "ลบ"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "วันและเวลาในปัจจุบันต้องมาก่อน วันและเวลาที่หมดอายุ"
+
+msgid "Expiry date/time must be in the future"
+msgstr "วันที่ / เวลาหมดอายุจะต้องเป็นวันเวลาในอนาคต"
+
 msgid "New title"
 msgstr "หัวข้อใหม่"
 
@@ -162,12 +168,6 @@ msgstr "คุณไม่สามารถที่จะคัดลอกห
 msgid "This slug is already in use"
 msgstr "slug อันนี้ถูกใช้งานอยู่"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "วันและเวลาในปัจจุบันต้องมาก่อน วันและเวลาที่หมดอายุ"
-
-msgid "Expiry date/time must be in the future"
-msgstr "วันที่ / เวลาหมดอายุจะต้องเป็นวันเวลาในอนาคต"
-
 msgid "Visibility"
 msgstr "ความชัดเจน"
 
@@ -176,9 +176,6 @@ msgstr "ต้องระบุข้อมูลในเนื้อหาน
 
 msgid "Please select at least one group."
 msgstr "โปรดเลือกอย่างน้อยหนึ่งกลุ่ม"
-
-msgid "Scheduled publishing"
-msgstr "การจัดพิมพ์ตาราง"
 
 msgid "Content"
 msgstr "เนื้อหา"
@@ -390,6 +387,9 @@ msgstr "วันที่"
 
 msgid "Site summary"
 msgstr "สรุป,หน้าหลักของเว็บไซด์"
+
+msgid "Close"
+msgstr "ปิด"
 
 msgid "Sign in"
 msgstr "ลงชื่อเข้าใช้"
@@ -614,24 +614,6 @@ msgstr "อัพเดท"
 msgid "Cancel scheduled publish"
 msgstr "ยกเลิกการจัดพิมพ์ตาราง"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
-
-msgid "Unschedule"
-msgstr "ยกเลิกตาราง"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
-
-msgid "Yes, unschedule"
-msgstr ""
-"ใช่,\n"
-"ยกเลิกตาราง"
-
-msgid "No, don't unschedule"
-msgstr "ไม่, ไม่ต้องยกเลิกตาราง"
-
 msgid "Page types"
 msgstr "รูปแบบหน้า"
 
@@ -679,6 +661,24 @@ msgstr "ใช่,ยกเลิกการพิมพ์"
 
 msgid "Filter"
 msgstr "คัดกรอง"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
+
+msgid "Unschedule"
+msgstr "ยกเลิกตาราง"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
+
+msgid "Yes, unschedule"
+msgstr ""
+"ใช่,\n"
+"ยกเลิกตาราง"
+
+msgid "No, don't unschedule"
+msgstr "ไม่, ไม่ต้องยกเลิกตาราง"
 
 msgid "Other searches"
 msgstr "ค้นหาอย่างอื่น"
@@ -853,10 +853,6 @@ msgid "Page '{0}' moved."
 msgstr ""
 "หน้า{0} \n"
 "เคลื่อนย้ายแล้ว"
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "การแก้ไข{0}ของหน้า{1}"
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."

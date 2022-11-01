@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -120,8 +120,14 @@ msgstr "data/hora final"
 msgid "expired"
 msgstr "expirado"
 
+msgid "scheduled"
+msgstr "agendado"
+
 msgid "draft"
 msgstr "rascunho"
+
+msgid "live + scheduled"
+msgstr "publicada + agendada"
 
 msgid "live + draft"
 msgstr "publicada + rascunho"
@@ -198,14 +204,8 @@ msgstr "última versão criada em"
 msgid "This slug is already in use"
 msgstr "Esta referência já está a ser utilizada"
 
-msgid "scheduled"
-msgstr "agendado"
-
 msgid "in moderation"
 msgstr "em moderação"
-
-msgid "live + scheduled"
-msgstr "publicada + agendada"
 
 msgid "live + in moderation"
 msgstr "publicada + em moderação"

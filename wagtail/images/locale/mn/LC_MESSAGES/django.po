@@ -7,13 +7,14 @@
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Зургууд"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -73,6 +77,18 @@ msgstr "Шүүлтүүр"
 
 msgid "Original size"
 msgstr "Оригнал хэмжээ"
+
+msgid "Resize to width"
+msgstr "Өргөнийг өөрчлөх"
+
+msgid "Resize to height"
+msgstr "Өндрийг өөрчлөх"
+
+msgid "Resize to min"
+msgstr "Хамгийн багыг өөрчлөх"
+
+msgid "Resize to max"
+msgstr "Хамгийн ихийг өөрчлөх"
 
 msgid "Width"
 msgstr "Өргөн"
@@ -133,6 +149,9 @@ msgstr[1] "Used %(usage_count)s times"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
+
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
 
 msgid "Popular tags"
 msgstr "Түгээмэл шошгууд"
@@ -230,18 +249,6 @@ msgstr "Хэрэглээ"
 msgid "Title"
 msgstr "Гарчиг"
 
-msgid "Parent"
-msgstr "Эцэг"
-
-msgid "Type"
-msgstr "Төрөл"
-
-msgid "Status"
-msgstr "Төлөв"
-
-msgid "Edit this page"
-msgstr "Энэ хуудсыг засах"
-
 msgid "Add multiple images"
 msgstr "Олон зураг нэмэх"
 
@@ -321,6 +328,10 @@ msgstr "'{0}' зураг нэмэгдлээ."
 
 msgid "The image could not be created due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s-г засах"
 
 msgid "Image"
 msgstr "Зураг"

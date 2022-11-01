@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -121,6 +121,10 @@ msgstr "Kyllä, poista"
 
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
+
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Tekijä %(filter_title)s"
 
 msgid "Last updated"
 msgstr "Viimeksi päivitetty"

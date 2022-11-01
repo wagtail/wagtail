@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -132,8 +132,14 @@ msgstr "data/timpul de expirare"
 msgid "expired"
 msgstr "expirat"
 
+msgid "scheduled"
+msgstr "programată"
+
 msgid "draft"
 msgstr "ciornă"
+
+msgid "live + scheduled"
+msgstr "live + programată"
 
 msgid "live + draft"
 msgstr "live + ciornă"
@@ -209,14 +215,8 @@ msgstr "ultima revizie creată la"
 msgid "This slug is already in use"
 msgstr "Slug-ul acesta a fost deja folosit"
 
-msgid "scheduled"
-msgstr "programată"
-
 msgid "in moderation"
 msgstr "în moderație"
-
-msgid "live + scheduled"
-msgstr "live + programată"
 
 msgid "live + in moderation"
 msgstr "live + în moderație"

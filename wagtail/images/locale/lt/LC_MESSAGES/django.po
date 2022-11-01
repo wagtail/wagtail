@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -334,18 +334,6 @@ msgstr "Naudojimas"
 msgid "Title"
 msgstr "Pavadinimas"
 
-msgid "Parent"
-msgstr "Tėvas"
-
-msgid "Type"
-msgstr "Tipas"
-
-msgid "Status"
-msgstr "Statusas"
-
-msgid "Edit this page"
-msgstr "Redaguoti šį puslapį"
-
 msgid "Add multiple images"
 msgstr "Pridėti daug paveiksliukų"
 
@@ -440,6 +428,10 @@ msgstr "Paveiksliukas '{0}' pridėtas."
 
 msgid "The image could not be created due to errors."
 msgstr "Paveiksliukas negalėjo būti sukurtas dėl klaidų."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Redaguoti šį %s"
 
 msgid "Image"
 msgstr "Paveiksliukas"

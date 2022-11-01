@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -232,18 +232,6 @@ msgstr "Utilització de %(title)s"
 msgid "Usage of"
 msgstr "Utilització de"
 
-msgid "Parent"
-msgstr "Pare"
-
-msgid "Type"
-msgstr "Tipus"
-
-msgid "Status"
-msgstr "Estat"
-
-msgid "Edit this page"
-msgstr "Editar aquesta plana"
-
 msgid "Add multiple documents"
 msgstr "Afegir diversos documents"
 
@@ -355,6 +343,10 @@ msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editar aquest %s"
 
 msgid "Document"
 msgstr "Document"
