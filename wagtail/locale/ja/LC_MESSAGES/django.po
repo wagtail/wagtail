@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Goto Hayato <habita.gh@gmail.com>, 2021\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -91,8 +91,14 @@ msgstr "有効期限"
 msgid "expired"
 msgstr "失効"
 
+msgid "scheduled"
+msgstr "予定日"
+
 msgid "draft"
 msgstr "下書き"
+
+msgid "live + scheduled"
+msgstr "公開 + 予定日"
 
 msgid "live + draft"
 msgstr "公開 + 下書き"
@@ -152,12 +158,6 @@ msgstr "最終更新日時"
 
 msgid "This slug is already in use"
 msgstr "このスラッグはすでに使われています"
-
-msgid "scheduled"
-msgstr "予定日"
-
-msgid "live + scheduled"
-msgstr "公開 + 予定日"
 
 msgid "page"
 msgstr "ページ"

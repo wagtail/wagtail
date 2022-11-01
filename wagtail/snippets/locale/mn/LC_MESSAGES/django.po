@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -58,6 +58,18 @@ msgstr "%(count)s %(snippet_type_name)s үнэхээр устгах уу?"
 msgid "Yes, delete"
 msgstr "Тийм, устга"
 
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
+
+msgid "Usage"
+msgstr "Хэрэглээ"
+
+msgid "Last updated"
+msgstr "Шинэчлэгдсэн"
+
+msgid "History"
+msgstr "Түүх"
+
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
 
@@ -76,9 +88,6 @@ msgstr "Шинэ %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Шинэ"
-
-msgid "Usage"
-msgstr "Хэрэглээ"
 
 msgid "Snippets"
 msgstr "Хэсэг"
@@ -103,11 +112,8 @@ msgstr "Урдчилж харах"
 msgid "Edit"
 msgstr "Засах"
 
-msgid "Live"
-msgstr "Нийтлэгдсэн"
-
-msgid "Draft"
-msgstr "Ноорог"
+msgid "Cancel scheduled publish"
+msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -127,18 +133,6 @@ msgstr "Хэрэглээ"
 msgid "Title"
 msgstr "Гарчиг"
 
-msgid "Parent"
-msgstr "Эцэг"
-
-msgid "Type"
-msgstr "Төрөл"
-
-msgid "Status"
-msgstr "Төлөв"
-
-msgid "Edit this page"
-msgstr "Энэ хуудсыг засах"
-
 msgid "Choose"
 msgstr "Сонгох"
 
@@ -151,6 +145,13 @@ msgstr "Хэсэг дээрх алдаанаас болж хадгалагдса
 msgid "The snippet could not be saved due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж шинэчлэгдсэнгүй."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "%s-г засах"
+
+msgid "Action"
+msgstr "Үйлдэл"
+
 msgid "Date"
 msgstr "Огноо"
 
@@ -161,7 +162,3 @@ msgstr "%s сонгох"
 #, python-format
 msgid "Choose another %s"
 msgstr "Өөр %s сонгох"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "%s-г засах"

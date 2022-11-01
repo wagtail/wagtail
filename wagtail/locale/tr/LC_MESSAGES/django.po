@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -82,8 +82,14 @@ msgstr "yayın bitiş tarihi/zamanı"
 msgid "expired"
 msgstr "süresi doldu"
 
+msgid "scheduled"
+msgstr "zamanlandı"
+
 msgid "draft"
 msgstr "taslak"
+
+msgid "live + scheduled"
+msgstr "canlı + zamanlandı"
 
 msgid "live + draft"
 msgstr "canlı + taslak"
@@ -131,12 +137,6 @@ msgstr "en son oluşturulan revizyon zamanı"
 
 msgid "This slug is already in use"
 msgstr "Bu başlık url'si zaten kullanılıyor"
-
-msgid "scheduled"
-msgstr "zamanlandı"
-
-msgid "live + scheduled"
-msgstr "canlı + zamanlandı"
 
 msgid "page"
 msgstr "sayfa"

@@ -1,12 +1,12 @@
 #
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2022
-# Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2022
+# Kyu Choi, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2022\n"
+"Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/torchbox/teams/8009/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ko\n"
@@ -154,6 +154,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "이 필드는 필수입니다."
+
+msgid "Toggle side panel"
+msgstr "사이드 패널 전환"
 
 msgid "Toggle sidebar"
 msgstr "사이드 전환"

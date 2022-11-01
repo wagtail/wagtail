@@ -21,7 +21,7 @@ Changelog
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
 
 
-4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+4.1 LTS (01.11.2022)
 ~~~~~~~~~~~~~~~~~~~~
 
  * New scheduled publishing UI, available from the Status side panel (Sage Abdullah)

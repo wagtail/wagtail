@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Benjamin Bach <benjaoming@gmail.com>, 2022\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -118,6 +118,12 @@ msgstr "Rediger"
 msgid "Delete"
 msgstr "Slet"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
+
 msgid "New title"
 msgstr "Ny titel"
 
@@ -176,12 +182,6 @@ msgstr "Du kan ikke kopiere en side til sig selv når du kopierer undersider"
 msgid "This slug is already in use"
 msgstr "Dette slug er allerede i brug"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Gå live dato/tidspunkt skal forekomme før udløbende dato/tidspunkt"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Udløbende dato/tidspunkt skal være i fremtiden"
-
 msgid "Visibility"
 msgstr "Synlighed"
 
@@ -190,9 +190,6 @@ msgstr "Dette felt er påkrævet."
 
 msgid "Please select at least one group."
 msgstr "Vælg venligst mindst én gruppe."
-
-msgid "Scheduled publishing"
-msgstr "Planlagt udgivning"
 
 msgid "For search engines"
 msgstr "Til søgemaskiner"
@@ -395,6 +392,9 @@ msgstr "Dato"
 
 msgid "Site summary"
 msgstr "Side opsummering"
+
+msgid "Close"
+msgstr "Luk"
 
 msgid "Sign in"
 msgstr "Log Ind"

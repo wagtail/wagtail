@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -227,19 +227,6 @@ msgstr "Skupina nemôže byť uložená kvôli chybám."
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' bola vymazaná."
 
-msgid "Search users"
-msgstr "Hľadať používateľov"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Používateľ '{0}' bol vytvorený."
-
-msgid "Edit"
-msgstr "Upraviť"
-
-msgid "The user could not be created due to errors."
-msgstr "Používateľ nemôže byť vytvorený kvôli chybám."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Používateľ '{0}' bol aktualizovaný."
@@ -247,9 +234,16 @@ msgstr "Používateľ '{0}' bol aktualizovaný."
 msgid "The user could not be saved due to errors."
 msgstr "Používateľ nemôže byť uložený kvôli chybám."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Úprava %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Používateľ '{0}' zmazaný."
+
+msgid "Edit"
+msgstr "Upraviť"
 
 msgid "Edit this user"
 msgstr "Upraviť tohto používateľa"

@@ -4,16 +4,26 @@
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2022
 # Mateusz <undefined5102@gmail.com>, 2022
 # Miłosz Miśkiewicz, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Miłosz Miśkiewicz, 2022\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022\n"
 "Language-Team: Polish (https://www.transifex.com/torchbox/teams/8009/pl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "({number} new items in this menu)"
+msgstr "({number} nowe pozycje w tym menu)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nowa pozycja w tym menu)"
+
+msgid "(New)"
+msgstr "(Nowy)"
 
 msgid "Add a comment"
 msgstr "Dodaj komentarz"
@@ -24,14 +34,23 @@ msgstr "Tekst alternatywny"
 msgid "Are you sure?"
 msgstr "Czy jesteś pewny?"
 
+msgid "Blocks"
+msgstr "Bloki"
+
 msgid "Broken link"
 msgstr "Zepsuty link"
 
 msgid "Cancel"
 msgstr "Anuluj"
 
+msgid "Character count:"
+msgstr "Liczba znaków:"
+
 msgid "Close"
 msgstr "Zamknij"
+
+msgid "Collapse all"
+msgstr "Zwiń wszystkie"
 
 msgid "Comment"
 msgstr "Komentarz"
@@ -48,6 +67,9 @@ msgstr "Usuń"
 msgid "Delete error"
 msgstr "Błąd usuwania"
 
+msgid "Deleting"
+msgstr "Usuwanie"
+
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -57,17 +79,35 @@ msgstr "Edytuj '{title}'"
 msgid "Edit your account"
 msgstr "Edytuj swoje konto"
 
+msgid "Enter your comments..."
+msgstr "Dodaj komentarz…"
+
+msgid "Enter your reply..."
+msgstr "Dodaj odpowiedź…"
+
+msgid "Error while sending preview data."
+msgstr "Błąd podczas przesyłania danych do podglądu."
+
+msgid "Expand all"
+msgstr "Rozwiń wszytkie"
+
 msgid "Focus comment"
 msgstr "Wyróżnij komentarz"
 
 msgid "Horizontal line"
 msgstr "Linia pozioma"
 
+msgid "Insert a block"
+msgstr "Dodaj blok"
+
 msgid "Line break"
 msgstr "Nowa linia"
 
 msgid "Loading…"
 msgstr "Wczytywanie..."
+
+msgid "Main menu"
+msgstr "Główne menu"
 
 msgid "Missing document"
 msgstr "Brakujący dokument"
@@ -96,11 +136,19 @@ msgstr "Odśwież stronę"
 msgid "Reply"
 msgstr "Odpowiedz"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
+
 msgid "Resolve"
 msgstr "Rozwiąż"
 
 msgid "Retry"
 msgstr "Ponów"
+
+msgid "Rich text"
+msgstr "Tekst formatowany"
 
 msgid "Save"
 msgstr "Zapisz"
@@ -123,6 +171,9 @@ msgstr "Zapisywanie..."
 msgid "Search"
 msgstr "Szukaj"
 
+msgid "Search blocks"
+msgstr "Szukaj bloki"
+
 msgid "See all"
 msgstr "Zobacz wszystkie"
 
@@ -135,6 +186,9 @@ msgstr "Pokaż błąd"
 msgid "Show latest content"
 msgstr "Pokaż ostatnią zawartość"
 
+msgid "Split block"
+msgstr "Rozłam blok"
+
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
@@ -144,8 +198,17 @@ msgstr ""
 msgid "This field is required."
 msgstr "To pole jest wymagane."
 
+msgid "Toggle side panel"
+msgstr "Rozszerzanie bocznego panelu"
+
+msgid "Toggle sidebar"
+msgstr "Rozszerzanie bocznej nawigacji"
+
 msgid "Unfocus comment"
 msgstr "Usuń wyróżnienie komentarza"
 
 msgid "View child pages of '{title}'"
 msgstr "Wyświetl podstrony dla '{title}'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Wpisz coś lub naciśnij '/' by wstawić blok"

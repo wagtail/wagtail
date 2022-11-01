@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -307,18 +307,6 @@ msgstr "Použití"
 msgid "Title"
 msgstr "Název"
 
-msgid "Parent"
-msgstr "Nadřazená stránka"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Edit this page"
-msgstr "Upravit stránku"
-
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
 
@@ -409,6 +397,10 @@ msgstr "Obrázek '{0}' byl přidán."
 
 msgid "The image could not be created due to errors."
 msgstr "Obrázek nelze vytvořit, zkontrolujte správné vyplnění polí."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Edituj %s"
 
 msgid "Image"
 msgstr "Obrázek"

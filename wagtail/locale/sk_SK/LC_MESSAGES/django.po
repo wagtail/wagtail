@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -76,6 +76,9 @@ msgstr "dátum a čas expirácie"
 msgid "expired"
 msgstr "expirované"
 
+msgid "scheduled"
+msgstr "naplánované"
+
 msgid "draft"
 msgstr "koncept"
 
@@ -125,9 +128,6 @@ msgstr "posledná revízia vytvorená"
 
 msgid "This slug is already in use"
 msgstr "Tento slug sa už používa"
-
-msgid "scheduled"
-msgstr "naplánované"
 
 msgid "page"
 msgstr "stránka"

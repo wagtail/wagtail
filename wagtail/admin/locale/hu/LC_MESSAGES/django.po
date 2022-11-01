@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -157,6 +157,12 @@ msgstr "Gyűjtemények törlése"
 msgid "You cannot edit another user's comment."
 msgstr "Másik felhasználó megjegyzését nem lehet szerkeszteni."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "A megjelenés dátumának/idejének a lejárat ideje előttinek kell lennie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
+
 msgid "New title"
 msgstr "Új oldalcím"
 
@@ -221,12 +227,6 @@ msgstr "Aloldalak másolásakor nem lehet egy oldalt saját magára másolni"
 
 msgid "This slug is already in use"
 msgstr "Ez a domain-darabka már használatban van"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "A megjelenés dátumának/idejének a lejárat ideje előttinek kell lennie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
 
 msgid "Select a new parent for this page."
 msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
@@ -349,9 +349,6 @@ msgstr "Mind a(z) {0} elem kiválasztva ezen a képernyőn"
 
 msgid "All items in listing selected"
 msgstr "Minden elem kiválasztva a listában"
-
-msgid "Scheduled publishing"
-msgstr "Oldal közzététele későbbi időpontban"
 
 msgid "Page title"
 msgstr "Oldal címe"
@@ -759,6 +756,25 @@ msgstr "Változtatások kérése:"
 
 msgid "Awaiting"
 msgstr "Várakozik"
+
+msgid "Close"
+msgstr "Bezár"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "A dolgok megváltoztak a Wagtail %(version)s verzióban!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
+msgstr ""
+"De aggodalomra semmi ok. A <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"szerkesztők kézikönyve</a> (angol nyelvű) bemutatja az újdonságokat és "
+"változásokat!"
 
 msgid "Awaiting your review"
 msgstr "Ellenőrzésre vár"
@@ -1454,6 +1470,14 @@ msgstr "%(title)s tallózása"
 msgid "Select all pages in listing"
 msgstr "Összes oldal kiválasztása a listában"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Egy elem kiválasztásához nyomja meg az Enter gombot. A fel- és lefelé nyíl "
+"gombokkal mozgatni tudja az elemet, az Enter újbóli megnyomásával elmenti a "
+"pozíciót, míg az Esc gomb visszateszi az elemet a korábbi helyére."
+
 msgid "Select page"
 msgstr "Oldal kiválasztása"
 
@@ -1507,6 +1531,9 @@ msgstr "Ezen a helyen nincsenek oldalak létrehozva."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Miért nem <a href=\"%(add_page_url)s\">hoz létre egyet</a>?"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Ez az oldal zárolva van, ezzel a felhasználóval, további szerkesztésre"
 
 msgid "This page is locked to further editing"
 msgstr "Ez az oldal zárolva van, így nem lehet szerkeszteni"
@@ -1567,22 +1594,6 @@ msgstr "Összehasonlítás a jelenlegi verzióval"
 
 msgid "Cancel scheduled publish"
 msgstr "Időzített közzététel visszavonása"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s oldal %(revision.id)s verziója időzítésének visszavonása"
-
-msgid "Unschedule"
-msgstr "Időzítés visszavonása"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Biztosan visszavonja a verzió időzített megjelenítését?"
-
-msgid "Yes, unschedule"
-msgstr "Igen, visszavonom"
-
-msgid "No, don't unschedule"
-msgstr "Nem, mégsem vonom vissza"
 
 #, python-format
 msgid "There is one matching page"
@@ -1690,6 +1701,26 @@ msgstr "Mozgatás fel"
 
 msgid "Move down"
 msgstr "Mozgatás le"
+
+msgid "Set publishing schedule"
+msgstr "Közzététel időzítése"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Válassza ki, hogy az oldal mikor lesz közzétéve vagy eltüntetve"
+
+msgid "This publishing schedule will only take effect after you have published"
+msgstr "Az időzítés csak akkor működik, ha az oldal közzé van téve"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Bárki, akinek szerkesztési joga van, tud időzíteni"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr ""
+"De csak a közzétételi jogosultsággal rendelkező felhasználók tudják "
+"érvényessé tenni."
+
+msgid "Save schedule"
+msgstr "Időzítés mentése"
 
 msgid "Comment notifications"
 msgstr "Értesítések megjegyzésekről"
@@ -1821,11 +1852,33 @@ msgstr "Látható mindenkinek"
 msgid "Toggle section"
 msgstr "Szekció kapcsolása"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s oldal %(revision.id)s verziója időzítésének visszavonása"
+
+msgid "Unschedule"
+msgstr "Időzítés visszavonása"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Biztosan visszavonja a verzió időzített megjelenítését?"
+
+msgid "Yes, unschedule"
+msgstr "Igen, visszavonom"
+
+msgid "No, don't unschedule"
+msgstr "Nem, mégsem vonom vissza"
+
 msgid "Other searches"
 msgstr "További keresések"
 
+msgid "Side panels"
+msgstr "Oldalpanelek"
+
 msgid "Toggle side panel"
 msgstr "Oldalsáv kapcsolása"
+
+msgid "Minimap"
+msgstr "Minitérkép"
 
 msgid "Page Locale: "
 msgstr "Oldal nyelve: "
@@ -1899,6 +1952,12 @@ msgstr "Oldal státusza: "
 msgid "Status: "
 msgstr "Státusz: "
 
+msgid "Expiry:"
+msgstr "Lejárat:"
+
+msgid "Edit schedule"
+msgstr "Időzítés szerkesztése"
+
 msgid "In Moderation"
 msgstr "Jóváhagyás alatt"
 
@@ -1915,8 +1974,17 @@ msgstr "létrehozó: %(user)s"
 msgid "View history"
 msgstr "Történet megtekintése"
 
-msgid "This will publish at "
-msgstr "Megjelenés ekkor: "
+msgid "Go-live:"
+msgstr "Megjelenés:"
+
+msgid "Once published:"
+msgstr "Egyszer közzétéve: "
+
+msgid "No publishing schedule set"
+msgstr "Nincs közzététel időzítve"
+
+msgid "Set schedule"
+msgstr "Időzítés beállítása"
 
 msgid "Preview in mobile size"
 msgstr "Előnézet okostelefon méretben"
@@ -2184,12 +2252,36 @@ msgstr "További tömeges akciók"
 msgid "0 minutes"
 msgstr "0 perc"
 
-msgid "Just now"
-msgstr "Most"
+msgid "just now"
+msgstr "épp most"
 
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s "
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "%(user_display_name)s ekkor: %(time)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "ekkor: %(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(user_display_name)s ekkor: %(time)s"
+
+#, python-format
+msgid "%(time)s"
+msgstr "%(time)s"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "%(user_display_name)s épp most"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(user_display_name)s %(time_period)s"
 
 msgid "Log out"
 msgstr "Kijelentkezés"
@@ -2294,20 +2386,36 @@ msgstr ""
 "A(z) '{instance}' {model_name}  {timestamp} időpontban szerkesztett verziója "
 "közzé lett téve."
 
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been scheduled for "
+"publishing."
+msgstr ""
+"A(z) '{instance}' {model_name} {timestamp} időpontban szerkesztett verziója "
+"időzítve lett."
+
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "%(model_name)s keresése"
 
 #, python-brace-format
-msgid "'{0}' has been created and published."
+msgid "'{0}' created and scheduled for publishing."
+msgstr "'{0}' létrehozva és időzítve."
+
+#, python-brace-format
+msgid "'{0}' created and published."
 msgstr "'{0}' létrehozva és közzétéve."
 
 msgid "Editing"
 msgstr "Szerkesztés"
 
 #, python-brace-format
-msgid "'{0}' has been published."
-msgstr "'{0}' közzétéve."
+msgid "'{0}' updated and scheduled for publishing."
+msgstr "'{0}' frissítve és időzítve."
+
+#, python-brace-format
+msgid "'{0}' updated and published."
+msgstr "'{0}' frissítve és közzétéve."
 
 msgid "Earliest"
 msgstr "Legkorábbi"
@@ -2318,6 +2426,14 @@ msgstr "Legkésőbbi"
 #, python-brace-format
 msgid "'{object_name}' unpublished."
 msgstr "'{object_name}' visszavonva."
+
+#, python-brace-format
+msgid "Version {revision_id} of \"{object}\" unscheduled."
+msgstr "'{object}' {revision_id} verziójának időzítése visszavonva."
+
+#, python-brace-format
+msgid "revision {revision_id} of \"{object}\""
+msgstr "\"{object}\" {revision_id} verziója"
 
 msgid "Dashboard"
 msgstr "Műszerfal"
@@ -2559,14 +2675,6 @@ msgstr ""
 "%(created_at)s</b>"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "'{1}' {0}. verziója"
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "A(z) \"{1}\" {0} verziója nincs időzítve."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' oldal visszavonva."
 
@@ -2721,6 +2829,9 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "'{0}' feladat bekapcsolva."
 
+msgid "Choose another"
+msgstr "Másik kiválasztása"
+
 msgid "Pages"
 msgstr "Oldalak"
 
@@ -2808,11 +2919,18 @@ msgstr "Áthúzott"
 msgid "Code"
 msgstr "Kód"
 
-msgid "Locked Pages"
-msgstr "Zárolt oldalak"
-
 msgid "Reports"
 msgstr "Kimutatások"
+
+#, python-brace-format
+msgid "What's new in Wagtail {version}"
+msgstr "Újdonságok a Wagtail {version} verzióban"
+
+msgid "Editor Guide"
+msgstr "Szerkesztők Kézikönyve (Angol)"
+
+msgid "Help"
+msgstr "Segítség"
 
 msgid "Yes"
 msgstr "Igen"

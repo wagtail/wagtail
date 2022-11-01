@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -84,6 +84,9 @@ msgstr "Tak, usuń"
 msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
+msgid "Usage"
+msgstr "Użycie"
+
 msgid "Last updated"
 msgstr "Ostatnio zaktualizowany"
 
@@ -114,9 +117,6 @@ msgstr "Nowy"
 
 msgid "Actions"
 msgstr "Akcje"
-
-msgid "Usage"
-msgstr "Użycie"
 
 msgid "Toggle breadcrumbs"
 msgstr "Przełącz okruszki"
@@ -162,17 +162,8 @@ msgstr "Porównaj z poprzednią wersją"
 msgid "Compare with current version"
 msgstr "Porównaj z obecną wersją"
 
-msgid "Live"
-msgstr "Opublikowana"
-
-msgid "Draft"
-msgstr "Szkic"
-
-msgid "View history"
-msgstr "Wyświetl historię"
-
-msgid "This will publish at "
-msgstr "Zostanie opublikowane o"
+msgid "Cancel scheduled publish"
+msgstr "Anuluj zaplanowaną publikację"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -191,18 +182,6 @@ msgstr "Użycie"
 
 msgid "Title"
 msgstr "Tytuł"
-
-msgid "Parent"
-msgstr "Rodzic"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Edytuj tę stronę"
 
 msgid "Choose"
 msgstr "Wybierz"
@@ -224,14 +203,21 @@ msgstr "Snippet nie mógł zostać zapisany z powodu błędów."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' zaktualizowane."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "Edytuj ten %s"
+
+msgid "Action"
+msgstr "Akcja"
+
+msgid "User"
+msgstr "Użytkownik"
+
 msgid "Date"
 msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Historia snippetu"
-
-msgid "Action"
-msgstr "Akcja"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -248,7 +234,3 @@ msgstr "Wybierz %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Wybierz inny %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Edytuj ten %s"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -163,18 +163,6 @@ msgstr "%(title)s kasutamine"
 msgid "Usage of"
 msgstr "Kasutamine"
 
-msgid "Parent"
-msgstr "Vanem"
-
-msgid "Type"
-msgstr "Tüüp"
-
-msgid "Status"
-msgstr "Staatus"
-
-msgid "Edit this page"
-msgstr "Muutke seda lehte"
-
 msgid "Add multiple documents"
 msgstr "Lisage mitu dokumenti"
 
@@ -244,6 +232,10 @@ msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' on kustutatud."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Muutke seda %s"
 
 msgid "Document"
 msgstr "Dokument"

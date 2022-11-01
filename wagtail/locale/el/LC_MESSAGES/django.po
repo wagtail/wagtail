@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -96,8 +96,14 @@ msgstr "ημερομηνία/ώρα λήξης"
 msgid "expired"
 msgstr "έχει λήξει"
 
+msgid "scheduled"
+msgstr "έχει προγραμματιστεί"
+
 msgid "draft"
 msgstr "draft"
+
+msgid "live + scheduled"
+msgstr "τρέχουσα + προγραμματισμένη"
 
 msgid "live + draft"
 msgstr "live + draft "
@@ -173,14 +179,8 @@ msgstr "τελευταία αναθεώρηση δημιουργήθηκε στ�
 msgid "This slug is already in use"
 msgstr "Το slug χρησιμοποιείται ήδη"
 
-msgid "scheduled"
-msgstr "έχει προγραμματιστεί"
-
 msgid "in moderation"
 msgstr "υπό έλεγχο"
-
-msgid "live + scheduled"
-msgstr "τρέχουσα + προγραμματισμένη"
 
 msgid "live + in moderation"
 msgstr "τρέχουσα + υπό έλεγχο"

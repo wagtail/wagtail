@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Franklin Kingma <franklin@statix.net>, 2015
 # Harmen <sigmo@sigmo.nl>, 2022
 # Meteor0id, 2018,2021
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -136,8 +137,14 @@ msgstr "vervaldatum/tijd"
 msgid "expired"
 msgstr "verlopen"
 
+msgid "scheduled"
+msgstr "gepland"
+
 msgid "draft"
 msgstr "concept"
+
+msgid "live + scheduled"
+msgstr "live + gepland"
 
 msgid "live + draft"
 msgstr "live + concept"
@@ -205,7 +212,7 @@ msgid ""
 "The descriptive text displayed underneath a headline in search engine "
 "results."
 msgstr ""
-"De beschrijving die getoont wordt onder de kop in de zoekmachine resultaten."
+"De beschrijving die getoond wordt onder de kop in de zoekmachine resultaten."
 
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
@@ -213,14 +220,8 @@ msgstr "meest recente versie aangemaakt op"
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
 
-msgid "scheduled"
-msgstr "gepland"
-
 msgid "in moderation"
 msgstr "ter goedkeuring"
-
-msgid "live + scheduled"
-msgstr "live + gepland"
 
 msgid "live + in moderation"
 msgstr "live + ter goedkeuring"

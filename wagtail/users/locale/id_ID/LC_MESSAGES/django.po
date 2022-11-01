@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -235,19 +235,6 @@ msgstr "Grup tidak dapat disimpan karena suatu kesalahan."
 msgid "Group '{0}' deleted."
 msgstr "Grup '{0}' dihapus."
 
-msgid "Search users"
-msgstr "Pencarian pengguna"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Pengguna '{0}' dibuat."
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "The user could not be created due to errors."
-msgstr "Pengguna tidak dapat dibuat karena suatu kesalahan."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Pengguna '{0}' berhasil diperbaharui."
@@ -255,9 +242,16 @@ msgstr "Pengguna '{0}' berhasil diperbaharui."
 msgid "The user could not be saved due to errors."
 msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Mengubah %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Pengguna '{0}' dihapus."
+
+msgid "Edit"
+msgstr "Ubah"
 
 msgid "Edit this user"
 msgstr "Ubah pengguna ini"

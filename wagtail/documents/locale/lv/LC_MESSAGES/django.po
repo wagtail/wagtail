@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -93,18 +93,6 @@ msgstr "%(title)s lietojums"
 msgid "Usage of"
 msgstr "Lietojums"
 
-msgid "Parent"
-msgstr "Augstāka līmeņa vienība"
-
-msgid "Type"
-msgstr "Veids"
-
-msgid "Status"
-msgstr "Statuss"
-
-msgid "Edit this page"
-msgstr "Labot šo lapu"
-
 msgid "Or choose from your computer"
 msgstr "Izvēlēties no datora"
 
@@ -140,6 +128,10 @@ msgstr "Dokuments '{0}' atjaunots"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokuments '{0}' tika dzēsts."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Labot šo %s"
 
 msgid "Document"
 msgstr "Dokuments"
