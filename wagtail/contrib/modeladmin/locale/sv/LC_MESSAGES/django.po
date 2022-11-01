@@ -6,14 +6,14 @@
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2020
+# Thomas Kunambi <kunambi@gmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2021\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2020,2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,10 @@ msgstr "Ja, ta bort"
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
+#, python-format
+msgid "By %(filter_title)s"
+msgstr "Av %(filter_title)s"
+
 msgid "Last updated"
 msgstr "Senast ändrad"
 
@@ -165,6 +169,10 @@ msgstr ""
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr "Inga %(name)s har skapats ännu."
+
+#, python-format
+msgid "Why not <a href=\"%(url)s\">add one</a>?"
+msgstr "Varför inte <a href=\"%(url)s\">skapa en</a>?"
 
 msgid "Pagination"
 msgstr "Sidnumrering"

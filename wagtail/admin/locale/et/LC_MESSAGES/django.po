@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -131,6 +131,13 @@ msgstr "Muuda"
 msgid "Delete"
 msgstr "Kustuta"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Otseülekande kuupäev / kellaaeg peab olema enne aegumiskuupäeva / kellaaega"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Aegumiskuupäev / kellaaeg peavad olema tulevikus"
+
 msgid "New title"
 msgstr "Uus pealkiri"
 
@@ -190,13 +197,6 @@ msgstr "Alamlehtede kopeerimisel ei saa lehte endasse kopeerida"
 msgid "This slug is already in use"
 msgstr "See nälkjas on juba kasutusel"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Otseülekande kuupäev / kellaaeg peab olema enne aegumiskuupäeva / kellaaega"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Aegumiskuupäev / kellaaeg peavad olema tulevikus"
-
 msgid "Visibility"
 msgstr "Nähtavus"
 
@@ -224,9 +224,6 @@ msgstr "Lisage töövoole ülesandeid"
 
 msgid "Task"
 msgstr "Ülesanne"
-
-msgid "Scheduled publishing"
-msgstr "Plaaniline avaldamine"
 
 msgid "Content"
 msgstr "Sisu"
@@ -491,6 +488,9 @@ msgstr "Muudatused taotletud aadressil"
 
 msgid "Awaiting"
 msgstr "Ootan"
+
+msgid "Close"
+msgstr "Sulge"
 
 msgid "Awaiting your review"
 msgstr "Teie ülevaatuse ootamine"
@@ -855,22 +855,6 @@ msgstr "Võrdle praeguse versiooniga"
 msgid "Cancel scheduled publish"
 msgstr "Ajastatud avaldamise tühistamine"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Tühista ajaversiooni %(revision.id)s %(title)s jaoks"
-
-msgid "Unschedule"
-msgstr "Ajakava tühistamine"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Kas olete kindel, et soovite selle redigeerimise ajakava tühistada?"
-
-msgid "Yes, unschedule"
-msgstr "Jah, ajagraafik lahti"
-
-msgid "No, don't unschedule"
-msgstr "Ei, ära ajakava tühista"
-
 msgid "Page types"
 msgstr "Lehe tüübid"
 
@@ -1028,6 +1012,22 @@ msgstr "Külastage reaalajas lehte"
 
 msgid "Current page status:"
 msgstr "Lehe praegune olek:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Tühista ajaversiooni %(revision.id)s %(title)s jaoks"
+
+msgid "Unschedule"
+msgstr "Ajakava tühistamine"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Kas olete kindel, et soovite selle redigeerimise ajakava tühistada?"
+
+msgid "Yes, unschedule"
+msgstr "Jah, ajagraafik lahti"
+
+msgid "No, don't unschedule"
+msgstr "Ei, ära ajakava tühista"
 
 msgid "Other searches"
 msgstr "Muud otsingud"
@@ -1229,9 +1229,6 @@ msgstr "Veel"
 msgid "0 minutes"
 msgstr "0 minutit"
 
-msgid "Just now"
-msgstr "Just praegu"
-
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s tagasi"
@@ -1416,14 +1413,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "versioon {0} versioonidest \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Versioon {0} \"{1}\" ajastamata."
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
@@ -1632,9 +1621,6 @@ msgstr "Läbikriipsutatud"
 
 msgid "Code"
 msgstr "Kood"
-
-msgid "Locked Pages"
-msgstr "Lukustatud lehed"
 
 msgid "Reports"
 msgstr "Aruanded"

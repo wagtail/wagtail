@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrej, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -180,6 +181,14 @@ msgstr "Ne, ne dodaj"
 msgid "Delete images"
 msgstr "Izbriši slike"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uporabljeno %(usage_count)s  krat"
+msgstr[1] "Uporabljeno %(usage_count)s krat"
+msgstr[2] "Uporabljeno %(usage_count)s krat"
+msgstr[3] "Uporabljeno %(usage_count)s krat"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -263,6 +272,15 @@ msgstr "Uporaba"
 msgid "Images"
 msgstr "Slike"
 
+msgid "Sort by"
+msgstr "Razvrsti po"
+
+msgid "Entries per page"
+msgstr "Vnosov na stran"
+
+msgid "Popular Tags:"
+msgstr "Priljubljene oznake:"
+
 msgid "Select image"
 msgstr "Izberi sliko"
 
@@ -299,18 +317,6 @@ msgstr "Uporabe"
 msgid "Title"
 msgstr "Naziv"
 
-msgid "Parent"
-msgstr "Nadrejeni"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Uredi stran"
-
 msgid "Add multiple images"
 msgstr "Dodaj več slik"
 
@@ -340,6 +346,12 @@ msgstr "Prenos žal ni uspel."
 
 msgid "Server Error"
 msgstr "Napaka na strežniku"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"O tej napaki obvestite skrbnika spletnega mesta z naslednjimi informacijami:"
 
 msgid "Image updated."
 msgstr "Slika posodobljena."
@@ -383,6 +395,24 @@ msgstr "Izberite drugo sliko"
 msgid "Edit this image"
 msgstr "Uredi sliko"
 
+msgid "Newest"
+msgstr "Najnovejša"
+
+msgid "Oldest"
+msgstr "Najstarejši"
+
+msgid "Title: (A -> Z)"
+msgstr "Naslov: (A -> Ž)"
+
+msgid "Title: (Z -> A)"
+msgstr "Naslov: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Velikost datoteke: (od majhne do velike)"
+
+msgid "File size: (high to low)"
+msgstr "Velikost datoteke: (od velike proti majhni)"
+
 msgid "Search images"
 msgstr "Iskanje po slikah"
 
@@ -413,6 +443,10 @@ msgstr "Slika '{0}' dodana."
 
 msgid "The image could not be created due to errors."
 msgstr "Slike, zaradi napak, ni bilo možno ustvariti."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Uredi %s"
 
 msgid "Image"
 msgstr "Slika"

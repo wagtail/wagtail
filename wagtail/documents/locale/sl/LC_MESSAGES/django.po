@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrej, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +73,14 @@ msgstr "Ne, ne dodaj"
 
 msgid "Delete documents"
 msgstr "Izbrišite dokumente"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uporabljeno %(usage_count)s krat "
+msgstr[1] "Uporabljeno %(usage_count)s krat"
+msgstr[2] "Uporabljeno %(usage_count)s krat"
+msgstr[3] "Uporabljeno %(usage_count)s krat"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -162,18 +171,6 @@ msgstr "Uporabe %(title)s"
 msgid "Usage of"
 msgstr "Uporabe"
 
-msgid "Parent"
-msgstr "Nadrejeni"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Uredi stran"
-
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"
 
@@ -192,6 +189,9 @@ msgstr "Dodaj v zbirko:"
 msgid "Sorry, upload failed."
 msgstr "Prenos žal ni uspel."
 
+msgid "You need a password to access this document."
+msgstr "Za dostop do tega dokumenta potrebujete geslo."
+
 msgid "Document permissions"
 msgstr "Dovoljenja dokumenta"
 
@@ -200,6 +200,9 @@ msgstr "Dodaj dovoljenje dokumenta"
 
 msgid "Tag"
 msgstr "Oznaka"
+
+msgid "Add tags to the selected documents"
+msgstr "Dodajte oznake izbranim dokumentom"
 
 msgid "Add to collection"
 msgstr "Dodaj v zbirko"
@@ -239,6 +242,13 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' izbrisan."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Uredi %s"
+
+msgid "Document"
+msgstr "Dokument"
 
 #, python-format
 msgid "%(count)s document"

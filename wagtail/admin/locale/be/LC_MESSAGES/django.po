@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -132,6 +132,12 @@ msgstr "Рэдактаваць"
 msgid "Delete"
 msgstr "Выдаліць"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Час размяшчэння павінен быць раней часу зняцця з размяшчэння."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Тэрмін адмены размяшшчэння павінен быць у будучыні"
+
 msgid "New title"
 msgstr "Новая назва"
 
@@ -198,12 +204,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Гэты slug ужо выкарыстоўваецца"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Час размяшчэння павінен быць раней часу зняцця з размяшчэння."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Тэрмін адмены размяшшчэння павінен быць у будучыні"
-
 msgid "Visibility"
 msgstr "Бачнасць"
 
@@ -212,9 +212,6 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
-
-msgid "Scheduled publishing"
-msgstr "Адкладзеная публікацыя"
 
 msgid "Content"
 msgstr "Змест"
@@ -466,6 +463,9 @@ msgstr "Дата"
 msgid "Site summary"
 msgstr "Агульная інфармацыя"
 
+msgid "Close"
+msgstr "Зачыніць"
+
 msgid "Sign in"
 msgstr "Увайсці"
 
@@ -702,22 +702,6 @@ msgstr "Абноўлена"
 msgid "Cancel scheduled publish"
 msgstr "Адмяніць запланаваную публікацыю"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Адмена версіі %(revision.id)s для %(title)s"
-
-msgid "Unschedule"
-msgstr "Адмяніць часовую публікацыю"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Вы ўпэўненыя, што жадаеце адмяніць гэтую версію?"
-
-msgid "Yes, unschedule"
-msgstr "Так, адмяніць часовую публікацыю"
-
-msgid "No, don't unschedule"
-msgstr "Не, не адмяняць публікацыю па раскладзе"
-
 msgid "Page types"
 msgstr "Тыпы старонак"
 
@@ -789,6 +773,22 @@ msgstr "Наведаць старонку"
 
 msgid "Current page status:"
 msgstr "Бягучы статус старонкі:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Адмена версіі %(revision.id)s для %(title)s"
+
+msgid "Unschedule"
+msgstr "Адмяніць часовую публікацыю"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Вы ўпэўненыя, што жадаеце адмяніць гэтую версію?"
+
+msgid "Yes, unschedule"
+msgstr "Так, адмяніць часовую публікацыю"
+
+msgid "No, don't unschedule"
+msgstr "Не, не адмяняць публікацыю па раскладзе"
 
 msgid "Other searches"
 msgstr "Іншыя пошукі"
@@ -986,10 +986,6 @@ msgid "Page '{0}' moved."
 msgstr "Старонка '{0}' перамешчана."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "версія {0} старонкі \"{1}\""
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Старонка '{0}' знята з публікацыі."
 
@@ -1068,9 +1064,6 @@ msgstr "Закрэслены"
 
 msgid "Code"
 msgstr "Код"
-
-msgid "Locked Pages"
-msgstr "Заблякаваныя старонкі"
 
 msgid "Reports"
 msgstr "Справаздачы"

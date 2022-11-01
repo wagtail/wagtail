@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej Marsetič, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,23 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
+
+msgid "Parent page"
+msgstr "Nadrejena stran"
+
+#, python-format
+msgid "Add %s"
+msgstr "Dodaj%s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Dodaj nov %s"
+
+msgid "Inspect"
+msgstr "Preglejte"
 
 msgid "Edit"
 msgstr "Uredi"
@@ -37,6 +55,9 @@ msgstr "Kopiraj"
 
 msgid "image"
 msgstr "slika"
+
+msgid "Choose a parent page"
+msgstr "Izberite nadrejeno stran"
 
 msgid "Continue"
 msgstr "Nadaljuj"
@@ -58,6 +79,9 @@ msgstr "Zadnje posodobljeno"
 
 msgid "History"
 msgstr "Zgodovina"
+
+msgid "Search for"
+msgstr "Išči"
 
 msgid "Search"
 msgstr "Iskanje"
@@ -85,6 +109,17 @@ msgstr "Nov"
 
 msgid "Editing"
 msgstr "Urejanje"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Urejanje %s"
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Confirm deletion Potrdi izbris %s"
+
+msgid "Inspecting"
+msgstr "Pregledovanje"
 
 msgid "Action"
 msgstr "Dejanje"

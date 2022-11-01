@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020-2021\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -117,6 +117,13 @@ msgstr "Hadia"
 msgid "Delete"
 msgstr "Hamoos"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Ita tenki hatama tempu no loron publika molok tempu no loron expirasuan "
+
+msgid "Expiry date/time must be in the future"
+msgstr "Ita boot tenki hatama tempu no loron expirasuan iha futuru"
+
 msgid "New title"
 msgstr "Titlu foun"
 
@@ -171,13 +178,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Slug nee uza tiha ona"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Ita tenki hatama tempu no loron publika molok tempu no loron expirasuan "
-
-msgid "Expiry date/time must be in the future"
-msgstr "Ita boot tenki hatama tempu no loron expirasuan iha futuru"
-
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -186,9 +186,6 @@ msgstr "Ita boot prezia hatama informasaun nee "
 
 msgid "Please select at least one group."
 msgstr "Favor ida hili grupu ida ka tan"
-
-msgid "Scheduled publishing"
-msgstr "Horariu Publikasaun"
 
 msgid "Content"
 msgstr "Konteudu"
@@ -428,6 +425,9 @@ msgstr "Data"
 msgid "Site summary"
 msgstr "Sumariu Situs"
 
+msgid "Close"
+msgstr "Taka"
+
 msgid "Sign in"
 msgstr "Tama"
 
@@ -661,22 +661,6 @@ msgstr "Atualiza ona"
 msgid "Cancel scheduled publish"
 msgstr "Kansela orariu publiku"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
-
-msgid "Unschedule"
-msgstr "Hamoos orariu"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"
-
-msgid "Yes, unschedule"
-msgstr "Sim, hamoos orariu"
-
-msgid "No, don't unschedule"
-msgstr "Lae, la hamoos"
-
 msgid "Page types"
 msgstr "Tipu pajina sira"
 
@@ -730,6 +714,22 @@ msgstr "Vizita pajina publiku"
 
 msgid "Current page status:"
 msgstr "Status pajina dadaun"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
+
+msgid "Unschedule"
+msgstr "Hamoos orariu"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"
+
+msgid "Yes, unschedule"
+msgstr "Sim, hamoos orariu"
+
+msgid "No, don't unschedule"
+msgstr "Lae, la hamoos"
 
 msgid "Other searches"
 msgstr "Buka seluk"
@@ -810,10 +810,6 @@ msgstr "Haree iha situ"
 #, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pajina '{0}' hammos ona."
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr " revizaun {0} hosi \"{1}\""
 
 msgid "Pages"
 msgstr "Pajina sira"

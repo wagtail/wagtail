@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ChihWei Wang <ihcgno@icloud.com>, 2022
-# ChihWei Wang <ihcgno@icloud.com>, 2020
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
+"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -74,6 +75,9 @@ msgstr "此頁面目前等待審核中"
 msgid "Only reviewers for this task can edit the page."
 msgstr "儘此作業之審核者可編輯此頁面"
 
+msgid "latest revision"
+msgstr "最新版本"
+
 msgid "live"
 msgstr "在用"
 
@@ -98,8 +102,14 @@ msgstr "過期日期/時間"
 msgid "expired"
 msgstr "已過期"
 
+msgid "scheduled"
+msgstr "已計劃"
+
 msgid "draft"
 msgstr "草稿"
+
+msgid "live + scheduled"
+msgstr "在用 + 已預定"
 
 msgid "live + draft"
 msgstr "發佈+草稿"
@@ -152,14 +162,8 @@ msgstr "最近修訂版本創建於"
 msgid "This slug is already in use"
 msgstr "此縮略名已被使用"
 
-msgid "scheduled"
-msgstr "已計劃"
-
 msgid "in moderation"
 msgstr "審核中"
-
-msgid "live + scheduled"
-msgstr "在用 + 已預定"
 
 msgid "live + in moderation"
 msgstr "上線 + 審核中"
@@ -184,6 +188,12 @@ msgstr "內容JSON"
 
 msgid "approved go live at"
 msgstr "批準上線時間"
+
+msgid "revision"
+msgstr "修訂版本"
+
+msgid "revisions"
+msgstr "修訂版本"
 
 msgid "Add/edit pages you own"
 msgstr "新增/編輯所屬的頁面"
@@ -567,14 +577,26 @@ msgstr "移動"
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
 
+msgid "Moved"
+msgstr "已搬移"
+
+msgid "Reorder"
+msgstr "重新排序"
+
 msgid "Reordered"
 msgstr "已重新排序"
 
 msgid "Schedule publication"
 msgstr "預定發佈"
 
+msgid "Page scheduled for publishing"
+msgstr "頁面已預定發佈排程"
+
 msgid "Unschedule publication"
 msgstr "取消預定發佈"
+
+msgid "Page unscheduled from publishing"
+msgstr "頁面已取消發佈排程"
 
 msgid "Add view restrictions"
 msgstr "新增檢視限制"

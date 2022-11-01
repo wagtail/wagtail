@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -110,10 +110,10 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"'%(instance_name)s' est actuellement référencé par d'autres objets, et ne "
+"« %(instance_name)s » est actuellement référencé par d'autres objets, et ne "
 "peut être supprimé sans compromettre l'intégrité des données. Pour le "
 "supprimer avec succès, retirez en premier les références depuis les objets "
-"suivants, puis essayez à nouveau :"
+"suivants, puis essayez à nouveau :"
 
 msgid "Go back to listing"
 msgstr "Retourner à la liste"
@@ -194,7 +194,7 @@ msgstr "Suivant"
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' created."
-msgstr "%(model_name)s '%(instance)s' créé(e)."
+msgstr "%(model_name)s « %(instance)s » créé(e)."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -216,7 +216,7 @@ msgstr "Modification de %s"
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' updated."
-msgstr "%(model_name)s '%(instance)s' modifié(e)."
+msgstr "%(model_name)s « %(instance)s » modifié(e)."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -236,7 +236,7 @@ msgstr ""
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' deleted."
-msgstr "%(model_name)s '%(instance)s' supprimé(e)."
+msgstr "%(model_name)s « %(instance)s » supprimé(e)."
 
 msgid "Inspecting"
 msgstr "Inspection"

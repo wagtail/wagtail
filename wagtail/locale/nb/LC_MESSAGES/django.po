@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -93,8 +93,14 @@ msgstr "avpubliseringsdato"
 msgid "expired"
 msgstr "avpublisert"
 
+msgid "scheduled"
+msgstr "planlagt"
+
 msgid "draft"
 msgstr "kladd"
+
+msgid "live + scheduled"
+msgstr "publisert + planlagt"
 
 msgid "live + draft"
 msgstr "publisert + kladd"
@@ -149,12 +155,6 @@ msgstr "siste utgave opprettet"
 
 msgid "This slug is already in use"
 msgstr "Denne permalenken er allerede i bruk"
-
-msgid "scheduled"
-msgstr "planlagt"
-
-msgid "live + scheduled"
-msgstr "publisert + planlagt"
 
 msgid "page"
 msgstr "side"

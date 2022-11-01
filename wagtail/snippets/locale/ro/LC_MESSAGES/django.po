@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dan Braghis, 2014-2021\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -77,6 +77,9 @@ msgstr "Da, șterge"
 msgid "No, don't delete"
 msgstr "Nu, nu șterge"
 
+msgid "Usage"
+msgstr "Utilizare"
+
 msgid "Last updated"
 msgstr "Ultima actualizare"
 
@@ -107,9 +110,6 @@ msgstr "Nou"
 
 msgid "Actions"
 msgstr "Acțiuni"
-
-msgid "Usage"
-msgstr "Utilizare"
 
 msgid "Toggle breadcrumbs"
 msgstr "Comută breadcrumb"
@@ -155,11 +155,8 @@ msgstr "Compară cu versiunea precedentă"
 msgid "Compare with current version"
 msgstr "Compară cu versiunea curentă"
 
-msgid "Live"
-msgstr "Activată"
-
-msgid "Draft"
-msgstr "Ciornă"
+msgid "Cancel scheduled publish"
+msgstr "Anulează publicarea programată"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -178,18 +175,6 @@ msgstr "Utilizare"
 
 msgid "Title"
 msgstr "Titlu"
-
-msgid "Parent"
-msgstr "Bază"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Editează această pagină"
 
 msgid "Choose"
 msgstr "Alege"
@@ -211,14 +196,21 @@ msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' a fost actualizat(ă)."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "Editează %s"
+
+msgid "Action"
+msgstr "Acțiune"
+
+msgid "User"
+msgstr "Utilizator"
+
 msgid "Date"
 msgstr "Dată"
 
 msgid "Snippet history"
 msgstr "Istorie fragmente"
-
-msgid "Action"
-msgstr "Acțiune"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -235,7 +227,3 @@ msgstr "Alege %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Alege alt %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Editează %s"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -138,8 +138,14 @@ msgstr "буде доступним до дати/часу"
 msgid "expired"
 msgstr "більше не доступне"
 
+msgid "scheduled"
+msgstr "заплановано"
+
 msgid "draft"
 msgstr "чернетка"
+
+msgid "live + scheduled"
+msgstr "наживо + заплановано"
 
 msgid "live + draft"
 msgstr "наживо + чернетка"
@@ -215,14 +221,8 @@ msgstr "останню ревізію створено о"
 msgid "This slug is already in use"
 msgstr "Ця коротка назва вже використовується"
 
-msgid "scheduled"
-msgstr "заплановано"
-
 msgid "in moderation"
 msgstr "на модерації"
-
-msgid "live + scheduled"
-msgstr "наживо + заплановано"
 
 msgid "live + in moderation"
 msgstr "наживо + на модерації"

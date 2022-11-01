@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -262,18 +262,6 @@ msgstr "การใช้งานของ"
 msgid "Title"
 msgstr "หัวข้อ,หัวเรื่อง"
 
-msgid "Parent"
-msgstr "หน้าแรก,หน้าหลัก"
-
-msgid "Type"
-msgstr "แบบ,รูปแบบ"
-
-msgid "Status"
-msgstr "สถานะ"
-
-msgid "Edit this page"
-msgstr "แก้ไขหน้านี้"
-
 msgid "Add multiple images"
 msgstr "แก้ไขหลายรูปภาพ"
 
@@ -355,6 +343,10 @@ msgstr "รูปภาพ'{0}' ถูกเพิ่มเรียบร้อ
 
 msgid "The image could not be created due to errors."
 msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "แก้ไขสิ่งนี้ %s"
 
 msgid "Image"
 msgstr "รูปภาพ"

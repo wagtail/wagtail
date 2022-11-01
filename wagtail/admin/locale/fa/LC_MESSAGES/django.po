@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -116,6 +116,12 @@ msgstr "تصحیح"
 msgid "Delete"
 msgstr "حذف"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/ساعت انقضا باشد"
+
+msgid "Expiry date/time must be in the future"
+msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
+
 msgid "New title"
 msgstr "عنوان جدید"
 
@@ -174,12 +180,6 @@ msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان ی
 msgid "This slug is already in use"
 msgstr "این اسلاگ در حال استفاده است"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/ساعت انقضا باشد"
-
-msgid "Expiry date/time must be in the future"
-msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
-
 msgid "Visibility"
 msgstr "وضوح"
 
@@ -210,9 +210,6 @@ msgstr "1 کاربر انتخاب شده"
 #, python-brace-format
 msgid "{0} items selected"
 msgstr "{0} مورد انتخاب شده"
-
-msgid "Scheduled publishing"
-msgstr "انتشار زمانبندی‌شده"
 
 msgid "Content"
 msgstr "محتوا"
@@ -471,6 +468,9 @@ msgstr "خلاصه سایت"
 
 msgid "Awaiting"
 msgstr "در انتظار"
+
+msgid "Close"
+msgstr "بستن"
 
 msgid "Awaiting your review"
 msgstr "در انتظار بازنگری شما"
@@ -770,22 +770,6 @@ msgstr "مقایسه با نسخه‌ی فعلی"
 msgid "Cancel scheduled publish"
 msgstr "لغو انتشار زمانبندی شده"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "حذف زمانبندی بازنگری %(revision.id)s برای %(title)s"
-
-msgid "Unschedule"
-msgstr "حذف زمانبندی"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "آیا مطمئن هستید که می‌خواهید زمانبندی این بازنگری را حذف کنید؟"
-
-msgid "Yes, unschedule"
-msgstr "بله زمانبندی را حذف کن"
-
-msgid "No, don't unschedule"
-msgstr "نه، زمان بندی را حذف نکن"
-
 msgid "Page types"
 msgstr "انواع صفحه"
 
@@ -886,6 +870,22 @@ msgstr "دیدن صفحه منتشر شده"
 msgid "Current page status:"
 msgstr "وضعیت فعلی صفحه"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "حذف زمانبندی بازنگری %(revision.id)s برای %(title)s"
+
+msgid "Unschedule"
+msgstr "حذف زمانبندی"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "آیا مطمئن هستید که می‌خواهید زمانبندی این بازنگری را حذف کنید؟"
+
+msgid "Yes, unschedule"
+msgstr "بله زمانبندی را حذف کن"
+
+msgid "No, don't unschedule"
+msgstr "نه، زمان بندی را حذف نکن"
+
 msgid "Other searches"
 msgstr "جستجوهای دیگر"
 
@@ -955,9 +955,6 @@ msgstr "مشاهده اعمال جمعی بیشتر"
 
 msgid "0 minutes"
 msgstr "0 دقیقه"
-
-msgid "Just now"
-msgstr "هم‌اکنون"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1148,10 +1145,6 @@ msgid "Page '{0}' moved."
 msgstr "صفحه '{0}' انتقال یافت."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "بازبینی {0} از {1}"
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "صفحه '{0}' لغو انتشار شد."
 
@@ -1211,9 +1204,6 @@ msgstr "لیست عددی"
 
 msgid "Blockquote"
 msgstr "نقل قول"
-
-msgid "Locked Pages"
-msgstr "صفحات قفل شده"
 
 msgid "Reports"
 msgstr "گزارش‌ها"

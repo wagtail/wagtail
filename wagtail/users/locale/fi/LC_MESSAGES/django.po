@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -395,19 +395,6 @@ msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
 msgid "Group '{0}' deleted."
 msgstr "Ryhmä '{0}' poistettu."
 
-msgid "Search users"
-msgstr "Hae käyttäjiä"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Käyttäjä '{0}' luotu."
-
-msgid "Edit"
-msgstr "Muokkaa"
-
-msgid "The user could not be created due to errors."
-msgstr "Käyttäjää ei voitu luoda virheiden vuoksi."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Käyttäjä '{0}' päivitetty."
@@ -415,9 +402,16 @@ msgstr "Käyttäjä '{0}' päivitetty."
 msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Muokataan %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Käyttäjä '{0}' poistettu."
+
+msgid "Edit"
+msgstr "Muokkaa"
 
 msgid "Edit this user"
 msgstr "Muokkaa tätä käyttäjää"

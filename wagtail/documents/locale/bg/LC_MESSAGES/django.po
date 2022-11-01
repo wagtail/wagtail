@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -84,18 +84,6 @@ msgid ""
 msgstr ""
 "Не сте качили никакви документи. Защо не <a href="
 "\"%(wagtaildocs_add_document_url)s\">качите един сега</a>?"
-
-msgid "Parent"
-msgstr "Родител"
-
-msgid "Type"
-msgstr "Вид"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Edit this page"
-msgstr "Редактирайте тази страница"
 
 msgid "Tags"
 msgstr "Тагове"

@@ -2,14 +2,14 @@
 # Translators:
 # Jiri Stepanek <stepiiicz@gmail.com>, 2022
 # Martin Galda <martingalda9@gmail.com>, 2022
-# Marek Turnovec <aesculap@gmail.com>, 2022
 # IT Management <hudan@itmanagement.cz>, 2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
 # Mirek Zvolský <zvolsky@seznam.cz>, 2022
+# Marek Turnovec <aesculap@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2022\n"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/torchbox/teams/8009/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cs\n"
@@ -133,6 +133,9 @@ msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
 
 msgid "This field is required."
 msgstr "Toto pole je vyžadováno."
+
+msgid "Toggle side panel"
+msgstr "Přepnout postranní panel"
 
 msgid "Unfocus comment"
 msgstr "Nezvýrazňovat komentář"

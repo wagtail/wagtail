@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Basitlik İyidir, 2020\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -244,19 +244,6 @@ msgstr "Hata nedeniyle grup kaydedilemedi."
 msgid "Group '{0}' deleted."
 msgstr "'{0}' grubu silindi."
 
-msgid "Search users"
-msgstr "Kullanıcı ara"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "'{0}' kullanıcısı oluşturuldu."
-
-msgid "Edit"
-msgstr "Düzenle"
-
-msgid "The user could not be created due to errors."
-msgstr "Hata nedeniyle kullanıcı oluşturulamadı."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "'{0}' kullanıcısı güncellendi."
@@ -264,9 +251,16 @@ msgstr "'{0}' kullanıcısı güncellendi."
 msgid "The user could not be saved due to errors."
 msgstr "Hata nedeniyle kullanıcı kaydedilemedi."
 
+#, python-format
+msgid "Editing %s"
+msgstr "%s düzenleniyor"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "'{0}' kullanıcısı silindi."
+
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "Edit this user"
 msgstr "Kullanıcıyı düzenle"
