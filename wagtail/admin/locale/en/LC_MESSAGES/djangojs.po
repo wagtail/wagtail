@@ -15,8 +15,10 @@ msgid "(New)"
 msgstr ""
 
 #: src/components/Minimap/MinimapItem.tsx:38
-msgid "{num} errors"
-msgstr ""
+msgid "{num} error"
+msgid_plural "{num} errors"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:326
 msgid "Add a comment"
