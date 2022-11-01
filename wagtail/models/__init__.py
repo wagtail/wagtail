@@ -986,16 +986,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         kwargs will be cached via request._wagtail_page_for_request
         """
         if not getattr(request, '_wagtail_page_for_request', None):
-          # we need a valid Site object corresponding to this request in order to proceed
-          site = Site.find_for_request(request)
-          if not site:
-              raise Http404
-    
-          path_components = [component for component in path.split("/") if component]
-          page, args, kwargs = site.root_page.localized.specific.route(
-               request, path_components
-          )
-          request._wagtail_page_for_request = (page, args, kwargs)
+            # we need a valid Site object corresponding to this request in order to proceed
+            site = Site.find_for_request(request)
+            if not site:
+                raise Http404
+            
+            path_components = [component for component in path.split("/") if component]
+            page, args, kwargs = site.root_page.localized.specific.route(
+                request, path_components
+            )
+            request._wagtail_page_for_request = (page, args, kwargs)
         return request._wagtail_page_for_request
 
     def __init__(self, *args, **kwargs):
