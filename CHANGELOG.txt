@@ -29,6 +29,7 @@ Changelog
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Comments notice background overflows its container (Yekasumah)
  * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
+ * Fix: Ensure the skip link (used for keyboard control) meets colour contrast guidelines for accessibility (Dauda Yusuf)
 
 
 4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
