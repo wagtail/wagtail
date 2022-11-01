@@ -985,7 +985,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Find the page object for this HTTP request object. The page, args, and
         kwargs will be cached via request._wagtail_page_for_request
         """
-        if not getattr(request, '_wagtail_page_for_request'):
+        if not getattr(request, '_wagtail_page_for_request', None):
           # we need a valid Site object corresponding to this request in order to proceed
           site = Site.find_for_request(request)
           if not site:
