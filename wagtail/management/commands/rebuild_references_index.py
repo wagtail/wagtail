@@ -8,6 +8,12 @@ DEFAULT_CHUNK_SIZE = 1000
 
 
 class Command(BaseCommand):
+    def write(self, *args, **kwargs):
+      """Helper function that writes based on verbosity parameter"""
+      if self.verbosity != 0:
+        self.stdout.write(*args, **kwargs)
+
+
     def add_arguments(self, parser):
         parser.add_argument(
             "--chunk_size",
@@ -19,10 +25,12 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
+        self.verbosity = options["verbosity"]
+        
         chunk_size = options.get("chunk_size")
         object_count = 0
 
-        self.stdout.write("Rebuilding reference index")
+        self.write("Rebuilding reference index")
 
         with transaction.atomic():
             ReferenceIndex.objects.all().delete()
@@ -31,7 +39,7 @@ class Command(BaseCommand):
                 if not ReferenceIndex.model_is_indexable(model):
                     continue
 
-                self.stdout.write(str(model))
+                self.write(str(model))
 
                 # Add items (chunk_size at a time)
                 for chunk in self.print_iter_progress(
@@ -44,11 +52,11 @@ class Command(BaseCommand):
 
                 self.print_newline()
 
-        self.stdout.write("Indexed %d objects" % object_count)
+        self.write("Indexed %d objects" % object_count)
         self.print_newline()
 
     def print_newline(self):
-        self.stdout.write("")
+        self.write("")
 
     def print_iter_progress(self, iterable):
         """
@@ -63,15 +71,15 @@ class Command(BaseCommand):
         """
         for i, value in enumerate(iterable, start=1):
             yield value
-            self.stdout.write(".", ending="")
+            self.write(".", ending="")
             if i % 40 == 0:
                 self.print_newline()
-                self.stdout.write(" " * 35, ending="")
+                self.write(" " * 35, ending="")
 
             elif i % 10 == 0:
-                self.stdout.write(" ", ending="")
+                self.write(" ", ending="")
 
-            self.stdout.flush()
+            self.flush()
 
     # Atomic so the count of models doesn't change as it is iterated
     @transaction.atomic
