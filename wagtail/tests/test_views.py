@@ -51,6 +51,8 @@ class TestLoginView(TestCase, WagtailTestUtils):
 
 
 class TransactionTestServeView(TransactionTestCase):
+    fixtures = ["test.json"]
+    
     def test_serve_query_count(self):
         page = Page.objects.all().first()
         self.assertTrue(page)
