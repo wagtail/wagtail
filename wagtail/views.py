@@ -1,25 +1,21 @@
 from django.conf import settings
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail import hooks
 from wagtail.forms import PasswordViewRestrictionForm
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import Page, PageViewRestriction
 
 
 def serve(request, path):
-    # we need a valid Site object corresponding to this request in order to proceed
-    site = Site.find_for_request(request)
-    if not site:
+    route_result = Page.route_for_request(request, path)
+    if route_result is None:
         raise Http404
-
-    path_components = [component for component in path.split("/") if component]
-    page, args, kwargs = site.root_page.localized.specific.route(
-        request, path_components
-    )
-
+    else:
+        page, args, kwargs = route_result
+    
     for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):
