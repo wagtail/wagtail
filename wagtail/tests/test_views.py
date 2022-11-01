@@ -56,27 +56,21 @@ class TestServeView(TestCase):
     fixtures = ["test.json"]
     
     def test_serve_query_count(self):
-        page = Page.objects.all().first()
-        self.assertTrue(page)
-        
-        request = RequestFactory().get(page.url)
+        request = RequestFactory().get('/')
         
         with self.assertRaises(AssertionError):
             with self.assertNumQueries(0): 
-                serve(request, page.url)
+                serve(request, '/')
         
         # we expect the serve view to set and use the request page cache
         with self.assertNumQueries(0): 
-            serve(request, page.url)
+            serve(request, '/')
     
     def test_serve_calls_page_find_for_request(self):
-        page = Page.objects.all().first()
-        self.assertTrue(page)
-        
-        request = RequestFactory().get(page.url)
+        request = RequestFactory().get('/')
         
         with mock.patch(
             "wagtail.models.Page.find_for_request",
         ) as method:
-            serve(request, page.url)
-        method.assert_called_once_with(request, page.url)
+            serve(request, '/')
+        method.assert_called_once_with(request, '/')
