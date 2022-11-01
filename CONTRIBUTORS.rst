@@ -642,7 +642,6 @@ Contributors
 * Loveth Omokaro
 * Abayomi Victory
 * Victoria Poromon
-* Dokua Asiedu
 * Darrel O'Pry
 * Mary Ayobami
 * Bolarinwa Comfort Ajayi

@@ -46,6 +46,23 @@ npm run build
 
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, you should install the site before running the `pip install -e` step, or re-run that step after the site is installed.
 
+(development_on_windows)=
+
+## Development on Windows
+
+Documentation for development on Windows has some gaps and should be considered a work in progress. We recommend setting up on a local virtual machine using our already available scripts, [docker-wagtail-develop](https://github.com/wagtail/docker-wagtail-develop) or [vagrant-wagtail-develop](https://github.com/wagtail/vagrant-wagtail-develop)
+
+If you are confident with Python and Node development on Windows and wish to proceed here are some helpful tips.
+
+We recommend [Chocolatey](https://chocolatey.org/install) for managing packages in Windows. Once Chocolatey is installed you can then install the [`make`](https://community.chocolatey.org/packages/make) utility in order to run common build and development commands.
+
+To effectively collaborate with other developers on different operating systems, we use CRLF to handle our line endings. You can configure this in Git using:
+
+```doscon
+#  Configures how Git handles line endings and sets the value to True
+git config --global core.autocrlf true
+```
+
 (testing)=
 
 ## Testing
