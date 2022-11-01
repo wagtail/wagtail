@@ -57,6 +57,16 @@ This command deletes old page revisions which are not in moderation, live, appro
 revision for a page. If the `days` argument is supplied, only revisions older than the specified number of
 days will be deleted.
 
+(purge_embeds)=
+
+## purge_embeds
+
+```sh
+manage.py purge_embeds
+```
+
+This command deletes all the cached embed objects from the database. It is recommended to run this command after changes are made to any embed settings so that subsequent embed usage does not from the database cache.
+
 (update_index)=
 
 ## update_index
