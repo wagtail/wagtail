@@ -79,7 +79,7 @@ class Command(BaseCommand):
             elif i % 10 == 0:
                 self.write(" ", ending="")
 
-            self.flush()
+            self.stdout.flush()
 
     # Atomic so the count of models doesn't change as it is iterated
     @transaction.atomic
