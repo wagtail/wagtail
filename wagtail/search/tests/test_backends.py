@@ -912,6 +912,13 @@ class BackendTests(WagtailTestUtils):
             "update_index", verbosity=0, backend_name=self.backend_name, stdout=stdout
         )
         self.assertFalse(stdout.read())
+    
+     def test_rebuild_references_index_no_verbosity(self):
+        stdout = StringIO()
+        management.call_command(
+            "rebuild_references_index", verbosity=0, backend_name=self.backend_name, stdout=stdout
+        )
+        self.assertFalse(stdout.read())
 
 
 @override_settings(
