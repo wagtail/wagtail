@@ -129,10 +129,11 @@ class WagtailImageField(ImageField):
         if f is None:
             return None
 
-        # We need to get a file object for Pillow. We might have a path or we might
-        # have to read the data into memory.
+        # We need to get a file object for Pillow. When we get a path, we need to open
+        # the file first. And we have to read the data into memory to pass to Willow.
         if hasattr(data, "temporary_file_path"):
-            file = data.temporary_file_path()
+            with open(data.temporary_file_path(), "rb") as fh:
+                file = BytesIO(fh.read())
         else:
             if hasattr(data, "read"):
                 file = BytesIO(data.read())
