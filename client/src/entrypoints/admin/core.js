@@ -1,6 +1,7 @@
 import $ from 'jquery';
-import { initTooltips } from '../../includes/initTooltips';
 import { escapeHtml } from '../../utils/text';
+import { initButtonSelects } from '../../includes/initButtonSelects';
+import { initTooltips } from '../../includes/initTooltips';
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
@@ -592,32 +593,6 @@ function initDropDowns() {
 $(document).ready(initDropDowns);
 wagtail.ui.initDropDowns = initDropDowns;
 wagtail.ui.DropDownController = DropDownController;
-
-// Initialise button selectors
-function initButtonSelects() {
-  document.querySelectorAll('.button-select').forEach((element) => {
-    const inputElement = element.querySelector('input[type="hidden"]');
-
-    element
-      .querySelectorAll('.button-select__option')
-      .forEach((buttonElement) => {
-        buttonElement.addEventListener('click', (e) => {
-          e.preventDefault();
-          inputElement.value = buttonElement.value;
-
-          element
-            .querySelectorAll('.button-select__option--selected')
-            .forEach((selectedButtonElement) => {
-              selectedButtonElement.classList.remove(
-                'button-select__option--selected',
-              );
-            });
-
-          buttonElement.classList.add('button-select__option--selected');
-        });
-      });
-  });
-}
 
 $(document).ready(initButtonSelects);
 
