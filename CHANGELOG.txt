@@ -18,6 +18,7 @@ Changelog
  * Clean up Prettier & Eslint usage for search promotions formset JS file (LB (Ben Johnston))
  * Ensure that translation file generation ignores JavaScript unit tests and clean up unit tests for Django gettext utils (LB (Ben Johnston))
  * Migrated `initButtonSelects` from core.js to own TypesScript file and add unit tests (Loveth Omokaro)
+ * Migrated `initSkipLink` util to TypeScript and add JSDoc & unit tests (Juliet Adeboye)
  * Clean up some unused utility classes and migrate `unlist` to Tailwind utility class `w-list-none` (Loveth Omokaro)
  * Ensure that the `rebuild_references_index` command can run without console output if called with `--verbosity 0` (Omerzahid Ali, Aman Pandey)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
