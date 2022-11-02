@@ -33,6 +33,7 @@ Changelog
  * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
  * Fix: Ensure the skip link (used for keyboard control) meets colour contrast guidelines for accessibility (Dauda Yusuf)
  * Fix: Ensure tag fields correctly show in both dark and light Windows high-contrast modes (Albina Starykova)
+ * Fix: Ensure new tooltips & tooltip menus have visible borders and tip triangle in Windows high-contrast mode (Juliet Adeboye)
 
 
 4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
