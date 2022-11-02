@@ -662,6 +662,7 @@ Contributors
 * Omerzahid Ali
 * Aman Pandey
 * Doug Harris
+* Mohammad Areeb
 
 Translators
 ===========
