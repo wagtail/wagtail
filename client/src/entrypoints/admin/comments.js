@@ -116,11 +116,11 @@ window.comments = (() => {
     }
 
     show() {
-      this.node.classList.remove('u-hidden');
+      this.node.classList.remove('w-hidden');
     }
 
     hide() {
-      this.node.classList.add('u-hidden');
+      this.node.classList.add('w-hidden');
     }
 
     setOnClickHandler(localId) {
@@ -242,9 +242,9 @@ window.comments = (() => {
       this.shown = newShown;
 
       if (!this.shown) {
-        this.commentAdditionNode.classList.add('u-hidden');
+        this.commentAdditionNode.classList.add('w-hidden');
       } else {
-        this.commentAdditionNode.classList.remove('u-hidden');
+        this.commentAdditionNode.classList.remove('w-hidden');
       }
     }
 
@@ -259,7 +259,7 @@ window.comments = (() => {
         'aria-describedby',
         this.commentAdditionNode.getAttribute('aria-describedby'),
       );
-      annotationNode.classList.remove('u-hidden');
+      annotationNode.classList.remove('w-hidden');
       this.commentAdditionNode.insertAdjacentElement(
         'beforebegin',
         annotationNode,
