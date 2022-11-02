@@ -3,11 +3,13 @@ import unittest
 
 from django import forms, template
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.test import TestCase, override_settings
 from django.test.signals import setting_changed
 from django.urls import reverse
 from taggit.forms import TagField, TagWidget
+from willow.image import ImageFile as WillowImageFile
 
 from wagtail.images import get_image_model, get_image_model_string
 from wagtail.images.fields import WagtailImageField
@@ -566,7 +568,7 @@ class TestFrontendSendfileView(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.content, "Dummy backend response")
+        self.assertTrue(response.content, msg="Dummy backend response")
 
 
 class TestRect(TestCase):
@@ -826,3 +828,60 @@ class TestGetImageModel(WagtailTestUtils, TestCase):
         """Test get_image_model with an invalid model string"""
         with self.assertRaises(ImproperlyConfigured):
             get_image_model()
+
+
+class TestWagtailImageField(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.filename = "wagtailimagefield.png"
+        cls.image = get_test_image_file(filename=cls.filename).file
+        cls.image_size = cls.image.getbuffer().nbytes
+
+    def test_to_python_with_inmemoryfile(self):
+        f = WagtailImageField()
+        self.image.seek(0)
+        file = InMemoryUploadedFile(
+            self.image, "", self.filename, "image/png", self.image_size, None
+        )
+        to_python = f.to_python(file)
+        self.assertIsInstance(to_python.image, WillowImageFile)
+        self.assertEqual(to_python.content_type, "image/png")
+
+    def test_to_python_gets_content_type_from_willow(self):
+        f = WagtailImageField()
+        self.image.seek(0)
+        file = InMemoryUploadedFile(
+            self.image, "", self.filename, "image/jpeg", self.image_size, None
+        )
+        to_python = f.to_python(file)
+        self.assertIsInstance(to_python.image, WillowImageFile)
+        self.assertEqual(to_python.content_type, "image/png")
+
+    def test_to_python_with_temporary_file(self):
+        f = WagtailImageField()
+        with TemporaryUploadedFile(
+            "test_temp.png", "image/png", self.image_size, None
+        ) as tmp_file:
+            self.image.seek(0)
+            tmp_file.write(self.image.read())
+            tmp_file.seek(0)
+
+            to_python = f.to_python(tmp_file)
+            self.assertIsInstance(to_python.image, WillowImageFile)
+            self.assertEqual(to_python.content_type, "image/png")
+
+    def test_to_python_raises_error_with_invalid_image_file(self):
+        msg = (
+            "Upload a valid image. The file you uploaded was either not an "
+            "image or a corrupted image."
+        )
+        f = WagtailImageField()
+        with TemporaryUploadedFile("test_temp.png", "image/png", 32, None) as tmp_file:
+            with self.assertRaisesMessage(ValidationError, msg):
+                f.to_python(tmp_file)
+
+        with self.assertRaisesMessage(
+            ValidationError,
+            "No file was submitted. Check the encoding type on the form.",
+        ):
+            f.to_python(self.image)
