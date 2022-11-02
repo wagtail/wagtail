@@ -160,7 +160,7 @@ class BaseLogEntry(models.Model):
     )
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        get_user_model(),
         null=True,  # Null if actioned by system
         blank=True,
         on_delete=models.DO_NOTHING,
