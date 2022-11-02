@@ -657,6 +657,7 @@ Contributors
 * Chisom Okeoma
 * Marvis Chukwudi
 * Jordan Rob
+* Juliet Adeboye
 
 Translators
 ===========
