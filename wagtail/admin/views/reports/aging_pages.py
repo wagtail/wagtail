@@ -62,8 +62,7 @@ class AgingPagesView(PageReportView):
         }
 
     def user_id_to_python(self, user_id):
-        pk_field_class = type(self.user_model._meta.pk)
-        return pk_field_class().to_python(user_id)
+        return self.user_model._meta.pk.to_python(user_id)
 
     def add_last_publisher_name_to_page(self, username_mapping, page):
         if page.last_published_by:
