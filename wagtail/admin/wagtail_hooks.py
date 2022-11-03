@@ -976,7 +976,7 @@ def register_reports_menu():
 def register_whats_new_in_wagtail_version_menu_item():
     version = "4.1"
     return DismissibleMenuItem(
-        _("What's new in Wagtail {version}").format(version=version),
+        _("What's new in Wagtail %(version)s") % {"version": version},
         wagtail_feature_release_whats_new_link(),
         icon_name="help",
         order=1000,
