@@ -23,7 +23,6 @@ from wagtail.admin.menu import (
     reports_menu,
     settings_menu,
 )
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text.converters.contentstate import link_entity
 from wagtail.admin.rich_text.converters.editor_html import (
     LinkTypeRule,
@@ -72,7 +71,7 @@ class ExplorerMenuItem(MenuItem):
 
     def get_context(self, request):
         context = super().get_context(request)
-        start_page = get_explorable_root_page(request.user)
+        start_page = UserPagePermissionsProxy(request.user).explorable_root_page()
 
         if start_page:
             context["start_page_id"] = start_page.id
@@ -80,7 +79,7 @@ class ExplorerMenuItem(MenuItem):
         return context
 
     def render_component(self, request):
-        start_page = get_explorable_root_page(request.user)
+        start_page = UserPagePermissionsProxy(request.user).explorable_root_page()
 
         if start_page:
             return PageExplorerMenuItemComponent(

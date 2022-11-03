@@ -15,7 +15,6 @@ from django.utils.translation import gettext_lazy
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
-from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
@@ -331,14 +330,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
         return panels
 
     def get_site_details(self):
-        request = self.request
-        site = get_site_for_user(request.user)
-
-        return {
-            "root_page": site["root_page"],
-            "root_site": site["root_site"],
-            "site_name": site["site_name"],
-        }
+        return UserPagePermissionsProxy(self.request.user).site_details()
 
 
 def error_test(request):

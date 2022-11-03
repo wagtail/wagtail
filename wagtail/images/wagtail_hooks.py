@@ -11,7 +11,6 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.images import admin_urls, get_image_model, image_operations
@@ -27,6 +26,7 @@ from wagtail.images.views.bulk_actions import (
     DeleteBulkAction,
 )
 from wagtail.images.views.chooser import viewset as chooser_viewset
+from wagtail.models import UserPagePermissionsProxy
 
 
 @hooks.register("register_admin_urls")
@@ -137,7 +137,9 @@ class ImagesSummaryItem(SummaryItem):
     template_name = "wagtailimages/homepage/site_summary_images.html"
 
     def get_context_data(self, parent_context):
-        site_name = get_site_for_user(self.request.user)["site_name"]
+        site_name = UserPagePermissionsProxy(self.request.user).site_details()[
+            "site_name"
+        ]
 
         return {
             "total_images": get_image_model().objects.count(),
