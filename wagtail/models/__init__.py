@@ -1117,6 +1117,77 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ).exists()
 
     @transaction.atomic
+    def add_child(self, *, instance: "Page" = None, **kwargs) -> "Page":
+        """
+        Adds a new page as a child of this one.
+
+        The new page will be the new rightmost child. If you want to insert a
+        page at a specific position, use the :meth:`add_sibling` method from
+        an existing child page instead.
+
+        :param instance:
+            A pre-constructed (but not yet saved) ``Page`` instance to be
+            inserted into the tree.
+
+        :param `**kwargs`:
+            When ``instance`` is not provided, any additional keyword arguments
+            are used to create a new ``Page`` instance to insert into the tree.
+
+        :returns:
+            The ``Page`` instance that was saved and inserted into the tree.
+
+        :raise NodeAlreadySaved: when the passed ``instance`` already exists
+            in the database
+        """
+        numchild_original = self.numchild
+        if instance is not None:
+            kwargs["instance"] = instance
+        try:
+            return super().add_child(**kwargs)
+        except Exception:
+            # revert any attribute changes that do not reflect the
+            # database state
+            self.numchild = numchild_original
+            raise
+
+    @transaction.atomic
+    def add_sibling(
+        self,
+        pos: str = None,
+        *,
+        instance: "Page" = None,
+        **kwargs,
+    ) -> "Page":
+        """
+        Adds a new page as a sibling of this one.
+
+        :param pos:
+            The position, relative to the current page, where the new page will
+            be inserted, can be one of:
+            - ``"first-sibling"``: the new page will become the new leftmost sibling.
+            - ``"left"``: the new page will take this page's place, and this page
+                will be moved 1 position to the right.
+            - ``"right"``: the new page will be inserted to the right of this page.
+            - ``"last-sibling"``: the new page will become the new rightmost sibling.
+
+        :param instance:
+            A pre-constructed (but not yet saved) ``Page`` instance to be
+            inserted into the tree.
+
+        :param `**kwargs`:
+            When ``instance`` is not provided, any additional keyword arguments
+            are used to create a new ``Page`` instance to insert into the tree.
+
+        :returns:
+            The ``Page`` instance that was saved and inserted into the tree.
+
+        :raise InvalidPosition: when passing an invalid ``pos`` parm
+        :raise NodeAlreadySaved: when the passed ``instance`` already exists
+            in the database
+        """
+        return super().add_sibling(pos, instance=instance, **kwargs)
+
+    @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, clean=True, user=None, log_action=False, **kwargs):
         """
