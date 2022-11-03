@@ -3611,19 +3611,31 @@ class TestGetLock(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
         christmas_event.locked_by = moderator
-        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, BasicLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
         self.assertFalse(lock.for_user(moderator))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
         )
 
     def test_when_locked_without_locked_at(self):
@@ -3650,19 +3662,31 @@ class TestGetLock(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
         christmas_event.locked_by = moderator
-        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, BasicLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
         self.assertTrue(lock.for_user(moderator))
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
         )
 
     @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
@@ -3672,7 +3696,12 @@ class TestGetLock(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         christmas_event.locked = True
         christmas_event.locked_by = moderator
-        christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
+        if settings.USE_TZ:
+            christmas_event.locked_at = datetime.datetime(
+                2022, 7, 29, 12, 19, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.locked_at = datetime.datetime(2022, 7, 29, 12, 19, 0)
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, BasicLock)
@@ -3685,13 +3714,19 @@ class TestGetLock(TestCase):
             self.assertTrue(lock.for_user(christmas_event.owner))
             self.assertTrue(lock.for_user(moderator))
 
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 29, 2022, 9:19 p.m."
+        else:
+            expected_date_string = "July 29, 2022, 12:19 p.m."
+
         self.assertEqual(
             lock.get_message(christmas_event.owner),
-            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>{str(moderator)}</b> on <b>{expected_date_string}</b>.",
         )
         self.assertEqual(
             lock.get_message(moderator),
-            "<b>'Christmas' was locked</b> by <b>you</b> on <b>29 Jul 2022 12:19</b>.",
+            f"<b>'Christmas' was locked</b> by <b>you</b> on <b>{expected_date_string}</b>.",
         )
 
     def test_when_locked_by_workflow(self):
@@ -3730,23 +3765,29 @@ class TestGetLock(TestCase):
 
     def test_when_scheduled_for_publish(self):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
-        christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
+        if settings.USE_TZ:
+            christmas_event.go_live_at = datetime.datetime(
+                2030, 7, 29, 16, 32, 0, tzinfo=datetime.timezone.utc
+            )
+        else:
+            christmas_event.go_live_at = datetime.datetime(2030, 7, 29, 16, 32, 0)
         rvn = christmas_event.save_revision()
         rvn.publish()
 
         lock = christmas_event.get_lock()
         self.assertIsInstance(lock, ScheduledForPublishLock)
         self.assertTrue(lock.for_user(christmas_event.owner))
+
         if settings.USE_TZ:
-            self.assertEqual(
-                lock.get_message(christmas_event.owner),
-                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 07:32",
-            )
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "July 30, 2030, 1:32 a.m."
         else:
-            self.assertEqual(
-                lock.get_message(christmas_event.owner),
-                "Page 'Christmas' is locked and has been scheduled to go live at 29 Jul 2030 16:32",
-            )
+            expected_date_string = "July 29, 2030, 4:32 p.m."
+
+        self.assertEqual(
+            lock.get_message(christmas_event.owner),
+            f"Page 'Christmas' is locked and has been scheduled to go live at {expected_date_string}",
+        )
 
         # Not even superusers can break this lock
         # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published

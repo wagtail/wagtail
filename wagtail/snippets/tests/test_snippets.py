@@ -3,6 +3,7 @@ import json
 from io import StringIO
 from unittest import mock
 
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
@@ -66,7 +67,8 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
+from wagtail.test.utils.timestamps import submittable_timestamp
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestSnippetIndexView(WagtailTestUtils, TestCase):
@@ -2093,13 +2095,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2237,13 +2239,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2412,13 +2414,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2589,7 +2591,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Should still show the active expire_at in the live object
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2603,13 +2605,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2703,7 +2705,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # override the existing expire_at when it goes live
         self.assertNotContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
         )
 
@@ -2715,13 +2717,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2817,7 +2819,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # unpublished (expired) -> published (scheduled) -> unpublished (expired again)
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -2830,13 +2832,13 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -2903,7 +2905,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(self.go_live_at)}',
             html=True,
             count=1,
         )
@@ -2970,7 +2972,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(self.go_live_at)}',
             html=True,
             count=1,
         )
@@ -3919,10 +3921,16 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "May 10, 2022, 8 p.m."
+        else:
+            expected_date_string = "May 10, 2022, 11 a.m."
+
         # Message should be shown
         self.assertContains(
             response,
-            "You are viewing a previous version of this Revisable model from <b>10 May 2022 11:00</b> by",
+            f"You are viewing a previous version of this Revisable model from <b>{expected_date_string}</b> by",
             count=1,
         )
 

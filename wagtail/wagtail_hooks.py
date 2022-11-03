@@ -12,6 +12,7 @@ from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
+from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
 
 
 def require_wagtail_login(next):
@@ -152,7 +153,11 @@ def register_core_log_actions(actions):
                     "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
                 ) % {
                     "revision_id": log_entry.data["revision"]["id"],
-                    "created_at": log_entry.data["revision"]["created"],
+                    "created_at": render_timestamp(
+                        parse_datetime_localized(
+                            log_entry.data["revision"]["created"],
+                        )
+                    ),
                 }
             except KeyError:
                 return _("Reverted to previous revision")
@@ -245,12 +250,24 @@ def register_core_log_actions(actions):
                         "Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s."
                     ) % {
                         "revision_id": log_entry.data["revision"]["id"],
-                        "created_at": log_entry.data["revision"]["created"],
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "created_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["created"],
+                            )
+                        ),
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        ),
                     }
                 else:
                     return _("Page scheduled for publishing at %(go_live_at)s") % {
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        ),
                     }
             except KeyError:
                 return _("Page scheduled for publishing")
@@ -266,12 +283,28 @@ def register_core_log_actions(actions):
                         "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s."
                     ) % {
                         "revision_id": log_entry.data["revision"]["id"],
-                        "created_at": log_entry.data["revision"]["created"],
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "created_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["created"],
+                            )
+                        ),
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        )
+                        if log_entry.data["revision"]["go_live_at"]
+                        else None,
                     }
                 else:
                     return _("Page unscheduled for publishing at %(go_live_at)s") % {
-                        "go_live_at": log_entry.data["revision"]["go_live_at"],
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
+                            )
+                        )
+                        if log_entry.data["revision"]["go_live_at"]
+                        else None,
                     }
             except KeyError:
                 return _("Page unscheduled from publishing")

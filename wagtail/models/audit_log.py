@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -162,7 +163,7 @@ class BaseLogEntry(models.Model):
     label = models.TextField()
 
     action = models.CharField(max_length=255, blank=True, db_index=True)
-    data = models.JSONField(blank=True, default=dict)
+    data = models.JSONField(blank=True, default=dict, encoder=DjangoJSONEncoder)
     timestamp = models.DateTimeField(verbose_name=_("timestamp (UTC)"), db_index=True)
     uuid = models.UUIDField(
         blank=True,

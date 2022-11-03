@@ -18,6 +18,7 @@ from wagtail.admin.views.generic.models import (
 )
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.models import Page
+from wagtail.utils.timestamps import render_timestamp
 
 
 def revisions_index(request, page_id):
@@ -72,7 +73,7 @@ def revisions_revert(request, page_id, revision_id):
                 "You are viewing a previous version of this page from <b>%(created_at)s</b> by %(user)s"
             )
             % {
-                "created_at": revision.created_at.strftime("%d %b %Y %H:%M"),
+                "created_at": render_timestamp(revision.created_at),
                 "user": user_avatar,
             }
         ),

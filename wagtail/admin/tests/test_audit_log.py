@@ -10,6 +10,7 @@ from freezegun import freeze_time
 from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestAuditLogAdmin(WagtailTestUtils, TestCase):
@@ -286,7 +287,7 @@ class TestAuditLogAdmin(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            f"Page unscheduled for publishing at {go_live_at.strftime('%d %b %Y %H:%M')}",
+            f"Page unscheduled for publishing at {render_timestamp(go_live_at)}",
         )
 
     def test_page_history_after_unscheduled_revision(self):
@@ -325,5 +326,5 @@ class TestAuditLogAdmin(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            f"Revision {revision.id} from {revision.created_at.strftime('%d %b %Y %H:%M')} unscheduled from publishing at {go_live_at.strftime('%d %b %Y %H:%M')}.",
+            f"Revision {revision.id} from {render_timestamp(revision.created_at)} unscheduled from publishing at {render_timestamp(go_live_at)}.",
         )

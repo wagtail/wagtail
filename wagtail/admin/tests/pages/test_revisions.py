@@ -148,7 +148,16 @@ class TestRevisions(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:history", args=(self.christmas_event.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Page scheduled for publishing at 26 Dec 2014")
+
+        if settings.USE_TZ:
+            # the default timezone is "Asia/Tokyo", so we expect UTC +9
+            expected_date_string = "Dec. 26, 2014, 9 p.m."
+        else:
+            expected_date_string = "Dec. 26, 2014, noon"
+
+        self.assertContains(
+            response, f"Page scheduled for publishing at {expected_date_string}"
+        )
         self.assertContains(response, this_christmas_unschedule_url)
 
 
