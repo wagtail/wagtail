@@ -270,7 +270,7 @@ msgstr "نام قابل فهم برای این سایت."
 msgid "root page"
 msgstr "صفحه ریشه"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "سایت پیش فرض"
 
 msgid ""

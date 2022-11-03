@@ -380,7 +380,7 @@ msgstr "Berljiva oblika imena spletnega mesta."
 msgid "root page"
 msgstr "začetna stran"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "privzeto spletno mesto"
 
 msgid "site"

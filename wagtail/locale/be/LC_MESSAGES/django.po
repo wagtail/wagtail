@@ -286,7 +286,7 @@ msgstr "Чалавека-зразумелая імя для сайта."
 msgid "root page"
 msgstr "каранёвая старонка"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "сайт па змаўчанні"
 
 msgid ""

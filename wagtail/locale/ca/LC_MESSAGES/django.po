@@ -387,7 +387,7 @@ msgstr "Nom del lloc llegible per humans"
 msgid "root page"
 msgstr "pàgina arrel"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "és el lloc predeterminat"
 
 msgid ""

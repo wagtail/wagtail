@@ -267,7 +267,7 @@ msgstr "Nama situs yang mudah dibaca manusia."
 msgid "root page"
 msgstr "halaman akar"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "adalah situs utama"
 
 msgid ""

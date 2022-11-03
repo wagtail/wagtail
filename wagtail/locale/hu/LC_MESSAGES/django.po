@@ -542,7 +542,7 @@ msgstr "A webhely neve emberi nyelven"
 msgid "root page"
 msgstr "főoldal"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "az alapértelmezett webhely"
 
 msgid ""

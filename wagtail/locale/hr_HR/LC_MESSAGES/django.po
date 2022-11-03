@@ -483,7 +483,7 @@ msgstr "Naziv sjedišta čitljiv ljudima"
 msgid "root page"
 msgstr "korijenska stranica"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "zadana stranica"
 
 msgid ""

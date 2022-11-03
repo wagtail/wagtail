@@ -304,7 +304,7 @@ msgstr "Skaitymui/atvaizdavimui skirtas tinklalapio pavadinimas."
 msgid "root page"
 msgstr "šakninis puslapis"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "yra numatytasis tinklalapis"
 
 msgid ""

@@ -461,7 +461,7 @@ msgstr "Inimloetav saidi nimi."
 msgid "root page"
 msgstr "juurleht"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "on vaikesait"
 
 msgid ""

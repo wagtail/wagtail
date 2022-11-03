@@ -512,7 +512,7 @@ msgstr "Jméno webu v podobě čitelné člověkem."
 msgid "root page"
 msgstr "výchozí stránka"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "je defaultní web"
 
 msgid ""

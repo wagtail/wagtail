@@ -537,7 +537,7 @@ msgstr "Lesanlegt nafn fyrir síðuna"
 msgid "root page"
 msgstr "rótarsíða"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "er sjálfgefin síða"
 
 msgid ""

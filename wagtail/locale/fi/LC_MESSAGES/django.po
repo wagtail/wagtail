@@ -483,7 +483,7 @@ msgstr "Ihmisen luettava nimi sivustolle."
 msgid "root page"
 msgstr "juurisivu"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "on oletussivusto"
 
 msgid ""

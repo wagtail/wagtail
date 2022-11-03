@@ -261,7 +261,7 @@ msgstr "Okunabilir site adı."
 msgid "root page"
 msgstr "root (kök) sayfası"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "varsayılan site mi"
 
 msgid ""

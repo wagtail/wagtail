@@ -531,7 +531,7 @@ msgstr "Nome leggibile per il sito."
 msgid "root page"
 msgstr "pagina radice"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "è sito di default"
 
 msgid ""

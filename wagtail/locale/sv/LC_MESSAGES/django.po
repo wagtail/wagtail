@@ -517,7 +517,7 @@ msgstr "Läsbart namn för sajten"
 msgid "root page"
 msgstr "rotsida"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "är standardsajten"
 
 msgid ""

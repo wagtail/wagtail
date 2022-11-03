@@ -441,7 +441,7 @@ msgstr "He Ingoa tūturu mō tēnei pae. Pānui-a-tangata"
 msgid "root page"
 msgstr "whārangi rarau"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "kō te pae taunoa"
 
 msgid ""

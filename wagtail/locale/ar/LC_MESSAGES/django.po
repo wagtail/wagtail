@@ -260,7 +260,7 @@ msgstr "اسم قابل للقراءة من قبل الإنسان للموقع."
 msgid "root page"
 msgstr "الصفحة الرئيسية"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "أهذا هو الموقع الافتراضي"
 
 msgid ""
