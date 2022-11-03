@@ -6,7 +6,6 @@ $padding: math.div($grid-gutter-width, 2);
 // Our row container
 @mixin row($padding: 0) {
   @include clearfix();
-  box-sizing: border-box;
   display: block;
   margin-inline-end: auto;
   margin-inline-start: auto;
@@ -21,7 +20,6 @@ $padding: math.div($grid-gutter-width, 2);
 
 // Our column container
 @mixin column($x, $padding: $padding, $grid-columns: $grid-columns) {
-  box-sizing: border-box;
   display: inline;
   float: left;
   width: 100% * math.div($x, $grid-columns);
@@ -30,7 +28,6 @@ $padding: math.div($grid-gutter-width, 2);
 }
 
 @mixin table-column($x, $padding: $padding, $grid-columns: $grid-columns) {
-  box-sizing: border-box;
   width: 100% * math.div($x, $grid-columns);
 }
 

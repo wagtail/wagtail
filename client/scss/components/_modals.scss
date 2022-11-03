@@ -20,7 +20,6 @@ $zindex-modal-background: 500;
 
 // Container that the modal scrolls within
 .modal {
-  box-sizing: border-box;
   display: none;
   overflow: auto;
   overflow-y: scroll;
@@ -34,7 +33,6 @@ $zindex-modal-background: 500;
 
 // Shell div to position the modal with bottom padding
 .modal-dialog {
-  box-sizing: border-box;
   margin-inline-start: auto;
   margin-inline-end: auto;
   padding: 0;
@@ -53,7 +51,6 @@ $zindex-modal-background: 500;
 
 // Actual modal
 .modal-content {
-  box-sizing: border-box;
   border-radius: 3px;
   width: 98.7%;
   position: relative;
