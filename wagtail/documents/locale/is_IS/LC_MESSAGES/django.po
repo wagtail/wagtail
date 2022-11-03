@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -256,17 +256,8 @@ msgstr "Notkun á %(title)s"
 msgid "Usage of"
 msgstr "Notkun á"
 
-msgid "Parent"
-msgstr "Yfirsíða"
-
-msgid "Type"
-msgstr "Tegund"
-
-msgid "Status"
-msgstr "Staða"
-
-msgid "Edit this page"
-msgstr "Breyta þessari síðu"
+msgid "Field"
+msgstr "Reitur"
 
 #, python-format
 msgid ""
@@ -319,6 +310,9 @@ msgstr "Aðgangsheimildir skráar"
 
 msgid "Add a document permission"
 msgstr "Bæta við aðgangsheimildum á skrá"
+
+msgid "Tags"
+msgstr "Merki"
 
 msgid "Tag"
 msgstr "Merking"
@@ -387,6 +381,14 @@ msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Skrá '{0}' hefur verið eytt."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Einka %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Breyta þessu %s"
 
 msgid "Document"
 msgstr "Skrá"

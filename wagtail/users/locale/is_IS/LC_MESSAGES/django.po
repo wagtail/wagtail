@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -391,20 +391,6 @@ msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófa
 msgid "Group '{0}' deleted."
 msgstr "Hópi '{0}' eytt."
 
-msgid "Search users"
-msgstr "Leita í notendum"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Notandi '{0}' búinn til."
-
-msgid "Edit"
-msgstr "Breyta"
-
-msgid "The user could not be created due to errors."
-msgstr ""
-"Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Notandi '{0}' uppfærður."
@@ -413,9 +399,16 @@ msgid "The user could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
+#, python-format
+msgid "Editing %s"
+msgstr "Breyti %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Notanda '{0}' eytt."
+
+msgid "Edit"
+msgstr "Breyta"
 
 msgid "Edit this user"
 msgstr "Breyta þessum notanda"

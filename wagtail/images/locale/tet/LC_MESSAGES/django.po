@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -193,18 +193,6 @@ msgstr "uza iha nee"
 msgid "Title"
 msgstr "Titlu"
 
-msgid "Parent"
-msgstr "inan-aman"
-
-msgid "Type"
-msgstr "Tipu"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Hadia pajina nee"
-
 msgid "Server Error"
 msgstr "Servidor erru"
 
@@ -246,6 +234,10 @@ msgstr "Imajen '{0}' hamoos ona."
 #, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imajen '{0}' hatama ona"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "hadia iha %s"
 
 msgid "Image"
 msgstr "Imagen"

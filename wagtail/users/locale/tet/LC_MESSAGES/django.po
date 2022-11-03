@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -243,19 +243,6 @@ msgstr "Grupu labele rai tamba erru."
 msgid "Group '{0}' deleted."
 msgstr "Grupu '{0}' hamoos ona."
 
-msgid "Search users"
-msgstr "Buka usuariu"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Usuariu '{0}' kria ona"
-
-msgid "Edit"
-msgstr "Hadia"
-
-msgid "The user could not be created due to errors."
-msgstr "Usuariu labele kria tamba erru."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Usuariu '{0}' troka ona"
@@ -263,9 +250,16 @@ msgstr "Usuariu '{0}' troka ona"
 msgid "The user could not be saved due to errors."
 msgstr "Usuariu labele rai tamba erru."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Hadia hela %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Usuariu '{0}' hamoos ona."
+
+msgid "Edit"
+msgstr "Hadia"
 
 msgid "Edit this user"
 msgstr "Hadia user nee"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -144,6 +144,12 @@ msgstr "Poista kokoelmia"
 msgid "You cannot edit another user's comment."
 msgstr "Et voi muokata toisen käyttäjän kommenttia."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
+
 msgid "New title"
 msgstr "Uusi otsikko"
 
@@ -202,12 +208,6 @@ msgstr "Et voi kopioida sivua itsensä päälle, kun kopioit alasivuja."
 
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
 
 msgid "Visibility"
 msgstr "Näkyvyys"
@@ -300,6 +300,9 @@ msgstr "1 pätkä valittu"
 msgid "{0} snippets selected"
 msgstr "{0} pätkää valittu"
 
+msgid "All snippets in listing selected"
+msgstr "Kaikki listauksen pätkät valittu"
+
 msgid "1 item selected"
 msgstr "1 tietue valittu"
 
@@ -313,9 +316,6 @@ msgstr "Kaikki {0} tietuetta tässä näytössä valittu"
 
 msgid "All items in listing selected"
 msgstr "Kaikki listauksen tietueet valittu"
-
-msgid "Scheduled publishing"
-msgstr "Ajastettu julkistus"
 
 msgid "Page title"
 msgstr "Sivun otsikko"
@@ -536,6 +536,9 @@ msgstr ""
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "Ei tuloksia haulla \"<em>%(search_query)s</em>\""
 
+msgid "No items have been created."
+msgstr "Kohteita ei ole luotu."
+
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
@@ -645,6 +648,13 @@ msgstr "Tehtävä aloitettu"
 
 msgid "Awaiting"
 msgstr "Odottaa"
+
+msgid "Close"
+msgstr "Sulje"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Wagtailin versiossa %(version)s on muutoksia!"
 
 msgid "Awaiting your review"
 msgstr "Odottaa tarkastustasi"
@@ -1054,7 +1064,7 @@ msgid "Exploring %(title)s"
 msgstr "Selataan kohdetta %(title)s"
 
 msgid "Select all pages in listing"
-msgstr "Valitse kaikki listauksen sivut"
+msgstr "Valitse listauksen kaikki sivut"
 
 msgid "Select page"
 msgstr "Valitse sivu"
@@ -1071,6 +1081,9 @@ msgstr "Tässä sijainnissa ei ole yhtään sivua."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Mikset vaikka <a href=\"%(add_page_url)s\">loisi yhtä</a>?"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Tämä sivu on lukittu toimestasi muokkausta varten"
 
 msgid "This page is locked to further editing"
 msgstr "Sivu on lukittu eikä sitä voi muokata."
@@ -1133,20 +1146,10 @@ msgid "Cancel scheduled publish"
 msgstr "Peruuta ajastettu julkaisu"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Poista ajastus sivun %(title)s versiolta %(revision.id)s"
-
-msgid "Unschedule"
-msgstr "Poista ajastus"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Haluatko varmasti poistaa ajastuksen tältä revisiolta?"
-
-msgid "Yes, unschedule"
-msgstr "Kyllä, poista ajastus"
-
-msgid "No, don't unschedule"
-msgstr "Ei, älä poista ajastusta"
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Yksi vastaava sivu"
+msgstr[1] "%(counter)s vastaavaa sivua"
 
 msgid "Page types"
 msgstr "Sivutyypit"
@@ -1231,6 +1234,15 @@ msgstr "Siirrä ylös"
 
 msgid "Move down"
 msgstr "Siirrä alas"
+
+msgid "Set publishing schedule"
+msgstr "Aseta julkaisuajastus"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Valitse milloin tämän sivun tulee mennä liveksi tai vanhentua"
+
+msgid "Save schedule"
+msgstr "Tallenna ajastus"
 
 msgid "Comment notifications"
 msgstr "Kommentti-ilmoitukset"
@@ -1334,14 +1346,42 @@ msgstr "Vieraile sivulla"
 msgid "Current page status:"
 msgstr "Sivun tila nyt:"
 
+msgid "Visible to all. Visit the live page"
+msgstr "Näkyvissä kaikille. Käy livesivulla"
+
+msgid "Private. Visit the live page"
+msgstr "Yksityinen. Käy livesivulla"
+
 msgid "Visible to all"
 msgstr "Näkyvissä kaikille"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Poista ajastus sivun %(title)s versiolta %(revision.id)s"
+
+msgid "Unschedule"
+msgstr "Poista ajastus"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Haluatko varmasti poistaa ajastuksen tältä revisiolta?"
+
+msgid "Yes, unschedule"
+msgstr "Kyllä, poista ajastus"
+
+msgid "No, don't unschedule"
+msgstr "Ei, älä poista ajastusta"
 
 msgid "Other searches"
 msgstr "Muut haut"
 
+msgid "Side panels"
+msgstr "Sivupaneelit"
+
 msgid "Toggle side panel"
 msgstr "Sivupaneeli päälle/pois"
+
+msgid "Minimap"
+msgstr "Pienoiskartta"
 
 msgid "Page Locale: "
 msgstr "Sivun maa-asetus:"
@@ -1398,6 +1438,9 @@ msgstr "Sivun näkyvyys:"
 msgid "Not visible to the public"
 msgstr "Ei näkyvissä julkisesti"
 
+msgid "Choose who can view the live version of this page"
+msgstr "Valitse ketkä voivat nähdä tämän sivun liveversion"
+
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
@@ -1409,6 +1452,12 @@ msgstr "Sivun tila:"
 msgid "Status: "
 msgstr "Tila:"
 
+msgid "Expiry:"
+msgstr "Vanheneminen:"
+
+msgid "Edit schedule"
+msgstr "Muokkaa ajastusta"
+
 msgid "In Moderation"
 msgstr "Tarkastatettavana"
 
@@ -1417,6 +1466,18 @@ msgstr "Näytä tiedot"
 
 msgid "View history"
 msgstr "Näytä historia"
+
+msgid "Go-live:"
+msgstr "Siirry liveksi:"
+
+msgid "Once published:"
+msgstr "Kun julkaistu:"
+
+msgid "No publishing schedule set"
+msgstr "Julkaisuajastusta ei ole asetettu"
+
+msgid "Set schedule"
+msgstr "Aseta ajastus"
 
 msgid "Preview in mobile size"
 msgstr "Esikatsele mobiiliversiona"
@@ -1435,6 +1496,12 @@ msgstr "Ladataan"
 
 msgid "Preview is out of date"
 msgstr "Esikatselu ei ole ajan tasalla"
+
+msgid "Preview mode"
+msgstr "Esikatselutila"
+
+msgid "First published "
+msgstr "Ensin julkaistu"
 
 msgid "Errors Count: "
 msgstr "Virheiden määrä:"
@@ -1626,8 +1693,8 @@ msgstr "Näytä lisää massatoimintoja"
 msgid "0 minutes"
 msgstr "0 minuuttia"
 
-msgid "Just now"
-msgstr "Juuri nyt"
+msgid "just now"
+msgstr "juuri nyt"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1693,16 +1760,28 @@ msgstr "Kokoelma '{0}' poistettu."
 msgid "Are you sure you want to delete this collection?"
 msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
+#, python-format
+msgid "Search %(model_name)s"
+msgstr "Etsi %(model_name)s"
+
 #, python-brace-format
-msgid "'{0}' has been created and published."
-msgstr "'{0}' on luotu ja julkaistu."
+msgid "'{0}' created and scheduled for publishing."
+msgstr "'{0}' luotu ja ajastettu julkaistavaksi."
+
+#, python-brace-format
+msgid "'{0}' created and published."
+msgstr "'{0}' luotu ja julkaistu."
 
 msgid "Editing"
 msgstr "Muokataan"
 
 #, python-brace-format
-msgid "'{0}' has been published."
-msgstr "'{0}' on julkaistu."
+msgid "'{0}' updated and scheduled for publishing."
+msgstr "'{0}' päivitetty ja ajastettu julkaistavaksi."
+
+#, python-brace-format
+msgid "'{0}' updated and published."
+msgstr "'{0}' päivitetty ja julkaistu."
 
 msgid "Earliest"
 msgstr "Aikaisin"
@@ -1794,6 +1873,14 @@ msgid "Page '{0}' has been updated."
 msgstr "Sivu '{0}' päivitetty."
 
 #, python-brace-format
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Työnkulku sivulla '{0}' on peruttu."
+
+#, python-brace-format
+msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgstr "Sivu '{0}' on livenä ja tämä versio on ajastettu julkaistavaksi."
+
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
@@ -1854,10 +1941,6 @@ msgstr ""
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sivu '{0}' siirretty."
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "sivun \"{1}\" revisio {0}"
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
@@ -1966,6 +2049,9 @@ msgstr "Tehtävä '{0}' poistettu käytöstä."
 msgid "Task '{0}' enabled."
 msgstr "Tehtävä '{0}' otettu käyttöön."
 
+msgid "Choose another"
+msgstr "Valitse toinen"
+
 msgid "Pages"
 msgstr "Sivut"
 
@@ -2046,11 +2132,15 @@ msgstr "Yliviivattu"
 msgid "Code"
 msgstr "Koodi"
 
-msgid "Locked Pages"
-msgstr "Lukitut sivut"
-
 msgid "Reports"
 msgstr "Raportit"
+
+#, python-brace-format
+msgid "What's new in Wagtail {version}"
+msgstr "Mitä uutta Wagtail {version} sisältää"
+
+msgid "Help"
+msgstr "Tuki"
 
 msgid "Yes"
 msgstr "Kyllä"

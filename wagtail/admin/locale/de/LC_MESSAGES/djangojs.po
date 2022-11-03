@@ -9,7 +9,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
 # aw.wunderweiss, 2022
-# oliverengel <codeangel@posteo.de>, 2022
+# Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2022
 # th3hamm0r <stefan@hammerworxx.com>, 2022
 #
@@ -20,6 +20,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "({number} new items in this menu)"
+msgstr "({number} neue Elemente in diesem Menü)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 neues Element in diesem Menü)"
+
+msgid "(New)"
+msgstr "(Neu)"
+
+msgid "{num} error"
+msgid_plural "{num} errors"
+msgstr[0] "{num} Fehler"
+msgstr[1] "{num} Fehler"
 
 msgid "Add a comment"
 msgstr "Einen Kommentar hinzufügen"
@@ -44,6 +58,9 @@ msgstr "Zeichenanzahl:"
 
 msgid "Close"
 msgstr "Schließen"
+
+msgid "Collapse all"
+msgstr "Alle einklappen"
 
 msgid "Comment"
 msgstr "Kommentar"
@@ -80,6 +97,9 @@ msgstr "Geben Sie Ihre Antwort ein..."
 
 msgid "Error while sending preview data."
 msgstr "Fehler beim Senden der Vorschaudaten."
+
+msgid "Expand all"
+msgstr "Alle ausklappen"
 
 msgid "Focus comment"
 msgstr "Kommentar fokussieren"
@@ -189,6 +209,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
+
+msgid "Toggle side panel"
+msgstr "Seitenleiste ein-/ausblenden"
 
 msgid "Toggle sidebar"
 msgstr "Seitenleiste ein-/ausblenden"

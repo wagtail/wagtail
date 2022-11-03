@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -123,8 +123,14 @@ msgstr "过期日期/时间"
 msgid "expired"
 msgstr "已过期"
 
+msgid "scheduled"
+msgstr "已计划"
+
 msgid "draft"
 msgstr "草稿"
+
+msgid "live + scheduled"
+msgstr "在用 + 已计划"
 
 msgid "live + draft"
 msgstr "发布+草稿"
@@ -193,14 +199,8 @@ msgstr "最近修订版本创建于"
 msgid "This slug is already in use"
 msgstr "此缩略名已被使用"
 
-msgid "scheduled"
-msgstr "已计划"
-
 msgid "in moderation"
 msgstr "审核中"
-
-msgid "live + scheduled"
-msgstr "在用 + 已计划"
 
 msgid "live + in moderation"
 msgstr "发布+审核中"

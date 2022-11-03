@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
 "<rmsolucoeseminformatica@protonmail.com>, 2022\n"
@@ -416,19 +416,6 @@ msgstr "O grupo não pôde ser salvo por conter erros."
 msgid "Group '{0}' deleted."
 msgstr "Grupo '{0}' removido."
 
-msgid "Search users"
-msgstr "Buscar usuários"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Usuário '{0}' criado."
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "The user could not be created due to errors."
-msgstr "O usuário não pôde ser criado devido à erros."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Usuário '{0}' atualizado."
@@ -436,9 +423,16 @@ msgstr "Usuário '{0}' atualizado."
 msgid "The user could not be saved due to errors."
 msgstr "O usuário não pôde ser salvo devido à erros."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Editando %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Usuário '{0}' removido."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Edit this user"
 msgstr "Editar este usuário"

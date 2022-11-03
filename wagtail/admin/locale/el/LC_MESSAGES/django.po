@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -157,6 +157,13 @@ msgstr "Διαγραφή συλλογών"
 msgid "You cannot edit another user's comment."
 msgstr "Δεν μπορείτε να επεξεργαστείτε το σχόλιο άλλου χρήστη."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Η live ημερομηνία/ώρα πρέπει να είναι πριν από την ημερομηνία/ώρα λήξης"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
+
 msgid "New title"
 msgstr "Νέος τίτλος"
 
@@ -217,13 +224,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Το slug χρησιμοποιείται"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Η live ημερομηνία/ώρα πρέπει να είναι πριν από την ημερομηνία/ώρα λήξης"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Η ημερομηνία/ώρα λήξης πρέπει να είναι μελλοντική"
-
 msgid "Visibility"
 msgstr "Ορατότητα"
 
@@ -277,9 +277,6 @@ msgstr "Όλα τα αρχεία της λίστας επιλέχθηκαν"
 
 msgid "1 image selected"
 msgstr "1 εικόνα επιλέχθηκε"
-
-msgid "Scheduled publishing"
-msgstr "Προγραμματισμένη δημοσίευση"
 
 msgid "Page title"
 msgstr "Τίτλος σελίδας"
@@ -518,6 +515,9 @@ msgstr "Αλλαγές ζητήθηκαν σε"
 
 msgid "Awaiting"
 msgstr "Αναμονή"
+
+msgid "Close"
+msgstr "Κλείσιμο"
 
 msgid "Awaiting your review"
 msgstr "Αναμονή ανασκόπησης"
@@ -970,9 +970,6 @@ msgstr "Περισσοτερα"
 msgid "0 minutes"
 msgstr "0 λεπτά"
 
-msgid "Just now"
-msgstr "Μόλις τώρα"
-
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "πριν από %(time_period)s"
@@ -1205,9 +1202,6 @@ msgstr "Αναθεώρηση '%(title)s'"
 
 msgid "Add child page"
 msgstr "Προσθήκη σελίδας-παιδί"
-
-msgid "Locked Pages"
-msgstr "Κλειδωμένες σελίδες"
 
 msgid "Reports"
 msgstr "Αναφορές"

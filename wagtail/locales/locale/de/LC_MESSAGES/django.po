@@ -6,16 +6,16 @@
 # Translators:
 # Ettore Atalan <atalanttore@googlemail.com>, 2021
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2021
-# oliverengel <codeangel@posteo.de>, 2021
+# Oliver Engel <codeangel@posteo.de>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>, 2021\n"
+"Last-Translator: Oliver Engel <codeangel@posteo.de>, 2021\n"
 "Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

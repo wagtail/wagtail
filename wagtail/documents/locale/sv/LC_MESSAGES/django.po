@@ -6,13 +6,14 @@
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
+# Thomas Kunambi <kunambi@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +67,12 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokument"
 
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Lägg till tagg till 1 dokument"
+msgstr[1] "Lägg till taggar till %(counter)s dokument"
+
 msgid "Add tags to documents"
 msgstr "Lägg till taggar till dokument"
 
@@ -85,6 +92,12 @@ msgstr "Ja, lägg till"
 msgid "No, don't add"
 msgstr "Nej, lägg inte till"
 
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Lägg till 1 dokument till en kollektion"
+msgstr[1] "Lägg till %(counter)s dokument till ny kollektion"
+
 msgid "Add documents to collection"
 msgstr "Lägg till dokument till samling"
 
@@ -103,6 +116,12 @@ msgid "You don't have permission to add this document to a collection"
 msgid_plural "You don't have permission to add these documents to a collection"
 msgstr[0] "Du saknar rättigheter att lägga till detta dokument till samling"
 msgstr[1] "Du saknar rättigheter att lägga till dessa dokument till samling"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Radera 1 dokument"
+msgstr[1] "Radera %(counter)s dokument"
 
 msgid "Delete documents"
 msgstr "Radera dokument"
@@ -132,11 +151,22 @@ msgstr "Nej, radera inte."
 msgid "Latest documents"
 msgstr "Senaste dokument"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Ledsen, inga dokument matchar \"<em>%(search_query)s</em>\""
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Du har inte laddat upp några dokument i den här samlingen."
 
 msgid "You haven't uploaded any documents."
 msgstr "Du har inte laddat upp några dokument."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>ladda upp en nu</a>?"
 
 msgid "Change document:"
 msgstr "Ändra dokument:"
@@ -198,6 +228,12 @@ msgid "Select document"
 msgstr "Välj dokument"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
+#, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
 
@@ -224,17 +260,19 @@ msgstr "Användning av %(title)s"
 msgid "Usage of"
 msgstr "Användning av"
 
-msgid "Parent"
-msgstr "Topp"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Redigera denna sida"
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> dokument <span class=\"visuallyhidden\">skapade i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> dokument <span class=\"visuallyhidden\">skapade i "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Lägg till flera dokument"
@@ -274,6 +312,9 @@ msgstr "Dokumenträttigheter"
 
 msgid "Add a document permission"
 msgstr "Lägg till en dokumenträttighet"
+
+msgid "Tags"
+msgstr "Taggar"
 
 msgid "Tag"
 msgstr "Tagg"
@@ -343,6 +384,14 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' borttaget."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Privat %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Redigera %s"
 
 msgid "Document"
 msgstr "Dokument"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2021\n"
 "Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
@@ -138,6 +138,12 @@ msgstr "সংগ্রহ মুছে দিন"
 msgid "You cannot edit another user's comment."
 msgstr "আপনি অন্য ব্যবহারকারীর মন্তব্য সম্পাদনা করতে পারবেন না।"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "লাইভ তারিখ/সময় মেয়াদ শেষ হওয়ার তারিখ/সময়ের আগে হতে হবে"
+
+msgid "Expiry date/time must be in the future"
+msgstr "মেয়াদ শেষ হওয়ার তারিখ/সময় ভবিষ্যতে হতে হবে"
+
 msgid "New title"
 msgstr "নতুন শিরোনাম"
 
@@ -173,15 +179,6 @@ msgstr "সাব পেজ কপি করার সময় আপনি এ
 
 msgid "This slug is already in use"
 msgstr "এই স্লাগ ইতিমধ্যে ব্যবহার করা হয়"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "লাইভ তারিখ/সময় মেয়াদ শেষ হওয়ার তারিখ/সময়ের আগে হতে হবে"
-
-msgid "Expiry date/time must be in the future"
-msgstr "মেয়াদ শেষ হওয়ার তারিখ/সময় ভবিষ্যতে হতে হবে"
-
-msgid "Scheduled publishing"
-msgstr "নির্ধারিত প্রকাশনা"
 
 msgid "For search engines"
 msgstr "সার্চ ইঞ্জিনের জন্য"

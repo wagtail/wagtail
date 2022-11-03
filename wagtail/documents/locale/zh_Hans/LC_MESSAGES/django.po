@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017-2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -221,18 +221,6 @@ msgstr "%(title)s的使用情况"
 msgid "Usage of"
 msgstr "使用情况"
 
-msgid "Parent"
-msgstr "上一级"
-
-msgid "Type"
-msgstr "类型"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Edit this page"
-msgstr "编辑此页面"
-
 msgid "Add multiple documents"
 msgstr "添加多个文档"
 
@@ -338,6 +326,10 @@ msgstr "无法找到文件。请修改源或者删除文档。"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "编辑这个 %s"
 
 msgid "Document"
 msgstr "文档"

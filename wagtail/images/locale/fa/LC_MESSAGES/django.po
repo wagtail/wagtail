@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -293,18 +293,6 @@ msgstr "استفاده از"
 msgid "Title"
 msgstr "عنوان"
 
-msgid "Parent"
-msgstr "والد"
-
-msgid "Type"
-msgstr "نوع"
-
-msgid "Status"
-msgstr "وضعیت"
-
-msgid "Edit this page"
-msgstr "ویرایش این صفحه"
-
 msgid "Add multiple images"
 msgstr "افزودن چند تصویر"
 
@@ -401,6 +389,10 @@ msgstr "تصویر '{0}' اضافه شد."
 
 msgid "The image could not be created due to errors."
 msgstr "به دلیل بروز خطا تصویر ایجاد نشد."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "ویرایش این %s"
 
 msgid "Image"
 msgstr "تصویر"

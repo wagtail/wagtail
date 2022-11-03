@@ -12,6 +12,15 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "({number} new items in this menu)"
+msgstr "({number} új elem ebben a menüben)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 új elem ebben a menüben)"
+
+msgid "(New)"
+msgstr "(Új)"
+
 msgid "Add a comment"
 msgstr "Megjegyzés hozzáadása"
 
@@ -35,6 +44,9 @@ msgstr "Karakterszám:"
 
 msgid "Close"
 msgstr "Bezár"
+
+msgid "Collapse all"
+msgstr "Összes becsukása"
 
 msgid "Comment"
 msgstr "Megjegyzés"
@@ -71,6 +83,9 @@ msgstr "Kérjük adja meg válaszát..."
 
 msgid "Error while sending preview data."
 msgstr "Hiba történt az előnézet közben."
+
+msgid "Expand all"
+msgstr "Összes kinyitása"
 
 msgid "Focus comment"
 msgstr "Megjegyzés fókuszba állítása"
@@ -178,6 +193,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
+
+msgid "Toggle side panel"
+msgstr "Oldalsáv kapcsolása"
 
 msgid "Toggle sidebar"
 msgstr "Oldalsáv kapcsolása"

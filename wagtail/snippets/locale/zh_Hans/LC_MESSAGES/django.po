@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2018-2019,2021\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -78,6 +78,9 @@ msgstr "是的，删除"
 msgid "No, don't delete"
 msgstr "否，不删除"
 
+msgid "Usage"
+msgstr "使用情况"
+
 msgid "Last updated"
 msgstr "最后更新"
 
@@ -108,9 +111,6 @@ msgstr "新增"
 
 msgid "Actions"
 msgstr "动作"
-
-msgid "Usage"
-msgstr "使用情况"
 
 msgid "Toggle breadcrumbs"
 msgstr "面包屑开关"
@@ -156,17 +156,8 @@ msgstr "与上一个版本进行比较"
 msgid "Compare with current version"
 msgstr "与当前版本进行比较"
 
-msgid "Live"
-msgstr "发布"
-
-msgid "Draft"
-msgstr "草稿"
-
-msgid "View history"
-msgstr "查看历史"
-
-msgid "This will publish at "
-msgstr "将发布于"
+msgid "Cancel scheduled publish"
+msgstr "取消预定的发布"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -185,18 +176,6 @@ msgstr "使用情况"
 
 msgid "Title"
 msgstr "标题"
-
-msgid "Parent"
-msgstr "父节点"
-
-msgid "Type"
-msgstr "类型"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Edit this page"
-msgstr "编辑此页面"
 
 msgid "Choose"
 msgstr "选择"
@@ -218,14 +197,21 @@ msgstr "无法保存片段，出现错误。"
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' 已更新。"
 
+#, python-format
+msgid "Edit this %s"
+msgstr "编辑这个 %s"
+
+msgid "Action"
+msgstr "行为"
+
+msgid "User"
+msgstr "用户"
+
 msgid "Date"
 msgstr "日期"
 
 msgid "Snippet history"
 msgstr "片段历史记录"
-
-msgid "Action"
-msgstr "行为"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -242,7 +228,3 @@ msgstr "选择 %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "选择另一个 %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "编辑这个 %s"

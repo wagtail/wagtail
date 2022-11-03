@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -369,19 +369,6 @@ msgstr "Nid oedd modd cadw'r grwp oherwydd gwallau."
 msgid "Group '{0}' deleted."
 msgstr "Grwp '{0}' wedi'i dileu."
 
-msgid "Search users"
-msgstr "Chwilio defnyddwyr"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Defnyddiwr '{0}' wedi'i creu."
-
-msgid "Edit"
-msgstr "Golygu"
-
-msgid "The user could not be created due to errors."
-msgstr "Nid oedd modd creu'r defnyddiwr oherwydd gwallau."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Defnyddiwr '{0}' wedi'i diweddaru."
@@ -389,9 +376,16 @@ msgstr "Defnyddiwr '{0}' wedi'i diweddaru."
 msgid "The user could not be saved due to errors."
 msgstr "Nid oedd modd cadw'r defnyddiwr oherwydd gwallau."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Golygu %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Defnyddiwr '{0}' wedi'i dileu."
+
+msgid "Edit"
+msgstr "Golygu"
 
 msgid "Edit this user"
 msgstr "Golygu'r defnyddiwr hon"

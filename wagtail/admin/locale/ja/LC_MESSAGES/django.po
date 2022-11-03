@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hiroki Sawano, 2021\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -152,6 +152,12 @@ msgstr "コレクションを削除"
 msgid "You cannot edit another user's comment."
 msgstr "他ユーザーのコメントは編集できません。"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "公開予定日は削除予定日よりも前に設定されていなければなりません。"
+
+msgid "Expiry date/time must be in the future"
+msgstr "削除予定日を過ぎています。"
+
 msgid "New title"
 msgstr "新規タイトル"
 
@@ -210,12 +216,6 @@ msgstr "サブページをコピーするとき、それ自身にコピーする
 msgid "This slug is already in use"
 msgstr "このスラッグはすでに使われています"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "公開予定日は削除予定日よりも前に設定されていなければなりません。"
-
-msgid "Expiry date/time must be in the future"
-msgstr "削除予定日を過ぎています。"
-
 msgid "Visibility"
 msgstr "可視性"
 
@@ -243,9 +243,6 @@ msgstr "ワークフローにタスクを追加"
 
 msgid "Task"
 msgstr "タスク"
-
-msgid "Scheduled publishing"
-msgstr "予定公開日"
 
 msgid "Page title"
 msgstr "ページタイトル"
@@ -529,6 +526,9 @@ msgstr "修正依頼"
 
 msgid "Awaiting"
 msgstr "待機中"
+
+msgid "Close"
+msgstr "閉じる"
 
 msgid "Awaiting your review"
 msgstr "あなたのレビューの待機中"
@@ -839,22 +839,6 @@ msgstr "履歴"
 msgid "Cancel scheduled publish"
 msgstr "予定された公開を取り消す"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)sのリビジョン%(revision.id)sのスケジュールを解除"
-
-msgid "Unschedule"
-msgstr "予定外"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "この改定を予定外のものにしますか？"
-
-msgid "Yes, unschedule"
-msgstr "はい、予定外です"
-
-msgid "No, don't unschedule"
-msgstr "いいえ、予定外にしないです"
-
 msgid "Page types"
 msgstr "ページタイプ"
 
@@ -954,6 +938,22 @@ msgstr "ライブページを訪れる。"
 
 msgid "Current page status:"
 msgstr "現在のページ状況："
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)sのリビジョン%(revision.id)sのスケジュールを解除"
+
+msgid "Unschedule"
+msgstr "予定外"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "この改定を予定外のものにしますか？"
+
+msgid "Yes, unschedule"
+msgstr "はい、予定外です"
+
+msgid "No, don't unschedule"
+msgstr "いいえ、予定外にしないです"
 
 msgid "Other searches"
 msgstr "他の検索結果"
@@ -1157,10 +1157,6 @@ msgid "Page '{0}' moved."
 msgstr "ページ：'{0}' が除去されました。"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "\"{1}\"のリビジョン{0}"
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
 
@@ -1245,9 +1241,6 @@ msgstr "取り消し線"
 
 msgid "Code"
 msgstr "コード"
-
-msgid "Locked Pages"
-msgstr "ロックされたページ"
 
 msgid "Reports"
 msgstr "レポート"

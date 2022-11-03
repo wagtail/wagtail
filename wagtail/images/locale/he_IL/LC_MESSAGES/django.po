@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -146,18 +146,6 @@ msgstr "שימוש ב:"
 msgid "Title"
 msgstr "כותרת"
 
-msgid "Parent"
-msgstr "הורה"
-
-msgid "Type"
-msgstr "סוג"
-
-msgid "Status"
-msgstr "מצב "
-
-msgid "Edit this page"
-msgstr "עריכת עמוד זה"
-
 msgid "Add multiple images"
 msgstr "הוספת מספר תמונות"
 
@@ -227,3 +215,7 @@ msgstr "תמונה '{0}' הוספה"
 
 msgid "The image could not be created due to errors."
 msgstr "לא ניתן ליצור את התמונה עקב שגיאות "
+
+#, python-format
+msgid "Edit this %s"
+msgstr "ערוך את %s זה"

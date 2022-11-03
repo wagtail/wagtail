@@ -3,7 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrej, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: andrej55 <andrej.marsetic@gmail.com>, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +66,9 @@ msgstr "Ta blok nima možnosti."
 msgid "This field is required."
 msgstr "Polje je obvezno."
 
+msgid "Wagtail routablepage"
+msgstr "Wagtail usmerjevalna stran"
+
 msgid "Wagtail sitemaps"
 msgstr "Zemljevidi strani Wagtail"
 
@@ -77,8 +81,14 @@ msgstr "Geslo, ki ste ga vnesli, ni pravilno. Prosim poskusite ponovno."
 msgid "Comment"
 msgstr "Komentar"
 
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Stran '{}' je zaklenjena</b>."
+
 msgid "This page is currently awaiting moderation."
 msgstr "Ta stran trenutno čaka na moderiranje."
+
+msgid "latest revision"
+msgstr "zadnja revizija"
 
 msgid "live"
 msgstr "v živo"
@@ -87,7 +97,7 @@ msgid "has unpublished changes"
 msgstr "ima neobjavljene spremebe"
 
 msgid "first published at"
-msgstr "datum prve objave"
+msgstr "prvič objavljeno ob"
 
 msgid "last published at"
 msgstr "nazadnje objavljeno ob"
@@ -104,8 +114,14 @@ msgstr "datum poteka objave"
 msgid "expired"
 msgstr "pretečeno"
 
+msgid "scheduled"
+msgstr "načrtovana"
+
 msgid "draft"
 msgstr "osnutek"
+
+msgid "live + scheduled"
+msgstr "objavljeno + po urniku"
 
 msgid "live + draft"
 msgstr "objavljeno + osnutek"
@@ -180,14 +196,8 @@ msgstr "zadnja različica ustvarjena"
 msgid "This slug is already in use"
 msgstr "Ključ je že v uporabi"
 
-msgid "scheduled"
-msgstr "načrtovana"
-
 msgid "in moderation"
 msgstr "v pregledu"
-
-msgid "live + scheduled"
-msgstr "objavljeno + po urniku"
 
 msgid "live + in moderation"
 msgstr "objavljeno + v pregledu"
@@ -197,6 +207,9 @@ msgstr "stran"
 
 msgid "pages"
 msgstr "strani"
+
+msgid "object id"
+msgstr "id objekta"
 
 msgid "submitted for moderation"
 msgstr "oddano v potrditev"
@@ -212,6 +225,12 @@ msgstr "JSON vsebina"
 
 msgid "approved go live at"
 msgstr "potrjeno, objava"
+
+msgid "revision"
+msgstr "revizija"
+
+msgid "revisions"
+msgstr "revizije"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi strani v vaši lasti"
@@ -285,8 +304,23 @@ msgstr "delovni potek"
 msgid "groups"
 msgstr "skupine"
 
+msgid "Request changes"
+msgstr "Zahtevajte spremembe"
+
 msgid "Approve"
 msgstr "Potrdi"
+
+msgid "Approve with comment"
+msgstr "Odobri s komentarjem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Člani izbranih skupin Wagtail lahko odobrijo to nalogo"
+
+msgid "Group approval task"
+msgstr "Naloga skupinske odobritve"
+
+msgid "Group approval tasks"
+msgstr "Naloge skupinske odobritve"
 
 msgid "In progress"
 msgstr "V teku"
@@ -302,6 +336,9 @@ msgstr "Preklicano"
 
 msgid "status"
 msgstr "status"
+
+msgid "requested by"
+msgstr "zahtevano od"
 
 msgid "Not started"
 msgstr "Ni začeto"
@@ -324,8 +361,32 @@ msgstr "zaključeno ob"
 msgid "finished by"
 msgstr "zaključil"
 
+msgid "Task state"
+msgstr "Stanje naloge"
+
+msgid "Task states"
+msgstr "Stanja naloge"
+
+msgid "page log entry"
+msgstr "vnos v dnevnik strani"
+
+msgid "page log entries"
+msgstr "vnosi v dnevnik strani"
+
 msgid "Draft saved"
 msgstr "Osnutek je shranjen"
+
+msgid "comment"
+msgstr "komentar"
+
+msgid "comments"
+msgstr "komentarji"
+
+msgid "comment reply"
+msgstr "komentar odgovor"
+
+msgid "comment replies"
+msgstr "odgovori na komentarje"
 
 msgid "timestamp (UTC)"
 msgstr "časovni žig (UTC)"
@@ -355,6 +416,9 @@ msgstr "zbirke"
 
 msgid "permission"
 msgstr "dovoljenje"
+
+msgid "group collection permission"
+msgstr "dovoljenje za skupinsko zbiranje"
 
 msgid "hostname"
 msgstr "ime strežnika"
@@ -415,6 +479,12 @@ msgstr "Zasebno, dostopno uporabnikom iz določenih skupin"
 msgid "password"
 msgstr "geslo"
 
+msgid "view restriction"
+msgstr "omejitev pogleda"
+
+msgid "view restrictions"
+msgstr "omejitve pogleda"
+
 msgid "Log in"
 msgstr "Prijava"
 
@@ -464,6 +534,12 @@ msgstr "Umakni iz objave"
 msgid "Unpublished"
 msgstr "Neobjavljeno"
 
+msgid "Unpublish scheduled draft"
+msgstr "Prekliči objavo načrtovanega osnutka"
+
+msgid "Unpublished scheduled draft"
+msgstr "Neobjavljeni načrtovani osnutek"
+
 msgid "Locked"
 msgstr "Zaklenjeno"
 
@@ -481,6 +557,9 @@ msgstr "Preimenovano"
 
 msgid "Revert"
 msgstr "Povrni"
+
+msgid "Reverted to previous revision"
+msgstr "Povrnjeno na prejšnjo revizijo"
 
 msgid "Copy"
 msgstr "Kopiraj"
@@ -501,6 +580,16 @@ msgstr "Kopirano za prevod iz %(title)s (%(locale)s)"
 
 msgid "Copied for translation"
 msgstr "Kopirano za prevod"
+
+msgid "Create alias"
+msgstr "Ustvari vzdevek"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Ustvaril vzdevek za %(title)s"
+
+msgid "Created an alias"
+msgstr "Ustvaril vzdevek"
 
 msgid "Move"
 msgstr "Premakni"
@@ -528,6 +617,9 @@ msgstr "Načrtovana objava strani odstranjena"
 
 msgid "Add view restrictions"
 msgstr "Dodajte omejitve za ogled"
+
+msgid "Added view restriction"
+msgstr "Dodana omejitev pogleda"
 
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
@@ -557,6 +649,15 @@ msgstr "Izbrisal komentar"
 msgid "Resolve comment"
 msgstr "Rešite komentar"
 
+msgid "Resolved a comment"
+msgstr "Razrešen komentar"
+
+msgid "Reply to comment"
+msgstr "Odgovorite na komentar"
+
+msgid "Replied to a comment"
+msgstr "Odgovoril na komentar"
+
 msgid "Edit reply to comment"
 msgstr "Uredi odgovor na komentar"
 
@@ -565,3 +666,9 @@ msgstr "Uredil odgovor"
 
 msgid "Delete reply to comment"
 msgstr "Izbriši odgovor na komentar"
+
+msgid "Deleted a reply"
+msgstr "Izbrisal odgovor"
+
+msgid "Workflow: start"
+msgstr "Potek dela: začetek"

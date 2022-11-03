@@ -5,6 +5,7 @@
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Storm Heg <storm@stormbase.digital>, 2021-2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -105,6 +106,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">Voeg er nu eentje toe!</a>"
 
+msgid "Usage"
+msgstr "Gebruik"
+
 msgid "Last updated"
 msgstr "Laatst bijgewerkt"
 
@@ -142,9 +146,6 @@ msgstr "Acties"
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Wijzigen: %(snippet_type_name)s - %(object)s "
-
-msgid "Usage"
-msgstr "Gebruik"
 
 msgid "Toggle breadcrumbs"
 msgstr "Toon/verberg kruimelpad"
@@ -211,20 +212,8 @@ msgstr "Vergelijk met vorige versie"
 msgid "Compare with current version"
 msgstr "Vergelijk met huidige versie"
 
-msgid "Status: "
-msgstr "Status:"
-
-msgid "Live"
-msgstr "Openbaar"
-
-msgid "Draft"
-msgstr "Concept"
-
-msgid "View history"
-msgstr "Bekijk historie"
-
-msgid "This will publish at "
-msgstr "Zal gepubliceerd worden op"
+msgid "Cancel scheduled publish"
+msgstr "Cancel geplande publicatie"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -232,7 +221,7 @@ msgstr "Snippets %(snippet_type_name_plural)s"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
-msgstr "Voeg toe %(snippet_type_name)s"
+msgstr "Voeg %(snippet_type_name)s toe"
 
 msgid "Select all snippets in listing"
 msgstr "Selecteer alle snippets in lijst"
@@ -246,18 +235,6 @@ msgstr "Gebruik van"
 
 msgid "Title"
 msgstr "Titel"
-
-msgid "Parent"
-msgstr "Bovenliggende"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Wijzig deze pagina"
 
 msgid "Choose"
 msgstr "Kies"
@@ -279,6 +256,11 @@ msgstr "%(snippet_type)s '%(instance)s' aangemaakt."
 msgid "%(snippet_type)s '%(instance)s' created and published."
 msgstr "%(snippet_type)s '%(instance)s' aangemaakt en gepubliceerd."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+msgstr ""
+"%(snippet_type)s '%(instance)s' is aangemaakt en gepland om live te gaan."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "De snippet kon niet worden opgeslagen door fouten."
 
@@ -290,14 +272,37 @@ msgstr "%(snippet_type)s '%(instance)s' gewijzigd."
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr "%(snippet_type)s '%(instance)s' gewijzigd en gepubliceerd."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+msgstr "%(snippet_type)s '%(instance)s' is ingepland voor publicatie."
+
+#, python-format
+msgid ""
+"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
+"for publishing."
+msgstr ""
+"%(snippet_type)s '%(instance)s' is live en deze versie is gepland voor "
+"publicatie."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Privé %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Wijzig %s"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "User"
+msgstr "Gebruiker"
+
 msgid "Date"
 msgstr "Datum"
 
 msgid "Snippet history"
 msgstr "Snippet geschiedenis"
-
-msgid "Action"
-msgstr "Actie"
 
 #, python-brace-format
 msgid "Edit this {model_name}"
@@ -322,7 +327,3 @@ msgstr "Kies %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Kies een andere %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Wijzig %s"

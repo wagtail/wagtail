@@ -4,18 +4,19 @@
 #
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
-# ChihWei Wang <ihcgno@icloud.com>, 2022
-# ChihWei Wang <ihcgno@icloud.com>, 2019
-# ChihWei Wang <ihcgno@icloud.com>, 2020-2021
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2019
+# Chih Wang <ihcgno@icloud.com>, 2020-2021
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2022\n"
+"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2022\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +146,12 @@ msgstr "刪除集合"
 msgid "You cannot edit another user's comment."
 msgstr "無法編輯其它使用者的評論"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "上線時間須早於截止期限"
+
+msgid "Expiry date/time must be in the future"
+msgstr "過期日期/時間必須是未來時間。"
+
 msgid "New title"
 msgstr "新增標題"
 
@@ -200,12 +207,6 @@ msgstr "你在複製子頁面時不能複製當前頁面本身"
 
 msgid "This slug is already in use"
 msgstr "此短標題已被使用"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "上線時間須早於截止期限"
-
-msgid "Expiry date/time must be in the future"
-msgstr "過期日期/時間必須是未來時間。"
 
 msgid "Visibility"
 msgstr "可見"
@@ -305,8 +306,8 @@ msgstr "已選擇顯示範圍內所有 {0} 個項目"
 msgid "All items in listing selected"
 msgstr "已選擇列表中的所有項目"
 
-msgid "Scheduled publishing"
-msgstr "定時發佈"
+msgid "Page title"
+msgstr "頁面標題"
 
 msgid "Content"
 msgstr "內容"
@@ -572,6 +573,9 @@ msgstr "作業開始"
 msgid "Awaiting"
 msgstr "等待中"
 
+msgid "Close"
+msgstr "關閉"
+
 msgid "Awaiting your review"
 msgstr "待審中"
 
@@ -814,6 +818,25 @@ msgstr "移動"
 msgid "Are you sure you want to move these pages?"
 msgstr "確定要搬移這些頁面？"
 
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "沒有移動這些頁面的權限"
+
+msgid "Yes, move these pages"
+msgstr "確認移動頁面"
+
+msgid "No, don't move"
+msgstr "取消移動"
+
+msgid "Yes, publish"
+msgstr "確認發佈"
+
+msgid "No, don't publish"
+msgstr "取消發佈"
+
+msgid "Yes, unpublish"
+msgstr "確認取消發佈"
+
 msgid "No, don't unpublish"
 msgstr "否，不取消發佈"
 
@@ -1028,22 +1051,6 @@ msgstr "與目前版本進行比較"
 msgid "Cancel scheduled publish"
 msgstr "取消預定的發佈"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
-
-msgid "Unschedule"
-msgstr "取消預定發佈"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "確定要取消這個修訂版本的預定發佈嗎？"
-
-msgid "Yes, unschedule"
-msgstr "是的，取消定時發佈"
-
-msgid "No, don't unschedule"
-msgstr "否，不取消預定發佈"
-
 msgid "Page types"
 msgstr "頁面類型"
 
@@ -1106,6 +1113,12 @@ msgstr "上移"
 msgid "Move down"
 msgstr "下移"
 
+msgid "Save schedule"
+msgstr "儲存排程"
+
+msgid "Last published"
+msgstr "最後發佈"
+
 msgid "Download XLSX"
 msgstr "下載 XLSX"
 
@@ -1147,6 +1160,9 @@ msgstr "取消發佈%(title)s"
 msgid "Yes, unpublish it"
 msgstr "是，取消發佈"
 
+msgid "Close dialog"
+msgstr "關閉對話框"
+
 msgid "Add comment"
 msgstr "新增評論"
 
@@ -1162,11 +1178,45 @@ msgstr "查看線上頁面"
 msgid "Current page status:"
 msgstr "目前頁面狀態："
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
+
+msgid "Unschedule"
+msgstr "取消預定發佈"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "確定要取消這個修訂版本的預定發佈嗎？"
+
+msgid "Yes, unschedule"
+msgstr "是的，取消定時發佈"
+
+msgid "No, don't unschedule"
+msgstr "否，不取消預定發佈"
+
 msgid "Other searches"
 msgstr "其它搜索"
 
+msgid "Page Locale: "
+msgstr "頁面語系："
+
+msgid "Locale: "
+msgstr "語系："
+
+msgid "Switch locales"
+msgstr "切換語系"
+
+msgid "Page locking: "
+msgstr "頁面鎖定："
+
+msgid "You cannot edit this page."
+msgstr "無法編輯此頁面"
+
 msgid "Unlocked"
 msgstr "已解鎖"
+
+msgid "Anyone can edit this page."
+msgstr "所有人皆可編輯此頁面"
 
 msgid "Lock"
 msgstr "鎖定"
@@ -1174,11 +1224,35 @@ msgstr "鎖定"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "隱蔽設置也會套用至所有子頁面。"
 
+msgid "Page status: "
+msgstr "頁面狀態："
+
+msgid "Status: "
+msgstr "狀態："
+
+msgid "Edit schedule"
+msgstr "編輯排程"
+
 msgid "View details"
 msgstr "檢視詳細資料"
 
 msgid "View history"
 msgstr "檢視歷史"
+
+msgid "Set schedule"
+msgstr "設定排程"
+
+msgid "Loading"
+msgstr "載入中..."
+
+msgid "Preview mode"
+msgstr "預覧模式"
+
+msgid "First published "
+msgstr "首次發佈"
+
+msgid "Skip to main content"
+msgstr "略過至主要內容"
 
 msgid "Add a child page"
 msgstr "新增子頁面"
@@ -1318,6 +1392,12 @@ msgstr "切換預覽"
 msgid "Notifications"
 msgstr "通知"
 
+msgid "Name and Email"
+msgstr "姓名與電子郵件"
+
+msgid "Locale"
+msgstr "語系"
+
 msgid "Password"
 msgstr "密碼"
 
@@ -1365,6 +1445,12 @@ msgstr "最近的"
 
 msgid "Dashboard"
 msgstr "控制面板"
+
+msgid "Delete selected pages"
+msgstr "刪除選取頁面"
+
+msgid "Move selected pages"
+msgstr "移動選取頁面"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1436,6 +1522,9 @@ msgstr "頁面已被鎖定，無法儲存。"
 msgid "The page could not be saved due to validation errors"
 msgstr "驗證錯誤，無法儲存頁面。"
 
+msgid "Hide commenting actions"
+msgstr "隠藏論論動作"
+
 msgid "Page history"
 msgstr "頁面歷史"
 
@@ -1464,10 +1553,6 @@ msgstr "發送駁回通知失敗。"
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "頁面 '{0}' 已移動。"
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr " \"{1}\"的修訂版本{0}"
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
@@ -1576,6 +1661,9 @@ msgstr "已禁用作業 '{0}'"
 msgid "Task '{0}' enabled."
 msgstr "已啟用作業 '{0}'"
 
+msgid "Choose another"
+msgstr "選擇其他"
+
 msgid "Pages"
 msgstr "頁面"
 
@@ -1597,6 +1685,14 @@ msgstr "新增子頁面至 '%(title)s'"
 #, python-format
 msgid "Move page '%(title)s'"
 msgstr "移動頁面 '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "複製頁面 '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "刪除頁面 '%(title)s'"
 
 #, python-format
 msgid "Unpublish page '%(title)s'"
@@ -1639,11 +1735,11 @@ msgstr "刪除線"
 msgid "Code"
 msgstr "程式碼"
 
-msgid "Locked Pages"
-msgstr "已被鎖定頁面"
-
 msgid "Reports"
 msgstr "報表"
+
+msgid "Editor Guide"
+msgstr "編輯指南"
 
 msgid "Yes"
 msgstr "是"

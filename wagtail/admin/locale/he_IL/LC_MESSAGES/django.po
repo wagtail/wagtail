@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Gilad Levi <gilad.x@blobim.com>, 2022\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -133,6 +133,12 @@ msgstr "עריכת אוסף"
 msgid "Delete"
 msgstr "מחק"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
+
+msgid "Expiry date/time must be in the future"
+msgstr "זמן תפוגה חייב להיות בעתיד"
+
 msgid "New title"
 msgstr "כותרת חדשה"
 
@@ -192,17 +198,8 @@ msgstr "הכתובת שבחרת כבר בשימוש בתוך הקונטקסט ש
 msgid "This slug is already in use"
 msgstr "שדה זה כבר בשימוש"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוקף"
-
-msgid "Expiry date/time must be in the future"
-msgstr "זמן תפוגה חייב להיות בעתיד"
-
 msgid "This field is required."
 msgstr "שדה חובה"
-
-msgid "Scheduled publishing"
-msgstr "פרסום מתוזמן"
 
 msgid "Page title"
 msgstr "כותרת העמוד"

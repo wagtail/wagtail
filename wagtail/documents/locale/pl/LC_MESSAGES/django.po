@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -256,18 +256,6 @@ msgstr "Użycie %(title)s"
 msgid "Usage of"
 msgstr "Użycie"
 
-msgid "Parent"
-msgstr "Rodzic"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Edytuj tę stronę"
-
 msgid "Add multiple documents"
 msgstr "Dodaj wiele dokumentów"
 
@@ -360,6 +348,10 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Usunięto dokument '{0}'"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Edytuj ten %s"
 
 msgid "Document"
 msgstr "Dokument"

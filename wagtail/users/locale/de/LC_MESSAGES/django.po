@@ -4,11 +4,11 @@
 #
 # Translators:
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
-# oliverengel <codeangel@posteo.de>, 2022
+# Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
 # Florian Vogt <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
-# oliverengel <codeangel@posteo.de>, 2021
+# Oliver Engel <codeangel@posteo.de>, 2021
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
@@ -415,19 +415,6 @@ msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 msgid "Group '{0}' deleted."
 msgstr "Gruppe ‚{0}‘ gelöscht."
 
-msgid "Search users"
-msgstr "Benutzer suchen"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Benutzer ‚{0}‘ erstellt."
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "The user could not be created due to errors."
-msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Benutzer ‚{0}‘ aktualisiert."
@@ -435,9 +422,16 @@ msgstr "Benutzer ‚{0}‘ aktualisiert."
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Bearbeite %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Benutzer ‚{0}‘ gelöscht."
+
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "Edit this user"
 msgstr "Diesen Benutzer bearbeiten"
