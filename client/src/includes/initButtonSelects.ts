@@ -1,7 +1,7 @@
 /**
  * Initialise button selectors
  */
-function initButtonSelects() {
+ function initButtonSelects() {
     document.querySelectorAll('.button-select').forEach((element) => {
       const inputElement = element.querySelector(
         'input[type="hidden"]',
@@ -26,7 +26,7 @@ function initButtonSelects() {
           });
         });
     });
-}
+  }
   
-export { initButtonSelects };
+  export { initButtonSelects };
   
