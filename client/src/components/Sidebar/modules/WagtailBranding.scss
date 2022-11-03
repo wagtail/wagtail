@@ -25,7 +25,6 @@ $logo-size: 110px;
   transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
     width $menu-transition-duration ease, height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
-  box-sizing: border-box;
   border-radius: 100%;
 
   @include media-breakpoint-up(sm) {
