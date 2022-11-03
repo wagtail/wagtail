@@ -44,6 +44,7 @@ Changelog
  * Maintenance: Remove unnecessary box-sizing: border-box declarations in SCSS (Albina Starykova)
  * Maintenance: Migrated `initTooltips` to TypeScript add JSDoc and unit tests (Fatuma Abdullahi)
  * Maintenance: Migrated `initTagField` from core.js to own TypeScript file and add unit tests (Chisom Okeoma)
+ * Maintenance: Added unit tests & JSDoc to `initDissmisibles` (Yekasumah)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
