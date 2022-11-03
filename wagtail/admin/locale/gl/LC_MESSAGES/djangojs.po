@@ -11,6 +11,20 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "({number} new items in this menu)"
+msgstr "({number} novos elementos neste menú)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 novo elemento neste menu)"
+
+msgid "(New)"
+msgstr "(Novo)"
+
+msgid "{num} error"
+msgid_plural "{num} errors"
+msgstr[0] "{num} erro"
+msgstr[1] "{num} erros"
+
 msgid "Add a comment"
 msgstr "Engadir un comentario"
 
@@ -34,6 +48,9 @@ msgstr "Total de caracteres:"
 
 msgid "Close"
 msgstr "Pechar"
+
+msgid "Collapse all"
+msgstr "Colapsar todo"
 
 msgid "Comment"
 msgstr "Comentario"
@@ -70,6 +87,9 @@ msgstr "Introduce a túa resposta..."
 
 msgid "Error while sending preview data."
 msgstr "Erro mentras se enviaban os datos de previsualización."
+
+msgid "Expand all"
+msgstr "Expandir todo"
 
 msgid "Focus comment"
 msgstr "Enfocar comentario"
@@ -176,6 +196,9 @@ msgstr "O editor acaba de cascar. O contido volveu á ultima versión gardada."
 
 msgid "This field is required."
 msgstr "Este campo é requirido."
+
+msgid "Toggle side panel"
+msgstr "Permutar panel lateral"
 
 msgid "Toggle sidebar"
 msgstr "Permutar barra lateral"

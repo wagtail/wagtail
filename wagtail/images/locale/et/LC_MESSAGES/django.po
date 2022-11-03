@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -286,18 +286,6 @@ msgstr "Kasutamine"
 msgid "Title"
 msgstr "Pealkiri"
 
-msgid "Parent"
-msgstr "Vanem"
-
-msgid "Type"
-msgstr "Tüüp"
-
-msgid "Status"
-msgstr "Staatus"
-
-msgid "Edit this page"
-msgstr "Muutke seda lehte"
-
 msgid "Add multiple images"
 msgstr "Lisage mitu pilti"
 
@@ -380,6 +368,10 @@ msgstr "Pilt '{0}' on lisatud."
 
 msgid "The image could not be created due to errors."
 msgstr "Pilti ei saanud vigade tõttu luua."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Muutke seda %s"
 
 msgid "Image"
 msgstr "Pilt"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -263,18 +263,6 @@ msgstr "%(title)s használata"
 msgid "Usage of"
 msgstr "Használat"
 
-msgid "Parent"
-msgstr "Szülő"
-
-msgid "Type"
-msgstr "Típus"
-
-msgid "Status"
-msgstr "Állapot"
-
-msgid "Edit this page"
-msgstr "Oldal szerkesztése"
-
 #, python-format
 msgid ""
 "<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
@@ -327,6 +315,9 @@ msgstr "Dokumentum engedélyek"
 
 msgid "Add a document permission"
 msgstr "Dokumentum engedély hozzáadása"
+
+msgid "Tags"
+msgstr "Címkék"
 
 msgid "Tag"
 msgstr "Címkézés"
@@ -399,6 +390,14 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' dokumentum törölve."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Privát %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s szerkesztése"
 
 msgid "Document"
 msgstr "Dokumentum"

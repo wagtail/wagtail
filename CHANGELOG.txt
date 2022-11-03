@@ -8,7 +8,12 @@ Changelog
  * Remove unsquashed `testapp` migrations (Matt Westcott)
  * Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
+ * Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
+ * Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
  * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
+ * Mention the importance of passing `request` and `current_site` to `get_url` on the [performance](performance) documentation page (Jake Howard)
+ * Run Python tests with coverage and upload coverage data to codecov (Sage Abdullah)
+ * Clean up duplicate JavaScript for the `escapeHtml` function (Jordan Rob)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
@@ -18,7 +23,7 @@ Changelog
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
 
 
-4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+4.1 LTS (01.11.2022)
 ~~~~~~~~~~~~~~~~~~~~
 
  * New scheduled publishing UI, available from the Status side panel (Sage Abdullah)
@@ -73,6 +78,7 @@ Changelog
  * Add new test assertions to `WagtailPageTestCase` - `assertPageIsRoutable`, `assertPageIsRenderable`, `assertPageIsEditable`, `assertPageIsPreviewable` (Andy Babic)
  * Add documentation to the performance section about how to better create image URLs when not used directly on the page (Jake Howard)
  * Add ability to provide a required `permission` to `PanelGroup`, used by `TabbedInterface`, `ObjectList`, `FieldRowPanel` and `MultiFieldPanel` (Oliver Parker)
+ * Update documentation screenshots of the admin interface to align with changes in this release (Thibaud Colas)
  * Fix: Prevent `PageQuerySet.not_public` from returning all pages when no page restrictions exist (Mehrdad Moradizadeh)
  * Fix: Ensure that duplicate block ids are unique when duplicating stream blocks in the page editor (Joshua Munn)
  * Fix: Revise colour usage so that privacy & locked indicators can be seen in Windows High Contrast mode (LB (Ben Johnston))
@@ -105,6 +111,7 @@ Changelog
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
  * Fix: references extraction for ChooserBlock (Alex Tomkins)
  * Fix: Regression in field width for authentication pages (log in / password reset) (Chisom)
+ * Fix: Ensure the new minimap correctly pluralises error counts for `aria-label`s (Matt Westcott)
 
 
 4.0.4 (18.10.2022)

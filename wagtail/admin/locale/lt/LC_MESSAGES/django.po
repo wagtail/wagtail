@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -140,6 +140,13 @@ msgstr "Ištrinti kolekcijas"
 msgid "You cannot edit another user's comment."
 msgstr "Jūs negalite redaguoti kito vartotojo komentarų."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Veikimo įjungimo data/laikas turi būti prieš galiojimo pabaigos datą/laiką"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
+
 msgid "New title"
 msgstr "Naujas pavadinimas"
 
@@ -209,13 +216,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Šis trumpinys jau naudojamas"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Veikimo įjungimo data/laikas turi būti prieš galiojimo pabaigos datą/laiką"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
-
 msgid "Visibility"
 msgstr "Matomumas"
 
@@ -230,9 +230,6 @@ msgstr "Visi tipai"
 
 msgid "Task"
 msgstr "Užduotis"
-
-msgid "Scheduled publishing"
-msgstr "Publikavimo planavimas"
 
 msgid "For search engines"
 msgstr "Paieškos varikliams"
@@ -532,6 +529,9 @@ msgstr "Užduotis pradėta"
 
 msgid "Awaiting"
 msgstr "Laukiama"
+
+msgid "Close"
+msgstr "Uždaryti"
 
 msgid "Awaiting your review"
 msgstr "Laukia jūsų peržiūros"
@@ -858,22 +858,6 @@ msgstr "Palyginti su dabartine versija"
 msgid "Cancel scheduled publish"
 msgstr "Atšaukti suplanuotą publikavimą"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
-
-msgid "Unschedule"
-msgstr "Neplanuoti"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Ar tikrai norite neplanuoti šios revizijos?"
-
-msgid "Yes, unschedule"
-msgstr "Taip, neplanuoti"
-
-msgid "No, don't unschedule"
-msgstr "Ne, planuoti"
-
 msgid "Page types"
 msgstr "Puslapių tipai"
 
@@ -980,6 +964,22 @@ msgstr "Taikyti filtrus"
 msgid "Current page status:"
 msgstr "Dabartinė puslapio būsena:"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
+
+msgid "Unschedule"
+msgstr "Neplanuoti"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ar tikrai norite neplanuoti šios revizijos?"
+
+msgid "Yes, unschedule"
+msgstr "Taip, neplanuoti"
+
+msgid "No, don't unschedule"
+msgstr "Ne, planuoti"
+
 msgid "Other searches"
 msgstr "Kitos paieškos"
 
@@ -1045,9 +1045,6 @@ msgstr "Peržiūrėti daugiau masinių veiksmų"
 
 msgid "0 minutes"
 msgstr "0 minučių"
-
-msgid "Just now"
-msgstr "Ką tik"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1220,10 +1217,6 @@ msgid "Page '{0}' moved."
 msgstr "Puslapis '{0}' buvo perkeltas."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revizija {0} iš \"{1}\""
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Puslapis '{0}' nebepublikuojamas."
 
@@ -1317,9 +1310,6 @@ msgstr "Pakreiptas"
 
 msgid "Link"
 msgstr "Nuoroda"
-
-msgid "Locked Pages"
-msgstr "Užrakinti puslapiai"
 
 msgid "Reports"
 msgstr "Ataskaitos"

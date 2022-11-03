@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrej, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
 # Lev Predan Kowarski <predan.kowarski@gmail.com>, 2020
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +101,9 @@ msgstr "privzeta vrednost"
 msgid "help text"
 msgstr "besedilo pomoči"
 
+msgid "Submission date"
+msgstr "Datum oddaje"
+
 msgid "Form"
 msgstr "Obrazec"
 
@@ -133,6 +137,15 @@ msgstr "Naziv"
 
 msgid "Origin"
 msgstr "Izvor"
+
+msgid "Total submissions"
+msgstr "Skupaj prispevkov"
+
+msgid "Latest submission"
+msgstr "Najnovejša oddaja"
+
+msgid "No form pages have been created."
+msgstr "Ustvarjena ni bila nobena stran obrazca."
 
 #, python-format
 msgid "Submissions of %(form_title)s"

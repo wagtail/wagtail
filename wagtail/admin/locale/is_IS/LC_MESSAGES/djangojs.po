@@ -1,16 +1,25 @@
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
 # saevarom <saevar@saevar.is>, 2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: saevarom <saevar@saevar.is>, 2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "({number} new items in this menu)"
+msgstr "({number} nýjir hlutir í þessari valmynd)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nýr hlutur í þessari valmynd)"
+
+msgid "(New)"
+msgstr "(Nýtt)"
 
 msgid "Add a comment"
 msgstr "Bæta við athugasemd"
@@ -35,6 +44,9 @@ msgstr "Fjöldi stafa"
 
 msgid "Close"
 msgstr "Loka"
+
+msgid "Collapse all"
+msgstr "Fella allt saman"
 
 msgid "Comment"
 msgstr "Athugasemd"
@@ -71,6 +83,9 @@ msgstr "Sláðu inn svarið þitt..."
 
 msgid "Error while sending preview data."
 msgstr "Villa við forskoðun"
+
+msgid "Expand all"
+msgstr "Opna allt saman"
 
 msgid "Focus comment"
 msgstr "Setja athugasemd í fókus"
@@ -178,6 +193,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Þennan reit þarf að fylla út."
+
+msgid "Toggle side panel"
+msgstr "Sýna/fela hliðarstiku"
 
 msgid "Toggle sidebar"
 msgstr "Hliðarstika af/á"

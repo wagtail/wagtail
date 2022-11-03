@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -154,6 +154,13 @@ msgstr "Esborrar col·leccions"
 msgid "You cannot edit another user's comment."
 msgstr "No podeu editar un comentari d'un altre usuari."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"La data/hora de pas a en viu ha de ser anterior a la data/hora de caducitat."
+
+msgid "Expiry date/time must be in the future"
+msgstr "La data/hora de caducitat ha d'estar en el futur"
+
 msgid "New title"
 msgstr "Nou títol"
 
@@ -217,13 +224,6 @@ msgstr ""
 
 msgid "This slug is already in use"
 msgstr "Aquest llimac ja està en ús"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"La data/hora de pas a en viu ha de ser anterior a la data/hora de caducitat."
-
-msgid "Expiry date/time must be in the future"
-msgstr "La data/hora de caducitat ha d'estar en el futur"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -329,9 +329,6 @@ msgstr "S'ha seleccionat els {0} elements de la pantalla"
 
 msgid "All items in listing selected"
 msgstr "S'ha seleccionat tots els elements del llistat"
-
-msgid "Scheduled publishing"
-msgstr "Planifica la publicació"
 
 msgid "Page title"
 msgstr "Títol de la pàgina"
@@ -639,6 +636,9 @@ msgstr "Canvis sol·licitats el"
 
 msgid "Awaiting"
 msgstr "En espera"
+
+msgid "Close"
+msgstr "Tanca"
 
 msgid "Awaiting your review"
 msgstr "En espera de la vostra revisió"
@@ -1075,15 +1075,6 @@ msgstr "Compara amb la versió actual"
 msgid "Cancel scheduled publish"
 msgstr "Cancel·lar la publicació programada"
 
-msgid "Unschedule"
-msgstr "Desprogramar"
-
-msgid "Yes, unschedule"
-msgstr "Sí, desprogramar"
-
-msgid "No, don't unschedule"
-msgstr "No, no desprogramar"
-
 msgid "Page types"
 msgstr "Tipus de pàgina"
 
@@ -1220,6 +1211,15 @@ msgstr "Aplica els filtres"
 msgid "Visible to all"
 msgstr "Visible per tothom"
 
+msgid "Unschedule"
+msgstr "Desprogramar"
+
+msgid "Yes, unschedule"
+msgstr "Sí, desprogramar"
+
+msgid "No, don't unschedule"
+msgstr "No, no desprogramar"
+
 msgid "Other searches"
 msgstr "Altres cerques"
 
@@ -1338,9 +1338,6 @@ msgstr "Més"
 
 msgid "0 minutes"
 msgstr "0 minuts"
-
-msgid "Just now"
-msgstr "Ara mateix"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1644,9 +1641,6 @@ msgstr "Ratllat"
 
 msgid "Code"
 msgstr "Codi"
-
-msgid "Locked Pages"
-msgstr "Pàgines bloquejades"
 
 msgid "Reports"
 msgstr "Informes"

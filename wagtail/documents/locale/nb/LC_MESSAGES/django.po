@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -164,18 +164,6 @@ msgstr "Bruk av %(title)s"
 msgid "Usage of"
 msgstr "Bruk av"
 
-msgid "Parent"
-msgstr "Forelder"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Rediger denne siden"
-
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"
 
@@ -248,6 +236,10 @@ msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Endre %s"
 
 msgid "Document"
 msgstr "Dokument"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -283,18 +283,6 @@ msgstr "Bruk av"
 msgid "Title"
 msgstr "Tittel"
 
-msgid "Parent"
-msgstr "Forelder"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Rediger denne siden"
-
 msgid "Add multiple images"
 msgstr "Legg til flere bilder"
 
@@ -383,6 +371,10 @@ msgstr "Bildet \"{0}\" er lagt til."
 
 msgid "The image could not be created due to errors."
 msgstr "Bildet kunne ikke opprettes grunnet feil."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Endre %s"
 
 msgid "Image"
 msgstr "Bilde"

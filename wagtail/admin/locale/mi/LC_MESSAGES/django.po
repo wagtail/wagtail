@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -136,6 +136,12 @@ msgstr "Whakarerekē"
 msgid "Delete"
 msgstr "Muku"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Me haere mataora rā/taima i mua te mōnehu rā/taima"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Me haere te mōnehu rā/taima ki roto ī te wāheke."
+
 msgid "New title"
 msgstr "Taitara hou"
 
@@ -206,12 +212,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "E mahi tonu ana tēnei ngata"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Me haere mataora rā/taima i mua te mōnehu rā/taima"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Me haere te mōnehu rā/taima ki roto ī te wāheke."
-
 msgid "Visibility"
 msgstr "Kitenga"
 
@@ -238,9 +238,6 @@ msgstr "Hoatu he ingoa ki to mahi pūheke"
 
 msgid "Add tasks to your workflow"
 msgstr "Tāpiri waitara ki ō mahi pūheke"
-
-msgid "Scheduled publishing"
-msgstr "Hōtaka whakaputaputa"
 
 msgid "Content"
 msgstr "Rārangi take"
@@ -434,6 +431,9 @@ msgstr "Rā"
 
 msgid "Site summary"
 msgstr "Te pae whakarāpopototanga"
+
+msgid "Close"
+msgstr "Kōpani"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

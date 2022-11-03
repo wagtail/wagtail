@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -162,6 +162,12 @@ msgstr "Видалити колекції"
 msgid "You cannot edit another user's comment."
 msgstr "Ви не можете проредагувати коментар іншого користувача."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Дата/час наживо має знаходитись перед датою/часом закінчення"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Дата/час закінчення має бути у майбутньому"
+
 msgid "New title"
 msgstr "Новий заголовок"
 
@@ -236,12 +242,6 @@ msgstr "Не можливо скопіювати сторінку в саму с
 
 msgid "This slug is already in use"
 msgstr "Ця коротка назва вже використовується"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Дата/час наживо має знаходитись перед датою/часом закінчення"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Дата/час закінчення має бути у майбутньому"
 
 msgid "Select a new parent for this page."
 msgstr "Виберіть нову батьківську сторінку для цієї сторінки"
@@ -344,9 +344,6 @@ msgstr "Обрано всі {0} об'єктів на цьому екрані"
 
 msgid "All items in listing selected"
 msgstr "Обрано всі об'єкти у списку"
-
-msgid "Scheduled publishing"
-msgstr "Запланована публікація"
 
 msgid "Page title"
 msgstr "Заголовок сторінки"
@@ -651,6 +648,9 @@ msgstr "Вимагаються зміни"
 
 msgid "Awaiting"
 msgstr "В очікуванні"
+
+msgid "Close"
+msgstr "Закрити"
 
 msgid "Awaiting your review"
 msgstr "В очікуванні огляду"
@@ -1189,22 +1189,6 @@ msgstr "Порівняти з поточною версією"
 msgid "Cancel scheduled publish"
 msgstr "Скасувати заплановану публікацію"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
-
-msgid "Unschedule"
-msgstr "Зняти з розкладу"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
-
-msgid "Yes, unschedule"
-msgstr "Так, зняти з розкладу"
-
-msgid "No, don't unschedule"
-msgstr "Ні, не знімати з розкладу"
-
 msgid "Page types"
 msgstr "Типи сторінок"
 
@@ -1374,6 +1358,22 @@ msgstr "Відвідати сторінку"
 
 msgid "Current page status:"
 msgstr "Поточний статус сторінки:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
+
+msgid "Unschedule"
+msgstr "Зняти з розкладу"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
+
+msgid "Yes, unschedule"
+msgstr "Так, зняти з розкладу"
+
+msgid "No, don't unschedule"
+msgstr "Ні, не знімати з розкладу"
 
 msgid "Other searches"
 msgstr "Інші пошуки"
@@ -1587,9 +1587,6 @@ msgstr "Переглянути більше групових дій"
 
 msgid "0 minutes"
 msgstr "0 хвилин"
-
-msgid "Just now"
-msgstr "Щойно"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1940,14 +1937,6 @@ msgstr ""
 "створену %(user)s "
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "ревізія {0} для \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Версію {0} для \"{1}\" знято з розкладу."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Сторінку '{0}' знято з публікації."
 
@@ -2193,9 +2182,6 @@ msgstr "Перекреслення"
 
 msgid "Code"
 msgstr "Код"
-
-msgid "Locked Pages"
-msgstr "Заблоковані сторінки"
 
 msgid "Reports"
 msgstr "Звіти"

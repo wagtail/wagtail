@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { initTooltips } from '../../includes/initTooltips';
-import { initnn}
-
+import { escapeHtml } from '../../utils/text';
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
@@ -16,18 +15,6 @@ function addMessage(status, text) {
 }
 
 window.addMessage = addMessage;
-
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  };
-
-  return text.replace(/[&<>"']/g, (char) => map[char]);
-}
 
 window.escapeHtml = escapeHtml;
 

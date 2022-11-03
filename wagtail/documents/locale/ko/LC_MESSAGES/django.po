@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -236,18 +236,6 @@ msgstr "%(title)s 의 사용"
 msgid "Usage of"
 msgstr "의 사용"
 
-msgid "Parent"
-msgstr "상위"
-
-msgid "Type"
-msgstr "타입"
-
-msgid "Status"
-msgstr "상태"
-
-msgid "Edit this page"
-msgstr "페이지 변경"
-
 #, python-format
 msgid ""
 "<span>%(total)s</span> Document <span class=\"visuallyhidden\">created in "
@@ -365,6 +353,10 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' 문서가 삭제 되었습니다."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "이 %s 수정하기"
 
 msgid "Document"
 msgstr "문서"

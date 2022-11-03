@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -57,6 +57,9 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะล
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
+msgid "Usage"
+msgstr "การใช้"
+
 msgid "Publishing…"
 msgstr "กำลังพิมพ์"
 
@@ -75,9 +78,6 @@ msgstr "ใหม่ %(snippet_type_name)s"
 
 msgid "New"
 msgstr "ใหม่"
-
-msgid "Usage"
-msgstr "การใช้"
 
 msgid "Snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อย"
@@ -102,11 +102,8 @@ msgstr "ภาพตัวอย่าง"
 msgid "Edit"
 msgstr "แก้ไข"
 
-msgid "Live"
-msgstr "กำลังแสดงสดอยู่,ถ่ายทอดสด"
-
-msgid "Draft"
-msgstr "ร่าง , ข้อความที่เก็บเอาไว้ทำใหม่"
+msgid "Cancel scheduled publish"
+msgstr "ยกเลิกการจัดพิมพ์ตาราง"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -126,18 +123,6 @@ msgstr "การใช้ของ"
 msgid "Title"
 msgstr "หัวข้อ,หัวเรื่อง"
 
-msgid "Parent"
-msgstr "หน้าแรก,หน้าหลัก"
-
-msgid "Type"
-msgstr "แบบ,รูปแบบ"
-
-msgid "Status"
-msgstr "สถานะ"
-
-msgid "Edit this page"
-msgstr "แก้ไขหน้านี้"
-
 msgid "Choose"
 msgstr "เลือก"
 
@@ -150,6 +135,10 @@ msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่
 msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
+#, python-format
+msgid "Edit this %s"
+msgstr "แก้ไขสิ่งนี้ %s"
+
 msgid "Date"
 msgstr "วันที่"
 
@@ -160,7 +149,3 @@ msgstr "เลือก %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "เลือกอันอื่น %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "แก้ไขสิ่งนี้ %s"

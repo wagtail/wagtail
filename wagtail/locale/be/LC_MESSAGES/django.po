@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -93,8 +93,14 @@ msgstr "дата / час заканчэння"
 msgid "expired"
 msgstr "скончыўся"
 
+msgid "scheduled"
+msgstr "запланаванае"
+
 msgid "draft"
 msgstr "чарнавік"
+
+msgid "live + scheduled"
+msgstr "размешчана + запланаваная"
 
 msgid "live + draft"
 msgstr "апублікавана + чарнавік"
@@ -150,12 +156,6 @@ msgstr "апошняя версія створана"
 
 msgid "This slug is already in use"
 msgstr "Гэты моцна складаны ўжо выкарыстоўваецца"
-
-msgid "scheduled"
-msgstr "запланаванае"
-
-msgid "live + scheduled"
-msgstr "размешчана + запланаваная"
 
 msgid "page"
 msgstr "старонка"

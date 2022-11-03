@@ -6,14 +6,14 @@
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2021
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2021-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
 
 msgid "Wagtail core"
 msgstr "Wagtail kärna"
@@ -61,6 +64,15 @@ msgstr "Detta block har inga inställningar."
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
 
+msgid "Wagtail frontend cache"
+msgstr "Wagtail frontend cache"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail routablepage"
+
+msgid "Wagtail sitemaps"
+msgstr "Wagtail sajtkarta"
+
 msgid "Password"
 msgstr "Lösenord"
 
@@ -91,6 +103,12 @@ msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Endast granskare för denna uppgift kan redigera sidan."
 
+msgid "Page '{}' is locked and has been scheduled to go live at {}"
+msgstr "Sidan '{}' är låst och har blivit schemalagd att gå live vid {}"
+
+msgid "latest revision"
+msgstr "senaste revision"
+
 msgid "live"
 msgstr "publicerad"
 
@@ -115,8 +133,14 @@ msgstr "utgångsdatum/tid"
 msgid "expired"
 msgstr "utgången"
 
+msgid "scheduled"
+msgstr "schemalagd"
+
 msgid "draft"
 msgstr "utkast"
+
+msgid "live + scheduled"
+msgstr "live + schemalagd"
 
 msgid "live + draft"
 msgstr "publicerad + utkast"
@@ -191,14 +215,8 @@ msgstr "senaste revision skapad vid"
 msgid "This slug is already in use"
 msgstr "Den här sluggen är redan i användning"
 
-msgid "scheduled"
-msgstr "schemalagd"
-
 msgid "in moderation"
 msgstr "under moderering"
-
-msgid "live + scheduled"
-msgstr "live + schemalagd"
 
 msgid "live + in moderation"
 msgstr "publicerad + under moderering"
@@ -208,6 +226,9 @@ msgstr "sida"
 
 msgid "pages"
 msgstr "sidor"
+
+msgid "object id"
+msgstr "objektid"
 
 msgid "submitted for moderation"
 msgstr "inlämnad för moderering"
@@ -223,6 +244,12 @@ msgstr "innehålls JSON"
 
 msgid "approved go live at"
 msgstr "godkänd för att publiceras vid"
+
+msgid "revision"
+msgstr "revision"
+
+msgid "revisions"
+msgstr "revisioner"
 
 msgid "Add/edit pages you own"
 msgstr "Skapa/redigera sidor du äger"
@@ -889,6 +916,10 @@ msgstr "Arbetsflödesuppgift avvisad. Arbetsflöde komplett"
 
 msgid "Workflow: resume task"
 msgstr "Arbetsflöde: återuppta uppgift"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Återinskickade '%(task)s'. Arbetsflöde återupptaget"
 
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Arbetsflödesuppgift återinskickad. Arbetsflöde återupptagen"

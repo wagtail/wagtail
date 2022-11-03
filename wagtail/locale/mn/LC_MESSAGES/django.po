@@ -5,13 +5,14 @@
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
+"Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Вэгтэйл цөм"
 
 #, python-format
 msgid "The minimum number of items is %d"
@@ -39,6 +43,10 @@ msgstr "Устгах"
 
 msgid "Add"
 msgstr "Нэмэх"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s сонголтгүй блок"
 
 msgid "This block has no options."
 msgstr "Статик блок нь ямар нэг сонголтгүй."
@@ -73,8 +81,14 @@ msgstr "хаагдах өдөр/цаг"
 msgid "expired"
 msgstr "хугацаа нь дууссан"
 
+msgid "scheduled"
+msgstr "төлөвлөгдсөн"
+
 msgid "draft"
 msgstr "ноорог"
+
+msgid "live + scheduled"
+msgstr "нийтлэгдсэн + төлөвлөгдсөн"
 
 msgid "live + draft"
 msgstr "нийтлэгдсэн + ноорог"
@@ -111,12 +125,6 @@ msgstr "сүүлийн засвар үүссэн"
 
 msgid "This slug is already in use"
 msgstr "Ийм слагтай мэдээ өмнө нь нийтлэгдсэн байна"
-
-msgid "scheduled"
-msgstr "төлөвлөгдсөн"
-
-msgid "live + scheduled"
-msgstr "нийтлэгдсэн + төлөвлөгдсөн"
 
 msgid "page"
 msgstr "хуудас"
@@ -162,6 +170,9 @@ msgstr "Дэд хуудсуудтай нь устгах"
 
 msgid "Lock"
 msgstr "Түгжих"
+
+msgid "Unlock"
+msgstr "Түгжээг тайлах"
 
 msgid "group"
 msgstr "бүлэг"
@@ -290,7 +301,7 @@ msgid "Edited"
 msgstr "Засагдсан"
 
 msgid "Unpublish"
-msgstr "Нийтлэхгүй байх"
+msgstr "Нийтлэхгүй"
 
 msgid "Locked"
 msgstr "Түгжигдсэн"
