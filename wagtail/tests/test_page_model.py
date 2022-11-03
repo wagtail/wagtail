@@ -3755,3 +3755,29 @@ class TestGetLock(TestCase):
         # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
         superuser = get_user_model().objects.get(email="superuser@example.com")
         self.assertTrue(lock.for_user(superuser))
+
+
+class TestAddChild(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=1)
+        self.event_index = self.root_page.add_child(
+            instance=EventIndex(title="Events", slug="events")
+        )
+
+    def test_add_invalid_page_as_child_is_atomic(self):
+        incomplete_event = EventPage(title="Event", slug="event")
+        numchild_before = self.event_index.numchild
+        try:
+            self.event_index.add_child(instance=incomplete_event)
+        except Exception:
+            pass
+
+        # The numchild value on the in-memory parent should
+        # not have changed
+        self.assertEqual(self.event_index.numchild, numchild_before)
+
+        # And neither should the database field value
+        self.event_index.refresh_from_db()
+        self.assertEqual(self.event_index.numchild, numchild_before)
