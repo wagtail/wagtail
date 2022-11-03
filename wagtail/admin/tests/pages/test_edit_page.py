@@ -1881,6 +1881,16 @@ class TestPageEdit(WagtailTestUtils, TestCase):
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
 
+        # Check number of queries for non-admin users.
+        self.as_editor()
+        # Warm up the cache as above.
+        self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
+
+        with self.assertNumQueries(64):
+            self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+            )
+
 
 class TestPageEditReordering(WagtailTestUtils, TestCase):
     def setUp(self):
