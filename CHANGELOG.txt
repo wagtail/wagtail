@@ -4,6 +4,7 @@ Changelog
 5.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add preview-aware and page-aware fragment caching template tags, `wagtailcache` & `wagtailpagecache` (Jake Howard)
  * Maintenance: Fix snippet search test to work on non-fallback database backends (Matt Westcott)
 
 

@@ -42,7 +42,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
-from django.utils.encoding import force_str
+from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
@@ -70,6 +70,7 @@ from wagtail.coreutils import (
     get_content_type_label,
     get_supported_content_language_variant,
     resolve_model_string,
+    safe_md5,
 )
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
@@ -2428,6 +2429,34 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This returns a list of paths to invalidate in a frontend cache
         """
         return ["/"]
+
+    def get_cache_key_components(self):
+        """
+        The components of a :class:`Page` which make up the :attr:`cache_key`. Any change to a
+        page should be reflected in a change to at least one of these components.
+        """
+
+        return [
+            self.id,
+            self.url_path,
+            self.last_published_at.isoformat() if self.last_published_at else None,
+        ]
+
+    @property
+    def cache_key(self):
+        """
+        A generic cache key to identify a page in its current state.
+        Should the page change, so will the key.
+
+        Customizations to the cache key should be made in :attr:`get_cache_key_components`.
+        """
+
+        hasher = safe_md5()
+
+        for component in self.get_cache_key_components():
+            hasher.update(force_bytes(component))
+
+        return hasher.hexdigest()
 
     def get_sitemap_urls(self, request=None):
         return [

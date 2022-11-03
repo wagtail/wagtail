@@ -315,6 +315,10 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: create_alias
 
     .. automethod:: update_aliases
+
+    .. automethod:: get_cache_key_components
+
+    .. autoattribute:: cache_key
 ```
 
 (site_model_ref)=
