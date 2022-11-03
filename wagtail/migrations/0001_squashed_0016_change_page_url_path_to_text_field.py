@@ -467,7 +467,7 @@ class Migration(migrations.Migration):
                     "is_default_site",
                     models.BooleanField(
                         default=False,
-                        verbose_name="Is default site",
+                        verbose_name="Is default site?",
                         help_text=(
                             "If true, this site will handle requests for all other hostnames"
                             " that do not have a site entry of their own"

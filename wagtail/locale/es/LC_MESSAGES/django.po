@@ -559,7 +559,7 @@ msgstr "Nombre del sitio legible para usuarios"
 msgid "root page"
 msgstr "página raíz"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "es sitio por defecto"
 
 msgid ""

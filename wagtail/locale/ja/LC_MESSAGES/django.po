@@ -369,7 +369,7 @@ msgstr "わかりやすいサイト名"
 msgid "root page"
 msgstr "ルートページ"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "デフォルトのサイトです"
 
 msgid ""

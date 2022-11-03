@@ -234,7 +234,7 @@ msgstr "Хүмүүст харагдах сайтын нэр."
 msgid "root page"
 msgstr "үндэс хуудас"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "өгөгдмөл сайт уу"
 
 msgid "site"

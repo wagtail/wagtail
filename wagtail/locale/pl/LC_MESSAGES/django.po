@@ -502,7 +502,7 @@ msgstr "Nazwa serwisu przyjazna człowiekowi"
 msgid "root page"
 msgstr "Strona nadrzędna"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "czy serwis domyślny"
 
 msgid ""

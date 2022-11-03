@@ -548,7 +548,7 @@ msgstr "Leesbare naam voor de site."
 msgid "root page"
 msgstr "beginpagina"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "is standaard site"
 
 msgid ""

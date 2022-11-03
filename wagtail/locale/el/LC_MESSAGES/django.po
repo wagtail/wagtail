@@ -354,7 +354,7 @@ msgstr "Φιλικό όνομα για το site."
 msgid "root page"
 msgstr "κεντρική σελίδα"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "είναι το προεπιλεγμένο site"
 
 msgid ""

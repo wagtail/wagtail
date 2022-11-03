@@ -228,7 +228,7 @@ msgstr "naran situs lee fasil"
 msgid "root page"
 msgstr "pajina fuan"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "Ne'e situs detallu"
 
 msgid ""

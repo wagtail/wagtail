@@ -509,7 +509,7 @@ msgstr "此站点的可读名称"
 msgid "root page"
 msgstr "根页面"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "是默认站点"
 
 msgid ""

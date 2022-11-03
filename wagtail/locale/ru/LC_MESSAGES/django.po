@@ -556,7 +556,7 @@ msgstr "Человеко-понятное имя для сайта."
 msgid "root page"
 msgstr "корневая страница"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "сайт по умолчанию"
 
 msgid ""

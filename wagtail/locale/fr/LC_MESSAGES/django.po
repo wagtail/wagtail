@@ -560,7 +560,7 @@ msgstr "Nom compréhensible par un humain pour le site."
 msgid "root page"
 msgstr "page racine"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "site par défaut"
 
 msgid ""

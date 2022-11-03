@@ -250,7 +250,7 @@ msgstr "ชื่อของเว็บไซด์ที่มนุษย์
 msgid "root page"
 msgstr "ต้นฉบับ"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "คือเว็บไซด์ต้นแบบ"
 
 msgid ""

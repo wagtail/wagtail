@@ -299,7 +299,7 @@ msgstr "사람이 읽을 수 있는 사이트명"
 msgid "root page"
 msgstr "기본 페이지"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "기본 사이트임"
 
 msgid ""

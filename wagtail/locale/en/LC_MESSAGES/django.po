@@ -689,7 +689,7 @@ msgid "root page"
 msgstr ""
 
 #: models/sites.py:100
-msgid "is default site"
+msgid "Is default site?"
 msgstr ""
 
 #: models/sites.py:103

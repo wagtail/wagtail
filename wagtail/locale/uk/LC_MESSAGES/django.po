@@ -549,7 +549,7 @@ msgstr "Ім'я сайту, зручне для людини"
 msgid "root page"
 msgstr "коренева сторінка"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "є типовим сайтом"
 
 msgid ""

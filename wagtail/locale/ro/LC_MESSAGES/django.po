@@ -544,7 +544,7 @@ msgstr "Titlu sait lizibil pentru om"
 msgid "root page"
 msgstr "pagină de bază"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "sait implicit"
 
 msgid ""

@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
                 default=False,
                 help_text="If true, this site will handle requests for all other hostnames"
                 " that do not have a site entry of their own",
-                verbose_name="Is default site",
+                verbose_name="Is default site?",
             ),
             preserve_default=True,
         ),

@@ -544,7 +544,7 @@ msgstr "Nome do sitio web lexible por humáns"
 msgid "root page"
 msgstr "páxina raíz"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "é sitio web por defecto"
 
 msgid ""

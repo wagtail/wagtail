@@ -246,7 +246,7 @@ msgstr "Názov sídla viditeľný pre verejnosť."
 msgid "root page"
 msgstr "koreňová stránka"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "je predvolené sídlo"
 
 msgid ""

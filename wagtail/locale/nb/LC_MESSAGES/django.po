@@ -285,7 +285,7 @@ msgstr "Lesbart navn for nettstedet"
 msgid "root page"
 msgstr "rotside"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "er standard nettsted"
 
 msgid ""

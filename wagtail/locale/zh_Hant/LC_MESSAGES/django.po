@@ -438,7 +438,7 @@ msgstr "此站點的可讀名稱"
 msgid "root page"
 msgstr "根頁面"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "是預設站點"
 
 msgid ""

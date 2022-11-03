@@ -566,7 +566,7 @@ msgstr "Für Menschen lesbarer Name für die Website"
 msgid "root page"
 msgstr "Ursprungsseite"
 
-msgid "is default site"
+msgid "Is default site?"
 msgstr "Ist die standardmäßige Website"
 
 msgid ""
