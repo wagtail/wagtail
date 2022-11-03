@@ -3,6 +3,7 @@ from contextlib import contextmanager
 
 from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.test.testcases import assert_and_parse_html
 
 
@@ -76,6 +77,12 @@ class WagtailTestUtils:
             kwargs[User.USERNAME_FIELD] = username
 
         return User.objects.create_superuser(**kwargs)
+
+    def as_editor(self):
+        """Helper to run tests as an editor."""
+        editor = self.create_user("editor", password="password")
+        editor.groups.add(Group.objects.get(name="Editors"))
+        self.login(username="editor")
 
     @staticmethod
     @contextmanager
