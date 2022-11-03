@@ -608,3 +608,34 @@ class DeferredSpecificIterable(ModelIterable):
                     category=RuntimeWarning,
                 )
                 yield obj
+
+
+def first_common_ancestor(pages, model=None, include_self=False, strict=False):
+    if model is None:
+        from wagtail.models import Page
+
+        model = Page
+
+    if not pages:
+        if strict:
+            raise model.DoesNotExist("Can not find ancestor of empty queryset")
+        return model.get_first_root_node()
+
+    if include_self:
+        paths = list({page.path for page in pages})
+    else:
+        paths = list({page.path[: -model.steplen] for page in pages})
+
+    # This method works on anything, not just file system paths.
+    common_parent_path = posixpath.commonprefix(paths)
+    extra_chars = len(common_parent_path) % model.steplen
+    if extra_chars != 0:
+        common_parent_path = common_parent_path[:-extra_chars]
+
+    if common_parent_path == "":
+        if strict:
+            raise model.DoesNotExist("No common ancestor found!")
+
+        return model.get_first_root_node()
+
+    return model.objects.get(path=common_parent_path)

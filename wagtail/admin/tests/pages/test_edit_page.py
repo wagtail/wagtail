@@ -1886,7 +1886,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(64):
+        with self.assertNumQueries(53):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
