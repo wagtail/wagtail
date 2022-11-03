@@ -3795,3 +3795,26 @@ class TestGetLock(TestCase):
         # This is because it shouldn't be possible to create a separate draft from what is scheduled to be published
         superuser = get_user_model().objects.get(email="superuser@example.com")
         self.assertTrue(lock.for_user(superuser))
+
+
+class TestPageCacheKey(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.page = Page.objects.last()
+        self.other_page = Page.objects.first()
+
+    def test_cache_key_consistent(self):
+        self.assertEqual(self.page.cache_key, self.page.cache_key)
+        self.assertEqual(self.other_page.cache_key, self.other_page.cache_key)
+
+    def test_no_queries(self):
+        with self.assertNumQueries(0):
+            self.page.cache_key
+            self.other_page.cache_key
+
+    def test_changes_when_slug_changes(self):
+        original_cache_key = self.page.cache_key
+        self.page.slug = "something-else"
+        self.page.save()
+        self.assertNotEqual(self.page.cache_key, original_cache_key)

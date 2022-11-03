@@ -100,6 +100,37 @@ For some images, it may be beneficial to lazy load images, so the rest of the pa
 
 This optimisation is already handled for you for images in the admin site.
 
+## Template fragment caching
+
+Django supports [template fragment caching](https://docs.djangoproject.com/en/stable/topics/cache/#template-fragment-caching), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags: [`{% wagtailcache %}`](wagtailcache) and [`{% wagtailpagecache %}`](wagtailpagecache) which both avoid these issues.
+
+(page_cache_key)=
+
+## Page cache key
+
+It's often necessary to cache a value based on an entire page, rather than a specific value. For this, {attr}`~wagtail.models.Page.cache_key` can be used to get a unique value for the state of a page. Should something about the page change, so will its cache key. You can also use the value to create longer, more specific cache keys when using Django's caching framework directly. For example:
+
+```python
+from django.core.cache import cache
+
+result = page.expensive_operation()
+cache.set("expensive_result_" + page.cache_key, result, 3600)
+
+# Later...
+cache.get("expensive_result_" + page.cache_key)
+```
+
+To modify the cache key, such as including a custom model field value, you can override {attr}`~wagtail.models.Page.get_cache_key_components`:
+
+```python
+def get_cache_key_components(self):
+    components = super().get_cache_key_components()
+    components.append(self.external_slug)
+    return components
+```
+
+Manually updating a page might not result in a change to its cache key, unless the default component field values are modified directly. To be sure of a change in the cache key value, try saving the changes to a `Revision` instead, and then publishing it.
+
 ## Django
 
 Wagtail is built on Django. Many of the [performance tips](django:topics/performance) set out by Django are also applicable to Wagtail.
