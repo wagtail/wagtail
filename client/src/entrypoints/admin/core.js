@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { initTooltips } from '../../includes/initTooltips';
 import { escapeHtml } from '../../utils/text';
+import { initButtonSelects } from '../../includes/initButtonSelects';
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
