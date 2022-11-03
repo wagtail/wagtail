@@ -312,6 +312,10 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. automethod:: save
 
+    .. automethod:: add_child
+
+    .. automethod:: add_sibling
+
     .. automethod:: create_alias
 
     .. automethod:: update_aliases
