@@ -7,6 +7,7 @@ from django.utils import timezone
 from wagtail.log_actions import log
 from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.signals import published
+from wagtail.utils.timestamps import ensure_utc
 
 logger = logging.getLogger("wagtail")
 
@@ -63,8 +64,8 @@ class PublishRevisionAction:
             data={
                 "revision": {
                     "id": self.revision.id,
-                    "created": self.revision.created_at.strftime("%d %b %Y %H:%M"),
-                    "go_live_at": self.object.go_live_at.strftime("%d %b %Y %H:%M"),
+                    "created": ensure_utc(self.revision.created_at),
+                    "go_live_at": ensure_utc(self.object.go_live_at),
                     "has_live_version": self.object.live,
                 }
             },
@@ -162,9 +163,7 @@ class PublishRevisionAction:
                     data = {
                         "revision": {
                             "id": previous_revision.id,
-                            "created": previous_revision.created_at.strftime(
-                                "%d %b %Y %H:%M"
-                            ),
+                            "created": ensure_utc(previous_revision.created_at),
                         }
                     }
 

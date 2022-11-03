@@ -31,6 +31,7 @@ from wagtail.models import (
     WorkflowMixin,
     WorkflowState,
 )
+from wagtail.utils.timestamps import render_timestamp
 
 
 class HookResponseMixin:
@@ -702,7 +703,7 @@ class RevisionsRevertMixin:
         )
         message_data = {
             "model_name": capfirst(self.model._meta.verbose_name),
-            "created_at": self.revision.created_at.strftime("%d %b %Y %H:%M"),
+            "created_at": render_timestamp(self.revision.created_at),
             "user": user_avatar,
         }
         message = mark_safe(message_string % message_data)
@@ -747,7 +748,7 @@ class RevisionsRevertMixin:
         return message % {
             "model_name": capfirst(self.model._meta.verbose_name),
             "object": self.object,
-            "timestamp": self.revision.created_at.strftime("%d %b %Y %H:%M"),
+            "timestamp": render_timestamp(self.revision.created_at),
         }
 
     def get_context_data(self, **kwargs):

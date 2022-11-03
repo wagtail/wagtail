@@ -92,6 +92,7 @@ from wagtail.signals import (
 )
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail60Warning
+from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
     BaseLogEntry,
@@ -426,9 +427,7 @@ class RevisionMixin(models.Model):
                     data={
                         "revision": {
                             "id": previous_revision.id,
-                            "created": previous_revision.created_at.strftime(
-                                "%d %b %Y %H:%M"
-                            ),
+                            "created": ensure_utc(previous_revision.created_at),
                         }
                     },
                     revision=revision,
@@ -1702,9 +1701,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     data={
                         "revision": {
                             "id": previous_revision.id,
-                            "created": previous_revision.created_at.strftime(
-                                "%d %b %Y %H:%M"
-                            ),
+                            "created": ensure_utc(previous_revision.created_at),
                         }
                     },
                     revision=revision,
@@ -2775,8 +2772,8 @@ class Revision(models.Model):
                 data={
                     "revision": {
                         "id": self.id,
-                        "created": self.created_at.strftime("%d %b %Y %H:%M"),
-                        "go_live_at": object.go_live_at.strftime("%d %b %Y %H:%M")
+                        "created": ensure_utc(self.created_at),
+                        "go_live_at": ensure_utc(object.go_live_at)
                         if object.go_live_at
                         else None,
                         "has_live_version": object.live,

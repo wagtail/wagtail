@@ -43,8 +43,9 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
-from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
+from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.users.models import UserProfile
+from wagtail.utils.timestamps import render_timestamp
 
 
 class TestPageEdit(WagtailTestUtils, TestCase):
@@ -411,13 +412,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -765,13 +766,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -929,13 +930,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -1099,7 +1100,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Should still show the active expire_at in the live object
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -1113,13 +1114,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -1210,7 +1211,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # override the existing expire_at when it goes live
         self.assertNotContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
         )
 
@@ -1222,13 +1223,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )
@@ -1313,7 +1314,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # unpublished (expired) -> published (scheduled) -> unpublished (expired again)
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(expire_at)}',
             html=True,
             count=1,
         )
@@ -1326,13 +1327,13 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Go-live:</span> {rendered_timestamp(go_live_at)}',
+            f'<span class="w-text-grey-600">Go-live:</span> {render_timestamp(go_live_at)}',
             html=True,
             count=1,
         )
         self.assertContains(
             response,
-            f'<span class="w-text-grey-600">Expiry:</span> {rendered_timestamp(new_expire_at)}',
+            f'<span class="w-text-grey-600">Expiry:</span> {render_timestamp(new_expire_at)}',
             html=True,
             count=1,
         )

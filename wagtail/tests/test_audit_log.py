@@ -1,8 +1,10 @@
-from datetime import datetime, timedelta
+import datetime
+import json
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
@@ -155,9 +157,12 @@ class TestAuditLog(TestCase):
         )
 
     def test_revision_schedule_publish(self):
-        go_live_at = datetime.now() + timedelta(days=1)
+        go_live_at = datetime.datetime.now() + datetime.timedelta(days=1)
         if settings.USE_TZ:
             go_live_at = timezone.make_aware(go_live_at)
+            expected_go_live_at = timezone.localtime(go_live_at, datetime.timezone.utc)
+        else:
+            expected_go_live_at = go_live_at
         self.home_page.go_live_at = go_live_at
 
         # with no live revision
@@ -169,7 +174,8 @@ class TestAuditLog(TestCase):
         self.assertEqual(log_entries[0].data["revision"]["id"], revision.id)
         self.assertEqual(
             log_entries[0].data["revision"]["go_live_at"],
-            go_live_at.strftime("%d %b %Y %H:%M"),
+            # skip double quotes
+            json.dumps(expected_go_live_at, cls=DjangoJSONEncoder)[1:-1],
         )
 
     def test_revision_schedule_revert(self):
@@ -178,10 +184,12 @@ class TestAuditLog(TestCase):
 
         if settings.USE_TZ:
             self.home_page.go_live_at = timezone.make_aware(
-                datetime.now() + timedelta(days=1)
+                datetime.datetime.now() + datetime.timedelta(days=1)
             )
         else:
-            self.home_page.go_live_at = datetime.now() + timedelta(days=1)
+            self.home_page.go_live_at = datetime.datetime.now() + datetime.timedelta(
+                days=1
+            )
 
         schedule_revision = self.home_page.save_revision(
             log_action=True, previous_revision=revision2
@@ -197,9 +205,12 @@ class TestAuditLog(TestCase):
         )
 
     def test_revision_cancel_schedule(self):
-        go_live_at = datetime.now() + timedelta(days=1)
+        go_live_at = datetime.datetime.now() + datetime.timedelta(days=1)
         if settings.USE_TZ:
             go_live_at = timezone.make_aware(go_live_at)
+            expected_go_live_at = timezone.localtime(go_live_at, datetime.timezone.utc)
+        else:
+            expected_go_live_at = go_live_at
         self.home_page.go_live_at = go_live_at
         revision = self.home_page.save_revision()
         revision.publish()
@@ -212,7 +223,8 @@ class TestAuditLog(TestCase):
         self.assertEqual(log_entries[0].data["revision"]["id"], revision.id)
         self.assertEqual(
             log_entries[0].data["revision"]["go_live_at"],
-            go_live_at.strftime("%d %b %Y %H:%M"),
+            # skip double quotes
+            json.dumps(expected_go_live_at, cls=DjangoJSONEncoder)[1:-1],
         )
         # The home_page was live already and we've only cancelled the publication of the above revision.
         self.assertTrue(log_entries[0].data["revision"]["has_live_version"])

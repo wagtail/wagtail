@@ -30,6 +30,7 @@ from wagtail.models import (
     PageSubscription,
     WorkflowState,
 )
+from wagtail.utils.timestamps import render_timestamp
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -61,8 +62,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "with version from %(previous_revision_datetime)s."
             ) % {
                 "page_title": self.page.get_admin_display_title(),
-                "previous_revision_datetime": self.previous_revision.created_at.strftime(
-                    "%d %b %Y %H:%M"
+                "previous_revision_datetime": render_timestamp(
+                    self.previous_revision.created_at
                 ),
             }
         else:
@@ -588,8 +589,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     "Version from %(previous_revision_datetime)s "
                     "of page '%(page_title)s' has been scheduled for publishing."
                 ) % {
-                    "previous_revision_datetime": self.previous_revision.created_at.strftime(
-                        "%d %b %Y %H:%M"
+                    "previous_revision_datetime": render_timestamp(
+                        self.previous_revision.created_at
                     ),
                     "page_title": self.page.get_admin_display_title(),
                 }
@@ -615,9 +616,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 message = _(
                     "Version from %(datetime)s of page '%(page_title)s' has been published."
                 ) % {
-                    "datetime": self.previous_revision.created_at.strftime(
-                        "%d %b %Y %H:%M"
-                    ),
+                    "datetime": render_timestamp(self.previous_revision.created_at),
                     "page_title": self.page.get_admin_display_title(),
                 }
             else:
