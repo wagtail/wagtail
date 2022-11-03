@@ -13,6 +13,7 @@ rules:
       Use printf style formatting with named placeholders instead.
       For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
       instead of `_("Hello {name}").format(name="Wagtail")`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
     languages: [python]
     severity: ERROR
   - id: translation-no-f-strings
@@ -26,6 +27,7 @@ rules:
       Use printf style formatting with named placeholders instead.
       For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
       instead of `_(f"Hello {name}")`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
     languages: [python]
     severity: ERROR
   - id: translation-no-anonymous-arguments
@@ -42,6 +44,7 @@ rules:
       Use printf style formatting with named placeholders instead.
       For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
       instead of `_("Hello %s") % "Wagtail"`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
     languages: [python]
     severity: ERROR
   - id: translation-no-format-within-gettext
@@ -56,5 +59,6 @@ rules:
       Instead, interpolate after the call to gettext.
       For example, do `_("Hello %(name)s") % {"name": "Wagtail"}`
       instead of `_("Hello %(name)s" % {"name": "Wagtail"} )`.
+      See https://docs.wagtail.org/en/latest/contributing/translations.html#marking-strings-for-translation for more information.
     languages: [python]
     severity: ERROR
