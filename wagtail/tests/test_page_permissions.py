@@ -22,6 +22,28 @@ from wagtail.test.testapp.models import (
 )
 
 
+class TestUserPagePermissionsProxy(TestCase):
+    fixtures = ["test.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.editor = get_user_model().objects.get(email="eventeditor@example.com")
+        cls.moderator = get_user_model().objects.get(email="eventmoderator@example.com")
+
+    def test_new_user_page_permissions_proxy(self):
+        user_perms = UserPagePermissionsProxy(self.editor)
+        for _ in range(3):
+            # UserPagePermissionsProxy reuses the previous proxy object.
+            self.assertIs(UserPagePermissionsProxy(self.editor), user_perms)
+
+        # It returns a new object for the same user but a different model instance.
+        editor = get_user_model().objects.get(email="eventeditor@example.com")
+        self.assertIsNot(UserPagePermissionsProxy(editor), user_perms)
+
+        # It also returns a different object for a different user.
+        self.assertIsNot(UserPagePermissionsProxy(self.moderator), user_perms)
+
+
 class TestPagePermission(TestCase):
     fixtures = ["test.json"]
 

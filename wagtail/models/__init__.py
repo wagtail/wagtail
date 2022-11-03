@@ -3014,13 +3014,26 @@ class UserPagePermissionsProxy:
     """Helper object that encapsulates all the page permission rules that this user has
     across the page hierarchy."""
 
-    def __init__(self, user):
-        self.user = user
+    def __new__(cls, user):
+        """
+        Creates a new instance once for each user to avoid repeated queries
+        in the same request-response cycle.
+        This relies on __init__ not being implemented as it'd override the
+        initialisation we did here.
+        """
+        if not hasattr(user, "_page_permissions_proxy"):
+            self = super().__new__(cls)
+            self.user = user
 
-        if user.is_active and not user.is_superuser:
-            self.permissions = GroupPagePermission.objects.filter(
-                group__user=self.user
-            ).select_related("page")
+            if user.is_active and not user.is_superuser:
+                self.permissions = GroupPagePermission.objects.filter(
+                    group__user=self.user
+                ).select_related("page")
+
+            # Cache this instance in the user's dict so we can reuse it.
+            user._page_permissions_proxy = self
+
+        return user._page_permissions_proxy
 
     def revisions_for_moderation(self):
         """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
