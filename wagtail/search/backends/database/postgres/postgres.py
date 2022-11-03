@@ -361,7 +361,7 @@ class Index:
 
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "and"
-    LAST_TERM_IS_PREFIX = False
+    LAST_TERM_IS_PREFIX = True
     TARGET_SEARCH_FIELD_TYPE = SearchField
 
     def __init__(self, *args, **kwargs):
