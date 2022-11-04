@@ -7,6 +7,7 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page, ReferenceIndex
 from wagtail.test.testapp.models import EventPage, EventPageCarouselItem
 
+from io import StringIO
 
 class TestCreateOrUpdateForObject(TestCase):
     def setUp(self):
@@ -161,7 +162,6 @@ class TestCreateOrUpdateForObject(TestCase):
             self.expected_references,
         )
 
-    
     def test_rebuild_references_index_no_verbosity(self):
         stdout = StringIO()
         management.call_command(
