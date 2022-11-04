@@ -97,7 +97,7 @@ class Site(models.Model):
         on_delete=models.CASCADE,
     )
     is_default_site = models.BooleanField(
-        verbose_name=_("is default site"),
+        verbose_name=_("is default site?"),
         default=False,
         help_text=_(
             "If true, this site will handle requests for all other hostnames that do not have a site entry of their own"
