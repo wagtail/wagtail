@@ -9,10 +9,13 @@ DEFAULT_CHUNK_SIZE = 1000
 
 class Command(BaseCommand):
     def write(self, *args, **kwargs):
-      """Helper function that writes based on verbosity parameter"""
-      if self.verbosity != 0:
-        self.stdout.write(*args, **kwargs)
+        """
+        Helper function that writes based on verbosity parameter
 
+        """
+
+        if self.verbosity != 0:
+            self.stdout.write(*args, **kwargs)
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -26,7 +29,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         self.verbosity = options["verbosity"]
-        
+
         chunk_size = options.get("chunk_size")
         object_count = 0
 
