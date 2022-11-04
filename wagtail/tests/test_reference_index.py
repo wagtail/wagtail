@@ -171,4 +171,4 @@ class TestCreateOrUpdateForObject(TestCase):
             backend_name=self.backend_name,
             stdout=stdout,
         )
-        self.assertFalse(stdout)
+        self.assertFalse(stdout.read())
