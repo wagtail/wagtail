@@ -1,13 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
-from django.core import management
 
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page, ReferenceIndex
 from wagtail.test.testapp.models import EventPage, EventPageCarouselItem
-
-from io import StringIO
 
 
 class TestCreateOrUpdateForObject(TestCase):
@@ -162,13 +159,3 @@ class TestCreateOrUpdateForObject(TestCase):
             ),
             self.expected_references,
         )
-
-    def test_rebuild_references_index_no_verbosity(self):
-        stdout = StringIO()
-        management.call_command(
-            "rebuild_references_index",
-            verbosity=0,
-            backend_name=self.backend_name,
-            stdout=stdout,
-        )
-        self.assertFalse(stdout.read())
