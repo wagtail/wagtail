@@ -658,6 +658,7 @@ Contributors
 * Marvis Chukwudi
 * Jordan Rob
 * Juliet Adeboye
+* Yekasumah
 
 Translators
 ===========
