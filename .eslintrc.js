@@ -81,6 +81,7 @@ module.exports = {
         'client/src/entrypoints/images/image-chooser-modal.js',
         'client/src/utils/actions.ts',
         'client/src/utils/version.js',
+        'client/src/includes/initTagField.js'        
       ],
       rules: legacyCode,
     },
