@@ -83,6 +83,9 @@ def update_reference_index_on_save(instance, **kwargs):
             break
 
         instance = getattr(instance, parental_keys[0].name)
+        if instance is None:
+            # parent is null, so there is no valid object to record references against
+            return
 
     if ReferenceIndex.model_is_indexable(type(instance)):
         with transaction.atomic():
