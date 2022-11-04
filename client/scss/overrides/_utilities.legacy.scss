@@ -8,33 +8,7 @@
   }
 }
 
-body.reordering {
-  overflow: visible;
-}
-
 // Show a transparency grid in background
 .show-transparency {
   background: url('#{$images-root}transparency.svg');
-}
-
-// make a block-level element inline
-.inline {
-  display: inline;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.block {
-  display: block;
-}
-
-.unlist {
-  @include unlist();
-}
-
-// utility class to allow things to be scrollable if their contents can't wrap more nicely
-.overflow {
-  overflow: auto;
 }
