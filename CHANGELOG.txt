@@ -25,6 +25,7 @@ Changelog
  * Fix: Text within status tags text will now resize correctly when customizing browser font size (Mary Ojo)
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Comments notice background overflows its container (Yekasumah)
+ * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
 
 
 4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT

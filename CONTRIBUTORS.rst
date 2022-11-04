@@ -659,6 +659,7 @@ Contributors
 * Jordan Rob
 * Juliet Adeboye
 * Yekasumah
+* Theresa Okoro
 
 Translators
 ===========
