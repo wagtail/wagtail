@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { initTooltips } from '../../includes/initTooltips';
-
 /*
  * Enables a "dirty form check", prompting the user if they are navigating away
  * from a page with unsaved changes, as well as optionally controlling other

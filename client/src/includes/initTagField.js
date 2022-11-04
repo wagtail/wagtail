@@ -36,3 +36,4 @@ function initTagField(id, autocompleteUrl, options) {
 }
 
 window.initTagField = initTagField;
+/* generic function for adding a message to message area through JS alone end */
