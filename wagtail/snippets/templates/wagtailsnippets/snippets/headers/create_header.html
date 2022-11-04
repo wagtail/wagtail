@@ -12,7 +12,7 @@
 
 {% block header_content %}
     {% with model_opts.verbose_name|capfirst as model_name %}
-        {% trans 'New: '|add:model_name as title %}
+        {% blocktrans trimmed asvar title %}New: {{ model_name }}{% endblocktrans %}
         {{ block.super }}
 
         <h1 class="w-sr-only">

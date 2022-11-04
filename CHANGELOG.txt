@@ -35,6 +35,7 @@ Changelog
  * Fix: Ensure tag fields correctly show in both dark and light Windows high-contrast modes (Albina Starykova)
  * Fix: Ensure new tooltips & tooltip menus have visible borders and tip triangle in Windows high-contrast mode (Juliet Adeboye)
  * Fix: Ensure there is a visual difference of 'active/current link' vs normal links in Windows high-contrast mode (Mohammad Areeb)
+ * Fix: Avoid issues where trailing whitespace could be accidentally removed in translations for new page & snippet headers (Florian Vogt)
 
 
 4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT

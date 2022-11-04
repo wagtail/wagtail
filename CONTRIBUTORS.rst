@@ -663,6 +663,7 @@ Contributors
 * Aman Pandey
 * Doug Harris
 * Mohammad Areeb
+* Florian Vogt
 
 Translators
 ===========
