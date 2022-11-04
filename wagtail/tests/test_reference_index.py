@@ -7,7 +7,11 @@ from django.test import TestCase
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page, ReferenceIndex
-from wagtail.test.testapp.models import EventPage, EventPageCarouselItem
+from wagtail.test.testapp.models import (
+    EventPage,
+    EventPageCarouselItem,
+    ModelWithNullableParentalKey,
+)
 
 
 class TestCreateOrUpdateForObject(TestCase):
@@ -162,6 +166,18 @@ class TestCreateOrUpdateForObject(TestCase):
             ),
             self.expected_references,
         )
+
+    def test_null_parental_key(self):
+        obj = ModelWithNullableParentalKey(
+            content="""<p><a linktype="page" id="%d">event page</a></p>"""
+            % self.event_page.id
+        )
+        obj.save()
+
+        # Models with a ParentalKey are not considered indexable - references are recorded against the parent model
+        # instead. Since the ParentalKey is null here, no reference will be recorded.
+        refs = ReferenceIndex.get_references_to(self.event_page)
+        self.assertEqual(refs.count(), 0)
 
     def test_rebuild_references_index_no_verbosity(self):
         stdout = StringIO()
