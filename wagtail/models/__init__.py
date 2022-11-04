@@ -3101,8 +3101,8 @@ class UserPagePermissionsProxy:
         else:
             return self.get_pages_for_perms(["add", "edit", "publish", "lock"])
 
-    @cached_property
-    def _explorable_root_page(self):
+    @functools.lru_cache(maxsize=None)
+    def explorable_root_page(self):
         # Get the highest common explorable ancestor for the given user. If the user
         # has no permissions over any pages, this method will return None.
         pages = self.pages_with_direct_explore_permission()
@@ -3112,9 +3112,6 @@ class UserPagePermissionsProxy:
             root_page = None
 
         return root_page
-
-    def explorable_root_page(self):
-        return self._explorable_root_page
 
     def revisions_for_moderation(self):
         """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
@@ -3177,6 +3174,10 @@ class UserPagePermissionsProxy:
         fca_page = first_common_ancestor(self.pages)
         return explorable_pages.filter(path__startswith=fca_page.path)
 
+    @functools.lru_cache(maxsize=None)
+    def can_explore_pages(self):
+        return self.explorable_pages().exists()
+
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
         # Deal with the trivial cases first...
@@ -3201,6 +3202,7 @@ class UserPagePermissionsProxy:
 
         return editable_pages
 
+    @functools.lru_cache(maxsize=None)
     def can_edit_pages(self):
         """Return True if the user has permission to edit any pages"""
         return self.editable_pages().exists()
@@ -3222,6 +3224,7 @@ class UserPagePermissionsProxy:
 
         return publishable_pages
 
+    @functools.lru_cache(maxsize=None)
     def can_publish_pages(self):
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
@@ -3235,8 +3238,8 @@ class UserPagePermissionsProxy:
         else:
             return "unlock" in self.perm_types
 
-    @cached_property
-    def _site_details(self):
+    @functools.lru_cache(maxsize=None)
+    def site_details(self):
         root_page = self.explorable_root_page()
         if root_page:
             root_site = root_page.get_site()
@@ -3254,9 +3257,6 @@ class UserPagePermissionsProxy:
             if real_site_name
             else settings.WAGTAIL_SITE_NAME,
         }
-
-    def site_details(self):
-        return self._site_details
 
 
 class PagePermissionTester:
