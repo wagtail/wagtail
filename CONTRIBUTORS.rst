@@ -15,6 +15,7 @@ Core team
 * Naomi Morduch Toubman
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
+* Stefan Hammer (wunderweiss)
 * Storm Heg
 * Thibaud Colas (Torchbox)
 * Tim Allen (The Wharton School)
@@ -533,7 +534,6 @@ Contributors
 * Jannis Vajen
 * Dmitrii Faiazov
 * Amy Chan
-* Stefan Hammer
 * Chakita Muttaraju
 * Fabien Le Frapper
 * Jonathan "Yoni" Knoll
@@ -656,6 +656,8 @@ Contributors
 * Akua Dokua Asiedu
 * Chisom Okeoma
 * Marvis Chukwudi
+* Jordan Rob
+* Juliet Adeboye
 
 Translators
 ===========
