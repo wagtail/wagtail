@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { escapeHtml } from '../../utils/text';
+import { escapeHtml } from '../utils/text';
 
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
