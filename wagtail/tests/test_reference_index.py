@@ -9,6 +9,7 @@ from wagtail.test.testapp.models import EventPage, EventPageCarouselItem
 
 from io import StringIO
 
+
 class TestCreateOrUpdateForObject(TestCase):
     def setUp(self):
         image_model = get_image_model()
