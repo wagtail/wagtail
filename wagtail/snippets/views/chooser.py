@@ -14,7 +14,6 @@ from wagtail.models import DraftStateMixin
 
 class BaseSnippetChooseView(BaseChooseView):
     filter_form_class = None
-    icon = "snippet"
     page_title = _("Choose")
     results_template_name = "wagtailsnippets/chooser/results.html"
     per_page = 25
@@ -39,6 +38,7 @@ class BaseSnippetChooseView(BaseChooseView):
             {
                 "snippet_type_name": self.model._meta.verbose_name,
                 "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
+                "icon": getattr(self.model, "admin_icon", "snippet"),
             }
         )
         return context

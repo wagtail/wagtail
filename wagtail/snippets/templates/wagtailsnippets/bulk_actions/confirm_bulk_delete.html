@@ -12,9 +12,9 @@
 {% block header %}
     {% trans "Delete " as delete_str %}
     {% if items|length == 1 %}
-        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=items.0.item icon="snippet" only %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=items.0.item icon=header_icon only %}
     {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon="snippet" only %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon=header_icon only %}
     {% endif %}
 {% endblock header %}
 

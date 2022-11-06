@@ -10,9 +10,9 @@
 {% block content %}
     {% trans "Delete " as delete_str %}
     {% if objects|length == 1 %}
-        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=objects|first icon="snippet" only %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=objects|first icon=header_icon only %}
     {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon="snippet" only %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon=header_icon only %}
     {% endif %}
 
     <div class="nice-padding">

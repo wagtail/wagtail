@@ -15,7 +15,6 @@ from wagtail.telepath import register
 
 class AdminSnippetChooser(BaseChooser):
     display_title_key = "string"
-    icon = "snippet"
     classname = "snippet-chooser"
 
     def __init__(self, model, **kwargs):
@@ -24,6 +23,7 @@ class AdminSnippetChooser(BaseChooser):
         self.choose_one_text = _("Choose %(object)s") % {"object": name}
         self.choose_another_text = _("Choose another %(object)s") % {"object": name}
         self.link_to_chosen_text = _("Edit this %(object)s") % {"object": name}
+        self.icon = getattr(model, "admin_icon", "snippet")
 
         super().__init__(**kwargs)
 

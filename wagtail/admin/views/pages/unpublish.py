@@ -90,6 +90,7 @@ class Unpublish(UnpublishView):
                         for p in self.objects_to_unpublish[1:]
                     ]
                 ),
+                "header_icon": "doc-empty-inverse",
             }
         )
         return context
