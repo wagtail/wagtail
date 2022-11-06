@@ -182,6 +182,8 @@ class ModelAdmin(WagtailRegisterable):
         # See: https://github.com/wagtail/wagtail/issues/5105
         self.admin_site = default_django_admin_site
 
+        self.menu_icon = getattr(self.model, "admin_icon", None)
+
     def get_permission_helper_class(self):
         """
         Returns a permission_helper class to help with permission-based logic

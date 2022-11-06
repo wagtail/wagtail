@@ -180,6 +180,9 @@ class IndexView(generic.IndexView):
             *super().get_columns(),
         ]
 
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -285,6 +288,9 @@ class CreateView(generic.CreateView):
             "instance": self._get_initial_form_instance(),
             "for_user": self.request.user,
         }
+
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -415,6 +421,9 @@ class EditView(generic.EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -528,6 +537,9 @@ class DeleteView(generic.DeleteView):
             for instance in self.objects:
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
+
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -711,6 +723,7 @@ class HistoryView(ReportView):
         context["object"] = self.object
         context["subtitle"] = self.get_page_subtitle()
         context["model_opts"] = self.model._meta
+        context["header_icon"] = getattr(self.object, "admin_icon", self.header_icon)
         return context
 
     def get_queryset(self):
@@ -725,7 +738,6 @@ class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
 
 class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView):
     permission_required = "change"
-    header_icon = "snippet"
 
     @property
     def edit_label(self):
@@ -739,13 +751,22 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
             model_name=self.model._meta.verbose_name
         )
 
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
+
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
     permission_required = "publish"
 
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
+
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
     permission_required = "change"
+
+    def get_header_icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
 
 
 class SnippetViewSet(ViewSet):

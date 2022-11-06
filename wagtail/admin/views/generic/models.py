@@ -877,7 +877,7 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         return context
 
 
-class UnpublishView(HookResponseMixin, TemplateView):
+class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     model = None
     index_url_name = None
     edit_url_name = None
@@ -971,7 +971,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
         return context
 
 
-class RevisionsUnscheduleView(TemplateView):
+class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
     model = None
     edit_url_name = None
     history_url_name = None

@@ -24,7 +24,9 @@ class SnippetBulkAction(BulkAction):
 
     def get_context_data(self, **kwargs):
         kwargs.update({"model_opts": self.model._meta})
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context["header_icon"] = getattr(self.model, "admin_icon", "snippet")
+        return context
 
     def get_execution_context(self):
         return {**super().get_execution_context(), "self": self}

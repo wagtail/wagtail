@@ -19,7 +19,6 @@ class ChooserViewSet(ViewSet):
 
     model = None
 
-    icon = "snippet"  #: The icon to use in the header of the chooser modal, and on the chooser widget
     choose_one_text = _(
         "Choose"
     )  #: Label for the 'choose' button in the chooser widget when choosing an initial item
@@ -79,6 +78,10 @@ class ChooserViewSet(ViewSet):
         super().__init__(*args, **kwargs)
         if self.page_title is None:
             self.page_title = self.choose_one_text
+
+    @property
+    def icon(self):
+        return getattr(self.model, "admin_icon", "snippet")
 
     @property
     def choose_view(self):
