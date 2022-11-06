@@ -673,6 +673,7 @@ Contributors
 * Anisha Singh
 * Ivy Jeptoo
 * Jeremy Thompson
+* Ben Gosney
 
 Translators
 ===========

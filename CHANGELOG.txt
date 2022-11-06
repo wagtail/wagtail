@@ -36,6 +36,7 @@ Changelog
  * Fix: Ignore images added via fixtures when using `WAGTAILIMAGES_FEATURE_DETECTION_ENABLED` to avoid errors for images that do not exist (Aman Pandey)
  * Fix: Restore ability to perform JSONField query operations against StreamField when running against the Django 4.2 development branch (Sage Abdullah)
  * Fix: Ensure there is correct grammar and pluralisation for Tab error counts shown to screen readers (Aman Pandey)
+ * Fix: Pass through expected expected `cc`, `bcc` and `reply_to` to the Django mail helper from `wagtail.admin.mail.send_mail` (Ben Gosney)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)

@@ -235,6 +235,78 @@ class TestSendMail(TestCase):
         self.assertEqual(email_message.body, "TEXT content")
         self.assertEqual(email_message.to, ["mr.plain.text@email.com"])
 
+    def test_send_cc(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            cc=["cc.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].cc, ["cc.test@email.com"])
+
+    def test_send_bcc(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            bcc=["bcc.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].bcc, ["bcc.test@email.com"])
+
+    def test_send_reply_to(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            reply_to=["reply_to.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].reply_to, ["reply_to.test@email.com"])
+
+    def test_send_all_extra_fields(self):
+        send_mail(
+            "Test subject",
+            "Test content",
+            ["nobody@email.com"],
+            "test@email.com",
+            cc=["cc.test@email.com"],
+            bcc=["bcc.test@email.com"],
+            reply_to=["reply_to.test@email.com"],
+        )
+
+        # Check that the email was sent
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Test subject")
+        self.assertEqual(mail.outbox[0].body, "Test content")
+        self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
+        self.assertEqual(mail.outbox[0].from_email, "test@email.com")
+        self.assertEqual(mail.outbox[0].cc, ["cc.test@email.com"])
+        self.assertEqual(mail.outbox[0].bcc, ["bcc.test@email.com"])
+        self.assertEqual(mail.outbox[0].reply_to, ["reply_to.test@email.com"])
+
 
 class TestTagsAutocomplete(TestCase, WagtailTestUtils):
     def setUp(self):
