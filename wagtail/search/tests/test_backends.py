@@ -918,7 +918,6 @@ class BackendTests(WagtailTestUtils):
         management.call_command(
             "rebuild_references_index",
             verbosity=0,
-            backend_name=self.backend_name,
             stdout=stdout,
         )
         self.assertFalse(stdout.read())
