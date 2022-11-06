@@ -1,7 +1,4 @@
-from io import StringIO
-
 from django.contrib.contenttypes.models import ContentType
-from django.core import management
 from django.test import TestCase
 
 from wagtail.images import get_image_model
@@ -162,13 +159,3 @@ class TestCreateOrUpdateForObject(TestCase):
             ),
             self.expected_references,
         )
-
-    def test_rebuild_references_index_no_verbosity(self):
-        stdout = StringIO()
-        management.call_command(
-            "rebuild_references_index",
-            verbosity=0,
-            backend_name=self.backend_name,
-            stdout=stdout,
-        )
-        self.assertFalse(stdout.read())
