@@ -123,6 +123,14 @@ An alias for the `update_index` command that can be used when another installed 
 
 This command populates the table that tracks cross-references between objects, used for the usage reports on images, documents and snippets. This table is updated automatically saving objects, but it is recommended to run this command periodically to ensure that the data remains consistent.
 
+### Silencing the command
+
+You can prevent logs to the console by providing `--verbosity 0` as an argument:
+
+```console
+$ python manage.py rebuild_references_index --verbosity 0
+```
+
 ## search_garbage_collect
 
 ```sh
