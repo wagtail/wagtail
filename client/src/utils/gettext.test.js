@@ -30,8 +30,9 @@ describe('gettext', () => {
 });
 
 describe('ngettext', () => {
-  it('should return the first param if Django ngettext is not loaded', () => {
-    expect(ngettext('One bird', 'Many birds', 2)).toEqual('One bird');
+  it('should emulate the Django ngettext function if it is not loaded', () => {
+    expect(ngettext('One bird', 'Many birds', 1)).toEqual('One bird');
+    expect(ngettext('One bird', 'Many birds', 2)).toEqual('Many birds');
   });
 
   it('should call the global Django util if loaded', () => {
