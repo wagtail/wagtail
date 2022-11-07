@@ -61,7 +61,7 @@
   }
 
   .success {
-    background-color: theme('colors.positive.100');
+    background-color: theme('colors.secondary.DEFAULT');
 
     .button:hover {
       background-color: $color-teal-dark;
