@@ -3012,8 +3012,10 @@ class GroupPagePermission(models.Model):
 
 
 class UserPagePermissionsProxy:
-    """Helper object that encapsulates all the page permission rules that this user has
-    across the page hierarchy."""
+    """
+    Helper object that encapsulates all the page permission rules
+    that this user has across the page hierarchy.
+    """
 
     def __new__(cls, user):
         """
@@ -3066,7 +3068,8 @@ class UserPagePermissionsProxy:
 
     def get_pages_for_perms(self, perm_types):
         """
-        Returns an iterator over all the pages the user has permissions matching `perm_types`.
+        Returns an iterator over all the pages the user
+        has permissions matching `perm_types`.
         """
         page_pks = set()
         for perm_type in perm_types:
@@ -3084,17 +3087,20 @@ class UserPagePermissionsProxy:
         return self._pages.values()
 
     def has_any_page_permission(self):
+        """Indicates whether the user has any permission on any page."""
         return bool(self._pages)
 
     def for_page(self, page):
         """
-        Return a PagePermissionTester object that can be used to query whether this user has
-        permission to perform specific tasks on the given page.
+        Return a PagePermissionTester object that can be used to query whether
+        this user has permission to perform specific tasks on the given page.
         """
         return PagePermissionTester(self, page)
 
     def pages_with_direct_explore_permission(self):
-        # Get all pages that the user has direct add/edit/publish/lock permission on
+        """
+        Get all pages that the user has direct add/edit/publish/lock permission on.
+        """
         if self.user.is_superuser:
             # superuser has implicit permission on the root node
             return Page.objects.filter(depth=1)
@@ -3103,8 +3109,10 @@ class UserPagePermissionsProxy:
 
     @functools.lru_cache(maxsize=None)
     def explorable_root_page(self):
-        # Get the highest common explorable ancestor for the given user. If the user
-        # has no permissions over any pages, this method will return None.
+        """
+        Get the highest common explorable ancestor for the given user.
+        If the user has no permissions over any pages, this method will return None.
+        """
         pages = self.pages_with_direct_explore_permission()
         try:
             root_page = first_common_ancestor(pages, include_self=True, strict=True)
@@ -3114,8 +3122,10 @@ class UserPagePermissionsProxy:
         return root_page
 
     def revisions_for_moderation(self):
-        """Return a queryset of page revisions awaiting moderation that this user has publish permission on"""
-
+        """
+        Return a queryset of page revisions awaiting moderation
+        that this user has publish permission on.
+        """
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Revision.objects.none()
@@ -3145,10 +3155,12 @@ class UserPagePermissionsProxy:
         )
 
     def explorable_pages(self):
-        """Return a queryset of pages that the user has access to view in the
-        explorer (e.g. add/edit/publish permission). Includes all pages with
-        specific group permissions and also the ancestors of those pages (in
-        order to enable navigation in the explorer)"""
+        """
+        Return a queryset of pages that the user has access to view in the
+        explorer (e.g. add/edit/publish permission).
+        Includes all pages with specific group permissions and also the ancestors
+        of those pages (in order to enable navigation in the explorer).
+        """
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
@@ -3176,10 +3188,11 @@ class UserPagePermissionsProxy:
 
     @functools.lru_cache(maxsize=None)
     def can_explore_pages(self):
+        """Return True if the user has permission to explore any pages."""
         return self.explorable_pages().exists()
 
     def editable_pages(self):
-        """Return a queryset of the pages that this user has permission to edit"""
+        """Return a queryset of the pages that this user has permission to edit."""
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
@@ -3204,11 +3217,11 @@ class UserPagePermissionsProxy:
 
     @functools.lru_cache(maxsize=None)
     def can_edit_pages(self):
-        """Return True if the user has permission to edit any pages"""
+        """Return True if the user has permission to edit any pages."""
         return self.editable_pages().exists()
 
     def publishable_pages(self):
-        """Return a queryset of the pages that this user has permission to publish"""
+        """Return a queryset of the pages that this user has permission to publish."""
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
@@ -3226,11 +3239,14 @@ class UserPagePermissionsProxy:
 
     @functools.lru_cache(maxsize=None)
     def can_publish_pages(self):
-        """Return True if the user has permission to publish any pages"""
+        """Return True if the user has permission to publish any pages."""
         return self.publishable_pages().exists()
 
     def can_remove_locks(self):
-        """Returns True if the user has permission to unlock pages they have not locked"""
+        """
+        Returns True if the user has permission
+        to unlock pages they have not locked.
+        """
         if self.user.is_superuser:
             return True
         if not self.user.is_active:
