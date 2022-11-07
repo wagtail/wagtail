@@ -660,6 +660,8 @@ Contributors
 * Juliet Adeboye
 * Yekasumah
 * Theresa Okoro
+* Omerzahid Ali
+* Aman Pandey
 
 Translators
 ===========
