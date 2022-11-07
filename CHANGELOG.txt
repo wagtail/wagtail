@@ -4,7 +4,8 @@ Changelog
 4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- * Fix issue where lock/unlock buttons would not work on the Dashboard (home) page or the page index listing via the status sidebar (Stefan Hammer)
+ * Fix: Fix issue where lock/unlock buttons would not work on the Dashboard (home) page or the page index listing via the status sidebar (Stefan Hammer)
+ * Fix: Fix disabled style on StreamField add button (Matt Westcott)
 
 
 4.1 LTS (01.11.2022)
