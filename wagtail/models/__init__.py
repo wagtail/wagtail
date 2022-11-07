@@ -3081,7 +3081,7 @@ class UserPagePermissionsProxy:
         """
         Returns an iterator over all the pages the user has any permission for.
         """
-        return (page for page in self._pages.values())
+        return self._pages.values()
 
     def has_any_page_permission(self):
         return bool(self._pages)
