@@ -1567,9 +1567,9 @@ class GenericSnippetPage(Page):
     """
 
     snippet_content_type = models.ForeignKey(
-        ContentType, on_delete=models.SET_NULL, null=True
+        ContentType, on_delete=models.SET_NULL, null=True, blank=True
     )
-    snippet_object_id = models.PositiveIntegerField(null=True)
+    snippet_object_id = models.PositiveIntegerField(null=True, blank=True)
     snippet_content_object = GenericForeignKey(
         "snippet_content_type", "snippet_object_id"
     )

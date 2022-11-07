@@ -264,10 +264,15 @@ class ReferenceIndex(models.Model):
                 if isinstance(field, GenericForeignKey):
                     ct_field = object._meta.get_field(field.ct_field)
                     fk_field = object._meta.get_field(field.fk_field)
+                    ct_value = ct_field.value_from_object(object)
+                    fk_value = fk_field.value_from_object(object)
 
-                    yield ct_field.value_from_object(object), str(
-                        fk_field.value_from_object(object)
-                    ), field.name, field.name
+                    if ct_value is not None and fk_value is not None:
+                        model = ContentType.objects.get_for_id(ct_value).model_class()
+                        yield cls._get_base_content_type(model).id, str(
+                            fk_value
+                        ), field.name, field.name
+
                     continue
 
                 if isinstance(field, GenericRel):
