@@ -10,6 +10,7 @@ from wagtail.models import Page, ReferenceIndex
 from wagtail.test.testapp.models import (
     EventPage,
     EventPageCarouselItem,
+    GenericSnippetPage,
     ModelWithNullableParentalKey,
 )
 
@@ -178,6 +179,19 @@ class TestCreateOrUpdateForObject(TestCase):
         # instead. Since the ParentalKey is null here, no reference will be recorded.
         refs = ReferenceIndex.get_references_to(self.event_page)
         self.assertEqual(refs.count(), 0)
+
+    def test_generic_foreign_key(self):
+        page1 = GenericSnippetPage(
+            title="generic snippet page", snippet_content_object=self.event_page
+        )
+        self.root_page.add_child(instance=page1)
+        page2 = GenericSnippetPage(
+            title="generic snippet page", snippet_content_object=None
+        )
+        self.root_page.add_child(instance=page2)
+
+        refs = ReferenceIndex.get_references_to(self.event_page)
+        self.assertEqual(refs.count(), 1)
 
     def test_rebuild_references_index_no_verbosity(self):
         stdout = StringIO()
