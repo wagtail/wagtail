@@ -23,7 +23,7 @@ Changelog
  * Fix: Incorrectly formatted link in the documentation for Wagtail community support (Bolarinwa Comfort Ajayi)
  * Fix: Text within status tags text will now resize correctly when customizing browser font size (Mary Ojo)
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
- * Fix: Commments notice background overflows its container (Yekasumah)
+ * Fix: Comments notice background overflows its container (Yekasumah)
 
 
 4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
