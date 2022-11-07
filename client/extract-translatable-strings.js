@@ -24,7 +24,7 @@ extractor
       },
     }),
   ])
-  .parseFilesGlob('./src/**/*.@(ts|js|tsx)');
+  .parseFilesGlob('./src/**/!(*.test).@(ts|js|tsx)');
 
 extractor.savePotFile('../wagtail/admin/locale/en/LC_MESSAGES/djangojs.po');
 

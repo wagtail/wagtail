@@ -14,6 +14,9 @@ Changelog
  * Mention the importance of passing `request` and `current_site` to `get_url` on the [performance](performance) documentation page (Jake Howard)
  * Run Python tests with coverage and upload coverage data to codecov (Sage Abdullah)
  * Clean up duplicate JavaScript for the `escapeHtml` function (Jordan Rob)
+ * Add documentation for `register_user_listing_buttons` hook (LB (Ben Johnston))
+ * Clean up Prettier & Eslint usage for search promotions formset JS file (LB (Ben Johnston))
+ * Ensure that translation file generation ignores JavaScript unit tests and clean up unit tests for Django gettext utils (LB (Ben Johnston))
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
@@ -21,6 +24,15 @@ Changelog
  * Fix: Incorrectly formatted link in the documentation for Wagtail community support (Bolarinwa Comfort Ajayi)
  * Fix: Text within status tags text will now resize correctly when customizing browser font size (Mary Ojo)
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
+ * Fix: Comments notice background overflows its container (Yekasumah)
+ * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
+
+
+4.1.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix issue where lock/unlock buttons would not work on the Dashboard (home) page or the page index listing via the status sidebar (Stefan Hammer)
+ * Fix: Fix disabled style on StreamField add button (Matt Westcott)
 
 
 4.1 LTS (01.11.2022)
