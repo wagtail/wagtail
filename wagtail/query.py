@@ -611,6 +611,10 @@ class DeferredSpecificIterable(ModelIterable):
 
 
 def first_common_ancestor(pages, model=None, include_self=False, strict=False):
+    """
+    This is similar to `PageQuerySet.first_common_ancestor` but works
+    for a list of pages instead of a queryset.
+    """
     if model is None:
         from wagtail.models import Page
 
