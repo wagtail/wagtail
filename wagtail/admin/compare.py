@@ -115,6 +115,8 @@ def get_comparison_class_for_block(block):
         return StructBlockComparison
     elif isinstance(block, blocks.StreamBlock):
         return StreamBlockComparison
+    elif isinstance(block, blocks.ListBlock):
+        return ListBlockComparison
     else:
         # As all stream field blocks have a HTML representation, fall back to diffing that.
         return RichTextBlockComparison
@@ -211,12 +213,22 @@ class StructBlockComparison(BlockComparison):
 
 
 class StreamBlockComparison(BlockComparison):
-    def get_block_comparisons(self):
-        a_blocks = list(self.val_a) or []
-        b_blocks = list(self.val_b) or []
+    @staticmethod
+    def get_blocks_from_value(val):
+        blocks = list(val) or []
+        return blocks
 
+    @staticmethod
+    def get_blocks_by_id(a_blocks, b_blocks):
         a_blocks_by_id = {block.id: block for block in a_blocks}
         b_blocks_by_id = {block.id: block for block in b_blocks}
+
+        return a_blocks_by_id, b_blocks_by_id
+
+    def get_block_comparisons(self):
+        a_blocks = self.get_blocks_from_value(self.val_a)
+        b_blocks = self.get_blocks_from_value(self.val_b)
+        a_blocks_by_id, b_blocks_by_id = self.get_blocks_by_id(a_blocks, b_blocks)
 
         deleted_ids = a_blocks_by_id.keys() - b_blocks_by_id.keys()
 
@@ -295,6 +307,64 @@ class StreamBlockComparison(BlockComparison):
             )
 
         return mark_safe("\n".join(comparisons_html))
+
+
+class ListBlockComparison(StreamBlockComparison):
+    @staticmethod
+    def get_blocks_from_value(val):
+        blocks = list(val.bound_blocks) or []
+        return blocks
+
+    def get_block_comparisons(self):
+        a_blocks = self.get_blocks_from_value(self.val_a)
+        b_blocks = self.get_blocks_from_value(self.val_b)
+
+        # ListBlock could be in one of two formats. If IDs in both a and b are all newly created (ie we're loading data in the old format)
+        # there's no point in using id for identifying which blocks are the same vs moved / added / deleted
+        both_in_new_format = any(block.original_id for block in a_blocks) and any(block.original_id for block in b_blocks)
+
+        if both_in_new_format:
+            # All blocks have ids, so we can use the StreamBlock comparison logic, which uses ids
+            return super().get_block_comparisons()
+
+        # We're dealing with data in the old format
+        # Let's compare blocks by position - it's not perfect, but it's better than rendering to HTML
+        comparisons = []
+        comparison_class = get_comparison_class_for_block(self.block.child_block)
+
+        a_length = len(a_blocks)
+        b_length = len(b_blocks)
+
+        for index, block in enumerate(b_blocks):
+            if index < a_length:
+                # Assume blocks with the same index are the same changed block
+                # (not necessarily true as blocks could be moved)
+                # Changed/existing block
+                comparisons.append(
+                    comparison_class(
+                        block.block,
+                        True,
+                        True,
+                        a_blocks[index].value,
+                        block.value,
+                    )
+                )
+            else:
+                # New block
+                comparisons.append(
+                    comparison_class(block.block, False, True, None, block.value)
+                )
+
+        if a_length > len(b_blocks):
+            for block in a_blocks[b_length:]:
+                # Deleted blocks
+                comparisons.append(
+                    comparison_class(
+                        block.block, True, False, block.value, None
+                    )
+                )
+
+        return comparisons
 
 
 class StreamFieldComparison(FieldComparison):

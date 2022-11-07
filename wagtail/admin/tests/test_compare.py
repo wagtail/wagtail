@@ -696,6 +696,96 @@ class TestStreamFieldComparison(TestCase):
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
+    def test_compare_listblock(self):
+        field = StreamPage._meta.get_field("body")
+        block = field.stream_block.child_blocks['title_list']
+        block_val = block.to_python(
+            [
+                {
+                    "type": "item",
+                    "value": "foo",
+                    "id": "11111111-1111-1111-1111-111111111111",
+                },
+                {
+                    "type": "item",
+                    "value": "bar",
+                    "id": "22222222-2222-2222-2222-222222222222",
+                },
+            ]
+        )
+        block_val_2 = block.to_python(
+            [
+                {
+                    "type": "item",
+                    "value": "bard",
+                    "id": "22222222-2222-2222-2222-222222222222",
+                },
+                {
+                    "type": "item",
+                    "value": "food",
+                    "id": "11111111-1111-1111-1111-111111111111",
+                },
+            ]
+        )
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("title_list", block_val, "1"),
+                    ],
+                )
+            ),
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("title_list", block_val_2, "1"),
+                    ],
+                )
+            ),
+        )
+
+        expected = "" # TODO: check foo and food, bar and bard get compared, add additional comparisons
+
+        self.assertHTMLEqual(comparison.htmldiff(), expected)
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+    def test_compare_listblock_old_format(self):
+        field = StreamPage._meta.get_field("body")
+        block = field.stream_block.child_blocks['title_list']
+        block_val = block.to_python(["foo", "bar"])
+        block_val_2 = block.to_python(["foo", "bap", "baz"])
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("title_list", block_val, "1"),
+                    ],
+                )
+            ),
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("title_list", block_val_2, "1"),
+                    ],
+                )
+            ),
+        )
+
+        expected = "" # TODO: fill in this, add legacy format comparison where former value has more blocks than latter value
+
+        self.assertHTMLEqual(comparison.htmldiff(), expected)
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
     def test_compare_nested_streamblock_uses_comparison_class(self):
         field = StreamPage._meta.get_field("body")
         stream_block = field.stream_block.child_blocks["books"]
