@@ -56,10 +56,19 @@ def register_snippet(model, viewset=None):
         # Models may not have been fully loaded yet, so defer registration until they are -
         # add it to the list of registrations to be processed by register_deferred_snippets
         DEFERRED_REGISTRATIONS.append((model, viewset))
-        return model
-    elif model in SNIPPET_MODELS:
+    else:
+        _register_snippet_immediately(model, viewset)
+
+    return model
+
+
+def _register_snippet_immediately(model, viewset=None):
+    # Register the viewset and formfield for this snippet model,
+    # skipping the check for whether models are loaded
+
+    if model in SNIPPET_MODELS:
         # Do not create duplicate registrations of the same model
-        return model
+        return
 
     from wagtail.snippets.views.chooser import SnippetChooserViewSet
     from wagtail.snippets.views.snippets import SnippetViewSet
@@ -104,8 +113,6 @@ def register_snippet(model, viewset=None):
         ForeignKey, to=model, override={"widget": AdminSnippetChooser(model=model)}
     )
 
-    return model
-
 
 def get_snippet_usage_url(self):
     return reverse(
@@ -132,4 +139,4 @@ def register_deferred_snippets():
     global DEFER_REGISTRATION
     DEFER_REGISTRATION = False
     for model, viewset in DEFERRED_REGISTRATIONS:
-        register_snippet(model, viewset)
+        _register_snippet_immediately(model, viewset)
