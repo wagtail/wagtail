@@ -662,6 +662,7 @@ Contributors
 * Theresa Okoro
 * Omerzahid Ali
 * Aman Pandey
+* Doug Harris
 
 Translators
 ===========
