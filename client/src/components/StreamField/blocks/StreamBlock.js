@@ -8,6 +8,7 @@ import {
   BaseInsertionControl,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
+import { hasOwn } from '../../../utils/hasOwn';
 
 /* global $ */
 
@@ -318,7 +319,7 @@ export class StreamBlock extends BaseSequenceBlock {
     // Check if there are any block types that have count limits
     this.disabledBlockTypes = new Set();
     for (const blockType in this.blockDef.meta.blockCounts) {
-      if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
+      if (hasOwn(this.blockDef.meta.blockCounts, blockType)) {
         const maxNum = this.getBlockMax(blockType);
 
         if (typeof maxNum === 'number') {
@@ -459,7 +460,7 @@ export class StreamBlock extends BaseSequenceBlock {
     // Block errors
 
     for (const blockIndex in error.blockErrors) {
-      if (error.blockErrors.hasOwnProperty(blockIndex)) {
+      if (hasOwn(error.blockErrors, blockIndex)) {
         this.children[blockIndex].setError(error.blockErrors[blockIndex]);
       }
     }

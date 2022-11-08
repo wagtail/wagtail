@@ -8,7 +8,6 @@ const legacyCode = {
   'no-continue': 'off',
   'no-else-return': 'off',
   'no-plusplus': 'off',
-  'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
 };
@@ -71,12 +70,9 @@ module.exports = {
       files: [
         'client/src/entrypoints/admin/comments.js',
         'client/src/entrypoints/admin/core.js',
-        'client/src/entrypoints/admin/expanding-formset.js',
-        'client/src/entrypoints/admin/filtered-select.js',
         'client/src/entrypoints/admin/page-chooser.js',
         'client/src/entrypoints/admin/page-editor.js',
         'client/src/entrypoints/admin/telepath/widgets.js',
-        'client/src/entrypoints/contrib/table_block/table.js',
         'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
         'client/src/entrypoints/images/image-chooser-modal.js',
         'client/src/utils/actions.ts',

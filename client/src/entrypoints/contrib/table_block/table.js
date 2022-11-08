@@ -3,6 +3,7 @@
 /* global Handsontable */
 
 import $ from 'jquery';
+import { hasOwn } from '../../../utils/hasOwn';
 
 function initTable(id, tableOptions) {
   const containerId = id + '-handsontable-container';
@@ -54,24 +55,21 @@ function initTable(id, tableOptions) {
   }
 
   if (dataForForm !== null) {
-    if (dataForForm.hasOwnProperty('first_row_is_table_header')) {
+    if (hasOwn(dataForForm, 'first_row_is_table_header')) {
       tableHeaderCheckbox.prop(
         'checked',
         dataForForm.first_row_is_table_header,
       );
     }
-    if (dataForForm.hasOwnProperty('first_col_is_header')) {
+    if (hasOwn(dataForForm, 'first_col_is_header')) {
       colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
     }
-    if (dataForForm.hasOwnProperty('table_caption')) {
+    if (hasOwn(dataForForm, 'table_caption')) {
       tableCaption.prop('value', dataForForm.table_caption);
     }
   }
 
-  if (
-    !tableOptions.hasOwnProperty('width') ||
-    !tableOptions.hasOwnProperty('height')
-  ) {
+  if (hasOwn(!tableOptions, 'width') || hasOwn(!tableOptions, 'height')) {
     // Size to parent .sequence-member-inner width if width is not given in tableOptions
     $(window).on('resize', () => {
       hot.updateSettings({
@@ -85,8 +83,8 @@ function initTable(id, tableOptions) {
   const getCellsClassnames = function () {
     const meta = hot.getCellsMeta();
     const cellsClassnames = [];
-    for (let i = 0; i < meta.length; i++) {
-      if (meta[i].hasOwnProperty('className')) {
+    for (let i = 0; i < meta.length; i += 1) {
+      if (hasOwn(meta[i], 'className')) {
         cellsClassnames.push({
           row: meta[i].row,
           col: meta[i].col,
@@ -159,10 +157,10 @@ function initTable(id, tableOptions) {
 
   if (dataForForm !== null) {
     // Overrides default value from tableOptions (if given) with value from database
-    if (dataForForm.hasOwnProperty('data')) {
+    if (hasOwn(dataForForm, 'data')) {
       defaultOptions.data = dataForForm.data;
     }
-    if (dataForForm.hasOwnProperty('cell')) {
+    if (hasOwn(dataForForm, 'cell')) {
       defaultOptions.cell = dataForForm.cell;
     }
   }
