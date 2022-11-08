@@ -60,6 +60,7 @@ from wagtail.test.testapp.models import (
     AdvertWithTabbedInterface,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
+    GenericSnippetPage,
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
@@ -3161,6 +3162,12 @@ class TestSnippetUsageView(TestCase, WagtailTestUtils):
         page = Page.objects.get(pk=2)
         page.save()
 
+        gfk_page = GenericSnippetPage(
+            title="Generic snippet page",
+            snippet_content_object=Advert.objects.get(pk=1),
+        )
+        page.add_child(instance=gfk_page)
+
         response = self.client.get(
             reverse(
                 "wagtailsnippets_tests_advert:usage",
@@ -3168,6 +3175,8 @@ class TestSnippetUsageView(TestCase, WagtailTestUtils):
             )
         )
         self.assertContains(response, "Welcome to the Wagtail test site!")
+        self.assertContains(response, "Generic snippet page")
+        self.assertContains(response, "Snippet content object")
 
     def test_usage_without_edit_permission_on_snippet(self):
         # Create a user with basic admin backend access

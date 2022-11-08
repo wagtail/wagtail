@@ -488,4 +488,10 @@ class ReferenceIndex(models.Model):
             child_field = field.related_model._meta.get_field(model_path_components[2])
             return capfirst(child_field.verbose_name)
         else:
-            return capfirst(field.verbose_name)
+            try:
+                field_name = field.verbose_name
+            except AttributeError:
+                # generate verbose name from field name in the same way that Django does:
+                # https://github.com/django/django/blob/7b94847e384b1a8c05a7d4c8778958c0290bdf9a/django/db/models/fields/__init__.py#L858
+                field_name = field.name.replace("_", " ")
+            return capfirst(field_name)
