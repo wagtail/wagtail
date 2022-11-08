@@ -269,6 +269,12 @@ class ReferenceIndex(models.Model):
                     fk_value = fk_field.value_from_object(object)
 
                     if ct_value is not None and fk_value is not None:
+                        # The content type ID referenced by the GenericForeignKey might be a subclassed
+                        # model, but the reference index requires us to index it under the base model's
+                        # content type, as that's what will be used for lookups. So, we need to convert
+                        # the content type back to a model class so that _get_base_content_type can
+                        # select the appropriate superclass if necessary, before converting back to a
+                        # content type.
                         model = ContentType.objects.get_for_id(ct_value).model_class()
                         yield cls._get_base_content_type(model).id, str(
                             fk_value
