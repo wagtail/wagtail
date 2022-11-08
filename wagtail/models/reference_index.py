@@ -7,6 +7,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel, get_all_child_relations
+from taggit.models import ItemBase
 
 
 class ReferenceGroups:
@@ -495,3 +496,11 @@ class ReferenceIndex(models.Model):
                 # https://github.com/django/django/blob/7b94847e384b1a8c05a7d4c8778958c0290bdf9a/django/db/models/fields/__init__.py#L858
                 field_name = field.name.replace("_", " ")
             return capfirst(field_name)
+
+
+# Ignore relations formed by any django-taggit 'through' model, as this causes any tag attached to
+# a tagged object to appear as a reference to that object. Ideally we would follow the reference to
+# the Tag model so that we can use the references index to find uses of a tag, but doing that
+# correctly will require support for ManyToMany relations with through models:
+# https://github.com/wagtail/wagtail/issues/9629
+ItemBase.wagtail_reference_index_ignore = True
