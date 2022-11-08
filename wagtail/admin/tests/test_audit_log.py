@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -252,4 +253,75 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertListEqual(
             list(entries),
             ["wagtail.publish", "wagtail.rename", "wagtail.revert", "wagtail.create"],
+        )
+
+    def test_page_history_after_unscheduled_publication(self):
+        # schedule for publishing
+        go_live_at = timezone.now() + timedelta(minutes=30)
+        if settings.USE_TZ:
+            go_live_at = timezone.localtime(go_live_at)
+        self.hello_page.go_live_at = go_live_at
+        revision = self.hello_page.save_revision(log_action=True)
+        revision.publish()
+
+        self.login(user=self.editor)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:revisions_unschedule",
+                args=(self.hello_page.id, revision.id),
+            )
+        )
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.hello_page.id}
+        )
+        self.assertRedirects(
+            response,
+            history_url,
+        )
+
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f"Page unscheduled for publishing at {go_live_at.strftime('%d %b %Y %H:%M')}",
+        )
+
+    def test_page_history_after_unscheduled_revision(self):
+        # Prepare clean live page with revisions
+        test_page = SimplePage(title="About", slug="about", content="hello")
+        self.hello_page.add_child(instance=test_page)
+        revision = test_page.save_revision(log_action=True)
+        revision.publish()
+        test_page.refresh_from_db()
+
+        # Schedule a new version for publishing
+        go_live_at = timezone.now() + timedelta(minutes=30)
+        if settings.USE_TZ:
+            go_live_at = timezone.localtime(go_live_at)
+        test_page.go_live_at = go_live_at
+        revision = test_page.save_revision(log_action=True)
+        revision.publish()
+
+        self.login(user=self.editor)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:revisions_unschedule",
+                args=(test_page.id, revision.id),
+            )
+        )
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": test_page.id}
+        )
+        self.assertRedirects(
+            response,
+            history_url,
+        )
+
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f"Revision {revision.id} from {revision.created_at.strftime('%d %b %Y %H:%M')} unscheduled from publishing at {go_live_at.strftime('%d %b %Y %H:%M')}.",
         )

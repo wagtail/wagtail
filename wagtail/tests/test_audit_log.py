@@ -196,21 +196,25 @@ class TestAuditLog(TestCase):
         )
 
     def test_revision_cancel_schedule(self):
+        go_live_at = datetime.now() + timedelta(days=1)
         if settings.USE_TZ:
-            self.home_page.go_live_at = timezone.make_aware(
-                datetime.now() + timedelta(days=1)
-            )
-        else:
-            self.home_page.go_live_at = datetime.now() + timedelta(days=1)
+            go_live_at = timezone.make_aware(go_live_at)
+        self.home_page.go_live_at = go_live_at
         revision = self.home_page.save_revision()
         revision.publish()
 
         revision.approved_go_live_at = None
         revision.save(update_fields=["approved_go_live_at"])
 
+        log_entries = PageLogEntry.objects.filter(action="wagtail.schedule.cancel")
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entries[0].data["revision"]["id"], revision.id)
         self.assertEqual(
-            PageLogEntry.objects.filter(action="wagtail.schedule.cancel").count(), 1
+            log_entries[0].data["revision"]["go_live_at"],
+            go_live_at.strftime("%d %b %Y %H:%M"),
         )
+        # The home_page was live already and we've only cancelled the publication of the above revision.
+        self.assertTrue(log_entries[0].data["revision"]["has_live_version"])
 
     def test_page_lock_unlock(self):
         self.home_page.save(log_action="wagtail.lock")

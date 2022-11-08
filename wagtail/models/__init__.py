@@ -2743,6 +2743,7 @@ class Revision(models.Model):
                         "go_live_at": object.go_live_at.strftime("%d %b %Y %H:%M")
                         if object.go_live_at
                         else None,
+                        "has_live_version": object.live,
                     }
                 },
                 user=user,
