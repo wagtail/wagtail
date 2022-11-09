@@ -62,7 +62,8 @@ class ListValue(MutableSequence):
     class ListChild(BoundBlock):
         # a wrapper for list values that keeps track of the associated block type and ID
         def __init__(self, *args, **kwargs):
-            self.id = kwargs.pop("id", None) or str(uuid.uuid4())
+            self.original_id = kwargs.pop("id", None)
+            self.id = self.original_id or str(uuid.uuid4())
             super().__init__(*args, **kwargs)
 
         def get_prep_value(self):
