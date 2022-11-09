@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailcore", "0078_referenceindex"),
-        ("tests", "0010_alter_customimage_file_and_more"),
+        ("tests", "0009_alter_eventpage_options"),
     ]
 
     operations = [
