@@ -863,19 +863,6 @@ def get_comments_enabled():
     return getattr(settings, "WAGTAILADMIN_COMMENTS_ENABLED", True)
 
 
-@register.simple_tag
-def preview_settings():
-    default_options = {
-        "WAGTAIL_AUTO_UPDATE_PREVIEW": True,
-        "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500,
-    }
-
-    return {
-        option: getattr(settings, option, default)
-        for option, default in default_options.items()
-    }
-
-
 @register.simple_tag(takes_context=True)
 def wagtail_config(context):
     request = context["request"]
@@ -888,6 +875,17 @@ def wagtail_config(context):
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
         },
     }
+
+    default_settings = {
+        "WAGTAIL_AUTO_UPDATE_PREVIEW": True,
+        "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500,
+    }
+    config.update(
+        {
+            option: getattr(settings, option, default)
+            for option, default in default_settings.items()
+        }
+    )
 
     return config
 
