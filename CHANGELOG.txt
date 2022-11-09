@@ -9,6 +9,8 @@ Changelog
  * Fix: Ensure models are fully loaded before registering snippets, to avoid circular import issues (Matt Westcott)
  * Fix: Prevent fields without a `verbose_name` property from breaking usage report views (Matt Westcott)
  * Fix: Exclude tags from the reference index (Matt Westcott)
+ * Fix: Fix errors in handling generic foreign keys when populating the reference index (Matt Westcott)
+ * Fix: Prevent error in handling null ParentalKeys when populating the reference index (Matt Westcott)
 
 
 4.1 LTS (01.11.2022)
