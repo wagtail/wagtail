@@ -32,6 +32,7 @@ from wagtail.admin.panels import (
 from wagtail.blocks import (
     CharBlock,
     FieldBlock,
+    ListBlock,
     RawHTMLBlock,
     RichTextBlock,
     StreamBlock,
@@ -1399,6 +1400,10 @@ class StreamPage(Page):
                         ("author", CharBlock()),
                     ]
                 ),
+            ),
+            (
+                "title_list",
+                ListBlock(CharBlock()),
             ),
         ],
         use_json_field=False,
