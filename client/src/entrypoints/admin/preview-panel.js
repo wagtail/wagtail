@@ -1,3 +1,4 @@
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { gettext } from '../../utils/gettext';
 
 function initPreview() {
@@ -143,16 +144,11 @@ function initPreview() {
     newIframe.addEventListener('load', handleLoad);
   };
 
-  const clearPreviewData = () => {
-    const csrfToken = document.querySelector(
-      'input[name="csrfmiddlewaretoken"]',
-    ).value;
-
-    return fetch(previewUrl, {
-      headers: { 'X-CSRFToken': csrfToken },
+  const clearPreviewData = () =>
+    fetch(previewUrl, {
+      headers: { [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN },
       method: 'DELETE',
     });
-  };
 
   const setPreviewData = () => {
     // Bail out if there is already a pending update
