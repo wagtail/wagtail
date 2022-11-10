@@ -21,7 +21,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   transform: translateX(calc(100% - $minimap-collapsed-width-mobile));
 
   @include media-breakpoint-up(sm) {
-    padding-inline-start: $minimap-overflow;
     transform: translateX(
       calc(100% - $minimap-collapsed-width - $minimap-overflow)
     );
@@ -97,6 +96,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   min-height: 70px;
 
   :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.grey.100');
   }
 }
@@ -104,6 +104,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 .w-minimap__list {
   margin: 0;
   padding: 0;
+  padding-inline-start: $minimap-overflow;
   overflow-y: auto;
   overflow-x: hidden;
   list-style-type: none;
@@ -117,6 +118,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-grow: 1;
 
   :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.grey.100');
   }
 }
