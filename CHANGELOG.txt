@@ -11,6 +11,7 @@ Changelog
  * Fix: Exclude tags from the reference index (Matt Westcott)
  * Fix: Fix errors in handling generic foreign keys when populating the reference index (Matt Westcott)
  * Fix: Prevent error in handling null ParentalKeys when populating the reference index (Matt Westcott)
+ * Fix: Make sure minimap error indicators follow the minimap scrolling (Thibaud Colas)
 
 
 4.1 LTS (01.11.2022)
