@@ -638,6 +638,10 @@ msgid "Close"
 msgstr "Zapri"
 
 #, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Stvari v Wagtail %(version)s so se spremenile!"
+
+#, python-format
 msgid ""
 "Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
 "\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"

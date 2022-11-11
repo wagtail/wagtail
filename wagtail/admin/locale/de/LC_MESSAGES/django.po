@@ -12,6 +12,7 @@
 # Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019-2020
+# Florian Vogt <flori@vorlif.org>, 2022
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
 # Herbert Poul, 2015,2021
 # Oliver Engel <codeangel@posteo.de>, 2021
@@ -48,7 +49,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: aw.wunderweiss, 2022\n"
+"Last-Translator: Florian Vogt <flori@vorlif.org>, 2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -1900,7 +1901,7 @@ msgid "Apply filters"
 msgstr "Filter anwenden"
 
 msgid "New: "
-msgstr "Neu:"
+msgstr "Neu: "
 
 #, python-format
 msgid "Editing %(page_type)s %(title)s"
@@ -1956,7 +1957,7 @@ msgid "Minimap"
 msgstr "Minikarte"
 
 msgid "Page Locale: "
-msgstr "Seitenlocale"
+msgstr "Seitenlocale: "
 
 msgid "Locale: "
 msgstr "Locale: "
@@ -2006,7 +2007,7 @@ msgid "Lock"
 msgstr "Sperren"
 
 msgid "Page visibility: "
-msgstr "Seitensichtbarkeit:"
+msgstr "Seitensichtbarkeit: "
 
 msgid "Once live anyone can view"
 msgstr "Sobald veröffentlicht, für jeden sichtbar"
@@ -2023,7 +2024,7 @@ msgstr ""
 "Seite."
 
 msgid "Page status: "
-msgstr "Seitenstatus:"
+msgstr "Seitenstatus: "
 
 msgid "Status: "
 msgstr "Status:"

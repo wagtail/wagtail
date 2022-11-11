@@ -244,6 +244,9 @@ msgstr "situs"
 msgid "sites"
 msgstr "situs sira"
 
+msgid "default"
+msgstr "default"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "

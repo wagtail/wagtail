@@ -244,6 +244,9 @@ msgstr "Uso de"
 msgid "Title"
 msgstr "Título"
 
+msgid "Field"
+msgstr "Campo"
+
 msgid "Choose"
 msgstr "Seleccionar"
 
