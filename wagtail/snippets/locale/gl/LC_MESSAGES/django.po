@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # X Bello <xbello@gmail.com>, 2022
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -181,7 +181,7 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Ningún %(snippet_type_name_plural)s foi creado. ¿Por qué non <a href="
+"Non se creou ningún %(snippet_type_name_plural)s. ¿Por qué non <a href="
 "\"%(wagtailsnippets_create_url)s\">engadir un</a>?"
 
 msgid "Live version"

@@ -471,6 +471,9 @@ msgstr "Uso de"
 msgid "Title"
 msgstr "Título"
 
+msgid "Field"
+msgstr "Campo"
+
 msgid "Add multiple images"
 msgstr "Agregar multiples imágenes"
 

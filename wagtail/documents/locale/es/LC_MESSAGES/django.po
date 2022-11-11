@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Antoni Aloy <aaloy@apsl.net>, 2022
 # Daniel Chimeno <daniel@chimeno.me>, 2016
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Antoni Aloy <aaloy@apsl.net>, 2022\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -285,6 +285,9 @@ msgstr "Uso de %(title)s"
 
 msgid "Usage of"
 msgstr "Uso de"
+
+msgid "Field"
+msgstr "Campo"
 
 #, python-format
 msgid ""
