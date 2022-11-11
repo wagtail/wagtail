@@ -24,6 +24,7 @@ Changelog
  * Fix: Ensure there is a visual difference of 'active/current link' vs normal links in Windows high-contrast mode (Mohammad Areeb)
  * Fix: Avoid issues where trailing whitespace could be accidentally removed in translations for new page & snippet headers (Florian Vogt)
  * Fix: Make sure minimap error indicators follow the minimap scrolling (Thibaud Colas)
+ * Fix: Remove the ability to view or add comments to `InlinePanel` inner fields to avoid lost or incorrectly linked comments (Jacob Topp-Mugglestone)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
