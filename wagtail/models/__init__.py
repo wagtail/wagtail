@@ -248,19 +248,22 @@ class RevisionMixin(models.Model):
         )
 
     def get_base_content_type(self):
-        parents = self._meta.get_parent_list()
-        # Get the last non-abstract parent in the MRO as the base_content_type.
-        # Note: for_concrete_model=False means that the model can be a proxy model.
-        if parents:
-            return ContentType.objects.get_for_model(
-                parents[-1], for_concrete_model=False
-            )
-        # This model doesn't inherit from a non-abstract model,
-        # use it as the base_content_type.
-        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+        try:
+            # Get the last concrete parent in the MRO
+            base_concrete_model = self._meta.get_parent_list()[-1]
+        except IndexError:
+            # This model has no concrete parents, so return the
+            # content type for this model
+            return ContentType.objects.get_for_model(self, for_concrete_model=True)
+        # NOTE: base_concrete_model is ALWAYS concrete, so 'for_concrete_model'
+        # is unnecessary here, but is included for consistency
+        return ContentType.objects.get_for_model(
+            base_concrete_model, for_concrete_model=True
+        )
 
     def get_content_type(self):
-        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+        # For proxy model instances, use the concrete model ContentType
+        return ContentType.objects.get_for_model(self, for_concrete_model=True)
 
     def get_latest_revision(self):
         return self.latest_revision
@@ -1008,7 +1011,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return get_default_page_content_type()
 
     def get_content_type(self):
-        return self.content_type
+        # Aways return a concrete model type to use in revisions
+        return ContentType.objects.get_for_model(
+            self.specific_class, for_concrete_model=True
+        )
 
     @classmethod
     def get_streamfield_names(cls):
@@ -2604,10 +2610,12 @@ class RevisionQuerySet(models.QuerySet):
         return self.filter(submitted_for_moderation=True)
 
     def for_instance(self, instance):
+        # For proxy model instances, use the concrete model ContentType
+        content_type = ContentType.objects.get_for_model(
+            instance, for_concrete_model=True
+        )
         return self.filter(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
+            content_type=content_type,
             object_id=str(instance.pk),
         )
 
