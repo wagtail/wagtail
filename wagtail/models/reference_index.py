@@ -165,15 +165,20 @@ class ReferenceIndex(models.Model):
         that contains the primary key. For example, for any page object, this
         will return the content type of the Page model.
         """
-        parents = model_or_object._meta.get_parent_list()
-        if parents:
+        try:
+            # Get the last concrete parent in the MRO
+            base_concrete_model = model_or_object._meta.get_parent_list()[-1]
+        except IndexError:
+            # Model has no concrete parents, so return the content type for
+            # the model itself
             return ContentType.objects.get_for_model(
-                parents[-1], for_concrete_model=False
+                model_or_object, for_concrete_model=True
             )
-        else:
-            return ContentType.objects.get_for_model(
-                model_or_object, for_concrete_model=False
-            )
+        # NOTE: base_concrete_model is ALWAYS concrete, so 'for_concrete_model'
+        # is unnecessary here, but is included for consistency
+        return ContentType.objects.get_for_model(
+            base_concrete_model, for_concrete_model=True
+        )
 
     @classmethod
     def model_is_indexable(cls, model, allow_child_models=False):
