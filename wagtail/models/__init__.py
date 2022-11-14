@@ -2610,10 +2610,14 @@ class RevisionQuerySet(models.QuerySet):
         return self.filter(submitted_for_moderation=True)
 
     def for_instance(self, instance):
-        # For proxy model instances, use the concrete model ContentType
-        content_type = ContentType.objects.get_for_model(
-            instance, for_concrete_model=True
-        )
+        try:
+            # Utilise RevisionMixin.get_content_type() where available
+            content_type = instance.get_content_type()
+        except AttributeError:
+            # For proxy model instances, use the concrete model ContentType
+            content_type = ContentType.objects.get_for_model(
+                instance, for_concrete_model=True
+            )
         return self.filter(
             content_type=content_type,
             object_id=str(instance.pk),
