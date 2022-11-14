@@ -61,6 +61,7 @@ from wagtail.test.testapp.models import (
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
     GenericSnippetPage,
+    MultiPreviewModesModel,
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
@@ -3474,6 +3475,42 @@ class TestSnippetRevisions(TestCase, WagtailTestUtils):
             f'<a class="button action-secondary" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
+
+    def test_get_with_previewable_snippet(self):
+        self.snippet = MultiPreviewModesModel.objects.create(text="Preview-enabled foo")
+        self.initial_revision = self.snippet.save_revision()
+
+        self.snippet.text = "Preview-enabled bar"
+        self.snippet.save_revision()
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+
+        # Message should be shown
+        self.assertContains(
+            response,
+            "You are viewing a previous version of this",
+            count=1,
+        )
+
+        # Form should show the content of the revision, not the current draft
+        self.assertContains(response, "Preview-enabled foo")
+
+        # Form action url should point to the revisions_revert view
+        form_tag = f'<form action="{self.revert_url}" method="POST">'
+        html = response.content.decode()
+        self.assertTagInHTML(form_tag, html, count=1, allow_extra_attrs=True)
+
+        # Buttons should be relabelled
+        self.assertContains(response, "Replace current revision", count=1)
+
+        # Should show the preview panel
+        preview_url = self.get_url("preview_on_edit")
+        self.assertContains(response, 'data-side-panel-toggle="preview"')
+        self.assertContains(response, 'data-side-panel="preview"')
+        self.assertContains(response, f'data-action="{preview_url}"')
 
     def test_replace_revision(self):
         get_response = self.get()
