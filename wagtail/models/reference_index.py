@@ -371,12 +371,12 @@ class ReferenceIndex(models.Model):
         # Find content types for this model and all of its ancestor classes,
         # ordered from most to least specific
         content_types = [
-            ContentType.objects.get_for_model(model_or_object, for_concrete_model=False)
+            ContentType.objects.get_for_model(model_or_object, for_concrete_model=True)
             for model_or_object in ([object] + object._meta.get_parent_list())
         ]
         content_type = content_types[0]
         base_content_type = content_types[-1]
-        known_content_type_ids = [ct.id for ct in content_types]
+        known_content_type_ids = {ct.id for ct in content_types}
 
         # Find existing references in the database so we know what to add/delete.
         # Construct a dict mapping reference records to the (content_type_id, id) pair that the
