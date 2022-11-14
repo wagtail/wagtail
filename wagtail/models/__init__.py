@@ -4381,10 +4381,7 @@ class PageLogEntryQuerySet(LogEntryQuerySet):
     def get_content_type_ids(self):
         # for reporting purposes, pages of all types are combined under a single "Page"
         # object type
-        if self.exists():
-            return {ContentType.objects.get_for_model(Page).pk}
-        else:
-            return set()
+        return {ContentType.objects.get_for_model(Page).pk}
 
     def filter_on_content_type(self, content_type):
         if content_type == ContentType.objects.get_for_model(Page):
