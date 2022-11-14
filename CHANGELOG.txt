@@ -42,6 +42,7 @@ Changelog
  * Fix: Allow reviewing or reverting to a Page's initial revision (Andy Chosak)
  * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
  * Fix: Use the correct padding for autocomplete block picker (Umar Farouk Yunusa)
+ * Fix: Ensure that short content pages (such as editing snippets) do not show an inconsistent background (Sage Abdullah)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
