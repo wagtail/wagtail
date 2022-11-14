@@ -881,6 +881,7 @@ class SnippetViewSet(ViewSet):
 
     @property
     def edit_view(self):
+        # Any parameters passed here must also be passed in revisions_revert_view.
         return self.edit_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
@@ -938,6 +939,7 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
+            preview_url_name=self.get_url_name("preview_on_edit"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
