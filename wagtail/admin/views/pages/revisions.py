@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -34,10 +33,7 @@ def revisions_revert(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_object()
 
-    content_type = ContentType.objects.get_for_model(page)
-    page_class = content_type.model_class()
-
-    edit_handler = page_class.get_edit_handler()
+    edit_handler = page.specific_class.get_edit_handler()
     form_class = edit_handler.get_form_class()
 
     form = form_class(instance=revision_page, for_user=request.user)
@@ -86,7 +82,7 @@ def revisions_revert(request, page_id, revision_id):
             "page": page,
             "revision": revision,
             "is_revision": True,
-            "content_type": content_type,
+            "content_type": page.get_content_type(),
             "edit_handler": edit_handler,
             "errors_debug": None,
             "action_menu": action_menu,
