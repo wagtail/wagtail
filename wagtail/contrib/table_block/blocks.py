@@ -1,6 +1,9 @@
 import json
 
 from django import forms
+from django.core.exceptions import ValidationError
+from django.forms.fields import Field
+from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
@@ -42,6 +45,26 @@ class TableInput(forms.HiddenInput):
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
         super().__init__(attrs=attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
+        if value and value != "null":
+            data = json.loads(value)
+            row_header = data.get("first_row_is_table_header", "")
+            col_header = data.get("first_col_is_header", "")
+            data["table_header_choice"] = self._get_header_option(
+                row_header, col_header
+            )
+            context["widget"]["value"] = json.dumps(data)
+
+        return context
+
+    def _get_header_option(self, row_header, col_header):
+        if row_header:
+            return "both" if col_header else "row"
+        else:
+            return "column" if col_header else "neither"
 
     @cached_property
     def media(self):
@@ -116,6 +139,25 @@ class TableBlock(FieldBlock):
 
     def value_for_form(self, value):
         return json.dumps(value)
+
+    def clean(self, value):
+        if not value:
+            return value
+
+        if value.get("table_header_choice", ""):
+            value["first_row_is_table_header"] = value["table_header_choice"] in [
+                "row",
+                "both",
+            ]
+            value["first_col_is_header"] = value["table_header_choice"] in [
+                "column",
+                "both",
+            ]
+        else:
+            # Ensure we have a choice for the table_header_choice
+            errors = ErrorList(Field.default_error_messages["required"])
+            raise ValidationError("Validation error in TableBlock", params=errors)
+        return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
     def get_form_state(self, value):
         # pass state to frontend as a JSON-ish dict - do not serialise to a JSON string
