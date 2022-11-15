@@ -14,8 +14,8 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
 
 
