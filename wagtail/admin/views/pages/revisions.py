@@ -12,12 +12,12 @@ from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.side_panels import PageSidePanels
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic.models import (
     RevisionsCompareView,
     RevisionsUnscheduleView,
 )
 from wagtail.admin.views.generic.preview import PreviewRevision
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
 
