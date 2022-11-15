@@ -116,7 +116,7 @@ class TestTableBlock(TestCase):
         """
         self.assertHTMLEqual(result, expected)
 
-    def test_do_not_render_html(self):
+    def test_do_not_render_html_by_default(self):
         """
         Ensure that raw html doesn't render
         by default.
