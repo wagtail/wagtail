@@ -3,24 +3,27 @@
 exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
 "<div>
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
-        <label class=\\"w-field__label\\" for=\\"the-id-handsontable-header\\">Row header</label>
+      <label class=\\"w-field__label\\" for=\\"the-id-table-header-choice\\">Table headers</label>
         <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
-            <input type=\\"checkbox\\" id=\\"the-id-handsontable-header\\" name=\\"handsontable-header\\" aria-describedby=\\"the-id-handsontable-header-helptext\\">
+            <select id=\\"the-id-table-header-choice\\" name=\\"table-header-choice\\">
+              <option value=\\"\\">Select a header option</option>
+              <option value=\\"row\\">
+                  Display the first row as a header
+              </option>
+              <option value=\\"column\\">
+                  Display the first column as a header
+              </option>
+              <option value=\\"both\\">
+                  Display the first row AND first column as headers
+              </option>
+              <option value=\\"neither\\">
+                  No headers
+              </option>
+            </select>
           </div>
           <div id=\\"the-id-handsontable-header-helptext\\" data-field-help=\\"\\">
-            <div class=\\"help\\">Display the first row as a header.</div>
-          </div>
-        </div>
-      </div>
-      <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
-        <label class=\\"w-field__label\\" for=\\"the-id-handsontable-col-header\\">Column header</label>
-        <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
-          <div classname=\\"w-field__input\\" data-field-input=\\"\\">
-            <input type=\\"checkbox\\" id=\\"the-id-handsontable-col-header\\" name=\\"handsontable-col-header\\" aria-describedby=\\"the-id-handsontable-col-header-helptext\\">
-          </div>
-          <div id=\\"the-id-handsontable-col-header-helptext\\" data-field-help=\\"\\">
-            <div class=\\"help\\">Display the first column as a header.</div>
+            <div class=\\"help\\">Which cells should be displayed as headers?</div>
           </div>
         </div>
       </div>
@@ -43,24 +46,27 @@ exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
 exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
 "<div>
       <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
-        <label class=\\"w-field__label\\" for=\\"the-id-handsontable-header\\">En-tête de ligne</label>
+      <label class=\\"w-field__label\\" for=\\"the-id-table-header-choice\\">En-têtes de tableau</label>
         <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
           <div classname=\\"w-field__input\\" data-field-input=\\"\\">
-            <input type=\\"checkbox\\" id=\\"the-id-handsontable-header\\" name=\\"handsontable-header\\" aria-describedby=\\"the-id-handsontable-header-helptext\\">
+            <select id=\\"the-id-table-header-choice\\" name=\\"table-header-choice\\">
+              <option value=\\"\\">Select a header option</option>
+              <option value=\\"row\\">
+                  Afficher la première ligne sous forme d'en-tête
+              </option>
+              <option value=\\"column\\">
+                  Afficher la première colonne sous forme d'en-tête
+              </option>
+              <option value=\\"both\\">
+                  Afficher la première ligne ET la première colonne sous forme d'en-têtes
+              </option>
+              <option value=\\"neither\\">
+                  Pas d'en-têtes
+              </option>
+            </select>
           </div>
           <div id=\\"the-id-handsontable-header-helptext\\" data-field-help=\\"\\">
-            <div class=\\"help\\">Affichez la première ligne sous forme d'en-tête.</div>
-          </div>
-        </div>
-      </div>
-      <div classname=\\"w-field__wrapper\\" data-field-wrapper=\\"\\">
-        <label class=\\"w-field__label\\" for=\\"the-id-handsontable-col-header\\">En-tête de colonne</label>
-        <div class=\\"w-field w-field--boolean_field w-field--checkbox_input\\" data-field=\\"\\">
-          <div classname=\\"w-field__input\\" data-field-input=\\"\\">
-            <input type=\\"checkbox\\" id=\\"the-id-handsontable-col-header\\" name=\\"handsontable-col-header\\" aria-describedby=\\"the-id-handsontable-col-header-helptext\\">
-          </div>
-          <div id=\\"the-id-handsontable-col-header-helptext\\" data-field-help=\\"\\">
-            <div class=\\"help\\">Affichez la première colonne sous forme d'en-tête.</div>
+            <div class=\\"help\\">Quelles cellules doivent être affichées en tant qu'en-têtes?</div>
           </div>
         </div>
       </div>
