@@ -45,6 +45,12 @@ Changelog
  * Maintenance: Migrated `initTagField` from core.js to own TypeScript file and add unit tests (Chisom Okeoma)
 
 
+4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Make "Cancel scheduled publish" button correctly redirect back to the edit view (Sage Abdullah)
+
+
 4.1.1 (11.11.2022)
 ~~~~~~~~~~~~~~~~~~
 
