@@ -48,6 +48,7 @@ class TableInput(forms.HiddenInput):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
+        context["widget"]["table_options_json"] = json.dumps(self.table_options)
 
         if value and value != "null":
             data = json.loads(value)
