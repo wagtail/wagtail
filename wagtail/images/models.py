@@ -743,6 +743,8 @@ class Filter:
                     output, quality=quality, progressive=True, optimize=True
                 )
             elif output_format == "png":
+                if willow.image.mode == "CMYK":
+                    willow.image = willow.image.convert("RGB")
                 return willow.save_as_png(output, optimize=True)
             elif output_format == "gif":
                 return willow.save_as_gif(output)
