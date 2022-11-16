@@ -7,12 +7,14 @@ import { hasOwn } from '../../../utils/hasOwn';
 
 function initTable(id, tableOptions) {
   const containerId = id + '-handsontable-container';
-  const tableHeaderCheckboxId = id + '-handsontable-header';
-  const colHeaderCheckboxId = id + '-handsontable-col-header';
+  var tableHeaderId = id + '-handsontable-header';
+  var colHeaderId = id + '-handsontable-col-header';
+  var headerChoiceId = id + '-table-header-choice';
   const tableCaptionId = id + '-handsontable-col-caption';
   const hiddenStreamInput = $('#' + id);
-  const tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
-  const colHeaderCheckbox = $('#' + colHeaderCheckboxId);
+  var tableHeader = $('#' + tableHeaderId);
+  var colHeader = $('#' + colHeaderId);
+  var headerChoice = $('#' + headerChoiceId);
   const tableCaption = $('#' + tableCaptionId);
   const finalOptions = {};
   let hot = null;
@@ -24,10 +26,7 @@ function initTable(id, tableOptions) {
   };
   const getHeight = function () {
     const tableParent = $('#' + id).parent();
-    return (
-      tableParent.find('.htCore').height() +
-      tableParent.find('[data-field]').height() * 2
-    );
+    return tableParent.find('.htCore').height();
   };
   const resizeTargets = [
     '[data-field] > .handsontable',
@@ -55,15 +54,10 @@ function initTable(id, tableOptions) {
   }
 
   if (dataForForm !== null) {
-    if (hasOwn(dataForForm, 'first_row_is_table_header')) {
-      tableHeaderCheckbox.prop(
-        'checked',
-        dataForForm.first_row_is_table_header,
-      );
+    if (hasOwn(dataForForm, 'table_header_choice')) {
+      headerChoice.prop('value', dataForForm.table_header_choice);
     }
-    if (hasOwn(dataForForm, 'first_col_is_header')) {
-      colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
-    }
+
     if (hasOwn(dataForForm, 'table_caption')) {
       tableCaption.prop('value', dataForForm.table_caption);
     }
@@ -100,8 +94,9 @@ function initTable(id, tableOptions) {
       JSON.stringify({
         data: hot.getData(),
         cell: getCellsClassnames(),
-        first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
-        first_col_is_header: colHeaderCheckbox.prop('checked'),
+        first_row_is_table_header: tableHeader.val(),
+        first_col_is_header: colHeader.val(),
+        table_header_choice: headerChoice.val(),
         table_caption: tableCaption.val(),
       }),
     );
@@ -132,11 +127,7 @@ function initTable(id, tableOptions) {
     persist();
   };
 
-  tableHeaderCheckbox.on('change', () => {
-    persist();
-  });
-
-  colHeaderCheckbox.on('change', () => {
+  headerChoice.on('change', () => {
     persist();
   });
 
@@ -195,24 +186,27 @@ class TableInput {
     const container = document.createElement('div');
     container.innerHTML = `
       <div className="w-field__wrapper" data-field-wrapper>
-        <label class="w-field__label" for="${id}-handsontable-header">${this.strings['Row header']}</label>
+      <label class="w-field__label" for="${id}-table-header-choice">${this.strings['Table headers']}</label>
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
           <div className="w-field__input" data-field-input>
-            <input type="checkbox" id="${id}-handsontable-header" name="handsontable-header" aria-describedby="${id}-handsontable-header-helptext" />
+            <select id="${id}-table-header-choice" name="table-header-choice">
+              <option value="">Select a header option</option>
+              <option value="row">
+                  ${this.strings['Display the first row as a header']}
+              </option>
+              <option value="column">
+                  ${this.strings['Display the first column as a header']}
+              </option>
+              <option value="both">
+                  ${this.strings['Display the first row AND first column as headers']}
+              </option>
+              <option value="neither">
+                  ${this.strings['No headers']}
+              </option>
+            </select>
           </div>
           <div id="${id}-handsontable-header-helptext" data-field-help>
-            <div class="help">${this.strings['Display the first row as a header.']}</div>
-          </div>
-        </div>
-      </div>
-      <div className="w-field__wrapper" data-field-wrapper>
-        <label class="w-field__label" for="${id}-handsontable-col-header">${this.strings['Column header']}</label>
-        <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
-          <div className="w-field__input" data-field-input>
-            <input type="checkbox" id="${id}-handsontable-col-header" name="handsontable-col-header" aria-describedby="${id}-handsontable-col-header-helptext" />
-          </div>
-          <div id="${id}-handsontable-col-header-helptext" data-field-help>
-            <div class="help">${this.strings['Display the first column as a header.']}</div>
+            <div class="help">${this.strings['Which cells should be displayed as headers?']}</div>
           </div>
         </div>
       </div>
