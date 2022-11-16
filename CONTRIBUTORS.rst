@@ -665,6 +665,7 @@ Contributors
 * Mohammad Areeb
 * Florian Vogt
 * Fatuma Abdullahi
+* Elizabeth Bassey
 
 Translators
 ===========
