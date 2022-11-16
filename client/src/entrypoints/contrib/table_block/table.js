@@ -211,29 +211,28 @@ class TableInput {
     const container = document.createElement('div');
     container.innerHTML = `
       <div className="w-field__wrapper" data-field-wrapper>
-        <label for="${id}-table-header-choice">${this.strings['Table headers']}</label>
+        <label class="w-field__label" for="${id}-table-header-choice">${this.strings['Table headers']}</label>
         <div class="w-field w-field--boolean_field w-field--checkbox_input" data-field>
           <div className="w-field__input" data-field-input>
             <select id="${id}-table-header-choice" name="table-header-choice">
               <option value="">Select a header option</option>
               <option value="row">
-                  Display the first row as a header
+                  ${this.strings['Display the first row as a header']}
               </option>
               <option value="column">
-                  Display the first column as a header
+                  ${this.strings['Display the first column as a header']}
               </option>
               <option value="both">
-                  Display the first row AND first column as headers
+                  ${this.strings['Display the first row AND first column as headers']}
               </option>
               <option value="neither">
-                  No headers
+                  ${this.strings['No headers']}
               </option>
             </select>
             <p class="help">Which cells should be displayed as headers?</p>
           </div>
         </div>
       </div>
-
       <div className="w-field__wrapper" data-field-wrapper>
         <label class="w-field__label" for="${id}-handsontable-col-caption">${this.strings['Table caption']}</label>
         <div class="w-field w-field--char_field w-field--text_input" data-field>

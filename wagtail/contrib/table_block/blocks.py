@@ -46,26 +46,26 @@ class TableInput(forms.HiddenInput):
         self.table_options = table_options
         super().__init__(attrs=attrs)
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        context["widget"]["table_options_json"] = json.dumps(self.table_options)
+    # def get_context(self, name, value, attrs):
+    #     context = super().get_context(name, value, attrs)
+    #     context["widget"]["table_options_json"] = json.dumps(self.table_options)
 
-        if value and value != "null":
-            data = json.loads(value)
-            row_header = data.get("first_row_is_table_header", "")
-            col_header = data.get("first_col_is_header", "")
-            data["table_header_choice"] = self._get_header_option(
-                row_header, col_header
-            )
-            context["widget"]["value"] = json.dumps(data)
+    #     if value and value != "null":
+    #         data = json.loads(value)
+    #         row_header = data.get("first_row_is_table_header", "")
+    #         col_header = data.get("first_col_is_header", "")
+    #         data["table_header_choice"] = self._get_header_option(
+    #             row_header, col_header
+    #         )
+    #         context["widget"]["value"] = json.dumps(data)
+    #     print(context)
+    #     return context
 
-        return context
-
-    def _get_header_option(self, row_header, col_header):
-        if row_header:
-            return "both" if col_header else "row"
-        else:
-            return "column" if col_header else "neither"
+    # def _get_header_option(self, row_header, col_header):
+    #     if row_header:
+    #         return "both" if col_header else "row"
+    #     else:
+    #         return "column" if col_header else "neither"
 
     @cached_property
     def media(self):
@@ -91,13 +91,17 @@ class TableInputAdapter(WidgetAdapter):
 
     def js_args(self, widget):
         strings = {
-            "Row header": _("Row header"),
-            "Display the first row as a header.": _(
-                "Display the first row as a header."
+            "Table headers": _("Table headers"),
+            "Display the first row as a header": _("Display the first row as a header"),
+            "Display the first column as a header": _(
+                "Display the first column as a header"
             ),
-            "Column header": _("Column header"),
-            "Display the first column as a header.": _(
-                "Display the first column as a header."
+            "Display the first row AND first column as headers": _(
+                "Display the first row AND first column as headers"
+            ),
+            "No headers": _("No headers"),
+            "Which cells should be displayed as headers?": _(
+                "Which cells should be displayed as headers?"
             ),
             "Table caption": _("Table caption"),
             "A heading that identifies the overall topic of the table, and is useful for screen reader users": _(

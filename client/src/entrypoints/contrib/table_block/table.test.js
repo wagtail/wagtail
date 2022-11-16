@@ -33,11 +33,15 @@ const TEST_OPTIONS = {
 };
 
 const TEST_STRINGS = {
-  'Row header': 'Row header',
-  'Display the first row as a header.': 'Display the first row as a header.',
-  'Column header': 'Column header',
-  'Display the first column as a header.':
-    'Display the first column as a header.',
+  'Table headers': 'Table headers',
+  'Display the first row as a header': 'Display the first row as a header',
+  'Display the first column as a header':
+    'Display the first column as a header',
+  'Display the first row AND first column as headers':
+    'Display the first row AND first column as headers',
+  'No headers': 'No headers',
+  'Which cells should be displayed as headers?':
+    'Which cells should be displayed as headers?',
   'Table caption': 'Table caption',
 
   'A heading that identifies the overall topic of the table, and is useful for screen reader users':
@@ -137,12 +141,16 @@ describe('telepath: wagtail.widgets.TableInput', () => {
 
   test('translation', () => {
     testStrings = {
-      'Row header': 'En-tête de ligne',
-      'Display the first row as a header.':
-        "Affichez la première ligne sous forme d'en-tête.",
-      'Column header': 'En-tête de colonne',
-      'Display the first column as a header.':
-        "Affichez la première colonne sous forme d'en-tête.",
+      'Table headers': 'En-têtes de tableau',
+      'Display the first row as a header':
+        "Afficher la première ligne sous forme d'en-tête",
+      'Display the first column as a header':
+        "Afficher la première colonne sous forme d'en-tête",
+      'Display the first row AND first column as headers':
+        "Afficher la première ligne ET la première colonne sous forme d'en-têtes",
+      'No headers': "Pas d'en-têtes",
+      'Which cells should be displayed as headers?':
+        "Quelles cellules doivent être affichées en tant qu'en-têtes?",
       'Table caption': 'Légende du tableau',
 
       'A heading that identifies the overall topic of the table, and is useful for screen reader users':
