@@ -205,7 +205,7 @@ class TableInput {
                   ${this.strings['No headers']}
               </option>
             </select>
-            <p class="help">Which cells should be displayed as headers?</p>
+            <p class="help">${this.strings['Which cells should be displayed as headers?']}</p>
           </div>
         </div>
       </div>
