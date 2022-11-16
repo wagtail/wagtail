@@ -7,15 +7,11 @@ import { hasOwn } from '../../../utils/hasOwn';
 
 function initTable(id, tableOptions) {
   const containerId = id + '-handsontable-container';
-  // const tableHeaderCheckboxId = id + '-handsontable-header';
-  // const colHeaderCheckboxId = id + '-handsontable-col-header';
   var tableHeaderId = id + '-handsontable-header';
   var colHeaderId = id + '-handsontable-col-header';
   var headerChoiceId = id + '-table-header-choice';
   const tableCaptionId = id + '-handsontable-col-caption';
   const hiddenStreamInput = $('#' + id);
-  // const tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
-  // const colHeaderCheckbox = $('#' + colHeaderCheckboxId);
   var tableHeader = $('#' + tableHeaderId);
   var colHeader = $('#' + colHeaderId);
   var headerChoice = $('#' + headerChoiceId);
@@ -31,10 +27,6 @@ function initTable(id, tableOptions) {
   const getHeight = function () {
     const tableParent = $('#' + id).parent();
     return tableParent.find('.htCore').height();
-    // return (
-    //   tableParent.find('.htCore').height() +
-    //   tableParent.find('[data-field]').height() * 2
-    // );
   };
   const resizeTargets = [
     '[data-field] > .handsontable',
@@ -62,15 +54,6 @@ function initTable(id, tableOptions) {
   }
 
   if (dataForForm !== null) {
-    // if (hasOwn(dataForForm, 'first_row_is_table_header')) {
-    //   tableHeaderCheckbox.prop(
-    //     'checked',
-    //     dataForForm.first_row_is_table_header,
-    //   );
-    // }
-    // if (hasOwn(dataForForm, 'first_col_is_header')) {
-    //   colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
-    // }
     if (hasOwn(dataForForm, 'table_header_choice')) {
       headerChoice.prop('value', dataForForm.table_header_choice);
     }
@@ -145,13 +128,6 @@ function initTable(id, tableOptions) {
     persist();
   };
 
-  // tableHeaderCheckbox.on('change', () => {
-  //   persist();
-  // });
-
-  // colHeaderCheckbox.on('change', () => {
-  //   persist();
-  // });
   headerChoice.on('change', () => {
     persist();
   });
