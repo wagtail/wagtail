@@ -1,3 +1,5 @@
+import { ngettext } from '../utils/gettext';
+
 export default function initSidePanel() {
   const sidePanelWrapper = document.querySelector('[data-form-side]');
 
@@ -6,6 +8,20 @@ export default function initSidePanel() {
 
   // For now, we do not want to persist the side panel state in the explorer
   const inExplorer = 'formSideExplorer' in sidePanelWrapper.dataset;
+
+  const resizeGrip = document.querySelector('[data-form-side-resize-grip]');
+  const widthInput = document.querySelector('[data-form-side-width-input]');
+
+  const getSidePanelWidthStyles = () => {
+    const sidePanelStyles = getComputedStyle(sidePanelWrapper);
+    const minWidth = parseFloat(sidePanelStyles.minWidth);
+    const maxWidth = parseFloat(sidePanelStyles.maxWidth);
+    const width = parseFloat(sidePanelStyles.width);
+    const range = maxWidth - minWidth;
+    const percentage = ((width - minWidth) / range) * 100;
+
+    return { minWidth, maxWidth, width, range, percentage };
+  };
 
   const setPanel = (panelName) => {
     const body = document.querySelector('body');
@@ -36,17 +52,20 @@ export default function initSidePanel() {
     }
 
     document.querySelectorAll('[data-side-panel]').forEach((panel) => {
-      if (panel.dataset.sidePanel === panelName) {
+      const name = panel.dataset.sidePanel;
+      if (name === panelName) {
         if (panel.hidden) {
           // eslint-disable-next-line no-param-reassign
           panel.hidden = false;
           panel.dispatchEvent(new CustomEvent('show'));
+          sidePanelWrapper.classList.add(`form-side--${name}`);
           body.classList.add('side-panel-open');
         }
       } else if (!panel.hidden) {
         // eslint-disable-next-line no-param-reassign
         panel.hidden = true;
         panel.dispatchEvent(new CustomEvent('hide'));
+        sidePanelWrapper.classList.remove(`form-side--${name}`);
 
         if (panelName === '') {
           body.classList.remove('side-panel-open');
@@ -69,6 +88,15 @@ export default function initSidePanel() {
       } catch (e) {
         // Proceed without saving the last-open panel.
       }
+
+      // Update width input percentage as each panel may have its own maxWidth
+      // (e.g. the preview panel), use timeout to wait until the resize
+      // transition has finished
+      setTimeout(() => {
+        const { percentage } = getSidePanelWidthStyles();
+        // Invert the percentage to make the slider work in the opposite direction
+        widthInput.value = 100 - percentage;
+      }, 500);
     }
   };
 
@@ -99,6 +127,65 @@ export default function initSidePanel() {
     });
   }
 
+  const setSidePanelWidth = (targetWidth) => {
+    const { minWidth, maxWidth, range, width } = getSidePanelWidthStyles();
+    const newWidth =
+      parseInt(Math.max(minWidth, Math.min(targetWidth, maxWidth)), 10) ||
+      width;
+
+    const valueText = ngettext('{num} pixel', '{num} pixels', newWidth).replace(
+      '{num}',
+      newWidth,
+    );
+
+    sidePanelWrapper.style.width = `${newWidth}px`;
+    widthInput.value = 100 - ((newWidth - minWidth) / range) * 100;
+    widthInput.setAttribute('aria-valuetext', valueText);
+
+    // Save the new width to localStorage unless we're in the explorer
+    if (inExplorer) return;
+    try {
+      localStorage.setItem('wagtail:side-panel-width', newWidth);
+    } catch (e) {
+      // Proceed without saving the side panel width.
+    }
+  };
+
+  let startPos;
+  let startWidth;
+
+  const onPointerMove = (e) => {
+    if (!e.screenX || !startPos || !startWidth) return;
+    const delta = startPos - e.screenX;
+    setSidePanelWidth(startWidth + delta);
+  };
+
+  resizeGrip.addEventListener('pointerdown', (e) => {
+    // Remember the starting position and width of the side panel, so we can
+    // calculate the new width based on the position change during the drag and
+    // not resize the panel when it has gone past the minimum/maximum width.
+    startPos = e.screenX;
+    startWidth = getSidePanelWidthStyles().width;
+
+    document.body.classList.add('side-panel-resizing');
+    resizeGrip.setPointerCapture(e.pointerId);
+    resizeGrip.addEventListener('pointermove', onPointerMove);
+  });
+
+  resizeGrip.addEventListener('pointerup', (e) => {
+    resizeGrip.removeEventListener('pointermove', onPointerMove);
+    resizeGrip.releasePointerCapture(e.pointerId);
+    document.body.classList.remove('side-panel-resizing');
+  });
+
+  // Handle resizing with keyboard using a hidden range input.
+  widthInput.addEventListener('change', (event) => {
+    const { minWidth, range } = getSidePanelWidthStyles();
+    const inputPercentage = 100 - parseInt(event.target.value, 10);
+    const newWidth = minWidth + (range * inputPercentage) / 100;
+    setSidePanelWidth(newWidth);
+  });
+
   // Open the last opened panel if not in explorer,
   // use timeout to allow comments to load first
   setTimeout(() => {
@@ -107,8 +194,9 @@ export default function initSidePanel() {
       if (!inExplorer && sidePanelOpen) {
         setPanel(sidePanelOpen);
       }
+      setSidePanelWidth(localStorage.getItem('wagtail:side-panel-width'));
     } catch (e) {
-      // Proceed without remembering the last-open panel.
+      // Proceed without remembering the last-open panel and the panel width.
     }
 
     // Skip the animation on initial load only,
