@@ -309,6 +309,45 @@ class Advert(RevisionMixin, models.Model):
         return self._revisions
 ```
 
+If your snippet model defines relations using Django's {class}`~django.db.models.ForeignKey` or {class}`~django.db.models.ManyToManyField`, you need to change the model class to inherit from `modelcluster.models.ClusterableModel` instead of `django.models.Model` and replace the `ForeignKey` and `ManyToManyField` with `ParentalKey` and `ParentalManyToManyField`, respectively. This is necessary in order to allow the relations to be stored in the revisions. For example:
+
+```python
+from django.db import models
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.models import ClusterableModel
+from wagtail.models import RevisionMixin
+
+
+class ShirtColour(models.Model):
+    name = models.CharField(max_length=255)
+
+    panels = [FieldPanel("name")]
+
+
+class ShirtCategory(models.Model):
+    name = models.CharField(max_length=255)
+
+    panels = [FieldPanel("name")]
+
+
+@register_snippet
+class Shirt(RevisionMixin, ClusterableModel):
+    name = models.CharField(max_length=255)
+    colour = ParentalKey("shirts.ShirtColour")
+    categories = ParentalManyToManyField("shirts.ShirtCategory", blank=True)
+    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="shirt")
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("colour"),
+        FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
+    ]
+
+    @property
+    def revisions(self):
+        return self._revisions
+```
+
 The `RevisionMixin` includes a `latest_revision` field that needs to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
 
 With the `RevisionMixin` applied, any changes made from the snippets admin will create an instance of the `Revision` model that contains the state of the snippet instance. The revision instance is attached to the [audit log](audit_log) entry of the edit action, allowing you to revert to a previous revision or compare the changes between revisions from the snippet history page.
@@ -328,6 +367,8 @@ Support for scheduled publishing via `PublishingPanel` was introduced.
 ```
 
 If a snippet model inherits from {class}`~wagtail.models.DraftStateMixin`, Wagtail will automatically add a live/draft status column to the listing view, change the "Save" action menu to "Save draft", and add a new "Publish" action menu in the editor. Any changes you save in the snippets admin will be saved as revisions and will not be reflected in the "live" snippet instance until you publish the changes.
+
+As the `DraftStateMixin` works by saving draft changes as revisions, inheriting from this mixin also requires inheriting from `RevisionMixin`. See [](wagtailsnippets_saving_revisions_of_snippets) above for more details.
 
 Wagtail will also allow you to set publishing schedules for instances of the model if there is a `PublishingPanel` in the model's panels definition.
 
