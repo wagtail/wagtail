@@ -32,6 +32,10 @@ $header-gap: theme('spacing.1');
   cursor: pointer;
   padding-inline-end: theme('spacing.2');
 
+  label {
+    cursor: pointer;
+  }
+
   @include media-breakpoint-up(md) {
     padding-inline-end: theme('spacing.5');
   }
