@@ -26,6 +26,7 @@ Changelog
  * Fix: Avoid issues where trailing whitespace could be accidentally removed in translations for new page & snippet headers (Florian Vogt)
  * Fix: Make sure minimap error indicators follow the minimap scrolling (Thibaud Colas)
  * Fix: Remove the ability to view or add comments to `InlinePanel` inner fields to avoid lost or incorrectly linked comments (Jacob Topp-Mugglestone)
+ * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
@@ -53,6 +54,7 @@ Changelog
 
  * Fix: Make "Cancel scheduled publish" button correctly redirect back to the edit view (Sage Abdullah)
  * Fix: Prevent crash when reverting revisions on a snippet with `PreviewableMixin` applied (Sage Abdullah)
+ * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
 
 
 4.1.1 (11.11.2022)
