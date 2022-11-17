@@ -10,6 +10,7 @@ Changelog
  * Add full support for secondary buttons with icons in the Wagtail design system - `button bicolor button--icon button-secondary` including the `button-small` variant (Seremba Patrick)
  * Add `purge_embeds` management command to delete all the cached embed objects in the database (Aman Pandey)
  * Make it possible to resize the page editor’s side panels (Sage Abdullah)
+ * Add ability to include `form_fields` as an APIField on `FormPage` (Sævar Öfjörð Magnússon, Suyash Singh, LB (Ben) Johnston)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)

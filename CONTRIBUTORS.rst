@@ -666,6 +666,7 @@ Contributors
 * Florian Vogt
 * Fatuma Abdullahi
 * Elizabeth Bassey
+* Suyash Singh
 
 Translators
 ===========
