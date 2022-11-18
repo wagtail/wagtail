@@ -225,7 +225,6 @@ if the tags aren't loaded.
 
 ## A basic blog
 
-
 We are now ready to create a blog. To do so, run
 `python manage.py startapp blog` to create a new app in your Wagtail project.
 
@@ -233,6 +232,7 @@ Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
+Let's start with a simple index page for our blog. In `blog/models.py`:
 
 ```python
 from wagtail.models import Page
@@ -296,7 +296,6 @@ Now we need a model and template for our blog posts. In `blog/models.py`:
 ```python
 from django.db import models
 
-# Add these new imports
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
@@ -325,12 +324,7 @@ class BlogPage(Page):
 
 In the model above, we import `index` as this makes the model searchable. You can then list fields that you want to be searchable for the user.
 
-Run 
-
-```console
-$ python manage.py makemigrations
-$ python manage.py migrate
-```
+Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 Create a new template file at the location `blog/templates/blog/blog_page.html`. Now add the following content to your newly created `blog_page.html` file:
 
@@ -516,7 +510,6 @@ class BlogPage(Page):
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
-# add a new BlogPageGalleryImage class
 
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
@@ -531,12 +524,7 @@ class BlogPageGalleryImage(Orderable):
     ]
 ```
 
-Run 
-
-```console
-$ python manage.py makemigrations
-$ python manage.py migrate
-```
+Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 There are a few new concepts here, so let's take them one at a time:
 
