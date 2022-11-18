@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -87,6 +87,9 @@ msgstr "تاریخ/ساعت انقضا"
 msgid "expired"
 msgstr "انقضا یافته"
 
+msgid "scheduled"
+msgstr "برنامه‌ریزی شده"
+
 msgid "draft"
 msgstr "پیشنویس"
 
@@ -137,9 +140,6 @@ msgstr "آخرین بازبینی ایجاد شده در"
 
 msgid "This slug is already in use"
 msgstr "این اسلاگ در حال استفاده است"
-
-msgid "scheduled"
-msgstr "برنامه‌ریزی شده"
 
 msgid "page"
 msgstr "صفحه"

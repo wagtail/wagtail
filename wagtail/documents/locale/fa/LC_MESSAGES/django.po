@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -173,18 +173,6 @@ msgstr "استفاده از %(title)s"
 msgid "Usage of"
 msgstr "استفاد از"
 
-msgid "Parent"
-msgstr "والد"
-
-msgid "Type"
-msgstr "نوع"
-
-msgid "Status"
-msgstr "وضعیت"
-
-msgid "Edit this page"
-msgstr "ویرایش این صفحه"
-
 msgid "Add multiple documents"
 msgstr "افزودن چند سند"
 
@@ -253,6 +241,10 @@ msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر ده�
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "سند '{0}' حذف شد."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "ویرایش این %s"
 
 #, python-format
 msgid "%(count)s document"

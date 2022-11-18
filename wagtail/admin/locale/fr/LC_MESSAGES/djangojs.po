@@ -17,6 +17,21 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
 
+msgid "({number} new items in this menu)"
+msgstr "({number}  nouvel élément dans ce menu)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nouvel élément dans ce menu)"
+
+msgid "(New)"
+msgstr "(Nouveau)"
+
+msgid "{num} error"
+msgid_plural "{num} errors"
+msgstr[0] "{num} erreur"
+msgstr[1] "{num} erreurs"
+msgstr[2] "{num} erreurs"
+
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
 
@@ -40,6 +55,9 @@ msgstr "Nombre de caractères  :"
 
 msgid "Close"
 msgstr "Fermer"
+
+msgid "Collapse all"
+msgstr "Tout replier"
 
 msgid "Comment"
 msgstr "Commenter"
@@ -77,6 +95,9 @@ msgstr "Entrez votre réponse…"
 msgid "Error while sending preview data."
 msgstr ""
 "Une erreur est survenue lors de l'envoi des données de prévisualisation."
+
+msgid "Expand all"
+msgstr "Tout déplier"
 
 msgid "Focus comment"
 msgstr "Mettre le commentaire au premier-plan"
@@ -185,6 +206,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Ce champ est requis."
+
+msgid "Toggle side panel"
+msgstr "Afficher/masquer le panneau latéral"
 
 msgid "Toggle sidebar"
 msgstr "Afficher/masquer la barre latérale"

@@ -4,19 +4,35 @@
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
 # Mauricio Baeza <python@amigos.email>, 2022
 # Oscar Luciano Espirilla Flores, 2022
-# Amós Oviedo <amos.oviedo@gmail.com>, 2022
 # Hector Garcia <torkoff@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
 # X Bello <xbello@gmail.com>, 2022
+# Antoni Aloy <aaloy@apsl.net>, 2022
+# Amós Oviedo <amos.oviedo@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
+msgid "({number} new items in this menu)"
+msgstr "({number} nuevos items en este menú)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 elemento nuevo en este menú)"
+
+msgid "(New)"
+msgstr "(Nuevo)"
+
+msgid "{num} error"
+msgid_plural "{num} errors"
+msgstr[0] "{num} error"
+msgstr[1] "{num} errores"
+msgstr[2] "{num} errores"
 
 msgid "Add a comment"
 msgstr "Añadir un comentario"
@@ -41,6 +57,9 @@ msgstr "Número de caracteres:"
 
 msgid "Close"
 msgstr "Cerrar"
+
+msgid "Collapse all"
+msgstr "Cerrar todo"
 
 msgid "Comment"
 msgstr "Comentario"
@@ -77,6 +96,9 @@ msgstr "Introduce tu respuesta"
 
 msgid "Error while sending preview data."
 msgstr "Error al enviar datos de vista previa."
+
+msgid "Expand all"
+msgstr "Expandir todo"
 
 msgid "Focus comment"
 msgstr "Enfocar comentario"
@@ -185,6 +207,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Este campo es necesario."
+
+msgid "Toggle side panel"
+msgstr "Alternar menú lateral"
 
 msgid "Toggle sidebar"
 msgstr "Alternar menú lateral"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -162,18 +162,6 @@ msgstr "%(title)s kullanımı"
 msgid "Usage of"
 msgstr "kullanımı"
 
-msgid "Parent"
-msgstr "Üst sayfa"
-
-msgid "Type"
-msgstr "Tür"
-
-msgid "Status"
-msgstr "Durum"
-
-msgid "Edit this page"
-msgstr "Sayfayı düzenle"
-
 msgid "Add multiple documents"
 msgstr "Birden fazla belge akle"
 
@@ -245,6 +233,10 @@ msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' belgesi silindi."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s düzenle"
 
 msgid "Document"
 msgstr "Belge"

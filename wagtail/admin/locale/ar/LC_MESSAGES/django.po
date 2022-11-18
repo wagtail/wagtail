@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -131,6 +131,12 @@ msgstr "تحرير"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "يجب أن يكون تاريخ / وقت البث المباشر قبل تاريخ / وقت انتهاء الصلاحية"
+
+msgid "Expiry date/time must be in the future"
+msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
+
 msgid "New title"
 msgstr "عنوان جديد"
 
@@ -194,12 +200,6 @@ msgstr "لا يمكنك نسخ صفحة إلى نفسها عند نسخ الصف
 msgid "This slug is already in use"
 msgstr "هذه slug بالفعل قيد الاستخدام"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "يجب أن يكون تاريخ / وقت البث المباشر قبل تاريخ / وقت انتهاء الصلاحية"
-
-msgid "Expiry date/time must be in the future"
-msgstr "تاريخ الانتهاء/الوقت يجب ان يكون مستقبلياً"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "الوسم (أو الوسوم) %(value_too_long)s تخطَّو%(max_tag_length)d حرفا "
@@ -235,9 +235,6 @@ msgstr "تم تحديد {0} مُستخدم"
 
 msgid "1 item selected"
 msgstr "تم تحديد 1 عنصر"
-
-msgid "Scheduled publishing"
-msgstr "نشر مجدول زمنيا"
 
 msgid "Page title"
 msgstr "عنوان الصفحة"
@@ -503,6 +500,9 @@ msgstr "تاريخ"
 
 msgid "Site summary"
 msgstr "ملحص الموقع"
+
+msgid "Close"
+msgstr "اغلاق"
 
 msgid "Sign in"
 msgstr "تسجيل الدخول"
@@ -781,22 +781,6 @@ msgstr "مجدد"
 msgid "Cancel scheduled publish"
 msgstr "إلغاء النشر المجدول"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Unschedule Revision %(revision.id)s for %(title)s"
-
-msgid "Unschedule"
-msgstr "غير مجدولة"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "هل أنت متأكد من أنك تريد إلغاء هذه المراجعة؟"
-
-msgid "Yes, unschedule"
-msgstr "نعم ,غير مجدولة"
-
-msgid "No, don't unschedule"
-msgstr "لا ، لا غير مجدولة"
-
 msgid "Page types"
 msgstr "انواع الصفحة"
 
@@ -856,6 +840,22 @@ msgstr "نعك ألغ نشره"
 
 msgid "Filter"
 msgstr "فلتر"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Unschedule Revision %(revision.id)s for %(title)s"
+
+msgid "Unschedule"
+msgstr "غير مجدولة"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "هل أنت متأكد من أنك تريد إلغاء هذه المراجعة؟"
+
+msgid "Yes, unschedule"
+msgstr "نعم ,غير مجدولة"
+
+msgid "No, don't unschedule"
+msgstr "لا ، لا غير مجدولة"
 
 msgid "Other searches"
 msgstr "عمليات البحث الاخرى"
@@ -1034,10 +1034,6 @@ msgid "Page '{0}' moved."
 msgstr "تم نقل الصفحة '{0}'."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "مراجعة {0} من \"{1}\""
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "الصفحة '{0}' غير منشورة."
 
@@ -1109,9 +1105,6 @@ msgstr "رابط"
 
 msgid "Code"
 msgstr "كود"
-
-msgid "Locked Pages"
-msgstr "الصفحات المقفلة"
 
 msgid "Reports"
 msgstr "التقارير"

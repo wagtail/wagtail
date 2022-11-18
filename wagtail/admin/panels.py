@@ -13,6 +13,7 @@ from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
 
@@ -1114,6 +1115,7 @@ class PublishingPanel(MultiFieldPanel):
             context = super().get_context_data(parent_context)
             context["request"] = self.request
             context["instance"] = self.instance
+            context["classname"] = self.classname
             if isinstance(self.instance, Page):
                 context["page"] = self.instance
             return context
@@ -1213,7 +1215,13 @@ def set_default_page_edit_handlers(cls):
         FieldPanel(
             "title",
             classname="title",
-            widget=forms.TextInput(attrs={"placeholder": gettext_lazy("Page title*")}),
+            widget=forms.TextInput(
+                attrs={
+                    "placeholder": format_lazy(
+                        "{title}*", title=gettext_lazy("Page title")
+                    )
+                }
+            ),
         ),
     ]
 

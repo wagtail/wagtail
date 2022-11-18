@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -87,18 +87,6 @@ msgstr "קובץ"
 msgid "Usage of"
 msgstr "שימוש של"
 
-msgid "Parent"
-msgstr "הורה"
-
-msgid "Type"
-msgstr "סוג"
-
-msgid "Status"
-msgstr "מצב"
-
-msgid "Edit this page"
-msgstr "עריכת עמוד זה"
-
 msgid "Or choose from your computer"
 msgstr "או בחרו מהמחשב"
 
@@ -141,6 +129,10 @@ msgstr "הקובץ לא נמצע. אנא שנו את המקור או מחקו א
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "מסמך '{0}' נמחק"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "ערוך את %s זה"
 
 msgid "Document"
 msgstr "מסמך"

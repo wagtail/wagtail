@@ -6,14 +6,14 @@
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,9 @@ msgstr ""
 
 msgid "Wagtail users"
 msgstr "Wagtail användare"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Krävs. Endast bokstäver, siffror och  @/./+/-/_"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -118,6 +121,12 @@ msgstr "användarprofil"
 msgid "user profiles"
 msgstr "användarprofiler"
 
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Tilldela roll till 1 användare"
+msgstr[1] "Tilldela roll till %(counter)s användare"
+
 msgid "Assign role"
 msgstr "Tilldela roll"
 
@@ -134,6 +143,12 @@ msgstr "Ja, tilldela"
 
 msgid "No, don't assign"
 msgstr "Nej, tilldela inte"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Radera 1 användare"
+msgstr[1] "Radera %(counter)s användare"
 
 msgid "Delete"
 msgstr "Radera"
@@ -152,6 +167,12 @@ msgstr "Ja, radera"
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Ändra aktiv status för 1 användare"
+msgstr[1] "Ändra aktiv status för %(counter)s användare"
+
 msgid "Set active state"
 msgstr "Sätt aktiv status"
 
@@ -169,6 +190,16 @@ msgstr "Nej, ändra inte status"
 
 msgid "Delete group"
 msgstr "Radera grupp"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> användare."
+msgstr[1] ""
+"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> användare."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -277,6 +308,12 @@ msgid "Inactive"
 msgstr "Inaktiv"
 
 #, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Det finns %(counter)s träff"
+msgstr[1] "Det finns %(counter)s träffar"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, inga användare matchar \"<em>%(query_string)s</em>\""
 
@@ -353,19 +390,6 @@ msgstr "Gruppen kunde inte sparas p.g.a. fel."
 msgid "Group '{0}' deleted."
 msgstr "Grupp '{0}' raderad."
 
-msgid "Search users"
-msgstr "Sök användare"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Användaren '{0}' skapad."
-
-msgid "Edit"
-msgstr "Redigera"
-
-msgid "The user could not be created due to errors."
-msgstr "Användaren kunde inte skapas p.g.a. fel."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Användaren '{0}' uppdaterad."
@@ -373,9 +397,16 @@ msgstr "Användaren '{0}' uppdaterad."
 msgid "The user could not be saved due to errors."
 msgstr "Användaren kunde inte sparas p.g.a. fel."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Redigerar %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Användare '{0}' raderad."
+
+msgid "Edit"
+msgstr "Redigera"
 
 msgid "Edit this user"
 msgstr "Redigera användaren"

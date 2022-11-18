@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -158,7 +158,7 @@ msgid "uploaded by user"
 msgstr "lähettänyt käyttäjä"
 
 msgid "tags"
-msgstr "asiasanat"
+msgstr "tunnisteet"
 
 msgid "image"
 msgstr "kuva"
@@ -244,7 +244,7 @@ msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
 msgid "Popular tags"
-msgstr "Suositut asiasanat"
+msgstr "Suositut tunnisteet"
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of an "
@@ -270,10 +270,17 @@ msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
 
 msgid "You haven't uploaded any images in this collection."
-msgstr "Et ole tuonut kuvia tähän kokoelmaan."
+msgstr "Et ole lähettänyt kuvia tähän kokoelmaan."
 
 msgid "You haven't uploaded any images."
-msgstr "Et ole tuonut kuvia."
+msgstr "Et ole lähettänyt kuvia."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Mitä jos vaikka <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>lähettäisit kuvan nyt</a>?"
 
 msgid "Choose a format"
 msgstr "Valitse muoto"
@@ -322,6 +329,9 @@ msgstr "Muokataan kuvaa %(title)s"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Image focal point"
+msgstr "Kuvan kiintopiste"
 
 msgid "URL Generator"
 msgstr "URL-generaattori"
@@ -434,18 +444,6 @@ msgstr "Käyttö"
 msgid "Title"
 msgstr "Otsikko"
 
-msgid "Parent"
-msgstr "Isäntä"
-
-msgid "Type"
-msgstr "Tyyppi"
-
-msgid "Status"
-msgstr "Tila"
-
-msgid "Edit this page"
-msgstr "Muokkaa tätä sivua"
-
 msgid "Add multiple images"
 msgstr "Lisää useita kuvia"
 
@@ -496,6 +494,9 @@ msgstr "Kuvan oikeudet"
 
 msgid "Add an image permission"
 msgstr "Lisää kuvaoikeus"
+
+msgid "Tags"
+msgstr "Tunnisteet"
 
 msgid "Tag"
 msgstr "Tunniste"
@@ -596,6 +597,14 @@ msgstr "Kuva '{0}' lisätty."
 
 msgid "The image could not be created due to errors."
 msgstr "Kuvaa ei voitu luoda virheiden vuoksi."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Yksityinen %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Muokkaa %s-kohdetta"
 
 msgid "Image"
 msgstr "Kuva"

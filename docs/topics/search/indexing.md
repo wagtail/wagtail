@@ -2,9 +2,9 @@
 
 # Indexing
 
-To make a model searchable, you'll need to add it into the search index. All pages, images and documents are indexed for you, so you can start searching them right away.
+To make a model searchable, you'll need to add it to the search index. All pages, images, and documents are indexed for you, so you can start searching them right away.
 
-If you have created some extra fields in a subclass of Page or Image, you may want to add these new fields to the search index too so that a user's search query will match on their content. See {ref}`wagtailsearch_indexing_fields` for info on how to do this.
+If you have created some extra fields in a subclass of Page or Image, you may want to add these new fields to the search index too so that a user's search query will match their content. See {ref}`wagtailsearch_indexing_fields` for info on how to do this.
 
 If you have a custom model that you would like to make searchable, see {ref}`wagtailsearch_indexing_models`.
 
@@ -12,7 +12,7 @@ If you have a custom model that you would like to make searchable, see {ref}`wag
 
 ## Updating the index
 
-If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. There are two ways to do this: using the search signal handlers, or calling the `update_index` command periodically. For best speed and reliability, it's best to use both if possible.
+If the search index is kept separate from the database (when using Elasticsearch for example), you need to keep them both in sync. There are two ways to do this: using the search signal handlers, or calling the `update_index` command periodically. For the best speed and reliability, it's best to use both if possible.
 
 ### Signal handlers
 
@@ -20,11 +20,11 @@ If the search index is kept separate from the database (when using Elasticsearch
 
 In some cases, you may not want your content to be automatically reindexed and instead rely on the `update_index` command for indexing. If you need to disable these signal handlers, use one of the following methods:
 
-#### Disabling auto update signal handlers for a model
+#### Disabling auto-update signal handlers for a model
 
 You can disable the signal handlers for an individual model by adding `search_auto_update = False` as an attribute on the model class.
 
-#### Disabling auto update signal handlers for a search backend/whole site
+#### Disabling auto-update signal handlers for a search backend/whole site
 
 You can disable the signal handlers for a whole search backend by setting the `AUTO_UPDATE` setting on the backend to `False`.
 
@@ -89,12 +89,12 @@ These are used for performing full-text searches on your models, usually for tex
 -   **boost** (`int/float`) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
 
     ```{note}
-    The PostgresSQL full text search only supports [four weight levels (A, B, C, D)](https://www.postgresql.org/docs/current/textsearch-features.html).
+    The PostgresSQL full-text search only supports [four weight levels (A, B, C, D)](https://www.postgresql.org/docs/current/textsearch-features.html).
     When the database search backend `wagtail.search.backends.database` is used on a PostgreSQL database, it will take all boost values in the project into consideration and group them into the four available weights.
 
     This means that in this configuration there are effectively only four boost levels used for ranking the search results, even if more boost values have been used.
 
-    You can find out roughly which boost thresholds map to which weight in PostgresSQL by starting an new Django shell with `./manage.py shell` and inspecting `wagtail.search.backends.database.postgres.weights.BOOST_WEIGHTS`.
+    You can find out roughly which boost thresholds map to which weight in PostgreSQL by starting a new Django shell with `./manage.py shell` and inspecting `wagtail.search.backends.database.postgres.weights.BOOST_WEIGHTS`.
     You should see something like `[(10.0, 'A'), (7.166666666666666, 'B'), (4.333333333333333, 'C'), (1.5, 'D')]`.
     Boost values above each threshold will be treated with the respective weight.
     ```
@@ -105,12 +105,12 @@ These are used for performing full-text searches on your models, usually for tex
 
 ### `index.AutocompleteField`
 
-These are used for autocomplete queries which match partial words. For example, a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
+These are used for autocomplete queries that match partial words. For example, a page titled `Hello World!` will be found if the user only types `Hel` into the search box.
 
 This takes the exact same options as `index.SearchField` (with the exception of `partial_match`, which has no effect).
 
 ```{note}
-Only index fields that are displayed in the search results with ``index.AutocompleteField``. This allows users to see any words that were partial-matched on.
+`index.AutocompleteField` should only be used on fields that are displayed in the search results. This allows users to see any words that were partial-matched.
 ```
 
 ### `index.FilterField`

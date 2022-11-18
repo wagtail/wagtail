@@ -1,6 +1,7 @@
 /* global $ */
 
 import { escapeHtml as h } from '../../../utils/text';
+import { hasOwn } from '../../../utils/hasOwn';
 
 export class StructBlockValidationError {
   constructor(blockErrors) {
@@ -96,7 +97,7 @@ export class StructBlock {
     const error = errorList[0];
 
     for (const blockName in error.blockErrors) {
-      if (error.blockErrors.hasOwnProperty(blockName)) {
+      if (hasOwn(error.blockErrors, blockName)) {
         this.childBlocks[blockName].setError(error.blockErrors[blockName]);
       }
     }

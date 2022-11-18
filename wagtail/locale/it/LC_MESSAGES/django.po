@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -129,8 +129,14 @@ msgstr "scadenza data/ora"
 msgid "expired"
 msgstr "scaduta"
 
+msgid "scheduled"
+msgstr "schedulata"
+
 msgid "draft"
 msgstr "bozza"
+
+msgid "live + scheduled"
+msgstr "live + programmate"
 
 msgid "live + draft"
 msgstr "live + bozza"
@@ -205,14 +211,8 @@ msgstr "ultima revisione creata"
 msgid "This slug is already in use"
 msgstr "Questo slug è gia in uso"
 
-msgid "scheduled"
-msgstr "schedulata"
-
 msgid "in moderation"
 msgstr "in moderazione"
-
-msgid "live + scheduled"
-msgstr "live + programmate"
 
 msgid "live + in moderation"
 msgstr "live + in moderazione"

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2022
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018
 # saevarom <saevar@saevar.is>, 2015,2017-2022
@@ -11,9 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -154,6 +155,14 @@ msgstr "Eyða söfnum"
 msgid "You cannot edit another user's comment."
 msgstr "Þú getur ekki breytt athugasemdum annarra notenda."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Dags/tímasetningin þegar síðan fer í loftið þarf að vera á undan þegar hún á "
+"að fara úr loftinu"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
+
 msgid "New title"
 msgstr "Titill"
 
@@ -221,14 +230,6 @@ msgstr ""
 
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Dags/tímasetningin þegar síðan fer í loftið þarf að vera á undan þegar hún á "
-"að fara úr loftinu"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
 
 msgid "Select a new parent for this page."
 msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
@@ -348,9 +349,6 @@ msgstr "Allir {0} hlutir á þessum skjá valdir"
 
 msgid "All items in listing selected"
 msgstr "Allir hlutir valdir"
-
-msgid "Scheduled publishing"
-msgstr "Tímasetning birtingar"
 
 msgid "Page title"
 msgstr "Titill síðu"
@@ -758,6 +756,25 @@ msgstr "Breytingar umbeðnar "
 
 msgid "Awaiting"
 msgstr "Í bið"
+
+msgid "Close"
+msgstr "Loka"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Ýmislegt hefur breyst í Wagtail %(version)s!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
+msgstr ""
+"Engar áhyggjur, kíktu á <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Notendahandbók Wagtail</a> til þess að sjá hvað hefur breyst og hvaða "
+"spennandi nýjungar eru í boði!"
 
 msgid "Awaiting your review"
 msgstr "Bíður yfirferðar"
@@ -1444,6 +1461,14 @@ msgstr "Skoðar %(title)s"
 msgid "Select all pages in listing"
 msgstr "Velja allar síðu"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Ýttu á enter til að velja, notaðu upp og niður örvar til að færa og ýttu "
+"aftur á enter til að staðfesta færsluna eða escape til að hætta við "
+"núverandi færslu."
+
 msgid "Select page"
 msgstr "Velja síðu"
 
@@ -1496,6 +1521,9 @@ msgstr "Engar síður hafa verið búnar til hér."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "Hví ekki að <a href=\"%(add_page_url)s\">búa til eina</a>?"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Þessi síða er læst, af þér, fyrir frekari breytingum"
 
 msgid "This page is locked to further editing"
 msgstr "Þessi síða er læst, ekki hægt að gera frekari breytingar"
@@ -1556,22 +1584,6 @@ msgstr "Bera saman við núverandi útgáfu"
 
 msgid "Cancel scheduled publish"
 msgstr "Hætta við tímasetta birtingu"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hætta við tímasetta birtingu útgáfu %(revision.id)s fyrir %(title)s"
-
-msgid "Unschedule"
-msgstr "Hætta við tímasetta birtingu"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Ertu viss um að þú viljir hætta við birtingu á þessari útgáfu?"
-
-msgid "Yes, unschedule"
-msgstr "Já, hætta við"
-
-msgid "No, don't unschedule"
-msgstr "Nei, ekki hætta við"
 
 #, python-format
 msgid "There is one matching page"
@@ -1677,6 +1689,27 @@ msgstr "Færa upp"
 
 msgid "Move down"
 msgstr "Færa niður"
+
+msgid "Set publishing schedule"
+msgstr "Vista tímastillingar útgáfu"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr ""
+"Veldu hvenær þessi síða á að fara í loftið og/eða verða tekin úr loftinu"
+
+msgid "This publishing schedule will only take effect after you have published"
+msgstr ""
+"Þessi útgáfu tímastilling mun aðeins fara að virka þegar búið er að setja "
+"síðuna í loftið"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Allir sem eru með leyfi til breytinga get búið til tímastillingar"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr "En aðeins þau sem hafa útgáfuréttindi geta virkjað hana."
+
+msgid "Save schedule"
+msgstr "Vista tímastillingar"
 
 msgid "Comment notifications"
 msgstr "Athugasemda tilkynningar"
@@ -1808,11 +1841,33 @@ msgstr "Sýnilegt öllum"
 msgid "Toggle section"
 msgstr "Sýna/fela síðuhluta"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hætta við tímasetta birtingu útgáfu %(revision.id)s fyrir %(title)s"
+
+msgid "Unschedule"
+msgstr "Hætta við tímasetta birtingu"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ertu viss um að þú viljir hætta við birtingu á þessari útgáfu?"
+
+msgid "Yes, unschedule"
+msgstr "Já, hætta við"
+
+msgid "No, don't unschedule"
+msgstr "Nei, ekki hætta við"
+
 msgid "Other searches"
 msgstr "Aðrar leitir"
 
+msgid "Side panels"
+msgstr "Hliðarvalmyndir"
+
 msgid "Toggle side panel"
 msgstr "Sýna/fela hliðarstiku"
+
+msgid "Minimap"
+msgstr "Yfirlit"
 
 msgid "Page Locale: "
 msgstr "Þýðing síðu:"
@@ -1884,6 +1939,12 @@ msgstr "Staða síðu:"
 msgid "Status: "
 msgstr "Staða:"
 
+msgid "Expiry:"
+msgstr "Rennur út:"
+
+msgid "Edit schedule"
+msgstr "Breyta tímastillingu"
+
 msgid "In Moderation"
 msgstr "Bíður samþykktar"
 
@@ -1900,8 +1961,17 @@ msgstr "eftir %(user)s"
 msgid "View history"
 msgstr "Skoða sögu"
 
-msgid "This will publish at "
-msgstr "Þetta mun birtast"
+msgid "Go-live:"
+msgstr "Setja í loftið:"
+
+msgid "Once published:"
+msgstr "Þegar hún er komin í loftið:"
+
+msgid "No publishing schedule set"
+msgstr "Engar tímastillingar vistaðar"
+
+msgid "Set schedule"
+msgstr "Vista tímastillingar"
 
 msgid "Preview in mobile size"
 msgstr "Forskoða í farsíma stærð"
@@ -2166,12 +2236,36 @@ msgstr "Skoða fleiri magn aðgerðir"
 msgid "0 minutes"
 msgstr "0 mínútur"
 
-msgid "Just now"
-msgstr "Rétt í þessu"
+msgid "just now"
+msgstr "rétt í þessu"
 
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s síðan"
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "klukkN %(time)s af %(user_display_name)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "klukkan %(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(time)s af %(user_display_name)s"
+
+#, python-format
+msgid "%(time)s"
+msgstr "%(time)s"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "rétt í þessu af %(user_display_name)s"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s síðan af %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Útskrá"
@@ -2275,20 +2369,36 @@ msgstr ""
 "Útgáfa frá {timestamp} af {model_name} '{instance}' hefur verið sett í "
 "loftið."
 
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been scheduled for "
+"publishing."
+msgstr ""
+"Útgáfa frá {timestamp} af {model_name} '{instance}' hefur verið tímasett til "
+"birtingar."
+
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Leita að  %(model_name)s"
 
 #, python-brace-format
-msgid "'{0}' has been created and published."
-msgstr "'{0}' vistað og sett í loftið."
+msgid "'{0}' created and scheduled for publishing."
+msgstr "'{0}' vistuð og tímastillt til að setja í loftið."
+
+#, python-brace-format
+msgid "'{0}' created and published."
+msgstr "'{0}' vistuð og sett í loftið."
 
 msgid "Editing"
 msgstr "Breyti"
 
 #, python-brace-format
-msgid "'{0}' has been published."
-msgstr "'{0}' hefur verið sett í loftið."
+msgid "'{0}' updated and scheduled for publishing."
+msgstr "'{0}' uppfærð og tímastillt til að setja í loftið."
+
+#, python-brace-format
+msgid "'{0}' updated and published."
+msgstr "'{0}' uppfærð og sett í loftið."
 
 msgid "Earliest"
 msgstr "Fyrsta"
@@ -2299,6 +2409,14 @@ msgstr "Nýjasta"
 #, python-brace-format
 msgid "'{object_name}' unpublished."
 msgstr "'{object_name}' tekið úr loftinu."
+
+#, python-brace-format
+msgid "Version {revision_id} of \"{object}\" unscheduled."
+msgstr "Útgáfa {revision_id} af \"{object}\" tekin úr tímastillingu."
+
+#, python-brace-format
+msgid "revision {revision_id} of \"{object}\""
+msgstr "útgáfa {revision_id} af \"{object}\""
 
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
@@ -2551,14 +2669,6 @@ msgstr ""
 "%(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "útgáfa {0} af \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Útgáfa {0} af \"{1}\" tekin úr tímastillingu."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Síða '{0}' tekin úr birtingu."
 
@@ -2713,6 +2823,9 @@ msgstr[1] ""
 msgid "Task '{0}' enabled."
 msgstr "Skref '{0}' virkt."
 
+msgid "Choose another"
+msgstr "Veldu aðra"
+
 msgid "Pages"
 msgstr "Síður"
 
@@ -2800,11 +2913,18 @@ msgstr "Yfirstrikað"
 msgid "Code"
 msgstr "Kóði"
 
-msgid "Locked Pages"
-msgstr "Læstar síður"
-
 msgid "Reports"
 msgstr "Skýrslur"
+
+#, python-brace-format
+msgid "What's new in Wagtail {version}"
+msgstr "Hvað er nýtt í Wagtail {version}"
+
+msgid "Editor Guide"
+msgstr "Notendahandbók"
+
+msgid "Help"
+msgstr "Hjálp"
 
 msgid "Yes"
 msgstr "Já"

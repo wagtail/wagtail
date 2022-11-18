@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -106,6 +106,9 @@ msgstr "временный"
 msgid "redirect"
 msgstr "перенаправление"
 
+msgid "redirects"
+msgstr "перенаправления"
+
 msgid "Add redirect"
 msgstr "Добавить перенаправление"
 
@@ -117,6 +120,17 @@ msgstr "Перенаправления"
 
 msgid "Import redirects"
 msgstr "Импорт перенаправлений"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Выберите файл, в котором перенаправления разделены на строки и содержат "
+"столбцы, представляющие <code>от</code> и <code>до</code> (они могут "
+"называться как угодно).</p> <p>После отправки вы попадете в окно "
+"подтверждения, где сможете настроить переадресацию перед импортом.</p>"
 
 msgid "Import"
 msgstr "Импорт"
@@ -189,6 +203,14 @@ msgstr "Редактировать это перенаправление"
 
 msgid "No redirects found."
 msgstr "Перенаправлений не найдено."
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Есть %(counter)s совпадение"
+msgstr[1] "Есть %(counter)s совпадений"
+msgstr[2] "Есть %(counter)s совпадений"
+msgstr[3] "Есть %(counter)s совпадений"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

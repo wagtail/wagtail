@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Wasilis Mandratzis-Walz, 2015\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -248,18 +248,6 @@ msgstr "Χρήση του "
 msgid "Title"
 msgstr "Τίτλος"
 
-msgid "Parent"
-msgstr "Πατρική"
-
-msgid "Type"
-msgstr "Τύπος"
-
-msgid "Status"
-msgstr "Κατάσταση"
-
-msgid "Edit this page"
-msgstr "Επεξεργασία αυτής της σελίδας"
-
 msgid "Add multiple images"
 msgstr "Προσθήκη πολλαπλών εικόνων"
 
@@ -352,6 +340,10 @@ msgstr "Η εικόνα '{0}' δημιουργήθηκε."
 
 msgid "The image could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Επεξεργαστείτε το %s"
 
 #, python-format
 msgid "%(count)s image"

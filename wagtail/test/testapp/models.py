@@ -1567,9 +1567,9 @@ class GenericSnippetPage(Page):
     """
 
     snippet_content_type = models.ForeignKey(
-        ContentType, on_delete=models.SET_NULL, null=True
+        ContentType, on_delete=models.SET_NULL, null=True, blank=True
     )
-    snippet_object_id = models.PositiveIntegerField(null=True)
+    snippet_object_id = models.PositiveIntegerField(null=True, blank=True)
     snippet_content_object = GenericForeignKey(
         "snippet_content_type", "snippet_object_id"
     )
@@ -1975,3 +1975,14 @@ class ModelWithStringTypePrimaryKey(models.Model):
 
     custom_id = models.CharField(max_length=255, primary_key=True)
     content = models.CharField(max_length=255)
+
+
+class ModelWithNullableParentalKey(models.Model):
+    """
+    There's not really a valid use case for null parental keys, but their presence should not
+    break things outright (e.g. when determining the object ID to store things under in the
+    references index).
+    """
+
+    page = ParentalKey(Page, blank=True, null=True)
+    content = RichTextField()

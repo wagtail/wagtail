@@ -95,12 +95,12 @@ def wagtail_release_notes_path():
 
 @register.simple_tag
 def wagtail_feature_release_whats_new_link():
-    return "https://wagtail.org/wagtail-4-1-new-in-wagtail"
+    return "https://guide.wagtail.org/en-latest/releases/new-in-wagtail-4-1/"
 
 
 @register.simple_tag
 def wagtail_feature_release_editor_guide_link():
-    return "https://wagtail.org/wagtail-4-1-editor-guide"
+    return "https://guide.wagtail.org/"
 
 
 @register.filter

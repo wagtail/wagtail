@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # X Bello <xbello@gmail.com>, 2022
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -134,8 +134,14 @@ msgstr "data/hora de expiración"
 msgid "expired"
 msgstr "expirado"
 
+msgid "scheduled"
+msgstr "programado"
+
 msgid "draft"
 msgstr "borrador"
+
+msgid "live + scheduled"
+msgstr "en vivo + adiado"
 
 msgid "live + draft"
 msgstr "en vivo + borrador"
@@ -192,7 +198,7 @@ msgstr "mostrar en menús"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
-msgstr "Un enlace a esta página aparecerá en menús xerados automáticamente"
+msgstr "Un enlace a esta páxina aparecerá en menús xerados automáticamente"
 
 msgid "meta description"
 msgstr "meta descripción"
@@ -210,14 +216,8 @@ msgstr "última revisión creada en"
 msgid "This slug is already in use"
 msgstr "Este slug xa está en uso"
 
-msgid "scheduled"
-msgstr "programado"
-
 msgid "in moderation"
 msgstr "en moderación"
-
-msgid "live + scheduled"
-msgstr "en vivo + adiado"
 
 msgid "live + in moderation"
 msgstr "en vivo + en moderación"
@@ -382,13 +382,13 @@ msgid "In progress"
 msgstr "Está indo"
 
 msgid "Approved"
-msgstr "Aprobada"
+msgstr "Aprobado"
 
 msgid "Needs changes"
 msgstr "Precisa cambios"
 
 msgid "Cancelled"
-msgstr "Cancelada"
+msgstr "Cancelado"
 
 msgid "status"
 msgstr "estado"

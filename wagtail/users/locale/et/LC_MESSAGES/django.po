@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -260,19 +260,6 @@ msgstr "Rühma ei õnnestunud vigade tõttu salvestada."
 msgid "Group '{0}' deleted."
 msgstr "Grupp '{0}' on kustutatud."
 
-msgid "Search users"
-msgstr "Otsi kasutajaid"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Kasutaja '{0}' on loodud."
-
-msgid "Edit"
-msgstr "Muuda"
-
-msgid "The user could not be created due to errors."
-msgstr "Kasutajat ei õnnestunud vigade tõttu luua."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Kasutaja '{0}' on värskendatud."
@@ -280,9 +267,16 @@ msgstr "Kasutaja '{0}' on värskendatud."
 msgid "The user could not be saved due to errors."
 msgstr "Kasutajat ei õnnestunud vigade tõttu salvestada."
 
+#, python-format
+msgid "Editing %s"
+msgstr "%s muutmine"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Kasutaja '{0}' on kustutatud."
+
+msgid "Edit"
+msgstr "Muuda"
 
 msgid "Edit this user"
 msgstr "Muutke seda kasutajat"

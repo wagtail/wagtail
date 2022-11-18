@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 from wagtail import hooks
 from wagtail.actions.convert_alias import ConvertAliasPageAction
 from wagtail.admin import messages
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.models import Page
 
 

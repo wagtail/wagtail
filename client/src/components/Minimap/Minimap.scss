@@ -17,17 +17,21 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-direction: column;
   height: calc(100vh - 100%);
   z-index: $minimap-z-index;
-  width: $minimap-collapsed-width-mobile;
+  width: $minimap-width;
+  transform: translateX(calc(100% - $minimap-collapsed-width-mobile));
 
   @include media-breakpoint-up(sm) {
-    padding-inline-start: $minimap-overflow;
-    width: calc($minimap-collapsed-width + $minimap-overflow);
+    transform: translateX(
+      calc(100% - $minimap-collapsed-width - $minimap-overflow)
+    );
   }
 
   &--expanded {
-    width: $minimap-width;
+    transform: translateX(0);
     // Take up the whole height so overlap with the page looks better.
     height: calc(100vh - $minimap-top-offset);
+    // Only transition when opening, so the closing animation doesn’t interfere with "hover to open".
+    transition: transform 0.3s ease;
   }
 
   > * {
@@ -55,7 +59,19 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
       pointer-events: none;
     }
 
-    &:focus {
+    *:focus {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    // Ensure the toggle button is only visible when it has **focus-visible**.
+    // With fallback focus styles for browsers that lack focus-visible support.
+    *:focus:not(:focus-visible) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:focus-visible {
       opacity: 1;
       pointer-events: auto;
     }
@@ -80,6 +96,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   min-height: 70px;
 
   :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.grey.100');
   }
 }
@@ -87,6 +104,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
 .w-minimap__list {
   margin: 0;
   padding: 0;
+  padding-inline-start: $minimap-overflow;
   overflow-y: auto;
   overflow-x: hidden;
   list-style-type: none;
@@ -100,6 +118,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   flex-grow: 1;
 
   :where(.w-minimap--expanded) & {
+    margin-inline-start: $minimap-overflow;
     border-inline-start: 1px solid theme('colors.grey.100');
   }
 }

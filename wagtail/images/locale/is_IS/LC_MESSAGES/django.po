@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2022
 # saevarom <saevar@saevar.is>, 2015,2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019-2022\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2021-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -434,17 +435,8 @@ msgstr "Notuð"
 msgid "Title"
 msgstr "Titill"
 
-msgid "Parent"
-msgstr "Yfirsíða"
-
-msgid "Type"
-msgstr "Tegund"
-
-msgid "Status"
-msgstr "Staða"
-
-msgid "Edit this page"
-msgstr "Breyta þessari síðu"
+msgid "Field"
+msgstr "Reitur"
 
 msgid "Add multiple images"
 msgstr "Bæta við mörgum myndum"
@@ -496,6 +488,9 @@ msgstr "Myndaheimildir"
 
 msgid "Add an image permission"
 msgstr "Bæta við myndaheimild"
+
+msgid "Tags"
+msgstr "Merki"
 
 msgid "Tag"
 msgstr "Merking"
@@ -595,6 +590,14 @@ msgstr "Mynd '{0}' bætt við."
 
 msgid "The image could not be created due to errors."
 msgstr "Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Einka %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Breyta þessu %s"
 
 msgid "Image"
 msgstr "Mynd"

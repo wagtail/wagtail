@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ChihWei Wang <ihcgno@icloud.com>, 2020
+# Chih Wang <ihcgno@icloud.com>, 2020
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: ChihWei Wang <ihcgno@icloud.com>, 2020\n"
+"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -242,19 +242,6 @@ msgstr "無法儲存該群組。出現錯誤。"
 msgid "Group '{0}' deleted."
 msgstr "群組 '{0}' 已刪除。"
 
-msgid "Search users"
-msgstr "搜索使用者"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "使用者 '{0}'已創建"
-
-msgid "Edit"
-msgstr "編輯"
-
-msgid "The user could not be created due to errors."
-msgstr "無法創建使用者。出現錯誤。"
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "使用者 '{0}' 已更新。"
@@ -262,9 +249,16 @@ msgstr "使用者 '{0}' 已更新。"
 msgid "The user could not be saved due to errors."
 msgstr "無法儲存使用者。出現錯誤。"
 
+#, python-format
+msgid "Editing %s"
+msgstr "正在編輯%s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "使用者 '{0}' 已刪除。"
+
+msgid "Edit"
+msgstr "編輯"
 
 msgid "Edit this user"
 msgstr "編輯此使用者"

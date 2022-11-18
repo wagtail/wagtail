@@ -57,6 +57,16 @@ This command deletes old page revisions which are not in moderation, live, appro
 revision for a page. If the `days` argument is supplied, only revisions older than the specified number of
 days will be deleted.
 
+(purge_embeds)=
+
+## purge_embeds
+
+```sh
+manage.py purge_embeds
+```
+
+This command deletes all the cached embed objects from the database. It is recommended to run this command after changes are made to any embed settings so that subsequent embed usage does not from the database cache.
+
 (update_index)=
 
 ## update_index
@@ -101,8 +111,8 @@ python manage.py update_index --schema-only
 
 You can prevent logs to the console by providing `--verbosity 0` as an argument:
 
-```console
-$ python manage.py update_index --verbosity 0
+```sh
+python manage.py update_index --verbosity 0
 ```
 
 If this is omitted or provided with any number above 0 it will produce the same logs.
@@ -122,6 +132,14 @@ An alias for the `update_index` command that can be used when another installed 
 ```
 
 This command populates the table that tracks cross-references between objects, used for the usage reports on images, documents and snippets. This table is updated automatically saving objects, but it is recommended to run this command periodically to ensure that the data remains consistent.
+
+### Silencing the command
+
+You can prevent logs to the console by providing `--verbosity 0` as an argument:
+
+```sh
+python manage.py rebuild_references_index --verbosity 0
+```
 
 ## search_garbage_collect
 

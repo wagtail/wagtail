@@ -9,7 +9,7 @@
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
-# Marek Turnovec <aesculap@gmail.com>, 2016,2020
+# Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
 # Martin Galda <martingalda9@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2018
@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -146,14 +146,29 @@ msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 msgid "Add"
 msgstr "Přidat"
 
+msgid "Add collections"
+msgstr "Přidat kolekce"
+
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "Edit collections"
+msgstr "Upravit kolekce"
 
 msgid "Delete"
 msgstr "Smazat"
 
+msgid "Delete collections"
+msgstr "Smazat kolekce"
+
 msgid "You cannot edit another user's comment."
 msgstr "Nemůžete změnit komentář jiného uživatele."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas publikování musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
 
 msgid "New title"
 msgstr "Nový název"
@@ -229,11 +244,8 @@ msgstr "Není možné kopírovat stránku samu do sebe při kopírování podstr
 msgid "This slug is already in use"
 msgstr "Název pro URL musí být unikátní"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Datum/čas publikování musí být dřívější než datum/čas expirace"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/čas expirace musí být v budoucnosti"
+msgid "Select a new parent for this page."
+msgstr "Zvolte novou nadřazenou stránku pro tuto stránku."
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -302,9 +314,6 @@ msgstr "Všechny {0} obrázky na této obrazovce vybrány"
 
 msgid "1 user selected"
 msgstr "1 uživatel vybrán"
-
-msgid "Scheduled publishing"
-msgstr "Naplánovaná publikace"
 
 msgid "Page title"
 msgstr "Název stránky"
@@ -435,6 +444,9 @@ msgstr "Zvolit"
 msgid "Choose a page"
 msgstr "Zvolit stránku"
 
+msgid "Use external link"
+msgstr "Použít externí odkaz"
+
 msgid "Add an email link"
 msgstr "Vložit e-mailový odkaz"
 
@@ -505,6 +517,9 @@ msgstr "Ano, smazat"
 
 msgid "Update"
 msgstr "Uložit"
+
+msgid "Preview not available"
+msgstr "Náhled není dostupný"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -597,6 +612,9 @@ msgstr "Změny, o které bylo požádáno v"
 msgid "Awaiting"
 msgstr "Čeká se"
 
+msgid "Close"
+msgstr "Zavřít"
+
 msgid "Awaiting your review"
 msgstr "Očekává se vaše revize"
 
@@ -615,6 +633,9 @@ msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znov
 
 msgid "Forgotten password?"
 msgstr "Zapomenuté heslo?"
+
+msgid "Remember me"
+msgstr "Zapamatovat si mě"
 
 msgid "Signing in…"
 msgstr "Přihlašování..."
@@ -825,6 +846,21 @@ msgstr "Ne, nemazat"
 
 msgid "Move"
 msgstr "Přesunout"
+
+msgid "Yes, move these pages"
+msgstr "Ano, přesunout tyto stránky"
+
+msgid "No, don't move"
+msgstr "Ne, nepřesouvat"
+
+msgid "Yes, publish"
+msgstr "Ano, publikovat"
+
+msgid "No, don't publish"
+msgstr "Ne, nepublikovat"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Opravdu chcete zrušit publikaci těchto stránek?"
 
 msgid "No, don't unpublish"
 msgstr "Ne, nerušit publikaci"
@@ -1037,22 +1073,6 @@ msgstr "Porovnat s aktuální verzí"
 msgid "Cancel scheduled publish"
 msgstr "Zrušit naplánované publikování"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Zruš plánovanou publikaci verze %(revision.id)s %(title)s"
-
-msgid "Unschedule"
-msgstr "Zrušit naplánované publikování"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Opravdu chcete zrušit naplánovanou publikaci této verze?"
-
-msgid "Yes, unschedule"
-msgstr "Ano, nezveřejňovat"
-
-msgid "No, don't unschedule"
-msgstr "Ne, ponechat ke zveřejnění"
-
 msgid "Page types"
 msgstr "Typy stránky"
 
@@ -1220,8 +1240,33 @@ msgstr "Navštívit publikovanou stránku"
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
 
+msgid "Toggle section"
+msgstr "Přepnout výběr"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Zruš plánovanou publikaci verze %(revision.id)s %(title)s"
+
+msgid "Unschedule"
+msgstr "Zrušit naplánované publikování"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Opravdu chcete zrušit naplánovanou publikaci této verze?"
+
+msgid "Yes, unschedule"
+msgstr "Ano, nezveřejňovat"
+
+msgid "No, don't unschedule"
+msgstr "Ne, ponechat ke zveřejnění"
+
 msgid "Other searches"
 msgstr "Další hledání"
+
+msgid "Side panels"
+msgstr "Postranní panely"
+
+msgid "Toggle side panel"
+msgstr "Přepnout postranní panel"
 
 msgid "Unlocked"
 msgstr "Odemčeno"
@@ -1423,9 +1468,6 @@ msgstr "Více"
 
 msgid "0 minutes"
 msgstr "0 minut"
-
-msgid "Just now"
-msgstr "Právě teď"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1636,14 +1678,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "verze {0} \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Verze {0} dokumentu \"{1}\" není naplánována."
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
@@ -1859,11 +1893,11 @@ msgstr "Přeškrtnuté"
 msgid "Code"
 msgstr "Kód"
 
-msgid "Locked Pages"
-msgstr "Uzamčené stránky"
-
 msgid "Reports"
 msgstr "Výkazy"
+
+msgid "Help"
+msgstr "Nápověda"
 
 msgid "Yes"
 msgstr "Ano"
@@ -1876,6 +1910,9 @@ msgstr "Zvolit jinou položku"
 
 msgid "Clear choice"
 msgstr "Zrušit výběr"
+
+msgid "Choose another page"
+msgstr "Zvolit jinou stránku"
 
 msgid "Tags can only consist of a single word, no spaces allowed."
 msgstr "Tagy mohou být tvořeny pouze jedním slovem, mezery nejsou povoleny."

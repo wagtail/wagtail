@@ -61,10 +61,10 @@ The `log` function was added. Previously, logging was only implemented for pages
 | Action                            | Notes                                                                            |
 | --------------------------------- | -------------------------------------------------------------------------------- |
 | `wagtail.create`                  | The object was created                                                           |
-| `wagtail.edit`                    | The object was edited (for pages, saved as a draft)                                |
+| `wagtail.edit`                    | The object was edited (for pages, saved as a draft)                              |
 | `wagtail.delete`                  | The object was deleted. Will only surface in the Site History for administrators |
 | `wagtail.publish`                 | The page was published                                                           |
-| `wagtail.publish.schedule`        | The draft is scheduled for publishing                                                |
+| `wagtail.publish.schedule`        | The draft is scheduled for publishing                                            |
 | `wagtail.publish.scheduled`       | Draft published via `publish_scheduled` management command                       |
 | `wagtail.schedule.cancel`         | Draft scheduled for publishing cancelled via "Cancel scheduled publish"          |
 | `wagtail.unpublish`               | The page was unpublished                                                         |
@@ -78,13 +78,13 @@ The `log` function was added. Previously, logging was only implemented for pages
 | `wagtail.copy`                    | The page was copied to a new location                                            |
 | `wagtail.copy_for_translation`    | The page was copied into a new locale for translation                            |
 | `wagtail.move`                    | The page was moved to a new location                                             |
-| `wagtail.reorder`                 | The order of the page under its parent was changed                              |
+| `wagtail.reorder`                 | The order of the page under its parent was changed                               |
 | `wagtail.view_restriction.create` | The page was restricted                                                          |
 | `wagtail.view_restriction.edit`   | The page restrictions were updated                                               |
 | `wagtail.view_restriction.delete` | The page restrictions were removed                                               |
 | `wagtail.workflow.start`          | The page was submitted for moderation in a Workflow                              |
 | `wagtail.workflow.approve`        | The draft was approved at a Workflow Task                                        |
-| `wagtail.workflow.reject`         | The draft was rejected, and changes were requested at a Workflow Task                 |
+| `wagtail.workflow.reject`         | The draft was rejected, and changes were requested at a Workflow Task            |
 | `wagtail.workflow.resume`         | The draft was resubmitted to the workflow                                        |
 | `wagtail.workflow.cancel`         | The workflow was cancelled                                                       |
 

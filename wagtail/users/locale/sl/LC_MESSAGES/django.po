@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrej, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Andrej, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -105,6 +106,12 @@ msgstr "uporabniški profil"
 
 msgid "user profiles"
 msgstr "uporabniški profili"
+
+msgid "Assign role"
+msgstr "Dodeli vlogo"
+
+msgid "Yes, assign"
+msgstr "Da, dodeli"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -200,6 +207,9 @@ msgstr "Uporabniki"
 msgid "Add a user"
 msgstr "Dodaj uporabnika"
 
+msgid "Select all users in listing"
+msgstr "Izberite vse uporabnike na seznamu"
+
 msgid "Username"
 msgstr "Uporabniško ime"
 
@@ -252,19 +262,6 @@ msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' izbrisana."
 
-msgid "Search users"
-msgstr "Iskanje po uporabnikih"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Uporabnik '{0}' ustvarjen."
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "The user could not be created due to errors."
-msgstr "Uporabnika, zaradi napak, ni bilo možno ustvariti."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Uporabnik '{0}' posodobljen."
@@ -272,9 +269,16 @@ msgstr "Uporabnik '{0}' posodobljen."
 msgid "The user could not be saved due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Urejanje %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Uporabnik '{0}' izbrisan."
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "Edit this user"
 msgstr "Uredi tega uporabnika"

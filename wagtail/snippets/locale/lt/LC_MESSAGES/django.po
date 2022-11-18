@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -70,6 +70,9 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
+msgid "Usage"
+msgstr "Panaudojimas"
+
 msgid "Last updated"
 msgstr "Pask. kartą atnaujinta"
 
@@ -100,9 +103,6 @@ msgstr "Naujas"
 
 msgid "Actions"
 msgstr "Veiksmai"
-
-msgid "Usage"
-msgstr "Panaudojimas"
 
 msgid "Breadcrumb"
 msgstr "Naršymo kelias"
@@ -139,14 +139,8 @@ msgstr "Palyginti su ankstesne versija"
 msgid "Compare with current version"
 msgstr "Palyginti su dabartine versija"
 
-msgid "Live"
-msgstr "Veikiantis"
-
-msgid "Draft"
-msgstr "Juodraštis"
-
-msgid "View history"
-msgstr "Peržiūrėti istoriją"
+msgid "Cancel scheduled publish"
+msgstr "Atšaukti suplanuotą publikavimą"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -165,18 +159,6 @@ msgstr "Naudojimas"
 
 msgid "Title"
 msgstr "Pavadinimas"
-
-msgid "Parent"
-msgstr "Tėvas"
-
-msgid "Type"
-msgstr "Tipas"
-
-msgid "Status"
-msgstr "Statusas"
-
-msgid "Edit this page"
-msgstr "Redaguoti šį puslapį"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -198,14 +180,21 @@ msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' atnaujinta."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "Redaguoti šį %s"
+
+msgid "Action"
+msgstr "Veiksmas"
+
+msgid "User"
+msgstr "Vartotojas"
+
 msgid "Date"
 msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Nuokarpos istorija"
-
-msgid "Action"
-msgstr "Veiksmas"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -222,7 +211,3 @@ msgstr "Pasirinkti %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Pasirinkti kitą %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Redaguoti šį %s"

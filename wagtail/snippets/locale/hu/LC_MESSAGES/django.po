@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -98,6 +98,9 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">hoz létre egy újat most</a>?"
 
+msgid "Usage"
+msgstr "Használat"
+
 msgid "Last updated"
 msgstr "Utolsó frissítés"
 
@@ -135,9 +138,6 @@ msgstr "Akciók"
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "%(object)s - %(snippet_type_name)s szerkesztése"
-
-msgid "Usage"
-msgstr "Használat"
 
 msgid "Toggle breadcrumbs"
 msgstr "Morzsamenü kapcsolása"
@@ -206,20 +206,8 @@ msgstr "Összehasonlítás az előző verzióval"
 msgid "Compare with current version"
 msgstr "Összehasonlítás a jelenlegi verzióval"
 
-msgid "Status: "
-msgstr "Státusz: "
-
-msgid "Live"
-msgstr "Élő"
-
-msgid "Draft"
-msgstr "Vázlat"
-
-msgid "View history"
-msgstr "Történet megtekintése"
-
-msgid "This will publish at "
-msgstr "Megjelenés ekkor: "
+msgid "Cancel scheduled publish"
+msgstr "Időzített közzététel visszavonása"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -242,18 +230,6 @@ msgstr "Használat"
 msgid "Title"
 msgstr "Cím"
 
-msgid "Parent"
-msgstr "Szülő"
-
-msgid "Type"
-msgstr "Típus"
-
-msgid "Status"
-msgstr "Állapot"
-
-msgid "Edit this page"
-msgstr "Oldal szerkesztése"
-
 msgid "Choose"
 msgstr "Kiválasztás"
 
@@ -274,6 +250,10 @@ msgstr "'%(instance)s' %(snippet_type)s létrehozva."
 msgid "%(snippet_type)s '%(instance)s' created and published."
 msgstr "'%(instance)s' %(snippet_type)s létrehozva és közzétéve."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+msgstr "'%(instance)s' %(snippet_type)s létrehozva és időzítve."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Hiba történt az elem frissítése közben."
 
@@ -285,14 +265,36 @@ msgstr "'%(instance)s' %(snippet_type)s frissítve."
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr "'%(instance)s' %(snippet_type)s frissítve és közzétéve."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+msgstr "'%(instance)s' %(snippet_type)s időzítve."
+
+#, python-format
+msgid ""
+"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
+"for publishing."
+msgstr ""
+"'%(instance)s' %(snippet_type)s közzétéve, és ez a verzió időzítve van."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Privát %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s szerkesztése"
+
+msgid "Action"
+msgstr "Akció"
+
+msgid "User"
+msgstr "Felhasználó"
+
 msgid "Date"
 msgstr "Dátum"
 
 msgid "Snippet history"
 msgstr "Elem történet"
-
-msgid "Action"
-msgstr "Akció"
 
 #, python-brace-format
 msgid "Edit this {model_name}"
@@ -317,7 +319,3 @@ msgstr "%s kiválasztása"
 #, python-format
 msgid "Choose another %s"
 msgstr "Másik %s kiválasztása"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "%s szerkesztése"

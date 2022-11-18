@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -336,18 +336,6 @@ msgstr "Utilització de"
 msgid "Title"
 msgstr "Títol"
 
-msgid "Parent"
-msgstr "Pare"
-
-msgid "Type"
-msgstr "Tipus"
-
-msgid "Status"
-msgstr "Estat"
-
-msgid "Edit this page"
-msgstr "Editar aquesta plana"
-
 msgid "Add multiple images"
 msgstr "Afegir diverses imatges"
 
@@ -452,6 +440,10 @@ msgstr "Imatge '{0}' afegida."
 
 msgid "The image could not be created due to errors."
 msgstr "No s'ha pogut crear la imatge."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editar aquest %s"
 
 msgid "Image"
 msgstr "Imatge"

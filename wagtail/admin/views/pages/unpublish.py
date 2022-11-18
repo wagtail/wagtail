@@ -6,8 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic.models import UnpublishView
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
 
