@@ -303,9 +303,10 @@ const Stock = (props) => {
 
 This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript.
 
-Finally, we register the JS components of our plugin *note this is ran outside of an event listener such as DOMContentLoaded*:
+Finally, we register the JS components of our plugin:
 
 ```javascript
+// Register the plugin directly on script execution so the editor loads it when initialising.
 window.draftail.registerPlugin({
     type: 'STOCK',
     source: StockSource,
