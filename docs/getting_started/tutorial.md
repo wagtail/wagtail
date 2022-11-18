@@ -248,16 +248,17 @@ class BlogIndexPage(Page):
     ]
 ```
 
-Since you have made changes to `model.py` run the migrations:
-
-```console
-$ python manage.py makemigrations
-$ python manage.py migrate
-```
+Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 Since the model is called `BlogIndexPage`, the default template name
-(unless we override it) will be `blog/templates/blog/blog_index_page.html`. Create this file
-with the following content:
+(unless we override it) will be `blog_index_page.html`. Django will look for a template whose name matches the name of your Page model within the templates directory in your blog app folder. This default behaviour can be overridden if needed.  
+To create a template for the `BlogIndexPage` model, create a file at the location `blog/templates/blog/blog_index_page.html`.
+
+```{note}
+You may need to create the folders `templates/blog` within your `blog` app folder
+```
+
+In your `blog_index_page.html` file enter the following content:
 
 ```html+django
 {% extends "base.html" %}
