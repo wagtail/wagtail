@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -122,8 +122,14 @@ msgstr "datum/čas expirace"
 msgid "expired"
 msgstr "platnost skončila"
 
+msgid "scheduled"
+msgstr "naplánováno"
+
 msgid "draft"
 msgstr "koncept"
+
+msgid "live + scheduled"
+msgstr "publikováno + naplánováno"
 
 msgid "live + draft"
 msgstr "publikováno + koncept"
@@ -194,14 +200,8 @@ msgstr "poslední verze vytvořena:"
 msgid "This slug is already in use"
 msgstr "Slug (identifikátor) je už používán"
 
-msgid "scheduled"
-msgstr "naplánováno"
-
 msgid "in moderation"
 msgstr "probíhá schvalování"
-
-msgid "live + scheduled"
-msgstr "publikováno + naplánováno"
 
 msgid "live + in moderation"
 msgstr "publikováno + probíhá schvalování"

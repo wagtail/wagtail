@@ -48,7 +48,7 @@ export function ngettext(
     return djangoNgettext(singular, plural, count);
   }
 
-  return singular;
+  return count === 1 ? singular : plural;
 }
 
 /**

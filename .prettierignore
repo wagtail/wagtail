@@ -11,5 +11,4 @@ _build
 *.md
 # Files which contain incompatible syntax.
 *.html
-wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js
 .mypy_cache

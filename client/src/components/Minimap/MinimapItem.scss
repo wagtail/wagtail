@@ -76,7 +76,6 @@
 .w-minimap-item__errors {
   $border-width: 1px;
   $badge-size: theme('spacing.4');
-  position: absolute;
   width: $badge-size;
   height: $badge-size;
   flex-shrink: 0;
@@ -93,5 +92,6 @@
     margin-inline-start: calc(-1 * (theme('spacing.8') + $badge-size / 2));
     // Improve the alignment of "1" with the item’s border.
     padding-inline-end: theme('spacing.px');
+    margin-inline-end: calc($badge-size - theme('spacing.px'));
   }
 }

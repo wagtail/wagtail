@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -168,18 +168,6 @@ msgstr "Выкарыстоўванне %(title)s"
 msgid "Usage of"
 msgstr "Выкарыстанне"
 
-msgid "Parent"
-msgstr "Бацькоўскі элемент"
-
-msgid "Type"
-msgstr "Тып"
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "Edit this page"
-msgstr "Рэдагаваць гэтую старонку"
-
 msgid "Add multiple documents"
 msgstr "Дадаць некалькі дакументаў"
 
@@ -249,6 +237,10 @@ msgstr "Файл не знойдзены. Калі ласка, змяніце к
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Дакумент '{0}' выдалены."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Рэдактаваць гэта %s"
 
 msgid "Document"
 msgstr "Дакумент"

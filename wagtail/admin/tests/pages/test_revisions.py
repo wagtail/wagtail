@@ -538,6 +538,35 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
             ).approved_go_live_at
         )
 
+    def test_unschedule_view_post_with_next_url(self):
+        """
+        This tests that the redirect response follows the "next" parameter
+        """
+
+        unschedule_url = reverse(
+            "wagtailadmin_pages:revisions_unschedule",
+            args=(self.christmas_event.id, self.this_christmas_revision.id),
+        )
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.christmas_event.id,))
+
+        # Post to the unschedule page
+        response = self.client.post(f"{unschedule_url}?next={edit_url}")
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, edit_url)
+
+        # Check that the page has no approved_schedule
+        self.assertFalse(
+            EventPage.objects.get(id=self.christmas_event.id).approved_schedule
+        )
+
+        # Check that the approved_go_live_at has been cleared from the revision
+        self.assertIsNone(
+            self.christmas_event.revisions.get(
+                id=self.this_christmas_revision.id
+            ).approved_go_live_at
+        )
+
 
 class TestRevisionsUnscheduleForUnpublishedPages(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]

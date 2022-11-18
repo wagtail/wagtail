@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -136,8 +136,14 @@ msgstr "lejárat dátuma/ideje"
 msgid "expired"
 msgstr "lejárt"
 
+msgid "scheduled"
+msgstr "időzítve"
+
 msgid "draft"
 msgstr "vázlat"
+
+msgid "live + scheduled"
+msgstr "közzétéve + időzítve"
 
 msgid "live + draft"
 msgstr "közzétéve + vázlat"
@@ -208,14 +214,8 @@ msgstr "a legutóbbi verzió letrehozásának időpontja"
 msgid "This slug is already in use"
 msgstr "Ez a rövidítés már használatban van"
 
-msgid "scheduled"
-msgstr "időzítve"
-
 msgid "in moderation"
 msgstr "jóváhagyás alatt"
-
-msgid "live + scheduled"
-msgstr "közzétéve + időzítve"
 
 msgid "live + in moderation"
 msgstr "közzétéve + moderálás alatt"

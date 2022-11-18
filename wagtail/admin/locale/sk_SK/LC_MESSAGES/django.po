@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Martin Janšto <mato@jansto.sk>, 2017\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -101,6 +101,12 @@ msgstr "Upraviť"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Dátum publikácie musí byť pred dátumom expirácie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dátum expirácie musí byť v budúcnosti"
+
 msgid "New title"
 msgstr "Nový titulok"
 
@@ -168,12 +174,6 @@ msgstr "Nemôžete skopírovať stránku do seba samej."
 msgid "This slug is already in use"
 msgstr "Tento slug sa už používa"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Dátum publikácie musí byť pred dátumom expirácie"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Dátum expirácie musí byť v budúcnosti"
-
 msgid "Visibility"
 msgstr "Viditeľnosť"
 
@@ -182,9 +182,6 @@ msgstr "Toto pole je povinné."
 
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
-
-msgid "Scheduled publishing"
-msgstr "Naplánovať publikovanie"
 
 msgid "Page title"
 msgstr "Titulok stránky"
@@ -383,6 +380,9 @@ msgstr "Dátum"
 
 msgid "Site summary"
 msgstr "Prehľad sídla"
+
+msgid "Close"
+msgstr "Zavrieť"
 
 msgid "Sign in"
 msgstr "Prihlásiť sa"

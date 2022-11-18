@@ -6,13 +6,14 @@
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# Soft Exim, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
+"Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +28,30 @@ msgstr "Нийтлэх"
 msgid "Submit for moderation"
 msgstr "Хянуулахаар илгээсэн"
 
+msgid "Resubmit to {}"
+msgstr "{} -д дахин бүртгүүлэх"
+
+msgid "Submit to {}"
+msgstr "{} -д бүртгүүлэх"
+
+msgid "Restart workflow "
+msgstr "Ажлын урсгалыг дахин эхлүүлэх"
+
+msgid "Cancel workflow "
+msgstr "Ажлын урсгалыг цуцлах"
+
 msgid "Unpublish"
 msgstr "Нийтлэхгүй байх"
 
+msgid "Save Draft"
+msgstr "Ноорог хадгалах"
+
 msgid "Page locked"
 msgstr "Хуудас түгжигдсэн"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s , нийтлэх"
 
 msgid "Wagtail admin"
 msgstr "Админ панел"
@@ -50,6 +70,9 @@ msgstr "Эхлэх огноо"
 
 msgid "Date to"
 msgstr "Дуусах огноо"
+
+msgid "All"
+msgstr "Бүгд"
 
 msgid "Preferred language"
 msgstr "Сонгосон хэл"
@@ -97,17 +120,44 @@ msgstr "Цуглуулга"
 msgid "Parent"
 msgstr "Эцэг"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Байршлын дарааллыг сонгох. Жич: колекцыг хүү эсвэл удамшуулах боломжгүй."
+
+msgid "Please select another parent"
+msgstr "Өөр эцэг төрслийг сонгоно уу"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Нэг цуглуулганд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
 
 msgid "Add"
 msgstr "Нэмэх"
 
+msgid "Add collections"
+msgstr "Колекц нэмэх"
+
 msgid "Edit"
 msgstr "Засах"
 
+msgid "Edit collections"
+msgstr "Колекц засах"
+
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Delete collections"
+msgstr "Колекц устгах"
+
+msgid "You cannot edit another user's comment."
+msgstr "Та өөр хэрэглэгчийн сэтгэгдлийг засах боломжгүй."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Нийтлэх өдөр/цаг нь хаагдах цаг/өдрөөсөө өмнө байх ёстой"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Хаагдах өдөр/цаг нь ирээдүй цагт байх ёстой"
 
 msgid "New title"
 msgstr "Шинэ гарчиг"
@@ -153,6 +203,12 @@ msgstr[1] ""
 "%(count)s хуулагдаж буй хуудас нийтлэгдсэн байна. Хуулбарыг нь нийтлэхдээ "
 "итгэлтэй байна уу?"
 
+msgid "Alias"
+msgstr "Орлуулах зохиомол нэр"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Хуудсыг ирээдүйд шинэчлэгдэж байхаар хадгалах"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "Танд \"%(page_title)s\" хуудас руу хуулах эрх алга."
@@ -169,11 +225,13 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Ийм слагтай мэдээ өмнө нь нийтлэгдсэн байна"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Нийтлэх өдөр/цаг нь хаагдах цаг/өдрөөсөө өмнө байх ёстой"
+msgid "Select a new parent for this page."
+msgstr "Энэ хуудасны эцгийг шинээр сонгох"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Хаагдах өдөр/цаг нь ирээдүй цагт байх ёстой"
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr ""
+"Таг нь %(max_tag_length)d тэмдэгтийн урттай байхаас %(value_too_long)s байна."
 
 msgid "Visibility"
 msgstr "Харагдац"
@@ -184,8 +242,31 @@ msgstr "Энэ талбарыг заавал бөглөх шаардлагата
 msgid "Please select at least one group."
 msgstr "Ядаж нэг бүлэг сонгоно уу."
 
-msgid "Scheduled publishing"
-msgstr "Төлөвлөгөөт нийтлэл"
+msgid "All types"
+msgstr "Бүх төрөл"
+
+#, python-brace-format
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Энэ хуудсанд '{0}' ажлын урсгал оноосон байна."
+
+msgid "Give your workflow a name"
+msgstr "Ажлын урсгалдаа нэр өгөх"
+
+msgid "Add tasks to your workflow"
+msgstr "Ажлын урсгалдаа даалгавар нэмэх"
+
+msgid "Task"
+msgstr "Даалгавар"
+
+msgid "1 page selected"
+msgstr "Сонгосон 1 хуудас"
+
+#, python-brace-format
+msgid "{0} pages selected"
+msgstr "Сонгогдсон хуудас {0} "
+
+msgid "All pages in listing selected"
+msgstr "Жагсаалтаас сонгосон бүх хуудас"
 
 msgid "Page title"
 msgstr "Хуудасны гарчиг"
@@ -213,6 +294,9 @@ msgstr "Админ панел руу очих"
 
 msgid "Account"
 msgstr "Хэрэглэгчийн эрх"
+
+msgid "Save account details"
+msgstr "Аккаунтын дэлгэрэнгүйг хадгалах"
 
 msgid "Reset password"
 msgstr "Нууц үгээ сэргээх"
@@ -260,6 +344,24 @@ msgstr "Нууц үг сэргээх"
 msgid "Reset your password"
 msgstr "Нууц үгээ сэргээх"
 
+msgid "Upload a profile picture:"
+msgstr "Профайл зураг оруулах:"
+
+msgid "Reset to default"
+msgstr "Дахин өгөгдмөл болгох"
+
+msgid "Sidebar"
+msgstr "Сайдбар"
+
+msgid "Go back"
+msgstr "Буцах"
+
+msgid "Select row"
+msgstr "Багана сонгох"
+
+msgid "Select all"
+msgstr "Бүгдийг сонгох"
+
 msgid "Internal link"
 msgstr "Дотоод холбоос"
 
@@ -269,11 +371,26 @@ msgstr "Гадаад холбоос"
 msgid "Email link"
 msgstr "Имейл хаяг"
 
+msgid "Anchor link"
+msgstr "Анкер линк"
+
+msgid "Add an anchor link"
+msgstr "Анкер линк нэмэх"
+
+msgid "Insert anchor"
+msgstr "Анкер оруулах"
+
 msgid "Choose"
 msgstr "Сонгох"
 
 msgid "Choose a page"
 msgstr "Хуудас сонгох"
+
+msgid "Convert to internal link"
+msgstr "Дотоод линк рүү хөрвүүлэх"
+
+msgid "Use external link"
+msgstr "Гадаад линк ашиглах"
 
 msgid "Add an email link"
 msgstr "Имейлийн линк нэмэх"
@@ -292,6 +409,9 @@ msgstr "Нууцлалын тохиргоог өөрчлөх боломжтой:
 
 msgid "Save"
 msgstr "Хадгалах"
+
+msgid "Change privacy"
+msgstr "Нууцлалыг өөрлчөх"
 
 msgid "Privacy"
 msgstr "Нууцлал"
@@ -335,11 +455,20 @@ msgstr ""
 "Энэ хянах самбар дээр таны үүсгэсэн контентын талаар хэрэгцээт мэдээлэл "
 "харагдана."
 
+msgid "Your locked pages"
+msgstr "Түгжигдсэн хуудсууд"
+
 msgid "Title"
 msgstr "Гарчиг"
 
+msgid "Locked at"
+msgstr "Түгжигдсэн"
+
 msgid "Edit this page"
 msgstr "Энэ хуудсыг засах"
+
+msgid "Unlock"
+msgstr "Түгжээг тайлах"
 
 msgid "Draft"
 msgstr "Ноорог"
@@ -379,6 +508,9 @@ msgstr "Огноо"
 
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
+
+msgid "Close"
+msgstr "Хаах"
 
 msgid "Sign in"
 msgstr "Нэвтрэх"
@@ -468,6 +600,9 @@ msgstr "Үүсгэх хуудасныхаа төрлийг сонгоно уу."
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s-г ашиглаж буй хуудсууд"
 
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
+
 msgid "Move"
 msgstr "Зөөх"
 
@@ -545,6 +680,9 @@ msgstr "Хуудсанд хадгалаагүй өөрчлөлт байна."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Засч байна %(page_type)s: %(title)s"
 
+msgid "Action"
+msgstr "Үйлдэл"
+
 msgid "Live version"
 msgstr "Нийтлэгдсэн хувилбар"
 
@@ -578,6 +716,9 @@ msgstr "'%(title)s'-д дэд хуудас нэмэх"
 msgid "Sites menu"
 msgstr "Сайтын цэс"
 
+msgid "Pagination"
+msgstr "Хуудаслах"
+
 msgid "Previous"
 msgstr "Өмнөх"
 
@@ -596,20 +737,11 @@ msgstr "Дэд хуудсуудыг эрэмбэлэх"
 msgid "Updated"
 msgstr "Шинэчлэгдсэн"
 
+msgid "History"
+msgstr "Түүх"
+
 msgid "Cancel scheduled publish"
 msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
-
-msgid "Unschedule"
-msgstr "Төлөвлөгөөг болиулах"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Энэ хувилбарын төлөвлөгөөг болиулахдаа итгэлтэй байна уу?"
-
-msgid "Yes, unschedule"
-msgstr "Тийм, төлөвлөгөөг болиул."
-
-msgid "No, don't unschedule"
-msgstr "Үгүй, төлөвлөгөөг болиулахгүй"
 
 msgid "Page types"
 msgstr "Хуудасны төрөл"
@@ -630,17 +762,27 @@ msgstr "Дээш зөөх"
 msgid "Move down"
 msgstr "Доош зөөх"
 
+msgid "Download XLSX"
+msgstr "XLSX-р татах"
+
 msgid "Download CSV"
 msgstr "CSV татах"
 
 msgid "Locked"
 msgstr "Түгжигдсэн"
 
+msgid "No locked pages found."
+msgstr "Түгжигдсэн хуудас олдсонгүй."
+
 msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
 
 msgid "Page"
 msgstr "Хуудас"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 
 msgid "Root"
 msgstr "Үндэс"
@@ -654,6 +796,18 @@ msgstr "Тийм, Нийтлэхгүй болго"
 
 msgid "Filter"
 msgstr "Шүүлтүүр"
+
+msgid "Unschedule"
+msgstr "Төлөвлөгөөг болиулах"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Энэ хувилбарын төлөвлөгөөг болиулахдаа итгэлтэй байна уу?"
+
+msgid "Yes, unschedule"
+msgstr "Тийм, төлөвлөгөөг болиул."
+
+msgid "No, don't unschedule"
+msgstr "Үгүй, төлөвлөгөөг болиулахгүй"
 
 msgid "Other searches"
 msgstr "Бусад хайлтууд"
@@ -812,10 +966,6 @@ msgid "Page '{0}' moved."
 msgstr "'{0}' хуудас зөөгдлөө."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "\"{1}\"-с {0} дэх хувилбар"
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' хуудсыг хаалаа."
 
@@ -825,11 +975,30 @@ msgstr "Хуудсууд"
 msgid "Add child page"
 msgstr "Шинэ мэдээ нэмэх"
 
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "%(title)s хуудас руу шилжих"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "%(title)s хуудсыг хуулах"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "%(title)s хуудсыг устгах"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "%(title)s хуудсыг нийтлээгүй"
+
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"
 
 msgid "Numbered list"
 msgstr "Дугаарласан жагсаалт"
+
+msgid "Blockquote"
+msgstr "Эшлэл"
 
 msgid "Bold"
 msgstr "Bold"
@@ -839,6 +1008,9 @@ msgstr "Italic"
 
 msgid "Link"
 msgstr "Холбоос"
+
+msgid "Code"
+msgstr "Код"
 
 msgid "Choose an item"
 msgstr "Сонгох"

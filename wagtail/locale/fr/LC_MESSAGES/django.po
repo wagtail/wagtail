@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -93,16 +93,17 @@ msgid "Comment"
 msgstr "Commentaire"
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
-msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>vous</b> le <b>{}</b>."
+msgstr ""
+"<b>Cette page « {} » a été verrouillée</b> par <b>vous</b> le <b>{}</b>."
 
 msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Cette page '{}' est verrouillée</b> par <b>vous</b>."
+msgstr "<b>Cette page « {} » est verrouillée</b> par <b>vous</b>."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
-msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>{}</b> le <b>{}</b>."
+msgstr "<b>Cette page « {} » a été verrouillée</b> par <b>{}</b> le <b>{}</b>."
 
 msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Cette page '{}' est verrouillée</b>."
+msgstr "<b>Cette page « {} » est verrouillée</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Cette page est actuellement en attente de modération."
@@ -145,8 +146,14 @@ msgstr "date/heure d'expiration"
 msgid "expired"
 msgstr "expirée"
 
+msgid "scheduled"
+msgstr "programmée"
+
 msgid "draft"
 msgstr "brouillon"
+
+msgid "live + scheduled"
+msgstr "publiée + programmée"
 
 msgid "live + draft"
 msgstr "publiée + brouillon"
@@ -223,14 +230,8 @@ msgstr "dernière version créée le"
 msgid "This slug is already in use"
 msgstr "Ce slug est déjà utilisé"
 
-msgid "scheduled"
-msgstr "programmée"
-
 msgid "in moderation"
 msgstr "en cours de modération"
-
-msgid "live + scheduled"
-msgstr "publiée + programmée"
 
 msgid "live + in moderation"
 msgstr "publiée + en cours de modération"
@@ -421,7 +422,7 @@ msgstr ""
 
 #, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Workflow '{0}' sur la page '{1}' : {2}"
+msgstr "Workflow « {0} » sur la page « {1} » : {2}"
 
 msgid "Not started"
 msgstr "Pas commencé"
@@ -455,7 +456,7 @@ msgstr "terminé par"
 
 #, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Tâche '{0}' sur la version de page '{1}' : {2}"
+msgstr "Tâche « {0} » sur la version de page « {1} » : {2}"
 
 msgid "Task state"
 msgstr "État de tâche"

@@ -1168,6 +1168,16 @@ class TestUsage(TestCase, WagtailTestUtils):
         # There's no usage so there should be no table rows
         self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
 
+    def test_usage_no_tags(self):
+        # tags should not count towards an image's references
+        self.image.tags.add("illustration")
+        self.image.save()
+        response = self.client.get(
+            reverse("wagtailimages:image_usage", args=[self.image.id])
+        )
+        # There's no usage so there should be no table rows
+        self.assertRegex(response.content.decode("utf-8"), r"<tbody>(\s|\n)*</tbody>")
+
     def test_usage_page_with_only_change_permission(self):
         home_page = Page.objects.get(id=2)
         home_page.add_child(

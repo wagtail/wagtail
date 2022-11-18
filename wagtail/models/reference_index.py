@@ -7,6 +7,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel, get_all_child_relations
+from taggit.models import ItemBase
 
 
 class ReferenceGroups:
@@ -264,10 +265,21 @@ class ReferenceIndex(models.Model):
                 if isinstance(field, GenericForeignKey):
                     ct_field = object._meta.get_field(field.ct_field)
                     fk_field = object._meta.get_field(field.fk_field)
+                    ct_value = ct_field.value_from_object(object)
+                    fk_value = fk_field.value_from_object(object)
 
-                    yield ct_field.value_from_object(object), str(
-                        fk_field.value_from_object(object)
-                    ), field.name, field.name
+                    if ct_value is not None and fk_value is not None:
+                        # The content type ID referenced by the GenericForeignKey might be a subclassed
+                        # model, but the reference index requires us to index it under the base model's
+                        # content type, as that's what will be used for lookups. So, we need to convert
+                        # the content type back to a model class so that _get_base_content_type can
+                        # select the appropriate superclass if necessary, before converting back to a
+                        # content type.
+                        model = ContentType.objects.get_for_id(ct_value).model_class()
+                        yield cls._get_base_content_type(model).id, str(
+                            fk_value
+                        ), field.name, field.name
+
                     continue
 
                 if isinstance(field, GenericRel):
@@ -488,4 +500,18 @@ class ReferenceIndex(models.Model):
             child_field = field.related_model._meta.get_field(model_path_components[2])
             return capfirst(child_field.verbose_name)
         else:
-            return capfirst(field.verbose_name)
+            try:
+                field_name = field.verbose_name
+            except AttributeError:
+                # generate verbose name from field name in the same way that Django does:
+                # https://github.com/django/django/blob/7b94847e384b1a8c05a7d4c8778958c0290bdf9a/django/db/models/fields/__init__.py#L858
+                field_name = field.name.replace("_", " ")
+            return capfirst(field_name)
+
+
+# Ignore relations formed by any django-taggit 'through' model, as this causes any tag attached to
+# a tagged object to appear as a reference to that object. Ideally we would follow the reference to
+# the Tag model so that we can use the references index to find uses of a tag, but doing that
+# correctly will require support for ManyToMany relations with through models:
+# https://github.com/wagtail/wagtail/issues/9629
+ItemBase.wagtail_reference_index_ignore = True

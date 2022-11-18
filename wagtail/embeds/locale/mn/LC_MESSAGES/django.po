@@ -6,13 +6,14 @@
 # delgermurun <pdelgermurun@gmail.com>, 2014
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
+# Soft Exim, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Delgermurun Purevkhuuu <info@delgermurun.com>, 2014\n"
+"Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +22,32 @@ msgstr ""
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail embeds"
+msgstr "Вэгтэйл эмбедүүд"
+
+msgid "Cannot find an embed for this URL."
+msgstr "Иймд URL-тай эмбед код олдсонгүй."
+
 msgid "URL"
 msgstr "Холбоос"
 
 msgid "Please enter a valid URL"
 msgstr "Зөв холбоос оруулна уу"
 
+msgid "embed"
+msgstr " эмбед"
+
+msgid "embeds"
+msgstr "эмбедүүд"
+
+msgid "Insert embed"
+msgstr "Эмбед код оруулах"
+
 msgid "Insert"
 msgstr "Оруулах"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr ""
+"Эмбед API түлхүүрт асуудал үүссэн байж болзошгүй. Тохиргоогоо шалгана уу."

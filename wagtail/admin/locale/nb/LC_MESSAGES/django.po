@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -116,6 +116,12 @@ msgstr "Redigér"
 msgid "Delete"
 msgstr "Slett"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
+
 msgid "New title"
 msgstr "Ny tittel"
 
@@ -176,12 +182,6 @@ msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
 msgid "This slug is already in use"
 msgstr "Denne permalenken er allerede i bruk"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Tidspunkt for publisering må være før tidspunkt for avpublisering"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Tidspunkt for avpublisering må være en gang i fremtiden"
-
 msgid "Visibility"
 msgstr "Synlighet"
 
@@ -190,9 +190,6 @@ msgstr "Dette feltet er påkrevet."
 
 msgid "Please select at least one group."
 msgstr "Velg minst en gruppe."
-
-msgid "Scheduled publishing"
-msgstr "Planlagt publisering"
 
 msgid "Page title"
 msgstr "Sidetittel"
@@ -446,6 +443,9 @@ msgstr "Dato"
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
 
+msgid "Close"
+msgstr "Lukk"
+
 msgid "Sign in"
 msgstr "Logg inn"
 
@@ -684,24 +684,6 @@ msgstr "Oppdatert"
 msgid "Cancel scheduled publish"
 msgstr "Avbryt planlagt publisering"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Avbryt planlagt publisering av revisjon %(revision.id)s for %(title)s"
-
-msgid "Unschedule"
-msgstr "Avbryt planlagt publisering"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr ""
-"Er du sikker på at du vil avbryte den planlagte publiseringen av denne "
-"revisjonen?"
-
-msgid "Yes, unschedule"
-msgstr "Ja, avbryt"
-
-msgid "No, don't unschedule"
-msgstr "Nei, ikke avbryt"
-
 msgid "Page types"
 msgstr "Sidetyper"
 
@@ -773,6 +755,24 @@ msgstr "Se den publiserte siden"
 
 msgid "Current page status:"
 msgstr "Nåværende sidestatus:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Avbryt planlagt publisering av revisjon %(revision.id)s for %(title)s"
+
+msgid "Unschedule"
+msgstr "Avbryt planlagt publisering"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr ""
+"Er du sikker på at du vil avbryte den planlagte publiseringen av denne "
+"revisjonen?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, avbryt"
+
+msgid "No, don't unschedule"
+msgstr "Nei, ikke avbryt"
 
 msgid "Other searches"
 msgstr "Andre søk"
@@ -969,10 +969,6 @@ msgid "Page '{0}' moved."
 msgstr "Siden \"{0}\" er flyttet."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revisjon {0} av \"{1}\""
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Siden \"{0}\" er avpublisert."
 
@@ -1051,9 +1047,6 @@ msgstr "Gjennomstreking"
 
 msgid "Code"
 msgstr "Kode"
-
-msgid "Locked Pages"
-msgstr "Låste sider"
 
 msgid "Reports"
 msgstr "Rapporter"

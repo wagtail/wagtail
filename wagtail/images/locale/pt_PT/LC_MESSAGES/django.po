@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -378,18 +378,6 @@ msgstr "Utilização de"
 msgid "Title"
 msgstr "Título"
 
-msgid "Parent"
-msgstr "Mãe"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Edit this page"
-msgstr "Alterar esta página"
-
 msgid "Add multiple images"
 msgstr "Adicionar múltiplas imagens"
 
@@ -522,6 +510,10 @@ msgstr "Imagem '{0}' adicionada."
 
 msgid "The image could not be created due to errors."
 msgstr "A imagem não pôde ser criada devido a erros."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Alterar este %s"
 
 msgid "Image"
 msgstr "Imagem"

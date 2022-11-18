@@ -5,6 +5,7 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2020-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020
+# Antoni Aloy <aaloy@apsl.net>, 2022
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Oluwadamilare Ogunbanjo, 2022\n"
+"Last-Translator: Antoni Aloy <aaloy@apsl.net>, 2022\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -168,6 +169,13 @@ msgstr "Eliminar colecciones"
 msgid "You cannot edit another user's comment."
 msgstr "No puedes editar el comentario de otro usuario."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Ir en vivo fecha/tiempo debe ser anterior a la fecha/tiempo de expiración"
+
+msgid "Expiry date/time must be in the future"
+msgstr "La fecha/tiempo de expiración debe ser en el futuro"
+
 msgid "New title"
 msgstr "Nuevo título"
 
@@ -235,13 +243,6 @@ msgstr ""
 
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Ir en vivo fecha/tiempo debe ser anterior a la fecha/tiempo de expiración"
-
-msgid "Expiry date/time must be in the future"
-msgstr "La fecha/tiempo de expiración debe ser en el futuro"
 
 msgid "Select a new parent for this page."
 msgstr "Seleccionar una nueva página padre para esta página."
@@ -363,9 +364,6 @@ msgstr "Todos los {0} elementos en esta pantalla seleccionados"
 
 msgid "All items in listing selected"
 msgstr "Todos los elementos en la lista seleccionados"
-
-msgid "Scheduled publishing"
-msgstr "Publicación programada"
 
 msgid "Page title"
 msgstr "Título de la página"
@@ -785,6 +783,25 @@ msgstr "Cambios solicitados el"
 
 msgid "Awaiting"
 msgstr "Esperando"
+
+msgid "Close"
+msgstr "Cerrar"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "¡Las cosas en Wagtail %(version)s han cambiado!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
+"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
+"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
+"exciting new features!"
+msgstr ""
+"No te preocupes, pensamos en ti. Revisa <a class=\"w-whats-new__link\" href="
+"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\"> la Guía del "
+"Editor de Wagtail </a> para tener una mejor idea de lo que ha cambiado y "
+"¡nuevas y excitantes características!"
 
 msgid "Awaiting your review"
 msgstr "Esperando tu revisión"
@@ -1533,6 +1550,14 @@ msgstr "Explorando %(title)s"
 msgid "Select all pages in listing"
 msgstr "Seleccionar todas las páginas de la lista"
 
+msgid ""
+"Press enter to select an item, use up and down arrows to move the item, "
+"press enter to complete the move or escape to cancel the current move."
+msgstr ""
+"Pulsa Intro para seleccionar un item, utiliza las teclas de cursor arriba y "
+"abajo para mover el item, pulsa intro para completar el movimiento o la "
+"tecla esc para cancelarlo."
+
 msgid "Select page"
 msgstr "Selecionar página"
 
@@ -1585,6 +1610,9 @@ msgstr "No se han creado páginas en esta ubicación."
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
 msgstr "¿Por qué no <a href=\"%(add_page_url)s\">añadir una</a>?"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Esta página está bloqueada, por ti, y no permite edición"
 
 msgid "This page is locked to further editing"
 msgstr "Esta página se encuentra bloqueada para su edición"
@@ -1645,22 +1673,6 @@ msgstr "Comparar con versión actual"
 
 msgid "Cancel scheduled publish"
 msgstr "Cancelar publicación programada"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Desprogramar Revisión %(revision.id)s para %(title)s"
-
-msgid "Unschedule"
-msgstr "No programar"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Está seguro de desprogramar la revisión?"
-
-msgid "Yes, unschedule"
-msgstr "Sí, desprogramar"
-
-msgid "No, don't unschedule"
-msgstr "No, no desprogramar"
 
 #, python-format
 msgid "There is one matching page"
@@ -1767,6 +1779,27 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Bajar"
+
+msgid "Set publishing schedule"
+msgstr "Establece la fecha de publicación"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Elige cuándo esta página debe publicarse y/o expirar."
+
+msgid "This publishing schedule will only take effect after you have published"
+msgstr ""
+"Esta fecha de publicación solamente tendrá efecto una vez hayas publicado."
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Cualquiera con permisos de edición puede crear fechas de publicación."
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr ""
+"Pero solamente aquellos con permisos de publicación pueden hacerlas "
+"efectivas."
+
+msgid "Save schedule"
+msgstr "Guardar fecha"
 
 msgid "Comment notifications"
 msgstr "Notificaciones de comentario"
@@ -1898,11 +1931,33 @@ msgstr "Visible para todos"
 msgid "Toggle section"
 msgstr "Alternar sección"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Desprogramar Revisión %(revision.id)s para %(title)s"
+
+msgid "Unschedule"
+msgstr "No programar"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Está seguro de desprogramar la revisión?"
+
+msgid "Yes, unschedule"
+msgstr "Sí, desprogramar"
+
+msgid "No, don't unschedule"
+msgstr "No, no desprogramar"
+
 msgid "Other searches"
 msgstr "Otras búsquedas"
 
+msgid "Side panels"
+msgstr "Paneles laterales"
+
 msgid "Toggle side panel"
 msgstr "Alternar menú lateral"
+
+msgid "Minimap"
+msgstr "Minimapa"
 
 msgid "Page Locale: "
 msgstr "Región de la página:"
@@ -1974,6 +2029,12 @@ msgstr "Estado de la página:"
 msgid "Status: "
 msgstr "Estado:"
 
+msgid "Expiry:"
+msgstr "Expira:"
+
+msgid "Edit schedule"
+msgstr "Edita fecha de publicación"
+
 msgid "In Moderation"
 msgstr "En Moderación"
 
@@ -1990,8 +2051,17 @@ msgstr "por %(user)s"
 msgid "View history"
 msgstr "Ver historial"
 
-msgid "This will publish at "
-msgstr "Se publicará en"
+msgid "Go-live:"
+msgstr "Publica:"
+
+msgid "Once published:"
+msgstr "Una vez publicado:"
+
+msgid "No publishing schedule set"
+msgstr "No hay fecha de publicación establecida"
+
+msgid "Set schedule"
+msgstr "Establece fecha de publicación"
 
 msgid "Preview in mobile size"
 msgstr "Vista previa en tamaño móvil"
@@ -2263,12 +2333,36 @@ msgstr "Ver más acciones masivas"
 msgid "0 minutes"
 msgstr "0 minutos"
 
-msgid "Just now"
-msgstr "Ahora mismo"
+msgid "just now"
+msgstr "justo ahora"
 
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s antes"
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "a las %(time)spor %(user_display_name)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "a las %(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(time)s por %(user_display_name)s"
+
+#, python-format
+msgid "%(time)s"
+msgstr "%(time)s"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "ahora mismo por %(user_display_name)s"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "hace %(time_period)s por %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Cerrar sesión"
@@ -2372,20 +2466,36 @@ msgid ""
 msgstr ""
 "La versión de  {timestamp} de {model_name} '{instance}' ha sido publicada."
 
+#, python-brace-format
+msgid ""
+"Version from {timestamp} of {model_name} '{instance}' has been scheduled for "
+"publishing."
+msgstr ""
+"Se ha establecido la fecha de publicación para la versión  {timestamp} de "
+"{model_name} '{instance}'."
+
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Buscar %(model_name)s"
 
 #, python-brace-format
-msgid "'{0}' has been created and published."
-msgstr "'{0}' ha sido creado y publicado."
+msgid "'{0}' created and scheduled for publishing."
+msgstr "'{0}'  creada y planificada su publicación."
+
+#, python-brace-format
+msgid "'{0}' created and published."
+msgstr "'{0}' creada y publicada."
 
 msgid "Editing"
 msgstr "Editando"
 
 #, python-brace-format
-msgid "'{0}' has been published."
-msgstr "'{0}' ha sido publicado."
+msgid "'{0}' updated and scheduled for publishing."
+msgstr "'{0}' actualizada y planificada para su publicación."
+
+#, python-brace-format
+msgid "'{0}' updated and published."
+msgstr "'{0}' actualizada y publicada."
 
 msgid "Earliest"
 msgstr "Primeros"
@@ -2396,6 +2506,14 @@ msgstr "Últimos"
 #, python-brace-format
 msgid "'{object_name}' unpublished."
 msgstr "'{object_name}' despublicado."
+
+#, python-brace-format
+msgid "Version {revision_id} of \"{object}\" unscheduled."
+msgstr "La versión {revision_id} of \"{object}\" ha sido desplanificada."
+
+#, python-brace-format
+msgid "revision {revision_id} of \"{object}\""
+msgstr " revisión {revision_id} de \"{object}\""
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -2659,14 +2777,6 @@ msgstr ""
 "b> por %(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revisión {0} de \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Versión {0} de \"{1}\" no programada."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Página '{0}' sin publicar."
 
@@ -2923,11 +3033,18 @@ msgstr "Tachado"
 msgid "Code"
 msgstr "Código"
 
-msgid "Locked Pages"
-msgstr "Páginas bloqueadas"
-
 msgid "Reports"
 msgstr "Informes"
+
+#, python-brace-format
+msgid "What's new in Wagtail {version}"
+msgstr "Novedades de Wagtail {version}"
+
+msgid "Editor Guide"
+msgstr "Guía del Editor"
+
+msgid "Help"
+msgstr "Ayuda"
 
 msgid "Yes"
 msgstr "Sí"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -69,6 +69,9 @@ msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
 
 msgid "Yes, delete"
 msgstr "Тийм, устга"
+
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
 
 msgid "Latest documents"
 msgstr "Сүүлийн файлууд"
@@ -148,18 +151,6 @@ msgstr "%(title)s-ын хэрэглээ"
 msgid "Usage of"
 msgstr "Хэрэглээ"
 
-msgid "Parent"
-msgstr "Эцэг"
-
-msgid "Type"
-msgstr "Төрөл"
-
-msgid "Status"
-msgstr "Төрөл"
-
-msgid "Edit this page"
-msgstr "Энэ хуудсыг засах"
-
 msgid "Add multiple documents"
 msgstr "Олон файл нэмэх"
 
@@ -223,6 +214,10 @@ msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл у�
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' файл устлаа."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s-г засах"
 
 msgid "Document"
 msgstr "Файл"

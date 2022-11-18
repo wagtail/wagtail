@@ -1,3 +1,4 @@
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { gettext } from '../../utils/gettext';
 
 function initPreview() {
@@ -7,11 +8,6 @@ function initPreview() {
 
   // Preview side panel is not shown if the object does not have any preview modes
   if (!previewSidePanel) return;
-
-  // Get settings from the preview_settings template tag
-  const settings = JSON.parse(
-    document.getElementById('wagtail-preview-settings').textContent,
-  );
 
   // The previewSidePanel is a generic container for side panels,
   // the content of the preview panel itself is in a child element
@@ -143,16 +139,11 @@ function initPreview() {
     newIframe.addEventListener('load', handleLoad);
   };
 
-  const clearPreviewData = () => {
-    const csrfToken = document.querySelector(
-      'input[name="csrfmiddlewaretoken"]',
-    ).value;
-
-    return fetch(previewUrl, {
-      headers: { 'X-CSRFToken': csrfToken },
+  const clearPreviewData = () =>
+    fetch(previewUrl, {
+      headers: { [WAGTAIL_CONFIG.CSRF_HEADER_NAME]: WAGTAIL_CONFIG.CSRF_TOKEN },
       method: 'DELETE',
     });
-  };
 
   const setPreviewData = () => {
     // Bail out if there is already a pending update
@@ -222,7 +213,7 @@ function initPreview() {
     refreshButton.addEventListener('click', handlePreview);
   }
 
-  if (settings.WAGTAIL_AUTO_UPDATE_PREVIEW) {
+  if (WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW) {
     let oldPayload = new URLSearchParams(new FormData(form)).toString();
     let updateInterval;
 
@@ -248,7 +239,7 @@ function initPreview() {
       // Only set the interval while the panel is shown
       updateInterval = setInterval(
         checkAndUpdatePreview,
-        settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
+        WAGTAIL_CONFIG.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL,
       );
     });
 

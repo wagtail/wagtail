@@ -379,6 +379,24 @@ Return a QuerySet of `Permission` objects to be shown in the Groups administrati
       ])
 ```
 
+(register_user_listing_buttons)=
+
+### `register_user_listing_buttons`
+
+Add buttons to the user list. This example will add a simple button to the listing:
+
+```python
+from wagtail.users.widgets import UserListingButton
+
+@hooks.register("register_user_listing_buttons")
+def user_listing_external_profile(context, user):
+    yield UserListingButton(
+        "Show profile",
+        f"/goes/to/a/url/{user.pk}",
+        priority=30,
+    )
+```
+
 (filter_form_submissions_for_user)=
 
 ### `filter_form_submissions_for_user`

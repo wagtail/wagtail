@@ -76,7 +76,6 @@
     }
 
     a {
-      box-sizing: border-box;
       white-space: nowrap;
       position: relative;
       text-decoration: none;
@@ -111,7 +110,6 @@
     .button,
     button {
       border-radius: 0;
-      font-size: 0.95em;
       -webkit-font-smoothing: auto;
     }
 
@@ -224,7 +222,6 @@
       // Media for Windows High Contrast
       @media (forced-colors: $media-forced-colours) {
         background: transparent;
-        box-sizing: border-box;
         border: 1px solid ActiveText;
       }
     }

@@ -447,18 +447,16 @@ input[type="submit"] {
 }
 
 /**
- * 1. Address box sizing set to content-box in IE 8/9.
- * 2. Remove excess padding in IE 8/9.
- * 3. Remove excess padding in IE 7.
+ * 1. Remove excess padding in IE 8/9.
+ * 2. Remove excess padding in IE 7.
  *    Known issue: excess padding remains in IE 6.
  */
 
 input[type='checkbox'],
 input[type='radio'] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
-  *height: 13px; /* 3 */
-  *width: 13px; /* 3 */
+  padding: 0; /* 1 */
+  *height: 13px; /* 2 */
+  *width: 13px; /* 2 */
 }
 
 /**

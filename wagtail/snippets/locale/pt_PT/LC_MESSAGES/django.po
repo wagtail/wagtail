@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
@@ -78,6 +78,9 @@ msgstr "Sim, apagar"
 msgid "No, don't delete"
 msgstr "Não, não apagar"
 
+msgid "Usage"
+msgstr "Utilização"
+
 msgid "Last updated"
 msgstr "Última atualização"
 
@@ -108,9 +111,6 @@ msgstr "Adicionar"
 
 msgid "Actions"
 msgstr "Ações"
-
-msgid "Usage"
-msgstr "Utilização"
 
 msgid "Breadcrumb"
 msgstr "Percurso"
@@ -150,11 +150,8 @@ msgstr "Comparar com versão anterior"
 msgid "Compare with current version"
 msgstr "Comparar com versão atual"
 
-msgid "Live"
-msgstr "Publicado"
-
-msgid "Draft"
-msgstr "Rascunho"
+msgid "Cancel scheduled publish"
+msgstr "Desmarcar publicação"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -173,18 +170,6 @@ msgstr "Utilização de"
 
 msgid "Title"
 msgstr "Título"
-
-msgid "Parent"
-msgstr "Mãe"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Edit this page"
-msgstr "Alterar esta página"
 
 msgid "Choose"
 msgstr "Escolher"
@@ -206,14 +191,21 @@ msgstr "O trecho não pôde ser gravado devido a erros."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' atualizado."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "Alterar este %s"
+
+msgid "Action"
+msgstr "Ação"
+
+msgid "User"
+msgstr "Utilizador"
+
 msgid "Date"
 msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Histórico de trechos"
-
-msgid "Action"
-msgstr "Ação"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -230,7 +222,3 @@ msgstr "Escolher %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Escolher outro/a %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Alterar este %s"

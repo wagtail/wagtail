@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -167,18 +167,6 @@ msgstr "Usage of %(title)s"
 msgid "Usage of"
 msgstr "Χρήση του "
 
-msgid "Parent"
-msgstr "Γονέας"
-
-msgid "Type"
-msgstr "Τύπος"
-
-msgid "Status"
-msgstr "Κατάσταση"
-
-msgid "Edit this page"
-msgstr "Επεξεργασία της σελίδας"
-
 msgid "Add multiple documents"
 msgstr "Προσθήκη πολλαπλών εγγράφων"
 
@@ -244,6 +232,10 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Επεξεργαστείτε το %s"
 
 msgid "Document"
 msgstr "Έγγραφο"

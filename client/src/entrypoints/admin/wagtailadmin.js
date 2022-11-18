@@ -4,8 +4,8 @@ import {
   Icon,
   Portal,
   initDismissibles,
-  initUpgradeNotification,
   initSkipLink,
+  initUpgradeNotification,
 } from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
 import { initTabs } from '../../includes/tabs';

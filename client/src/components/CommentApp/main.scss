@@ -35,7 +35,6 @@ $box-padding: 10px;
     width: 100%;
     background-color: $color-textarea-background;
     border: 1px solid $color-textarea-border;
-    box-sizing: border-box;
     border-radius: 5px;
     color: $color-box-text;
 
@@ -61,7 +60,6 @@ $box-padding: 10px;
     bottom: 0;
     width: calc(100% + #{$box-padding} * 2);
     padding: 5px 10px;
-    box-sizing: border-box;
 
     svg.icon {
       color: theme('colors.warning.100');
@@ -72,8 +70,8 @@ $box-padding: 10px;
     }
   }
 
-  > :last-child &__notice {
-    bottom: -$box-padding;
+  & > &__notice-placeholder:last-child &__notice,
+  &__replies:last-child > :last-child &__notice {
     // Remove once we drop support for Safari 14.
     // stylelint-disable-next-line property-disallowed-list
     border-bottom-left-radius: $box-border-radius;
