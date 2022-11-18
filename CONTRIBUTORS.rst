@@ -644,6 +644,7 @@ Contributors
 * Victoria Poromon
 * Dokua Asiedu
 * Darrel O'Pry
+* Temidayo Azeez
 
 Translators
 ===========
