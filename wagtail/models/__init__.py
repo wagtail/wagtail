@@ -1124,7 +1124,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         such as updating the ``url_path`` value of descendant page to reflect changes
         to this page's slug.
 
-        New pages should generally be saved via the ``add_child()`` or ``add_sibling()``
+        New pages should generally be saved via the `add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>`_ or `add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>`_
         method of an existing page, which will correctly set the ``path`` and ``depth``
         fields on the new page before saving it.
 

@@ -667,6 +667,7 @@ Contributors
 * Fatuma Abdullahi
 * Elizabeth Bassey
 * Suyash Singh
+* Temidayo Azeez
 
 Translators
 ===========

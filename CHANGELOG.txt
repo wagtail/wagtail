@@ -35,6 +35,8 @@ Changelog
  * Docs: Mention the importance of passing `request` and `current_site` to `get_url` on the performance documentation page (Jake Howard)
  * Docs: Add documentation for `register_user_listing_buttons` hook (LB (Ben Johnston))
  * Docs: Add development (contributing to Wagtail) documentation notes for development on Windows (Akua Dokua Asiedu)
+ * Docs: Mention Wagtail’s usage of Django’s default user model by default (Temidayo Azeez)
+ * Docs: Add links to treebeard documentation for relevant methods (Temidayo Azeez)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
  * Maintenance: Run Python tests with coverage and upload coverage data to codecov (Sage Abdullah)
