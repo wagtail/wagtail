@@ -642,6 +642,7 @@ Contributors
 * Loveth Omokaro
 * Victoria Poromon
 * Chisom Okeoma
+* Anisha Singh
 
 Translators
 ===========

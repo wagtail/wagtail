@@ -8,6 +8,7 @@ Changelog
  * Fix: Prevent crash when reverting revisions on a snippet with `PreviewableMixin` applied (Sage Abdullah)
  * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
  * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
+ * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
 
 
 4.1.1 (11.11.2022)
