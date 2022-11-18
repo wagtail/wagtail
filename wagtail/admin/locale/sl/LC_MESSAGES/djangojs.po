@@ -1,18 +1,24 @@
 #
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
-# Andrej, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2022
+# Andrej Marsetič, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2022\n"
+"Last-Translator: Andrej Marsetič, 2022\n"
 "Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 nov element v tem meniju)"
+
+msgid "(New)"
+msgstr "(Novo)"
 
 msgid "Add a comment"
 msgstr "Dodaj komentar"
@@ -23,14 +29,23 @@ msgstr "Nadomestno besedilo"
 msgid "Are you sure?"
 msgstr "Ali ste prepričani?"
 
+msgid "Blocks"
+msgstr "Bloki"
+
 msgid "Broken link"
 msgstr "Nepravilna povezava"
 
 msgid "Cancel"
 msgstr "Prekliči"
 
+msgid "Character count:"
+msgstr "Število znakov:"
+
 msgid "Close"
 msgstr "Zapri"
+
+msgid "Collapse all"
+msgstr "Zapri vse"
 
 msgid "Comment"
 msgstr "Komentar"
@@ -59,11 +74,26 @@ msgstr "Uredi '{title}'"
 msgid "Edit your account"
 msgstr "Uredite vaš račun"
 
+msgid "Enter your comments..."
+msgstr "Vnesite vaš komentar"
+
+msgid "Enter your reply..."
+msgstr "Vnesite svoj odgovor ..."
+
+msgid "Error while sending preview data."
+msgstr "Napaka pri pošiljanju podatkov za predogled."
+
+msgid "Expand all"
+msgstr "Razširi vse"
+
 msgid "Focus comment"
 msgstr "Fokus komentarja"
 
 msgid "Horizontal line"
 msgstr "Vodoravna črta"
+
+msgid "Insert a block"
+msgstr "Vstavite blok"
 
 msgid "Line break"
 msgstr "Prelom vrstice"
@@ -101,11 +131,20 @@ msgstr "Osveži stran"
 msgid "Reply"
 msgstr "Odgovori"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"O tej napaki obvestite skrbnika spletnega mesta z naslednjimi informacijami:"
+
 msgid "Resolve"
 msgstr "Reši"
 
 msgid "Retry"
 msgstr "Poskusi ponovno"
+
+msgid "Rich text"
+msgstr "Obogateno besedilo"
 
 msgid "Save"
 msgstr "Shrani"
@@ -127,6 +166,9 @@ msgstr "Shranjevanje..."
 
 msgid "Search"
 msgstr "Iskanje"
+
+msgid "Search blocks"
+msgstr "Poiščite blok"
 
 msgid "See all"
 msgstr "Poglej vse"
@@ -152,6 +194,9 @@ msgstr ""
 msgid "This field is required."
 msgstr "Polje je obvezno."
 
+msgid "Toggle side panel"
+msgstr "Preklopi stransko ploščo"
+
 msgid "Toggle sidebar"
 msgstr "Preklopi stransko vrstico"
 
@@ -160,3 +205,6 @@ msgstr "Odstrani fokus komentarja"
 
 msgid "View child pages of '{title}'"
 msgstr "Ogled podrejenih strani za  '{title}'"
+
+msgid "Write something or type ‘/’ to insert a block"
+msgstr "Napišite nekaj ali pritisnite \"/\" za dodajanje bloka"

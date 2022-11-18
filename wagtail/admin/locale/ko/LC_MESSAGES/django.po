@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,6 +155,12 @@ msgstr "컬렉션 삭제"
 msgid "You cannot edit another user's comment."
 msgstr "당신은 타인의 댓글을 수정할 수 없습니다."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
+
+msgid "Expiry date/time must be in the future"
+msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
+
 msgid "New title"
 msgstr "새로운 제목"
 
@@ -216,12 +222,6 @@ msgstr ""
 
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 쓰이고 있습니다"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
-
-msgid "Expiry date/time must be in the future"
-msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -324,9 +324,6 @@ msgstr "이 화면 안의 모든 {0} 물건이 선택됨"
 
 msgid "All items in listing selected"
 msgstr "목록 안의 모든 물건이 선택됨"
-
-msgid "Scheduled publishing"
-msgstr "예약 게시"
 
 msgid "Page title"
 msgstr "페이지 제목"
@@ -680,6 +677,9 @@ msgstr "변경이 로 요청되었습니다"
 
 msgid "Awaiting"
 msgstr "대기"
+
+msgid "Close"
+msgstr "닫기"
 
 msgid "Awaiting your review"
 msgstr "당신의 후기를 기다리는 중"
@@ -1310,22 +1310,6 @@ msgid "Cancel scheduled publish"
 msgstr "예약 게시 취소"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s에 수정안 %(revision.id)s 예약 취소"
-
-msgid "Unschedule"
-msgstr "예약 취소"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "이 수정안의 예약 게시를 취소하시겠습니까?"
-
-msgid "Yes, unschedule"
-msgstr "네, 취소합니다"
-
-msgid "No, don't unschedule"
-msgstr "아니요, 취소하지 않습니다"
-
-#, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
 msgstr[0] "%(counter)s가 일치함"
@@ -1549,6 +1533,22 @@ msgstr "공개제한. 라이브 페이지를 방문하시오."
 msgid "Visible to all"
 msgstr "모두에게 공개"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s에 수정안 %(revision.id)s 예약 취소"
+
+msgid "Unschedule"
+msgstr "예약 취소"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "이 수정안의 예약 게시를 취소하시겠습니까?"
+
+msgid "Yes, unschedule"
+msgstr "네, 취소합니다"
+
+msgid "No, don't unschedule"
+msgstr "아니요, 취소하지 않습니다"
+
 msgid "Other searches"
 msgstr "다른 검색결과들"
 
@@ -1596,9 +1596,6 @@ msgstr "상세 확인"
 
 msgid "View history"
 msgstr "히스토리 확인"
-
-msgid "This will publish at "
-msgstr "에 게시될 예정"
 
 msgid "Errors Count: "
 msgstr "에러 갯수:"
@@ -1824,9 +1821,6 @@ msgstr "대부분의 행동 보기"
 
 msgid "0 minutes"
 msgstr "0분"
-
-msgid "Just now"
-msgstr "지금 당장"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -2137,14 +2131,6 @@ msgid ""
 msgstr "당신은 <b>%(created_at)s</b>의 이전 버전을 %(user)s에서 보고 있습니다."
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "\"{1}\"의 수정안 {0}"
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "\"{1}\"의 수정안 {0}의 게시가 취소되었습니다."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
 
@@ -2378,9 +2364,6 @@ msgstr "취소선"
 
 msgid "Code"
 msgstr "코드"
-
-msgid "Locked Pages"
-msgstr "잠긴 페이지"
 
 msgid "Reports"
 msgstr "리포트"

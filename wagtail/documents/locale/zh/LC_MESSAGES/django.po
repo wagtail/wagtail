@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Adeline Link, 2022\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -116,18 +116,6 @@ msgid ""
 msgstr ""
 "你没有上传任何文档。 为什么不 <a href=\"%(wagtaildocs_add_document_url)s\">上"
 "传一份</a>?"
-
-msgid "Parent"
-msgstr "上一级"
-
-msgid "Type"
-msgstr "类型"
-
-msgid "Status"
-msgstr "状态"
-
-msgid "Edit this page"
-msgstr "编辑这个页面"
 
 msgid "Add multiple documents"
 msgstr "添加多份文档"

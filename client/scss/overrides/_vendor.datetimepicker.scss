@@ -9,7 +9,6 @@
   padding-top: 2px;
   position: absolute;
   z-index: 5;
-  box-sizing: border-box;
   display: none;
 
   .w-dialog & {
@@ -17,7 +16,6 @@
   }
 
   * {
-    box-sizing: border-box;
     padding: 0;
     margin: 0;
   }

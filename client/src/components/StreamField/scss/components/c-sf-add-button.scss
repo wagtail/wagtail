@@ -51,5 +51,13 @@
     @media (forced-colors: active) {
       color: GrayText;
     }
+
+    @media (hover: hover) {
+      opacity: 0;
+
+      .w-panel--nested:is(:hover, :focus-within) & {
+        opacity: 0.2;
+      }
+    }
   }
 }

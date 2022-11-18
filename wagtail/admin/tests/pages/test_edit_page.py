@@ -410,6 +410,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             allow_extra_attrs=True,
         )
 
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
         self.assertContains(
             response,
             "This publishing schedule will only take effect after you have published",
@@ -1002,6 +1010,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         html = response.content.decode()
         self.assertTagInHTML(
             '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+        # Should show the dialog template pointing to the [data-edit-form] selector as the root
+        self.assertTagInHTML(
+            '<div id="schedule-publishing-dialog" class="w-dialog publishing" data-dialog-root-selector="[data-edit-form]">',
             html,
             count=1,
             allow_extra_attrs=True,

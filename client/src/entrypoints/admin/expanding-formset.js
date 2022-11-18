@@ -7,7 +7,7 @@ function buildExpandingFormset(prefix, opts = {}) {
   let formCount = parseInt(totalFormsInput.val(), 10);
 
   if (opts.onInit) {
-    for (let i = 0; i < formCount; i++) {
+    for (let i = 0; i < formCount; i += 1) {
       opts.onInit(i);
     }
   }
@@ -29,7 +29,7 @@ function buildExpandingFormset(prefix, opts = {}) {
     if (opts.onAdd) opts.onAdd(formCount);
     if (opts.onInit) opts.onInit(formCount);
 
-    formCount++;
+    formCount += 1;
     totalFormsInput.val(formCount);
   });
 }

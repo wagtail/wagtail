@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -239,18 +239,6 @@ msgstr "Utilizare %(title)s"
 msgid "Usage of"
 msgstr "Utilizare"
 
-msgid "Parent"
-msgstr "Bază"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Editează această pagină"
-
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
 
@@ -364,6 +352,10 @@ msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editează %s"
 
 msgid "Document"
 msgstr "Document"

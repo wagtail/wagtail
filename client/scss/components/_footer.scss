@@ -175,6 +175,7 @@ footer .preview {
 
     .icon {
       margin-inline-end: theme('spacing.2');
+      flex-shrink: 0;
     }
   }
 }
@@ -182,7 +183,7 @@ footer .preview {
 footer .actions {
   .button {
     font-weight: 600;
-    text-overflow: ellipsis;
+    white-space: initial;
   }
 }
 

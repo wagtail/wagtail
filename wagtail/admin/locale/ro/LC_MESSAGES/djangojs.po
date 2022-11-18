@@ -180,6 +180,9 @@ msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată.
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
 
+msgid "Toggle side panel"
+msgstr "Comută panou lateral"
+
 msgid "Toggle sidebar"
 msgstr "Comutați bara laterală"
 

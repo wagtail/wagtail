@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -440,18 +440,6 @@ msgstr "Használat"
 msgid "Title"
 msgstr "Cím"
 
-msgid "Parent"
-msgstr "Szülő"
-
-msgid "Type"
-msgstr "Típus"
-
-msgid "Status"
-msgstr "Állapot"
-
-msgid "Edit this page"
-msgstr "Oldal szerkesztése"
-
 msgid "Add multiple images"
 msgstr "Több kép hozzáadása"
 
@@ -502,6 +490,9 @@ msgstr "Kép engedélyek"
 msgid "Add an image permission"
 msgstr "Kép engedély hozzádása"
 
+msgid "Tags"
+msgstr "Címkék"
+
 msgid "Tag"
 msgstr "Címkézés"
 
@@ -546,6 +537,9 @@ msgstr "Feltöltés folyamatban…"
 
 msgid "Choose an image"
 msgstr "Válasszon képet"
+
+msgid "Choose another image"
+msgstr "Másik kép választása"
 
 msgid "Edit this image"
 msgstr "Kép szerkesztése"
@@ -598,6 +592,14 @@ msgstr "'{0}' kép hozzáadva."
 
 msgid "The image could not be created due to errors."
 msgstr "Hiba történt a kép létrehozása közben."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(Privát %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s szerkesztése"
 
 msgid "Image"
 msgstr "Kép"

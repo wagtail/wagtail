@@ -8,7 +8,7 @@ from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.admin import messages
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.models import Page
 
 

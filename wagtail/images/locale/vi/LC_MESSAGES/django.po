@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -72,9 +72,6 @@ msgstr "Xem trước"
 msgid "Title"
 msgstr "Tiêu đề"
 
-msgid "Status"
-msgstr "Trạng thái"
-
 msgid "Server Error"
 msgstr "Lỗi Hệ thống"
 
@@ -89,6 +86,10 @@ msgstr "Đang đăng tải..."
 
 msgid "Choose an image"
 msgstr "Chọn một hình ảnh"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Biên tập %s này"
 
 msgid "Change image"
 msgstr "Thay đổi hình ảnh"

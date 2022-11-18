@@ -1,7 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 
-{% preview_settings as settings %}
-{{ settings|json_script:"wagtail-preview-settings" }}
+{% wagtail_config as settings %}
 
 <div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
     <div class="preview-panel__sizes">

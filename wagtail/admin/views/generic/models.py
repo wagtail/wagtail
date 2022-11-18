@@ -24,6 +24,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, RevisionMixin
@@ -1018,6 +1019,10 @@ class RevisionsUnscheduleView(TemplateView):
         ]
 
     def get_next_url(self):
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
+
         if not self.history_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.RevisionsUnscheduleView "

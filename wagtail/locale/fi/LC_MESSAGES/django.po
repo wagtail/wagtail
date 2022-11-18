@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -127,8 +127,14 @@ msgstr "poistumispäivämäärä ja -aika"
 msgid "expired"
 msgstr "vanhentunut"
 
+msgid "scheduled"
+msgstr "ajoitettu"
+
 msgid "draft"
 msgstr "luonnos"
+
+msgid "live + scheduled"
+msgstr "esillä + ajastettu"
 
 msgid "live + draft"
 msgstr "julkaistu + luonnos"
@@ -199,14 +205,8 @@ msgstr "uusin versio luotu"
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä."
 
-msgid "scheduled"
-msgstr "ajoitettu"
-
 msgid "in moderation"
 msgstr "tarkastettavana"
-
-msgid "live + scheduled"
-msgstr "esillä + ajastettu"
 
 msgid "live + in moderation"
 msgstr "esillä + tarkastettavana"

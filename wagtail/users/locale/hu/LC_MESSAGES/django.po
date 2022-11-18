@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2022\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -396,19 +396,6 @@ msgstr "Hiba történt a csoport mentése közben."
 msgid "Group '{0}' deleted."
 msgstr "Csoport törölve: '{0}'"
 
-msgid "Search users"
-msgstr "Felhasználók keresése"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Felhasználó létrehozva: '{0}'"
-
-msgid "Edit"
-msgstr "Szerkeszt"
-
-msgid "The user could not be created due to errors."
-msgstr "Hiba történt a felhasználó létrehozása közben."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Felhasználó frissítve: '{0}'"
@@ -416,9 +403,16 @@ msgstr "Felhasználó frissítve: '{0}'"
 msgid "The user could not be saved due to errors."
 msgstr "Hiba történt a felhasználó mentése közben."
 
+#, python-format
+msgid "Editing %s"
+msgstr "%s szerkesztése"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Felhasználó törölve: '{0}'"
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "Edit this user"
 msgstr "Felhasználó szerkesztése"

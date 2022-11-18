@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2019-2022\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -131,8 +131,14 @@ msgstr "taka úr loftinu dags/tíma"
 msgid "expired"
 msgstr "tekin úr loftinu"
 
+msgid "scheduled"
+msgstr "tímasett"
+
 msgid "draft"
 msgstr "uppkast"
+
+msgid "live + scheduled"
+msgstr "í loftinu + tímasett"
 
 msgid "live + draft"
 msgstr "í birtingu + uppkast"
@@ -203,14 +209,8 @@ msgstr "síðasta útgáfa búin til"
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
 
-msgid "scheduled"
-msgstr "tímasett"
-
 msgid "in moderation"
 msgstr "bíður samþykktar"
-
-msgid "live + scheduled"
-msgstr "í loftinu + tímasett"
 
 msgid "live + in moderation"
 msgstr "í birtingu + bíður samþykktar"

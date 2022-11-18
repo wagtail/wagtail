@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2022\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -153,6 +153,14 @@ msgstr "Obriši"
 msgid "Delete collections"
 msgstr "Izbriši zbirke"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Zakazan datum/vrijeme objavljivanja mora biti prije zakazanog datuma/vremena "
+"odjavljivanja."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/vrijeme odjavljivanja mora biti u budućnosti"
+
 msgid "New title"
 msgstr "Novi naslov"
 
@@ -220,14 +228,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Slug se već koristi"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr ""
-"Zakazan datum/vrijeme objavljivanja mora biti prije zakazanog datuma/vremena "
-"odjavljivanja."
-
-msgid "Expiry date/time must be in the future"
-msgstr "Datum/vrijeme odjavljivanja mora biti u budućnosti"
-
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "Oznaka(e) %(value_too_long)s su dulje od %(max_tag_length)d znakova"
@@ -293,9 +293,6 @@ msgstr "Svih {0} korisnika na zaslonu je odabrano"
 #, python-brace-format
 msgid "All {0} items on this screen selected"
 msgstr "Svih {0} stavki na zaslonu je odabrano"
-
-msgid "Scheduled publishing"
-msgstr "Planirano objavljivanje"
 
 msgid "Content"
 msgstr "Sadržaj"
@@ -550,6 +547,9 @@ msgstr "Vaše stranice u tijeku rada"
 
 msgid "Changes requested at"
 msgstr "Zatražene promjene u"
+
+msgid "Close"
+msgstr "Zatvori"
 
 msgid "Awaiting your review"
 msgstr "Čekaju vaš pregled"
@@ -947,22 +947,6 @@ msgstr "Usporedi sa prijašnjom verzijom"
 msgid "Compare with current version"
 msgstr "Usporedi sa trenutnom verzijom"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Odjavi reviziju %(revision.id)s za %(title)s"
-
-msgid "Unschedule"
-msgstr "Otkaži"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Jeste li sigurni da želite otkazati ovu reviziju?"
-
-msgid "Yes, unschedule"
-msgstr "Da, otkaži"
-
-msgid "No, don't unschedule"
-msgstr "Ne, nemoj otkazati"
-
 msgid "Page types"
 msgstr "Vrste stranica"
 
@@ -1115,6 +1099,22 @@ msgstr "Posjetite stranicu uživo"
 
 msgid "Current page status:"
 msgstr "Trenutni status stranice"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Odjavi reviziju %(revision.id)s za %(title)s"
+
+msgid "Unschedule"
+msgstr "Otkaži"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Jeste li sigurni da želite otkazati ovu reviziju?"
+
+msgid "Yes, unschedule"
+msgstr "Da, otkaži"
+
+msgid "No, don't unschedule"
+msgstr "Ne, nemoj otkazati"
 
 msgid "Other searches"
 msgstr "Ostale pretrage"
@@ -1306,9 +1306,6 @@ msgstr "Više"
 msgid "0 minutes"
 msgstr "0 minuta"
 
-msgid "Just now"
-msgstr "Upravo sada"
-
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "Prije %(time_period)s"
@@ -1459,14 +1456,6 @@ msgid ""
 msgstr ""
 "Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
 "%(user)s"
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revizija {0} od \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Verzija {0} od \"{1}\" je otkazana."
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."
@@ -1665,9 +1654,6 @@ msgstr "Precrtano"
 
 msgid "Code"
 msgstr "Kod"
-
-msgid "Locked Pages"
-msgstr "Zaključane Stranice"
 
 msgid "Reports"
 msgstr "Izvješća"

@@ -5,6 +5,14 @@
         {% icon name="expand-right" %}
     </button>
 
+    <div class="form-side__resize-grip-container">
+        <label class="form-side__resize-grip" data-form-side-resize-grip>
+            <input type="range" step="10" class="form-side__width-input" name="wagtail-side-panel-width" data-form-side-width-input />
+            <span class="w-sr-only">{% trans 'Side panel width' %}</span>
+            {% icon name="grip" %}
+        </label>
+    </div>
+
     {% for panel in side_panels %}
         <div class="form-side__panel" data-side-panel="{{ panel.name }}" hidden>
             <h2 id="side-panel-{{ panel.name }}-title" class="w-sr-only">{{ panel.title }}</h2>

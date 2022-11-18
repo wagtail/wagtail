@@ -9,6 +9,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
+from wagtail.embeds.models import Embed
 from wagtail.models import Collection, Page, PageLogEntry, Revision
 from wagtail.signals import page_published, page_unpublished, published, unpublished
 from wagtail.test.testapp.models import (
@@ -695,6 +696,40 @@ class TestPurgeRevisionsCommand(TestCase):
         self.assertNotIn(
             old_revision, Revision.page_revisions.filter(object_id=self.page.id)
         )
+
+
+class TestPurgeEmbedsCommand(TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        # create dummy Embed objects
+        for i in range(5):
+            embed = Embed(
+                hash=f"{i}",
+                url="https://www.youtube.com/watch?v=Js8dIRxwSRY",
+                max_width=None,
+                type="video",
+                html="test html",
+                title="test title",
+                author_name="test author name",
+                provider_name="test provider name",
+                thumbnail_url="http://test/thumbnail.url",
+                width=1000,
+                height=1000,
+            )
+            embed.save()
+
+    def test_purge_embeds(self):
+        """
+        fetch all dummy embeds and confirm they are deleted when the management command runs
+
+        """
+
+        self.assertEqual(Embed.objects.count(), 5)
+
+        management.call_command("purge_embeds", stdout=StringIO())
+
+        self.assertEqual(Embed.objects.count(), 0)
 
 
 class TestCreateLogEntriesFromRevisionsCommand(TestCase):

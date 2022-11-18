@@ -13,6 +13,15 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "({number} new items in this menu)"
+msgstr "({number} uutta kohdetta tässä valikossa)"
+
+msgid "(1 new item in this menu)"
+msgstr "(1 uusi kohde tässä valikossa)"
+
+msgid "(New)"
+msgstr "(Uusi)"
+
 msgid "Add a comment"
 msgstr "Lisää kommentti"
 
@@ -36,6 +45,9 @@ msgstr "Merkkimäärä:"
 
 msgid "Close"
 msgstr "Sulje"
+
+msgid "Collapse all"
+msgstr "Supista kaikki"
 
 msgid "Comment"
 msgstr "Kommentti"
@@ -72,6 +84,9 @@ msgstr "Kirjoita vastaus..."
 
 msgid "Error while sending preview data."
 msgstr "Virhe lähettäessä esikatseludataa."
+
+msgid "Expand all"
+msgstr "Laajenna kaikki"
 
 msgid "Focus comment"
 msgstr "Kohdista kommentti"
@@ -176,6 +191,9 @@ msgstr ""
 
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
+
+msgid "Toggle side panel"
+msgstr "Sivupaneeli päälle/pois"
 
 msgid "Toggle sidebar"
 msgstr "Sivupalkki päälle/pois"
