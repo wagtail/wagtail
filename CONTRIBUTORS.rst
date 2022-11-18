@@ -670,6 +670,7 @@ Contributors
 * Temidayo Azeez
 * ChickenF622
 * Benita Anawonah
+* Anisha Singh
 
 Translators
 ===========
