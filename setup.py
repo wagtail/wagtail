@@ -67,6 +67,8 @@ testing_extras = [
     "djhtml==1.4.13",
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
+    # For streamfield migration toolkit
+    "wagtail-factories>=3.1.0,<4",
 ]
 
 # Documentation dependencies
