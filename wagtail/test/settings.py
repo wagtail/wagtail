@@ -125,6 +125,7 @@ INSTALLED_APPS = [
     "wagtail.test.search",
     "wagtail.test.modeladmintest",
     "wagtail.test.i18n",
+    "wagtail.test.streamfield_migrations",
     "wagtail.contrib.simple_translation",
     "wagtail.contrib.styleguide",
     "wagtail.contrib.routable_page",
