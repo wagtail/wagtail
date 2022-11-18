@@ -70,13 +70,12 @@ pip install wagtail
 ### Generate your site
 
 Wagtail provides a `start` command similar to `django-admin startproject`.
-Running `wagtail start mysite` in your project will generate:
-- a new `mysite` folder containing the required project settings with a few Wagtail-specific extras,
-- a "home" app with a blank `HomePage` model and basic templates,
-- a sample "search" app
-- and other dependencies for wagtail to run in the the project.
+Running `wagtail start mysite` in your project will generate a new `mysite` folder with a few Wagtail-specific extras, including
+the required project settings,
+a "home" app with a blank `HomePage` model and basic templates,
+and a sample "search" app.
 
-Appending `mysite` (which is a folder that was created when we ran `python3 -m venv mysite\env`) to `wagtail start mysite` specifies the destination directory for the above items. So the code looks like this:
+Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
 ```sh
 wagtail start mysite mysite
@@ -142,13 +141,10 @@ Edit `home/models.py` as follows, to add a `body` field to the model:
 from django.db import models
 
 from wagtail.models import Page
-
-# add these new imports
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 
 
-# replace the existing class definition of 'HomePage' with this:
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -164,16 +160,19 @@ capabilities and the layout of the editing interface. When you add fields to `co
 
 Run:
 
-```console
-$ python manage.py makemigrations # creates the migrations file
-$ python manage.py migrate # executes the migrations and updates the database with your model changes 
+```sh
+# Creates the migrations file.
+python manage.py makemigrations
+# Executes the migrations and updates the database with your model changes.
+python manage.py migrate
 ```
 
 You must run the above commands each time you make changes to the model definition.
 
 You can now edit the homepage within the Wagtail admin area (on the side bar go to _Pages_ and click the edit button beside _Homepage_) to see the new body field. Enter some text into the body field, and publish the page by selecting _Publish_ at the bottom of the page editor, rather than _Save Draft_.
 
-The page template now needs to be updated to reflect the changes made to the model. Wagtail uses normal Django templates to render each page
+The page template now needs to be updated to reflect the changes made
+to the model. Wagtail uses normal Django templates to render each page
 type. By default, it will look for a template filename formed from the app and model name,
 separating capital letters with underscores (for example HomePage within the 'home' app becomes
 `home/home_page.html`). This template file can exist in any location recognised by
@@ -227,13 +226,10 @@ if the tags aren't loaded.
 ## A basic blog
 
 
-```
-python manage.py startapp blog
-```
+We are now ready to create a blog. To do so, run
+`python manage.py startapp blog` to create a new app in your Wagtail project.
 
-to create a new app in your Wagtail site.
-
-Add the new `blog` app to `INSTALLED_APPS` list in `mysite/settings/base.py`.
+Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 ### Blog Index and Posts
 
@@ -591,7 +587,7 @@ Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` libr
 
 !["Second Post" page, with title, date, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_6.png)
 
-Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist) in `blog/models.py`:
+Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let's define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
 
 ```python
 class BlogPage(Page):
@@ -754,7 +750,7 @@ Migrate this in, then create a new `BlogTagIndexPage` in the admin.
 You'll probably want to create the new page/view as a child of Homepage,
 parallel to your Blog index. Give it the slug "tags" on the Promote tab.
 
-Add `/tags` to the server url in your browser and Django will tell you what you probably already knew:
+Access `/tags` and Django will tell you what you probably already knew:
 you need to create a template `blog/template/blog/blog_tag_index_page.html`:
 
 ```html+django
