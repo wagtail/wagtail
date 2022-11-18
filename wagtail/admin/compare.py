@@ -212,11 +212,10 @@ class StructBlockComparison(BlockComparison):
         )
 
 
-class StreamBlockComparison(BlockComparison):
+class BaseSequenceBlockComparison(BlockComparison):
     @staticmethod
     def get_blocks_from_value(val):
-        blocks = list(val) or []
-        return blocks
+        raise NotImplementedError
 
     @staticmethod
     def get_blocks_by_id(a_blocks, b_blocks):
@@ -224,7 +223,7 @@ class StreamBlockComparison(BlockComparison):
         b_blocks_by_id = {block.id: block for block in b_blocks}
         return a_blocks_by_id, b_blocks_by_id
 
-    def get_block_comparisons(self):
+    def get_block_comparisons_by_id(self):
         a_blocks = self.get_blocks_from_value(self.val_a)
         b_blocks = self.get_blocks_from_value(self.val_b)
         a_blocks_by_id, b_blocks_by_id = self.get_blocks_by_id(a_blocks, b_blocks)
@@ -308,7 +307,17 @@ class StreamBlockComparison(BlockComparison):
         return mark_safe("\n".join(comparisons_html))
 
 
-class ListBlockComparison(StreamBlockComparison):
+class StreamBlockComparison(BaseSequenceBlockComparison):
+    @staticmethod
+    def get_blocks_from_value(val):
+        blocks = list(val) or []
+        return blocks
+
+    def get_block_comparisons(self):
+        return self.get_block_comparisons_by_id()
+
+
+class ListBlockComparison(BaseSequenceBlockComparison):
     @staticmethod
     def get_blocks_from_value(val):
         blocks = list(val.bound_blocks) or []
@@ -326,8 +335,8 @@ class ListBlockComparison(StreamBlockComparison):
         )
 
         if both_in_new_format:
-            # All blocks have ids, so we can use the StreamBlock comparison logic, which uses ids
-            return super().get_block_comparisons()
+            # All blocks have ids, so we can use the BaseSequenceBlock comparison logic, which uses ids.
+            return self.get_block_comparisons_by_id()
 
         # We're dealing with data in the old format
         # Let's compare blocks by position - it's not perfect, but it's better than rendering to HTML
