@@ -6,7 +6,6 @@ from django.db.models.functions import Cast
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.blocks.migrations.operations import RenameStreamChildrenOperation
 from wagtail.test.streamfield_migrations import factories, models
 from wagtail.test.streamfield_migrations.testutils import MigrationTestMixin
@@ -146,8 +145,6 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
             ):
                 is_latest_or_live = old_revision.id == instance.live_revision_id or (
                     old_revision.id == instance.latest_revision_id
-                    if WAGTAIL_VERSION >= (4, 0, 0)
-                    else old_revision.id == instance.get_latest_revision().id
                 )
                 old_content = json.loads(old_revision.content["content"])
                 new_content = json.loads(new_revision.content["content"])
@@ -179,8 +176,6 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
             ):
                 is_latest_or_live = old_revision.id == instance.live_revision_id or (
                     old_revision.id == instance.latest_revision_id
-                    if WAGTAIL_VERSION >= (4, 0, 0)
-                    else old_revision.id == instance.get_latest_revision().id
                 )
                 is_after_revisions_from = old_revision.created_at > revisions_from
                 is_altered = is_latest_or_live or is_after_revisions_from
