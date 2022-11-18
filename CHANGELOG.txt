@@ -31,6 +31,7 @@ Changelog
  * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
  * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
  * Fix: Move DateField, DateTimeField, TimeField comment buttons to be right next to the fields (Theresa Okoro)
+ * Fix: Support text resizing in workflow steps cards (Ivy Jeptoo)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
@@ -69,6 +70,7 @@ Changelog
  * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
  * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
  * Fix: Move DateField, DateTimeField, TimeField comment buttons to be right next to the fields (Theresa Okoro)
+ * Fix: Support text resizing in workflow steps cards (Ivy Jeptoo)
 
 
 4.1.1 (11.11.2022)

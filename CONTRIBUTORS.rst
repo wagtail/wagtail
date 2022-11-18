@@ -671,6 +671,7 @@ Contributors
 * Mark McOsker
 * Benita Anawonah
 * Anisha Singh
+* Ivy Jeptoo
 
 Translators
 ===========
