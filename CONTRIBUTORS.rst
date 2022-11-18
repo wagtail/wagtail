@@ -643,6 +643,7 @@ Contributors
 * Victoria Poromon
 * Chisom Okeoma
 * Anisha Singh
+* Ivy Jeptoo
 
 Translators
 ===========
