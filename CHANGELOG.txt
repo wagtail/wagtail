@@ -38,7 +38,7 @@ Changelog
  * Docs: Add development (contributing to Wagtail) documentation notes for development on Windows (Akua Dokua Asiedu)
  * Docs: Mention Wagtail’s usage of Django’s default user model by default (Temidayo Azeez)
  * Docs: Add links to treebeard documentation for relevant methods (Temidayo Azeez)
- * Docs: Add clarification on where to register entity plugins (ChickenF622)
+ * Docs: Add clarification on where to register entity plugins (Mark McOsker)
  * Docs: Fix logo in README not being visible in high-contrast mode (Benita Anawonah)
  * Docs: Improve 'first wagtail site' tutorial (Akua Dokua Asiedu)
  * Docs: Grammatical adjustments of `page models` usage guide (Damilola Oladele)

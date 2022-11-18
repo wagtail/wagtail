@@ -668,7 +668,7 @@ Contributors
 * Elizabeth Bassey
 * Suyash Singh
 * Temidayo Azeez
-* ChickenF622
+* Mark McOsker
 * Benita Anawonah
 * Anisha Singh
 
