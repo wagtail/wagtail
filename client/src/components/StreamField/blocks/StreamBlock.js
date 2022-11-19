@@ -9,6 +9,7 @@ import {
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
+import { range } from '../../../utils/range';
 
 /* global $ */
 
@@ -332,12 +333,12 @@ export class StreamBlock extends BaseSequenceBlock {
       }
     }
 
-    for (let i = 0; i < this.inserters.length; i++) {
+    range(0, this.inserters.length).forEach((i) => {
       this.inserters[i].setNewBlockRestrictions(
         this.canAddBlock,
         this.disabledBlockTypes,
       );
-    }
+    });
   }
 
   _createChild(

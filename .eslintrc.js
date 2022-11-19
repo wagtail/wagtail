@@ -7,7 +7,6 @@ const legacyCode = {
   'max-classes-per-file': 'off',
   'no-continue': 'off',
   'no-else-return': 'off',
-  'no-plusplus': 'off',
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
 };

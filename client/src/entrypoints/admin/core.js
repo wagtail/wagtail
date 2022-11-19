@@ -274,7 +274,7 @@ $(() => {
       // for example - " " === "" and "firstword " ==== "firstword"
       if (currentQuery.trim() !== newQuery.trim()) {
         $icon.attr('href', '#icon-spinner');
-        searchNextIndex++;
+        searchNextIndex += 1;
         const index = searchNextIndex;
 
         // Update q, reset to first page, and keep other query params

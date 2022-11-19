@@ -24,7 +24,7 @@ export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = ({
   const isClosing = isVisible && !isOpen;
   if (isClosing) {
     // When closing, make sure this panel displays behind any new panel that is opening
-    zIndex--;
+    zIndex -= 1;
   }
 
   const style = {
