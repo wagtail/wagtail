@@ -9,6 +9,7 @@ import {
   initCollapsiblePanel,
   toggleCollapsiblePanel,
 } from '../../../includes/panels';
+import { range } from '../../../utils/range';
 
 class ActionButton {
   constructor(sequenceChild) {
@@ -474,7 +475,7 @@ export class BaseSequenceBlock {
     const animate = opts && opts.animate;
     const focus = opts && opts.focus;
     const collapsed = opts && opts.collapsed;
-    this.blockCounter++;
+    this.blockCounter += 1;
 
     /*
     a new inserter and block will be inserted AFTER the inserter with the given index;
@@ -490,12 +491,12 @@ export class BaseSequenceBlock {
     $(inserterPlaceholder).insertAfter(blockPlaceholder);
 
     /* shuffle up indexes of all blocks / inserters above this index */
-    for (let i = index; i < this.children.length; i++) {
+    range(index, this.children.length).forEach((i) => {
       this.children[i].setIndex(i + 1);
-    }
-    for (let i = index + 1; i < this.inserters.length; i++) {
+    });
+    range(index + 1, this.inserters.length).forEach((i) => {
       this.inserters[i].setIndex(i + 1);
-    }
+    });
 
     const child = this._createChild(
       childBlockDef,
@@ -557,12 +558,12 @@ export class BaseSequenceBlock {
 
     /* index numbers of children / inserters above this index now need updating to match
     their array indexes */
-    for (let i = index; i < this.children.length; i++) {
+    range(index, this.children.length).forEach((i) => {
       this.children[i].setIndex(i);
-    }
-    for (let i = index; i < this.inserters.length; i++) {
+    });
+    range(index, this.inserters.length).forEach((i) => {
       this.inserters[i].setIndex(i);
-    }
+    });
 
     if (index === 0 && this.children.length > 0) {
       /* we have removed the first child; the new first child cannot be moved up */
@@ -597,15 +598,15 @@ export class BaseSequenceBlock {
 
     /* update index properties of moved items */
     if (newIndex > oldIndex) {
-      for (let i = oldIndex; i <= newIndex; i++) {
+      range(oldIndex, newIndex + 1).forEach((i) => {
         this.inserters[i].setIndex(i);
         this.children[i].setIndex(i);
-      }
+      });
     } else {
-      for (let i = newIndex; i <= oldIndex; i++) {
+      range(newIndex, oldIndex + 1).forEach((i) => {
         this.inserters[i].setIndex(i);
         this.children[i].setIndex(i);
-      }
+      });
     }
 
     /* enable/disable up/down arrows as required */

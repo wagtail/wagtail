@@ -7,6 +7,7 @@ import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
 import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import { WagtailBrandingModuleDefinition } from './modules/WagtailBranding';
+import { range } from '../../utils/range';
 
 export default {
   title: 'Sidebar/Sidebar',
@@ -323,7 +324,7 @@ export function withLargeSubmenu() {
   const menuModule = bogStandardMenuModule();
 
   const menuItems = [];
-  for (let i = 0; i < 100; i++) {
+  range(0, 100).forEach((i) => {
     menuItems.push(
       new LinkMenuItemDefinition({
         name: `item-${i}`,
@@ -333,7 +334,7 @@ export function withLargeSubmenu() {
         classnames: '',
       }),
     );
-  }
+  });
 
   menuModule.menuItems.push(
     new SubMenuItemDefinition(
