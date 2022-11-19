@@ -77,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleUserbar(e2) {
     e2.stopPropagation();
     if (userbar.classList.contains(isActiveClass)) {
-      hideUserbar();
+      hideUserbar(true);
     } else {
-      showUserbar(true);
+      showUserbar();
     }
   }
 
