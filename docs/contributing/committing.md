@@ -72,11 +72,11 @@ The `CHANGELOG.txt` contains a short summary of each new feature, refactoring, o
 Each summary should be a single line.
 To easily identify the most relevant changes to users, items are grouped together in the following order:
 
-* Major features (no prefix) - things that will inspire users to upgrade to a new release
-* Minor enhancements (no prefix) - other improvements to the developer or end user experience
-* Bug fixes (prefixed with "Fix:") - things that address broken behaviour from previous releases
-* Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganisations, tutorials, recipes and so on
-* Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that are not intended to have a visible effect to developers or end users
+-   Major features (no prefix) - things that will inspire users to upgrade to a new release
+-   Minor enhancements (no prefix) - other improvements to the developer or end user experience
+-   Bug fixes (prefixed with "Fix:") - things that address broken behaviour from previous releases
+-   Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganisations, tutorials, recipes and so on
+-   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that are not intended to have a visible effect to developers or end users
 
 The name of the contributor should be added at the end of the summary, in brackets.
 For example:
