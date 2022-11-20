@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Mohammad Sharif Shokouhi <m.sh.shokouhi@outlook.com>, 2020\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -29,6 +29,9 @@ msgstr "پیشفرض"
 
 msgid "Site"
 msgstr "سایت"
+
+msgid "Editing"
+msgstr "ویرایش"
 
 msgid "Saving…"
 msgstr "در حال ذخیره کردن…"

@@ -17,6 +17,7 @@ custom_tasks
 audit_log
 custom_account_settings
 customising_group_views
+custom_image_filters
 rich_text_internals
 extending_draftail
 custom_bulk_actions

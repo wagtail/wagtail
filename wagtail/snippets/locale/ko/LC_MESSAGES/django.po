@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -82,6 +82,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">새로 생성</a>하는 것은 어떤가요?"
 
+msgid "Usage"
+msgstr "사용"
+
 msgid "Last updated"
 msgstr "마지막으로 업로드된"
 
@@ -112,9 +115,6 @@ msgstr "새로운"
 
 msgid "Actions"
 msgstr "액션"
-
-msgid "Usage"
-msgstr "사용"
 
 msgid "Toggle breadcrumbs"
 msgstr "부분 전환"
@@ -165,17 +165,8 @@ msgstr "이전 버전과 비교합니다."
 msgid "Compare with current version"
 msgstr "현재 버전과 비교합니다."
 
-msgid "Live"
-msgstr "라이브"
-
-msgid "Draft"
-msgstr "초안"
-
-msgid "View history"
-msgstr "히스토리 확인"
-
-msgid "This will publish at "
-msgstr "에 게시될 예정"
+msgid "Cancel scheduled publish"
+msgstr "예약 게시 취소"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -194,18 +185,6 @@ msgstr "의 사용"
 
 msgid "Title"
 msgstr "제목"
-
-msgid "Parent"
-msgstr "상위"
-
-msgid "Type"
-msgstr "타입"
-
-msgid "Status"
-msgstr "상태"
-
-msgid "Edit this page"
-msgstr "페이지 변경"
 
 msgid "Choose"
 msgstr "선택"
@@ -227,14 +206,21 @@ msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' 수정됨."
 
+#, python-format
+msgid "Edit this %s"
+msgstr "이 %s 수정하기"
+
+msgid "Action"
+msgstr "행동"
+
+msgid "User"
+msgstr "사용자"
+
 msgid "Date"
 msgstr "날짜"
 
 msgid "Snippet history"
 msgstr "정보 자취"
-
-msgid "Action"
-msgstr "행동"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -251,7 +237,3 @@ msgstr "%s 선택"
 #, python-format
 msgid "Choose another %s"
 msgstr "다른 %s 선택"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "이 %s 수정하기"

@@ -11,15 +11,15 @@
 # Martin Sandström <martin@marteinn.se>, 2020-2022
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2021
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2022
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2022\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2022\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -160,6 +160,12 @@ msgstr "Radera samlingar"
 msgid "You cannot edit another user's comment."
 msgstr "Du kan inte editera andra användares kommentarer"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Utgångsdatum/-tid måste ske i framtiden"
+
 msgid "New title"
 msgstr "Ny titel"
 
@@ -224,11 +230,12 @@ msgstr "Du kan inte kopiera en sida till sig själv när du kopierar undersidor"
 msgid "This slug is already in use"
 msgstr "URL-fragmentet är redan i användning"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Publicera vid datum/-tid måste ske före utgångsdatum/-tid"
+msgid "Select a new parent for this page."
+msgstr "Välj ny föräldersida"
 
-msgid "Expiry date/time must be in the future"
-msgstr "Utgångsdatum/-tid måste ske i framtiden"
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tagg(ar) %(value_too_long)s har fler än %(max_tag_length)d tecken"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -314,6 +321,13 @@ msgstr "Alla {0} användare i denna vy valda"
 msgid "All users in listing selected"
 msgstr "Alla användare i lista valda"
 
+msgid "1 snippet selected"
+msgstr "1 objekt har valts"
+
+#, python-brace-format
+msgid "{0} snippets selected"
+msgstr "{0} objekt valda"
+
 msgid "1 item selected"
 msgstr "1 objekt har valts"
 
@@ -327,9 +341,6 @@ msgstr "Alla {0} objekt i denna vy är valda"
 
 msgid "All items in listing selected"
 msgstr "Alla objekt i lista valda"
-
-msgid "Scheduled publishing"
-msgstr "Schemalagd publicering"
 
 msgid "For search engines"
 msgstr "För sökmotorer"
@@ -631,6 +642,9 @@ msgstr "Förändringar begärdes vid"
 
 msgid "Awaiting"
 msgstr "Avvaktar"
+
+msgid "Close"
+msgstr "Stäng"
 
 msgid "Awaiting your review"
 msgstr "Inväntar din granskning"
@@ -1156,22 +1170,6 @@ msgstr "Jämför med nuvarande version"
 msgid "Cancel scheduled publish"
 msgstr "Avbryt schemalagd publicering"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Ej schemalagd revision %(revision.id)s för %(title)s"
-
-msgid "Unschedule"
-msgstr "Schemalägg inte"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Är du säker på att du vill radera denna revision?"
-
-msgid "Yes, unschedule"
-msgstr "Ja, ta bort schemaläggning"
-
-msgid "No, don't unschedule"
-msgstr "Nej, behåll schemaläggning"
-
 msgid "Page types"
 msgstr "Sidtyper"
 
@@ -1347,6 +1345,22 @@ msgstr "Besök live-sidan"
 
 msgid "Current page status:"
 msgstr "Nuvarande sidstatus:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Ej schemalagd revision %(revision.id)s för %(title)s"
+
+msgid "Unschedule"
+msgstr "Schemalägg inte"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Är du säker på att du vill radera denna revision?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, ta bort schemaläggning"
+
+msgid "No, don't unschedule"
+msgstr "Nej, behåll schemaläggning"
 
 msgid "Other searches"
 msgstr "Andra sökningar"
@@ -1557,9 +1571,6 @@ msgstr "Visa fler massåtgärder"
 
 msgid "0 minutes"
 msgstr "0 minuter"
-
-msgid "Just now"
-msgstr "Just nu"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1882,14 +1893,6 @@ msgstr ""
 "%(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revision {0} av \"{1}\""
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr "Version {0} av \"{1}\" ej schemalagt."
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sida '{0}' opublicerad."
 
@@ -2130,9 +2133,6 @@ msgstr "Genomstruket"
 
 msgid "Code"
 msgstr "Kod"
-
-msgid "Locked Pages"
-msgstr "Låsta sidor"
 
 msgid "Reports"
 msgstr "Rapporter"

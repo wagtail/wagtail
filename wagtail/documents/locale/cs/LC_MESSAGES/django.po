@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
@@ -175,18 +175,6 @@ msgstr "Použití %(title)s"
 msgid "Usage of"
 msgstr "Použití"
 
-msgid "Parent"
-msgstr "Nadřazená stránka"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Edit this page"
-msgstr "Upravit stránku"
-
 msgid "Add multiple documents"
 msgstr "Přidat více dokumentů"
 
@@ -264,6 +252,10 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' byl smazán."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Edituj %s"
 
 msgid "Document"
 msgstr "Dokument"

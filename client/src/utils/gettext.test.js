@@ -9,68 +9,75 @@ import {
 const STRING =
   'The name wagtail stems from the constant sideways wagging of the tail.';
 
+afterEach(() => {
+  // clear any mocked globals after each test
+  if (window.django) {
+    delete window.django;
+  }
+});
+
 describe('gettext', () => {
-  beforeEach(() => {
-    window.django = { gettext: jest.fn((val) => val) };
+  it('should return the provided string if Django gettext is not loaded', () => {
+    expect(gettext(STRING)).toEqual(STRING);
   });
 
-  it('should return the value based on the django util', () => {
-    expect(window.django.gettext).not.toHaveBeenCalled();
-    expect(gettext(STRING)).toEqual(STRING);
-    expect(window.django.gettext).toHaveBeenCalledWith(STRING);
+  it('should call the global Django util if loaded', () => {
+    const gettextMock = jest.fn();
+    window.django = { gettext: gettextMock };
+    gettext(STRING);
+    expect(gettextMock).toHaveBeenCalledWith(STRING);
   });
 });
 
 describe('ngettext', () => {
-  beforeEach(() => {
-    window.django = { ngettext: jest.fn((val) => val) };
+  it('should emulate the Django ngettext function if it is not loaded', () => {
+    expect(ngettext('One bird', 'Many birds', 1)).toEqual('One bird');
+    expect(ngettext('One bird', 'Many birds', 2)).toEqual('Many birds');
   });
 
-  it('should return the value based on the django util', () => {
-    expect(window.django.ngettext).not.toHaveBeenCalled();
-    expect(ngettext('One bird', 'Many birds', 2)).toEqual('One bird');
-    expect(window.django.ngettext).toHaveBeenCalledWith(
-      'One bird',
-      'Many birds',
-      2,
-    );
+  it('should call the global Django util if loaded', () => {
+    const ngettextMock = jest.fn();
+    window.django = { ngettext: ngettextMock };
+    ngettext('One bird', 'Many birds', 2);
+    expect(ngettextMock).toHaveBeenCalledWith('One bird', 'Many birds', 2);
   });
 });
 
 describe('getFormat', () => {
-  beforeEach(() => {
-    window.django = { get_format: jest.fn(() => 1) };
+  it('should return an empty string if Django get_format is not loaded', () => {
+    expect(getFormat('FIRST_DAY_OF_WEEK')).toEqual('');
   });
 
-  it('should return the value based on the django util', () => {
-    expect(window.django.get_format).not.toHaveBeenCalled();
-    expect(getFormat('FIRST_DAY_OF_WEEK')).toEqual(1);
-    expect(window.django.get_format).toHaveBeenCalledWith('FIRST_DAY_OF_WEEK');
+  it('should call the global Django util if loaded', () => {
+    const getFormatMock = jest.fn();
+    window.django = { get_format: getFormatMock };
+    getFormat('FIRST_DAY_OF_WEEK');
+    expect(getFormatMock).toHaveBeenCalledWith('FIRST_DAY_OF_WEEK');
   });
 });
 
 describe('gettextNoop', () => {
-  beforeEach(() => {
-    window.django = { gettext_noop: jest.fn((val) => val) };
+  it('should return the provided string if Django gettext_noop is not loaded', () => {
+    expect(gettextNoop(STRING)).toEqual(STRING);
   });
 
-  it('should return the value based on the django util', () => {
-    expect(window.django.gettext_noop).not.toHaveBeenCalled();
-    expect(gettextNoop(STRING)).toEqual(STRING);
-    expect(window.django.gettext_noop).toHaveBeenCalledWith(STRING);
+  it('should call the global Django util if loaded', () => {
+    const gettextNoopMock = jest.fn();
+    window.django = { gettext_noop: gettextNoopMock };
+    gettextNoop(STRING);
+    expect(gettextNoopMock).toHaveBeenCalledWith(STRING);
   });
 });
 
 describe('pluralIdx', () => {
-  beforeEach(() => {
-    window.django = {
-      pluralidx: jest.fn((val) => ({ 0: true, 1: false }[val] || true)),
-    };
+  it('should return false if if Django pluralidx is not loaded', () => {
+    expect(pluralIdx(3)).toEqual(false);
   });
 
-  it('should return the value based on the django util', () => {
-    expect(window.django.pluralidx).not.toHaveBeenCalled();
-    expect(pluralIdx(0)).toEqual(true);
-    expect(window.django.pluralidx).toHaveBeenCalledWith(0);
+  it('should call the global Django util if loaded', () => {
+    const pluralidxMock = jest.fn();
+    window.django = { pluralidx: pluralidxMock };
+    pluralIdx(5);
+    expect(pluralidxMock).toHaveBeenCalledWith(5);
   });
 });

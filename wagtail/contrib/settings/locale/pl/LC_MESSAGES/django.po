@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Krzysztof Jeziorny <github@jeziorny.net>, 2022
 # Miłosz Miśkiewicz, 2016
 # Miłosz Miśkiewicz, 2018-2020
 # Miłosz Miśkiewicz, 2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2018-2020\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -26,8 +27,19 @@ msgstr ""
 msgid "default"
 msgstr "domyślny"
 
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s dla %(site)s"
+
+#, python-format
+msgid "Editing %(instance)s"
+msgstr "Edycja %(instance)s"
+
 msgid "Site"
 msgstr "Serwis"
+
+msgid "Editing"
+msgstr "Edycja"
 
 msgid "Saving…"
 msgstr "Zapisywanie…"

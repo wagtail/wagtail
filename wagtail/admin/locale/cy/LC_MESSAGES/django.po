@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -153,6 +153,12 @@ msgstr "Dileu casgliad"
 msgid "You cannot edit another user's comment."
 msgstr "Ni allwch olygu sylw defnyddiwr arall."
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
+
 msgid "New title"
 msgstr "Teitl newydd"
 
@@ -228,12 +234,6 @@ msgstr "Ni allwch gopïo tudalen ynddo'i hun wrth gopïo is-dudalennau"
 msgid "This slug is already in use"
 msgstr "Mae'r wlithen hon eisoes yn cael ei defnyddio"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Rhaid i'r dyddiad/amser mynd yn fyw fod cyn y dyddiad/amser dod i ben"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Rhaid i'r dyddiad/amser dod i ben fod yn y dyfodol"
-
 msgid "Visibility"
 msgstr "Gwelededd"
 
@@ -242,9 +242,6 @@ msgstr "Mae angen y'r ffild hon."
 
 msgid "Please select at least one group."
 msgstr "Dewiswch o leiaf un grwp os gwelwch yn dda."
-
-msgid "Scheduled publishing"
-msgstr "Cyhoeddi wedi'i drefnu"
 
 msgid "For search engines"
 msgstr "Ar gyfer peiriannau chwilio"
@@ -338,6 +335,9 @@ msgstr "Statws"
 
 msgid "Date"
 msgstr "Dyddiad"
+
+msgid "Close"
+msgstr "Cau"
 
 msgid "Saving…"
 msgstr "Cadw…"

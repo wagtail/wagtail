@@ -8,7 +8,6 @@ const legacyCode = {
   'no-continue': 'off',
   'no-else-return': 'off',
   'no-plusplus': 'off',
-  'no-prototype-builtins': 'off',
   'no-restricted-syntax': 'off',
   'no-this-before-super': 'off',
 };
@@ -71,12 +70,9 @@ module.exports = {
       files: [
         'client/src/entrypoints/admin/comments.js',
         'client/src/entrypoints/admin/core.js',
-        'client/src/entrypoints/admin/expanding-formset.js',
-        'client/src/entrypoints/admin/filtered-select.js',
         'client/src/entrypoints/admin/page-chooser.js',
         'client/src/entrypoints/admin/page-editor.js',
         'client/src/entrypoints/admin/telepath/widgets.js',
-        'client/src/entrypoints/contrib/table_block/table.js',
         'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
         'client/src/entrypoints/images/image-chooser-modal.js',
         'client/src/utils/actions.ts',
@@ -136,6 +132,7 @@ module.exports = {
       files: [
         'docs/_static/**',
         'wagtail/contrib/modeladmin/static_src/wagtailmodeladmin/js/prepopulate.js',
+        'wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js',
         'wagtail/contrib/settings/static_src/wagtailsettings/js/site-switcher.js',
         'wagtail/documents/static_src/wagtaildocs/js/add-multiple.js',
         'wagtail/embeds/static_src/wagtailembeds/js/embed-chooser-modal.js',

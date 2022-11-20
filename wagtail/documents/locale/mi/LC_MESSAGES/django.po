@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -164,18 +164,6 @@ msgstr "Te whakamahi ō %(title)s"
 msgid "Usage of"
 msgstr "Te whakamahi ō "
 
-msgid "Parent"
-msgstr "Mātua"
-
-msgid "Type"
-msgstr "Momo"
-
-msgid "Status"
-msgstr "Tūnga"
-
-msgid "Edit this page"
-msgstr "Whakarerekē i tēnei whārangi"
-
 msgid "Add multiple documents"
 msgstr "Tāpiri ngā pukapuka taurea"
 
@@ -250,6 +238,10 @@ msgstr ""
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Pukapuka '{0}' kua mukuhia."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Whakarerekē i tēnei %s"
 
 msgid "Document"
 msgstr "Pukapuka"

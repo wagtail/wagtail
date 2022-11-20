@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -85,8 +85,14 @@ msgstr "mōnehu rā/ taima"
 msgid "expired"
 msgstr "kua mōnehu"
 
+msgid "scheduled"
+msgstr "āpiti"
+
 msgid "draft"
 msgstr "hukihuki"
+
+msgid "live + scheduled"
+msgstr "mataora + āpiti"
 
 msgid "live + draft"
 msgstr "mataora + hukihuki"
@@ -143,14 +149,8 @@ msgstr "I hanga whakahou ki"
 msgid "This slug is already in use"
 msgstr "E mahi tonu ana tēnei ngata"
 
-msgid "scheduled"
-msgstr "āpiti"
-
 msgid "in moderation"
 msgstr "kia whakaōrite"
-
-msgid "live + scheduled"
-msgstr "mataora + āpiti"
 
 msgid "live + in moderation"
 msgstr "mataora + kia whakaōrite"

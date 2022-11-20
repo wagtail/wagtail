@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -105,18 +105,6 @@ msgstr "%(title)s uza iha nee"
 msgid "Usage of"
 msgstr "uza iha nee"
 
-msgid "Parent"
-msgstr "inan-aman"
-
-msgid "Type"
-msgstr "Tipu"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Edit this page"
-msgstr "Hadia pajina nee"
-
 msgid "Delete"
 msgstr "Hamoos"
 
@@ -129,6 +117,10 @@ msgstr "Buka documentu"
 #, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dkumentu '{0}' hatama ona"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "hadia iha %s"
 
 msgid "Document"
 msgstr "Dokumentu"

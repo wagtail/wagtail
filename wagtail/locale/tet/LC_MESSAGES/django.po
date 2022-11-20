@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019-2020\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -80,8 +80,14 @@ msgstr "Termu data/tempu"
 msgid "expired"
 msgstr "Data liu ona"
 
+msgid "scheduled"
+msgstr "Ajenda ona"
+
 msgid "draft"
 msgstr "Esbosu"
+
+msgid "live + scheduled"
+msgstr "Hela + ajenda"
 
 msgid "live + draft"
 msgstr "Hela + esbosu"
@@ -124,12 +130,6 @@ msgstr "Revizaun ikus kria ona iha"
 
 msgid "This slug is already in use"
 msgstr "Slug ida ne'e uza tiha ona"
-
-msgid "scheduled"
-msgstr "Ajenda ona"
-
-msgid "live + scheduled"
-msgstr "Hela + ajenda"
 
 msgid "page"
 msgstr "Pajina"
@@ -243,6 +243,9 @@ msgstr "situs"
 
 msgid "sites"
 msgstr "situs sira"
+
+msgid "default"
+msgstr "default"
 
 #, python-format
 msgid ""

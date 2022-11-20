@@ -11,6 +11,7 @@ const {
   fontWeight,
   letterSpacing,
   lineHeight,
+  listStyleType,
   typeScale,
 } = require('./src/tokens/typography');
 const { breakpoints } = require('./src/tokens/breakpoints');
@@ -76,6 +77,7 @@ module.exports = {
     fontSize,
     fontWeight,
     lineHeight,
+    listStyleType,
     letterSpacing,
     borderRadius,
     borderWidth,

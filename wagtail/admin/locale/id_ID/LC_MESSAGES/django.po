@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Reshi Mahendra <reshimahendra@gmail.com>, 2020\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
@@ -136,6 +136,12 @@ msgstr "Ubah"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Waktu publikasi harus diatur sebelum waktu kadaluarsa"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Waktu kadaluarsa harus di masa depan"
+
 msgid "New title"
 msgstr "Judul baru"
 
@@ -197,12 +203,6 @@ msgstr ""
 msgid "This slug is already in use"
 msgstr "Slug ini telah digunakan"
 
-msgid "Go live date/time must be before expiry date/time"
-msgstr "Waktu publikasi harus diatur sebelum waktu kadaluarsa"
-
-msgid "Expiry date/time must be in the future"
-msgstr "Waktu kadaluarsa harus di masa depan"
-
 msgid "Visibility"
 msgstr "Visibilitas"
 
@@ -214,9 +214,6 @@ msgstr "Harap memilih minimal satu grup."
 
 msgid "All types"
 msgstr "Semua tipe"
-
-msgid "Scheduled publishing"
-msgstr "Penerbitan terjadwal"
 
 msgid "Content"
 msgstr "Konten"
@@ -443,6 +440,9 @@ msgstr "Ringkasan situs"
 
 msgid "Awaiting"
 msgstr "Menunggu"
+
+msgid "Close"
+msgstr "Tutup"
 
 msgid "Awaiting your review"
 msgstr "Menunggu tinjauan anda"
@@ -675,22 +675,6 @@ msgstr "Telah diubah"
 msgid "Cancel scheduled publish"
 msgstr "Batalkan publikasi terjadwal"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
-
-msgid "Unschedule"
-msgstr "Hapus Jadwal"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
-
-msgid "Yes, unschedule"
-msgstr "Ya, hapus jadwal"
-
-msgid "No, don't unschedule"
-msgstr "Tidak, jangan hapus jadwal"
-
 msgid "Page types"
 msgstr "Jenis Halaman"
 
@@ -747,6 +731,22 @@ msgstr "Ya, tarik publikasi"
 
 msgid "Filter"
 msgstr "Saring"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
+
+msgid "Unschedule"
+msgstr "Hapus Jadwal"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
+
+msgid "Yes, unschedule"
+msgstr "Ya, hapus jadwal"
+
+msgid "No, don't unschedule"
+msgstr "Tidak, jangan hapus jadwal"
 
 msgid "Other searches"
 msgstr "Pencarian yang lain"
@@ -918,10 +918,6 @@ msgstr "Gagal mengirim notifikasi penolakan"
 #, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Halaman '{0}' telah dipindah."
-
-#, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr "revisi {0} dari \"{1}\""
 
 #, python-brace-format
 msgid "Page '{0}' unpublished."

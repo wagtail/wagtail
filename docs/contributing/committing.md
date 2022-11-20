@@ -70,8 +70,14 @@ and the release notes for the current version.
 
 The `CHANGELOG.txt` contains a short summary of each new feature, refactoring, or bug fix in each release.
 Each summary should be a single line.
-Bug fixes should be grouped together at the end of the list for each release,
-and be prefixed with "Fix:".
+To easily identify the most relevant changes to users, items are grouped together in the following order:
+
+-   Major features (no prefix) - things that will inspire users to upgrade to a new release
+-   Minor enhancements (no prefix) - other improvements to the developer or end user experience
+-   Bug fixes (prefixed with "Fix:") - things that address broken behaviour from previous releases
+-   Documentation (prefixed with "Docs:") - changes to documentation that do not accompany a specific code change; reorganisations, tutorials, recipes and so on
+-   Maintenance (prefixed with "Maintenance:") - cleanup, refactoring and other changes to code or tooling that are not intended to have a visible effect to developers or end users
+
 The name of the contributor should be added at the end of the summary, in brackets.
 For example:
 
@@ -79,11 +85,9 @@ For example:
 * Fix: Tags added on the multiple image uploader are now saved correctly (Alex Smith)
 ```
 
-The release notes for each version contain a more detailed description of each change.
-Backwards compatibility notes should also be included.
-Large new features or changes should get their own section,
-while smaller changes and bug fixes should be grouped together in their own section.
-See previous release notes for examples.
+The release notes for each version contain a more detailed description for each major feature, under its own heading.
+Minor enhancements ("Other features"), bug fixes, documentation and maintenance are listed as bullet points under the appropriate heading - these can be copied from the changelog, with the prefix ("Fix:", "Docs:" or "Maintenance:") removed.
+Backwards compatibility notes should also be included. See previous release notes for examples.
 The release notes for each version are found in `docs/releases/x.x.x.md`.
 
 If the contributor is a new person, and this is their first contribution to Wagtail,

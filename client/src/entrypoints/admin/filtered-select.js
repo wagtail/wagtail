@@ -61,7 +61,7 @@ $(() => {
         filteredValues = optionData;
       } else {
         filteredValues = [];
-        for (let i = 0; i < optionData.length; i++) {
+        for (let i = 0; i < optionData.length; i += 1) {
           if (
             optionData[i].value === '' ||
             optionData[i].filterValue.indexOf(chosenFilter) !== -1
@@ -72,7 +72,7 @@ $(() => {
       }
 
       let foundValue = false;
-      for (let i = 0; i < filteredValues.length; i++) {
+      for (let i = 0; i < filteredValues.length; i += 1) {
         const option = $('<option>');
         option.attr('value', filteredValues[i].value);
         if (filteredValues[i].value === currentValue) foundValue = true;

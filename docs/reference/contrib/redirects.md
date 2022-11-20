@@ -21,7 +21,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     # ...
-    # all other django middlware first
+    # all other django middleware first
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]

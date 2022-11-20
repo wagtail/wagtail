@@ -36,11 +36,6 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     // Mask the overlap with the parent panel’s guide line.
     background-color: $color-white;
   }
-
-  .w-panel__heading--label {
-    // Use smaller labels within nested panels in InlinePanel.
-    @apply w-label-2;
-  }
 }
 
 // Styles for nested panels excluding the top level.
@@ -59,6 +54,11 @@ $panel-x-offset: calc($header-button-size-sm / 2 + $header-gap);
     @include media-breakpoint-up(sm) {
       transform: translateX(theme('spacing.1'));
     }
+  }
+
+  .w-panel__heading--label {
+    // Use smaller labels within nested panels in InlinePanel.
+    @apply w-label-2;
   }
 
   // For nested panels, there is always enough space for the prefix anchor.

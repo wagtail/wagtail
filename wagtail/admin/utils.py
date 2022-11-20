@@ -1,6 +1,7 @@
 from warnings import warn
 
 from django.conf import settings
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
@@ -20,3 +21,12 @@ def get_admin_base_url():
         admin_base_url = settings.BASE_URL
 
     return admin_base_url
+
+
+def get_valid_next_url_from_request(request):
+    next_url = request.POST.get("next") or request.GET.get("next")
+    if not next_url or not url_has_allowed_host_and_scheme(
+        url=next_url, allowed_hosts={request.get_host()}
+    ):
+        return ""
+    return next_url

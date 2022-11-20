@@ -405,3 +405,5 @@ repopulate the records that are being used on the site.
 You may want to do this if you've changed from oEmbed to Embedly or vice-versa
 as the embed code they generate may be slightly different and lead to
 inconsistency on your site.
+
+In general whenever you make changes to embed settings you are recommended to clear out Embed objects using [`purge_embeds` command](purge_embeds).

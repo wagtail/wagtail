@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
@@ -381,18 +381,6 @@ msgstr "Defnydd o"
 msgid "Title"
 msgstr "Teitl"
 
-msgid "Parent"
-msgstr "Rhiant"
-
-msgid "Type"
-msgstr "Math"
-
-msgid "Status"
-msgstr "Statws"
-
-msgid "Edit this page"
-msgstr "Golygu tudalen hon"
-
 msgid "Add multiple images"
 msgstr "Ychwanegu lluniau lluosog"
 
@@ -526,6 +514,10 @@ msgstr "Llun '{0}' wedi'i ychwanegu."
 
 msgid "The image could not be created due to errors."
 msgstr "Ni fu modd creu'r llun oherwydd gwallau."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Golygu %s"
 
 msgid "Image"
 msgstr "Llun"

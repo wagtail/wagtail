@@ -4,14 +4,14 @@ Changelog
 4.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * Add custom permissions section to permissions documentation page (Dan Hayden)
- * Remove unsquashed `testapp` migrations (Matt Westcott)
  * Switch to using Willow instead of Pillow for images (Darrel O'Pry)
- * Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
- * Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
- * Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
  * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
- * Mention the importance of passing `request` and `current_site` to `get_url` on the [performance](performance) documentation page (Jake Howard)
+ * Ensure that the `rebuild_references_index` command can run without console output if called with `--verbosity 0` (Omerzahid Ali, Aman Pandey)
+ * Add full support for secondary buttons with icons in the Wagtail design system - `button bicolor button--icon button-secondary` including the `button-small` variant (Seremba Patrick)
+ * Add `purge_embeds` management command to delete all the cached embed objects in the database (Aman Pandey)
+ * Make it possible to resize the page editor’s side panels (Sage Abdullah)
+ * Add ability to include `form_fields` as an APIField on `FormPage` (Sævar Öfjörð Magnússon, Suyash Singh, LB (Ben) Johnston)
+ * Ensure that images listings are more consistently aligned when there are fewer images uploaded (Theresa Okoro)
  * Fix: Make sure workflow timeline icons are visible in high-contrast mode (Loveth Omokaro)
  * Fix: Ensure authentication forms (login, password reset) have a visible border in Windows high-contrast mode (Loveth Omokaro)
  * Fix: Ensure visual consistency between buttons and links as buttons in Windows high-contrast mode (Albina Starykova)
@@ -19,9 +19,79 @@ Changelog
  * Fix: Incorrectly formatted link in the documentation for Wagtail community support (Bolarinwa Comfort Ajayi)
  * Fix: Text within status tags text will now resize correctly when customizing browser font size (Mary Ojo)
  * Fix: Ensure logo shows correctly on log in page in Windows high-contrast mode (Loveth Omokaro)
+ * Fix: Comments notice background overflows its container (Yekasumah)
+ * Fix: Ensure links within help blocks meet colour contrast guidelines for accessibility (Theresa Okoro)
+ * Fix: Ensure the skip link (used for keyboard control) meets colour contrast guidelines for accessibility (Dauda Yusuf)
+ * Fix: Ensure tag fields correctly show in both dark and light Windows high-contrast modes (Albina Starykova)
+ * Fix: Ensure new tooltips & tooltip menus have visible borders and tip triangle in Windows high-contrast mode (Juliet Adeboye)
+ * Fix: Ensure there is a visual difference of 'active/current link' vs normal links in Windows high-contrast mode (Mohammad Areeb)
+ * Fix: Avoid issues where trailing whitespace could be accidentally removed in translations for new page & snippet headers (Florian Vogt)
+ * Fix: Make sure minimap error indicators follow the minimap scrolling (Thibaud Colas)
+ * Fix: Remove the ability to view or add comments to `InlinePanel` inner fields to avoid lost or incorrectly linked comments (Jacob Topp-Mugglestone)
+ * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
+ * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
+ * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
+ * Fix: Move DateField, DateTimeField, TimeField comment buttons to be right next to the fields (Theresa Okoro)
+ * Fix: Support text resizing in workflow steps cards (Ivy Jeptoo)
+ * Fix: Ignore images added via fixtures when using `WAGTAILIMAGES_FEATURE_DETECTION_ENABLED` to avoid errors for images that do not exist (Aman Pandey)
+ * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
+ * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
+ * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
+ * Docs: Mention the importance of passing `request` and `current_site` to `get_url` on the performance documentation page (Jake Howard)
+ * Docs: Add documentation for `register_user_listing_buttons` hook (LB (Ben Johnston))
+ * Docs: Add development (contributing to Wagtail) documentation notes for development on Windows (Akua Dokua Asiedu)
+ * Docs: Mention Wagtail’s usage of Django’s default user model by default (Temidayo Azeez)
+ * Docs: Add links to treebeard documentation for relevant methods (Temidayo Azeez)
+ * Docs: Add clarification on where to register entity plugins (Mark McOsker)
+ * Docs: Fix logo in README not being visible in high-contrast mode (Benita Anawonah)
+ * Docs: Improve 'first wagtail site' tutorial (Akua Dokua Asiedu)
+ * Docs: Grammatical adjustments of `page models` usage guide (Damilola Oladele)
+ * Docs: Add class inheritance information to StreamField block sreference (Temidayo Azeez)
+ * Docs: Document the hook `register_image_operations` and add an example of a custom Image filter (Coen van der Kamp)
+ * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
+ * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
+ * Maintenance: Run Python tests with coverage and upload coverage data to codecov (Sage Abdullah)
+ * Maintenance: Clean up duplicate JavaScript for the `escapeHtml` function (Jordan Rob)
+ * Maintenance: Clean up Prettier & Eslint usage for search promotions formset JS file (LB (Ben Johnston))
+ * Maintenance: Ensure that translation file generation ignores JavaScript unit tests and clean up unit tests for Django gettext utils (LB (Ben Johnston))
+ * Maintenance: Migrated `initButtonSelects` from core.js to own TypesScript file and add unit tests (Loveth Omokaro)
+ * Maintenance: Migrated `initSkipLink` util to TypeScript and add JSDoc & unit tests (Juliet Adeboye)
+ * Maintenance: Clean up some unused utility classes and migrate `unlist` to Tailwind utility class `w-list-none` (Loveth Omokaro)
+ * Maintenance: Clean up linting on legacy code and add shared util `hasOwn` in TypeScript (Loveth Omokaro)
+ * Maintenance: Remove unnecessary box-sizing: border-box declarations in SCSS (Albina Starykova)
+ * Maintenance: Migrated `initTooltips` to TypeScript add JSDoc and unit tests (Fatuma Abdullahi)
+ * Maintenance: Migrated `initTagField` from core.js to own TypeScript file and add unit tests (Chisom Okeoma)
+ * Maintenance: Added unit tests & JSDoc to `initDissmisibles` (Yekasumah)
 
 
-4.1 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Make "Cancel scheduled publish" button correctly redirect back to the edit view (Sage Abdullah)
+ * Fix: Prevent crash when reverting revisions on a snippet with `PreviewableMixin` applied (Sage Abdullah)
+ * Fix: Use consistent heading styles on top-level fields in the page editor (Sage Abdullah)
+ * Fix: Allow button labels to wrap onto two lines in dropdown buttons (Coen van der Kamp)
+ * Fix: Allow both horizontal and vertical manual resizing of TextFields (Anisha Singh)
+ * Fix: Move DateField, DateTimeField, TimeField comment buttons to be right next to the fields (Theresa Okoro)
+ * Fix: Support text resizing in workflow steps cards (Ivy Jeptoo)
+
+
+4.1.1 (11.11.2022)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix issue where lock/unlock buttons would not work on the Dashboard (home) page or the page index listing via the status sidebar (Stefan Hammer)
+ * Fix: Fix disabled style on StreamField add button (Matt Westcott)
+ * Fix: Ensure models are fully loaded before registering snippets, to avoid circular import issues (Matt Westcott)
+ * Fix: Prevent fields without a `verbose_name` property from breaking usage report views (Matt Westcott)
+ * Fix: Exclude tags from the reference index (Matt Westcott)
+ * Fix: Fix errors in handling generic foreign keys when populating the reference index (Matt Westcott)
+ * Fix: Prevent error in handling null ParentalKeys when populating the reference index (Matt Westcott)
+ * Fix: Make sure minimap error indicators follow the minimap scrolling (Thibaud Colas)
+ * Fix: Ensure background HTTP request to clear stale preview data correctly respects the `CSRF_HEADER_NAME` setting (Sage Abdullah)
+ * Fix: Prevent error on aging pages report when "Last published by" user has been deleted (Joshua Munn)
+
+
+4.1 LTS (01.11.2022)
 ~~~~~~~~~~~~~~~~~~~~
 
  * New scheduled publishing UI, available from the Status side panel (Sage Abdullah)
@@ -108,7 +178,7 @@ Changelog
  * Fix: Fully remove the obsolete `wagtailsearch_editorspick` table that prevents flushing the database (Matt Westcott)
  * Fix: Update latest version message on Dashboard to accept dev build version format used on nlightly builds (Sam Moran)
  * Fix: references extraction for ChooserBlock (Alex Tomkins)
- * Fix: Regression in field width for authentication pages (log in / password reset) (Chisom)
+ * Fix: Regression in field width for authentication pages (log in / password reset) (Chisom Okeoma)
  * Fix: Ensure the new minimap correctly pluralises error counts for `aria-label`s (Matt Westcott)
 
 

@@ -16,6 +16,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.log_actions import registry as log_action_registry
+from wagtail.users.utils import get_deleted_user_display_name
 
 
 class LogEntryQuerySet(models.QuerySet):
@@ -223,8 +224,7 @@ class BaseLogEntry(models.Model):
         if self.user_id:
             user = self.user
             if user is None:
-                # User has been deleted. Using a string placeholder as the user id could be non-numeric
-                return _("user %(id)s (deleted)") % {"id": self.user_id}
+                return get_deleted_user_display_name(self.user_id)
 
             try:
                 full_name = user.get_full_name().strip()

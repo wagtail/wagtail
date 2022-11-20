@@ -18,13 +18,13 @@ extractor
     }),
     JsExtractors.callExpression('ngettext', {
       arguments: {
-        text: 1,
-        textPlural: 2,
+        text: 0,
+        textPlural: 1,
         context: 3,
       },
     }),
   ])
-  .parseFilesGlob('./src/**/*.@(ts|js|tsx)');
+  .parseFilesGlob('./src/**/!(*.test).@(ts|js|tsx)');
 
 extractor.savePotFile('../wagtail/admin/locale/en/LC_MESSAGES/djangojs.po');
 

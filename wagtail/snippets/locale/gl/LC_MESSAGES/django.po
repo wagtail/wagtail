@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # X Bello <xbello@gmail.com>, 2022
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -99,6 +99,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
 "\">crear un agora</a>?"
 
+msgid "Usage"
+msgstr "Uso"
+
 msgid "Last updated"
 msgstr "Actualizado por última vez"
 
@@ -136,9 +139,6 @@ msgstr "Accións"
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Editando %(snippet_type_name)s - %(object)s"
-
-msgid "Usage"
-msgstr "Uso"
 
 msgid "Toggle breadcrumbs"
 msgstr "Permutar migas de pan"
@@ -181,7 +181,7 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Ningún %(snippet_type_name_plural)s foi creado. ¿Por qué non <a href="
+"Non se creou ningún %(snippet_type_name_plural)s. ¿Por qué non <a href="
 "\"%(wagtailsnippets_create_url)s\">engadir un</a>?"
 
 msgid "Live version"
@@ -205,20 +205,8 @@ msgstr "Comparar con versión anterior"
 msgid "Compare with current version"
 msgstr "Comparar ca versión actual"
 
-msgid "Status: "
-msgstr "Estado:"
-
-msgid "Live"
-msgstr "En vivo"
-
-msgid "Draft"
-msgstr "Borrador"
-
-msgid "View history"
-msgstr "Ver historial"
-
-msgid "This will publish at "
-msgstr "Publicarase en"
+msgid "Cancel scheduled publish"
+msgstr "Cancelar publicación adiada"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -241,17 +229,8 @@ msgstr "Uso de"
 msgid "Title"
 msgstr "Título"
 
-msgid "Parent"
-msgstr "Pai"
-
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Estado"
-
-msgid "Edit this page"
-msgstr "Editar esta páxina"
+msgid "Field"
+msgstr "Campo"
 
 msgid "Choose"
 msgstr "Seleccionar"
@@ -273,6 +252,10 @@ msgstr "%(snippet_type)s '%(instance)s' creado."
 msgid "%(snippet_type)s '%(instance)s' created and published."
 msgstr "%(snippet_type)s '%(instance)s' creado e publicado."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+msgstr "%(snippet_type)s '%(instance)s'  creado e adiado para publicación."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "O fragmento non puido ser gardado debido a erros."
 
@@ -284,14 +267,37 @@ msgstr "%(snippet_type)s '%(instance)s' actualizado."
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr "%(snippet_type)s '%(instance)s' actualizado e publicado."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+msgstr "%(snippet_type)s '%(instance)s' adiouse para publicación."
+
+#, python-format
+msgid ""
+"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
+"for publishing."
+msgstr ""
+"%(snippet_type)s '%(instance)s' está en vivo e esta versión foi adiada para "
+"publicación."
+
+#, python-format
+msgid "(Private %s)"
+msgstr "(%s privado)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editar este %s"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "User"
+msgstr "Usuario"
+
 msgid "Date"
 msgstr "Data"
 
 msgid "Snippet history"
 msgstr "Historial do fragmento"
-
-msgid "Action"
-msgstr "Acción"
 
 #, python-brace-format
 msgid "Edit this {model_name}"
@@ -316,7 +322,3 @@ msgstr "Seleccionar %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Seleccionar outro %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"

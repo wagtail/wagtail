@@ -108,6 +108,10 @@ const lineHeight = {
   normal: '1.5',
 };
 
+const listStyleType = {
+  none: 'none',
+};
+
 const headingBaseStyles = {
   fontWeight: 'fontWeight.bold',
   color: 'colors.primary.DEFAULT',
@@ -181,5 +185,6 @@ module.exports = {
   fontWeight,
   letterSpacing,
   lineHeight,
+  listStyleType,
   typeScale,
 };

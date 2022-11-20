@@ -10,8 +10,7 @@
     border: 2px solid theme('colors.secondary.100');
     border-radius: 5px;
     color: $color-teal;
-    box-sizing: border-box;
-    width: $task-width;
+    min-width: $task-width;
     height: $task-height;
     margin: 7px;
     padding-inline-start: 9px;
@@ -19,12 +18,12 @@
   }
 
   &__step {
-    font-size: 10px;
-    margin-top: 3px;
+    font-size: 0.625rem;
+    margin-top: 0.1875rem;
   }
 
   &__name {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     margin: 0;
 

@@ -109,7 +109,7 @@ With this configuration in place, you are ready to run `python manage.py migrate
 
 ## User accounts
 
-Superuser accounts receive automatic access to the Wagtail admin interface; use `python manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
+Wagtail uses Django’s default user model by default. Superuser accounts receive automatic access to the Wagtail admin interface; use `python manage.py createsuperuser` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
 ## Start developing
 

@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
@@ -166,6 +166,12 @@ msgstr "删除集合"
 msgid "You cannot edit another user's comment."
 msgstr "你不能编辑另一个用户的评论。"
 
+msgid "Go live date/time must be before expiry date/time"
+msgstr "发布日期/时间必须早于过期日期/时间"
+
+msgid "Expiry date/time must be in the future"
+msgstr "过期日期/时间必须是未来时间。"
+
 msgid "New title"
 msgstr "新标题"
 
@@ -224,12 +230,6 @@ msgstr "你在复制子页面时不能复制当前页面本身"
 
 msgid "This slug is already in use"
 msgstr "此缩略名已被使用"
-
-msgid "Go live date/time must be before expiry date/time"
-msgstr "发布日期/时间必须早于过期日期/时间"
-
-msgid "Expiry date/time must be in the future"
-msgstr "过期日期/时间必须是未来时间。"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -332,9 +332,6 @@ msgstr "已选择本屏幕的所有{0} 个条目"
 
 msgid "All items in listing selected"
 msgstr "已选择列表中的所有条目"
-
-msgid "Scheduled publishing"
-msgstr "定时发布"
 
 msgid "Page title"
 msgstr "页面标题"
@@ -637,6 +634,9 @@ msgstr "请求的更改"
 
 msgid "Awaiting"
 msgstr "等待"
+
+msgid "Close"
+msgstr "关闭"
 
 msgid "Awaiting your review"
 msgstr "等待你的审查"
@@ -1182,22 +1182,6 @@ msgstr "与当前版本进行比较"
 msgid "Cancel scheduled publish"
 msgstr "取消预定的发布"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
-
-msgid "Unschedule"
-msgstr "取消计划"
-
-msgid "Are you sure you want to unschedule this revision?"
-msgstr "确定要取消这个修订版本的发布计划吗？"
-
-msgid "Yes, unschedule"
-msgstr "是的，取消发布计划"
-
-msgid "No, don't unschedule"
-msgstr "否，不取消发布计划"
-
 msgid "Page types"
 msgstr "页面类型"
 
@@ -1397,6 +1381,22 @@ msgstr "私有. 查看已发布页"
 msgid "Visible to all"
 msgstr "任何人可看"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
+
+msgid "Unschedule"
+msgstr "取消计划"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "确定要取消这个修订版本的发布计划吗？"
+
+msgid "Yes, unschedule"
+msgstr "是的，取消发布计划"
+
+msgid "No, don't unschedule"
+msgstr "否，不取消发布计划"
+
 msgid "Other searches"
 msgstr "其它搜索"
 
@@ -1426,9 +1426,6 @@ msgstr "查看详情"
 
 msgid "View history"
 msgstr "查看历史"
-
-msgid "This will publish at "
-msgstr "将发布于"
 
 msgid "Errors Count: "
 msgstr "错误数量: "
@@ -1627,9 +1624,6 @@ msgstr "查看更多的批量动作"
 
 msgid "0 minutes"
 msgstr "0 分钟"
-
-msgid "Just now"
-msgstr "刚刚"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -1937,14 +1931,6 @@ msgstr ""
 "你正在查看此页面的上一版本，创建时间：<b>%(created_at)s</b> 创建人： %(user)s"
 
 #, python-brace-format
-msgid "revision {0} of \"{1}\""
-msgstr " \"{1}\"的修订版本{0}"
-
-#, python-brace-format
-msgid "Version {0} of \"{1}\" unscheduled."
-msgstr " \"{1}\"的版本{0}已取消预定的发布。"
-
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "页面'{0}'已取消发布。"
 
@@ -2177,9 +2163,6 @@ msgstr "中划线"
 
 msgid "Code"
 msgstr "代码"
-
-msgid "Locked Pages"
-msgstr "已锁定的页面"
 
 msgid "Reports"
 msgstr "报告"

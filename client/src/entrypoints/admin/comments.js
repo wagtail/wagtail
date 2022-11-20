@@ -19,7 +19,7 @@ window.comments = (() => {
 
   function getContentPath(fieldNode) {
     // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
-    if (fieldNode.closest('data-contentpath-disabled')) {
+    if (fieldNode.closest('[data-contentpath-disabled]')) {
       return '';
     }
     let element = fieldNode.closest('[data-contentpath]');
@@ -163,10 +163,14 @@ window.comments = (() => {
         throw new MissingElementError(annotationTemplateNode);
       }
       this.annotationTemplateNode = annotationTemplateNode;
-      this.shown = false;
+      this.updateVisibility(false);
     }
 
     register() {
+      if (!this.contentpath) {
+        // The widget has no valid contentpath, skip subscriptions
+        return undefined;
+      }
       const { selectEnabled } = commentApp.selectors;
       const initialState = commentApp.store.getState();
       let currentlyEnabled = selectEnabled(initialState);
@@ -300,9 +304,7 @@ window.comments = (() => {
         commentAdditionNode: buttonElement,
         annotationTemplateNode: document.querySelector('#comment-icon'),
       });
-      if (widget.contentpath) {
-        widget.register();
-      }
+      widget.register();
     };
     // Our template node may not exist yet - let's hold off until comments are loaded and enabled
     onNextEnable(initWidget);

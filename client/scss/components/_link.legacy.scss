@@ -5,6 +5,10 @@
   &:hover {
     color: $color-teal;
   }
+
+  @media (forced-colors: $media-forced-colours) {
+    color: GrayText;
+  }
 }
 
 a.underlined {

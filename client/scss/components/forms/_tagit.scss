@@ -7,17 +7,17 @@
 }
 
 @media (forced-colors: $media-forced-colours) {
-  .tagit,
-  .tagit .tagit-choice,
-  .tagit .tagit-new .ui-widget-content {
-    box-shadow: inset 1000px 0 0 0 $color-black;
-    color: $color-white;
-    forced-color-adjust: none;
+  .tagit {
+    .tag {
+      border: 1px solid;
+
+      &::before {
+        background: $system-color-button-text;
+      }
+    }
   }
 
-  .tagit span.tagit-label:before,
-  .tagit span.tagit-label {
-    color: $color-black;
-    forced-color-adjust: none;
+  .tagit-close .ui-icon.ui-icon-close:before {
+    background: $system-color-button-text;
   }
 }

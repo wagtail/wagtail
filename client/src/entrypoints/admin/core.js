@@ -1,4 +1,7 @@
 import $ from 'jquery';
+import { escapeHtml } from '../../utils/text';
+import { initButtonSelects } from '../../includes/initButtonSelects';
+import { initTagField } from '../../includes/initTagField';
 import { initTooltips } from '../../includes/initTooltips';
 
 /* generic function for adding a message to message area through JS alone */
@@ -15,37 +18,7 @@ function addMessage(status, text) {
 
 window.addMessage = addMessage;
 
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  };
-
-  return text.replace(/[&<>"']/g, (char) => map[char]);
-}
-
 window.escapeHtml = escapeHtml;
-
-function initTagField(id, autocompleteUrl, options) {
-  const finalOptions = {
-    autocomplete: { source: autocompleteUrl },
-    preprocessTag(val) {
-      // Double quote a tag if it contains a space
-      // and if it isn't already quoted.
-      if (val && val[0] !== '"' && val.indexOf(' ') > -1) {
-        return '"' + val + '"';
-      }
-
-      return val;
-    },
-    ...options,
-  };
-
-  $('#' + id).tagit(finalOptions);
-}
 
 window.initTagField = initTagField;
 
@@ -603,32 +576,6 @@ function initDropDowns() {
 $(document).ready(initDropDowns);
 wagtail.ui.initDropDowns = initDropDowns;
 wagtail.ui.DropDownController = DropDownController;
-
-// Initialise button selectors
-function initButtonSelects() {
-  document.querySelectorAll('.button-select').forEach((element) => {
-    const inputElement = element.querySelector('input[type="hidden"]');
-
-    element
-      .querySelectorAll('.button-select__option')
-      .forEach((buttonElement) => {
-        buttonElement.addEventListener('click', (e) => {
-          e.preventDefault();
-          inputElement.value = buttonElement.value;
-
-          element
-            .querySelectorAll('.button-select__option--selected')
-            .forEach((selectedButtonElement) => {
-              selectedButtonElement.classList.remove(
-                'button-select__option--selected',
-              );
-            });
-
-          buttonElement.classList.add('button-select__option--selected');
-        });
-      });
-  });
-}
 
 $(document).ready(initButtonSelects);
 

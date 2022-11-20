@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -282,18 +282,6 @@ msgstr "Kullanım"
 msgid "Title"
 msgstr "Başlık"
 
-msgid "Parent"
-msgstr "Üst sayfa"
-
-msgid "Type"
-msgstr "Tür"
-
-msgid "Status"
-msgstr "Durum"
-
-msgid "Edit this page"
-msgstr "Sayfayı düzenle"
-
 msgid "Add multiple images"
 msgstr "Birden fazla resim ekle"
 
@@ -380,6 +368,10 @@ msgstr "Resim '{0}' eklendi."
 
 msgid "The image could not be created due to errors."
 msgstr "Hata oluştuğu için resim oluşturulamadı."
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s düzenle"
 
 msgid "Image"
 msgstr "Resim"

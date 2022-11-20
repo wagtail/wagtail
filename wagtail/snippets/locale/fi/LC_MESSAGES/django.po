@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -78,6 +78,9 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
+msgid "Usage"
+msgstr "Käyttö"
+
 msgid "Last updated"
 msgstr "Viimeksi päivitetty"
 
@@ -115,9 +118,6 @@ msgstr "Toimet"
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(object)s"
 msgstr "Muokataan %(snippet_type_name)s - %(object)s"
-
-msgid "Usage"
-msgstr "Käyttö"
 
 msgid "Toggle breadcrumbs"
 msgstr "Murupolut päälle/pois"
@@ -176,17 +176,8 @@ msgstr "Vertaa edelliseen versioon"
 msgid "Compare with current version"
 msgstr "Vertaa nykyiseen versioon"
 
-msgid "Status: "
-msgstr "Tila:"
-
-msgid "Live"
-msgstr "Julkinen"
-
-msgid "Draft"
-msgstr "Luonnos"
-
-msgid "View history"
-msgstr "Näytä historia"
+msgid "Cancel scheduled publish"
+msgstr "Peruuta ajastettu julkaisu"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
@@ -205,18 +196,6 @@ msgstr "Käyttö"
 
 msgid "Title"
 msgstr "Otsikko"
-
-msgid "Parent"
-msgstr "Isäntä"
-
-msgid "Type"
-msgstr "Tyyppi"
-
-msgid "Status"
-msgstr "Tila"
-
-msgid "Edit this page"
-msgstr "Muokkaa tätä sivua"
 
 msgid "Choose"
 msgstr "Valitse"
@@ -246,14 +225,25 @@ msgstr "%(snippet_type)s-pätkä '%(instance)s' päivitetty."
 msgid "%(snippet_type)s '%(instance)s' updated and published."
 msgstr "%(snippet_type)s '%(instance)s' päivitetty ja julkaistu."
 
+#, python-format
+msgid "(Private %s)"
+msgstr "(Yksityinen %s)"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Muokkaa %s-kohdetta"
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "User"
+msgstr "Käyttäjä"
+
 msgid "Date"
 msgstr "Pvm"
 
 msgid "Snippet history"
 msgstr "Pätkän historia"
-
-msgid "Action"
-msgstr "Toiminto"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -270,7 +260,3 @@ msgstr "Valitse %s"
 #, python-format
 msgid "Choose another %s"
 msgstr "Valitse toinen %s"
-
-#, python-format
-msgid "Edit this %s"
-msgstr "Muokkaa %s-kohdetta"

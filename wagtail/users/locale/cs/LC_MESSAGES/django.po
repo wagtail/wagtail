@@ -6,14 +6,15 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Marek Turnovec <aesculap@gmail.com>, 2022
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021\n"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2022\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -120,8 +121,17 @@ msgstr "uživatelský profile"
 msgid "user profiles"
 msgstr "uživatelské profily"
 
+msgid "Yes, assign"
+msgstr "Ano, přiřadit"
+
+msgid "No, don't assign"
+msgstr "Ne, nepřiřazovat"
+
 msgid "Delete"
 msgstr "Smazat"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Opravdu chcete smazat tyto uživatele?"
 
 msgid "Yes, delete"
 msgstr "Ano, smazat"
@@ -277,19 +287,6 @@ msgstr "Skupinu nelze uložit, zkontrolujte správné vyplnění polí."
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' byla smazána."
 
-msgid "Search users"
-msgstr "Hledat uživatele"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "Uživatel '{0}' byl vytvořen."
-
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "The user could not be created due to errors."
-msgstr "Uživatele nelze vytvořit, zkontrolujte správné vyplnění polí."
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Uživatel '{0}' byl upraven."
@@ -297,9 +294,16 @@ msgstr "Uživatel '{0}' byl upraven."
 msgid "The user could not be saved due to errors."
 msgstr "Uživatele nelze uložit, zkontrolujte správné vyplnění polí."
 
+#, python-format
+msgid "Editing %s"
+msgstr "Editování %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Uživatel '{0}' byl smazán."
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "Edit this user"
 msgstr "Upravit tohoto uživatele"

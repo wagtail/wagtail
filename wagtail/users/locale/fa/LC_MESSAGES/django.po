@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 11:45+0100\n"
+"POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -233,19 +233,6 @@ msgstr "به دلیل بروز خطا گروه ذخیره نشد."
 msgid "Group '{0}' deleted."
 msgstr "گروه '{0}' حذف شد."
 
-msgid "Search users"
-msgstr "جستجوی کاربران"
-
-#, python-brace-format
-msgid "User '{0}' created."
-msgstr "کاربر '{0}' ایجاد شد."
-
-msgid "Edit"
-msgstr "ویرایش"
-
-msgid "The user could not be created due to errors."
-msgstr "به دلیل بروز خطا کاربر ایجاد نشد"
-
 #, python-brace-format
 msgid "User '{0}' updated."
 msgstr "کاربر  '{0}' بروزرسانی شد."
@@ -253,9 +240,16 @@ msgstr "کاربر  '{0}' بروزرسانی شد."
 msgid "The user could not be saved due to errors."
 msgstr "به دلیل بروز خطا کاربر ذخیره نشد"
 
+#, python-format
+msgid "Editing %s"
+msgstr "ویرایش %s"
+
 #, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "کاربر '{0}' حذف شد."
+
+msgid "Edit"
+msgstr "ویرایش"
 
 msgid "Edit this user"
 msgstr "ویرایش این کاربر"
