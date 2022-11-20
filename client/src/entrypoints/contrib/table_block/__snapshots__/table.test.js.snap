@@ -62,7 +62,7 @@ exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
                   Pas d'en-têtes
               </option>
             </select>
-            <p class=\\"help\\">Which cells should be displayed as headers?</p>
+            <p class=\\"help\\">Quelles cellules doivent être affichées en tant qu'en-têtes?</p>
           </div>
         </div>
       </div>
