@@ -223,9 +223,9 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
             list(
                 PageLogEntry.objects.filter(page=page_id)
                 .values_list("action", flat=True)
-                .order_by("action")
+                .order_by("-pk")
             ),
-            ["wagtail.create", "wagtail.publish"],
+            ["wagtail.publish", "wagtail.create"],
         )
 
     def test_revert_and_publish_logs_reversion_and_publish(self):
@@ -249,9 +249,9 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         entries = (
             PageLogEntry.objects.filter(page=self.hello_page)
             .values_list("action", flat=True)
-            .order_by("action")
+            .order_by("-pk")
         )
         self.assertListEqual(
             list(entries),
-            ["wagtail.create", "wagtail.publish", "wagtail.rename", "wagtail.revert"],
+            ["wagtail.publish", "wagtail.rename", "wagtail.revert", "wagtail.create"],
         )
