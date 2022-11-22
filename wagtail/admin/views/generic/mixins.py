@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.admin.utils import quote
-from django.db import models
+from django.db import models, transaction
 from django.forms import Media
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -13,6 +13,7 @@ from django.utils.translation import gettext as _
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import TitleColumn
+from wagtail.log_actions import log
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 
 
@@ -182,6 +183,95 @@ class IndexViewOptionalFeaturesMixin:
             )
             return queryset
         return super()._annotate_queryset_updated_at(queryset)
+
+
+class CreateViewOptionalFeaturesMixin:
+    """
+    A mixin for generic CreateView to support optional features that are applied
+    to the model as mixins (e.g. DraftStateMixin, RevisionMixin).
+    """
+
+    def setup(self, request, *args, **kwargs):
+        self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
+        self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+        super().setup(request, *args, **kwargs)
+
+    def get_available_actions(self):
+        return [*super().get_available_actions(), "publish"]
+
+    def get_success_message(self, instance):
+        message = _("%(model_name)s '%(object)s' created.")
+        if self.draftstate_enabled and self.action == "publish":
+            message = _("%(model_name)s '%(object)s' created and published.")
+            if instance.go_live_at and instance.go_live_at > timezone.now():
+                message = _(
+                    "%(model_name)s '%(object)s' created and scheduled for publishing."
+                )
+
+        return message % {
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": instance,
+        }
+
+    def save_instance(self):
+        """
+        Called after the form is successfully validated - saves the object to the db
+        and returns the new object. Override this to implement custom save logic.
+        """
+        if self.draftstate_enabled:
+            # Make sure live is set to False when creating a new draft
+            instance = self.form.save(commit=False)
+            instance.live = False
+            instance.save()
+            self.form.save_m2m()
+        else:
+            instance = self.form.save()
+
+        self.new_revision = None
+
+        # Save revision if the model inherits from RevisionMixin
+        if self.revision_enabled:
+            self.new_revision = instance.save_revision(user=self.request.user)
+
+        log(
+            instance=instance,
+            action="wagtail.create",
+            revision=self.new_revision,
+            content_changed=True,
+        )
+
+        return instance
+
+    def publish_action(self):
+        hook_response = self.run_hook("before_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        self.new_revision.publish(user=self.request.user)
+
+        hook_response = self.run_hook("after_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        return None
+
+    def form_valid(self, form):
+        self.form = form
+        with transaction.atomic():
+            self.object = self.save_instance()
+
+        if self.action == "publish" and self.draftstate_enabled:
+            response = self.publish_action()
+            if response is not None:
+                return response
+
+        response = self.save_action()
+
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
+
+        return response
 
 
 class RevisionsRevertMixin:
