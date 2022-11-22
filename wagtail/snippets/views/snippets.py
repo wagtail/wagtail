@@ -203,7 +203,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-class CreateView(generic.CreateView):
+class CreateView(generic.CreateViewOptionalFeaturesMixin, generic.CreateView):
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
@@ -231,31 +231,6 @@ class CreateView(generic.CreateView):
             urlquery = "?locale=" + self.object.locale.language_code
 
         return reverse(self.index_url_name) + urlquery
-
-    def get_success_message(self, instance):
-        message = _("%(model_name)s '%(object)s' created.")
-        if isinstance(instance, DraftStateMixin) and self.action == "publish":
-            message = _("%(model_name)s '%(object)s' created and published.")
-            if instance.go_live_at and instance.go_live_at > timezone.now():
-                message = _(
-                    "%(model_name)s '%(object)s' created and scheduled for publishing."
-                )
-
-        return message % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": instance,
-        }
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(
-                    self.edit_url_name,
-                    args=[quote(self.object.pk)],
-                ),
-                _("Edit"),
-            )
-        ]
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
