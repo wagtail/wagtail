@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.db import models
 from django.forms import Media
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -11,7 +12,8 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.models import DraftStateMixin, Locale, TranslatableMixin
+from wagtail.admin.ui.tables import TitleColumn
+from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 
 
 class HookResponseMixin:
@@ -149,6 +151,37 @@ class PanelMixin:
         )
 
         return context
+
+
+class IndexViewOptionalFeaturesMixin:
+    """
+    A mixin for generic IndexView to support optional features that are applied
+    to the model as mixins (e.g. DraftStateMixin, RevisionMixin).
+    """
+
+    def _get_title_column(self, field_name, column_class=TitleColumn, **kwargs):
+        accessor = kwargs.pop("accessor", None)
+
+        if not accessor and field_name == "__str__":
+
+            def accessor(obj):
+                if isinstance(obj, DraftStateMixin) and obj.latest_revision:
+                    return obj.latest_revision.object_str
+                return str(obj)
+
+        return super()._get_title_column(
+            field_name, column_class, accessor=accessor, **kwargs
+        )
+
+    def _annotate_queryset_updated_at(self, queryset):
+        if issubclass(queryset.model, RevisionMixin):
+            # Use the latest revision's created_at
+            queryset = queryset.select_related("latest_revision")
+            queryset = queryset.annotate(
+                _updated_at=models.F("latest_revision__created_at")
+            )
+            return queryset
+        return super()._annotate_queryset_updated_at(queryset)
 
 
 class RevisionsRevertMixin:

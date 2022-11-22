@@ -29,7 +29,6 @@ from wagtail.admin.ui.tables import (
     UserColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
@@ -149,7 +148,7 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class IndexView(generic.IndexView):
+class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
     delete_multiple_url_name = None
@@ -161,18 +160,9 @@ class IndexView(generic.IndexView):
     table_class = InlineActionsTable
 
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
-        accessor = kwargs.pop("accessor", None)
-
-        if not accessor and field_name == "__str__":
-
-            def accessor(obj):
-                if isinstance(obj, DraftStateMixin) and obj.latest_revision:
-                    return obj.latest_revision.object_str
-                return str(obj)
-
-        return super()._get_title_column(
-            field_name, column_class, accessor=accessor, **kwargs
-        )
+        # Use SnippetTitleColumn class to use custom template
+        # so that buttons from snippet_listing_buttons hook can be rendered
+        return super()._get_title_column(field_name, column_class, **kwargs)
 
     def get_columns(self):
         return [
@@ -834,7 +824,7 @@ class SnippetViewSet(ViewSet):
         """
         revisions_revert_view_class = type(
             "_RevisionsRevertView",
-            (RevisionsRevertMixin, self.edit_view_class),
+            (generic.RevisionsRevertMixin, self.edit_view_class),
             {"view_name": "revisions_revert"},
         )
         return revisions_revert_view_class

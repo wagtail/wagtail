@@ -28,6 +28,7 @@ from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, RevisionMixin
+from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
@@ -135,6 +136,31 @@ class IndexView(
             % {"model_name": self.model._meta.verbose_name_plural}
         )
 
+    def _annotate_queryset_updated_at(self, queryset):
+        # Annotate the objects' updated_at, use _ prefix to avoid name collision
+        # with an existing database field.
+        # By default, use the latest log entry's timestamp, but subclasses may
+        # override this to e.g. use the latest revision's timestamp instead.
+
+        log_model = log_registry.get_log_model_for_model(queryset.model)
+
+        # If the log model is not a subclass of ModelLogEntry, we don't know how
+        # to query the logs for the object, so skip the annotation.
+        if not log_model or not issubclass(log_model, ModelLogEntry):
+            return queryset
+
+        latest_log = (
+            log_model.objects.filter(
+                content_type=ContentType.objects.get_for_model(
+                    queryset.model, for_concrete_model=False
+                ),
+                object_id=Cast(models.OuterRef("pk"), models.CharField()),
+            )
+            .order_by("-timestamp", "-pk")
+            .values("timestamp")[:1]
+        )
+        return queryset.annotate(_updated_at=models.Subquery(latest_log))
+
     def get_queryset(self):
         # Instead of calling super().get_queryset(), we copy the initial logic
         # from Django's MultipleObjectMixin, because we need to annotate the
@@ -159,28 +185,7 @@ class IndexView(
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
-        # Annotate the objects' updated_at, use _ prefix to avoid name collision
-        # with an existing database field
-        if issubclass(queryset.model, RevisionMixin):
-            # Use the latest revision's created_at
-            queryset = queryset.select_related("latest_revision")
-            queryset = queryset.annotate(
-                _updated_at=models.F("latest_revision__created_at")
-            )
-        else:
-            # Use the latest log entry's timestamp
-            log_model = log_registry.get_log_model_for_model(self.model)
-            latest_log = (
-                log_model.objects.filter(
-                    content_type=ContentType.objects.get_for_model(
-                        self.model, for_concrete_model=False
-                    ),
-                    object_id=Cast(models.OuterRef("pk"), models.CharField()),
-                )
-                .order_by("-timestamp", "-pk")
-                .values("timestamp")[:1]
-            )
-            queryset = queryset.annotate(_updated_at=models.Subquery(latest_log))
+        queryset = self._annotate_queryset_updated_at(queryset)
 
         ordering = self.get_ordering()
         if ordering:
