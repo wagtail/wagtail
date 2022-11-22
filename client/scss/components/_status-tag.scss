@@ -55,14 +55,15 @@ button.status-tag:hover {
   // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
 }
+
 .w-border-status {
-  border: 0;
+  padding: 0;
 }
 
 @media (forced-colors: active) {
   .w-border-status {
     border: 1px solid transparent;
-    padding: 0.3rem !important;
+    padding: 0.3rem;
     border-radius: 0.1875rem;
   }
 }
