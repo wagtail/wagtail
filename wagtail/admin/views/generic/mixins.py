@@ -187,100 +187,13 @@ class IndexViewOptionalFeaturesMixin:
         return super()._annotate_queryset_updated_at(queryset)
 
 
-class CreateViewOptionalFeaturesMixin:
+class CreateEditViewOptionalFeaturesMixin:
     """
-    A mixin for generic CreateView to support optional features that are applied
-    to the model as mixins (e.g. DraftStateMixin, RevisionMixin).
+    A mixin for generic CreateView/EditView to support optional features that
+    are applied to the model as mixins (e.g. DraftStateMixin, RevisionMixin).
     """
 
-    def setup(self, request, *args, **kwargs):
-        self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
-        self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
-        super().setup(request, *args, **kwargs)
-
-    def get_available_actions(self):
-        return [*super().get_available_actions(), "publish"]
-
-    def get_success_message(self, instance):
-        message = _("%(model_name)s '%(object)s' created.")
-        if self.draftstate_enabled and self.action == "publish":
-            message = _("%(model_name)s '%(object)s' created and published.")
-            if instance.go_live_at and instance.go_live_at > timezone.now():
-                message = _(
-                    "%(model_name)s '%(object)s' created and scheduled for publishing."
-                )
-
-        return message % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": instance,
-        }
-
-    def save_instance(self):
-        """
-        Called after the form is successfully validated - saves the object to the db
-        and returns the new object. Override this to implement custom save logic.
-        """
-        if self.draftstate_enabled:
-            # Make sure live is set to False when creating a new draft
-            instance = self.form.save(commit=False)
-            instance.live = False
-            instance.save()
-            self.form.save_m2m()
-        else:
-            instance = self.form.save()
-
-        self.new_revision = None
-
-        # Save revision if the model inherits from RevisionMixin
-        if self.revision_enabled:
-            self.new_revision = instance.save_revision(user=self.request.user)
-
-        log(
-            instance=instance,
-            action="wagtail.create",
-            revision=self.new_revision,
-            content_changed=True,
-        )
-
-        return instance
-
-    def publish_action(self):
-        hook_response = self.run_hook("before_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        self.new_revision.publish(user=self.request.user)
-
-        hook_response = self.run_hook("after_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        return None
-
-    def form_valid(self, form):
-        self.form = form
-        with transaction.atomic():
-            self.object = self.save_instance()
-
-        if self.action == "publish" and self.draftstate_enabled:
-            response = self.publish_action()
-            if response is not None:
-                return response
-
-        response = self.save_action()
-
-        hook_response = self.run_after_hook()
-        if hook_response is not None:
-            return hook_response
-
-        return response
-
-
-class EditViewOptionalFeaturesMixin:
-    """
-    A mixin for generic EditView to support optional features that are applied
-    to the model as mixins (e.g. DraftStateMixin, RevisionMixin).
-    """
+    view_name = "create"
 
     def setup(self, request, *args, **kwargs):
         # Need to set these here as they are used in get_object()
@@ -299,32 +212,74 @@ class EditViewOptionalFeaturesMixin:
         return [*super().get_available_actions(), "publish"]
 
     def get_object(self, queryset=None):
+        if self.view_name == "create":
+            return None
         self.live_object = super().get_object(queryset)
         if self.draftstate_enabled:
             return self.live_object.get_latest_revision_as_object()
         return self.live_object
 
+    def get_success_message(self, instance=None):
+        object = instance or self.object
+
+        message = _("%(model_name)s '%(object)s' updated.")
+        if self.view_name == "create":
+            message = _("%(model_name)s '%(object)s' created.")
+
+        if self.draftstate_enabled and self.action == "publish":
+            # Scheduled publishing
+            if object.go_live_at and object.go_live_at > timezone.now():
+                message = _(
+                    "%(model_name)s '%(object)s' has been scheduled for publishing."
+                )
+
+                if self.view_name == "create":
+                    message = _(
+                        "%(model_name)s '%(object)s' created and scheduled for publishing."
+                    )
+                elif object.live:
+                    message = _(
+                        "%(model_name)s '%(object)s' is live and this version has been scheduled for publishing."
+                    )
+
+            # Immediate publishing
+            else:
+                message = _("%(model_name)s '%(object)s' updated and published.")
+                if self.view_name == "create":
+                    message = _("%(model_name)s '%(object)s' created and published.")
+
+        return message % {
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": object,
+        }
+
     def save_instance(self):
         """
-        Called after the form is successfully validated - saves the object to the db.
-        Override this to implement custom save logic.
+        Called after the form is successfully validated - saves the object to the db
+        and returns the new object. Override this to implement custom save logic.
         """
-        commit = not self.draftstate_enabled
-        instance = self.form.save(commit=commit)
-        self.new_revision = None
+        if self.draftstate_enabled:
+            instance = self.form.save(commit=False)
 
-        self.has_content_changes = self.form.has_changed()
+            # If DraftStateMixin is applied, only save to the database in CreateView,
+            # and make sure the live field is set to False.
+            if self.view_name == "create":
+                instance.live = False
+                instance.save()
+                self.form.save_m2m()
+        else:
+            instance = self.form.save()
+
+        self.has_content_changes = self.view_name == "create" or self.form.has_changed()
 
         # Save revision if the model inherits from RevisionMixin
+        self.new_revision = None
         if self.revision_enabled:
-            self.new_revision = instance.save_revision(
-                user=self.request.user,
-                changed=self.has_content_changes,
-            )
+            self.new_revision = instance.save_revision(user=self.request.user)
 
         log(
             instance=instance,
-            action="wagtail.edit",
+            action="wagtail.create" if self.view_name == "create" else "wagtail.edit",
             revision=self.new_revision,
             content_changed=self.has_content_changes,
         )
@@ -343,27 +298,6 @@ class EditViewOptionalFeaturesMixin:
             return hook_response
 
         return None
-
-    def get_success_message(self):
-        message = _("%(model_name)s '%(object)s' updated.")
-
-        if self.draftstate_enabled and self.action == "publish":
-            message = _("%(model_name)s '%(object)s' updated and published.")
-
-            if self.object.go_live_at and self.object.go_live_at > timezone.now():
-                message = _(
-                    "%(model_name)s '%(object)s' has been scheduled for publishing."
-                )
-
-                if self.object.live:
-                    message = _(
-                        "%(model_name)s '%(object)s' is live and this version has been scheduled for publishing."
-                    )
-
-        return message % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": self.object,
-        }
 
     def form_valid(self, form):
         self.form = form
@@ -384,6 +318,10 @@ class EditViewOptionalFeaturesMixin:
         return response
 
     def get_live_last_updated_info(self):
+        # Create view doesn't have last updated info
+        if self.view_name == "create":
+            return None
+
         # DraftStateMixin is applied but object is not live
         if self.draftstate_enabled and not self.object.live:
             return None
