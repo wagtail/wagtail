@@ -13,6 +13,12 @@ class AdminAutoHeightTextInput(widgets.Textarea):
         if attrs:
             default_attrs.update(attrs)
 
+        # add a w-field__autosize classname
+        try:
+            default_attrs["class"] += " w-field__autosize"
+        except KeyError:
+            default_attrs["class"] = "w-field__autosize"
+
         super().__init__(default_attrs)
 
 

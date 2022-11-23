@@ -34,6 +34,11 @@ textarea {
   padding: theme('spacing.5');
 }
 
+// Disable resize handle on textareas with auto-sizing behaviour
+.w-field__autosize {
+  resize: none;
+}
+
 // Make non-text field types with custom widgets have a smaller width.
 .w-field--date_field,
 .w-field--date_time_field,

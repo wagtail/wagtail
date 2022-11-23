@@ -37,7 +37,7 @@
 			if (style.resize === 'vertical') {
 				ta.style.resize = 'none';
 			} else if (style.resize === 'both') {
-				ta.style.resize = 'both';
+				ta.style.resize = 'horizontal';
 			}
 
 			if (style.boxSizing === 'content-box') {
