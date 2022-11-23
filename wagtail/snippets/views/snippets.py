@@ -201,7 +201,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-class CreateView(generic.CreateViewOptionalFeaturesMixin, generic.CreateView):
+class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
@@ -287,7 +287,7 @@ class CreateView(generic.CreateViewOptionalFeaturesMixin, generic.CreateView):
         return context
 
 
-class EditView(generic.EditViewOptionalFeaturesMixin, generic.EditView):
+class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
