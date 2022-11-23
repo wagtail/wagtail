@@ -10,12 +10,10 @@ from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
-from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail.admin import messages
 from wagtail.admin.admin_url_finder import AdminURLFinder, register_admin_url_finder
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
@@ -289,7 +287,7 @@ class CreateView(generic.CreateViewOptionalFeaturesMixin, generic.CreateView):
         return context
 
 
-class EditView(generic.EditView):
+class EditView(generic.EditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
@@ -303,74 +301,11 @@ class EditView(generic.EditView):
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
 
-    def setup(self, request, *args, pk, **kwargs):
-        self.pk = pk
-        self.object = self.get_object()
-        super().setup(request, *args, **kwargs)
-
     def get_panel(self):
         return get_edit_handler(self.model)
 
-    def get_object(self, queryset=None):
-        self.live_object = get_object_or_404(self.model, pk=unquote(self.pk))
-
-        if issubclass(self.model, DraftStateMixin):
-            return self.live_object.get_latest_revision_as_object()
-        return self.live_object
-
-    def get_edit_url(self):
-        return reverse(
-            self.edit_url_name,
-            args=[quote(self.object.pk)],
-        )
-
-    def get_delete_url(self):
-        # This actually isn't used because we use a custom action menu
-        return reverse(
-            self.delete_url_name,
-            args=[quote(self.object.pk)],
-        )
-
     def get_history_url(self):
-        return reverse(
-            self.history_url_name,
-            args=[quote(self.object.pk)],
-        )
-
-    def get_success_url(self):
-        return reverse(self.index_url_name)
-
-    def get_success_message(self):
-        message = _("%(model_name)s '%(object)s' updated.")
-
-        if self.draftstate_enabled and self.action == "publish":
-            message = _("%(model_name)s '%(object)s' updated and published.")
-
-            if self.object.go_live_at and self.object.go_live_at > timezone.now():
-                message = _(
-                    "%(model_name)s '%(object)s' has been scheduled for publishing."
-                )
-
-                if self.object.live:
-                    message = _(
-                        "%(model_name)s '%(object)s' is live and this version has been scheduled for publishing."
-                    )
-
-        return message % {
-            "model_name": capfirst(self.model._meta.verbose_name),
-            "object": self.object,
-        }
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(
-                    self.edit_url_name,
-                    args=[quote(self.object.pk)],
-                ),
-                _("Edit"),
-            )
-        ]
+        return reverse(self.history_url_name, args=[quote(self.object.pk)])
 
     def _get_action_menu(self):
         return SnippetActionMenu(

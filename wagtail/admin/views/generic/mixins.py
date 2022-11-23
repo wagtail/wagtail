@@ -12,8 +12,10 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
+from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
 
 
@@ -272,6 +274,143 @@ class CreateViewOptionalFeaturesMixin:
             return hook_response
 
         return response
+
+
+class EditViewOptionalFeaturesMixin:
+    """
+    A mixin for generic EditView to support optional features that are applied
+    to the model as mixins (e.g. DraftStateMixin, RevisionMixin).
+    """
+
+    def setup(self, request, *args, **kwargs):
+        # Need to set these here as they are used in get_object()
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+
+        self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
+        self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+
+        # Set the object before super().setup() as LocaleMixin.setup() needs it
+        self.object = self.get_object()
+        super().setup(request, *args, **kwargs)
+
+    def get_available_actions(self):
+        return [*super().get_available_actions(), "publish"]
+
+    def get_object(self, queryset=None):
+        self.live_object = super().get_object(queryset)
+        if self.draftstate_enabled:
+            return self.live_object.get_latest_revision_as_object()
+        return self.live_object
+
+    def save_instance(self):
+        """
+        Called after the form is successfully validated - saves the object to the db.
+        Override this to implement custom save logic.
+        """
+        commit = not self.draftstate_enabled
+        instance = self.form.save(commit=commit)
+        self.new_revision = None
+
+        self.has_content_changes = self.form.has_changed()
+
+        # Save revision if the model inherits from RevisionMixin
+        if self.revision_enabled:
+            self.new_revision = instance.save_revision(
+                user=self.request.user,
+                changed=self.has_content_changes,
+            )
+
+        log(
+            instance=instance,
+            action="wagtail.edit",
+            revision=self.new_revision,
+            content_changed=self.has_content_changes,
+        )
+
+        return instance
+
+    def publish_action(self):
+        hook_response = self.run_hook("before_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        self.new_revision.publish(user=self.request.user)
+
+        hook_response = self.run_hook("after_publish", self.request, self.object)
+        if hook_response is not None:
+            return hook_response
+
+        return None
+
+    def get_success_message(self):
+        message = _("%(model_name)s '%(object)s' updated.")
+
+        if self.draftstate_enabled and self.action == "publish":
+            message = _("%(model_name)s '%(object)s' updated and published.")
+
+            if self.object.go_live_at and self.object.go_live_at > timezone.now():
+                message = _(
+                    "%(model_name)s '%(object)s' has been scheduled for publishing."
+                )
+
+                if self.object.live:
+                    message = _(
+                        "%(model_name)s '%(object)s' is live and this version has been scheduled for publishing."
+                    )
+
+        return message % {
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": self.object,
+        }
+
+    def form_valid(self, form):
+        self.form = form
+        with transaction.atomic():
+            self.object = self.save_instance()
+
+        if self.action == "publish" and self.draftstate_enabled:
+            response = self.publish_action()
+            if response is not None:
+                return response
+
+        response = self.save_action()
+
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
+
+        return response
+
+    def get_live_last_updated_info(self):
+        # DraftStateMixin is applied but object is not live
+        if self.draftstate_enabled and not self.object.live:
+            return None
+
+        revision = None
+        # DraftStateMixin is applied and object is live
+        if self.draftstate_enabled and self.object.live_revision:
+            revision = self.object.live_revision
+        # RevisionMixin is applied, so object is assumed to be live
+        elif self.revision_enabled and self.object.latest_revision:
+            revision = self.object.latest_revision
+
+        # No mixin is applied or no revision exists, fall back to latest log entry
+        if not revision:
+            return log_registry.get_logs_for_instance(self.object).first()
+
+        return {
+            "timestamp": revision.created_at,
+            "user_display_name": user_display_name(revision.user),
+        }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["revision_enabled"] = self.revision_enabled
+        context["draftstate_enabled"] = self.draftstate_enabled
+        context["live_last_updated_info"] = self.get_live_last_updated_info()
+        return context
 
 
 class RevisionsRevertMixin:
