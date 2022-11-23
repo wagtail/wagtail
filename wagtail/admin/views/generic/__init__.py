@@ -2,6 +2,7 @@ from .base import WagtailAdminTemplateMixin  # noqa
 from .mixins import (  # noqa
     BeforeAfterHookMixin,
     CreateViewOptionalFeaturesMixin,
+    EditViewOptionalFeaturesMixin,
     HookResponseMixin,
     IndexViewOptionalFeaturesMixin,
     LocaleMixin,
