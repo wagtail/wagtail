@@ -1,5 +1,9 @@
 from django.contrib.admin.utils import quote
+from django.contrib.auth import get_permission_codename
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core import checks
+from django.db import DEFAULT_DB_ALIAS
 from django.db.models import ForeignKey
 from django.urls import reverse
 from django.utils.module_loading import import_string
@@ -7,7 +11,7 @@ from django.utils.module_loading import import_string
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.viewsets import viewsets
-from wagtail.models import ReferenceIndex
+from wagtail.models import DraftStateMixin, ReferenceIndex
 
 from .widgets import AdminSnippetChooser
 
@@ -140,3 +144,24 @@ def register_deferred_snippets():
     DEFER_REGISTRATION = False
     for model, viewset in DEFERRED_REGISTRATIONS:
         _register_snippet_immediately(model, viewset)
+
+
+def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
+    model_cts = ContentType.objects.get_for_models(
+        *SNIPPET_MODELS, for_concrete_models=False
+    )
+
+    permissions = []
+    for model, ct in model_cts.items():
+        if issubclass(model, DraftStateMixin):
+            permissions.append(
+                Permission(
+                    content_type=ct,
+                    codename=get_permission_codename("publish", model._meta),
+                    name=f"Can publish {model._meta.verbose_name_raw}",
+                )
+            )
+
+    # Use bulk_create with ignore_conflicts instead of checking for existence
+    # prior to creation to avoid additional database query.
+    Permission.objects.using(using).bulk_create(permissions, ignore_conflicts=True)
