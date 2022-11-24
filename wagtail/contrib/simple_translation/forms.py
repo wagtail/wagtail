@@ -42,10 +42,10 @@ class SubmitTranslationForm(forms.Form):
             if descendant_count > 0:
                 hide_include_subtree = False
                 self.fields["include_subtree"].label = ngettext(
-                    "Include subtree ({} page)",
-                    "Include subtree ({} pages)",
+                    "Include subtree (%(descendant_count)s page)",
+                    "Include subtree (%(descendant_count)s pages)",
                     descendant_count,
-                ).format(descendant_count)
+                ) % {"descendant_count": descendant_count}
 
         if hide_include_subtree:
             self.fields["include_subtree"].widget = forms.HiddenInput()
