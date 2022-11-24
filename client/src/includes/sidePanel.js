@@ -133,10 +133,11 @@ export default function initSidePanel() {
       parseInt(Math.max(minWidth, Math.min(targetWidth, maxWidth)), 10) ||
       width;
 
-    const valueText = ngettext('{num} pixel', '{num} pixels', newWidth).replace(
-      '{num}',
+    const valueText = ngettext(
+      '%(num)s pixel',
+      '%(num)s pixels',
       newWidth,
-    );
+    ).replace('%(num)s', newWidth);
 
     sidePanelWrapper.style.width = `${newWidth}px`;
     widthInput.value = 100 - ((newWidth - minWidth) / range) * 100;

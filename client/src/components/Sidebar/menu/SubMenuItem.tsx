@@ -97,8 +97,8 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
               <span className="w-sr-only">
                 {dismissibleCount === 1
                   ? gettext('(1 new item in this menu)')
-                  : gettext('({number} new items in this menu)').replace(
-                      '{number}',
+                  : gettext('(%(number)s new items in this menu)').replace(
+                      '%(number)s',
                       `${dismissibleCount}`,
                     )}
               </span>

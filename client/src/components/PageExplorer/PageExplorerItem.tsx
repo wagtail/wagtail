@@ -59,7 +59,7 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
       >
         <Icon
           name="edit"
-          title={gettext("Edit '{title}'").replace('{title}', title || '')}
+          title={gettext("Edit '%(title)s'").replace('%(title)s', title || '')}
           className="icon--item-action"
         />
       </Button>
@@ -72,8 +72,8 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
         >
           <Icon
             name="arrow-right"
-            title={gettext("View child pages of '{title}'").replace(
-              '{title}',
+            title={gettext("View child pages of '%(title)s'").replace(
+              '%(title)s',
               title || '',
             )}
             className="icon--item-action"
