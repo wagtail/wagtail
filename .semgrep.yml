@@ -1,7 +1,7 @@
 rules:
   - id: translation-no-new-style-formatting
     patterns:
-      - pattern: $FUNC("$STRING_ID")
+      - pattern: $FUNC("$STRING_ID", ...)
       - metavariable-regex:
           metavariable: $FUNC
           regex: '_|gettext|gettext_lazy|ngettext'
@@ -18,7 +18,7 @@ rules:
     severity: ERROR
   - id: translation-no-f-strings
     patterns:
-      - pattern: $FUNC(f"...")
+      - pattern: $FUNC(f"...", ...)
       - metavariable-regex:
           metavariable: $FUNC
           regex: '_|gettext|gettext_lazy|ngettext'
@@ -32,7 +32,7 @@ rules:
     severity: ERROR
   - id: translation-no-anonymous-arguments
     patterns:
-      - pattern: $FUNC("$STRING_ID")
+      - pattern: $FUNC("$STRING_ID", ...)
       - metavariable-regex:
           metavariable: $FUNC
           regex: '_|gettext|gettext_lazy|ngettext'
@@ -49,7 +49,7 @@ rules:
     severity: ERROR
   - id: translation-no-format-within-gettext
     patterns:
-      - pattern: $FUNC("..." % ...)
+      - pattern: $FUNC("..." % ..., ...)
       - metavariable-regex:
           metavariable: $FUNC
           regex: '_|gettext|gettext_lazy|ngettext'
