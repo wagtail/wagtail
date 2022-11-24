@@ -51,7 +51,10 @@ def _get_language_choices():
         (lang_code, get_language_info(lang_code)["name_local"])
         for lang_code, lang_name in get_available_admin_languages()
     ]
-    return sorted(BLANK_CHOICE_DASH + language_choices, key=lambda l: l[1].lower())
+    return sorted(
+        BLANK_CHOICE_DASH + language_choices,
+        key=lambda language_choice: language_choice[1].lower(),
+    )
 
 
 def _get_time_zone_choices():
