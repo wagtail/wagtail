@@ -4,7 +4,7 @@ rules:
       - pattern: $FUNC("$STRING_ID", ...)
       - metavariable-regex:
           metavariable: $FUNC
-          regex: '_|gettext|gettext_lazy|ngettext'
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
       - metavariable-regex:
           metavariable: $STRING_ID
           regex: ".*({(\\d*|[\\w_]*)}).*"
@@ -21,7 +21,7 @@ rules:
       - pattern: $FUNC(f"...", ...)
       - metavariable-regex:
           metavariable: $FUNC
-          regex: '_|gettext|gettext_lazy|ngettext'
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
     message: >
       Do not use formatted string literals for translations.
       Use printf style formatting with named placeholders instead.
@@ -35,7 +35,7 @@ rules:
       - pattern: $FUNC("$STRING_ID", ...)
       - metavariable-regex:
           metavariable: $FUNC
-          regex: '_|gettext|gettext_lazy|ngettext'
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
       - metavariable-regex:
           metavariable: $STRING_ID
           regex: ".*%\\w.*"
@@ -52,7 +52,7 @@ rules:
       - pattern: $FUNC("..." % ..., ...)
       - metavariable-regex:
           metavariable: $FUNC
-          regex: '_|gettext|gettext_lazy|ngettext'
+          regex: '_|gettext|gettext_lazy|ngettext|ngettext_lazy'
     message: >
       Do not format string before translations
       or the interpolated value will be part of the key.
