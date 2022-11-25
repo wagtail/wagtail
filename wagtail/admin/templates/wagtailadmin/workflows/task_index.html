@@ -36,9 +36,8 @@
                             <td class="title">
                                 <div class="title-wrapper">
                                     <a href="{% url view.edit_url_name task.pk %}">{{ task }}</a>
-                                    {% if not task.active %}
-                                        <span class="status-tag">Disabled</span>
-                                    {% endif %}
+                                    {% trans "Disabled" as status_label %}
+                                    {% if not task.active %}{% status status_label %}{% endif %}
                                 </div>
                             </td>
                             <td>
