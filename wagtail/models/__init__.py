@@ -1103,7 +1103,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             raise ValidationError(
                 {
                     "slug": _(
-                        "The slug '%(page_slug)s' is already in use in use within the parent page at '%(parent_url_path)s'"
+                        "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'"
                     )
                     % {"page_slug": self.slug, "parent_url_path": parent_page.url}
                 }

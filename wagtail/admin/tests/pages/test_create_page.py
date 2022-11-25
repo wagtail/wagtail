@@ -717,7 +717,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             response,
             "form",
             "slug",
-            "The slug 'hello-world' is already in use in use within the parent page",
+            "The slug 'hello-world' is already in use within the parent page",
         )
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
