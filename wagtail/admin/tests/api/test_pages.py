@@ -1383,7 +1383,7 @@ class TestCopyPageAction(AdminAPITestCase):
             content,
             {
                 "slug": [
-                    "The slug 'events' is already in use in use within the parent page at '/'"
+                    "The slug 'events' is already in use within the parent page at '/'"
                 ]
             },
         )

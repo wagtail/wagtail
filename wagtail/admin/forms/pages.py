@@ -184,7 +184,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
                     "slug",
                     forms.ValidationError(
                         _(
-                            "The slug '%(page_slug)s' is already in use in use within the parent page"
+                            "The slug '%(page_slug)s' is already in use within the parent page"
                         )
                         % {"page_slug": page_slug}
                     ),
