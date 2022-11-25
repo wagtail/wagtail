@@ -39,10 +39,9 @@ class ButtonHelper:
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
             "url": self.url_helper.create_url,
-            "label": _("Add %(object_name)s") % {"object_name": self.verbose_name},
+            "label": _("Add %(object)s") % {"object": self.verbose_name},
             "classname": cn,
-            "title": _("Add a new %(object_name)s")
-            % {"object_name": self.verbose_name},
+            "title": _("Add a new %(object)s") % {"object": self.verbose_name},
         }
 
     def inspect_button(self, pk, classnames_add=None, classnames_exclude=None):
@@ -56,8 +55,7 @@ class ButtonHelper:
             "url": self.url_helper.get_action_url("inspect", quote(pk)),
             "label": _("Inspect"),
             "classname": cn,
-            "title": _("Inspect this %(object_name)s")
-            % {"object_name": self.verbose_name},
+            "title": _("Inspect this %(object)s") % {"object": self.verbose_name},
         }
 
     def edit_button(self, pk, classnames_add=None, classnames_exclude=None):
@@ -71,8 +69,7 @@ class ButtonHelper:
             "url": self.url_helper.get_action_url("edit", quote(pk)),
             "label": _("Edit"),
             "classname": cn,
-            "title": _("Edit this %(object_name)s")
-            % {"object_name": self.verbose_name},
+            "title": _("Edit this %(object)s") % {"object": self.verbose_name},
         }
 
     def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
@@ -86,8 +83,7 @@ class ButtonHelper:
             "url": self.url_helper.get_action_url("delete", quote(pk)),
             "label": _("Delete"),
             "classname": cn,
-            "title": _("Delete this %(object_name)s")
-            % {"object_name": self.verbose_name},
+            "title": _("Delete this %(object)s") % {"object": self.verbose_name},
         }
 
     def get_buttons_for_obj(
@@ -137,8 +133,7 @@ class PageButtonHelper(ButtonHelper):
             "url": self.url_helper.get_action_url("unpublish", quote(pk)),
             "label": _("Unpublish"),
             "classname": cn,
-            "title": _("Unpublish this %(object_name)s")
-            % {"object_name": self.verbose_name},
+            "title": _("Unpublish this %(object)s") % {"object": self.verbose_name},
         }
 
     def copy_button(self, pk, classnames_add=None, classnames_exclude=None):
@@ -152,8 +147,7 @@ class PageButtonHelper(ButtonHelper):
             "url": self.url_helper.get_action_url("copy", quote(pk)),
             "label": _("Copy"),
             "classname": cn,
-            "title": _("Copy this %(object_name)s")
-            % {"object_name": self.verbose_name},
+            "title": _("Copy this %(object)s") % {"object": self.verbose_name},
         }
 
     def get_buttons_for_obj(
