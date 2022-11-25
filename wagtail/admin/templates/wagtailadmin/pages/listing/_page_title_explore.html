@@ -16,7 +16,7 @@
     {% endif %}
 
     {% if show_locale_labels %}
-        <span class="status-tag status-tag--label">{{ page.locale.get_display_name }}</span>
+        {% status page.locale.get_display_name classname="status-tag--label" %}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}

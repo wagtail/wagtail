@@ -4100,12 +4100,18 @@ class TestSnippetHistory(WagtailTestUtils, TestCase):
 
         # Should show the "live version" status tag for the published revision
         self.assertContains(
-            response, '<span class="status-tag primary">Live version</span>', count=1
+            response,
+            '<span class="status-tag primary">Live version</span>',
+            count=1,
+            html=True,
         )
 
         # Should show the "current draft" status tag for the draft revision
         self.assertContains(
-            response, '<span class="status-tag primary">Current draft</span>', count=1
+            response,
+            '<span class="status-tag primary">Current draft</span>',
+            count=1,
+            html=True,
         )
 
         # Should use the latest draft title in the header subtitle
@@ -4685,19 +4691,25 @@ class TestSnippetChooseStatus(WagtailTestUtils, TestCase):
         response = self.get("choose")
         html = response.json()["html"]
         self.assertTagInHTML("<th>Status</th>", html)
-        self.assertTagInHTML('<div class="status-tag ">draft</div>', html)
-        self.assertTagInHTML('<div class="status-tag primary">live</div>', html)
-        self.assertTagInHTML('<div class="status-tag primary">live + draft</div>', html)
+        self.assertTagInHTML('<span class="status-tag">draft</span>', html)
+        self.assertTagInHTML('<span class="status-tag primary">live</span>', html)
+        self.assertTagInHTML(
+            '<span class="status-tag primary">live + draft</span>', html
+        )
 
     def test_choose_results_view_shows_status_column(self):
         response = self.get("choose_results")
         self.assertContains(response, "<th>Status</th>", html=True)
-        self.assertContains(response, '<div class="status-tag ">draft</div>', html=True)
         self.assertContains(
-            response, '<div class="status-tag primary">live</div>', html=True
+            response, '<span class="status-tag">draft</span>', html=True
         )
         self.assertContains(
-            response, '<div class="status-tag primary">live + draft</div>', html=True
+            response, '<span class="status-tag primary">live</span>', html=True
+        )
+        self.assertContains(
+            response,
+            '<span class="status-tag primary">live + draft</span>',
+            html=True,
         )
 
 

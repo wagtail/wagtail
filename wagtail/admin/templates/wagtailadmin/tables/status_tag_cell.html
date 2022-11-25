@@ -1,3 +1,4 @@
+{% load wagtailadmin_tags %}
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
-    <div class="status-tag {% if primary %}primary{% endif %}">{{ value }}</div>
+    {% status value classname=primary|yesno:"primary," %}
 </td>
