@@ -179,7 +179,8 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         # Notification
         messages.success(
             self.request,
-            _("Page '{0}' created.").format(self.page.get_admin_display_title()),
+            _("Page '%(page_title)s' created.")
+            % {"page_title": self.page.get_admin_display_title()},
         )
 
         response = self.run_hook("after_create_page", self.request, self.page)
@@ -220,9 +221,8 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if self.page.go_live_at and self.page.go_live_at > timezone.now():
             messages.success(
                 self.request,
-                _("Page '{0}' created and scheduled for publishing.").format(
-                    self.page.get_admin_display_title()
-                ),
+                _("Page '%(page_title)s' created and scheduled for publishing.")
+                % {"page_title": self.page.get_admin_display_title()},
                 buttons=[self.get_edit_message_button()],
             )
         else:
@@ -232,9 +232,8 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             buttons.append(self.get_edit_message_button())
             messages.success(
                 self.request,
-                _("Page '{0}' created and published.").format(
-                    self.page.get_admin_display_title()
-                ),
+                _("Page '%(page_title)s' created and published.")
+                % {"page_title": self.page.get_admin_display_title()},
                 buttons=buttons,
             )
 
@@ -271,9 +270,8 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         messages.success(
             self.request,
-            _("Page '{0}' created and submitted for moderation.").format(
-                self.page.get_admin_display_title()
-            ),
+            _("Page '%(page_title)s' created and submitted for moderation.")
+            % {"page_title": self.page.get_admin_display_title()},
             buttons=buttons,
         )
 

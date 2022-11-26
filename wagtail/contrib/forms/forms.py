@@ -102,15 +102,15 @@ class FormBuilder:
         """
 
         if "\n" in field.choices:
-            choices = map(
-                lambda x: (
+            choices = (
+                (
                     x.strip().rstrip(",").strip(),
                     x.strip().rstrip(",").strip(),
-                ),
-                field.choices.split("\r\n"),
+                )
+                for x in field.choices.split("\r\n")
             )
         else:
-            choices = map(lambda x: (x.strip(), x.strip()), field.choices.split(","))
+            choices = ((x.strip(), x.strip()) for x in field.choices.split(","))
 
         return choices
 
@@ -201,8 +201,8 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
                     "label",
                     django.forms.ValidationError(
                         _(
-                            "There is another field with the label %s, please change one of them."
-                            % duplicate_form_field.instance.label
+                            "There is another field with the label %(label_name)s, please change one of them."
                         )
+                        % {"label_name": duplicate_form_field.instance.label}
                     ),
                 )

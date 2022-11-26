@@ -101,9 +101,9 @@ class CopyForm(forms.Form):
             self._errors["new_slug"] = self.error_class(
                 [
                     _(
-                        'This slug is already in use within the context of its parent page "%s"'
+                        'This slug is already in use within the context of its parent page "%(parent_page_title)s"'
                     )
-                    % parent_page
+                    % {"parent_page_title": parent_page}
                 ]
             )
             # The slug is no longer valid, hence remove it from cleaned_data

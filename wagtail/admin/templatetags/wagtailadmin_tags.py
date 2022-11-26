@@ -737,7 +737,7 @@ def timesince_last_update(
                     "user_display_name": user_display_name,
                 }
             else:
-                return _("%(time)s") % {"time": time_str}
+                return time_str
     else:
         if use_shorthand:
             # Note: Duplicate code in timesince_simple()

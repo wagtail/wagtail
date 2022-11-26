@@ -45,29 +45,37 @@ class BasicLock(BaseLock):
         if self.page.locked_by_id == user.pk:
             if self.page.locked_at:
                 return format_html(
-                    _("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."),
-                    self.page.get_admin_display_title(),
-                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _(
+                        "<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+                    ),
+                    page_title=self.page.get_admin_display_title(),
+                    datetime=self.page.locked_at.strftime("%d %b %Y %H:%M"),
                 )
 
             else:
                 return format_html(
-                    _("<b>Page '{}' is locked</b> by <b>you</b>."),
-                    self.page.get_admin_display_title(),
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _("<b>Page '{page_title}' is locked</b> by <b>you</b>."),
+                    page_title=self.page.get_admin_display_title(),
                 )
         else:
             if self.page.locked_by and self.page.locked_at:
                 return format_html(
-                    _("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."),
-                    self.page.get_admin_display_title(),
-                    str(self.page.locked_by),
-                    self.page.locked_at.strftime("%d %b %Y %H:%M"),
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _(
+                        "<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+                    ),
+                    page_title=self.page.get_admin_display_title(),
+                    user=str(self.page.locked_by),
+                    datetime=self.page.locked_at.strftime("%d %b %Y %H:%M"),
                 )
             else:
                 # Page was probably locked with an old version of Wagtail, or a script
                 return format_html(
-                    _("<b>Page '{}' is locked</b>."),
-                    self.page.get_admin_display_title(),
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _("<b>Page '{page_title}' is locked</b>."),
+                    page_title=self.page.get_admin_display_title(),
                 )
 
 
@@ -92,9 +100,12 @@ class WorkflowLock(BaseLock):
                 workflow_info = _("This page is currently awaiting moderation.")
             else:
                 workflow_info = format_html(
-                    _("This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."),
-                    self.task.name,
-                    self.page.current_workflow_state.workflow.name,
+                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                    _(
+                        "This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
+                    ),
+                    task_name=self.task.name,
+                    workflow_name=self.page.current_workflow_state.workflow.name,
                 )
 
             return mark_safe(
@@ -122,7 +133,10 @@ class ScheduledForPublishLock(BaseLock):
         scheduled_revision = self.page.scheduled_revision
 
         return format_html(
-            _("Page '{}' is locked and has been scheduled to go live at {}"),
-            self.page.get_admin_display_title(),
-            scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
+            # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+            _(
+                "Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+            ),
+            page_title=self.page.get_admin_display_title(),
+            datetime=scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
         )

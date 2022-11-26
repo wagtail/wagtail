@@ -38,9 +38,8 @@ class BaseWorkflowFormView(View):
         if not self.page.workflow_in_progress:
             messages.error(
                 request,
-                _("The page '{0}' is not currently awaiting moderation.").format(
-                    self.page.get_admin_display_title()
-                ),
+                _("The page '%(page_title)s' is not currently awaiting moderation.")
+                % {"page_title": self.page.get_admin_display_title()},
             )
             return redirect(self.redirect_to)
 
@@ -250,8 +249,9 @@ def preview_revision_for_task(request, page_id, task_id):
         messages.error(
             request,
             _(
-                "The page '{0}' is not currently awaiting moderation in task '{1}'."
-            ).format(page.get_admin_display_title(), task.name),
+                "The page '%(page_title)s' is not currently awaiting moderation in task '%(task_name)s'."
+            )
+            % {"page_title": page.get_admin_display_title(), "task_name": task.name},
         )
         return redirect("wagtailadmin_home")
 

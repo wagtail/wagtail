@@ -203,7 +203,7 @@ def edit(request, image_id):
 
             messages.success(
                 request,
-                _("Image '{0}' updated.").format(image.title),
+                _("Image '%(image_title)s' updated.") % {"image_title": image.title},
                 buttons=[messages.button(edit_url, _("Edit again"))],
             )
             return redirect(redirect_url)
@@ -226,7 +226,8 @@ def edit(request, image_id):
                 request,
                 _(
                     "The source image file could not be found. Please change the source or delete the image."
-                ).format(image.title),
+                )
+                % {"image_title": image.title},
                 buttons=[
                     messages.button(
                         reverse("wagtailimages:delete", args=(image.id,)), _("Delete")
@@ -349,7 +350,10 @@ def delete(request, image_id):
 
     if request.method == "POST":
         image.delete()
-        messages.success(request, _("Image '{0}' deleted.").format(image.title))
+        messages.success(
+            request,
+            _("Image '%(image_title)s' deleted.") % {"image_title": image.title},
+        )
         return redirect(next_url) if next_url else redirect("wagtailimages:index")
 
     return TemplateResponse(
@@ -375,7 +379,7 @@ def add(request):
 
             messages.success(
                 request,
-                _("Image '{0}' added.").format(image.title),
+                _("Image '%(image_title)s' added.") % {"image_title": image.title},
                 buttons=[
                     messages.button(
                         reverse("wagtailimages:edit", args=(image.id,)), _("Edit")
@@ -415,11 +419,13 @@ def usage(request, image_id):
     for object, references in object_page:
         edit_url = url_finder.get_edit_url(object)
         if edit_url is None:
-            label = _("(Private %s)") % object._meta.verbose_name
+            label = _("(Private %(object)s)") % {"object": object._meta.verbose_name}
             edit_link_title = None
         else:
             label = str(object)
-            edit_link_title = _("Edit this %s") % object._meta.verbose_name
+            edit_link_title = _("Edit this %(object)s") % {
+                "object": object._meta.verbose_name
+            }
         results.append((label, edit_url, edit_link_title, references))
 
     return TemplateResponse(

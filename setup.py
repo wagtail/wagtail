@@ -60,6 +60,7 @@ testing_extras = [
     "flake8-print==5.0.0",
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
+    "semgrep",
     # For templates linting
     "curlylint==0.13.1",
     # For template indenting

@@ -246,9 +246,9 @@ class ModelFormView(WMABaseView, FormView):
         return fields
 
     def get_success_message(self, instance):
-        return _("%(model_name)s '%(instance)s' created.") % {
+        return _("%(model_name)s '%(object)s' created.") % {
             "model_name": capfirst(self.opts.verbose_name),
-            "instance": instance,
+            "object": instance,
         }
 
     def get_success_message_buttons(self, instance):
@@ -257,7 +257,9 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_error_message(self):
         model_name = self.verbose_name
-        return _("The %s could not be created due to errors.") % model_name
+        return _("The %(object)s could not be created due to errors.") % {
+            "object": model_name
+        }
 
     def form_valid(self, form):
         self.instance = form.save()
@@ -799,7 +801,7 @@ class CreateView(ModelFormView):
         return response
 
     def get_meta_title(self):
-        return _("Create new %s") % self.verbose_name
+        return _("Create new %(object)s") % {"object": self.verbose_name}
 
     def get_page_subtitle(self):
         return capfirst(self.verbose_name)
@@ -859,12 +861,12 @@ class EditView(ModelFormView, InstanceSpecificView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
-        return _("Editing %s") % self.verbose_name
+        return _("Editing %(object)s") % {"object": self.verbose_name}
 
     def get_success_message(self, instance):
-        return _("%(model_name)s '%(instance)s' updated.") % {
+        return _("%(model_name)s '%(object)s' updated.") % {
             "model_name": capfirst(self.verbose_name),
-            "instance": instance,
+            "object": instance,
         }
 
     def get_context_data(self, **kwargs):
@@ -889,7 +891,7 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     def get_error_message(self):
         name = self.verbose_name
-        return _("The %s could not be saved due to errors.") % name
+        return _("The %(object)s could not be saved due to errors.") % {"object": name}
 
     def get_template_names(self):
         return self.model_admin.get_edit_template()
@@ -923,7 +925,7 @@ class ChooseParentView(WMABaseView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_page_title(self):
-        return _("Add %s") % self.verbose_name
+        return _("Add %(object)s") % {"object": self.verbose_name}
 
     def get_form(self, request):
         parents = self.permission_helper.get_valid_parent_pages(request.user)
@@ -971,25 +973,22 @@ class DeleteView(InstanceSpecificView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
-        return _("Confirm deletion of %s") % self.verbose_name
+        return _("Confirm deletion of %(object)s") % {"object": self.verbose_name}
 
     def confirmation_message(self):
-        return (
-            _(
-                "Are you sure you want to delete this %s? If other things in your "
-                "site are related to it, they may also be affected."
-            )
-            % self.verbose_name
-        )
+        return _(
+            "Are you sure you want to delete this %(object)s? If other things in your "
+            "site are related to it, they may also be affected."
+        ) % {"object": self.verbose_name}
 
     def delete_instance(self):
         self.instance.delete()
 
     def post(self, request, *args, **kwargs):
         try:
-            msg = _("%(model_name)s '%(instance)s' deleted.") % {
+            msg = _("%(model_name)s '%(object)s' deleted.") % {
                 "model_name": self.verbose_name,
-                "instance": self.instance,
+                "object": self.instance,
             }
             with transaction.atomic():
                 log(instance=self.instance, action="wagtail.delete")
@@ -1065,7 +1064,7 @@ class InspectView(InstanceSpecificView):
         )
 
     def get_meta_title(self):
-        return _("Inspecting %s") % self.verbose_name
+        return _("Inspecting %(object)s") % {"object": self.verbose_name}
 
     def get_field_label(self, field_name, field=None):
         """Return a label to display for a field"""

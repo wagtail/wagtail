@@ -178,12 +178,12 @@ class Edit(EditView):
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
     delete_url_name = "wagtailusers_users:delete"
-    success_message = _("User '{0}' updated.")
+    success_message = _("User '%(object)s' updated.")
     context_object_name = "user"
     error_message = gettext_lazy("The user could not be saved due to errors.")
 
     def get_page_title(self):
-        return _("Editing %s") % self.object.get_username()
+        return _("Editing %(object)s") % {"object": self.object.get_username()}
 
     def get_page_subtitle(self):
         return ""
@@ -250,7 +250,7 @@ class Delete(DeleteView):
     index_url_name = "wagtailusers_users:index"
     page_title = gettext_lazy("Delete user")
     context_object_name = "user"
-    success_message = _("User '{0}' deleted.")
+    success_message = _("User '%(object)s' deleted.")
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()

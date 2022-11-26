@@ -22,6 +22,7 @@ jobs:
       - run: pipenv run flake8
       - run: pipenv run isort --check-only --diff .
       - run: pipenv run black --target-version py37 --check --diff .
+      - run: pipenv run semgrep --config .semgrep.yml --error .
       - run: git ls-files '*.html' | xargs pipenv run djhtml --check
       - run: pipenv run curlylint --parse-only wagtail
       - run: pipenv run doc8 docs

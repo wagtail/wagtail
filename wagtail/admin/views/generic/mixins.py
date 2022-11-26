@@ -208,23 +208,23 @@ class RevisionsRevertMixin:
 
     def get_success_message(self):
         message = _(
-            "{model_name} '{instance}' has been replaced with version from {timestamp}."
+            "%(model_name)s '%(object)s' has been replaced with version from %(timestamp)s."
         )
         if self.draftstate_enabled and self.action == "publish":
             message = _(
-                "Version from {timestamp} of {model_name} '{instance}' has been published."
+                "Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
             )
 
             if self.object.go_live_at and self.object.go_live_at > timezone.now():
                 message = _(
-                    "Version from {timestamp} of {model_name} '{instance}' has been scheduled for publishing."
+                    "Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled for publishing."
                 )
 
-        return message.format(
-            model_name=capfirst(self.model._meta.verbose_name),
-            instance=self.object,
-            timestamp=self.revision.created_at.strftime("%d %b %Y %H:%M"),
-        )
+        return message % {
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": self.object,
+            "timestamp": self.revision.created_at.strftime("%d %b %Y %H:%M"),
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

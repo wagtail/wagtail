@@ -36,10 +36,10 @@ const MinimapItem: React.FunctionComponent<MinimapItemProps> = ({
   const { href, label, icon, required, errorCount, level } = item;
   const hasError = errorCount > 0;
   const errorsLabel = ngettext(
-    '{num} error',
-    '{num} errors',
+    '%(num)s error',
+    '%(num)s errors',
     errorCount,
-  ).replace('{num}', `${errorCount}`);
+  ).replace('%(num)s', `${errorCount}`);
   const text = label.length > 26 ? `${label.substring(0, 26)}…` : label;
   return (
     <a

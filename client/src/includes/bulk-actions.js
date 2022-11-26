@@ -166,12 +166,12 @@ function onSelectIndividualCheckbox(e) {
       numObjectsSelected = getStringForListing('SINGULAR');
     } else if (numCheckedObjects === checkedState.numObjects) {
       numObjectsSelected = getStringForListing('ALL').replace(
-        '{0}',
+        '%(objects)s',
         numCheckedObjects,
       );
     } else {
       numObjectsSelected = getStringForListing('PLURAL').replace(
-        '{0}',
+        '%(objects)s',
         numCheckedObjects,
       );
     }

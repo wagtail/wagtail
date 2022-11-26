@@ -137,7 +137,8 @@ def add(request):
 
             messages.success(
                 request,
-                _("Document '{0}' added.").format(doc.title),
+                _("Document '%(document_title)s' added.")
+                % {"document_title": doc.title},
                 buttons=[
                     messages.button(
                         reverse("wagtaildocs:edit", args=(doc.id,)), _("Edit")
@@ -188,7 +189,8 @@ def edit(request, document_id):
 
             messages.success(
                 request,
-                _("Document '{0}' updated").format(doc.title),
+                _("Document '%(document_title)s' updated")
+                % {"document_title": doc.title},
                 buttons=[messages.button(edit_url, _("Edit"))],
             )
             return redirect(redirect_url)
@@ -247,7 +249,10 @@ def delete(request, document_id):
 
     if request.method == "POST":
         doc.delete()
-        messages.success(request, _("Document '{0}' deleted.").format(doc.title))
+        messages.success(
+            request,
+            _("Document '%(document_title)s' deleted.") % {"document_title": doc.title},
+        )
         return redirect(next_url) if next_url else redirect("wagtaildocs:index")
 
     return TemplateResponse(
@@ -279,11 +284,13 @@ def usage(request, document_id):
     for object, references in object_page:
         edit_url = url_finder.get_edit_url(object)
         if edit_url is None:
-            label = _("(Private %s)") % object._meta.verbose_name
+            label = _("(Private %(object)s)") % {"object": object._meta.verbose_name}
             edit_link_title = None
         else:
             label = str(object)
-            edit_link_title = _("Edit this %s") % object._meta.verbose_name
+            edit_link_title = _("Edit this %(object)s") % {
+                "object": object._meta.verbose_name
+            }
         results.append((label, edit_url, edit_link_title, references))
 
     return TemplateResponse(

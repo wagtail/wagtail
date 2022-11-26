@@ -26,7 +26,7 @@ class WagtailImageField(ImageField):
         self.max_image_pixels = getattr(
             settings, "WAGTAILIMAGES_MAX_IMAGE_PIXELS", 128 * 1000000
         )
-        max_upload_size_text = filesizeformat(self.max_upload_size)
+        self.max_upload_size_text = filesizeformat(self.max_upload_size)
 
         # Help text
         if self.max_upload_size is not None:
@@ -34,7 +34,7 @@ class WagtailImageField(ImageField):
                 "Supported formats: %(supported_formats)s. Maximum filesize: %(max_upload_size)s."
             ) % {
                 "supported_formats": SUPPORTED_FORMATS_TEXT,
-                "max_upload_size": max_upload_size_text,
+                "max_upload_size": self.max_upload_size_text,
             }
         else:
             self.help_text = _("Supported formats: %(supported_formats)s.") % {
@@ -42,27 +42,27 @@ class WagtailImageField(ImageField):
             }
 
         # Error messages
-        self.error_messages["invalid_image_extension"] = (
-            _("Not a supported image format. Supported formats: %s.")
-            % SUPPORTED_FORMATS_TEXT
-        )
+        # Translation placeholders should all be interpolated at the same time to avoid escaping,
+        # either right now if all values are known, otherwise when used.
+        self.error_messages["invalid_image_extension"] = _(
+            "Not a supported image format. Supported formats: %(supported_formats)s."
+        ) % {"supported_formats": SUPPORTED_FORMATS_TEXT}
 
         self.error_messages["invalid_image_known_format"] = _(
-            "Not a valid .%s image. The extension does not match the file format (%s)"
+            "Not a valid .%(extension)s image. The extension does not match the file format (%(image_format)s)"
         )
 
-        self.error_messages["file_too_large"] = (
-            _("This file is too big (%%s). Maximum filesize %s.") % max_upload_size_text
+        self.error_messages["file_too_large"] = _(
+            "This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
         )
 
-        self.error_messages["file_too_many_pixels"] = (
-            _("This file has too many pixels (%%s). Maximum pixels %s.")
-            % self.max_image_pixels
+        self.error_messages["file_too_many_pixels"] = _(
+            "This file has too many pixels (%(num_pixels)s). Maximum pixels %(max_pixels_count)s."
         )
 
-        self.error_messages["file_too_large_unknown_size"] = (
-            _("This file is too big. Maximum filesize %s.") % max_upload_size_text
-        )
+        self.error_messages["file_too_large_unknown_size"] = _(
+            "This file is too big. Maximum filesize %(max_filesize)s."
+        ) % {"max_filesize": self.max_upload_size_text}
 
     def check_image_file_format(self, f):
         # Check file extension
@@ -82,7 +82,7 @@ class WagtailImageField(ImageField):
         if extension != f.image.format_name:
             raise ValidationError(
                 self.error_messages["invalid_image_known_format"]
-                % (extension, f.image.format_name),
+                % {"extension": extension, "image_format": f.image.format_name},
                 code="invalid_image_known_format",
             )
 
@@ -94,7 +94,11 @@ class WagtailImageField(ImageField):
         # Check the filesize
         if f.size > self.max_upload_size:
             raise ValidationError(
-                self.error_messages["file_too_large"] % (filesizeformat(f.size),),
+                self.error_messages["file_too_large"]
+                % {
+                    "file_size": filesizeformat(f.size),
+                    "max_filesize": self.max_upload_size_text,
+                },
                 code="file_too_large",
             )
 
@@ -110,7 +114,8 @@ class WagtailImageField(ImageField):
 
         if num_pixels > self.max_image_pixels:
             raise ValidationError(
-                self.error_messages["file_too_many_pixels"] % (num_pixels),
+                self.error_messages["file_too_many_pixels"]
+                % {"num_pixels": num_pixels, "max_pixels_count": self.max_image_pixels},
                 code="file_too_many_pixels",
             )
 
