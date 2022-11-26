@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020-2021\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
-"wagtail/language/zh-Hant/)\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
+"Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail images"
@@ -34,20 +33,22 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "支持的格式：%(supported_formats)s。"
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "不支持的圖片格式。支持類型如下： %s"
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "不支持的圖片格式。支持類型如下： %(supported_formats)s"
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "無效的 %s圖片。"
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "文件過大 (%%s)，文件大小上限為 %s。"
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "文件過大 (%(file_size)s)，文件大小上限為 %(max_filesize)s。"
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "文件過大，文件大小上限為 %s。"
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "文件過大，文件大小上限為 %(max_filesize)s。"
 
 msgid "Full width"
 msgstr "全屏寬度"
@@ -237,16 +238,13 @@ msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的圖片。"
 msgid ""
 "You haven't uploaded any images in this collection. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
-msgstr ""
-"此集合中還沒有圖片。為何不 <a href=\"%(wagtailimages_add_image_url)s\">上傳一"
-"個</a> ？"
+msgstr "此集合中還沒有圖片。為何不 <a href=\"%(wagtailimages_add_image_url)s\">上傳一個</a> ？"
 
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
-msgstr ""
-"還沒上傳圖片呢。來<a href=\"%(wagtailimages_add_image_url)s\">上傳一個</a>吧?"
+msgstr "還沒上傳圖片呢。來<a href=\"%(wagtailimages_add_image_url)s\">上傳一個</a>吧?"
 
 msgid "Generating URL"
 msgstr "生成URL"
@@ -260,8 +258,7 @@ msgstr "預覽"
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr ""
-"備註：生成的圖片大於屏幕時，在預覽時可能顯示會小一些。因為是適應屏幕的。"
+msgstr "備註：生成的圖片大於屏幕時，在預覽時可能顯示會小一些。因為是適應屏幕的。"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -292,9 +289,7 @@ msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
-msgstr ""
-"上傳成功。如有必要，可為圖片填寫更合適的標題。如果不需要本次上傳的圖片，也可"
-"以徹底刪除它們。"
+msgstr "上傳成功。如有必要，可為圖片填寫更合適的標題。如果不需要本次上傳的圖片，也可以徹底刪除它們。"
 
 msgid "Sorry, upload failed."
 msgstr "對不起啊，上傳失敗。"
@@ -342,8 +337,8 @@ msgid "Search images"
 msgstr "搜索圖片"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "圖片 '{0}' 已更新。"
+msgid "Image '%(image_title)s' updated."
+msgstr "圖片 '%(image_title)s' 已更新。"
 
 msgid "Edit again"
 msgstr "再次編輯"
@@ -352,24 +347,24 @@ msgid "The image could not be saved due to errors."
 msgstr "圖片無法儲存。出現錯誤。"
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr "無法找到圖片來源文件。請修改來源文件或者刪除圖片。"
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "圖片'{0}' 已刪除。"
+msgid "Image '%(image_title)s' deleted."
+msgstr "圖片'%(image_title)s' 已刪除。"
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "圖片'{0}'已新增"
+msgid "Image '%(image_title)s' added."
+msgstr "圖片'%(image_title)s'已新增"
 
 msgid "The image could not be created due to errors."
 msgstr "無法創建圖片，出現錯誤。"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "編輯此 %s"
+msgid "Edit this %(object)s"
+msgstr "編輯此 %(object)s"
 
 msgid "Image"
 msgstr "圖片"

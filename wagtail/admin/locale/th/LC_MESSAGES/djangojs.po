@@ -1,4 +1,3 @@
-#
 # Translators:
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2022
 #
@@ -6,8 +5,8 @@ msgid ""
 msgstr ""
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2022\n"
 "Language-Team: Thai (https://www.transifex.com/torchbox/teams/8009/th/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: th\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Alt text"
@@ -25,8 +24,8 @@ msgstr "ลบ,ลบทิ้ง"
 msgid "Edit"
 msgstr "แก้ไข"
 
-msgid "Edit '{title}'"
-msgstr "แก้ไข'{title}'"
+msgid "Edit '%(title)s'"
+msgstr "แก้ไข'%(title)s'"
 
 msgid "Edit your account"
 msgstr "แก้ไขบัญชีของคุณ"

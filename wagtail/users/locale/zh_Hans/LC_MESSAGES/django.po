@@ -25,12 +25,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>, 2017,2019-2021\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
-"language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
@@ -230,8 +229,7 @@ msgstr "对不起，没有符合“%(query)s”的组"
 msgid ""
 "There are no groups configured. Why not <a "
 "href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
-msgstr ""
-"目前还没有组。<a href=\"%(wagtailusers_create_group_url)s\">添加</a>一个？"
+msgstr "目前还没有组。<a href=\"%(wagtailusers_create_group_url)s\">添加</a>一个？"
 
 msgid "Delete user"
 msgstr "删除用户"
@@ -286,16 +284,13 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的用户"
 msgid ""
 "The %(group_name)s group has no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"%(group_name)s组还没有用户，为何不<a href=\"%(wagtailusers_add_url)s\">添加一"
-"些用户</a>？"
+msgstr "%(group_name)s组还没有用户，为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
 
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"目前还没有用户。为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
+msgstr "目前还没有用户。为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
 
 msgid "Assign role to selected users"
 msgstr "将角色分配给选择的用户"
@@ -336,34 +331,34 @@ msgid "Search groups"
 msgstr "搜索组"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "组 '{0}' 已创建"
+msgid "Group '%(object)s' created."
+msgstr "组 '%(object)s' 已创建"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "组 '{0}' 已更新。"
+msgid "Group '%(object)s' updated."
+msgstr "组 '%(object)s' 已更新。"
 
 msgid "The group could not be saved due to errors."
 msgstr "无法保存该组。出现错误。"
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "组 '{0}' 已删除。"
+msgid "Group '%(object)s' deleted."
+msgstr "组 '%(object)s' 已删除。"
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "用户 '{0}' 已更新。"
+msgid "User '%(object)s' updated."
+msgstr "用户 '%(object)s' 已更新。"
 
 msgid "The user could not be saved due to errors."
 msgstr "无法保存用户。出现错误。"
 
 #, python-format
-msgid "Editing %s"
-msgstr "正在编辑%s"
+msgid "Editing %(object)s"
+msgstr "正在编辑%(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "用户 '{0}' 已删除。"
+msgid "User '%(object)s' deleted."
+msgstr "用户 '%(object)s' 已删除。"
 
 msgid "Edit"
 msgstr "编辑"

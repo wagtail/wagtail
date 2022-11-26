@@ -12,15 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
-"language/be/)\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/language/be/)\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail дакументы "
@@ -220,27 +217,27 @@ msgid "Search documents"
 msgstr "Пошул дакументаў"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Дакумент '{0}' даданы."
+msgid "Document '%(document_title)s' added."
+msgstr "Дакумент '%(document_title)s' даданы."
 
 msgid "The document could not be saved due to errors."
 msgstr "Дакумент на можа быць захаваны з-за памылак."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Дакумент '{0}' абноўлены"
+msgid "Document '%(document_title)s' updated"
+msgstr "Дакумент '%(document_title)s' абноўлены"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Дакумент '{0}' выдалены."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Дакумент '%(document_title)s' выдалены."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Рэдактаваць гэта %s"
+msgid "Edit this %(object)s"
+msgstr "Рэдактаваць гэта %(object)s"
 
 msgid "Document"
 msgstr "Дакумент"

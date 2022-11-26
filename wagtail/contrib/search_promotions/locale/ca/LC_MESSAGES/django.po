@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020\n"
-"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
-"ca/)\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/ca/)\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
@@ -131,8 +130,8 @@ msgid "Search promoted results"
 msgstr "Resultats de cerca promocionats"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Selecció de l'editor per a '{0}' creada."
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Selecció de l'editor per a '%(query)s' creada."
 
 msgid "Edit"
 msgstr "Editar"
@@ -141,8 +140,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "No s'han creat les recomanacions a causa d'errors"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Selecció de l'editor per '{0}' actualitzada."
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Selecció de l'editor per '%(query)s' actualitzada."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "No s'han desat les recomanacions a causa d'errors"

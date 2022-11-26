@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2022\n"
-"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
-"gl/)\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/gl/)\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -41,14 +40,14 @@ msgid "Delete selected snippets"
 msgstr "Eliminar os fragmentos seleccionados"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' eliminado."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' eliminado."
 
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s eliminado."
-msgstr[1] "%(count)d %(snippet_type)s eliminados."
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s eliminado."
+msgstr[1] "%(count)d %(model_name)s eliminados."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -245,47 +244,47 @@ msgid "The snippet could not be created due to errors."
 msgstr "O fragmento non puido ser creado debido a errores."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' creado."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' creado."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and published."
-msgstr "%(snippet_type)s '%(instance)s' creado e publicado."
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' creado e publicado."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
-msgstr "%(snippet_type)s '%(instance)s'  creado e adiado para publicación."
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s '%(object)s'  creado e adiado para publicación."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O fragmento non puido ser gardado debido a erros."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' actualizado."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' actualizado."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated and published."
-msgstr "%(snippet_type)s '%(instance)s' actualizado e publicado."
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' actualizado e publicado."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
-msgstr "%(snippet_type)s '%(instance)s' adiouse para publicación."
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' adiouse para publicación."
 
 #, python-format
 msgid ""
-"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
-"for publishing."
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
 msgstr ""
-"%(snippet_type)s '%(instance)s' está en vivo e esta versión foi adiada para "
+"%(model_name)s '%(object)s' está en vivo e esta versión foi adiada para "
 "publicación."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(%s privado)"
+msgid "(Private %(object)s)"
+msgstr "(%(object)s privado)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
 
 msgid "Action"
 msgstr "Acción"
@@ -300,12 +299,12 @@ msgid "Snippet history"
 msgstr "Historial do fragmento"
 
 #, python-brace-format
-msgid "Edit this {model_name}"
-msgstr "Editar este {model_name}"
+msgid "Edit this %(model_name)s"
+msgstr "Editar este %(model_name)s"
 
 #, python-brace-format
-msgid "{model_name} history"
-msgstr "Historial de {model_name}"
+msgid "%(model_name)s history"
+msgstr "Historial de %(model_name)s"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -316,9 +315,9 @@ msgid "Delete '%(title)s'"
 msgstr "Eliminar '%(title)s'"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Seleccionar %s"
+msgid "Choose %(object)s"
+msgstr "Seleccionar %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Seleccionar outro %s"
+msgid "Choose another %(object)s"
+msgstr "Seleccionar outro %(object)s"

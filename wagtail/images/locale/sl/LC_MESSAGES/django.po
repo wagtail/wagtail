@@ -14,14 +14,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
-"sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
@@ -42,24 +40,34 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Podprte oblike zapisa: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Oblika zapisa slike ni podprta. Podprte oblike so: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Oblika zapisa slike ni podprta. Podprte oblike so: %(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Ni veljavna %s slika."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Datoteka je prevelika (%%s). Največja dovoljena velikost je %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Datoteka je prevelika (%(file_size)s). Največja dovoljena velikost je "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Ta datoteka ima preveč pikslov (%%s). Maksimalno število pikslov %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Ta datoteka ima preveč pikslov (%(num_pixels)s). Maksimalno število pikslov "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Datoteka je prevelika. Največja dovoljena velikost je %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Datoteka je prevelika. Največja dovoljena velikost je %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Polna širina"
@@ -435,8 +443,8 @@ msgid "Search images"
 msgstr "Iskanje po slikah"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Slika '{0}' posodobljena."
+msgid "Image '%(image_title)s' updated."
+msgstr "Slika '%(image_title)s' posodobljena."
 
 msgid "Edit again"
 msgstr "Uredi ponovno"
@@ -445,26 +453,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Slike, zaradi napak, ni bilo možno shraniti."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvorno datoteko, ali izbrišite "
 "sliko"
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Slike '{0}' izbrisana."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Slike '%(image_title)s' izbrisana."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Slika '{0}' dodana."
+msgid "Image '%(image_title)s' added."
+msgstr "Slika '%(image_title)s' dodana."
 
 msgid "The image could not be created due to errors."
 msgstr "Slike, zaradi napak, ni bilo možno ustvariti."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Uredi %s"
+msgid "Edit this %(object)s"
+msgstr "Uredi %(object)s"
 
 msgid "Image"
 msgstr "Slika"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr ""
 
-#: filters.py:12 templates/wagtailredirects/list.html:20 views.py:423
+#: filters.py:12 templates/wagtailredirects/list.html:20 views.py:433
 msgid "Type"
 msgstr ""
 
@@ -218,12 +218,12 @@ msgstr ""
 
 #: templates/wagtailredirects/import_summary.html:17
 #: templates/wagtailredirects/list.html:12
-#: templates/wagtailredirects/list.html:15 views.py:420
+#: templates/wagtailredirects/list.html:15 views.py:430
 msgid "From"
 msgstr ""
 
 #: templates/wagtailredirects/import_summary.html:18
-#: templates/wagtailredirects/list.html:19 views.py:422
+#: templates/wagtailredirects/list.html:19 views.py:432
 msgid "To"
 msgstr ""
 
@@ -239,7 +239,7 @@ msgstr ""
 msgid "Export redirects"
 msgstr ""
 
-#: templates/wagtailredirects/list.html:18 views.py:421
+#: templates/wagtailredirects/list.html:18 views.py:431
 msgid "Site"
 msgstr ""
 
@@ -267,62 +267,63 @@ msgstr ""
 #: templates/wagtailredirects/results.html:21
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:88 views.py:229
+#: views.py:88 views.py:233
 msgid "Search redirects"
 msgstr ""
 
 #: views.py:114
-#, python-brace-format
-msgid "Redirect '{0}' updated."
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
 msgstr ""
 
-#: views.py:118 views.py:183
+#: views.py:119 views.py:187
 msgid "Edit"
 msgstr ""
 
-#: views.py:124
+#: views.py:125
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:155
-#, python-brace-format
-msgid "Redirect '{0}' deleted."
+#: views.py:157
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
 msgstr ""
 
-#: views.py:179
-#, python-brace-format
-msgid "Redirect '{0}' added."
+#: views.py:182
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
 msgstr ""
 
-#: views.py:190
+#: views.py:194
 msgid "The redirect could not be created due to errors."
 msgstr ""
 
-#: views.py:242
-msgid "File format of type \"{}\" is not supported"
-msgstr ""
-
-#: views.py:256
+#: views.py:247
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
+msgid "File format of type \"%(extension)s\" is not supported"
 msgstr ""
 
-#: views.py:261
+#: views.py:264
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr ""
+
+#: views.py:271
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"
 msgstr ""
 
-#: views.py:352
+#: views.py:362
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views.py:408
+#: views.py:418
 msgid "Export Redirects"
 msgstr ""

@@ -18,15 +18,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
-"ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -47,16 +44,16 @@ msgid "Delete selected snippets"
 msgstr "Удалить выбранные фрагменты"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' удалёно."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' удалёно."
 
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)sудалён."
-msgstr[1] "%(count)d %(snippet_type)s удалено."
-msgstr[2] "%(count)d %(snippet_type)s удалено."
-msgstr[3] "%(count)d %(snippet_type)sудалено"
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)sудалён."
+msgstr[1] "%(count)d %(model_name)s удалено."
+msgstr[2] "%(count)d %(model_name)s удалено."
+msgstr[3] "%(count)d %(model_name)sудалено"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -98,8 +95,8 @@ msgstr "Нет, не удалять"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
 msgstr ""
-"К сожалению, нет фрагментов, соответствующих запросу \"<em>%(search_query)s</"
-"em>\""
+"К сожалению, нет фрагментов, соответствующих запросу "
+"\"<em>%(search_query)s</em>\""
 
 #, python-format
 msgid ""
@@ -248,27 +245,27 @@ msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' создан."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' создан."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and published."
-msgstr "%(snippet_type)s '%(instance)s' создан и опубликован."
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' создан и опубликован."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' обновлен."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' обновлен."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated and published."
-msgstr "%(snippet_type)s '%(instance)s' обновлен и опубликован."
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' обновлен и опубликован."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Править %s"
+msgid "Edit this %(object)s"
+msgstr "Править %(object)s"
 
 msgid "Action"
 msgstr "Действие"
@@ -283,12 +280,12 @@ msgid "Snippet history"
 msgstr "История фрагмента"
 
 #, python-brace-format
-msgid "Edit this {model_name}"
-msgstr "Редактировать {model_name}"
+msgid "Edit this %(model_name)s"
+msgstr "Редактировать %(model_name)s"
 
 #, python-brace-format
-msgid "{model_name} history"
-msgstr "{model_name} история"
+msgid "%(model_name)s history"
+msgstr "%(model_name)s история"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -299,9 +296,9 @@ msgid "Delete '%(title)s'"
 msgstr "Удалить '%(title)s'"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Выбрать %s"
+msgid "Choose %(object)s"
+msgstr "Выбрать %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Выбрать другой %s"
+msgid "Choose another %(object)s"
+msgstr "Выбрать другой %(object)s"

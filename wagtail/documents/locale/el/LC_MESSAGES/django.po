@@ -19,12 +19,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
-"el/)\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -83,8 +82,7 @@ msgstr "Τελευταία έγγραφα"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr ""
-"Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(search_query)s</em>\""
+msgstr "Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(search_query)s</em>\""
 
 msgid "Change document:"
 msgstr "Αλλαγή εγγράφου:"
@@ -141,8 +139,7 @@ msgstr "Δημιουργήθηκε"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
+msgstr "Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -213,15 +210,15 @@ msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Το έγγραφο '{0}' προστέθηκε."
+msgid "Document '%(document_title)s' added."
+msgstr "Το έγγραφο '%(document_title)s' προστέθηκε."
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Έγινε διόρθωση του εγγράφου '{0}'"
+msgid "Document '%(document_title)s' updated"
+msgstr "Έγινε διόρθωση του εγγράφου '%(document_title)s'"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -230,12 +227,12 @@ msgstr ""
 "διαγράψετε το έγγραφο"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Το έγγραφο '{0}' διαγράφηκε."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Το έγγραφο '%(document_title)s' διαγράφηκε."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Επεξεργαστείτε το %s"
+msgid "Edit this %(object)s"
+msgstr "Επεξεργαστείτε το %(object)s"
 
 msgid "Document"
 msgstr "Έγγραφο"

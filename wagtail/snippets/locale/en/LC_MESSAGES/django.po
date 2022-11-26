@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,13 +46,13 @@ msgstr ""
 
 #: bulk_actions/delete.py:34 views/snippets.py:509
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
+msgid "%(model_name)s '%(object)s' deleted."
 msgstr ""
 
 #: bulk_actions/delete.py:40 views/snippets.py:518
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -116,9 +116,9 @@ msgstr ""
 #: templates/wagtailsnippets/chooser/results.html:10
 #, python-format
 msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
-"\">create one now</a>?"
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/side_panels/usage.html:7
@@ -195,7 +195,8 @@ msgid "Snippets"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/headers/create_header.html:15
-msgid "New: "
+#, python-format
+msgid "New: %(model_name)s"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/headers/edit_header.html:17
@@ -232,8 +233,8 @@ msgstr ""
 #: templates/wagtailsnippets/snippets/results.html:27
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/revisions/_actions.html:8
@@ -318,17 +319,17 @@ msgstr ""
 
 #: views/snippets.py:246
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
+msgid "%(model_name)s '%(object)s' created."
 msgstr ""
 
 #: views/snippets.py:248
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and published."
+msgid "%(model_name)s '%(object)s' created and published."
 msgstr ""
 
 #: views/snippets.py:251
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
 msgstr ""
 
 #: views/snippets.py:333
@@ -337,60 +338,60 @@ msgstr ""
 
 #: views/snippets.py:379
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
+msgid "%(model_name)s '%(object)s' updated."
 msgstr ""
 
 #: views/snippets.py:382
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated and published."
+msgid "%(model_name)s '%(object)s' updated and published."
 msgstr ""
 
 #: views/snippets.py:386
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
 msgstr ""
 
 #: views/snippets.py:391
 #, python-format
 msgid ""
-"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
-"for publishing."
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
 msgstr ""
 
 #: views/snippets.py:593
 #, python-format
-msgid "(Private %s)"
+msgid "(Private %(object)s)"
 msgstr ""
 
-#: views/snippets.py:597 widgets.py:26
+#: views/snippets.py:599 widgets.py:26
 #, python-format
-msgid "Edit this %s"
+msgid "Edit this %(object)s"
 msgstr ""
 
-#: views/snippets.py:630 views/snippets.py:703
+#: views/snippets.py:634 views/snippets.py:707
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:634
+#: views/snippets.py:638
 msgid "User"
 msgstr ""
 
-#: views/snippets.py:639 views/snippets.py:706
+#: views/snippets.py:643 views/snippets.py:710
 msgid "Date"
 msgstr ""
 
-#: views/snippets.py:675
+#: views/snippets.py:679
 msgid "Snippet history"
 msgstr ""
 
-#: views/snippets.py:732
-#, python-brace-format
-msgid "Edit this {model_name}"
+#: views/snippets.py:736
+#, python-format
+msgid "Edit this %(model_name)s"
 msgstr ""
 
-#: views/snippets.py:738
-#, python-brace-format
-msgid "{model_name} history"
+#: views/snippets.py:742
+#, python-format
+msgid "%(model_name)s history"
 msgstr ""
 
 #: wagtail_hooks.py:63
@@ -405,10 +406,10 @@ msgstr ""
 
 #: widgets.py:24
 #, python-format
-msgid "Choose %s"
+msgid "Choose %(object)s"
 msgstr ""
 
 #: widgets.py:25
 #, python-format
-msgid "Choose another %s"
+msgid "Choose another %(object)s"
 msgstr ""

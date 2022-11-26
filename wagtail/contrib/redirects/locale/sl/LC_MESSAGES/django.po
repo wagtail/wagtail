@@ -13,14 +13,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
-"sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail redirects"
 msgstr "Wagtail preusmeritve"
@@ -82,8 +80,8 @@ msgid "target page route"
 msgstr "pot ciljne strani"
 
 msgid ""
-"Optionally specify a route on the target page to redirect to. Leave blank to "
-"redirect to the default page route."
+"Optionally specify a route on the target page to redirect to. Leave blank to"
+" redirect to the default page route."
 msgstr ""
 "Po želji določite pot na ciljni strani, na katero želite preusmeriti. "
 "Pustite prazno za preusmeritev na privzeto pot strani."
@@ -179,8 +177,7 @@ msgstr "Preusmeritve niso bile najdene."
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Žal ni preusmeritve, ki bi ustrezala nizu \"<em>%(query_string)s</em>\""
+msgstr "Žal ni preusmeritve, ki bi ustrezala nizu \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -194,8 +191,8 @@ msgid "Search redirects"
 msgstr "Iskanje po preusmeritvah"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Preusmeritev '{0}' posodobljena."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Preusmeritev '%(redirect_title)s' posodobljena."
 
 msgid "Edit"
 msgstr "Uredi"
@@ -204,12 +201,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Preusmeritev '{0}' izbrisana."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Preusmeritev '%(redirect_title)s' izbrisana."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Preusmeritev '{0}' dodana."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Preusmeritev '%(redirect_title)s' dodana."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."

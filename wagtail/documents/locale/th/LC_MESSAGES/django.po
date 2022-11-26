@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
-"th/)\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -207,27 +206,27 @@ msgid "Search documents"
 msgstr "ค้นหาเอกสาร"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "เอกสาร'{0} 'เพิ่มเติมเรียบร้อยแล้ว"
+msgid "Document '%(document_title)s' added."
+msgstr "เอกสาร'%(document_title)s 'เพิ่มเติมเรียบร้อยแล้ว"
 
 msgid "The document could not be saved due to errors."
 msgstr "เอกสารไม่สามารถถูกเซฟได้ในระหว่างที่เกิดข้อผิดพลาด"
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "เอกสาร '{0}'อัพเดทเรียบร้อยแล้ว"
+msgid "Document '%(document_title)s' updated"
+msgstr "เอกสาร '%(document_title)s'อัพเดทเรียบร้อยแล้ว"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "ไม่พบไฟล์นี้ กรุณาเปลี่ยนต้นฉบับหรือลบเอกสารทิ้ง"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "เอกสาร '{0}' ถูกลบเรียบร้อยแล้ว"
+msgid "Document '%(document_title)s' deleted."
+msgstr "เอกสาร '%(document_title)s' ถูกลบเรียบร้อยแล้ว"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "แก้ไขสิ่งนี้ %s"
+msgid "Edit this %(object)s"
+msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Document"
 msgstr "เอกสาร"

@@ -12,15 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
-"language/lt/)\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/language/lt/)\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Publish"
 msgstr "Publikuoti"
@@ -38,8 +35,8 @@ msgid "Wagtail snippets"
 msgstr "Wagtail nuokarpos"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' ištrinta."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' ištrinta."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -170,19 +167,19 @@ msgid "The snippet could not be created due to errors."
 msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' sukurta."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' sukurta."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' atnaujinta."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' atnaujinta."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Redaguoti šį %s"
+msgid "Edit this %(object)s"
+msgstr "Redaguoti šį %(object)s"
 
 msgid "Action"
 msgstr "Veiksmas"
@@ -205,9 +202,9 @@ msgid "Delete '%(title)s'"
 msgstr "Ištrinti '%(title)s'"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Pasirinkti %s"
+msgid "Choose %(object)s"
+msgstr "Pasirinkti %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Pasirinkti kitą %s"
+msgid "Choose another %(object)s"
+msgstr "Pasirinkti kitą %(object)s"

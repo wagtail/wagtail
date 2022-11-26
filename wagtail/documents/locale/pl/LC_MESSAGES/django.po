@@ -17,15 +17,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
-"pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Dokumenty Wagtail"
@@ -104,13 +101,18 @@ msgid ""
 msgid_plural ""
 "Are you sure you want to add the following documents to the selected "
 "collection?"
-msgstr[0] "Czy jesteś pewny że chcesz dodać ten dokument do wybranej kolekcji?"
-msgstr[1] "Czy jesteś pewny że chcesz dodać te dokumenty do wybranej kolekcji?"
-msgstr[2] "Czy jesteś pewny że chcesz dodać te dokumenty do wybranej kolekcji?"
-msgstr[3] "Czy jesteś pewny że chcesz dodać te dokumenty do wybranej kolekcji?"
+msgstr[0] ""
+"Czy jesteś pewny że chcesz dodać ten dokument do wybranej kolekcji?"
+msgstr[1] ""
+"Czy jesteś pewny że chcesz dodać te dokumenty do wybranej kolekcji?"
+msgstr[2] ""
+"Czy jesteś pewny że chcesz dodać te dokumenty do wybranej kolekcji?"
+msgstr[3] ""
+"Czy jesteś pewny że chcesz dodać te dokumenty do wybranej kolekcji?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "Nie posiadasz uprawnień żeby dodać ten dokument do kolekcji"
 msgstr[1] "Nie posiadasz uprawnień żeby dodać te dokumenty do kolekcji"
 msgstr[2] "Nie posiadasz uprawnień żeby dodać te dokumenty do kolekcji"
@@ -160,8 +162,7 @@ msgstr "Najnowsze dokumenty"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
-msgstr ""
-"Przepraszamy, żaden dokument nie pasuje do \"<em>%(search_query)s</em>\""
+msgstr "Przepraszamy, żaden dokument nie pasuje do \"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Nie przesłano żadnych dokumentów do tej kolekcji."
@@ -230,8 +231,7 @@ msgstr "Wybierz dokument"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
+msgstr "Przepraszamy, żaden dokument nie pasuje do \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -330,15 +330,15 @@ msgid "Search documents"
 msgstr "Szukaj dokumentów"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dodano dokument '{0}'."
+msgid "Document '%(document_title)s' added."
+msgstr "Dodano dokument '%(document_title)s'."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Uaktualniono dokument '{0}'"
+msgid "Document '%(document_title)s' updated"
+msgstr "Uaktualniono dokument '%(document_title)s'"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -346,12 +346,12 @@ msgstr ""
 "Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Usunięto dokument '{0}'"
+msgid "Document '%(document_title)s' deleted."
+msgstr "Usunięto dokument '%(document_title)s'"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Edytuj ten %s"
+msgid "Edit this %(object)s"
+msgstr "Edytuj ten %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

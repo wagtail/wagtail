@@ -14,14 +14,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
-"cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
-"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail redirects"
 msgstr "Wagtail přesměrování"
@@ -146,7 +144,8 @@ msgstr "Rekapitulace"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s "
+"errors."
 msgstr ""
 "Nalezeno %(total)s přiřazení, vytvořeno %(successes)s a nalezeno %(errors)s "
 "chyb."
@@ -193,8 +192,8 @@ msgid "Search redirects"
 msgstr "Hledat přesměrování"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Přesměrování '{0}' bylo upraveno."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Přesměrování '%(redirect_title)s' bylo upraveno."
 
 msgid "Edit"
 msgstr "Upravit"
@@ -203,22 +202,22 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Přesměrování nelze uložit, zkontrolujte správné vyplnění polí."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Přesměrování '{0}' bylo smazáno."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Přesměrování '%(redirect_title)s' bylo smazáno."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Přesměrování '{0}' bylo přidáno."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Přesměrování '%(redirect_title)s' bylo přidáno."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Přesměrování nelze vytvořit, zkontrolujte správné vyplnění polí."
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "Formát souboru \"{}\" není podporován"
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Formát souboru \"%(extension)s\" není podporován"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "Importovaný soubor má nesprávné kódování: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Importovaný soubor má nesprávné kódování: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"

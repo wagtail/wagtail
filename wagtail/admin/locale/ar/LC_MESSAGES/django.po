@@ -21,14 +21,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
-"ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Publish"
 msgstr "انشر"
@@ -36,8 +34,8 @@ msgstr "انشر"
 msgid "Submit for moderation"
 msgstr "قدّم للمراجعة"
 
-msgid "Resubmit to {}"
-msgstr "إعادة اﻹدخال إلي {}"
+msgid "Resubmit to %(task_name)s"
+msgstr "إعادة اﻹدخال إلي %(task_name)s"
 
 msgid "Unpublish"
 msgstr "إلغاء نشر"
@@ -95,8 +93,8 @@ msgid "Enter password"
 msgstr "ادخل كلمة المرور"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "ادخل %s الخاص بك "
+msgid "Enter your %(username_field_name)s"
+msgstr "ادخل %(username_field_name)s الخاص بك "
 
 msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
@@ -191,8 +189,11 @@ msgstr "ليس لديك إذن للنسخ إلى الصفحة \"%(page_title)s\"
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "هذه السلاجقة قيد الاستخدام بالفعل في سياق الصفحة الرئيسية \" %s \""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"هذه السلاجقة قيد الاستخدام بالفعل في سياق الصفحة الرئيسية \" "
+"%(parent_page_title)s \""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "لا يمكنك نسخ صفحة إلى نفسها عند نسخ الصفحات الفرعية"
@@ -220,8 +221,8 @@ msgid "1 page selected"
 msgstr "تم تحديد 1 صفحة"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "تم تحديد {0} صفحة"
+msgid "%(objects)s pages selected"
+msgstr "تم تحديد %(objects)s صفحة"
 
 msgid "1 document selected"
 msgstr "تم تحديد 1 وثيقة"
@@ -230,8 +231,8 @@ msgid "1 user selected"
 msgstr "تم تحديد 1 مُستخدم"
 
 #, python-brace-format
-msgid "{0} users selected"
-msgstr "تم تحديد {0} مُستخدم"
+msgid "%(objects)s users selected"
+msgstr "تم تحديد %(objects)s مُستخدم"
 
 msgid "1 item selected"
 msgstr "تم تحديد 1 عنصر"
@@ -654,8 +655,9 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"بدلاً من ذلك ، يمكنك<a href=\"%(unpublish_url)s\"> إلغاء نشر الصفحة</a>. يؤدي "
-"هذا إلى إزالة الصفحة من العرض العام ويمكنك تعديلها أو نشرها مرة أخرى لاحقًا."
+"بدلاً من ذلك ، يمكنك<a href=\"%(unpublish_url)s\"> إلغاء نشر الصفحة</a>. "
+"يؤدي هذا إلى إزالة الصفحة من العرض العام ويمكنك تعديلها أو نشرها مرة أخرى "
+"لاحقًا."
 
 #, python-format
 msgid "Move %(title)s"
@@ -913,12 +915,12 @@ msgid "Add collection"
 msgstr "اضف مجموعة"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "مجموعة '{0}' تم إنشاؤها."
+msgid "Collection '%(object)s' created."
+msgstr "مجموعة '%(object)s' تم إنشاؤها."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "تم تحديث المجموعة '{0}'."
+msgid "Collection '%(object)s' updated."
+msgstr "تم تحديث المجموعة '%(object)s'."
 
 msgid "The collection could not be saved due to errors."
 msgstr "لا يمكن حفظ المجموعة بسبب الأخطاء."
@@ -927,8 +929,8 @@ msgid "Delete collection"
 msgstr "حذف المجموعة"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "المجموعة '{0}' محذوفة."
+msgid "Collection '%(object)s' deleted."
+msgstr "المجموعة '%(object)s' محذوفة."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
@@ -946,12 +948,12 @@ msgid "Dashboard"
 msgstr "لوحة التحكم"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "تم نسخ الصفحة '{0}' و {1} الصفحات الفرعية."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "تم نسخ الصفحة '%(page_title)s' و %(subpages_count)s الصفحات الفرعية."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "الصفحة '{0}' المنسوخة."
+msgid "Page '%(page_title)s' copied."
+msgstr "الصفحة '%(page_title)s' المنسوخة."
 
 msgid "View draft"
 msgstr "عرض المسودة"
@@ -960,46 +962,46 @@ msgid "View live"
 msgstr "انظر في الواقع"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "صفحة '{0}' تم إنشائها."
+msgid "Page '%(page_title)s' created."
+msgstr "صفحة '%(page_title)s' تم إنشائها."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "صفحة '{0}' تم إنشاؤها وجدولتها للنشر."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "صفحة '%(page_title)s' تم إنشاؤها وجدولتها للنشر."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "صفحة '{0}' تم إنشاؤها ونشرها."
+msgid "Page '%(page_title)s' created and published."
+msgstr "صفحة '%(page_title)s' تم إنشاؤها ونشرها."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "صفحة '{0}' تم إنشاؤها وتقديمها للإشراف."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "صفحة '%(page_title)s' تم إنشاؤها وتقديمها للإشراف."
 
 msgid "The page could not be created due to validation errors"
 msgstr "لا يمكن إنشاء الصفحة بسبب أخطاء التحقق من الصحة"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "الصفحة '{0}' محذوفة."
+msgid "Page '%(page_title)s' deleted."
+msgstr "الصفحة '%(page_title)s' محذوفة."
 
 msgid "This page is currently awaiting moderation"
 msgstr "هذه الصفحة تنتظر حاليا المراقب"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "تم تحديث الصفحة '{0}'."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "تم تحديث الصفحة '%(page_title)s'."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "تمت جدولة الصفحة '{0}' للنشر."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "تمت جدولة الصفحة '%(page_title)s' للنشر."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "تم نشر الصفحة '{0}'."
+msgid "Page '%(page_title)s' has been published."
+msgstr "تم نشر الصفحة '%(page_title)s'."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "الصفحة '{0}' تم تقديمها للإشراف."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "الصفحة '%(page_title)s' تم تقديمها للإشراف."
 
 msgid "The page could not be saved as it is locked"
 msgstr "لا يمكن حفظ الصفحة لأنها مقفلة"
@@ -1008,34 +1010,34 @@ msgid "The page could not be saved due to validation errors"
 msgstr "لا يمكن حفظ الصفحة بسبب أخطاء التحقق من الصحة"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "الصفحة '{0}' غير مقفلة الآن."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "الصفحة '%(page_title)s' غير مقفلة الآن."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "الصفحة '{0}' لا تنتظر حاليا للاشراف عليها."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "الصفحة '%(page_title)s' لا تنتظر حاليا للاشراف عليها."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "الصفحة '{0}' المنشورة."
+msgid "Page '%(page_title)s' published."
+msgstr "الصفحة '%(page_title)s' المنشورة."
 
 msgid "Failed to send approval notifications"
 msgstr "فشل إرسال إشعارات الموافقة"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "الصفحة '{0}' مرفوضة للنشر."
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "الصفحة '%(page_title)s' مرفوضة للنشر."
 
 msgid "Failed to send rejection notifications"
 msgstr "فشل إرسال إشعارات الرفض"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "تم نقل الصفحة '{0}'."
+msgid "Page '%(page_title)s' moved."
+msgstr "تم نقل الصفحة '%(page_title)s'."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "الصفحة '{0}' غير منشورة."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "الصفحة '%(page_title)s' غير منشورة."
 
 msgid "ID"
 msgstr "المُعَرِّفْ"

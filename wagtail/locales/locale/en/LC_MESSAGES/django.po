@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,13 +66,13 @@ msgid "Add locale"
 msgstr ""
 
 #: views.py:51
-#, python-brace-format
-msgid "Locale '{0}' created."
+#, python-format
+msgid "Locale '%(object)s' created."
 msgstr ""
 
 #: views.py:56
-#, python-brace-format
-msgid "Locale '{0}' updated."
+#, python-format
+msgid "Locale '%(object)s' updated."
 msgstr ""
 
 #: views.py:57
@@ -84,8 +84,8 @@ msgid "Delete locale"
 msgstr ""
 
 #: views.py:65
-#, python-brace-format
-msgid "Locale '{0}' deleted."
+#, python-format
+msgid "Locale '%(object)s' deleted."
 msgstr ""
 
 #: views.py:67

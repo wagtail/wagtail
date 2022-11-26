@@ -17,14 +17,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
-"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
-"it/)\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail API v2"
 msgstr "API Wagtail v2"
@@ -36,12 +34,12 @@ msgid "Add Comment"
 msgstr "Aggiungi un commento"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Il numero minimo di elementi è %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Il numero minimo di elementi è %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Il numero massimo di elementi è %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Il numero massimo di elementi è %(max_num)d"
 
 msgid "Move up"
 msgstr "Sposta su"
@@ -86,14 +84,14 @@ msgstr "Commenta"
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b> La pagina '{}' è stata bloccata</b> da <b>te</b> <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>La pagina '{}' è stata bloccata</b> da <b>te</b>."
+msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
+msgstr "<b>La pagina '{page_title}' è stata bloccata</b> da <b>te</b>."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
 msgstr "<b> La pagina '{}' è stata bloccata</b> da <b>{}</b> <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>La pagina '{}' è stata bloccata</b>."
+msgid "<b>Page '{page_title}' is locked</b>."
+msgstr "<b>La pagina '{page_title}' è stata bloccata</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Questa pagina è attualmente in attesa di moderazione."
@@ -163,11 +161,11 @@ msgid "slug"
 msgstr "slug"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
+"The name of the page as it will appear in URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 msgstr ""
-"Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
-"slug]/"
+"Il nome della pagina che comparirà nella URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 
 msgid "content type"
 msgstr "tipo contenuto"
@@ -388,12 +386,14 @@ msgstr "stato attività corrente"
 msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr ""
-"Potrebbe essercene solo uno in corso o che necessita di modifiche allo stato "
-"del flusso di lavoro per la pagina."
+"Potrebbe essercene solo uno in corso o che necessita di modifiche allo stato"
+" del flusso di lavoro per la pagina."
 
 #, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Flusso di lavoro '{0}' per la pagina '{1}': {2}"
+msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+msgstr ""
+"Flusso di lavoro '%(workflow_name)s' per la pagina '%(page_title)s': "
+"%(status)s"
 
 msgid "Not started"
 msgstr "Non iniziato"
@@ -426,8 +426,10 @@ msgid "finished by"
 msgstr "conclusa da"
 
 #, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Attività '{0}' nella revisione della pagina '{1}': {2}"
+msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"Attività '%(task_name)s' nella revisione della pagina '%(revision_info)s': "
+"%(status)s"
 
 msgid "Task state"
 msgstr "Stato attività"
@@ -465,8 +467,8 @@ msgstr "log"
 msgid "log entries"
 msgstr "log"
 
-msgid "The log action '{}' has not been registered."
-msgstr "L'azione del log  '{}' non è stata registrata."
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "L'azione del log  '%(action_name)s' non è stata registrata."
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -737,8 +739,8 @@ msgid ""
 "Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
 "%(go_live_at)s."
 msgstr ""
-"Revisione %(revision_id)s da %(created_at)s programmata per la pubblicazione "
-"%(go_live_at)s."
+"Revisione %(revision_id)s da %(created_at)s programmata per la pubblicazione"
+" %(go_live_at)s."
 
 #, python-format
 msgid "Page scheduled for publishing at %(go_live_at)s"
@@ -850,8 +852,7 @@ msgstr "Modifica risposta al commento"
 
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
-msgstr ""
-"Modificata una risposta ad un commento sul campo %(field)s: \"%(text)s\""
+msgstr "Modificata una risposta ad un commento sul campo %(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
 msgstr "Modificato una risposta"
@@ -861,8 +862,7 @@ msgstr "Elimina risposta al commento"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
-msgstr ""
-"Eliminata una risposta ad un commento sul campo %(field)s: \"%(text)s\""
+msgstr "Eliminata una risposta ad un commento sul campo %(field)s: \"%(text)s\""
 
 msgid "Deleted a reply"
 msgstr "Eliminata una risposta"

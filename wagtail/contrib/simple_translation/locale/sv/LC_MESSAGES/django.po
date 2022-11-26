@@ -16,10 +16,10 @@ msgstr ""
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
 "Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail simple translation"
@@ -34,16 +34,17 @@ msgstr "Plats"
 msgid "All child pages will be created."
 msgstr "Alla undersidor kommer skapas"
 
-msgid "Include subtree ({} page)"
-msgid_plural "Include subtree ({} pages)"
-msgstr[0] "Inkludera underträd ({} sida)"
-msgstr[1] "Inkludera underträd ({} sidor)"
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "Inkludera underträd (%(descendant_count)s sida)"
+msgstr[1] "Inkludera underträd (%(descendant_count)s sidor)"
 
 msgid "A locale is disabled because a parent page is not translated."
 msgid_plural ""
 "Some locales are disabled because some parent pages are not translated."
 msgstr[0] "Ett språk är avstängt pga en föräldrasida är inte översatt."
-msgstr[1] "Några språk är avstängda pga några föräldrasidor är inte översatta."
+msgstr[1] ""
+"Några språk är avstängda pga några föräldrasidor är inte översatta."
 
 msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
@@ -56,23 +57,23 @@ msgstr "Skicka"
 msgid "Translate"
 msgstr "Översätt"
 
-msgid "{} locales"
-msgstr "{} platser"
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s platser"
 
 msgid "Translate page"
 msgstr "Översätt sida"
 
 #, python-brace-format
-msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "Sidan '{page_title}' skapades med framgång i {locales}"
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "Sidan '%(page_title)s' skapades med framgång i %(locales)s"
 
 #, python-brace-format
-msgid "Translate {model_name}"
-msgstr "Översätt {model_name}"
+msgid "Translate %(model_name)s"
+msgstr "Översätt %(model_name)s"
 
 #, python-brace-format
-msgid "Successfully created {locales} for {model_name} '{object}'"
-msgstr "Skapade framgångsrikt {locales} för {model_name} '{object}'"
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Skapade framgångsrikt %(locales)s för %(model_name)s '%(object)s'"
 
 msgid "Translate this page"
 msgstr "Översätt den här sidan"

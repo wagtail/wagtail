@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amelia Dao, 2022\n"
-"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
-"language/vi/)\n"
+"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/language/vi/)\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -114,9 +113,9 @@ msgid "Edit this document"
 msgstr "Biên tập văn bản này"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Văn bản '{0}' đã được xóa."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Văn bản '%(document_title)s' đã được xóa."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Biên tập %s này"
+msgid "Edit this %(object)s"
+msgstr "Biên tập %(object)s này"

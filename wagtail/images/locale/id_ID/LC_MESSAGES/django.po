@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
-"wagtail/language/id_ID/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail images"
@@ -37,20 +36,25 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Format yang didukung: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Format gambar tidak didukung. Format yang didukung: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Format gambar tidak didukung. Format yang didukung: %(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Gambar %s tidak valid."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Berkas terlalu besar (%%s). Ukuran berkas maksimum %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Berkas terlalu besar (%(file_size)s). Ukuran berkas maksimum "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Berkas terlalu besar. Ukuran berkas maksimum %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Berkas terlalu besar. Ukuran berkas maksimum %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Lebar penuh"
@@ -210,16 +214,15 @@ msgstr "Gambar"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Maaf, tidak ada gambar yang sesuai dengan \"<em>%(query_string)s</em>\""
+msgstr "Maaf, tidak ada gambar yang sesuai dengan \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
 "You haven't uploaded any images in this collection. Why not <a "
 "href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Anda sama sekali belum mengunggah gambar dalam koleksi ini. Mengapa tidak <a "
-"href=\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
+"Anda sama sekali belum mengunggah gambar dalam koleksi ini. Mengapa tidak <a"
+" href=\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
 
 #, python-format
 msgid ""
@@ -276,8 +279,8 @@ msgid ""
 "required."
 msgstr ""
 "Pengunggahan berhasil. Jika perlu, perbarui gambar ini dengan judul yang "
-"lebih tepat. Anda juga dapat menghapus gambar sepenuhnya jika unggahan tidak "
-"diperlukan."
+"lebih tepat. Anda juga dapat menghapus gambar sepenuhnya jika unggahan tidak"
+" diperlukan."
 
 msgid "Sorry, upload failed."
 msgstr "Maaf, pengunggahan gagal."
@@ -313,8 +316,8 @@ msgid "Search images"
 msgstr "Cari gambar"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Gambar '{0}' telah diperbarui."
+msgid "Image '%(image_title)s' updated."
+msgstr "Gambar '%(image_title)s' telah diperbarui."
 
 msgid "Edit again"
 msgstr "Ubah kembali"
@@ -323,26 +326,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Gambar tidak dapat disimpan karena suatu kesalahan."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
-"Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau "
-"hapus gambar."
+"Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau"
+" hapus gambar."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Gambar '{0}' dihapus."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Gambar '%(image_title)s' dihapus."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Gambar '{0}' ditambahkan."
+msgid "Image '%(image_title)s' added."
+msgstr "Gambar '%(image_title)s' ditambahkan."
 
 msgid "The image could not be created due to errors."
 msgstr "Gambar tidak dapat dibuat karena suatu kesalahan."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Ubah %s ini"
+msgid "Edit this %(object)s"
+msgstr "Ubah %(object)s ini"
 
 msgid "Image"
 msgstr "Gambar"

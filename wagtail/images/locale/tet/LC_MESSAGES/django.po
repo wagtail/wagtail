@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
-"language/tet/)\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
+"Language: tet\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail images"
@@ -31,32 +30,41 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"Suporta formatu:%(supported_formats)s. Maximu documentus nia medida:"
-"%(max_upload_size)s"
+"Suporta formatu:%(supported_formats)s. Maximu documentus nia "
+"medida:%(max_upload_size)s"
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Suporta formatu: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "La suporta formatu imajen. Suporta formatu: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "La suporta formatu imajen. Suporta formatu: %(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "La validu %simajen"
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dokumentus ne'e bo'ot demais (%%s). Maximu Dokumentus nia medida %s. "
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dokumentus ne'e bo'ot demais (%(file_size)s). Maximu Dokumentus nia medida "
+"%(max_filesize)s. "
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Dokumentu ne'e iha  piksel barak (%%s).  Maximu piksel %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Dokumentu ne'e iha  piksel barak (%(num_pixels)s).  Maximu piksel "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %s. "
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %(max_filesize)s. "
 
 msgid "Full width"
 msgstr "Luan tomak"
@@ -221,23 +229,23 @@ msgid "The image could not be saved due to errors."
 msgstr "Imajen labele rai tamba eru."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Fonte  dokumentus imajen lahetan. Favor troka nia fonte ou hamoos imajen "
 "ne'e."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Imajen '{0}' hamoos ona."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Imajen '%(image_title)s' hamoos ona."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Imajen '{0}' hatama ona"
+msgid "Image '%(image_title)s' added."
+msgstr "Imajen '%(image_title)s' hatama ona"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "hadia iha %s"
+msgid "Edit this %(object)s"
+msgstr "hadia iha %(object)s"
 
 msgid "Image"
 msgstr "Imagen"

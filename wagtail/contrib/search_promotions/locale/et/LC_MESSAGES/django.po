@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
-"et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
@@ -114,8 +113,8 @@ msgstr "mitte ühtegi"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-" Vabandust, mitte ükski reklaamitud tulemus ei sobi \"<em>%(query_string)s</"
-"em>\""
+" Vabandust, mitte ükski reklaamitud tulemus ei sobi "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -129,8 +128,8 @@ msgid "Search promoted results"
 msgstr "Otsige reklaamitud tulemusi"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Toimetaja valikud '{0}' jaoks loodi."
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Toimetaja valikud '%(query)s' jaoks loodi."
 
 msgid "Edit"
 msgstr "Muuda"
@@ -139,8 +138,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "Soovitusi ei loodud vigade tõttu."
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Toimetaja valikud '{0}' jaoks uuendati."
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Toimetaja valikud '%(query)s' jaoks uuendati."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Soovitusi ei salvestatud vigade tõttu."

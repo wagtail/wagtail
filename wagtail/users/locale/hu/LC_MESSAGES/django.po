@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2022\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
-"hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail users"
@@ -97,8 +96,8 @@ msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
 "on a page that you have subscribed to receive comment notifications on"
 msgstr ""
-"Értesítés küldése, ha egy olyan oldalon, amelynél feliratkozott a megjegyzés "
-"értesítésekre, új megjegyzés keletkezik, törlődik, vagy egy megjegyzést "
+"Értesítés küldése, ha egy olyan oldalon, amelynél feliratkozott a megjegyzés"
+" értesítésekre, új megjegyzés keletkezik, törlődik, vagy egy megjegyzést "
 "valaki megold."
 
 msgid "preferred language"
@@ -196,13 +195,14 @@ msgstr "Csoport törlése"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
+"members."
 msgstr[0] ""
-"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong> tagja "
-"van."
+"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong> tagja"
+" van."
 msgstr[1] ""
-"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong> tagja "
-"van."
+"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong> tagja"
+" van."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -382,34 +382,34 @@ msgid "Search groups"
 msgstr "Csoportok keresése"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Csoport létrehozva: '{0}'"
+msgid "Group '%(object)s' created."
+msgstr "Csoport létrehozva: '%(object)s'"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Csoport frissítve: '{0}'"
+msgid "Group '%(object)s' updated."
+msgstr "Csoport frissítve: '%(object)s'"
 
 msgid "The group could not be saved due to errors."
 msgstr "Hiba történt a csoport mentése közben."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Csoport törölve: '{0}'"
+msgid "Group '%(object)s' deleted."
+msgstr "Csoport törölve: '%(object)s'"
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Felhasználó frissítve: '{0}'"
+msgid "User '%(object)s' updated."
+msgstr "Felhasználó frissítve: '%(object)s'"
 
 msgid "The user could not be saved due to errors."
 msgstr "Hiba történt a felhasználó mentése közben."
 
 #, python-format
-msgid "Editing %s"
-msgstr "%s szerkesztése"
+msgid "Editing %(object)s"
+msgstr "%(object)s szerkesztése"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Felhasználó törölve: '{0}'"
+msgid "User '%(object)s' deleted."
+msgstr "Felhasználó törölve: '%(object)s'"
 
 msgid "Edit"
 msgstr "Szerkeszt"

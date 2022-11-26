@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
-"sl/)\n"
+"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail simple translation"
 msgstr "Wagtail preprost prevod"
@@ -42,19 +40,19 @@ msgstr "Pošlji"
 msgid "Translate"
 msgstr "Prevedi"
 
-msgid "{} locales"
-msgstr "{} lokalizacij"
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s lokalizacij"
 
 msgid "Translate page"
 msgstr "Prevedi stran"
 
 #, python-brace-format
-msgid "Translate {model_name}"
-msgstr "Prevesti {model_name}"
+msgid "Translate %(model_name)s"
+msgstr "Prevesti %(model_name)s"
 
 #, python-brace-format
-msgid "Successfully created {locales} for {model_name} '{object}'"
-msgstr "Uspešno ustvarjeno {locales} za {model_name} '{object}'"
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "Uspešno ustvarjeno %(locales)s za %(model_name)s '%(object)s'"
 
 msgid "Translate this page"
 msgstr "Prevedi to stran"

@@ -16,16 +16,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
-"<rmsolucoeseminformatica@protonmail.com>, 2021\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
-"wagtail/language/pt_BR/)\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Publish"
 msgstr "Publicar"
@@ -43,15 +40,15 @@ msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' excluído."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' excluído."
 
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s excluído."
-msgstr[1] "%(count)d %(snippet_type)s excluídos."
-msgstr[2] "%(count)d %(snippet_type)s excluídos."
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s excluído."
+msgstr[1] "%(count)d %(model_name)s excluídos."
+msgstr[2] "%(count)d %(model_name)s excluídos."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -184,19 +181,19 @@ msgid "The snippet could not be created due to errors."
 msgstr "O fragmento não pôde ser criado por conter erros."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' criado."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' criado."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O snippet não pode ser salvo por conter erros."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' atualizado."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' atualizado."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
 
 msgid "Action"
 msgstr "Ação"
@@ -219,9 +216,9 @@ msgid "Delete '%(title)s'"
 msgstr "Excluir '%(title)s'"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Escolher %s"
+msgid "Choose %(object)s"
+msgstr "Escolher %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Escolha outro %s"
+msgid "Choose another %(object)s"
+msgstr "Escolha outro %(object)s"

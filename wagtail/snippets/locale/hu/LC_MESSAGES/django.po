@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
-"hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -38,14 +37,14 @@ msgid "Delete selected snippets"
 msgstr "Kiválasztott elemek törlése"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "'%(instance)s' %(snippet_type)s törölve."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "'%(object)s' %(model_name)s törölve."
 
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s törölve."
-msgstr[1] "%(count)d %(snippet_type)s törölve."
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s törölve."
+msgstr[1] "%(count)d %(model_name)s törölve."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -243,46 +242,45 @@ msgid "The snippet could not be created due to errors."
 msgstr "Hiba történt az elem létrehozása közben."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "'%(instance)s' %(snippet_type)s létrehozva."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "'%(object)s' %(model_name)s létrehozva."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and published."
-msgstr "'%(instance)s' %(snippet_type)s létrehozva és közzétéve."
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "'%(object)s' %(model_name)s létrehozva és közzétéve."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
-msgstr "'%(instance)s' %(snippet_type)s létrehozva és időzítve."
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "'%(object)s' %(model_name)s létrehozva és időzítve."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Hiba történt az elem frissítése közben."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "'%(instance)s' %(snippet_type)s frissítve."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "'%(object)s' %(model_name)s frissítve."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated and published."
-msgstr "'%(instance)s' %(snippet_type)s frissítve és közzétéve."
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "'%(object)s' %(model_name)s frissítve és közzétéve."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
-msgstr "'%(instance)s' %(snippet_type)s időzítve."
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "'%(object)s' %(model_name)s időzítve."
 
 #, python-format
 msgid ""
-"%(snippet_type)s '%(instance)s' is live and this version has been scheduled "
-"for publishing."
-msgstr ""
-"'%(instance)s' %(snippet_type)s közzétéve, és ez a verzió időzítve van."
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "'%(object)s' %(model_name)s közzétéve, és ez a verzió időzítve van."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Privát %s)"
+msgid "(Private %(object)s)"
+msgstr "(Privát %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s szerkesztése"
+msgid "Edit this %(object)s"
+msgstr "%(object)s szerkesztése"
 
 msgid "Action"
 msgstr "Akció"
@@ -297,12 +295,12 @@ msgid "Snippet history"
 msgstr "Elem történet"
 
 #, python-brace-format
-msgid "Edit this {model_name}"
-msgstr "{model_name} szerkesztése"
+msgid "Edit this %(model_name)s"
+msgstr "%(model_name)s szerkesztése"
 
 #, python-brace-format
-msgid "{model_name} history"
-msgstr "{model_name} története"
+msgid "%(model_name)s history"
+msgstr "%(model_name)s története"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -313,9 +311,9 @@ msgid "Delete '%(title)s'"
 msgstr "'%(title)s' törlése"
 
 #, python-format
-msgid "Choose %s"
-msgstr "%s kiválasztása"
+msgid "Choose %(object)s"
+msgstr "%(object)s kiválasztása"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Másik %s kiválasztása"
+msgid "Choose another %(object)s"
+msgstr "Másik %(object)s kiválasztása"

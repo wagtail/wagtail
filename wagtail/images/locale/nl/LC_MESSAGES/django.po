@@ -20,12 +20,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2022\n"
-"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
-"nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail images"
@@ -47,26 +46,34 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Ondersteunde bestandsformaten: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Geen ondersteund afbeeldingsformaat. ondersteunde formaten: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Geen ondersteund afbeeldingsformaat. ondersteunde formaten: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Geen juiste %s afbeelding."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
-
-#, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"Dit bestand bevat teveel pixels (%%s). Het maximum aantal toegestane pixels "
-"is %s."
+"Dit bestand is te groot (%(file_size)s). De maximale bestandsgrootte is "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Dit bestand is te groot. Maximale bestandsgrootte %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Dit bestand bevat teveel pixels (%(num_pixels)s). Het maximum aantal "
+"toegestane pixels is %(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Dit bestand is te groot. Maximale bestandsgrootte %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Volledige breedte"
@@ -206,7 +213,8 @@ msgstr "Afbeeldingen aan collectie toevoegen"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected collection?"
+"Are you sure you want to add the following images to the selected "
+"collection?"
 msgstr[0] ""
 "Weet u zeker dat u deze afbeelding aan de geselecteerde collectie wilt "
 "toevoegen?"
@@ -220,8 +228,8 @@ msgstr[0] ""
 "U heeft niet de juiste rechten om deze afbeelding aan een collectie toe te "
 "voegen"
 msgstr[1] ""
-"U heeft niet de juiste rechten om deze afbeeldingen aan een collectie toe te "
-"voegen"
+"U heeft niet de juiste rechten om deze afbeeldingen aan een collectie toe te"
+" voegen"
 
 #, python-format
 msgid "Delete 1 image"
@@ -472,16 +480,16 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig. "
-"U kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
+"Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig."
+" U kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
 "bleek. "
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of this "
 "existing image. You may delete it if it wasn't required."
 msgstr ""
-"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van deze "
-"bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
+"Upload is geslaagd. Echter lijkt je nieuwe afbeelding een dubbeling van deze"
+" bestaande afbeelding te zijn. Je kunt deze indien nodig verwijderen."
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
@@ -516,7 +524,8 @@ msgstr "Voeg tags toe aan geselecteerde afbeeldingen"
 msgid "New tags have been added to %(num_parent_objects)d image"
 msgid_plural "New tags have been added to %(num_parent_objects)d images"
 msgstr[0] "Nieuwe tags zijn toegevoegd aan %(num_parent_objects)d afbeelding"
-msgstr[1] "Nieuwe tags zijn toegevoegd aan %(num_parent_objects)d afbeeldingen"
+msgstr[1] ""
+"Nieuwe tags zijn toegevoegd aan %(num_parent_objects)d afbeeldingen"
 
 msgid "Add to collection"
 msgstr "Voeg toe aan collectie"
@@ -580,8 +589,8 @@ msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Afbeelding '{0}' is bijgewerkt."
+msgid "Image '%(image_title)s' updated."
+msgstr "Afbeelding '%(image_title)s' is bijgewerkt."
 
 msgid "Edit again"
 msgstr "Bewerk opnieuw"
@@ -590,30 +599,30 @@ msgid "The image could not be saved due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Afbeelding '{0}' verwijderd."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Afbeelding '%(image_title)s' verwijderd."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Afbeelding '{0}' toegevoegd."
+msgid "Image '%(image_title)s' added."
+msgstr "Afbeelding '%(image_title)s' toegevoegd."
 
 msgid "The image could not be created due to errors."
 msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Privé %s)"
+msgid "(Private %(object)s)"
+msgstr "(Privé %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Wijzig %s"
+msgid "Edit this %(object)s"
+msgstr "Wijzig %(object)s"
 
 msgid "Image"
 msgstr "Afbeelding"

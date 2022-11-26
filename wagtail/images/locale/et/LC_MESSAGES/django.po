@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
-"et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail images"
@@ -39,24 +38,33 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Toetatud vormingud: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Pole toetatud pildivorming. Toetatud vormingud: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Pole toetatud pildivorming. Toetatud vormingud: %(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "%s pole kehtiv pilt."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "See fail on liiga suur (%%s). Maksimaalne failisuurus %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"See fail on liiga suur (%(file_size)s). Maksimaalne failisuurus "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Selles failis on liiga palju piksleid (%%s). Maksimaalne piksel %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Selles failis on liiga palju piksleid (%(num_pixels)s). Maksimaalne piksel "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "See fail on liiga suur. Maksimaalne failisuurus %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "See fail on liiga suur. Maksimaalne failisuurus %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Täislaius"
@@ -344,8 +352,8 @@ msgid "Search images"
 msgstr "Piltide otsimine"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Pilt „{0}” on värskendatud."
+msgid "Image '%(image_title)s' updated."
+msgstr "Pilt „%(image_title)s” on värskendatud."
 
 msgid "Edit again"
 msgstr "Muuda uuesti"
@@ -354,24 +362,24 @@ msgid "The image could not be saved due to errors."
 msgstr "Pilti ei õnnestunud vigade tõttu salvestada."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Pilt '{0}' on kustutatud."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Pilt '%(image_title)s' on kustutatud."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Pilt '{0}' on lisatud."
+msgid "Image '%(image_title)s' added."
+msgstr "Pilt '%(image_title)s' on lisatud."
 
 msgid "The image could not be created due to errors."
 msgstr "Pilti ei saanud vigade tõttu luua."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Muutke seda %s"
+msgid "Edit this %(object)s"
+msgstr "Muutke seda %(object)s"
 
 msgid "Image"
 msgstr "Pilt"

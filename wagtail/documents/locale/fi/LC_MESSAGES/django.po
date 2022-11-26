@@ -17,12 +17,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
-"fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -111,11 +110,14 @@ msgid ""
 msgid_plural ""
 "Are you sure you want to add the following documents to the selected "
 "collection?"
-msgstr[0] "Haluatko varmasti lisätä seuraavan dokumentin valittuun kokoelmaan?"
-msgstr[1] "Haluatko varmasti lisätä seuraavat dokumentit valittuun kokoelmaan?"
+msgstr[0] ""
+"Haluatko varmasti lisätä seuraavan dokumentin valittuun kokoelmaan?"
+msgstr[1] ""
+"Haluatko varmasti lisätä seuraavat dokumentit valittuun kokoelmaan?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "Oikeutesi eivät riitä tämän dokumentin lisäämiseksi kokoelmaan"
 msgstr[1] "Oikeutesi eivät riitä näiden dokumenttien lisäämiseksi kokoelmaan"
 
@@ -156,8 +158,8 @@ msgstr "Tuoreimmat dokumentit"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Valitettavasti yksikään dokumentti ei vastaa hakua \"<em>%(search_query)s</"
-"em>\""
+"Valitettavasti yksikään dokumentti ei vastaa hakua "
+"\"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Et ole tuonut dokumentteja tähän kokoelmaan."
@@ -240,8 +242,8 @@ msgstr[1] "Löytyi %(counter)s osumaa"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</"
-"em>\""
+"Pahoittelut, yksikään dokumentti ei täsmää hakuun "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -373,31 +375,31 @@ msgid "Search documents"
 msgstr "Hae dokumentteja"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokumentti '{0}' lisätty."
+msgid "Document '%(document_title)s' added."
+msgstr "Dokumentti '%(document_title)s' lisätty."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokumentti '{0}' päivitetty"
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumentti '%(document_title)s' päivitetty"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokumentti '{0}' poistettu."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokumentti '%(document_title)s' poistettu."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Yksityinen %s)"
+msgid "(Private %(object)s)"
+msgstr "(Yksityinen %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Muokkaa %s-kohdetta"
+msgid "Edit this %(object)s"
+msgstr "Muokkaa %(object)s-kohdetta"
 
 msgid "Document"
 msgstr "Dokumentti"

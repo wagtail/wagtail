@@ -1,4 +1,3 @@
-#
 # Translators:
 # Ragnar Rebase <rrebase@gmail.com>, 2022
 # Erlend <debcf78e@opayq.com>, 2022
@@ -7,8 +6,8 @@ msgid ""
 msgstr ""
 "Last-Translator: Erlend <debcf78e@opayq.com>, 2022\n"
 "Language-Team: Estonian (https://www.transifex.com/torchbox/teams/8009/et/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: et\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Alt text"
@@ -35,8 +34,8 @@ msgstr "Kustuta"
 msgid "Edit"
 msgstr "Muuda"
 
-msgid "Edit '{title}'"
-msgstr "Muuda üksust „{title}”"
+msgid "Edit '%(title)s'"
+msgstr "Muuda üksust „%(title)s”"
 
 msgid "Edit your account"
 msgstr "Muutke oma kontot"
@@ -97,5 +96,5 @@ msgstr ""
 msgid "This field is required."
 msgstr "Selle välja täitmine on kohustuslik."
 
-msgid "View child pages of '{title}'"
-msgstr "Kuva üksuse „{title}” alamlehed"
+msgid "View child pages of '%(title)s'"
+msgstr "Kuva üksuse „%(title)s” alamlehed"

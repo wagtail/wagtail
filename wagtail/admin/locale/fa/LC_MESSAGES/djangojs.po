@@ -1,4 +1,3 @@
-#
 # Translators:
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2022
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2022
@@ -9,8 +8,8 @@ msgid ""
 msgstr ""
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2022\n"
 "Language-Team: Persian (https://www.transifex.com/torchbox/teams/8009/fa/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Alt text"
@@ -34,8 +33,8 @@ msgstr "حذف"
 msgid "Edit"
 msgstr "ویرایش"
 
-msgid "Edit '{title}'"
-msgstr "ویرایش '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "ویرایش '%(title)s'"
 
 msgid "Edit your account"
 msgstr "ویرایش حساب شما"
@@ -98,5 +97,5 @@ msgstr "ویراستار از کار افتاد. محتوا به آخرین نس
 msgid "This field is required."
 msgstr "این فیلد لازم است."
 
-msgid "View child pages of '{title}'"
-msgstr "دیدن صفحات فرزند {title}"
+msgid "View child pages of '%(title)s'"
+msgstr "دیدن صفحات فرزند %(title)s"

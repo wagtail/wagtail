@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,8 +335,8 @@ msgstr ""
 #: templates/wagtailusers/groups/results.html:11
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 
 #: templates/wagtailusers/users/confirm_delete.html:5
@@ -424,15 +424,20 @@ msgstr ""
 #: templates/wagtailusers/users/results.html:28
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 
 #: templates/wagtailusers/users/results.html:31
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+
+#: utils.py:52
+#, python-format
+msgid "user %(id)s (deleted)"
 msgstr ""
 
 #: views/bulk_actions/assign_role.py:17
@@ -488,13 +493,13 @@ msgid "Search groups"
 msgstr ""
 
 #: views/groups.py:83
-#, python-brace-format
-msgid "Group '{0}' created."
+#, python-format
+msgid "Group '%(object)s' created."
 msgstr ""
 
 #: views/groups.py:119
-#, python-brace-format
-msgid "Group '{0}' updated."
+#, python-format
+msgid "Group '%(object)s' updated."
 msgstr ""
 
 #: views/groups.py:120
@@ -502,13 +507,13 @@ msgid "The group could not be saved due to errors."
 msgstr ""
 
 #: views/groups.py:157
-#, python-brace-format
-msgid "Group '{0}' deleted."
+#, python-format
+msgid "Group '%(object)s' deleted."
 msgstr ""
 
 #: views/users.py:181
-#, python-brace-format
-msgid "User '{0}' updated."
+#, python-format
+msgid "User '%(object)s' updated."
 msgstr ""
 
 #: views/users.py:183
@@ -517,12 +522,12 @@ msgstr ""
 
 #: views/users.py:186
 #, python-format
-msgid "Editing %s"
+msgid "Editing %(object)s"
 msgstr ""
 
 #: views/users.py:253
-#, python-brace-format
-msgid "User '{0}' deleted."
+#, python-format
+msgid "User '%(object)s' deleted."
 msgstr ""
 
 #: wagtail_hooks.py:140

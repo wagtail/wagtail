@@ -1,4 +1,3 @@
-#
 # Translators:
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2022
 # Vu Pham, 2022
@@ -7,10 +6,9 @@
 msgid ""
 msgstr ""
 "Last-Translator: Luan Nguyen <lihavim@gmail.com>, 2022\n"
-"Language-Team: Vietnamese (https://www.transifex.com/torchbox/teams/8009/"
-"vi/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Vietnamese (https://www.transifex.com/torchbox/teams/8009/vi/)\n"
 "Language: vi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add a comment"
@@ -40,8 +38,8 @@ msgstr "Xóa lỗi"
 msgid "Edit"
 msgstr "Biên tập"
 
-msgid "Edit '{title}'"
-msgstr "Chỉnh sửa '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Chỉnh sửa '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Chỉnh sửa tài khoản của bạn"

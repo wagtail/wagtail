@@ -1,4 +1,3 @@
-#
 # Translators:
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2022
 # Istvan Farkas <istvan.farkas@gmail.com>, 2022
@@ -6,14 +5,13 @@
 msgid ""
 msgstr ""
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2022\n"
-"Language-Team: Hungarian (https://www.transifex.com/torchbox/teams/8009/"
-"hu/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Hungarian (https://www.transifex.com/torchbox/teams/8009/hu/)\n"
 "Language: hu\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "({number} new items in this menu)"
-msgstr "({number} új elem ebben a menüben)"
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s új elem ebben a menüben)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 új elem ebben a menüben)"
@@ -69,8 +67,8 @@ msgstr "Törlés"
 msgid "Edit"
 msgstr "Szerkesztés"
 
-msgid "Edit '{title}'"
-msgstr "'{title}' szerkesztése"
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' szerkesztése"
 
 msgid "Edit your account"
 msgstr "Fiók szerkesztése"
@@ -203,8 +201,8 @@ msgstr "Oldalsáv kapcsolása"
 msgid "Unfocus comment"
 msgstr "Megjegyzés kivétele a fókuszból"
 
-msgid "View child pages of '{title}'"
-msgstr "'{title}' gyerekoldalainak megtekintése"
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s' gyerekoldalainak megtekintése"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Írjon valamit, vagy nyomja meg a \"/\" gombot egy blokk beszúrásához"

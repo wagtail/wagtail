@@ -15,10 +15,10 @@ msgstr ""
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2022\n"
 "Language-Team: Finnish (https://www.transifex.com/torchbox/teams/8009/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Select all"
@@ -36,19 +36,20 @@ msgstr "Lähetä"
 msgid "Translate"
 msgstr "Käännä"
 
-msgid "{} locales"
-msgstr "{} maa-asetustoa"
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s maa-asetustoa"
 
 msgid "Translate page"
 msgstr "Käännä sivu"
 
 #, python-brace-format
-msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "Sivu '{page_title}' luotiin onnistuneesti maa-asetustoille {locales}"
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr ""
+"Sivu '%(page_title)s' luotiin onnistuneesti maa-asetustoille %(locales)s"
 
 #, python-brace-format
-msgid "Translate {model_name}"
-msgstr "Käännä {model_name}"
+msgid "Translate %(model_name)s"
+msgstr "Käännä %(model_name)s"
 
 msgid "Translate this page"
 msgstr "Käännä tämä sivu"

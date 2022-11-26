@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
-"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
-"mi/)\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/mi/)\n"
+"Language: mi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail documents"
@@ -138,8 +137,8 @@ msgstr "Hangaia"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(query_string)s</"
-"em>\""
+"Aroha mai, karekau hē pukapuka e whakataurite ki "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -219,15 +218,15 @@ msgid "Search documents"
 msgstr "Haha ngā pukapuka"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Pukapuka '{0}' kua tāpiri."
+msgid "Document '%(document_title)s' added."
+msgstr "Pukapuka '%(document_title)s' kua tāpiri."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Pukapuka '{0}' kua whakahou"
+msgid "Document '%(document_title)s' updated"
+msgstr "Pukapuka '%(document_title)s' kua whakahou"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -236,12 +235,12 @@ msgstr ""
 "pukapuka rānei."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Pukapuka '{0}' kua mukuhia."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Pukapuka '%(document_title)s' kua mukuhia."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Whakarerekē i tēnei %s"
+msgid "Edit this %(object)s"
+msgstr "Whakarerekē i tēnei %(object)s"
 
 msgid "Document"
 msgstr "Pukapuka"

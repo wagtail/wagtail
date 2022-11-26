@@ -11,14 +11,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2021-2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
-"wagtail/language/is_IS/)\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2022\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
+"Language: is_IS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Wagtail images"
@@ -40,24 +38,34 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Studd skráarsnið: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Ekki stuðningur við skráarsniðið. Einungis stuðningur við: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Ekki stuðningur við skráarsniðið. Einungis stuðningur við: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Ekki gild %s mynd"
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Þessi skrá er of stór (%%s). Skráin má vera allt að %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Þessi skrá er of stór (%(file_size)s). Skráin má vera allt að "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Þessi mynd hefur of marga pixla (%%s). Hámarksfjöldi pixla %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Þessi mynd hefur of marga pixla (%(num_pixels)s). Hámarksfjöldi pixla "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Þessi skrá er of stór. Skráin má vera allt að %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Þessi skrá er of stór. Skráin má vera allt að %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Full breidd"
@@ -196,7 +204,8 @@ msgstr "Bæta myndum í safn"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected collection?"
+"Are you sure you want to add the following images to the selected "
+"collection?"
 msgstr[0] "Ertu viss um að þú viljir bæta eftirfarandi mynd í valið safn?"
 msgstr[1] "Ertu viss um að þú viljir bæta eftirfarandi myndum í valið safn?"
 
@@ -422,8 +431,8 @@ msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
 msgstr ""
-"Athugið að myndir sem búnar eru til stærri en skjárinn verða minni þegar þær "
-"eru skoðaðar hér til að passa á skjáinn."
+"Athugið að myndir sem búnar eru til stærri en skjárinn verða minni þegar þær"
+" eru skoðaðar hér til að passa á skjáinn."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -565,8 +574,8 @@ msgid "Search images"
 msgstr "Leita að myndum"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Mynd '{0}' uppfærð."
+msgid "Image '%(image_title)s' updated."
+msgstr "Mynd '%(image_title)s' uppfærð."
 
 msgid "Edit again"
 msgstr "Breyta aftur"
@@ -575,29 +584,30 @@ msgid "The image could not be saved due to errors."
 msgstr "Ekki var hægt að vista myndina þar sem hún stóðst ekki villuprófanir"
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Upprunamyndin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Mynd '{0}' eydd."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Mynd '%(image_title)s' eydd."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Mynd '{0}' bætt við."
+msgid "Image '%(image_title)s' added."
+msgstr "Mynd '%(image_title)s' bætt við."
 
 msgid "The image could not be created due to errors."
-msgstr "Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
+msgstr ""
+"Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Einka %s)"
+msgid "(Private %(object)s)"
+msgstr "(Einka %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Breyta þessu %s"
+msgid "Edit this %(object)s"
+msgstr "Breyta þessu %(object)s"
 
 msgid "Image"
 msgstr "Mynd"

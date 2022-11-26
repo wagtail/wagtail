@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2022\n"
-"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
-"sv/)\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail users"
@@ -195,11 +194,14 @@ msgstr "Radera grupp"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
+"members."
 msgstr[0] ""
-"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> användare."
+"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> "
+"användare."
 msgstr[1] ""
-"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> användare."
+"Gruppen '%(group_name)s' har <strong>%(group_user_count)s</strong> "
+"användare."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -376,34 +378,34 @@ msgid "Search groups"
 msgstr "Sök grupper"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupp '{0}' skapad."
+msgid "Group '%(object)s' created."
+msgstr "Grupp '%(object)s' skapad."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupp '{0}' uppdaterad."
+msgid "Group '%(object)s' updated."
+msgstr "Grupp '%(object)s' uppdaterad."
 
 msgid "The group could not be saved due to errors."
 msgstr "Gruppen kunde inte sparas p.g.a. fel."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupp '{0}' raderad."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupp '%(object)s' raderad."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Användaren '{0}' uppdaterad."
+msgid "User '%(object)s' updated."
+msgstr "Användaren '%(object)s' uppdaterad."
 
 msgid "The user could not be saved due to errors."
 msgstr "Användaren kunde inte sparas p.g.a. fel."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Redigerar %s"
+msgid "Editing %(object)s"
+msgstr "Redigerar %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Användare '{0}' raderad."
+msgid "User '%(object)s' deleted."
+msgstr "Användare '%(object)s' raderad."
 
 msgid "Edit"
 msgstr "Redigera"

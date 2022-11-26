@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
-"language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -80,8 +79,8 @@ msgid "Enter password"
 msgstr "Skriv inn passord"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Skriv inn %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "Skriv inn %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv inn din e-postadresse for å nullstille passord"
@@ -172,9 +171,11 @@ msgstr "Du har ikke tilgang til å kopiere siden «%(page_title)s»"
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
 msgstr ""
-"Denne permalenken er allerede i bruk i konteksten til foreldresiden \"%s\""
+"Denne permalenken er allerede i bruk i konteksten til foreldresiden "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Du kan ikke kopiere en side inn i seg selv når du kopierer undersider"
@@ -250,8 +251,8 @@ msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"En lenke for å nullstille passordet ditt har blitt sendt til din e-"
-"postadresse dersom det finnes en konto for denne adressen."
+"En lenke for å nullstille passordet ditt har blitt sendt til din "
+"e-postadresse dersom det finnes en konto for denne adressen."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Vennligst følg lenken under for å nullstille ditt passord:"
@@ -386,8 +387,8 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
-"Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
-"er lagt inn."
+"Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som"
+" er lagt inn."
 
 msgid "Your locked pages"
 msgstr "Dine låste sider"
@@ -840,12 +841,12 @@ msgid "Add collection"
 msgstr "Legg til samling"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Samlingen \"{0}\" er opprettet."
+msgid "Collection '%(object)s' created."
+msgstr "Samlingen \"%(object)s\" er opprettet."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Samlingen \"{0}\" er oppdatert."
+msgid "Collection '%(object)s' updated."
+msgstr "Samlingen \"%(object)s\" er oppdatert."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Samlingen kunne ikke lagres grunnet feil."
@@ -854,8 +855,8 @@ msgid "Delete collection"
 msgstr "Slett samlingen"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Samlingen \"{0}\" er slettet."
+msgid "Collection '%(object)s' deleted."
+msgstr "Samlingen \"%(object)s\" er slettet."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Er du sikker på at du vil slette denne samlingen?"
@@ -873,12 +874,12 @@ msgid "Dashboard"
 msgstr "Kontrollpanel"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Siden \"{0}\" og {1} undersider kopiert."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Siden \"%(page_title)s\" og %(subpages_count)s undersider kopiert."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Siden \"{0}\" kopiert."
+msgid "Page '%(page_title)s' copied."
+msgstr "Siden \"%(page_title)s\" kopiert."
 
 msgid "View draft"
 msgstr "Vis kladd"
@@ -887,46 +888,46 @@ msgid "View live"
 msgstr "Vis publisert"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Siden \"{0}\" er opprettet."
+msgid "Page '%(page_title)s' created."
+msgstr "Siden \"%(page_title)s\" er opprettet."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Siden \"{0}\" er opprettet og planlagt for publisering."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Siden \"%(page_title)s\" er opprettet og planlagt for publisering."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Siden \"{0}\" er opprettet og publisert."
+msgid "Page '%(page_title)s' created and published."
+msgstr "Siden \"%(page_title)s\" er opprettet og publisert."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Siden \"{0}\" er opprettet og sendt til godkjenning."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Siden \"%(page_title)s\" er opprettet og sendt til godkjenning."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Siden \"{0}\" er slettet."
+msgid "Page '%(page_title)s' deleted."
+msgstr "Siden \"%(page_title)s\" er slettet."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Denne siden påventer godkjenning"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Siden \"{0}\" er oppdatert."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Siden \"%(page_title)s\" er oppdatert."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Siden \"{0}\" er planlagt for publisering."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Siden \"%(page_title)s\" er planlagt for publisering."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Siden \"{0}\" er publisert."
+msgid "Page '%(page_title)s' has been published."
+msgstr "Siden \"%(page_title)s\" er publisert."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Siden \"{0}\" er sendt til godkjenning."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Siden \"%(page_title)s\" er sendt til godkjenning."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Siden kunne ikke lagres fordi den er låst"
@@ -935,42 +936,42 @@ msgid "The page could not be saved due to validation errors"
 msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Siden \"{0}\" er nå ulåst."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Siden \"%(page_title)s\" er nå ulåst."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Siden \"{0}\" påventer ikke godkjenning."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Siden \"%(page_title)s\" påventer ikke godkjenning."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Siden \"{0}\" er publisert."
+msgid "Page '%(page_title)s' published."
+msgstr "Siden \"%(page_title)s\" er publisert."
 
 msgid "Failed to send approval notifications"
 msgstr "Klarte ikke å sende varsel om godkjenninger"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Siden \"{0}\" ble avvist for publikasjon."
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Siden \"%(page_title)s\" ble avvist for publikasjon."
 
 msgid "Failed to send rejection notifications"
 msgstr "Klarte ikke å sende varsel om avvisninger"
 
 #, python-brace-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
+" sure the slug is unique and try again"
 msgstr ""
-"Permalenken '{0}' finnes allerede under den valgte foreldersiden. Sørg for "
-"at permalenken er unik og prøv igjen"
+"Permalenken '%(page_slug)s' finnes allerede under den valgte foreldersiden. "
+"Sørg for at permalenken er unik og prøv igjen"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Siden \"{0}\" er flyttet."
+msgid "Page '%(page_title)s' moved."
+msgstr "Siden \"%(page_title)s\" er flyttet."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Siden \"{0}\" er avpublisert."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Siden \"%(page_title)s\" er avpublisert."
 
 msgid "Pages"
 msgstr "Sider"

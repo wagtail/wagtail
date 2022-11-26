@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
-"th/)\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail search promotions"
@@ -114,8 +113,8 @@ msgid "Search promoted results"
 msgstr "หาผลที่โปรโมท"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'{0}'ถูกสร้างขึ้นแล้ว"
+msgid "Editor's picks for '%(query)s' created."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'%(query)s'ถูกสร้างขึ้นแล้ว"
 
 msgid "Edit"
 msgstr "แก้ไข"
@@ -124,8 +123,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "คำแนะนำไม่สามารถถูกสร้างขึ้นได้ในขณะที่มีข้อผิดพลาด"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกสำหรับ'{0}'ถูกอัพเดทแล้ว"
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกสำหรับ'%(query)s'ถูกอัพเดทแล้ว"
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "คำแนะนำไม่สามารถถูกเซฟในขณะที่มีข้อผิดพลาด"

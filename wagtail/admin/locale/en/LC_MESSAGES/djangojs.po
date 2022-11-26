@@ -2,8 +2,14 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: src/entrypoints/admin/page-editor.js:72
+msgid "(%(errorCount)s error)"
+msgid_plural "(%(errorCount)s errors)"
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/components/Sidebar/menu/SubMenuItem.tsx:100
-msgid "({number} new items in this menu)"
+msgid "(%(number)s new items in this menu)"
 msgstr ""
 
 #: src/components/Sidebar/menu/SubMenuItem.tsx:99
@@ -15,8 +21,14 @@ msgid "(New)"
 msgstr ""
 
 #: src/components/Minimap/MinimapItem.tsx:38
-msgid "{num} error"
-msgid_plural "{num} errors"
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/includes/sidePanel.js:136
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -102,7 +114,7 @@ msgid "Edit"
 msgstr ""
 
 #: src/components/PageExplorer/PageExplorerItem.tsx:62
-msgid "Edit '{title}'"
+msgid "Edit '%(title)s'"
 msgstr ""
 
 #: src/components/Sidebar/modules/MainMenu.tsx:313
@@ -118,7 +130,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:200
+#: src/entrypoints/admin/preview-panel.js:191
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -278,7 +290,7 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: src/components/Minimap/Minimap.tsx:215
+#: src/components/Minimap/Minimap.tsx:220
 msgid "Toggle side panel"
 msgstr ""
 
@@ -292,7 +304,7 @@ msgid "Unfocus comment"
 msgstr ""
 
 #: src/components/PageExplorer/PageExplorerItem.tsx:75
-msgid "View child pages of '{title}'"
+msgid "View child pages of '%(title)s'"
 msgstr ""
 
 #: src/components/Draftail/index.js:140

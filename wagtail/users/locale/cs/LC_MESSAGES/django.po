@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2022\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
-"cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
-"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail uživatelé"
@@ -273,34 +271,34 @@ msgid "Search groups"
 msgstr "Hledat skupiny"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Skupina '{0}' byla vytvořena."
+msgid "Group '%(object)s' created."
+msgstr "Skupina '%(object)s' byla vytvořena."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Skupina '{0}' byla upravena."
+msgid "Group '%(object)s' updated."
+msgstr "Skupina '%(object)s' byla upravena."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupinu nelze uložit, zkontrolujte správné vyplnění polí."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Skupina '{0}' byla smazána."
+msgid "Group '%(object)s' deleted."
+msgstr "Skupina '%(object)s' byla smazána."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Uživatel '{0}' byl upraven."
+msgid "User '%(object)s' updated."
+msgstr "Uživatel '%(object)s' byl upraven."
 
 msgid "The user could not be saved due to errors."
 msgstr "Uživatele nelze uložit, zkontrolujte správné vyplnění polí."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Editování %s"
+msgid "Editing %(object)s"
+msgstr "Editování %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Uživatel '{0}' byl smazán."
+msgid "User '%(object)s' deleted."
+msgstr "Uživatel '%(object)s' byl smazán."
 
 msgid "Edit"
 msgstr "Upravit"

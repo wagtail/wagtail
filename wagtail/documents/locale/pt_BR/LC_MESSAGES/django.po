@@ -17,14 +17,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Iuri L. Machado, 2021\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
-"wagtail/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
@@ -112,8 +110,10 @@ msgstr[2] ""
 "selecionada?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
-msgstr[0] "Você não tem permissão para adicionar este documento a uma coleção."
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
+msgstr[0] ""
+"Você não tem permissão para adicionar este documento a uma coleção."
 msgstr[1] ""
 "Você não tem permissão para adicionar estes documentos a uma coleção."
 msgstr[2] ""
@@ -339,15 +339,15 @@ msgid "Search documents"
 msgstr "Buscar documentos"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Documento '{0}' adicionado."
+msgid "Document '%(document_title)s' added."
+msgstr "Documento '%(document_title)s' adicionado."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser salvo devido à erros."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Documento '{0}' atualizado"
+msgid "Document '%(document_title)s' updated"
+msgstr "Documento '%(document_title)s' atualizado"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -356,12 +356,12 @@ msgstr ""
 "documento"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Documento '{0}' apagado."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Documento '%(document_title)s' apagado."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
 
 msgid "Document"
 msgstr "Documento"

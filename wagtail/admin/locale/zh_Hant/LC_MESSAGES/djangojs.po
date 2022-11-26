@@ -1,4 +1,3 @@
-#
 # Translators:
 # Yu Hsun Lee <andylee0914.tw@gmail.com>, 2022
 # Yeh Yen-Ke <yyken@outlook.com>, 2022
@@ -8,10 +7,9 @@
 msgid ""
 msgstr ""
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2022\n"
-"Language-Team: Chinese Traditional (https://www.transifex.com/torchbox/"
-"teams/8009/zh-Hant/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Chinese Traditional (https://www.transifex.com/torchbox/teams/8009/zh-Hant/)\n"
 "Language: zh-Hant\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add a comment"
@@ -47,8 +45,8 @@ msgstr "刪除中"
 msgid "Edit"
 msgstr "編輯"
 
-msgid "Edit '{title}'"
-msgstr "編輯 '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "編輯 '%(title)s'"
 
 msgid "Edit your account"
 msgstr "編輯帳號"
@@ -126,5 +124,5 @@ msgstr "編輯器崩潰了，內容被重新設置為最後保存的版本。"
 msgid "This field is required."
 msgstr "必要欄位"
 
-msgid "View child pages of '{title}'"
-msgstr "檢視 '{title}' 子頁面"
+msgid "View child pages of '%(title)s'"
+msgstr "檢視 '%(title)s' 子頁面"

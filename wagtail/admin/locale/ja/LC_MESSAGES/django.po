@@ -22,12 +22,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Hiroki Sawano, 2021\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
-"ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -36,11 +35,11 @@ msgstr "公開"
 msgid "Submit for moderation"
 msgstr "承認を受ける"
 
-msgid "Resubmit to {}"
-msgstr "{}に再提出する"
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)sに再提出する"
 
-msgid "Submit to {}"
-msgstr "{}に提出する"
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)sに提出する"
 
 msgid "Restart workflow "
 msgstr "ワークフローを再開"
@@ -104,8 +103,8 @@ msgid "Enter password"
 msgstr "パスワードを入力してください"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "%sを入力してください"
+msgid "Enter your %(username_field_name)s"
+msgstr "%(username_field_name)sを入力してください"
 
 msgid "Enter your email address to reset your password"
 msgstr "パスワードをリセットするにはEメールアドレスを入力してください"
@@ -194,9 +193,7 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] ""
-"複製元のページのうち%(count)sページは公開されています。複製されたページも公開"
-"しますか？"
+msgstr[0] "複製元のページのうち%(count)sページは公開されています。複製されたページも公開しますか？"
 
 msgid "Alias"
 msgstr "アライアス"
@@ -207,8 +204,9 @@ msgstr "\"%(page_title)s\" にコピーする権限がありません。"
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "このスラッグ（\"%s\"）は親ページで既に使用されています。"
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "このスラッグ（\"%(parent_page_title)s\"）は親ページで既に使用されています。"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "サブページをコピーするとき、それ自身にコピーすることはできません。"
@@ -229,8 +227,8 @@ msgid "All types"
 msgstr "全タイプ"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "このページは既に'{0}'が割り振られているワークフローがあります。"
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "このページは既に'%(workflow_name)s'が割り振られているワークフローがあります。"
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "同じページにこのワークフローを割り当てることはできません。"
@@ -301,9 +299,7 @@ msgstr "無効なパスワード再設定リンク"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
-msgstr ""
-"パスワードをリセットするリンクは向こうでした。恐らくすでにそのパスワードは使"
-"われています。"
+msgstr "パスワードをリセットするリンクは向こうでした。恐らくすでにそのパスワードは使われています。"
 
 msgid "Request a new password reset"
 msgstr "パスワードのリセットをリクエストする。"
@@ -314,9 +310,7 @@ msgstr "メールを確認"
 msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
-msgstr ""
-"emailアドレス送信先のアカウントが存在していれば、パスワードリセットのリンクが"
-"そのemailアドレスへ送信されました"
+msgstr "emailアドレス送信先のアカウントが存在していれば、パスワードリセットのリンクがそのemailアドレスへ送信されました"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "パスワードをリセットするために次のリンクに従ってください。"
@@ -396,9 +390,7 @@ msgstr "保存"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
-msgstr ""
-"プライバシー設定により、このコレクション内のドキュメントを閲覧できるユーザー"
-"が決まります。"
+msgstr "プライバシー設定により、このコレクション内のドキュメントを閲覧できるユーザーが決まります。"
 
 msgid "Privacy"
 msgstr "公開設定"
@@ -417,8 +409,7 @@ msgstr "非公開"
 
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
-msgstr ""
-"このコレクションが空でないため削除できません。次のものが含まれています:"
+msgstr "このコレクションが空でないため削除できません。次のものが含まれています:"
 
 msgid "Name"
 msgstr "名前"
@@ -427,9 +418,7 @@ msgstr "名前"
 msgid ""
 "No collections have been created. Why not <a "
 "href=\"%(add_collection_url)s\">add one</a>?"
-msgstr ""
-"コレクションはありません。<a href=\"%(add_collection_url)s\">新しく作成</a>し"
-"ますか？"
+msgstr "コレクションはありません。<a href=\"%(add_collection_url)s\">新しく作成</a>しますか？"
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
@@ -457,9 +446,7 @@ msgstr "%(site_name)sのWagtail CMSへようこそ"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr ""
-"これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役"
-"立つ情報が表示されます。"
+msgstr "これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役立つ情報が表示されます。"
 
 msgid "Your locked pages"
 msgstr "あなたのロックされているページ"
@@ -544,8 +531,7 @@ msgstr "Wagtailへサインイン"
 
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr ""
-"%(username_field)sとパスワードが一致しませんでした。再度ためしてください。"
+msgstr "%(username_field)sとパスワードが一致しませんでした。再度ためしてください。"
 
 msgid "Forgotten password?"
 msgstr "パスワードをお忘れですか？"
@@ -692,9 +678,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"別の選択肢として、<a href=\"%(unpublish_url)s\">このページを非公開</a>に変更"
-"することができます。非公開に設定されたページはのちに編集、再度公開することが"
-"可能です。"
+"別の選択肢として、<a "
+"href=\"%(unpublish_url)s\">このページを非公開</a>に変更することができます。非公開に設定されたページはのちに編集、再度公開することが可能です。"
 
 #, python-format
 msgid "Move %(title)s"
@@ -1023,12 +1008,12 @@ msgid "Add collection"
 msgstr "コレクションを追加済み"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "'{0}'コレクションを作成済み"
+msgid "Collection '%(object)s' created."
+msgstr "'%(object)s'コレクションを作成済み"
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "'{0}'コレクションを更新済み"
+msgid "Collection '%(object)s' updated."
+msgstr "'%(object)s'コレクションを更新済み"
 
 msgid "The collection could not be saved due to errors."
 msgstr "エラーが発生したため、コレクションを保存できませんでした。"
@@ -1037,8 +1022,8 @@ msgid "Delete collection"
 msgstr "コレクションを削除します"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "'{0}'コレクションを削除済み"
+msgid "Collection '%(object)s' deleted."
+msgstr "'%(object)s'コレクションを削除済み"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "コレクションを完全に削除しますか"
@@ -1056,12 +1041,12 @@ msgid "Dashboard"
 msgstr "ダッシュボード"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 "
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "ページ：'%(page_title)s' とサブページ：'%(subpages_count)s'が複製されました。 "
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "ページ：'{0}' がコピーされました。"
+msgid "Page '%(page_title)s' copied."
+msgstr "ページ：'%(page_title)s' がコピーされました。"
 
 msgid "View draft"
 msgstr "下書きを閲覧"
@@ -1070,48 +1055,48 @@ msgid "View live"
 msgstr "閲覧"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "ページ：'{0}' が作成されました。"
+msgid "Page '%(page_title)s' created."
+msgstr "ページ：'%(page_title)s' が作成されました。"
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "ページ'{0}' が作成され、公開予定が設定されました。"
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "ページ'%(page_title)s' が作成され、公開予定が設定されました。"
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "ページ：'{0}' が作成され、公開されました。"
+msgid "Page '%(page_title)s' created and published."
+msgstr "ページ：'%(page_title)s' が作成され、公開されました。"
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' が作成され、承認待ちです。"
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "'%(page_title)s' が作成され、承認待ちです。"
 
 msgid "The page could not be created due to validation errors"
 msgstr "このページはエラーにより作成できませんでした。"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "ページ：'{0}' が削除されました。"
+msgid "Page '%(page_title)s' deleted."
+msgstr "ページ：'%(page_title)s' が削除されました。"
 
 msgid "This page is currently awaiting moderation"
 msgstr "このページは現在承認待ちです。"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "ページ：'{0}' の更新が完了しました。"
+msgid "Page '%(page_title)s' has been updated."
+msgstr "ページ：'%(page_title)s' の更新が完了しました。"
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "ページ'{0}'の公開が予定されました。"
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "ページ'%(page_title)s'の公開が予定されました。"
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "ページ：'{0}' が公開されました。"
+msgid "Page '%(page_title)s' has been published."
+msgstr "ページ：'%(page_title)s' が公開されました。"
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
+msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr ""
 "88%match\n"
-"ページ：'{0}' が調整のために提出されました。"
+"ページ：'%(page_title)s' が調整のために提出されました。"
 
 msgid "The page could not be saved as it is locked"
 msgstr "このページはロックされているため、保存できませんでした。"
@@ -1123,42 +1108,41 @@ msgid "Page history"
 msgstr "ページの履歴"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "ページ：'{0}' のロックが解除されました。"
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "ページ：'%(page_title)s' のロックが解除されました。"
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "ページ：'{0}' は現在承認待ちではありません。"
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "ページ：'%(page_title)s' は現在承認待ちではありません。"
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "ページ：'{0}' が公開されました。"
+msgid "Page '%(page_title)s' published."
+msgstr "ページ：'%(page_title)s' が公開されました。"
 
 msgid "Failed to send approval notifications"
 msgstr "承認通信を送信できない"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "ページ：'{0}' の公開が拒否されました。"
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "ページ：'%(page_title)s' の公開が拒否されました。"
 
 msgid "Failed to send rejection notifications"
 msgstr "拒否通信を送信できない"
 
 #, python-brace-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
+" sure the slug is unique and try again"
 msgstr ""
-"スラッグ '{0}' は既に選択した親ページで使用されています。 スラッグが重複しな"
-"いことを確認したのち、再度操作を行ってください。"
+"スラッグ '%(page_slug)s' は既に選択した親ページで使用されています。 スラッグが重複しないことを確認したのち、再度操作を行ってください。"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "ページ：'{0}' が除去されました。"
+msgid "Page '%(page_title)s' moved."
+msgstr "ページ：'%(page_title)s' が除去されました。"
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "ページ：'{0}' が非公開に設定されました。"
+msgid "Page '%(page_title)s' unpublished."
+msgstr "ページ：'%(page_title)s' が非公開に設定されました。"
 
 msgid "Site history"
 msgstr "サイトの履歴"
@@ -1197,8 +1181,8 @@ msgid "Disable workflow"
 msgstr "ワークフローを無効化"
 
 #, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "ページ '{0}'から削除されたワークフロー"
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "ページ '%(page_title)s'から削除されたワークフロー"
 
 msgid "New workflow task"
 msgstr "ワークフローの新規タスク"

@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
-"wagtail/language/id_ID/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail redirects"
@@ -139,8 +138,8 @@ msgid "Search redirects"
 msgstr "Pengalihan pencarian"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Pengalihan '{0}' diperbarui."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Pengalihan '%(redirect_title)s' diperbarui."
 
 msgid "Edit"
 msgstr "Ubah"
@@ -149,12 +148,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Pengalihan tidak dapat disimpan karena suatu kesalahan."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Pengalihan '{0}' dihapus."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Pengalihan '%(redirect_title)s' dihapus."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Pengalihan '{0}' ditambah."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Pengalihan '%(redirect_title)s' ditambah."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Pengalihan tidak dapat dibuat karena suatu kesalahan."

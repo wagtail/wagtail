@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 12:02+0100\n"
+"POT-Creation-Date: 2022-11-26 10:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,13 +55,13 @@ msgid "Add site"
 msgstr ""
 
 #: views.py:34
-#, python-brace-format
-msgid "Site '{0}' created."
+#, python-format
+msgid "Site '%(object)s' created."
 msgstr ""
 
 #: views.py:39
-#, python-brace-format
-msgid "Site '{0}' updated."
+#, python-format
+msgid "Site '%(object)s' updated."
 msgstr ""
 
 #: views.py:40
@@ -73,8 +73,8 @@ msgid "Delete site"
 msgstr ""
 
 #: views.py:47
-#, python-brace-format
-msgid "Site '{0}' deleted."
+#, python-format
+msgid "Site '%(object)s' deleted."
 msgstr ""
 
 #: views.py:49

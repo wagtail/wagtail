@@ -11,15 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
-"language/be/)\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/language/be/)\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
@@ -76,7 +73,8 @@ msgid "approved notifications"
 msgstr "Паведамленне з пацвярджэннем"
 
 msgid "Receive notification when your page edit is approved"
-msgstr "Атрымліваць паведамленні, калі пацверджана рэдактаванне вашай старонкі"
+msgstr ""
+"Атрымліваць паведамленні, калі пацверджана рэдактаванне вашай старонкі"
 
 msgid "rejected notifications"
 msgstr "Паведамленні пры адхіленні"
@@ -211,8 +209,8 @@ msgstr "Неактыўны"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Прабачце, не знойдзена подыходзячых карыстальнікаў \"<em>%(query_string)s</"
-"em>\""
+"Прабачце, не знойдзена подыходзячых карыстальнікаў "
+"\"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Гурты"
@@ -224,30 +222,30 @@ msgid "Search groups"
 msgstr "Пошук гуртоў"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Створана '{0}' гуртоў."
+msgid "Group '%(object)s' created."
+msgstr "Створана '%(object)s' гуртоў."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Адноўлены '{0}' гурт."
+msgid "Group '%(object)s' updated."
+msgstr "Адноўлены '%(object)s' гурт."
 
 msgid "The group could not be saved due to errors."
 msgstr "Гурт не можа быць захавана з-за памылкі."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Гурт '{0}' выдалены."
+msgid "Group '%(object)s' deleted."
+msgstr "Гурт '%(object)s' выдалены."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Карыстальнік '{0}' адноўлены."
+msgid "User '%(object)s' updated."
+msgstr "Карыстальнік '%(object)s' адноўлены."
 
 msgid "The user could not be saved due to errors."
 msgstr "Карыстальнік не можа быць захавана з-за памылкі."
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Карыстальнік '{0}' выдалены."
+msgid "User '%(object)s' deleted."
+msgstr "Карыстальнік '%(object)s' выдалены."
 
 msgid "Edit"
 msgstr "Рэдактаванне"

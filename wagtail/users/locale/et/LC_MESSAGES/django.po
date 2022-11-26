@@ -12,19 +12,19 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
-"et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail kasutajad"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "See väärtus võib sisaldada ainult tähti, numbreid ja @/./+/-/_  märke."
+msgstr ""
+"See väärtus võib sisaldada ainult tähti, numbreid ja @/./+/-/_  märke."
 
 msgid "A user with that username already exists."
 msgstr "Selle kasutajanimega kasutaja on juba olemas."
@@ -246,34 +246,34 @@ msgid "Search groups"
 msgstr "Gruppide otsimine"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupp '{0}' on loodud."
+msgid "Group '%(object)s' created."
+msgstr "Grupp '%(object)s' on loodud."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupp '{0}' on värskendatud."
+msgid "Group '%(object)s' updated."
+msgstr "Grupp '%(object)s' on värskendatud."
 
 msgid "The group could not be saved due to errors."
 msgstr "Rühma ei õnnestunud vigade tõttu salvestada."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupp '{0}' on kustutatud."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupp '%(object)s' on kustutatud."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Kasutaja '{0}' on värskendatud."
+msgid "User '%(object)s' updated."
+msgstr "Kasutaja '%(object)s' on värskendatud."
 
 msgid "The user could not be saved due to errors."
 msgstr "Kasutajat ei õnnestunud vigade tõttu salvestada."
 
 #, python-format
-msgid "Editing %s"
-msgstr "%s muutmine"
+msgid "Editing %(object)s"
+msgstr "%(object)s muutmine"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Kasutaja '{0}' on kustutatud."
+msgid "User '%(object)s' deleted."
+msgstr "Kasutaja '%(object)s' on kustutatud."
 
 msgid "Edit"
 msgstr "Muuda"

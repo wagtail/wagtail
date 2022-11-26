@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Adeline Link, 2022\n"
-"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
-"zh/)\n"
+"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/zh/)\n"
+"Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add"
@@ -124,19 +123,19 @@ msgid "Search images"
 msgstr "搜索图片"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "图片 '{0}' 已更新"
+msgid "Image '%(image_title)s' updated."
+msgstr "图片 '%(image_title)s' 已更新"
 
 msgid "The image could not be saved due to errors."
 msgstr "图片 因为有错不能被保存"
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "图片 '{0}' 已删除."
+msgid "Image '%(image_title)s' deleted."
+msgstr "图片 '%(image_title)s' 已删除."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "图片 '{0}' 已添加."
+msgid "Image '%(image_title)s' added."
+msgstr "图片 '%(image_title)s' 已添加."
 
 msgid "The image could not be created due to errors."
 msgstr "图片因为有错不能被创建"

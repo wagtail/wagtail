@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
-"et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -184,8 +183,8 @@ msgid ""
 "upload wasn't required."
 msgstr ""
 "Üleslaadimine õnnestus. Vajadusel värskendage seda dokumenti sobivama "
-"pealkirjaga. Võite ka dokumendi täielikult kustutada, kui üleslaadimist pole "
-"vaja."
+"pealkirjaga. Võite ka dokumendi täielikult kustutada, kui üleslaadimist pole"
+" vaja."
 
 msgid "Sorry, upload failed."
 msgstr "Vabandust, üleslaadimine ebaõnnestus."
@@ -215,27 +214,27 @@ msgid "Search documents"
 msgstr "Dokumentide otsimine"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokument '{0}' on lisatud."
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' on lisatud."
 
 msgid "The document could not be saved due to errors."
 msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokumendi '{0}' värskendamine on toimunud"
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumendi '%(document_title)s' värskendamine on toimunud"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokument '{0}' on kustutatud."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' on kustutatud."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Muutke seda %s"
+msgid "Edit this %(object)s"
+msgstr "Muutke seda %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

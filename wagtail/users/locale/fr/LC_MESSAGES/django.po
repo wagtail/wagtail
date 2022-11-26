@@ -22,14 +22,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Loic Teixeira, 2018,2020-2022\n"
-"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
-"fr/)\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail users"
 msgstr "Utilisateurs Wagtail"
@@ -38,7 +36,8 @@ msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr "Requis. Seulement des lettres, chiffres et @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Cette valeur ne peut contenir que des lettres, chiffres et @/./+/-/_ ."
+msgstr ""
+"Cette valeur ne peut contenir que des lettres, chiffres et @/./+/-/_ ."
 
 msgid "A user with that username already exists."
 msgstr "Un utilisateur avec cet identifiant existe déjà."
@@ -213,7 +212,8 @@ msgstr "Supprimer le groupe"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
+"members."
 msgstr[0] ""
 "Le groupe « %(group_name)s » contient <strong>%(group_user_count)s</strong> "
 "utilisateur."
@@ -347,8 +347,8 @@ msgid ""
 "The %(group_name)s group has no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Le groupe %(group_name)s n'a pas d'utilisateur configuré. Pourquoi ne pas <a "
-"href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
+"Le groupe %(group_name)s n'a pas d'utilisateur configuré. Pourquoi ne pas <a"
+" href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
 
 #, python-format
 msgid ""
@@ -408,34 +408,34 @@ msgid "Search groups"
 msgstr "Rechercher des groupes"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Groupe « {0} » créé."
+msgid "Group '%(object)s' created."
+msgstr "Groupe « %(object)s » créé."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Groupe « {0} » mis à jour."
+msgid "Group '%(object)s' updated."
+msgstr "Groupe « %(object)s » mis à jour."
 
 msgid "The group could not be saved due to errors."
 msgstr "Le groupe ne peut être enregistré du fait d'erreurs."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Groupe « {0} » supprimé."
+msgid "Group '%(object)s' deleted."
+msgstr "Groupe « %(object)s » supprimé."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Utilisateur « {0} » mis à jour."
+msgid "User '%(object)s' updated."
+msgstr "Utilisateur « %(object)s » mis à jour."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Modification de %s"
+msgid "Editing %(object)s"
+msgstr "Modification de %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Utilisateur « {0} » supprimé."
+msgid "User '%(object)s' deleted."
+msgstr "Utilisateur « %(object)s » supprimé."
 
 msgid "Edit"
 msgstr "Modifier"

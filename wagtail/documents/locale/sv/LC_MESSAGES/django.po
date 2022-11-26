@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
-"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
-"sv/)\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -113,7 +112,8 @@ msgstr[1] ""
 "Är du säker på att du vill lägga till följande dokument i vald samling?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "Du saknar rättigheter att lägga till detta dokument till samling"
 msgstr[1] "Du saknar rättigheter att lägga till dessa dokument till samling"
 
@@ -242,8 +242,8 @@ msgid ""
 "You haven't uploaded any documents in this collection. Why not <a "
 "href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
-"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
+"Du har inte laddat upp några dokument till den här samlingen. Varför inte <a"
+" href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid ""
@@ -295,8 +295,8 @@ msgid ""
 "upload wasn't required."
 msgstr ""
 "Uppladdningen lyckades. Vänligen uppdatera det här dokumentet med en mer "
-"lämplig titel, om nödvändigt. Du kan också radera dokumentet helt och hållet "
-"om uppladdningen inte var nödvändig."
+"lämplig titel, om nödvändigt. Du kan också radera dokumentet helt och hållet"
+" om uppladdningen inte var nödvändig."
 
 msgid "Sorry, upload failed."
 msgstr "Ledsen, uppladdningen misslyckades."
@@ -366,15 +366,15 @@ msgid "Search documents"
 msgstr "Sök dokument"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokument '{0}' lades till."
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' lades till."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunde inte sparas p.g.a. fel."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokument '{0}' laddades upp"
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokument '%(document_title)s' laddades upp"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -382,16 +382,16 @@ msgstr ""
 "Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokument '{0}' borttaget."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' borttaget."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Privat %s)"
+msgid "(Private %(object)s)"
+msgstr "(Privat %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Redigera %s"
+msgid "Edit this %(object)s"
+msgstr "Redigera %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

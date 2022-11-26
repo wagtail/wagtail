@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
-"ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Wagtail documents"
 msgstr "مستندات Wagtail"
@@ -200,8 +198,8 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"تحميل ناجح. يرجى تحديث هذا المستند بعنوان أكثر ملاءمة ، إذا لزم الأمر. يمكنك "
-"أيضًا حذف المستند تمامًا إذا لم يكن التحميل مطلوبًا."
+"تحميل ناجح. يرجى تحديث هذا المستند بعنوان أكثر ملاءمة ، إذا لزم الأمر. يمكنك"
+" أيضًا حذف المستند تمامًا إذا لم يكن التحميل مطلوبًا."
 
 msgid "Sorry, upload failed."
 msgstr "عذرًا ، أخفق التحميل."
@@ -231,15 +229,15 @@ msgid "Search documents"
 msgstr "ابحث وثائق"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "اضيف '{0}' مستند"
+msgid "Document '%(document_title)s' added."
+msgstr "اضيف '%(document_title)s' مستند"
 
 msgid "The document could not be saved due to errors."
 msgstr "كان من غير الممكن حفظ الوثيقة بسبب أخطاء"
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "تحديث '{0}'  مستند"
+msgid "Document '%(document_title)s' updated"
+msgstr "تحديث '%(document_title)s'  مستند"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -247,12 +245,12 @@ msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "حذف '{0}' مستند"
+msgid "Document '%(document_title)s' deleted."
+msgstr "حذف '%(document_title)s' مستند"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "تحرير هذا %s"
+msgid "Edit this %(object)s"
+msgstr "تحرير هذا %(object)s"
 
 msgid "Document"
 msgstr "مستند"

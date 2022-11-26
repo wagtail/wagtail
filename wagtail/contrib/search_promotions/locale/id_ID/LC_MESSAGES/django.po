@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
-"wagtail/language/id_ID/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail search promotions"
@@ -103,8 +102,8 @@ msgstr "Tidak ada"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Maaf, tidak ada hasil terpromosi yang sesuai dengan \"<em>%(query_string)s</"
-"em>\""
+"Maaf, tidak ada hasil terpromosi yang sesuai dengan "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -118,8 +117,8 @@ msgid "Search promoted results"
 msgstr "Pencarian hasil terpromosi"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Pilihan editor untuk '{0}' telah dibuat."
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Pilihan editor untuk '%(query)s' telah dibuat."
 
 msgid "Edit"
 msgstr "Ubah"
@@ -128,8 +127,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendasi tidak dapat dibuat karena suatu kesalahan."
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Pilihan editor untuk '{0}' telah diperbarui."
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Pilihan editor untuk '%(query)s' telah diperbarui."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Rekomendasi tidak dapat disimpan karena suatu kesalahan."

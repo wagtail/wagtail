@@ -11,16 +11,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
-"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
-"<rmsolucoeseminformatica@protonmail.com>, 2021-2022\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
-"wagtail/language/pt_BR/)\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021-2022\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail ModelAdmin"
 msgstr "Wagtail ModelAdmin"
@@ -29,47 +26,47 @@ msgid "Parent page"
 msgstr "Página raíz"
 
 #, python-format
-msgid "Add %s"
-msgstr "Adicionar %s"
+msgid "Add %(object)s"
+msgstr "Adicionar %(object)s"
 
 #, python-format
-msgid "Add a new %s"
-msgstr "Adicionar um novo %s"
+msgid "Add a new %(object)s"
+msgstr "Adicionar um novo %(object)s"
 
 msgid "Inspect"
 msgstr "Inspecionar"
 
 #, python-format
-msgid "Inspect this %s"
-msgstr "Inspecionando este %s"
+msgid "Inspect this %(object)s"
+msgstr "Inspecionando este %(object)s"
 
 msgid "Edit"
 msgstr "Editar"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
 
 msgid "Delete"
 msgstr "Excluir"
 
 #, python-format
-msgid "Delete this %s"
-msgstr "Remover este %s"
+msgid "Delete this %(object)s"
+msgstr "Remover este %(object)s"
 
 msgid "Unpublish"
 msgstr "Despublicar"
 
 #, python-format
-msgid "Unpublish this %s"
-msgstr "Despublicar este %s"
+msgid "Unpublish this %(object)s"
+msgstr "Despublicar este %(object)s"
 
 msgid "Copy"
 msgstr "Copiar"
 
 #, python-format
-msgid "Copy this %s"
-msgstr "Copiar este %s"
+msgid "Copy this %(object)s"
+msgstr "Copiar este %(object)s"
 
 msgid "image"
 msgstr "imagem"
@@ -108,8 +105,8 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"'%(instance_name)s' é atualmente referenciada por outros objetos, e não pode "
-"ser excluído, sem comprometer a integridade dos dados. Para excluí-lo com "
+"'%(instance_name)s' é atualmente referenciada por outros objetos, e não pode"
+" ser excluído, sem comprometer a integridade dos dados. Para excluí-lo com "
 "sucesso, em primeiro lugar remover referências a partir dos seguintes "
 "objetos, em seguida, tente novamente:"
 
@@ -190,57 +187,57 @@ msgid "Next"
 msgstr "Próximo"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' created."
-msgstr "%(model_name)s '%(instance)s' criado."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' criado."
 
 #, python-format
-msgid "The %s could not be created due to errors."
-msgstr "O %s não pode ser criado devido a erros."
+msgid "The %(object)s could not be created due to errors."
+msgstr "O %(object)s não pode ser criado devido a erros."
 
 msgid "New"
 msgstr "Adicionar"
 
 #, python-format
-msgid "Create new %s"
-msgstr "Adicionar novo %s"
+msgid "Create new %(object)s"
+msgstr "Adicionar novo %(object)s"
 
 msgid "Editing"
 msgstr "Editando"
 
 #, python-format
-msgid "Editing %s"
-msgstr "Editando %s"
+msgid "Editing %(object)s"
+msgstr "Editando %(object)s"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' updated."
-msgstr "%(model_name)s '%(instance)s' atualizado."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' atualizado."
 
 #, python-format
-msgid "The %s could not be saved due to errors."
-msgstr "O %s não pôde ser salvo devido a erros."
+msgid "The %(object)s could not be saved due to errors."
+msgstr "O %(object)s não pôde ser salvo devido a erros."
 
 #, python-format
-msgid "Confirm deletion of %s"
-msgstr "Confirmar a exclusão de %s"
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirmar a exclusão de %(object)s"
 
 #, python-format
 msgid ""
-"Are you sure you want to delete this %s? If other things in your site are "
-"related to it, they may also be affected."
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
 msgstr ""
-"Tem certeza de que quer apagar este %s? Se outras coisas em seu site estão "
-"relacionadas a ele, eles também podem ser afetados."
+"Tem certeza de que quer apagar este %(object)s? Se outras coisas em seu site"
+" estão relacionadas a ele, eles também podem ser afetados."
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' deleted."
-msgstr "%(model_name)s '%(instance)s' excluído."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' excluído."
 
 msgid "Inspecting"
 msgstr "Inspecionando"
 
 #, python-format
-msgid "Inspecting %s"
-msgstr "Inspecionando %s"
+msgid "Inspecting %(object)s"
+msgstr "Inspecionando %(object)s"
 
 msgid "Action"
 msgstr "Ação"

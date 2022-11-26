@@ -1,4 +1,3 @@
-#
 # Translators:
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2022
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2022
@@ -14,13 +13,12 @@ msgid ""
 msgstr ""
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-msgid "({number} new items in this menu)"
-msgstr "({number} nuevos items en este menú)"
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nuevos items en este menú)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 elemento nuevo en este menú)"
@@ -28,11 +26,11 @@ msgstr "(1 elemento nuevo en este menú)"
 msgid "(New)"
 msgstr "(Nuevo)"
 
-msgid "{num} error"
-msgid_plural "{num} errors"
-msgstr[0] "{num} error"
-msgstr[1] "{num} errores"
-msgstr[2] "{num} errores"
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s error"
+msgstr[1] "%(num)s errores"
+msgstr[2] "%(num)s errores"
 
 msgid "Add a comment"
 msgstr "Añadir un comentario"
@@ -82,8 +80,8 @@ msgstr "Eliminando"
 msgid "Edit"
 msgstr "Editar"
 
-msgid "Edit '{title}'"
-msgstr "Editar '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Editar tu cuenta"
@@ -217,8 +215,8 @@ msgstr "Alternar menú lateral"
 msgid "Unfocus comment"
 msgstr "Desenfocar comentario"
 
-msgid "View child pages of '{title}'"
-msgstr "Ver páginas hijas de '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Ver páginas hijas de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Escribe algo o pulsa '/' para insertar un bloque"

@@ -24,15 +24,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2021-2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
-"ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Пользователи Wagtail"
@@ -111,8 +108,8 @@ msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
 "on a page that you have subscribed to receive comment notifications on"
 msgstr ""
-"Получать уведомление, когда комментарии были созданы, закрыты или удалены на "
-"странице, на которую вы подписались"
+"Получать уведомление, когда комментарии были созданы, закрыты или удалены на"
+" странице, на которую вы подписались"
 
 msgid "preferred language"
 msgstr "Предпочтительный язык"
@@ -403,34 +400,34 @@ msgid "Search groups"
 msgstr "Поиск групп"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Группа '{0}' создана."
+msgid "Group '%(object)s' created."
+msgstr "Группа '%(object)s' создана."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Группа '{0}' обновлена."
+msgid "Group '%(object)s' updated."
+msgstr "Группа '%(object)s' обновлена."
 
 msgid "The group could not be saved due to errors."
 msgstr "Группа не может быть сохранена из-за ошибок."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Группа '{0}' удалена."
+msgid "Group '%(object)s' deleted."
+msgstr "Группа '%(object)s' удалена."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Пользователь '{0}' обновлен."
+msgid "User '%(object)s' updated."
+msgstr "Пользователь '%(object)s' обновлен."
 
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Редактирование %s"
+msgid "Editing %(object)s"
+msgstr "Редактирование %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Пользователь '{0}' удалён."
+msgid "User '%(object)s' deleted."
+msgstr "Пользователь '%(object)s' удалён."
 
 msgid "Edit"
 msgstr "Править"

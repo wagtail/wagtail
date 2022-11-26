@@ -1,4 +1,3 @@
-#
 # Translators:
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2022
 # Vassily <zuber.kg@gmail.com>, 2022
@@ -15,14 +14,12 @@ msgid ""
 msgstr ""
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-msgid "({number} new items in this menu)"
-msgstr "({number} новых элементов в этом меню)"
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s новых элементов в этом меню)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 новый элемент в этом меню)"
@@ -78,8 +75,8 @@ msgstr "Удаление"
 msgid "Edit"
 msgstr "Редактировать"
 
-msgid "Edit '{title}'"
-msgstr "Редактировать '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Редактировать '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
@@ -212,8 +209,8 @@ msgstr "Переключить боковую панель"
 msgid "Unfocus comment"
 msgstr "Убрать фокус"
 
-msgid "View child pages of '{title}'"
-msgstr "Показать дочерние страницы '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Показать дочерние страницы '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Напишите что-нибудь или введите «/», чтобы вставить блок"

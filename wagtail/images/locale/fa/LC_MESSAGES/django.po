@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
-"fa/)\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/fa/)\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "GIF, JPEG, PNG, WEBP"
@@ -39,20 +38,25 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "فورمت‌های پشتیبانی‌شده: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "فورمت تصویر پشتیبانی نمی‌شود. فورمت های مورد قبول: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"فورمت تصویر پشتیبانی نمی‌شود. فورمت های مورد قبول: %(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "تصویر %s معتبری نیست."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "این فایل بیش از حد بزرگ است (%%s). حداکثر ظرفیت ممکن %s است."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"این فایل بیش از حد بزرگ است (%(file_size)s). حداکثر ظرفیت ممکن "
+"%(max_filesize)s است."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "این فایل بیش از حد بزرگ است. حداکثر اندازه %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "این فایل بیش از حد بزرگ است. حداکثر اندازه %(max_filesize)s."
 
 msgid "Full width"
 msgstr "عرض کامل"
@@ -365,8 +369,8 @@ msgid "Search images"
 msgstr "جستجوی تصاویر"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "تصویر '{0}' بروزرسانی شد."
+msgid "Image '%(image_title)s' updated."
+msgstr "تصویر '%(image_title)s' بروزرسانی شد."
 
 msgid "Edit again"
 msgstr "ویرایش مجدد"
@@ -375,24 +379,24 @@ msgid "The image could not be saved due to errors."
 msgstr "به دلیل بروز خطا این تصویر ذخیره نشد."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr "تصویر منبع پیدا نشد. لطفا منبع را تغییر دهید یا تصویر را حذف نمایید."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "تصویر '{0}' حذف شد."
+msgid "Image '%(image_title)s' deleted."
+msgstr "تصویر '%(image_title)s' حذف شد."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "تصویر '{0}' اضافه شد."
+msgid "Image '%(image_title)s' added."
+msgstr "تصویر '%(image_title)s' اضافه شد."
 
 msgid "The image could not be created due to errors."
 msgstr "به دلیل بروز خطا تصویر ایجاد نشد."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "ویرایش این %s"
+msgid "Edit this %(object)s"
+msgstr "ویرایش این %(object)s"
 
 msgid "Image"
 msgstr "تصویر"

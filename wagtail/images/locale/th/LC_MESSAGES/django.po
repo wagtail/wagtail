@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
-"th/)\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail images"
@@ -27,27 +26,30 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"รูปที่สามารถใช้ได้: %(supported_formats)s. ขนาดไฟล์สูงสุด: %(max_upload_size)s."
+"รูปที่สามารถใช้ได้: %(supported_formats)s. ขนาดไฟล์สูงสุด: "
+"%(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "รูปที่สามารถใช้ได้: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "รูปนี้ใช้ไม่ได้ รูปที่สามารถใช้ได้: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "รูปนี้ใช้ไม่ได้ รูปที่สามารถใช้ได้: %(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "ไม่ถูกต้อง %s รูปภาพ"
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "ไฟล์นี้ใหญ่เกินไป (%%s). ขนาดไฟล์สูงสุด %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "ไฟล์นี้ใหญ่เกินไป (%(file_size)s). ขนาดไฟล์สูงสุด %(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "ไฟล์นี้ใหญ่เกินไป ขนาดไฟล์สูงสุด %s"
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "ไฟล์นี้ใหญ่เกินไป ขนาดไฟล์สูงสุด %(max_filesize)s"
 
 msgid "Full width"
 msgstr "ความกว้างแบบเต็ม"
@@ -249,8 +251,7 @@ msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
 msgstr ""
-"ให้สังเกตภาพที่คุณสร้างที่ใหญ่กว่าหน้าจอมันจะเล็กกว่าของจริงเมื่อคุณขอดูภาพตัวอย่าง,"
-"มันจะได้อยู่ในหน้าจอ"
+"ให้สังเกตภาพที่คุณสร้างที่ใหญ่กว่าหน้าจอมันจะเล็กกว่าของจริงเมื่อคุณขอดูภาพตัวอย่าง,มันจะได้อยู่ในหน้าจอ"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -282,8 +283,8 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"การอัพโหลดสำเร็จ กรุณาอัพเดทรูปนี้กับใช้หัวข้อให้เหมาะสมมากกว่านี้,ถ้าจำเป็น คุณสามารถลบทิ้งรูปนี้ "
-"ถ้าคุณไม่จำเป็นต้องอัพโหลด"
+"การอัพโหลดสำเร็จ กรุณาอัพเดทรูปนี้กับใช้หัวข้อให้เหมาะสมมากกว่านี้,ถ้าจำเป็น"
+" คุณสามารถลบทิ้งรูปนี้ ถ้าคุณไม่จำเป็นต้องอัพโหลด"
 
 msgid "Sorry, upload failed."
 msgstr "ขออภัย,การอัพโหลดผิดพลาด"
@@ -319,8 +320,8 @@ msgid "Search images"
 msgstr "ค้นหารูปภาพ"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "รูปภาพ'{0}'ถูกอัพเดทแล้ว"
+msgid "Image '%(image_title)s' updated."
+msgstr "รูปภาพ'%(image_title)s'ถูกอัพเดทแล้ว"
 
 msgid "Edit again"
 msgstr "แก้ไขอีกครั้ง"
@@ -329,24 +330,24 @@ msgid "The image could not be saved due to errors."
 msgstr "รูปภาพไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr "ไม่สามารถพบต้นฉบับของไฟล์รูป กรุณาเปลี่ยนต้นฉบับหรือลบรูปทิ้ง"
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "รูปภาพ'{0}'ถูกลบแล้ว"
+msgid "Image '%(image_title)s' deleted."
+msgstr "รูปภาพ'%(image_title)s'ถูกลบแล้ว"
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "รูปภาพ'{0}' ถูกเพิ่มเรียบร้อยแล้ว"
+msgid "Image '%(image_title)s' added."
+msgstr "รูปภาพ'%(image_title)s' ถูกเพิ่มเรียบร้อยแล้ว"
 
 msgid "The image could not be created due to errors."
 msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "แก้ไขสิ่งนี้ %s"
+msgid "Edit this %(object)s"
+msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Image"
 msgstr "รูปภาพ"

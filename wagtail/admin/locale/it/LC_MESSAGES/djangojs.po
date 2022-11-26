@@ -1,4 +1,3 @@
-#
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2022
 # Stefano Marchetto <airbatum@gmail.com>, 2022
@@ -12,10 +11,9 @@ msgid ""
 msgstr ""
 "Last-Translator: gcm, 2022\n"
 "Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add a comment"
 msgstr "Aggiungi un commento"
@@ -56,8 +54,8 @@ msgstr "Eliminazione in corso"
 msgid "Edit"
 msgstr "Modifica"
 
-msgid "Edit '{title}'"
-msgstr "Modifica '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Modifica '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Modifica il tuo account"
@@ -168,5 +166,5 @@ msgstr "Attiva/disattiva barra laterale"
 msgid "Unfocus comment"
 msgstr "Deseleziona commento"
 
-msgid "View child pages of '{title}'"
-msgstr "Mostra sotto-pagine di '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Mostra sotto-pagine di '%(title)s'"

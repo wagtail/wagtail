@@ -11,14 +11,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, "
-"2016,2018-2019\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
-"language/nb/)\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018-2019\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail redirects"
@@ -144,8 +142,8 @@ msgid "Search redirects"
 msgstr "Videresendinger for søk"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Videresendingen \"{0}\" er oppdatert."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Videresendingen \"%(redirect_title)s\" er oppdatert."
 
 msgid "Edit"
 msgstr "Endre"
@@ -154,12 +152,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Videresendingen kunne ikke lagres grunnet feil."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Videresendingen \"{0}\" er slettet."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Videresendingen \"%(redirect_title)s\" er slettet."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Videresendingen \"{0}\" er lagt til."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Videresendingen \"%(redirect_title)s\" er lagt til."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Videresendingen kunne ikke opprettes grunnet feil."

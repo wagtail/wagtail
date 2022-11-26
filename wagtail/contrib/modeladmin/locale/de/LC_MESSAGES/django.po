@@ -18,12 +18,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
-"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
-"de/)\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail ModelAdmin"
@@ -33,47 +32,47 @@ msgid "Parent page"
 msgstr "Übergeordnete Seite"
 
 #, python-format
-msgid "Add %s"
-msgstr "%s hinzufügen"
+msgid "Add %(object)s"
+msgstr "%(object)s hinzufügen"
 
 #, python-format
-msgid "Add a new %s"
-msgstr "%s hinzufügen"
+msgid "Add a new %(object)s"
+msgstr "%(object)s hinzufügen"
 
 msgid "Inspect"
 msgstr "Ansehen"
 
 #, python-format
-msgid "Inspect this %s"
-msgstr "%s ansehen"
+msgid "Inspect this %(object)s"
+msgstr "%(object)s ansehen"
 
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s bearbeiten"
+msgid "Edit this %(object)s"
+msgstr "%(object)s bearbeiten"
 
 msgid "Delete"
 msgstr "Löschen"
 
 #, python-format
-msgid "Delete this %s"
-msgstr "%s löschen"
+msgid "Delete this %(object)s"
+msgstr "%(object)s löschen"
 
 msgid "Unpublish"
 msgstr "Veröffentlichung aufheben"
 
 #, python-format
-msgid "Unpublish this %s"
-msgstr "Veröffentlichung von %s aufheben"
+msgid "Unpublish this %(object)s"
+msgstr "Veröffentlichung von %(object)s aufheben"
 
 msgid "Copy"
 msgstr "Kopieren"
 
 #, python-format
-msgid "Copy this %s"
-msgstr "%s kopieren"
+msgid "Copy this %(object)s"
+msgstr "%(object)s kopieren"
 
 msgid "image"
 msgstr "Bild"
@@ -113,8 +112,8 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"'%(instance_name)s' wird momentan von anderen Objekten referenziert und kann "
-"nicht gelöscht werden, ohne die Integrität Ihrer Daten zu gefährden. "
+"'%(instance_name)s' wird momentan von anderen Objekten referenziert und kann"
+" nicht gelöscht werden, ohne die Integrität Ihrer Daten zu gefährden. "
 "Entfernen Sie bitte zuerst die Verweise von den folgenden Objekten und "
 "probieren Sie das Löschen erneut:"
 
@@ -195,57 +194,58 @@ msgid "Next"
 msgstr "Nächste"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' created."
-msgstr "%(model_name)s '%(instance)s' erstellt."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' erstellt."
 
 #, python-format
-msgid "The %s could not be created due to errors."
-msgstr "%s konnte aufgrund von Fehlern nicht erstellt werden."
+msgid "The %(object)s could not be created due to errors."
+msgstr "%(object)s konnte aufgrund von Fehlern nicht erstellt werden."
 
 msgid "New"
 msgstr "Neu"
 
 #, python-format
-msgid "Create new %s"
-msgstr "%s erstellen"
+msgid "Create new %(object)s"
+msgstr "%(object)s erstellen"
 
 msgid "Editing"
 msgstr "Bearbeite"
 
 #, python-format
-msgid "Editing %s"
-msgstr "Bearbeite %s"
+msgid "Editing %(object)s"
+msgstr "Bearbeite %(object)s"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' updated."
-msgstr "%(model_name)s '%(instance)s' geändert."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' geändert."
 
 #, python-format
-msgid "The %s could not be saved due to errors."
-msgstr "%s konnte aufgrund von Fehlern nicht gespeichert werden."
+msgid "The %(object)s could not be saved due to errors."
+msgstr "%(object)s konnte aufgrund von Fehlern nicht gespeichert werden."
 
 #, python-format
-msgid "Confirm deletion of %s"
-msgstr "Löschen von %s bestätigen"
+msgid "Confirm deletion of %(object)s"
+msgstr "Löschen von %(object)s bestätigen"
 
 #, python-format
 msgid ""
-"Are you sure you want to delete this %s? If other things in your site are "
-"related to it, they may also be affected."
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
 msgstr ""
-"Sind Sie sicher, dass Sie dieses „%s“-Objekt löschen möchten? Andere Objekte "
-"Ihrer Seite, die damit verknüpft sind, können davon beeinträchtigt werden."
+"Sind Sie sicher, dass Sie dieses „%(object)s“-Objekt löschen möchten? Andere"
+" Objekte Ihrer Seite, die damit verknüpft sind, können davon beeinträchtigt "
+"werden."
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' deleted."
-msgstr "%(model_name)s '%(instance)s' gelöscht."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' gelöscht."
 
 msgid "Inspecting"
 msgstr "Ansehen"
 
 #, python-format
-msgid "Inspecting %s"
-msgstr "%s ansehen"
+msgid "Inspecting %(object)s"
+msgstr "%(object)s ansehen"
 
 msgid "Action"
 msgstr "Aktion"

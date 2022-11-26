@@ -20,16 +20,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
-"<rmsolucoeseminformatica@protonmail.com>, 2022\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
-"wagtail/language/pt_BR/)\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2022\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/wagtail/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail users"
 msgstr "Usuários Wagtail"
@@ -211,7 +208,8 @@ msgstr "Remover grupo"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
+"members."
 msgstr[0] ""
 "O grupo '%(group_name)s' possui <strong>%(group_user_count)s</strong> "
 "usuários."
@@ -402,34 +400,34 @@ msgid "Search groups"
 msgstr "Grupos de busca"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupo '{0}' criado."
+msgid "Group '%(object)s' created."
+msgstr "Grupo '%(object)s' criado."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupo '{0}' atualizado."
+msgid "Group '%(object)s' updated."
+msgstr "Grupo '%(object)s' atualizado."
 
 msgid "The group could not be saved due to errors."
 msgstr "O grupo não pôde ser salvo por conter erros."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupo '{0}' removido."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupo '%(object)s' removido."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Usuário '{0}' atualizado."
+msgid "User '%(object)s' updated."
+msgstr "Usuário '%(object)s' atualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuário não pôde ser salvo devido à erros."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Editando %s"
+msgid "Editing %(object)s"
+msgstr "Editando %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Usuário '{0}' removido."
+msgid "User '%(object)s' deleted."
+msgstr "Usuário '%(object)s' removido."
 
 msgid "Edit"
 msgstr "Editar"

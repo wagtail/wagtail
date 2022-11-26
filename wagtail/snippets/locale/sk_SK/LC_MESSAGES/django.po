@@ -13,14 +13,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
-"language/sk_SK/)\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/language/sk_SK/)\n"
+"Language: sk_SK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk_SK\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
-">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Publish"
 msgstr "Publikovať"
@@ -114,8 +112,8 @@ msgid "The snippet could not be saved due to errors."
 msgstr "Snipet nemôže byť uložený kvôli chybám."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Upraviť toto %s"
+msgid "Edit this %(object)s"
+msgstr "Upraviť toto %(object)s"
 
 msgid "User"
 msgstr "Používateľ"
@@ -124,9 +122,9 @@ msgid "Date"
 msgstr "Dátum"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Vybrať %s"
+msgid "Choose %(object)s"
+msgstr "Vybrať %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Vybrať iný %s"
+msgid "Choose another %(object)s"
+msgstr "Vybrať iný %(object)s"

@@ -17,14 +17,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
-"sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Objavi"
@@ -32,11 +30,11 @@ msgstr "Objavi"
 msgid "Submit for moderation"
 msgstr "Oddaj v potrditev"
 
-msgid "Resubmit to {}"
-msgstr "Ponovno pošljite na {}"
+msgid "Resubmit to %(task_name)s"
+msgstr "Ponovno pošljite na %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Pošlji na {}"
+msgid "Submit to %(workflow_name)s"
+msgstr "Pošlji na %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Znova zaženite potek dela"
@@ -100,8 +98,8 @@ msgid "Enter password"
 msgstr "Vnesite geslo"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Vnesite %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "Vnesite %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
@@ -208,7 +206,8 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s kopirani strani sta objavljeni. Želite objaviti tudi njuni kopiji."
 msgstr[2] ""
-"%(count)s kopirane strani so objavljene. Želite objaviti tudi njihove kopije."
+"%(count)s kopirane strani so objavljene. Želite objaviti tudi njihove "
+"kopije."
 msgstr[3] ""
 "%(count)s kopiranih strani je objavljenih. Želite objaviti tudi njihove "
 "kopije."
@@ -225,8 +224,11 @@ msgstr "Nimate dovoljenja za kopiranje v stran \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "Ključ je že v uporabi znotraj konteksta nadrejene strani \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Ključ je že v uporabi znotraj konteksta nadrejene strani "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Pri kopiranju podstrani strani ne morete kopirate same vase"
@@ -250,8 +252,8 @@ msgid "All types"
 msgstr "Vse vrste"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Ta stran ima že dodeljen potek dela '{0}' ."
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Ta stran ima že dodeljen potek dela '%(workflow_name)s' ."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Tega poteka dela ne morete večkrat dodeliti isti strani."
@@ -269,12 +271,12 @@ msgid "1 page selected"
 msgstr "Izbrana je 1 stran"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} strani izbranih"
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s strani izbranih"
 
 #, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "Vse {0} strani na zaslonu izbrane"
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Vse %(objects)s strani na zaslonu izbrane"
 
 msgid "All pages in listing selected"
 msgstr "Izbrane so vse strani na seznamu"
@@ -283,12 +285,12 @@ msgid "1 document selected"
 msgstr "Izbran je 1 dokument"
 
 #, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} dokumentov izbranih"
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s dokumentov izbranih"
 
 #, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "Vsi  {0} dokumenti na tem zaslonu so izbrani"
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Vsi  %(objects)s dokumenti na tem zaslonu so izbrani"
 
 msgid "All documents in listing selected"
 msgstr "Izbrani so vsi dokumenti na seznamu"
@@ -297,12 +299,12 @@ msgid "1 image selected"
 msgstr "1 slika izbrana"
 
 #, python-brace-format
-msgid "{0} images selected"
-msgstr "{0} slik izbranih"
+msgid "%(objects)s images selected"
+msgstr "%(objects)s slik izbranih"
 
 #, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "Izbranih je vseh {0} slik na tem zaslonu"
+msgid "All %(objects)s images on this screen selected"
+msgstr "Izbranih je vseh %(objects)s slik na tem zaslonu"
 
 msgid "All images in listing selected"
 msgstr "Izbrane so vse slike na seznamu"
@@ -311,12 +313,12 @@ msgid "1 user selected"
 msgstr "1 uporabnik izbran"
 
 #, python-brace-format
-msgid "{0} users selected"
-msgstr "{0} uporabnikov izbranih"
+msgid "%(objects)s users selected"
+msgstr "%(objects)s uporabnikov izbranih"
 
 #, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "Izbranih je vseh {0} uporabnikov na tem zaslonu"
+msgid "All %(objects)s users on this screen selected"
+msgstr "Izbranih je vseh %(objects)s uporabnikov na tem zaslonu"
 
 msgid "All users in listing selected"
 msgstr "Izbrani so vsi uporabniki na seznamu"
@@ -325,12 +327,12 @@ msgid "1 item selected"
 msgstr "1 element je izbran"
 
 #, python-brace-format
-msgid "{0} items selected"
-msgstr "{0} elementov izbranih"
+msgid "%(objects)s items selected"
+msgstr "%(objects)s elementov izbranih"
 
 #, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "Izbranih je vseh {0} elementov na tem zaslonu"
+msgid "All %(objects)s items on this screen selected"
+msgstr "Izbranih je vseh %(objects)s elementov na tem zaslonu"
 
 msgid "All items in listing selected"
 msgstr "Izbrani so vsi elementi na seznamu"
@@ -403,8 +405,8 @@ msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"Povezava za ponastavitev gesla je bila poslana na vaš e-naslov, če ta e-"
-"naslov obstaja."
+"Povezava za ponastavitev gesla je bila poslana na vaš e-naslov, če ta "
+"e-naslov obstaja."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Sledite spodnji povezavi za ponastavitev gesla:"
@@ -726,10 +728,8 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stran \"%(page)s\" je bila oddana v potrditev"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr ""
-"Ta stran \"%(title)s\" je bilo odobreno v moderatorki fazi \"%(task)s\"."
+msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "Ta stran \"%(title)s\" je bilo odobreno v moderatorki fazi \"%(task)s\"."
 
 msgid "New comments"
 msgstr "Nov komentar"
@@ -900,8 +900,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Lahko pa prekličete <a href=\"%(unpublish_url)s\"> objavo strani </a>. S tem "
-"stran odstranite iz javnega pogleda in jo lahko pozneje znova uredite ali "
+"Lahko pa prekličete <a href=\"%(unpublish_url)s\"> objavo strani </a>. S tem"
+" stran odstranite iz javnega pogleda in jo lahko pozneje znova uredite ali "
 "objavite."
 
 #, python-format
@@ -1018,8 +1018,8 @@ msgid ""
 "associated with a site."
 msgstr ""
 "Na korenski ravni lahko svoji namestitvi Wagtail dodate nova mesta. Tu "
-"ustvarjene strani ne bodo dostopne na nobenem URL-ju, dokler niso povezane s "
-"spletnim mestom."
+"ustvarjene strani ne bodo dostopne na nobenem URL-ju, dokler niso povezane s"
+" spletnim mestom."
 
 msgid "Configure a site now."
 msgstr "Nastavite spletno mesto sedaj."
@@ -1460,8 +1460,8 @@ msgid "Delete collection"
 msgstr "Izbriši zbirko"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Zbirka '{0}' izbrisana."
+msgid "Collection '%(object)s' deleted."
+msgstr "Zbirka '%(object)s' izbrisana."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ali ste prepričani, da želite izbrisati to zbirko?"
@@ -1500,12 +1500,12 @@ msgid "1 page has been unpublished"
 msgstr "1 stran je bila preklicana"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Stran '{0}' in {1} podstrani kopiranih."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Stran '%(page_title)s' in %(subpages_count)s podstrani kopiranih."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Stran '{0}' kopirana."
+msgid "Page '%(page_title)s' copied."
+msgstr "Stran '%(page_title)s' kopirana."
 
 msgid "View draft"
 msgstr "Poglej osnutek"
@@ -1514,46 +1514,46 @@ msgid "View live"
 msgstr "Ogled v živo"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Stran '{0}' ustvarjena."
+msgid "Page '%(page_title)s' created."
+msgstr "Stran '%(page_title)s' ustvarjena."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Stran '%(page_title)s' ustvarjena in načrtovana za objavo."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Stran '{0}' ustvarjena in objavljena."
+msgid "Page '%(page_title)s' created and published."
+msgstr "Stran '%(page_title)s' ustvarjena in objavljena."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Stran '%(page_title)s' ustvarjena in oddana v potrditev."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Stran '{0}' izbrisana."
+msgid "Page '%(page_title)s' deleted."
+msgstr "Stran '%(page_title)s' izbrisana."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Stran trenutno čaka na potrditev"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Stran '{0}' je posodobljena."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Stran '%(page_title)s' je posodobljena."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Stran '{0}' je načrtovana za objavo."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Stran '%(page_title)s' je načrtovana za objavo."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Stran '{0}' je objavljena."
+msgid "Page '%(page_title)s' has been published."
+msgstr "Stran '%(page_title)s' je objavljena."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Stran '{0}' je bila oddana v potrditev."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Stran '%(page_title)s' je bila oddana v potrditev."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
@@ -1565,28 +1565,28 @@ msgid "Page history"
 msgstr "Zgodovina strani"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Stran '{0}' je sedaj odklenjena."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Stran '%(page_title)s' je sedaj odklenjena."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Stran '{0}' trenutno ne čaka na potrditev."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Stran '%(page_title)s' trenutno ne čaka na potrditev."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Stran '{0}' objavljena."
+msgid "Page '%(page_title)s' published."
+msgstr "Stran '%(page_title)s' objavljena."
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Objava strani '{0}' zavrnjena."
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Objava strani '%(page_title)s' zavrnjena."
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Stran '{0}' premaknjena."
+msgid "Page '%(page_title)s' moved."
+msgstr "Stran '%(page_title)s' premaknjena."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Stran '{0}' umaknjena iz objave."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Stran '%(page_title)s' umaknjena iz objave."
 
 msgid "Aging pages"
 msgstr "Zgodovina strani"
@@ -1715,8 +1715,8 @@ msgid "Reports"
 msgstr "Poročila"
 
 #, python-brace-format
-msgid "What's new in Wagtail {version}"
-msgstr "Kaj je novega v Wagtail {version}"
+msgid "What's new in Wagtail %(version)s"
+msgstr "Kaj je novega v Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Vodič po urejevalniku"

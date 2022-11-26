@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Loic Teixeira, 2020-2022\n"
-"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
-"fr/)\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail ModelAdmin"
 msgstr "ModelAdmin Wagtail"
@@ -31,47 +29,47 @@ msgid "Parent page"
 msgstr "Page parente"
 
 #, python-format
-msgid "Add %s"
-msgstr "Ajouter un(e) %s"
+msgid "Add %(object)s"
+msgstr "Ajouter un(e) %(object)s"
 
 #, python-format
-msgid "Add a new %s"
-msgstr "Ajouter un(e) autre %s"
+msgid "Add a new %(object)s"
+msgstr "Ajouter un(e) autre %(object)s"
 
 msgid "Inspect"
 msgstr "Inspecter"
 
 #, python-format
-msgid "Inspect this %s"
-msgstr "Inspecter ce/cette %s"
+msgid "Inspect this %(object)s"
+msgstr "Inspecter ce/cette %(object)s"
 
 msgid "Edit"
 msgstr "Modifier"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Modifier ce/cette %s"
+msgid "Edit this %(object)s"
+msgstr "Modifier ce/cette %(object)s"
 
 msgid "Delete"
 msgstr "Supprimer"
 
 #, python-format
-msgid "Delete this %s"
-msgstr "Supprimer ce %s"
+msgid "Delete this %(object)s"
+msgstr "Supprimer ce %(object)s"
 
 msgid "Unpublish"
 msgstr "Dépublier"
 
 #, python-format
-msgid "Unpublish this %s"
-msgstr "Dépublier ce/cette %s"
+msgid "Unpublish this %(object)s"
+msgstr "Dépublier ce/cette %(object)s"
 
 msgid "Copy"
 msgstr "Copier"
 
 #, python-format
-msgid "Copy this %s"
-msgstr "Copier ce %s"
+msgid "Copy this %(object)s"
+msgstr "Copier ce %(object)s"
 
 msgid "image"
 msgstr "image"
@@ -88,8 +86,8 @@ msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
-"%(plural)s peut être ajouté à plusieurs endroits de votre site. Laquelle des "
-"pages suivantes souhaitez vous avoir comme parente de votre nouvelle page ?"
+"%(plural)s peut être ajouté à plusieurs endroits de votre site. Laquelle des"
+" pages suivantes souhaitez vous avoir comme parente de votre nouvelle page ?"
 
 msgid "Continue"
 msgstr "Continuer"
@@ -168,8 +166,8 @@ msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
-"Aucun %(name)s n'a été créé pour l'instant. L'un des suivants doit être créé "
-"avant de pouvoir ajouter un %(name)s :"
+"Aucun %(name)s n'a été créé pour l'instant. L'un des suivants doit être créé"
+" avant de pouvoir ajouter un %(name)s :"
 
 #, python-format
 msgid "No %(name)s have been created yet."
@@ -193,57 +191,58 @@ msgid "Next"
 msgstr "Suivant"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' created."
-msgstr "%(model_name)s « %(instance)s » créé(e)."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s « %(object)s » créé(e)."
 
 #, python-format
-msgid "The %s could not be created due to errors."
-msgstr "Le/la %s ne peut être créé(e) du fait d'erreurs."
+msgid "The %(object)s could not be created due to errors."
+msgstr "Le/la %(object)s ne peut être créé(e) du fait d'erreurs."
 
 msgid "New"
 msgstr "Nouveau"
 
 #, python-format
-msgid "Create new %s"
-msgstr "Créer un(e) autre %s"
+msgid "Create new %(object)s"
+msgstr "Créer un(e) autre %(object)s"
 
 msgid "Editing"
 msgstr "Modification"
 
 #, python-format
-msgid "Editing %s"
-msgstr "Modification de %s"
+msgid "Editing %(object)s"
+msgstr "Modification de %(object)s"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' updated."
-msgstr "%(model_name)s « %(instance)s » modifié(e)."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s « %(object)s » modifié(e)."
 
 #, python-format
-msgid "The %s could not be saved due to errors."
-msgstr "Le/la %s ne peut être enregistré(e) du fait d'erreurs."
+msgid "The %(object)s could not be saved due to errors."
+msgstr "Le/la %(object)s ne peut être enregistré(e) du fait d'erreurs."
 
 #, python-format
-msgid "Confirm deletion of %s"
-msgstr "Confirmer la suppression de %s"
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirmer la suppression de %(object)s"
 
 #, python-format
 msgid ""
-"Are you sure you want to delete this %s? If other things in your site are "
-"related to it, they may also be affected."
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
 msgstr ""
-"Êtes-vous sûr(e) de vouloir supprimer ce/cette %s ? Si d'autres éléments de "
-"votre site y sont liés, il se peut qu'ils soient également affectés."
+"Êtes-vous sûr(e) de vouloir supprimer ce/cette %(object)s ? Si d'autres "
+"éléments de votre site y sont liés, il se peut qu'ils soient également "
+"affectés."
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' deleted."
-msgstr "%(model_name)s « %(instance)s » supprimé(e)."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s « %(object)s » supprimé(e)."
 
 msgid "Inspecting"
 msgstr "Inspection"
 
 #, python-format
-msgid "Inspecting %s"
-msgstr "Inspection de ce/cette %s"
+msgid "Inspecting %(object)s"
+msgstr "Inspection de ce/cette %(object)s"
 
 msgid "Action"
 msgstr "Action"

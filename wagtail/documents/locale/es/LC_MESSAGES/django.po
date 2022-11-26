@@ -24,14 +24,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022\n"
-"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
-"es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
@@ -133,7 +131,8 @@ msgstr[2] ""
 "seleccionada?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "No tienes permiso para añadir este documento a una colección"
 msgstr[1] "No tienes permiso para añadir estos documentos a una colección"
 msgstr[2] "No tienes permiso para añadir estos documentos a una colección"
@@ -328,8 +327,8 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Carga subida exitosamente. Por favor, actualice este documento con un título "
-"más apropiado si lo cree conveniente. También puede eliminar el documento "
+"Carga subida exitosamente. Por favor, actualice este documento con un título"
+" más apropiado si lo cree conveniente. También puede eliminar el documento "
 "completamente si la subida no era necesaria."
 
 msgid "Sorry, upload failed."
@@ -408,15 +407,15 @@ msgid "Search documents"
 msgstr "Buscar documentos"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Documento '{0}' añadido."
+msgid "Document '%(document_title)s' added."
+msgstr "Documento '%(document_title)s' añadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "El documento no pudo ser guardado debido a errores."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Documento '{0}' actualizado"
+msgid "Document '%(document_title)s' updated"
+msgstr "Documento '%(document_title)s' actualizado"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -425,16 +424,16 @@ msgstr ""
 "documento."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Documento '{0}' eliminado."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Documento '%(document_title)s' eliminado."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Privado %s)"
+msgid "(Private %(object)s)"
+msgstr "(Privado %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Editar este %s"
+msgid "Edit this %(object)s"
+msgstr "Editar este %(object)s"
 
 msgid "Document"
 msgstr "Documento"

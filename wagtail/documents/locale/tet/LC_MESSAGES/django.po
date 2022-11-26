@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
-"language/tet/)\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
+"Language: tet\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -115,12 +114,12 @@ msgid "Search documents"
 msgstr "Buka documentu"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dkumentu '{0}' hatama ona"
+msgid "Document '%(document_title)s' added."
+msgstr "Dkumentu '%(document_title)s' hatama ona"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "hadia iha %s"
+msgid "Edit this %(object)s"
+msgstr "hadia iha %(object)s"
 
 msgid "Document"
 msgstr "Dokumentu"

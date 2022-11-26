@@ -12,14 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
-"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
-"lv/)\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/lv/)\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lv\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 msgid "A user with that username already exists."
 msgstr "Lietotājvāds aizņemts"
@@ -151,23 +149,23 @@ msgid "Search groups"
 msgstr "Meklēt grupas"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupa '{0}' izveidota"
+msgid "Group '%(object)s' created."
+msgstr "Grupa '%(object)s' izveidota"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupa '{0}' atjaunota."
+msgid "Group '%(object)s' updated."
+msgstr "Grupa '%(object)s' atjaunota."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupu nevarēja saglabāt kļūdu dēļ."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupa '{0}' dzēsta."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupa '%(object)s' dzēsta."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Lietotājs '{0}' atjaunots. "
+msgid "User '%(object)s' updated."
+msgstr "Lietotājs '%(object)s' atjaunots. "
 
 msgid "The user could not be saved due to errors."
 msgstr "Lietotāju nevarēja saglabāt kļūdu dēļ."
