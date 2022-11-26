@@ -208,21 +208,21 @@ class RevisionsRevertMixin:
 
     def get_success_message(self):
         message = _(
-            "%(model_name)s '%(instance)s' has been replaced with version from %(timestamp)s."
+            "%(model_name)s '%(object)s' has been replaced with version from %(timestamp)s."
         )
         if self.draftstate_enabled and self.action == "publish":
             message = _(
-                "Version from %(timestamp)s of %(model_name)s '%(instance)s' has been published."
+                "Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
             )
 
             if self.object.go_live_at and self.object.go_live_at > timezone.now():
                 message = _(
-                    "Version from %(timestamp)s of %(model_name)s '%(instance)s' has been scheduled for publishing."
+                    "Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled for publishing."
                 )
 
         return message % {
             "model_name": capfirst(self.model._meta.verbose_name),
-            "instance": self.object,
+            "object": self.object,
             "timestamp": self.revision.created_at.strftime("%d %b %Y %H:%M"),
         }
 

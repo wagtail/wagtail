@@ -246,9 +246,9 @@ class ModelFormView(WMABaseView, FormView):
         return fields
 
     def get_success_message(self, instance):
-        return _("%(model_name)s '%(instance)s' created.") % {
+        return _("%(model_name)s '%(object)s' created.") % {
             "model_name": capfirst(self.opts.verbose_name),
-            "instance": instance,
+            "object": instance,
         }
 
     def get_success_message_buttons(self, instance):
@@ -864,9 +864,9 @@ class EditView(ModelFormView, InstanceSpecificView):
         return _("Editing %(object)s") % {"object": self.verbose_name}
 
     def get_success_message(self, instance):
-        return _("%(model_name)s '%(instance)s' updated.") % {
+        return _("%(model_name)s '%(object)s' updated.") % {
             "model_name": capfirst(self.verbose_name),
-            "instance": instance,
+            "object": instance,
         }
 
     def get_context_data(self, **kwargs):
@@ -986,9 +986,9 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         try:
-            msg = _("%(model_name)s '%(instance)s' deleted.") % {
+            msg = _("%(model_name)s '%(object)s' deleted.") % {
                 "model_name": self.verbose_name,
-                "instance": self.instance,
+                "object": self.instance,
             }
             with transaction.atomic():
                 log(instance=self.instance, action="wagtail.delete")
