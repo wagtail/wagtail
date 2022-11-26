@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Objavi"
@@ -233,6 +233,9 @@ msgstr "Pri kopiranju podstrani strani ne morete kopirate same vase"
 
 msgid "This slug is already in use"
 msgstr "Ključ je že v uporabi"
+
+msgid "Select a new parent for this page."
+msgstr "Izberite novega starša za to stran."
 
 msgid "Visibility"
 msgstr "Vidnost"
@@ -532,11 +535,11 @@ msgstr "Ime"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Dodana ni še nobena zbirka. Zakaj je ne bi <a href=\"%(add_collection_url)s"
-"\">dodali</a>?"
+"Dodana ni še nobena zbirka. Zakaj je ne bi <a "
+"href=\"%(add_collection_url)s\">dodali</a>?"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -643,15 +646,15 @@ msgstr "Stvari v Wagtail %(version)s so se spremenile!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"Ne skrbite, varujemo vas. Oglejte si <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtailov "
-"urednikov vodič</a> če želite izvedeti, kaj se je spremenilo, in nekaj "
-"vznemirljivih novih funkcij!"
+"Ne skrbite, varujemo vas. Oglejte si <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtailov vodnik po urejevalniku</a> če želite izvedeti, "
+"kaj se je spremenilo, in nekaj vznemirljivih novih funkcij!"
 
 msgid "Awaiting your review"
 msgstr "Čakam na vaš pregled"
@@ -1025,8 +1028,8 @@ msgid ""
 "If you just want to add pages to an existing site, create them as children "
 "of the homepage instead."
 msgstr ""
-"If you just want to add pages to an existing site, create them as children "
-"of the homepage instead."
+"Če želite samo dodati strani obstoječemu mestu, jih namesto tega ustvarite "
+"kot podrejene strani domače strani."
 
 msgid ""
 "Pages created here will not be accessible at any URL. To add pages to an "
@@ -1192,6 +1195,9 @@ msgstr "Po nalogi"
 
 msgid "Page"
 msgstr "Stran"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "Nobena stran še ni bila poslana v moderiranje"
 
 msgid "Completed at"
 msgstr "Zaključeno ob"
@@ -1394,9 +1400,16 @@ msgstr "Oglejte si več množičnih dejanj"
 msgid "0 minutes"
 msgstr "0 minut"
 
+msgid "just now"
+msgstr "Ravnokar"
+
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s nazaj"
+
+#, python-format
+msgid "just now by %(user_display_name)s"
+msgstr "ravnokar od %(user_display_name)s"
 
 msgid "Log out"
 msgstr "Odjava"
@@ -1440,8 +1453,15 @@ msgstr "Dodajte zbirko"
 msgid "Add collection"
 msgstr "Dodaj zbirko"
 
+msgid "The collection could not be saved due to errors."
+msgstr "Zbirke ni bilo mogoče shraniti zaradi napake."
+
 msgid "Delete collection"
 msgstr "Izbriši zbirko"
+
+#, python-brace-format
+msgid "Collection '{0}' deleted."
+msgstr "Zbirka '{0}' izbrisana."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ali ste prepričani, da želite izbrisati to zbirko?"
@@ -1592,6 +1612,9 @@ msgstr "Zaklenjene strani"
 msgid "Show"
 msgstr "Pokaži"
 
+msgid "Awaiting my review"
+msgstr "Čaka na moj pregled"
+
 msgid "Workflows"
 msgstr "Poteki dela"
 
@@ -1616,12 +1639,19 @@ msgstr "Onemogoči"
 msgid "Enable"
 msgstr "Omogoči"
 
+msgid "Disable workflow"
+msgstr "Onemogoči potek dela"
+
 msgid "Pages"
 msgstr "Strani"
 
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Uredi '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Predogled osnutka različice '%(title)s'"
 
 #, python-format
 msgid "View live version of '%(title)s'"
@@ -1689,7 +1719,7 @@ msgid "What's new in Wagtail {version}"
 msgstr "Kaj je novega v Wagtail {version}"
 
 msgid "Editor Guide"
-msgstr "Urednikov vodič"
+msgstr "Vodič po urejevalniku"
 
 msgid "Help"
 msgstr "Pomoč"

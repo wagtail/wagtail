@@ -21,8 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail locales"
 msgstr "Wagtail obmoćja"
@@ -54,11 +54,23 @@ msgstr "Uporaba"
 msgid "Add locale"
 msgstr "Dodaj jezik"
 
+#, python-brace-format
+msgid "Locale '{0}' created."
+msgstr "Lokalizacija '{0}' ustvarjena."
+
+#, python-brace-format
+msgid "Locale '{0}' updated."
+msgstr "Lokalizacija '{0}' posodobljena."
+
 msgid "The locale could not be saved due to errors."
 msgstr "Področne nastavitve ni bilo mogoče shraniti zaradi napak."
 
 msgid "Delete locale"
 msgstr "Odstrani jezik"
+
+#, python-brace-format
+msgid "Locale '{0}' deleted."
+msgstr "Lokalizacija '{0}' izbrisana."
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Ali ste prepričani da želite odstraniti ta jezik?"

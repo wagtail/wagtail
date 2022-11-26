@@ -535,11 +535,11 @@ msgstr "Nom"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"No ha estat creada cap col·lecció. Per què no n'<a href="
-"\"%(add_collection_url)s\">afegiu una</a>?"
+"No ha estat creada cap col·lecció. Per què no n'<a "
+"href=\"%(add_collection_url)s\">afegiu una</a>?"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"

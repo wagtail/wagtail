@@ -249,6 +249,9 @@ msgstr "Đã được mở khóa"
 msgid "Lock"
 msgstr "Khóa"
 
+msgid "New"
+msgstr "Mới"
+
 msgid "Published"
 msgstr "Đã xuất bản"
 

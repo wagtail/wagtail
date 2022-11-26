@@ -354,11 +354,11 @@ msgstr "Nama"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
-"\">membuat sebuah koleksi</a>?"
+"Belum ada koleksi. Bagaimana kalau <a "
+"href=\"%(add_collection_url)s\">membuat sebuah koleksi</a>?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"

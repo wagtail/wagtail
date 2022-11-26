@@ -20,8 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenti"
@@ -73,6 +73,13 @@ msgstr "Ne, ne dodaj"
 
 msgid "Delete documents"
 msgstr "Izbrišite dokumente"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Ali ste prepričani, da želite izbrisati ta dokument?"
+msgstr[1] "Ali ste prepričani, da želite izbrisati ta dva dokument?"
+msgstr[2] "Ali ste prepričani, da želite izbrisati ta dokument?"
+msgstr[3] "Ali ste prepričani, da želite izbrisati ta dokument?"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -150,19 +157,19 @@ msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"V tej zbirki še ni dokumentov. Zakaj ga ne bi <a href="
-"\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
+"V tej zbirki še ni dokumentov. Zakaj ga ne bi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Naložen ni še noben dokument. Zakaj ga ne bi <a href="
-"\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
+"Naložen ni še noben dokument. Zakaj ga ne bi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -185,6 +192,15 @@ msgstr "Ali izberite dokument iz vašega računalnika"
 
 msgid "Add to collection:"
 msgstr "Dodaj v zbirko:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Nalaganje uspešno. Po potrebi posodobite ta dokument z ustreznejšim "
+"naslovom. Dokument lahko tudi popolnoma izbrišete, če nalaganje ni bilo "
+"potrebno"
 
 msgid "Sorry, upload failed."
 msgstr "Prenos žal ni uspel."

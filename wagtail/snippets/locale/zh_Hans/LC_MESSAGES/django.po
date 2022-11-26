@@ -129,11 +129,11 @@ msgstr "未找到日志记录"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"没有 %(snippet_type_name_plural)s 被创建。 为何不 <a href="
-"\"%(wagtailsnippets_create_url)s\">添加一个</a> ？"
+"没有 %(snippet_type_name_plural)s 被创建。 为何不 <a "
+"href=\"%(wagtailsnippets_create_url)s\">添加一个</a> ？"
 
 msgid "Live version"
 msgstr "发布版本"

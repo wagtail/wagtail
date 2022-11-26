@@ -353,11 +353,11 @@ msgstr "Navn"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Ingen samlinger har blitt opprettet. Hvorfor ikke <a href="
-"\"%(add_collection_url)s\">legg til en</a>?"
+"Ingen samlinger har blitt opprettet. Hvorfor ikke <a "
+"href=\"%(add_collection_url)s\">legg til en</a>?"
 
 msgid "Yes, delete"
 msgstr "Ja, slett"

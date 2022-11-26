@@ -112,11 +112,11 @@ msgstr "Nuokarpos"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nebuvo sukurti jokios %(snippet_type_name_plural)s. Kodėl gi <a href="
-"\"%(wagtailsnippets_create_url)s\">nesukūrus vienos</a>?"
+"Nebuvo sukurti jokios %(snippet_type_name_plural)s. Kodėl gi <a "
+"href=\"%(wagtailsnippets_create_url)s\">nesukūrus vienos</a>?"
 
 msgid "Live version"
 msgstr "Publikuota versija"

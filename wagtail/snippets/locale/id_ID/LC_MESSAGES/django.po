@@ -86,11 +86,11 @@ msgstr "Potongan"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Tidak ada %(snippet_type_name_plural)s yang dibuat. Mengapa tidak <a href="
-"\"%(wagtailsnippets_create_url)s\">menambahnya</a>?"
+"Tidak ada %(snippet_type_name_plural)s yang dibuat. Mengapa tidak <a "
+"href=\"%(wagtailsnippets_create_url)s\">menambahnya</a>?"
 
 msgid "Live version"
 msgstr "Versi aktif"

@@ -54,6 +54,9 @@ msgstr "Đúng, xoá đi"
 msgid "No, don't delete"
 msgstr "Không xoá"
 
+msgid "New"
+msgstr "Mới"
+
 msgid "Save"
 msgstr "Lưu"
 

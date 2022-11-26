@@ -81,6 +81,9 @@ msgstr "Tải XLSX"
 msgid "Download CSV"
 msgstr "Tải CSV"
 
+msgid "New"
+msgstr "Mới"
+
 msgid "Editing"
 msgstr "Chỉnh sửa"
 

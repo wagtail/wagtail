@@ -171,8 +171,8 @@ msgstr "<em>%(query_string)s</em>に一致するリダイレクトはありま�
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 "リダイレクトはありません。 <a href=\"%(wagtailredirects_add_redirect_url)s\">"
 "新しく作成</a>しますか？"

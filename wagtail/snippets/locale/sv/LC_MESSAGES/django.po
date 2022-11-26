@@ -122,11 +122,11 @@ msgstr "Inga loggposter funna"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Inga %(snippet_type_name_plural)s har skapats. Varför inte <a href="
-"\"%(wagtailsnippets_create_url)s\">skapa en</a>?"
+"Inga %(snippet_type_name_plural)s har skapats. Varför inte <a "
+"href=\"%(wagtailsnippets_create_url)s\">skapa en</a>?"
 
 msgid "Live version"
 msgstr "Publicerad version"

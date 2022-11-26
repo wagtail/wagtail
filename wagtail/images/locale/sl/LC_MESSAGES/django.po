@@ -20,8 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail slike"
@@ -181,6 +181,13 @@ msgstr "Ne, ne dodaj"
 msgid "Delete images"
 msgstr "Izbriši slike"
 
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Ali ste prepričani, da želite izbrisati to sliko?"
+msgstr[1] "Ali ste prepričani, da želite izbrisati te dve slike?"
+msgstr[2] "Ali ste prepričani, da želite izbrisati te slike?"
+msgstr[3] "Ali ste prepričani, da želite izbrisati te slike?"
+
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -206,6 +213,9 @@ msgstr "Nov"
 
 msgid "Latest images"
 msgstr "Zadnje slike"
+
+msgid "You haven't uploaded any images."
+msgstr "Naložili niste nobene datoteke. Zakaj je ne bi naložili sedaj?"
 
 msgid "Choose a format"
 msgstr "Izberite obliko zapisa"
@@ -290,6 +300,14 @@ msgstr "pikslov"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni slike, ki bi ustrezala \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Naložili niste nobene datoteke. Zakaj je <a "
+"href=\"%(wagtailimages_add_image_url)s\">ne bi naložili sedaj</a>?"
 
 msgid "Generating URL"
 msgstr "Generiranje URL"

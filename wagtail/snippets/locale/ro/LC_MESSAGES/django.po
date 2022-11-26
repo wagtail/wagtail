@@ -128,11 +128,11 @@ msgstr "Nu s-au găsit intrări de jurnal."
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Nu au fost create %(snippet_type_name_plural)s. De să nu <a href="
-"\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
+"Nu au fost create %(snippet_type_name_plural)s. De să nu <a "
+"href=\"%(wagtailsnippets_create_url)s\">adăugați unul</a>?"
 
 msgid "Live version"
 msgstr "Versiune live"
