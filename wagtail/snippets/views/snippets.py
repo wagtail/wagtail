@@ -243,17 +243,17 @@ class CreateView(generic.CreateView):
         return reverse(self.index_url_name) + urlquery
 
     def get_success_message(self, instance):
-        message = _("%(snippet_type)s '%(instance)s' created.")
+        message = _("%(model_name)s '%(object)s' created.")
         if isinstance(instance, DraftStateMixin) and self.action == "publish":
-            message = _("%(snippet_type)s '%(instance)s' created and published.")
+            message = _("%(model_name)s '%(object)s' created and published.")
             if instance.go_live_at and instance.go_live_at > timezone.now():
                 message = _(
-                    "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
+                    "%(model_name)s '%(object)s' created and scheduled for publishing."
                 )
 
         return message % {
-            "snippet_type": capfirst(self.model._meta.verbose_name),
-            "instance": instance,
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": instance,
         }
 
     def get_success_buttons(self):
@@ -376,24 +376,24 @@ class EditView(generic.EditView):
         return reverse(self.index_url_name)
 
     def get_success_message(self):
-        message = _("%(snippet_type)s '%(instance)s' updated.")
+        message = _("%(model_name)s '%(object)s' updated.")
 
         if self.draftstate_enabled and self.action == "publish":
-            message = _("%(snippet_type)s '%(instance)s' updated and published.")
+            message = _("%(model_name)s '%(object)s' updated and published.")
 
             if self.object.go_live_at and self.object.go_live_at > timezone.now():
                 message = _(
-                    "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
+                    "%(model_name)s '%(object)s' has been scheduled for publishing."
                 )
 
                 if self.object.live:
                     message = _(
-                        "%(snippet_type)s '%(instance)s' is live and this version has been scheduled for publishing."
+                        "%(model_name)s '%(object)s' is live and this version has been scheduled for publishing."
                     )
 
         return message % {
-            "snippet_type": capfirst(self.model._meta.verbose_name),
-            "instance": self.object,
+            "model_name": capfirst(self.model._meta.verbose_name),
+            "object": self.object,
         }
 
     def get_success_buttons(self):
@@ -506,20 +506,20 @@ class DeleteView(generic.DeleteView):
     def get_success_message(self):
         count = len(self.objects)
         if count == 1:
-            return _("%(snippet_type)s '%(instance)s' deleted.") % {
-                "snippet_type": capfirst(self.model._meta.verbose_name),
-                "instance": self.objects[0],
+            return _("%(model_name)s '%(object)s' deleted.") % {
+                "model_name": capfirst(self.model._meta.verbose_name),
+                "object": self.objects[0],
             }
 
         # This message is only used in plural form, but we'll define it with ngettext so that
         # languages with multiple plural forms can be handled correctly (or, at least, as
         # correctly as possible within the limitations of verbose_name_plural...)
         return ngettext(
-            "%(count)d %(snippet_type)s deleted.",
-            "%(count)d %(snippet_type)s deleted.",
+            "%(count)d %(model_name)s deleted.",
+            "%(count)d %(model_name)s deleted.",
             count,
         ) % {
-            "snippet_type": capfirst(self.model._meta.verbose_name_plural),
+            "model_name": capfirst(self.model._meta.verbose_name_plural),
             "count": count,
         }
 
