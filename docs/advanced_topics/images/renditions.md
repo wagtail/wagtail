@@ -34,6 +34,26 @@ be accessed through the Rendition's `image` property:
 
 See also: [](image_tag)
 
+(image_renditions_multiple)=
+
+## Generating multiple renditions for an image
+
+You can generate multiple renditions of the same image from Python using the native `get_renditions()` method. It will accept any number of 'specification' strings, and will generate a set of matching renditions much more efficiently than generating each one individually. For example:
+
+```python
+image.get_renditions('width-600', 'height-400', 'fill-300x186|jpegquality-60')
+```
+
+The return value is a dictionary of renditions keyed by the specification strings that were provided to the method. The return value from the above example would look something like this:
+
+```python
+{
+    "width-600": <Rendition: Rendition object (7)>,
+    "height-400": <Rendition: Rendition object (8)>,
+    "fill-300x186|jpegquality-60": <Rendition: Rendition object (9)>,
+}
+```
+
 (prefetching_image_renditions)=
 
 ## Prefetching image renditions
@@ -124,6 +144,12 @@ The following `AbstractImage` model methods are involved in finding and generati
     .. automethod:: find_existing_rendition
 
     .. automethod:: create_rendition
+
+    .. automethod:: get_renditions
+
+    .. automethod:: find_existing_renditions
+
+    .. automethod:: create_renditions
 
     .. automethod:: generate_rendition_file
 ```
