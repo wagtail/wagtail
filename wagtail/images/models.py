@@ -406,6 +406,29 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         """Get the Rendition model for this Image model"""
         return cls.renditions.rel.related_model
 
+    def _get_prefetched_renditions(self) -> Union[Iterable["AbstractRendition"], None]:
+        if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
+            return self.renditions.all()
+        return getattr(self, "prefetched_renditions", None)
+
+    def _add_to_prefetched_renditions(self, rendition: "AbstractRendition") -> None:
+        # Reuse this rendition if requested again from this object
+        try:
+            self._prefetched_objects_cache["renditions"]._result_cache.append(rendition)
+        except (AttributeError, KeyError):
+            pass
+        try:
+            self.prefetched_renditions.append(rendition)
+        except AttributeError:
+            pass
+
+    @property
+    def renditions_cache(self):
+        try:
+            return caches["renditions"]
+        except InvalidCacheBackendError:
+            pass
+
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
         Returns a ``Rendition`` instance with a ``file`` field value (an
