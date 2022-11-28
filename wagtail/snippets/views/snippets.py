@@ -224,6 +224,10 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         return url
 
     def get_success_url(self):
+        if self.draftstate_enabled and self.action != "publish":
+            return super().get_success_url()
+
+        # Make sure the redirect to the listing view uses the correct locale
         urlquery = ""
         if self.locale and self.object.locale is not Locale.get_default():
             urlquery = "?locale=" + self.object.locale.language_code

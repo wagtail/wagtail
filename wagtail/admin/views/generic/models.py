@@ -398,6 +398,14 @@ class CreateView(
             )
         return reverse(self.add_url_name)
 
+    def get_edit_url(self):
+        if not self.edit_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
+                "edit_url_name attribute or a get_edit_url method"
+            )
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
     def get_success_url(self):
         if not self.index_url_name:
             raise ImproperlyConfigured(
@@ -412,11 +420,7 @@ class CreateView(
         return self.success_message % {"object": instance}
 
     def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
-            )
-        ]
+        return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
         if self.error_message is None:
