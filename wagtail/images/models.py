@@ -520,13 +520,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         )
         return rendition
 
-    def generate_rendition_file(self, filter: "Filter") -> File:
+    def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
         """
         Generates an in-memory image matching the supplied ``filter`` value
         and focal point value from this object, wraps it in a ``File`` object
         with a suitable filename, and returns it. The return value is used
         as the ``file`` field value for rendition objects saved by
         ``AbstractImage.create_rendition()``.
+
+        If the contents of ``self.file`` has already been read into memory, the
+        ``source`` keyword can be used to provide a reference to the in-memory
+        ``File``, bypassing the need to reload the image contents from storage.
 
         NOTE: The responsibility of generating the new image from the original
         falls to the supplied ``filter`` object. If you want to do anything
@@ -549,6 +553,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             generated_image = filter.run(
                 self,
                 SpooledTemporaryFile(max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE),
+                source=source,
             )
 
             logger.debug(
@@ -701,8 +706,17 @@ class Filter:
             transform = operation.run(transform, image)
         return transform
 
-    def run(self, image, output):
-        with image.get_willow_image() as willow:
+    @contextmanager
+    def get_willow_image(self, image: AbstractImage, source: File = None):
+        if source is not None:
+            yield willow.Image.open(source)
+        else:
+            with image.get_willow_image() as willow_image:
+                yield willow_image
+
+    def run(self, image: AbstractImage, output: BytesIO, source: File = None):
+        with self.get_willow_image(image, source) as willow:
+
             original_format = willow.format_name
 
             # Fix orientation of image
