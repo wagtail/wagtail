@@ -438,31 +438,23 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         Note: If using custom image models, an instance of the custom rendition
         model will be returned.
         """
+        Rendition = self.get_rendition_model()
+
         if isinstance(filter, str):
             filter = Filter(spec=filter)
-
-        Rendition = self.get_rendition_model()
 
         try:
             rendition = self.find_existing_rendition(filter)
         except Rendition.DoesNotExist:
             rendition = self.create_rendition(filter)
             # Reuse this rendition if requested again from this object
-            if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
-                self._prefetched_objects_cache["renditions"]._result_cache.append(
-                    rendition
-                )
-            elif hasattr(self, "prefetched_renditions"):
-                self.prefetched_renditions.append(rendition)
+            self._add_to_prefetched_renditions(rendition)
 
-        try:
-            cache = caches["renditions"]
+        if self.renditions_cache is not None:
             key = Rendition.construct_cache_key(
                 self.id, filter.get_cache_key(self), filter.spec
             )
-            cache.set(key, rendition)
-        except InvalidCacheBackendError:
-            pass
+            self.renditions_cache.set(key, rendition)
 
         return rendition
 
