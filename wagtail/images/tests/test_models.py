@@ -12,7 +12,12 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
-from wagtail.images.models import Rendition, SourceImageIOError, get_rendition_storage
+from wagtail.images.models import (
+    Filter,
+    Rendition,
+    SourceImageIOError,
+    get_rendition_storage,
+)
 from wagtail.images.rect import Rect
 from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
 from wagtail.test.testapp.models import (
@@ -233,6 +238,8 @@ class TestImagePermissions(WagtailTestUtils, TestCase):
 
 
 class TestRenditions(TestCase):
+    SPECS = ("height-66", "width-100", "width-400")
+
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -320,8 +327,8 @@ class TestRenditions(TestCase):
 
         # Request a different rendition from this object
         with self.assertNumQueries(4):
-            # The number of queries is fewer than before, because the check for
-            # an existing rendition is skipped
+            # The number of queries is fewer than before, because checks for
+            # an existing rendition (in cache and db) are skipped
             second_rendition = image.get_rendition("height-66")
 
         # The renditions should NOT match
@@ -355,6 +362,115 @@ class TestRenditions(TestCase):
 
         self.assertIs(second_rendition, third_rendition)
 
+    def _test_get_renditions_performance(
+        self,
+        db_queries_expected: int,
+        prefetch_restricted: bool = False,
+        prefetch_all: bool = False,
+    ):
+        queryset = Image.objects.all()
+        if prefetch_all:
+            queryset = queryset.prefetch_related("renditions")
+        elif prefetch_restricted:
+            queryset = queryset.prefetch_renditions(*self.SPECS)
+
+        image = queryset.get(id=self.image.id)
+        with self.assertNumQueries(db_queries_expected):
+            image.get_renditions(*self.SPECS)
+
+    def test_get_renditions_performance_with_rendition_caching_disabled(self):
+        # ATTEMPT 1
+        # 1) An initial lookup for rendition from the DB
+        # 2) A check for clashes before bulk saving new renditions
+        # 3) A bulk_create() to save new renditions
+        self._test_get_renditions_performance(3)
+
+        # ATTEMPT 2
+        # With all renditions already created, we should just see
+        # 1) An initial lookup for rendition from the DB
+        self._test_get_renditions_performance(1)
+
+        # ATTEMPT 3
+        # If the existing renditions are prefetched, no futher queries should
+        # be needed, whether that's with prefetch_related("renditions") or
+        # prefetch_renditions()
+        self._test_get_renditions_performance(0, prefetch_all=True)
+        self._test_get_renditions_performance(0, prefetch_restricted=True)
+
+    @override_settings(
+        CACHES={
+            "renditions": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            },
+        },
+    )
+    def test_get_renditions_performance_with_rendition_caching_enabled(self):
+        # ATTEMPT 1
+        # 1) An initial lookup for rendition from the DB
+        # 2) A check for clashes before bulk saving new renditions
+        # 3) A bulk_create() to save new renditions
+        self._test_get_renditions_performance(3)
+
+        # ATTEMPT 2
+        # Any renditions created in the first attempt should have
+        # been added to the cache, so a second request should bypass
+        # the database completely
+        self._test_get_renditions_performance(0)
+
+        # ATTEMPT 3
+        # Prefetching renditions should mean that no queries are
+        # required, and no cache hits are made
+        self._test_get_renditions_performance(0, prefetch_all=True)
+
+    def test_create_renditions(self):
+        filter_list = [Filter(spec) for spec in self.SPECS]
+        # When no renditions exist, there should be one query for
+        # 'clash identification', and another for bulk creation
+        with self.assertNumQueries(2):
+            result = self.image.create_renditions(*filter_list)
+
+        # Renditions should match the filters
+        for filter, rendition in result.items():
+            self.assertEqual(filter.spec, rendition.filter_spec)
+
+        # Filter specs should match the filters that were provided as arguments
+        self.assertEqual(
+            {filter.spec for filter in result.keys()},
+            {filter.spec for filter in filter_list},
+        )
+
+        # When the renditions already exist, there should be one query
+        # for 'clash identification', but that is all
+        with self.assertNumQueries(1):
+            result = self.image.create_renditions(*filter_list)
+
+        # Renditions should match the filters
+        for filter, rendition in result.items():
+            self.assertEqual(filter.spec, rendition.filter_spec)
+
+        # Filter specs should match the filters that were provided as arguments
+        self.assertEqual(
+            {filter.spec for filter in result.keys()},
+            {filter.spec for filter in filter_list},
+        )
+
+        # Another request should give us an equal result
+        with self.assertNumQueries(1):
+            second_result = self.image.create_renditions(*filter_list)
+        self.assertEqual(result, second_result)
+
+        # When only some renditions exist, we should see the create query
+        # once again
+        self.image.renditions.filter(filter_spec=self.SPECS[0]).delete()
+        with self.assertNumQueries(2):
+            third_result = self.image.create_renditions(*filter_list)
+
+        # Equality check should fail, as newly created rendition has a different pk
+        self.assertNotEqual(third_result, result)
+
+        # But, we should see equality on the keys
+        self.assertEqual(third_result.keys(), result.keys())
+
     def test_alt_attribute(self):
         rendition = self.image.get_rendition("width-400")
         self.assertEqual(rendition.alt, "Test image")
@@ -383,19 +499,19 @@ class TestRenditions(TestCase):
         self.assertEqual(cache.get(rendition_cache_key), rendition)
 
         # Mark a rendition to check it comes from cache
-        rendition._from_cache = "original"
+        rendition._mark = "original"
         cache.set(rendition_cache_key, rendition)
 
         # Check if get_rendition returns the rendition from cache
         with self.assertNumQueries(0):
             new_rendition = self.image.get_rendition("width-500")
-        self.assertEqual(new_rendition._from_cache, "original")
+        self.assertEqual(new_rendition._mark, "original")
 
         # But, not if the rendition has been prefetched
         fresh_image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
         with self.assertNumQueries(0):
             prefetched_rendition = fresh_image.get_rendition("width-500")
-        self.assertFalse(hasattr(prefetched_rendition, "_from_cache"))
+        self.assertFalse(hasattr(prefetched_rendition, "_mark"))
 
         # changing the image file should invalidate the cache
         self.image.file = get_test_image_file(colour="green")
@@ -404,7 +520,7 @@ class TestRenditions(TestCase):
         # we're bypassing that here, so have to do it manually
         self.image.renditions.all().delete()
         new_rendition = self.image.get_rendition("width-500")
-        self.assertFalse(hasattr(new_rendition, "_from_cache"))
+        self.assertFalse(hasattr(new_rendition, "_mark"))
 
         # changing it back should also generate a new rendition and not re-use
         # the original one (because that file has now been deleted in the change)
@@ -412,7 +528,7 @@ class TestRenditions(TestCase):
         self.image.save()
         self.image.renditions.all().delete()
         new_rendition = self.image.get_rendition("width-500")
-        self.assertFalse(hasattr(new_rendition, "_from_cache"))
+        self.assertFalse(hasattr(new_rendition, "_mark"))
 
     def test_focal_point(self):
         self.image.focal_point_x = 100
