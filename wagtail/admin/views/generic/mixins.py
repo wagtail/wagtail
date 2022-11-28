@@ -209,7 +209,15 @@ class CreateEditViewOptionalFeaturesMixin:
         super().setup(request, *args, **kwargs)
 
     def get_available_actions(self):
-        return [*super().get_available_actions(), "publish"]
+        actions = [*super().get_available_actions()]
+
+        if self.draftstate_enabled and (
+            not self.permission_policy
+            or self.permission_policy.user_has_permission(self.request.user, "publish")
+        ):
+            actions.append("publish")
+
+        return actions
 
     def get_object(self, queryset=None):
         if self.view_name == "create":
@@ -299,7 +307,8 @@ class CreateEditViewOptionalFeaturesMixin:
         if hook_response is not None:
             return hook_response
 
-        self.new_revision.publish(user=self.request.user)
+        # Skip permission check as it's already done in get_available_actions
+        self.new_revision.publish(user=self.request.user, skip_permission_checks=True)
 
         hook_response = self.run_hook("after_publish", self.request, self.object)
         if hook_response is not None:
@@ -312,7 +321,7 @@ class CreateEditViewOptionalFeaturesMixin:
         with transaction.atomic():
             self.object = self.save_instance()
 
-        if self.action == "publish" and self.draftstate_enabled:
+        if self.action == "publish":
             response = self.publish_action()
             if response is not None:
                 return response
