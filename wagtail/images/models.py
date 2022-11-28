@@ -2,10 +2,11 @@ import hashlib
 import logging
 import os.path
 import time
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from contextlib import contextmanager
 from tempfile import SpooledTemporaryFile
-from typing import Union
+from io import BytesIO
+from typing import Dict, Iterable, List, Union
 
 import willow
 from django.apps import apps
@@ -13,8 +14,10 @@ from django.conf import settings
 from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
+from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import models
+from django.db.models import Q
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -451,10 +454,10 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             self._add_to_prefetched_renditions(rendition)
 
         if self.renditions_cache is not None:
-            key = Rendition.construct_cache_key(
+            cache_key = Rendition.construct_cache_key(
                 self.id, filter.get_cache_key(self), filter.spec
             )
-            self.renditions_cache.set(key, rendition)
+            self.renditions_cache.set(cache_key, rendition)
 
         return rendition
 
@@ -519,6 +522,207 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             defaults={"file": self.generate_rendition_file(filter)},
         )
         return rendition
+
+    def get_renditions(self, *filter_specs: str) -> Dict[str, "AbstractRendition"]:
+        """
+        Returns a ``dict`` of ``Rendition`` instances with image files reflecting
+        the supplied ``filter_specs``, keyed by the relevant ``filter_spec`` string.
+
+        Note: If using custom image models, instances of the custom rendition
+        model will be returned.
+        """
+        Rendition = self.get_rendition_model()
+        filters = tuple(Filter(spec) for spec in set(filter_specs))
+
+        # Find existing renditions where possible
+        renditions = self.find_existing_renditions(*filters)
+
+        # Create any renditions not found in prefetched values, cache or database
+        not_found = tuple(f for f in filters if f not in renditions)
+        if not_found:
+            if len(not_found) == 1:
+                # create_rendition() is better for creating single items, as it
+                # can use QuerySet.get_or_create(), which has better handling
+                # of race conditions
+                filter = not_found[0]
+                rendition = self.create_rendition(filter)
+                self._add_to_prefetched_renditions(rendition)
+                renditions[filter] = rendition
+            else:
+                # For multiple, create_renditions() is more performant
+                new_renditions = self.create_renditions(*not_found)
+                for filter, rendition in new_renditions.items():
+                    self._add_to_prefetched_renditions(rendition)
+                    renditions[filter] = rendition
+
+        # If rendition caching is enabled, update the cache
+        if self.renditions_cache is not None:
+            cache_additions = {
+                Rendition.construct_cache_key(
+                    self.id, filter.get_cache_key(self), filter.spec
+                ): rendition
+                for filter, rendition in renditions.items()
+                # prevent writing of cached data back to the cache
+                if not getattr(rendition, "_from_cache", False)
+            }
+            if cache_additions:
+                self.renditions_cache.set_many(cache_additions)
+
+        # Return a dict in the expected format
+        return {filter.spec: rendition for filter, rendition in renditions.items()}
+
+    def find_existing_renditions(
+        self, *filters: "Filter"
+    ) -> Dict["Filter", "AbstractRendition"]:
+        """
+        Returns a dictionary of existing ``Rendition`` instances with ``file``
+        values (images) reflecting the supplied ``filters`` and the focal point
+        values from this object.
+
+        Filters for which an existing rendition cannot be found are ommitted
+        from the return value. If none of the requested renditions have been
+        created before, the return value will be an empty dict.
+        """
+        Rendition = self.get_rendition_model()
+        filters_by_spec: Dict[str, Filter] = {f.spec: f for f in filters}
+        found: Dict[Filter, AbstractRendition] = {}
+
+        # Interrogate prefetched values first (where available)
+        prefetched_renditions = self._get_prefetched_renditions()
+        if prefetched_renditions is not None:
+            # NOTE: When renditions are prefetched, it's assumed that if the
+            # requested renditions exist, they will be present in the
+            # prefetched value, and further cache/database lookups are avoided.
+
+            # group renditions by the filters of interest
+            potential_matches: Dict[Filter, List[AbstractRendition]] = defaultdict(list)
+            for rendition in prefetched_renditions:
+                try:
+                    filter = filters_by_spec[rendition.filter_spec]
+                except KeyError:
+                    continue  # this rendition can be ignored
+                else:
+                    potential_matches[filter].append(rendition)
+
+            # For each filter we have rendtions for, look for one with a
+            # 'focal_point_key' value matching filter.get_cache_key()
+            for filter, renditions in potential_matches.items():
+                focal_point_key = filter.get_cache_key(self)
+                for rendition in renditions:
+                    if rendition.focal_point_key == focal_point_key:
+                        # to prevent writing of cached data back to the cache
+                        rendition._from_cache = True
+                        # use this rendition
+                        found[filter] = rendition
+                        # skip to the next filter
+                        break
+        else:
+            # Renditions are not prefetched, so attempt to find suitable
+            # items in the cache or database
+
+            # Query the cache first (if enabled)
+            if self.renditions_cache is not None:
+                cache_keys = [
+                    Rendition.construct_cache_key(
+                        self.id, filter.get_cache_key(self), spec
+                    )
+                    for spec, filter in filters_by_spec.items()
+                ]
+                for rendition in self.renditions_cache.get_many(cache_keys).values():
+                    filter = filters_by_spec[rendition.filter_spec]
+                    found[filter] = rendition
+
+            # For items not found in the cache, look in the database
+            not_found = tuple(f for f in filters if f not in found)
+            if not_found:
+                lookup_q = Q()
+                for filter in not_found:
+                    lookup_q |= Q(
+                        filter_spec=filter.spec,
+                        focal_point_key=filter.get_cache_key(self),
+                    )
+                for rendition in self.renditions.filter(lookup_q):
+                    filter = filters_by_spec[rendition.filter_spec]
+                    found[filter] = rendition
+        return found
+
+    def create_renditions(
+        self, *filters: "Filter"
+    ) -> Dict["Filter", "AbstractRendition"]:
+        """
+        Creates multiple ``Rendition`` instances with image files reflecting the supplied
+        ``filters``, and returns them as a ``dict`` keyed by the relevant ``Filter`` instance.
+        Where suitable renditions already exist in the database, they will be returned instead,
+        so as not to create duplicates.
+
+        This method is usually called by ``Image.get_renditions()``, after first
+        checking that a suitable rendition does not already exist.
+
+        Note: If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
+        Rendition = self.get_rendition_model()
+
+        created: Dict[Filter, AbstractRendition] = {}
+        filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
+
+        with self.open_file() as file:
+            in_memory_file = ContentFile(file.read(), name=self.file.name)
+
+        to_create = []
+        for filter in filters:
+            image_file = self.generate_rendition_file(filter, source=in_memory_file)
+            # Reset in-memory file for next use
+            in_memory_file.seek(0)
+            # Add for bulk creation
+            to_create.append(
+                Rendition(
+                    image=self,
+                    filter_spec=filter.spec,
+                    focal_point_key=filter.get_cache_key(self),
+                    file=image_file,
+                )
+            )
+
+        # Rendition generation can take a while. So, if other processes have created
+        # identical renditions in the meantime, we should find them to avoid clashes.
+        # NB: Clashes can still occur, because there is no get_or_create() equivalent
+        # for multiple objects. However, this will reduce that risk considerably.
+        files_for_deletion: List[File] = []
+
+        # Assemble Q() to identify potential clashes
+        lookup_q = Q()
+        for rendition in to_create:
+            lookup_q |= Q(
+                filter_spec=rendition.filter_spec,
+                focal_point_key=rendition.focal_point_key,
+            )
+
+        for existing in self.renditions.filter(lookup_q):
+            # Include the existing rendition in the return value
+            filter = filter_map[existing.filter_spec]
+            created[filter] = existing
+
+            for new in tuple(to_create):
+                if (
+                    new.filter_spec == existing.filter_spec
+                    and new.focal_point_key == existing.focal_point_key
+                ):
+                    # Avoid creating the new version
+                    to_create.remove(new)
+                    # Mark for deletion later, so as not to hold up creation
+                    files_for_deletion.append(new.file)
+
+        for rendition in Rendition.objects.bulk_create(
+            to_create, ignore_conflicts=True
+        ):
+            created[filter_map[rendition.filter_spec]] = rendition
+
+        # Delete redundant rendition image files
+        for file in files_for_deletion:
+            file.delete(save=False)
+
+        return created
 
     def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
         """
