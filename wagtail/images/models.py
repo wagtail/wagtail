@@ -475,11 +475,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         cache_key = filter.get_cache_key(self)
 
         # Interrogate prefetched values first (if available)
-        if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
-            prefetched_renditions = self.renditions.all()
-        else:
-            prefetched_renditions = getattr(self, "prefetched_renditions", None)
-
+        prefetched_renditions = self._get_prefetched_renditions()
         if prefetched_renditions is not None:
             for rendition in prefetched_renditions:
                 if (
@@ -494,14 +490,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             raise Rendition.DoesNotExist
 
         # Next, query the cache (if configured)
-        try:
-            cache = caches["renditions"]
+        if self.renditions_cache is not None:
             key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
-            cached_rendition = cache.get(key)
+            cached_rendition = self.renditions_cache.get(key)
             if cached_rendition:
                 return cached_rendition
-        except InvalidCacheBackendError:
-            pass
 
         # Resort to a get() lookup
         return self.renditions.get(filter_spec=filter.spec, focal_point_key=cache_key)
