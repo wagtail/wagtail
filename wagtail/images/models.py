@@ -473,34 +473,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         Note: If using custom image models, an instance of the custom rendition
         model will be returned.
         """
-
         Rendition = self.get_rendition_model()
-        cache_key = filter.get_cache_key(self)
 
-        # Interrogate prefetched values first (if available)
-        prefetched_renditions = self._get_prefetched_renditions()
-        if prefetched_renditions is not None:
-            for rendition in prefetched_renditions:
-                if (
-                    rendition.filter_spec == filter.spec
-                    and rendition.focal_point_key == cache_key
-                ):
-                    return rendition
-
-            # If renditions were prefetched, assume that if a suitable match
-            # existed, it would have been present and already returned above
-            # (avoiding further cache/db lookups)
+        try:
+            return self.find_existing_renditions(filter)[filter]
+        except KeyError:
             raise Rendition.DoesNotExist
-
-        # Next, query the cache (if configured)
-        if self.renditions_cache is not None:
-            key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
-            cached_rendition = self.renditions_cache.get(key)
-            if cached_rendition:
-                return cached_rendition
-
-        # Resort to a get() lookup
-        return self.renditions.get(filter_spec=filter.spec, focal_point_key=cache_key)
 
     def create_rendition(self, filter: "Filter") -> "AbstractRendition":
         """
