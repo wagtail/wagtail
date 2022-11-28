@@ -967,7 +967,8 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         snippet = DraftStateModel.objects.get(text="Draft-enabled Foo")
 
         self.assertRedirects(
-            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+            response,
+            reverse("wagtailsnippets_tests_draftstatemodel:edit", args=[snippet.pk]),
         )
 
         # The instance should be created
@@ -1043,14 +1044,19 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
             }
         )
 
-        # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
-
         snippet = DraftStateModel.objects.get(text="Some content")
+
+        # Should be redirected to the edit page
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatemodel:edit", args=[snippet.pk]),
+        )
+
+        # Should be saved as draft with the scheduled publishing dates
         self.assertEqual(snippet.go_live_at.date(), go_live_at.date())
         self.assertEqual(snippet.expire_at.date(), expire_at.date())
         self.assertIs(snippet.expired, False)
-        self.assertTrue(snippet.status_string, "draft")
+        self.assertEqual(snippet.status_string, "draft")
 
         # No revisions with approved_go_live_at
         self.assertFalse(
@@ -1112,7 +1118,9 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+        )
 
         # Find the object and check it
         snippet = DraftStateModel.objects.get(text="Some content")
@@ -1129,28 +1137,22 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         # But snippet won't be live
         self.assertFalse(snippet.live)
         self.assertFalse(snippet.first_published_at)
-        self.assertTrue(snippet.status_string, "scheduled")
+        self.assertEqual(snippet.status_string, "scheduled")
 
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
-    def get(self, params={}):
+    def get_edit_url(self):
         snippet = self.test_snippet
         app_label = snippet._meta.app_label
         model_name = snippet._meta.model_name
         args = [quote(snippet.pk)]
-        return self.client.get(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args), params
-        )
+        return reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args)
+
+    def get(self, params={}):
+        return self.client.get(self.get_edit_url(), params)
 
     def post(self, post_data={}):
-        snippet = self.test_snippet
-        app_label = snippet._meta.app_label
-        model_name = snippet._meta.model_name
-        args = [quote(snippet.pk)]
-        return self.client.post(
-            reverse(f"wagtailsnippets_{app_label}_{model_name}:edit", args=args),
-            post_data,
-        )
+        return self.client.post(self.get_edit_url(), post_data)
 
     def setUp(self):
         self.user = self.login()
@@ -1537,10 +1539,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         revisions = Revision.objects.for_instance(self.test_snippet)
         latest_revision = self.test_snippet.latest_revision
 
-        self.assertRedirects(
-            response,
-            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
-        )
+        self.assertRedirects(response, self.get_edit_url())
 
         # The instance should not be updated
         self.assertEqual(self.test_snippet.text, "Draft-enabled Foo")
@@ -1683,10 +1682,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         revisions = Revision.objects.for_instance(self.test_snippet).order_by("pk")
         latest_revision = self.test_snippet.latest_revision
 
-        self.assertRedirects(
-            response,
-            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
-        )
+        self.assertRedirects(response, self.get_edit_url())
 
         # The instance should be updated with the last published changes
         self.assertEqual(self.test_snippet.text, "Draft-enabled Bar, Published")
@@ -1895,8 +1891,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             }
         )
 
-        # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        # Should be redirected to the edit page
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailsnippets_tests_draftstatecustomprimarykeymodel:edit",
+                args=[self.test_snippet.pk],
+            ),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2046,7 +2048,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2064,7 +2069,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # because the changes are not visible as a live object yet
         self.assertTrue(
             self.test_snippet.has_unpublished_changes,
-            "An object scheduled for future publishing should have has_unpublished_changes=True",
+            msg="An object scheduled for future publishing should have has_unpublished_changes=True",
         )
 
         self.assertEqual(self.test_snippet.status_string, "scheduled")
@@ -2121,7 +2126,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2147,7 +2155,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2198,7 +2209,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.get(
             pk=self.test_snippet.pk
@@ -2220,7 +2234,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # because the changes are not visible as a live object yet
         self.assertTrue(
             self.test_snippet.has_unpublished_changes,
-            "An object scheduled for future publishing should have has_unpublished_changes=True",
+            msg="An object scheduled for future publishing should have has_unpublished_changes=True",
         )
 
         self.assertNotEqual(
@@ -2289,7 +2303,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2319,7 +2336,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2348,7 +2368,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2375,8 +2398,14 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             }
         )
 
-        # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        # Should be redirected to the edit page
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailsnippets_tests_draftstatecustomprimarykeymodel:edit",
+                args=[self.test_snippet.pk],
+            ),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2461,7 +2490,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2490,7 +2522,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.get(
             pk=self.test_snippet.pk
@@ -2567,7 +2602,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet.refresh_from_db()
 
@@ -2596,7 +2634,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
         # Should be redirected to the listing page
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
 
         self.test_snippet = DraftStateCustomPrimaryKeyModel.objects.get(
             pk=self.test_snippet.pk
@@ -3578,7 +3619,7 @@ class TestSnippetRevisions(TestCase, WagtailTestUtils):
                 "revision": self.initial_revision.pk,
             }
         )
-        self.assertRedirects(post_response, self.get_url("list", args=[]))
+        self.assertRedirects(post_response, self.get_url("edit"))
 
         self.snippet.refresh_from_db()
         latest_revision = self.snippet.get_latest_revision()

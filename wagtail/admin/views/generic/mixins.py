@@ -253,6 +253,14 @@ class CreateEditViewOptionalFeaturesMixin:
             "object": object,
         }
 
+    def get_success_url(self):
+        if not self.draftstate_enabled or self.action == "publish":
+            return super().get_success_url()
+
+        # If DraftStateMixin is enabled and the action isn't publish,
+        # remain on the edit view
+        return self.get_edit_url()
+
     def save_instance(self):
         """
         Called after the form is successfully validated - saves the object to the db
