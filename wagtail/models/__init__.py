@@ -487,7 +487,13 @@ class DraftStateMixin(models.Model):
                 return _("live")
 
     def publish(
-        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+        self,
+        revision,
+        user=None,
+        changed=True,
+        log_action=True,
+        previous_revision=None,
+        skip_permission_checks=False,
     ):
         """
         Publish a revision of the object by applying the changes in the revision to the live object.
@@ -506,7 +512,7 @@ class DraftStateMixin(models.Model):
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
-        ).execute()
+        ).execute(skip_permission_checks=skip_permission_checks)
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         """
@@ -1721,7 +1727,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     update_aliases.alters_data = True
 
     def publish(
-        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+        self,
+        revision,
+        user=None,
+        changed=True,
+        log_action=True,
+        previous_revision=None,
+        skip_permission_checks=False,
     ):
         return PublishPageRevisionAction(
             revision,
@@ -1729,7 +1741,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
-        ).execute()
+        ).execute(skip_permission_checks=skip_permission_checks)
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         return UnpublishPageAction(
@@ -2826,13 +2838,21 @@ class Revision(models.Model):
 
         return super().delete()
 
-    def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
+    def publish(
+        self,
+        user=None,
+        changed=True,
+        log_action=True,
+        previous_revision=None,
+        skip_permission_checks=False,
+    ):
         return self.content_object.publish(
             self,
             user=user,
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
+            skip_permission_checks=skip_permission_checks,
         )
 
     def get_previous(self):
