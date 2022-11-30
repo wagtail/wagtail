@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { initCollapsiblePanels } from './panels';
-
-const buildExpandingFormset = window.buildExpandingFormset;
+import { ExpandingFormset } from '../components/ExpandingFormset';
 
 /**
  * Attaches behaviour for an InlinePanel where inner panels can be created,
@@ -193,7 +192,8 @@ function inlinePanel(opts) {
     );
   };
 
-  buildExpandingFormset(opts.formsetPrefix, {
+  // eslint-disable-next-line no-new
+  new ExpandingFormset(opts.formsetPrefix, {
     onAdd(formCount) {
       const newChildPrefix = opts.emptyChildFormPrefix.replace(
         /__prefix__/g,
