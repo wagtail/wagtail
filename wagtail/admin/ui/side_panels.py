@@ -7,7 +7,12 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin.ui.components import Component
 from wagtail.locks import BasicLock
-from wagtail.models import DraftStateMixin, Page, UserPagePermissionsProxy
+from wagtail.models import (
+    DraftStateMixin,
+    LockableMixin,
+    Page,
+    UserPagePermissionsProxy,
+)
 
 
 class BaseSidePanel(Component):
@@ -47,12 +52,16 @@ class BaseStatusSidePanel(BaseSidePanel):
         self.live_object = live_object
         self.scheduled_object = scheduled_object
         self.in_explorer = in_explorer
+        self.locking_enabled = isinstance(self.object, LockableMixin)
 
     def get_status_templates(self, context):
         templates = ["wagtailadmin/shared/side_panels/includes/status/workflow.html"]
 
         if context.get("locale"):
             templates += ["wagtailadmin/shared/side_panels/includes/status/locale.html"]
+
+        if self.object.pk and self.locking_enabled:
+            templates += ["wagtailadmin/shared/side_panels/includes/status/locked.html"]
 
         return templates
 
@@ -133,19 +142,31 @@ class BaseStatusSidePanel(BaseSidePanel):
 
         return context
 
+    def get_lock_context(self):
+        self.lock = None
+        self.locked_for_user = False
+        if self.locking_enabled:
+            self.lock = self.object.get_lock()
+            self.locked_for_user = self.lock and self.lock.for_user(self.request.user)
+
+        return {
+            "lock": self.lock,
+            "locked_for_user": self.locked_for_user,
+            "locking_enabled": self.locking_enabled,
+        }
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["model_name"] = capfirst(self.model._meta.verbose_name)
         context["status_templates"] = self.get_status_templates(context)
         context.update(self.get_scheduled_publishing_context())
+        context.update(self.get_lock_context())
         return context
 
 
 class PageStatusSidePanel(BaseStatusSidePanel):
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
-        if self.object.pk:
-            templates += ["wagtailadmin/shared/side_panels/includes/status/locked.html"]
         templates += ["wagtailadmin/shared/side_panels/includes/status/privacy.html"]
         return templates
 
@@ -153,7 +174,6 @@ class PageStatusSidePanel(BaseStatusSidePanel):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
         page = self.object
-        lock = page.get_lock()
 
         if page.id:
             context.update(
@@ -164,13 +184,10 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
-                    "lock": lock,
-                    "locked_for_user": lock is not None
-                    and lock.for_user(self.request.user),
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
                     "user_can_lock": user_perms.for_page(page).can_lock(),
-                    "user_can_unlock": isinstance(lock, BasicLock)
+                    "user_can_unlock": isinstance(self.lock, BasicLock)
                     and user_perms.for_page(page).can_unlock(),
                     "locale": None,
                     "translations": [],

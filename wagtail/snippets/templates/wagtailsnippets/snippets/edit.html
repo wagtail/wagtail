@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailadmin_tags i18n %}
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ object }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}{% if locked_for_user %}content-locked{% endif %}{% endblock %}
 {% block content %}
     <div class="w-sticky w-top-0 w-z-header">
         {% include 'wagtailsnippets/snippets/headers/edit_header.html' %}
@@ -59,6 +60,8 @@
                 trigger: 'hover',
                 placement: 'bottom',
             });
-        })
+
+            LockUnlockAction('{{ csrf_token|escapejs }}', '{{ action_url }}');
+        });
     </script>
 {% endblock %}
