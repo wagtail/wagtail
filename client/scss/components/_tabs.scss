@@ -1,14 +1,3 @@
-.tab-content {
-  .page-locked & {
-    cursor: not-allowed;
-    user-select: none;
-
-    > * {
-      pointer-events: none;
-    }
-  }
-}
-
 .w-tabs {
   &__wrapper {
     @apply w-mb-8 w-overflow-x-auto w-scrollbar-thin w-flex w-items-center w-justify-between w-flex-wrap w-gap-4;

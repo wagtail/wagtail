@@ -5,6 +5,15 @@ $header-gap: theme('spacing.1');
 
 .w-panel {
   margin-bottom: theme('spacing.10');
+
+  .content-locked &__content {
+    cursor: not-allowed;
+    user-select: none;
+
+    > * {
+      pointer-events: none;
+    }
+  }
 }
 
 .w-panel__header {
