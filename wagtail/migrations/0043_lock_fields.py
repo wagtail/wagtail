@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 editable=False,
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                related_name="locked_pages",
+                related_name="locked_%(class)ss",
                 to=settings.AUTH_USER_MODEL,
                 verbose_name="locked by",
             ),
