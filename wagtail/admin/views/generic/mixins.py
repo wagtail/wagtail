@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -14,9 +15,16 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
+from wagtail.locks import ScheduledForPublishLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, Locale, RevisionMixin, TranslatableMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Locale,
+    LockableMixin,
+    RevisionMixin,
+    TranslatableMixin,
+)
 
 
 class HookResponseMixin:
@@ -194,6 +202,7 @@ class CreateEditViewOptionalFeaturesMixin:
     """
 
     view_name = "create"
+    revisions_unschedule_url_name = None
 
     def setup(self, request, *args, **kwargs):
         # Need to set these here as they are used in get_object()
@@ -203,9 +212,16 @@ class CreateEditViewOptionalFeaturesMixin:
 
         self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
+        self.locking_enabled = (
+            self.model
+            and issubclass(self.model, LockableMixin)
+            and self.view_name != "create"
+        )
 
         # Set the object before super().setup() as LocaleMixin.setup() needs it
         self.object = self.get_object()
+        self.lock = self.get_lock()
+        self.locked_for_user = self.lock and self.lock.for_user(request.user)
         super().setup(request, *args, **kwargs)
 
     def get_available_actions(self):
@@ -226,6 +242,19 @@ class CreateEditViewOptionalFeaturesMixin:
         if self.draftstate_enabled:
             return self.live_object.get_latest_revision_as_object()
         return self.live_object
+
+    def get_lock(self):
+        if not self.locking_enabled:
+            return None
+        return self.object.get_lock()
+
+    def get_error_message(self):
+        if self.locked_for_user:
+            return capfirst(
+                _("The %(model_name)s could not be saved as it is locked")
+                % {"model_name": self.model._meta.verbose_name}
+            )
+        return super().get_error_message()
 
     def get_success_message(self, instance=None):
         object = instance or self.object
@@ -360,12 +389,48 @@ class CreateEditViewOptionalFeaturesMixin:
             "user_display_name": user_display_name(revision.user),
         }
 
+    def get_lock_context(self):
+        context = {"lock": self.lock, "locked_for_user": self.locked_for_user}
+        if not self.lock:
+            return context
+
+        lock_message = self.lock.get_message(self.request.user)
+        if lock_message:
+            if isinstance(
+                self.lock, ScheduledForPublishLock
+            ) and self.user_has_permission("publish"):
+                lock_message = format_html(
+                    '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                    lock_message,
+                    reverse(
+                        self.revisions_unschedule_url_name,
+                        args=[quote(self.object.pk), self.object.scheduled_revision.id],
+                    ),
+                    _("Cancel scheduled publish"),
+                )
+
+            if self.locked_for_user:
+                messages.error(self.request, lock_message, extra_tags="lock")
+            else:
+                messages.warning(self.request, lock_message, extra_tags="lock")
+
+        return context
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update(self.get_lock_context())
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["live_last_updated_info"] = self.get_live_last_updated_info()
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        # Make sure object is not locked
+        if not self.locked_for_user and form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 class RevisionsRevertMixin:

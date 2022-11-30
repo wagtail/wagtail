@@ -8,13 +8,37 @@
         {% trans 'Locked' as title %}
 
         {% if not locked_for_user and user_can_unlock %}
-            {% trans 'You can edit this page, but others may not. Unlock it to allow others to edit.' as help_text %}
+            {% if page %}
+                {% trans 'You can edit this page, but others may not. Unlock it to allow others to edit.' as help_text %}
+            {% else %}
+                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
+                    You can edit this {{ model_name }}, but others may not. Unlock it to allow others to edit.
+                {% endblocktrans %}
+            {% endif %}
         {% elif not locked_for_user %}
-            {% trans 'You can edit this page, but others may not.' as help_text %}
+            {% if page %}
+                {% trans 'You can edit this page, but others may not.' as help_text %}
+            {% else %}
+                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
+                    You can edit this {{ model_name }}, but others may not.
+                {% endblocktrans %}
+            {% endif %}
         {% elif user_can_unlock %}
-            {% trans 'You cannot edit this page. Unlock it to edit.' as help_text %}
+            {% if page %}
+                {% trans 'You cannot edit this page. Unlock it to edit.' as help_text %}
+            {% else %}
+                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
+                    You cannot edit this {{ model_name }}. Unlock it to edit.
+                {% endblocktrans %}
+            {% endif %}
         {% else %}
-            {% trans 'You cannot edit this page.' as help_text %}
+            {% if page %}
+                {% trans 'You cannot edit this page.' as help_text %}
+            {% else %}
+                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
+                    You cannot edit this {{ model_name }}.
+                {% endblocktrans %}
+            {% endif %}
         {% endif %}
 
         {% with icon_name='lock' %}
@@ -24,9 +48,21 @@
         {% trans 'Unlocked' as title %}
 
         {% if user_can_lock %}
-            {% trans 'Anyone can edit this page. Lock it to prevent others from editing.' as help_text %}
+            {% if page %}
+                {% trans 'Anyone can edit this page. Lock it to prevent others from editing.' as help_text %}
+            {% else %}
+                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
+                    Anyone can edit this {{ model_name }}. Lock it to prevent others from editing.
+                {% endblocktrans %}
+            {% endif %}
         {% else %}
-            {% trans 'Anyone can edit this page.' as help_text %}
+            {% if page %}
+                {% trans 'Anyone can edit this page.' as help_text %}
+            {% else %}
+                {% blocktrans trimmed with model_name=model_name|lower asvar help_text %}
+                    Anyone can edit this {{ model_name }}.
+                {% endblocktrans %}
+            {% endif %}
         {% endif %}
 
         {% with icon_name='lock-open' %}

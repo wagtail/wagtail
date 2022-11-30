@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 
@@ -122,7 +123,7 @@ class ScheduledForPublishLock(BaseLock):
     """
     A lock that occurs when something is scheduled to be published.
 
-    This prevents it becoming difficult for users to see which version of a page that is going to be published.
+    This prevents it becoming difficult for users to see which version is going to be published.
     Nobody can edit something that's scheduled for publish.
     """
 
@@ -132,11 +133,27 @@ class ScheduledForPublishLock(BaseLock):
     def get_message(self, user):
         scheduled_revision = self.object.scheduled_revision
 
-        return format_html(
-            # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-            _(
-                "Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
-            ),
-            page_title=self.object.get_admin_display_title(),
-            datetime=scheduled_revision.approved_go_live_at.strftime("%d %b %Y %H:%M"),
-        )
+        if self.is_page:
+            return format_html(
+                # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                _(
+                    "Page '{page_title}' is locked and has been scheduled to go live at {datetime}"
+                ),
+                page_title=self.object.get_admin_display_title(),
+                datetime=scheduled_revision.approved_go_live_at.strftime(
+                    "%d %b %Y %H:%M"
+                ),
+            )
+        else:
+            message = format_html(
+                # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                _(
+                    "{model_name} '{title}' is locked and has been scheduled to go live at {datetime}"
+                ),
+                model_name=self.object._meta.verbose_name,
+                title=scheduled_revision.object_str,
+                datetime=scheduled_revision.approved_go_live_at.strftime(
+                    "%d %b %Y %H:%M"
+                ),
+            )
+            return mark_safe(capfirst(message))

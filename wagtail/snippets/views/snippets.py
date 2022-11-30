@@ -313,7 +313,10 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
 
     def _get_action_menu(self):
         return SnippetActionMenu(
-            self.request, view=self.view_name, instance=self.object
+            self.request,
+            view=self.view_name,
+            instance=self.object,
+            locked_for_user=self.locked_for_user,
         )
 
     def get_form_kwargs(self):
@@ -798,6 +801,7 @@ class SnippetViewSet(ViewSet):
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
+            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
@@ -848,6 +852,7 @@ class SnippetViewSet(ViewSet):
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
+            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
