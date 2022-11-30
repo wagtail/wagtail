@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`buildExpandingFormset should add an expanded item if the add button is not disabled 1`] = `
+exports[`ExpandingFormset should add an expanded item if the add button is not disabled 1`] = `
 <li
   data-contentpath-disabled=""
   data-inline-panel-child=""
