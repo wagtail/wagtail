@@ -794,7 +794,7 @@ class LockableMixin(models.Model):
         blank=True,
         editable=False,
         on_delete=models.SET_NULL,
-        related_name="locked_pages",
+        related_name="locked_%(class)ss",
     )
     locked_by.wagtail_reference_index_ignore = True
 
