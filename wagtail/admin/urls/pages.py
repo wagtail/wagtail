@@ -106,8 +106,8 @@ urlpatterns = [
         name="preview_for_moderation",
     ),
     path("<int:page_id>/privacy/", page_privacy.set_privacy, name="set_privacy"),
-    path("<int:page_id>/lock/", lock.lock, name="lock"),
-    path("<int:page_id>/unlock/", lock.unlock, name="unlock"),
+    path("<int:page_id>/lock/", lock.LockView.as_view(), name="lock"),
+    path("<int:page_id>/unlock/", lock.UnlockView.as_view(), name="unlock"),
     path("<int:page_id>/revisions/", revisions.revisions_index, name="revisions_index"),
     path(
         "<int:page_id>/revisions/<int:revision_id>/view/",
