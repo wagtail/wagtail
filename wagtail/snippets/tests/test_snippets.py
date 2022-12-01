@@ -2969,6 +2969,221 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
 
 
+class TestScheduledForPublishLock(BaseTestSnippetEditView):
+    def setUp(self):
+        super().setUp()
+        self.test_snippet = DraftStateModel.objects.create(
+            text="Draft-enabled Foo", live=False
+        )
+        self.go_live_at = now() + datetime.timedelta(days=1)
+        self.test_snippet.text = "I've been edited!"
+        self.test_snippet.go_live_at = self.go_live_at
+        self.latest_revision = self.test_snippet.save_revision()
+        self.latest_revision.publish()
+        self.test_snippet.refresh_from_db()
+
+    def test_edit_get_scheduled_for_publishing_with_publish_permission(self):
+        self.user.is_superuser = False
+
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="change_draftstatemodel"
+        )
+        publish_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="publish_draftstatemodel"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+
+        self.user.user_permissions.add(
+            edit_permission,
+            publish_permission,
+            admin_permission,
+        )
+        self.user.save()
+
+        response = self.get()
+
+        # Should show the go_live_at without the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+        )
+
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should show the lock message
+        self.assertContains(
+            response,
+            "Draft state model 'I&#x27;ve been edited!' is locked and has been scheduled to go live at",
+            count=1,
+        )
+
+        # Should show the lock information in the status side panel
+        self.assertContains(
+            response,
+            '<div class="w-help-text">You cannot edit this draft state model.</div>',
+            html=True,
+            count=1,
+        )
+
+        html = response.content.decode()
+
+        # Should not show the "Edit schedule" button
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=0,
+            allow_extra_attrs=True,
+        )
+
+        # Should show button to cancel scheduled publishing
+        unschedule_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:revisions_unschedule",
+            args=[self.test_snippet.pk, self.latest_revision.pk],
+        )
+        self.assertTagInHTML(
+            f'<button data-action-lock-unlock data-url="{unschedule_url}">Cancel scheduled publish</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_get_scheduled_for_publishing_without_publish_permission(self):
+        self.user.is_superuser = False
+
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests", codename="change_draftstatemodel"
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+
+        self.user.user_permissions.add(edit_permission, admin_permission)
+        self.user.save()
+
+        response = self.get()
+
+        # Should show the go_live_at without the "Once published" label
+        self.assertNotContains(
+            response,
+            '<div class="w-label-3">Once published:</div>',
+            html=True,
+        )
+
+        self.assertContains(
+            response,
+            f'<span class="w-text-primary">Go-live:</span> {rendered_timestamp(self.go_live_at)}',
+            html=True,
+            count=1,
+        )
+
+        # Should show the lock message
+        self.assertContains(
+            response,
+            "Draft state model 'I&#x27;ve been edited!' is locked and has been scheduled to go live at",
+            count=1,
+        )
+
+        # Should show the lock information in the status side panel
+        self.assertContains(
+            response,
+            '<div class="w-help-text">You cannot edit this draft state model.</div>',
+            html=True,
+            count=1,
+        )
+
+        html = response.content.decode()
+
+        # Should not show the "Edit schedule" button
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=0,
+            allow_extra_attrs=True,
+        )
+
+        # Should not show button to cancel scheduled publishing
+        unschedule_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:revisions_unschedule",
+            args=[self.test_snippet.pk, self.latest_revision.pk],
+        )
+        self.assertTagInHTML(
+            f'<button data-action-lock-unlock data-url="{unschedule_url}">Cancel scheduled publish</button>',
+            html,
+            count=0,
+            allow_extra_attrs=True,
+        )
+
+    def test_edit_post_scheduled_for_publishing(self):
+        response = self.post(
+            post_data={
+                "text": "I'm edited while it's locked for scheduled publishing!",
+                "go_live_at": submittable_timestamp(self.go_live_at),
+            }
+        )
+
+        self.test_snippet.refresh_from_db()
+
+        # Should not create a new revision,
+        # so the latest revision's content should still be the same
+        self.assertEqual(self.test_snippet.latest_revision, self.latest_revision)
+        self.assertEqual(
+            self.test_snippet.latest_revision.content["text"],
+            "I've been edited!",
+        )
+
+        # Should show a message explaining why the changes were not saved
+        self.assertContains(
+            response,
+            "The draft state model could not be saved as it is locked",
+            count=1,
+        )
+
+        # Should show the lock message
+        self.assertContains(
+            response,
+            "Draft state model 'I&#x27;ve been edited!' is locked and has been scheduled to go live at",
+            count=1,
+        )
+
+        # Should show the lock information in the status side panel
+        self.assertContains(
+            response,
+            '<div class="w-help-text">You cannot edit this draft state model.</div>',
+            html=True,
+            count=1,
+        )
+
+        html = response.content.decode()
+
+        # Should not show the "Edit schedule" button
+        self.assertTagInHTML(
+            '<button type="button" data-a11y-dialog-show="schedule-publishing-dialog">Edit schedule</button>',
+            html,
+            count=0,
+            allow_extra_attrs=True,
+        )
+
+        # Should show button to cancel scheduled publishing
+        unschedule_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:revisions_unschedule",
+            args=[self.test_snippet.pk, self.latest_revision.pk],
+        )
+        self.assertTagInHTML(
+            f'<button data-action-lock-unlock data-url="{unschedule_url}">Cancel scheduled publish</button>',
+            html,
+            count=1,
+            allow_extra_attrs=True,
+        )
+
+
 class TestSnippetUnpublish(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
