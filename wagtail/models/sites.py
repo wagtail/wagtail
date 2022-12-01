@@ -59,7 +59,10 @@ def get_site_for_hostname(hostname, port):
         # there are many hostname matches. if only 1 then use that instead
         # otherwise we use the default
         elif sites[0].match == MATCH_DEFAULT:
-            site = sites[int(len(sites) == 2)]
+            if len(sites) == 2:
+                site = sites[1]
+            else:
+                site = sites[0]
 
     # Don't cache unknown sites
     if site is None:
