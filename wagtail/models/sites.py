@@ -17,11 +17,9 @@ MATCH_HOSTNAME = 3
 
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
-    sites_cache = cache.get("wagtail_site_for_hostname", {})
-
     cache_key = (hostname, port)
-    site = sites_cache.get(cache_key)
 
+    site = cache.get("wagtail_site_for_hostname", {}).get(cache_key)
     if site is not None:
         return site
 
@@ -67,7 +65,9 @@ def get_site_for_hostname(hostname, port):
     if site is None:
         raise Site.DoesNotExist()
 
-    # Cache the found site for future requests
+    # Cache the found site for future requests.
+    # Re-fetch the cache to reduce risk of race conditions.
+    sites_cache = cache.get("wagtail_site_for_hostname", {})
     sites_cache[cache_key] = site
     cache.set("wagtail_site_for_hostname", sites_cache, 3600)
 
