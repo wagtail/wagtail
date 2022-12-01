@@ -829,11 +829,11 @@ class LockableMixin(models.Model):
         """
         Returns a sub-class of BaseLock if the instance is locked, otherwise None
         """
-        if self.locked:
-            return BasicLock(self)
-
         if isinstance(self, DraftStateMixin) and self.scheduled_revision:
             return ScheduledForPublishLock(self)
+
+        if self.locked:
+            return BasicLock(self)
 
 
 class AbstractPage(
