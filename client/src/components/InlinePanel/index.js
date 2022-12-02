@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import { initCollapsiblePanels } from './panels';
-import { ExpandingFormset } from '../components/ExpandingFormset';
+import { initCollapsiblePanels } from '../../includes/panels';
+import { ExpandingFormset } from '../ExpandingFormset';
 
 /**
  * Attaches behaviour for an InlinePanel where inner panels can be created,

@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/text';
-import { inlinePanel } from '../../includes/inlinePanel';
+import { inlinePanel } from '../../components/InlinePanel';
 import { ngettext } from '../../utils/gettext';
 
 window.InlinePanel = inlinePanel;
