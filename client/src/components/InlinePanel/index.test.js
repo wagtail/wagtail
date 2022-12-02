@@ -2,7 +2,7 @@ describe('inlinePanel', () => {
   let inlinePanel;
 
   beforeAll(() => {
-    inlinePanel = require('./inlinePanel').inlinePanel;
+    inlinePanel = require('./index').inlinePanel;
 
     document.body.innerHTML = `
 <form>
