@@ -183,8 +183,7 @@ class ListBlock(Block):
     def clean(self, value):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
         # be a plain list; normalise it to a ListValue
-        if not isinstance(value, ListValue):
-            value = ListValue(self, values=value)
+        value = self.normalize(value)
 
         result = []
         block_errors = {}
@@ -223,6 +222,11 @@ class ListBlock(Block):
             )
 
         return ListValue(self, bound_blocks=result)
+
+    def normalize(self, value):
+        if isinstance(value, ListValue):
+            return value
+        return ListValue(self, values=[self.child_block.normalize(x) for x in value])
 
     def _item_is_in_block_format(self, item):
         # check a list item retrieved from the database JSON representation to see whether it follows

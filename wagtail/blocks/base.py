@@ -159,6 +159,15 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
+    def normalize(self, value):
+        """
+        Ensure 'value' is an instance of the block's native type (e.g. ListValue for ListBlock,
+        StreamValue for StreamBlock). In many cases this will return the value unchanged - except
+        in the case of structural block types and block types with other custom representations
+        (e.g. EmbedBlock).
+        """
+        return value
+
     def to_python(self, value):
         """
         Convert 'value' from a simple (JSON-serialisable) value to a (possibly complex) Python value to be
