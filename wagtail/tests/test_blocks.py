@@ -50,6 +50,13 @@ class ContextCharBlock(blocks.CharBlock):
         return super(blocks.CharBlock, self).get_context(value, parent_context)
 
 
+class TestBlock(SimpleTestCase):
+    def test_normalize(self):
+        """The base normalize implementation should return its argument unchanged"""
+        obj = object()
+        self.assertIs(blocks.Block().normalize(obj), obj)
+
+
 class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     def test_charfield_render(self):
         block = blocks.CharBlock()
@@ -717,6 +724,14 @@ class TestRichTextBlock(TestCase):
         value = RichText('<a linktype="page" id="1">Link to an internal page</a>')
 
         self.assertEqual(list(block.extract_references(value)), [(Page, "1", "", "")])
+
+    def test_normalize(self):
+        block = blocks.RichTextBlock()
+        for value in ("Hello, world", RichText("Hello, world")):
+            with self.subTest(value=value):
+                normalized = block.normalize(value)
+                self.assertIsInstance(normalized, RichText)
+                self.assertEqual(normalized.source, "Hello, world")
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -2256,6 +2271,49 @@ class TestStructBlock(SimpleTestCase):
         self.assertIs(value.block, copied.block)
         self.assertEqual(value, copied)
 
+    def test_normalize_base_cases(self):
+        """Test the trivially recursive and already normalized cases"""
+        block = blocks.StructBlock([("title", blocks.CharBlock())])
+        self.assertEqual(
+            block.normalize({"title": "Foo"}), block._to_struct_value({"title": "Foo"})
+        )
+        self.assertEqual(
+            block.normalize(block._to_struct_value({"title": "Foo"})),
+            block._to_struct_value({"title": "Foo"}),
+        )
+
+    def test_recursive_normalize(self):
+        """StructBlock.normalize should recursively normalize all children"""
+        block = blocks.StructBlock(
+            [
+                (
+                    "inner_stream",
+                    blocks.StreamBlock(
+                        [
+                            ("inner_char", blocks.CharBlock()),
+                            ("inner_int", blocks.IntegerBlock()),
+                        ]
+                    ),
+                ),
+                ("list_of_ints", blocks.ListBlock(blocks.IntegerBlock())),
+            ]
+        )
+        value = {
+            "inner_stream": [("inner_char", "Hello, world"), ("inner_int", 42)],
+            "list_of_ints": [5, 6, 7, 8],
+        }
+        normalized = block.normalize(value)
+        self.assertIsInstance(normalized, blocks.StructValue)
+        self.assertIsInstance(normalized["inner_stream"], blocks.StreamValue)
+        self.assertIsInstance(
+            normalized["inner_stream"][0], blocks.StreamValue.StreamChild
+        )
+        self.assertIsInstance(
+            normalized["inner_stream"][1], blocks.StreamValue.StreamChild
+        )
+        self.assertIsInstance(normalized["list_of_ints"], blocks.list_block.ListValue)
+        self.assertIsInstance(normalized["list_of_ints"][0], int)
+
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
     def test_initialisation(self):
@@ -2433,8 +2491,44 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         html = block.render(struct_value)
         self.assertEqual(html, "<div>EMPTY TITLE</div>\n")
 
+    def test_normalize(self):
+        """A normalized StructBlock value should be an instance of the StructBlock's value_class"""
+
+        class CustomStructValue(blocks.StructValue):
+            pass
+
+        class CustomStructBlock(blocks.StructBlock):
+            text = blocks.TextBlock()
+
+            class Meta:
+                value_class = CustomStructValue
+
+        self.assertIsInstance(
+            CustomStructBlock().normalize({"text": "She sells sea shells"}),
+            CustomStructValue,
+        )
+
+    def test_normalize_incorrect_value_class(self):
+        class CustomStructValue(blocks.StructValue):
+            pass
+
+        class CustomStructBlock(blocks.StructBlock):
+            text = blocks.TextBlock()
+
+            class Meta:
+                value_class = CustomStructValue
+
+        block = CustomStructBlock()
+        # Not an instance of CustomStructValue
+        value = blocks.StructValue(block, {"text": "The quick brown fox"})
+        self.assertIsInstance(block.normalize(value), CustomStructValue)
+
 
 class TestListBlock(WagtailTestUtils, SimpleTestCase):
+    def assert_eq_list_values(self, p, q):
+        # We can't directly compare ListValue instances yet
+        self.assertEqual(list(p), list(q))
+
     def test_initialise_with_class(self):
         block = blocks.ListBlock(blocks.CharBlock)
 
@@ -2960,6 +3054,41 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(result[0]["type"], "bullet_list")
         self.assertEqual(len(result[0]["value"]), 2)
         self.assertEqual(result[0]["value"][0]["value"], "foo")
+
+    def test_normalize_base_case(self):
+        """Test normalize when trivially recursive, or already a ListValue"""
+        block = blocks.ListBlock(blocks.IntegerBlock)
+        normalized = block.normalize([0, 1, 1, 2, 3])
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(
+            normalized,
+            blocks.list_block.ListValue(block, [0, 1, 1, 2, 3]),
+        )
+
+        normalized = block.normalize(
+            blocks.list_block.ListValue(block, [0, 1, 1, 2, 3])
+        )
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        self.assert_eq_list_values(
+            normalized,
+            blocks.list_block.ListValue(block, [0, 1, 1, 2, 3]),
+        )
+
+    def test_recursive_normalize(self):
+        """
+        ListBlock.normalize should recursively normalize all values passed to it, and return a ListValue
+        """
+        inner_list_block = blocks.ListBlock(blocks.IntegerBlock())
+        block = blocks.ListBlock(inner_list_block)
+        value = [[0, 0, 1], [0, 1, 0], [1, 0, 0]]
+
+        normalized = block.normalize(value)
+        self.assertIsInstance(normalized, blocks.list_block.ListValue)
+        for child in normalized:
+            with self.subTest(child=child):
+                self.assertIsInstance(child, blocks.list_block.ListValue)
+                for inner_child in child:
+                    self.assertIsInstance(inner_child, int)
 
 
 class TestListBlockWithFixtures(TestCase):
@@ -4227,6 +4356,55 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+    def test_normalize_base_case(self):
+        """Test normalize when trivially recursive, or already a StreamValue"""
+        block = blocks.StreamBlock(
+            [("number", blocks.IntegerBlock()), ("text", blocks.TextBlock())]
+        )
+        value = [("number", 1), ("text", "ichiban")]
+        stream_value = blocks.StreamValue(block, value)
+        self.assertEqual(stream_value, block.normalize(value))
+        self.assertEqual(stream_value, block.normalize(stream_value))
+
+    def test_normalize_recursive(self):
+        block = blocks.StreamBlock(
+            [
+                (
+                    "inner_stream",
+                    blocks.StreamBlock(
+                        [
+                            ("number", blocks.IntegerBlock()),
+                            ("text", blocks.TextBlock()),
+                        ]
+                    ),
+                ),
+                ("struct", blocks.StructBlock([("bool", blocks.BooleanBlock())])),
+                ("list", blocks.ListBlock(blocks.IntegerBlock)),
+            ]
+        )
+        value = [
+            ("struct", {"bool": True}),
+            (
+                "inner_stream",
+                [
+                    ("number", 1),
+                    ("text", "one"),
+                ],
+            ),
+            ("list", [0, 1, 1, 2, 3, 5]),
+        ]
+        normalized = block.normalize(value)
+        # the StructBlock child
+        self.assertIsInstance(normalized[0].value, blocks.StructValue)
+        self.assertIsInstance(normalized[0].value["bool"], bool)
+        # the nested StreamBlock child
+        self.assertIsInstance(normalized[1].value, blocks.StreamValue)
+        self.assertIsInstance(normalized[1].value[0].value, int)
+        self.assertIsInstance(normalized[1].value[1].value, str)
+        # the ListBlock child
+        self.assertIsInstance(normalized[2].value, blocks.list_block.ListValue)
+        self.assertIsInstance(normalized[2].value[0], int)
+
 
 class TestStructBlockWithFixtures(TestCase):
     fixtures = ["test.json"]
@@ -4741,6 +4919,12 @@ class TestStaticBlock(unittest.TestCase):
         block = blocks.StaticBlock()
         result = block.to_python(None)
         self.assertIsNone(result)
+
+    def test_normalize(self):
+        """
+        StaticBlock.normalize always returns None, as a StaticBlock has no value
+        """
+        self.assertIsNone(blocks.StaticBlock().normalize(11))
 
 
 class TestDateBlock(TestCase):

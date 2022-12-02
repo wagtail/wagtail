@@ -85,5 +85,10 @@ class EmbedBlock(blocks.URLBlock):
             raise ValidationError(_("Cannot find an embed for this URL."))
         return super().clean(value)
 
+    def normalize(self, value):
+        if isinstance(value, EmbedValue):
+            return value
+        return EmbedValue(value)
+
     class Meta:
         icon = "media"
