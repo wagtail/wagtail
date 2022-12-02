@@ -304,6 +304,13 @@ class BaseStreamBlock(Block):
             # round-trips to the full data representation and back)
             return value.get_prep_value()
 
+    def normalize(self, value):
+        if isinstance(value, StreamValue):
+            return value
+        return StreamValue(
+            self, [(k, self.child_blocks[k].normalize(v)) for k, v in value]
+        )
+
     def get_form_state(self, value):
         if not value:
             return []
