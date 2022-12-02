@@ -1033,6 +1033,136 @@ class TestCreateDraftStateSnippet(TestCase, WagtailTestUtils):
         self.assertEqual(mock_call["instance"], snippet)
         self.assertIsInstance(mock_call["instance"], DraftStateModel)
 
+    def test_publish_bad_permissions(self):
+        # Only add create and edit permission
+        self.user.is_superuser = False
+        add_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="add_draftstatemodel",
+        )
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="change_draftstatemodel",
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        self.user.user_permissions.add(
+            add_permission,
+            edit_permission,
+            admin_permission,
+        )
+        self.user.save()
+
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
+        response = self.post(
+            post_data={
+                "text": "Draft-enabled Foo",
+                "action-publish": "action-publish",
+            }
+        )
+        snippet = DraftStateModel.objects.get(text="Draft-enabled Foo")
+
+        # Should be taken to the edit page
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:edit",
+                args=[snippet.pk],
+            ),
+        )
+
+        # The instance should still be created
+        self.assertEqual(snippet.text, "Draft-enabled Foo")
+
+        # The instance should not be live
+        self.assertFalse(snippet.live)
+        self.assertTrue(snippet.has_unpublished_changes)
+
+        # A revision should be created and set as latest_revision, but not live_revision
+        self.assertIsNotNone(snippet.latest_revision)
+        self.assertIsNone(snippet.live_revision)
+
+        # The revision content should contain the data
+        self.assertEqual(
+            snippet.latest_revision.content["text"],
+            "Draft-enabled Foo",
+        )
+
+        # Check that the published signal was not fired
+        self.assertEqual(mock_handler.call_count, 0)
+
+    def test_publish_with_publish_permission(self):
+        # Use create and publish permissions instead of relying on superuser flag
+        self.user.is_superuser = False
+        add_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="add_draftstatemodel",
+        )
+        publish_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="publish_draftstatemodel",
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        self.user.user_permissions.add(
+            add_permission,
+            publish_permission,
+            admin_permission,
+        )
+        self.user.save()
+
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
+        timestamp = now()
+        with freeze_time(timestamp):
+            response = self.post(
+                post_data={
+                    "text": "Draft-enabled Foo, Published",
+                    "action-publish": "action-publish",
+                }
+            )
+        snippet = DraftStateModel.objects.get(text="Draft-enabled Foo, Published")
+
+        self.assertRedirects(
+            response, reverse("wagtailsnippets_tests_draftstatemodel:list")
+        )
+
+        # The instance should be created
+        self.assertEqual(snippet.text, "Draft-enabled Foo, Published")
+
+        # The instance should be live
+        self.assertTrue(snippet.live)
+        self.assertFalse(snippet.has_unpublished_changes)
+        self.assertEqual(snippet.first_published_at, timestamp)
+        self.assertEqual(snippet.last_published_at, timestamp)
+
+        # A revision should be created and set as both latest_revision and live_revision
+        self.assertIsNotNone(snippet.live_revision)
+        self.assertEqual(snippet.live_revision, snippet.latest_revision)
+
+        # The revision content should contain the new data
+        self.assertEqual(
+            snippet.live_revision.content["text"],
+            "Draft-enabled Foo, Published",
+        )
+
+        # Check that the published signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], DraftStateModel)
+        self.assertEqual(mock_call["instance"], snippet)
+        self.assertIsInstance(mock_call["instance"], DraftStateModel)
+
     def test_create_scheduled(self):
         go_live_at = now() + datetime.timedelta(days=1)
         expire_at = now() + datetime.timedelta(days=2)
@@ -1622,6 +1752,139 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         self.assertEqual(mock_call["instance"], self.test_snippet)
         self.assertIsInstance(mock_call["instance"], DraftStateCustomPrimaryKeyModel)
 
+    def test_publish_bad_permissions(self):
+        # Only add edit permission
+        self.user.is_superuser = False
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="change_draftstatecustomprimarykeymodel",
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin",
+            codename="access_admin",
+        )
+        self.user.user_permissions.add(edit_permission, admin_permission)
+        self.user.save()
+
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
+        response = self.post(
+            post_data={
+                "text": "Edited draft Foo",
+                "action-publish": "action-publish",
+            }
+        )
+        self.test_snippet.refresh_from_db()
+
+        # Should remain on the edit page
+        self.assertRedirects(response, self.get_edit_url())
+
+        # The instance should not be edited
+        self.assertEqual(self.test_snippet.text, "Draft-enabled Foo")
+
+        # The instance should not be live
+        self.assertFalse(self.test_snippet.live)
+        self.assertTrue(self.test_snippet.has_unpublished_changes)
+
+        # A revision should be created and set as latest_revision, but not live_revision
+        self.assertIsNotNone(self.test_snippet.latest_revision)
+        self.assertIsNone(self.test_snippet.live_revision)
+
+        # The revision content should contain the data
+        self.assertEqual(
+            self.test_snippet.latest_revision.content["text"],
+            "Edited draft Foo",
+        )
+
+        # Check that the published signal was not fired
+        self.assertEqual(mock_handler.call_count, 0)
+
+    def test_publish_with_publish_permission(self):
+        # Only add edit and publish permissions
+        self.user.is_superuser = False
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="change_draftstatecustomprimarykeymodel",
+        )
+        publish_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="publish_draftstatecustomprimarykeymodel",
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(
+            edit_permission,
+            publish_permission,
+            admin_permission,
+        )
+        self.user.save()
+
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
+        timestamp = now()
+        with freeze_time(timestamp):
+            response = self.post(
+                post_data={
+                    "text": "Draft-enabled Bar, Published",
+                    "action-publish": "action-publish",
+                }
+            )
+
+        self.test_snippet.refresh_from_db()
+        revisions = Revision.objects.for_instance(self.test_snippet)
+        latest_revision = self.test_snippet.latest_revision
+
+        log_entries = ModelLogEntry.objects.filter(
+            content_type=ContentType.objects.get_for_model(
+                DraftStateCustomPrimaryKeyModel
+            ),
+            action="wagtail.publish",
+            object_id=self.test_snippet.pk,
+        )
+        log_entry = log_entries.first()
+
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
+
+        # The instance should be updated
+        self.assertEqual(self.test_snippet.text, "Draft-enabled Bar, Published")
+
+        # The instance should be live
+        self.assertTrue(self.test_snippet.live)
+        self.assertFalse(self.test_snippet.has_unpublished_changes)
+        self.assertEqual(self.test_snippet.first_published_at, timestamp)
+        self.assertEqual(self.test_snippet.last_published_at, timestamp)
+        self.assertEqual(self.test_snippet.live_revision, latest_revision)
+
+        # The revision should be created and set as latest_revision
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(latest_revision, revisions.first())
+
+        # The revision content should contain the new data
+        self.assertEqual(
+            latest_revision.content["text"],
+            "Draft-enabled Bar, Published",
+        )
+
+        # A log entry with wagtail.publish action should be created
+        self.assertEqual(log_entries.count(), 1)
+        self.assertEqual(log_entry.timestamp, timestamp)
+
+        # Check that the published signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], DraftStateCustomPrimaryKeyModel)
+        self.assertEqual(mock_call["instance"], self.test_snippet)
+        self.assertIsInstance(mock_call["instance"], DraftStateCustomPrimaryKeyModel)
+
     def test_save_draft_then_publish(self):
         save_timestamp = now()
         with freeze_time(save_timestamp):
@@ -1896,7 +2159,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             response,
             reverse(
                 "wagtailsnippets_tests_draftstatecustomprimarykeymodel:edit",
-                args=[self.test_snippet.pk],
+                args=[quote(self.test_snippet.pk)],
             ),
         )
 
@@ -2403,7 +2666,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             response,
             reverse(
                 "wagtailsnippets_tests_draftstatecustomprimarykeymodel:edit",
-                args=[self.test_snippet.pk],
+                args=[quote(self.test_snippet.pk)],
             ),
         )
 
@@ -2743,7 +3006,7 @@ class TestSnippetUnpublish(TestCase, WagtailTestUtils):
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
 
-    def test_unpublish_view_bad_permissions(self):
+    def test_unpublish_view_get_bad_permissions(self):
         """
         This tests that the unpublish view doesn't allow users without unpublish permissions
         """
@@ -2761,6 +3024,88 @@ class TestSnippetUnpublish(TestCase, WagtailTestUtils):
 
         # Check that the user received a 302 redirected response
         self.assertEqual(response.status_code, 302)
+
+    def test_unpublish_view_post_bad_permissions(self):
+        """
+        This tests that the unpublish view doesn't allow users without unpublish permissions
+        """
+        # Connect a mock signal handler to unpublished signal
+        mock_handler = mock.MagicMock()
+        unpublished.connect(mock_handler)
+
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        # Post to the unpublish view
+        response = self.client.post(self.unpublish_url)
+
+        # Should be redirected to the home page
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Check that the object was not unpublished
+        self.assertTrue(
+            DraftStateCustomPrimaryKeyModel.objects.get(pk=self.snippet.pk).live
+        )
+
+        # Check that the unpublished signal was not fired
+        self.assertEqual(mock_handler.call_count, 0)
+
+    def test_unpublish_view_post_with_publish_permission(self):
+        """
+        This posts to the unpublish view and checks that the object was unpublished,
+        using a specific publish permission instead of relying on the superuser flag
+        """
+        # Connect a mock signal handler to unpublished signal
+        mock_handler = mock.MagicMock()
+        unpublished.connect(mock_handler)
+
+        # Only add edit and publish permissions
+        self.user.is_superuser = False
+        edit_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="change_draftstatecustomprimarykeymodel",
+        )
+        publish_permission = Permission.objects.get(
+            content_type__app_label="tests",
+            codename="publish_draftstatecustomprimarykeymodel",
+        )
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(
+            edit_permission,
+            publish_permission,
+            admin_permission,
+        )
+        self.user.save()
+
+        # Post to the unpublish view
+        response = self.client.post(self.unpublish_url)
+
+        # Should be redirected to the listing page
+        self.assertRedirects(
+            response,
+            reverse("wagtailsnippets_tests_draftstatecustomprimarykeymodel:list"),
+        )
+
+        # Check that the object was unpublished
+        self.assertFalse(
+            DraftStateCustomPrimaryKeyModel.objects.get(pk=self.snippet.pk).live
+        )
+
+        # Check that the unpublished signal was fired
+        self.assertEqual(mock_handler.call_count, 1)
+        mock_call = mock_handler.mock_calls[0][2]
+
+        self.assertEqual(mock_call["sender"], DraftStateCustomPrimaryKeyModel)
+        self.assertEqual(mock_call["instance"], self.snippet)
+        self.assertIsInstance(mock_call["instance"], DraftStateCustomPrimaryKeyModel)
 
     def test_unpublish_view_post(self):
         """
