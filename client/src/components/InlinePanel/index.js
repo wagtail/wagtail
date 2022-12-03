@@ -19,8 +19,7 @@ export class InlinePanel {
     this.opts = opts;
     this.formsElt = $('#' + this.opts.formsetPrefix + '-FORMS');
 
-    // eslint-disable-next-line no-new
-    new ExpandingFormset(opts.formsetPrefix, {
+    this.expandingFormset = new ExpandingFormset(opts.formsetPrefix, {
       onAdd: (formCount) => {
         const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
           /__prefix__/g,
@@ -219,5 +218,9 @@ export class InlinePanel {
         children.removeAttr('style');
       },
     );
+  }
+
+  addForm() {
+    this.expandingFormset.addForm();
   }
 }
