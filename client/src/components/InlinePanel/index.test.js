@@ -1,8 +1,8 @@
-describe('inlinePanel', () => {
-  let inlinePanel;
+describe('InlinePanel', () => {
+  let InlinePanel;
 
   beforeAll(() => {
-    inlinePanel = require('./index').inlinePanel;
+    InlinePanel = require('./index').InlinePanel;
 
     document.body.innerHTML = `
 <form>
@@ -27,7 +27,8 @@ describe('inlinePanel', () => {
       onAdd: onAdd,
     };
 
-    inlinePanel(options);
+    // eslint-disable-next-line no-new
+    new InlinePanel(options);
 
     expect(onAdd).not.toHaveBeenCalled();
 

@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/text';
-import { inlinePanel } from '../../components/InlinePanel';
+import { InlinePanel } from '../../components/InlinePanel';
 import { ngettext } from '../../utils/gettext';
 
-window.InlinePanel = inlinePanel;
+window.InlinePanel = InlinePanel;
 window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {

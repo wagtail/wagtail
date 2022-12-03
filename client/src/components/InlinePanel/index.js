@@ -14,10 +14,41 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * @param {function} opts.onAdd
  * @returns {Object}
  */
-function inlinePanel(opts) {
-  const self = {};
+export class InlinePanel {
+  constructor(opts) {
+    this.opts = opts;
+    this.formsElt = $('#' + this.opts.formsetPrefix + '-FORMS');
 
-  self.initChildControls = function initChildControls(prefix) {
+    // eslint-disable-next-line no-new
+    new ExpandingFormset(opts.formsetPrefix, {
+      onAdd: (formCount) => {
+        const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
+          /__prefix__/g,
+          formCount,
+        );
+        this.initChildControls(newChildPrefix);
+        if (this.opts.canOrder) {
+          /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
+          Therefore formcount and order are currently equal and order must be incremented
+          to ensure it's *greater* than previous item */
+          $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
+        }
+
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
+        this.updateAddButtonState();
+        initCollapsiblePanels(
+          document.querySelectorAll(
+            `#inline_child_${newChildPrefix} [data-panel-toggle]`,
+          ),
+        );
+
+        if (this.opts.onAdd) this.opts.onAdd();
+      },
+    });
+  }
+
+  initChildControls(prefix) {
     const childId = 'inline_child_' + prefix;
     const deleteInputId = 'id_' + prefix + '-DELETE';
     const currentChild = $('#' + childId);
@@ -28,13 +59,13 @@ function inlinePanel(opts) {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
       currentChild.addClass('deleted').slideUp(() => {
-        self.updateChildCount();
-        self.updateMoveButtonDisabledStates();
-        self.updateAddButtonState();
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
+        this.updateAddButtonState();
       });
     });
 
-    if (opts.canOrder) {
+    if (this.opts.canOrder) {
       $up.on('click', () => {
         const currentChildOrderElem = currentChild.find(
           `input[name="${prefix}-ORDER"]`,
@@ -51,14 +82,14 @@ function inlinePanel(opts) {
         const prevChildOrder = prevChildOrderElem.val();
 
         // async swap animation must run before the insertBefore line below, but doesn't need to finish first
-        self.animateSwap(currentChild, prevChild);
+        this.animateSwap(currentChild, prevChild);
 
         currentChild.insertBefore(prevChild);
         currentChildOrderElem.val(prevChildOrder);
         prevChildOrderElem.val(currentChildOrder);
 
-        self.updateChildCount();
-        self.updateMoveButtonDisabledStates();
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
       });
 
       $down.on('click', () => {
@@ -77,40 +108,38 @@ function inlinePanel(opts) {
         const nextChildOrder = nextChildOrderElem.val();
 
         // async swap animation must run before the insertAfter line below, but doesn't need to finish first
-        self.animateSwap(currentChild, nextChild);
+        this.animateSwap(currentChild, nextChild);
 
         currentChild.insertAfter(nextChild);
         currentChildOrderElem.val(nextChildOrder);
         nextChildOrderElem.val(currentChildOrder);
 
-        self.updateChildCount();
-        self.updateMoveButtonDisabledStates();
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
       });
     }
 
     /* Hide container on page load if it is marked as deleted. Remove the error
-     message so that it doesn't count towards the number of errors on the tab at the
-     top of the page. */
+    message so that it doesn't count towards the number of errors on the tab at the
+    top of the page. */
     if ($('#' + deleteInputId).val() === '1') {
       $('#' + childId)
         .addClass('deleted')
         .hide(0, () => {
-          self.updateChildCount();
-          self.updateMoveButtonDisabledStates();
-          self.updateAddButtonState();
+          this.updateChildCount();
+          this.updateMoveButtonDisabledStates();
+          this.updateAddButtonState();
         });
 
       $('#' + childId)
         .find('.error-message')
         .remove();
     }
-  };
+  }
 
-  self.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
-
-  self.updateMoveButtonDisabledStates = function updateMoveButtons() {
-    if (opts.canOrder) {
-      const forms = self.formsElt.children(':not(.deleted)');
+  updateMoveButtonDisabledStates() {
+    if (this.opts.canOrder) {
+      const forms = this.formsElt.children(':not(.deleted)');
       forms.each(function updateButtonStates(i) {
         const isFirst = i === 0;
         const isLast = i === forms.length - 1;
@@ -118,37 +147,37 @@ function inlinePanel(opts) {
         $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
       });
     }
-  };
+  }
 
   /**
    * Adds the child’s count next to its heading label, ignoring deleted items.
    */
-  self.updateChildCount = function updateChildCount() {
-    const forms = self.formsElt.children(':not(.deleted)');
+  updateChildCount() {
+    const forms = this.formsElt.children(':not(.deleted)');
     forms.each(function updateCountState(i) {
       $('[data-inline-panel-child-count]', this)
         .first()
         .text(` ${i + 1}`);
     });
-  };
+  }
 
-  self.updateAddButtonState = function updateAddButtonState() {
-    if (opts.maxForms) {
-      const forms = $('> [data-inline-panel-child]', self.formsElt).not(
+  updateAddButtonState() {
+    if (this.opts.maxForms) {
+      const forms = $('> [data-inline-panel-child]', this.formsElt).not(
         '.deleted',
       );
-      const addButton = $('#' + opts.formsetPrefix + '-ADD');
+      const addButton = $('#' + this.opts.formsetPrefix + '-ADD');
 
-      if (forms.length >= opts.maxForms) {
+      if (forms.length >= this.opts.maxForms) {
         addButton.prop('disabled', true);
       } else {
         addButton.prop('disabled', false);
       }
     }
-  };
+  }
 
-  self.animateSwap = function animateSwap(item1, item2) {
-    const parent = self.formsElt;
+  animateSwap(item1, item2) {
+    const parent = this.formsElt;
     const children = parent.children(':not(.deleted)');
 
     // Position children absolutely and add hard-coded height
@@ -190,37 +219,5 @@ function inlinePanel(opts) {
         children.removeAttr('style');
       },
     );
-  };
-
-  // eslint-disable-next-line no-new
-  new ExpandingFormset(opts.formsetPrefix, {
-    onAdd(formCount) {
-      const newChildPrefix = opts.emptyChildFormPrefix.replace(
-        /__prefix__/g,
-        formCount,
-      );
-      self.initChildControls(newChildPrefix);
-      if (opts.canOrder) {
-        /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
-        Therefore formcount and order are currently equal and order must be incremented
-        to ensure it's *greater* than previous item */
-        $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
-      }
-
-      self.updateChildCount();
-      self.updateMoveButtonDisabledStates();
-      self.updateAddButtonState();
-      initCollapsiblePanels(
-        document.querySelectorAll(
-          `#inline_child_${newChildPrefix} [data-panel-toggle]`,
-        ),
-      );
-
-      if (opts.onAdd) opts.onAdd();
-    },
-  });
-
-  return self;
+  }
 }
-
-export { inlinePanel };
