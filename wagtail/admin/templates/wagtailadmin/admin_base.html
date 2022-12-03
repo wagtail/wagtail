@@ -3,6 +3,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/js/sa11y/sa11y.css' %}">
 
     {% hook_output 'insert_global_admin_css' %}
     {% hook_output 'insert_editor_css' %}
@@ -58,6 +59,24 @@
     <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/telepath/telepath.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/sidebar.js' %}"></script>
+
+    <script type="module">
+       import { Sa11y, Lang } from "{% versioned_static 'wagtailadmin/js/sa11y/sa11y.esm.js' %}";
+       import Sa11yLangEn from "{% versioned_static 'wagtailadmin/js/sa11y/lang/en.js' %}";
+ 
+       // Optional: Custom checks
+       import CustomChecks from "{% versioned_static 'wagtailadmin/js/sa11y/sa11y-custom-checks.esm.js' %}";
+ 
+       // Set translations
+       Lang.addI18n(Sa11yLangEn.strings);
+ 
+       // Instantiate
+       const sa11y = new Sa11y({
+               customChecks: new CustomChecks, // Optional
+               checkRoot: "body",
+       });
+   </script>
+
 
     {% hook_output 'insert_global_admin_js' %}
 
