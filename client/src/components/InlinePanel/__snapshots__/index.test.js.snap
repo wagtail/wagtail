@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlinePanel should allow inserting a new form and calling an onAdd function 1`] = `
+exports[`InlinePanel should allow inserting a new form and calling an onAdd function 1`] = `
 "
 <form>
     <input name=\\"person_cafe_relationship-TOTAL_FORMS\\" value=\\"1\\" id=\\"id_person_cafe_relationship-TOTAL_FORMS\\" type=\\"hidden\\">
