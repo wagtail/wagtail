@@ -322,19 +322,6 @@ def get_supported_content_language_variant(lang_code, strict=False):
     raise LookupError(lang_code)
 
 
-@functools.lru_cache()
-def get_locales_display_names() -> dict:
-    """
-    Cache of the locale id -> locale display name mapping
-    """
-    from wagtail.models import Locale  # inlined to avoid circular imports
-
-    locales_map = {
-        locale.pk: locale.get_display_name() for locale in Locale.objects.all()
-    }
-    return locales_map
-
-
 @receiver(setting_changed)
 def reset_cache(**kwargs):
     """

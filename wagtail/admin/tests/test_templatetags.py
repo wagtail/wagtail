@@ -11,11 +11,7 @@ from django.utils.html import format_html
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.templatetags.wagtailadmin_tags import (
-    avatar_url,
-    i18n_enabled,
-    locale_label_from_id,
-)
+from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, i18n_enabled
 from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     notification_static,
@@ -280,17 +276,6 @@ class TestInternationalisationTags(TestCase):
                 {"code": "ru", "display_name": "Russian"},
             ],
         )
-
-    def test_locale_label_from_id(self):
-        with self.assertNumQueries(1):
-            self.assertEqual(locale_label_from_id(self.locale_ids[0]), "English")
-
-        with self.assertNumQueries(0):
-            self.assertEqual(locale_label_from_id(self.locale_ids[1]), "French")
-
-        # check with an invalid id
-        with self.assertNumQueries(0):
-            self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)
 
 
 class ComponentTest(TestCase):

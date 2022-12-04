@@ -36,11 +36,7 @@ from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.coreutils import (
-    escape_script,
-    get_content_type_label,
-    get_locales_display_names,
-)
+from wagtail.coreutils import escape_script, get_content_type_label
 from wagtail.models import (
     CollectionViewRestriction,
     Locale,
@@ -809,14 +805,6 @@ def locales():
             for locale in Locale.objects.all()
         ]
     )
-
-
-@register.simple_tag
-def locale_label_from_id(locale_id):
-    """
-    Returns the Locale display name given its id.
-    """
-    return get_locales_display_names().get(locale_id)
 
 
 @register.simple_tag(takes_context=True)
