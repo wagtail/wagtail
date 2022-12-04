@@ -20,17 +20,15 @@ export class InlinePanel {
     this.formsElt = $('#' + this.opts.formsetPrefix + '-FORMS');
 
     this.expandingFormset = new ExpandingFormset(opts.formsetPrefix, {
-      onAdd: (formCount) => {
+      onAdd: (formIndex) => {
         const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
           /__prefix__/g,
-          formCount,
+          formIndex,
         );
         this.initChildControls(newChildPrefix);
         if (this.opts.canOrder) {
-          /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
-          Therefore formcount and order are currently equal and order must be incremented
-          to ensure it's *greater* than previous item */
-          $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
+          /* ORDER values are 1-based, so need to add 1 to formIndex */
+          $('#id_' + newChildPrefix + '-ORDER').val(formIndex + 1);
         }
 
         this.updateChildCount();
