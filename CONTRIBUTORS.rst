@@ -8,7 +8,6 @@ Core team
 * Dawn Wages (The Wharton School)
 * Jacob Topp-Mugglestone (Torchbox)
 * Kalob Taulien
-* Karl Hobley (Torchbox)
 * LB Johnston
 * Loïc Teixeira (Springload)
 * Matthew Westcott (Torchbox)
@@ -32,6 +31,7 @@ Core team alumni
 * Janneke Janssen
 * Jonny Scholes
 * Josh Barr
+* Karl Hobley
 * Lisa Adams
 * Martin Sandström
 * Michael van Tellingen
