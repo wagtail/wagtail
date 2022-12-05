@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 export class ExpandingFormset {
   constructor(prefix, opts = {}) {
-    this.opts = opts;
+    this.expandingFormsetOpts = opts;
     const addButton = $('#' + prefix + '-ADD');
     this.formContainer = $('#' + prefix + '-FORMS');
     this.totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
@@ -28,7 +28,11 @@ export class ExpandingFormset {
     });
   }
 
-  addForm() {
+  addForm(opts = {}) {
+    /*
+    Supported opts:
+    runCallbacks (default: true) - if false, the onAdd and onInit callbacks will not be run
+    */
     const formIndex = this.formCount;
     const newFormHtml = this.emptyFormTemplate
       .replace(/__prefix__(.*?['"])/g, formIndex + '$1')
@@ -39,7 +43,11 @@ export class ExpandingFormset {
     this.formCount += 1;
     this.totalFormsInput.val(this.formCount);
 
-    if (this.opts.onAdd) this.opts.onAdd(formIndex);
-    if (this.opts.onInit) this.opts.onInit(formIndex);
+    if (!('runCallbacks' in opts) || opts.runCallbacks) {
+      if (this.expandingFormsetOpts.onAdd)
+        this.expandingFormsetOpts.onAdd(formIndex);
+      if (this.expandingFormsetOpts.onInit)
+        this.expandingFormsetOpts.onInit(formIndex);
+    }
   }
 }
