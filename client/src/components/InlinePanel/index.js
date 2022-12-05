@@ -16,10 +16,8 @@ import { ExpandingFormset } from '../ExpandingFormset';
  */
 export class InlinePanel extends ExpandingFormset {
   constructor(opts) {
-    this.opts = opts;
-    this.formsElt = $('#' + this.opts.formsetPrefix + '-FORMS');
-
-    super(opts.formsetPrefix);
+    super(opts.formsetPrefix, opts);
+    this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
   }
 
   initChildControls(prefix) {
