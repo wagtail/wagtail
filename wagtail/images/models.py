@@ -3,6 +3,7 @@ import logging
 import os.path
 import time
 from collections import OrderedDict, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from io import BytesIO
 from typing import Dict, Iterable, List, Union
@@ -641,14 +642,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
         with self.open_file() as file:
-            in_memory_file = ContentFile(file.read(), name=self.file.name)
+            original_image_bytes = file.read()
 
         to_create = []
-        for filter in filters:
-            image_file = self.generate_rendition_file(filter, source=in_memory_file)
-            # Reset in-memory file for next use
-            in_memory_file.seek(0)
-            # Add for bulk creation
+
+        def _generate_single_rendition(filter):
+            image_file = self.generate_rendition_file(
+                filter, source=ContentFile(original_image_bytes, name=self.file.name)
+            )
             to_create.append(
                 Rendition(
                     image=self,
@@ -657,6 +658,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     file=image_file,
                 )
             )
+
+        with ThreadPoolExecutor() as executor:
+            for filter in filters:
+                executor.submit(_generate_single_rendition, filter)
+            executor.shutdown(wait=True)
 
         # Rendition generation can take a while. So, if other processes have created
         # identical renditions in the meantime, we should find them to avoid clashes.
