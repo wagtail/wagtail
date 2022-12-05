@@ -1,0 +1,24 @@
+/*!
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version 1.3.6
+ *
+ * Date formatter utility library that allows formatting date/time variables or Date objects using PHP DateTime format.
+ * @see http://php.net/manual/en/function.date.php
+ *
+ * For more JQuery plugins visit http://plugins.krajee.com
+ * For more Yii related demos visit http://demos.krajee.com
+ */
+
+/*!
+ * jQuery Mousewheel 3.1.13
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ */
+
+/**
+ * @preserve jQuery DateTimePicker
+ * @homepage http://xdsoft.net/jqplugins/datetimepicker/
+ * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
+ */
