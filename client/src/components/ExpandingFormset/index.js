@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 export class ExpandingFormset {
   constructor(prefix, opts = {}) {
-    this.expandingFormsetOpts = opts;
+    this.opts = opts;
     const addButton = $('#' + prefix + '-ADD');
     this.formContainer = $('#' + prefix + '-FORMS');
     this.totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
@@ -44,10 +44,8 @@ export class ExpandingFormset {
     this.totalFormsInput.val(this.formCount);
 
     if (!('runCallbacks' in opts) || opts.runCallbacks) {
-      if (this.expandingFormsetOpts.onAdd)
-        this.expandingFormsetOpts.onAdd(formIndex);
-      if (this.expandingFormsetOpts.onInit)
-        this.expandingFormsetOpts.onInit(formIndex);
+      if (this.opts.onAdd) this.opts.onAdd(formIndex);
+      if (this.opts.onInit) this.opts.onInit(formIndex);
     }
   }
 }
