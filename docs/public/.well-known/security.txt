@@ -1,6 +1,0 @@
-Contact: mailto:security@wagtail.org
-Preferred-Languages: en
-Canonical: https://docs.wagtail.org/.well-known/security.txt
-Encryption: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x220b7102b615b692e37d886dbed227b4daf93ff9
-Expires: 2024-01-27T19:43:00.000Z
-Policy: https://github.com/wagtail/wagtail/security/policy
