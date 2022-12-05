@@ -1,5 +1,9 @@
 # Reporting security issues
 
+```{warning}
+Ensure you are viewing our [latest security policy](https://docs.wagtail.org/en/latest/contributing/security.html).
+```
+
 ```{note}
 Please report security issues **only** to [security@wagtail.org](mailto:security@wagtail.org).
 ```
