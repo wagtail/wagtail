@@ -19,30 +19,7 @@ export class InlinePanel extends ExpandingFormset {
     this.opts = opts;
     this.formsElt = $('#' + this.opts.formsetPrefix + '-FORMS');
 
-    super(opts.formsetPrefix, {
-      onAdd: (formIndex) => {
-        const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
-          /__prefix__/g,
-          formIndex,
-        );
-        this.initChildControls(newChildPrefix);
-        if (this.opts.canOrder) {
-          /* ORDER values are 1-based, so need to add 1 to formIndex */
-          $('#id_' + newChildPrefix + '-ORDER').val(formIndex + 1);
-        }
-
-        this.updateChildCount();
-        this.updateMoveButtonDisabledStates();
-        this.updateAddButtonState();
-        initCollapsiblePanels(
-          document.querySelectorAll(
-            `#inline_child_${newChildPrefix} [data-panel-toggle]`,
-          ),
-        );
-
-        if (this.opts.onAdd) this.opts.onAdd();
-      },
-    });
+    super(opts.formsetPrefix);
   }
 
   initChildControls(prefix) {
@@ -216,5 +193,43 @@ export class InlinePanel extends ExpandingFormset {
         children.removeAttr('style');
       },
     );
+  }
+
+  addForm(opts = {}) {
+    /*
+    Supported opts:
+    runCallbacks (default: true) - if false, the onAdd and onInit callbacks will not be run
+    */
+
+    // don't run callbacks yet - we'll do that after initialising InlinePanel's controls
+    super.addForm({ runCallbacks: false });
+
+    // formCount has now been incremented, so subtract one to get back the 0-based index
+    // of the newly added form
+    const formIndex = this.formCount - 1;
+
+    const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
+      /__prefix__/g,
+      formIndex,
+    );
+    this.initChildControls(newChildPrefix);
+    if (this.opts.canOrder) {
+      /* ORDER values are 1-based, so need to add 1 to formIndex */
+      $('#id_' + newChildPrefix + '-ORDER').val(formIndex + 1);
+    }
+
+    this.updateChildCount();
+    this.updateMoveButtonDisabledStates();
+    this.updateAddButtonState();
+    initCollapsiblePanels(
+      document.querySelectorAll(
+        `#inline_child_${newChildPrefix} [data-panel-toggle]`,
+      ),
+    );
+
+    if (!('runCallbacks' in opts) || opts.runCallbacks) {
+      if (this.opts.onAdd) this.opts.onAdd(formIndex);
+      if (this.opts.onInit) this.opts.onInit(formIndex);
+    }
   }
 }
