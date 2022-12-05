@@ -18,6 +18,18 @@ export class InlinePanel extends ExpandingFormset {
   constructor(opts) {
     super(opts.formsetPrefix, opts);
     this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
+
+    for (let i = 0; i < this.formCount; i += 1) {
+      const childPrefix = this.opts.emptyChildFormPrefix.replace(
+        /__prefix__/g,
+        i,
+      );
+      this.initChildControls(childPrefix);
+    }
+
+    this.updateChildCount();
+    this.updateMoveButtonDisabledStates();
+    this.updateAddButtonState();
   }
 
   initChildControls(prefix) {
