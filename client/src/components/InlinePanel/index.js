@@ -14,12 +14,12 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * @param {function} opts.onAdd
  * @returns {Object}
  */
-export class InlinePanel {
+export class InlinePanel extends ExpandingFormset {
   constructor(opts) {
     this.opts = opts;
     this.formsElt = $('#' + this.opts.formsetPrefix + '-FORMS');
 
-    this.expandingFormset = new ExpandingFormset(opts.formsetPrefix, {
+    super(opts.formsetPrefix, {
       onAdd: (formIndex) => {
         const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
           /__prefix__/g,
@@ -216,9 +216,5 @@ export class InlinePanel {
         children.removeAttr('style');
       },
     );
-  }
-
-  addForm() {
-    this.expandingFormset.addForm();
   }
 }
