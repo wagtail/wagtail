@@ -16,7 +16,7 @@ from wagtail.admin import messages
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.utils import get_latest_str
-from wagtail.locks import ScheduledForPublishLock
+from wagtail.locks import BasicLock, ScheduledForPublishLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
@@ -199,6 +199,8 @@ class CreateEditViewOptionalFeaturesMixin:
     """
 
     view_name = "create"
+    lock_url_name = None
+    unlock_url_name = None
     revisions_unschedule_url_name = None
 
     def setup(self, request, *args, **kwargs):
@@ -220,6 +222,13 @@ class CreateEditViewOptionalFeaturesMixin:
         self.lock = self.get_lock()
         self.locked_for_user = self.lock and self.lock.for_user(request.user)
         super().setup(request, *args, **kwargs)
+
+    def user_has_permission(self, permission):
+        # Allow unlocking even if the user does not have the 'unlock' permission
+        # if they are the user who locked the object
+        if permission == "unlock" and self.object.locked_by_id == self.request.user.pk:
+            return True
+        return super().user_has_permission(permission)
 
     def get_available_actions(self):
         actions = [*super().get_available_actions()]
@@ -244,6 +253,16 @@ class CreateEditViewOptionalFeaturesMixin:
         if not self.locking_enabled:
             return None
         return self.object.get_lock()
+
+    def get_lock_url(self):
+        if not self.locking_enabled or not self.lock_url_name:
+            return None
+        return reverse(self.lock_url_name, args=[quote(self.object.pk)])
+
+    def get_unlock_url(self):
+        if not self.locking_enabled or not self.unlock_url_name:
+            return None
+        return reverse(self.unlock_url_name, args=[quote(self.object.pk)])
 
     def get_error_message(self):
         if self.locked_for_user:
@@ -387,15 +406,40 @@ class CreateEditViewOptionalFeaturesMixin:
         }
 
     def get_lock_context(self):
-        context = {"lock": self.lock, "locked_for_user": self.locked_for_user}
+        if not self.locking_enabled:
+            return {}
+
+        user_can_lock = not self.lock and self.user_has_permission("lock")
+        user_can_unlock = (
+            isinstance(self.lock, BasicLock)
+        ) and self.user_has_permission("unlock")
+        user_can_unschedule = (
+            isinstance(self.lock, ScheduledForPublishLock)
+        ) and self.user_has_permission("publish")
+
+        context = {
+            "lock": self.lock,
+            "locked_for_user": self.locked_for_user,
+            "lock_url": self.get_lock_url(),
+            "unlock_url": self.get_unlock_url(),
+            "user_can_lock": user_can_lock,
+            "user_can_unlock": user_can_unlock,
+        }
+
         if not self.lock:
             return context
 
         lock_message = self.lock.get_message(self.request.user)
         if lock_message:
-            if isinstance(
-                self.lock, ScheduledForPublishLock
-            ) and self.user_has_permission("publish"):
+            if user_can_unlock:
+                lock_message = format_html(
+                    '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
+                    lock_message,
+                    self.get_unlock_url(),
+                    _("Unlock"),
+                )
+
+            if user_can_unschedule:
                 lock_message = format_html(
                     '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
                     lock_message,

@@ -4,6 +4,8 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
+from wagtail.admin.utils import get_latest_str
+
 
 class BaseLock:
     """
@@ -33,7 +35,7 @@ class BaseLock:
 
 class BasicLock(BaseLock):
     """
-    A lock that is enabled when the "locked" attribute of a page is True.
+    A lock that is enabled when the "locked" attribute of an object is True.
 
     The object may be editable by a user depending on whether the locked_by field is set
     and if WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK is not set to True.
@@ -46,41 +48,78 @@ class BasicLock(BaseLock):
             return user.pk != self.object.locked_by_id
 
     def get_message(self, user):
+        title = get_latest_str(self.object)
+
         if self.object.locked_by_id == user.pk:
             if self.object.locked_at:
-                return format_html(
-                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                    _(
-                        "<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
-                    ),
-                    page_title=self.object.get_admin_display_title(),
-                    datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
-                )
+                if self.is_page:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _(
+                            "<b>Page '{page_title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+                        ),
+                        page_title=title,
+                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                    )
+                else:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _(
+                            "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+                        ),
+                        title=title,
+                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                    )
 
             else:
-                return format_html(
-                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                    _("<b>Page '{page_title}' is locked</b> by <b>you</b>."),
-                    page_title=self.object.get_admin_display_title(),
-                )
+                if self.is_page:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _("<b>Page '{page_title}' is locked</b> by <b>you</b>."),
+                        page_title=title,
+                    )
+                else:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _("<b>'{title}' is locked</b> by <b>you</b>."),
+                        title=title,
+                    )
         else:
             if self.object.locked_by and self.object.locked_at:
-                return format_html(
-                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                    _(
-                        "<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
-                    ),
-                    page_title=self.object.get_admin_display_title(),
-                    user=str(self.object.locked_by),
-                    datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
-                )
+                if self.is_page:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _(
+                            "<b>Page '{page_title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+                        ),
+                        page_title=title,
+                        user=str(self.object.locked_by),
+                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                    )
+                else:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _(
+                            "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+                        ),
+                        title=title,
+                        user=str(self.object.locked_by),
+                        datetime=self.object.locked_at.strftime("%d %b %Y %H:%M"),
+                    )
             else:
                 # Page was probably locked with an old version of Wagtail, or a script
-                return format_html(
-                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                    _("<b>Page '{page_title}' is locked</b>."),
-                    page_title=self.object.get_admin_display_title(),
-                )
+                if self.is_page:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _("<b>Page '{page_title}' is locked</b>."),
+                        page_title=title,
+                    )
+                else:
+                    return format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _("<b>'{title}' is locked</b>."),
+                        title=title,
+                    )
 
 
 class WorkflowLock(BaseLock):

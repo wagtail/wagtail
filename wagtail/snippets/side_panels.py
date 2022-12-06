@@ -25,6 +25,10 @@ class SnippetStatusSidePanel(BaseStatusSidePanel):
             "live_last_updated_info",
             "locale",
             "translations",
+            "lock_url",
+            "unlock_url",
+            "user_can_lock",
+            "user_can_unlock",
         ]
         context.update({k: parent_context.get(k) for k in inherit})
 

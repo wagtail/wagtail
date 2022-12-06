@@ -27,6 +27,7 @@ from wagtail.admin.ui.tables import (
     UserColumn,
 )
 from wagtail.admin.views import generic
+from wagtail.admin.views.generic import lock
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
@@ -35,7 +36,13 @@ from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, Locale, PreviewableMixin, RevisionMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Locale,
+    LockableMixin,
+    PreviewableMixin,
+    RevisionMixin,
+)
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -660,6 +667,24 @@ class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnschedul
     permission_required = "publish"
 
 
+class LockView(PermissionCheckedMixin, lock.LockView):
+    permission_required = "lock"
+
+
+class UnlockView(PermissionCheckedMixin, lock.UnlockView):
+    permission_required = "unlock"
+
+    def user_has_permission(self, permission):
+        # Allow unlocking even if the user does not have the 'unlock' permission
+        # if they are the user who locked the object
+        if (
+            permission == self.permission_required
+            and self.object.locked_by_id == self.request.user.pk
+        ):
+            return True
+        return super().user_has_permission(permission)
+
+
 class SnippetViewSet(ViewSet):
     """
     A viewset that instantiates the admin views for snippets.
@@ -719,11 +744,18 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEditView``.
     preview_on_edit_view_class = PreviewOnEditView
 
+    #: The view class to use for locking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.LockView``.
+    lock_view_class = LockView
+
+    #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnlockView``.
+    unlock_view_class = UnlockView
+
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
+        self.locking_enabled = issubclass(self.model, LockableMixin)
 
         if not self.list_display:
             self.list_display = self.index_view_class.list_display.copy()
@@ -802,6 +834,8 @@ class SnippetViewSet(ViewSet):
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
+            lock_url_name=self.get_url_name("lock"),
+            unlock_url_name=self.get_url_name("unlock"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
@@ -853,6 +887,8 @@ class SnippetViewSet(ViewSet):
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
+            lock_url_name=self.get_url_name("lock"),
+            unlock_url_name=self.get_url_name("unlock"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
@@ -893,6 +929,22 @@ class SnippetViewSet(ViewSet):
     @property
     def preview_on_edit_view(self):
         return self.preview_on_edit_view_class.as_view(model=self.model)
+
+    @property
+    def lock_view(self):
+        return self.lock_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            success_url_name=self.get_url_name("edit"),
+        )
+
+    @property
+    def unlock_view(self):
+        return self.unlock_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            success_url_name=self.get_url_name("edit"),
+        )
 
     @property
     def redirect_to_edit_view(self):
@@ -971,6 +1023,12 @@ class SnippetViewSet(ViewSet):
                     name="revisions_unschedule",
                 ),
                 path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
+            ]
+
+        if self.locking_enabled:
+            urlpatterns += [
+                path("lock/<str:pk>/", self.lock_view, name="lock"),
+                path("unlock/<str:pk>/", self.unlock_view, name="unlock"),
             ]
 
         legacy_redirects = [
