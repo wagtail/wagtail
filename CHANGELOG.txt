@@ -74,6 +74,7 @@ Changelog
  * Maintenance: Added unit tests & JSDoc to `initDissmisibles` (Yekasumah)
  * Maintenance: Standardise on `classname` for passing HTML class attributes (LB (Ben Johnston))
  * Maintenance: Clean up expanding formset JavaScript initialisation code and adopt a class approach (Matt Westcott)
+ * Maintenance: Extracted revision and draft state logic from generic views into mixins (Sage Abdullah)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
