@@ -22,15 +22,19 @@ class PermissionCheckedMixin:
         if self.permission_policy is not None:
 
             if self.permission_required is not None:
-                if not self.permission_policy.user_has_permission(
-                    request.user, self.permission_required
-                ):
+                if not self.user_has_permission(self.permission_required):
                     raise PermissionDenied
 
             if self.any_permission_required is not None:
-                if not self.permission_policy.user_has_any_permission(
-                    request.user, self.any_permission_required
-                ):
+                if not self.user_has_any_permission(self.any_permission_required):
                     raise PermissionDenied
 
         return super().dispatch(request, *args, **kwargs)
+
+    def user_has_permission(self, permission):
+        return self.permission_policy.user_has_permission(self.request.user, permission)
+
+    def user_has_any_permission(self, permissions):
+        return self.permission_policy.user_has_any_permission(
+            self.request.user, permissions
+        )
