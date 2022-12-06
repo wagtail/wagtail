@@ -14,6 +14,12 @@
                 {% if extra_perms_exist.publish %}
                     <col width="10%" />
                 {% endif %}
+                {% if extra_perms_exist.lock %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.unlock %}
+                    <col width="10%" />
+                {% endif %}
                 {% if extra_perms_exist.custom %}
                     <col width="25%" />
                 {% endif %}
@@ -26,6 +32,12 @@
                     <th>{% trans "Delete" %}</th>
                     {% if extra_perms_exist.publish %}
                         <th>{% trans "Publish" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.lock %}
+                        <th>{% trans "Lock" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.unlock %}
+                        <th>{% trans "Unlock" %}</th>
                     {% endif %}
                     {% if extra_perms_exist.custom %}
                         <th>{% trans "Custom permissions" %}</th>
@@ -59,6 +71,22 @@
                                 {% if content_perms_dict.publish %}
                                     <label for="{{ content_perms_dict.publish.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.publish.perm.name }}</label>
                                     {{ content_perms_dict.publish.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.lock %}
+                            <td>
+                                {% if content_perms_dict.lock %}
+                                    <label for="{{ content_perms_dict.lock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.lock.perm.name }}</label>
+                                    {{ content_perms_dict.lock.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.unlock %}
+                            <td>
+                                {% if content_perms_dict.unlock %}
+                                    <label for="{{ content_perms_dict.unlock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.unlock.perm.name }}</label>
+                                    {{ content_perms_dict.unlock.checkbox.tag }}
                                 {% endif %}
                             </td>
                         {% endif %}

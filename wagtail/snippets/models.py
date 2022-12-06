@@ -11,7 +11,7 @@ from django.utils.module_loading import import_string
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.viewsets import viewsets
-from wagtail.models import DraftStateMixin, ReferenceIndex
+from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex
 
 from .widgets import AdminSnippetChooser
 
@@ -147,6 +147,13 @@ def register_deferred_snippets():
 
 
 def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
+    def get_permission(model, content_type, name):
+        return Permission(
+            content_type=content_type,
+            codename=get_permission_codename(name, model._meta),
+            name=f"Can {name} {model._meta.verbose_name_raw}",
+        )
+
     model_cts = ContentType.objects.get_for_models(
         *SNIPPET_MODELS, for_concrete_models=False
     )
@@ -154,13 +161,10 @@ def create_extra_permissions(*args, using=DEFAULT_DB_ALIAS, **kwargs):
     permissions = []
     for model, ct in model_cts.items():
         if issubclass(model, DraftStateMixin):
-            permissions.append(
-                Permission(
-                    content_type=ct,
-                    codename=get_permission_codename("publish", model._meta),
-                    name=f"Can publish {model._meta.verbose_name_raw}",
-                )
-            )
+            permissions.append(get_permission(model, ct, "publish"))
+        if issubclass(model, LockableMixin):
+            permissions.append(get_permission(model, ct, "lock"))
+            permissions.append(get_permission(model, ct, "unlock"))
 
     # Use bulk_create with ignore_conflicts instead of checking for existence
     # prior to creation to avoid additional database query.
