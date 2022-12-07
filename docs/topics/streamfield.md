@@ -643,7 +643,7 @@ def pagerevision_to_streamfield(revision_data):
         except ValueError:
             revision_data['body'] = json.dumps(
                 [{
-                    "value": {"rich_text": body},
+                    "value": body,
                     "type": "rich_text"
                 }],
                 cls=DjangoJSONEncoder)
@@ -658,7 +658,7 @@ def page_to_richtext(page):
     changed = False
     if page.body.raw_text is None:
         raw_text = ''.join([
-            child.value['rich_text'].source for child in page.body
+            child.value.source for child in page.body
             if child.block_type == 'rich_text'
         ])
         page.body = raw_text
@@ -677,7 +677,7 @@ def pagerevision_to_richtext(revision_data):
             pass
         else:
             raw_text = ''.join([
-                child['value']['rich_text'] for child in body_data
+                child['value'] for child in body_data
                 if child['type'] == 'rich_text'
             ])
             revision_data['body'] = raw_text
