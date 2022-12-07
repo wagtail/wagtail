@@ -11,6 +11,12 @@ class BaseLock:
     Returned by LockableMixin.get_lock() (or Page.get_lock()).
     """
 
+    def __init__(self, object):
+        from wagtail.models import Page
+
+        self.object = object
+        self.is_page = isinstance(object, Page)
+
     def for_user(self, user):
         """
         Returns True if the lock applies to the given user.
@@ -31,9 +37,6 @@ class BasicLock(BaseLock):
     The object may be editable by a user depending on whether the locked_by field is set
     and if WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK is not set to True.
     """
-
-    def __init__(self, object):
-        self.object = object
 
     def for_user(self, user):
         if getattr(settings, "WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK", False):
@@ -86,9 +89,9 @@ class WorkflowLock(BaseLock):
     Can be applied to pages only.
     """
 
-    def __init__(self, task, object):
+    def __init__(self, object, task):
+        super().__init__(object)
         self.task = task
-        self.object = object
 
     def for_user(self, user):
         return self.task.page_locked_for_user(self.object, user)
@@ -122,9 +125,6 @@ class ScheduledForPublishLock(BaseLock):
     This prevents it becoming difficult for users to see which version of a page that is going to be published.
     Nobody can edit something that's scheduled for publish.
     """
-
-    def __init__(self, object):
-        self.object = object
 
     def for_user(self, user):
         return True
