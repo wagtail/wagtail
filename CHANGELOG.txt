@@ -59,6 +59,7 @@ Changelog
  * Docs: Grammatical adjustments of `page models` usage guide (Damilola Oladele)
  * Docs: Add class inheritance information to StreamField block sreference (Temidayo Azeez)
  * Docs: Document the hook `register_image_operations` and add an example of a custom Image filter (Coen van der Kamp)
+ * Docs: Fix incorrect example code for StreamField migration of `RichTextField` (Matt Westcott)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
  * Maintenance: Run Python tests with coverage and upload coverage data to codecov (Sage Abdullah)
