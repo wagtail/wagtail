@@ -518,21 +518,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         # Create any renditions not found in prefetched values, cache or database
         not_found = tuple(f for f in filters if f not in renditions)
-        if not_found:
-            if len(not_found) == 1:
-                # create_rendition() is better for creating single items, as it
-                # can use QuerySet.get_or_create(), which has better handling
-                # of race conditions
-                filter = not_found[0]
-                rendition = self.create_rendition(filter)
-                self._add_to_prefetched_renditions(rendition)
-                renditions[filter] = rendition
-            else:
-                # For multiple, create_renditions() is more performant
-                new_renditions = self.create_renditions(*not_found)
-                for filter, rendition in new_renditions.items():
-                    self._add_to_prefetched_renditions(rendition)
-                    renditions[filter] = rendition
+        for filter, rendition in self.create_renditions(*not_found).items():
+            self._add_to_prefetched_renditions(rendition)
+            renditions[filter] = rendition
 
         # If rendition caching is enabled, update the cache
         if self.renditions_cache is not None:
@@ -641,6 +629,16 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         model will be returned.
         """
         Rendition = self.get_rendition_model()
+
+        if not filters:
+            return {}
+
+        if len(filters) == 1:
+            # create_rendition() is better for single renditions, as it can
+            # utilize QuerySet.get_or_create(), which has better handling of
+            # race conditions
+            filter = filters[0]
+            return {filter: self.create_rendition(filter)}
 
         created: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
