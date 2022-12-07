@@ -122,9 +122,37 @@ class ModeratePageItem(BaseItem):
             request.user
         ).can_publish():
             return ""
-
+        
         return super().render(request)
 
+class sa11yItem(BaseItem):
+
+    def __init__(self, page):
+        self.page = page
+
+    def render(self, request):
+        # Don't render if the page doesn't have an id
+        if not self.page.id:
+            return ""
+
+        # Don't render if request is a preview. This is to avoid confusion that
+        # might arise when the user clicks edit on a preview.
+        try:
+            if request.is_preview:
+                return ""
+        except AttributeError:
+            pass
+
+        # Don't render if user doesn't have permission to access the admin area
+        if not request.user.has_perm("wagtailadmin.access_admin"):
+            return ""
+
+        # Don't render if the user doesn't have permission to edit this page
+        permission_checker = self.page.permissions_for_user(request.user)
+        if not permission_checker.can_edit():
+            return ""
+
+        return super().render(request)
 
 class ApproveModerationEditPageItem(ModeratePageItem):
     template = "wagtailadmin/userbar/item_page_approve.html"

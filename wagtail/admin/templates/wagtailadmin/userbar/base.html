@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags i18n %}
 <!-- Wagtail user bar embed code -->
 <div class="wagtail-userbar-reset">
-    <div class="wagtail-userbar wagtail-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar>
+    <div class="wagtail-userbar wagtail-userbar--{{ position|default:'bottom-left' }}" data-wagtail-userbar>
         <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/userbar.css' %}">
         <div class="wagtail-userbar-nav">
             <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="wagtail-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
@@ -30,8 +30,10 @@
                     {{ item|safe }}
                 {% endfor %}
             </ul>
+            {{ sa11y }}
         </div>
         <script src="{% versioned_static 'wagtailadmin/js/userbar.js' %}"></script>
+        <script src="{% versioned_static 'wagtailadmin/js/sa11y.js' %}"></script>
     </div>
 </div>
 <!-- end Wagtail user bar embed code -->

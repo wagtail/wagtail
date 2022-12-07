@@ -10,6 +10,7 @@ from wagtail.admin.userbar import (
     EditPageItem,
     ExplorePageItem,
     RejectModerationEditPageItem,
+    sa11yItem,
 )
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile
@@ -31,7 +32,7 @@ def get_page_instance(context):
 
 
 @register.simple_tag(takes_context=True)
-def wagtailuserbar(context, position="bottom-right"):
+def wagtailuserbar(context, position="bottom-left"):
     # Find request object
     try:
         request = context["request"]
@@ -71,6 +72,7 @@ def wagtailuserbar(context, position="bottom-right"):
                     EditPageItem(revision.content_object),
                     ApproveModerationEditPageItem(revision),
                     RejectModerationEditPageItem(revision),
+                    sa11yItem(revision),
                 ]
             else:
                 # Not a revision
@@ -79,6 +81,7 @@ def wagtailuserbar(context, position="bottom-right"):
                     ExplorePageItem(page),
                     EditPageItem(page),
                     AddPageItem(page),
+                    sa11yItem(page),
                 ]
         else:
             # Not a page.
