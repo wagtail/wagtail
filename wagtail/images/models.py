@@ -13,6 +13,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
+from django.core.cache.backends.base import BaseCache
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -423,11 +424,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             pass
 
     @property
-    def renditions_cache(self):
+    def renditions_cache(self) -> Union[BaseCache, None]:
         try:
             return caches["renditions"]
         except InvalidCacheBackendError:
-            pass
+            return None
 
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
@@ -450,7 +451,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # Reuse this rendition if requested again from this object
             self._add_to_prefetched_renditions(rendition)
 
-        if self.renditions_cache is not None:
+        if self.renditions_cache:
             cache_key = Rendition.construct_cache_key(
                 self.id, filter.get_cache_key(self), filter.spec
             )
@@ -519,7 +520,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             renditions[filter] = rendition
 
         # If rendition caching is enabled, update the cache
-        if self.renditions_cache is not None:
+        if self.renditions_cache:
             cache_additions = {
                 Rendition.construct_cache_key(
                     self.id, filter.get_cache_key(self), filter.spec
