@@ -24,11 +24,10 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
     ]
     app_name = None
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         instances = []
         instances.append(
-            cls.factory(
+            self.factory(
                 content__0__char1="Test char 1",
                 content__1__char1="Test char 2",
                 content__2__char2="Test char 3",
@@ -36,27 +35,27 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
             )
         )
         instances.append(
-            cls.factory(
+            self.factory(
                 content__0__char1="Test char 1",
                 content__1__char1="Test char 2",
                 content__2__char2="Test char 3",
             )
         )
         instances.append(
-            cls.factory(
+            self.factory(
                 content__0__char2="Test char 1",
                 content__1__char2="Test char 2",
                 content__2__char2="Test char 3",
             )
         )
 
-        cls.original_raw_data = {}
-        cls.original_revisions = {}
+        self.original_raw_data = {}
+        self.original_revisions = {}
 
         for instance in instances:
-            cls.original_raw_data[instance.id] = instance.content.raw_data
+            self.original_raw_data[instance.id] = instance.content.raw_data
 
-            if cls.has_revisions:
+            if self.has_revisions:
                 for i in range(5):
                     revision = instance.save_revision()
                     revision.created_at = timezone.now() - datetime.timedelta(
@@ -66,7 +65,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
                     if i == 1:
                         instance.live_revision = revision
                         instance.save()
-                cls.original_revisions[instance.id] = list(
+                self.original_revisions[instance.id] = list(
                     instance.revisions.all().order_by("id")
                 )
 

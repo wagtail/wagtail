@@ -18,15 +18,14 @@ from wagtail.test.streamfield_migrations import factories, models
 class FieldChildBlockTest(TestCase):
     """Tests involving changes to top level blocks"""
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         raw_data = factories.SampleModelFactory(
             content__0__char1__value="Char Block 1",
             content__1__char2__value="Char Block 2",
             content__2__char1__value="Char Block 1",
             content__3__char2__value="Char Block 2",
         ).content.raw_data
-        cls.raw_data = raw_data
+        self.raw_data = raw_data
 
     def test_rename(self):
         """Rename `char1` blocks to `renamed1`
@@ -228,15 +227,14 @@ class FieldStructChildBlockTest(TestCase):
     We use `simplestruct` blocks as the StructBlocks here.
     """
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         raw_data = factories.SampleModelFactory(
             content__0__char1__value="Char Block 1",
             content__1="simplestruct",
             content__2="simplestruct",
             content__3__char2__value="Char Block 2",
         ).content.raw_data
-        cls.raw_data = raw_data
+        self.raw_data = raw_data
 
     def test_blocks_and_data_not_operated_on_intact(self):
         """Test whether other blocks and data not passed to an operation are intact.
@@ -338,8 +336,7 @@ class FieldStreamChildBlockTest(TestCase):
     We use `simplestream` blocks as the StreamBlocks here.
     """
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         raw_data = factories.SampleModelFactory(
             content__0__char1__value="Char Block 1",
             content__1="simplestream",
@@ -350,7 +347,7 @@ class FieldStreamChildBlockTest(TestCase):
             content__2__simplestream__0__char1__value="Char Block 1",
             content__3__char2__value="Char Block 2",
         ).content.raw_data
-        cls.raw_data = raw_data
+        self.raw_data = raw_data
 
     def test_blocks_and_data_not_operated_on_intact(self):
         """Test whether other blocks and data not passed to an operation are intact.
@@ -447,15 +444,14 @@ class FieldListChildBlockTest(TestCase):
     We use `simplelist` blocks as the ListBlocks here.
     """
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         raw_data = factories.SampleModelFactory(
             content__0__char1__value="Char Block 1",
             content__1__simplelist__0="Foo 1",
             content__1__simplelist__1="Foo 2",
             content__2__simplelist__0="Foo 3",
         ).content.raw_data
-        cls.raw_data = raw_data
+        self.raw_data = raw_data
 
     def test_to_structblock(self):
         """Turn each list child into a StructBlock and move value inside as a child named `text`

@@ -26,8 +26,7 @@ class TestExceptionRaisedInRawData(TestCase):
     applied. (There should also be a block in the stream data with the said name for this to happen)
     """
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         raw_data = factories.SampleModelFactory(
             content__0__char1__value="Char Block 1",
             content__1="nestedstruct",
@@ -49,7 +48,7 @@ class TestExceptionRaisedInRawData(TestCase):
         raw_data[1]["value"]["invalid_name2"] = [
             {"type": "char1", "value": "foo", "id": "0003"}
         ]
-        cls.raw_data = raw_data
+        self.raw_data = raw_data
 
     def test_rename_invalid_stream_child(self):
         """Test whether Exception is raised in when recursing through stream block data"""
@@ -92,17 +91,15 @@ class BadDataMigrationTestCase(TestCase, MigrationTestMixin):
     ]
     app_name = "streamfield_migration_tests"
 
-    @classmethod
-    def create_instance(cls):
+    def create_instance(self):
         instance = factories.SamplePageFactory(
             content__0__char1__value="Char Block 1",
             content__1="nestedstruct",
         )
-        cls.instance = instance
+        self.instance = instance
 
-    @classmethod
-    def append_invalid_instance_data(cls):
-        raw_data = cls.instance.content.raw_data
+    def append_invalid_instance_data(self):
+        raw_data = self.instance.content.raw_data
         raw_data.extend(
             [
                 {
@@ -117,31 +114,29 @@ class BadDataMigrationTestCase(TestCase, MigrationTestMixin):
                 },
             ]
         )
-        stream_block = cls.instance.content.stream_block
-        cls.instance.content = StreamValue(
+        stream_block = self.instance.content.stream_block
+        self.instance.content = StreamValue(
             stream_block=stream_block, stream_data=raw_data, is_lazy=True
         )
-        cls.instance.save()
+        self.instance.save()
 
-    @classmethod
-    def create_invalid_revision(cls, delta):
-        cls.append_invalid_instance_data()
-        invalid_revision = cls.create_revision(delta)
+    def create_invalid_revision(self, delta):
+        self.append_invalid_instance_data()
+        invalid_revision = self.create_revision(delta)
 
         # remove the invalid data from the instance
-        raw_data = cls.instance.content.raw_data
+        raw_data = self.instance.content.raw_data
         raw_data = raw_data[:2]
-        stream_block = cls.instance.content.stream_block
-        cls.instance.content = StreamValue(
+        stream_block = self.instance.content.stream_block
+        self.instance.content = StreamValue(
             stream_block=stream_block, stream_data=raw_data, is_lazy=True
         )
-        cls.instance.save()
+        self.instance.save()
 
         return invalid_revision.id, invalid_revision.created_at
 
-    @classmethod
-    def create_revision(cls, delta):
-        revision = cls.instance.save_revision()
+    def create_revision(self, delta):
+        revision = self.instance.save_revision()
         revision.created_at = timezone.now() - datetime.timedelta(days=(delta))
         revision.save()
         return revision
@@ -151,11 +146,10 @@ class TestExceptionRaisedForInstance(BadDataMigrationTestCase):
     """Exception should always be raised when applying migration if it occurs while migrating the
     instance data"""
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         with disable_reference_index_auto_update():
-            cls.create_instance()
-            cls.append_invalid_instance_data()
+            self.create_instance()
+            self.append_invalid_instance_data()
 
     def test_migrate(self):
 
@@ -174,18 +168,17 @@ class TestExceptionRaisedForLatestRevision(BadDataMigrationTestCase):
     """Exception should always be raised when applying migration if it occurs while migrating the
     latest revision data"""
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         with disable_reference_index_auto_update():
-            cls.create_instance()
+            self.create_instance()
 
             for i in range(4):
-                cls.create_revision(5 - i)
+                self.create_revision(5 - i)
 
             (
-                cls.invalid_revision_id,
-                cls.invalid_revision_created_at,
-            ) = cls.create_invalid_revision(0)
+                self.invalid_revision_id,
+                self.invalid_revision_created_at,
+            ) = self.create_invalid_revision(0)
 
     def test_migrate(self):
         with self.assertRaisesMessage(
@@ -204,20 +197,19 @@ class TestExceptionRaisedForLiveRevision(BadDataMigrationTestCase):
     """Exception should always be raised when applying migration if it occurs while migrating the
     live revision data"""
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         with disable_reference_index_auto_update():
-            cls.create_instance()
+            self.create_instance()
 
             (
-                cls.invalid_revision_id,
-                cls.invalid_revision_created_at,
-            ) = cls.create_invalid_revision(5)
-            cls.instance.live_revision_id = cls.invalid_revision_id
-            cls.instance.save()
+                self.invalid_revision_id,
+                self.invalid_revision_created_at,
+            ) = self.create_invalid_revision(5)
+            self.instance.live_revision_id = self.invalid_revision_id
+            self.instance.save()
 
             for i in range(1, 5):
-                cls.create_revision(5 - i)
+                self.create_revision(5 - i)
 
     def test_migrate(self):
         with self.assertRaisesMessage(
@@ -238,17 +230,16 @@ class TestExceptionIgnoredForOtherRevisions(BadDataMigrationTestCase):
 
     model = models.SamplePage
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         with disable_reference_index_auto_update():
-            cls.create_instance()
+            self.create_instance()
             (
-                cls.invalid_revision_id,
-                cls.invalid_revision_created_at,
-            ) = cls.create_invalid_revision(5)
+                self.invalid_revision_id,
+                self.invalid_revision_created_at,
+            ) = self.create_invalid_revision(5)
 
             for i in range(1, 5):
-                cls.create_revision(5 - i)
+                self.create_revision(5 - i)
 
     def test_migrate(self):
         with self.assertLogs(level="ERROR") as cm:
