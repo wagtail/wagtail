@@ -75,7 +75,7 @@ Changelog
  * Maintenance: Migrated `initTagField` from core.js to own TypeScript file and add unit tests (Chisom Okeoma)
  * Maintenance: Added unit tests & JSDoc to `initDissmisibles` (Yekasumah)
  * Maintenance: Standardise on `classname` for passing HTML class attributes (LB (Ben Johnston))
- * Maintenance: Clean up expanding formset JavaScript initialisation code and adopt a class approach (Matt Westcott)
+ * Maintenance: Clean up expanding formset and `InlinePanel` JavaScript initialisation code and adopt a class approach (Matt Westcott)
  * Maintenance: Extracted revision and draft state logic from generic views into mixins (Sage Abdullah)
 
 
