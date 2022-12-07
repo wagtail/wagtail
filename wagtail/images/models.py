@@ -637,7 +637,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filters[0]
             return {filter: self.create_rendition(filter)}
 
-        created: Dict[Filter, AbstractRendition] = {}
+        return_value: Dict[Filter, AbstractRendition] = {}
         filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
 
         with self.open_file() as file:
@@ -679,7 +679,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         for existing in self.renditions.filter(lookup_q):
             # Include the existing rendition in the return value
             filter = filter_map[existing.filter_spec]
-            created[filter] = existing
+            return_value[filter] = existing
 
             for new in tuple(to_create):
                 if (
@@ -691,16 +691,15 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     # Mark for deletion later, so as not to hold up creation
                     files_for_deletion.append(new.file)
 
-        for rendition in Rendition.objects.bulk_create(
-            to_create, ignore_conflicts=True
-        ):
-            created[filter_map[rendition.filter_spec]] = rendition
+        for new in Rendition.objects.bulk_create(to_create, ignore_conflicts=True):
+            filter = filter_map[new.filter_spec]
+            return_value[filter] = new
 
         # Delete redundant rendition image files
         for file in files_for_deletion:
             file.delete(save=False)
 
-        return created
+        return return_value
 
     def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
         """
