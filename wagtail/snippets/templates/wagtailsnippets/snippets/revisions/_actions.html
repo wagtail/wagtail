@@ -23,7 +23,7 @@
                 {% if revision != latest_revision %}
                     <li><a href="{% url view.revisions_compare_url_name object.pk revision.pk 'latest' %}" class="button button-small button-secondary">{% trans 'Compare with current version' %}</a></li>
                 {% endif %}
-                {% if revision.approved_go_live_at %}
+                {% if can_publish and revision.approved_go_live_at %}
                     <li><a href="{% url view.revisions_unschedule_url_name object.pk revision.pk %}" class="button button-small button-secondary">{% trans 'Cancel scheduled publish' %}</a></li>
                 {% endif %}
             </ul>

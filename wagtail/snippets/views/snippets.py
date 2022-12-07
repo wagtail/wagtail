@@ -568,6 +568,7 @@ class ActionColumn(Column):
         context["revision_enabled"] = isinstance(self.object, RevisionMixin)
         context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
         context["preview_enabled"] = isinstance(self.object, PreviewableMixin)
+        context["can_publish"] = self.view.user_has_permission("publish")
         context["object"] = self.object
         context["view"] = self.view
         return context
@@ -656,7 +657,7 @@ class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
 
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
-    permission_required = "change"
+    permission_required = "publish"
 
 
 class SnippetViewSet(ViewSet):
