@@ -2295,7 +2295,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         current_workflow_task = self.current_workflow_task
         if current_workflow_task:
-            return WorkflowLock(current_workflow_task, self)
+            return WorkflowLock(self, current_workflow_task)
 
     def get_route_paths(self):
         """
