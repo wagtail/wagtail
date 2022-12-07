@@ -659,8 +659,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             )
 
         with ThreadPoolExecutor() as executor:
-            for filter in filters:
-                executor.submit(_generate_single_rendition, filter)
+            executor.map(_generate_single_rendition, filters)
             executor.shutdown(wait=True)
 
         # Rendition generation can take a while. So, if other processes have created
