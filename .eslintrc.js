@@ -1,12 +1,10 @@
 // Rules which have been enforced in configuration upgrades and flag issues in existing code.
 // We need to consider whether to disable those rules permanently, or fix the issues.
 const legacyCode = {
-  'constructor-super': 'off',
   'default-param-last': 'off',
   'no-continue': 'off',
   'no-else-return': 'off',
   'no-restricted-syntax': 'off',
-  'no-this-before-super': 'off',
 };
 
 module.exports = {
@@ -69,7 +67,6 @@ module.exports = {
     {
       files: [
         'client/src/entrypoints/admin/core.js',
-        'client/src/entrypoints/admin/page-chooser.js',
         'client/src/entrypoints/admin/page-editor.js',
         'client/src/entrypoints/admin/telepath/widgets.js',
         'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
