@@ -2,9 +2,9 @@ from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
+from wagtail.admin.utils import get_latest_str
 from wagtail.admin.views.generic.base import BaseOperationView
 from wagtail.log_actions import log
-from wagtail.models import DraftStateMixin
 
 
 class LockView(BaseOperationView):
@@ -33,14 +33,10 @@ class UnlockView(BaseOperationView):
         log(instance=self.object, action="wagtail.unlock", user=self.request.user)
 
     def get_success_message(self):
-        title = str(self.object)
-        if isinstance(self.object, DraftStateMixin) and self.object.latest_revision:
-            title = self.object.latest_revision.object_str
-
         return capfirst(
             _("%(model_name)s '%(title)s' is now unlocked.")
             % {
                 "model_name": self.model._meta.verbose_name,
-                "title": title,
+                "title": get_latest_str(self.object),
             }
         )

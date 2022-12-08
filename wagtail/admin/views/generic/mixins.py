@@ -15,6 +15,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.utils import get_latest_str
 from wagtail.locks import ScheduledForPublishLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -174,11 +175,7 @@ class IndexViewOptionalFeaturesMixin:
         accessor = kwargs.pop("accessor", None)
 
         if not accessor and field_name == "__str__":
-
-            def accessor(obj):
-                if isinstance(obj, DraftStateMixin) and obj.latest_revision:
-                    return obj.latest_revision.object_str
-                return str(obj)
+            accessor = get_latest_str
 
         return super()._get_title_column(
             field_name, column_class, accessor=accessor, **kwargs
