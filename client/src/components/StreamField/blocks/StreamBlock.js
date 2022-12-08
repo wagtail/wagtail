@@ -213,6 +213,7 @@ class StreamBlockMenu extends BaseInsertionControl {
 
 export class StreamBlock extends BaseSequenceBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;

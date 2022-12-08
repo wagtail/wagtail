@@ -118,6 +118,7 @@ export class BaseSequenceChild extends EventEmitter {
     sequence,
     opts,
   ) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;

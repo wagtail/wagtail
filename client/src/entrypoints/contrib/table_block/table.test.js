@@ -66,6 +66,7 @@ describe('telepath: wagtail.widgets.TableInput', () => {
   let testStrings;
   let testValue;
   let handsontableConstructorMock;
+  let renderMock;
 
   // Call this to render the table block with the current settings
   const render = () => {
@@ -82,10 +83,19 @@ describe('telepath: wagtail.widgets.TableInput', () => {
 
   beforeEach(() => {
     handsontableConstructorMock = jest.fn();
-    window.Handsontable = (...args) => {
-      handsontableConstructorMock(...args);
-    };
-    window.Handsontable.prototype.render = jest.fn();
+    renderMock = jest.fn();
+
+    class HandsontableMock {
+      constructor(...args) {
+        handsontableConstructorMock(...args);
+      }
+
+      render() {
+        renderMock();
+      }
+    }
+
+    window.Handsontable = HandsontableMock;
 
     // Reset options, strings, and value for each test
     testOptions = JSON.parse(JSON.stringify(TEST_OPTIONS));
@@ -131,8 +141,8 @@ describe('telepath: wagtail.widgets.TableInput', () => {
 
   test('Handsontable.render is called', () => {
     render();
-    expect(window.Handsontable.prototype.render.mock.calls.length).toBe(1);
-    expect(window.Handsontable.prototype.render.mock.calls[0].length).toBe(0);
+    expect(renderMock.mock.calls.length).toBe(1);
+    expect(renderMock.mock.calls[0].length).toBe(0);
   });
 
   test('translation', () => {

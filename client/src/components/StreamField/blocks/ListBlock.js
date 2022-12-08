@@ -97,6 +97,7 @@ class InsertPosition extends BaseInsertionControl {
 
 export class ListBlock extends BaseSequenceBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
