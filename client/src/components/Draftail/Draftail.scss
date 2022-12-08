@@ -76,7 +76,9 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-Editor {
-  --draftail-offset-inline-start: 0;
+  // Number used inside a `calc` function, which doesn’t support unitless zero.
+  // stylelint-disable-next-line length-zero-no-unit
+  --draftail-offset-inline-start: 0px;
 }
 
 .Draftail-Editor__wrapper {
