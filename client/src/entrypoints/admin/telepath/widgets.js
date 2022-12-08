@@ -420,6 +420,7 @@ window.telepath.register(
 
 class BaseDateTimeWidget extends Widget {
   constructor(options) {
+    super();
     this.options = options;
   }
 
