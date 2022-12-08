@@ -1089,6 +1089,19 @@ class NonPreviewableModel(PreviewableMixin, RevisionMixin, models.Model):
 register_snippet(NonPreviewableModel)
 
 
+# Models with LockableMixin
+
+
+class LockableModel(LockableMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(LockableModel)
+
+
 class StandardIndex(Page):
     """Index for the site"""
 
