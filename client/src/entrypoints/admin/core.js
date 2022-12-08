@@ -268,8 +268,8 @@ $(() => {
     // eslint-disable-next-line func-names
     const search = function () {
       const newQuery = $input.val();
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      const currentQuery = getURLParam('q');
+      const searchParams = new URLSearchParams(window.location.search);
+      const currentQuery = searchParams.get('q');
       // only do the query if it has changed for trimmed queries
       // for example - " " === "" and "firstword " ==== "firstword"
       if (currentQuery.trim() !== newQuery.trim()) {
@@ -278,7 +278,6 @@ $(() => {
         const index = searchNextIndex;
 
         // Update q, reset to first page, and keep other query params
-        const searchParams = new URLSearchParams(window.location.search);
         searchParams.set('q', newQuery);
         searchParams.delete('p');
         const queryString = searchParams.toString();
@@ -302,17 +301,6 @@ $(() => {
           },
         });
       }
-    };
-
-    // eslint-disable-next-line func-names
-    const getURLParam = function (name) {
-      const results = new RegExp('[\\?&]' + name + '=([^]*)').exec(
-        window.location.search,
-      );
-      if (results) {
-        return results[1];
-      }
-      return '';
     };
   }
 
