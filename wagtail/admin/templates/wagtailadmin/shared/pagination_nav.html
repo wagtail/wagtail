@@ -14,7 +14,7 @@
         <li class="prev">
             {% if items.has_previous %}
                 <a href="{{ url_path }}{% querystring p=items.previous_page_number %}">
-                    {% icon name="arrow-left" class_name="default" %}
+                    {% icon name="arrow-left" classname="default" %}
                     {% trans 'Previous' %}
                 </a>
             {% endif %}
@@ -23,7 +23,7 @@
             {% if items.has_next %}
                 <a href="{{ url_path }}{% querystring p=items.next_page_number %}">
                     {% trans 'Next' %}
-                    {% icon name="arrow-right" class_name="default" %}
+                    {% icon name="arrow-right" classname="default" %}
                 </a>
             {% endif %}
         </li>

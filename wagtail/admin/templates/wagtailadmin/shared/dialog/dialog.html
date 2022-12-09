@@ -15,12 +15,12 @@
         <div data-a11y-dialog-hide class="w-dialog__overlay"></div>
         <div class="w-dialog__box">
             <button type="button" data-a11y-dialog-hide aria-label="{% trans 'Close dialog' %}" class="w-dialog__close-button">
-                {% icon name='cross' class_name="w-dialog__close-icon" %}
+                {% icon name='cross' classname="w-dialog__close-icon" %}
             </button>
 
             {% if message_heading and message_icon_name %}
                 <div class="w-dialog__message w-dialog__message--{{ message_status }}">
-                    {% icon name=message_icon_name class_name="w-dialog__message-icon" %}
+                    {% icon name=message_icon_name classname="w-dialog__message-icon" %}
                     <div class="w-dialog__message-header">
                         <strong class="w-dialog__message-heading">{{ message_heading }}</strong>
                         {% if message_description %}<p class="w-dialog__message-description ">{{ message_description }}</p>{% endif %}
@@ -30,7 +30,7 @@
 
             <div class="w-dialog__content">
                 <h2 class="w-dialog__title w-h1" id="title-{{ id }}">
-                    {% if icon_name %}{% icon name=icon_name class_name="w-dialog__icon" %}{% endif %}
+                    {% if icon_name %}{% icon name=icon_name classname="w-dialog__icon" %}{% endif %}
                     {{ title }}
                 </h2>
 

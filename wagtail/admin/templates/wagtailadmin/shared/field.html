@@ -42,7 +42,7 @@
         <div class="w-field__errors" data-field-errors {% if error_message_id %}id="{{ error_message_id }}"{% endif %}>
             {# Avoid rendering errors here if the widget itself is taking responsibility for its error rendering. #}
             {% if field and field|has_unrendered_errors %}
-                {% icon name="warning" class_name="w-field__errors-icon" %}
+                {% icon name="warning" classname="w-field__errors-icon" %}
                 <p class="error-message">
                     {% for error in field.errors %}{{ error|escape }} {% endfor %}
                 </p>
@@ -52,7 +52,7 @@
         {# Separate container for the widget with prefix icon and suffix comment button #}
         <div class="w-field__input" data-field-input>
             {% if icon %}
-                {% icon name=icon class_name="w-field__icon" %}
+                {% icon name=icon classname="w-field__icon" %}
             {% endif %}
 
             {% block form_field %}

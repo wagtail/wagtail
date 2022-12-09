@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 <button type="submit" class="button action-save button-longrunning{% if is_revision %} warning{% endif %}" data-clicked-text="{% trans 'Saving…' %}">
-    {% icon name=icon_name class_name="button-longrunning__icon" %}
+    {% icon name=icon_name classname="button-longrunning__icon" %}
     {% icon name="spinner" %}
     <em>
         {% if is_revision %}

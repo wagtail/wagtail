@@ -18,7 +18,7 @@
                 aria-label="{% trans 'Toggle breadcrumbs' %}"
                 aria-expanded="false"
             >
-                {% icon name="breadcrumb-expand" class_name="w-w-5 w-h-5" %}
+                {% icon name="breadcrumb-expand" classname="w-w-5 w-h-5" %}
             </button>
         {% endif %}
         <div class="w-relative w-h-slim-header w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
@@ -43,7 +43,7 @@
                                 >
                                     {% trans "Root" %}
                                 </a>
-                                {% icon name="arrow-right" class_name=icon_classes %}
+                                {% icon name="arrow-right" classname=icon_classes %}
                             </li>
                         {% elif forloop.first %}
                             {# For limited-permission users whose breadcrumb starts further down from the root #}
@@ -55,7 +55,7 @@
                                 <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
                                     {% trans "Root" %}
                                 </a>
-                                {% icon name="arrow-right" class_name=icon_classes %}
+                                {% icon name="arrow-right" classname=icon_classes %}
                             </li>
                         {% elif forloop.last %}
                             <li
@@ -68,7 +68,7 @@
                                     {{ page.get_admin_display_title }}
                                 </a>
                                 {% if trailing_breadcrumb_title %}
-                                    {% icon name="arrow-right" class_name=icon_classes %}
+                                    {% icon name="arrow-right" classname=icon_classes %}
                                 {% endif %}
                             </li>
                         {% else %}
@@ -80,7 +80,7 @@
                                 <a class="{{ breadcrumb_link_classes }}" href="{{ breadcrumb_url }}{{ querystring_value }}">
                                     {{ page.get_admin_display_title }}
                                 </a>
-                                {% icon name="arrow-right" class_name=icon_classes %}
+                                {% icon name="arrow-right" classname=icon_classes %}
                             </li>
                         {% endif %}
                     {% endfor %}

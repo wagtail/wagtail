@@ -4,7 +4,7 @@
 
     <li class="workflow-timeline__item workflow-timeline__item--approved">
         <div class="workflow-timeline__line"></div>
-        {% icon name="circle-check" class_name="workflow-timeline__icon" %}
+        {% icon name="circle-check" classname="workflow-timeline__icon" %}
         {% trans "Submitted" %}
     </li>
 
@@ -17,7 +17,7 @@
                     <div class="workflow-timeline__line"></div>
                     {% if status == "rejected" %}
                         <div class="w-flex">
-                            {% icon name="warning" class_name="workflow-timeline__icon" title=status_display %}
+                            {% icon name="warning" classname="workflow-timeline__icon" title=status_display %}
                             <div class="w-flex w-flex-col">
                                 <strong>{{ task.name }}</strong>
                                 {% if task.task_state.finished_by %}
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     {% else %}
-                        {% if status == "in_progress" %}{% icon name="radio-full" class_name="workflow-timeline__icon" title=status_display %}{% else %}{% icon name="radio-empty" class_name="workflow-timeline__icon" title=status_display %}{% endif %}
+                        {% if status == "in_progress" %}{% icon name="radio-full" classname="workflow-timeline__icon" title=status_display %}{% else %}{% icon name="radio-empty" classname="workflow-timeline__icon" title=status_display %}{% endif %}
                         {{ task.name }}
                         {% if task.task_state.finished_by %}
                             {% blocktrans trimmed with approved_by=task.task_state.finished_by|user_display_name %}
@@ -51,7 +51,7 @@
 
     {# Published status #}
     <li class="workflow-timeline__item workflow-timeline__item--pending">
-        {% icon name="radio-empty" class_name="workflow-timeline__icon" %}{% trans "Published" %}
+        {% icon name="radio-empty" classname="workflow-timeline__icon" %}{% trans "Published" %}
     </li>
 </ol>
 

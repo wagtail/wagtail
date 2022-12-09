@@ -14,7 +14,7 @@
                 aria-label="{% trans 'Toggle breadcrumbs' %}"
                 aria-expanded="false"
             >
-                {% icon name="breadcrumb-expand" class_name="w-w-4 w-h-4" %}
+                {% icon name="breadcrumb-expand" classname="w-w-4 w-h-4" %}
             </button>
 
             <div class="w-relative w-h-slim-header w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
@@ -26,13 +26,13 @@
                                 <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailsnippets:index' %}">
                                     {% trans "Snippets" %}
                                 </a>
-                                {% icon name="arrow-right" class_name=icon_classes %}
+                                {% icon name="arrow-right" classname=icon_classes %}
                             </li>
                             <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
                                 <a class="{{ breadcrumb_link_classes }}" href="{% url view.index_url_name %}">
                                     {{ model_opts.verbose_name_plural|capfirst }}
                                 </a>
-                                {% icon name="arrow-right" class_name=icon_classes %}
+                                {% icon name="arrow-right" classname=icon_classes %}
                             </li>
                         {% endblock %}
                     </ol>

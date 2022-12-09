@@ -16,13 +16,13 @@
                             <li class="{% message_tags message %}">
                                 {% if level_tag == "error" %}
                                     {# There is no error icon, use warning icon instead #}
-                                    {% icon name="warning" class_name="messages-icon" %}
+                                    {% icon name="warning" classname="messages-icon" %}
                                 {% elif message.extra_tags == "lock" %}
-                                    {% icon name="lock" class_name="messages-icon" %}
+                                    {% icon name="lock" classname="messages-icon" %}
                                 {% elif message.extra_tags == "unlock" %}
-                                    {% icon name="lock-open" class_name="messages-icon" %}
+                                    {% icon name="lock-open" classname="messages-icon" %}
                                 {% else %}
-                                    {% icon name=level_tag class_name="messages-icon" %}
+                                    {% icon name=level_tag classname="messages-icon" %}
                                 {% endif %}
                                 {{ message|safe }}
                             </li>
