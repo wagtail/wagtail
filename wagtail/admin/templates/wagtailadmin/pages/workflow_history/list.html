@@ -35,9 +35,9 @@
                         {% for task in workflow_state.all_tasks_with_status %}
                             <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
                                 {% if task.status == 'approved' %}
-                                    {% icon "success" title=approved_title class_name="initial" %}
+                                    {% icon "success" title=approved_title classname="initial" %}
                                 {% else %}
-                                    {% icon "radio-empty" title=incomplete_title class_name="initial" %}
+                                    {% icon "radio-empty" title=incomplete_title classname="initial" %}
                                 {% endif %}
                             </span>
                         {% endfor %}

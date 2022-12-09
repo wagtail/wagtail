@@ -24,11 +24,11 @@
     {% if heading or header_controls %}
         <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#{{ panel_id }}" data-panel-anchor aria-labelledby="{{ heading_id }}">
-                {% icon name="link" class_name="w-panel__icon" %}
+                {% icon name="link" classname="w-panel__icon" %}
             </a>
             <button class="w-panel__toggle" type="button" aria-label="{% trans 'Toggle section' %}" aria-describedby="{{ heading_id }}" data-panel-toggle aria-controls="{{ content_id }}" aria-expanded="true">
                 {% firstof icon "arrow-down-big" as icon_name %}
-                {% icon name=icon_name class_name="w-panel__icon" %}
+                {% icon name=icon_name classname="w-panel__icon" %}
             </button>
             {% if heading %}
                 <h2 class="w-panel__heading {% if heading_size == "label" %}w-panel__heading--label{% endif %}" {% if heading_level %}aria-level="{{ heading_level }}"{% endif %} id="{{ heading_id }}" data-panel-heading>
@@ -40,13 +40,13 @@
                 </h2>
             {% endif %}
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#{{ panel_id }}" aria-labelledby="{{ heading_id }}">
-                {% icon name="link" class_name="w-panel__icon" %}
+                {% icon name="link" classname="w-panel__icon" %}
             </a>
             <div class="w-panel__divider"></div>
             {% if header_controls %}
                 <div class="w-panel__controls" data-panel-controls>
                     <div class="w-panel__controls-cue">
-                        {% icon name="dots-horizontal" class_name="w-panel__icon" %}
+                        {% icon name="dots-horizontal" classname="w-panel__icon" %}
                     </div>
                     {{ header_controls }}
                 </div>

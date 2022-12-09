@@ -3,7 +3,7 @@
 {% if translations %}
     <div class="c-dropdown t-inverted {{ class }}" style="display: inline-block;" data-dropdown>
         <a href="javascript:void(0)" aria-label="{{ locale.get_display_name }}" class="c-dropdown__button u-btn-current w-no-underline">
-            {% icon name="site" class_name="default" %}
+            {% icon name="site" classname="default" %}
             {{ locale.get_display_name }}
             <div data-dropdown-toggle class="o-icon c-dropdown__toggle c-dropdown__togle--icon [ icon icon-arrow-down ]">
                 {% icon name="arrow-down" %}{% icon name="arrow-up" %}
@@ -22,6 +22,6 @@
         </div>
     </div>
 {% else %}
-    {% icon name="site" class_name="default" %}
+    {% icon name="site" classname="default" %}
     {{ locale.get_display_name }}
 {% endif %}

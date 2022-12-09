@@ -24,7 +24,7 @@
                     <div class="col">
                         {% block h1 %}
                             <h1 class="w-header__title">
-                                {% if view.header_icon %}{% icon class_name="w-header__glyph" name=view.header_icon %}{% endif %}
+                                {% if view.header_icon %}{% icon classname="w-header__glyph" name=view.header_icon %}{% endif %}
                                 {{ view.get_page_title }}
                                 {% if view.get_page_subtitle %} <span class="w-header__subtitle">{{ view.get_page_subtitle }}</span> {% endif %}
                                 {% include 'modeladmin/includes/result_count.html' %}

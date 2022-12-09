@@ -5,7 +5,7 @@
         <a href="{{ link_url }}">{{ value }}</a>
         {% if not value.language_code_is_valid %}
             {% trans "This locale's language code is not supported" as error %}
-            {% icon name="warning" class_name="locale-error" title=error %}
+            {% icon name="warning" classname="locale-error" title=error %}
         {% endif %}
     </div>
 </td>

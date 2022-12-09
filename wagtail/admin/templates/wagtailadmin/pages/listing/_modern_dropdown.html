@@ -3,7 +3,7 @@
 <div {{ self.attrs }} class="{{ classes|join:' ' }}" data-button-with-dropdown>
     <button class="{{ button_classes|join:' ' }}" data-button-with-dropdown-toggle data-hover-tooltip-content="{{ title }}" data-tippy-offset="[0, -2]">
         <span class="{% if hide_title %}w-sr-only{% endif %}">{{ title }}</span>
-        {% if icon_name %}{% icon name=icon_name class_name='w-w-5 w-h-5' %}{% endif %}
+        {% if icon_name %}{% icon name=icon_name classname='w-w-5 w-h-5' %}{% endif %}
     </button>
 
     <div data-button-with-dropdown-content class="w-hidden w-p-0">
@@ -13,7 +13,7 @@
                     <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}"
                         class="w-group w-inline-flex w-items-center w-text-white hover:w-text-white hover:w-bg-primary-200 w-py-3 w-px-6 w-no-underline w-transition w-outline-offset-inside {{ button.classes|join:' ' }}">
                         {% if button.icon_name %}
-                            {% icon name=button.icon_name class_name='w-w-4 w-h-4 w-mr-3 w-transition w-opacity-50 group-hover:w-opacity-100' %}
+                            {% icon name=button.icon_name classname='w-w-4 w-h-4 w-mr-3 w-transition w-opacity-50 group-hover:w-opacity-100' %}
                         {% endif %}
                         {{ button.label }}
                     </a>
