@@ -177,6 +177,8 @@ class Migration(migrations.Migration):
     ]
 ```
 
+(streamfield_data_migrations)=
+
 ## StreamField data migrations
 
 ```{versionadded} 4.2
