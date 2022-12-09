@@ -5,6 +5,7 @@ import { Icon, Portal } from '../..';
 import { coreControllerDefinitions } from '../../controllers';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { initStimulus } from '../../includes/initStimulus';
 
 import { urlify } from '../../utils/urlify';
@@ -31,6 +32,9 @@ wagtail.app = initStimulus({ definitions: coreControllerDefinitions });
 
 /** Expose components as globals for third-party reuse. */
 wagtail.components = { Icon, Portal };
+
+/** Expose a global for undocumented third-party usage. */
+window.wagtailConfig = WAGTAIL_CONFIG;
 
 window.wagtail = wagtail;
 

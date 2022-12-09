@@ -859,16 +859,15 @@ def i18n_enabled():
 
 
 @register.simple_tag
-def locales():
-    return json.dumps(
-        [
-            {
-                "code": locale.language_code,
-                "display_name": force_str(locale.get_display_name()),
-            }
-            for locale in Locale.objects.all()
-        ]
-    )
+def locales(serialize=True):
+    result = [
+        {
+            "code": locale.language_code,
+            "display_name": force_str(locale.get_display_name()),
+        }
+        for locale in Locale.objects.all()
+    ]
+    return json.dumps(result) if serialize else result
 
 
 @register.simple_tag
@@ -936,10 +935,25 @@ def wagtail_config(context):
         "CSRF_HEADER_NAME": HttpHeaders.parse_header_name(
             getattr(settings, "CSRF_HEADER_NAME")
         ),
+        "ADMIN_API": {
+            "PAGES": reverse("wagtailadmin_api:pages:listing"),
+            "DOCUMENTS": reverse("wagtailadmin_api:documents:listing"),
+            "IMAGES": reverse("wagtailadmin_api:images:listing"),
+            # Used to add an extra query string on all API requests. Example value: '&order=-id'
+            "EXTRA_CHILDREN_PARAMETERS": "",
+        },
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
+            "PAGES": reverse("wagtailadmin_explore_root"),
         },
+        "I18N_ENABLED": i18n_enabled(),
+        "LOCALES": locales(serialize=False),
+        "STRINGS": get_js_translation_strings(),
     }
+
+    if locale := context.get("locale"):
+        config["ACTIVE_CONTENT_LOCALE"] = locale.language_code
+
     return config
 
 

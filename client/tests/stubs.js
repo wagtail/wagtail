@@ -8,7 +8,7 @@
  * See /wagtailadmin/templates/wagtailadmin/admin_base.html.
  */
 
-global.wagtailConfig = {
+const wagtailConfig = {
   ADMIN_API: {
     DOCUMENTS: '/admin/api/main/documents/',
     IMAGES: '/admin/api/main/images/',
@@ -18,6 +18,8 @@ global.wagtailConfig = {
   ADMIN_URLS: {
     PAGES: '/admin/pages/',
   },
+  CSRF_HEADER_NAME: 'x-xsrf-token',
+  CSRF_TOKEN: 'potato',
   DATE_FORMATTING: {
     DATE_FORMAT: 'MMM. D, YYYY',
     SHORT_DATE_FORMAT: 'DD/MM/YYYY',
@@ -36,16 +38,13 @@ global.wagtailConfig = {
   ACTIVE_LOCALE: 'en',
 };
 
-const script = document.createElement('script');
-script.type = 'application/json';
-script.id = 'wagtail-config';
-script.textContent = JSON.stringify({
-  CSRF_HEADER_NAME: 'x-xsrf-token',
-  CSRF_TOKEN: 'potato',
+const configScript = Object.assign(document.createElement('script'), {
+  id: 'wagtail-config',
+  textContent: JSON.stringify(wagtailConfig),
+  type: 'application/json',
 });
-document.body.appendChild(script);
 
-global.wagtailVersion = '1.6a1';
+document.body.appendChild(configScript);
 
 global.wagtail = {};
 

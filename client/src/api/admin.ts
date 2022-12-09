@@ -1,6 +1,8 @@
 import client from './client';
 
-import { ADMIN_API } from '../config/wagtailConfig';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+
+const { ADMIN_API } = WAGTAIL_CONFIG;
 
 export interface WagtailPageAPI {
   id: number;

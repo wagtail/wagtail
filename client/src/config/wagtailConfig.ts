@@ -1,22 +1,13 @@
-export const { ADMIN_API } = global.wagtailConfig;
-export const { ADMIN_URLS } = global.wagtailConfig;
+import type { WagtailConfig } from '../custom.d';
 
-// Maximum number of pages to load inside the explorer menu.
-export const MAX_EXPLORER_PAGES = 200;
-
-export const LOCALE_NAMES = new Map();
-
-/* eslint-disable-next-line camelcase */
-global.wagtailConfig.LOCALES.forEach(({ code, display_name }) => {
-  LOCALE_NAMES.set(code, display_name);
-});
-
-function getWagtailConfig() {
-  // TODO: Move window.wagtailConfig from the base HTML template
-  // to the wagtail-config JSON script.
-
+const getWagtailConfig = (
+  config = (global as any).wagtailConfig as WagtailConfig,
+) => {
+  // Avoid re-parsing the JSON if global has been already created in core.js
+  if (config) return config;
   try {
-    return JSON.parse(document.getElementById('wagtail-config')?.textContent);
+    const json = document.getElementById('wagtail-config')?.textContent || '';
+    return JSON.parse(json);
   } catch (err) {
     /* eslint-disable no-console */
     console.error('Error loading Wagtail config');
@@ -28,6 +19,21 @@ function getWagtailConfig() {
     // valid JSON, ignore it and return an empty object.
     return {};
   }
-}
+};
 
-export const WAGTAIL_CONFIG = getWagtailConfig();
+const config = getWagtailConfig() as WagtailConfig;
+
+/**
+ * Maximum number of pages to load inside the explorer menu.
+ */
+export const MAX_EXPLORER_PAGES = 200;
+
+export const LOCALE_NAMES = (config.LOCALES || []).reduce(
+  (locales, { code, display_name: displayName }) => {
+    locales.set(code, displayName);
+    return locales;
+  },
+  new Map<string, string>(),
+);
+
+export { config as WAGTAIL_CONFIG };
