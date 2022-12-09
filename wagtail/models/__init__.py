@@ -803,13 +803,8 @@ class LockableMixin(models.Model):
 
     def with_content_json(self, content):
         """
-        Returns a new version of the object with field values updated to reflect changes
-        in the provided ``content`` (which usually comes from a previously-saved revision).
-
-        Certain field values are preserved in order to prevent errors if the returned
-        object is saved, such as ``id``. The following field values are also preserved,
-        as they are considered to be meaningful to the object as a whole, rather than
-        to a specific revision:
+        Similar to :meth:`RevisionMixin.with_content_json`,
+        but with the following fields also preserved:
 
         * ``locked``
         * ``locked_at``
@@ -827,7 +822,7 @@ class LockableMixin(models.Model):
 
     def get_lock(self):
         """
-        Returns a sub-class of BaseLock if the instance is locked, otherwise None
+        Returns a sub-class of ``BaseLock`` if the instance is locked, otherwise ``None``.
         """
         if isinstance(self, DraftStateMixin) and self.scheduled_revision:
             return ScheduledForPublishLock(self)

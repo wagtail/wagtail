@@ -416,6 +416,44 @@ Publishing a snippet instance requires `publish` permission on the snippet model
 Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (e.g. by checking its `live` field). We are planning to improve this in the future.
 ```
 
+(wagtailsnippets_locking_snippets)=
+
+## Locking snippets
+
+```{versionadded} 4.2
+The `LockableMixin` class was introduced.
+```
+
+If a snippet model inherits from {class}`~wagtail.models.LockableMixin`, Wagtail will automatically add the ability to lock instances of the model. When editing, Wagtail will show the locking information in the "Status" side panel, and a button to lock/unlock the instance if the user has the permission to do so.
+
+If the model is also configured to have scheduled publishing (as shown in [](wagtailsnippets_saving_draft_changes_of_snippets) above), Wagtail will lock any instances that are scheduled for publishing.
+
+Similar to pages, users who locked a snippet can still edit it, unless [`WAGTAILADMIN_GLOBAL_EDIT_LOCK`](wagtailadmin_global_edit_lock) is set to `True`.
+
+For example, instances of the `Advert` snippet could be locked by defining it as follows:
+
+```python
+# ...
+
+from wagtail.models import LockableMixin
+
+# ...
+
+@register_snippet
+class Advert(LockableMixin, models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+```
+
+The `LockableMixin` includes additional fields that need to be added to your database table. Make sure to run the `makemigrations` and `migrate` management commands after making the above changes to apply the changes to your database.
+
+Locking and unlocking a snippet instance requires `lock` and `unlock` permissions on the snippet model, respectively. For models with `LockableMixin` applied, Wagtail automatically creates the corresponding `lock` and `unlock` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions).
+
 ## Tagging snippets
 
 Adding tags to snippets is very similar to adding tags to pages. The only difference is that {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
