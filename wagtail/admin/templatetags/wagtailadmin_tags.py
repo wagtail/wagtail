@@ -669,24 +669,30 @@ def versioned_static(path):
 
 
 @register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
-def icon(name=None, class_name="icon", title=None, wrapped=False):
+def icon(name=None, classname=None, title=None, wrapped=False, class_name=None):
     """
     Abstracts away the actual icon implementation.
 
     Usage:
         {% load wagtailadmin_tags %}
         ...
-        {% icon name="cogs" class_name="icon--red" title="Settings" %}
+        {% icon name="cogs" classname="icon--red" title="Settings" %}
 
     :param name: the icon name/id, required (string)
-    :param class_name: default 'icon' (string)
+    :param classname: defaults to 'icon' if not provided (string)
     :param title: accessible label intended for screen readers (string)
     :return: Rendered template snippet (string)
     """
     if not name:
         raise ValueError("You must supply an icon name")
 
-    return {"name": name, "class_name": class_name, "title": title, "wrapped": wrapped}
+    return {
+        "name": name,
+        # supporting class_name for backwards compatibility
+        "classname": classname or class_name or "icon",
+        "title": title,
+        "wrapped": wrapped,
+    }
 
 
 @register.filter()
