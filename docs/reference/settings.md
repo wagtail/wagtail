@@ -259,11 +259,15 @@ WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 
 The interval (in milliseconds) to check for changes made in the page editor before updating the preview. The default value is `500`.
 
-(wagtailadmin_global_page_edit_lock)=
+(wagtailadmin_global_edit_lock)=
 
-### `WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`
+### `WAGTAILADMIN_GLOBAL_EDIT_LOCK`
 
-`WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK` can be set to `True` to prevent users from editing pages that they have locked.
+`WAGTAILADMIN_GLOBAL_EDIT_LOCK` can be set to `True` to prevent users from editing pages and snippets that they have locked.
+
+```{versionchanged} 4.2
+This setting was previously named ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK``, using ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` will be removed in a future release.
+```
 
 (wagtailadmin_unsafe_page_deletion_limit)=
 

@@ -758,7 +758,7 @@ class TestPagePermission(TestCase):
         other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
         self.assertTrue(other_perms.page_locked())
 
-    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    @override_settings(WAGTAILADMIN_GLOBAL_EDIT_LOCK=True)
     def test_page_locked_for_locked_page_with_global_lock_enabled(self):
         user = get_user_model().objects.get(email="eventmoderator@example.com")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")

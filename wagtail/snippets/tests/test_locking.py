@@ -361,7 +361,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
         # Check that the snippet is edited
         self.assertEqual(self.snippet.text, "Edited while locked")
 
-    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    @override_settings(WAGTAILADMIN_GLOBAL_EDIT_LOCK=True)
     def test_edit_post_locked_by_self_with_global_lock_enabled(self):
         """A user cannot edit a snippet that is locked by themselves if the setting is enabled."""
         # Lock the snippet
