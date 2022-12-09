@@ -71,7 +71,7 @@ A form template for a StructBlock must include the output of `render_form` for e
     {% if help_text %}
         <span>
             <div class="help">
-                {% icon name="help" class_name="default" %}
+                {% icon name="help" classname="default" %}
                 {{ help_text }}
             </div>
         </span>
