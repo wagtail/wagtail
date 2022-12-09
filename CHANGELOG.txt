@@ -4,6 +4,7 @@ Changelog
 4.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Added StreamField data migration helpers (Sandil Ranasinghe, Jacob Topp-Mugglestone, Joshua Munn, Karl Hobley)
  * Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Test assertion util `WagtailPageTestCase.assertCanCreate` now supports the kwarg `publish=True` to check publish redirection (Harry Percival, Akua Dokua Asiedu)
  * Ensure that the `rebuild_references_index` command can run without console output if called with `--verbosity 0` (Omerzahid Ali, Aman Pandey)
