@@ -34,15 +34,7 @@ Examples:
 
 #### Django template tag
 
-```django+html
-{% dialog_toggle classname='button button-primary' %}
-```
-
-```django+html
-<button type="button" class="{{ classname }}" data-a11y-dialog-show="{{ dialog_id }}">
-    {{ text }}
-</button>
-```
+Example template tag definition
 
 ```python
 @register.inclusion_tag("wagtailadmin/shared/dialog/dialog_toggle.html")
@@ -51,6 +43,29 @@ def dialog_toggle(dialog_id, classname="", text=None):
         "classname": classname,
         "text": text,
     }
+```
+
+Example template
+
+```html+django
+{% comment "text/markdown" %}
+
+    Variables accepted by this template:
+
+    - `classname` - {string?} if present, adds classname to button
+    - `dialog_id` - {string} unique id to use to reference the modal which will be triggered
+
+{% endcomment %}
+
+<button type="button" class="{{ classname }}" data-a11y-dialog-show="{{ dialog_id }}">
+    {{ text }}
+</button>
+```
+
+Example usage
+
+```html+django
+{% dialog_toggle classname='button button-primary' %}
 ```
 
 ### Python / Django class driven content
@@ -69,7 +84,7 @@ class Panel:
 | `classname`   | ✅ Preferred for any new code.                                                                                      |
 | `class`       | ✳️ Only if used as part of a generic `attrs`-like dict; however avoid due to conflicts with Python `class` keyword. |
 | `classnames`  | ❌ Avoid for new code.                                                                                              |
-| `class_name`  | ✳️ Some existing code may use this; avoid for new code.                                                             |
+| `class_name`  | ❌ Avoid for new code.                                                                                              |
 | `class_names` | ❌ Avoid for new code.                                                                                              |
 | `className`   | ❌ Avoid for new code.                                                                                              |
 | `classNames`  | ❌ Avoid for new code.                                                                                              |
