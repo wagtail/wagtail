@@ -230,7 +230,6 @@ class ChooserModalOnloadHandlerFactory {
     initTooltips();
   }
 
-  // eslint-disable-next-line class-methods-use-this
   modalHasTabs(modal) {
     return $('[data-tabs]', modal.body).length;
   }

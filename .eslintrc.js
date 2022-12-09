@@ -1,7 +1,6 @@
 // Rules which have been enforced in configuration upgrades and flag issues in existing code.
 // We need to consider whether to disable those rules permanently, or fix the issues.
 const legacyCode = {
-  'class-methods-use-this': 'off',
   'constructor-super': 'off',
   'default-param-last': 'off',
   'no-continue': 'off',
@@ -27,6 +26,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    // it is often helpful to pull out logic to class methods that may not use `this`
+    'class-methods-use-this': 'off',
     'import/extensions': [
       'error',
       'always',
@@ -72,7 +73,6 @@ module.exports = {
         'client/src/entrypoints/admin/page-editor.js',
         'client/src/entrypoints/admin/telepath/widgets.js',
         'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
-        'client/src/entrypoints/images/image-chooser-modal.js',
         'client/src/utils/actions.ts',
         'client/src/utils/version.js',
       ],
