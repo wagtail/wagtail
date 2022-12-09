@@ -17,6 +17,7 @@ Changelog
  * Fix: Support creating `StructValue` copies (Tidiane Dia)
  * Fix: Fix image uploads on storage backends that require file pointer to be at the start of the file (Matt Westcott)
  * Fix: Fix "Edit this page" missing from userbar (Satvik Vashisht)
+ * Fix: No longer allow invalid duplicate site hostname creation as hostnames and domain names are a case insensitive (Coen van der Kamp)
  * Docs: Add code block to make it easier to understand contribution docs (Suyash Singh)
  * Docs: Add new "Icons" page for icons customisation and reuse across the admin interface (Coen van der Kamp)
  * Docs: Fix broken formatting for MultiFieldPanel / FieldRowPanel permission kwarg docs (Matt Westcott)
