@@ -81,6 +81,7 @@ Changelog
  * Maintenance: Clean up expanding formset and `InlinePanel` JavaScript initialisation code and adopt a class approach (Matt Westcott)
  * Maintenance: Extracted revision and draft state logic from generic views into mixins (Sage Abdullah)
  * Maintenance: Extracted generic lock / unlock views from page lock / unlock views (Sage Abdullah)
+ * Maintenance: Move `identity` JavaScript util into shared utils folder (LB (Ben Johnston))
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
