@@ -251,7 +251,10 @@ class DecimalBlock(FieldBlock):
         super().__init__(*args, **kwargs)
 
     def to_python(self, value):
-        return Decimal(value)
+        if value is None:
+            return value
+        else:
+            return Decimal(value)
 
     class Meta:
         icon = "plus-inverse"
