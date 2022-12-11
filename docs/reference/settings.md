@@ -387,7 +387,7 @@ You can use it to specify or override the widgets to use in the admin form.
 WAGTAILDOCS_SERVE_METHOD = 'redirect'
 ```
 
-Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform privacy checks (see [](collection_privacy_settings)) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
+Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform privacy checks (see [Collection Privacy settings](https://guide.wagtail.org/en-latest/how-to/managing-collections/#privacy-settings)) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
 
 For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
 

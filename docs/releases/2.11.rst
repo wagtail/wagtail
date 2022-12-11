@@ -139,7 +139,7 @@ Adding the ``run_before`` directive will ensure that the migrations run in the i
 IE11 support being phased out
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This release begins the process of phasing out support for Internet Explorer. Please see :ref:`ie11` for details of the timeline over which support will be dropped.
+This release begins the process of phasing out support for Internet Explorer.
 
 
 SiteMiddleware moved to ``wagtail.contrib.legacy``
