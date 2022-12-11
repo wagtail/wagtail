@@ -675,6 +675,7 @@ Contributors
 * Jeremy Thompson
 * Ben Gosney
 * damascene
+* Natarajan Balaji
 
 Translators
 ===========

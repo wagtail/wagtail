@@ -419,6 +419,11 @@ class TestDecimalBlock(TestCase):
         )  # decimals get saved as string in JSON field
         self.assertEqual(type(block_val), Decimal)
 
+    def test_type_to_python_decimal_none_value(self):
+        block = blocks.DecimalBlock()
+        block_val = block.to_python(None)
+        self.assertIsNone(block_val)
+
     def test_render(self):
         block = blocks.DecimalBlock()
         test_val = Decimal(1.63)
