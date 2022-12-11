@@ -3,7 +3,7 @@
 ## On your server
 
 Wagtail is straightforward to deploy on modern Linux-based distributions, and should run with any of the combinations detailed in Django's [deployment documentation](django:howto/deployment/index).
-See the section on [performance](performance) for the non-Python services we recommend.
+See the section on [performance](performance_overview) for the non-Python services we recommend.
 
 ## On Divio Cloud
 
@@ -70,7 +70,7 @@ If you would like to serve your images from a separate asset server or CDN, you 
 Document serving is controlled by the [WAGTAILDOCS_SERVE_METHOD](wagtaildocs_serve_method) method.
 When using `FileSystemStorage`, documents are stored in a `documents` subdirectory within your site's `MEDIA_ROOT`.
 If all your documents are public, you can set the `WAGTAILDOCS_SERVE_METHOD` to `direct` and configure your web server to serve the files itself.
-However, if you use Wagtail's [Collection Privacy settings](collection_privacy_settings) to restrict access to some or all of your documents, you may or may not want to configure your web server to serve the documents directly.
+However, if you use Wagtail's [Collection Privacy settings](https://guide.wagtail.org/en-latest/how-to/managing-collections/#privacy-settings) to restrict access to some or all of your documents, you may or may not want to configure your web server to serve the documents directly.
 The default setting is `redirect` which allows Wagtail to perform any configured privacy checks before offloading serving the actual document to your web server or CDN.
 This means that Wagtail constructs document links that pass through Wagtail, but the final url in the user's browser is served directly by your web server.
 If a user bookmarks this url, they will be able to access the file without passing through Wagtail's privacy checks.

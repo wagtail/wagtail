@@ -410,7 +410,7 @@ If you use the scheduled publishing feature, make sure that you run the [`publis
 For models that extend `DraftStateMixin`, `publish` permissions are automatically created.
 ```
 
-Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions).
+Publishing a snippet instance requires `publish` permission on the snippet model. For models with `DraftStateMixin` applied, Wagtail automatically creates the corresponding `publish` permissions and display them in the 'Groups' area of the Wagtail admin interface. For more details on how to configure the permission, see [](permissions_overview).
 
 ```{warning}
 Wagtail does not yet have a mechanism to prevent editors from including unpublished ("draft") snippets in pages. When including a `DraftStateMixin`-enabled snippet in pages, make sure that you add necessary checks to handle how a draft snippet should be rendered (e.g. by checking its `live` field). We are planning to improve this in the future.
