@@ -33,7 +33,7 @@ This app contains migrations so make sure you run the `migrate` django-admin com
 
 Once installed, a new menu item called "Redirects" should appear in the "Settings" menu. This is where you can add arbitrary redirects to your site.
 
-For an editor's guide to the interface, see [](managing_redirects).
+For an editor's guide to the interface, see [Managing redirects](https://guide.wagtail.org/en-latest/how-to/managing-redirects/).
 
 ## Automatic redirect creation
 

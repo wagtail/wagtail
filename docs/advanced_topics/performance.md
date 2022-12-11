@@ -1,3 +1,5 @@
+(performance_overview)=
+
 # Performance
 
 Wagtail is designed for speed, both in the editor interface and on the front-end, but if you want even better performance or you need to handle very high volumes of traffic, here are some tips on eking out the most from your installation.

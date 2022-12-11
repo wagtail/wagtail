@@ -96,7 +96,7 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
  The Wagtail image content type.
 
 **`wagtail.embeds`**  
- Module governing oEmbed and Embedly content in Wagtail rich text fields. See [](inserting_videos).
+ Module governing oEmbed and Embedly content in Wagtail rich text fields.
 
 **`wagtail.search`**  
  Search framework for Page content. See [](wagtailsearch).

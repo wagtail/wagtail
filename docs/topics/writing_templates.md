@@ -60,7 +60,7 @@ Any file within the static folder should be inserted into your HTML using the `{
 
 ### User images
 
-Images uploaded to a Wagtail site by its users (as opposed to a developer's static files, mentioned above) go into the image library and from there are added to pages via the [page editor interface](inserting_images).
+Images uploaded to a Wagtail site by its users (as opposed to a developer's static files, mentioned above) go into the image library and from there are added to pages via the page editor interface.
 
 Unlike other CMSs, adding images to a page does not involve choosing a "version" of the image to use. Wagtail has no predefined image "formats" or "sizes". Instead the template developer defines image manipulation to occur _on the fly_ when the image is requested, via a special syntax within the template.
 
