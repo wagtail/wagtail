@@ -83,6 +83,7 @@ Changelog
  * Maintenance: Extracted generic lock / unlock views from page lock / unlock views (Sage Abdullah)
  * Maintenance: Move `identity` JavaScript util into shared utils folder (LB (Ben Johnston))
  * Maintenance: Remove unnecessary declaration of function to determine URL query params, instead use `URLSearchParams` (Loveth Omokaro)
+ * Maintenance: Update `tsconfig` to better support modern TypeScript development and clean up some code quality issues via Eslint (Loveth Omokaro)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
