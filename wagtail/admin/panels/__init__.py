@@ -1,5 +1,4 @@
 import functools
-from warnings import warn
 
 from django import forms
 from django.apps import apps
@@ -32,10 +31,10 @@ from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_displa
 from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .base import *  # NOQA
 from .base import Panel
+from .deprecated import *  # NOQA
 from .field_panel import *  # NOQA
 from .field_panel import FieldPanel
 from .group import *  # NOQA
@@ -74,48 +73,6 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
         panels.append(panel)
 
     return panels
-
-
-class EditHandler(Panel):
-    def __init__(self, *args, **kwargs):
-        warn(
-            "wagtail.admin.edit_handlers.EditHandler has been renamed to wagtail.admin.panels.Panel",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)
-
-
-class BaseCompositeEditHandler(PanelGroup):
-    def __init__(self, *args, **kwargs):
-        warn(
-            "wagtail.admin.edit_handlers.BaseCompositeEditHandler has been renamed to wagtail.admin.panels.PanelGroup",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)
-
-
-class RichTextFieldPanel(FieldPanel):
-    def __init__(self, *args, **kwargs):
-        warn(
-            "RichTextFieldPanel is no longer required for rich text fields, and should be replaced by FieldPanel. "
-            "RichTextFieldPanel will be removed in a future release. "
-            "See https://docs.wagtail.org/en/stable/releases/3.0.html#removal-of-special-purpose-field-panel-types",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)
-
-
-class BaseChooserPanel(FieldPanel):
-    def __init__(self, *args, **kwargs):
-        warn(
-            "wagtail.admin.edit_handlers.BaseChooserPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)
 
 
 class InlinePanel(Panel):
@@ -503,15 +460,3 @@ def reset_edit_handler_cache(**kwargs):
             if issubclass(model, Page):
                 model.get_edit_handler.cache_clear()
         get_edit_handler.cache_clear()
-
-
-class StreamFieldPanel(FieldPanel):
-    def __init__(self, *args, **kwargs):
-        warn(
-            "StreamFieldPanel is no longer required when using StreamField, and should be replaced by FieldPanel. "
-            "StreamFieldPanel will be removed in a future release. "
-            "See https://docs.wagtail.org/en/stable/releases/3.0.html#removal-of-special-purpose-field-panel-types",
-            category=RemovedInWagtail50Warning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)
