@@ -801,6 +801,32 @@ class LockableMixin(models.Model):
     class Meta:
         abstract = True
 
+    @classmethod
+    def check(cls, **kwargs):
+        return [
+            *super().check(**kwargs),
+            *cls._check_revision_mixin(),
+        ]
+
+    @classmethod
+    def _check_revision_mixin(cls):
+        mro = cls.mro()
+        error = checks.Error(
+            "LockableMixin must be applied before RevisionMixin.",
+            hint="Move LockableMixin in the model's base classes before RevisionMixin.",
+            obj=cls,
+            id="wagtailcore.E005",
+        )
+
+        try:
+            if mro.index(RevisionMixin) < mro.index(LockableMixin):
+                return [error]
+        except ValueError:
+            # LockableMixin can be used without RevisionMixin.
+            return []
+
+        return []
+
     def with_content_json(self, content):
         """
         Similar to :meth:`RevisionMixin.with_content_json`,
