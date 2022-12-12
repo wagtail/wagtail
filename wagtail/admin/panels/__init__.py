@@ -29,7 +29,6 @@ from wagtail.admin.forms.models import (  # NOQA
 from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.admin.widgets import AdminPageChooser
 from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
@@ -48,6 +47,7 @@ from .group import (
     TabbedInterface,
 )
 from .help_panel import *  # NOQA
+from .page_chooser_panel import *  # NOQA
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
@@ -116,32 +116,6 @@ class BaseChooserPanel(FieldPanel):
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
-
-
-class PageChooserPanel(FieldPanel):
-    def __init__(self, field_name, page_type=None, can_choose_root=False):
-        super().__init__(field_name=field_name)
-
-        self.page_type = page_type
-        self.can_choose_root = can_choose_root
-
-    def clone_kwargs(self):
-        return {
-            "field_name": self.field_name,
-            "page_type": self.page_type,
-            "can_choose_root": self.can_choose_root,
-        }
-
-    def get_form_options(self):
-        opts = super().get_form_options()
-
-        if self.page_type or self.can_choose_root:
-            widgets = opts.setdefault("widgets", {})
-            widgets[self.field_name] = AdminPageChooser(
-                target_models=self.page_type, can_choose_root=self.can_choose_root
-            )
-
-        return opts
 
 
 class InlinePanel(Panel):
