@@ -422,7 +422,7 @@ class TestDecimalBlock(TestCase):
     def test_type_to_python_decimal_none_value(self):
         block = blocks.DecimalBlock()
         block_val = block.to_python(None)
-        self.assertEqual(block_val, None)
+        self.assertIsNone(block_val)
 
     def test_render(self):
         block = blocks.DecimalBlock()
