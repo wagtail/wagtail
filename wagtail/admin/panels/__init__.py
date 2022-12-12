@@ -19,6 +19,18 @@ from modelcluster.models import get_serializable_data_for_fields
 
 from wagtail.admin import compare
 from wagtail.admin.forms.comments import CommentForm
+
+# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
+# compatibility, as people are likely importing them from here and then
+# appending their own overrides
+from wagtail.admin.forms.models import (  # NOQA
+    DIRECT_FORM_FIELD_OVERRIDES,
+    FORM_FIELD_OVERRIDES,
+    WagtailAdminDraftStateFormMixin,
+    WagtailAdminModelForm,
+    formfield_for_dbfield,
+)
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.ui.components import Component
@@ -29,18 +41,6 @@ from wagtail.coreutils import safe_snake_case
 from wagtail.models import COMMENTS_RELATION_NAME, DraftStateMixin, Page
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
-
-# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
-# compatibility, as people are likely importing them from here and then
-# appending their own overrides
-from .forms.models import (  # NOQA
-    DIRECT_FORM_FIELD_OVERRIDES,
-    FORM_FIELD_OVERRIDES,
-    WagtailAdminDraftStateFormMixin,
-    WagtailAdminModelForm,
-    formfield_for_dbfield,
-)
-from .forms.pages import WagtailAdminPageForm
 
 
 def get_form_for_model(
