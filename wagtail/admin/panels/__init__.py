@@ -47,6 +47,7 @@ from .group import (
     PanelGroup,
     TabbedInterface,
 )
+from .help_panel import *  # NOQA
 
 
 def extract_panel_definitions_from_model_class(model, exclude=None):
@@ -93,37 +94,6 @@ class BaseCompositeEditHandler(PanelGroup):
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
-
-
-class HelpPanel(Panel):
-    def __init__(
-        self,
-        content="",
-        template="wagtailadmin/panels/help_panel.html",
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-        self.content = content
-        self.template = template
-
-    def clone_kwargs(self):
-        kwargs = super().clone_kwargs()
-        del kwargs["help_text"]
-        kwargs.update(
-            content=self.content,
-            template=self.template,
-        )
-        return kwargs
-
-    @property
-    def clean_name(self):
-        return super().clean_name or "help"
-
-    class BoundPanel(Panel.BoundPanel):
-        def __init__(self, **kwargs):
-            super().__init__(**kwargs)
-            self.template_name = self.panel.template
-            self.content = self.panel.content
 
 
 class FieldPanel(Panel):
