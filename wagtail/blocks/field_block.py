@@ -252,8 +252,8 @@ class DecimalBlock(FieldBlock):
 
     def to_python(self, value):
         if value is None:
-             return value
-         else:
+            return value
+        else:
             return Decimal(value)
 
     class Meta:
