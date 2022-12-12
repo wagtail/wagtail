@@ -170,7 +170,7 @@ class TestWorkflows(TestCase):
         task_state = workflow_state.current_task_state
         self.assertEqual(task_state.task, task_1)
         self.assertEqual(task_state.status, "in_progress")
-        self.assertEqual(task_state.page_revision, homepage.get_latest_revision())
+        self.assertEqual(task_state.revision, homepage.get_latest_revision())
         if settings.USE_TZ:
             self.assertEqual(
                 task_state.started_at,
@@ -231,9 +231,7 @@ class TestWorkflows(TestCase):
         )
         self.assertEqual(workflow_state.status, "approved")
         page.refresh_from_db()
-        self.assertEqual(
-            page.live_revision, workflow_state.current_task_state.page_revision
-        )
+        self.assertEqual(page.live_revision, workflow_state.current_task_state.revision)
 
     @override_settings(WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True)
     def test_workflow_resets_when_new_revision_created(self):

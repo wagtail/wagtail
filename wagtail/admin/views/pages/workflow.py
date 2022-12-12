@@ -240,8 +240,8 @@ def preview_revision_for_task(request, page_id, task_id):
     task = get_object_or_404(Task, id=task_id).specific
     try:
         task_state = TaskState.objects.get(
-            page_revision__base_content_type=get_default_page_content_type(),
-            page_revision__object_id=page.id,
+            revision__base_content_type=get_default_page_content_type(),
+            revision__object_id=page.id,
             task=task,
             status=TaskState.STATUS_IN_PROGRESS,
         )
@@ -255,7 +255,7 @@ def preview_revision_for_task(request, page_id, task_id):
         )
         return redirect("wagtailadmin_home")
 
-    revision = task_state.page_revision
+    revision = task_state.revision
 
     if not task.get_actions(page, request.user):
         raise PermissionDenied

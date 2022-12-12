@@ -104,7 +104,7 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="task_states",
                         to="wagtailcore.PageRevision",
-                        verbose_name="page revision",
+                        verbose_name="revision",
                     ),
                 ),
                 (

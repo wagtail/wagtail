@@ -3578,7 +3578,7 @@ class Task(models.Model):
         """Start this task on the provided workflow state by creating an instance of TaskState"""
         task_state = self.get_task_state_class()(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
-        task_state.page_revision = workflow_state.page.get_latest_revision()
+        task_state.revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
         task_submitted.send(
@@ -3925,7 +3925,7 @@ class WorkflowState(models.Model):
         """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
         if self.status != self.STATUS_NEEDS_CHANGES:
             raise PermissionDenied
-        revision = self.current_task_state.page_revision
+        revision = self.current_task_state.revision
         current_task_state = self.current_task_state
         self.current_task_state = None
         self.status = self.STATUS_IN_PROGRESS
@@ -4016,7 +4016,7 @@ class WorkflowState(models.Model):
         )
         if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
             successful_task_states = successful_task_states.filter(
-                page_revision=self.page.get_latest_revision()
+                revision=self.page.get_latest_revision()
             )
 
         return successful_task_states
@@ -4053,7 +4053,7 @@ class WorkflowState(models.Model):
                     },
                 }
             },
-            revision=self.current_task_state.page_revision,
+            revision=self.current_task_state.revision,
             user=user,
         )
 
@@ -4073,18 +4073,18 @@ class WorkflowState(models.Model):
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
     def copy_approved_task_states_to_revision(self, revision):
-        """This creates copies of previously approved task states with page_revision set to a different revision."""
+        """This creates copies of previously approved task states with revision set to a different revision."""
         approved_states = TaskState.objects.filter(
             workflow_state=self, status=TaskState.STATUS_APPROVED
         )
         for state in approved_states:
-            state.copy(update_attrs={"page_revision": revision})
+            state.copy(update_attrs={"revision": revision})
 
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
         return Revision.page_revisions.filter(
             object_id=str(self.page_id),
-            id__in=self.task_states.values_list("page_revision_id", flat=True),
+            id__in=self.task_states.values_list("revision_id", flat=True),
         ).defer("content")
 
     def _get_applicable_task_states(self):
@@ -4099,7 +4099,7 @@ class WorkflowState(models.Model):
                 .values_list("id", flat=True)
                 .first()
             )
-            task_states = task_states.filter(page_revision_id=latest_revision_id)
+            task_states = task_states.filter(revision_id=latest_revision_id)
         return task_states
 
     def all_tasks_with_status(self):
@@ -4203,7 +4203,7 @@ class TaskStateManager(models.Manager):
 
 
 class TaskState(models.Model):
-    """Tracks the status of a given Task for a particular page revision."""
+    """Tracks the status of a given Task for a particular revision."""
 
     STATUS_IN_PROGRESS = "in_progress"
     STATUS_APPROVED = "approved"
@@ -4224,10 +4224,10 @@ class TaskState(models.Model):
         verbose_name=_("workflow state"),
         related_name="task_states",
     )
-    page_revision = models.ForeignKey(
+    revision = models.ForeignKey(
         "Revision",
         on_delete=models.CASCADE,
-        verbose_name=_("page revision"),
+        verbose_name=_("revision"),
         related_name="task_states",
     )
     task = models.ForeignKey(
@@ -4277,11 +4277,9 @@ class TaskState(models.Model):
                 self.content_type = ContentType.objects.get_for_model(self)
 
     def __str__(self):
-        return _(
-            "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
-        ) % {
+        return _("Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s") % {
             "task_name": self.task,
-            "revision_info": self.page_revision,
+            "revision_info": self.revision,
             "status": self.status,
         }
 
@@ -4298,7 +4296,7 @@ class TaskState(models.Model):
             # Cannot locate a model class for this content type. This might happen
             # if the codebase and database are out of sync (e.g. the model exists
             # on a different git branch and we haven't rolled back migrations before
-            # switching branches); if so, the best we can do is return the page
+            # switching branches); if so, the best we can do is return the task state
             # unchanged.
             return self
         elif isinstance(self, model_class):
@@ -4404,13 +4402,13 @@ class TaskState(models.Model):
 
     def log_state_change_action(self, user, action):
         """Log the approval/rejection action"""
-        page = self.page_revision.as_object()
+        obj = self.revision.as_object()
         next_task = self.workflow_state.get_next_task()
         next_task_data = None
         if next_task:
             next_task_data = {"id": next_task.id, "title": next_task.name}
         log(
-            instance=page,
+            instance=obj,
             action="wagtail.workflow.{}".format(action),
             user=user,
             data={
@@ -4427,7 +4425,7 @@ class TaskState(models.Model):
                 },
                 "comment": self.get_comment(),
             },
-            revision=self.page_revision,
+            revision=self.revision,
         )
 
     class Meta:

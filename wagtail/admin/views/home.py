@@ -126,7 +126,7 @@ class UserPagesInWorkflowModerationPanel(Component):
                     "page",
                     "current_task_state",
                     "current_task_state__task",
-                    "current_task_state__page_revision",
+                    "current_task_state__revision",
                 )
                 .order_by("-current_task_state__started_at")
             )
@@ -148,9 +148,9 @@ class WorkflowPagesToModeratePanel(Component):
             states = (
                 TaskState.objects.reviewable_by(request.user)
                 .select_related(
-                    "page_revision",
+                    "revision",
                     "task",
-                    "page_revision__user",
+                    "revision__user",
                 )
                 .order_by("-started_at")
             )
@@ -158,7 +158,7 @@ class WorkflowPagesToModeratePanel(Component):
                 (
                     state,
                     state.task.specific.get_actions(
-                        page=state.page_revision.content_object, user=request.user
+                        page=state.revision.content_object, user=request.user
                     ),
                     state.workflow_state.all_tasks_with_status(),
                 )

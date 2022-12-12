@@ -1050,11 +1050,11 @@ Task states store state information about the progress of a task on a particular
 
         The workflow state which started this task state.
 
-    .. attribute:: page_revision
+    .. attribute:: revision
 
         (foreign key to ``Revision``)
 
-        The page revision this task state was created on.
+        The revision this task state was created on.
 
     .. attribute:: task
 

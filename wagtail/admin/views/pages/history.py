@@ -90,7 +90,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     page_revisions = Revision.page_revisions.filter(
         object_id=str(page.id),
         id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list(
-            "page_revision_id", flat=True
+            "revision_id", flat=True
         ),
     ).order_by("-created_at")
 
@@ -101,7 +101,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
             {
                 task_state.task: task_state
                 for task_state in TaskState.objects.filter(
-                    workflow_state=workflow_state, page_revision=page_revision
+                    workflow_state=workflow_state, revision=page_revision
                 )
             },
         )
