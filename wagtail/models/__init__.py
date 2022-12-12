@@ -944,6 +944,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
 
+    workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        related_query_name="page",
+        for_concrete_model=False,
+    )
+
     # If non-null, this page is an alias of the linked page
     # This means the page is kept in sync with the live version
     # of the linked pages and is not editable by users.
@@ -3684,7 +3692,9 @@ class Workflow(ClusterableModel):
     def start(self, page, user):
         """Initiates a workflow by creating an instance of ``WorkflowState``"""
         state = WorkflowState(
-            page=page,
+            content_type=page.get_content_type(),
+            base_content_type=page.get_base_content_type(),
+            object_id=str(page.pk),
             workflow=self,
             status=WorkflowState.STATUS_IN_PROGRESS,
             requested_by=user,
@@ -3831,7 +3841,7 @@ class WorkflowStateManager(models.Manager):
 
 
 class WorkflowState(models.Model):
-    """Tracks the status of a started Workflow on a Page."""
+    """Tracks the status of a started Workflow on an object."""
 
     STATUS_IN_PROGRESS = "in_progress"
     STATUS_APPROVED = "approved"
@@ -3844,12 +3854,16 @@ class WorkflowState(models.Model):
         (STATUS_CANCELLED, _("Cancelled")),
     )
 
-    page = models.ForeignKey(
-        "Page",
-        on_delete=models.CASCADE,
-        verbose_name=_("page"),
-        related_name="workflow_states",
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+", null=True
     )
+    base_content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+", null=True
+    )
+    object_id = models.CharField(max_length=255, verbose_name=_("object id"))
+
+    page = GenericForeignKey("base_content_type", "object_id", for_concrete_model=False)
+
     workflow = models.ForeignKey(
         "Workflow",
         on_delete=models.CASCADE,
@@ -3898,7 +3912,10 @@ class WorkflowState(models.Model):
             # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
             if (
                 WorkflowState.objects.active()
-                .filter(page=self.page)
+                .filter(
+                    base_content_type_id=self.base_content_type_id,
+                    object_id=self.object_id,
+                )
                 .exclude(pk=self.pk)
                 .exists()
             ):
@@ -4083,7 +4100,7 @@ class WorkflowState(models.Model):
     def revisions(self):
         """Returns all page revisions associated with task states linked to the current workflow state"""
         return Revision.page_revisions.filter(
-            object_id=str(self.page_id),
+            object_id=self.object_id,
             id__in=self.task_states.values_list("revision_id", flat=True),
         ).defer("content")
 
@@ -4186,10 +4203,20 @@ class WorkflowState(models.Model):
         # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same page. This is only supported by specific databases (e.g. Postgres, SQL Server), so is checked additionally on save.
         constraints = [
             models.UniqueConstraint(
-                fields=["page"],
+                fields=["base_content_type", "object_id"],
                 condition=Q(status__in=("in_progress", "needs_changes")),
                 name="unique_in_progress_workflow",
             )
+        ]
+        indexes = [
+            models.Index(
+                fields=["content_type", "object_id"],
+                name="workflowstate_ct_id_idx",
+            ),
+            models.Index(
+                fields=["base_content_type", "object_id"],
+                name="workflowstate_base_ct_id_idx",
+            ),
         ]
 
 
