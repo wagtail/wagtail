@@ -69,7 +69,7 @@
             {% endif %}
         {% endif %}
 
-        {% with icon_name='lock-open' %}
+        {% with icon_name='lock-open' help_text=help_text|capfirst %}
             {{ block.super }}
         {% endwith %}
     {% endif %}
