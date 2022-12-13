@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.signals import setting_changed
 from django.dispatch import receiver
-from django.forms import Media
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
@@ -19,9 +18,7 @@ from wagtail.admin.forms.models import (  # NOQA
     FORM_FIELD_OVERRIDES,
 )
 from wagtail.admin.forms.pages import WagtailAdminPageForm
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.admin.widgets.datetime import AdminDateTimeInput
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
 
@@ -31,74 +28,14 @@ from .deprecated import *  # NOQA
 from .field_panel import *  # NOQA
 from .field_panel import FieldPanel
 from .group import *  # NOQA
-from .group import (
-    FieldRowPanel,
-    MultiFieldPanel,
-    ObjectList,
-    PanelGroup,
-    TabbedInterface,
-)
+from .group import MultiFieldPanel, ObjectList, TabbedInterface
 from .help_panel import *  # NOQA
 from .inline_panel import *  # NOQA
 from .model_utils import *  # NOQA
 from .model_utils import get_edit_handler
 from .page_chooser_panel import *  # NOQA
-
-
-# This allows users to include the publishing panel in their own per-model override
-# without having to write these fields out by hand, potentially losing 'classname'
-# and therefore the associated styling of the publishing panel
-class PublishingPanel(MultiFieldPanel):
-    def __init__(self, **kwargs):
-        js_overlay_parent_selector = "#schedule-publishing-dialog"
-        updated_kwargs = {
-            "children": [
-                FieldRowPanel(
-                    [
-                        FieldPanel(
-                            "go_live_at",
-                            widget=AdminDateTimeInput(
-                                js_overlay_parent_selector=js_overlay_parent_selector,
-                            ),
-                        ),
-                        FieldPanel(
-                            "expire_at",
-                            widget=AdminDateTimeInput(
-                                js_overlay_parent_selector=js_overlay_parent_selector,
-                            ),
-                        ),
-                    ],
-                ),
-            ],
-            "classname": "publishing",
-        }
-        updated_kwargs.update(kwargs)
-        super().__init__(**updated_kwargs)
-
-    @property
-    def clean_name(self):
-        return super().clean_name or "publishing"
-
-    class BoundPanel(PanelGroup.BoundPanel):
-        template_name = "wagtailadmin/panels/publishing/schedule_publishing_panel.html"
-
-        def get_context_data(self, parent_context=None):
-            context = super().get_context_data(parent_context)
-            context["request"] = self.request
-            context["instance"] = self.instance
-            context["classname"] = self.classname
-            if isinstance(self.instance, Page):
-                context["page"] = self.instance
-            return context
-
-        def show_panel_furniture(self):
-            return False
-
-        @property
-        def media(self):
-            return super().media + Media(
-                js=[versioned_static("wagtailadmin/js/schedule-publishing.js")],
-            )
+from .publishing_panel import *  # NOQA
+from .publishing_panel import PublishingPanel
 
 
 class CommentPanel(Panel):
