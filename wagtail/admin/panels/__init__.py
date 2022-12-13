@@ -8,7 +8,6 @@ from django.core.signals import setting_changed
 from django.dispatch import receiver
 from django.forms import Media
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
-from django.forms.models import fields_for_model
 from django.utils.functional import cached_property
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy
@@ -23,7 +22,6 @@ from wagtail.admin.forms.comments import CommentForm
 from wagtail.admin.forms.models import (  # NOQA
     DIRECT_FORM_FIELD_OVERRIDES,
     FORM_FIELD_OVERRIDES,
-    formfield_for_dbfield,
 )
 from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.staticfiles import versioned_static
@@ -46,33 +44,9 @@ from .group import (
     TabbedInterface,
 )
 from .help_panel import *  # NOQA
+from .model_utils import *  # NOQA
+from .model_utils import extract_panel_definitions_from_model_class, get_edit_handler
 from .page_chooser_panel import *  # NOQA
-
-
-def extract_panel_definitions_from_model_class(model, exclude=None):
-    if hasattr(model, "panels"):
-        return model.panels
-
-    panels = []
-
-    _exclude = []
-    if exclude:
-        _exclude.extend(exclude)
-
-    fields = fields_for_model(
-        model, exclude=_exclude, formfield_callback=formfield_for_dbfield
-    )
-
-    for field_name, field in fields.items():
-        try:
-            panel_class = field.widget.get_panel()
-        except AttributeError:
-            panel_class = FieldPanel
-
-        panel = panel_class(field_name)
-        panels.append(panel)
-
-    return panels
 
 
 class InlinePanel(Panel):
@@ -432,21 +406,6 @@ def _get_page_edit_handler(cls):
 
 
 Page.get_edit_handler = _get_page_edit_handler
-
-
-@functools.lru_cache(maxsize=None)
-def get_edit_handler(model):
-    """
-    Get the panel to use in the Wagtail admin when editing this model.
-    """
-    if hasattr(model, "edit_handler"):
-        # use the edit handler specified on the model class
-        panel = model.edit_handler
-    else:
-        panels = extract_panel_definitions_from_model_class(model)
-        panel = ObjectList(panels)
-
-    return panel.bind_to_model(model)
 
 
 @receiver(setting_changed)
