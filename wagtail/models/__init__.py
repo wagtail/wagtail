@@ -3855,10 +3855,10 @@ class WorkflowState(models.Model):
     )
 
     content_type = models.ForeignKey(
-        ContentType, on_delete=models.CASCADE, related_name="+", null=True
+        ContentType, on_delete=models.CASCADE, related_name="+"
     )
     base_content_type = models.ForeignKey(
-        ContentType, on_delete=models.CASCADE, related_name="+", null=True
+        ContentType, on_delete=models.CASCADE, related_name="+"
     )
     object_id = models.CharField(max_length=255, verbose_name=_("object id"))
 
