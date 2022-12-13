@@ -4100,8 +4100,9 @@ class WorkflowState(models.Model):
             state.copy(update_attrs={"revision": revision})
 
     def revisions(self):
-        """Returns all page revisions associated with task states linked to the current workflow state"""
-        return Revision.page_revisions.filter(
+        """Returns all revisions associated with task states linked to the current workflow state"""
+        return Revision.objects.filter(
+            base_content_type_id=self.base_content_type_id,
             object_id=self.object_id,
             id__in=self.task_states.values_list("revision_id", flat=True),
         ).defer("content")
