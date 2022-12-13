@@ -158,7 +158,7 @@ class WorkflowPagesToModeratePanel(Component):
                 (
                     state,
                     state.task.specific.get_actions(
-                        page=state.revision.content_object, user=request.user
+                        obj=state.revision.content_object, user=request.user
                     ),
                     state.workflow_state.all_tasks_with_status(),
                 )

@@ -3567,7 +3567,7 @@ class Task(models.Model):
             # Cannot locate a model class for this content type. This might happen
             # if the codebase and database are out of sync (e.g. the model exists
             # on a different git branch and we haven't rolled back migrations before
-            # switching branches); if so, the best we can do is return the page
+            # switching branches); if so, the best we can do is return the task
             # unchanged.
             return self
         elif isinstance(self, model_class):
@@ -3604,29 +3604,29 @@ class Task(models.Model):
         elif action_name == "reject":
             task_state.reject(user=user, **kwargs)
 
-    def user_can_access_editor(self, page, user):
-        """Returns True if a user who would not normally be able to access the editor for the page should be able to if the page is currently on this task.
+    def user_can_access_editor(self, obj, user):
+        """Returns True if a user who would not normally be able to access the editor for the object should be able to if the object is currently on this task.
         Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
-    def page_locked_for_user(self, page, user):
-        """Returns True if the page should be locked to a given user's edits. This can be used to prevent editing by non-reviewers."""
+    def page_locked_for_user(self, obj, user):
+        """Returns True if the object should be locked to a given user's edits. This can be used to prevent editing by non-reviewers."""
         return False
 
-    def user_can_lock(self, page, user):
-        """Returns True if a user who would not normally be able to lock the page should be able to if the page is currently on this task.
+    def user_can_lock(self, obj, user):
+        """Returns True if a user who would not normally be able to lock the object should be able to if the object is currently on this task.
         Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
-    def user_can_unlock(self, page, user):
-        """Returns True if a user who would not normally be able to unlock the page should be able to if the page is currently on this task.
+    def user_can_unlock(self, obj, user):
+        """Returns True if a user who would not normally be able to unlock the object should be able to if the object is currently on this task.
         Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
-    def get_actions(self, page, user):
+    def get_actions(self, obj, user):
         """
         Get the list of action strings (name, verbose_name, whether the action requires additional data - see
-        ``get_form_for_action``) for actions the current user can perform for this task on the given page.
+        ``get_form_for_action``) for actions the current user can perform for this task on the given object.
         These strings should be the same as those able to be passed to ``on_action``
         """
         return []
@@ -3689,12 +3689,12 @@ class Workflow(ClusterableModel):
         )
 
     @transaction.atomic
-    def start(self, page, user):
+    def start(self, obj, user):
         """Initiates a workflow by creating an instance of ``WorkflowState``"""
         state = WorkflowState(
-            content_type=page.get_content_type(),
-            base_content_type=page.get_base_content_type(),
-            object_id=str(page.pk),
+            content_type=obj.get_content_type(),
+            base_content_type=obj.get_base_content_type(),
+            object_id=str(obj.pk),
             workflow=self,
             status=WorkflowState.STATUS_IN_PROGRESS,
             requested_by=user,
@@ -3710,7 +3710,7 @@ class Workflow(ClusterableModel):
                 "title": state.current_task_state.task.name,
             }
         log(
-            instance=page,
+            instance=obj,
             action="wagtail.workflow.start",
             data={
                 "workflow": {
@@ -3723,7 +3723,7 @@ class Workflow(ClusterableModel):
                     else None,
                 }
             },
-            revision=page.get_latest_revision(),
+            revision=obj.get_latest_revision(),
             user=user,
         )
 
@@ -3773,7 +3773,7 @@ class GroupApprovalTask(Task):
 
     def start(self, workflow_state, user=None):
         if workflow_state.content_object.locked_by:
-            # If the person who locked the page isn't in one of the groups, unlock the page
+            # If the person who locked the object isn't in one of the groups, unlock the object
             if not workflow_state.content_object.locked_by.groups.filter(
                 id__in=self.groups.all()
             ).exists():
@@ -3786,23 +3786,23 @@ class GroupApprovalTask(Task):
 
         return super().start(workflow_state, user=user)
 
-    def user_can_access_editor(self, page, user):
+    def user_can_access_editor(self, obj, user):
         return (
             self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
         )
 
-    def page_locked_for_user(self, page, user):
+    def page_locked_for_user(self, obj, user):
         return not (
             self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
         )
 
-    def user_can_lock(self, page, user):
+    def user_can_lock(self, obj, user):
         return self.groups.filter(id__in=user.groups.all()).exists()
 
-    def user_can_unlock(self, page, user):
+    def user_can_unlock(self, obj, user):
         return False
 
-    def get_actions(self, page, user):
+    def get_actions(self, obj, user):
         if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return [
                 ("reject", _("Request changes"), True),
@@ -4203,7 +4203,7 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _("Workflow state")
         verbose_name_plural = _("Workflow states")
-        # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same page. This is only supported by specific databases (e.g. Postgres, SQL Server), so is checked additionally on save.
+        # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same object. This is only supported by specific databases (e.g. Postgres, SQL Server), so is checked additionally on save.
         constraints = [
             models.UniqueConstraint(
                 fields=["base_content_type", "object_id"],
