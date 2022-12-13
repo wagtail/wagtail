@@ -3690,7 +3690,7 @@ class Workflow(ClusterableModel):
         verbose_name=_("active"),
         default=True,
         help_text=_(
-            "Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages."
+            "Active workflows can be added to pages/snippets. Deactivating a workflow does not remove it from existing pages/snippets."
         ),
     )
     objects = WorkflowManager()
@@ -3779,7 +3779,7 @@ class GroupApprovalTask(Task):
         Group,
         verbose_name=_("groups"),
         help_text=_(
-            "Pages at this step in a workflow will be moderated or approved by these groups of users"
+            "Pages/snippets at this step in a workflow will be moderated or approved by these groups of users"
         ),
     )
 
@@ -3940,7 +3940,7 @@ class WorkflowState(models.Model):
             ):
                 raise ValidationError(
                     _(
-                        "There may only be one in progress or needs changes workflow state per page."
+                        "There may only be one in progress or needs changes workflow state per page/snippet."
                     )
                 )
 
@@ -3950,10 +3950,11 @@ class WorkflowState(models.Model):
 
     def __str__(self):
         return _(
-            "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+            "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
         ) % {
             "workflow_name": self.workflow,
-            "page_title": self.content_object,
+            "model_name": self.content_object._meta.verbose_name,
+            "title": self.content_object,
             "status": self.status,
         }
 
