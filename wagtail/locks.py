@@ -135,7 +135,7 @@ class BasicLock(BaseLock):
 
 class WorkflowLock(BaseLock):
     """
-    A lock that requires the user to pass the Task.page_locked_for_user test on the given workflow task.
+    A lock that requires the user to pass the Task.locked_for_user test on the given workflow task.
 
     Can be applied to pages only.
     """
@@ -145,7 +145,7 @@ class WorkflowLock(BaseLock):
         self.task = task
 
     def for_user(self, user):
-        return self.task.page_locked_for_user(self.object, user)
+        return self.task.locked_for_user(self.object, user)
 
     def get_message(self, user):
         if self.for_user(user):

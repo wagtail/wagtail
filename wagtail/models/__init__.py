@@ -90,7 +90,10 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
+from wagtail.utils.deprecation import (
+    RemovedInWagtail50Warning,
+    RemovedInWagtail60Warning,
+)
 
 from .audit_log import (  # noqa
     BaseLogEntry,
@@ -3609,8 +3612,22 @@ class Task(models.Model):
         Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
-    def page_locked_for_user(self, obj, user):
-        """Returns True if the object should be locked to a given user's edits. This can be used to prevent editing by non-reviewers."""
+    def locked_for_user(self, obj, user):
+        """
+        Returns True if the object should be locked to a given user's edits.
+        This can be used to prevent editing by non-reviewers.
+
+        .. versionchanged:: 4.2
+          This method has been renamed from ``page_locked_for_user`` to ``locked_for_user``.
+        """
+        if hasattr(self, "page_locked_for_user"):
+            warnings.warn(
+                "Tasks should use .locked_for_user() instead of "
+                ".page_locked_for_user().",
+                category=RemovedInWagtail60Warning,
+                stacklevel=2,
+            )
+            return self.page_locked_for_user(obj, user)
         return False
 
     def user_can_lock(self, obj, user):
@@ -3791,7 +3808,7 @@ class GroupApprovalTask(Task):
             self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
         )
 
-    def page_locked_for_user(self, obj, user):
+    def locked_for_user(self, obj, user):
         return not (
             self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
         )

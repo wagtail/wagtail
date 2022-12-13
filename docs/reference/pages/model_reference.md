@@ -1020,7 +1020,7 @@ Tasks represent stages in a workflow which must be approved for the workflow to 
 
     .. automethod:: user_can_unlock
 
-    .. automethod:: page_locked_for_user
+    .. automethod:: locked_for_user
 
     .. automethod:: get_actions
 
