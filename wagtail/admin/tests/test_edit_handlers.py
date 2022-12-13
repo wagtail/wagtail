@@ -9,6 +9,7 @@ from django.contrib.auth.models import AnonymousUser, Permission
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
+from django.urls import reverse
 from django.utils.html import json_script
 from freezegun import freeze_time
 from pytz import utc
@@ -1744,3 +1745,24 @@ class TestPublishingPanel(TestCase, WagtailTestUtils):
 
         self.assertIn("go_live_at", form.base_fields)
         self.assertIn("expire_at", form.base_fields)
+
+
+class TestMultipleChooserPanel(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_can_render_panel(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "gallerypage", self.root_page.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')

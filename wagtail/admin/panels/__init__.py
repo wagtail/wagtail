@@ -14,6 +14,7 @@ from .group import *  # NOQA
 from .help_panel import *  # NOQA
 from .inline_panel import *  # NOQA
 from .model_utils import *  # NOQA
+from .multiple_chooser_panel import *  # NOQA
 from .page_chooser_panel import *  # NOQA
 from .page_utils import *  # NOQA
 from .publishing_panel import *  # NOQA

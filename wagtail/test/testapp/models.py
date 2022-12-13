@@ -25,6 +25,7 @@ from wagtail.admin.panels import (
     HelpPanel,
     InlinePanel,
     MultiFieldPanel,
+    MultipleChooserPanel,
     ObjectList,
     PublishingPanel,
     TabbedInterface,
@@ -2000,3 +2001,20 @@ class ModelWithNullableParentalKey(models.Model):
 
     page = ParentalKey(Page, blank=True, null=True)
     content = RichTextField()
+
+
+class GalleryPage(Page):
+    content_panels = Page.content_panels + [
+        MultipleChooserPanel("gallery_images", chooser_field_name="image")
+    ]
+
+
+class GalleryPageImage(Orderable):
+    page = ParentalKey(
+        "tests.GalleryPage", related_name="gallery_images", on_delete=models.CASCADE
+    )
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        on_delete=models.CASCADE,
+        related_name="+",
+    )
