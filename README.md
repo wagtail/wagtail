@@ -13,15 +13,6 @@
     <a href="https://pypi.python.org/pypi/wagtail/">
         <img src="https://img.shields.io/pypi/v/wagtail.svg" alt="Version" />
     </a>
-    <a href="https://lgtm.com/projects/g/wagtail/wagtail/alerts/">
-        <img src="https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Total alerts" />
-    </a>
-    <a href="https://lgtm.com/projects/g/wagtail/wagtail/context:python">
-        <img src="https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Language grade: Python" />
-    </a>
-    <a href="https://lgtm.com/projects/g/wagtail/wagtail/context:javascript">
-        <img src="https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript" />
-    </a>
     <a href="https://pypi.python.org/pypi/wagtail/">
         <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
     </a>
