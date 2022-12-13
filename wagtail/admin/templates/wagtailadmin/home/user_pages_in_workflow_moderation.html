@@ -18,23 +18,23 @@
             <tbody>
                 {% for workflow_state in workflow_states %}
                     {% with workflow_state.current_task_state.revision as revision %}
-                        {% page_permissions workflow_state.page as page_perms %}
+                        {% page_permissions workflow_state.content_object as page_perms %}
                         <tr>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     {% if page_perms.can_edit %}
-                                        <a href="{% url 'wagtailadmin_pages:edit' workflow_state.page.id %}" title="{% trans 'Edit this page' %}">{{ workflow_state.page.specific_deferred.get_admin_display_title }}</a>
+                                        <a href="{% url 'wagtailadmin_pages:edit' workflow_state.content_object.pk %}" title="{% trans 'Edit this page' %}">{{ workflow_state.content_object.specific_deferred.get_admin_display_title }}</a>
                                     {% else %}
-                                        {{ workflow_state.page.specific_deferred.get_admin_display_title }}
+                                        {{ workflow_state.content_object.specific_deferred.get_admin_display_title }}
                                     {% endif %}
 
                                     {% i18n_enabled as show_locale_labels %}
-                                    {% if show_locale_labels and workflow_state.page.locale_id %}
-                                        {% locale_label_from_id workflow_state.page.locale_id as locale_label %}
+                                    {% if show_locale_labels and workflow_state.content_object.locale_id %}
+                                        {% locale_label_from_id workflow_state.content_object.locale_id as locale_label %}
                                         <span class="status-tag status-tag--label">{{ locale_label }}</span>
                                     {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=workflow_state.page %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=workflow_state.page %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=workflow_state.content_object %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=workflow_state.content_object %}
                                 </div>
                             </td>
                             <td class="task" valign="top">

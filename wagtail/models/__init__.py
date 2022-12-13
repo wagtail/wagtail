@@ -3586,7 +3586,7 @@ class Task(models.Model):
         """Start this task on the provided workflow state by creating an instance of TaskState"""
         task_state = self.get_task_state_class()(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
-        task_state.revision = workflow_state.page.get_latest_revision()
+        task_state.revision = workflow_state.content_object.get_latest_revision()
         task_state.task = self
         task_state.save()
         task_submitted.send(
@@ -3772,15 +3772,15 @@ class GroupApprovalTask(Task):
     }
 
     def start(self, workflow_state, user=None):
-        if workflow_state.page.locked_by:
+        if workflow_state.content_object.locked_by:
             # If the person who locked the page isn't in one of the groups, unlock the page
-            if not workflow_state.page.locked_by.groups.filter(
+            if not workflow_state.content_object.locked_by.groups.filter(
                 id__in=self.groups.all()
             ).exists():
-                workflow_state.page.locked = False
-                workflow_state.page.locked_by = None
-                workflow_state.page.locked_at = None
-                workflow_state.page.save(
+                workflow_state.content_object.locked = False
+                workflow_state.content_object.locked_by = None
+                workflow_state.content_object.locked_at = None
+                workflow_state.content_object.save(
                     update_fields=["locked", "locked_by", "locked_at"]
                 )
 
@@ -3862,7 +3862,9 @@ class WorkflowState(models.Model):
     )
     object_id = models.CharField(max_length=255, verbose_name=_("object id"))
 
-    page = GenericForeignKey("base_content_type", "object_id", for_concrete_model=False)
+    content_object = GenericForeignKey(
+        "base_content_type", "object_id", for_concrete_model=False
+    )
 
     workflow = models.ForeignKey(
         "Workflow",
@@ -3934,7 +3936,7 @@ class WorkflowState(models.Model):
             "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
         ) % {
             "workflow_name": self.workflow,
-            "page_title": self.page,
+            "page_title": self.content_object,
             "status": self.status,
         }
 
@@ -3949,7 +3951,7 @@ class WorkflowState(models.Model):
         self.save()
 
         log(
-            instance=self.page.specific,
+            instance=self.content_object.specific,
             action="wagtail.workflow.resume",
             data={
                 "workflow": {
@@ -3969,11 +3971,11 @@ class WorkflowState(models.Model):
         return self.update(user=user, next_task=current_task_state.task)
 
     def user_can_cancel(self, user):
-        if self.page.locked and self.page.locked_by != user:
+        if self.content_object.locked and self.content_object.locked_by != user:
             return False
         return (
             user == self.requested_by
-            or user == self.page.owner
+            or user == self.content_object.owner
             or (
                 self.current_task_state
                 and self.current_task_state.status
@@ -3982,7 +3984,7 @@ class WorkflowState(models.Model):
                 in [
                     action[0]
                     for action in self.current_task_state.task.get_actions(
-                        self.page, user
+                        self.content_object, user
                     )
                 ]
             )
@@ -4033,7 +4035,7 @@ class WorkflowState(models.Model):
         )
         if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
             successful_task_states = successful_task_states.filter(
-                revision=self.page.get_latest_revision()
+                revision=self.content_object.get_latest_revision()
             )
 
         return successful_task_states
@@ -4056,7 +4058,7 @@ class WorkflowState(models.Model):
         self.save()
 
         log(
-            instance=self.page.specific,
+            instance=self.content_object.specific,
             action="wagtail.workflow.cancel",
             data={
                 "workflow": {

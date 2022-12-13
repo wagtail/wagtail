@@ -37,8 +37,8 @@
                             <b>{{ task_state.task }}</b>
                         </td>
                         <td>
-                            {% with task_state.workflow_state.page as page %}
-                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
+                            {% with task_state.workflow_state.content_object as page %}
+                                <a href="{% url 'wagtailadmin_pages:edit' page.pk %}">
                                     {{ page.specific_deferred.get_admin_display_title }}
                                 </a>
                                 {% i18n_enabled as show_locale_labels %}

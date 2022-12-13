@@ -154,7 +154,7 @@ class TestWorkflows(TestCase):
         user = get_user_model().objects.first()
         workflow_state = workflow.start(homepage, user)
         self.assertEqual(workflow_state.workflow, workflow)
-        self.assertEqual(workflow_state.page, homepage)
+        self.assertEqual(workflow_state.content_object, homepage)
         self.assertEqual(workflow_state.status, "in_progress")
         if settings.USE_TZ:
             self.assertEqual(

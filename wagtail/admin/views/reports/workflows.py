@@ -147,19 +147,19 @@ class WorkflowTasksView(ReportView):
     filterset_class = WorkflowTasksReportFilterSet
 
     export_headings = {
-        "workflow_state.page.id": _("Page ID"),
-        "workflow_state.page.content_type.model_class._meta.verbose_name.title": _(
+        "workflow_state.content_object.id": _("Page ID"),
+        "workflow_state.content_object.content_type.model_class._meta.verbose_name.title": _(
             "Page Type"
         ),
-        "workflow_state.page.title": _("Page Title"),
+        "workflow_state.content_object.title": _("Page Title"),
         "get_status_display": _("Status"),
         "workflow_state.requested_by": _("Requested By"),
     }
     list_export = [
         "task",
-        "workflow_state.page.id",
-        "workflow_state.page.content_type.model_class._meta.verbose_name.title",
-        "workflow_state.page.title",
+        "workflow_state.content_object.id",
+        "workflow_state.content_object.content_type.model_class._meta.verbose_name.title",
+        "workflow_state.content_object.title",
         "get_status_display",
         "workflow_state.requested_by",
         "started_at",

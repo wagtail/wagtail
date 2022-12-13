@@ -314,7 +314,7 @@ class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def get_context(self, workflow_state, **kwargs):
         context = super().get_context(workflow_state, **kwargs)
-        context["page"] = workflow_state.page
+        context["page"] = workflow_state.content_object
         context["workflow"] = workflow_state.workflow
         return context
 
@@ -396,7 +396,7 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def get_context(self, task_state, **kwargs):
         context = super().get_context(task_state, **kwargs)
-        context["page"] = task_state.workflow_state.page
+        context["page"] = task_state.workflow_state.content_object
         context["task"] = task_state.task.specific
         return context
 

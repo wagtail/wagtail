@@ -122,7 +122,7 @@ class UserPagesInWorkflowModerationPanel(Component):
             context["workflow_states"] = (
                 WorkflowState.objects.active()
                 .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
-                .prefetch_related("page")
+                .prefetch_related("content_object")
                 .select_related(
                     "current_task_state",
                     "current_task_state__task",
