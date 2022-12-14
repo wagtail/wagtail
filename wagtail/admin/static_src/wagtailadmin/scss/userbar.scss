@@ -225,7 +225,8 @@ $positions: (
   }
 
   a,
-  .#{$namespace}-action {
+  .#{$namespace}-action,
+  .custom-sa11y-toggle-button {
     color: $color-white;
     display: block;
     text-decoration: none !important;

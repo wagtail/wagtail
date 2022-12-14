@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block item_content %}
+    <button type="button" id="sa11y-toggle" class="custom-sa11y-toggle-button" role="menuitem">
+        {% icon name="tick" class_name="wagtail-action-icon" %}
+        {% trans 'Accessibility' %}
+    </button>
+{% endblock %}

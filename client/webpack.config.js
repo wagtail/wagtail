@@ -59,7 +59,6 @@ module.exports = function exports(env, argv) {
       'workflow-action',
       'workflow-status',
       'bulk-actions',
-      'sa11y',
     ],
     'images': [
       'image-chooser',
