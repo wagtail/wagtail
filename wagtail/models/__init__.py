@@ -859,6 +859,11 @@ class LockableMixin(models.Model):
         if self.locked:
             return BasicLock(self)
 
+        if isinstance(self, WorkflowMixin) and self.current_workflow_task:
+            return WorkflowLock(self, self.current_workflow_task)
+
+        return None
+
 
 class WorkflowMixin:
     @classmethod
@@ -2418,17 +2423,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             page = page.specific
 
         return bool(page.preview_modes)
-
-    def get_lock(self):
-        # Standard locking should take precedence over workflow locking
-        # because it's possible for both to be used at the same time
-        lock = super().get_lock()
-        if lock:
-            return lock
-
-        current_workflow_task = self.current_workflow_task
-        if current_workflow_task:
-            return WorkflowLock(self, current_workflow_task)
 
     def get_route_paths(self):
         """
