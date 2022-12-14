@@ -1,7 +1,5 @@
 import logging
 
-from django.conf import settings
-
 from wagtail.actions.publish_revision import (
     PublishPermissionError,
     PublishRevisionAction,
@@ -59,12 +57,6 @@ class PublishPageRevisionAction(PublishRevisionAction):
         )
 
         super()._after_publish()
-
-        workflow_state = self.object.current_workflow_state
-        if workflow_state and getattr(
-            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
-        ):
-            workflow_state.cancel(user=self.user)
 
         self.object.update_aliases(
             revision=self.revision, user=self.user, _content=self.revision.content

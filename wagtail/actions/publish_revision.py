@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
@@ -72,11 +73,20 @@ class PublishRevisionAction:
         )
 
     def _after_publish(self):
+        from wagtail.models import WorkflowMixin
+
         published.send(
             sender=type(self.object),
             instance=self.object,
             revision=self.revision,
         )
+
+        if isinstance(self.object, WorkflowMixin):
+            workflow_state = self.object.current_workflow_state
+            if workflow_state and getattr(
+                settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+            ):
+                workflow_state.cancel(user=self.user)
 
     def _publish_revision(
         self, revision, object, user, changed, log_action, previous_revision
