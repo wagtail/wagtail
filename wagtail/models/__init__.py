@@ -3479,6 +3479,23 @@ class WorkflowPage(models.Model):
         verbose_name_plural = _("workflow pages")
 
 
+class WorkflowContentType(models.Model):
+    content_type = models.OneToOneField(
+        ContentType,
+        related_name="wagtail_workflow_content_type",
+        verbose_name=_("content type"),
+        on_delete=models.CASCADE,
+        primary_key=True,
+        unique=True,
+    )
+    workflow = models.ForeignKey(
+        "Workflow",
+        related_name="workflow_content_types",
+        verbose_name=_("workflow"),
+        on_delete=models.CASCADE,
+    )
+
+
 class WorkflowTask(Orderable):
     workflow = ParentalKey(
         "Workflow",
