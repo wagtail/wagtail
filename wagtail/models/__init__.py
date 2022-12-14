@@ -3863,7 +3863,7 @@ class GroupApprovalTask(Task):
         verbose_name_plural = _("Group approval tasks")
 
 
-class WorkflowStateManager(models.Manager):
+class WorkflowStateQuerySet(models.QuerySet):
     def active(self):
         """
         Filters to only STATUS_IN_PROGRESS and STATUS_NEEDS_CHANGES WorkflowStates
@@ -3872,6 +3872,28 @@ class WorkflowStateManager(models.Manager):
             Q(status=WorkflowState.STATUS_IN_PROGRESS)
             | Q(status=WorkflowState.STATUS_NEEDS_CHANGES)
         )
+
+    def for_instance(self, instance):
+        """
+        Filters to only WorkflowStates for the given instance
+        """
+        try:
+            # Use RevisionMixin.get_base_content_type() if available
+            return self.filter(
+                base_content_type=instance.get_base_content_type(),
+                object_id=str(instance.pk),
+            )
+        except AttributeError:
+            # Fallback to ContentType for the model
+            return self.filter(
+                content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                object_id=str(instance.pk),
+            )
+
+
+WorkflowStateManager = models.Manager.from_queryset(WorkflowStateQuerySet)
 
 
 class WorkflowState(models.Model):
