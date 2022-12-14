@@ -5,6 +5,89 @@
 // This component implements a roving tab index for keyboard navigation
 // Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 
+import { Sa11y, Lang, LangEn, Sa11yCustomChecks } from 'sa11y';
+
+class CustomSa11y extends Sa11y {
+	constructor(options) {
+		super(options);
+
+		this.sa11yUpdateBadge = this.updateBadge;
+		this.updateBadge = () => {
+			this.sa11yUpdateBadge();
+			const userbarTrigger = document.getElementById('wagtail-userbar-trigger');
+			const notifBadge = document.getElementById('sa11y-notification-badge');
+      const notifCount = document.getElementById('sa11y-notification-count');
+      const notifText = document.getElementById('sa11y-notification-text');
+
+			const newCount = notifCount.cloneNode();
+			newCount.innerHTML = notifCount.innerHTML;
+			newCount.id = 'new-count';
+
+			userbarTrigger.appendChild(newCount)
+		}
+
+		// Re-implement Sa11y's initialize method.
+		this.initialize = () => {
+			this.globals();
+			this.utilities();
+
+			// Addition:
+			this.buildCustomUI();
+			this.settingPanelToggles();
+			this.mainToggle();
+			this.skipToIssueTooltip();
+			this.detectPageChanges();
+
+			// Pass Sa11y instance to custom checker
+			if (options.customChecks && options.customChecks.setSa11y) {
+				options.customChecks.setSa11y(this);
+			}
+
+			// Check page once page is done loading.
+			document.getElementById('sa11y-toggle').disabled = false;
+			if (this.store.getItem('sa11y-remember-panel') === 'Closed' || !this.store.getItem('sa11y-remember-panel')) {
+				this.panelActive = true;
+				this.checkAll();
+			}
+		}
+	}
+
+  buildCustomUI() {
+		this.buildSa11yUI();
+		const toggle = document.getElementById('sa11y-toggle');
+		const container = document.getElementById('sa11y-container');
+		const panel = document.getElementById('sa11y-panel');
+		const badge = document.getElementById('sa11y-notification-badge');
+
+		const userbar = document.querySelector('[data-wagtail-userbar]');
+		const sa11yParent = document.querySelector('[data-sa11y-parent]')
+		const userbarTrigger = document.getElementById('wagtail-userbar-trigger');
+		// const newBadge = badge.cloneNode();
+		// newBadge.innerHTML = badge.innerHTML;
+		// userbarTrigger.appendChild(newBadge);
+		// const newPanel = panel.cloneNode();
+		// newPanel.innerHTML = panel.innerHTML;
+		// userbar.appendChild(panel);
+
+		// container.parentElement.removeChild(container);
+		// sa11yParent.appendChild(container);
+	}
+}
+
+const sa11y = new CustomSa11y({
+  customChecks: new Sa11yCustomChecks(),
+	// Use doNotRun to initialise Sa11y without it showing anything.
+	// In particular binding Sa11y methods to the object instance.
+	doNotRun: 'body',
+  checkRoot: 'body',
+  readabilityRoot: 'main',
+  containerIgnore: '.wagtail-userbar-reset',
+});
+
+Lang.addI18n(LangEn.strings);
+
+sa11y.initialize();
+
 document.addEventListener('DOMContentLoaded', () => {
   const userbar = document.querySelector('[data-wagtail-userbar]');
   const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
