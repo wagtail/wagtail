@@ -136,8 +136,6 @@ class BasicLock(BaseLock):
 class WorkflowLock(BaseLock):
     """
     A lock that requires the user to pass the Task.locked_for_user test on the given workflow task.
-
-    Can be applied to pages only.
     """
 
     def __init__(self, object, task):
@@ -151,22 +149,46 @@ class WorkflowLock(BaseLock):
         if self.for_user(user):
             if len(self.object.current_workflow_state.all_tasks_with_status()) == 1:
                 # If only one task in workflow, show simple message
-                workflow_info = _("This page is currently awaiting moderation.")
+                if self.is_page:
+                    workflow_info = _("This page is currently awaiting moderation.")
+                else:
+                    workflow_info = capfirst(
+                        _("This %(model_name)s is currently awaiting moderation.")
+                        % {"model_name": self.object._meta.verbose_name}
+                    )
             else:
-                workflow_info = format_html(
-                    # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
-                    _(
-                        "This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
-                    ),
-                    task_name=self.task.name,
-                    workflow_name=self.object.current_workflow_state.workflow.name,
+                if self.is_page:
+                    workflow_info = format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _(
+                            "This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
+                        ),
+                        task_name=self.task.name,
+                        workflow_name=self.object.current_workflow_state.workflow.name,
+                    )
+                else:
+                    workflow_info = format_html(
+                        # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
+                        _(
+                            "This %(model_name)s is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
+                        ),
+                        model_name=self.object._meta.verbose_name,
+                        task_name=self.task.name,
+                        workflow_name=self.object.current_workflow_state.workflow.name,
+                    )
+                    # Make sure message is correctly capitalised even if it
+                    # starts with model_name.
+                    workflow_info = mark_safe(capfirst(workflow_info))
+
+            if self.is_page:
+                reviewers_info = _("Only reviewers for this task can edit the page.")
+            else:
+                reviewers_info = capfirst(
+                    _("Only reviewers for this task can edit the %(model_name)s.")
+                    % {"model_name": self.object._meta.verbose_name}
                 )
 
-            return mark_safe(
-                workflow_info
-                + " "
-                + _("Only reviewers for this task can edit the page.")
-            )
+            return mark_safe(workflow_info + " " + reviewers_info)
 
 
 class ScheduledForPublishLock(BaseLock):
