@@ -860,7 +860,129 @@ class LockableMixin(models.Model):
             return BasicLock(self)
 
 
+class WorkflowMixin:
+    @classmethod
+    def get_default_workflow(cls):
+        """
+        Returns the active workflow assigned to the model.
+
+        For non-Page models, workflows are assigned to the model's content type,
+        thus shared across all instances instead of being assigned to individual
+        instances (unless get_workflow() is overridden). This method is used to
+        determine the workflow to use when creating new instances of the model.
+
+        On Page models, this method is unused as the workflow can be determined
+        from the parent page's workflow.
+        """
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
+            return None
+
+        content_type = ContentType.objects.get_for_model(cls, for_concrete_model=False)
+        workflow_content_type = (
+            WorkflowContentType.objects.filter(
+                workflow__active=True,
+                content_type=content_type,
+            )
+            .select_related("workflow")
+            .first()
+        )
+
+        if workflow_content_type:
+            return workflow_content_type.workflow
+        return None
+
+    @property
+    def has_workflow(self):
+        """Returns True if the object has an active workflow assigned, otherwise False."""
+        return self.get_workflow() is not None
+
+    def get_workflow(self):
+        """Returns the active workflow assigned to the object."""
+        return self.get_default_workflow()
+
+    @property
+    def workflow_in_progress(self):
+        """Returns True if a workflow is in progress on the current object, otherwise False."""
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
+            return False
+
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states`
+        # on querysets as a performance optimisation
+        if hasattr(self, "_current_workflow_states"):
+            for state in self._current_workflow_states:
+                if state.status == WorkflowState.STATUS_IN_PROGRESS:
+                    return True
+            return False
+
+        return (
+            WorkflowState.objects.for_instance(self)
+            .filter(status=WorkflowState.STATUS_IN_PROGRESS)
+            .exists()
+        )
+
+    @property
+    def current_workflow_state(self):
+        """Returns the in progress or needs changes workflow state on this object, if it exists."""
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
+            return None
+
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states`
+        # on querysets as a performance optimisation
+        if hasattr(self, "_current_workflow_states"):
+            try:
+                return self._current_workflow_states[0]
+            except IndexError:
+                return
+
+        return (
+            WorkflowState.objects.for_instance(self)
+            .active()
+            .select_related("current_task_state__task")
+            .first()
+        )
+
+    @property
+    def current_workflow_task_state(self):
+        """Returns (specific class of) the current task state of the workflow on this object, if it exists."""
+        current_workflow_state = self.current_workflow_state
+        if (
+            current_workflow_state
+            and current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS
+            and current_workflow_state.current_task_state
+        ):
+            return current_workflow_state.current_task_state.specific
+
+    @property
+    def current_workflow_task(self):
+        """Returns (specific class of) the current task in progress on this object, if it exists."""
+        current_workflow_task_state = self.current_workflow_task_state
+        if current_workflow_task_state:
+            return current_workflow_task_state.task.specific
+
+    @property
+    def status_string(self):
+        if not self.live:
+            if self.expired:
+                return _("expired")
+            elif self.approved_schedule:
+                return _("scheduled")
+            elif self.workflow_in_progress:
+                return _("in moderation")
+            else:
+                return _("draft")
+        else:
+            if self.approved_schedule:
+                return _("live + scheduled")
+            elif self.workflow_in_progress:
+                return _("live + in moderation")
+            elif self.has_unpublished_changes:
+                return _("live + draft")
+            else:
+                return _("live")
+
+
 class AbstractPage(
+    WorkflowMixin,
     LockableMixin,
     PreviewableMixin,
     DraftStateMixin,
@@ -2176,27 +2298,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return ""
 
     @property
-    def status_string(self):
-        if not self.live:
-            if self.expired:
-                return _("expired")
-            elif self.approved_schedule:
-                return _("scheduled")
-            elif self.workflow_in_progress:
-                return _("in moderation")
-            else:
-                return _("draft")
-        else:
-            if self.approved_schedule:
-                return _("live + scheduled")
-            elif self.workflow_in_progress:
-                return _("live + in moderation")
-            elif self.has_unpublished_changes:
-                return _("live + draft")
-            else:
-                return _("live")
-
-    @property
     def approved_schedule(self):
         # `_approved_schedule` may be populated by `annotate_approved_schedule` on `PageQuerySet` as a
         # performance optimisation
@@ -2573,65 +2674,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             except AttributeError:
                 workflow = None
             return workflow
-
-    @property
-    def workflow_in_progress(self):
-        """Returns True if a workflow is in progress on the current page, otherwise False"""
-        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
-            return False
-
-        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `PageQuerySet` as a
-        # performance optimisation
-        if hasattr(self, "_current_workflow_states"):
-            for state in self._current_workflow_states:
-                if state.status == WorkflowState.STATUS_IN_PROGRESS:
-                    return True
-            return False
-
-        return WorkflowState.objects.filter(
-            page=self, status=WorkflowState.STATUS_IN_PROGRESS
-        ).exists()
-
-    @property
-    def current_workflow_state(self):
-        """Returns the in progress or needs changes workflow state on this page, if it exists"""
-        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
-            return None
-
-        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `pagequeryset` as a
-        # performance optimisation
-        if hasattr(self, "_current_workflow_states"):
-            try:
-                return self._current_workflow_states[0]
-            except IndexError:
-                return
-
-        try:
-            return (
-                WorkflowState.objects.active()
-                .select_related("current_task_state__task")
-                .get(page=self)
-            )
-        except WorkflowState.DoesNotExist:
-            return
-
-    @property
-    def current_workflow_task_state(self):
-        """Returns (specific class of) the current task state of the workflow on this page, if it exists"""
-        current_workflow_state = self.current_workflow_state
-        if (
-            current_workflow_state
-            and current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS
-            and current_workflow_state.current_task_state
-        ):
-            return current_workflow_state.current_task_state.specific
-
-    @property
-    def current_workflow_task(self):
-        """Returns (specific class of) the current task in progress on this page, if it exists"""
-        current_workflow_task_state = self.current_workflow_task_state
-        if current_workflow_task_state:
-            return current_workflow_task_state.task.specific
 
     class Meta:
         verbose_name = _("page")
