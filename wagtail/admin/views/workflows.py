@@ -277,7 +277,7 @@ class Disable(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         states_in_progress = WorkflowState.objects.filter(
-            status=WorkflowState.STATUS_IN_PROGRESS
+            workflow=self.object, status=WorkflowState.STATUS_IN_PROGRESS
         ).count()
         if states_in_progress:
             context["warning_message"] = ngettext(
