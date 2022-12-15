@@ -18,6 +18,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm,
+    WorkflowContentTypeForm,
     WorkflowPagesFormSet,
     get_task_form_class,
     get_workflow_edit_handler,
@@ -94,6 +95,12 @@ class Create(CreateView):
         else:
             return WorkflowPagesFormSet(instance=self.object, prefix="pages")
 
+    def get_content_type_form(self):
+        if self.request.method == "POST":
+            return WorkflowContentTypeForm(self.request.POST, workflow=self.object)
+        else:
+            return WorkflowContentTypeForm(workflow=self.object)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = context["form"]
@@ -104,6 +111,7 @@ class Create(CreateView):
 
         context["edit_handler"] = bound_panel
         context["pages_formset"] = pages_formset
+        context["content_type_form"] = self.get_content_type_form()
         context["media"] = form.media + bound_panel.media + pages_formset.media
         return context
 
@@ -114,8 +122,10 @@ class Create(CreateView):
             self.object = self.save_instance()
 
             pages_formset = self.get_pages_formset()
-            if pages_formset.is_valid():
+            content_type_form = self.get_content_type_form()
+            if pages_formset.is_valid() and content_type_form.is_valid():
                 pages_formset.save()
+                content_type_form.save()
 
                 success_message = self.get_success_message(self.object)
                 if success_message is not None:
@@ -170,6 +180,12 @@ class Edit(EditView):
         else:
             return WorkflowPagesFormSet(instance=self.get_object(), prefix="pages")
 
+    def get_content_type_form(self):
+        if self.request.method == "POST":
+            return WorkflowContentTypeForm(self.request.POST, workflow=self.object)
+        else:
+            return WorkflowContentTypeForm(workflow=self.object)
+
     def get_paginated_pages(self):
         # Get the (paginated) list of Pages to which this Workflow is assigned.
         pages = Page.objects.filter(workflowpage__workflow=self.get_object())
@@ -188,6 +204,7 @@ class Edit(EditView):
         context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
         context["pages_formset"] = pages_formset
+        context["content_type_form"] = self.get_content_type_form()
         context["can_disable"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "delete")
@@ -211,12 +228,14 @@ class Edit(EditView):
             self.object = self.save_instance()
             successful = True
 
-            # Save pages formset
-            # Note: The pages formset is hidden when the page is inactive
+            # Save pages formset and content type form
+            # Note: These are hidden when the workflow is inactive
             if self.object.active:
                 pages_formset = self.get_pages_formset()
-                if pages_formset.is_valid():
+                content_type_form = self.get_content_type_form()
+                if pages_formset.is_valid() and content_type_form.is_valid():
                     pages_formset.save()
+                    content_type_form.save()
                 else:
                     transaction.set_rollback(True)
                     successful = False

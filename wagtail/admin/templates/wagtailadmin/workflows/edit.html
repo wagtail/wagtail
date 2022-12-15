@@ -43,6 +43,18 @@
                     </p>
                 {% endif %}
             {% endpanel %}
+
+            {% trans "Assign your workflow to snippets" as heading %}
+            {% panel id="workflow-content-types" icon="snippet" heading=heading %}
+                {% if workflow.active %}
+                    {% include "wagtailadmin/shared/field.html" with field=content_type_form.content_types sr_only_label=True only %}
+                {% else %}
+                    <p class="help-block help-info">
+                        {% icon name='help' %}
+                        {% trans "This workflow is disabled so it cannot be assigned to any snippets." %}
+                    </p>
+                {% endif %}
+            {% endpanel %}
         </div>
 
         {% block footer %}

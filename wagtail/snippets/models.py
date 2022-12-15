@@ -11,7 +11,7 @@ from django.utils.module_loading import import_string
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.viewsets import viewsets
-from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex
+from wagtail.models import DraftStateMixin, LockableMixin, ReferenceIndex, WorkflowMixin
 
 from .widgets import AdminSnippetChooser
 
@@ -30,6 +30,10 @@ DEFERRED_REGISTRATIONS = []
 
 def get_snippet_models():
     return SNIPPET_MODELS
+
+
+def get_workflow_enabled_models():
+    return [model for model in SNIPPET_MODELS if issubclass(model, WorkflowMixin)]
 
 
 class SnippetAdminURLFinder:
