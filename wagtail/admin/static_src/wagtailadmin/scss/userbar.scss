@@ -75,6 +75,11 @@ $positions: (
   &-icon {
     @include svg-icon(2em);
   }
+
+  #sa11y-container #sa11y-panel {
+    bottom: calc($width-arrow * 2 + $position + $size-home-button) !important;
+    right: $position !important;
+  }
 }
 
 @media print {
@@ -92,7 +97,6 @@ $positions: (
   width: $size-home-button;
   height: $size-home-button;
   margin: 0 !important;
-  overflow: hidden;
   background-color: $color-white;
   border: 2px solid transparent;
   border-radius: 50%;
@@ -125,6 +129,23 @@ $positions: (
 
   &:focus {
     outline: $color-focus-outline solid 3px;
+  }
+
+  // Sa11y's original styles
+  #sa11y-notification-badge {
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: #eb0000;
+    border-radius: 100px !important;
+    color: #ffffff;
+    display: none;
+    font-weight: normal !important;
+    font-size: 13px !important;
+    height: 20px !important;
+    position: absolute !important;
+    right: -3px !important;
+    top: -3px !important;
+    width: 20px !important;
   }
 }
 

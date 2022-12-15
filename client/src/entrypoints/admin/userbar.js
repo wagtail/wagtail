@@ -6,81 +6,236 @@
 // Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 
 import { Sa11y, Lang, LangEn, Sa11yCustomChecks } from 'sa11y';
-import { visitFunctionBody } from 'typescript';
 
+// Overrides original Sa11y's methods
 class CustomSa11y extends Sa11y {
   constructor(options) {
     super(options);
 
-    this.sa11yUpdateBadge = this.updateBadge;
+    // Re-implement Sa11y's updateBadge method to show only number of errors
     this.updateBadge = () => {
-      this.sa11yUpdateBadge();
       const userbarTrigger = document.getElementById('wagtail-userbar-trigger');
       const notifBadge = document.getElementById('sa11y-notification-badge');
       const notifCount = document.getElementById('sa11y-notification-count');
       const notifText = document.getElementById('sa11y-notification-text');
 
-      const newCount = notifCount.cloneNode();
-      newCount.innerHTML = notifCount.innerHTML;
-      newCount.id = 'new-count';
+      const errorsCount = this.errorCount;
+      if (errorsCount === 0) {
+        notifBadge.style.display = 'none';
+      } else {
+        notifBadge.style.display = 'flex';
+        notifCount.innerText = `${errorsCount}`;
+        notifText.innerText = Lang._('PANEL_ICON_TOTAL');
+      }
 
-      userbarTrigger.appendChild(newCount);
+      userbarTrigger.appendChild(notifBadge);
     };
 
-    // Re-implement Sa11y's initialize method.
+    // Re-implement Sa11y's initialize method
     this.initialize = () => {
+      // Added because otherwise Sa11y doesn't catch all errors
+      const documentLoadingCheck = (callback) => {
+        if (document.readyState === 'complete') {
+          callback();
+        } else {
+          window.addEventListener('load', callback);
+        }
+      };
+
       this.globals();
       this.utilities();
 
-      // Addition:
-      this.buildCustomUI();
-      this.settingPanelToggles();
-      this.mainToggle();
-      this.skipToIssueTooltip();
-      this.detectPageChanges();
+      documentLoadingCheck(() => {
+        this.buildSa11yUI();
+        this.settingPanelToggles();
+        this.customMainToggle();
+        this.skipToIssueTooltip();
+        this.detectPageChanges();
 
-      // Pass Sa11y instance to custom checker
-      if (options.customChecks && options.customChecks.setSa11y) {
-        options.customChecks.setSa11y(this);
-      }
+        // Pass Sa11y instance to custom checker
+        if (options.customChecks && options.customChecks.setSa11y) {
+          options.customChecks.setSa11y(this);
+        }
 
-      // Check page once page is done loading.
-      document.getElementById('sa11y-toggle').disabled = false;
-      if (
-        this.store.getItem('sa11y-remember-panel') === 'Closed' ||
-        !this.store.getItem('sa11y-remember-panel')
-      ) {
-        this.panelActive = true;
-        this.checkAll();
-      }
+        // Check page once page is done loading.
+        document.getElementById('sa11y-toggle').disabled = false;
+        if (
+          this.store.getItem('sa11y-remember-panel') === 'Closed' ||
+          !this.store.getItem('sa11y-remember-panel')
+        ) {
+          this.panelActive = true;
+          this.checkAll();
+        }
+      });
     };
   }
 
-  buildCustomUI() {
-    this.buildSa11yUI();
-    const toggle = document.getElementById('sa11y-toggle');
-    const container = document.getElementById('sa11y-container');
-    const panel = document.getElementById('sa11y-panel');
-    const badge = document.getElementById('sa11y-notification-badge');
+  // Re-implement Sa11y's buildUI method to remove sa11y's trigger button. Rendering, and then removing a node didn't seem right to me
+  buildSa11yUI = () => {
+    const sa11ycontainer = document.createElement('div');
+    sa11ycontainer.setAttribute('id', 'sa11y-container');
+    sa11ycontainer.setAttribute('role', 'region');
+    sa11ycontainer.setAttribute('lang', Lang._('LANG_CODE'));
+    sa11ycontainer.setAttribute('aria-label', Lang._('CONTAINER_LABEL'));
+
+    const loadContrastPreference =
+      this.store.getItem('sa11y-remember-contrast') === 'On';
+    const loadLabelsPreference =
+      this.store.getItem('sa11y-remember-labels') === 'On';
+    const loadChangeRequestPreference =
+      this.store.getItem('sa11y-remember-links-advanced') === 'On';
+    const loadReadabilityPreference =
+      this.store.getItem('sa11y-remember-readability') === 'On';
+
+    sa11ycontainer.innerHTML =
+      `<div id="sa11y-notification-badge">
+              <span id="sa11y-notification-count"></span>
+              <span id="sa11y-notification-text" class="sa11y-visually-hidden"></span>
+        </div>` +
+      // Start of main container.
+      '<div id="sa11y-panel">' +
+      // Page Outline tab.
+      `<div id="sa11y-outline-panel" role="tabpanel" aria-labelledby="sa11y-outline-header">
+              <div id="sa11y-outline-header" class="sa11y-header-text">
+                  <h2 tabindex="-1">${Lang._('PAGE_OUTLINE')}</h2>
+              </div>
+              <div id="sa11y-outline-content">
+                  <ul id="sa11y-outline-list" tabindex="0" role="list" aria-label="${Lang._(
+                    'PAGE_OUTLINE',
+                  )}"></ul>
+              </div>` +
+      // Readability tab.
+      `<div id="sa11y-readability-panel">
+                  <div id="sa11y-readability-content">
+                      <h2 class="sa11y-header-text-inline">${Lang._(
+                        'LANG_READABILITY',
+                      )}</h2>
+                      <p id="sa11y-readability-info"></p>
+                      <ul id="sa11y-readability-details"></ul>
+                  </div>
+              </div>
+          </div>` + // End of Page Outline tab.
+      // Settings tab.
+      `<div id="sa11y-settings-panel" role="tabpanel" aria-labelledby="sa11y-settings-header">
+              <div id="sa11y-settings-header" class="sa11y-header-text">
+                  <h2 tabindex="-1">${Lang._('SETTINGS')}</h2>
+              </div>
+              <div id="sa11y-settings-content">
+                  <ul id="sa11y-settings-options">
+                      <li id="sa11y-contrast-li">
+                          <label id="sa11y-check-contrast" for="sa11y-contrast-toggle">${Lang._(
+                            'CONTRAST',
+                          )}</label>
+                          <button id="sa11y-contrast-toggle"
+                          aria-labelledby="sa11y-check-contrast"
+                          class="sa11y-settings-switch"
+                          aria-pressed="${
+                            loadContrastPreference ? 'true' : 'false'
+                          }">${
+        loadContrastPreference ? Lang._('ON') : Lang._('OFF')
+      }</button></li>
+                      <li id="sa11y-form-labels-li">
+                          <label id="sa11y-check-labels" for="sa11y-labels-toggle">${Lang._(
+                            'FORM_LABELS',
+                          )}</label>
+                          <button id="sa11y-labels-toggle" aria-labelledby="sa11y-check-labels" class="sa11y-settings-switch"
+                          aria-pressed="${
+                            loadLabelsPreference ? 'true' : 'false'
+                          }">${
+        loadLabelsPreference ? Lang._('ON') : Lang._('OFF')
+      }</button>
+                      </li>
+                      <li id="sa11y-links-advanced-li">
+                          <label id="check-changerequest" for="sa11y-links-advanced-toggle">${Lang._(
+                            'LINKS_ADVANCED',
+                          )} <span class="sa11y-badge">AAA</span></label>
+                          <button id="sa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="sa11y-settings-switch"
+                          aria-pressed="${
+                            loadChangeRequestPreference ? 'true' : 'false'
+                          }">${
+        loadChangeRequestPreference ? Lang._('ON') : Lang._('OFF')
+      }</button>
+                      </li>
+                      <li id="sa11y-readability-li">
+                          <label id="check-readability" for="sa11y-readability-toggle">${Lang._(
+                            'LANG_READABILITY',
+                          )} <span class="sa11y-badge">AAA</span></label>
+                          <button id="sa11y-readability-toggle" aria-labelledby="check-readability" class="sa11y-settings-switch"
+                          aria-pressed="${
+                            loadReadabilityPreference ? 'true' : 'false'
+                          }">${
+        loadReadabilityPreference ? Lang._('ON') : Lang._('OFF')
+      }</button>
+                      </li>
+                      <li>
+                          <label id="sa11y-dark-mode" for="sa11y-theme-toggle">${Lang._(
+                            'DARK_MODE',
+                          )}</label>
+                          <button id="sa11y-theme-toggle" aria-labelledby="sa11y-dark-mode" class="sa11y-settings-switch"></button>
+                      </li>
+                  </ul>
+              </div>
+          </div>` +
+      // Console warning messages.
+      `<div id="sa11y-panel-alert">
+              <div class="sa11y-header-text">
+                  <button id="sa11y-close-alert" class="sa11y-close-btn" aria-label="${Lang._(
+                    'ALERT_CLOSE',
+                  )}" aria-describedby="sa11y-alert-heading sa11y-panel-alert-text"></button>
+                  <h2 id="sa11y-alert-heading">${Lang._('ALERT_TEXT')}</h2>
+              </div>
+              <p id="sa11y-panel-alert-text"></p>
+              <div id="sa11y-panel-alert-preview"></div>
+          </div>` +
+      // Main panel that conveys state of page.
+      `<div id="sa11y-panel-content">
+              <button id="sa11y-cycle-toggle" type="button" aria-label="${Lang._(
+                'SHORTCUT_SCREEN_READER',
+              )}">
+                  <div class="sa11y-panel-icon"></div>
+              </button>
+              <div id="sa11y-panel-text"><h1 class="sa11y-visually-hidden">${Lang._(
+                'PANEL_HEADING',
+              )}</h1>
+              <p id="sa11y-status" aria-live="polite"></p>
+              </div>
+          </div>` +
+      // Show Outline & Show Settings button.
+      `<div id="sa11y-panel-controls" role="tablist" aria-orientation="horizontal">
+              <button type="button" role="tab" aria-expanded="false" id="sa11y-outline-toggle" aria-controls="sa11y-outline-panel">
+                  ${Lang._('SHOW_OUTLINE')}
+              </button>
+              <button type="button" role="tab" aria-expanded="false" id="sa11y-settings-toggle" aria-controls="sa11y-settings-panel">
+                  ${Lang._('SHOW_SETTINGS')}
+              </button>
+              <div style="width:40px;"></div>
+          </div>` +
+      // End of main container.
+      '</div>';
 
     const userbar = document.querySelector('[data-wagtail-userbar]');
-    const sa11yParent = document.querySelector('[data-sa11y-parent]');
-    const userbarTrigger = document.getElementById('wagtail-userbar-trigger');
-    // const newBadge = badge.cloneNode();
-    // newBadge.innerHTML = badge.innerHTML;
-    // userbarTrigger.appendChild(newBadge);
-    // const newPanel = panel.cloneNode();
-    // newPanel.innerHTML = panel.innerHTML;
-    // userbar.appendChild(panel);
+    userbar.append(sa11ycontainer);
+  };
 
-    // sa11yParent.appendChild(container);
+  // Re-implement Sa11y's mainToggle method triggering panel closing by clicking on the userbar icon
+  customMainToggle() {
+    this.mainToggle();
+    const userbarTrigger = document.getElementById('wagtail-userbar-trigger');
+    userbarTrigger.addEventListener('click', (e) => {
+      if (this.store.getItem('sa11y-remember-panel') === 'Opened') {
+        this.store.setItem('sa11y-remember-panel', 'Closed');
+        this.resetAll();
+        this.updateBadge();
+        e.preventDefault();
+      }
+    });
   }
 }
 
+// Custom Sa11y initialize
 const sa11y = new CustomSa11y({
   customChecks: new Sa11yCustomChecks(),
-  // Use doNotRun to initialise Sa11y without it showing anything.
-  // In particular binding Sa11y methods to the object instance.
+  // Use doNotRun to initialize Sa11y without UI render
   doNotRun: 'body',
   checkRoot: 'body',
   readabilityRoot: 'main',
@@ -88,7 +243,6 @@ const sa11y = new CustomSa11y({
 });
 
 Lang.addI18n(LangEn.strings);
-
 sa11y.initialize();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const list = userbar.querySelector('[role=menu]');
   const listItems = list.querySelectorAll('li');
   const isActiveClass = 'is-active';
+  const sa11yToggle = document.getElementById('sa11y-toggle');
 
   // querySelector for all items that can be focused
   // tabIndex has been removed for roving tabindex compatibility
@@ -107,6 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   trigger.addEventListener('click', toggleUserbar, false);
+
+  // make sure userbar is hidden when Sa11y is open
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  sa11yToggle.addEventListener('click', hideUserbar, false);
 
   // make sure userbar is hidden when navigating back
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
