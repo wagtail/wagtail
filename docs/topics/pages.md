@@ -179,7 +179,7 @@ class LandingPage(Page):
 
 ### Page URLs
 
-The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it's called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [pageurl](pageurl_tag).
+The most common method of retrieving page URLs is by using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageurl_tag) template tags. Since it's called from a template, these automatically includes the optimizations mentioned below.
 
 Page models also include several low-level methods for overriding or accessing page URLs.
 

@@ -196,6 +196,33 @@ class TestPageUrlTags(TestCase):
         result = slugurl(template.Context({"request": request}), "events")
         self.assertEqual(result, "/events/")
 
+    def test_fullpageurl(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Fallback</a>"""
+        )
+        page = Page.objects.get(url_path="/home/events/")
+        with self.assertNumQueries(7):
+            result = tpl.render(template.Context({"page": page}))
+        self.assertIn('<a href="http://localhost/events/">Fallback</a>', result)
+
+    def test_fullpageurl_with_named_url_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": None}))
+        self.assertIn('<a href="/fallback/">Fallback</a>', result)
+
+    def test_fullpageurl_with_absolute_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        with self.assertNumQueries(0):
+            result = tpl.render(
+                template.Context({"page": None, "request": get_dummy_request()})
+            )
+        self.assertIn('<a href="http://localhost/fallback/">Fallback</a>', result)
+
 
 class TestWagtailSiteTag(TestCase):
     fixtures = ["test.json"]
