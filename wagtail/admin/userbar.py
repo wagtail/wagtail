@@ -134,7 +134,7 @@ class ModeratePageItem(BaseItem):
             request.user
         ).can_publish():
             return ""
-        
+          
         return super().render(request)
 
 
