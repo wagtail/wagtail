@@ -1,6 +1,13 @@
 [
   {
     "pk": 1,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "pk": 1,
     "model": "modeladmintest.author",
     "fields": {
       "name": "J. R. R. Tolkien",
@@ -98,7 +105,8 @@
     "model": "modeladmintest.translatablebook",
     "fields": {
       "title": "The Lord of the Rings",
-      "author_id": 1
+      "author_id": 1,
+      "locale_id": 1
     }
   },
   {
@@ -121,6 +129,7 @@
     "pk": 1,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Root",
       "draft_title": "Root",
       "numchild": 1,
@@ -138,6 +147,7 @@
     "pk": 2,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Welcome to the Wagtail test site!",
       "draft_title": "Welcome to the Wagtail test site!",
       "numchild": 5,
@@ -155,6 +165,7 @@
     "pk": 3,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Events",
       "draft_title": "Events",
       "numchild": 4,
@@ -179,6 +190,7 @@
     "pk": 4,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Christmas",
       "draft_title": "Christmas",
       "numchild": 3,
@@ -206,6 +218,7 @@
     "pk": 5,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Santa's Grotto",
       "draft_title": "Santa's Grotto",
       "numchild": 0,
@@ -230,6 +243,7 @@
     "pk": 6,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Santa's Workshop",
       "draft_title": "Santa's Workshop",
       "numchild": 0,
@@ -254,6 +268,7 @@
     "pk": 7,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Claim your free present!",
       "draft_title": "Claim your free present!",
       "numchild": 0,
