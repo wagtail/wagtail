@@ -177,7 +177,7 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 
 ### `fullpageurl`
 
-Takes a Page object and returns its absolute (`http://example.com/foo/bar/`).
+Takes a Page object and returns its absolute URL (`http://example.com/foo/bar/`).
 
 ```html+django
 {% load wagtailcore_tags %}
