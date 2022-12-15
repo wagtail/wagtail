@@ -30,6 +30,24 @@ def pageurl(context, page, fallback=None):
 
 
 @register.simple_tag(takes_context=True)
+def fullpageurl(context, page, fallback=None):
+    """
+    Outputs a page's absolute URL (http://example.com/foo/bar/)
+    If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
+    """
+    if page is None and fallback:
+        fallback_url = resolve_url(fallback)
+        if fallback_url and "request" in context and fallback_url[0] == "/":
+            fallback_url = context["request"].build_absolute_uri(fallback_url)
+        return fallback_url
+
+    if not isinstance(page, Page):
+        raise ValueError("fullpageurl tag expected a Page object, got %r" % page)
+
+    return page.get_full_url(request=context.get("request"))
+
+
+@register.simple_tag(takes_context=True)
 def slugurl(context, slug):
     """
     Returns the URL for the page that has the given slug.

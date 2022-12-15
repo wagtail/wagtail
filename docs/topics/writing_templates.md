@@ -173,6 +173,20 @@ A `fallback` keyword argument can be provided - this can be a URL string, a name
 {% endfor %}
 ```
 
+(fullpageurl_tag)=
+
+### `fullpageurl`
+
+Takes a Page object and returns its absolute (`http://example.com/foo/bar/`).
+
+```html+django
+{% load wagtailcore_tags %}
+...
+<meta property="og:url" content="{% fullpageurl page %}" />
+```
+
+Much like `pageurl`, a `fallback` keyword argument may be provided.
+
 (slugurl_tag)=
 
 ### `slugurl`
