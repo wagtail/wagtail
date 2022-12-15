@@ -15,6 +15,12 @@ from wagtail.test.testapp.models import SimplePage
 class TestPageUrlTags(TestCase):
     fixtures = ["test.json"]
 
+    def setUp(self):
+        super().setUp()
+
+        # Clear caches
+        cache.clear()
+
     def test_pageurl_tag(self):
         response = self.client.get("/events/")
         self.assertEqual(response.status_code, 200)
