@@ -33,7 +33,6 @@ class UnlockView(PageOperationViewMixin, lock.UnlockView):
         return super().perform_operation()
 
     def get_success_message(self):
-        return (
-            _("Page '%(page_title)s' is now unlocked.")
-            % {"page_title": self.object.get_admin_display_title()},
-        )
+        return _("Page '%(page_title)s' is now unlocked.") % {
+            "page_title": self.object.get_admin_display_title()
+        }
