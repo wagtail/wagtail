@@ -1186,11 +1186,11 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         page = Page.objects.get(id=self.page.id)
         # Page must be live
-        self.assertTrue(page.live, "Approving moderation failed to set live=True")
+        self.assertTrue(page.live, msg="Approving moderation failed to set live=True")
         # Page should now have no unpublished changes
         self.assertFalse(
             page.has_unpublished_changes,
-            "Approving moderation failed to set has_unpublished_changes=False",
+            msg="Approving moderation failed to set has_unpublished_changes=False",
         )
 
         # Check that the page_published signal was fired
@@ -1933,7 +1933,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         )
         self.assertEqual(
             response.context["warning_message"],
-            "This task is in progress on 1 page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+            "This task is in progress on 1 page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
         )
 
         # create a new, unused, task and check the warning message is accurate
@@ -1946,7 +1946,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
 
         self.assertEqual(
             response.context["warning_message"],
-            "This task is in progress on 0 pages. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+            "This task is in progress on 0 pages/snippets. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
         )
 
         unused_task.delete()  # clean up

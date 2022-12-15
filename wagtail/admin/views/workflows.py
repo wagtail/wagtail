@@ -279,13 +279,14 @@ class Disable(DeleteView):
         states_in_progress = WorkflowState.objects.filter(
             status=WorkflowState.STATUS_IN_PROGRESS
         ).count()
-        context["warning_message"] = ngettext(
-            "This workflow is in progress on %(states_in_progress)d page. Disabling this workflow will cancel moderation on this page.",
-            "This workflow is in progress on %(states_in_progress)d pages. Disabling this workflow will cancel moderation on these pages.",
-            states_in_progress,
-        ) % {
-            "states_in_progress": states_in_progress,
-        }
+        if states_in_progress:
+            context["warning_message"] = ngettext(
+                "This workflow is in progress on %(states_in_progress)d page/snippet. Disabling this workflow will cancel moderation on this page/snippet.",
+                "This workflow is in progress on %(states_in_progress)d pages/snippets. Disabling this workflow will cancel moderation on these pages/snippets.",
+                states_in_progress,
+            ) % {
+                "states_in_progress": states_in_progress,
+            }
         return context
 
     def delete_action(self):
@@ -519,7 +520,7 @@ class EditTask(EditView):
             or self.permission_policy.user_has_permission(self.request.user, "create")
         ) and not self.object.active
 
-        # TODO: add warning msg when there are pages currently on this task in a workflow, add interaction like resetting task state when saved
+        # TODO: add warning msg when there are pages/snippets currently on this task in a workflow, add interaction like resetting task state when saved
         return context
 
     @property
@@ -545,8 +546,8 @@ class DisableTask(DeleteView):
             status=TaskState.STATUS_IN_PROGRESS, task=self.get_object().pk
         ).count()
         context["warning_message"] = ngettext(
-            "This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
-            "This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+            "This task is in progress on %(states_in_progress)d page/snippet. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
+            "This task is in progress on %(states_in_progress)d pages/snippets. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
             states_in_progress,
         ) % {
             "states_in_progress": states_in_progress,
