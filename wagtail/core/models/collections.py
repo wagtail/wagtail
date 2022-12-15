@@ -1,3 +1,4 @@
+
 from wagtail.models.collections import (  # noqa
     BaseCollectionManager,
     Collection,
