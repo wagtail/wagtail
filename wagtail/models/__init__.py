@@ -3809,6 +3809,7 @@ class Workflow(ClusterableModel):
         for state in in_progress_states:
             state.cancel(user=user)
         WorkflowPage.objects.filter(workflow=self).delete()
+        WorkflowContentType.objects.filter(workflow=self).delete()
         self.save()
 
     def all_pages(self):
