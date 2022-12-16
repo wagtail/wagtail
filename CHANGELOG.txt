@@ -94,6 +94,7 @@ Changelog
  * Maintenance: Switch userbar to initialise a Web Component to avoid styling clashes (Albina Starykova)
  * Maintenance: Refactor userbar stylesheets to use the same CSS loading as the rest of the admin (Albina Starykova)
  * Maintenance: Remove unused search-bar and button-filter styles (Thibaud Colas)
+ * Maintenance: Use util method to construct dummy requests in tests (Jake Howard)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT

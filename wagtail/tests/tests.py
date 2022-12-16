@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
-from wagtail.coreutils import resolve_model_string
+from wagtail.coreutils import get_dummy_request, resolve_model_string
 from wagtail.models import Locale, Page, Site, SiteRootPath
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
@@ -96,9 +96,8 @@ class TestPageUrlTags(TestCase):
         )
 
         # 'request' object in context, but site is None
-        request = HttpRequest()
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        request.META["SERVER_PORT"] = 80
         result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -137,9 +136,7 @@ class TestPageUrlTags(TestCase):
         # the first site, but is in a different position in the treeself.
         new_christmas_page = Page(title="Christmas", slug="christmas")
         new_home_page.add_child(instance=new_christmas_page)
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = second_site.hostname
-        request.META["SERVER_PORT"] = second_site.port
+        request = get_dummy_request(site=second_site)
         url = slugurl(context=template.Context({"request": request}), slug="christmas")
         self.assertEqual(url, "/christmas/")
 
@@ -152,9 +149,7 @@ class TestPageUrlTags(TestCase):
         second_site = Site.objects.create(
             hostname="site2.example.com", root_page=new_home_page
         )
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = second_site.hostname
-        request.META["SERVER_PORT"] = second_site.port
+        request = get_dummy_request(site=second_site)
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug="christmas", context=template.Context({"request": request}))
@@ -172,9 +167,8 @@ class TestPageUrlTags(TestCase):
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
     def test_slugurl_with_null_site_in_request(self):
         # 'request' object in context, but site is None
-        request = HttpRequest()
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        request.META["SERVER_PORT"] = 80
         result = slugurl(template.Context({"request": request}), "events")
         self.assertEqual(result, "/events/")
 
@@ -183,9 +177,7 @@ class TestWagtailSiteTag(TestCase):
     fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "localhost"
-        request.META["SERVER_PORT"] = 80
+        request = get_dummy_request(site=Site.objects.first())
 
         tpl = template.Template(
             """{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}"""

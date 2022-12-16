@@ -1,5 +1,4 @@
-from django.http import HttpRequest
-
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page, Site
 from wagtail.test.testapp.models import TestSiteSetting
 
@@ -23,7 +22,4 @@ class SiteSettingsTestMixin:
     def get_request(self, site=None):
         if site is None:
             site = self.default_site
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = site.hostname
-        request.META["SERVER_PORT"] = site.port
-        return request
+        return get_dummy_request(site=site)
