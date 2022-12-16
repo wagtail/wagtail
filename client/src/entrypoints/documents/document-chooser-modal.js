@@ -1,5 +1,8 @@
 import $ from 'jquery';
-import { ChooserModalOnloadHandlerFactory } from '../../includes/chooserModal';
+import {
+  ChooserModalOnloadHandlerFactory,
+  ChooserModal,
+} from '../../includes/chooserModal';
 
 class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
   ajaxifyLinks(modal, context) {
@@ -25,3 +28,8 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
     creationFormTabSelector: '#tab-upload',
     creationFormEventName: 'wagtail:documents-upload',
   }).getOnLoadHandlers();
+
+class DocumentChooserModal extends ChooserModal {
+  onloadHandlers = window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS;
+}
+window.DocumentChooserModal = DocumentChooserModal;

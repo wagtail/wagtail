@@ -1,5 +1,8 @@
 import $ from 'jquery';
-import { ChooserModalOnloadHandlerFactory } from '../../includes/chooserModal';
+import {
+  ChooserModalOnloadHandlerFactory,
+  ChooserModal,
+} from '../../includes/chooserModal';
 
 class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFactory {
   ajaxifyLinks(modal, context) {
@@ -111,3 +114,8 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS =
     creationFormEventName: 'wagtail:images-upload',
     creationFormTabSelector: '#tab-upload',
   }).getOnLoadHandlers();
+
+class ImageChooserModal extends ChooserModal {
+  onloadHandlers = window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
+}
+window.ImageChooserModal = ImageChooserModal;
