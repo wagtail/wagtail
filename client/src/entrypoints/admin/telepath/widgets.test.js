@@ -31,7 +31,7 @@ describe('telepath: wagtail.widgets.Widget', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       'The Value',
@@ -89,7 +89,7 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       'tea',
@@ -139,7 +139,7 @@ describe('telepath: wagtail.widgets.CheckboxInput', () => {
       _args: ['<input type="checkbox" name="__NAME__" id="__ID__">', '__ID__'],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'sugar',
       'id-sugar',
       true,
@@ -194,7 +194,7 @@ describe('telepath: wagtail.widgets.Select', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       '1',
@@ -262,12 +262,17 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
         },
       ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', {
-      id: 60,
-      parentId: 1,
-      adminTitle: 'Welcome to the Wagtail Bakery!',
-      editUrl: '/admin/pages/60/edit/',
-    });
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      {
+        id: 60,
+        parentId: 1,
+        adminTitle: 'Welcome to the Wagtail Bakery!',
+        editUrl: '/admin/pages/60/edit/',
+      },
+    );
   });
 
   test('it renders correctly', () => {
@@ -340,7 +345,7 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       'The Value',
@@ -586,7 +591,7 @@ describe('telepath: wagtail.widgets.DateInput', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       '2021-01-19',
@@ -648,7 +653,7 @@ describe('telepath: wagtail.widgets.TimeInput', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       '11:59',
@@ -711,7 +716,7 @@ describe('telepath: wagtail.widgets.DateTimeInput', () => {
       ],
     });
     boundWidget = widgetDef.render(
-      $('#placeholder'),
+      document.getElementById('placeholder'),
       'the-name',
       'the-id',
       '2021-01-19 11:59',
