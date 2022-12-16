@@ -210,12 +210,12 @@ class TestPageUrlTags(TestCase):
 
     def test_fullpageurl(self):
         tpl = template.Template(
-            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Fallback</a>"""
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
         )
         page = Page.objects.get(url_path="/home/events/")
         with self.assertNumQueries(7):
             result = tpl.render(template.Context({"page": page}))
-        self.assertIn('<a href="http://localhost/events/">Fallback</a>', result)
+        self.assertIn('<a href="http://localhost/events/">Events</a>', result)
 
     def test_fullpageurl_with_named_url_fallback(self):
         tpl = template.Template(
@@ -234,6 +234,20 @@ class TestPageUrlTags(TestCase):
                 template.Context({"page": None, "request": get_dummy_request()})
             )
         self.assertIn('<a href="http://localhost/fallback/">Fallback</a>', result)
+
+    def test_fullpageurl_with_invalid_page(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
+        )
+        with self.assertRaises(ValueError):
+            tpl.render(template.Context({"page": 123}))
+
+    def test_pageurl_with_invalid_page(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">Events</a>"""
+        )
+        with self.assertRaises(ValueError):
+            tpl.render(template.Context({"page": 123}))
 
 
 class TestWagtailSiteTag(TestCase):
