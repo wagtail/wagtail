@@ -1,6 +1,7 @@
 """Handles rendering of the list of actions in the footer of the snippet create/edit views."""
 from functools import lru_cache
 
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.forms import Media
 from django.template.loader import render_to_string
@@ -10,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.models import DraftStateMixin, LockableMixin
+from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
 
 
@@ -74,6 +75,110 @@ class PublishMenuItem(ActionMenuItem):
         publish_permission = get_permission_name("publish", context["model"])
         return context["request"].user.has_perm(publish_permission) and not context.get(
             "locked_for_user"
+        )
+
+
+class SubmitForModerationMenuItem(ActionMenuItem):
+    name = "action-submit"
+    label = _("Submit for moderation")
+    icon_name = "resubmit"
+
+    def is_shown(self, context):
+        if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
+            return False
+
+        if context.get("locked_for_user"):
+            return False
+
+        if context["view"] == "create":
+            return context["model"].get_default_workflow() is not None
+
+        return (
+            not context.get("locked_for_user")
+            and context["instance"].has_workflow
+            and not context["instance"].workflow_in_progress
+        )
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        instance = parent_context.get("instance")
+        workflow_state = instance.current_workflow_state if instance else None
+
+        if (
+            workflow_state
+            and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES
+        ):
+            context["label"] = _("Resubmit to %(task_name)s") % {
+                "task_name": workflow_state.current_task_state.task.name
+            }
+        else:
+            if instance:
+                workflow = instance.get_workflow()
+            else:
+                workflow = context["model"].get_default_workflow()
+
+            if workflow:
+                context["label"] = _("Submit to %(workflow_name)s") % {
+                    "workflow_name": workflow.name
+                }
+        return context
+
+
+class WorkflowMenuItem(ActionMenuItem):
+    template_name = "wagtailadmin/pages/action_menu/workflow_menu_item.html"
+
+    def __init__(self, name, label, launch_modal, *args, **kwargs):
+        self.name = name
+        self.label = label
+        self.launch_modal = launch_modal
+
+        if kwargs.get("icon_name"):
+            self.icon_name = kwargs.pop("icon_name")
+
+        super().__init__(*args, **kwargs)
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+        context["launch_modal"] = self.launch_modal
+        context["current_task_state"] = context["instance"].current_workflow_task_state
+        return context
+
+    def is_shown(self, context):
+        return not context.get("locked_for_user")
+
+
+class RestartWorkflowMenuItem(ActionMenuItem):
+    label = _("Restart workflow ")
+    name = "action-restart-workflow"
+    classname = "button--icon-flipped"
+    icon_name = "login"
+
+    def is_shown(self, context):
+        if not getattr(settings, "WAGTAIL_MODERATION_ENABLED", True):
+            return False
+        if context["view"] == "create":
+            return False
+        workflow_state = context["instance"].current_workflow_state
+        return (
+            not context.get("locked_for_user")
+            and context["instance"].has_workflow
+            and not context["instance"].workflow_in_progress
+            and workflow_state
+            and workflow_state.user_can_cancel(context["request"].user)
+        )
+
+
+class CancelWorkflowMenuItem(ActionMenuItem):
+    label = _("Cancel workflow ")
+    name = "action-cancel-workflow"
+    icon_name = "error"
+
+    def is_shown(self, context):
+        if context["view"] == "create":
+            return False
+        workflow_state = context["instance"].current_workflow_state
+        return workflow_state and workflow_state.user_can_cancel(
+            context["request"].user
         )
 
 
@@ -154,6 +259,12 @@ def get_base_snippet_action_menu_items(model):
         menu_items += [
             UnpublishMenuItem(order=20),
             PublishMenuItem(order=30),
+        ]
+    if issubclass(model, WorkflowMixin):
+        menu_items += [
+            CancelWorkflowMenuItem(order=40),
+            RestartWorkflowMenuItem(order=50),
+            SubmitForModerationMenuItem(order=60),
         ]
     if issubclass(model, LockableMixin):
         menu_items.append(LockedMenuItem(order=10000))
