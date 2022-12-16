@@ -316,6 +316,14 @@ WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # 128 megapixels
 
 This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value. The pixel count takes animation frames into account - for example, a 25-frame animation of size 100x100 is considered to have 100 _ 100 _ 25 = 250000 pixels.
 
+### `WAGTAIL_IMAGES_ALLOWED_EXTENSIONS`
+
+```python
+WAGTAIL_IMAGES_ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp"]
+```
+
+A list of allowed image extensions that will be validated during image upload. If this isn't supplied gif, jpg, jpeg, png and webp extensions are allowed. Warning: this doesn't always ensure that the uploaded image is valid as files can be renamed to have an extension no matter what data they contain.
+
 ### `WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`
 
 ```python
