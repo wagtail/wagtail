@@ -28,7 +28,7 @@ class WagtailImageField(ImageField):
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
 
         self.images_allowed_extensions = getattr(
-            settings, "WAGTAIL_IMAGES_ALLOWED_EXTENSIONS ", ALLOWED_EXTENSIONS
+            settings, "WAGTAIL_IMAGES_ALLOWED_EXTENSIONS", ALLOWED_EXTENSIONS
         )
         # Help text
         if self.max_upload_size is not None:
