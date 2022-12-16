@@ -136,9 +136,9 @@ class PageChooserFactory {
   }
 
   render(placeholder, name, id, initialState) {
-    var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
-    var dom = $(html);
-    $(placeholder).replaceWith(dom);
+    const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
+    // eslint-disable-next-line no-param-reassign
+    placeholder.outerHTML = html;
     /* the PageChooser object also serves as the JS widget representation */
     // eslint-disable-next-line no-undef
     const chooser = new PageChooser(id, null, this.config);
