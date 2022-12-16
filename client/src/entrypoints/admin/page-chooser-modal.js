@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { ChooserModal } from '../../includes/chooserModal';
 import { initTooltips } from '../../includes/initTooltips';
 
 /* global wagtail */
@@ -208,3 +209,35 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   },
 };
 window.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
+
+class PageChooserModal extends ChooserModal {
+  onloadHandlers = PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
+  chosenResponseName = 'pageChosen';
+
+  getURL(opts) {
+    let url = super.getURL();
+    if (opts.parentId) {
+      url += opts.parentId + '/';
+    }
+    return url;
+  }
+
+  getURLParams(opts) {
+    const urlParams = super.getURLParams(opts);
+    urlParams.page_type = opts.model_names.join(',');
+    if (opts.target_pages) {
+      urlParams.target_pages = opts.target_pages;
+    }
+    if (opts.match_subclass) {
+      urlParams.match_subclass = opts.match_subclass;
+    }
+    if (opts.can_choose_root) {
+      urlParams.can_choose_root = 'true';
+    }
+    if (opts.user_perms) {
+      urlParams.user_perms = opts.user_perms;
+    }
+    return urlParams;
+  }
+}
+window.PageChooserModal = PageChooserModal;

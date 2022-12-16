@@ -2,7 +2,7 @@ import { Chooser } from '../../components/ChooserWidget';
 
 class ImageChooser extends Chooser {
   // eslint-disable-next-line no-undef
-  modalOnloadHandlers = IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
+  chooserModalClass = ImageChooserModal;
 
   initHTMLElements(id) {
     super.initHTMLElements(id);

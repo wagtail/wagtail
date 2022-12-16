@@ -2,12 +2,12 @@ import { Chooser } from '../../components/ChooserWidget';
 
 class PageChooser extends Chooser {
   // eslint-disable-next-line no-undef
-  modalOnloadHandlers = PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
+  chooserModalClass = PageChooserModal;
+
   titleStateKey = 'adminTitle';
   editUrlStateKey = 'editUrl';
-  chosenResponseName = 'pageChosen';
 
-  constructor(id, parentId, options) {
+  constructor(id, parentId, options = {}) {
     super(id);
     this.initialParentId = parentId;
     this.options = options;
@@ -21,29 +21,18 @@ class PageChooser extends Chooser {
     return state;
   }
 
-  getModalUrl() {
-    let url = super.getModalUrl();
+  getModalOptions() {
+    const opts = {
+      model_names: this.options.model_names,
+      target_pages: this.options.target_pages,
+      match_subclass: this.options.match_subclass,
+      can_choose_root: this.options.can_choose_root,
+      user_perms: this.options.user_perms,
+    };
     if (this.state && this.state.parentId) {
-      url += this.state.parentId + '/';
+      opts.parentId = this.state.parentId;
     }
-    return url;
-  }
-
-  getModalUrlParams() {
-    const urlParams = { page_type: this.options.model_names.join(',') };
-    if (this.options.target_pages) {
-      urlParams.target_pages = this.options.target_pages;
-    }
-    if (this.options.match_subclass) {
-      urlParams.match_subclass = this.options.match_subclass;
-    }
-    if (this.options.can_choose_root) {
-      urlParams.can_choose_root = 'true';
-    }
-    if (this.options.user_perms) {
-      urlParams.user_perms = this.options.user_perms;
-    }
-    return urlParams;
+    return opts;
   }
 }
 window.PageChooser = PageChooser;

@@ -1,11 +1,9 @@
-import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
+import { ChooserModal } from '../../includes/chooserModal';
 
 export class Chooser {
-  modalOnloadHandlers = chooserModalOnloadHandlers;
-
+  chooserModalClass = ChooserModal;
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
   editUrlStateKey = 'edit_url'; // key used in the 'state' dictionary to hold the URL of the edit page
-  chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
 
   constructor(id) {
     this.initHTMLElements(id);
@@ -30,7 +28,6 @@ export class Chooser {
     );
     this.input = document.getElementById(id);
     this.editLink = this.chooserElement.querySelector('.edit-link');
-    this.chooserBaseUrl = this.chooserElement.dataset.chooserUrl;
   }
 
   getStateFromHTML() {
@@ -117,25 +114,19 @@ export class Chooser {
     }
   }
 
-  getModalUrl() {
-    return this.chooserBaseUrl;
-  }
-
-  getModalUrlParams() {
+  getModalOptions() {
     return null;
   }
 
   openChooserModal() {
-    // eslint-disable-next-line no-undef
-    ModalWorkflow({
-      url: this.getModalUrl(),
-      urlParams: this.getModalUrlParams(),
-      onload: this.modalOnloadHandlers,
-      responses: {
-        [this.chosenResponseName]: (result) => {
-          this.setState(result);
-        },
-      },
+    if (!this.modal) {
+      // eslint-disable-next-line new-cap
+      this.modal = new this.chooserModalClass(
+        this.chooserElement.dataset.chooserUrl,
+      );
+    }
+    this.modal.open(this.getModalOptions(), (result) => {
+      this.setState(result);
     });
   }
 }

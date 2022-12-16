@@ -313,6 +313,39 @@ class ChooserModalOnloadHandlerFactory {
 const chooserModalOnloadHandlers =
   new ChooserModalOnloadHandlerFactory().getOnLoadHandlers();
 
+class ChooserModal {
+  onloadHandlers = chooserModalOnloadHandlers;
+  chosenResponseName = 'chosen'; // identifier for the ModalWorkflow response that indicates an item was chosen
+
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getURL(opts) {
+    return this.baseUrl;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getURLParams(opts) {
+    return {};
+  }
+
+  open(opts, callback) {
+    // eslint-disable-next-line no-undef
+    ModalWorkflow({
+      url: this.getURL(opts || {}),
+      urlParams: this.getURLParams(opts || {}),
+      onload: this.onloadHandlers,
+      responses: {
+        [this.chosenResponseName]: (result) => {
+          callback(result);
+        },
+      },
+    });
+  }
+}
+
 export {
   validateCreationForm,
   submitCreationForm,
@@ -320,4 +353,5 @@ export {
   SearchController,
   ChooserModalOnloadHandlerFactory,
   chooserModalOnloadHandlers,
+  ChooserModal,
 };

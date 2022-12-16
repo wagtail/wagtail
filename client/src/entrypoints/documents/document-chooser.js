@@ -2,7 +2,7 @@ import { Chooser } from '../../components/ChooserWidget';
 
 class DocumentChooser extends Chooser {
   // eslint-disable-next-line no-undef
-  modalOnloadHandlers = DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS;
+  chooserModalClass = DocumentChooserModal;
 }
 window.DocumentChooser = DocumentChooser;
 

@@ -1,21 +1,25 @@
+import { ChooserModal } from '../../includes/chooserModal';
 import { Chooser } from '../../components/ChooserWidget';
 
 /* global wagtailConfig */
 
-class SnippetChooser extends Chooser {
-  titleStateKey = 'string';
-
-  getModalUrl() {
-    let urlQuery = '';
+class SnippetChooserModal extends ChooserModal {
+  getURLParams(opts) {
+    const params = super.getURLParams(opts);
     if (wagtailConfig.ACTIVE_CONTENT_LOCALE) {
       // The user is editing a piece of translated content.
       // Pass the locale along as a request parameter. If this
       // snippet is also translatable, the results will be
       // pre-filtered by this locale.
-      urlQuery = '?locale=' + wagtailConfig.ACTIVE_CONTENT_LOCALE;
+      params.locale = wagtailConfig.ACTIVE_CONTENT_LOCALE;
     }
-    return this.chooserBaseUrl + urlQuery;
+    return params;
   }
+}
+
+class SnippetChooser extends Chooser {
+  titleStateKey = 'string';
+  chooserModalClass = SnippetChooserModal;
 }
 window.SnippetChooser = SnippetChooser;
 
