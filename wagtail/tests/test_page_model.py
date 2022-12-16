@@ -8,13 +8,14 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
-from django.http import Http404, HttpRequest
+from django.http import Http404
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.coreutils import get_dummy_request
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     Comment,
@@ -213,19 +214,13 @@ class TestSiteRouting(TestCase):
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.events_site.hostname
-        request.META["SERVER_PORT"] = self.events_site.port
+        request = get_dummy_request(site=self.events_site)
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.events_site)
 
     def test_ports_in_request_headers_are_respected(self):
         # ports in the Host: header should be respected
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.alternate_port_events_site.hostname
-        request.META["SERVER_PORT"] = self.alternate_port_events_site.port
+        request = get_dummy_request(site=self.alternate_port_events_site)
         with self.assertNumQueries(1):
             self.assertEqual(
                 Site.find_for_request(request), self.alternate_port_events_site
@@ -233,18 +228,14 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_host_header_routes_to_default_site(self):
         # requests with an unrecognised Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = self.unrecognised_hostname
-        request.META["SERVER_PORT"] = "80"
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
         # requests to the default host on an unrecognised port should be directed to the default site
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.default_site.hostname
+        request = get_dummy_request(site=self.default_site)
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
@@ -252,8 +243,7 @@ class TestSiteRouting(TestCase):
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
         # should be directed to the default site
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = self.unrecognised_hostname
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
@@ -262,8 +252,7 @@ class TestSiteRouting(TestCase):
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
         # requests on an unrecognised port should be directed to the site with
         # matching hostname if there is no ambiguity
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = self.about_site.hostname
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
@@ -275,17 +264,14 @@ class TestSiteRouting(TestCase):
         # requests on an unrecognised port should be directed to the default
         # site, even if their hostname (but not port) matches more than one
         # other entry
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.events_site.hostname
+        request = get_dummy_request(site=self.events_site)
         request.META["SERVER_PORT"] = self.unrecognised_port
         with self.assertNumQueries(1):
             self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
-        request = HttpRequest()
-        request.path = "/"
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "%s:%s" % (
             self.events_site.hostname,
             self.events_site.port,
@@ -397,18 +383,14 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.relative_url(events_site), "/christmas/")
         self.assertEqual(christmas_page.get_site(), events_site)
 
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = events_site.hostname
-        request.META["SERVER_PORT"] = events_site.port
+        request = get_dummy_request(site=events_site)
 
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (events_site.id, "http://events.example.com", "/christmas/"),
         )
 
-        request2 = HttpRequest()
-        request2.META["HTTP_HOST"] = second_events_site.hostname
-        request2.META["SERVER_PORT"] = second_events_site.port
+        request2 = get_dummy_request(site=second_events_site)
         self.assertEqual(
             christmas_page.get_url_parts(request=request2),
             (second_events_site.id, "http://second-events.example.com", "/christmas/"),
@@ -457,17 +439,15 @@ class TestRouting(TestCase):
         homepage = Page.objects.get(url_path="/home/")
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        request = HttpRequest()
-        request.path = "/events/christmas/"
+        request = get_dummy_request(path="/events/christmas/")
         (found_page, args, kwargs) = homepage.route(request, ["events", "christmas"])
         self.assertEqual(found_page, christmas_page)
 
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        request = HttpRequest()
+        request = get_dummy_request(site=Site.objects.first())
         request.user = AnonymousUser()
-        request.META["HTTP_HOST"] = Site.objects.first().hostname
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
@@ -478,16 +458,14 @@ class TestRouting(TestCase):
     def test_route_to_unknown_page_returns_404(self):
         homepage = Page.objects.get(url_path="/home/")
 
-        request = HttpRequest()
-        request.path = "/events/quinquagesima/"
+        request = get_dummy_request(path="/events/quinquagesima/")
         with self.assertRaises(Http404):
             homepage.route(request, ["events", "quinquagesima"])
 
     def test_route_to_unpublished_page_returns_404(self):
         homepage = Page.objects.get(url_path="/home/")
 
-        request = HttpRequest()
-        request.path = "/events/tentative-unpublished-event/"
+        request = get_dummy_request(path="/events/tentative-unpublished-event/")
         with self.assertRaises(Http404):
             homepage.route(request, ["events", "tentative-unpublished-event"])
 
@@ -512,9 +490,7 @@ class TestRouting(TestCase):
             self.assertEqual(christmas_page.get_url(), "/events/christmas/")
 
         # with a request, the first call to get_url should issue 1 SQL query
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "dummy"
-        request.META["SERVER_PORT"] = "8888"
+        request = get_dummy_request()
         # first call with "balnk" request issues a extra query for the Site.find_for_request() call
         with self.assertNumQueries(2):
             self.assertEqual(homepage.get_url(request=request), "/")
@@ -703,18 +679,15 @@ class TestRoutingWithI18N(TestRouting):
         self.assertEqual(christmas_page.relative_url(events_site), "/en/christmas/")
         self.assertEqual(christmas_page.get_site(), events_site)
 
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = events_site.hostname
-        request.META["SERVER_PORT"] = events_site.port
+        request = get_dummy_request(site=events_site)
 
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (events_site.id, "http://events.example.com", "/en/christmas/"),
         )
 
-        request2 = HttpRequest()
-        request2.META["HTTP_HOST"] = second_events_site.hostname
-        request2.META["SERVER_PORT"] = second_events_site.port
+        request2 = get_dummy_request(site=second_events_site)
+
         self.assertEqual(
             christmas_page.get_url_parts(request=request2),
             (
@@ -745,9 +718,7 @@ class TestRoutingWithI18N(TestRouting):
             self.assertEqual(christmas_page.get_url(), "/en/events/christmas/")
 
         # with a request, the first call to get_url should issue 1 SQL query
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "dummy"
-        request.META["SERVER_PORT"] = "8888"
+        request = get_dummy_request()
         # first call with "balnk" request issues a extra query for the Site.find_for_request() call
         with self.assertNumQueries(3):
             self.assertEqual(homepage.get_url(request=request), "/en/")
