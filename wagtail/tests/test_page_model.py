@@ -15,6 +15,7 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.coreutils import get_dummy_request
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.models import (
     Comment,
@@ -465,9 +466,8 @@ class TestRouting(TestCase):
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
-        request = HttpRequest()
+        request = get_dummy_request(site=Site.objects.first())
         request.user = AnonymousUser()
-        request.META["HTTP_HOST"] = Site.objects.first().hostname
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
