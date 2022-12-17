@@ -258,7 +258,7 @@ To add the tag interface, add the following block of code to a `wagtail_hooks.py
 
 ```python
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from taggit.models import Tag
 
 

@@ -2,7 +2,7 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.views.home import WhatsNewInWagtailVersionPanel
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 

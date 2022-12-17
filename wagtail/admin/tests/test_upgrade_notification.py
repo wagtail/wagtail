@@ -1,7 +1,7 @@
 from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.admin.views.home import UpgradeNotificationPanel
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestUpgradeNotificationPanel(TestCase, WagtailTestUtils):
