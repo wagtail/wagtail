@@ -480,6 +480,31 @@ class Advert(ClusterableModel):
 
 The [documentation on tagging pages](tagging) has more information on how to use tags in views.
 
+## Snippet Icons
+
+You can customise the icon used to represent each snippet model, by setting the `admin_icon` attribute
+within the snippet class. This icon will be used throughout snippet views, snippet choosers and [ModelAdmin](reference/contrib/modeladmin/index.html).
+
+```python
+@register_snippet
+class Advert(models.Model):
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    admin_icon = "advert"
+
+    def __str__(self):
+        return self.text
+```
+
+The icon will need to be registered if it isn't already part of the Wagtail icon library.
+If `admin_icon` is not set, the default Wagtail snippet icon is used.
+
 (wagtailsnippets_custom_admin_views)=
 
 ## Customising snippets admin views
