@@ -23,7 +23,7 @@
             <div class="left">
                 <div class="col">
                     <h1 class="w-header__title">
-                        {% icon classname="w-header__glyph" name="snippet" %} {{ model_opts.verbose_name_plural|capfirst }}
+                        {% icon classname="w-header__glyph" name=header_icon %} {{ model_opts.verbose_name_plural|capfirst }}
                     </h1>
                 </div>
                 {% if is_searchable and search_url %}

@@ -17,7 +17,6 @@ from wagtail.snippets.widgets import AdminSnippetChooser
 
 class BaseSnippetChooseView(BaseChooseView):
     filter_form_class = None
-    icon = "snippet"
     page_title = _("Choose")
     results_template_name = "wagtailsnippets/chooser/results.html"
     per_page = 25

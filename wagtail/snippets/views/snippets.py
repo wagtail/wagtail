@@ -393,7 +393,6 @@ class UsageView(generic.UsageView):
     view_name = "usage"
     template_name = "wagtailsnippets/snippets/usage.html"
     permission_required = "change"
-    header_icon = "snippet"
 
 
 def redirect_to_edit(request, app_label, model_name, pk):
@@ -515,7 +514,6 @@ class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
 
 class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView):
     permission_required = "change"
-    header_icon = "snippet"
 
     @property
     def edit_label(self):
@@ -614,6 +612,9 @@ class SnippetViewSet(ViewSet):
     """
     A viewset that instantiates the admin views for snippets.
     """
+
+    #: The icon to use across the admin for this snippet type.
+    icon = "snippet"
 
     #: A subclass of ``wagtail.admin.filters.WagtailFilterSet``, which is a subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_. This will be passed to the ``filterset_class`` attribute of the index view.
     filterset_class = None
@@ -739,6 +740,7 @@ class SnippetViewSet(ViewSet):
     def index_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
@@ -753,6 +755,7 @@ class SnippetViewSet(ViewSet):
     def index_results_view(self):
         return self.index_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             filterset_class=self.filterset_class,
             permission_policy=self.permission_policy,
             results_only=True,
@@ -768,6 +771,7 @@ class SnippetViewSet(ViewSet):
     def add_view(self):
         return self.add_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             add_url_name=self.get_url_name("add"),
@@ -780,6 +784,7 @@ class SnippetViewSet(ViewSet):
         # Any parameters passed here must also be passed in revisions_revert_view.
         return self.edit_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
@@ -800,6 +805,7 @@ class SnippetViewSet(ViewSet):
     def delete_view(self):
         return self.delete_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             delete_url_name=self.get_url_name("delete"),
@@ -809,6 +815,7 @@ class SnippetViewSet(ViewSet):
     def usage_view(self):
         return self.usage_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
@@ -838,6 +845,7 @@ class SnippetViewSet(ViewSet):
     def revisions_revert_view(self):
         return self.revisions_revert_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
@@ -859,6 +867,7 @@ class SnippetViewSet(ViewSet):
     def revisions_compare_view(self):
         return self.revisions_compare_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
             history_url_name=self.get_url_name("history"),
@@ -868,6 +877,7 @@ class SnippetViewSet(ViewSet):
     def revisions_unschedule_view(self):
         return self.revisions_unschedule_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             edit_url_name=self.get_url_name("edit"),
             history_url_name=self.get_url_name("history"),
@@ -878,6 +888,7 @@ class SnippetViewSet(ViewSet):
     def unpublish_view(self):
         return self.unpublish_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             index_url_name=self.get_url_name("list"),
             edit_url_name=self.get_url_name("edit"),
@@ -945,6 +956,7 @@ class SnippetViewSet(ViewSet):
     def workflow_history_view(self):
         return self.workflow_history_view_class.as_view(
             model=self.model,
+            header_icon=self.icon,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
             workflow_history_detail_url_name=self.get_url_name(
@@ -956,6 +968,7 @@ class SnippetViewSet(ViewSet):
     def workflow_history_detail_view(self):
         return self.workflow_history_detail_view_class.as_view(
             model=self.model,
+            object_icon=self.icon,
             permission_policy=self.permission_policy,
             workflow_history_url_name=self.get_url_name("workflow_history"),
         )
@@ -990,6 +1003,7 @@ class SnippetViewSet(ViewSet):
             f"wagtailsnippetchoosers_{self.app_label}_{self.model_name}",
             model=self.model,
             url_prefix=f"snippets/choose/{self.app_label}/{self.model_name}",
+            icon=self.icon,
         )
 
     @property
