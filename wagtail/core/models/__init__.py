@@ -1,3 +1,5 @@
+from warnings import warn
+
 from wagtail.models import (  # noqa
     COMMENTS_RELATION_NAME,
     PAGE_MODEL_CLASSES,
@@ -39,6 +41,7 @@ from wagtail.models import (  # noqa
     logger,
     reassign_root_page_locale_on_delete,
 )
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .audit_log import (  # noqa
     BaseLogEntry,
@@ -67,3 +70,11 @@ from .i18n import (  # noqa
     get_translatable_models,
 )
 from .sites import Site, SiteManager, SiteRootPath  # noqa
+
+warn(
+    "Importing from wagtail.core.models is deprecated. "
+    "Use wagtail.models instead. "
+    "See https://docs.wagtail.org/en/stable/releases/3.0.html#changes-to-module-paths",
+    category=RemovedInWagtail50Warning,
+    stacklevel=2,
+)
