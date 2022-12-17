@@ -21,6 +21,7 @@ from .models import (
     Publisher,
     RelatedLink,
     Token,
+    TokenWithIcon,
     TranslatableBook,
     VenuePage,
     Visitor,
@@ -107,6 +108,12 @@ class TranslatableBookModelAdmin(ModelAdmin):
 class TokenModelAdmin(ModelAdmin):
     model = Token
     list_display = ("key",)
+
+
+class TokenWithIconModelAdmin(ModelAdmin):
+    model = TokenWithIcon
+    list_display = ("key",)
+    inspect_view_enabled = True
 
 
 class PublisherCreateView(CreateView):
@@ -210,6 +217,7 @@ modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
 modeladmin_register(TranslatableBookModelAdmin)
 modeladmin_register(TokenModelAdmin)
+modeladmin_register(TokenWithIconModelAdmin)
 modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)

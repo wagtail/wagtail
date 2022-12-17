@@ -79,6 +79,15 @@ class Token(models.Model):
         return self.key
 
 
+class TokenWithIcon(models.Model):
+    key = models.CharField(max_length=40, primary_key=True)
+
+    admin_icon = "tag"
+
+    def __str__(self):
+        return self.key
+
+
 class Publisher(RevisionMixin, models.Model):
     name = models.CharField(max_length=50)
     headquartered_in = models.CharField(max_length=50, null=True, blank=True)

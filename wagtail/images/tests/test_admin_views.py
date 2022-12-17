@@ -1264,6 +1264,8 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
+        # ensure correct default icon
+        self.assertContains(response, "icon icon-image")
 
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn("wagtailadmin/js/draftail.js", response_json["html"])
