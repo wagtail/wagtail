@@ -1,12 +1,3 @@
-// Rules which have been enforced in configuration upgrades and flag issues in existing code.
-// We need to consider whether to disable those rules permanently, or fix the issues.
-const legacyCode = {
-  'default-param-last': 'off',
-  'no-continue': 'off',
-  'no-else-return': 'off',
-  'no-restricted-syntax': 'off',
-};
-
 module.exports = {
   extends: [
     '@wagtail/eslint-config-wagtail',
@@ -63,26 +54,15 @@ module.exports = {
     'import/resolver': { node: { extensions: ['.js', '.ts', '.tsx'] } },
   },
   overrides: [
-    // Legacy Code - remove from `files` when adopting desired rules in new code progressively
-    {
-      files: [
-        'client/src/entrypoints/admin/core.js',
-        'client/src/entrypoints/admin/page-editor.js',
-        'client/src/entrypoints/admin/telepath/widgets.js',
-        'client/src/entrypoints/contrib/typed_table_block/typed_table_block.js',
-        'client/src/utils/version.js',
-      ],
-      rules: legacyCode,
-    },
     // Rules that we are ignoring currently due to legacy code in React components only
     {
       files: ['client/src/components/**'],
       rules: {
-        ...legacyCode,
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/interactive-supports-focus': 'off',
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
         'jsx-a11y/role-supports-aria-props': 'off',
+        'no-restricted-syntax': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'react-hooks/rules-of-hooks': 'off',
         'react/button-has-type': 'off',

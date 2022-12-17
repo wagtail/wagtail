@@ -131,7 +131,10 @@ export type Action =
 /**
  * A single page node in the explorer.
  */
-const node = (state = defaultPageState, action: Action): PageState => {
+const node = (
+  state = defaultPageState /* eslint-disable-line default-param-last */,
+  action: Action,
+): PageState => {
   switch (action.type) {
     case GET_PAGE_SUCCESS:
       return { ...state, ...action.payload.data, isError: false };
@@ -194,7 +197,10 @@ const defaultState: State = {};
 /**
  * Contains all of the page nodes in one object.
  */
-export default function nodes(state = defaultState, action: Action) {
+export default function nodes(
+  state = defaultState /* eslint-disable-line default-param-last */,
+  action: Action,
+) {
   switch (action.type) {
     case OPEN_EXPLORER: {
       return { ...state, [action.payload.id]: { ...defaultPageState } };

@@ -188,6 +188,7 @@ export class LayoutController {
                   pinnedCommentPosition - previousBlock.pinnedCommentPosition;
               }
 
+              // eslint-disable-next-line no-continue
               continue;
             }
           }
