@@ -295,6 +295,7 @@ class BoundDraftailWidget {
     if (!value || !value.blocks) return '';
 
     let result = '';
+    // eslint-disable-next-line no-restricted-syntax
     for (const block of value.blocks) {
       if (block.text) {
         result += result ? ' ' + block.text : block.text;

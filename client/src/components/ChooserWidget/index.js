@@ -53,9 +53,8 @@ export class Chooser {
         state[this.editUrlStateKey] = this.editLink.getAttribute('href');
       }
       return state;
-    } else {
-      return null;
     }
+    return null;
   }
 
   getState() {

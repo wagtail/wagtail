@@ -417,7 +417,8 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
   const styleCount = styles.count();
   if (styleCount === 0) {
     return null;
-  } else if (styleCount > 1) {
+  }
+  if (styleCount > 1) {
     // We're dealing with overlapping comments.
     // Find the least frequently occurring style and use that - this isn't foolproof, but in
     // most cases should ensure that all comments have at least one clickable section. This
@@ -890,7 +891,8 @@ function CommentableEditor({
                 return {
                   backgroundColor: background,
                 };
-              } else if (numStyles > 1) {
+              }
+              if (numStyles > 1) {
                 // Otherwise if we're in a region with overlapping comments, use a different colour than usual
                 // to indicate that
                 background = overlappingHighlight;

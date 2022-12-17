@@ -99,7 +99,8 @@ function enableDirtyFormCheck(formSelector, options) {
   const isFormDirty = () => {
     if (alwaysDirty) {
       return true;
-    } else if (!initialData) {
+    }
+    if (!initialData) {
       return false;
     }
 
@@ -116,7 +117,8 @@ function enableDirtyFormCheck(formSelector, options) {
       const oldValue = initialData.get(key);
       if (newValue === oldValue) {
         return false;
-      } else if (Array.isArray(newValue) && Array.isArray(oldValue)) {
+      }
+      if (Array.isArray(newValue) && Array.isArray(oldValue)) {
         return (
           newValue.length !== oldValue.length ||
           newValue.some((value, index) => value !== oldValue[index])
@@ -155,29 +157,22 @@ function enableDirtyFormCheck(formSelector, options) {
 
       $form.on('change keyup', updateDirtyCheck).trigger('change');
 
-      const validInputNodeInList = (nodeList) => {
-        for (const node of nodeList) {
-          if (
-            node.nodeType === node.ELEMENT_NODE &&
-            ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName)
-          ) {
-            return true;
-          }
-        }
-        return false;
-      };
+      const isValidInputNode = (node) =>
+        node.nodeType === node.ELEMENT_NODE &&
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName);
 
       const observer = new MutationObserver((mutationList) => {
-        for (const mutation of mutationList) {
-          if (
-            validInputNodeInList(mutation.addedNodes) ||
-            validInputNodeInList(mutation.removedNodes)
-          ) {
-            updateDirtyCheck();
-            return;
-          }
+        const hasMutationWithValidInputNode = mutationList.some(
+          (mutation) =>
+            mutation.addedNodes.some(isValidInputNode) ||
+            mutation.removedNodes.some(isValidInputNode),
+        );
+
+        if (hasMutationWithValidInputNode) {
+          updateDirtyCheck();
         }
       });
+
       observer.observe($form[0], {
         childList: true,
         attributes: false,
