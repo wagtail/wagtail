@@ -1,6 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import LiveStatusTagColumn
+from wagtail.admin.utils import get_object_icon
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
     ChooseResultsViewMixin,
@@ -14,7 +15,6 @@ from wagtail.models import DraftStateMixin
 
 class BaseSnippetChooseView(BaseChooseView):
     filter_form_class = None
-    icon = "snippet"
     page_title = _("Choose")
     results_template_name = "wagtailsnippets/chooser/results.html"
     per_page = 25
@@ -39,6 +39,7 @@ class BaseSnippetChooseView(BaseChooseView):
             {
                 "snippet_type_name": self.model._meta.verbose_name,
                 "add_url_name": f"wagtailsnippets_{app_label}_{model_name}:add",
+                "icon": get_object_icon(self.model, "snippet"),
             }
         )
         return context
@@ -63,3 +64,5 @@ class SnippetChooserViewSet(ChooserViewSet):
     choose_view_class = ChooseView
     choose_results_view_class = ChooseResultsView
     chosen_view_class = SnippetChosenView
+
+    icon = "snippet"
