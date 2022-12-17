@@ -4,13 +4,13 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
-from wagtail.test.snippets.models import StandardSnippet
+from wagtail.test.testapp.models import FullFeaturedSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSnippetDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.snippet_model = StandardSnippet
+        self.snippet_model = FullFeaturedSnippet
 
         # create a set of test snippets
         self.test_snippets = [
@@ -41,6 +41,9 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(
             response, "wagtailsnippets/bulk_actions/confirm_bulk_delete.html"
         )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
+        self.assertEqual(response.context["header_icon"], "cog")
+        self.assertContains(response, "icon icon-cog", count=1)
 
     def test_bulk_delete(self):
         response = self.client.post(self.url)
@@ -66,7 +69,7 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
 
         html = response.content.decode()
         self.assertInHTML(
-            "<p>You don't have permission to delete these standard snippets</p>",
+            "<p>You don't have permission to delete these full-featured snippets</p>",
             html,
         )
 

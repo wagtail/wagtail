@@ -1135,9 +1135,6 @@ class FullFeaturedSnippet(
         verbose_name_plural = "full-featured snippets"
 
 
-register_snippet(FullFeaturedSnippet)
-
-
 def get_default_advert():
     return Advert.objects.first()
 
@@ -1343,9 +1340,13 @@ class EventPageChooserModel(models.Model):
 
 class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text="help text", on_delete=models.CASCADE)
+    full_featured = models.ForeignKey(
+        FullFeaturedSnippet, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     panels = [
         FieldPanel("advert"),
+        FieldPanel("full_featured"),
     ]
 
 

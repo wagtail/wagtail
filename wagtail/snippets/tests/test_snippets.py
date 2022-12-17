@@ -111,6 +111,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -3783,6 +3784,7 @@ class TestSnippetChooserPanel(WagtailTestUtils, TestCase):
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
+        self.assertIn("icon icon-snippet icon", field_html)
 
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
@@ -4683,6 +4685,7 @@ class TestAddOnlyPermissions(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:add"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_edit(self):
         response = self.client.get(
@@ -4746,6 +4749,7 @@ class TestEditOnlyPermissions(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_delete(self):
         response = self.client.get(
@@ -4807,6 +4811,7 @@ class TestDeleteOnlyPermissions(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
 
 class TestSnippetEditHandlers(WagtailTestUtils, TestCase):
@@ -5276,6 +5281,8 @@ class TestSnippetChooseWithCustomPrimaryKey(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
+        self.assertEqual(response.context["icon"], "snippet")
 
     def test_ordering(self):
         """
