@@ -79,6 +79,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 ```{eval-rst}
 .. autoclass:: wagtail.snippets.views.snippets.SnippetViewSet
 
+   .. autoattribute:: icon
    .. autoattribute:: list_display
    .. autoattribute:: filterset_class
    .. autoattribute:: index_view_class

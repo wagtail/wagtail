@@ -567,7 +567,11 @@ class MemberFilterSet(WagtailFilterSet):
         fields = ["shirt_size"]
 ```
 
-You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute to specify the columns shown on the listing view. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`. For example:
+You can define a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.icon` attribute to specify the icon that is used across the admin for this snippet type. The `icon` needs to be [registered in the Wagtail icon library](../../advanced_topics/icons). If `icon` is not set, the default `"snippet"` icon is used.
+
+The {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.list_display` attribute can be set to specify the columns shown on the listing view. You can also add the ability to filter the listing view by defining a {attr}`~wagtail.snippets.views.snippets.SnippetViewSet.filterset_class` attribute on a subclass of `SnippetViewSet`.
+
+For example:
 
 ```python
 # views.py
@@ -578,6 +582,7 @@ from myapp.models import MemberFilterSet
 
 
 class MemberViewSet(SnippetViewSet):
+    icon = "user"
     list_display = ["name", "shirt_size", "get_shirt_size_display", UpdatedAtColumn()]
     filterset_class = MemberFilterSet
 ```
