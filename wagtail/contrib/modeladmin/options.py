@@ -14,6 +14,7 @@ from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.menu import Menu
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.admin.utils import get_object_icon
 from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Page, TranslatableMixin
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
@@ -182,7 +183,7 @@ class ModelAdmin(WagtailRegisterable):
         # See: https://github.com/wagtail/wagtail/issues/5105
         self.admin_site = default_django_admin_site
 
-        self.menu_icon = getattr(self.model, "admin_icon", None)
+        self.menu_icon = get_object_icon(self.model, None)
 
     def get_permission_helper_class(self):
         """

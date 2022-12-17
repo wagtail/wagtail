@@ -8,6 +8,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.utils import get_object_icon
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.admin.widgets.button import ListingButton
 from wagtail.telepath import register
@@ -23,7 +24,7 @@ class AdminSnippetChooser(BaseChooser):
         self.choose_one_text = _("Choose %(object)s") % {"object": name}
         self.choose_another_text = _("Choose another %(object)s") % {"object": name}
         self.link_to_chosen_text = _("Edit this %(object)s") % {"object": name}
-        self.icon = getattr(model, "admin_icon", "snippet")
+        self.icon = get_object_icon(model, "snippet")
 
         super().__init__(**kwargs)
 

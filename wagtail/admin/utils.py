@@ -46,3 +46,11 @@ def get_latest_str(obj):
     if isinstance(obj, DraftStateMixin) and obj.latest_revision:
         return obj.latest_revision.object_str
     return str(obj)
+
+
+def get_object_icon(model, default):
+    """
+    Helper function to standardise how an object icon is obtained,
+    intended primarily for Snippets.
+    """
+    return getattr(model, "admin_icon", default)

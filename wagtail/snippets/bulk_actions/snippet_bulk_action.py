@@ -1,6 +1,7 @@
 from django.contrib.admin.utils import quote
 from django.urls import reverse
 
+from wagtail.admin.utils import get_object_icon
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.snippets.models import get_snippet_models
 
@@ -25,7 +26,7 @@ class SnippetBulkAction(BulkAction):
     def get_context_data(self, **kwargs):
         kwargs.update({"model_opts": self.model._meta})
         context = super().get_context_data(**kwargs)
-        context["header_icon"] = getattr(self.model, "admin_icon", "snippet")
+        context["header_icon"] = get_object_icon(self.model, "snippet")
         return context
 
     def get_execution_context(self):

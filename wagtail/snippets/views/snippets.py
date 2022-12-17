@@ -26,6 +26,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
     UserColumn,
 )
+from wagtail.admin.utils import get_object_icon
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import lock
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
@@ -76,6 +77,10 @@ def get_snippet_edit_handler(model):
         stacklevel=2,
     )
     return get_edit_handler(model)
+
+
+def get_snippet_icon(model):
+    return get_object_icon(model, "snippet")
 
 
 # == Views ==
@@ -176,7 +181,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         ]
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -264,7 +269,7 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         }
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -336,7 +341,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -453,7 +458,7 @@ class DeleteView(generic.DeleteView):
                 instance.delete()
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -642,7 +647,7 @@ class HistoryView(ReportView):
         context["object"] = self.object
         context["subtitle"] = self.get_page_subtitle()
         context["model_opts"] = self.model._meta
-        context["header_icon"] = getattr(self.object, "admin_icon", self.header_icon)
+        context["header_icon"] = get_object_icon(self.object, self.header_icon)
         return context
 
     def get_queryset(self):
@@ -671,14 +676,14 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
         }
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
     permission_required = "publish"
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
@@ -703,7 +708,7 @@ class UnlockView(PermissionCheckedMixin, lock.UnlockView):
         return super().user_has_permission(permission)
 
     def get_header_icon(self):
-        return getattr(self.model, "admin_icon", "snippet")
+        return get_snippet_icon(self.model)
 
 
 class SnippetViewSet(ViewSet):
