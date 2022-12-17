@@ -1,3 +1,5 @@
+from warnings import warn
+
 from wagtail.coreutils import (  # noqa
     SCRIPT_RE,
     SLUGIFY_RE,
@@ -16,4 +18,13 @@ from wagtail.coreutils import (  # noqa
     resolve_model_string,
     safe_snake_case,
     string_to_ascii,
+)
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
+
+warn(
+    "Importing from wagtail.core.utils is deprecated. "
+    "Use wagtail.coreutils instead. "
+    "See https://docs.wagtail.org/en/stable/releases/3.0.html#changes-to-module-paths",
+    category=RemovedInWagtail50Warning,
+    stacklevel=2,
 )
