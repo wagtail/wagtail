@@ -59,9 +59,8 @@
             <div class="right col9">
                 <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
                 <p class="status-msg warning">
-                    {% trans "Note that the django-storages like Amazon S3 backends (storages.backends.s3boto.S3BotoStorage and storages.backends.s3boto3.S3Boto3Storage) do not correctly handle duplicate filenames in their default configuration. " %}
-                    
-                    {% trans "Upload successful. However, your new image seems to be a duplicate of this existing image. You may delete it if it wasn't required." %}
+                    {% trans "Note that the django-storages like Amazon S3 backends (storages.backends.s3boto.S3BotoStorage and storages.backends.s3boto3.S3Boto3Storage) do not correctly handle duplicate filenames in their default configuration.
+                    Upload successful. However, your new image seems to be a duplicate of this existing image. You may delete it if it wasn't required." %}
                     
                 </p>
                 <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
