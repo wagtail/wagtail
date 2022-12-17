@@ -6,7 +6,7 @@
 {% block content %}
     {% latest_str object as object_str %}
     {% trans "Workflow history for" as workflow_history_str %}
-    {% include "wagtailadmin/shared/header.html" with title=workflow_history_str subtitle=object_str icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=workflow_history_str subtitle=object_str icon=header_icon %}
 
     <div class="nice-padding">
         <p style="margin-bottom: 30px;">
