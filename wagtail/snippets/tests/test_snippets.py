@@ -57,6 +57,7 @@ from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
+    AdvertWithIcon,
     AdvertWithTabbedInterface,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
@@ -66,6 +67,7 @@ from wagtail.test.testapp.models import (
     RevisableModel,
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
+    SnippetChooserModelWithIcon,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import rendered_timestamp, submittable_timestamp
@@ -113,6 +115,7 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -3783,6 +3786,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
+        self.assertIn("icon icon-snippet icon", field_html)
 
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
@@ -4789,6 +4793,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:add"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_edit(self):
         response = self.client.get(
@@ -4859,6 +4864,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_delete(self):
         response = self.client.get(
@@ -4929,6 +4935,7 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(
             response, "wagtailsnippets/snippets/confirm_delete.html"
         )
+        self.assertEqual(response.context["header_icon"], "snippet")
 
     def test_get_delete_mulitple(self):
         url = reverse("wagtailsnippets_tests_advert:delete-multiple")
@@ -4938,6 +4945,7 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(
             response, "wagtailsnippets/snippets/confirm_delete.html"
         )
+        self.assertEqual(response.context["header_icon"], "snippet")
 
 
 class TestSnippetEditHandlers(TestCase, WagtailTestUtils):
@@ -5416,6 +5424,8 @@ class TestSnippetChooseWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
+        self.assertEqual(response.context["header_icon"], "snippet")
+        self.assertEqual(response.context["icon"], "snippet")
 
     def test_ordering(self):
         """
@@ -5504,3 +5514,124 @@ There are no default tabs on non-Page models so there will be no\
 
         # clean up for future checks
         delattr(StandardSnippet, "content_panels")
+
+
+class TestAdvertWithIcon(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+        user_model = get_user_model()
+        self.user = user_model.objects.get()
+
+        self.test_snippet = AdvertWithIcon(
+            url="http://www.example.com",
+            text="test_advert_with_icon",
+        )
+        self.test_snippet.save()
+
+    def test_get_list(self):
+        response = self.client.get(reverse("wagtailsnippets_tests_advertwithicon:list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+        self.assertEqual(response.context["header_icon"], "cross")
+
+    def test_get_add(self):
+        response = self.client.get(reverse("wagtailsnippets_tests_advertwithicon:add"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+        self.assertEqual(response.context["header_icon"], "cross")
+
+    def test_get_edit(self):
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_advertwithicon:edit",
+                args=[quote(self.test_snippet.pk)],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        self.assertEqual(response.context["header_icon"], "cross")
+
+    def test_get_delete(self):
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_advertwithicon:delete",
+                args=[quote(self.test_snippet.pk)],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailsnippets/snippets/confirm_delete.html"
+        )
+        self.assertEqual(response.context["header_icon"], "cross")
+
+    def test_get_multiple_delete(self):
+        url = reverse("wagtailsnippets_tests_advertwithicon:delete-multiple")
+        url += "?id=%s" % (self.test_snippet.pk)
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailsnippets/snippets/confirm_delete.html"
+        )
+        self.assertEqual(response.context["header_icon"], "cross")
+
+    def test_get_history(self):
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_advertwithicon:history",
+                args=[quote(self.test_snippet.pk)],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/history.html")
+        self.assertEqual(response.context["header_icon"], "cross")
+
+
+class TestSnippetChooserPanelWithIcon(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+        self.request = RequestFactory().get("/")
+        user_model = get_user_model()
+        self.request.user = user_model.objects.get()
+
+        model = SnippetChooserModelWithIcon
+        self.advert_text = "Test advert with icon text"
+        test_snippet = model.objects.create(
+            advertwithicon=AdvertWithIcon.objects.create(text=self.advert_text)
+        )
+
+        self.edit_handler = get_edit_handler(model)
+        self.form_class = self.edit_handler.get_form_class()
+        form = self.form_class(instance=test_snippet)
+        edit_handler = self.edit_handler.get_bound_panel(
+            instance=test_snippet, form=form, request=self.request
+        )
+
+        self.snippet_chooser_panel = [
+            panel
+            for panel in edit_handler.children
+            if getattr(panel, "field_name", None) == "advertwithicon"
+        ][0]
+
+    def test_render_html(self):
+        field_html = self.snippet_chooser_panel.render_html()
+        self.assertIn(self.advert_text, field_html)
+        self.assertIn("Choose advert with icon", field_html)
+        self.assertIn("Choose another advert with icon", field_html)
+        self.assertIn("icon icon-cross icon", field_html)
+
+        # make sure no snippet icons remain
+        self.assertNotIn("icon-snippet", field_html)
+
+    def test_chooser_popup(self):
+        response = self.client.get(
+            reverse("wagtailsnippetchoosers_tests_advertwithicon:choose")
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["header_icon"], "cross")
+        self.assertEqual(response.context["icon"], "cross")
+
+        # make sure no snippet icons remain
+        for k in response.context.keys():
+            if "icon" in k:
+                self.assertNotIn("snippet", response.context[k])

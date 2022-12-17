@@ -71,6 +71,10 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # User has add permission
         self.assertIs(response.context["user_can_create"], True)
 
+        # Test icon
+        self.assertEqual(response.context["view"].header_icon, "snippet")
+        self.assertContains(response, "icon icon-snippet")
+
     def test_csv_export(self):
         # Export the whole queryset
         response = self.get(export="csv")
@@ -373,6 +377,8 @@ class TestCreateView(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "snippet")
+        self.assertContains(response, "icon icon-snippet")
 
     def test_create(self):
         response = self.post(
@@ -553,6 +559,8 @@ class TestInspectView(TestCase, WagtailTestUtils):
     def test_author_simple(self):
         response = self.get_for_author(1)
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "snippet")
+        self.assertContains(response, "icon icon-snippet")
 
     def test_author_name_present(self):
         """
@@ -636,6 +644,8 @@ class TestEditView(TestCase, WagtailTestUtils):
         response = self.get(1)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "snippet")
+        self.assertContains(response, "icon icon-snippet")
         self.assertContains(response, "The Lord of the Rings")
 
         # "Last updated" timestamp should be present
@@ -837,6 +847,8 @@ class TestConfirmDeleteView(TestCase, WagtailTestUtils):
         response = self.get(1)
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "snippet")
+        self.assertContains(response, "icon icon-snippet")
 
     def test_non_existent(self):
         response = self.get(100)
@@ -1195,3 +1207,45 @@ class TestMenuSetting(TestCase, WagtailTestUtils):
         menu_item = modeladmin.get_menu_item()
         self.assertEqual(menu_item.label, "Event Model Label")
         self.assertEqual(menu_item.name, "eventitem")
+
+
+class TestTokenWithIcon(TestCase, WagtailTestUtils):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+    def test_index_view(self):
+        response = self.client.get("/admin/modeladmintest/tokenwithicon/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "tag")
+        self.assertContains(response, "icon icon-tag")
+
+    def test_create_view(self):
+        response = self.client.get("/admin/modeladmintest/tokenwithicon/create/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "tag")
+        self.assertContains(response, "icon icon-tag")
+
+    def test_inspect_view(self):
+        response = self.client.get("/admin/modeladmintest/tokenwithicon/inspect/boom/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "tag")
+        self.assertContains(response, "icon icon-tag")
+
+    def test_edit_view(self):
+        response = self.client.get("/admin/modeladmintest/tokenwithicon/edit/boom/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "tag")
+        self.assertContains(response, "icon icon-tag")
+
+    def test_confirm_delete_view(self):
+        response = self.client.get("/admin/modeladmintest/tokenwithicon/delete/boom/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view"].header_icon, "tag")
+        self.assertContains(response, "icon icon-tag")

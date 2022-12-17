@@ -118,6 +118,13 @@
     }
   },
   {
+    "pk": "boom",
+    "model": "modeladmintest.tokenwithicon",
+    "fields": {
+      "key": "boom"
+    }
+  },
+  {
     "pk": 1,
     "model": "wagtailcore.page",
     "fields": {

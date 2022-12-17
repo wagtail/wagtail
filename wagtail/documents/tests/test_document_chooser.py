@@ -92,6 +92,8 @@ class TestChooser(TestCase, WagtailTestUtils):
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
+        # ensure correct default icon
+        self.assertContains(response, "icon icon-doc-full-inverse")
         # and document is displayed
         self.assertContains(response, doc_title)
         # and no hints are displayed
