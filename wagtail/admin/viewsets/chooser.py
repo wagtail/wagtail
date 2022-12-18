@@ -20,6 +20,7 @@ class ChooserViewSet(ViewSet):
 
     model = None
 
+    icon = "snippet"  #: The default icon to use in the header of the chooser modal, and on the chooser widget
     choose_one_text = _(
         "Choose"
     )  #: Label for the 'choose' button in the chooser widget when choosing an initial item
