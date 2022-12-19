@@ -267,8 +267,9 @@ For example, to use the `<picture>` tag:
 ```html+django
 <picture>
     {% image page.photo width-800 as wide_photo %}
+    {% image page.photo width-400 as small_photo %}
     <source srcset="{{ wide_photo.url }}" media="(min-width: 800px)">
-    {% image page.photo width-400 %}
+    <img src="{{ small_photo.url }}">
 </picture>
 ```
 
