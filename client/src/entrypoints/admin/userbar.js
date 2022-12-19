@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     userbar.removeEventListener('keydown', handleUserbarItemsKeyDown, false);
   }
 
-  // if showUserbar(false) - works perfectly
   function toggleUserbar(e2) {
     e2.stopPropagation();
     if (userbar.classList.contains(isActiveClass)) {
