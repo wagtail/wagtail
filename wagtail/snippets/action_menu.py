@@ -284,9 +284,10 @@ class SnippetActionMenu:
         self.request = request
         self.context = kwargs
         self.context["request"] = request
+        instance = self.context.get("instance")
 
-        if "instance" in self.context:
-            self.context["model"] = self.context["instance"].__class__
+        if instance:
+            self.context["model"] = type(instance)
 
         self.context["draftstate_enabled"] = issubclass(
             self.context["model"], DraftStateMixin
@@ -297,6 +298,32 @@ class SnippetActionMenu:
             for menu_item in get_base_snippet_action_menu_items(self.context["model"])
             if menu_item.is_shown(self.context)
         ]
+
+        if instance and isinstance(instance, WorkflowMixin):
+            task = instance.current_workflow_task
+            current_workflow_state = instance.current_workflow_state
+            is_final_task = (
+                current_workflow_state and current_workflow_state.is_at_final_task
+            )
+            if task:
+                actions = task.get_actions(instance, request.user)
+                for name, label, launch_modal in actions:
+                    icon_name = "edit"
+                    if name == "approve":
+                        if is_final_task and not getattr(
+                            settings,
+                            "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT",
+                            False,
+                        ):
+                            label = _("%(label)s and Publish") % {"label": label}
+                        icon_name = "success"
+
+                    item = WorkflowMenuItem(
+                        name, label, launch_modal, icon_name=icon_name
+                    )
+
+                    if item.is_shown(self.context):
+                        self.menu_items.append(item)
 
         self.menu_items.sort(key=lambda item: item.order)
 
