@@ -3146,11 +3146,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
             count=1,
         )
 
-        # Should show the lock message
-        self.assertContains(
+        # Should not show the lock message, as we already have the error message
+        self.assertNotContains(
             response,
             "Draft state model 'I&#x27;ve been edited!' is locked and has been scheduled to go live at",
-            count=1,
         )
 
         # Should show the lock information in the status side panel
@@ -3171,7 +3170,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
             allow_extra_attrs=True,
         )
 
-        # Should show button to cancel scheduled publishing
+        # Should not show button to cancel scheduled publishing as the lock message isn't shown
         unschedule_url = reverse(
             "wagtailsnippets_tests_draftstatemodel:revisions_unschedule",
             args=[self.test_snippet.pk, self.latest_revision.pk],
@@ -3179,7 +3178,7 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
         self.assertTagInHTML(
             f'<button data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unschedule_url}">Cancel scheduled publish</button>',
             html,
-            count=1,
+            count=0,
             allow_extra_attrs=True,
         )
 

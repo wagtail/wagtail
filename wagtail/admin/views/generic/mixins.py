@@ -540,10 +540,11 @@ class CreateEditViewOptionalFeaturesMixin:
             "user_can_unlock": user_can_unlock,
         }
 
-        if not self.lock:
+        # Do not add lock message if the request method is not GET,
+        # as POST request may add success/validation error messages already
+        if not self.lock or self.request.method != "GET":
             return context
 
-        # Only add lock message if the request method is GET
         lock_message = self.lock.get_message(self.request.user)
         if lock_message:
             if user_can_unlock:
