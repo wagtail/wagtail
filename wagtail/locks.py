@@ -147,7 +147,11 @@ class WorkflowLock(BaseLock):
 
     def get_message(self, user):
         if self.for_user(user):
-            if len(self.object.current_workflow_state.all_tasks_with_status()) == 1:
+            current_workflow_state = self.object.current_workflow_state
+            if (
+                current_workflow_state
+                and len(current_workflow_state.all_tasks_with_status()) == 1
+            ):
                 # If only one task in workflow, show simple message
                 if self.is_page:
                     workflow_info = _("This page is currently awaiting moderation.")
@@ -164,17 +168,17 @@ class WorkflowLock(BaseLock):
                             "This page is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
                         ),
                         task_name=self.task.name,
-                        workflow_name=self.object.current_workflow_state.workflow.name,
+                        workflow_name=current_workflow_state.workflow.name,
                     )
                 else:
                     workflow_info = format_html(
                         # nosemgrep: translation-no-new-style-formatting (new-style only w/ format_html)
                         _(
-                            "This %(model_name)s is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
+                            "This {model_name} is awaiting <b>'{task_name}'</b> in the <b>'{workflow_name}'</b> workflow."
                         ),
                         model_name=self.object._meta.verbose_name,
                         task_name=self.task.name,
-                        workflow_name=self.object.current_workflow_state.workflow.name,
+                        workflow_name=current_workflow_state.workflow.name,
                     )
                     # Make sure message is correctly capitalised even if it
                     # starts with model_name.
