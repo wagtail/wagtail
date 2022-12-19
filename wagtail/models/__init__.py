@@ -4044,8 +4044,12 @@ class WorkflowState(models.Model):
         self.status = self.STATUS_IN_PROGRESS
         self.save()
 
+        instance = self.content_object
+        if isinstance(instance, Page):
+            instance = self.content_object.specific
+
         log(
-            instance=self.content_object.specific,
+            instance=instance,
             action="wagtail.workflow.resume",
             data={
                 "workflow": {
@@ -4069,7 +4073,7 @@ class WorkflowState(models.Model):
             return False
         return (
             user == self.requested_by
-            or user == self.content_object.owner
+            or user == getattr(self.content_object, "owner", None)
             or (
                 self.current_task_state
                 and self.current_task_state.status
@@ -4151,8 +4155,12 @@ class WorkflowState(models.Model):
         self.status = self.STATUS_CANCELLED
         self.save()
 
+        instance = self.content_object
+        if isinstance(instance, Page):
+            instance = self.content_object.specific
+
         log(
-            instance=self.content_object.specific,
+            instance=instance,
             action="wagtail.workflow.cancel",
             data={
                 "workflow": {
