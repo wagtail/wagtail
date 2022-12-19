@@ -81,7 +81,7 @@ class BaseWorkflowFormView(View):
     def render_modal_form(self, request, form):
         return render_modal_workflow(
             request,
-            "wagtailadmin/pages/workflow_action_modal.html",
+            "wagtailadmin/shared/workflow_action_modal.html",
             None,
             {
                 "page": self.page,

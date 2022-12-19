@@ -1227,7 +1227,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, "wagtailadmin/pages/workflow_action_modal.html"
+            response, "wagtailadmin/shared/workflow_action_modal.html"
         )
         html = json.loads(response.content)["html"]
         self.assertTagInHTML(
@@ -1374,7 +1374,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, "wagtailadmin/pages/workflow_action_modal.html"
+            response, "wagtailadmin/shared/workflow_action_modal.html"
         )
         self.assertTemplateUsed(response, "wagtailadmin/shared/non_field_errors.html")
         html = json.loads(response.content)["html"]
