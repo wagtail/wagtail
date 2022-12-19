@@ -3958,6 +3958,7 @@ class WorkflowState(models.Model):
     content_object = GenericForeignKey(
         "base_content_type", "object_id", for_concrete_model=False
     )
+    content_object.wagtail_reference_index_ignore = True
 
     workflow = models.ForeignKey(
         "Workflow",
