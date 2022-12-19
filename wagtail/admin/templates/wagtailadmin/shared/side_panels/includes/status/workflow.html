@@ -92,7 +92,6 @@
 
 {% block action %}
     {% if workflow_state and not hide_action %}
-        {% trans 'Moderators approval' as workflow_dialog_title %}
         {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
 
         {# info subtitle #}
@@ -101,11 +100,11 @@
             {% if workflow_state.requested_by %}
                 {% blocktrans trimmed with user=workflow_state.requested_by|user_display_name asvar modified_by %}by {{ user }}{% endblocktrans %}
             {% endif %}
-            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_dialog_title message_status='info' message_heading=message_heading|add:' '|add:modified_by %}
+            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_state.workflow.name message_status='info' message_heading=message_heading|add:' '|add:modified_by %}
                 {% include 'wagtailadmin/workflows/workflow_status.html' %}
             {% enddialog %}
         {% else %}
-            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_dialog_title %}
+            {% dialog id="workflow-status-dialog" icon_name="list-ul" title=workflow_state.workflow.name %}
                 {% include 'wagtailadmin/workflows/workflow_status.html' %}
             {% enddialog %}
         {% endif %}
