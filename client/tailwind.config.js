@@ -146,7 +146,8 @@ module.exports = {
      */
     plugin(({ addBase }) => {
       addBase({
-        ':root': {
+        /** Support for web components */
+        ':root, :host': {
           '--w-font-sans': fontFamily.sans.join(', '),
           '--w-font-mono': fontFamily.mono.join(', '),
           ...generateColorVariables(colors),
