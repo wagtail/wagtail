@@ -176,7 +176,7 @@ class CollectWorkflowActionData(BaseWorkflowFormView):
 
 
 class ConfirmWorkflowCancellation(BaseObjectMixin, View):
-    template_name = "wagtailadmin/pages/confirm_workflow_cancellation.html"
+    template_name = "wagtailadmin/shared/confirm_workflow_cancellation.html"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -208,6 +208,7 @@ class ConfirmWorkflowCancellation(BaseObjectMixin, View):
             == WorkflowState.STATUS_NEEDS_CHANGES,
             "task": self.workflow_state.current_task_state.task.name,
             "workflow": self.workflow_state.workflow.name,
+            "model_opts": self.model_opts,
             **kwargs,
         }
 

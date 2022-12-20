@@ -39,7 +39,7 @@ class CollectWorkflowActionData(
 class ConfirmWorkflowCancellation(
     WorkflowPageViewMixin, workflow.ConfirmWorkflowCancellation
 ):
-    pass
+    template_name = "wagtailadmin/pages/confirm_workflow_cancellation.html"
 
 
 @method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")

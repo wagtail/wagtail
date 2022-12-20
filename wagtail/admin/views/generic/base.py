@@ -48,6 +48,7 @@ class BaseObjectMixin:
         super().setup(request, *args, **kwargs)
         self.pk = self.get_pk()
         self.object = self.get_object()
+        self.model_opts = self.object._meta
 
     def get_pk(self):
         pk = self.kwargs[self.pk_url_kwarg]
