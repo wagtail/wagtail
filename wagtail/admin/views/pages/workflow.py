@@ -1,4 +1,3 @@
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 
@@ -45,7 +44,8 @@ class ConfirmWorkflowCancellation(
 
 @method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")
 class WorkflowStatus(WorkflowPageViewMixin, workflow.WorkflowStatus):
-    pass
+    history_url_name = "wagtailadmin_pages:history"
+    revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
 
 
 class PreviewRevisionForTask(WorkflowPageViewMixin, workflow.PreviewRevisionForTask):

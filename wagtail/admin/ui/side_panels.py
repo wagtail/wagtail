@@ -184,6 +184,7 @@ class PageStatusSidePanel(BaseStatusSidePanel):
                     "history_url": reverse(
                         "wagtailadmin_pages:history", args=(page.id,)
                     ),
+                    "revisions_compare_url_name": "wagtailadmin_pages:revisions_compare",
                     "lock_url": reverse("wagtailadmin_pages:lock", args=(page.id,)),
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
                     "user_can_lock": user_perms.for_page(page).can_lock(),

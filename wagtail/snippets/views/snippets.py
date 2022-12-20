@@ -302,6 +302,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
+    revisions_compare_url_name = None
     permission_required = "change"
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = gettext_lazy("The snippet could not be saved due to errors.")
@@ -354,6 +355,7 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                 "action_menu": action_menu,
                 "side_panels": side_panels,
                 "history_url": self.get_history_url(),
+                "revisions_compare_url_name": self.revisions_compare_url_name,
                 "media": media,
             }
         )
@@ -836,6 +838,7 @@ class SnippetViewSet(ViewSet):
             preview_url_name=self.get_url_name("preview_on_edit"),
             lock_url_name=self.get_url_name("lock"),
             unlock_url_name=self.get_url_name("unlock"),
+            revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
@@ -889,6 +892,7 @@ class SnippetViewSet(ViewSet):
             preview_url_name=self.get_url_name("preview_on_edit"),
             lock_url_name=self.get_url_name("lock"),
             unlock_url_name=self.get_url_name("unlock"),
+            revisions_compare_url_name=self.get_url_name("revisions_compare"),
             revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )

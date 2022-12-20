@@ -57,24 +57,24 @@
 
 {# Footer Actions #}
 <div class="workflow-timeline__footer">
-    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button">
+    <a href="{{ history_url }}" class="button">
         {% trans "See full history" %}
     </a>
 
-    {% with page.get_latest_revision as latest_revision %}
+    {% with object.get_latest_revision as latest_revision %}
         <div class="w-flex">
-            {% if page.live_revision %}
-                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id 'live' latest_revision.id %}" class="workflow-timeline__footer-link">
+            {% if object.live_revision %}
+                <a href="{% url revisions_compare_url_name object.pk|admin_urlquote 'live' latest_revision.id %}" class="workflow-timeline__footer-link">
                     {% trans "Compare with live version" %}
                 </a>
             {% endif %}
             {% with latest_revision.get_previous as previous_revision %}
                 {% if previous_revision %}
                     {# Only show the separator if there are two links. #}
-                    {% if page.live_revision %}
+                    {% if object.live_revision %}
                         <div class="w-mx-2" aria-hidden="true">|</div>
                     {% endif %}
-                    <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id latest_revision.id %}"
+                    <a href="{% url revisions_compare_url_name object.pk|admin_urlquote previous_revision.id latest_revision.id %}"
                         class="workflow-timeline__footer-link">{% trans 'Compare with previous version' %}</a>
                 {% endif %}
             {% endwith %}

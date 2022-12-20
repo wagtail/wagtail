@@ -213,6 +213,9 @@ class ConfirmWorkflowCancellation(BaseObjectMixin, View):
 
 
 class WorkflowStatus(BaseObjectMixin, View):
+    history_url_name = None
+    revisions_compare_url_name = None
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.workflow_state = self.object.current_workflow_state
@@ -221,6 +224,9 @@ class WorkflowStatus(BaseObjectMixin, View):
         if not self.workflow_state:
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+    def get_history_url(self):
+        return reverse(self.history_url_name, args=(quote(self.object.pk),))
 
     def get(self, request, *args, **kwargs):
         return render_modal_workflow(
@@ -236,6 +242,8 @@ class WorkflowStatus(BaseObjectMixin, View):
             "workflow_state": self.workflow_state,
             "current_task_state": self.workflow_state.current_task_state,
             "workflow_tasks": self.workflow_state.all_tasks_with_state(),
+            "history_url": self.get_history_url(),
+            "revisions_compare_url_name": self.revisions_compare_url_name,
             **kwargs,
         }
 
