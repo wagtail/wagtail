@@ -691,6 +691,8 @@ Contributors
 * Rishabh Kumar Bahukhandi
 * Ayman Makroo
 * Suyash Srivastava
+* Julian Bigler
+* Kenny Wolf
 
 Translators
 ===========
