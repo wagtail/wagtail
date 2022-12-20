@@ -77,17 +77,17 @@ urlpatterns = [
     ),
     path(
         "workflow/confirm_cancellation/<int:page_id>/",
-        workflow.confirm_workflow_cancellation,
+        workflow.ConfirmWorkflowCancellation.as_view(),
         name="confirm_workflow_cancellation",
     ),
     path(
         "workflow/preview/<int:page_id>/<int:task_id>/",
-        workflow.preview_revision_for_task,
+        workflow.PreviewRevisionForTask.as_view(),
         name="workflow_preview",
     ),
     path(
         "workflow/status/<int:page_id>/",
-        workflow.workflow_status,
+        workflow.WorkflowStatus.as_view(),
         name="workflow_status",
     ),
     path(
