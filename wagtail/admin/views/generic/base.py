@@ -38,11 +38,35 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         return context
 
 
-class BaseOperationView(View):
-    """Base view to perform an operation on a model instance using a POST request."""
+class BaseObjectMixin:
+    """Mixin for views that make use of a model instance."""
 
     model = None
     pk_url_kwarg = "pk"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = self.get_pk()
+        self.object = self.get_object()
+
+    def get_pk(self):
+        pk = self.kwargs[self.pk_url_kwarg]
+        if isinstance(pk, str):
+            return unquote(pk)
+        return pk
+
+    def get_object(self):
+        if not self.model:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.base.BaseObjectMixin must provide a "
+                "model attribute or a get_object method"
+            )
+        return get_object_or_404(self.model, pk=self.pk)
+
+
+class BaseOperationView(BaseObjectMixin, View):
+    """Base view to perform an operation on a model instance using a POST request."""
+
     success_message = None
     success_message_extra_tags = ""
     success_url_name = None
@@ -50,19 +74,6 @@ class BaseOperationView(View):
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.next_url = get_valid_next_url_from_request(request)
-        self.object = self.get_object()
-
-    def get_object(self):
-        if not self.model:
-            raise ImproperlyConfigured(
-                "Subclasses of wagtail.admin.views.generic.base.BaseOperationView must provide a "
-                "model attribute or a get_object method"
-            )
-
-        pk = self.kwargs[self.pk_url_kwarg]
-        if isinstance(pk, str):
-            pk = unquote(pk)
-        return get_object_or_404(self.model, pk=pk)
 
     def perform_operation(self):
         raise NotImplementedError
