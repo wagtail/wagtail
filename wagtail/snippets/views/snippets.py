@@ -27,7 +27,7 @@ from wagtail.admin.ui.tables import (
     UserColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic import lock
+from wagtail.admin.views.generic import lock, workflow
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
@@ -42,6 +42,7 @@ from wagtail.models import (
     LockableMixin,
     PreviewableMixin,
     RevisionMixin,
+    WorkflowMixin,
 )
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
@@ -687,6 +688,26 @@ class UnlockView(PermissionCheckedMixin, lock.UnlockView):
         return super().user_has_permission(permission)
 
 
+class WorkflowActionView(workflow.WorkflowAction):
+    pass
+
+
+class CollectWorkflowActionDataView(workflow.CollectWorkflowActionData):
+    pass
+
+
+class ConfirmWorkflowCancellationView(workflow.ConfirmWorkflowCancellation):
+    pass
+
+
+class WorkflowStatusView(PermissionCheckedMixin, workflow.WorkflowStatus):
+    permission_required = "change"
+
+
+class WorkflowPreviewView(workflow.PreviewRevisionForTask):
+    pass
+
+
 class SnippetViewSet(ViewSet):
     """
     A viewset that instantiates the admin views for snippets.
@@ -752,11 +773,27 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnlockView``.
     unlock_view_class = UnlockView
 
+    #: The view class to use for performing a workflow action; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowActionView``.
+    workflow_action_view_class = WorkflowActionView
+
+    #: The view class to use for performing a workflow action that returns the validated data in the response; must be a subclass of ``wagtail.snippet.views.snippets.CollectWorkflowActionDataView``.
+    collect_workflow_action_data_view_class = CollectWorkflowActionDataView
+
+    #: The view class to use for confirming the cancellation of a workflow; must be a subclass of ``wagtail.snippet.views.snippets.ConfirmWorkflowCancellationView``.
+    confirm_workflow_cancellation_view_class = ConfirmWorkflowCancellationView
+
+    #: The view class to use for rendering the workflow status modal; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowStatusView``.
+    workflow_status_view_class = WorkflowStatusView
+
+    #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowPreviewView``.
+    workflow_preview_view_class = WorkflowPreviewView
+
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
+        self.workflow_enabled = issubclass(self.model, WorkflowMixin)
         self.locking_enabled = issubclass(self.model, LockableMixin)
 
         if not self.list_display:
@@ -951,6 +988,39 @@ class SnippetViewSet(ViewSet):
         )
 
     @property
+    def workflow_action_view(self):
+        return self.workflow_action_view_class.as_view(
+            model=self.model,
+            redirect_url_name=self.get_url_name("edit"),
+            submit_url_name=self.get_url_name("workflow_action"),
+        )
+
+    @property
+    def collect_workflow_action_data_view(self):
+        return self.collect_workflow_action_data_view_class.as_view(
+            model=self.model,
+            redirect_url_name=self.get_url_name("edit"),
+            submit_url_name=self.get_url_name("collect_workflow_action_data"),
+        )
+
+    @property
+    def confirm_workflow_cancellation_view(self):
+        return self.confirm_workflow_cancellation_view_class.as_view(model=self.model)
+
+    @property
+    def workflow_status_view(self):
+        return self.workflow_status_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            history_url_name=self.get_url_name("history"),
+            revisions_compare_url_name=self.get_url_name("revisions_compare"),
+        )
+
+    @property
+    def workflow_preview_view(self):
+        return self.workflow_preview_view_class.as_view(model=self.model)
+
+    @property
     def redirect_to_edit_view(self):
         return partial(
             redirect_to_edit,
@@ -1034,6 +1104,39 @@ class SnippetViewSet(ViewSet):
                 path("lock/<str:pk>/", self.lock_view, name="lock"),
                 path("unlock/<str:pk>/", self.unlock_view, name="unlock"),
             ]
+
+        if self.workflow_enabled:
+            urlpatterns += [
+                path(
+                    "workflow/action/<str:pk>/<slug:action_name>/<int:task_state_id>/",
+                    self.workflow_action_view,
+                    name="workflow_action",
+                ),
+                path(
+                    "workflow/collect_action_data/<str:pk>/<slug:action_name>/<int:task_state_id>/",
+                    self.collect_workflow_action_data_view,
+                    name="collect_workflow_action_data",
+                ),
+                path(
+                    "workflow/confirm_cancellation/<str:pk>/",
+                    self.confirm_workflow_cancellation_view,
+                    name="confirm_workflow_cancellation",
+                ),
+                path(
+                    "workflow/status/<str:pk>/",
+                    self.workflow_status_view,
+                    name="workflow_status",
+                ),
+            ]
+
+            if self.preview_enabled:
+                urlpatterns += [
+                    path(
+                        "workflow/preview/<str:pk>/<int:task_id>/",
+                        self.workflow_preview_view,
+                        name="workflow_preview",
+                    ),
+                ]
 
         legacy_redirects = [
             # legacy URLs that could potentially collide if the pk matches one of the reserved names above
