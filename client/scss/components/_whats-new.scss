@@ -1,5 +1,4 @@
 .w-whats-new {
-  @include nice-padding();
   margin-bottom: theme('spacing.16');
 
   &.w-dismissible--dismissed {

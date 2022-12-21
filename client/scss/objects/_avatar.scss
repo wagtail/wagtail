@@ -29,8 +29,10 @@
   }
 
   &.large {
-    width: 100px;
-    height: 100px;
+    @include media-breakpoint-up(sm) {
+      width: 70px;
+      height: 70px;
+    }
   }
 
   &.square {

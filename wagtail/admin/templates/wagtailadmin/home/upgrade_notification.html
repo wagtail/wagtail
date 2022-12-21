@@ -1,7 +1,7 @@
 {% load i18n wagtailcore_tags wagtailadmin_tags %}
 {% wagtail_version as current_version %}
 <div
-    class="w-panel-upgrade panel nice-padding w-hidden"
+    class="w-panel-upgrade panel w-hidden"
     data-controller="w-upgrade"
     data-w-upgrade-current-version-value="{{ current_version }}"
     {% if lts_only %}data-w-upgrade-lts-only-value="true"{% endif %}
