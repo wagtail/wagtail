@@ -455,7 +455,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
 
         return self.prefetch_related(
             Prefetch(
-                "workflow_states",
+                "_workflow_states",
                 queryset=workflow_states,
                 to_attr="_current_workflow_states",
             )
