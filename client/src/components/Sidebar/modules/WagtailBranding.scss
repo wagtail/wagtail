@@ -18,7 +18,7 @@ $logo-size: 110px;
   display: block;
   align-items: center;
   -webkit-font-smoothing: auto;
-  margin: 4rem auto;
+  margin: theme('spacing.slim-header') auto theme('spacing.11');
   text-align: center;
   width: $logo-size;
   height: $logo-size;
@@ -28,7 +28,7 @@ $logo-size: 110px;
   border-radius: 100%;
 
   @include media-breakpoint-up(sm) {
-    margin: 0.5rem auto 4rem auto;
+    margin-top: 0.5rem;
   }
 
   // Reduce overall size when in slim mode
