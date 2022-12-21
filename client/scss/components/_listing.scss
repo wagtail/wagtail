@@ -415,6 +415,13 @@ table.listing {
   width: 100%;
 }
 
+// Use consistent spacing to the left and right of the header.
+.page-explorer .w-slim-header {
+  @include media-breakpoint-up(md) {
+    padding-inline-end: theme('spacing.6');
+  }
+}
+
 .page-explorer .w-breadcrumb {
   li[hidden] ~ li:last-child,
   li:only-child {
