@@ -603,9 +603,8 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         )
         self.assertRedirects(response, reverse("wagtaildocs:index"))
         self.document.refresh_from_db()
-        self.assertFalse(self.document.file.storage.exists(old_filename))
-        self.assertTrue(self.document.file.storage.exists(self.document.file.name))
-        self.assertNotEqual(self.document.file.name, "documents/" + new_name)
+        self.assertEqual(old_filename, self.document.file.name)
+        self.assertEqual(self.document.file.name, "documents/" + new_name)
         self.assertEqual(self.document.file.read(), b"An updated test content.")
 
     def test_reupload_different_name(self):
