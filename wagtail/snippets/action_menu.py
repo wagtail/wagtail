@@ -125,7 +125,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
 
 
 class WorkflowMenuItem(ActionMenuItem):
-    template_name = "wagtailadmin/pages/action_menu/workflow_menu_item.html"
+    template_name = "wagtailsnippets/snippets/action_menu/workflow_menu_item.html"
 
     def __init__(self, name, label, launch_modal, *args, **kwargs):
         self.name = name
@@ -140,11 +140,22 @@ class WorkflowMenuItem(ActionMenuItem):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context["launch_modal"] = self.launch_modal
-        context["current_task_state"] = context["instance"].current_workflow_task_state
         return context
 
     def is_shown(self, context):
         return not context.get("locked_for_user")
+
+    def get_url(self, parent_context):
+        instance = parent_context["instance"]
+        url_name = instance.get_admin_url_namespace() + ":collect_workflow_action_data"
+        return reverse(
+            url_name,
+            args=(
+                quote(instance.pk),
+                self.name,
+                instance.current_workflow_task_state.pk,
+            ),
+        )
 
 
 class RestartWorkflowMenuItem(ActionMenuItem):

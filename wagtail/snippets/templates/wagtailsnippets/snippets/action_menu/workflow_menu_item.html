@@ -1,0 +1,4 @@
+{% load wagtailadmin_tags %}
+<button class="button" data-workflow-action-name="{{ name }}" {% if launch_modal %}data-workflow-action-modal-url="{{ url }}"{% endif %}>
+    {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
+</button>
