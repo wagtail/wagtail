@@ -9,7 +9,13 @@ from django.forms.fields import FileField, ImageField
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
-ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp"]
+ALLOW_SVG = getattr(settings, "WAGTAILIMAGES_ALLOW_SVG", False)
+if ALLOW_SVG:
+    ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
+    SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP, SVG")
+else:
+    ALLOWED_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp"]
+    SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP")
 
 
 class WagtailImageField(ImageField):
