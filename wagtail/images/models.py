@@ -684,7 +684,7 @@ class Filter:
         if not size:
             size = (image.width, image.height)
 
-        transform = ImageTransform(size)
+        transform = ImageTransform(size, image_is_svg=image.is_svg())
         for operation in self.transform_operations:
             transform = operation.run(transform, image)
         return transform

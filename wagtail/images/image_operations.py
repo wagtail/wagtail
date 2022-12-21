@@ -38,14 +38,15 @@ class ImageTransform:
     features such as transforming the focal point of the image.
     """
 
-    def __init__(self, size):
-        self._check_size(size)
+    def __init__(self, size, image_is_svg=False):
+        self._check_size(size, allow_floating_point=image_is_svg)
+        self.image_is_svg = image_is_svg
         self.size = size
         self.scale = (1.0, 1.0)
         self.offset = (0.0, 0.0)
 
     def clone(self):
-        clone = ImageTransform(self.size)
+        clone = ImageTransform(self.size, self.image_is_svg)
         clone.scale = self.scale
         clone.offset = self.offset
         return clone
@@ -54,7 +55,7 @@ class ImageTransform:
         """
         Change the image size, stretching the transform to make it fit the new size.
         """
-        self._check_size(size)
+        self._check_size(size, allow_floating_point=self.image_is_svg)
         clone = self.clone()
         clone.scale = (
             clone.scale[0] * size[0] / self.size[0],
@@ -67,7 +68,7 @@ class ImageTransform:
         """
         Crop the image to the specified rect.
         """
-        self._check_size(tuple(rect.size))
+        self._check_size(tuple(rect.size), allow_floating_point=self.image_is_svg)
 
         # Transform the image so the top left of the rect is at (0, 0), then set the size
         clone = self.clone()
@@ -118,12 +119,12 @@ class ImageTransform:
         )
 
     @staticmethod
-    def _check_size(size):
-        if (
-            not isinstance(size, tuple)
-            or len(size) != 2
-            or int(size[0]) != size[0]
-            or int(size[1]) != size[1]
+    def _check_size(size, allow_floating_point=False):
+        if not isinstance(size, tuple) or len(size) != 2:
+            raise TypeError("Image size must be a 2-tuple")
+
+        if not allow_floating_point and (
+            int(size[0]) != size[0] or int(size[1]) != size[1]
         ):
             raise TypeError("Image size must be a 2-tuple of integers")
 
