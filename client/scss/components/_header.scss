@@ -47,7 +47,7 @@
   &.w-header--with-padding,
   > .row {
     padding-top: theme('spacing.2');
-    padding-bottom: theme('spacing.6');
+    padding-bottom: theme('spacing.[2.5]');
     padding-inline-start: 110px;
     padding-inline-end: theme('spacing.5');
   }
@@ -116,7 +116,7 @@
     .row {
       padding-inline-start: $desktop-nice-padding;
       padding-inline-end: $desktop-nice-padding;
-      padding-top: theme('spacing.6');
+      padding-top: theme('spacing.10');
     }
 
     &.w-header--merged .w-breadcrumb {
