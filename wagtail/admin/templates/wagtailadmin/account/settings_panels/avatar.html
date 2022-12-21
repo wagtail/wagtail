@@ -2,9 +2,7 @@
 {% block content %}
     <div class="avatar-panel">
         <div class="avatar-panel__image">
-            <div class="avatar large">
-                <img src="{% avatar_url request.user 70 %}" alt="">
-            </div>
+            {% avatar user=request.user size="large" %}
         </div>
         <div class="avatar-panel__form">
             <label for="id_avatar-avatar">{% trans "Upload a profile picture:" %}</label>

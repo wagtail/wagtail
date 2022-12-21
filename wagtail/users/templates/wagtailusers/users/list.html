@@ -36,7 +36,7 @@
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
                 <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
                     <div class="title-wrapper">
-                        <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" decoding="async" loading="lazy"/></span>
+                        {% avatar user=user size="small" %}
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                     </div>
                     <ul class="actions">

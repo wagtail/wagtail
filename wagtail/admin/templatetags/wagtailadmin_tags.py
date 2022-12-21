@@ -589,6 +589,22 @@ def bulk_action_choices(context, app_label, model_name):
     return {"buttons": bulk_action_buttons}
 
 
+@register.inclusion_tag("wagtailadmin/shared/avatar.html")
+def avatar(user=None, classname=None, size=None, tooltip=None):
+    """
+    Displays a user avatar using the avatar template
+    Usage:
+    {% load wagtailadmin_tags %}
+    ...
+    {% avatar user=request.user size='small' tooltip='JaneDoe' %}
+    :param user: the user to get avatar information from (User)
+    :param size: default None (None|'small'|'large'|'square')
+    :param tooltip: Optional tooltip to display under the avatar (string)
+    :return: Rendered template snippet
+    """
+    return {"user": user, "classname": classname, "size": size, "tooltip": tooltip}
+
+
 @register.simple_tag
 def message_level_tag(message):
     """
