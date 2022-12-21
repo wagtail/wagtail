@@ -47,6 +47,7 @@ IMAGE_FORMAT_EXTENSIONS = {
     "png": ".png",
     "gif": ".gif",
     "webp": ".webp",
+    "svg": ".svg",
 }
 
 
@@ -579,6 +580,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     def is_landscape(self):
         return self.height < self.width
 
+    def is_svg(self):
+        return self.file.name.endswith(".svg")
+
     @property
     def filename(self):
         return os.path.basename(self.file.name)
@@ -761,6 +765,8 @@ class Filter:
                     quality = getattr(settings, "WAGTAILIMAGES_WEBP_QUALITY", 85)
 
                 return willow.save_as_webp(output, quality=quality)
+            elif output_format == "svg":
+                return willow.save_as_svg(output)
             raise UnknownOutputImageFormatError(
                 f"Unknown output image format '{output_format}'"
             )
