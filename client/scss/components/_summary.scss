@@ -1,6 +1,4 @@
 .w-summary {
-  @include nice-padding();
-
   // set up responsive font size for icon and number as local custom property
   --w-summary-item-font-size: clamp(
     theme('fontSize.30') * 1.5,
@@ -42,6 +40,13 @@
   a {
     color: inherit;
     text-align: start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: theme('spacing.[1.5]');
+
+    @include media-breakpoint-up(sm) {
+      font-size: theme('fontSize.18');
+    }
 
     /* Summary big number */
     > span {

@@ -12,10 +12,11 @@
         {% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}
     {% endfragment %}
 
-    {% avatar_url user as avatar %}
-    {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar merged=1 %}
 
-    <div class="nice-padding">
+    <div class="nice-padding w-mt-20">
+        {% avatar_url user 70 as avatar %}
+        {% include "wagtailadmin/shared/header.html" with title=header_title description=user|user_display_name avatar=avatar merged=1 %}
+
         {% if panels %}
             {% for panel in panels %}
                 {% component panel fallback_render_method=True %}

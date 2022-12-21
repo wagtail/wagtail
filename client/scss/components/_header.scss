@@ -28,7 +28,6 @@
     }
 
     &.avatar {
-      margin-top: theme('spacing.2');
       margin-inline-start: calc(0 - theme('spacing.2'));
     }
   }
@@ -126,7 +125,7 @@
 
     .w-header__glyph {
       &.avatar {
-        margin-inline-start: calc(0 - theme('spacing.5'));
+        margin-inline-start: calc(0 - theme('spacing.9'));
       }
     }
 
