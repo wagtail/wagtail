@@ -579,6 +579,9 @@ class CreateEditViewOptionalFeaturesMixin:
         context["revision_enabled"] = self.revision_enabled
         context["draftstate_enabled"] = self.draftstate_enabled
         context["live_last_updated_info"] = self.get_live_last_updated_info()
+        context["publishing_will_cancel_workflow"] = self.workflow_tasks and getattr(
+            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+        )
         return context
 
     def post(self, request, *args, **kwargs):
