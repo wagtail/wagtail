@@ -6,7 +6,7 @@
         <div class="row last-updated">
             <ul>
                 <li>
-                    <span class="avatar small" data-wagtail-tooltip="{{ latest_log_entry.user_display_name }}"><img src="{% avatar_url latest_log_entry.user size=25 %}" alt="" decoding="async" loading="lazy"/></span>
+                    {% avatar user=latest_log_entry.user size="small" tooltip=latest_log_entry.user_display_name %}
                     {% trans "Last updated" %}
                     {% include "wagtailadmin/shared/last_updated.html" with last_updated=latest_log_entry.timestamp show_time_prefix=True %}
                 </li>
