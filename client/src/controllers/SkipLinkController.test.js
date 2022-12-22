@@ -1,22 +1,39 @@
-import { initSkipLink } from './initSkipLink';
+import { Application } from '@hotwired/stimulus';
 
-describe('initSkipLink', () => {
+import { SkipLinkController } from './SkipLinkController';
+
+describe('skip to the main content on clicking the skiplink', () => {
   document.body.innerHTML = `
-  <div><a id="test" class="skiplink button" href="#main" data-skiplink="">Skip to main content</a></div>
-  <main id="main">Main content</main>
+  <a id="skip" class="button" data-controller="w-skip-link" data-action="click->w-skip-link#skip">Skip to main content</a>
+  <main>Main content</main>
+  <button id="other-content">other</button>
   `;
 
-  it('should add tabindex to make focusable and remove again', () => {
-    const mainElement = document.getElementById('main');
+  const application = Application.start();
 
+  application.register('w-skip-link', SkipLinkController);
+
+  const mainElement = document.querySelector('main');
+
+  it('should keep tabindex, blur and focusout attribute as null when not in focus', () => {
     expect(document.activeElement).toBe(document.body);
-    expect(mainElement.getAttribute('tabindex')).toEqual(null);
+    expect(mainElement.getAttribute('tabindex')).toBe(null);
+  });
 
-    initSkipLink();
-
-    document.getElementById('test').click();
-
+  it('should skip to main when skip link is clicked', () => {
+    document.getElementById('skip').click();
     expect(mainElement.getAttribute('tabindex')).toEqual('-1');
-    expect(document.activeElement).toEqual(mainElement);
+    expect(document.activeElement).toBe(mainElement);
+    expect(mainElement.getAttribute('blur')).toBe(null);
+    expect(mainElement.getAttribute('focusout')).toBe(null);
+  });
+
+  it('should reset tab index when focus is moved from skip link', () => {
+    const otherContent = document.getElementById('other-content');
+    otherContent.focus();
+    expect(document.activeElement).toBe(otherContent);
+    expect(otherContent.getAttribute('tabindex')).toBe(null);
+    expect(otherContent.getAttribute('blur')).toBe(null);
+    expect(otherContent.getAttribute('focusout')).toBe(null);
   });
 });
