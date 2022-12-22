@@ -555,7 +555,7 @@ def compile_ignore_list(check=False):
             )
         if parts == 1:
             content_types = ContentType.objects.filter(app_label=elements[0])
-            if len(content_types) != 1:
+            if len(content_types) == 0:
                 errors.append(
                     Warning(
                         f"ReferenceIndex ingore entry '{entry}' doesn't match an app label. Skipping entry.",
