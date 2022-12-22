@@ -2,6 +2,8 @@ import datetime
 
 import django_filters
 from django.contrib.auth import get_user_model
+from django.db.models import CharField
+from django.db.models.functions import Cast
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import (
@@ -16,6 +18,7 @@ from wagtail.models import (
     UserPagePermissionsProxy,
     Workflow,
     WorkflowState,
+    get_default_page_content_type,
 )
 
 from .base import ReportView
@@ -137,7 +140,17 @@ class WorkflowView(ReportView):
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        return WorkflowState.objects.filter(page__in=pages).order_by("-created_at")
+        # Need to cast the page ids to string because Postgres doesn't support
+        # implicit type casts when querying on GenericRelations
+        # https://code.djangoproject.com/ticket/16055
+        # Once the issue is resolved, we can change the query to
+        # page__in=pages
+        page_ids = pages.values_list(Cast("id", output_field=CharField()), flat=True)
+        return (
+            WorkflowState.objects.for_pages()
+            .filter(object_id__in=page_ids)
+            .order_by("-created_at")
+        )
 
 
 class WorkflowTasksView(ReportView):
@@ -174,6 +187,13 @@ class WorkflowTasksView(ReportView):
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        return TaskState.objects.filter(workflow_state__page__in=pages).order_by(
-            "-started_at"
-        )
+        # Need to cast the page ids to string because Postgres doesn't support
+        # implicit type casts when querying on GenericRelations
+        # https://code.djangoproject.com/ticket/16055
+        # Once the issue is resolved, we can change the query to
+        # workflow_state__page_in=pages
+        page_ids = pages.values_list(Cast("id", output_field=CharField()), flat=True)
+        return TaskState.objects.filter(
+            workflow_state__base_content_type_id=get_default_page_content_type().id,
+            workflow_state__object_id__in=page_ids,
+        ).order_by("-started_at")

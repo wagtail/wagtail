@@ -21,6 +21,7 @@ from wagtail.models import (
     WorkflowPage,
     WorkflowState,
     WorkflowTask,
+    get_default_page_content_type,
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage, SimpleTask
@@ -1168,8 +1169,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Check that the workflow was approved
 
-        workflow_state = WorkflowState.objects.get(
-            page=self.page, requested_by=self.submitter
+        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+            requested_by=self.submitter
         )
 
         self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
@@ -1303,8 +1304,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that the workflow state was marked as cancelled
-        workflow_state = WorkflowState.objects.get(
-            page=self.page, requested_by=self.submitter
+        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+            requested_by=self.submitter
         )
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
 
@@ -1322,8 +1323,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Check that the workflow was marked as needing changes
 
-        workflow_state = WorkflowState.objects.get(
-            page=self.page, requested_by=self.submitter
+        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+            requested_by=self.submitter
         )
 
         self.assertEqual(workflow_state.status, workflow_state.STATUS_NEEDS_CHANGES)
@@ -1434,8 +1435,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Check that the workflow was approved
 
-        workflow_state = WorkflowState.objects.get(
-            page=self.page, requested_by=self.submitter
+        workflow_state = WorkflowState.objects.for_instance(self.page).get(
+            requested_by=self.submitter
         )
 
         self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
@@ -1902,7 +1903,9 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.workflow.refresh_from_db()
         self.assertIs(self.workflow.active, False)
-        states = WorkflowState.objects.filter(page=self.page, workflow=self.workflow)
+        states = WorkflowState.objects.for_instance(self.page).filter(
+            workflow=self.workflow
+        )
         self.assertEqual(
             states.filter(status=WorkflowState.STATUS_IN_PROGRESS).count(), 0
         )
@@ -1964,7 +1967,9 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.task_1.refresh_from_db()
         self.assertIs(self.task_1.active, False)
         states = TaskState.objects.filter(
-            workflow_state__page=self.page, task=self.task_1.task_ptr
+            workflow_state__base_content_type_id=get_default_page_content_type().id,
+            workflow_state__object_id=str(self.page.id),
+            task=self.task_1.task_ptr,
         )
         self.assertEqual(states.filter(status=TaskState.STATUS_IN_PROGRESS).count(), 0)
         self.assertEqual(states.filter(status=TaskState.STATUS_CANCELLED).count(), 1)

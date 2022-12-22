@@ -5,7 +5,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.db import connection
-from django.db.models import Max, Q
+from django.db.models import CharField, IntegerField, Max, OuterRef, Q, Subquery
+from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
@@ -118,10 +119,23 @@ class UserPagesInWorkflowModerationPanel(Component):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
+            # Need to cast the page ids to string because Postgres doesn't support
+            # implicit type casts when querying on GenericRelations. We also need
+            # to cast the object_id to integer when querying the pages for the same reason.
+            # https://code.djangoproject.com/ticket/16055
+            # Once the issue is resolved, the subquery can be removed and the
+            # filter can be changed to:
+            # Q(page__owner=request.user) | Q(requested_by=request.user)
+            owned_by_user = Subquery(
+                Page.objects.filter(
+                    owner=request.user,
+                    id=Cast(OuterRef("object_id"), output_field=IntegerField()),
+                ).values_list(Cast("id", output_field=CharField()), flat=True)
+            )
             # Find in progress workflow states which are either requested by the user or on pages owned by the user
             context["workflow_states"] = (
                 WorkflowState.objects.active()
-                .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
+                .filter(Q(object_id__in=owned_by_user) | Q(requested_by=request.user))
                 .prefetch_related("content_object")
                 .select_related(
                     "current_task_state",

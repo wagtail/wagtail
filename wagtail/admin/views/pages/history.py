@@ -20,6 +20,7 @@ from wagtail.models import (
     TaskState,
     UserPagePermissionsProxy,
     WorkflowState,
+    get_default_page_content_type,
 )
 
 
@@ -59,7 +60,7 @@ def workflow_history(request, page_id):
     if not user_perms.for_page(page).can_edit():
         raise PermissionDenied
 
-    workflow_states = WorkflowState.objects.filter(page=page).order_by("-created_at")
+    workflow_states = WorkflowState.objects.for_instance(page).order_by("-created_at")
 
     paginator = Paginator(workflow_states, per_page=20)
     workflow_states = paginator.get_page(request.GET.get("p"))
@@ -81,7 +82,14 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     if not user_perms.for_page(page).can_edit():
         raise PermissionDenied
 
-    workflow_state = get_object_or_404(WorkflowState, page=page, id=workflow_state_id)
+    # Change to page=page once this issue is resolved:
+    # https://code.djangoproject.com/ticket/16055
+    workflow_state = get_object_or_404(
+        WorkflowState,
+        base_content_type_id=get_default_page_content_type().id,
+        object_id=str(page.id),
+        id=workflow_state_id,
+    )
 
     # Get QuerySet of all revisions that have existed during this workflow state
     # It's possible that the page is edited while the workflow is running, so some
