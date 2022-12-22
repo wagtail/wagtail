@@ -139,11 +139,13 @@ class UserObjectsInWorkflowModerationPanel(Component):
             context["workflow_states"] = (
                 WorkflowState.objects.active()
                 .filter(pages_owned_by_user | Q(requested_by=request.user))
-                .prefetch_related("content_object")
+                .prefetch_related(
+                    "content_object",
+                    "content_object__latest_revision",
+                )
                 .select_related(
                     "current_task_state",
                     "current_task_state__task",
-                    "current_task_state__revision",
                 )
                 .order_by("-current_task_state__started_at")
             )

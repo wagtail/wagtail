@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for workflow_state in workflow_states %}
-                    {% with revision=workflow_state.current_task_state.revision obj=workflow_state.content_object %}
+                    {% with obj=workflow_state.content_object %}
                         {% is_page obj as is_page %}
                         {% if is_page %}
                             {% page_permissions obj as page_perms %}
