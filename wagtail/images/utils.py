@@ -106,3 +106,26 @@ def find_image_duplicates(image, user, permission_policy):
 
     instances = permission_policy.instances_user_has_permission_for(user, "choose")
     return instances.exclude(pk=image.pk).filter(file_hash=image.file_hash)
+
+
+def to_svg_safe_spec(filter_specs):
+    """
+    Remove any directives that would require an SVG to be rasterised
+    """
+    if isinstance(filter_specs, str):
+        filter_specs = filter_specs.split("|")
+    svg_preserving_specs = [
+        "max",
+        "min",
+        "width",
+        "height",
+        "scale",
+        "fill",
+        "original",
+    ]
+    safe_specs = [
+        x
+        for x in filter_specs
+        if any(map(lambda prefix: x.startswith(prefix), svg_preserving_specs))
+    ]
+    return "|".join(safe_specs)

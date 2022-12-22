@@ -581,7 +581,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return self.height < self.width
 
     def is_svg(self):
-        return self.file.name.endswith(".svg")
+        _, ext = os.path.splitext(self.file.name)
+        return ext.lower() == ".svg"
 
     @property
     def filename(self):

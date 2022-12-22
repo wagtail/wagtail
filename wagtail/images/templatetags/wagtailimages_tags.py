@@ -1,12 +1,13 @@
 import re
+from functools import cache
 
 from django import template
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch
-from django.utils.functional import cached_property
 
 from wagtail.images.models import Filter
 from wagtail.images.shortcuts import get_rendition_or_not_found
+from wagtail.images.utils import to_svg_safe_spec
 from wagtail.images.views.serve import generate_image_url
 
 register = template.Library()
@@ -26,6 +27,8 @@ def image(parser, token):
     as_context = False  # if True, the next bit to be read is the output variable name
     is_valid = True
 
+    preserve_svg = False
+
     for bit in bits:
         if bit == "as":
             # token is of the form {% image self.photo max-320x200 as img %}
@@ -36,6 +39,8 @@ def image(parser, token):
             else:
                 # more than one item exists after 'as' - reject as invalid
                 is_valid = False
+        elif bit == "preserve-svg":
+            preserve_svg = True
         else:
             try:
                 name, value = bit.split("=")
@@ -74,9 +79,10 @@ def image(parser, token):
     if is_valid:
         return ImageNode(
             image_expr,
-            "|".join(filter_specs),
+            filter_specs,
             attrs=attrs,
             output_var_name=output_var_name,
+            preserve_svg=preserve_svg,
         )
     else:
         raise template.TemplateSyntaxError(
@@ -86,15 +92,25 @@ def image(parser, token):
 
 
 class ImageNode(template.Node):
-    def __init__(self, image_expr, filter_spec, output_var_name=None, attrs={}):
+    def __init__(
+        self,
+        image_expr,
+        filter_specs,
+        output_var_name=None,
+        attrs={},
+        preserve_svg=False,
+    ):
         self.image_expr = image_expr
         self.output_var_name = output_var_name
         self.attrs = attrs
-        self.filter_spec = filter_spec
+        self.filter_specs = filter_specs
+        self.preserve_svg = preserve_svg
 
-    @cached_property
-    def filter(self):
-        return Filter(spec=self.filter_spec)
+    @cache
+    def get_filter(self, preserve_svg=False):
+        if preserve_svg:
+            return Filter(to_svg_safe_spec(self.filter_specs))
+        return Filter(spec="|".join(self.filter_specs))
 
     def render(self, context):
         try:
@@ -110,7 +126,10 @@ class ImageNode(template.Node):
         if not hasattr(image, "get_rendition"):
             raise ValueError("image tag expected an Image object, got %r" % image)
 
-        rendition = get_rendition_or_not_found(image, self.filter)
+        rendition = get_rendition_or_not_found(
+            image,
+            self.get_filter(preserve_svg=self.preserve_svg and image.is_svg()),
+        )
 
         if self.output_var_name:
             # return the rendition object in the given variable
