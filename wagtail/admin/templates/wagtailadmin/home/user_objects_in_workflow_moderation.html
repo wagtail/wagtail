@@ -2,8 +2,8 @@
 
 {% load i18n wagtailadmin_tags %}
 {% if workflow_states %}
-    {% trans "Your pages in a workflow" as heading %}
-    {% panel id="pages-in-workflow" heading=heading %}
+    {% trans "Your pages and snippets in a workflow" as heading %}
+    {% panel id="objects-in-workflow" heading=heading %}
         <table class="listing">
             <col />
             <col width="30%"/>
@@ -17,24 +17,28 @@
             </thead>
             <tbody>
                 {% for workflow_state in workflow_states %}
-                    {% with workflow_state.current_task_state.revision as revision %}
-                        {% page_permissions workflow_state.content_object as page_perms %}
+                    {% with revision=workflow_state.current_task_state.revision obj=workflow_state.content_object %}
+                        {% is_page obj as is_page %}
+                        {% if is_page %}
+                            {% page_permissions obj as page_perms %}
+                        {% endif %}
                         <tr>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
-                                    {% if page_perms.can_edit %}
-                                        <a href="{% url 'wagtailadmin_pages:edit' workflow_state.content_object.pk %}" title="{% trans 'Edit this page' %}">{{ workflow_state.content_object.specific_deferred.get_admin_display_title }}</a>
+                                    {% admin_edit_url obj as edit_url %}
+                                    {% if page_perms.can_edit or not is_page and edit_url %}
+                                        <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
                                     {% else %}
-                                        {{ workflow_state.content_object.specific_deferred.get_admin_display_title }}
+                                        {% latest_str obj %}
                                     {% endif %}
 
                                     {% i18n_enabled as show_locale_labels %}
-                                    {% if show_locale_labels and workflow_state.content_object.locale_id %}
-                                        {% locale_label_from_id workflow_state.content_object.locale_id as locale_label %}
+                                    {% if show_locale_labels and obj.locale_id %}
+                                        {% locale_label_from_id obj.locale_id as locale_label %}
                                         <span class="status-tag status-tag--label">{{ locale_label }}</span>
                                     {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=workflow_state.content_object %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=workflow_state.content_object %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
                                 </div>
                             </td>
                             <td class="task" valign="top">
