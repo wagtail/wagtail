@@ -553,6 +553,8 @@ def compile_ignore_list(check=False):
                     id="wagtailcore.W002",
                 )
             )
+            continue
+
         if parts == 1:
             content_types = ContentType.objects.filter(app_label=elements[0])
             if len(content_types) == 0:
