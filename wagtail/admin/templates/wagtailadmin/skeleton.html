@@ -75,7 +75,7 @@
 
         {% block js %}{% endblock %}
 
-        <a class="skiplink button" href="#main" data-skiplink>{% trans 'Skip to main content' %}</a>
+        <a class="skiplink button" href="#main" data-controller="w-skip-link" data-action="w-skip-link#skip">{% trans 'Skip to main content' %}</a>
 
         <div class="wrapper">
             {% block furniture %}{% endblock %}
