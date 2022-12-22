@@ -10,6 +10,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RemoveConstraint(
+            model_name="workflowstate",
+            name="unique_in_progress_workflow",
+        ),
         migrations.AlterField(
             model_name="workflowstate",
             name="page",
@@ -53,10 +57,6 @@ class Migration(migrations.Migration):
                 fields=["base_content_type", "object_id"],
                 name="workflowstate_base_ct_id_idx",
             ),
-        ),
-        migrations.RemoveConstraint(
-            model_name="workflowstate",
-            name="unique_in_progress_workflow",
         ),
         migrations.AddConstraint(
             model_name="workflowstate",
