@@ -198,19 +198,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleFocusChange(event) {
     // Is the focus is still in the menu? If so, don't to anything
-    // Workaround for focus bug, timeout needed to properly check if focus is still in the menu
-    setTimeout(() => {
-      if (
-        event.relatedTarget == null ||
-        (event.relatedTarget &&
-          event.relatedTarget.closest('.wagtail-userbar-items'))
-      ) {
-        return;
-      }
-      // List items not in focus - the menu should close
-      resetItemsTabIndex();
-      hideUserbar();
-    }, 400);
+    if (
+      event.relatedTarget == null ||
+      (event.relatedTarget &&
+        event.relatedTarget.closest('.wagtail-userbar-nav'))
+    ) {
+      return;
+    }
+    // List items not in focus - the menu should close
+    resetItemsTabIndex();
+    hideUserbar();
   }
 
   /**
