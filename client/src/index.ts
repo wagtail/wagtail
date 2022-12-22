@@ -10,5 +10,4 @@ export { default as Portal } from './components/Portal/Portal';
 export { default as PublicationStatus } from './components/PublicationStatus/PublicationStatus';
 export { default as Transition } from './components/Transition/Transition';
 export { initDismissibles } from './includes/initDismissibles';
-export { initSkipLink } from './includes/initSkipLink';
 export { initUpgradeNotification } from './includes/initUpgradeNotification';
