@@ -1,13 +1,17 @@
+import itertools
 import uuid
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
+from django.core.checks import Warning, register
 from django.db import models
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from taggit.models import ItemBase
+
+from wagtail import hooks
 
 
 class ReferenceGroups:
@@ -190,6 +194,9 @@ class ReferenceIndex(models.Model):
         if getattr(model, "wagtail_reference_index_ignore", False):
             return False
 
+        if reference_index_ignore(model):
+            return False
+
         # Don't check any models that have a parental key, references from these will be collected from the parent
         if not allow_child_models and any(
             [isinstance(field, ParentalKey) for field in model._meta.get_fields()]
@@ -204,6 +211,9 @@ class ReferenceIndex(models.Model):
                 if getattr(
                     field.related_model, "wagtail_reference_index_ignore", False
                 ):
+                    continue
+
+                if reference_index_ignore(field.related_model):
                     continue
 
                 if isinstance(field, (ParentalKey, GenericRel)):
@@ -239,7 +249,7 @@ class ReferenceIndex(models.Model):
             content_type_id (int): The ID of the ContentType record representing
                                    the model of the referenced object
 
-            object_id (str): The primary key of hte referenced object, converted
+            object_id (str): The primary key of the referenced object, converted
                              to a string
 
             model_path (str): The path to the field on the model of the source
@@ -515,3 +525,72 @@ class ReferenceIndex(models.Model):
 # correctly will require support for ManyToMany relations with through models:
 # https://github.com/wagtail/wagtail/issues/9629
 ItemBase.wagtail_reference_index_ignore = True
+
+
+# Ignore relations in models where adding the wagtail_reference_index_ignore attribute
+# is problematic
+_wagtail_reference_index_ignore_set = None
+
+
+def compile_ignore_list(check=False):
+    global _wagtail_reference_index_ignore_set
+    _wagtail_reference_index_ignore_set = set()
+    errors = []
+
+    ignore_hooks = hooks.get_hooks("register_reference_index_ignore")
+    ignore_list = sorted(
+        itertools.chain.from_iterable(hook([]) for hook in ignore_hooks)
+    )
+
+    for entry in ignore_list:
+        elements = entry.split(".")
+        parts = len(elements)
+        if parts > 2:
+            errors.append(
+                Warning(
+                    f"ReferenceIndex ingore entry '{entry}' has too many elements. Skipping entry.",
+                    obj=ReferenceIndex,
+                    id="wagtailcore.W002",
+                )
+            )
+        if parts == 1:
+            content_types = ContentType.objects.filter(app_label=elements[0])
+            if len(content_types) != 1:
+                errors.append(
+                    Warning(
+                        f"ReferenceIndex ingore entry '{entry}' doesn't match an app label. Skipping entry.",
+                        obj=ReferenceIndex,
+                        id="wagtailcore.W002",
+                    )
+                )
+        else:
+            content_types = ContentType.objects.filter(
+                app_label=elements[0], model=elements[1]
+            )
+            if len(content_types) == 0:
+                errors.append(
+                    Warning(
+                        f"ReferenceIndex ingore entry '{entry}' doesn't match a model. Skipping entry.",
+                        obj=ReferenceIndex,
+                        id="wagtailcore.W002",
+                    )
+                )
+
+        for ct in content_types:
+            _wagtail_reference_index_ignore_set.add(ct.model_class())
+
+    if check:
+        return errors
+
+
+def reference_index_ignore(object):
+    global _wagtail_reference_index_ignore_set
+    if _wagtail_reference_index_ignore_set is None:
+        compile_ignore_list()
+
+    return object in _wagtail_reference_index_ignore_set
+
+
+@register("reference_index_ignore")
+def wagtail_model_reference_index_ignore(app_configs, **kwargs):
+    return compile_ignore_list(check=True)
