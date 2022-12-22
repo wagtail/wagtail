@@ -16,6 +16,7 @@
   display: inline-block;
   background-color: $color-button;
   border: 1px solid $color-button;
+  outline-offset: $focus-outline-width;
   color: $color-white;
   text-decoration: none;
   white-space: nowrap;
