@@ -110,9 +110,9 @@ class PagesForModerationPanel(Component):
         return context
 
 
-class UserPagesInWorkflowModerationPanel(Component):
-    name = "user_pages_in_workflow_moderation"
-    template_name = "wagtailadmin/home/user_pages_in_workflow_moderation.html"
+class UserObjectsInWorkflowModerationPanel(Component):
+    name = "user_objects_in_workflow_moderation"
+    template_name = "wagtailadmin/home/user_objects_in_workflow_moderation.html"
     order = 210
 
     def get_context_data(self, parent_context):
@@ -126,16 +126,19 @@ class UserPagesInWorkflowModerationPanel(Component):
             # Once the issue is resolved, the subquery can be removed and the
             # filter can be changed to:
             # Q(page__owner=request.user) | Q(requested_by=request.user)
-            owned_by_user = Subquery(
-                Page.objects.filter(
-                    owner=request.user,
-                    id=Cast(OuterRef("object_id"), output_field=IntegerField()),
-                ).values_list(Cast("id", output_field=CharField()), flat=True)
+            pages_owned_by_user = Q(
+                base_content_type_id=get_default_page_content_type().id,
+                object_id__in=Subquery(
+                    Page.objects.filter(
+                        owner=request.user,
+                        id=Cast(OuterRef("object_id"), output_field=IntegerField()),
+                    ).values_list(Cast("id", output_field=CharField()), flat=True)
+                ),
             )
             # Find in progress workflow states which are either requested by the user or on pages owned by the user
             context["workflow_states"] = (
                 WorkflowState.objects.active()
-                .filter(Q(object_id__in=owned_by_user) | Q(requested_by=request.user))
+                .filter(pages_owned_by_user | Q(requested_by=request.user))
                 .prefetch_related("content_object")
                 .select_related(
                     "current_task_state",
@@ -294,7 +297,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
             UpgradeNotificationPanel(),
             WorkflowPagesToModeratePanel(),
             PagesForModerationPanel(),
-            UserPagesInWorkflowModerationPanel(),
+            UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),
             LockedPagesPanel(),
         ]
