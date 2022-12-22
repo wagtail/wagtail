@@ -155,9 +155,9 @@ class UserObjectsInWorkflowModerationPanel(Component):
         return context
 
 
-class WorkflowPagesToModeratePanel(Component):
-    name = "workflow_pages_to_moderate"
-    template_name = "wagtailadmin/home/workflow_pages_to_moderate.html"
+class WorkflowObjectsToModeratePanel(Component):
+    name = "workflow_objects_to_moderate"
+    template_name = "wagtailadmin/home/workflow_objects_to_moderate.html"
     order = 220
 
     def get_context_data(self, parent_context):
@@ -297,7 +297,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
             SiteSummaryPanel(request),
             WhatsNewInWagtailVersionPanel(),
             UpgradeNotificationPanel(),
-            WorkflowPagesToModeratePanel(),
+            WorkflowObjectsToModeratePanel(),
             PagesForModerationPanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),
