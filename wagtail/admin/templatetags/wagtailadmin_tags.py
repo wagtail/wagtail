@@ -26,13 +26,18 @@ from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
-from wagtail.admin.utils import get_admin_base_url, get_valid_next_url_from_request
+from wagtail.admin.utils import (
+    get_admin_base_url,
+    get_latest_str,
+    get_valid_next_url_from_request,
+)
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.coreutils import camelcase_to_underscore
@@ -155,6 +160,44 @@ def page_permissions(context, page):
     what actions the current logged-in user can perform on the given page.
     """
     return _get_user_page_permissions(context).for_page(page)
+
+
+@register.simple_tag
+def is_page(obj):
+    """
+    Usage: {% is_page obj as is_page %}
+    Sets the variable 'is_page' to True if the given object is a Page instance,
+    False otherwise. Useful in shared templates that accept both Page and
+    non-Page objects (e.g. snippets with the optional features enabled).
+    """
+    return isinstance(obj, Page)
+
+
+@register.simple_tag(takes_context=True)
+def admin_edit_url(context, obj, user=None):
+    """
+    Usage: {% admin_edit_url obj user %}
+    Returns the URL of the edit view for the given object and user using the
+    registered AdminURLFinder for the object. The AdminURLFinder instance is
+    cached in the context for the duration of the page request.
+    The user argument is optional and defaults to request.user if request is
+    available in the context.
+    """
+    if not user and "request" in context:
+        user = context["request"].user
+    if "admin_url_finder" not in context:
+        context["admin_url_finder"] = AdminURLFinder(user)
+    return context["admin_url_finder"].get_edit_url(obj)
+
+
+@register.simple_tag
+def latest_str(obj):
+    """
+    Usage: {% latest_str obj %}
+    Returns the latest string representation of an object, making use of the
+    latest revision where available to reflect draft changes.
+    """
+    return get_latest_str(obj)
 
 
 @register.simple_tag
