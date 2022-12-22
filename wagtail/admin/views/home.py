@@ -163,30 +163,47 @@ class WorkflowObjectsToModeratePanel(Component):
     def get_context_data(self, parent_context):
         request = parent_context["request"]
         context = super().get_context_data(parent_context)
-        if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
-            states = (
-                TaskState.objects.reviewable_by(request.user)
-                .select_related(
-                    "revision",
-                    "task",
-                    "revision__user",
-                )
-                .order_by("-started_at")
-            )
-            context["states"] = [
-                (
-                    state,
-                    state.task.specific.get_actions(
-                        obj=state.revision.content_object, user=request.user
-                    ),
-                    state.workflow_state.all_tasks_with_status(),
-                )
-                for state in states
-            ]
-        else:
-            context["states"] = []
+        context["states"] = []
         context["request"] = request
         context["csrf_token"] = parent_context["csrf_token"]
+
+        if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
+            return context
+
+        states = (
+            TaskState.objects.reviewable_by(request.user)
+            .select_related(
+                "revision",
+                "task",
+                "revision__user",
+            )
+            .order_by("-started_at")
+        )
+        for state in states:
+            obj = state.revision.content_object
+            actions = state.task.specific.get_actions(obj, request.user)
+            workflow_tasks = state.workflow_state.all_tasks_with_status()
+
+            url_name_prefix = "wagtailadmin_pages"
+            if not isinstance(obj, Page):
+                url_name_prefix = obj.get_admin_url_namespace()
+
+            workflow_action_url_name = f"{url_name_prefix}:workflow_action"
+            workflow_preview_url_name = None
+            if getattr(obj, "is_previewable", False):
+                workflow_preview_url_name = f"{url_name_prefix}:workflow_preview"
+
+            context["states"].append(
+                {
+                    "obj": obj,
+                    "task_state": state,
+                    "actions": actions,
+                    "workflow_tasks": workflow_tasks,
+                    "workflow_action_url_name": workflow_action_url_name,
+                    "workflow_preview_url_name": workflow_preview_url_name,
+                }
+            )
+
         return context
 
 

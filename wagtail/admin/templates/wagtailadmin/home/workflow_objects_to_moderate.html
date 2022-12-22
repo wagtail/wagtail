@@ -16,41 +16,45 @@
                 </tr>
             </thead>
             <tbody>
-                {% for task_state, actions, workflow_tasks in states %}
-                    {% with task_state.revision as revision %}
-                        {% page_permissions revision.content_object as page_perms %}
+                {% for state in states %}
+                    {% with revision=state.task_state.revision obj=state.obj task_state=state.task_state actions=state.actions workflow_tasks=state.workflow_tasks %}
+                        {% is_page obj as is_page %}
+                        {% if is_page %}
+                            {% page_permissions obj as page_perms %}
+                        {% endif %}
                         <tr>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
-                                    {% if page_perms.can_edit %}
-                                        <a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" title="{% trans 'Edit this page' %}">{{ revision.content_object.specific_deferred.get_admin_display_title }}</a>
+                                    {% admin_edit_url obj as edit_url %}
+                                    {% if page_perms.can_edit or not is_page and edit_url %}
+                                        <a href="{{ edit_url }}" title="{% trans 'Edit' %}">{% latest_str obj %}</a>
                                     {% else %}
-                                        {{ revision.content_object.specific_deferred.get_admin_display_title }}
+                                        {% latest_str obj %}
                                     {% endif %}
 
                                     {% i18n_enabled as show_locale_labels %}
-                                    {% if show_locale_labels and revision.content_object.locale_id %}
-                                        {% locale_label_from_id revision.content_object.locale_id as locale_label %}
+                                    {% if show_locale_labels and obj.locale_id %}
+                                        {% locale_label_from_id obj.locale_id as locale_label %}
                                         <span class="status-tag status-tag--label">{{ locale_label }}</span>
                                     {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.content_object %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.content_object %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
                                 </div>
                                 {% if actions %}
                                     <ul class="actions">
                                         {% for action_name, action_label, modal in actions %}
                                             <li>
-                                                <button class="button button-small button-secondary" data-workflow-action-url="{% url 'wagtailadmin_pages:workflow_action' revision.object_id action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
+                                                <button class="button button-small button-secondary" data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
                                             </li>
                                         {% endfor %}
-                                        {% if page_perms.can_edit %}
+                                        {% if page_perms.can_edit or not is_page and edit_url %}
                                             <li>
-                                                <a href="{% url 'wagtailadmin_pages:edit' revision.object_id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a>
+                                                <a href="{{ edit_url }}" class="button button-small button-secondary">{% trans 'Edit' %}</a>
                                             </li>
                                         {% endif %}
-                                        {% if revision.content_object.is_previewable %}
+                                        {% if obj.is_previewable %}
                                             <li>
-                                                <a href="{% url 'wagtailadmin_pages:workflow_preview' revision.object_id task_state.task.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
+                                                <a href="{% url state.workflow_preview_url_name obj.pk|admin_urlquote task_state.task.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a>
                                             </li>
                                         {% endif %}
                                     </ul>
