@@ -678,6 +678,7 @@ Contributors
 * Natarajan Balaji
 * Vallabh Tiwari
 * dr-rompecabezas
+* Rishabh jain
 
 Translators
 ===========

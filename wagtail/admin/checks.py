@@ -183,3 +183,48 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
         )
 
     return errors
+
+
+@register("file_overwrite")
+def file_overwrite_check(app_configs, **kwargs):
+    from django.conf import settings
+
+    file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None)
+
+    errors = []
+
+    if file_storage == "storages.backends.s3boto3.S3Boto3Storage" and getattr(
+        settings, "AWS_S3_FILE_OVERWRITE", True
+    ):
+        errors.append(
+            Warning(
+                "The AWS_S3_FILE_OVERWRITE setting is set to True",
+                hint="This should be set to False. The incorrect setting can cause documents and "
+                "other user-uploaded files to be silently overwritten or deleted.",
+                id="wagtailadmin.W004",
+            )
+        )
+    if file_storage == "storages.backends.azure_storage.AzureStorage" and getattr(
+        settings, "AZURE_OVERWRITE_FILES", False
+    ):
+        errors.append(
+            Warning(
+                "The AZURE_OVERWRITE_FILES setting is set to True",
+                hint="This should be set to False. The incorrect setting can cause documents and "
+                "other user-uploaded files to be silently overwritten or deleted.",
+                id="wagtailadmin.W004",
+            )
+        )
+    if file_storage == "storages.backends.gcloud.GoogleCloudStorage" and getattr(
+        settings, "GS_FILE_OVERWRITE", True
+    ):
+        errors.append(
+            Warning(
+                "The GS_FILE_OVERWRITE setting is set to True",
+                hint="This should be set to False. The incorrect setting can cause documents and "
+                "other user-uploaded files to be silently overwritten or deleted.",
+                id="wagtailadmin.W004",
+            )
+        )
+
+    return errors
