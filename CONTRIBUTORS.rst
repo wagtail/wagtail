@@ -676,6 +676,7 @@ Contributors
 * Ben Gosney
 * damascene
 * Natarajan Balaji
+* Vallabh Tiwari
 
 Translators
 ===========
