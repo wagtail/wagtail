@@ -244,6 +244,42 @@
       "number_of_pages": 622
     }
   },
+  {
+    "pk": 1,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "A Game of Thrones U",
+      "publication_date": "1996-08-01",
+      "number_of_pages": 694
+    }
+  },
+  {
+    "pk": 2,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "A Clash of Kings U",
+      "publication_date": "1998-01-01",
+      "number_of_pages": 768
+    }
+  },
+  {
+    "pk": 3,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "A Storm of Swords U",
+      "publication_date": "2000-01-01",
+      "number_of_pages": 973
+    }
+  },
+  {
+    "pk": 4,
+    "model": "searchtests.unindexedbook",
+    "fields": {
+      "title": "The Fellowship of the Ring U",
+      "publication_date": "1954-07-29",
+      "number_of_pages": 423
+    }
+  },
 
   {
     "pk": 1,

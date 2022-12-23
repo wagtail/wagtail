@@ -10,6 +10,9 @@ def page_search_fields_check(app_configs, **kwargs):
     errors = []
 
     for cls in page_models:
+        # Don't check models where indexing has been explicitly disabled
+        if not cls.search_fields:
+            continue
         # Only checks an initial subset of fields as only need to check some are missing to show the warning
         if not all(field in cls.search_fields for field in Page.search_fields[:10]):
             errors.append(

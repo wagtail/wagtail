@@ -201,3 +201,26 @@ class TestSignalHandlers(WagtailTestUtils, TestCase):
         indexed_object = backend().add.call_args[0][0]
         self.assertEqual(indexed_object.title, "Updated test")
         self.assertEqual(indexed_object.publication_date, date(2017, 10, 18))
+
+
+@mock.patch("wagtail.search.tests.DummySearchBackend", create=True)
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        "default": {"BACKEND": "wagtail.search.tests.DummySearchBackend"}
+    }
+)
+class TestSignalHandlersSearchDisabled(TestCase, WagtailTestUtils):
+    def test_index_on_create_and_update(self, backend):
+        obj = models.UnindexedBook.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
+
+        self.assertEqual(backend().add.call_count, 0)
+        self.assertIsNone(backend().add.call_args)
+
+        backend().reset_mock()
+        obj.title = "Updated test"
+        obj.save()
+
+        self.assertEqual(backend().add.call_count, 0)
+        self.assertIsNone(backend().add.call_args)

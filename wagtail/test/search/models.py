@@ -123,3 +123,12 @@ class ProgrammingGuide(Book):
         index.SearchField("get_programming_language_display"),
         index.FilterField("programming_language"),
     ]
+
+
+class UnindexedBook(index.Indexed, models.Model):
+    title = models.CharField(max_length=255)
+    publication_date = models.DateField()
+    number_of_pages = models.IntegerField()
+    tags = TaggableManager()
+
+    search_fields = []

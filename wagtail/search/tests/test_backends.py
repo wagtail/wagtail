@@ -227,6 +227,11 @@ class BackendTests(WagtailTestUtils):
             [r.title for r in results], ["Learning Python", "Two Scoops of Django 1.11"]
         )
 
+    def test_search_all_unindexed(self):
+        # There should be no index entries for UnindexedBook
+        results = self.backend.search(MATCH_ALL, models.UnindexedBook)
+        self.assertEqual(len(results), 0)
+
     # AUTOCOMPLETE TESTS
 
     def test_autocomplete(self):
