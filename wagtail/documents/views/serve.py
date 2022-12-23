@@ -28,8 +28,8 @@ def document_etag(request, document_id, document_filename):
         )
 
 
+@cache_control(max_age=0, public=True)
 @etag(document_etag)
-@cache_control(max_age=3600, public=True)
 def serve(request, document_id, document_filename):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
