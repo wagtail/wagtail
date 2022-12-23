@@ -31,6 +31,12 @@ def document_etag(request, document_id, document_filename):
 @cache_control(max_age=0, public=True)
 @etag(document_etag)
 def serve(request, document_id, document_filename):
+    # The cache control should be placed higher than the etag decorator as per the django documentation
+    # The cache control with etag combination defines the following behaviour:
+    # E-Tag sends If-None-Match header with etag, if the document hasn't been modified status code 304
+    # is sent back, otherwise if the document has been updated, the updated document is sent with status code 200
+    # cache_control caches the respose of the etag in the local cache of the browser and a If-None-Match isn't
+    # sent until the max_age of the local cache expires
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
