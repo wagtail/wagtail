@@ -189,9 +189,12 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
 def file_overwrite_check(app_configs, **kwargs):
     from django.conf import settings
 
+    file_storage = getattr(settings, "DEFAULT_FILE_STORAGE", None).split(".")[-1]
     errors = []
 
-    if getattr(settings, "AWS_S3_FILE_OVERWRITE", None):
+    if file_storage == "S3Boto3Storage" and getattr(
+        settings, "AWS_S3_FILE_OVERWRITE", True
+    ):
         errors.append(
             Warning(
                 "The AWS_S3_FILE_OVERWRITE setting is set to True",
@@ -200,7 +203,9 @@ def file_overwrite_check(app_configs, **kwargs):
                 id="wagtaildocs.W004",
             )
         )
-    if getattr(settings, "AZURE_OVERWRITE_FILES", None):
+    if file_storage == "AzureStorage" and getattr(
+        settings, "AZURE_OVERWRITE_FILES", False
+    ):
         errors.append(
             Warning(
                 "The AZURE_OVERWRITE_FILES setting is set to True",
@@ -209,7 +214,9 @@ def file_overwrite_check(app_configs, **kwargs):
                 id="wagtaildocs.W004",
             )
         )
-    if getattr(settings, "GS_FILE_OVERWRITE", None):
+    if file_storage == "GoogleCloudStorage" and getattr(
+        settings, "GS_FILE_OVERWRITE", True
+    ):
         errors.append(
             Warning(
                 "The GS_FILE_OVERWRITE setting is set to True",
