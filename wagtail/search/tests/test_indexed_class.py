@@ -144,3 +144,12 @@ class TestSearchFields(TestCase):
                 if error.id == "wagtailsearch.W001"
             ]
             self.assertEqual([], errors)
+
+        # third check that we get no errors when disabling all model search
+        with patch_search_fields(EventPage, []):
+            errors = [
+                error
+                for error in checks.run_checks()
+                if error.id == "wagtailsearch.W001"
+            ]
+            self.assertEqual([], errors)

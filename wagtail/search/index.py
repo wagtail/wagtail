@@ -128,7 +128,9 @@ def get_indexed_models():
     return [
         model
         for model in apps.get_models()
-        if issubclass(model, Indexed) and not model._meta.abstract
+        if issubclass(model, Indexed)
+        and not model._meta.abstract
+        and model.search_fields
     ]
 
 
@@ -137,6 +139,7 @@ def class_is_indexed(cls):
         issubclass(cls, Indexed)
         and issubclass(cls, models.Model)
         and not cls._meta.abstract
+        and cls.search_fields
     )
 
 

@@ -49,6 +49,12 @@ The search may not return any results while this command is running, so avoid ru
 The `update_index` command is also aliased as `wagtail_update_index`, for use when another installed package (such as [Haystack](https://haystacksearch.org/)) provides a conflicting `update_index` command. In this case, the other package's entry in `INSTALLED_APPS` should appear above `wagtail.search` so that its `update_index` command takes precedence over Wagtail's.
 ```
 
+(wagtailsearch_disable_indexing)=
+
+### Disabling model indexing
+
+Indexing of a model can be disabled completely by setting `search_fields = []` within the model. This will disable index updates by the signal handler and by the `update_index` management command.
+
 (wagtailsearch_indexing_fields)=
 
 ## Indexing extra fields
