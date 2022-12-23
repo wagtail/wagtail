@@ -67,7 +67,7 @@ def workflow_history(request, page_id):
 
     return TemplateResponse(
         request,
-        "wagtailadmin/pages/workflow_history/index.html",
+        "wagtailadmin/shared/workflow_history/index.html",
         {
             "page": page,
             "workflow_states": workflow_states,
@@ -176,7 +176,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
 
     return TemplateResponse(
         request,
-        "wagtailadmin/pages/workflow_history/detail.html",
+        "wagtailadmin/shared/workflow_history/detail.html",
         {
             "page": page,
             "workflow_state": workflow_state,
