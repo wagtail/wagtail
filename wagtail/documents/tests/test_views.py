@@ -169,7 +169,7 @@ class TestServeView(TestCase):
     def test_has_cache_control_header(self):
         self.assertIn(
             self.get()["Cache-Control"],
-            ["max-age=3600, public", "public, max-age=3600"],
+            ["max-age=0, public", "public, max-age=0"],
         )
 
     def clear_sendfile_cache(self):
