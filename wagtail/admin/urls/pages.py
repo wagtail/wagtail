@@ -131,12 +131,12 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/workflow_history/",
-        history.workflow_history,
+        history.WorkflowHistoryView.as_view(),
         name="workflow_history",
     ),
     path(
         "<int:page_id>/workflow_history/detail/<int:workflow_state_id>/",
-        history.workflow_history_detail,
+        history.WorkflowHistoryDetailView.as_view(),
         name="workflow_history_detail",
     ),
     path("<int:page_id>/history/", history.PageHistoryView.as_view(), name="history"),

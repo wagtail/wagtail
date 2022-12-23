@@ -1,27 +1,16 @@
-from datetime import timedelta
-
 import django_filters
 from django import forms
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
-from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.views.generic import history
 from wagtail.admin.views.reports import ReportView
 from wagtail.log_actions import registry as log_action_registry
-from wagtail.models import (
-    Page,
-    PageLogEntry,
-    Revision,
-    TaskState,
-    UserPagePermissionsProxy,
-    WorkflowState,
-    get_default_page_content_type,
-)
+from wagtail.models import Page, PageLogEntry, UserPagePermissionsProxy
 
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
@@ -53,138 +42,29 @@ class PageHistoryReportFilterSet(WagtailFilterSet):
         fields = ["action", "user", "timestamp", "hide_commenting_actions"]
 
 
-def workflow_history(request, page_id):
-    page = get_object_or_404(Page, id=page_id)
+class PageWorkflowHistoryViewMixin:
+    model = Page
+    pk_url_kwarg = "page_id"
 
-    user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_edit():
-        raise PermissionDenied
+    def dispatch(self, request, *args, **kwargs):
+        user_perms = UserPagePermissionsProxy(request.user)
+        if not user_perms.for_page(self.object).can_edit():
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
-    workflow_states = WorkflowState.objects.for_instance(page).order_by("-created_at")
-
-    paginator = Paginator(workflow_states, per_page=20)
-    workflow_states = paginator.get_page(request.GET.get("p"))
-
-    return TemplateResponse(
-        request,
-        "wagtailadmin/shared/workflow_history/index.html",
-        {
-            "page": page,
-            "workflow_states": workflow_states,
-        },
-    )
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs, page=self.object)
 
 
-def workflow_history_detail(request, page_id, workflow_state_id):
-    page = get_object_or_404(Page, id=page_id)
+class WorkflowHistoryView(PageWorkflowHistoryViewMixin, history.WorkflowHistoryView):
+    workflow_history_url_name = "wagtailadmin_pages:workflow_history"
+    workflow_history_detail_url_name = "wagtailadmin_pages:workflow_history_detail"
 
-    user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_edit():
-        raise PermissionDenied
 
-    # Change to page=page once this issue is resolved:
-    # https://code.djangoproject.com/ticket/16055
-    workflow_state = get_object_or_404(
-        WorkflowState,
-        base_content_type_id=get_default_page_content_type().id,
-        object_id=str(page.id),
-        id=workflow_state_id,
-    )
-
-    # Get QuerySet of all revisions that have existed during this workflow state
-    # It's possible that the page is edited while the workflow is running, so some
-    # tasks may be repeated. All tasks that have been completed no matter what
-    # revision needs to be displayed on this page.
-    page_revisions = Revision.page_revisions.filter(
-        object_id=str(page.id),
-        id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list(
-            "revision_id", flat=True
-        ),
-    ).order_by("-created_at")
-
-    # Now get QuerySet of tasks completed for each revision
-    task_states_by_revision_task = [
-        (
-            page_revision,
-            {
-                task_state.task: task_state
-                for task_state in TaskState.objects.filter(
-                    workflow_state=workflow_state, revision=page_revision
-                )
-            },
-        )
-        for page_revision in page_revisions
-    ]
-
-    # Make sure task states are always in a consistent order
-    # In some cases, they can be completed in a different order to what they are defined
-    tasks = workflow_state.workflow.tasks.all()
-    task_states_by_revision = [
-        (page_revision, [task_states_by_task.get(task, None) for task in tasks])
-        for page_revision, task_states_by_task in task_states_by_revision_task
-    ]
-
-    # Generate timeline
-    completed_task_states = (
-        TaskState.objects.filter(workflow_state=workflow_state)
-        .exclude(finished_at__isnull=True)
-        .exclude(status=TaskState.STATUS_CANCELLED)
-    )
-
-    timeline = [
-        {
-            "time": workflow_state.created_at,
-            "action": "workflow_started",
-            "workflow_state": workflow_state,
-        }
-    ]
-
-    if workflow_state.status not in (
-        WorkflowState.STATUS_IN_PROGRESS,
-        WorkflowState.STATUS_NEEDS_CHANGES,
-    ):
-        last_task = completed_task_states.order_by("finished_at").last()
-        if last_task:
-            timeline.append(
-                {
-                    "time": last_task.finished_at + timedelta(milliseconds=1),
-                    "action": "workflow_completed",
-                    "workflow_state": workflow_state,
-                }
-            )
-
-    for page_revision in page_revisions:
-        timeline.append(
-            {
-                "time": page_revision.created_at,
-                "action": "page_edited",
-                "revision": page_revision,
-            }
-        )
-
-    for task_state in completed_task_states:
-        timeline.append(
-            {
-                "time": task_state.finished_at,
-                "action": "task_completed",
-                "task_state": task_state,
-            }
-        )
-
-    timeline.sort(key=lambda t: t["time"])
-    timeline.reverse()
-
-    return TemplateResponse(
-        request,
-        "wagtailadmin/shared/workflow_history/detail.html",
-        {
-            "page": page,
-            "workflow_state": workflow_state,
-            "tasks": tasks,
-            "task_states_by_revision": task_states_by_revision,
-            "timeline": timeline,
-        },
-    )
+class WorkflowHistoryDetailView(
+    PageWorkflowHistoryViewMixin, history.WorkflowHistoryDetailView
+):
+    workflow_history_url_name = "wagtailadmin_pages:workflow_history"
 
 
 class PageHistoryView(ReportView):

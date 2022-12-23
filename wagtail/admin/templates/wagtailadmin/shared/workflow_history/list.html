@@ -20,11 +20,10 @@
     </thead>
     <tbody>
         {% if workflow_states %}
-            {% page_permissions page as page_perms %}
             {% for workflow_state in workflow_states %}
                 <tr>
                     <td>
-                        <a href="{% url 'wagtailadmin_pages:workflow_history_detail' page.id workflow_state.id %}" class="status-tag primary">
+                        <a href="{% url workflow_history_detail_url_name object.pk|admin_urlquote workflow_state.id %}" class="status-tag primary">
                             {{ workflow_state.get_status_display }}
                         </a>
                     </td>
@@ -47,7 +46,19 @@
                 </tr>
             {% endfor %}
         {% else %}
-            {% block no_results %}<tr><td class="no-results-message"><p>{% trans "This page hasn't been submitted for moderation yet" %}</p></td></tr>{% endblock %}
+            {% block no_results %}
+                <tr><td class="no-results-message">
+                    <p>
+                        {% if page %}
+                            {% trans "This page hasn't been submitted for moderation yet" %}
+                        {% else %}
+                            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                                This {{ model_name }} hasn't been submitted for moderation yet
+                            {% endblocktrans %}
+                        {% endif %}
+                    </p>
+                </td></tr>
+            {% endblock %}
         {% endif %}
     </tbody>
 </table>

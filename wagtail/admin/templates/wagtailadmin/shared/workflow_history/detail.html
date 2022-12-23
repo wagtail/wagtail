@@ -8,10 +8,10 @@
     {% include "wagtailadmin/shared/header.html" with title=title_str %}
 
     <div class="nice-padding">
-        <h2>{% icon "doc-empty-inverse" classname="initial" %} {{ page.specific_deferred.get_admin_display_title }}</h2>
+        <h2>{% icon "doc-empty-inverse" classname="initial" %} {% latest_str object %}</h2>
         <p>
-            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit / Review" %}</a>
-            <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
+            <a href="{% admin_edit_url object %}" class="button button-small button-secondary">{% trans "Edit / Review" %}</a>
+            <a href="{% url workflow_history_url_name object.pk|admin_urlquote %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
         </p>
 
         <h2>{% icon "clipboard-list" classname="initial" %} {{ workflow_state.workflow.name }}</h2>
@@ -60,7 +60,7 @@
                                             {% trans "Initial Revision" %}
                                         {% else %}
                                             {% if not forloop.first %}
-                                                {% trans "Page edited" as action %}
+                                                {% trans "Edited" as action %}
                                                 {% if revision.user %}
                                                     {% blocktrans trimmed with '<b>'|add:action|add:'</b>' as action and revision.user|user_display_name as who and revision.created_at as at %}
                                                         {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
@@ -115,8 +115,8 @@
                                         {% elif timeline_item.action == 'workflow_completed' %}
                                             <b>{% trans "Workflow completed" %}</b>
                                             <div class="status-tag primary">{{ timeline_item.workflow_state.get_status_display }}</div>
-                                        {% elif timeline_item.action == 'page_edited' %}
-                                            {% trans "Page edited" as action %}
+                                        {% elif timeline_item.action == 'edited' %}
+                                            {% trans "Edited" as action %}
                                             {% if revision.user %}
                                                 {% blocktrans trimmed with '<b>'|add:action|add:'</b>' as action and timeline_item.revision.user|user_display_name as who %}
                                                     {{ action }} by <b>{{ who }}</b>
