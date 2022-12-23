@@ -27,7 +27,7 @@ from wagtail.admin.ui.tables import (
     UserColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic import lock, workflow
+from wagtail.admin.views.generic import history, lock, workflow
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
@@ -708,6 +708,16 @@ class WorkflowPreviewView(workflow.PreviewRevisionForTask):
     pass
 
 
+class WorkflowHistoryView(PermissionCheckedMixin, history.WorkflowHistoryView):
+    permission_required = "change"
+
+
+class WorkflowHistoryDetailView(
+    PermissionCheckedMixin, history.WorkflowHistoryDetailView
+):
+    permission_required = "change"
+
+
 class SnippetViewSet(ViewSet):
     """
     A viewset that instantiates the admin views for snippets.
@@ -787,6 +797,12 @@ class SnippetViewSet(ViewSet):
 
     #: The view class to use for previewing a revision for a specific task; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowPreviewView``.
     workflow_preview_view_class = WorkflowPreviewView
+
+    #: The view class to use for the workflow history view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryView``.
+    workflow_history_view_class = WorkflowHistoryView
+
+    #: The view class to use for the workflow history detail view; must be a subclass of ``wagtail.snippet.views.snippets.WorkflowHistoryDetailView``.
+    workflow_history_detail_view_class = WorkflowHistoryDetailView
 
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
@@ -1021,6 +1037,25 @@ class SnippetViewSet(ViewSet):
         return self.workflow_preview_view_class.as_view(model=self.model)
 
     @property
+    def workflow_history_view(self):
+        return self.workflow_history_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            workflow_history_url_name=self.get_url_name("workflow_history"),
+            workflow_history_detail_url_name=self.get_url_name(
+                "workflow_history_detail"
+            ),
+        )
+
+    @property
+    def workflow_history_detail_view(self):
+        return self.workflow_history_detail_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            workflow_history_url_name=self.get_url_name("workflow_history"),
+        )
+
+    @property
     def redirect_to_edit_view(self):
         return partial(
             redirect_to_edit,
@@ -1126,6 +1161,16 @@ class SnippetViewSet(ViewSet):
                     "workflow/status/<str:pk>/",
                     self.workflow_status_view,
                     name="workflow_status",
+                ),
+                path(
+                    "workflow_history/<str:pk>/",
+                    self.workflow_history_view,
+                    name="workflow_history",
+                ),
+                path(
+                    "workflow_history/<str:pk>/detail/<int:workflow_state_id>/",
+                    self.workflow_history_detail_view,
+                    name="workflow_history_detail",
                 ),
             ]
 
