@@ -17,7 +17,7 @@
                         {% trans 'Workflow' %}
                     </th>
                     <th>
-                        {% trans 'Page' %}
+                        {% trans 'Page/Snippet' %}
                     </th>
                     <th>
                         {% trans 'Status' %}
@@ -40,17 +40,18 @@
                             <b>{{ workflow_state.workflow }}</b>
                         </td>
                         <td>
-                            <a href="{% url 'wagtailadmin_pages:edit' workflow_state.content_object.pk %}">
-                                {{ workflow_state.content_object.specific_deferred.get_admin_display_title }}
+                            <a href="{% admin_edit_url workflow_state.content_object %}">
+                                {% latest_str workflow_state.content_object %}
                             </a>
                             {% i18n_enabled as show_locale_labels %}
-                            {% if show_locale_labels %}
+                            {% if show_locale_labels and workflow_state.content_object.locale_id %}
                                 {% locale_label_from_id workflow_state.content_object.locale_id as locale_label %}
                                 <span class="status-tag status-tag--label">{{ locale_label }}</span>
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{% url 'wagtailadmin_pages:workflow_history_detail' workflow_state.content_object.pk workflow_state.pk %}" class="status-tag primary">
+                            {% admin_url_name workflow_state.content_object 'workflow_history_detail' as workflow_history_detail_url_name %}
+                            <a href="{% url workflow_history_detail_url_name workflow_state.content_object.pk|admin_urlquote workflow_state.pk %}" class="status-tag primary">
                                 {{ workflow_state.get_status_display }}
                             </a>
                         </td>
@@ -76,7 +77,7 @@
             </tbody>
         </table>
     {% else %}
-        <p>{% trans "No pages have been submitted for moderation yet" %}</p>
+        <p>{% trans "No pages/snippets have been submitted for moderation yet" %}</p>
     {% endif %}
 {% endblock %}
 

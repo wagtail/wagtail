@@ -191,6 +191,19 @@ def admin_edit_url(context, obj, user=None):
 
 
 @register.simple_tag
+def admin_url_name(obj, action):
+    """
+    Usage: {% admin_url_name obj action %}
+    Returns the URL name of the given action for the given object, e.g.
+    'wagtailadmin_pages:edit' for a Page object and 'edit' action.
+    Works with pages and snippets only.
+    """
+    if isinstance(obj, Page):
+        return f"wagtailadmin_pages:{action}"
+    return obj.get_admin_url_namespace() + f":{action}"
+
+
+@register.simple_tag
 def latest_str(obj):
     """
     Usage: {% latest_str obj %}

@@ -17,7 +17,7 @@
                         {% trans 'Task' %}
                     </th>
                     <th>
-                        {% trans 'Page' %}
+                        {% trans 'Page/Snippet' %}
                     </th>
                     <th>
                         {% trans 'Status' %}
@@ -37,13 +37,13 @@
                             <b>{{ task_state.task }}</b>
                         </td>
                         <td>
-                            {% with task_state.workflow_state.content_object as page %}
-                                <a href="{% url 'wagtailadmin_pages:edit' page.pk %}">
-                                    {{ page.specific_deferred.get_admin_display_title }}
+                            {% with task_state.workflow_state.content_object as object %}
+                                <a href="{% admin_edit_url object %}">
+                                    {% latest_str object %}
                                 </a>
                                 {% i18n_enabled as show_locale_labels %}
-                                {% if show_locale_labels %}
-                                    {% locale_label_from_id page.locale_id as locale_label %}
+                                {% if show_locale_labels and object.locale_id %}
+                                    {% locale_label_from_id object.locale_id as locale_label %}
                                     <span class="status-tag status-tag--label">{{ locale_label }}</span>
                                 {% endif %}
                             {% endwith %}
@@ -60,6 +60,6 @@
             </tbody>
         </table>
     {% else %}
-        <p>{% blocktrans trimmed %}No pages have been submitted for moderation yet{% endblocktrans %}</p>
+        <p>{% trans "No pages/snippets have been submitted for moderation yet" %}</p>
     {% endif %}
 {% endblock %}

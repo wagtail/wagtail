@@ -2,7 +2,8 @@ import datetime
 
 import django_filters
 from django.contrib.auth import get_user_model
-from django.db.models import CharField
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import CharField, Q
 from django.db.models.functions import Cast
 from django.utils.translation import gettext_lazy as _
 
@@ -20,6 +21,7 @@ from wagtail.models import (
     WorkflowState,
     get_default_page_content_type,
 )
+from wagtail.snippets.models import get_editable_models
 
 from .base import ReportView
 
@@ -29,6 +31,23 @@ def get_requested_by_queryset(request):
     return User.objects.filter(
         pk__in=set(WorkflowState.objects.values_list("requested_by__pk", flat=True))
     ).order_by(User.USERNAME_FIELD)
+
+
+def get_editable_page_ids_query(request):
+    pages = UserPagePermissionsProxy(request.user).editable_pages()
+    # Need to cast the page ids to string because Postgres doesn't support
+    # implicit type casts when querying on GenericRelations
+    # https://code.djangoproject.com/ticket/16055
+    # Once the issue is resolved, we can remove this function
+    # and change the query to page__in=pages
+    return pages.values_list(Cast("id", output_field=CharField()), flat=True)
+
+
+def get_editable_content_type_ids(request):
+    editable_models = get_editable_models(request.user)
+    return [
+        ct.id for ct in ContentType.objects.get_for_models(*editable_models).values()
+    ]
 
 
 class WorkflowReportFilterSet(WagtailFilterSet):
@@ -117,17 +136,19 @@ class WorkflowView(ReportView):
     filterset_class = WorkflowReportFilterSet
 
     export_headings = {
-        "page.id": _("Page ID"),
-        "page.content_type.model_class._meta.verbose_name.title": _("Page Type"),
-        "page.title": _("Page Title"),
+        "content_object.id": _("Page/Snippet ID"),
+        "content_object.content_type.model_class._meta.verbose_name.title": _(
+            "Page/Snippet Type"
+        ),
+        "content_object.title": _("Page/Snippet Title"),
         "get_status_display": _("Status"),
         "created_at": _("Started at"),
     }
     list_export = [
         "workflow",
-        "page.id",
-        "page.content_type.model_class._meta.verbose_name.title",
-        "page.title",
+        "content_object.id",
+        "content_object.content_type.model_class._meta.verbose_name.title",
+        "content_object.title",
         "get_status_display",
         "requested_by",
         "created_at",
@@ -139,17 +160,17 @@ class WorkflowView(ReportView):
         )
 
     def get_queryset(self):
-        pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        # Need to cast the page ids to string because Postgres doesn't support
-        # implicit type casts when querying on GenericRelations
-        # https://code.djangoproject.com/ticket/16055
-        # Once the issue is resolved, we can change the query to
-        # page__in=pages
-        page_ids = pages.values_list(Cast("id", output_field=CharField()), flat=True)
-        return (
-            WorkflowState.objects.for_pages()
-            .filter(object_id__in=page_ids)
-            .order_by("-created_at")
+        editable_pages = Q(
+            base_content_type_id=get_default_page_content_type().id,
+            object_id__in=get_editable_page_ids_query(self.request),
+        )
+
+        editable_objects = Q(
+            content_type_id__in=get_editable_content_type_ids(self.request)
+        )
+
+        return WorkflowState.objects.filter(editable_pages | editable_objects).order_by(
+            "-created_at"
         )
 
 
@@ -160,11 +181,11 @@ class WorkflowTasksView(ReportView):
     filterset_class = WorkflowTasksReportFilterSet
 
     export_headings = {
-        "workflow_state.content_object.id": _("Page ID"),
+        "workflow_state.content_object.id": _("Page/Snippet ID"),
         "workflow_state.content_object.content_type.model_class._meta.verbose_name.title": _(
-            "Page Type"
+            "Page/Snippet Type"
         ),
-        "workflow_state.content_object.title": _("Page Title"),
+        "workflow_state.content_object.title": _("Page/Snippet Title"),
         "get_status_display": _("Status"),
         "workflow_state.requested_by": _("Requested By"),
     }
@@ -186,14 +207,15 @@ class WorkflowTasksView(ReportView):
         )
 
     def get_queryset(self):
-        pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        # Need to cast the page ids to string because Postgres doesn't support
-        # implicit type casts when querying on GenericRelations
-        # https://code.djangoproject.com/ticket/16055
-        # Once the issue is resolved, we can change the query to
-        # workflow_state__page_in=pages
-        page_ids = pages.values_list(Cast("id", output_field=CharField()), flat=True)
-        return TaskState.objects.filter(
+        editable_pages = Q(
             workflow_state__base_content_type_id=get_default_page_content_type().id,
-            workflow_state__object_id__in=page_ids,
-        ).order_by("-started_at")
+            workflow_state__object_id__in=get_editable_page_ids_query(self.request),
+        )
+        editable_objects = Q(
+            workflow_state__content_type_id__in=get_editable_content_type_ids(
+                self.request
+            )
+        )
+        return TaskState.objects.filter(editable_pages | editable_objects).order_by(
+            "-started_at"
+        )

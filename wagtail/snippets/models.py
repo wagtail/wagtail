@@ -36,6 +36,16 @@ def get_workflow_enabled_models():
     return [model for model in SNIPPET_MODELS if issubclass(model, WorkflowMixin)]
 
 
+def get_editable_models(user):
+    from wagtail.snippets.permissions import get_permission_name
+
+    return [
+        model
+        for model in SNIPPET_MODELS
+        if user.has_perm(get_permission_name("change", model))
+    ]
+
+
 class SnippetAdminURLFinder:
     # subclasses should define a 'model' attribute
     def __init__(self, user=None):
