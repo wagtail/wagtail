@@ -44,7 +44,7 @@ class ConfirmWorkflowCancellation(
 
 @method_decorator(user_passes_test(user_has_any_page_permission), name="dispatch")
 class WorkflowStatus(WorkflowPageViewMixin, workflow.WorkflowStatus):
-    history_url_name = "wagtailadmin_pages:history"
+    workflow_history_url_name = "wagtailadmin_pages:workflow_history"
     revisions_compare_url_name = "wagtailadmin_pages:revisions_compare"
 
 

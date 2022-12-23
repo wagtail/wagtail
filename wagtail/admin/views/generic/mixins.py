@@ -206,6 +206,7 @@ class CreateEditViewOptionalFeaturesMixin:
     lock_url_name = None
     unlock_url_name = None
     revisions_unschedule_url_name = None
+    workflow_history_url_name = None
 
     def setup(self, request, *args, **kwargs):
         # Need to set these here as they are used in get_object()
@@ -322,6 +323,11 @@ class CreateEditViewOptionalFeaturesMixin:
         if not self.locking_enabled or not self.unlock_url_name:
             return None
         return reverse(self.unlock_url_name, args=[quote(self.object.pk)])
+
+    def get_workflow_history_url(self):
+        if not self.workflow_enabled or not self.workflow_history_url_name:
+            return None
+        return reverse(self.workflow_history_url_name, args=[quote(self.object.pk)])
 
     def get_error_message(self):
         if self.locked_for_user:
@@ -582,6 +588,7 @@ class CreateEditViewOptionalFeaturesMixin:
         context["publishing_will_cancel_workflow"] = self.workflow_tasks and getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         )
+        context["workflow_history_url"] = self.get_workflow_history_url()
         return context
 
     def post(self, request, *args, **kwargs):
