@@ -183,3 +183,40 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
         )
 
     return errors
+
+
+@register("file_overwrite")
+def file_overwrite_check(app_configs, **kwargs):
+    from django.conf import settings
+
+    errors = []
+
+    if getattr(settings, "AWS_S3_FILE_OVERWRITE", None):
+        errors.append(
+            Warning(
+                "The AWS_S3_FILE_OVERWRITE setting is set to True",
+                hint="This should be set to False. "
+                "Without this, the default behaviour of allowing file overwrites will be used.",
+                id="wagtaildocs.W004",
+            )
+        )
+    if getattr(settings, "AZURE_OVERWRITE_FILES", None):
+        errors.append(
+            Warning(
+                "The AZURE_OVERWRITE_FILES setting is set to True",
+                hint="This should be set to False. "
+                "Without this, the default behaviour of allowing file overwrites will be used.",
+                id="wagtaildocs.W004",
+            )
+        )
+    if getattr(settings, "GS_FILE_OVERWRITE", None):
+        errors.append(
+            Warning(
+                "The GS_FILE_OVERWRITE setting is set to True",
+                hint="This should be set to False. "
+                "Without this, the default behaviour of allowing file overwrites will be used.",
+                id="wagtaildocs.W004",
+            )
+        )
+
+    return errors
