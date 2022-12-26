@@ -293,7 +293,7 @@ class AzureBaseBackend(BaseBackend):
 
     def _get_client_kwargs(self):
         return {
-            "credentials": self._get_credentials(),
+            "credential": self._get_credentials(),
             "subscription_id": self._get_subscription_id(),
         }
 
