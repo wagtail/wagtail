@@ -6,12 +6,22 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Making Wagtail pages more SEO friendly with Wagtail Metadata](https://enzedonline.com/en/tech-blog/making-wagtail-pages-more-seo-friendly-with-wagtail-metadata/) (24 December 2022)
+-   [Deploying Wagtail to Google's Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-wagtail) (7 December 2022)
+-   [Headless Wagtail and Next.js preview mode](https://medium.com/@yaroslavdraha/headless-wagtail-and-next-js-preview-mode-f6f29c944830) (25 November 2022)
+-   [A Step-by-Step Guide on Installing the Wagtail Codebase on a Local Machine for Contribution (video)](https://www.youtube.com/watch?v=XAjQ4XN0qLs) (19 November 2022)
+-   [How we created the new Wagtail.org](https://wagtail.org/blog/how-we-created-the-new-wagtailorg/) (16 November 2022)
+-   [Build a Blog With Wagtail CMS (4.0.0) Released](https://www.accordbox.com/blog/build-blog-with-wagtail-cms-400-released/) (7 November 2022)
+-   [A Step-by-Step Guide for Manually Setting up Bakery Demo with Wagtail](https://juliet.hashnode.dev/a-step-by-step-guide-for-manually-setting-up-bakery-demo-with-wagtail) (18 November 2022)
+-   [What's this? A new website? - Explainer for building a new website with Wagtail](https://theorangeone.net/posts/whats-this-a-new-website/) (10 October 2022)
+-   [Integrating Sa11y accessibility checker into a Wagtail website (video)](https://www.youtube.com/watch?v=NEQVoFEHjJk) (26 October 2022)
 -   [Guide to integrate Wagtail CRX with a Snipcart storefront](https://github.com/justicepelteir/wagtail_crx_snipcart_storefront) (9 October 2022)
 -   [Adding featured events to the HomePage with Wagtail 4.0 (video)](https://www.youtube.com/watch?v=opQ_ktAXplo) (6 October 2022)
 -   [Creating an interactive event budgeting tool within Wagtail](https://dev.to/lb/creating-an-interactive-event-budgeting-tool-within-wagtail-53b3) (4 October 2022)
 -   [Deploy Django Wagtail to Render](https://stackingtabs.medium.com/deploy-django-wagtail-to-render-7d33c4b09bf9) (23 September 2022)
 -   [Using a migration to apply permissions to Wagtail snippets](https://sixfeetup.com/blog/a-look-at-using-wagtail-snippets-with-django) (7 September 2022)
 -   [Deploying a Wagtail site to Fly.io - Part 1 of 5](https://usher.dev/posts/wagtail-on-flyio/part-1/) (30 August 2022)
+-   [Django Wagtail CMS | Building A Blog In 20 Minutes (video)](https://www.youtube.com/watch?v=mbUFWkZAm8w) (12 August 2022)
 -   [Hosting a Wagtail site on Digital Ocean with CapRover](https://medium.com/@Gidsey/hosting-a-wagtail-site-on-digital-ocean-with-caprover-e71306e8d053) (21 July 2022)
 -   [Add Heading Blocks with Bookmarks in Wagtail](https://enzedonline.com/en/tech-blog/how-to-add-heading-blocks-with-bookmarks-in-wagtail/) (5 July 2022)
 -   [Import files into Wagtail](https://cynthiakiser.com/blog/2022/07/02/import-files-into-wagtail.html) (2 July 2022)
