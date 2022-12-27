@@ -50,6 +50,7 @@ Changelog
  * Fix: Ensure that short content pages (such as editing snippets) do not show an inconsistent background (Sage Abdullah)
  * Fix: Fix horizontal positioning of rich text inline toolbar (Thibaud Colas)
  * Fix: Ensure that `DecimalBlock` correctly handles `None`, when `required=False`, values (Natarajan Balaji)
+ * Fix: Close the userbar when clicking its toggle (Albina Starykova)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)
@@ -101,6 +102,7 @@ Changelog
  * Fix: Support text resizing in workflow steps cards (Ivy Jeptoo)
  * Fix: Use the correct padding for autocomplete block picker (Umar Farouk Yunusa)
  * Fix: Fix horizontal positioning of rich text inline toolbar (Thibaud Colas)
+ * Fix: Close the userbar when clicking its toggle (Albina Starykova)
 
 
 4.1.1 (11.11.2022)

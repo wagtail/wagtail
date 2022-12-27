@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (
       event.relatedTarget == null ||
       (event.relatedTarget &&
-        event.relatedTarget.closest('.wagtail-userbar-items'))
+        event.relatedTarget.closest('.wagtail-userbar-nav'))
     ) {
       return;
     }
