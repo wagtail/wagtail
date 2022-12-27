@@ -12,6 +12,7 @@ Changelog
  * Fix: Support text resizing in workflow steps cards (Ivy Jeptoo)
  * Fix: Use the correct padding for autocomplete block picker (Umar Farouk Yunusa)
  * Fix: Fix horizontal positioning of rich text inline toolbar (Thibaud Colas)
+ * Fix: Close the userbar when clicking its toggle (Albina Starykova)
 
 
 4.1.1 (11.11.2022)
