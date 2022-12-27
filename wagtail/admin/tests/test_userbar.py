@@ -197,7 +197,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         )
         needle = f"""
             <a href="{expected_url}" target="_parent" role="menuitem">
-                <svg class="icon icon-plus wagtail-action-icon" aria-hidden="true">
+                <svg class="icon icon-plus w-action-icon" aria-hidden="true">
                     <use href="#icon-plus"></use>
                 </svg>
                 Add a child page
@@ -238,7 +238,7 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
         expected_approve_html = """
             <form action="/admin/pages/moderation/{}/approve/" target="_parent" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="wagtail-action">
+                <div class="w-action">
                     <input type="submit" value="Approve" class="button" />
                 </div>
             </form>
@@ -250,7 +250,7 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
         expected_reject_html = """
             <form action="/admin/pages/moderation/{}/reject/" target="_parent" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="wagtail-action">
+                <div class="w-action">
                     <input type="submit" value="Reject" class="button" />
                 </div>
             </form>
