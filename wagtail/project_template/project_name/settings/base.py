@@ -167,5 +167,5 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 
 
 # used when working with AWS S3
-DEFAULT_FILE_STORAGE = ""
-AWS_S3_FILE_OVERWRITE = ""
+DEFAULT_FILE_STORAGE = "abcd"
+AWS_S3_FILE_OVERWRITE = "Trueorfalse"
