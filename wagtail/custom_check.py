@@ -5,7 +5,7 @@ from django.core.checks import Warning, register
 @register()
 def example_check(app_configs, **kwargs):
     errors = []
-    
+
     if DEFAULT_FILE_STORAGE == "storages.backends.s3boto3.S3Boto3Storage" and AWS_S3_FILE_OVERWRITE == True:
 
         errors.append(
