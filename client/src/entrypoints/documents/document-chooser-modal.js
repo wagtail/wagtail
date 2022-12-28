@@ -5,7 +5,7 @@ class DocumentChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandler
   ajaxifyLinks(modal, context) {
     super.ajaxifyLinks(modal, context);
 
-    $('a.upload-one-now').on('click', (event) => {
+    $('.upload-one-now').on('click', (event) => {
       // Set current collection ID at upload form tab
       const collectionId = $('#id_collection_id').val();
       if (collectionId) {
@@ -22,6 +22,6 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS =
     searchInputDelay: 50,
     creationFormFileFieldSelector: '#id_document-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_document-chooser-upload-title',
-    creationFormTabSelector: '#tab-upload',
+    creationFormTabSelector: '[data-chooser-creation-form-wrapper]',
     creationFormEventName: 'wagtail:documents-upload',
   }).getOnLoadHandlers();

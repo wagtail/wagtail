@@ -299,6 +299,7 @@ class ImageChooserViewSet(ChooserViewSet):
     icon = "image"
     choose_one_text = _("Choose an image")
     create_action_label = _("Upload")
+    creation_tab_label = _("Upload an image")
     create_action_clicked_label = _("Uploading…")
     choose_another_text = _("Choose another image")
     edit_item_text = _("Edit this image")

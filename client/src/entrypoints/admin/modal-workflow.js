@@ -5,8 +5,8 @@ possibly after several navigation steps
 
 import $ from 'jquery';
 
-import { noop } from '../../utils/noop';
-import { gettext } from '../../utils/gettext';
+import {noop} from '../../utils/noop';
+import {useA11yDialog} from "../../includes/dialog";
 
 /* eslint-disable */
 function ModalWorkflow(opts) {
@@ -30,44 +30,31 @@ function ModalWorkflow(opts) {
     self.dialog = document.getElementById(opts.dialogId);
     self.url = opts.url || self.dialog.dataset.url;
     self.body = self.dialog.querySelector('[data-dialog-body]');
-
     // Clear the dialog body as it may have been populated previously
     self.body.innerHTML = '';
+    // Set the opacity so we can fade in when it is populated
+    self.body.classList.add('w-opacity-0');
   } else {
     /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
-    $('body > .modal').remove();
+    const previousDialog = document.querySelector('#modal-workflow-dialog');
+    previousDialog && previousDialog.remove();
+
+    self.container = useA11yDialog(null, true, 'modal-workflow-dialog');
 
     // disable the trigger element so it cannot be clicked twice while modal is loading
     self.triggerElement = document.activeElement;
     self.triggerElement.setAttribute('disabled', true);
 
-    // set default contents of container
-    const iconClose =
-      '<svg class="icon icon-cross" aria-hidden="true"><use href="#icon-cross"></use></svg>';
-    self.container = $(
-      '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' +
-        iconClose +
-        gettext('Close') +
-        '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>',
-    );
-
-    // add container to body and hide it, so content can be added to it before display
-    $('body').append(self.container);
-    self.container.modal('hide');
-
     // add listener - once modal is about to be hidden, re-enable the trigger
-    self.container.on('hide.bs.modal', () => {
+    self.container.on('hide', () => {
       self.triggerElement.removeAttribute('disabled');
-    });
-
-    // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
-    self.container.on('hidden.bs.modal', function () {
+      // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
       self.triggerElement.focus();
-      self.container.remove();
+      self.container.destroy();
     });
 
     self.url = opts.url;
-    self.body = self.container.find('.modal-body');
+    self.body = self.container.$el.querySelector('[data-dialog-body]');
   }
 
   self.loadUrl = function (url, urlParams) {
@@ -105,9 +92,10 @@ function ModalWorkflow(opts) {
       // if response contains an 'html' item, replace modal body with it
       if (useDialog) {
         self.body.innerHTML = response.html;
+        self.body.classList.remove('w-opacity-0');
       } else {
-        self.body.html(response.html);
-        self.container.modal('show');
+        self.container.show();
+        self.body.innerHTML = response.html;
       }
     }
 
@@ -129,7 +117,7 @@ function ModalWorkflow(opts) {
     if (useDialog) {
       self.dialog.dispatchEvent(new CustomEvent('wagtail:hide'));
     } else {
-      self.container.modal('hide');
+      self.container.hide();
     }
   };
 
@@ -137,4 +125,5 @@ function ModalWorkflow(opts) {
 
   return self;
 }
+
 window.ModalWorkflow = ModalWorkflow;

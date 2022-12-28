@@ -2,19 +2,49 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block filter_form %}
-    <form data-chooser-modal-search class="search-bar" action="{{ results_url }}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
-        <ul class="fields">
-            {% for field in filter_form %}
-                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-            {% endfor %}
-            {% if popular_tags %}
-                <li class="taglist w-label-3">
-                    <h3>{% trans 'Popular tags' %}</h3>
-                    {% for tag in popular_tags %}
-                        <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
-                    {% endfor %}
-                </li>
-            {% endif %}
-        </ul>
+    <form data-chooser-modal-search class="search-form" action="{{ results_url }}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
+        <div class="w-chooser-header__wrapper">
+            <div class="w-chooser-header__search-field">
+                {% if filter_form.q %}{{ filter_form.q }}{% endif %}
+
+                {% if filter_form.visible_fields|length > 1 %}
+                    <button type="button"
+                            class="w-chooser-header__filter-toggle"
+                            data-chooser-filter-toggle
+                            id="chooser-filters-toggle-{{ filter_form.id }}"
+                            aria-controls="chooser-filters-{{ filter_form.id }}"
+                            aria-label="{% trans 'Toggle filters visibility' %}">
+                        <span>{% trans 'Filter' %}</span>
+                        {% icon name='filter' class_name="w-w-3 w-h-3" %}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if filter_form.visible_fields|length > 1 %}
+            <ul class="fields w-chooser-filters"
+                id="chooser-filters-{{ filter_form.id }}"
+                aria-hidden="true"
+                aria-labelledby="chooser-filters-toggle-{{ filter_form.id }}">
+                {% for field in filter_form %}
+                    {% if field.name != 'q' %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endif %}
+                {% endfor %}
+                {% if popular_tags %}
+                    <li class="taglist w-label-3">
+                        <label class="w-field__label" for="chooser-form-{{ filter_form.id }}-tag">{% trans 'Popular tags' %}</label>
+                        <div class="w-field__input">
+                            <select data-chooser-suggested-tag id="chooser-form-{{ filter_form.id }}-tag">
+                                <option value="">Select a tag</option>
+                                {% for tag in popular_tags %}
+                                    <option value="{{ tag.name }}">{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
     </form>
 {% endblock %}

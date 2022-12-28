@@ -30,6 +30,9 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
     const initialPageResultsHtml = $('.page-results', modal.body).html();
 
+    /* add class for modal resizing */
+    $(modal.body).closest('#modal-workflow-dialog').addClass('w-dialog--with-listing');
+
     let request;
 
     function search() {
@@ -133,7 +136,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     Focus on the search box when opening the modal.
     FIXME: this doesn't seem to have any effect (at least on Chrome)
     */
-    $('#id_q', modal.body).trigger('focus');
+    $('#id_q', modal.body).focus();
   },
 
   anchor_link(modal) {

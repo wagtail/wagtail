@@ -51,7 +51,7 @@ class ModalWorkflowSource extends Component {
       selectedText,
     );
 
-    $(document.body).on('hidden.bs.modal', this.onClose);
+    $(document.body).on('wagtail:hide-dialog', this.onClose);
 
     this.workflow = global.ModalWorkflow({
       url,
@@ -69,7 +69,7 @@ class ModalWorkflowSource extends Component {
   componentWillUnmount() {
     this.workflow = null;
 
-    $(document.body).off('hidden.bs.modal', this.onClose);
+    $(document.body).off('wagtail:hide-dialog', this.onClose);
   }
 
   onChosen(data) {

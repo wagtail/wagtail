@@ -5,7 +5,7 @@ class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFac
   ajaxifyLinks(modal, context) {
     super.ajaxifyLinks(modal, context);
 
-    $('a.upload-one-now').on('click', (event) => {
+    $('.upload-one-now').on('click', (event) => {
       // Set current collection ID at upload form tab
       const collectionId = $('#id_collection_id').val();
       if (collectionId) {
@@ -19,18 +19,18 @@ class ImageChooserModalOnloadHandlerFactory extends ChooserModalOnloadHandlerFac
   onLoadChooseStep(modal) {
     super.onLoadChooseStep(modal);
 
-    $('a.suggested-tag').on('click', (event) => {
+    $('[data-chooser-suggested-tag]').change((e) => {
       $('#id_q').val('');
       this.searchController.search({
-        tag: $(event.currentTarget).text(),
+        tag: $(e.target).find('option:selected').attr('value'),
         collection_id: $('#id_collection_id').val(),
       });
       return false;
-    });
+    })
   }
 
   onLoadDuplicateFoundStep(modal, jsonData) {
-    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    $('[data-chooser-creation-form-wrapper]', modal.body).html(jsonData.htmlFragment);
     $('.use-new-image', modal.body).on('click', (event) => {
       modal.loadUrl(event.currentTarget.href);
       return false;
@@ -109,5 +109,5 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS =
     creationFormFileFieldSelector: '#id_image-chooser-upload-file',
     creationFormTitleFieldSelector: '#id_image-chooser-upload-title',
     creationFormEventName: 'wagtail:images-upload',
-    creationFormTabSelector: '#tab-upload',
+    creationFormTabSelector: '[data-chooser-creation-form-wrapper]',
   }).getOnLoadHandlers();

@@ -4,7 +4,7 @@
     Either the chosen or unchosen div will be shown, depending on the presence
     of the 'blank' class on the container.
 
-    Any element with the 'action-choose' class will open the page chooser modal
+    Any element with the 'data-dialog-show' attribute will open the page chooser modal
     when clicked.
 {% endcomment %}
 {% fragment as title_id %}{{ attrs.id }}-title{% endfragment %}
@@ -21,7 +21,9 @@
         {% endblock %}
 
         <ul class="chooser__actions">
-            <li><button type="button" class="button action-choose button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.choose_another_text }}</button></li>
+            <li>
+                <button type="button" class="button button-small button-secondary" data-dialog-show aria-describedby="{{ title_id }}">{{ widget.choose_another_text }}</button>
+            </li>
             {% if widget.show_edit_link %}
                 <li>
                     {% block edit_link %}
@@ -30,13 +32,15 @@
                 </li>
             {% endif %}
             {% if not widget.is_required and widget.show_clear_link %}
-                <li><button type="button" class="button action-clear button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.clear_choice_text }}</button></li>
+                <li>
+                    <button type="button" class="button action-clear button-small button-secondary" aria-describedby="{{ title_id }}">{{ widget.clear_choice_text }}</button>
+                </li>
             {% endif %}
         </ul>
     </div>
 
     <div class="unchosen">
-        <button type="button" class="button action-choose button-small button-secondary chooser__choose-button">{% block unchosen_icon %}{% icon name=icon|default:"plus-inverse" %}{% endblock unchosen_icon %}{{ widget.choose_one_text }}</button>
+        <button type="button" class="button button-small button-secondary chooser__choose-button" data-dialog-show>{% block unchosen_icon %}{% icon name=icon|default:"plus-inverse" %}{% endblock unchosen_icon %}{{ widget.choose_one_text }}</button>
     </div>
 </div>
 

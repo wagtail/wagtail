@@ -24,7 +24,7 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.admin.ui.tables import Table, TitleColumn, ChooserTable
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
@@ -161,7 +161,7 @@ class BaseChooseView(ModalPageFurnitureMixin, ModelLookupMixin, ContextMixin, Vi
     def get(self, request):
         self.filter_form = self.get_filter_form()
         self.results = self.get_results_page(request)
-        self.table = Table(self.columns, self.results)
+        self.table = ChooserTable(self.columns, self.results)
 
         return self.render_to_response()
 

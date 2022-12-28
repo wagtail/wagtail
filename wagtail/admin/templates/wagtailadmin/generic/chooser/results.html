@@ -3,7 +3,7 @@
 {% if results %}
     {% if is_searching %}
         {% block search_results_count %}
-            <h2 role="alert">
+            <h2 role="alert" class="w-chooser-results__alert">
                 {% blocktrans trimmed count counter=results.paginator.count %}
                     There is {{ counter }} match
                 {% plural %}
@@ -22,11 +22,11 @@
 {% else %}
     {% if is_searching %}
         {% block no_search_results_message %}
-            <p role="alert">{% blocktrans trimmed %}Sorry, there are no matches for "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
+            <p role="alert" class="w-chooser-results__alert">{% blocktrans trimmed %}Sorry, there are no matches for "<em>{{ search_query }}</em>"{% endblocktrans %}</p>
         {% endblock %}
     {% else %}
         {% block no_items_message %}
-            <p>{% trans "No items have been created." %}</p>
+            <p class="no-items-message">{% trans "No items have been created." %}</p>
         {% endblock %}
     {% endif %}
 {% endif %}

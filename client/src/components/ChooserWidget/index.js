@@ -1,4 +1,4 @@
-import { chooserModalOnloadHandlers } from '../../includes/chooserModal';
+import {chooserModalOnloadHandlers} from '../../includes/chooserModal';
 
 export class Chooser {
   modalOnloadHandlers = chooserModalOnloadHandlers;
@@ -11,14 +11,14 @@ export class Chooser {
     this.initHTMLElements(id);
     this.state = this.getStateFromHTML();
 
-    for (const btn of this.chooserElement.querySelectorAll('.action-choose')) {
-      btn.addEventListener('click', () => {
-        this.openChooserModal();
-      });
-    }
     for (const btn of this.chooserElement.querySelectorAll('.action-clear')) {
       btn.addEventListener('click', () => {
         this.clear();
+      });
+    }
+    for (const btn of this.chooserElement.querySelectorAll('[data-dialog-show]')) {
+      btn.addEventListener('click', (e) => {
+        this.openChooserModal();
       });
     }
   }
@@ -112,9 +112,9 @@ export class Chooser {
 
   focus() {
     if (this.state) {
-      this.chooserElement.querySelector('.chosen .action-choose').focus();
+      this.chooserElement.querySelector('.chosen [data-dialog-show]').focus();
     } else {
-      this.chooserElement.querySelector('.unchosen .action-choose').focus();
+      this.chooserElement.querySelector('.unchosen [data-dialog-show]').focus();
     }
   }
 

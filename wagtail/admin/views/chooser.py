@@ -99,7 +99,7 @@ def can_choose_page(
 
 
 class PageChooserTable(Table):
-    classname = "listing chooser"
+    classname = "w-chooser-listing w-chooser-listing--page-table"
 
     def get_row_classname(self, page):
         classnames = []

@@ -6,10 +6,13 @@ function createTaskChooser(id) {
   const input = $('#' + id);
   const editAction = chooserElement.find('.edit-link');
 
-  $('.action-choose', chooserElement).on('click', () => {
+  $('[data-dialog-show]', chooserElement).on('click', (e) => {
+    const dialogId = e.target.getAttribute('data-dialog-show')
+
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: chooserElement.data('chooserUrl'),
+      dialogId: dialogId,
       // eslint-disable-next-line no-undef
       onload: TASK_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
@@ -24,3 +27,4 @@ function createTaskChooser(id) {
   });
 }
 window.createTaskChooser = createTaskChooser;
+

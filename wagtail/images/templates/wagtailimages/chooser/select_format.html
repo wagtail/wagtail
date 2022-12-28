@@ -1,19 +1,26 @@
+{% extends "wagtailadmin/generic/chooser/chooser.html" %}
+
 {% load wagtailimages_tags %}
 {% load i18n %}
-{% trans "Choose a format" as choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str %}
 
-<div class="row row-flush nice-padding">
-    <div class="col6">
-        {% image image max-800x600 class="show-transparency" %}
+{% block title %}
+    {% trans "Choose image format" %}
+{% endblock %}
+
+{% block chooser_content %}
+    <div class="w-grid md:w-grid-cols-3 w-gap-6 md:w-gap-8 w-px-6 w-py-10 w-overflow-y-auto">
+        <div class="w-col-span-2">
+            <form action="{% url 'wagtailimages_chooser:select_format' image.id %}" method="POST" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    {% include "wagtailadmin/shared/field.html" with field=field %}
+                {% endfor %}
+                <input type="submit" value="{% trans 'Insert image' %}"  class="button" />
+            </form>
+        </div>
+        <div class="w-col-span-1">
+            {% image image max-800x600 class="show-transparency" %}
+        </div>
     </div>
-    <div class="col6">
-        <form action="{% url 'wagtailimages_chooser:select_format' image.id %}" method="POST" novalidate>
-            {% csrf_token %}
-            {% for field in form %}
-                {% include "wagtailadmin/shared/field.html" with field=field %}
-            {% endfor %}
-            <input type="submit" value="{% trans 'Insert image' %}"  class="button" />
-        </form>
-    </div>
-</div>
+{% endblock %}

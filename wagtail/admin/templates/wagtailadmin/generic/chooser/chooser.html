@@ -1,56 +1,81 @@
 {% load i18n wagtailadmin_tags %}
-{% include "wagtailadmin/shared/header.html" with title=page_title merged=1 subtitle=page_subtitle icon=header_icon %}
 
 {% if creation_form %}
     {{ creation_form.media.js }}
     {{ creation_form.media.css }}
 {% endif %}
 
-{% comment %} Do not attach JavaScript behaviour (data-tabs) below if there are no actual tabs used {% endcomment %}
-<div class="w-tabs" {% if creation_form %}data-tabs data-tabs-disable-url{% endif %}>
-    {% if creation_form %}
-        <div class="w-tabs__wrapper w-overflow-hidden">
-            <div role="tablist" class="w-tabs__list w-w-full">
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_tab_label %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=view.creation_tab_id title=creation_tab_label %}
-            </div>
-        </div>
-    {% else %}
-        {% comment %} Ensure layout still works as expected (gap under header from tabs wrapper) even if no tabs used {% endcomment %}
-        <div class="w-tabs__wrapper"></div>
-    {% endif %}
-
-    <div class="tab-content">
-        <section
-            id="tab-search"
-            class="w-tabs__panel"
-            role="tabpanel"
-            aria-labelledby="tab-label-search"
-        >
-
+<div class="w-chooser" {% if creation_form %}data-chooser-with-creation-form{% endif %}>
+    <div class="w-chooser__body" data-chooser-body>
+        <header class="w-chooser-header">
             {% block filter_form %}
                 {% if filter_form.fields %}
-                    <form data-chooser-modal-search class="search-bar" action="{{ results_url }}" method="GET" novalidate>
+                    <form data-chooser-modal-search class="search-form" action="{{ results_url }}" method="GET" novalidate>
                         {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
 
-                        {% if filter_form.visible_fields %}
-                            <ul class="fields">
+                        <div class="w-chooser-header__wrapper">
+                            <div class="w-chooser-header__search-field">
+                                {% if filter_form.q %}{{ filter_form.q }}{% endif %}
+
+                                {% if filter_form.visible_fields|length > 1 %}
+                                    <button type="button"
+                                            class="w-chooser-header__filter-toggle"
+                                            data-chooser-filter-toggle
+                                            id="chooser-filters-toggle-{{ filter_form.widget.id }}"
+                                            aria-controls="chooser-filters-{{ filter_form.widget.id }}"
+                                            aria-label="{% trans 'Toggle filters visibility' %}">
+                                        <span>{% trans 'Filter' %}</span>
+                                        {% icon name='filter' class_name="w-w-3 w-h-3" %}
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if filter_form.visible_fields|length > 1 %}
+                            <ul class="fields w-chooser-filters"
+                                id="chooser-filters-{{ filter_form.pk }}"
+                                aria-hidden="true"
+                                aria-labelledby="chooser-filters-toggle-{{ filter_form.widget.id }}">
                                 {% for field in filter_form.visible_fields %}
-                                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                                    {% if field.name != 'q' %}
+                                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         {% endif %}
                     </form>
+                {% else %}
+                    <div class="w-chooser-header__wrapper">
+                        {% block title %}{{ page_title }} {{ page_subtitle }}{% endblock %}
+                    </div>
                 {% endif %}
             {% endblock %}
+        </header>
 
-            <div id="search-results" class="listing">
-                {% include view.results_template_name %}
-            </div>
+        <section class="w-chooser__scrollable">
+            {% block chooser_content %}
+                <div>
+                    <div id="search-results" class="w-chooser-search-results">
+                        {% include view.results_template_name %}
+                    </div>
+                </div>
+            {% endblock %}
         </section>
 
         {% if creation_form %}
-            {% include view.creation_form_template_name %}
+            <div class="w-chooser__footer">
+                <button class="w-chooser__footer-button" data-chooser-form-toggle>
+                    <div class="w-chooser__footer-button-add">{% icon name='plus' class_name="w-w-4 w-h-4" %}</div>
+                    {{ creation_tab_label }}
+                </button>
+            </div>
         {% endif %}
+
     </div>
+
+    {% if creation_form %}
+        {% include view.creation_form_template_name %}
+    {% endif %}
 </div>
+
+

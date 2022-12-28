@@ -326,5 +326,9 @@ class Table(Component):
             return self.table.get_row_classname(self.instance)
 
 
+class ChooserTable(Table):
+    classname = 'w-chooser-listing'
+
+
 class InlineActionsTable(Table):
     classname = "listing listing--inline-actions"
