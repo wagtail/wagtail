@@ -166,5 +166,3 @@ WAGTAILSEARCH_BACKENDS = {
 WAGTAILADMIN_BASE_URL = "http://example.com"
 
 # below lines when working with aws s3
-DEFAULT_FILE_STORAGE = None
-AWS_S3_FILE_OVERWRITE = None
