@@ -2,6 +2,9 @@
 @use 'sass:math';
 @use 'sass:string';
 
+@tailwind base;
+@tailwind components;
+
 @import '../../../../../client/scss/settings';
 @import '../../../../../client/scss/tools';
 
@@ -12,15 +15,10 @@
 $size-home-button: 3.5em;
 $position: 2em;
 $width-arrow: 0.6em;
-$box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1);
+$box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1),
+  0 1px 10px 0 rgba(107, 214, 230, 0.7);
 $max-items: 12;
 $userbar-radius: 6px;
-$color-black: #000;
-$color-white: #fff;
-$color-grey-1: #262626;
-
-// Classnames will start with this parameter, eg .wagtail-
-$namespace: 'wagtail';
 
 // Possible positions for the userbar to exist in. These are set through the
 // {% wagtailuserbar 'bottom-left' %} template tag.
@@ -50,23 +48,16 @@ $positions: (
 // =============================================================================
 // Wagtail userbar proper
 // =============================================================================
-.#{$namespace}-userbar-reset {
-  all: initial;
-  // Copy our font sans variable so it can be used without Tailwind.
-  --w-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui,
-    Roboto, 'Helvetica Neue', Arial, sans-serif, Apple Color Emoji,
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-.#{$namespace}-userbar {
+.w-userbar {
   position: fixed;
   z-index: 9999;
-  // stylelint-disable-next-line declaration-no-important
-  font-size: initial !important;
+  font-size: initial;
   line-height: initial;
   margin: 0;
   padding: 0;
-  display: block;
+  // Stop hiding the userbar once stylesheets are loaded.
+  // stylelint-disable-next-line declaration-no-important
+  display: block !important;
   border: 0;
   width: auto;
   height: auto;
@@ -77,34 +68,32 @@ $positions: (
 }
 
 @media print {
-  .#{$namespace}-userbar {
+  .w-userbar {
     display: none;
   }
 }
 
-// stylelint-disable declaration-no-important
-.#{$namespace}-userbar-trigger {
-  all: initial;
+.w-userbar-trigger {
   display: flex;
   align-items: center;
   justify-content: center;
   width: $size-home-button;
   height: $size-home-button;
-  margin: 0 !important;
+  margin: 0;
   overflow: hidden;
   background-color: $color-white;
   border: 2px solid transparent;
   border-radius: 50%;
   color: $color-black;
-  padding: 0 !important;
+  padding: 0;
   cursor: pointer;
-  box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, 0.7);
+  box-shadow: $box-shadow-props;
   transition: all 0.2s ease-in-out;
-  font-size: 16px;
-  text-decoration: none !important;
+  font-size: 1rem;
+  text-decoration: none;
   position: relative;
 
-  .#{$namespace}-userbar-help-text {
+  .w-userbar-help-text {
     // Visually hide the help text
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -115,9 +104,9 @@ $positions: (
     width: 1px;
   }
 
-  .#{$namespace}-icon:before {
+  .w-icon:before {
     transition: color 0.2s ease;
-    font-size: 32px;
+    font-size: 2rem;
     width: auto;
     margin: 0;
   }
@@ -127,8 +116,7 @@ $positions: (
   }
 }
 
-.#{$namespace}-userbar-items {
-  all: revert;
+.w-userbar-items {
   display: block;
   list-style: none;
   position: absolute;
@@ -136,17 +124,17 @@ $positions: (
   min-width: 210px;
   visibility: hidden;
   font-family: $font-sans;
-  font-size: 14px;
+  font-size: 0.875rem;
   padding-inline-start: 0;
   text-decoration: none;
 
-  .#{$namespace}-userbar.is-active & {
+  .w-userbar.is-active & {
     visibility: visible;
   }
 }
 
 // Arrow
-.#{$namespace}-userbar-items:after {
+.w-userbar-items:after {
   content: '';
   position: absolute;
   width: 0;
@@ -157,29 +145,28 @@ $positions: (
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none !important;
+    transition: none;
   }
 
-  .#{$namespace}-userbar.is-active & {
+  .w-userbar.is-active & {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.3s;
   }
 }
 
-.#{$namespace}-userbar-nav {
-  background: transparent !important;
+.w-userbar-nav {
+  background: transparent;
   padding: 0;
-  margin: 0 !important;
-  display: block !important;
+  margin: 0;
+  display: block;
 
-  .#{$namespace}-action {
+  .w-action {
     background: transparent;
   }
 }
 
-.#{$namespace}-userbar__item {
-  all: revert;
+.w-userbar__item {
   margin: 0;
   background-color: $color-grey-1;
   opacity: 0;
@@ -187,14 +174,14 @@ $positions: (
   transition-duration: 0.125s;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
   font-family: $font-sans;
-  font-size: 16px !important;
-  text-decoration: none !important;
+  font-size: 1rem;
+  text-decoration: none;
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none !important;
+    transition: none;
 
     // Force disable transitions for all items
-    transition-delay: 0s !important;
+    transition-delay: 0s;
   }
 
   &:first-child {
@@ -224,14 +211,14 @@ $positions: (
   }
 
   a,
-  .#{$namespace}-action {
+  .w-action {
     color: $color-white;
     display: block;
-    text-decoration: none !important;
-    transform: none !important;
-    transition: none !important;
-    margin: 0 !important;
-    font-size: 14px !important;
+    text-decoration: none;
+    transform: none;
+    transition: none;
+    margin: 0;
+    font-size: 0.875rem;
 
     &:hover,
     &:focus {
@@ -250,7 +237,7 @@ $positions: (
     }
   }
 
-  .#{$namespace}-icon {
+  .w-icon {
     position: relative;
 
     &:before {
@@ -263,7 +250,7 @@ $positions: (
 
   a,
   button {
-    font-size: 14px !important;
+    font-size: 0.875rem;
     text-align: start;
     padding: 0.8em;
   }
@@ -279,8 +266,16 @@ $positions: (
 //Media for Windows High Contrast
 
 @media (forced-colors: $media-forced-colours) {
-  .#{$namespace}-userbar-icon {
+  .w-userbar-icon {
     fill: $system-color-link-text;
+  }
+
+  .w-userbar__item {
+    border: 1px solid $system-color-button-text;
+  }
+
+  .w-userbar-items::after {
+    border: $width-arrow solid Canvas;
   }
 }
 
@@ -293,17 +288,17 @@ $positions: (
   $horizontal: map.get($attrs, horizontal);
   $arrow: map.get($attrs, arrow);
 
-  .#{$namespace}-userbar--#{$pos} {
+  .w-userbar--#{$pos} {
     #{$vertical}: $position;
     #{$horizontal}: $position;
 
-    .#{$namespace}-userbar-items {
+    .w-userbar-items {
       #{$vertical}: 100%;
       #{$horizontal}: 0;
       padding-#{$vertical}: $width-arrow * 2;
     }
 
-    .#{$namespace}-userbar-nav .#{$namespace}-userbar__item {
+    .w-userbar-nav .w-userbar__item {
       @if $vertical == 'bottom' {
         transform: translateY(1em);
       } @else {
@@ -311,21 +306,21 @@ $positions: (
       }
     }
 
-    .#{$namespace}-userbar-items:after {
+    .w-userbar-items:after {
       #{$vertical}: 2px;
       #{$horizontal}: math.div($size-home-button, 2) -
         math.div($width-arrow, 2);
       border-#{$arrow}-color: $color-grey-1;
 
       @if $vertical == 'bottom' {
-        transform: translateY(-$width-arrow);
+        transform: translateY($width-arrow);
       }
       @if $vertical == 'top' {
         transform: translateY($width-arrow);
       }
     }
 
-    &.is-active .#{$namespace}-userbar__item {
+    &.is-active .w-userbar__item {
       @for $i from 1 through $max-items {
         @if $vertical == 'bottom' {
           &:nth-last-child(#{$i}) {
@@ -348,7 +343,7 @@ $positions: (
 // =============================================================================
 
 // Active state for the list items comes last.
-.#{$namespace}-userbar.is-active .#{$namespace}-userbar__item {
+.w-userbar.is-active .w-userbar__item {
   transform: translateY(0);
   opacity: 1;
 }

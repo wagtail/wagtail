@@ -1,10 +1,10 @@
 {% load wagtailadmin_tags i18n %}
 <!-- Wagtail user bar embed code -->
-<div class="wagtail-userbar-reset">
-    <div class="wagtail-userbar wagtail-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar>
+<template id="wagtail-userbar-template">
+    <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar part="userbar">
         <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/userbar.css' %}">
-        <div class="wagtail-userbar-nav">
-            <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="wagtail-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
+        <div class="w-userbar-nav">
+            <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="w-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
                 {% block branding_logo %}
                     <div style="display: none">
                         <svg>
@@ -19,19 +19,20 @@
                         </svg>
                     </div>
                     {% comment %} Intentionally not using the icon template tag to show as SVG only {% endcomment %}
-                    <svg class="wagtail-userbar-icon" aria-hidden="true">
+                    <svg class="w-userbar-icon" aria-hidden="true">
                         <use href="#icon-wagtail-icon"></use>
                     </svg>
                 {% endblock %}
-                <span class="wagtail-userbar-help-text">{% trans 'View Wagtail quick actions' %}</span>
+                <span class="w-userbar-help-text">{% trans 'View Wagtail quick actions' %}</span>
             </button>
-            <ul aria-labelledby="wagtail-userbar-trigger" class="wagtail-userbar-items" id="wagtail-userbar-items" role="menu">
+            <ul aria-labelledby="wagtail-userbar-trigger" class="w-userbar-items" id="wagtail-userbar-items" role="menu">
                 {% for item in items %}
                     {{ item|safe }}
                 {% endfor %}
             </ul>
         </div>
-        <script src="{% versioned_static 'wagtailadmin/js/userbar.js' %}"></script>
     </div>
-</div>
+</template>
+<wagtail-userbar></wagtail-userbar>
+<script src="{% versioned_static 'wagtailadmin/js/userbar.js' %}"></script>
 <!-- end Wagtail user bar embed code -->

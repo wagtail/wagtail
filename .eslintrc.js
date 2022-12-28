@@ -95,6 +95,50 @@ module.exports = {
         'react/require-default-props': 'off',
       },
     },
+    // Rules we want to enforce or change for Stimulus Controllers
+    {
+      files: ['*Controller.ts'],
+      rules: {
+        '@typescript-eslint/member-ordering': [
+          'error',
+          {
+            classes: {
+              memberTypes: ['signature', 'field', 'method'],
+            },
+          },
+        ],
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: 'method',
+            format: ['camelCase'],
+            custom: {
+              // Use connect or initialize instead of constructor, avoid generic 'render' or 'update' methods and instead be more specific.
+              regex: '^(constructor|render|update)$',
+              match: false,
+            },
+          },
+          {
+            selector: 'property',
+            format: ['camelCase'],
+            custom: {
+              // Use Stimulus values where possible for internal state, avoid a generic state object as these are not reactive.
+              regex: '^(state)$',
+              match: false,
+            },
+          },
+        ],
+        'no-restricted-properties': [
+          'error',
+          {
+            object: 'window',
+            property: 'Stimulus',
+            message:
+              "Please import the base Controller or only access the Stimulus instance via the controller's `this.application` attribute.",
+          },
+        ],
+      },
+    },
     // Rules we don’t want to enforce for test and tooling code.
     {
       files: [
