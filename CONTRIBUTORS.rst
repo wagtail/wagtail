@@ -677,6 +677,7 @@ Contributors
 * damascene
 * Natarajan Balaji
 * Vallabh Tiwari
+* dr-rompecabezas
 
 Translators
 ===========
