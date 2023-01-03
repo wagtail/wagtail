@@ -88,6 +88,12 @@ class ImageNodeTestCase(TestCase):
                 ["fill-400x400", "format-webp", "webpquality-50"],
                 "fill-400x400|format-webp|webpquality-50",
             ),
+            (self.svg_image, ["max-400x400"], "max-400x400"),
+            (self.svg_image, ["min-400x400"], "min-400x400"),
+            (self.svg_image, ["width-300"], "width-300"),
+            (self.svg_image, ["height-300"], "height-300"),
+            (self.svg_image, ["scale-50"], "scale-50"),
+            (self.svg_image, ["fill-400x400"], "fill-400x400"),
         ]
         for image, filter_specs, expected in params:
             with self.subTest(img=image, filter_specs=filter_specs, expected=expected):
