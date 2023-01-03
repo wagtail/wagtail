@@ -29,6 +29,8 @@ In the above syntax example `[image]` is the Django object referring to the imag
 
 Note that a space separates `[image]` and `[resize-rule]`, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the `fill` rule is used, which may result in some pixels being cropped.
 
+(available_resizing_methods)=
+
 ## Available resizing methods
 
 The available resizing methods are as follows:
@@ -414,7 +416,33 @@ Note that this will have no effect on PNG or GIF files. If you want all images t
 {% image page.photo width-400 format-webp webpquality-50 %}
 ```
 
-### Generating image renditions in Python
+## Generating image renditions in Python
 
 All of the image transformations mentioned above can also be used directly in Python code.
 See [](image_renditions).
+
+(svg_images)=
+
+## SVG images
+
+Wagtail supports the use of Scalable Vector Graphics alongside raster images. To allow Wagtail users to upload and use SVG images, set `WAGTAILIMAGES_ALLOW_SVG` to `True`.
+
+SVG images can be included in templates via the `image` template tag, as with raster images. However, operations that require SVG images to be rasterised are not currently supported. This includes direct format conversion, e.g. `format-webp`, and `bgcolor` directives. Crop and resize operations do not require rasterisation, so may be used freely (see [](available_resizing_methods)).
+
+The `image` tag's `preserve-svg` positional argument may be used to restrict the operations applied to an SVG image to only those that do not require rasterisation. This may be useful in situations where a single `image` tag declaration is applied to multiple source images, for example:
+
+```html+django
+{% for picture in pictures %}
+    {% image picture fill-400x400 format-webp preserve-svg %}
+{% endfor %}
+```
+
+In this example, any of the image objects that are SVGs will only have the `fill-400x400` operation applied to them, while raster images will have both the `fill-400x400` and `format-webp` operations applied. If the `preserve-svg` argument is not used in this example, an error will be raised when attempting to convert SVG images to webp, as this is not possible without a rasterisation library.
+
+### Security considerations
+
+Wagtail's underlying image library, Willow, is configured to mitigate known XML parser exploits (e.g. billion laughs, quadratic blowup) by rejecting suspicious files.
+
+When including SVG images in templates via the `image` tag, they will be rendered as html `img` elements. In this case, `script` elements in SVGs will not be executed, mitigating XSS attacks.
+
+If a user navigates directly to the URL of the SVG file embedded scripts may be executed, depending on server/storage configuration. This can be mitigated by setting appropriate Content-Security-Policy and Content-Disposition headers, and serving media from a different domain to the Wagtail site.
