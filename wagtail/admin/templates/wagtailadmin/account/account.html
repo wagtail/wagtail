@@ -33,7 +33,7 @@
                         aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
                     >
                         {% for panel in panels %}
-                            {% panel id=panel.name heading=panel.title %}
+                            {% panel id=panel.name heading=panel.title heading_size="label" %}
                                 {{ panel.render }}
                             {% endpanel %}
                         {% endfor %}
