@@ -30,7 +30,7 @@
                 aria-labelledby="tab-label-existing"
                 hidden
             >
-                <form class="task-search search-bar" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
+                <form class="task-search" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
                     <ul class="fields">
                         {% for field in search_form %}
                             {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
@@ -45,7 +45,7 @@
     </div>
 {% else %}
     <div class="nice-padding">
-        <form class="task-search search-bar" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
+        <form class="task-search" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
             <ul class="fields">
                 {% for field in search_form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}

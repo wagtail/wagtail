@@ -93,6 +93,7 @@ Changelog
  * Maintenance: Refactor submit-on-change search filters for image and document listings to use Stimulus (LB (Ben) Johnston)
  * Maintenance: Switch userbar to initialise a Web Component to avoid styling clashes (Albina Starykova)
  * Maintenance: Refactor userbar stylesheets to use the same CSS loading as the rest of the admin (Albina Starykova)
+ * Maintenance: Remove unused search-bar and button-filter styles (Thibaud Colas)
 
 
 4.1.2 (xx.xx.xxxx) - IN DEVELOPMENT

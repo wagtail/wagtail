@@ -31,7 +31,7 @@
     {% endif %}
 
     <div class="nice-padding">
-        <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
+        <form class="image-search" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
             {% if current_tag %}
                 <input type="hidden" name="tag" value="{{ current_tag }}" />
             {% endif %}
