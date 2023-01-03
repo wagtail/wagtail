@@ -913,3 +913,38 @@ class TestWebpFormatConversion(TestCase):
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, "webp")
+
+
+class TestCheckSize(TestCase):
+    def test_check_size_when_floats_allowed(self):
+        sizes = [
+            (1.5, 1.5),
+            (1.5, 1),
+            (1, 1.5),
+            (1, 1),
+        ]
+        for size in sizes:
+            with self.subTest(size=size):
+                self.assertIsNone(
+                    image_operations.ImageTransform._check_size(
+                        size, allow_floating_point=True
+                    )
+                )
+
+    def test_check_size_when_floats_forbidden(self):
+        fail_sizes = [
+            (1.5, 1.5),
+            (1.5, 1),
+            (1, 1.5),
+        ]
+        for size in fail_sizes:
+            with self.subTest(size=size):
+                with self.assertRaises(TypeError):
+                    image_operations.ImageTransform._check_size(
+                        size, allow_floating_point=False
+                    )
+        self.assertIsNone(
+            image_operations.ImageTransform._check_size(
+                (1, 1), allow_floating_point=False
+            )
+        )

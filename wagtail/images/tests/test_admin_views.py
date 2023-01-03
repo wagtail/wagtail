@@ -31,7 +31,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 
-from .utils import Image, get_test_image_file
+from .utils import Image, get_test_image_file, get_test_image_file_svg
 
 # Get the chars that Django considers safe to leave unescaped in a URL
 urlquote_safechars = RFC3986_SUBDELIMS + str("/~:@")
@@ -523,6 +523,25 @@ class TestImageAddView(WagtailTestUtils, TestCase):
         # Test that it was placed in the root collection
         root_collection = Collection.get_first_root_node()
         self.assertEqual(image.collection, root_collection)
+
+    def test_add_svg(self):
+        response = self.post(
+            {
+                "title": "Test image",
+                "file": SimpleUploadedFile(
+                    "test.svg",
+                    get_test_image_file_svg().file.getvalue(),
+                    content_type="text/html",
+                ),
+            }
+        )
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse("wagtailimages:index"))
+
+        # Check that the image was created
+        images = Image.objects.filter(title="Test image")
+        self.assertEqual(images.count(), 1)
 
     @override_settings(
         DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
