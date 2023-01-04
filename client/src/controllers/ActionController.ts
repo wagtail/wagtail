@@ -4,13 +4,13 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 /**
  * <button type="submit" class="button no"
  * data-controller="w-action"
- * data-action="click->w-action#post"
- * data-w-action-redirect-value="true"
+ * data-action="w-action#post"
+ * data-w-action-redirect-value="false"
  * data-w-action-url-value = '{{ view.get_enable_url }}'>Enable</button>
  */
 export class ActionController extends Controller {
   static values = {
-    redirect: String,
+    redirect: { type: String, default: '' },
     url: String,
   };
 
