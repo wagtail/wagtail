@@ -343,10 +343,7 @@ class TestSiteRouting(TestCase):
             {(self.events_site.hostname, str(self.events_site.port)): self.events_site},
             60,
         )
-        request = HttpRequest()
-        request.path = "/"
-        request.META["HTTP_HOST"] = self.events_site.hostname
-        request.META["SERVER_PORT"] = self.events_site.port
+        request = get_dummy_request(site=self.events_site)
         with self.assertNumQueries(0):
             self.assertEqual(Site.find_for_request(request), self.events_site)
 
