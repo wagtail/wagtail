@@ -25,10 +25,6 @@
 
 {% block extra_js %}
     {{ block.super }}
-    <script src="{% versioned_static 'wagtailadmin/js/lock-unlock-action.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_home' %}'));
-    </script>
 
     {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
     <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>

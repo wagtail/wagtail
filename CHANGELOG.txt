@@ -119,7 +119,7 @@ Changelog
  * Maintenance: Refactor userbar styles to use the same stylesheet as other components (Thibaud Colas)
  * Maintenance: Add deprecation warnings for `wagtail.core` and other imports deprecated in Wagtail 3.0 (Matt Westcott)
  * Maintenance: Migrate admin upgrade notification message implementation to a Stimulus controller (Loveth Omokaro)
- * Maintenance: Migrate workflow and workflow tasks enable action to a Stimulus controller (Loveth Omokaro)
+ * Maintenance: Migrate workflow and workflow tasks enable action and lock/unlock actions to a Stimulus controller (Loveth Omokaro)
  * Maintenance: Pull out icon sprite setup function from inline script to its own TypeScript file & add unit tests (Loveth Omokaro)
 
 

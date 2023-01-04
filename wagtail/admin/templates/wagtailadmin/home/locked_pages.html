@@ -31,7 +31,17 @@
                             </div>
                             <ul class="actions">
                                 {% if can_remove_locks %}
-                                    <li><button data-action-lock-unlock data-url="{% url 'wagtailadmin_pages:unlock' page.id %}" class="button button-small button-secondary">{% trans "Unlock" %}</button></li>
+                                    <li>
+                                        <button
+                                            class="button button-small button-secondary"
+                                            data-controller="w-action"
+                                            data-action="w-action#post"
+                                            data-w-action-next-value="{% url 'wagtailadmin_home' %}"
+                                            data-w-action-url-value="{% url 'wagtailadmin_pages:unlock' page.id %}"
+                                        >
+                                            {% trans "Unlock" %}
+                                        </button>
+                                    </li>
                                 {% endif %}
                                 <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
                                 {% if page.has_unpublished_changes and page.is_previewable %}
@@ -53,8 +63,4 @@
             </tbody>
         </table>
     {% endpanel %}
-    <script src="{% versioned_static 'wagtailadmin/js/lock-unlock-action.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_home' %}'));
-    </script>
 {% endif %}

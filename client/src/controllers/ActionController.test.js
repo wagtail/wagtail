@@ -16,17 +16,17 @@ describe('ActionController', () => {
     Application.start().register('w-action', ActionController);
   });
 
-  it('it should enable the workflow on click', () => {
+  it('it should enable the workflow, lock and Unlock button', () => {
     const btn = document.querySelector('[data-controller="w-action"]');
     const submitMock = jest.fn();
     window.HTMLFormElement.prototype.submit = submitMock;
 
     btn.click();
-
     const form = document.querySelector('form');
 
     expect(submitMock).toHaveBeenCalled();
     expect(form.action).toBe('https://www.github.com/');
     expect(new FormData(form).get('csrfmiddlewaretoken')).toBe('potato');
+    expect(new FormData(form).get('next')).toBe('http://localhost/');
   });
 });

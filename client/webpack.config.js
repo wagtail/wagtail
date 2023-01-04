@@ -41,7 +41,6 @@ module.exports = function exports(env, argv) {
       'expanding-formset',
       'filtered-select',
       'icons',
-      'lock-unlock-action',
       'modal-workflow',
       'page-chooser-modal',
       'page-chooser',

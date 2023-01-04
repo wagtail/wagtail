@@ -49,11 +49,15 @@
                                 <ul>
                                     {% if can_enable %}
                                         <li>
-                                            <button class="button no"
-                                                data-action="w-action#post"
+                                            <button
+                                                class="button no"
                                                 data-controller="w-action"
-                                                data-w-action-url-value="{{ view.get_enable_url }}"
-                                                type="submit">{{ view.enable_item_label }}
+                                                data-action="w-action#post"
+                                                data-w-action-continue-value="true"
+                                                data-w-action-url-value = '{{ view.get_enable_url }}'
+                                                type="submit"
+                                            >
+                                                {{ view.enable_item_label }}
                                             </button>
                                         </li>
                                     {% elif can_disable %}
