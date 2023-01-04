@@ -92,12 +92,11 @@
     @apply w-w-0 w-h-0 w-opacity-0 w-absolute w-pointer-events-none;
   }
 
-  &--open .form-side__close-button,
-  &--open .form-side__panel {
+  &--open .form-side__close-button {
     @apply w-block;
   }
 
   &__panel {
-    @apply w-px-5 xl:w-px-10 w-py-4 w-w-full w-h-full w-overflow-y-auto w-scrollbar-thin w-hidden;
+    @apply w-px-5 xl:w-px-10 w-py-4 w-w-full w-h-full w-overflow-y-auto w-scrollbar-thin;
   }
 }
