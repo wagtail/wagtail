@@ -38,9 +38,19 @@ In Django templates, `self` can be used to refer to the current page, stream blo
 
 ## Template tags, functions & filters
 
+### `fullpageurl()`
+
+Generate an absolute URL (`http://example.com/foo/bar/`) for a Page instance:
+
+```html+jinja
+<meta property="og:url" content="{{ fullpageurl(page) }}" />
+```
+
+See [](fullpageurl_tag) for more information.
+
 ### `pageurl()`
 
-Generate a URL for a Page instance:
+Generate a URL (`/foo/bar/`) for a Page instance:
 
 ```html+jinja
 <a href="{{ pageurl(page.more_information) }}">More information</a>

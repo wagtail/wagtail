@@ -39,6 +39,12 @@ class TestCoreGlobalsAndFilters(TestCase):
         page = Page.objects.get(pk=2)
         self.assertEqual(self.render("{{ pageurl(page) }}", {"page": page}), page.url)
 
+    def test_fullpageurl(self):
+        page = Page.objects.get(pk=2)
+        self.assertEqual(
+            self.render("{{ fullpageurl(page) }}", {"page": page}), page.full_url
+        )
+
     def test_slugurl(self):
         page = Page.objects.get(pk=2)
         self.assertEqual(
