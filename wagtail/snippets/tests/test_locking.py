@@ -441,7 +441,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
 
                 # Should show unlock buttons, one in the message and one in the side panel
                 self.assertTagInHTML(
-                    f'<button type="button" data-url="{unlock_url}" data-action-lock-unlock>Unlock</button>',
+                    f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">Unlock</button>',
                     html,
                     count=2,
                     allow_extra_attrs=True,
@@ -490,7 +490,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
 
         # Should show unlock buttons, one in the message and one in the side panel
         self.assertTagInHTML(
-            f'<button type="button" data-url="{unlock_url}" data-action-lock-unlock>Unlock</button>',
+            f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">Unlock</button>',
             html,
             count=2,
             allow_extra_attrs=True,
@@ -544,7 +544,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
 
         # Should not show unlock buttons
         self.assertTagInHTML(
-            f'<button type="button" data-url="{unlock_url}" data-action-lock-unlock>Unlock</button>',
+            f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{unlock_url}">Unlock</button>',
             html,
             count=0,
             allow_extra_attrs=True,
@@ -595,7 +595,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
 
         # Should not show the lock button
         self.assertTagInHTML(
-            f'<button type="button" data-url="{lock_url}" data-action-lock-unlock>Lock</button>',
+            f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{lock_url}">Lock</button>',
             html,
             count=0,
             allow_extra_attrs=True,
@@ -640,7 +640,7 @@ class TestEditLockedSnippet(BaseLockingTestCase):
 
         # Should show the lock button
         self.assertTagInHTML(
-            f'<button type="button" data-url="{lock_url}" data-action-lock-unlock>Lock</button>',
+            f'<button type="button" data-action="w-action#post" data-controller="w-action" data-w-action-url-value="{lock_url}">Lock</button>',
             html,
             count=1,
             allow_extra_attrs=True,

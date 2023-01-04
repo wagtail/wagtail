@@ -10,7 +10,7 @@ import { UpgradeController } from './UpgradeController';
  * Important: Only add default core controllers that should load with the base admin JS bundle.
  */
 export const coreControllerDefinitions: Definition[] = [
-  // Keep this list alphabetized.
+  // Keep this list in alphabetical order
   { controllerConstructor: ActionController, identifier: 'w-action' },
   { controllerConstructor: AutoFieldController, identifier: 'w-auto-field' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
