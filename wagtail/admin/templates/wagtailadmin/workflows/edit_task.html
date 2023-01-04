@@ -6,7 +6,6 @@
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
 {% endblock %}
 
 {% block content %}
@@ -50,7 +49,14 @@
                                 <ul>
                                     {% if can_enable %}
                                         <li>
-                                            <button type="submit" class="button no" data-enable-action>{{ view.enable_item_label }}</button>
+                                            <button class="button no" 
+                                                type="submit"
+                                                data-controller="w-action"
+                                                data-w-action-csrf-token-value = '{{ csrf_token|escapejs }}'
+                                                data-w-action-key-name-value = 'csrfmiddlewaretoken'
+                                                data-w-action-post-url-value = '{{ view.get_enable_url }}'
+                                                data-action="w-action#enableAction">{{ view.enable_item_label }}
+                                            </button>
                                         </li>
                                     {% elif can_disable %}
                                         <li>
