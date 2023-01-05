@@ -7,7 +7,7 @@ import axe from 'axe-core';
 // This component implements a roving tab index for keyboard navigation
 // Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 
-export class Userbar extends HTMLElement {
+class Userbar extends HTMLElement {
   connectedCallback() {
     const template = document.getElementById('wagtail-userbar-template');
     const shadowRoot = this.attachShadow({
