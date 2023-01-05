@@ -105,7 +105,21 @@ WAGTAILFRONTENDCACHE = {
 }
 ```
 
-Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html).
+Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: [Boto 3 Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html). The user will need a policy similar to:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowWagtailFrontendInvalidation",
+            "Effect": "Allow",
+            "Action": "cloudfront:CreateInvalidation",
+            "Resource": "arn:aws:cloudfront::<account id>:distribution/<distribution id>"
+        }
+    ]
+}
+```
 
 In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure the mapping matches with the hostnames provided in your site settings.
 
