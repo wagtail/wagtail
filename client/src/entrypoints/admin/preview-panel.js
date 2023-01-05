@@ -1,3 +1,4 @@
+import axe from 'axe-core';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { gettext } from '../../utils/gettext';
 
@@ -285,6 +286,62 @@ function initPreview() {
     previewPanel.querySelector(`[data-device-width][value="${lastDevice}"]`) ||
     defaultSizeInput;
   lastDeviceInput.click();
+
+  // adding initialiseAxe function into the preview panel file makes userbar disappear if it also has initialiseAxe function inside
+  // here I'm trying to include axe api in each frame under test, unsuccessfully. not native cdn solution doesn't work either
+  const insertScriptIntoHead = () => {
+    const head = iframe.contentWindow.document.getElementsByTagName('head')[0];
+    const script = iframe.contentWindow.document.createElement('script');
+    script.src = './node_modules/axe-core.axe.min.js';
+    script.type = 'text/javascript';
+    setTimeout(() => {
+      head.appendChild(script);
+    }, 3000);
+  };
+
+  setTimeout(() => insertScriptIntoHead(), 3000);
+
+  const initialiseAxe = async () => {
+    const results = await axe.run({
+      runOnly: {
+        type: 'rule',
+        values: [
+          'button-name',
+          'link-name',
+          'input-button-name',
+          'role-img-alt',
+          'select-name',
+          'valid-lang',
+          'th-has-data-cells',
+          'empty-heading',
+          'heading-order',
+          'p-as-heading',
+          'td-has-header',
+          'page-has-heading-one',
+        ],
+      },
+    });
+
+    // very draft output - waiting for the design inputs to adjust both design & logics
+    if (results.violations.length) {
+      const axeCount = document.createElement('div');
+      axeCount.textContent = results.violations.length;
+      axeCount.classList.add('axe-count');
+      const panel = document.querySelector('.preview-panel__sizes');
+      panel.appendChild(axeCount);
+
+      const showAxeResults = () => {
+        results.violations.forEach((violation) => {
+          const annotation = document.createElement('div');
+          annotation.textContent = JSON.stringify(violation.description);
+          panel.appendChild(annotation);
+        });
+      };
+      axeCount.addEventListener('click', showAxeResults);
+    }
+  };
+
+  initialiseAxe();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -22,6 +22,18 @@ class AdminItem(BaseItem):
         return super().render(request)
 
 
+class AccessibilityItem(BaseItem):
+    template = "wagtailadmin/userbar/item_accessibility.html"
+
+    def render(self, request):
+
+        # Don't render if user doesn't have permission to access the admin area
+        if not request.user.has_perm("wagtailadmin.access_admin"):
+            return ""
+
+        return super().render(request)
+
+
 class AddPageItem(BaseItem):
     template = "wagtailadmin/userbar/item_page_add.html"
 

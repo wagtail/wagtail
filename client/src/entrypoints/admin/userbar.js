@@ -1,3 +1,5 @@
+import axe from 'axe-core';
+
 // This entrypoint is not bundled with any polyfills to keep it as light as possible
 // Please stick to old JS APIs and avoid importing anything that might require a vendored module
 // More background can be found in webpack.config.js
@@ -5,7 +7,7 @@
 // This component implements a roving tab index for keyboard navigation
 // Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
 
-class Userbar extends HTMLElement {
+export class Userbar extends HTMLElement {
   connectedCallback() {
     const template = document.getElementById('wagtail-userbar-template');
     const shadowRoot = this.attachShadow({
@@ -17,6 +19,7 @@ class Userbar extends HTMLElement {
 
     const userbar = shadowRoot.querySelector('[data-wagtail-userbar]');
     const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
+    this.trigger = trigger;
     const list = userbar.querySelector('[role=menu]');
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'is-active';
@@ -260,6 +263,53 @@ class Userbar extends HTMLElement {
 
     function clickOutside() {
       hideUserbar();
+    }
+
+    this.initialiseAxe();
+  }
+
+  // in this implementation axe shows the same mistakes on all pages, all rules except for 1 from chosen or 2 from total list - inapplicable, can't find elements/nodes of the context, and with timeout added runs less rules than without it. Adn adding this script to the preview file make userbar disappear
+
+  async initialiseAxe() {
+    const results = await axe.run({
+      runOnly: {
+        type: 'rule',
+        values: [
+          'button-name',
+          'link-name',
+          'input-button-name',
+          'role-img-alt',
+          'select-name',
+          'valid-lang',
+          'th-has-data-cells',
+          'empty-heading',
+          'heading-order',
+          'p-as-heading',
+          'td-has-header',
+          'page-has-heading-one',
+        ],
+      },
+    });
+
+    // very draft output - waiting for the design inputs to adjust both design & logics
+    if (results.violations.length) {
+      const axeCount = document.createElement('div');
+      axeCount.textContent = results.violations.length;
+      axeCount.classList.add('w-userbar-axe-count');
+      this.trigger.appendChild(axeCount);
+
+      const accessibilityTrigger = this.shadowRoot.getElementById(
+        'accessibility-trigger',
+      );
+
+      const showAxeResults = () => {
+        results.violations.forEach((violation) => {
+          const annotation = document.createElement('div');
+          annotation.textContent = JSON.stringify(violation.description);
+          accessibilityTrigger.appendChild(annotation);
+        });
+      };
+      accessibilityTrigger.addEventListener('click', showAxeResults);
     }
   }
 }
