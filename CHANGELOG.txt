@@ -69,6 +69,7 @@ Changelog
  * Docs: Add class inheritance information to StreamField block sreference (Temidayo Azeez)
  * Docs: Document the hook `register_image_operations` and add an example of a custom Image filter (Coen van der Kamp)
  * Docs: Fix incorrect example code for StreamField migration of `RichTextField` (Matt Westcott)
+ * Docs: Document the policy needed to create invalidations in CloudFront (Jake Howard)
  * Maintenance: Switch to using Willow instead of Pillow for images (Darrel O'Pry)
  * Maintenance: Remove unsquashed `testapp` migrations (Matt Westcott)
  * Maintenance: Upgrade to Node 18 for frontend build tooling (LB (Ben) Johnston)
