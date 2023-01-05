@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
-"wagtail/language/id_ID/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -86,11 +85,11 @@ msgstr "Potongan"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Tidak ada %(snippet_type_name_plural)s yang dibuat. Mengapa tidak <a href="
-"\"%(wagtailsnippets_create_url)s\">menambahnya</a>?"
+"Tidak ada %(snippet_type_name_plural)s yang dibuat. Mengapa tidak <a "
+"href=\"%(wagtailsnippets_create_url)s\">menambahnya</a>?"
 
 msgid "Live version"
 msgstr "Versi aktif"
@@ -138,16 +137,16 @@ msgid "The snippet could not be saved due to errors."
 msgstr "Potongan tidak dapat disimpan karena suatu kesalahan."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Ubah %s ini"
+msgid "Edit this %(object)s"
+msgstr "Ubah %(object)s ini"
 
 msgid "Date"
 msgstr "Tanggal"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Pilih %s"
+msgid "Choose %(object)s"
+msgstr "Pilih %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Pilih %s lain"
+msgid "Choose another %(object)s"
+msgstr "Pilih %(object)s lain"

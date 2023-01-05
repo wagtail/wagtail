@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Halim Turan <halim_turan_61@hotmail.com>, 2022\n"
-"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
-"tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail documents"
@@ -146,19 +145,19 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Bu koleksiyona belge yüklemediniz. Neden <a href="
-"\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
+"Bu koleksiyona belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Hiç belge yüklemediniz. Neden <a href=\"%(wagtaildocs_add_document_url)s"
-"\">bir tane yüklemiyorsunuz</a>?"
+"Hiç belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -218,27 +217,27 @@ msgid "Search documents"
 msgstr "Belgelerde ara"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "'{0}' belgesi eklendi."
+msgid "Document '%(document_title)s' added."
+msgstr "'%(document_title)s' belgesi eklendi."
 
 msgid "The document could not be saved due to errors."
 msgstr "Hata nediyle belge kaydedilemedi."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "'{0}' belgesi güncellendi"
+msgid "Document '%(document_title)s' updated"
+msgstr "'%(document_title)s' belgesi güncellendi"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "'{0}' belgesi silindi."
+msgid "Document '%(document_title)s' deleted."
+msgstr "'%(document_title)s' belgesi silindi."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s düzenle"
+msgid "Edit this %(object)s"
+msgstr "%(object)s düzenle"
 
 msgid "Document"
 msgstr "Belge"

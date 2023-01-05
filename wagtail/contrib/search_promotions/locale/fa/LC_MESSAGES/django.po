@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
-"fa/)\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/fa/)\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Please specify at least one recommendation for this search term."
@@ -51,7 +50,8 @@ msgstr "حذف"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
-msgstr "آیا اطمینان دارید که همه نتایج ترویج شده برای این عبارت جستجو حذف شود؟"
+msgstr ""
+"آیا اطمینان دارید که همه نتایج ترویج شده برای این عبارت جستجو حذف شود؟"
 
 msgid "Yes, delete"
 msgstr "بله حذف شود"
@@ -108,18 +108,18 @@ msgstr "متاسفانه نتایج ترویجی شامل «<em>%(query_string)s
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
+"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
 
 msgid "Search promoted results"
 msgstr "جستجوی نتایج ترویج شده"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "منتخب ویراستار برای '{0}' ایجاد شد."
+msgid "Editor's picks for '%(query)s' created."
+msgstr "منتخب ویراستار برای '%(query)s' ایجاد شد."
 
 msgid "Edit"
 msgstr "ویرایش"
@@ -128,8 +128,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "انتخاب ویراستار برای '{0}' آپدیت شد."
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "انتخاب ویراستار برای '%(query)s' آپدیت شد."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "پیشنهادها به دلیل بروز خطا ذخیره نشدند"

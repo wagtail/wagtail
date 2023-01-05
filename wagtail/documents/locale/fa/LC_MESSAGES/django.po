@@ -16,12 +16,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
-"fa/)\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/fa/)\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail documents"
@@ -152,19 +151,19 @@ msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پید�
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز به این مجموعه سندی آپلود نشده. می‌توانید یکی را همین الان <a href="
-"\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید"
+"هنوز به این مجموعه سندی آپلود نشده. می‌توانید یکی را همین الان <a "
+"href=\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز سندی آپلود نکرده اید. می‌توانید همین الان یکی را <a href="
-"\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید."
+"هنوز سندی آپلود نکرده اید. می‌توانید همین الان یکی را <a "
+"href=\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -224,27 +223,27 @@ msgid "Search documents"
 msgstr "جستجوی سندها"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "سند '{0}' افزوده شد."
+msgid "Document '%(document_title)s' added."
+msgstr "سند '%(document_title)s' افزوده شد."
 
 msgid "The document could not be saved due to errors."
 msgstr "به دلیل بروز خطا سند ذخیره نگردید."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "سند '{0}' بروزرسانی شد"
+msgid "Document '%(document_title)s' updated"
+msgstr "سند '%(document_title)s' بروزرسانی شد"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر دهید یا سند را حذف نمایید"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "سند '{0}' حذف شد."
+msgid "Document '%(document_title)s' deleted."
+msgstr "سند '%(document_title)s' حذف شد."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "ویرایش این %s"
+msgid "Edit this %(object)s"
+msgstr "ویرایش این %(object)s"
 
 #, python-format
 msgid "%(count)s document"

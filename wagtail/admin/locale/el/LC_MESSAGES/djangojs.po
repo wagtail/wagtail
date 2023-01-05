@@ -1,4 +1,3 @@
-#
 # Translators:
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2022
 # serafeim <serafeim@torchbox.com>, 2022
@@ -11,8 +10,8 @@ msgid ""
 msgstr ""
 "Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>, 2022\n"
 "Language-Team: Greek (https://www.transifex.com/torchbox/teams/8009/el/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: el\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add a comment"
@@ -45,8 +44,8 @@ msgstr "Διαγραφή λάθους"
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-msgid "Edit '{title}'"
-msgstr "Επεξεργασία '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Επεξεργασία '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Επεξεργαστείτε το λογαριασμό σας"
@@ -138,5 +137,5 @@ msgstr "Το πεδίο αυτό είναι απαραίτητο"
 msgid "Unfocus comment"
 msgstr "Αποεστίαση σχολίου"
 
-msgid "View child pages of '{title}'"
-msgstr "Εμφάνιση υποσελίδων της '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Εμφάνιση υποσελίδων της '%(title)s'"

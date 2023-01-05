@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
-"fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail redirects"
@@ -73,8 +72,8 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Suositeltu. Pysyvät uudelleenohjaukset varmistavat että hakukoneet unohtavat "
-"vanhan sivun (uudelleenohjauksen lähde) ja indeksoivat uuden sivun sen "
+"Suositeltu. Pysyvät uudelleenohjaukset varmistavat että hakukoneet unohtavat"
+" vanhan sivun (uudelleenohjauksen lähde) ja indeksoivat uuden sivun sen "
 "sijasta."
 
 msgid "redirect to a page"
@@ -150,7 +149,8 @@ msgstr "Yhteenveto"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s "
+"errors."
 msgstr ""
 "Löydettiin %(total)s uudelleenohjausta, luotiin %(successes)s ja löydettiin "
 "%(errors)s virhe(ttä)."
@@ -182,23 +182,23 @@ msgstr "Uudelleenohjauksia ei löytynyt."
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Pahoittelut, yksikään uudelleenohjaus ei täsmää hakuun \"<em>"
-"%(query_string)s</em>\""
+"Pahoittelut, yksikään uudelleenohjaus ei täsmää hakuun "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Et ole luonut yhtään uudelleenohjausta. Mikset vaikka <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">lisäisi yhtä nyt</a>?"
+"Et ole luonut yhtään uudelleenohjausta. Mikset vaikka <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Uudelleenohjaus '{0}' päivitetty."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Uudelleenohjaus '%(redirect_title)s' päivitetty."
 
 msgid "Edit"
 msgstr "Muokkaa"
@@ -207,22 +207,22 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Uudelleenohjausta ei voitu tallentaa virheiden vuoksi."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Uudelleenohjaus '{0}' poistettu."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Uudelleenohjaus '%(redirect_title)s' poistettu."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Uudelleenohjaus '{0}' lisätty."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Uudelleenohjaus '%(redirect_title)s' lisätty."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Uudelleenohjausta ei voitu luoda virheiden vuoksi."
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "Tiedostomuoto tyyppiä' \"{}\" ei ole tuettu"
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Tiedostomuoto tyyppiä' \"%(extension)s\" ei ole tuettu"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "Tuodulla tiedostolla on väärä merkistökoodaus: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Tuodulla tiedostolla on väärä merkistökoodaus: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"

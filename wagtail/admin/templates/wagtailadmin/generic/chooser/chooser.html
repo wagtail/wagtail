@@ -30,7 +30,7 @@
 
             {% block filter_form %}
                 {% if filter_form.fields %}
-                    <form data-chooser-modal-search class="search-bar" action="{{ results_url }}" method="GET" novalidate>
+                    <form data-chooser-modal-search action="{{ results_url }}" method="GET" novalidate>
                         {% for field in filter_form.hidden_fields %}{{ field }}{% endfor %}
 
                         {% if filter_form.visible_fields %}

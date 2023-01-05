@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
-"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
-"ko/)\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -106,7 +105,8 @@ msgid_plural ""
 msgstr[0] "정말 선택된 컬렉션에 새로운 문서를 추가하길 원합니까?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "당신은 컬랙션에 이 문서를 추가할 권한이 없습니다 "
 
 #, python-format
@@ -215,19 +215,19 @@ msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 문서가 �
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a href="
-"\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
+"이 모음에 업로드한 문서가 없습니다. 지금 하나 <a "
+"href=\"%(wagtaildocs_add_document_url)s\">업로드</a> 해 보는 건 어떠세요?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"업로드된 문서가 없습니다. 지금 문서를 <a href="
-"\"%(wagtaildocs_add_document_url)s\">업로드 해 보시는건 어떨까요?"
+"업로드된 문서가 없습니다. 지금 문서를 <a href=\"%(wagtaildocs_add_document_url)s\">업로드 해 "
+"보시는건 어떨까요?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -244,8 +244,8 @@ msgid_plural ""
 "<span>%(total)s</span> Documents <span class=\"visuallyhidden\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span>문서가 <span class=\"visuallyhidden\">%(site_name)s안"
-"에 생성됨</span>"
+"<span>%(total)s</span>문서가 <span class=\"visuallyhidden\">%(site_name)s안에 "
+"생성됨</span>"
 
 msgid "Add multiple documents"
 msgstr "여러 개의 문서 추가"
@@ -267,8 +267,8 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"업로드가 성공했습니다. 필요하다면 이 문서의 제목을 더 적절하게 바꾸어 주세"
-"요. 만약 불필요한 업로드였다면 문서를 완전히 삭제하는 것도 가능합니다."
+"업로드가 성공했습니다. 필요하다면 이 문서의 제목을 더 적절하게 바꾸어 주세요. 만약 불필요한 업로드였다면 문서를 완전히 삭제하는 것도 "
+"가능합니다."
 
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패했습니다."
@@ -335,28 +335,27 @@ msgid "Search documents"
 msgstr "문서 검색"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "'{0}' 문서가 추가 되었습니다."
+msgid "Document '%(document_title)s' added."
+msgstr "'%(document_title)s' 문서가 추가 되었습니다."
 
 msgid "The document could not be saved due to errors."
 msgstr "에러로 인해 문서를 저장할 수 없습니다."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "'{0}' 문서가 추가 되었습니다."
+msgid "Document '%(document_title)s' updated"
+msgstr "'%(document_title)s' 문서가 추가 되었습니다."
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
-msgstr ""
-"파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
+msgstr "파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "'{0}' 문서가 삭제 되었습니다."
+msgid "Document '%(document_title)s' deleted."
+msgstr "'%(document_title)s' 문서가 삭제 되었습니다."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "이 %s 수정하기"
+msgid "Edit this %(object)s"
+msgstr "이 %(object)s 수정하기"
 
 msgid "Document"
 msgstr "문서"

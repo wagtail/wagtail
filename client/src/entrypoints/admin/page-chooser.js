@@ -8,9 +8,9 @@ class PageChooser extends Chooser {
   chosenResponseName = 'pageChosen';
 
   constructor(id, parentId, options) {
+    super(id);
     this.initialParentId = parentId;
     this.options = options;
-    super(id);
   }
 
   getStateFromHTML() {

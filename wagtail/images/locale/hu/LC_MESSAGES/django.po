@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
-"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
-"hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail images"
@@ -39,25 +38,33 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Támogatott formátumok: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "A kép nem megfelelő formátumú. A támogatott formátumok: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"A kép nem megfelelő formátumú. A támogatott formátumok: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Érvénytelen %s kép."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "A fájl túl nagy (%%s). A maximális fájlméret %s."
-
-#, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"A képben túl sok pixel van (%%s). Maximálisan %s pixelből állhat egy kép."
+"A fájl túl nagy (%(file_size)s). A maximális fájlméret %(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "A fájl túl nagy. A maximális fájlméret %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"A képben túl sok pixel van (%(num_pixels)s). Maximálisan "
+"%(max_pixels_count)s pixelből állhat egy kép."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "A fájl túl nagy. A maximális fájlméret %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Teljes szélesség"
@@ -197,7 +204,8 @@ msgstr "Képek mozgatása gyűjteménybe"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected collection?"
+"Are you sure you want to add the following images to the selected "
+"collection?"
 msgstr[0] ""
 "Biztosan hozzá szeretné adni az alábbi képet a kiválasztott gyűjteményhez?"
 msgstr[1] ""
@@ -400,19 +408,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a href="
-"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a "
+"href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Még nem töltött fel képet. Miért nem <a href="
-"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+"Még nem töltött fel képet. Miért nem <a "
+"href=\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
 
 msgid "Generating URL"
 msgstr "URL generálása"
@@ -566,8 +574,8 @@ msgid "Search images"
 msgstr "Képek keresése"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "'{0}' kép frissítve."
+msgid "Image '%(image_title)s' updated."
+msgstr "'%(image_title)s' kép frissítve."
 
 msgid "Edit again"
 msgstr "Újraszerkesztés"
@@ -576,30 +584,30 @@ msgid "The image could not be saved due to errors."
 msgstr "Hiba történt a kép mentése közben."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "A forrás kép nem található. Kérjük válasszon ki új forrás fájlt, vagy "
 "törölje a képet."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "'{0}' kép törölve."
+msgid "Image '%(image_title)s' deleted."
+msgstr "'%(image_title)s' kép törölve."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "'{0}' kép hozzáadva."
+msgid "Image '%(image_title)s' added."
+msgstr "'%(image_title)s' kép hozzáadva."
 
 msgid "The image could not be created due to errors."
 msgstr "Hiba történt a kép létrehozása közben."
 
 #, python-format
-msgid "(Private %s)"
-msgstr "(Privát %s)"
+msgid "(Private %(object)s)"
+msgstr "(Privát %(object)s)"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s szerkesztése"
+msgid "Edit this %(object)s"
+msgstr "%(object)s szerkesztése"
 
 msgid "Image"
 msgstr "Kép"

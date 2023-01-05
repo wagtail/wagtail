@@ -21,4 +21,5 @@ accessibility_considerations
 boundblocks_and_values
 multi_site_multi_instance_multi_tenancy
 formbuilder_routablepage_redirect
+streamfield_migrations
 ```

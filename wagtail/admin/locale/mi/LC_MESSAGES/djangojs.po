@@ -1,4 +1,3 @@
-#
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Awatea Randall <awatea@octave.nz>, 2022
@@ -7,8 +6,8 @@ msgid ""
 msgstr ""
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2022\n"
 "Language-Team: Maori (https://www.transifex.com/torchbox/teams/8009/mi/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: mi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Alt text"
@@ -32,8 +31,8 @@ msgstr "Muku"
 msgid "Edit"
 msgstr "Whakarerekē"
 
-msgid "Edit '{title}'"
-msgstr "Whakarerekē '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Whakarerekē '%(title)s'"
 
 msgid "Horizontal line"
 msgstr "Rarangi huapae"
@@ -90,5 +89,5 @@ msgstr "Kua pakaru tē ētita. Kua puritia tē rārangi ki te rerenga tuatahi"
 msgid "This field is required."
 msgstr "Hiahiatia ana tēnei whīra"
 
-msgid "View child pages of '{title}'"
-msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Tirohia ki ngā whārangi tamariki ō '%(title)s'"

@@ -47,6 +47,14 @@
     transform: translateY(0);
     top: 0.3125rem;
   }
+
+  .w-field--date_field &,
+  .w-field--date_time_field &,
+  .w-field--time_field & {
+    position: relative;
+    transform: translateY(0);
+    top: 0.3125rem;
+  }
 }
 
 .w-field__comment-button--add {

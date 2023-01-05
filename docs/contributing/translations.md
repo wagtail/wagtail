@@ -36,6 +36,38 @@ These new translations are imported into Wagtail for any subsequent RC and the f
 -   To translate a project, select it and enter your translation in the translation panel
 -   Save the translation using the translation button on the panel
 
+## Marking strings for translation
+
+In code, strings can be marked for translation with using Django's [translation system](django:topics/i18n/translation), using `gettext` or `gettext_lazy` in Python and `blocktranslate` and `translate` in templates.
+
+In both Python and templates, make sure to always use named placeholder. In addition, in Python, only use the printf style formatting. This is to ensure compatibility with Transifex and help translators in their work.
+
+For example:
+
+```python
+from django.utils.translation import gettext_lazy as _
+
+# Do this: printf style + named placeholders
+_("Page %(page_title)s with status %(status)s") % {"page_title": page.title, "status": page.status_string}
+
+# Do not use anonymous placeholders
+_("Page %s with status %s") % (page.title, page.status_string)
+_("Page {} with status {}").format(page.title, page.status_string)
+
+# Do not use positional placeholders
+_("Page {0} with status {1}").format(page.title, page.status_string)
+
+# Do not use new style
+_("Page {page_title} with status {status}").format(page_title=page.title, status=page.status_string)
+
+# Do not interpolate within the gettext call
+_("Page %(page_title)s with status %(status)s" % {"page_title": page.title, "status": page.status_string})
+_("Page {page_title} with status {status}".format(page_title=page.title, status=page.status_string))
+
+# Do not use f-string
+_(f"Page {page.title} with status {page.status_string}")
+```
+
 ## Additional resources
 
 -   [](django:topics/i18n/translation)

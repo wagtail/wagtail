@@ -1379,7 +1379,14 @@ class TestCopyPageAction(AdminAPITestCase):
 
         self.assertEqual(response.status_code, 400)
         content = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(content, {"slug": ["This slug is already in use"]})
+        self.assertEqual(
+            content,
+            {
+                "slug": [
+                    "The slug 'events' is already in use within the parent page at '/'"
+                ]
+            },
+        )
 
 
 class TestConvertAliasPageAction(AdminAPITestCase):

@@ -1,4 +1,3 @@
-#
 # Translators:
 # nahuel, 2022
 # Karl Hobley <karl@torchbox.com>, 2022
@@ -12,13 +11,12 @@ msgid ""
 msgstr ""
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-msgid "({number} new items in this menu)"
-msgstr "({number}  nouvel élément dans ce menu)"
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s  nouvel élément dans ce menu)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 nouvel élément dans ce menu)"
@@ -26,11 +24,11 @@ msgstr "(1 nouvel élément dans ce menu)"
 msgid "(New)"
 msgstr "(Nouveau)"
 
-msgid "{num} error"
-msgid_plural "{num} errors"
-msgstr[0] "{num} erreur"
-msgstr[1] "{num} erreurs"
-msgstr[2] "{num} erreurs"
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s erreur"
+msgstr[1] "%(num)s erreurs"
+msgstr[2] "%(num)s erreurs"
 
 msgid "Add a comment"
 msgstr "Ajouter un commentaire"
@@ -80,8 +78,8 @@ msgstr "Suppression…"
 msgid "Edit"
 msgstr "Modifier"
 
-msgid "Edit '{title}'"
-msgstr "Modifier '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Modifier '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
@@ -216,8 +214,8 @@ msgstr "Afficher/masquer la barre latérale"
 msgid "Unfocus comment"
 msgstr "Mettre le commentaire en arrière-plan"
 
-msgid "View child pages of '{title}'"
-msgstr "Voir les sous-pages de '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Voir les sous-pages de '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Écrivez quelque chose ou tapez « / » pour insérer un bloc"

@@ -9,12 +9,6 @@
             termInput: "#id_q",
             targetOutput: "#document-results"
         }
-
-        $(function() {
-            $('#collection_chooser_collection_id').on('change', function() {
-                this.form.submit();
-            })
-        });
     </script>
     <script>
         window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'DOCUMENT';
@@ -35,7 +29,7 @@
 
     <div class="nice-padding">
         {% if collections %}
-            <form class="image-search search-bar" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
+            <form class="image-search" action="{% url 'wagtaildocs:index' %}" method="GET" novalidate>
                 <ul class="fields">
                     <li>{% include "wagtailadmin/shared/collection_chooser.html" %}</li>
                 </ul>

@@ -7,7 +7,9 @@ from wagtail.admin.panels import Panel
 class FormSubmissionsPanel(Panel):
     def on_model_bound(self):
         if not self.heading:
-            self.heading = _("%s submissions") % self.model.get_verbose_name()
+            self.heading = _("%(model_name)s submissions") % {
+                "model_name": self.model.get_verbose_name()
+            }
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailforms/panels/form_responses_panel.html"

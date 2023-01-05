@@ -12,14 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: yossi lalum <lyosefh@gmail.com>, 2017\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
-"language/he_IL/)\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/language/he_IL/)\n"
+"Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: he_IL\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
-"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "ערך זה יכול להכיל אותיות, ספרות והתווים @/./+/-/_  בלבד"
@@ -183,23 +181,23 @@ msgid "Search groups"
 msgstr "חיפוש קבוצות"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "קבוצה '{0}' נוצרה"
+msgid "Group '%(object)s' created."
+msgstr "קבוצה '%(object)s' נוצרה"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "קבוצה '{0}' עודכנה"
+msgid "Group '%(object)s' updated."
+msgstr "קבוצה '%(object)s' עודכנה"
 
 msgid "The group could not be saved due to errors."
 msgstr "לא ניתן לשמור את הקבוצה עקב שגיאות"
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "קבוצה '{0}' נמחקה"
+msgid "Group '%(object)s' deleted."
+msgstr "קבוצה '%(object)s' נמחקה"
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "משתמש '{0}' עודכן "
+msgid "User '%(object)s' updated."
+msgstr "משתמש '%(object)s' עודכן "
 
 msgid "The user could not be saved due to errors."
 msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"

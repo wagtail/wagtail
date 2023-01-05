@@ -16,12 +16,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
-"ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -145,19 +144,19 @@ msgstr "\"<em>%(query_string)s</em>\" に一致するドキュメントはあり
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"まだこのコレクションにはドキュメントがアップロードされていません。<a href="
-"\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
+"まだこのコレクションにはドキュメントがアップロードされていません。<a "
+"href=\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"まだドキュメントがアップロードされていません。<a href="
-"\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
+"まだドキュメントがアップロードされていません。<a "
+"href=\"%(wagtaildocs_add_document_url)s\">ドキュメントを追加</a>しますか？"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -173,8 +172,7 @@ msgid "Add documents"
 msgstr "ドキュメントを追加"
 
 msgid "Drag and drop documents into this area to upload immediately."
-msgstr ""
-"ドキュメントをここにドラッグ&ドロップするとすぐにアップロードできます。"
+msgstr "ドキュメントをここにドラッグ&ドロップするとすぐにアップロードできます。"
 
 msgid "Or choose from your computer"
 msgstr "もしくはファイルを参照"
@@ -186,9 +184,7 @@ msgid ""
 "Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
-msgstr ""
-"アップロードに成功しました。必要の際にはドキュメントを更新できます。また、"
-"アップロードする必要のないドキュメントを削除することもできます。"
+msgstr "アップロードに成功しました。必要の際にはドキュメントを更新できます。また、アップロードする必要のないドキュメントを削除することもできます。"
 
 msgid "Sorry, upload failed."
 msgstr "アップロードに失敗しました。"
@@ -221,29 +217,27 @@ msgid "Search documents"
 msgstr "ドキュメントを検索"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "'{0}' が追加されました"
+msgid "Document '%(document_title)s' added."
+msgstr "'%(document_title)s' が追加されました"
 
 msgid "The document could not be saved due to errors."
 msgstr "エラーが発生したため、ドキュメントを保存できませんでした。"
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "'{0}'のドキュメントが更新されました。"
+msgid "Document '%(document_title)s' updated"
+msgstr "'%(document_title)s'のドキュメントが更新されました。"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
-msgstr ""
-"ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してくだ"
-"さい。"
+msgstr "ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してください。"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "'{0}'のドキュメントを削除しました。"
+msgid "Document '%(document_title)s' deleted."
+msgstr "'%(document_title)s'のドキュメントを削除しました。"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%sを編集"
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"
 
 msgid "Document"
 msgstr "ドキュメント"

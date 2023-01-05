@@ -1,25 +1,28 @@
-#
 # Translators:
-# saevarom <saevar@saevar.is>, 2022
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022
+# saevarom <saevar@saevar.is>, 2022
 #
 msgid ""
 msgstr ""
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2022\n"
-"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
-"teams/8009/is_IS/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2022\n"
+"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/teams/8009/is_IS/)\n"
 "Language: is_IS\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
-msgid "({number} new items in this menu)"
-msgstr "({number} nýjir hlutir í þessari valmynd)"
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s nýjir hlutir í þessari valmynd)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 nýr hlutur í þessari valmynd)"
 
 msgid "(New)"
 msgstr "(Nýtt)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s villa"
+msgstr[1] "%(num)s villur"
 
 msgid "Add a comment"
 msgstr "Bæta við athugasemd"
@@ -69,8 +72,8 @@ msgstr "Eyði"
 msgid "Edit"
 msgstr "Breyta"
 
-msgid "Edit '{title}'"
-msgstr "Breyta '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Breyta '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"
@@ -203,8 +206,8 @@ msgstr "Hliðarstika af/á"
 msgid "Unfocus comment"
 msgstr "Taka fókus af athugasemd"
 
-msgid "View child pages of '{title}'"
-msgstr "Skoða undirsíður '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Skoða undirsíður '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Skrifaðu eitthvað eða sláðu inn '/' til að setja inn blok"

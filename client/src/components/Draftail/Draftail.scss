@@ -76,7 +76,9 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-Editor {
-  --draftail-offset-inline-start: 0;
+  // Number used inside a `calc` function, which doesn’t support unitless zero.
+  // stylelint-disable-next-line length-zero-no-unit
+  --draftail-offset-inline-start: 0px;
 }
 
 .Draftail-Editor__wrapper {
@@ -191,7 +193,7 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-ComboBox__menu {
-  padding: 0 theme('spacing.4');
+  padding: theme('spacing.4');
 }
 
 .Draftail-ComboBox__optgroup-label {
@@ -206,10 +208,15 @@ $draftail-editor-font-family: $font-sans;
   border-width: 1px;
 }
 
+.Draftail-ComboBox__status {
+  padding-inline-start: theme('spacing.3');
+}
+
 .Draftail-ComboBox__option[aria-selected='true'] {
   color: theme('colors.secondary.DEFAULT');
   border-radius: theme('borderRadius.sm');
   background: transparent;
+  cursor: pointer;
 }
 
 .Draftail-ComboBox__option-icon {

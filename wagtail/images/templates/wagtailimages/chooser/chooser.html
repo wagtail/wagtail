@@ -2,7 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block filter_form %}
-    <form data-chooser-modal-search class="search-bar" action="{{ results_url }}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
+    <form data-chooser-modal-search action="{{ results_url }}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
         <ul class="fields">
             {% for field in filter_form %}
                 {% include "wagtailadmin/shared/field_as_li.html" with field=field %}

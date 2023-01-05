@@ -12,18 +12,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
-"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
-"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
-"uk/)\n"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/uk/)\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Publish"
 msgstr "Опублікувати"
@@ -41,16 +36,16 @@ msgid "Wagtail snippets"
 msgstr "Уривки Wagtail"
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' deleted."
-msgstr "%(snippet_type)s '%(instance)s' видалено."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' видалено."
 
 #, python-format
-msgid "%(count)d %(snippet_type)s deleted."
-msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d %(snippet_type)s видалено."
-msgstr[1] "%(count)d %(snippet_type)s видалено."
-msgstr[2] "%(count)d %(snippet_type)s видалено."
-msgstr[3] "%(count)d %(snippet_type)s видалено."
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s видалено."
+msgstr[1] "%(count)d %(model_name)s видалено."
+msgstr[2] "%(count)d %(model_name)s видалено."
+msgstr[3] "%(count)d %(model_name)s видалено."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -126,11 +121,11 @@ msgstr "Записи в журналі не знайдені. "
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"%(snippet_type_name_plural)s ще не були створені. Чому б не <a href="
-"\"%(wagtailsnippets_create_url)s\">додати якийсь</a>?"
+"%(snippet_type_name_plural)s ще не були створені. Чому б не <a "
+"href=\"%(wagtailsnippets_create_url)s\">додати якийсь</a>?"
 
 msgid "Live version"
 msgstr "Версія наживо"
@@ -184,19 +179,19 @@ msgid "The snippet could not be created due to errors."
 msgstr "Цей уривок не може бути створено через помилки."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' created."
-msgstr "%(snippet_type)s '%(instance)s' створено."
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' створено."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Цей уривок не може бути збережено через помилки."
 
 #, python-format
-msgid "%(snippet_type)s '%(instance)s' updated."
-msgstr "%(snippet_type)s '%(instance)s' оновлено."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' оновлено."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Редагувати %s"
+msgid "Edit this %(object)s"
+msgstr "Редагувати %(object)s"
 
 msgid "Action"
 msgstr "Дія"
@@ -219,9 +214,9 @@ msgid "Delete '%(title)s'"
 msgstr "Видалити '%(title)s'"
 
 #, python-format
-msgid "Choose %s"
-msgstr "Вибрати %s"
+msgid "Choose %(object)s"
+msgstr "Вибрати %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "Виберіть %s"
+msgid "Choose another %(object)s"
+msgstr "Виберіть %(object)s"

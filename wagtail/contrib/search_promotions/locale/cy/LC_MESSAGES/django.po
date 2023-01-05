@@ -11,14 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
-"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
-"cy/)\n"
+"Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/cy/)\n"
+"Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cy\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
-"11) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
 
 msgid "Wagtail search promotions"
 msgstr "Hyrwyddiadau chwilio Wagtail"
@@ -120,18 +118,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
+"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
 
 msgid "Search promoted results"
 msgstr "Chwilio canlyniadau a hyrwyddir"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Dewisiadau'r golygydd ar gyfer '{0}' wedi'i creu."
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i creu."
 
 msgid "Edit"
 msgstr "Golygu"
@@ -140,8 +138,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "Nid yw argymhellion wedi'u creu oherwydd gwallau"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Dewisiadau'r golygydd ar gyfer '{0}' wedi'i diweddaru."
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i diweddaru."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Nid yw argymhellion wedi'u cadw oherwydd gwallau"

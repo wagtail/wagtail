@@ -42,18 +42,11 @@
 
 <script>
     (function() {
-        var panel = InlinePanel({
+        var panel = new InlinePanel({
             formsetPrefix: "id_{{ self.formset.prefix }}",
             emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
             canOrder: {% if can_order %}true{% else %}false{% endif %},
             maxForms: {{ self.formset.max_num|unlocalize }}
         });
-
-        {% for child in self.children %}
-            panel.initChildControls("{{ child.form.prefix }}");
-        {% endfor %}
-        panel.updateChildCount();
-        panel.updateMoveButtonDisabledStates();
-        panel.updateAddButtonState();
     })();
 </script>

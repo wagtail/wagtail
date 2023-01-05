@@ -1554,6 +1554,60 @@ class TestPageDetail(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {"message": "'title' does not support nested fields"})
 
+    def test_form_fields_on_form_page(self):
+        """
+        Check that adding form_fields will correctly return then in the API response when declared
+        """
+
+        home_page = Page.objects.get(slug="home-page")
+        form_page = home_page.add_child(instance=models.FormPage(title="Contact us"))
+
+        field_1 = models.FormField.objects.create(
+            page=form_page,
+            sort_order=1,
+            label="email",
+            field_type="email",
+        )
+        field_2 = models.FormField.objects.create(
+            page=form_page,
+            sort_order=2,
+            label="message",
+            field_type="multiline",
+            required=True,
+            help_text="<em>please</em> be polite",
+        )
+
+        response = self.get_response(form_page.pk, fields="form_fields")
+        content = json.loads(response.content.decode("UTF-8"))
+
+        self.assertEqual(
+            content["form_fields"],
+            [
+                {
+                    "id": field_1.pk,
+                    "clean_name": "email",
+                    "meta": {"type": "demosite.FormField"},
+                    "label": "email",
+                    "help_text": "",
+                    "required": True,
+                    "field_type": "email",
+                    "choices": "",
+                    "default_value": "",
+                },
+                {
+                    "id": field_2.pk,
+                    "clean_name": "message",
+                    "meta": {"type": "demosite.FormField"},
+                    "label": "message",
+                    "help_text": "<em>please</em> be polite",
+                    "required": True,
+                    "field_type": "multiline",
+                    "choices": "",
+                    "default_value": "",
+                },
+            ],
+        )
+
 
 class TestPageFind(TestCase):
     fixtures = ["demosite.json"]

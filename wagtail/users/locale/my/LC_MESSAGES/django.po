@@ -11,19 +11,20 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
-"Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
-"my/)\n"
+"Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/my/)\n"
+"Language: my\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: my\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
 msgstr "ဝဂ်တေးအသုံးပြုသူများ"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "ဤတန်ဖိုးတွင် အက္ခရာများ၊ ကိန်းဂဏန်းများ၊ @/./+/-/_ စာလုံးများသာ ပါဝင်နိုင်သည်။"
+msgstr ""
+"ဤတန်ဖိုးတွင် အက္ခရာများ၊ ကိန်းဂဏန်းများ၊ @/./+/-/_ စာလုံးများသာ "
+"ပါဝင်နိုင်သည်။"
 
 msgid "A user with that username already exists."
 msgstr "ယင်းအမည်နှင့် အသုံးပြုသူ ရှိပြီးနေပါပြီ။"
@@ -120,7 +121,8 @@ msgstr "အခြေအနေ"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "စိတ်မကောင်းပါ၊ ဘယ်အသုံးပြုသူမှ \"<em>%(query_string)s</em>\"နှင့် မကိုက်ညီပါ"
+msgstr ""
+"စိတ်မကောင်းပါ၊ ဘယ်အသုံးပြုသူမှ \"<em>%(query_string)s</em>\"နှင့် မကိုက်ညီပါ"
 
 msgid "Groups"
 msgstr "အဖွဲ့များ"
@@ -132,30 +134,30 @@ msgid "Search groups"
 msgstr "အဖွဲ့များကို ရှာပါ"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "'{0}'အဖွဲ့ကို ဖန်တီးပြီးပါပြီ။"
+msgid "Group '%(object)s' created."
+msgstr "'%(object)s'အဖွဲ့ကို ဖန်တီးပြီးပါပြီ။"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "'{0}'အဖွဲ့ကို မြှင့်တင်ပြီးပါပြီ။"
+msgid "Group '%(object)s' updated."
+msgstr "'%(object)s'အဖွဲ့ကို မြှင့်တင်ပြီးပါပြီ။"
 
 msgid "The group could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အဖွဲ့ကို မသိမ်းဆည်းနိုင်ပါ။"
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "'{0}'အဖွဲ့ကို ဖျက်သိမ်းပြီးပါပြီ။"
+msgid "Group '%(object)s' deleted."
+msgstr "'%(object)s'အဖွဲ့ကို ဖျက်သိမ်းပြီးပါပြီ။"
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "'{0}'အသုံးပြုသူကို မြှင့်တင်ပြီးပါပြီ။"
+msgid "User '%(object)s' updated."
+msgstr "'%(object)s'အသုံးပြုသူကို မြှင့်တင်ပြီးပါပြီ။"
 
 msgid "The user could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အသုံးပြုသူကို မသိမ်းဆည်းနိုင်ပါ။"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "'{0}'အသုံးပြုသူကို ဖျက်သိမ်းပြီးပါပြီ။"
+msgid "User '%(object)s' deleted."
+msgstr "'%(object)s'အသုံးပြုသူကို ဖျက်သိမ်းပြီးပါပြီ။"
 
 msgid "Edit"
 msgstr "ပြင်ဆင်ပါ"

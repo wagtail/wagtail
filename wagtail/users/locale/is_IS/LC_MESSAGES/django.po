@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2017-2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
-"wagtail/language/is_IS/)\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
+"Language: is_IS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Wagtail users"
@@ -193,7 +192,8 @@ msgstr "Eyða hóp"
 msgid ""
 "The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
 msgid_plural ""
-"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> "
+"members."
 msgstr[0] ""
 "Hópurinn '%(group_name)s' er með <strong>%(group_user_count)s</strong> "
 "notendur."
@@ -256,11 +256,11 @@ msgstr "Því miður eru engir hópar sem passa við \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Engir hópar eru til. Hví ekki að <a href=\"%(wagtailusers_create_group_url)s"
-"\">bæta við hóp</a>?"
+"Engir hópar eru til. Hví ekki að <a "
+"href=\"%(wagtailusers_create_group_url)s\">bæta við hóp</a>?"
 
 msgid "Delete user"
 msgstr "Eyða notanda"
@@ -315,24 +315,23 @@ msgstr[1] " Það eru %(counter)s niðurstöður        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
+msgstr "Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Grúppan %(group_name)s hefur enga notendur. Viltu <a href="
-"\"%(wagtailusers_add_url)s\">bæta við</a>?"
+"Grúppan %(group_name)s hefur enga notendur. Viltu <a "
+"href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Það eru engir skráðir notendur.  Viltu <a href=\"%(wagtailusers_add_url)s"
-"\">bæta við</a>?"
+"Það eru engir skráðir notendur.  Viltu <a "
+"href=\"%(wagtailusers_add_url)s\">bæta við</a>?"
 
 msgid "Assign role to selected users"
 msgstr "Gefa völdum notendum réttindi"
@@ -377,35 +376,35 @@ msgid "Search groups"
 msgstr "Leita í hópum"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Hópur '{0}' búinn til."
+msgid "Group '%(object)s' created."
+msgstr "Hópur '%(object)s' búinn til."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Hópur '{0}' uppfærður."
+msgid "Group '%(object)s' updated."
+msgstr "Hópur '%(object)s' uppfærður."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófanir"
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Hópi '{0}' eytt."
+msgid "Group '%(object)s' deleted."
+msgstr "Hópi '%(object)s' eytt."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Notandi '{0}' uppfærður."
+msgid "User '%(object)s' updated."
+msgstr "Notandi '%(object)s' uppfærður."
 
 msgid "The user could not be saved due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
 #, python-format
-msgid "Editing %s"
-msgstr "Breyti %s"
+msgid "Editing %(object)s"
+msgstr "Breyti %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Notanda '{0}' eytt."
+msgid "User '%(object)s' deleted."
+msgstr "Notanda '%(object)s' eytt."
 
 msgid "Edit"
 msgstr "Breyta"

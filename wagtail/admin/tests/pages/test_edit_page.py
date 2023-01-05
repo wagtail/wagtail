@@ -1281,7 +1281,12 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(response, "form", "slug", "This slug is already in use")
+        self.assertFormError(
+            response,
+            "form",
+            "slug",
+            "The slug 'hello-world' is already in use within the parent page",
+        )
 
     def test_preview_on_edit(self):
         post_data = {

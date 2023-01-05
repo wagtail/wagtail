@@ -47,8 +47,8 @@ testing_extras = [
     "Jinja2>=3.0,<3.2",
     "boto3>=1.16,<1.17",
     "freezegun>=0.3.8",
-    "azure-mgmt-cdn>=5.1,<6.0",
-    "azure-mgmt-frontdoor>=0.3,<0.4",
+    "azure-mgmt-cdn>=12.0,<13.0",
+    "azure-mgmt-frontdoor>=1.0,<1.1",
     "django-pattern-library>=0.7,<0.8",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
@@ -60,12 +60,15 @@ testing_extras = [
     "flake8-print==5.0.0",
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
+    "semgrep",
     # For templates linting
     "curlylint==0.13.1",
     # For template indenting
     "djhtml==1.4.13",
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
+    # For streamfield migration toolkit
+    "wagtail-factories>=4.0,<5",
 ]
 
 # Documentation dependencies

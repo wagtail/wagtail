@@ -37,7 +37,7 @@
                 <ul class="fields">
                     {% for field in form %}
                         {% if field.name == 'file' %}
-                            {% include "wagtaildocs/documents/_file_field_as_li.html" %}
+                            <li>{% include "wagtaildocs/documents/_file_field.html" %}</li>
                         {% elif field.is_hidden %}
                             {{ field }}
                         {% else %}

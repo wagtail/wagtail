@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Amir Mahmoodi, 2022\n"
-"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
-"fa/)\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/fa/)\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Publish"
@@ -86,11 +85,11 @@ msgstr "قطعه‌ها"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"هیچ %(snippet_type_name_plural)s ایجاد نشده. می‌توانید یکی را <a href="
-"\"%(wagtailsnippets_create_url)s\">ایجاد</a> نمایید."
+"هیچ %(snippet_type_name_plural)s ایجاد نشده. می‌توانید یکی را <a "
+"href=\"%(wagtailsnippets_create_url)s\">ایجاد</a> نمایید."
 
 msgid "Live version"
 msgstr "نسخه منتشر شده"
@@ -147,8 +146,8 @@ msgid "The snippet could not be saved due to errors."
 msgstr "قطعه به دلیل بروز خطا ذخیره نشد."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "ویرایش این %s"
+msgid "Edit this %(object)s"
+msgstr "ویرایش این %(object)s"
 
 msgid "Date"
 msgstr "تاریخ"
@@ -158,9 +157,9 @@ msgid "Edit '%(title)s'"
 msgstr "ویرایش %(title)s"
 
 #, python-format
-msgid "Choose %s"
-msgstr "انتخاب %s"
+msgid "Choose %(object)s"
+msgstr "انتخاب %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "یک %s دیگر انتخاب کنید"
+msgid "Choose another %(object)s"
+msgstr "یک %(object)s دیگر انتخاب کنید"

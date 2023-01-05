@@ -11,14 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
-"sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "Wagtail ModelAdmin"
 msgstr "Wagtail ModelAdmin"
@@ -27,12 +25,12 @@ msgid "Parent page"
 msgstr "Nadrejena stran"
 
 #, python-format
-msgid "Add %s"
-msgstr "Dodaj%s"
+msgid "Add %(object)s"
+msgstr "Dodaj%(object)s"
 
 #, python-format
-msgid "Add a new %s"
-msgstr "Dodaj nov %s"
+msgid "Add a new %(object)s"
+msgstr "Dodaj nov %(object)s"
 
 msgid "Inspect"
 msgstr "Preglejte"
@@ -41,8 +39,8 @@ msgid "Edit"
 msgstr "Uredi"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Uredi %s"
+msgid "Edit this %(object)s"
+msgstr "Uredi %(object)s"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -111,12 +109,12 @@ msgid "Editing"
 msgstr "Urejanje"
 
 #, python-format
-msgid "Editing %s"
-msgstr "Urejanje %s"
+msgid "Editing %(object)s"
+msgstr "Urejanje %(object)s"
 
 #, python-format
-msgid "Confirm deletion of %s"
-msgstr "Confirm deletion Potrdi izbris %s"
+msgid "Confirm deletion of %(object)s"
+msgstr "Confirm deletion Potrdi izbris %(object)s"
 
 msgid "Inspecting"
 msgstr "Pregledovanje"

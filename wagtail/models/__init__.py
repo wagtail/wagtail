@@ -487,7 +487,13 @@ class DraftStateMixin(models.Model):
                 return _("live")
 
     def publish(
-        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+        self,
+        revision,
+        user=None,
+        changed=True,
+        log_action=True,
+        previous_revision=None,
+        skip_permission_checks=False,
     ):
         """
         Publish a revision of the object by applying the changes in the revision to the live object.
@@ -506,7 +512,7 @@ class DraftStateMixin(models.Model):
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
-        ).execute()
+        ).execute(skip_permission_checks=skip_permission_checks)
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         """
@@ -788,22 +794,43 @@ class LockableMixin(models.Model):
         blank=True,
         editable=False,
         on_delete=models.SET_NULL,
-        related_name="locked_pages",
+        related_name="locked_%(class)ss",
     )
     locked_by.wagtail_reference_index_ignore = True
 
     class Meta:
         abstract = True
 
+    @classmethod
+    def check(cls, **kwargs):
+        return [
+            *super().check(**kwargs),
+            *cls._check_revision_mixin(),
+        ]
+
+    @classmethod
+    def _check_revision_mixin(cls):
+        mro = cls.mro()
+        error = checks.Error(
+            "LockableMixin must be applied before RevisionMixin.",
+            hint="Move LockableMixin in the model's base classes before RevisionMixin.",
+            obj=cls,
+            id="wagtailcore.E005",
+        )
+
+        try:
+            if mro.index(RevisionMixin) < mro.index(LockableMixin):
+                return [error]
+        except ValueError:
+            # LockableMixin can be used without RevisionMixin.
+            return []
+
+        return []
+
     def with_content_json(self, content):
         """
-        Returns a new version of the object with field values updated to reflect changes
-        in the provided ``content`` (which usually comes from a previously-saved revision).
-
-        Certain field values are preserved in order to prevent errors if the returned
-        object is saved, such as ``id``. The following field values are also preserved,
-        as they are considered to be meaningful to the object as a whole, rather than
-        to a specific revision:
+        Similar to :meth:`RevisionMixin.with_content_json`,
+        but with the following fields also preserved:
 
         * ``locked``
         * ``locked_at``
@@ -821,13 +848,13 @@ class LockableMixin(models.Model):
 
     def get_lock(self):
         """
-        Returns a sub-class of BaseLock if the instance is locked, otherwise None
+        Returns a sub-class of ``BaseLock`` if the instance is locked, otherwise ``None``.
         """
-        if self.locked:
-            return BasicLock(self)
-
         if isinstance(self, DraftStateMixin) and self.scheduled_revision:
             return ScheduledForPublishLock(self)
+
+        if self.locked:
+            return BasicLock(self)
 
 
 class AbstractPage(
@@ -1098,8 +1125,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def clean(self):
         super().clean()
-        if not Page._slug_is_available(self.slug, self.get_parent(), self):
-            raise ValidationError({"slug": _("This slug is already in use")})
+        parent_page = self.get_parent()
+        if not Page._slug_is_available(self.slug, parent_page, self):
+            raise ValidationError(
+                {
+                    "slug": _(
+                        "The slug '%(page_slug)s' is already in use within the parent page at '%(parent_url_path)s'"
+                    )
+                    % {"page_slug": self.slug, "parent_url_path": parent_page.url}
+                }
+            )
 
     def is_site_root(self):
         """
@@ -1124,7 +1159,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         such as updating the ``url_path`` value of descendant page to reflect changes
         to this page's slug.
 
-        New pages should generally be saved via the ``add_child()`` or ``add_sibling()``
+        New pages should generally be saved via the `add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>`_ or `add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>`_
         method of an existing page, which will correctly set the ``path`` and ``depth``
         fields on the new page before saving it.
 
@@ -1713,7 +1748,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     update_aliases.alters_data = True
 
     def publish(
-        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+        self,
+        revision,
+        user=None,
+        changed=True,
+        log_action=True,
+        previous_revision=None,
+        skip_permission_checks=False,
     ):
         return PublishPageRevisionAction(
             revision,
@@ -1721,7 +1762,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
-        ).execute()
+        ).execute(skip_permission_checks=skip_permission_checks)
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         return UnpublishPageAction(
@@ -2275,7 +2316,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         current_workflow_task = self.current_workflow_task
         if current_workflow_task:
-            return WorkflowLock(current_workflow_task, self)
+            return WorkflowLock(self, current_workflow_task)
 
     def get_route_paths(self):
         """
@@ -2818,13 +2859,21 @@ class Revision(models.Model):
 
         return super().delete()
 
-    def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
+    def publish(
+        self,
+        user=None,
+        changed=True,
+        log_action=True,
+        previous_revision=None,
+        skip_permission_checks=False,
+    ):
         return self.content_object.publish(
             self,
             user=user,
             changed=changed,
             log_action=log_action,
             previous_revision=previous_revision,
+            skip_permission_checks=skip_permission_checks,
         )
 
     def get_previous(self):
@@ -3863,9 +3912,13 @@ class WorkflowState(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return _("Workflow '{0}' on Page '{1}': {2}").format(
-            self.workflow, self.page, self.status
-        )
+        return _(
+            "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+        ) % {
+            "workflow_name": self.workflow,
+            "page_title": self.page,
+            "status": self.status,
+        }
 
     def resume(self, user=None):
         """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
@@ -4223,9 +4276,13 @@ class TaskState(models.Model):
                 self.content_type = ContentType.objects.get_for_model(self)
 
     def __str__(self):
-        return _("Task '{0}' on Page Revision '{1}': {2}").format(
-            self.task, self.page_revision, self.status
-        )
+        return _(
+            "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
+        ) % {
+            "task_name": self.task,
+            "revision_info": self.page_revision,
+            "status": self.status,
+        }
 
     @cached_property
     def specific(self):

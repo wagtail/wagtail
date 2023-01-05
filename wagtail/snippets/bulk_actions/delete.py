@@ -31,16 +31,16 @@ class DeleteBulkAction(SnippetBulkAction):
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if num_parent_objects == 1:
-            return _("%(snippet_type)s '%(instance)s' deleted.") % {
-                "snippet_type": capfirst(self.model._meta.verbose_name),
-                "instance": self.actionable_objects[0],
+            return _("%(model_name)s '%(object)s' deleted.") % {
+                "model_name": capfirst(self.model._meta.verbose_name),
+                "object": self.actionable_objects[0],
             }
         else:
             return ngettext(
-                "%(count)d %(snippet_type)s deleted.",
-                "%(count)d %(snippet_type)s deleted.",
+                "%(count)d %(model_name)s deleted.",
+                "%(count)d %(model_name)s deleted.",
                 num_parent_objects,
             ) % {
-                "snippet_type": capfirst(self.model._meta.verbose_name_plural),
+                "model_name": capfirst(self.model._meta.verbose_name_plural),
                 "count": num_parent_objects,
             }

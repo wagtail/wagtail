@@ -1,11 +1,13 @@
 class VersionNumberFormatError extends Error {
   constructor(versionString) {
+    super(versionString);
     this.message = `Version number '${versionString}' is not formatted correctly.`;
   }
 }
 
 class CanOnlyComparePreReleaseVersionsError extends Error {
   constructor() {
+    super();
     this.message = 'Can only compare prerelease versions';
   }
 }

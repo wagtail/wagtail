@@ -86,7 +86,7 @@ Ensure that none of your field names are the same as your class names. This will
 
 ## Writing page models
 
-Here we'll describe each section of the above example to help you create your own page models.
+Here, we'll describe each section of the above example to help you create your own page models.
 
 ### Database fields
 
@@ -152,9 +152,9 @@ The page editor can be customised further. See [Customising the editing interfac
 
 ### Parent page / subpage type rules
 
-These two attributes allow you to control where page types may be used in your site. It allows you to define rules like "blog entries may only be created under a blog index".
+These two attributes allow you to control where page types may be used in your site. They allow you to define rules like "blog entries may only be created under a blog index".
 
-Both take a list of model classes or model names. Model names are of the format `app_label.ModelName`. If the `app_label` is omitted, the same app is assumed.
+Both parent and subpage types take a list of model classes or model names. Model names are of the format `app_label.ModelName`. If the `app_label` is omitted, the same app is assumed.
 
 -   `parent_page_types` limits which page types this type can be created under
 -   `subpage_types` limits which page types can be created under this type
@@ -179,7 +179,7 @@ class LandingPage(Page):
 
 ### Page URLs
 
-The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it's called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [pageurl](pageurl_tag).
+The most common method of retrieving page URLs is by using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageurl_tag) template tags. Since it's called from a template, these automatically includes the optimizations mentioned below.
 
 Page models also include several low-level methods for overriding or accessing page URLs.
 
@@ -206,14 +206,14 @@ For more information, please see {meth}`wagtail.models.Page.get_url_parts`.
 
 #### Obtaining URLs for page instances
 
-The `Page.get_url(request)` method can be called whenever a page URL is needed. It defaults to returning local URLs (not including the protocol or domain) if it determines that the page is on the current site (via the hostname in `request`); otherwise, a full URL including the protocol and domain is returned. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
+You can call the `Page.get_url(request)` method whenever you need a page URL. It defaults to returning local URLs (not including the protocol or domain) if it determines that the page is on the current site (via the hostname in `request`); otherwise, it would return a full URL including the protocol and domain. Whenever possible, you should include the optional `request` argument to enable per-request caching of site-level URL information and facilitate the generation of local URLs.
 
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and uses `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
 For more information, please see {meth}`wagtail.models.Page.get_url`.
 
-In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information.
+To retrieve the full URL (including the protocol and domain), use `Page.get_full_url(request)`. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information.
 
 For more information, please see {meth}`wagtail.models.Page.get_full_url`.
 
@@ -333,7 +333,7 @@ class BlogPage(Page):
 
 ## Inline models
 
-Wagtail can nest the content of other models within the page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page content.
+Wagtail allows the nesting of other models within a page. This is useful for creating repeated fields, such as related links or items to display in a carousel. Inline model content is also versioned with the rest of the page.
 
 Each inline model requires the following:
 

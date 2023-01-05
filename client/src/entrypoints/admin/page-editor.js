@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/text';
-import { inlinePanel } from '../../includes/inlinePanel';
+import { InlinePanel } from '../../components/InlinePanel';
+import { ngettext } from '../../utils/gettext';
 
-window.InlinePanel = inlinePanel;
+window.InlinePanel = InlinePanel;
 window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {
@@ -41,8 +42,7 @@ function initErrorDetection() {
   const errorSections = {};
 
   // first count up all the errors
-  // eslint-disable-next-line func-names
-  $('.error-message,.help-critical').each(function () {
+  $('.error-message,.help-critical').each(function collectError() {
     const parentSection = $(this).closest('section[role="tabpanel"]');
 
     if (!errorSections[parentSection.attr('id')]) {
@@ -54,14 +54,28 @@ function initErrorDetection() {
   });
 
   // now identify them on each tab
-  // eslint-disable-next-line guard-for-in
-  for (const index in errorSections) {
-    $('[data-tabs] a[href="#' + index + '"]')
-      .find('[data-tabs-errors]')
+  Object.entries(errorSections).forEach(([sectionId, errorCount]) => {
+    const tabErrorsElement = $(`[data-tabs] a[href="#${sectionId}"]`).find(
+      '[data-tabs-errors]',
+    );
+
+    // show and add error count
+    tabErrorsElement
       .addClass('!w-flex')
       .find('[data-tabs-errors-count]')
-      .text(errorSections[index]);
-  }
+      .text(errorCount);
+
+    // update label for screen readers
+    tabErrorsElement
+      .find('[data-tabs-errors-statement]')
+      .text(
+        ngettext(
+          '(%(errorCount)s error)',
+          '(%(errorCount)s errors)',
+          errorCount,
+        ).replace('%(errorCount)s', errorCount),
+      );
+  });
 }
 
 window.initErrorDetection = initErrorDetection;

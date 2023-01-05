@@ -8,7 +8,6 @@ from django.forms import Form
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
@@ -22,11 +21,12 @@ from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import get_edit_handler
-from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.tables import Column, Table, TitleColumn, UpdatedAtColumn
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, RevisionMixin
+from wagtail.models import DraftStateMixin
+from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
@@ -134,6 +134,31 @@ class IndexView(
             % {"model_name": self.model._meta.verbose_name_plural}
         )
 
+    def _annotate_queryset_updated_at(self, queryset):
+        # Annotate the objects' updated_at, use _ prefix to avoid name collision
+        # with an existing database field.
+        # By default, use the latest log entry's timestamp, but subclasses may
+        # override this to e.g. use the latest revision's timestamp instead.
+
+        log_model = log_registry.get_log_model_for_model(queryset.model)
+
+        # If the log model is not a subclass of ModelLogEntry, we don't know how
+        # to query the logs for the object, so skip the annotation.
+        if not log_model or not issubclass(log_model, ModelLogEntry):
+            return queryset
+
+        latest_log = (
+            log_model.objects.filter(
+                content_type=ContentType.objects.get_for_model(
+                    queryset.model, for_concrete_model=False
+                ),
+                object_id=Cast(models.OuterRef("pk"), models.CharField()),
+            )
+            .order_by("-timestamp", "-pk")
+            .values("timestamp")[:1]
+        )
+        return queryset.annotate(_updated_at=models.Subquery(latest_log))
+
     def get_queryset(self):
         # Instead of calling super().get_queryset(), we copy the initial logic
         # from Django's MultipleObjectMixin, because we need to annotate the
@@ -158,28 +183,7 @@ class IndexView(
         if self.locale:
             queryset = queryset.filter(locale=self.locale)
 
-        # Annotate the objects' updated_at, use _ prefix to avoid name collision
-        # with an existing database field
-        if issubclass(queryset.model, RevisionMixin):
-            # Use the latest revision's created_at
-            queryset = queryset.select_related("latest_revision")
-            queryset = queryset.annotate(
-                _updated_at=models.F("latest_revision__created_at")
-            )
-        else:
-            # Use the latest log entry's timestamp
-            log_model = log_registry.get_log_model_for_model(self.model)
-            latest_log = (
-                log_model.objects.filter(
-                    content_type=ContentType.objects.get_for_model(
-                        self.model, for_concrete_model=False
-                    ),
-                    object_id=Cast(models.OuterRef("pk"), models.CharField()),
-                )
-                .order_by("-timestamp", "-pk")
-                .values("timestamp")[:1]
-            )
-            queryset = queryset.annotate(_updated_at=models.Subquery(latest_log))
+        queryset = self._annotate_queryset_updated_at(queryset)
 
         ordering = self.get_ordering()
         if ordering:
@@ -371,17 +375,20 @@ class CreateView(
     success_message = None
     error_message = None
     submit_button_label = gettext_lazy("Create")
-    actions = ["create", "publish"]
+    actions = ["create"]
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
 
     def get_action(self, request):
-        for action in self.actions:
+        for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
                 return action
         return "create"
+
+    def get_available_actions(self):
+        return self.actions
 
     def get_add_url(self):
         if not self.add_url_name:
@@ -390,6 +397,14 @@ class CreateView(
                 "add_url_name attribute or a get_add_url method"
             )
         return reverse(self.add_url_name)
+
+    def get_edit_url(self):
+        if not self.edit_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
+                "edit_url_name attribute or a get_edit_url method"
+            )
+        return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
     def get_success_url(self):
         if not self.index_url_name:
@@ -400,21 +415,12 @@ class CreateView(
         return reverse(self.index_url_name)
 
     def get_success_message(self, instance):
-        if isinstance(instance, DraftStateMixin) and self.action == "publish":
-            if instance.go_live_at and instance.go_live_at > timezone.now():
-                return _("'{0}' created and scheduled for publishing.").format(instance)
-            return _("'{0}' created and published.").format(instance)
-
         if self.success_message is None:
             return None
-        return self.success_message.format(instance)
+        return self.success_message % {"object": instance}
 
     def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(self.edit_url_name, args=(quote(self.object.pk),)), _("Edit")
-            )
-        ]
+        return [messages.button(self.get_edit_url(), _("Edit"))]
 
     def get_error_message(self):
         if self.error_message is None:
@@ -432,27 +438,8 @@ class CreateView(
         Called after the form is successfully validated - saves the object to the db
         and returns the new object. Override this to implement custom save logic.
         """
-        if self.model and issubclass(self.model, DraftStateMixin):
-            instance = self.form.save(commit=False)
-            instance.live = False
-            instance.save()
-            self.form.save_m2m()
-        else:
-            instance = self.form.save()
-
-        self.new_revision = None
-
-        # Save revision if the model inherits from RevisionMixin
-        if isinstance(instance, RevisionMixin):
-            self.new_revision = instance.save_revision(user=self.request.user)
-
-        log(
-            instance=instance,
-            action="wagtail.create",
-            revision=self.new_revision,
-            content_changed=True,
-        )
-
+        instance = self.form.save()
+        log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 
     def save_action(self):
@@ -466,28 +453,10 @@ class CreateView(
             )
         return redirect(self.get_success_url())
 
-    def publish_action(self):
-        hook_response = self.run_hook("before_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        self.new_revision.publish(user=self.request.user)
-
-        hook_response = self.run_hook("after_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        return None
-
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-
-        if self.action == "publish" and isinstance(self.object, DraftStateMixin):
-            response = self.publish_action()
-            if response is not None:
-                return response
 
         response = self.save_action()
 
@@ -526,31 +495,26 @@ class EditView(
     success_message = None
     error_message = None
     submit_button_label = gettext_lazy("Save")
-    actions = ["edit", "publish"]
+    actions = ["edit"]
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
-        self.revision_enabled = self.model and issubclass(self.model, RevisionMixin)
-        self.draftstate_enabled = self.model and issubclass(self.model, DraftStateMixin)
 
     def get_action(self, request):
-        for action in self.actions:
+        for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
                 return action
         return "edit"
+
+    def get_available_actions(self):
+        return self.actions
 
     def get_object(self, queryset=None):
         if "pk" not in self.kwargs:
             self.kwargs["pk"] = self.args[0]
         self.kwargs["pk"] = unquote(str(self.kwargs["pk"]))
-        self.live_object = super().get_object(queryset)
-
-        # Cannot use self.draftstate_enabled here as there are subclasses
-        # that rely on get_object to determine the model
-        if isinstance(self.live_object, DraftStateMixin):
-            return self.live_object.get_latest_revision_as_object()
-        return self.live_object
+        return super().get_object(queryset)
 
     def get_page_subtitle(self):
         return str(self.object)
@@ -580,23 +544,13 @@ class EditView(
         Called after the form is successfully validated - saves the object to the db.
         Override this to implement custom save logic.
         """
-        commit = not self.draftstate_enabled
-        instance = self.form.save(commit=commit)
-        self.new_revision = None
+        instance = self.form.save()
 
         self.has_content_changes = self.form.has_changed()
-
-        # Save revision if the model inherits from RevisionMixin
-        if self.revision_enabled:
-            self.new_revision = instance.save_revision(
-                user=self.request.user,
-                changed=self.has_content_changes,
-            )
 
         log(
             instance=instance,
             action="wagtail.edit",
-            revision=self.new_revision,
             content_changed=self.has_content_changes,
         )
 
@@ -613,30 +567,10 @@ class EditView(
             )
         return redirect(self.get_success_url())
 
-    def publish_action(self):
-        hook_response = self.run_hook("before_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        self.new_revision.publish(user=self.request.user)
-
-        hook_response = self.run_hook("after_publish", self.request, self.object)
-        if hook_response is not None:
-            return hook_response
-
-        return None
-
     def get_success_message(self):
-        if self.draftstate_enabled and self.action == "publish":
-            if self.object.go_live_at and self.object.go_live_at > timezone.now():
-                return _("'{0}' updated and scheduled for publishing.").format(
-                    self.object
-                )
-            return _("'{0}' updated and published.").format(self.object)
-
         if self.success_message is None:
             return None
-        return self.success_message.format(self.object)
+        return self.success_message % {"object": self.object}
 
     def get_success_buttons(self):
         return [
@@ -650,37 +584,10 @@ class EditView(
             return None
         return self.error_message
 
-    def get_live_last_updated_info(self):
-        # DraftStateMixin is applied but object is not live
-        if self.draftstate_enabled and not self.object.live:
-            return None
-
-        revision = None
-        # DraftStateMixin is applied and object is live
-        if self.draftstate_enabled and self.object.live_revision:
-            revision = self.object.live_revision
-        # RevisionMixin is applied, so object is assumed to be live
-        elif self.revision_enabled and self.object.latest_revision:
-            revision = self.object.latest_revision
-
-        # No mixin is applied or no revision exists, fall back to latest log entry
-        if not revision:
-            return log_registry.get_logs_for_instance(self.object).first()
-
-        return {
-            "timestamp": revision.created_at,
-            "user_display_name": user_display_name(revision.user),
-        }
-
     def form_valid(self, form):
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-
-        if self.action == "publish" and self.draftstate_enabled:
-            response = self.publish_action()
-            if response is not None:
-                return response
 
         response = self.save_action()
 
@@ -708,11 +615,6 @@ class EditView(
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label
-
-        context["revision_enabled"] = self.revision_enabled
-        context["draftstate_enabled"] = self.draftstate_enabled
-
-        context["live_last_updated_info"] = self.get_live_last_updated_info()
         return context
 
 
@@ -760,7 +662,7 @@ class DeleteView(
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(self.object)
+        return self.success_message % {"object": self.object}
 
     def delete_action(self):
         with transaction.atomic():
@@ -882,7 +784,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
     index_url_name = None
     edit_url_name = None
     unpublish_url_name = None
-    success_message = _("'{object_name}' unpublished.")
+    success_message = _("'%(object)s' unpublished.")
     template_name = "wagtailadmin/shared/confirm_unpublish.html"
 
     def setup(self, request, pk, *args, **kwargs):
@@ -909,7 +811,7 @@ class UnpublishView(HookResponseMixin, TemplateView):
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(object_name=str(self.object))
+        return self.success_message % {"object": str(self.object)}
 
     def get_success_buttons(self):
         if self.edit_url_name:
@@ -976,7 +878,9 @@ class RevisionsUnscheduleView(TemplateView):
     edit_url_name = None
     history_url_name = None
     revisions_unschedule_url_name = None
-    success_message = gettext_lazy('Version {revision_id} of "{object}" unscheduled.')
+    success_message = gettext_lazy(
+        'Version %(revision_id)s of "%(object)s" unscheduled.'
+    )
     template_name = "wagtailadmin/shared/revisions/confirm_unschedule.html"
 
     def setup(self, request, pk, revision_id, *args, **kwargs):
@@ -1006,9 +910,10 @@ class RevisionsUnscheduleView(TemplateView):
     def get_success_message(self):
         if self.success_message is None:
             return None
-        return self.success_message.format(
-            revision_id=self.revision.id, object=self.get_object_display_title()
-        )
+        return self.success_message % {
+            "revision_id": self.revision.id,
+            "object": self.get_object_display_title(),
+        }
 
     def get_success_buttons(self):
         return [
@@ -1018,6 +923,10 @@ class RevisionsUnscheduleView(TemplateView):
         ]
 
     def get_next_url(self):
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
+
         if not self.history_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.RevisionsUnscheduleView "
@@ -1026,9 +935,10 @@ class RevisionsUnscheduleView(TemplateView):
         return reverse(self.history_url_name, args=(quote(self.object.pk),))
 
     def get_page_subtitle(self):
-        return _('revision {revision_id} of "{object}"').format(
-            revision_id=self.revision.id, object=self.get_object_display_title()
-        )
+        return _('revision %(revision_id)s of "%(object)s"') % {
+            "revision_id": self.revision.id,
+            "object": self.get_object_display_title(),
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

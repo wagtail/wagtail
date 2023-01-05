@@ -1145,7 +1145,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         )
 
         # rendered panel must include the JS initializer
-        self.assertIn("var panel = InlinePanel({", result)
+        self.assertIn("var panel = new InlinePanel({", result)
 
     def test_render_with_panel_overrides(self):
         """
@@ -1229,7 +1229,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         )
 
         # render_js_init must provide the JS initializer
-        self.assertIn("var panel = InlinePanel({", panel.render_html())
+        self.assertIn("var panel = new InlinePanel({", panel.render_html())
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):

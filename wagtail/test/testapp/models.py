@@ -60,6 +60,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.models import (
     DraftStateMixin,
+    LockableMixin,
     Orderable,
     Page,
     PageManager,
@@ -1004,7 +1005,7 @@ class RevisableGrandChildModel(RevisableChildModel):
 
 
 # Models with DraftStateMixin
-class DraftStateModel(DraftStateMixin, RevisionMixin, models.Model):
+class DraftStateModel(LockableMixin, DraftStateMixin, RevisionMixin, models.Model):
     text = models.TextField()
 
     panels = [
@@ -1086,6 +1087,19 @@ class NonPreviewableModel(PreviewableMixin, RevisionMixin, models.Model):
 
 
 register_snippet(NonPreviewableModel)
+
+
+# Models with LockableMixin
+
+
+class LockableModel(LockableMixin, models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(LockableModel)
 
 
 class StandardIndex(Page):

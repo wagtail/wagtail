@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022\n"
-"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
-"ca/)\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/ca/)\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -27,11 +26,11 @@ msgstr "Publicar"
 msgid "Submit for moderation"
 msgstr "Envia per moderació"
 
-msgid "Resubmit to {}"
-msgstr "Torna a enviar a {}"
+msgid "Resubmit to %(task_name)s"
+msgstr "Torna a enviar a %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Envia a {}"
+msgid "Submit to %(workflow_name)s"
+msgstr "Envia a %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Reinicia el fluxe de treball"
@@ -95,8 +94,8 @@ msgid "Enter password"
 msgstr "Introdueix la contrassenya"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Introduïu el vostre %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "Introduïu el vostre %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
@@ -201,7 +200,8 @@ msgid_plural ""
 msgstr[0] ""
 "%(count)s de les pàgines a copiar està en viu. Voleu publicar-ne la còpia?"
 msgstr[1] ""
-"%(count)s de les pàgines a copiar estan en viu. Voleu publicar-ne les còpies?"
+"%(count)s de les pàgines a copiar estan en viu. Voleu publicar-ne les "
+"còpies?"
 
 msgid "Alias"
 msgstr "Àlies"
@@ -215,8 +215,11 @@ msgstr "No teniu permís per copiar a la pàgina \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Aquest slug ja està en ús dins el context de la seva plana pare "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
@@ -243,8 +246,9 @@ msgid "All types"
 msgstr "Tots els tipus"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Aquesta pàgina ja té el fluxe de treball '{0}' assignat."
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"Aquesta pàgina ja té el fluxe de treball '%(workflow_name)s' assignat."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
@@ -264,12 +268,12 @@ msgid "1 page selected"
 msgstr "1 pàgina seleccionada"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} pàgines seleccionades"
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s pàgines seleccionades"
 
 #, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "S'ha seleccionat les {0} pàgines de la pantalla"
+msgid "All %(objects)s pages on this screen selected"
+msgstr "S'ha seleccionat les %(objects)s pàgines de la pantalla"
 
 msgid "All pages in listing selected"
 msgstr "S'ha seleccionat totes les pàgines del llistat"
@@ -278,12 +282,12 @@ msgid "1 document selected"
 msgstr "1 document seleccionat"
 
 #, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} documents seleccionats"
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s documents seleccionats"
 
 #, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "S'ha seleccionat els {0} documents de la pantalla"
+msgid "All %(objects)s documents on this screen selected"
+msgstr "S'ha seleccionat els %(objects)s documents de la pantalla"
 
 msgid "All documents in listing selected"
 msgstr "S'ha seleccionat tots els documents del llistat"
@@ -292,12 +296,12 @@ msgid "1 image selected"
 msgstr "1 imatge seleccionada"
 
 #, python-brace-format
-msgid "{0} images selected"
-msgstr "{0} imatges seleccionades"
+msgid "%(objects)s images selected"
+msgstr "%(objects)s imatges seleccionades"
 
 #, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "S'ha seleccionat les {0} imatges de la pantalla"
+msgid "All %(objects)s images on this screen selected"
+msgstr "S'ha seleccionat les %(objects)s imatges de la pantalla"
 
 msgid "All images in listing selected"
 msgstr "S'ha seleccionat totes les imatges del llistat"
@@ -306,12 +310,12 @@ msgid "1 user selected"
 msgstr "1 usuari seleccionat"
 
 #, python-brace-format
-msgid "{0} users selected"
-msgstr "{0} usuaris seleccionats"
+msgid "%(objects)s users selected"
+msgstr "%(objects)s usuaris seleccionats"
 
 #, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "S'ha seleccionat els {0} usuaris de la pantalla"
+msgid "All %(objects)s users on this screen selected"
+msgstr "S'ha seleccionat els %(objects)s usuaris de la pantalla"
 
 msgid "All users in listing selected"
 msgstr "S'ha seleccionat tots els usuaris del llistat"
@@ -320,12 +324,12 @@ msgid "1 item selected"
 msgstr "1 element seleccionat"
 
 #, python-brace-format
-msgid "{0} items selected"
-msgstr "{0} elements seleccionats"
+msgid "%(objects)s items selected"
+msgstr "%(objects)s elements seleccionats"
 
 #, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "S'ha seleccionat els {0} elements de la pantalla"
+msgid "All %(objects)s items on this screen selected"
+msgstr "S'ha seleccionat els %(objects)s elements de la pantalla"
 
 msgid "All items in listing selected"
 msgstr "S'ha seleccionat tots els elements del llistat"
@@ -388,8 +392,8 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
 msgstr ""
-"L'enllaç de renici de contrasenya no és vàlid. És possible que ja hagi estat "
-"usat."
+"L'enllaç de renici de contrasenya no és vàlid. És possible que ja hagi estat"
+" usat."
 
 msgid "Request a new password reset"
 msgstr "Sol·licita un nou reinici de contrasenya"
@@ -401,8 +405,8 @@ msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
 msgstr ""
-"S'ha enviat per correu electrònic un enllaç de reinici de contrasenya (només "
-"si existeix un compte d'usuari vinculat a aquesta adreça)."
+"S'ha enviat per correu electrònic un enllaç de reinici de contrasenya (només"
+" si existeix un compte d'usuari vinculat a aquesta adreça)."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Seguiu l'enllaç inferior per reiniciar la vostra contrasenya:"
@@ -535,11 +539,11 @@ msgstr "Nom"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"No ha estat creada cap col·lecció. Per què no n'<a href="
-"\"%(add_collection_url)s\">afegiu una</a>?"
+"No ha estat creada cap col·lecció. Per què no n'<a "
+"href=\"%(add_collection_url)s\">afegiu una</a>?"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
@@ -710,10 +714,8 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La pàgina \"%(page)s\" ha sigut enviada per moderació"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr ""
-"La pàgina \"%(title)s\" s'ha aprovat en fase de moderació \"%(task)s\"."
+msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "La pàgina \"%(title)s\" s'ha aprovat en fase de moderació \"%(task)s\"."
 
 msgid "New comments"
 msgstr "Comentaris nous"
@@ -916,9 +918,9 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Alternativament, podeu <a href=\"%(unpublish_url)s\">despublicar la pàgina</"
-"a>. Això treurà la pàgina de la visualització pública i us permetrà tornar-"
-"la a editar o publicar més endavant."
+"Alternativament, podeu <a href=\"%(unpublish_url)s\">despublicar la "
+"pàgina</a>. Això treurà la pàgina de la visualització pública i us permetrà "
+"tornar-la a editar o publicar més endavant."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1389,12 +1391,12 @@ msgid "Add collection"
 msgstr "Afegir una col·lecció"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Col·lecció '{0}' creada."
+msgid "Collection '%(object)s' created."
+msgstr "Col·lecció '%(object)s' creada."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Col·lecció '{0}' actualitzada."
+msgid "Collection '%(object)s' updated."
+msgstr "Col·lecció '%(object)s' actualitzada."
 
 msgid "The collection could not be saved due to errors."
 msgstr "La col·lecció no pot ser desada per causa d'errors."
@@ -1403,8 +1405,8 @@ msgid "Delete collection"
 msgstr "Eliminar col·lecció"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Col·lecció '{0}' eliminada."
+msgid "Collection '%(object)s' deleted."
+msgstr "Col·lecció '%(object)s' eliminada."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Segur que voleu eliminar aquesta col·lecció?"
@@ -1434,12 +1436,14 @@ msgid "Unpublish selected pages"
 msgstr "Despublicar les pàgines seleccionades"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "La pàgina '{0}' i {1} subpàgines han estat copiades."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"La pàgina '%(page_title)s' i %(subpages_count)s subpàgines han estat "
+"copiades."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "La pàgina '{0}' ha estat copiada."
+msgid "Page '%(page_title)s' copied."
+msgstr "La pàgina '%(page_title)s' ha estat copiada."
 
 msgid "View draft"
 msgstr "Veure esborrany"
@@ -1448,46 +1452,47 @@ msgid "View live"
 msgstr "Veure en viu"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Pàgina '{0}' creada."
+msgid "Page '%(page_title)s' created."
+msgstr "Pàgina '%(page_title)s' creada."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Pàgina '{0}' creada i programada per a la seva publicació."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Pàgina '%(page_title)s' creada i programada per a la seva publicació."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Pàgina '{0}' creada i publicada."
+msgid "Page '%(page_title)s' created and published."
+msgstr "Pàgina '%(page_title)s' creada i publicada."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pàgina '{0}' creada i enviada a moderació."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Pàgina '%(page_title)s' creada i enviada a moderació."
 
 msgid "The page could not be created due to validation errors"
 msgstr "No es pot crear la pàgina per causa d'errors de validació"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Pàgina '{0}' eliminada."
+msgid "Page '%(page_title)s' deleted."
+msgstr "Pàgina '%(page_title)s' eliminada."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "La pàgina '{0}' ha estat actualitzada."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "La pàgina '%(page_title)s' ha estat actualitzada."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "La pàgina '{0}' ha estat programada per a la seva publicació."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr ""
+"La pàgina '%(page_title)s' ha estat programada per a la seva publicació."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "La pàgina '{0}' ha estat publicada."
+msgid "Page '%(page_title)s' has been published."
+msgstr "La pàgina '%(page_title)s' ha estat publicada."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "La pàgina '{0}' ha estat enviada a moderació."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "La pàgina '%(page_title)s' ha estat enviada a moderació."
 
 msgid "The page could not be saved as it is locked"
 msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
@@ -1499,34 +1504,34 @@ msgid "Page history"
 msgstr "Historial de pàgina"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "La pàgina '{0}' ara està desbloquejada."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "La pàgina '%(page_title)s' ara està desbloquejada."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "La pàgina '{0}' ja no es troba esperant moderació."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "La pàgina '%(page_title)s' ja no es troba esperant moderació."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Pàgina '{0}' publicada."
+msgid "Page '%(page_title)s' published."
+msgstr "Pàgina '%(page_title)s' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Ha fallat l'enviament de notificacions d'aprovació"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "La pàgina '%(page_title)s' ha estat rebutjada per publicació"
 
 msgid "Failed to send rejection notifications"
 msgstr "Ha fallat l'enviament de notificacions de rebuig"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Pàgina '{0}' moguda."
+msgid "Page '%(page_title)s' moved."
+msgstr "Pàgina '%(page_title)s' moguda."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Pàgina '{0}' despublicada."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Pàgina '%(page_title)s' despublicada."
 
 msgid "ID"
 msgstr "ID"
@@ -1571,15 +1576,15 @@ msgid "New workflow"
 msgstr "Nou fluxe de treball"
 
 #, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "S'ha creat el fluxe de treball '{0}'."
+msgid "Workflow '%(object)s' created."
+msgstr "S'ha creat el fluxe de treball '%(object)s'."
 
 msgid "Editing workflow"
 msgstr "Editant el fluxe de treball"
 
 #, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "S'ha actualitzat el fluxe de treball '{0}'."
+msgid "Workflow '%(object)s' updated."
+msgstr "S'ha actualitzat el fluxe de treball '%(object)s'."
 
 msgid "Disable"
 msgstr "Deshabilitar"
@@ -1591,12 +1596,12 @@ msgid "Disable workflow"
 msgstr "Deshabilitar fluxe de treball"
 
 #, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "S'ha deshabilitat el fluxe de treball '{0}'."
+msgid "Workflow '%(object)s' disabled."
+msgstr "S'ha deshabilitat el fluxe de treball '%(object)s'."
 
 #, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "S'ha habilitat el fluxe de treball '{0}'."
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "S'ha habilitat el fluxe de treball '%(workflow_name)s'."
 
 msgid "Pages"
 msgstr "Pàgines"

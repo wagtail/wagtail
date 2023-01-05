@@ -1,7 +1,6 @@
 import $ from 'jquery';
-import { initCollapsiblePanels } from './panels';
-
-const buildExpandingFormset = window.buildExpandingFormset;
+import { initCollapsiblePanels } from '../../includes/panels';
+import { ExpandingFormset } from '../ExpandingFormset';
 
 /**
  * Attaches behaviour for an InlinePanel where inner panels can be created,
@@ -15,10 +14,25 @@ const buildExpandingFormset = window.buildExpandingFormset;
  * @param {function} opts.onAdd
  * @returns {Object}
  */
-function inlinePanel(opts) {
-  const self = {};
+export class InlinePanel extends ExpandingFormset {
+  constructor(opts) {
+    super(opts.formsetPrefix, opts);
+    this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
 
-  self.initChildControls = function initChildControls(prefix) {
+    for (let i = 0; i < this.formCount; i += 1) {
+      const childPrefix = this.opts.emptyChildFormPrefix.replace(
+        /__prefix__/g,
+        i,
+      );
+      this.initChildControls(childPrefix);
+    }
+
+    this.updateChildCount();
+    this.updateMoveButtonDisabledStates();
+    this.updateAddButtonState();
+  }
+
+  initChildControls(prefix) {
     const childId = 'inline_child_' + prefix;
     const deleteInputId = 'id_' + prefix + '-DELETE';
     const currentChild = $('#' + childId);
@@ -29,13 +43,13 @@ function inlinePanel(opts) {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
       currentChild.addClass('deleted').slideUp(() => {
-        self.updateChildCount();
-        self.updateMoveButtonDisabledStates();
-        self.updateAddButtonState();
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
+        this.updateAddButtonState();
       });
     });
 
-    if (opts.canOrder) {
+    if (this.opts.canOrder) {
       $up.on('click', () => {
         const currentChildOrderElem = currentChild.find(
           `input[name="${prefix}-ORDER"]`,
@@ -52,14 +66,14 @@ function inlinePanel(opts) {
         const prevChildOrder = prevChildOrderElem.val();
 
         // async swap animation must run before the insertBefore line below, but doesn't need to finish first
-        self.animateSwap(currentChild, prevChild);
+        this.animateSwap(currentChild, prevChild);
 
         currentChild.insertBefore(prevChild);
         currentChildOrderElem.val(prevChildOrder);
         prevChildOrderElem.val(currentChildOrder);
 
-        self.updateChildCount();
-        self.updateMoveButtonDisabledStates();
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
       });
 
       $down.on('click', () => {
@@ -78,40 +92,38 @@ function inlinePanel(opts) {
         const nextChildOrder = nextChildOrderElem.val();
 
         // async swap animation must run before the insertAfter line below, but doesn't need to finish first
-        self.animateSwap(currentChild, nextChild);
+        this.animateSwap(currentChild, nextChild);
 
         currentChild.insertAfter(nextChild);
         currentChildOrderElem.val(nextChildOrder);
         nextChildOrderElem.val(currentChildOrder);
 
-        self.updateChildCount();
-        self.updateMoveButtonDisabledStates();
+        this.updateChildCount();
+        this.updateMoveButtonDisabledStates();
       });
     }
 
     /* Hide container on page load if it is marked as deleted. Remove the error
-     message so that it doesn't count towards the number of errors on the tab at the
-     top of the page. */
+    message so that it doesn't count towards the number of errors on the tab at the
+    top of the page. */
     if ($('#' + deleteInputId).val() === '1') {
       $('#' + childId)
         .addClass('deleted')
         .hide(0, () => {
-          self.updateChildCount();
-          self.updateMoveButtonDisabledStates();
-          self.updateAddButtonState();
+          this.updateChildCount();
+          this.updateMoveButtonDisabledStates();
+          this.updateAddButtonState();
         });
 
       $('#' + childId)
         .find('.error-message')
         .remove();
     }
-  };
+  }
 
-  self.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
-
-  self.updateMoveButtonDisabledStates = function updateMoveButtons() {
-    if (opts.canOrder) {
-      const forms = self.formsElt.children(':not(.deleted)');
+  updateMoveButtonDisabledStates() {
+    if (this.opts.canOrder) {
+      const forms = this.formsElt.children(':not(.deleted)');
       forms.each(function updateButtonStates(i) {
         const isFirst = i === 0;
         const isLast = i === forms.length - 1;
@@ -119,37 +131,37 @@ function inlinePanel(opts) {
         $('[data-inline-panel-child-move-down]', this).prop('disabled', isLast);
       });
     }
-  };
+  }
 
   /**
    * Adds the child’s count next to its heading label, ignoring deleted items.
    */
-  self.updateChildCount = function updateChildCount() {
-    const forms = self.formsElt.children(':not(.deleted)');
+  updateChildCount() {
+    const forms = this.formsElt.children(':not(.deleted)');
     forms.each(function updateCountState(i) {
       $('[data-inline-panel-child-count]', this)
         .first()
         .text(` ${i + 1}`);
     });
-  };
+  }
 
-  self.updateAddButtonState = function updateAddButtonState() {
-    if (opts.maxForms) {
-      const forms = $('> [data-inline-panel-child]', self.formsElt).not(
+  updateAddButtonState() {
+    if (this.opts.maxForms) {
+      const forms = $('> [data-inline-panel-child]', this.formsElt).not(
         '.deleted',
       );
-      const addButton = $('#' + opts.formsetPrefix + '-ADD');
+      const addButton = $('#' + this.opts.formsetPrefix + '-ADD');
 
-      if (forms.length >= opts.maxForms) {
+      if (forms.length >= this.opts.maxForms) {
         addButton.prop('disabled', true);
       } else {
         addButton.prop('disabled', false);
       }
     }
-  };
+  }
 
-  self.animateSwap = function animateSwap(item1, item2) {
-    const parent = self.formsElt;
+  animateSwap(item1, item2) {
+    const parent = this.formsElt;
     const children = parent.children(':not(.deleted)');
 
     // Position children absolutely and add hard-coded height
@@ -191,36 +203,43 @@ function inlinePanel(opts) {
         children.removeAttr('style');
       },
     );
-  };
+  }
 
-  buildExpandingFormset(opts.formsetPrefix, {
-    onAdd(formCount) {
-      const newChildPrefix = opts.emptyChildFormPrefix.replace(
-        /__prefix__/g,
-        formCount,
-      );
-      self.initChildControls(newChildPrefix);
-      if (opts.canOrder) {
-        /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
-        Therefore formcount and order are currently equal and order must be incremented
-        to ensure it's *greater* than previous item */
-        $('#id_' + newChildPrefix + '-ORDER').val(formCount + 1);
-      }
+  addForm(opts = {}) {
+    /*
+    Supported opts:
+    runCallbacks (default: true) - if false, the onAdd and onInit callbacks will not be run
+    */
 
-      self.updateChildCount();
-      self.updateMoveButtonDisabledStates();
-      self.updateAddButtonState();
-      initCollapsiblePanels(
-        document.querySelectorAll(
-          `#inline_child_${newChildPrefix} [data-panel-toggle]`,
-        ),
-      );
+    // don't run callbacks yet - we'll do that after initialising InlinePanel's controls
+    super.addForm({ runCallbacks: false });
 
-      if (opts.onAdd) opts.onAdd();
-    },
-  });
+    // formCount has now been incremented, so subtract one to get back the 0-based index
+    // of the newly added form
+    const formIndex = this.formCount - 1;
 
-  return self;
+    const newChildPrefix = this.opts.emptyChildFormPrefix.replace(
+      /__prefix__/g,
+      formIndex,
+    );
+    this.initChildControls(newChildPrefix);
+    if (this.opts.canOrder) {
+      /* ORDER values are 1-based, so need to add 1 to formIndex */
+      $('#id_' + newChildPrefix + '-ORDER').val(formIndex + 1);
+    }
+
+    this.updateChildCount();
+    this.updateMoveButtonDisabledStates();
+    this.updateAddButtonState();
+    initCollapsiblePanels(
+      document.querySelectorAll(
+        `#inline_child_${newChildPrefix} [data-panel-toggle]`,
+      ),
+    );
+
+    if (!('runCallbacks' in opts) || opts.runCallbacks) {
+      if (this.opts.onAdd) this.opts.onAdd(formIndex);
+      if (this.opts.onInit) this.opts.onInit(formIndex);
+    }
+  }
 }
-
-export { inlinePanel };

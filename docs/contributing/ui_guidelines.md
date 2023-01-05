@@ -46,4 +46,4 @@ We use [Prettier](https://prettier.io/) for formatting and [ESLint](https://esli
 
 This is an area of active improvement for Wagtail, with [ongoing discussions](https://github.com/wagtail/wagtail/discussions/8017).
 
--   Always use the `trimmed` attribute on `blocktrans` tags to prevent unnecessary whitespace from being added to the translation strings.
+-   Always use the `trimmed` attribute on `blocktranslate` tags to prevent unnecessary whitespace from being added to the translation strings.

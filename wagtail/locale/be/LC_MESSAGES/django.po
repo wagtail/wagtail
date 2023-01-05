@@ -11,26 +11,23 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
-"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
-"language/be/)\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/language/be/)\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: be\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Мінімальная колькасць элементаў %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальная колькасць элементаў %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Максімальную колькасць элементаў %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максімальную колькасць элементаў %(max_num)d"
 
 msgid "Move up"
 msgstr "Падвінуць наверх"
@@ -63,14 +60,14 @@ msgstr "Уведзены вамі пароль няправільны. Пасп�
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Старонка '{}' была заблакавана</b><b>Вамі</b> у <b> {} </b>."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Старонка '{}' заблакавана</b><b>Вамі</b>."
+msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
+msgstr "<b>Старонка '{page_title}' заблакавана</b><b>Вамі</b>."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
 msgstr "<b>Старонка '{}' была заблакавана <b>{}</b> у <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Старонка '{}' заблакавана</b>."
+msgid "<b>Page '{page_title}' is locked</b>."
+msgstr "<b>Старонка '{page_title}' заблакавана</b>."
 
 msgid "live"
 msgstr "апублікавана"
@@ -127,11 +124,11 @@ msgid "slug"
 msgstr "моцна складаны"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
+"The name of the page as it will appear in URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 msgstr ""
-"Імя старонкі, якое будзе адлюстроўвацца ў URL, напрыклад http://domain.com/"
-"blog/[my-slug]/"
+"Імя старонкі, якое будзе адлюстроўвацца ў URL, напрыклад "
+"http://domain.com/blog/[my-slug]/"
 
 msgid "content type"
 msgstr "тып змесціва"
@@ -340,7 +337,8 @@ msgstr "Увайсці"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Вашы імя карыстальніка і пароль не пасуюць. Калі ласка, паспрабуйце яшчэ раз."
+"Вашы імя карыстальніка і пароль не пасуюць. Калі ласка, паспрабуйце яшчэ "
+"раз."
 
 msgid ""
 "Your account doesn't have access to this page. To proceed, please log in "

@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
-"th/)\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
@@ -160,11 +159,11 @@ msgstr "ขออภัย,ไม่มีกลุ่มที่ตรงก�
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a href=\"%(wagtailusers_create_group_url)s"
-"\">เพิ่มสักอัน</a>?"
+"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a "
+"href=\"%(wagtailusers_create_group_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Delete user"
 msgstr "ลบทิ้งผู้ใช้นี้"
@@ -222,34 +221,34 @@ msgid "Search groups"
 msgstr "ค้นหากลุ่ม"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "กลุ่ม'{0}'ถูกสร้างแล้ว"
+msgid "Group '%(object)s' created."
+msgstr "กลุ่ม'%(object)s'ถูกสร้างแล้ว"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "กลุ่ม'{0}'ถูกอัพเดทแล้ว"
+msgid "Group '%(object)s' updated."
+msgstr "กลุ่ม'%(object)s'ถูกอัพเดทแล้ว"
 
 msgid "The group could not be saved due to errors."
 msgstr "กลุ่มนี้ไม่สามารถถูกเซฟได้ในขณะที่มีข้อผิดพลาด"
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "กลุ่ม'{0}'ถูกลบทิ้งแล้ว"
+msgid "Group '%(object)s' deleted."
+msgstr "กลุ่ม'%(object)s'ถูกลบทิ้งแล้ว"
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "ผู้ใช้'{0}'ถูกอัพเดทแล้ว"
+msgid "User '%(object)s' updated."
+msgstr "ผู้ใช้'%(object)s'ถูกอัพเดทแล้ว"
 
 msgid "The user could not be saved due to errors."
 msgstr "ผู้ใช้นี้ไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
 
 #, python-format
-msgid "Editing %s"
-msgstr "กำลังแก้ไข %s"
+msgid "Editing %(object)s"
+msgstr "กำลังแก้ไข %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "ผู้ใช้'{0}'ถูกลบทิ้งแล้ว"
+msgid "User '%(object)s' deleted."
+msgstr "ผู้ใช้'%(object)s'ถูกลบทิ้งแล้ว"
 
 msgid "Edit"
 msgstr "แก้ไข"

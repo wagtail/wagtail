@@ -55,7 +55,10 @@ A basic template suitable for use as `PASSWORD_REQUIRED_TEMPLATE` might look lik
     </head>
     <body>
         <h1>Password required</h1>
-        <p>You need a password to access this page.</p>
+        <p>
+            You need a password to access this page.
+            {% if user.is_authenticated %}To proceed, please login with an account that has access.{% endif %}
+        </p>
         <form action="{{ action_url }}" method="POST">
             {% csrf_token %}
 

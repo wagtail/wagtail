@@ -8,30 +8,30 @@ The [telepath](https://wagtail.github.io/telepath/) library is used to set up ma
 
 ```python
 from wagtail.telepath import register
-   from wagtail.widget_adapters import WidgetAdapter
+from wagtail.widget_adapters import WidgetAdapter
 
-   class FancyInputAdapter(WidgetAdapter):
-       # Identifier matching the one registered on the client side
-       js_constructor = 'myapp.widgets.FancyInput'
+class FancyInputAdapter(WidgetAdapter):
+    # Identifier matching the one registered on the client side
+    js_constructor = 'myapp.widgets.FancyInput'
 
-       # Arguments passed to the client-side object
-       def js_args(self, widget):
-           return [
-               # Arguments typically include the widget's HTML representation
-               # and label ID rendered with __NAME__ and __ID__ placeholders,
-               # for use in the client-side render() method
-               widget.render('__NAME__', None, attrs={'id': '__ID__'}),
-               widget.id_for_label('__ID__'),
-               widget.extra_options,
-           ]
+    # Arguments passed to the client-side object
+    def js_args(self, widget):
+        return [
+            # Arguments typically include the widget's HTML representation
+            # and label ID rendered with __NAME__ and __ID__ placeholders,
+            # for use in the client-side render() method
+            widget.render('__NAME__', None, attrs={'id': '__ID__'}),
+            widget.id_for_label('__ID__'),
+            widget.extra_options,
+        ]
 
-       class Media:
-           # JS / CSS includes required in addition to the widget's own media;
-           # generally this will include the client-side adapter definition
-           js = ['myapp/js/fancy-input-adapter.js']
+    class Media:
+        # JS / CSS includes required in addition to the widget's own media;
+        # generally this will include the client-side adapter definition
+        js = ['myapp/js/fancy-input-adapter.js']
 
 
-   register(FancyInputAdapter(), FancyInput)
+register(FancyInputAdapter(), FancyInput)
 ```
 
 The JavaScript object associated with a widget instance should provide a single method:

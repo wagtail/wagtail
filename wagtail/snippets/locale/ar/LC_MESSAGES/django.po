@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
-"ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Publish"
 msgstr "انشر"
@@ -90,11 +88,11 @@ msgstr "قصاصات"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a href="
-"\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
+"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a "
+"href=\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
 
 msgid "Live version"
 msgstr "نسخة حية"
@@ -142,8 +140,8 @@ msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "تحرير هذا %s"
+msgid "Edit this %(object)s"
+msgstr "تحرير هذا %(object)s"
 
 msgid "User"
 msgstr "مستعمل"
@@ -156,9 +154,9 @@ msgid "Edit '%(title)s'"
 msgstr "عَدِّلْ '%(title)s'"
 
 #, python-format
-msgid "Choose %s"
-msgstr "اختر %s"
+msgid "Choose %(object)s"
+msgstr "اختر %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "اختر %s اخر"
+msgid "Choose another %(object)s"
+msgstr "اختر %(object)s اخر"

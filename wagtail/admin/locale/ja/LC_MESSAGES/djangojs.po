@@ -1,4 +1,3 @@
-#
 # Translators:
 # 小口英昭 <oguchi@bluff-lab.com>, 2022
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
@@ -13,8 +12,8 @@ msgid ""
 msgstr ""
 "Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022\n"
 "Language-Team: Japanese (https://www.transifex.com/torchbox/teams/8009/ja/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add a comment"
@@ -53,8 +52,8 @@ msgstr "削除エラー"
 msgid "Edit"
 msgstr "編集"
 
-msgid "Edit '{title}'"
-msgstr "'{title}'を編集します"
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s'を編集します"
 
 msgid "Edit your account"
 msgstr "アカウント変更"
@@ -130,9 +129,7 @@ msgstr "新着内容を表示します"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
-"す。"
+msgstr "エディタがクラッシュしました。内容が最後に保存されたバージョンになっています。"
 
 msgid "This field is required."
 msgstr "この項目は必須です。"
@@ -140,5 +137,5 @@ msgstr "この項目は必須です。"
 msgid "Unfocus comment"
 msgstr "コメントをアンフォーカス"
 
-msgid "View child pages of '{title}'"
-msgstr "'{title}'の子ページを閲覧する"
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s'の子ページを閲覧する"

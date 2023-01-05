@@ -18,12 +18,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Wasilis Mandratzis-Walz, 2015\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
-"el/)\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-format
@@ -39,21 +38,27 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Υποστηριζόμενες μορφές: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr ""
-"Δεν είναι μια υποστηριζόμενη μορφή εικόνας. Υποστηριζόμενες μορφές: %s."
+"Δεν είναι μια υποστηριζόμενη μορφή εικόνας. Υποστηριζόμενες μορφές: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Μη έγκυρη %s εικόνα."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Το αρχείο είναι πολύ μεγάλο (%%s). Μέγιστο μέγεθος αρχείου  %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Το αρχείο είναι πολύ μεγάλο (%(file_size)s). Μέγιστο μέγεθος αρχείου  "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου  %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου  %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Πλήρες πλάτος"
@@ -202,24 +207,23 @@ msgstr "Εικόνες"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Λυπούμαστε, καμία εικόνα δε ταιριάζει με το \"<em>%(query_string)s</em>\""
+msgstr "Λυπούμαστε, καμία εικόνα δε ταιριάζει με το \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a href="
-"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
+"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a "
+"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a href="
-"\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
+"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a "
+"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
 
 msgid "Generating URL"
 msgstr "Δημιουργία URL"
@@ -235,8 +239,8 @@ msgid ""
 "previewed here, so they fit the screen."
 msgstr ""
 "Σημειώστε ότι οι εικόνες που δημιουργούνται μεγαλύτερες από την οθόνη θα "
-"εμφανιστουν μικρότερες κατά την προεπισκόπηση εδώ, έτσι ώστε να χωρέσει στην "
-"οθόνη."
+"εμφανιστουν μικρότερες κατά την προεπισκόπηση εδώ, έτσι ώστε να χωρέσει στην"
+" οθόνη."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -314,8 +318,8 @@ msgid "Search images"
 msgstr "Αναζήτηση εικόνων"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Η εικόνα '{0}' ενημερώθηκε."
+msgid "Image '%(image_title)s' updated."
+msgstr "Η εικόνα '%(image_title)s' ενημερώθηκε."
 
 msgid "Edit again"
 msgstr "Επεξεργασία ξανά"
@@ -324,26 +328,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
 "αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Η εικόνα '{0}' διαγράφηκε."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Η εικόνα '%(image_title)s' διαγράφηκε."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Η εικόνα '{0}' δημιουργήθηκε."
+msgid "Image '%(image_title)s' added."
+msgstr "Η εικόνα '%(image_title)s' δημιουργήθηκε."
 
 msgid "The image could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Επεξεργαστείτε το %s"
+msgid "Edit this %(object)s"
+msgstr "Επεξεργαστείτε το %(object)s"
 
 #, python-format
 msgid "%(count)s image"

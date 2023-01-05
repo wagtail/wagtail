@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
-"language/tet/)\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
+"Language: tet\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail redirects"
@@ -126,18 +125,18 @@ msgstr "Diskulpa, laiha dalan hanesan \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Laiha dalan ne'ebe mak kria ona. Tamba sa <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">hatama ida</a>?"
+"Laiha dalan ne'ebe mak kria ona. Tamba sa <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">hatama ida</a>?"
 
 msgid "Search redirects"
 msgstr "Buka troka dalan"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Troka dalan  '{0}' Atualiza ona"
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Troka dalan  '%(redirect_title)s' Atualiza ona"
 
 msgid "Edit"
 msgstr "hadia"
@@ -146,12 +145,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Buka troka dalan labele labele rai tamba erru sira."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Troka dalan '{0}' hamos ona."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Troka dalan '%(redirect_title)s' hamos ona."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Troka dalan '{0}' hatama ona."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Troka dalan '%(redirect_title)s' hatama ona."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Dalan labele kria tamba tamba erru."

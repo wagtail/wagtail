@@ -14,14 +14,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
-"language/sk_SK/)\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/language/sk_SK/)\n"
+"Language: sk_SK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk_SK\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
-">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Type"
 msgstr "Typ"
@@ -125,23 +123,23 @@ msgstr "Upraviť toto presmerovanie"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Prepáčte, žiadne presmerovanie nevyhovuje \"<em>%(query_string)s</em>\""
+msgstr "Prepáčte, žiadne presmerovanie nevyhovuje \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Zatiaľ neboli vytvorené žiadne presmerovania. Prečo nevytvoriť <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">jedno presmerovanie teraz</a>?"
+"Zatiaľ neboli vytvorené žiadne presmerovania. Prečo nevytvoriť <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">jedno presmerovanie "
+"teraz</a>?"
 
 msgid "Search redirects"
 msgstr "Hľadať presmerovania"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Presmerovanie '{0}' bolo aktualizované."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Presmerovanie '%(redirect_title)s' bolo aktualizované."
 
 msgid "Edit"
 msgstr "Upraviť"
@@ -150,12 +148,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Presmerovanie nemôže byť uložené kvôli chybám."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Presmerovanie '{0}' bolo zmazané."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Presmerovanie '%(redirect_title)s' bolo zmazané."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Presmerovanie '{0}' bolo pridané."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Presmerovanie '%(redirect_title)s' bolo pridané."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Presmerovanie nemôže byť uložené kvôli chybám."

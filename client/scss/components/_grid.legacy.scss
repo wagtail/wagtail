@@ -34,7 +34,6 @@
   height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
   float: left;
   position: relative;
-  background-color: $color-grey-4;
   border-bottom: 1px solid $color-grey-3;
 }
 
@@ -53,7 +52,6 @@
 @include media-breakpoint-up(sm) {
   .content {
     border-top: 0;
-    background-color: none;
     padding-top: 0;
   }
 }

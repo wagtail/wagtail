@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 from wagtail import hooks
 from wagtail.actions.delete_page import DeletePageAction
 from wagtail.admin import messages
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.models import Page
 
 
@@ -67,7 +67,8 @@ def delete(request, page_id):
 
                 messages.success(
                     request,
-                    _("Page '{0}' deleted.").format(page.get_admin_display_title()),
+                    _("Page '%(page_title)s' deleted.")
+                    % {"page_title": page.get_admin_display_title()},
                 )
 
                 for fn in hooks.get_hooks("after_delete_page"):

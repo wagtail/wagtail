@@ -88,7 +88,10 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. autoattribute:: revisions_view_class
    .. autoattribute:: revisions_revert_view_class
    .. autoattribute:: revisions_compare_view_class
+   .. autoattribute:: revisions_unschedule_view_class
    .. autoattribute:: unpublish_view_class
    .. autoattribute:: preview_on_add_view_class
    .. autoattribute:: preview_on_edit_view_class
+   .. autoattribute:: lock_view_class
+   .. autoattribute:: unlock_view_class
 ```

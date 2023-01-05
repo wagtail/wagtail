@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AnonymousUser
-from django.http import HttpRequest
 from django.template import engines
 from django.test import TestCase
 
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
 from wagtail.test.utils import WagtailTestUtils
 
@@ -25,10 +25,7 @@ class TestCoreJinja(TestCase, WagtailTestUtils):
 
     def dummy_request(self, user=None):
         site = Site.objects.get(is_default_site=True)
-
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = site.hostname
-        request.META["SERVER_PORT"] = site.port
+        request = get_dummy_request(site=site)
         request.user = user or AnonymousUser()
         return request
 

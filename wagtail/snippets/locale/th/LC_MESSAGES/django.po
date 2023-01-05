@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
-"th/)\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -84,11 +83,11 @@ msgstr "เกร็ดเล็กเกร็ดน้อย"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a href="
-"\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
+"ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a "
+"href=\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Live version"
 msgstr "รุ่นถ่ายทอดสด"
@@ -136,16 +135,16 @@ msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "แก้ไขสิ่งนี้ %s"
+msgid "Edit this %(object)s"
+msgstr "แก้ไขสิ่งนี้ %(object)s"
 
 msgid "Date"
 msgstr "วันที่"
 
 #, python-format
-msgid "Choose %s"
-msgstr "เลือก %s"
+msgid "Choose %(object)s"
+msgstr "เลือก %(object)s"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "เลือกอันอื่น %s"
+msgid "Choose another %(object)s"
+msgstr "เลือกอันอื่น %(object)s"

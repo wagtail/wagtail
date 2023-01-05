@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
@@ -12,24 +12,23 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
-"et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail core"
 msgstr "Wagtail südamik"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimaalne üksuste arv on %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimaalne üksuste arv on %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maksimaalne üksuste arv on %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimaalne üksuste arv on %(max_num)d"
 
 msgid "Move up"
 msgstr "Üles liikuma"
@@ -65,14 +64,14 @@ msgstr "Kommentaar"
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b> Teie </b> lukustasite <b> lehe '{}' </b> saidil <b> {} </b>."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b> teie </b> on <b> leht '{} lukustatud </b>."
+msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
+msgstr "<b> teie </b> on <b> leht '{page_title} lukustatud </b>."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
 msgstr "<b> Lehe '{}' lukustas </b> <b> {} </b> saidil <b> {} </b>."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b> Lehekülg '{}' on lukus </b>."
+msgid "<b>Page '{page_title}' is locked</b>."
+msgstr "<b> Lehekülg '{page_title}' on lukus </b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "See leht ootab praegu modereerimist."
@@ -141,8 +140,8 @@ msgid "slug"
 msgstr "nälkjas"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
+"The name of the page as it will appear in URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 msgstr ""
 "Lehe nimi sellisena, nagu see URL-ides ilmub, nt http://domain.com/blog/[my-"
 "slug]/"
@@ -288,8 +287,8 @@ msgid ""
 "Active workflows can be added to pages. Deactivating a workflow does not "
 "remove it from existing pages."
 msgstr ""
-"Aktiivseid töövooge saab lehtedele lisada. Töövoo deaktiveerimine ei eemalda "
-"seda olemasolevatelt lehtedelt."
+"Aktiivseid töövooge saab lehtedele lisada. Töövoo deaktiveerimine ei eemalda"
+" seda olemasolevatelt lehtedelt."
 
 msgid "workflows"
 msgstr "töövood"
@@ -348,8 +347,8 @@ msgid ""
 msgstr "Lehel võib olla ainult üks pooleli või vajab muudatusi töövoo olek."
 
 #, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Töövoog '{0}' lehel '{1}': {2}"
+msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+msgstr "Töövoog '%(workflow_name)s' lehel '%(page_title)s': %(status)s"
 
 msgid "Not started"
 msgstr "Alustamata"
@@ -382,8 +381,9 @@ msgid "finished by"
 msgstr "valmis"
 
 #, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Ülesanne '{0}' lehe redaktsioonil '{1}': {2}"
+msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"Ülesanne '%(task_name)s' lehe redaktsioonil '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Ülesande olek"

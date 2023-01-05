@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022\n"
-"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
-"it/)\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail documents"
 msgstr "Documenti Wagtail"
@@ -124,7 +122,8 @@ msgstr[2] ""
 "selezionata?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "Non hai i permessi per aggiungere questo documento alla raccolta"
 msgstr[1] "Non hai i permessi per aggiungere questi documenti alla raccolta"
 msgstr[2] "Non hai i permessi per aggiungere questi documenti alla raccolta"
@@ -241,24 +240,23 @@ msgstr[2] "Ci sono %(counter)s corrispondenze"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Spiacente, nessun documento corrispondente \"<em>%(query_string)s</em>\""
+msgstr "Spiacente, nessun documento corrispondente \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non hai caricato alcun documento in questa raccolta. Perché non <a href="
-"\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+"Non hai caricato alcun documento in questa raccolta. Perché non <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Non hai caricato alcun documento. Perché non <a href="
-"\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
+"Non hai caricato alcun documento. Perché non <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ne carichi uno adesso</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -364,27 +362,27 @@ msgid "Search documents"
 msgstr "Cerca documenti"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Documento '{0}' aggiunto."
+msgid "Document '%(document_title)s' added."
+msgstr "Documento '%(document_title)s' aggiunto."
 
 msgid "The document could not be saved due to errors."
 msgstr "Il documento non può essere salvato a causa di errori."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Documento '{0}' aggiornato"
+msgid "Document '%(document_title)s' updated"
+msgstr "Documento '%(document_title)s' aggiornato"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "File non trovato. Prova a cambiare l'origine o elimina il documento."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Documento '{0}' eliminato."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Documento '%(document_title)s' eliminato."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Modifica questo %s"
+msgid "Edit this %(object)s"
+msgstr "Modifica questo %(object)s"
 
 msgid "Document"
 msgstr "Documento"

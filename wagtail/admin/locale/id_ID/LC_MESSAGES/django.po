@@ -17,12 +17,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Reshi Mahendra <reshimahendra@gmail.com>, 2020\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
-"wagtail/language/id_ID/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -31,11 +30,11 @@ msgstr "Publikasikan"
 msgid "Submit for moderation"
 msgstr "Kirim untuk dimoderasi"
 
-msgid "Resubmit to {}"
-msgstr "Pengajuan ulang ke {}"
+msgid "Resubmit to %(task_name)s"
+msgstr "Pengajuan ulang ke %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Pengajuan ke {}"
+msgid "Submit to %(workflow_name)s"
+msgstr "Pengajuan ke %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Restart alur kerja"
@@ -99,8 +98,8 @@ msgid "Enter password"
 msgstr "Masukkan kata sandi"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Masukkan %s anda"
+msgid "Enter your %(username_field_name)s"
+msgstr "Masukkan %(username_field_name)s anda"
 
 msgid "Enter your email address to reset your password"
 msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
@@ -180,8 +179,8 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] ""
-"Sejumlah %(count)s halaman yang disalin telah terpublikasi. Apakah anda akan "
-"mempublikasi salinannya juga?"
+"Sejumlah %(count)s halaman yang disalin telah terpublikasi. Apakah anda akan"
+" mempublikasi salinannya juga?"
 
 msgid "Alias"
 msgstr "Alias"
@@ -192,8 +191,11 @@ msgstr "Anda tidak memiliki izin untuk menyalin ke halaman \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "Slug ini telah digunakan dalam konteks halaman induk \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Slug ini telah digunakan dalam konteks halaman induk "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
@@ -354,11 +356,11 @@ msgstr "Nama"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
-"\">membuat sebuah koleksi</a>?"
+"Belum ada koleksi. Bagaimana kalau <a "
+"href=\"%(add_collection_url)s\">membuat sebuah koleksi</a>?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"
@@ -799,12 +801,12 @@ msgid "Add collection"
 msgstr "Tambah koleksi"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Koleksi '{0}' telah dibuat."
+msgid "Collection '%(object)s' created."
+msgstr "Koleksi '%(object)s' telah dibuat."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Koleksi '{0}' diperbarui."
+msgid "Collection '%(object)s' updated."
+msgstr "Koleksi '%(object)s' diperbarui."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Koleksi tidak dapat disimpan karena suatu galat."
@@ -813,8 +815,8 @@ msgid "Delete collection"
 msgstr "Hapus koleksi"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Koleksi '{0}' telah dihapus."
+msgid "Collection '%(object)s' deleted."
+msgstr "Koleksi '%(object)s' telah dihapus."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Apakah anda yakin akan menghapus koleksi ini?"
@@ -832,12 +834,13 @@ msgid "Dashboard"
 msgstr "Dasbor"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Telah menyalin halaman '{0}' dan {1} sub-halaman."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Telah menyalin halaman '%(page_title)s' dan %(subpages_count)s sub-halaman."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Halaman '{0}' telah disalin."
+msgid "Page '%(page_title)s' copied."
+msgstr "Halaman '%(page_title)s' telah disalin."
 
 msgid "View draft"
 msgstr "Tampilkan konsep"
@@ -846,46 +849,47 @@ msgid "View live"
 msgstr "Tampilkan yang aktif"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Halaman '{0}' telah dibuat."
+msgid "Page '%(page_title)s' created."
+msgstr "Halaman '%(page_title)s' telah dibuat."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Halaman '{0}' telah dibuat dan dijadwalkan untuk dipublikasi."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr ""
+"Halaman '%(page_title)s' telah dibuat dan dijadwalkan untuk dipublikasi."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
+msgid "Page '%(page_title)s' created and published."
+msgstr "Halaman '%(page_title)s' telah dibuat dan dipublikasi."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Halaman '%(page_title)s' telah dibuat dan dikirim untuk dimoderasi."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Halaman '{0}' dihapus."
+msgid "Page '%(page_title)s' deleted."
+msgstr "Halaman '%(page_title)s' dihapus."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Halaman ini menunggu proses moderasi"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Halaman '{0}' telah diperbarui."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Halaman '%(page_title)s' telah diperbarui."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Halaman '%(page_title)s' telah dijadwalkan untuk publikasi."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Halaman '{0}' telah dipublikasi."
+msgid "Page '%(page_title)s' has been published."
+msgstr "Halaman '%(page_title)s' telah dipublikasi."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Halaman '{0}' telah dikirim untuk moderasi."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Halaman '%(page_title)s' telah dikirim untuk moderasi."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Halaman ini tidak dapat disimpan karena terkunci"
@@ -894,34 +898,34 @@ msgid "The page could not be saved due to validation errors"
 msgstr "Halaman ini tidak dapat disimpan karena tidak lolos validasi"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Halaman '{0}' sekarang tidak dikunci."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Halaman '%(page_title)s' sekarang tidak dikunci."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Halaman '{0}' tidak dalam proses moderasi."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Halaman '%(page_title)s' tidak dalam proses moderasi."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Halaman '{0}' telah dipublikasi."
+msgid "Page '%(page_title)s' published."
+msgstr "Halaman '%(page_title)s' telah dipublikasi."
 
 msgid "Failed to send approval notifications"
 msgstr "Gagal mengirim notifikasi persetujuan"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Publikasi halaman '{0}' ditolak."
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Publikasi halaman '%(page_title)s' ditolak."
 
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Halaman '{0}' telah dipindah."
+msgid "Page '%(page_title)s' moved."
+msgstr "Halaman '%(page_title)s' telah dipindah."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Halaman '{0}' ditarik dari publikasi."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Halaman '%(page_title)s' ditarik dari publikasi."
 
 msgid "Show"
 msgstr "Tampilkan"

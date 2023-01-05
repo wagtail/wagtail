@@ -1,4 +1,3 @@
-#
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2022
@@ -7,12 +6,10 @@
 msgid ""
 msgstr ""
 "Last-Translator: Andrej Marsetič, 2022\n"
-"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
-"sl/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/sl/)\n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 nov element v tem meniju)"
@@ -68,8 +65,8 @@ msgstr "Brišem"
 msgid "Edit"
 msgstr "Uredi"
 
-msgid "Edit '{title}'"
-msgstr "Uredi '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Uredite vaš račun"
@@ -203,8 +200,8 @@ msgstr "Preklopi stransko vrstico"
 msgid "Unfocus comment"
 msgstr "Odstrani fokus komentarja"
 
-msgid "View child pages of '{title}'"
-msgstr "Ogled podrejenih strani za  '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Ogled podrejenih strani za  '%(title)s'"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Napišite nekaj ali pritisnite \"/\" za dodajanje bloka"

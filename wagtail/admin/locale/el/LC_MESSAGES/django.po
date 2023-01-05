@@ -17,12 +17,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dimitri Fekas, 2022\n"
-"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
-"el/)\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Publish"
@@ -31,11 +30,11 @@ msgstr "Έκδοση"
 msgid "Submit for moderation"
 msgstr "Υποβολή για έλεγχο"
 
-msgid "Resubmit to {}"
-msgstr "Υποβολή σε {}"
+msgid "Resubmit to %(task_name)s"
+msgstr "Υποβολή σε %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Υποβολή σε {}"
+msgid "Submit to %(workflow_name)s"
+msgstr "Υποβολή σε %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Επανεκκίνηση ροής εργασιών"
@@ -99,8 +98,8 @@ msgid "Enter password"
 msgstr "Εισάγετε τον κωδικό σας"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Εισάγετε το %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "Εισάγετε το %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
@@ -127,8 +126,8 @@ msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
 msgstr ""
-"Διαλέξτε θέση ιεραρχίας. Σημείωση: μια συλλογή δεν μπορεί να γίνει παιδί του "
-"εαυτού της ή ενός από τους απογόνους της."
+"Διαλέξτε θέση ιεραρχίας. Σημείωση: μια συλλογή δεν μπορεί να γίνει παιδί του"
+" εαυτού της ή ενός από τους απογόνους της."
 
 msgid "Please select another parent"
 msgstr "Παρακαλώ επιλέξτε άλλη πατρική"
@@ -213,8 +212,10 @@ msgstr "Διατηρήστε τις αλλαγές σε μελλοντικές �
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "Αυτό το slug χρησιμοποιείται ήδη στην κύρια σελίδα \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Αυτό το slug χρησιμοποιείται ήδη στην κύρια σελίδα \"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
@@ -237,13 +238,13 @@ msgid "All types"
 msgstr "Όλοι οι τύποι"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Σε αυτή τη σελίδα έχει ανατεθεί η ροή εργασιών '{0}'"
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Σε αυτή τη σελίδα έχει ανατεθεί η ροή εργασιών '%(workflow_name)s'"
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr ""
-"Δεν μπορείτε να αναθέσετε αυτή τη ροή εργασιών στην ίδια σελίδα περισσότερες "
-"από μια φορές."
+"Δεν μπορείτε να αναθέσετε αυτή τη ροή εργασιών στην ίδια σελίδα περισσότερες"
+" από μια φορές."
 
 msgid "Give your workflow a name"
 msgstr "Όνομα ροής εργασιών"
@@ -258,19 +259,19 @@ msgid "1 page selected"
 msgstr "1 σελίδα επιλέχθηκε"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} σελίδες επιλέχθηκαν"
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s σελίδες επιλέχθηκαν"
 
 msgid "1 document selected"
 msgstr "1 αρχείο επιλέχθηκε"
 
 #, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} αρχεία επιλέχθηκαν"
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s αρχεία επιλέχθηκαν"
 
 #, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "Όλα {0} τα αρχεία αυτής της σελίδας επιλέχθηκαν"
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Όλα %(objects)s τα αρχεία αυτής της σελίδας επιλέχθηκαν"
 
 msgid "All documents in listing selected"
 msgstr "Όλα τα αρχεία της λίστας επιλέχθηκαν"
@@ -409,19 +410,19 @@ msgstr "Ιδιωτικό"
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
-"Δεν είναι δυνατή η διαγραφή της συλλογής επειδή δεν είναι άδεια και περιέχει "
-"τα εξής:"
+"Δεν είναι δυνατή η διαγραφή της συλλογής επειδή δεν είναι άδεια και περιέχει"
+" τα εξής:"
 
 msgid "Name"
 msgstr "Όνομα"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Δεν υπάρχουν συλλογές. Θέλετε να <a href=\"%(add_collection_url)s"
-"\">προσθέσετε μία</a>;"
+"Δεν υπάρχουν συλλογές. Θέλετε να <a "
+"href=\"%(add_collection_url)s\">προσθέσετε μία</a>;"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
@@ -574,8 +575,7 @@ msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr ""
-"Η σελίδα \"%(page)s\" έχει υποβληθεί για έλεγχο από τον/την %(editor)s."
+msgstr "Η σελίδα \"%(page)s\" έχει υποβληθεί για έλεγχο από τον/την %(editor)s."
 
 msgid "You can preview the page here:"
 msgstr "Μπορείτε να τη δείτε εδώ:"
@@ -585,8 +585,7 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Η σελίδα \"%(page)s\" στάλθηκε για έλεγχο"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε στο στάδιο ανασκόπησης \"%(task)s\"."
 
 #, python-format
@@ -594,10 +593,8 @@ msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Η σελίδα \"%(title)s\" εγκρίθηκε στην εργασία \"%(task)s\"."
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
-msgstr ""
-"Η σελίδα \"%(title)s\" απορρίφθηκε στο στάδιο ανασκόπησης \"%(task)s\"."
+msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "Η σελίδα \"%(title)s\" απορρίφθηκε στο στάδιο ανασκόπησης \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -736,8 +733,9 @@ msgid ""
 "later."
 msgstr ""
 "Εναλλακτικά μπορείτε να κάνετε <a href=\"%(unpublish_url)s\">κατάργηση "
-"δημοσίευσης της σελίδας</a>. Αυτό θα αφαιρέσει την σελίδα από την ιστοσελίδα "
-"σας, αλλά θα μπορείτε να την επεξεργαστείτε και να την δημοσιεύσετε αργότερα."
+"δημοσίευσης της σελίδας</a>. Αυτό θα αφαιρέσει την σελίδα από την ιστοσελίδα"
+" σας, αλλά θα μπορείτε να την επεξεργαστείτε και να την δημοσιεύσετε "
+"αργότερα."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1002,12 +1000,12 @@ msgid "Add collection"
 msgstr "Προσθήκη συλλογής"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Η συλλογή '{0}' δημιουργήθηκε."
+msgid "Collection '%(object)s' created."
+msgstr "Η συλλογή '%(object)s' δημιουργήθηκε."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Η συλλογή '{0}' ενημερώθηκε."
+msgid "Collection '%(object)s' updated."
+msgstr "Η συλλογή '%(object)s' ενημερώθηκε."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση της συλλογής."
@@ -1016,8 +1014,8 @@ msgid "Delete collection"
 msgstr "Διαγραφή συλλογής."
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Η συλλογή '{0}' διαγράφηκε."
+msgid "Collection '%(object)s' deleted."
+msgstr "Η συλλογή '%(object)s' διαγράφηκε."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Θέλετε να διαγράψετε τη συλλογή;"
@@ -1055,8 +1053,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" deleted"
 msgstr[0] ""
 "%(num_parent_objects)d σελίδες και %(num_child_objects)d υποσελίδες της "
 "διαγράφηκαν"
@@ -1084,7 +1082,8 @@ msgstr "1 σελίδα δημοσιεύθηκε"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] "1 σελίδα και %(num_child_objects)d υποσελίδες της δημοσιεύθηκαν"
 msgstr[1] "1 σελίδα και %(num_child_objects)d υποσελίδες της δημοσιεύθηκαν"
 
@@ -1099,12 +1098,13 @@ msgid "1 page has been unpublished"
 msgstr "1 σελίδα αποδημοσιεύτηκε"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Η σελίδα '{0}' και {1} υποσελίδες αντιγράφηκαν."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Η σελίδα '%(page_title)s' και %(subpages_count)s υποσελίδες αντιγράφηκαν."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Η σελίδα '{0}' αντιγράφηκε."
+msgid "Page '%(page_title)s' copied."
+msgstr "Η σελίδα '%(page_title)s' αντιγράφηκε."
 
 msgid "View draft"
 msgstr "Εμφάνιση προσχεδίου"
@@ -1113,46 +1113,47 @@ msgid "View live"
 msgstr "Εμφανιση στο site"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Η σελίδα '{0}' δημιουργήθηκε."
+msgid "Page '%(page_title)s' created."
+msgstr "Η σελίδα '%(page_title)s' δημιουργήθηκε."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Η σελίδα '{0}' δημιουργήθηκε και προγραμματίστηκε για δημοσίευση."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr ""
+"Η σελίδα '%(page_title)s' δημιουργήθηκε και προγραμματίστηκε για δημοσίευση."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Η σελίδα '{0}' δημιουργήθηκε και δημοσιεύθηκε."
+msgid "Page '%(page_title)s' created and published."
+msgstr "Η σελίδα '%(page_title)s' δημιουργήθηκε και δημοσιεύθηκε."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Η σελίδα '{0}' δημιουργήθηκε και στάλθηκε προς έλεγχο."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Η σελίδα '%(page_title)s' δημιουργήθηκε και στάλθηκε προς έλεγχο."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Έγινε διαγραφή της σελίδας '{0}'."
+msgid "Page '%(page_title)s' deleted."
+msgstr "Έγινε διαγραφή της σελίδας '%(page_title)s'."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Η σελίδα είναι προς έλεγχο"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Η σελίδα '{0}' ενημερώθηκε."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Η σελίδα '%(page_title)s' ενημερώθηκε."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Η σελίδα '{0}' προγραμματίστηκε για δημοσίευση."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Η σελίδα '%(page_title)s' προγραμματίστηκε για δημοσίευση."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Η σελίδα '{0}' εκδόθηκε."
+msgid "Page '%(page_title)s' has been published."
+msgstr "Η σελίδα '%(page_title)s' εκδόθηκε."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Η σελίδα '{0}' υποβλήθηκε για έλεγχο."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Η σελίδα '%(page_title)s' υποβλήθηκε για έλεγχο."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώς είναι κλειδωμένη"
@@ -1164,34 +1165,34 @@ msgid "Page history"
 msgstr "Ιστορικό σελίδας"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Η σελίδα '{0}' είναι τώρα ξεκλειδωμένη."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Η σελίδα '%(page_title)s' είναι τώρα ξεκλειδωμένη."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "Η σελίδα '{0}' δεν είναι για έλεγχο."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Η σελίδα '%(page_title)s' δεν είναι για έλεγχο."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Η σελίδα '{0}' δημοσιεύθηκε."
+msgid "Page '%(page_title)s' published."
+msgstr "Η σελίδα '%(page_title)s' δημοσιεύθηκε."
 
 msgid "Failed to send approval notifications"
 msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκε."
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Η δημοσίευση της σελίδας '%(page_title)s' απορρίφθηκε."
 
 msgid "Failed to send rejection notifications"
 msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Έγινε η μετακίνηση της σελίδας '{0}'."
+msgid "Page '%(page_title)s' moved."
+msgstr "Έγινε η μετακίνηση της σελίδας '%(page_title)s'."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Έγινε αποδημοσίευση της '{0}'."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Έγινε αποδημοσίευση της '%(page_title)s'."
 
 msgid "Pages"
 msgstr "Σελίδες"

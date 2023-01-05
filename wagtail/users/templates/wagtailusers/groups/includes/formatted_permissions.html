@@ -6,20 +6,40 @@
         <legend class="w-sr-only">{% trans "Object permissions" %}</legend>
 
         <table class="listing">
-            <col />
-            <col width="15%" />
-            <col width="15%" />
-            <col width="15%" />
-            {% if custom_perms_exist %}
-                <col width="30%" />
-            {% endif %}
+            <colgroup>
+                <col />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                {% if extra_perms_exist.publish %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.lock %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.unlock %}
+                    <col width="10%" />
+                {% endif %}
+                {% if extra_perms_exist.custom %}
+                    <col width="25%" />
+                {% endif %}
+            </colgroup>
             <thead>
                 <tr>
                     <th>{% trans "Name" %}</th>
                     <th>{% trans "Add" %}</th>
                     <th>{% trans "Change" %}</th>
                     <th>{% trans "Delete" %}</th>
-                    {% if custom_perms_exist %}
+                    {% if extra_perms_exist.publish %}
+                        <th>{% trans "Publish" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.lock %}
+                        <th>{% trans "Lock" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.unlock %}
+                        <th>{% trans "Unlock" %}</th>
+                    {% endif %}
+                    {% if extra_perms_exist.custom %}
                         <th>{% trans "Custom permissions" %}</th>
                     {% endif %}
                 </tr>
@@ -46,7 +66,31 @@
                                 {{ content_perms_dict.delete.checkbox.tag }}
                             {% endif %}
                         </td>
-                        {% if custom_perms_exist %}
+                        {% if extra_perms_exist.publish %}
+                            <td>
+                                {% if content_perms_dict.publish %}
+                                    <label for="{{ content_perms_dict.publish.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.publish.perm.name }}</label>
+                                    {{ content_perms_dict.publish.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.lock %}
+                            <td>
+                                {% if content_perms_dict.lock %}
+                                    <label for="{{ content_perms_dict.lock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.lock.perm.name }}</label>
+                                    {{ content_perms_dict.lock.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.unlock %}
+                            <td>
+                                {% if content_perms_dict.unlock %}
+                                    <label for="{{ content_perms_dict.unlock.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.unlock.perm.name }}</label>
+                                    {{ content_perms_dict.unlock.checkbox.tag }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if extra_perms_exist.custom %}
                             <td>
                                 {% if content_perms_dict.custom %}
                                     <fieldset class="w-p-0">

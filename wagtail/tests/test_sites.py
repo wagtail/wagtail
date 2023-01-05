@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
-from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page, Site
 
 
@@ -114,35 +114,41 @@ class TestFindSiteForRequest(TestCase):
             hostname="example.com", port=80, root_page=Page.objects.get(pk=2)
         )
 
+    def test_dummy_request(self):
+        request = get_dummy_request(site=self.site)
+        self.assertEqual(Site.find_for_request(request), self.site)
+
     def test_with_host(self):
-        request = HttpRequest()
-        request.META = {"HTTP_HOST": "example.com", "SERVER_PORT": 80}
+        request = get_dummy_request()
+        request.META.update({"HTTP_HOST": "example.com", "SERVER_PORT": 80})
         self.assertEqual(Site.find_for_request(request), self.site)
 
     def test_with_unknown_host(self):
-        request = HttpRequest()
-        request.META = {"HTTP_HOST": "unknown.com", "SERVER_PORT": 80}
+        request = get_dummy_request()
+        request.META.update({"HTTP_HOST": "unknown.com", "SERVER_PORT": 80})
         self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_with_server_name(self):
-        request = HttpRequest()
-        request.META = {"SERVER_NAME": "example.com", "SERVER_PORT": 80}
+        request = get_dummy_request()
+        request.META.update({"SERVER_NAME": "example.com", "SERVER_PORT": 80})
         self.assertEqual(Site.find_for_request(request), self.site)
 
     def test_with_x_forwarded_host(self):
         with self.settings(USE_X_FORWARDED_HOST=True):
-            request = HttpRequest()
-            request.META = {"HTTP_X_FORWARDED_HOST": "example.com", "SERVER_PORT": 80}
+            request = get_dummy_request()
+            request.META.update(
+                {"HTTP_X_FORWARDED_HOST": "example.com", "SERVER_PORT": 80}
+            )
             self.assertEqual(Site.find_for_request(request), self.site)
 
     def test_ipv4_host(self):
-        request = HttpRequest()
-        request.META = {"SERVER_NAME": "127.0.0.1", "SERVER_PORT": 80}
+        request = get_dummy_request()
+        request.META.update({"SERVER_NAME": "127.0.0.1", "SERVER_PORT": 80})
         self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_ipv6_host(self):
-        request = HttpRequest()
-        request.META = {"SERVER_NAME": "[::1]", "SERVER_PORT": 80}
+        request = get_dummy_request()
+        request.META.update({"SERVER_NAME": "[::1]", "SERVER_PORT": 80})
         self.assertEqual(Site.find_for_request(request), self.default_site)
 
 

@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
-"mn/)\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/mn/)\n"
+"Language: mn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -138,11 +137,12 @@ msgstr "\"<em>%(query_string)s</em>\" утгад тохирох хайлтын �
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Та ямар ч файл оруулаагүй байна. <a href=\"%(wagtaildocs_add_document_url)s"
-"\">Шинийг</a> оруулж яагаад болохгүй гэж?"
+"Та ямар ч файл оруулаагүй байна. <a "
+"href=\"%(wagtaildocs_add_document_url)s\">Шинийг</a> оруулж яагаад болохгүй "
+"гэж?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -197,27 +197,27 @@ msgid "Search documents"
 msgstr "Файл хайх"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "'{0}' файл нэмэгдлээ."
+msgid "Document '%(document_title)s' added."
+msgstr "'%(document_title)s' файл нэмэгдлээ."
 
 msgid "The document could not be saved due to errors."
 msgstr "Алдаанаас шалтгаалж файл хадгалагдсангүй."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "'{0}' файл шинэчлэгдлээ"
+msgid "Document '%(document_title)s' updated"
+msgstr "'%(document_title)s' файл шинэчлэгдлээ"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "'{0}' файл устлаа."
+msgid "Document '%(document_title)s' deleted."
+msgstr "'%(document_title)s' файл устлаа."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s-г засах"
+msgid "Edit this %(object)s"
+msgstr "%(object)s-г засах"
 
 msgid "Document"
 msgstr "Файл"

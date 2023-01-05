@@ -1,4 +1,3 @@
-#
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2022
@@ -10,10 +9,9 @@
 msgid ""
 msgstr ""
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2022\n"
-"Language-Team: Tetum (Tetun) (https://www.transifex.com/torchbox/teams/8009/"
-"tet/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Tetum (Tetun) (https://www.transifex.com/torchbox/teams/8009/tet/)\n"
 "Language: tet\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Alt text"
@@ -34,8 +32,8 @@ msgstr "Hamoos"
 msgid "Edit"
 msgstr "Hadia"
 
-msgid "Edit '{title}'"
-msgstr " Edit '{title}'"
+msgid "Edit '%(title)s'"
+msgstr " Edit '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Hadia ita nia konta"
@@ -90,10 +88,11 @@ msgstr "Hatudu konteúdu ikus"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
+msgstr ""
+"Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
 
 msgid "This field is required."
 msgstr "Presiza hatama dadus nee"
 
-msgid "View child pages of '{title}'"
-msgstr "Haree pajina oan sira husi '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Haree pajina oan sira husi '%(title)s'"

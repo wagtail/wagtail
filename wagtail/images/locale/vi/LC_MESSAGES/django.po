@@ -10,12 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
-"language/vi/)\n"
+"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/language/vi/)\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Collection"
@@ -54,6 +53,9 @@ msgstr "Đúng, xoá đi"
 msgid "No, don't delete"
 msgstr "Không xoá"
 
+msgid "New"
+msgstr "Mới"
+
 msgid "Save"
 msgstr "Lưu"
 
@@ -88,8 +90,8 @@ msgid "Choose an image"
 msgstr "Chọn một hình ảnh"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Biên tập %s này"
+msgid "Edit this %(object)s"
+msgstr "Biên tập %(object)s này"
 
 msgid "Change image"
 msgstr "Thay đổi hình ảnh"

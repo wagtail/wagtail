@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
-"mn/)\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/mn/)\n"
+"Language: mn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail images"
@@ -42,20 +41,28 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Дэмжигдсэн форматууд: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Дэмжигдээгүй зургийн формат байна. Дэмжигдсэн форматууд: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Дэмжигдээгүй зургийн формат байна. Дэмжигдсэн форматууд: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "%s алдаатай зураг байна."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Энэ файл хэт том хэмжээтэй байна (%%s). Боломжтой дээд хэмжээ нь %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэт том хэмжээтэй байна (%(file_size)s). Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Энэ файл хэтэрхий том хэмжээтэй байна. Боломжтой дээд хэмжээ нь "
+"%(max_filesize)s."
 
 msgid "Full width"
 msgstr "Бүтэн өргөн"
@@ -227,8 +234,7 @@ msgstr "Зургууд"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
+msgstr "Уучлаарай, \"<em>%(query_string)s</em>\" хайлтад тохирох зураг олдсонгүй"
 
 msgid "Generating URL"
 msgstr "URL үүсгэж байна"
@@ -304,8 +310,8 @@ msgid "Search images"
 msgstr "Зураг хайх"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "'{0}' зураг засагдлаа."
+msgid "Image '%(image_title)s' updated."
+msgstr "'%(image_title)s' зураг засагдлаа."
 
 msgid "Edit again"
 msgstr "Дахин засах"
@@ -314,24 +320,24 @@ msgid "The image could not be saved due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "'{0}' зураг устлаа."
+msgid "Image '%(image_title)s' deleted."
+msgstr "'%(image_title)s' зураг устлаа."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "'{0}' зураг нэмэгдлээ."
+msgid "Image '%(image_title)s' added."
+msgstr "'%(image_title)s' зураг нэмэгдлээ."
 
 msgid "The image could not be created due to errors."
 msgstr "Зураг энэ алдаануудаас шалтгаалан хадгалагдсангүй."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s-г засах"
+msgid "Edit this %(object)s"
+msgstr "%(object)s-г засах"
 
 msgid "Image"
 msgstr "Зураг"

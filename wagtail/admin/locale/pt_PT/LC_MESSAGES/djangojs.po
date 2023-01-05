@@ -1,4 +1,3 @@
-#
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2022
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2022
@@ -8,12 +7,10 @@
 msgid ""
 msgstr ""
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2022\n"
-"Language-Team: Portuguese (Portugal) (https://www.transifex.com/torchbox/"
-"teams/8009/pt_PT/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Portuguese (Portugal) (https://www.transifex.com/torchbox/teams/8009/pt_PT/)\n"
 "Language: pt_PT\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -51,8 +48,8 @@ msgstr "Apagar erro"
 msgid "Edit"
 msgstr "Alterar"
 
-msgid "Edit '{title}'"
-msgstr "Alterar '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Alterar '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Alterar a sua conta"
@@ -158,5 +155,5 @@ msgstr "Alternar estado da barra lateral"
 msgid "Unfocus comment"
 msgstr "Tirar enfoque do comentário"
 
-msgid "View child pages of '{title}'"
-msgstr "Ver páginas-filha de '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Ver páginas-filha de '%(title)s'"

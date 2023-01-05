@@ -31,7 +31,7 @@ class Create(CreateView):
     permission_policy = collection_permission_policy
     form_class = CollectionForm
     page_title = gettext_lazy("Add collection")
-    success_message = gettext_lazy("Collection '{0}' created.")
+    success_message = gettext_lazy("Collection '%(object)s' created.")
     add_url_name = "wagtailadmin_collections:add"
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
@@ -58,7 +58,7 @@ class Edit(EditView):
     model = Collection
     form_class = CollectionForm
     template_name = "wagtailadmin/collections/edit.html"
-    success_message = gettext_lazy("Collection '{0}' updated.")
+    success_message = gettext_lazy("Collection '%(object)s' updated.")
     error_message = gettext_lazy("The collection could not be saved due to errors.")
     delete_item_label = gettext_lazy("Delete collection")
     edit_url_name = "wagtailadmin_collections:edit"
@@ -134,7 +134,7 @@ class Edit(EditView):
 class Delete(DeleteView):
     permission_policy = collection_permission_policy
     model = Collection
-    success_message = gettext_lazy("Collection '{0}' deleted.")
+    success_message = gettext_lazy("Collection '%(object)s' deleted.")
     index_url_name = "wagtailadmin_collections:index"
     delete_url_name = "wagtailadmin_collections:delete"
     page_title = gettext_lazy("Delete collection")

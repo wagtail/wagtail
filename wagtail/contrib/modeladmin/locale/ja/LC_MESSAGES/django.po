@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
-"ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail ModelAdmin"
@@ -30,47 +29,47 @@ msgid "Parent page"
 msgstr "親ページ"
 
 #, python-format
-msgid "Add %s"
-msgstr "%s を追加"
+msgid "Add %(object)s"
+msgstr "%(object)s を追加"
 
 #, python-format
-msgid "Add a new %s"
-msgstr "%s を新規追加"
+msgid "Add a new %(object)s"
+msgstr "%(object)s を新規追加"
 
 msgid "Inspect"
 msgstr "詳細"
 
 #, python-format
-msgid "Inspect this %s"
-msgstr "%sの詳細"
+msgid "Inspect this %(object)s"
+msgstr "%(object)sの詳細"
 
 msgid "Edit"
 msgstr "編集"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%sを編集"
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"
 
 msgid "Delete"
 msgstr "削除"
 
 #, python-format
-msgid "Delete this %s"
-msgstr "%sを削除"
+msgid "Delete this %(object)s"
+msgstr "%(object)sを削除"
 
 msgid "Unpublish"
 msgstr "非公開"
 
 #, python-format
-msgid "Unpublish this %s"
-msgstr "%sを非公開"
+msgid "Unpublish this %(object)s"
+msgstr "%(object)sを非公開"
 
 msgid "Copy"
 msgstr "複製"
 
 #, python-format
-msgid "Copy this %s"
-msgstr "%sを複製"
+msgid "Copy this %(object)s"
+msgstr "%(object)sを複製"
 
 msgid "image"
 msgstr "画像"
@@ -86,9 +85,7 @@ msgstr "親ページを選択"
 msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
-msgstr ""
-"%(plural)sはサイト内の複数の場所に追加できます。 次のうち、新しいページの親に"
-"なりたいものはどれですか？"
+msgstr "%(plural)sはサイト内の複数の場所に追加できます。 次のうち、新しいページの親になりたいものはどれですか？"
 
 msgid "Continue"
 msgstr "続ける"
@@ -109,9 +106,8 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"現在'%(instance_name)s'は他のオブジェクトによって参照されているため、データの"
-"整合性を危険にさらすことなく削除できません。 正常に削除するためには、次のオブ"
-"ジェクトから参照を削除してから行ってください。"
+"現在'%(instance_name)s'は他のオブジェクトによって参照されているため、データの整合性を危険にさらすことなく削除できません。 "
+"正常に削除するためには、次のオブジェクトから参照を削除してから行ってください。"
 
 msgid "Go back to listing"
 msgstr "リストに戻る"
@@ -152,9 +148,7 @@ msgstr "フィルター"
 msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
-msgstr ""
-"%(name)sはまだ作成されていせん。%(name)sを追加する前に、次のいずれかを作成す"
-"る必要があります:"
+msgstr "%(name)sはまだ作成されていせん。%(name)sを追加する前に、次のいずれかを作成する必要があります:"
 
 #, python-format
 msgid "No %(name)s have been created yet."
@@ -174,45 +168,43 @@ msgid "Next"
 msgstr "次へ"
 
 #, python-format
-msgid "The %s could not be created due to errors."
-msgstr "%sはエラーにより作成されませんでした。"
+msgid "The %(object)s could not be created due to errors."
+msgstr "%(object)sはエラーにより作成されませんでした。"
 
 msgid "New"
 msgstr "新規作成"
 
 #, python-format
-msgid "Create new %s"
-msgstr "%sを新規作成"
+msgid "Create new %(object)s"
+msgstr "%(object)sを新規作成"
 
 msgid "Editing"
 msgstr "編集"
 
 #, python-format
-msgid "Editing %s"
-msgstr "%sを編集中"
+msgid "Editing %(object)s"
+msgstr "%(object)sを編集中"
 
 #, python-format
-msgid "The %s could not be saved due to errors."
-msgstr "%sはエラーにより保存されませんでした。"
+msgid "The %(object)s could not be saved due to errors."
+msgstr "%(object)sはエラーにより保存されませんでした。"
 
 #, python-format
-msgid "Confirm deletion of %s"
-msgstr "%sの削除確認"
+msgid "Confirm deletion of %(object)s"
+msgstr "%(object)sの削除確認"
 
 #, python-format
 msgid ""
-"Are you sure you want to delete this %s? If other things in your site are "
-"related to it, they may also be affected."
-msgstr ""
-"%sを削除してもよいですか？サイトの他の要素がこれに関連している場合は、それら"
-"も影響を受ける可能性があります。"
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
+msgstr "%(object)sを削除してもよいですか？サイトの他の要素がこれに関連している場合は、それらも影響を受ける可能性があります。"
 
 msgid "Inspecting"
 msgstr "詳細"
 
 #, python-format
-msgid "Inspecting %s"
-msgstr "%sの詳細"
+msgid "Inspecting %(object)s"
+msgstr "%(object)sの詳細"
 
 msgid "Action"
 msgstr "アクション"

@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
-"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
-"bg/)\n"
+"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/bg/)\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Edit"
@@ -90,19 +89,19 @@ msgid "Choose another image"
 msgstr "Избери друго Изображение"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Изображение '{0}' обновено."
+msgid "Image '%(image_title)s' updated."
+msgstr "Изображение '%(image_title)s' обновено."
 
 msgid "The image could not be saved due to errors."
 msgstr "Изображението не можеше да бъде запазено поради грешки."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Изображение '{0}' изтрито."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Изображение '%(image_title)s' изтрито."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Изображение '{0}' добавено."
+msgid "Image '%(image_title)s' added."
+msgstr "Изображение '%(image_title)s' добавено."
 
 msgid "The image could not be created due to errors."
 msgstr "Изображението не можеше да бъде създадено поради грешки."

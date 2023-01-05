@@ -17,14 +17,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021\n"
-"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
-"cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
-"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumenty"
@@ -154,19 +152,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "V kolekci nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
 "href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a href="
-"\"%(wagtaildocs_add_document_url)s\">zde</a>."
+"Nebyly nalezeny žádné dokumenty. Nový dokument můžete přidat <a "
+"href=\"%(wagtaildocs_add_document_url)s\">zde</a>."
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -233,15 +231,15 @@ msgid "Search documents"
 msgstr "Hledat v dokumentech"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokument '{0}' byl přidán."
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' byl přidán."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nelze uložit, zkontrolujte správné vyplnění polí."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokument '{0}' byl upraven"
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokument '%(document_title)s' byl upraven"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -250,12 +248,12 @@ msgstr ""
 "dokument smažte."
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokument '{0}' byl smazán."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' byl smazán."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Edituj %s"
+msgid "Edit this %(object)s"
+msgstr "Edituj %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

@@ -7,6 +7,7 @@ import {
   BaseInsertionControl,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
+import { range } from '../../../utils/range';
 
 /* global $ */
 
@@ -96,6 +97,7 @@ class InsertPosition extends BaseInsertionControl {
 
 export class ListBlock extends BaseSequenceBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -195,14 +197,14 @@ export class ListBlock extends BaseSequenceBlock {
     if (typeof this.blockDef.meta.maxNum === 'number') {
       if (this.children.length >= this.blockDef.meta.maxNum) {
         /* prevent adding new blocks */
-        for (let i = 0; i < this.inserters.length; i++) {
+        range(0, this.inserters.length).forEach((i) => {
           this.inserters[i].disable();
-        }
+        });
       } else {
         /* allow adding new blocks */
-        for (let i = 0; i < this.inserters.length; i++) {
+        range(0, this.inserters.length).forEach((i) => {
           this.inserters[i].enable();
-        }
+        });
       }
     }
   }

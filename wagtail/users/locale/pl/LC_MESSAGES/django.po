@@ -16,15 +16,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Dominik Lech, 2022\n"
-"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
-"pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Wagtail users"
 msgstr "Użytkownicy Wagtail"
@@ -195,11 +192,11 @@ msgstr "Przykro nam, żadna grupa nie pasuje do \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Brak skonfigurowanych grup. Czemu nie <a href="
-"\"%(wagtailusers_create_group_url)s\">dodasz kilku</a>?"
+"Brak skonfigurowanych grup. Czemu nie <a "
+"href=\"%(wagtailusers_create_group_url)s\">dodasz kilku</a>?"
 
 msgid "Delete user"
 msgstr "Usuń użytkownika"
@@ -250,16 +247,16 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(group_name)s group has no users configured. Why not <a href="
-"\"%(wagtailusers_add_url)s\">add some</a>?"
+"The %(group_name)s group has no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Grupa %(group_name)s nie posiada żadnych użytkowników. Dlaczego nie <a href="
-"\"%(wagtailusers_add_url)s\">dodać jednego</a>?"
+"Grupa %(group_name)s nie posiada żadnych użytkowników. Dlaczego nie <a "
+"href=\"%(wagtailusers_add_url)s\">dodać jednego</a>?"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_add_url)s\">dodasz "
 "kilku</a>?"
@@ -277,34 +274,34 @@ msgid "Search groups"
 msgstr "Przeszukaj grupy"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupa '{0}' utworzona."
+msgid "Group '%(object)s' created."
+msgstr "Grupa '%(object)s' utworzona."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupa '{0}' zaktualizowana."
+msgid "Group '%(object)s' updated."
+msgstr "Grupa '%(object)s' zaktualizowana."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupa nie mogła zostać zapisana z powodu błędów."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupa '{0}' została usunięta."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupa '%(object)s' została usunięta."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Użytkownik '{0}' zaktualizowany."
+msgid "User '%(object)s' updated."
+msgstr "Użytkownik '%(object)s' zaktualizowany."
 
 msgid "The user could not be saved due to errors."
 msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Edytowanie %s"
+msgid "Editing %(object)s"
+msgstr "Edytowanie %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Użytkownik '{0}' usunięty."
+msgid "User '%(object)s' deleted."
+msgstr "Użytkownik '%(object)s' usunięty."
 
 msgid "Edit"
 msgstr "Edytuj"

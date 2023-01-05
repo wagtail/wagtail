@@ -15,12 +15,11 @@ msgstr ""
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Wagtail locales"
 msgstr "Régions Wagtail"
@@ -60,12 +59,12 @@ msgid "Add locale"
 msgstr "Ajouter la région"
 
 #, python-brace-format
-msgid "Locale '{0}' created."
-msgstr "Région « {0} » créée."
+msgid "Locale '%(object)s' created."
+msgstr "Région « %(object)s » créée."
 
 #, python-brace-format
-msgid "Locale '{0}' updated."
-msgstr "Région « {0} » mise à jour."
+msgid "Locale '%(object)s' updated."
+msgstr "Région « %(object)s » mise à jour."
 
 msgid "The locale could not be saved due to errors."
 msgstr "La région ne peut être enregistrée du fait d'erreurs."
@@ -74,8 +73,8 @@ msgid "Delete locale"
 msgstr "Supprimer région"
 
 #, python-brace-format
-msgid "Locale '{0}' deleted."
-msgstr "Région « {0} » supprimée."
+msgid "Locale '%(object)s' deleted."
+msgstr "Région « %(object)s » supprimée."
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette région ?"

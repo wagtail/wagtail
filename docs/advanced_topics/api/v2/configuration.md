@@ -137,6 +137,22 @@ This will make `published_date`, `body`, `feed_image` and a list of
 fields, you must select the `blog.BlogPage` type using the `?type`
 [parameter in the API itself](apiv2_custom_page_fields).
 
+(form_page_fields_api_field)=
+
+### Adding form fields to the API
+
+If you have a FormBuilder page called `FormPage` this is an example of how you would expose the form fields to the API:
+
+```python
+from wagtail.api import APIField
+
+class FormPage(AbstractEmailForm):
+    #...
+    api_fields = [
+        APIField('form_fields'),
+    ]
+```
+
 ### Custom serializers
 
 [Serializers](https://www.django-rest-framework.org/api-guide/fields/) are used to convert the database representation of a model into

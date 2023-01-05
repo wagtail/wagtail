@@ -1,4 +1,3 @@
-#
 # Translators:
 # Reinis Rozenbergs <reinisr@gmail.com>, 2022
 # Maris Serzans <maris.serzans@gmail.com>, 2022
@@ -8,10 +7,9 @@ msgid ""
 msgstr ""
 "Last-Translator: Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022\n"
 "Language-Team: Latvian (https://www.transifex.com/torchbox/teams/8009/lv/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 msgid "Alt text"
 msgstr "Alt teksts"
@@ -34,8 +32,8 @@ msgstr "Dzēst"
 msgid "Edit"
 msgstr "Labot"
 
-msgid "Edit '{title}'"
-msgstr "Rediģēt '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Rediģēt '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"
@@ -98,5 +96,5 @@ msgstr "Redaktors kļūda. Saturs ir atiestatīts uz pēdējo saglabāto versiju
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"
 
-msgid "View child pages of '{title}'"
-msgstr "Apskatīt '{title}' zemāka līmeņa lapas"
+msgid "View child pages of '%(title)s'"
+msgstr "Apskatīt '%(title)s' zemāka līmeņa lapas"

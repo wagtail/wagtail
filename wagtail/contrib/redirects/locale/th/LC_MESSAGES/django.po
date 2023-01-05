@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
-"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
-"th/)\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/th/)\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail redirects"
@@ -125,18 +124,18 @@ msgstr "ขออภัย,ไม่มีการเปลี่ยนทิ�
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"ไม่มีการกำคุณไม่หนดทิศทางถูกสร้างขึ้น ทำไมคุณไม่<a href="
-"\"%(wagtailredirects_add_redirect_url)s\">เพิ่มหนึ่งอัน</a>?"
+"ไม่มีการกำคุณไม่หนดทิศทางถูกสร้างขึ้น ทำไมคุณไม่<a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">เพิ่มหนึ่งอัน</a>?"
 
 msgid "Search redirects"
 msgstr "ค้นหาหลายการกำหนดทิศทาง"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "การกำหนดทิศทาง'{0}'ถูกอัพเดทแล้ว"
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกอัพเดทแล้ว"
 
 msgid "Edit"
 msgstr "แก้ไข"
@@ -145,12 +144,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr "การกำหนดทิศทางไม่สามารถเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "การกำหนดทิศทาง'{0}'ถูกลบทิ้งแล้ว"
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกลบทิ้งแล้ว"
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "การกำหนดทิศทาง'{0}'ถูกเพิ่มแล้ว"
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "การกำหนดทิศทาง'%(redirect_title)s'ถูกเพิ่มแล้ว"
 
 msgid "The redirect could not be created due to errors."
 msgstr "การกำหนดทิศทางไม่สามารถถูกสร้างขึ้นได้ในขณะที่เกิดข้อผิดพลาด"

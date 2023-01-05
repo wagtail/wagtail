@@ -12,15 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
-"language/lt/)\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/language/lt/)\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Wagtail users"
 msgstr "Wagtail vartotojai"
@@ -168,11 +165,11 @@ msgstr "Atsiprašome, jokios grupės neatitinka \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Nėra sukonfigūruota jokia grupė. Kodėl gi <a href="
-"\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
+"Nėra sukonfigūruota jokia grupė. Kodėl gi <a "
+"href=\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
 
 msgid "Delete user"
 msgstr "Ištrinti vartotoją"
@@ -233,34 +230,34 @@ msgid "Search groups"
 msgstr "Ieškoti grupių"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupė '{0}' sukurta."
+msgid "Group '%(object)s' created."
+msgstr "Grupė '%(object)s' sukurta."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupė '{0}' atnaujinta."
+msgid "Group '%(object)s' updated."
+msgstr "Grupė '%(object)s' atnaujinta."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ši grupė negali būti išsaugota dėl klaidų."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupė '{0}' ištrinta."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupė '%(object)s' ištrinta."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Vartotojas '{0}' atnaujintas."
+msgid "User '%(object)s' updated."
+msgstr "Vartotojas '%(object)s' atnaujintas."
 
 msgid "The user could not be saved due to errors."
 msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Redaguojamas %s"
+msgid "Editing %(object)s"
+msgstr "Redaguojamas %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Vartotojas '{0}' ištrintas."
+msgid "User '%(object)s' deleted."
+msgstr "Vartotojas '%(object)s' ištrintas."
 
 msgid "Edit"
 msgstr "Redaguoti"

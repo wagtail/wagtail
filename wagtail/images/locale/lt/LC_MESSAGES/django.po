@@ -12,15 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
-"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
-"language/lt/)\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/language/lt/)\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Wagtail images"
 msgstr "Wagtail paveikslėliai"
@@ -41,24 +38,34 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Palaikomi formatai:  %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Nepalaikomas paveiksliuko formatas. Palaikomi formatai: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Nepalaikomas paveiksliuko formatas. Palaikomi formatai: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Netinkamas %s paveiksliukas."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Byla yra per didelė (%%s). Didžiausias bylos dydis yra %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Byla yra per didelė (%(file_size)s). Didžiausias bylos dydis yra "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Byla turi per daug taškų (%%s). Didžiausias taškų kiekis yra %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Byla turi per daug taškų (%(num_pixels)s). Didžiausias taškų kiekis yra "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Byla yra per didelė. Didžiausias bylos dydis yra %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Byla yra per didelė. Didžiausias bylos dydis yra %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Pilno pločio"
@@ -219,8 +226,8 @@ msgstr[2] ""
 "<span>%(total)s</span> Paveikslėlis <span class=\"visuallyhidden\">, "
 "sukurtas %(site_name)s tinklalapyje</span>"
 msgstr[3] ""
-"<span>%(total)s</span> Paveikslėlių <span class=\"visuallyhidden\">, sukurtų "
-"%(site_name)s tinklalapyje</span>"
+"<span>%(total)s</span> Paveikslėlių <span class=\"visuallyhidden\">, sukurtų"
+" %(site_name)s tinklalapyje</span>"
 
 msgid "Change image file:"
 msgstr "Keisti paveiksliuko bylą:"
@@ -289,24 +296,23 @@ msgstr "taškai"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Atsiprašome, jokie paveiksliukai neatitiko <em>\"%(query_string)s\"</em>"
+msgstr "Atsiprašome, jokie paveiksliukai neatitiko <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkelti jokie paveiksliukai į šią kolekciją. Kodėl gi <a href="
-"\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
+"Nėra įkelti jokie paveiksliukai į šią kolekciją. Kodėl gi <a "
+"href=\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Nėra įkelti jokie paveiksliukai. Kodėl gi <a href="
-"\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
+"Nėra įkelti jokie paveiksliukai. Kodėl gi <a "
+"href=\"%(wagtailimages_add_image_url)s\">neįkėlus vieno</a>?"
 
 msgid "Generating URL"
 msgstr "Generuojamas URL"
@@ -355,8 +361,8 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Įkelti pavyko. Prašome atnaujinti šį paveiksliuką su tinkamesniu pavadinimu, "
-"jei reikia. Jūs taip pat galite ištrinti paveiksliuką, jei įkėlimas nebuvo "
+"Įkelti pavyko. Prašome atnaujinti šį paveiksliuką su tinkamesniu pavadinimu,"
+" jei reikia. Jūs taip pat galite ištrinti paveiksliuką, jei įkėlimas nebuvo "
 "būtinas."
 
 msgid "Sorry, upload failed."
@@ -402,8 +408,8 @@ msgid "Search images"
 msgstr "Ieškoti paveiksliukų"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Paveiksliukas '{0}' atnaujintas"
+msgid "Image '%(image_title)s' updated."
+msgstr "Paveiksliukas '%(image_title)s' atnaujintas"
 
 msgid "Edit again"
 msgstr "Vėl redaguoti"
@@ -412,26 +418,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Paveiksliukas negalėjo būti išsaugotas dėl klaidų."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Paveiksliuko šaltinio byla nebuvo rasta. Prašome pakeisti šaltinį arba "
 "ištrinti paveiksliuką."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Paveiksliukas '{0}' ištrintas."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Paveiksliukas '%(image_title)s' ištrintas."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Paveiksliukas '{0}' pridėtas."
+msgid "Image '%(image_title)s' added."
+msgstr "Paveiksliukas '%(image_title)s' pridėtas."
 
 msgid "The image could not be created due to errors."
 msgstr "Paveiksliukas negalėjo būti sukurtas dėl klaidų."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Redaguoti šį %s"
+msgid "Edit this %(object)s"
+msgstr "Redaguoti šį %(object)s"
 
 msgid "Image"
 msgstr "Paveiksliukas"

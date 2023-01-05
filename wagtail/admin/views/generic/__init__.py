@@ -1,9 +1,12 @@
-from .base import WagtailAdminTemplateMixin  # noqa
+from .base import BaseOperationView, WagtailAdminTemplateMixin  # noqa
 from .mixins import (  # noqa
     BeforeAfterHookMixin,
+    CreateEditViewOptionalFeaturesMixin,
     HookResponseMixin,
+    IndexViewOptionalFeaturesMixin,
     LocaleMixin,
     PanelMixin,
+    RevisionsRevertMixin,
 )
 from .models import (  # noqa
     CreateView,

@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/"
-"teams/8009/zh_CN/)\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/torchbox/teams/8009/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail locales"
@@ -59,12 +58,12 @@ msgid "Add locale"
 msgstr "添加区域设置"
 
 #, python-brace-format
-msgid "Locale '{0}' created."
-msgstr "区域设置 '{0}' 已创建。"
+msgid "Locale '%(object)s' created."
+msgstr "区域设置 '%(object)s' 已创建。"
 
 #, python-brace-format
-msgid "Locale '{0}' updated."
-msgstr "区域设置 '{0}' 已更新。"
+msgid "Locale '%(object)s' updated."
+msgstr "区域设置 '%(object)s' 已更新。"
 
 msgid "The locale could not be saved due to errors."
 msgstr "由于出现错误，无法保存区域设置。"
@@ -73,8 +72,8 @@ msgid "Delete locale"
 msgstr "删除区域设置"
 
 #, python-brace-format
-msgid "Locale '{0}' deleted."
-msgstr "区域设置 '{0}' 已删除。"
+msgid "Locale '%(object)s' deleted."
+msgstr "区域设置 '%(object)s' 已删除。"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "您确定要删除此区域设置吗？"

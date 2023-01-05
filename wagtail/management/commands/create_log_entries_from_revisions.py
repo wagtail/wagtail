@@ -90,20 +90,19 @@ class Command(BaseCommand):
                         self.log_page_action("wagtail.publish", previous_revision, True)
 
                 if is_new_page or has_content_changes or published:
+                    actions = []
+
                     if is_new_page:
-                        action = "wagtail.create"
-                    elif published:
-                        action = "wagtail.publish"
-                    else:
-                        action = "wagtail.edit"
+                        actions.append("wagtail.create")
 
-                    if published and has_content_changes:
-                        # When publishing, also log the 'draft save', but only if there have been content changes
-                        self.log_page_action(
-                            "wagtail.edit", revision, has_content_changes
-                        )
+                    if is_new_page or has_content_changes:
+                        actions.append("wagtail.edit")
 
-                    self.log_page_action(action, revision, has_content_changes)
+                    if published:
+                        actions.append("wagtail.publish")
+
+                    for action in actions:
+                        self.log_page_action(action, revision, has_content_changes)
 
             previous_revision = revision
 

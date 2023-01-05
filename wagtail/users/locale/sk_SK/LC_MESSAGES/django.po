@@ -15,14 +15,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Stevo Backor, 2016\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
-"language/sk_SK/)\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/language/sk_SK/)\n"
+"Language: sk_SK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk_SK\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
-">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr "Táto hodnota môže obsahovať len písmená, čísla a znaky @/./+/-/_ "
@@ -152,11 +150,11 @@ msgstr "Prepáčte, žiadne skupiny nevyhovujú hľadanému výrazu \"%(query)s\
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a href="
-"\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
+"Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a "
+"href=\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
 
 msgid "Delete user"
 msgstr "Zmazať používateľa"
@@ -200,8 +198,8 @@ msgstr "Neaktívne"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu \"<em>"
-"%(query_string)s</em>\""
+"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu "
+"\"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Skupiny"
@@ -213,34 +211,34 @@ msgid "Search groups"
 msgstr "Hľadať skupiny"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Skupina '{0}' bola vytvorená."
+msgid "Group '%(object)s' created."
+msgstr "Skupina '%(object)s' bola vytvorená."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Skupina '{0}' bola aktualizovaná."
+msgid "Group '%(object)s' updated."
+msgstr "Skupina '%(object)s' bola aktualizovaná."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupina nemôže byť uložená kvôli chybám."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Skupina '{0}' bola vymazaná."
+msgid "Group '%(object)s' deleted."
+msgstr "Skupina '%(object)s' bola vymazaná."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Používateľ '{0}' bol aktualizovaný."
+msgid "User '%(object)s' updated."
+msgstr "Používateľ '%(object)s' bol aktualizovaný."
 
 msgid "The user could not be saved due to errors."
 msgstr "Používateľ nemôže byť uložený kvôli chybám."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Úprava %s"
+msgid "Editing %(object)s"
+msgstr "Úprava %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Používateľ '{0}' zmazaný."
+msgid "User '%(object)s' deleted."
+msgstr "Používateľ '%(object)s' zmazaný."
 
 msgid "Edit"
 msgstr "Upraviť"

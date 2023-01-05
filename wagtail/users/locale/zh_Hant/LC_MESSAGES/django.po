@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020\n"
-"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
-"wagtail/language/zh-Hant/)\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/wagtail/language/zh-Hant/)\n"
+"Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
@@ -167,10 +166,9 @@ msgstr "對不起，沒有符合“%(query)s”的群組"
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
-msgstr ""
-"目前還沒有群組。<a href=\"%(wagtailusers_create_group_url)s\">新增</a>一個？"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr "目前還沒有群組。<a href=\"%(wagtailusers_create_group_url)s\">新增</a>一個？"
 
 msgid "Delete user"
 msgstr "刪除使用者"
@@ -228,34 +226,34 @@ msgid "Search groups"
 msgstr "搜索群組"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "群組 '{0}' 已創建"
+msgid "Group '%(object)s' created."
+msgstr "群組 '%(object)s' 已創建"
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "群組 '{0}' 已更新。"
+msgid "Group '%(object)s' updated."
+msgstr "群組 '%(object)s' 已更新。"
 
 msgid "The group could not be saved due to errors."
 msgstr "無法儲存該群組。出現錯誤。"
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "群組 '{0}' 已刪除。"
+msgid "Group '%(object)s' deleted."
+msgstr "群組 '%(object)s' 已刪除。"
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "使用者 '{0}' 已更新。"
+msgid "User '%(object)s' updated."
+msgstr "使用者 '%(object)s' 已更新。"
 
 msgid "The user could not be saved due to errors."
 msgstr "無法儲存使用者。出現錯誤。"
 
 #, python-format
-msgid "Editing %s"
-msgstr "正在編輯%s"
+msgid "Editing %(object)s"
+msgstr "正在編輯%(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "使用者 '{0}' 已刪除。"
+msgid "User '%(object)s' deleted."
+msgstr "使用者 '%(object)s' 已刪除。"
 
 msgid "Edit"
 msgstr "編輯"

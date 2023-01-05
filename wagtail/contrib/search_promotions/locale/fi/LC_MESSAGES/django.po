@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022\n"
-"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
-"fi/)\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
@@ -56,7 +55,8 @@ msgstr "Poista"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
-msgstr "Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
+msgstr ""
+"Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
 
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
@@ -125,23 +125,23 @@ msgstr[1] "Löytyi %(counter)s osumaa"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun \"<em>"
-"%(query_string)s</em>\""
+"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
+"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
 
 msgid "Search promoted results"
 msgstr "Etsi nostettuja tuloksia"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' created."
-msgstr "Toimituksen valinnat kohteelle '{0}' luotu."
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Toimituksen valinnat kohteelle '%(query)s' luotu."
 
 msgid "Edit"
 msgstr "Muokkaa"
@@ -150,8 +150,8 @@ msgid "Recommendations have not been created due to errors"
 msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
 
 #, python-brace-format
-msgid "Editor's picks for '{0}' updated."
-msgstr "Toimituksen valinnat kohteelle '{0}' päivitetty."
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Toimituksen valinnat kohteelle '%(query)s' päivitetty."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Suosituksia ei voitu tallentaa virheiden vuoksi."

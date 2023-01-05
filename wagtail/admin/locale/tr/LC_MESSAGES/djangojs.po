@@ -1,4 +1,3 @@
-#
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # Umut Bektaş <info@umutbektas.com>, 2022
@@ -9,8 +8,8 @@ msgid ""
 msgstr ""
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2022\n"
 "Language-Team: Turkish (https://www.transifex.com/torchbox/teams/8009/tr/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: tr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Alt text"
@@ -31,8 +30,8 @@ msgstr "Sil"
 msgid "Edit"
 msgstr "Düzenle"
 
-msgid "Edit '{title}'"
-msgstr "'{title}' düzenle"
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' düzenle"
 
 msgid "Edit your account"
 msgstr "Hesabını düzenle"
@@ -95,5 +94,5 @@ msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
 msgid "This field is required."
 msgstr "Bu alan gerekli."
 
-msgid "View child pages of '{title}'"
-msgstr "'{title}' alt sayfalarını gör"
+msgid "View child pages of '%(title)s'"
+msgstr "'%(title)s' alt sayfalarını gör"

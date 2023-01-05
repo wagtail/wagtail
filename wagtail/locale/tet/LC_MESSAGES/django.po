@@ -12,24 +12,23 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Joanico Barros <joanico@catalpa.io>, 2019-2020\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
-"language/tet/)\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
+"Language: tet\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail core"
 msgstr "Wagtail fuan"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Numeru minimum sasan %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Numeru minimum sasan %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Numeru maximum sasan %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Numeru maximum sasan %(max_num)d"
 
 msgid "Move up"
 msgstr "Muda ba leten"
@@ -108,8 +107,8 @@ msgid "slug"
 msgstr "slug"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
+"The name of the page as it will appear in URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 msgstr ""
 "Naran pajina iha URL sira laran ezemplu http://domain.com/blog/[my-slug]/"
 
@@ -243,6 +242,9 @@ msgstr "situs"
 
 msgid "sites"
 msgstr "situs sira"
+
+msgid "default"
+msgstr "default"
 
 #, python-format
 msgid ""

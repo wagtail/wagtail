@@ -9,6 +9,7 @@ import {
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
+import { range } from '../../../utils/range';
 
 /* global $ */
 
@@ -212,6 +213,7 @@ class StreamBlockMenu extends BaseInsertionControl {
 
 export class StreamBlock extends BaseSequenceBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
+    super();
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -332,12 +334,12 @@ export class StreamBlock extends BaseSequenceBlock {
       }
     }
 
-    for (let i = 0; i < this.inserters.length; i++) {
+    range(0, this.inserters.length).forEach((i) => {
       this.inserters[i].setNewBlockRestrictions(
         this.canAddBlock,
         this.disabledBlockTypes,
       );
-    }
+    });
   }
 
   _createChild(

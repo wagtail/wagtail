@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022\n"
-"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
-"ko/)\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -29,11 +28,11 @@ msgstr "게시"
 msgid "Submit for moderation"
 msgstr "검토를 위한 제출"
 
-msgid "Resubmit to {}"
-msgstr "{}에 다시 제출"
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)s에 다시 제출"
 
-msgid "Submit to {}"
-msgstr "{}에 제출"
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)s에 제출"
 
 msgid "Restart workflow "
 msgstr "워크플로우 재시작"
@@ -97,8 +96,8 @@ msgid "Enter password"
 msgstr "패스워드 입력"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "%s 입력"
+msgid "Enter your %(username_field_name)s"
+msgstr "%(username_field_name)s 입력"
 
 msgid "Enter your email address to reset your password"
 msgstr "비밀번호 재설정을 위해 이메일을 적어주세요"
@@ -124,9 +123,7 @@ msgstr "상위"
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
-msgstr ""
-"단계적 위치를 선택합니다. 참고: 컬렉션은 자체 또는 하위 컬렉션 중 하나가 될 "
-"수 없습니다."
+msgstr "단계적 위치를 선택합니다. 참고: 컬렉션은 자체 또는 하위 컬렉션 중 하나가 될 수 없습니다."
 
 msgid "Please select another parent"
 msgstr "다른 부모를 선택하세요"
@@ -197,8 +194,7 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] ""
-"%(count)s 개의 복사본이 활성화되어 있습니다. 이 복사본을 게시할까요?"
+msgstr[0] "%(count)s 개의 복사본이 활성화되어 있습니다. 이 복사본을 게시할까요?"
 
 msgid "Alias"
 msgstr "라 불리우는"
@@ -212,13 +208,12 @@ msgstr "\"%(page_title)s\" 페이지를 복사할 권한이 없습니다."
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "이 슬러그는 이미 상위 페이지 \"%s\" 에서 쓰이고 있습니다"
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "이 슬러그는 이미 상위 페이지 \"%(parent_page_title)s\" 에서 쓰이고 있습니다"
 
 msgid "You cannot copy a page into itself when copying subpages"
-msgstr ""
-"하위 페이지를 복사할 때 페이지를 그 페이지 자신으로 복사해 넣을 수는 없습니"
-"다."
+msgstr "하위 페이지를 복사할 때 페이지를 그 페이지 자신으로 복사해 넣을 수는 없습니다."
 
 msgid "This slug is already in use"
 msgstr "이 슬러그는 이미 쓰이고 있습니다"
@@ -240,8 +235,8 @@ msgid "All types"
 msgstr "모든 종류"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "이 페이지의 작업속도는 '{0}'입니다"
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "이 페이지의 작업속도는 '%(workflow_name)s'입니다"
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "이 작업흐름을 같은 페이지에 여러번 할당시킬 수 없습니다."
@@ -259,12 +254,12 @@ msgid "1 page selected"
 msgstr "1 페이지가 선댁툄"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} 페이지가 선택됨"
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s 페이지가 선택됨"
 
 #, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "이 화면의 모든 {0}가 선택되었습니다."
+msgid "All %(objects)s pages on this screen selected"
+msgstr "이 화면의 모든 %(objects)s가 선택되었습니다."
 
 msgid "All pages in listing selected"
 msgstr "목록안에 모든 페이지가 선택됨"
@@ -273,12 +268,12 @@ msgid "1 document selected"
 msgstr "문서 1이 선택됨"
 
 #, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} 문서가 선택됨"
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s 문서가 선택됨"
 
 #, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "이 화면 안에 모든 {0}가 선택됨"
+msgid "All %(objects)s documents on this screen selected"
+msgstr "이 화면 안에 모든 %(objects)s가 선택됨"
 
 msgid "All documents in listing selected"
 msgstr "목록안에 모든 문서가 선택됨"
@@ -287,12 +282,12 @@ msgid "1 image selected"
 msgstr "이미지 1이 선택됨"
 
 #, python-brace-format
-msgid "{0} images selected"
-msgstr "{0} 이미지가 선택됨"
+msgid "%(objects)s images selected"
+msgstr "%(objects)s 이미지가 선택됨"
 
 #, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "이 화면의 모든 {0} 이미지가 선택됨"
+msgid "All %(objects)s images on this screen selected"
+msgstr "이 화면의 모든 %(objects)s 이미지가 선택됨"
 
 msgid "All images in listing selected"
 msgstr "목록안의 모든 이미지가 선택됨"
@@ -301,12 +296,12 @@ msgid "1 user selected"
 msgstr "유저 1이 선택됨"
 
 #, python-brace-format
-msgid "{0} users selected"
-msgstr "유저{0}이 선택됨"
+msgid "%(objects)s users selected"
+msgstr "유저%(objects)s이 선택됨"
 
 #, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "이 화면 안의 모든 {0} 유저가 선택됨"
+msgid "All %(objects)s users on this screen selected"
+msgstr "이 화면 안의 모든 %(objects)s 유저가 선택됨"
 
 msgid "All users in listing selected"
 msgstr "목록 안의 모든 유저가 선택됨"
@@ -315,12 +310,12 @@ msgid "1 item selected"
 msgstr "물건 1이 선택됨"
 
 #, python-brace-format
-msgid "{0} items selected"
-msgstr "물건 {0} 이 선택됨"
+msgid "%(objects)s items selected"
+msgstr "물건 %(objects)s 이 선택됨"
 
 #, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "이 화면 안의 모든 {0} 물건이 선택됨"
+msgid "All %(objects)s items on this screen selected"
+msgstr "이 화면 안의 모든 %(objects)s 물건이 선택됨"
 
 msgid "All items in listing selected"
 msgstr "목록 안의 모든 물건이 선택됨"
@@ -382,8 +377,7 @@ msgstr "잘못된 비밀번호 변경 링크"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used."
-msgstr ""
-"해당 비밀번호 초기화 링크는 유효하지 않으며 이미 사용된 링크일 수 있습니다."
+msgstr "해당 비밀번호 초기화 링크는 유효하지 않으며 이미 사용된 링크일 수 있습니다."
 
 msgid "Request a new password reset"
 msgstr "새로운 비밀번호 초기화 요청"
@@ -394,9 +388,7 @@ msgstr "이메일을 확인하여 주세요"
 msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
-msgstr ""
-"해당 주소에 대응되는 계정이 있다면 비밀번호 초기화를 위한 링크가 이메일로 전"
-"송되었습니다."
+msgstr "해당 주소에 대응되는 계정이 있다면 비밀번호 초기화를 위한 링크가 이메일로 전송되었습니다."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "패스워드를 재설정하려면 아래의 링크를 따라가 주세요."
@@ -465,28 +457,26 @@ msgstr "페이지 선택"
 
 #, python-format
 msgid ""
-"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
-"will exclude pages of other types."
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results"
+" will exclude pages of other types."
 msgid_plural ""
-"Only the following page types may be chosen for this field: %(type)s. Search "
-"results will exclude pages of other types."
-msgstr[0] ""
-"다음의 페이지 항목만이 이 영역에 선택될 겁니다: %(type)s. 다른 종류의 페이지"
-"는 검색결과에서 제외됩니다."
+"Only the following page types may be chosen for this field: %(type)s. Search"
+" results will exclude pages of other types."
+msgstr[0] "다음의 페이지 항목만이 이 영역에 선택될 겁니다: %(type)s. 다른 종류의 페이지는 검색결과에서 제외됩니다."
 
 msgid "Convert to internal link"
 msgstr "내부 연결로 변경"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"당신이 입력한 URL, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>,은 URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>을 소유한 내부 "
+"당신이 입력한 URL, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>,은 URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>을 소유한 내부 "
 "페이지%(page)s,와 연결되는 것 같습니다."
 
 msgid "Use external link"
@@ -554,11 +544,11 @@ msgstr "이름"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하"
-"나 생성</a>해 보는 것은 어떠신가요?"
+"생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하나 생성</a>해 보는 것은 "
+"어떠신가요?"
 
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다"
@@ -663,8 +653,8 @@ msgid_plural ""
 "<span>%(total)s</span> Pages <span class=\"visuallyhidden\">created in "
 "%(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span>페이지는 <span class=\"visuallyhidden\">%(site_name)s</"
-"span>안에 생성되었습니다."
+"<span>%(total)s</span>페이지는 <span "
+"class=\"visuallyhidden\">%(site_name)s</span>안에 생성되었습니다."
 
 msgid "Your pages in a workflow"
 msgstr "작업 속의 당신의 페이지"
@@ -750,8 +740,7 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "페이지 \"%(title)s\"는 조정단계인 \"%(task)s\"에 승인되었습니다."
 
 #, python-format
@@ -759,8 +748,7 @@ msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "페이지 \"%(title)s\"는 \"%(task)s\"에 승인되었습니다."
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "페이지\"%(title)s\"는 조정단계인 \"%(task)s\"에 거절당했습니다."
 
 #, python-format
@@ -771,25 +759,19 @@ msgstr "페이지\"%(title)s\"는 \"%(task)s\"동안 거절당했습니다."
 msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
-msgstr ""
-"페이지\"%(title)s\"는 승인을 받기 위해 조정단계 \"%(task)s\"안에 제출되었습니"
-"다."
+msgstr "페이지\"%(title)s\"는 승인을 받기 위해 조정단계 \"%(task)s\"안에 제출되었습니다."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
-msgstr ""
-"페이지\"%(title)s\"는 승인을 받기 위해 조정단계 \"%(task)s\"에 제출되었습니"
-"다. "
+msgstr "페이지\"%(title)s\"는 승인을 받기 위해 조정단계 \"%(task)s\"에 제출되었습니다. "
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\""
-msgstr ""
-"페이지\"%(title)s\"는 승인을 받기 위해 조정단계 \"%(task)s\"안에 제출되었습니"
-"다."
+msgstr "페이지\"%(title)s\"는 승인을 받기 위해 조정단계 \"%(task)s\"안에 제출되었습니다."
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -839,16 +821,14 @@ msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
 msgstr ""
-"페이지\"%(title)s\"는 기간\"%(task)s\"동안 워크플로우\"%(workflow)s\"에서 "
-"%(rejector)s에 의해 거절됐습니다."
+"페이지\"%(title)s\"는 기간\"%(task)s\"동안 워크플로우\"%(workflow)s\"에서 %(rejector)s에 의해 "
+"거절됐습니다."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\"."
-msgstr ""
-"페이지\"%(title)s\"는 기간\"%(task)s\"동안 워크플로우\"%(workflow)s\"에서 거"
-"절됐습니다."
+msgstr "페이지\"%(title)s\"는 기간\"%(task)s\"동안 워크플로우\"%(workflow)s\"에서 거절됐습니다."
 
 #, python-format
 msgid "The following comment was left: \"%(comment)s\""
@@ -862,17 +842,13 @@ msgstr "페이지\"%(title)s\"는 기간\"%(workflow)s\"동안 거절됐습니�
 msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\" by %(requester)s."
-msgstr ""
-"페이지 \"%(title)s\" 변경을 위해 워크플로우 \"%(workflow)s\"에 %(requester)s"
-"의해 제출되었습니다."
+msgstr "페이지 \"%(title)s\" 변경을 위해 워크플로우 \"%(workflow)s\"에 %(requester)s의해 제출되었습니다."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
-msgstr ""
-"페이지 \"%(title)s\" 변경을 위해 워크플로우 \"%(workflow)s\"로 제출되었습니"
-"다."
+msgstr "페이지 \"%(title)s\" 변경을 위해 워크플로우 \"%(workflow)s\"로 제출되었습니다."
 
 #, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
@@ -891,8 +867,7 @@ msgid "You have <span>unsaved comments</span>"
 msgstr "당신은 <span>댓글을 저장하지 않았습니다</span>"
 
 msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"당신은 <span>수정사항</span>과 <span>댓글</span>을 저장하지 않았습니다."
+msgstr "당신은 <span>수정사항</span>과 <span>댓글</span>을 저장하지 않았습니다."
 
 msgid "Save the page before leaving"
 msgstr "떠나기 전에 페이지를 저장하십시오"
@@ -1068,9 +1043,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"다른 방법으로서 페이지의 <a href=\"%(unpublish_url)s\">게시를 해제</a>하는 것"
-"도 가능합니다. 다른 사람들의 시점에서는 페이지가 제거된 것처럼 보이며 나중에 "
-"페이지를 수정하거나 다시 게시할 수 있습니다."
+"다른 방법으로서 페이지의 <a href=\"%(unpublish_url)s\">게시를 해제</a>하는 것도 가능합니다. 다른 사람들의 "
+"시점에서는 페이지가 제거된 것처럼 보이며 나중에 페이지를 수정하거나 다시 게시할 수 있습니다."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1096,9 +1070,7 @@ msgstr "이 페이지의 게시를 해제하시겠습니까?"
 msgid "This page has one subpage. Unpublish this too"
 msgid_plural ""
 "This page has %(live_descendant_count)s subpages. Unpublish these too"
-msgstr[0] ""
-"이 페이지는 %(live_descendant_count)s 서브 페이지를 소유합니다. 이것도 게시 "
-"취소하십시오."
+msgstr[0] "이 페이지는 %(live_descendant_count)s 서브 페이지를 소유합니다. 이것도 게시 취소하십시오."
 
 msgid "Publish page"
 msgstr "페이지를 게시하세요."
@@ -1108,16 +1080,15 @@ msgid ""
 "This page was marked as needing changes at <strong>%(task)s</strong> in "
 "<strong>%(workflow)s</strong>."
 msgstr ""
-"이 페이지는 <strong>%(workflow)s</strong>안의 <strong>%(task)s</strong>에서 "
-"변경을 필요로 합니다."
+"이 페이지는 <strong>%(workflow)s</strong>안의 <strong>%(task)s</strong>에서 변경을 필요로 "
+"합니다."
 
 #, python-format
 msgid ""
-"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
-"strong>."
+"This page is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
-"이 페이지는 현재 <strong>%(workflow)s</strong>안의 <strong>%(task)s</strong>"
-"에 있습니다."
+"이 페이지는 현재 <strong>%(workflow)s</strong>안의 <strong>%(task)s</strong>에 있습니다."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "이 페이지를 게시하는 것은 작업을 중지시킬 것입니다."
@@ -1211,8 +1182,8 @@ msgid ""
 "Pages created here will not be accessible at any URL until they are "
 "associated with a site."
 msgstr ""
-"루트 레벨은 웨그테일에 새로운 사이트를 추가하는 곳입니다. 여기에 생성된 페이"
-"지들은 사이트에 연동되지 않으면 어떤 URL로도 접근할 수 없습니다."
+"루트 레벨은 웨그테일에 새로운 사이트를 추가하는 곳입니다. 여기에 생성된 페이지들은 사이트에 연동되지 않으면 어떤 URL로도 접근할 수 "
+"없습니다."
 
 msgid "Configure a site now."
 msgstr "지금 사이트를 설정하세요."
@@ -1220,30 +1191,25 @@ msgstr "지금 사이트를 설정하세요."
 msgid ""
 "If you just want to add pages to an existing site, create them as children "
 "of the homepage instead."
-msgstr ""
-"존 사이트에 페이지를 추가하고 싶다면 대신 홈페이지의 하위 페이지로 생성해 주"
-"세요."
+msgstr "존 사이트에 페이지를 추가하고 싶다면 대신 홈페이지의 하위 페이지로 생성해 주세요."
 
 msgid ""
 "Pages created here will not be accessible at any URL. To add pages to an "
 "existing site, create them as children of the homepage."
 msgstr ""
-"여기에 생성된 페이지들은 어떤 URL로도 접근할 수 없습니다. 기존 사이트에 페이"
-"지를 추가하려면 홈페이지의 하위 페이지로 생성해 주세요."
+"여기에 생성된 페이지들은 어떤 URL로도 접근할 수 없습니다. 기존 사이트에 페이지를 추가하려면 홈페이지의 하위 페이지로 생성해 주세요."
 
 msgid ""
 "There is no site set up for this location. Pages created here will not be "
 "accessible at any URL until a site is associated with this location."
 msgstr ""
-"이 위치로 설정된 사이트가 없습니다. 여기에 생성되는 페이지들은 사이트와 이 위"
-"치가 연동되지 않는 한 어떤 URL로도 접근할 수 없습니다."
+"이 위치로 설정된 사이트가 없습니다. 여기에 생성되는 페이지들은 사이트와 이 위치가 연동되지 않는 한 어떤 URL로도 접근할 수 "
+"없습니다."
 
 msgid ""
 "There is no site record for this location. Pages created here will not be "
 "accessible at any URL."
-msgstr ""
-"이 위치에 대한 사이트 항목이 없습니다. 여기에 생성되는 페이지들은 어떤 URL로"
-"도 접근할 수 없습니다."
+msgstr "이 위치에 대한 사이트 항목이 없습니다. 여기에 생성되는 페이지들은 어떤 URL로도 접근할 수 없습니다."
 
 msgid "No pages have been created at this location."
 msgstr "해당 위치에 생성된 페이지가 없습니다."
@@ -1602,13 +1568,13 @@ msgstr "에러 갯수:"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
-"Wagtail을 사용하려면 JavaScript가 필요하지만 현재 사용할 수 없습니다. <br />"
-"다음은 웹 브라우저에서 J<a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">avaScript를 활성화하는 방법입니다</a>."
+"Wagtail을 사용하려면 JavaScript가 필요하지만 현재 사용할 수 없습니다. <br />다음은 웹 브라우저에서 J<a "
+"href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noreferrer\">avaScript를 활성화하는 방법입니다</a>."
 
 msgid "Skip to main content"
 msgstr "메인 컨텐츠로 이동"
@@ -1628,9 +1594,8 @@ msgid ""
 "pages. Deleting this workflow will cancel moderation on these page. Are you "
 "sure you want to delete this workflow?"
 msgstr ""
-"이 워크플로는 현재 %(workflow_states_in_progress)s페이지에서 진행 중입니다. "
-"이 워크플로를 삭제하면 이 페이지에서 조정이 취소됩니다. 이 워크플로를 삭제하"
-"시겠습니까?"
+"이 워크플로는 현재 %(workflow_states_in_progress)s페이지에서 진행 중입니다. 이 워크플로를 삭제하면 이 "
+"페이지에서 조정이 취소됩니다. 이 워크플로를 삭제하시겠습니까?"
 
 msgid "No"
 msgstr "아니오"
@@ -1656,12 +1621,12 @@ msgstr "생성"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
-"워크플로우는 하위 페이지에도 적용됩니다. 여기서 상위 페이지를 선택하면 하위 "
-"페이지도 이 워크플로우를 사용합니다. 워크플로가 적용되는 <a href="
-"\"%(workflow_pages_url)s\">페이지 목록</a>을 확인하십시오."
+"워크플로우는 하위 페이지에도 적용됩니다. 여기서 상위 페이지를 선택하면 하위 페이지도 이 워크플로우를 사용합니다. 워크플로가 적용되는 "
+"<a href=\"%(workflow_pages_url)s\">페이지 목록</a>을 확인하십시오."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "이 워크플로우는 불가하기에 다른 페이지에 할당될 수 없음"
@@ -1704,16 +1669,12 @@ msgstr[0] "%(counter)s 추가"
 #, python-format
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
-msgstr ""
-"생성된 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>하"
-"시는 건 어떤가요?"
+msgstr "생성된 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>하시는 건 어떤가요?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
-msgstr ""
-"불가한 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>해"
-"보시는 건 어떤가요?"
+msgstr "불가한 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>해보시는 건 어떤가요?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "어떤 종류의 작업을 생성할 것인지 고르시오."
@@ -1738,8 +1699,7 @@ msgstr "사용됨"
 
 #, python-format
 msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
-msgstr ""
-"죄송합니다. 어떠한 작업도 \"<em>%(query_string)s</em>\"과 관련되지 않습니다."
+msgstr "죄송합니다. 어떠한 작업도 \"<em>%(query_string)s</em>\"과 관련되지 않습니다."
 
 msgid "You haven't created any tasks."
 msgstr "당신은 어떤 작업도 생성한 적 없음"
@@ -1751,18 +1711,12 @@ msgid "Show disabled tasks"
 msgstr "불가한 작업 표시"
 
 #, python-format
-msgid ""
-"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
-msgstr ""
-"생성된 작업이 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>하시는 "
-"건 어떤가요?"
+msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr "생성된 작업이 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>하시는 건 어떤가요?"
 
 #, python-format
-msgid ""
-"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
-msgstr ""
-"불가한 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>해"
-"보시는 건 어떤가요?"
+msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr "불가한 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>해보시는 건 어떤가요?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -1801,17 +1755,13 @@ msgstr "라이브 버전과 비교"
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
 "ascending order."
-msgstr ""
-"'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 오름차순으로 정"
-"렬합니다."
+msgstr "'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 오름차순으로 정렬합니다."
 
 #, python-format
 msgid ""
 "Sort the order of child pages within '%(parent)s' by '%(label)s' in "
 "descending order."
-msgstr ""
-"'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 내림차순으로 정"
-"렬합니다."
+msgstr "'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 내림차순으로 정렬합니다."
 
 msgid "More"
 msgstr "더 보기"
@@ -1875,12 +1825,12 @@ msgid "Add collection"
 msgstr "모음 추가"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "'{0}' 모음이 생성됨."
+msgid "Collection '%(object)s' created."
+msgstr "'%(object)s' 모음이 생성됨."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "'{0}' 모음이 수정됨."
+msgid "Collection '%(object)s' updated."
+msgstr "'%(object)s' 모음이 수정됨."
 
 msgid "The collection could not be saved due to errors."
 msgstr "이 모음은 오류로 인해 저장하지 못했습니다."
@@ -1889,8 +1839,8 @@ msgid "Delete collection"
 msgstr "모음 삭제"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "'{0}' 모음이 삭제됨."
+msgid "Collection '%(object)s' deleted."
+msgstr "'%(object)s' 모음이 삭제됨."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "이 모음을 지우려는 것이 확실한가요?"
@@ -1927,10 +1877,9 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 삭제됨"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" deleted"
+msgstr[0] "%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 삭제됨"
 
 msgid "Select a new parent page"
 msgstr "새로운 근원 페이지를 선택하시오"
@@ -1951,7 +1900,8 @@ msgstr "1 페이지가 게시됨"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] "1 페이지와 %(num_child_objects)d 파생 페이지가 게시됨"
 
 #, python-format
@@ -1963,10 +1913,9 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "published"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 게시됨"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" published"
+msgstr[0] "%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 게시됨"
 
 msgid "Unpublish selected pages"
 msgstr "선택 페이지를 게시 안 함"
@@ -1989,22 +1938,21 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "unpublished"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 게시취소됨"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" unpublished"
+msgstr[0] "%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 게시취소됨"
 
 #, python-brace-format
-msgid "Page '{0}' has been converted into an ordinary page."
-msgstr "페이지'{0}'가 원래의 페이지로 변경되었습니다."
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "페이지'%(page_title)s'가 원래의 페이지로 변경되었습니다."
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "'%(page_title)s' 페이지 그리고 %(subpages_count)s 개의 하위페이지가 복사되었습니다"
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "'{0}' 페이지가 복사 되었습니다"
+msgid "Page '%(page_title)s' copied."
+msgstr "'%(page_title)s' 페이지가 복사 되었습니다"
 
 msgid "View draft"
 msgstr "임시저장 보기"
@@ -2013,70 +1961,78 @@ msgid "View live"
 msgstr "라이브 보기"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "'{0}' 페이지가 생성되었습니다"
+msgid "Page '%(page_title)s' created."
+msgstr "'%(page_title)s' 페이지가 생성되었습니다"
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "'{0}' 페이지가 생성되었고 게시하도록 예약되었습니다."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "'%(page_title)s' 페이지가 생성되었고 게시하도록 예약되었습니다."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
+msgid "Page '%(page_title)s' created and published."
+msgstr "'%(page_title)s' 페이지가 생성 및 게시되었습니다"
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "'%(page_title)s' 페이지가 생성되고 검토에 의해 제출되었습니다"
 
 msgid "The page could not be created due to validation errors"
 msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "'{0}' 페이지가 삭제되었습니다"
+msgid "Page '%(page_title)s' deleted."
+msgstr "'%(page_title)s' 페이지가 삭제되었습니다"
 
 msgid "This page is currently awaiting moderation"
 msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
 #, python-brace-format
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "'{0}' 페이지는 {1}로부터의 수정안으로 대체되었습니다."
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"'%(page_title)s' 페이지는 %(previous_revision_datetime)s로부터의 수정안으로 대체되었습니다."
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "'{0}' 페이지가 수정되었습니다."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "'%(page_title)s' 페이지가 수정되었습니다."
 
 #, python-brace-format
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "'{0}'페이지에 워크플로우가 취소됨"
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "'%(page_title)s'페이지에 워크플로우가 취소됨"
 
 #, python-brace-format
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr "'{1}' 페이지의 {0}로부터의 버전을 게시하도록 예약했습니다."
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"'%(page_title)s' 페이지의 %(previous_revision_datetime)s로부터의 버전을 게시하도록 예약했습니다."
 
 #, python-brace-format
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
-msgstr "페이지 '{0}'가 활성 상태이며 이 버전이 게시되도록 예약되었습니다."
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "페이지 '%(page_title)s'가 활성 상태이며 이 버전이 게시되도록 예약되었습니다."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "'{0}' 페이지를 게시하도록 예약했습니다."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "'%(page_title)s' 페이지를 게시하도록 예약했습니다."
 
 #, python-brace-format
-msgid "Version from {0} of page '{1}' has been published."
-msgstr "페이지'{1}'의 {0}버전이 게시되었습니다."
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "페이지'%(page_title)s'의 %(datetime)s버전이 게시되었습니다."
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "'{0}' 페이지가 게시되었습니다."
+msgid "Page '%(page_title)s' has been published."
+msgstr "'%(page_title)s' 페이지가 게시되었습니다."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "'{0}' 페이지를 검토할 수 있도록 제출했습니다."
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "'%(page_title)s' 페이지를 검토할 수 있도록 제출했습니다."
 
 #, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "'{0}'페이지에 워크플로우가 재시작됨"
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "'%(page_title)s'페이지에 워크플로우가 재시작됨"
 
 msgid "The page could not be saved as it is locked"
 msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
@@ -2091,38 +2047,36 @@ msgid "Page history"
 msgstr "페이지 히스토리"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "'{0}' 페이지의 잠금을 풀었습니다."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "'%(page_title)s' 페이지의 잠금을 풀었습니다."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "'%(page_title)s' 페이지는 현재 검토를 기다리고 있지 않습니다"
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "'{0}' 페이지가 게시되었습니다"
+msgid "Page '%(page_title)s' published."
+msgstr "'%(page_title)s' 페이지가 게시되었습니다"
 
 msgid "Failed to send approval notifications"
 msgstr "승인 알림 보내기 실패"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "'{0}' 페이지는 게시가 거절되었습니다"
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "'%(page_title)s' 페이지는 게시가 거절되었습니다"
 
 msgid "Failed to send rejection notifications"
 msgstr "거절 알림 보내기 실패"
 
 #, python-brace-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"'{0}' 슬러그는 이미 선택된 상위 페이지가 사용중입니다. 슬러그가 유일한지 확"
-"인 후 다시 시도하십시오"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
+" sure the slug is unique and try again"
+msgstr "'%(page_slug)s' 슬러그는 이미 선택된 상위 페이지가 사용중입니다. 슬러그가 유일한지 확인 후 다시 시도하십시오"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "'{0}' 페이지가 이동하였습니다"
+msgid "Page '%(page_title)s' moved."
+msgstr "'%(page_title)s' 페이지가 이동하였습니다"
 
 #, python-format
 msgid ""
@@ -2131,12 +2085,14 @@ msgid ""
 msgstr "당신은 <b>%(created_at)s</b>의 이전 버전을 %(user)s에서 보고 있습니다."
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
+msgid "Page '%(page_title)s' unpublished."
+msgstr "'%(page_title)s' 페이지의 게시가 해제 되었습니다"
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "'{0}' 페이지는 현재 적업'{1}'에서 검토를 기다리고 있습니다"
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr "'%(page_title)s' 페이지는 현재 적업'%(task_name)s'에서 검토를 기다리고 있습니다"
 
 msgid "Last published before"
 msgstr "이전에 마지막으로 게시된"
@@ -2193,15 +2149,15 @@ msgid "New workflow"
 msgstr "새로운 워크플로우"
 
 #, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "워크플로우 '{0}' 생성됨"
+msgid "Workflow '%(object)s' created."
+msgstr "워크플로우 '%(object)s' 생성됨"
 
 msgid "Editing workflow"
 msgstr "워크플로우 수정중"
 
 #, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "워크플로우 '{0}' 생성됨"
+msgid "Workflow '%(object)s' updated."
+msgstr "워크플로우 '%(object)s' 생성됨"
 
 msgid "Disable"
 msgstr "불가한"
@@ -2213,41 +2169,41 @@ msgid "Disable workflow"
 msgstr "불가한 워크플로우"
 
 #, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "워크플로우 '{0}' 불가"
+msgid "Workflow '%(object)s' disabled."
+msgstr "워크플로우 '%(object)s' 불가"
 
 #, python-format
 msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
+" workflow will cancel moderation on these pages."
 msgstr[0] ""
-"이 워크플로우는 %(states_in_progress)d페이지에서 진행중입니다. 이 워크플로우"
-"를 사용하지 않도록 설정하면 이 페이지에서 조정이 취소됩니다."
+"이 워크플로우는 %(states_in_progress)d페이지에서 진행중입니다. 이 워크플로우를 사용하지 않도록 설정하면 이 페이지에서 "
+"조정이 취소됩니다."
 
 #, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "워크플로우 '{0}' 불가"
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "워크플로우 '%(workflow_name)s' 불가"
 
 #, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "워크플로우가 페이지 '{0}'에서 제거됨"
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "워크플로우가 페이지 '%(page_title)s'에서 제거됨"
 
 msgid "New workflow task"
 msgstr "새로운 워크플로우 작업"
 
 #, python-brace-format
-msgid "Task '{0}' created."
-msgstr "작업 '{0}' 생성됨"
+msgid "Task '%(object)s' created."
+msgstr "작업 '%(object)s' 생성됨"
 
 msgid "Editing workflow task"
 msgstr "워크플로우 작업 생성"
 
 #, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "작업 '{0}' 생성됨"
+msgid "Task '%(object)s' updated."
+msgstr "작업 '%(object)s' 생성됨"
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2257,26 +2213,25 @@ msgid "Disable task"
 msgstr "불가한 작업"
 
 #, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "작업 '{0}' 불가"
+msgid "Task '%(object)s' disabled."
+msgstr "작업 '%(object)s' 불가"
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page. Disabling this task"
+" will cause it to be skipped in the moderation workflow and not be listed "
+"for selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
 "task will cause it to be skipped in the moderation workflow and not be "
 "listed for selection when editing a workflow."
 msgstr[0] ""
-"이 작업은 %(states_in_progress)d페이지에서 진행중입니다. 이 작업을 그만두는 "
-"것은 일반 워크플로우로 이동시킬 것이고 워크플로우를 수정할 때 목록에 선택되"
-"지 않습니다. "
+"이 작업은 %(states_in_progress)d페이지에서 진행중입니다. 이 작업을 그만두는 것은 일반 워크플로우로 이동시킬 것이고 "
+"워크플로우를 수정할 때 목록에 선택되지 않습니다. "
 
 #, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "작업 '{0}' 불가"
+msgid "Task '%(task_name)s' enabled."
+msgstr "작업 '%(task_name)s' 불가"
 
 msgid "Pages"
 msgstr "페이지"

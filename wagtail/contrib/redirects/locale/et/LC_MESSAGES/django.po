@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
-"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
-"et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/et/)\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail redirects"
@@ -137,12 +136,12 @@ msgstr "Kokkuvõte"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+"Found %(total)s redirects, created %(successes)s and found %(errors)s "
+"errors."
 msgstr ""
 " \n"
 " \n"
-"Leitud %(total)s ümbersuunamist, loodud %(successes)s ja leitud %(errors)s "
-"viga."
+"Leitud %(total)s ümbersuunamist, loodud %(successes)s ja leitud %(errors)s viga."
 
 msgid "From"
 msgstr "Alates"
@@ -164,23 +163,22 @@ msgstr "Muutke seda ümbersuunamist"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Vabandust, ühtegi ümbersuunamist ei leitud \"<em>%(query_string)s</em>\\"
+msgstr "Vabandust, ühtegi ümbersuunamist ei leitud \"<em>%(query_string)s</em>\\"
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Ümbersuunamisi pole loodud. Miks mitte <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
+"Ümbersuunamisi pole loodud. Miks mitte <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">lisada üks</a>?"
 
 msgid "Search redirects"
 msgstr "Otsingu ümbersuunamised"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "Ümbersuunamine „{0}” on värskendatud."
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Ümbersuunamine „%(redirect_title)s” on värskendatud."
 
 msgid "Edit"
 msgstr "Muuda"
@@ -189,22 +187,22 @@ msgid "The redirect could not be saved due to errors."
 msgstr "Ümbersuunamist ei õnnestunud vigade tõttu salvestada."
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "Ümbersuunamine '{0}' on kustutatud."
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Ümbersuunamine '%(redirect_title)s' on kustutatud."
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "Ümbersuunamine'{0}' on lisatud."
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Ümbersuunamine'%(redirect_title)s' on lisatud."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Ümbersuunamist ei saanud vigade tõttu luua."
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "Failiformaat \"{}\" ei ole toetatud"
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Failiformaat \"%(extension)s\" ei ole toetatud"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "Imporditud failil on vale kodeering: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Imporditud failil on vale kodeering: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"

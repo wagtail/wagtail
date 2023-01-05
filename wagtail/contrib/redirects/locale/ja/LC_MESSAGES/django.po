@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
-"ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail redirects"
@@ -68,9 +67,7 @@ msgstr "恒久"
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
-msgstr ""
-"推奨：恒久的リダイレクトによりサーチエンジンから古いページが削除され、新しい"
-"ページを読み込むようになります。"
+msgstr "推奨：恒久的リダイレクトによりサーチエンジンから古いページが削除され、新しいページを読み込むようになります。"
 
 msgid "redirect to a page"
 msgstr "ページにリダイレクト"
@@ -142,10 +139,9 @@ msgstr "概要"
 
 #, python-format
 msgid ""
-"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
-msgstr ""
-"%(total)s件のリダイレクトを検出しました。作成は %(successes)s件でエラー"
-"は%(errors)s件です。"
+"Found %(total)s redirects, created %(successes)s and found %(errors)s "
+"errors."
+msgstr "%(total)s件のリダイレクトを検出しました。作成は %(successes)s件でエラーは%(errors)s件です。"
 
 msgid "From"
 msgstr "リダイレクト元"
@@ -171,18 +167,18 @@ msgstr "<em>%(query_string)s</em>に一致するリダイレクトはありま�
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"リダイレクトはありません。 <a href=\"%(wagtailredirects_add_redirect_url)s\">"
-"新しく作成</a>しますか？"
+"リダイレクトはありません。 <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">新しく作成</a>しますか？"
 
 msgid "Search redirects"
 msgstr "リダイレクトを検索"
 
 #, python-brace-format
-msgid "Redirect '{0}' updated."
-msgstr "リダイレクト：'{0}'が更新されました。"
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "リダイレクト：'%(redirect_title)s'が更新されました。"
 
 msgid "Edit"
 msgstr "編集"
@@ -191,22 +187,22 @@ msgid "The redirect could not be saved due to errors."
 msgstr "リダイレクトはエラーにより保存されませんでした。"
 
 #, python-brace-format
-msgid "Redirect '{0}' deleted."
-msgstr "リダイレクト： '{0}'が削除されました。"
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "リダイレクト： '%(redirect_title)s'が削除されました。"
 
 #, python-brace-format
-msgid "Redirect '{0}' added."
-msgstr "リダイレクト： '{0}'が追加されました。"
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "リダイレクト： '%(redirect_title)s'が追加されました。"
 
 msgid "The redirect could not be created due to errors."
 msgstr "リダイレクトはエラーにより作成されませんでした。"
 
-msgid "File format of type \"{}\" is not supported"
-msgstr "\"{}\" のファイルフォーマットはサポートしていません"
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "\"%(extension)s\" のファイルフォーマットはサポートしていません"
 
 #, python-format
-msgid "Imported file has a wrong encoding: %s"
-msgstr "不正なエンコーディングをもつインポートファイル: %s"
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "不正なエンコーディングをもつインポートファイル: %(error_message)s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"

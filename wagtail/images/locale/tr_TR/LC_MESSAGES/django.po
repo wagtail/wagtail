@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
-"Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
-"language/tr_TR/)\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/language/tr_TR/)\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail images"
@@ -41,24 +40,32 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Desteklenen biçimler: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Desteklenen bir resim formatı değil. Desteklenen biçimler: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Desteklenen bir resim formatı değil. Desteklenen biçimler: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Geçerli bir %s resmi değil."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Dosya çok büyük (%%s). Azami dosya boyutu %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "Dosya çok büyük (%(file_size)s). Azami dosya boyutu %(max_filesize)s."
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "Dosyada çok fazla piksel var (%%s). Azami piksel %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Dosyada çok fazla piksel var (%(num_pixels)s). Azami piksel "
+"%(max_pixels_count)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Dosya çok büyük. Azami dosya boyutu %s."
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Dosya çok büyük. Azami dosya boyutu %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Tam genişlik"
@@ -242,16 +249,16 @@ msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen resim yok"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Bu koleksiyona resim yüklemediniz. Neden <a href="
-"\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
+"Bu koleksiyona resim yüklemediniz. Neden <a "
+"href=\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "Resim yüklemediniz. Neden <a href=\"%(wagtailimages_add_image_url)s\">şimdi "
 "bir tane yüklemiyorsunuz</a>?"
@@ -342,8 +349,8 @@ msgid "Search images"
 msgstr "Resimlerde ara"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Resim '{0}' güncellendi."
+msgid "Image '%(image_title)s' updated."
+msgstr "Resim '%(image_title)s' güncellendi."
 
 msgid "Edit again"
 msgstr "Tekrar düzenle"
@@ -352,26 +359,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Hata oluştuğu için resim kaydedilemedi."
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Kaynak resim dosyası bulunamadı. Lütfen ya kaynağı değiştirin ya da resmi "
 "silin."
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Resim '{0}' silindi."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Resim '%(image_title)s' silindi."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Resim '{0}' eklendi."
+msgid "Image '%(image_title)s' added."
+msgstr "Resim '%(image_title)s' eklendi."
 
 msgid "The image could not be created due to errors."
 msgstr "Hata oluştuğu için resim oluşturulamadı."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%s düzenle"
+msgid "Edit this %(object)s"
+msgstr "%(object)s düzenle"
 
 msgid "Image"
 msgstr "Resim"

@@ -14,60 +14,58 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2016-05-11 20:22+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
-"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
-"ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Parent page"
 msgstr "صفحة الأم"
 
 #, python-format
-msgid "Add %s"
-msgstr "اضف %s"
+msgid "Add %(object)s"
+msgstr "اضف %(object)s"
 
 #, python-format
-msgid "Add a new %s"
-msgstr "اضف جديد %s"
+msgid "Add a new %(object)s"
+msgstr "اضف جديد %(object)s"
 
 msgid "Inspect"
 msgstr "فحص"
 
 #, python-format
-msgid "Inspect this %s"
-msgstr "افحص %s"
+msgid "Inspect this %(object)s"
+msgstr "افحص %(object)s"
 
 msgid "Edit"
 msgstr "تعديل"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "عدل %s"
+msgid "Edit this %(object)s"
+msgstr "عدل %(object)s"
 
 msgid "Delete"
 msgstr "حذف"
 
 #, python-format
-msgid "Delete this %s"
-msgstr "حذف %s"
+msgid "Delete this %(object)s"
+msgstr "حذف %(object)s"
 
 msgid "Unpublish"
 msgstr "غير منشور"
 
 #, python-format
-msgid "Unpublish this %s"
-msgstr "عدم نشر %s"
+msgid "Unpublish this %(object)s"
+msgstr "عدم نشر %(object)s"
 
 msgid "Copy"
 msgstr "انسخ"
 
 #, python-format
-msgid "Copy this %s"
-msgstr "نسخ %s"
+msgid "Copy this %(object)s"
+msgstr "نسخ %(object)s"
 
 msgid "image"
 msgstr "صورة"
@@ -107,8 +105,8 @@ msgid ""
 "first remove references from the following objects, then try again:"
 msgstr ""
 "'%(instance_name)s' تتم الإشارة إليها حاليًا بواسطة كائنات أخرى ، ولا يمكن "
-"حذفها دون تعريض سلامة البيانات للخطر. لحذفها بنجاح ، قم أولاً بإزالة المراجع "
-"من الكائنات التالية ، ثم حاول مرة أخرى:"
+"حذفها دون تعريض سلامة البيانات للخطر. لحذفها بنجاح ، قم أولاً بإزالة المراجع"
+" من الكائنات التالية ، ثم حاول مرة أخرى:"
 
 msgid "Go back to listing"
 msgstr "العودة إلى القائمة"
@@ -168,57 +166,57 @@ msgid "Next"
 msgstr "التالي"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' created."
-msgstr "تم إنشاء '%(instance)s' '%(model_name)s'"
+msgid "%(model_name)s '%(object)s' created."
+msgstr "تم إنشاء '%(object)s' '%(model_name)s'"
 
 #, python-format
-msgid "The %s could not be created due to errors."
-msgstr "لا يمكن إنشاء %s بسبب أخطاء."
+msgid "The %(object)s could not be created due to errors."
+msgstr "لا يمكن إنشاء %(object)s بسبب أخطاء."
 
 msgid "New"
 msgstr "جديد"
 
 #, python-format
-msgid "Create new %s"
-msgstr "أنشئ %s جديد"
+msgid "Create new %(object)s"
+msgstr "أنشئ %(object)s جديد"
 
 msgid "Editing"
 msgstr "جاري التعديل"
 
 #, python-format
-msgid "Editing %s"
-msgstr "جاري التعديل %s"
+msgid "Editing %(object)s"
+msgstr "جاري التعديل %(object)s"
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' updated."
-msgstr "تم تحديث '%(instance)s' '%(model_name)s'."
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "تم تحديث '%(object)s' '%(model_name)s'."
 
 #, python-format
-msgid "The %s could not be saved due to errors."
-msgstr "لا يمكن حفظ %s بسبب الأخطاء."
+msgid "The %(object)s could not be saved due to errors."
+msgstr "لا يمكن حفظ %(object)s بسبب الأخطاء."
 
 #, python-format
-msgid "Confirm deletion of %s"
-msgstr "تأكيد حذف %s"
+msgid "Confirm deletion of %(object)s"
+msgstr "تأكيد حذف %(object)s"
 
 #, python-format
 msgid ""
-"Are you sure you want to delete this %s? If other things in your site are "
-"related to it, they may also be affected."
+"Are you sure you want to delete this %(object)s? If other things in your "
+"site are related to it, they may also be affected."
 msgstr ""
-"هل أنت متأكد أنك تريد حذف هذا %s؟ إذا كانت هناك أشياء أخرى في موقعك مرتبطة "
-"بها ، فقد تتأثر أيضًا."
+"هل أنت متأكد أنك تريد حذف هذا %(object)s؟ إذا كانت هناك أشياء أخرى في موقعك "
+"مرتبطة بها ، فقد تتأثر أيضًا."
 
 #, python-format
-msgid "%(model_name)s '%(instance)s' deleted."
-msgstr "تم حذف '%(instance)s' '%(model_name)s'."
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "تم حذف '%(object)s' '%(model_name)s'."
 
 msgid "Inspecting"
 msgstr "يتم الفحص"
 
 #, python-format
-msgid "Inspecting %s"
-msgstr "يتم فحص %s"
+msgid "Inspecting %(object)s"
+msgstr "يتم فحص %(object)s"
 
 msgid "Date"
 msgstr "تاريخ"

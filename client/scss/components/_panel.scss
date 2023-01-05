@@ -5,6 +5,15 @@ $header-gap: theme('spacing.1');
 
 .w-panel {
   margin-bottom: theme('spacing.10');
+
+  .content-locked &__content {
+    cursor: not-allowed;
+    user-select: none;
+
+    > * {
+      pointer-events: none;
+    }
+  }
 }
 
 .w-panel__header {
@@ -31,6 +40,10 @@ $header-gap: theme('spacing.1');
   text-overflow: ellipsis;
   cursor: pointer;
   padding-inline-end: theme('spacing.2');
+
+  label {
+    cursor: pointer;
+  }
 
   @include media-breakpoint-up(md) {
     padding-inline-end: theme('spacing.5');

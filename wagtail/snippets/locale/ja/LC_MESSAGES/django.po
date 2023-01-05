@@ -14,12 +14,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
-"ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -102,11 +101,11 @@ msgstr "スニペット"
 
 #, python-format
 msgid ""
-"No %(snippet_type_name_plural)s have been created. Why not <a href="
-"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+"No %(snippet_type_name_plural)s have been created. Why not <a "
+"href=\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"まだ%(snippet_type_name_plural)sは作成されていません。 <a href="
-"\"%(wagtailsnippets_create_url)s\">新しく追加</a>しますか？"
+"まだ%(snippet_type_name_plural)sは作成されていません。 <a "
+"href=\"%(wagtailsnippets_create_url)s\">新しく追加</a>しますか？"
 
 msgid "Live version"
 msgstr "ライブ版"
@@ -154,8 +153,8 @@ msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%sを編集"
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"
 
 msgid "Action"
 msgstr "アクション"
@@ -167,9 +166,9 @@ msgid "Date"
 msgstr "日付"
 
 #, python-format
-msgid "Choose %s"
-msgstr "%sを選択"
+msgid "Choose %(object)s"
+msgstr "%(object)sを選択"
 
 #, python-format
-msgid "Choose another %s"
-msgstr "別の%sを選択"
+msgid "Choose another %(object)s"
+msgstr "別の%(object)sを選択"

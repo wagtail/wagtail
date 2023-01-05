@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
-from wagtail.coreutils import resolve_model_string
+from wagtail.coreutils import get_dummy_request, resolve_model_string
 from wagtail.models import Locale, Page, Site, SiteRootPath
 from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
@@ -14,6 +14,12 @@ from wagtail.test.testapp.models import SimplePage
 
 class TestPageUrlTags(TestCase):
     fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        # Clear caches
+        cache.clear()
 
     def test_pageurl_tag(self):
         response = self.client.get("/events/")
@@ -24,7 +30,8 @@ class TestPageUrlTags(TestCase):
         tpl = template.Template(
             """{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>"""
         )
-        result = tpl.render(template.Context({"page": None}))
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": None}))
         self.assertIn('<a href="/fallback/">Fallback</a>', result)
 
     def test_pageurl_with_get_absolute_url_object_fallback(self):
@@ -81,11 +88,30 @@ class TestPageUrlTags(TestCase):
         )
 
         # no 'request' object in context
-        result = tpl.render(template.Context({"page": page}))
+        with self.assertNumQueries(7):
+            result = tpl.render(template.Context({"page": page}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
         # 'request' object in context, but no 'site' attribute
-        result = tpl.render(template.Context({"page": page, "request": HttpRequest()}))
+        result = tpl.render(
+            template.Context({"page": page, "request": get_dummy_request()})
+        )
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+    def test_pageurl_caches(self):
+        page = Page.objects.get(url_path="/home/events/")
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>"""
+        )
+
+        request = get_dummy_request()
+
+        with self.assertNumQueries(8):
+            result = tpl.render(template.Context({"page": page, "request": request}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
@@ -96,10 +122,10 @@ class TestPageUrlTags(TestCase):
         )
 
         # 'request' object in context, but site is None
-        request = HttpRequest()
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        request.META["SERVER_PORT"] = 80
-        result = tpl.render(template.Context({"page": page, "request": request}))
+        with self.assertNumQueries(8):
+            result = tpl.render(template.Context({"page": page, "request": request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     def test_bad_pageurl(self):
@@ -137,9 +163,7 @@ class TestPageUrlTags(TestCase):
         # the first site, but is in a different position in the treeself.
         new_christmas_page = Page(title="Christmas", slug="christmas")
         new_home_page.add_child(instance=new_christmas_page)
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = second_site.hostname
-        request.META["SERVER_PORT"] = second_site.port
+        request = get_dummy_request(site=second_site)
         url = slugurl(context=template.Context({"request": request}), slug="christmas")
         self.assertEqual(url, "/christmas/")
 
@@ -152,9 +176,7 @@ class TestPageUrlTags(TestCase):
         second_site = Site.objects.create(
             hostname="site2.example.com", root_page=new_home_page
         )
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = second_site.hostname
-        request.META["SERVER_PORT"] = second_site.port
+        request = get_dummy_request(site=second_site)
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug="christmas", context=template.Context({"request": request}))
@@ -166,26 +188,67 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, "/events/")
 
         # 'request' object in context, but no 'site' attribute
-        result = slugurl(template.Context({"request": HttpRequest()}), "events")
+        with self.assertNumQueries(3):
+            result = slugurl(
+                template.Context({"request": get_dummy_request()}), "events"
+            )
         self.assertEqual(result, "/events/")
 
     @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "unknown.example.com"])
     def test_slugurl_with_null_site_in_request(self):
         # 'request' object in context, but site is None
-        request = HttpRequest()
+        request = get_dummy_request()
         request.META["HTTP_HOST"] = "unknown.example.com"
-        request.META["SERVER_PORT"] = 80
         result = slugurl(template.Context({"request": request}), "events")
         self.assertEqual(result, "/events/")
+
+    def test_fullpageurl(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
+        )
+        page = Page.objects.get(url_path="/home/events/")
+        with self.assertNumQueries(7):
+            result = tpl.render(template.Context({"page": page}))
+        self.assertIn('<a href="http://localhost/events/">Events</a>', result)
+
+    def test_fullpageurl_with_named_url_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        with self.assertNumQueries(0):
+            result = tpl.render(template.Context({"page": None}))
+        self.assertIn('<a href="/fallback/">Fallback</a>', result)
+
+    def test_fullpageurl_with_absolute_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        with self.assertNumQueries(0):
+            result = tpl.render(
+                template.Context({"page": None, "request": get_dummy_request()})
+            )
+        self.assertIn('<a href="http://localhost/fallback/">Fallback</a>', result)
+
+    def test_fullpageurl_with_invalid_page(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% fullpageurl page %}">Events</a>"""
+        )
+        with self.assertRaises(ValueError):
+            tpl.render(template.Context({"page": 123}))
+
+    def test_pageurl_with_invalid_page(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page %}">Events</a>"""
+        )
+        with self.assertRaises(ValueError):
+            tpl.render(template.Context({"page": 123}))
 
 
 class TestWagtailSiteTag(TestCase):
     fixtures = ["test.json"]
 
     def test_wagtail_site_tag(self):
-        request = HttpRequest()
-        request.META["HTTP_HOST"] = "localhost"
-        request.META["SERVER_PORT"] = 80
+        request = get_dummy_request(site=Site.objects.first())
 
         tpl = template.Template(
             """{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}"""

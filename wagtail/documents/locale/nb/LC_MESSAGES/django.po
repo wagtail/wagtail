@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
-"language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail documents"
@@ -143,19 +142,19 @@ msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har ikke lastet opp noen dokumenter til denne samlingen. Hvorfor ikke <a "
 "href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a href="
-"\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a "
+"href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -184,9 +183,9 @@ msgid ""
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende "
-"tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen ikke "
-"var nødvendig."
+"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende"
+" tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen "
+"ikke var nødvendig."
 
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
@@ -219,27 +218,27 @@ msgid "Search documents"
 msgstr "Søk i dokumenter"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokumentet \"{0}\" er lagt til."
+msgid "Document '%(document_title)s' added."
+msgstr "Dokumentet \"%(document_title)s\" er lagt til."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunne ikke lagres grunnet feil."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokumentet \"{0}\" er oppdatert"
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumentet \"%(document_title)s\" er oppdatert"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokumentet \"{0}\" er slettet."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokumentet \"%(document_title)s\" er slettet."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Endre %s"
+msgid "Edit this %(object)s"
+msgstr "Endre %(object)s"
 
 msgid "Document"
 msgstr "Dokument"

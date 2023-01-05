@@ -1,6 +1,7 @@
 /* global $ */
 
 import { escapeHtml as h } from '../../../utils/text';
+import { range } from '../../../utils/range';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -201,12 +202,12 @@ export class TypedTableBlock {
       position: index,
       id: this.columnCountIncludingDeleted,
     };
-    this.columnCountIncludingDeleted++;
+    this.columnCountIncludingDeleted += 1;
     // increase positions of columns after this one
-    for (let i = index; i < this.columns.length; i++) {
-      this.columns[i].position++;
+    range(index, this.columns.length).forEach((i) => {
+      this.columns[i].position += 1;
       this.columns[i].positionInput.value = this.columns[i].position;
-    }
+    });
     this.columns.splice(index, 0, column);
     this.columnCountInput.value = this.columnCountIncludingDeleted;
 
@@ -321,10 +322,10 @@ export class TypedTableBlock {
     this.columns.splice(index, 1);
 
     // reduce position values of remaining columns after this one
-    for (let i = index; i < this.columns.length; i++) {
-      this.columns[i].position--;
+    range(index, this.columns.length).forEach((i) => {
+      this.columns[i].position -= 1;
       this.columns[i].positionInput.value = this.columns[i].position;
-    }
+    });
 
     // if no columns remain, revert to initial empty state with no rows
     if (this.columns.length === 0) {
@@ -346,7 +347,7 @@ export class TypedTableBlock {
       this.tbody.appendChild(rowElement);
     }
     this.rows.splice(index, 0, row);
-    this.rowCountIncludingDeleted++;
+    this.rowCountIncludingDeleted += 1;
     this.rowCountInput.value = this.rowCountIncludingDeleted;
 
     // add a leading cell to contain the 'insert row' button
@@ -407,10 +408,10 @@ export class TypedTableBlock {
     this.deletedFieldsContainer.appendChild(row.deletedInput);
 
     // increment positions of subsequent rows
-    for (let i = index + 1; i < this.rows.length; i++) {
-      this.rows[i].position++;
+    range(index + 1, this.rows.length).forEach((i) => {
+      this.rows[i].position += 1;
       this.rows[i].positionInput.value = this.rows[i].position;
-    }
+    });
 
     return row;
   }
@@ -423,10 +424,10 @@ export class TypedTableBlock {
     this.rows.splice(index, 1);
 
     // reduce position values of remaining rows after this one
-    for (let i = index; i < this.rows.length; i++) {
-      this.rows[i].position--;
+    range(index, this.rows.length).forEach((i) => {
+      this.rows[i].position -= 1;
       this.rows[i].positionInput.value = this.rows[i].position;
-    }
+    });
   }
 
   initCell(cell, column, row, initialState) {

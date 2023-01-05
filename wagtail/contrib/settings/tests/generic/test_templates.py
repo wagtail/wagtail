@@ -1,8 +1,8 @@
-from django.http import HttpRequest
 from django.template import Context, RequestContext, Template, engines
 from django.test import TestCase
 from django.test.utils import override_settings
 
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Site
 from wagtail.test.utils import WagtailTestUtils
 
@@ -136,10 +136,7 @@ class GenericSettingJinjaContextProcessorTestCase(GenericSettingTemplateTestCase
         # Add a request to the template, to simulate a RequestContext
         if request_context:
             site = Site.objects.get(is_default_site=True)
-            request = HttpRequest()
-            request.META["HTTP_HOST"] = site.hostname
-            request.META["SERVER_PORT"] = site.port
-            context["request"] = request
+            context["request"] = get_dummy_request(site=site)
 
         template = self.engine.from_string(string)
         return template.render(context)

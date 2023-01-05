@@ -101,9 +101,9 @@ class CopyForm(forms.Form):
             self._errors["new_slug"] = self.error_class(
                 [
                     _(
-                        'This slug is already in use within the context of its parent page "%s"'
+                        'This slug is already in use within the context of its parent page "%(parent_page_title)s"'
                     )
-                    % parent_page
+                    % {"parent_page_title": parent_page}
                 ]
             )
             # The slug is no longer valid, hence remove it from cleaned_data
@@ -178,11 +178,16 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
     def clean(self):
         cleaned_data = super().clean()
         if "slug" in self.cleaned_data:
-            if not Page._slug_is_available(
-                cleaned_data["slug"], self.parent_page, self.instance
-            ):
+            page_slug = cleaned_data["slug"]
+            if not Page._slug_is_available(page_slug, self.parent_page, self.instance):
                 self.add_error(
-                    "slug", forms.ValidationError(_("This slug is already in use"))
+                    "slug",
+                    forms.ValidationError(
+                        _(
+                            "The slug '%(page_slug)s' is already in use within the parent page"
+                        )
+                        % {"page_slug": page_slug}
+                    ),
                 )
 
         return cleaned_data

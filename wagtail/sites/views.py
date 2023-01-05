@@ -31,12 +31,12 @@ class IndexView(generic.IndexView):
 
 class CreateView(generic.CreateView):
     page_title = _("Add site")
-    success_message = _("Site '{0}' created.")
+    success_message = _("Site '%(object)s' created.")
     template_name = "wagtailsites/create.html"
 
 
 class EditView(generic.EditView):
-    success_message = _("Site '{0}' updated.")
+    success_message = _("Site '%(object)s' updated.")
     error_message = _("The site could not be saved due to errors.")
     delete_item_label = _("Delete site")
     context_object_name = "site"
@@ -44,7 +44,7 @@ class EditView(generic.EditView):
 
 
 class DeleteView(generic.DeleteView):
-    success_message = _("Site '{0}' deleted.")
+    success_message = _("Site '%(object)s' deleted.")
     page_title = _("Delete site")
     confirmation_message = _("Are you sure you want to delete this site?")
 

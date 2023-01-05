@@ -14,16 +14,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ivan Tyshchenko <iv.tihon@gmail.com>, 2021\n"
-"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
-"uk/)\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/uk/)\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 msgid "Wagtail images"
 msgstr "Зображення Wagtail "
@@ -44,26 +40,35 @@ msgid "Supported formats: %(supported_formats)s."
 msgstr "Підтримувані формати: %(supported_formats)s."
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "Зображення має формат, що не підтримується. Підтримувані формати: %s."
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Зображення має формат, що не підтримується. Підтримувані формати: "
+"%(supported_formats)s."
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "Не є валідним %s зображенням."
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Цей файл занадто великий (%%s). Максимальний розмір файлу %s."
-
-#, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
 msgstr ""
-"Цей файл має занадто багато пікселів (%%s). Максимальний кількість пікселів "
-"%s."
+"Цей файл занадто великий (%(file_size)s). Максимальний розмір файлу "
+"%(max_filesize)s."
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "Цей файл є занадто великим. Максимальний розмір файлу %s."
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Цей файл має занадто багато пікселів (%(num_pixels)s). Максимальний "
+"кількість пікселів %(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Цей файл є занадто великим. Максимальний розмір файлу %(max_filesize)s."
 
 msgid "Full width"
 msgstr "Повна довжина"
@@ -195,7 +200,8 @@ msgstr "Додати зображення до колекції"
 msgid ""
 "Are you sure you want to add the following image to the selected collection?"
 msgid_plural ""
-"Are you sure you want to add the following images to the selected collection?"
+"Are you sure you want to add the following images to the selected "
+"collection?"
 msgstr[0] "Ви певні, що бажаєте додати наступне зображення до колекції?"
 msgstr[1] "Ви певні, що бажаєте додати наступні зображення до колекції?"
 msgstr[2] "Ви певні, що бажаєте додати наступні зображення до колекції?"
@@ -342,19 +348,19 @@ msgstr "Вибачте, жодне зображення не відповіда�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення до колекції. Чому б <a href="
-"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення до колекції. Чому б <a "
+"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Ви не завантажили жодного зображення. Чому б <a href="
-"\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
+"Ви не завантажили жодного зображення. Чому б <a "
+"href=\"%(wagtailimages_add_image_url)s\">не завантажити якесь зараз</a>?"
 
 msgid "Generating URL"
 msgstr "Генерація URL"
@@ -480,8 +486,8 @@ msgid "Search images"
 msgstr "Пошук зображень"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "Зображення '{0}' оновлено."
+msgid "Image '%(image_title)s' updated."
+msgstr "Зображення '%(image_title)s' оновлено."
 
 msgid "Edit again"
 msgstr "Редагувати ще раз"
@@ -490,26 +496,26 @@ msgid "The image could not be saved due to errors."
 msgstr "Це зображення не можна зберегти через помилки"
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
+"The source image file could not be found. Please change the source or delete"
+" the image."
 msgstr ""
 "Джерело зображення відсутнє. Будь ласка, змініть джерело або видаліть "
 "зображення. "
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "Зображення '{0}' видалено."
+msgid "Image '%(image_title)s' deleted."
+msgstr "Зображення '%(image_title)s' видалено."
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "Зображення '{0}' додано."
+msgid "Image '%(image_title)s' added."
+msgstr "Зображення '%(image_title)s' додано."
 
 msgid "The image could not be created due to errors."
 msgstr "Зображення не можна створити через помилки."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Редагувати %s"
+msgid "Edit this %(object)s"
+msgstr "Редагувати %(object)s"
 
 msgid "Image"
 msgstr "Зображення"

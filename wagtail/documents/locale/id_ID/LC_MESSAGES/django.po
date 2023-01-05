@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
-"wagtail/language/id_ID/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/wagtail/language/id_ID/)\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail documents"
@@ -135,19 +134,19 @@ msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Anda sama sekali belum mengunggah dokumen dalam koleksi ini. Mengapa tidak "
 "<a href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a href="
-"\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
+"Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a "
+"href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -199,28 +198,29 @@ msgid "Search documents"
 msgstr "Cari dokumen"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Dokumen '{0}' ditambahkan."
+msgid "Document '%(document_title)s' added."
+msgstr "Dokumen '%(document_title)s' ditambahkan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumen tidak dapat tersimpan dikarenakan oleh error."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Dokumen '{0}' diperbarui."
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumen '%(document_title)s' diperbarui."
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
-"Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus dokumen"
+"Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus "
+"dokumen"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Dokumen '{0}' dihapus."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokumen '%(document_title)s' dihapus."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Ubah %s ini"
+msgid "Edit this %(object)s"
+msgstr "Ubah %(object)s ini"
 
 msgid "Document"
 msgstr "Dokumen"

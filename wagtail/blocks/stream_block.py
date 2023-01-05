@@ -159,7 +159,8 @@ class BaseStreamBlock(Block):
         if self.meta.min_num is not None and self.meta.min_num > len(value):
             non_block_errors.append(
                 ValidationError(
-                    _("The minimum number of items is %d") % self.meta.min_num
+                    _("The minimum number of items is %(min_num)d")
+                    % {"min_num": self.meta.min_num}
                 )
             )
         elif self.required and len(value) == 0:
@@ -168,7 +169,8 @@ class BaseStreamBlock(Block):
         if self.meta.max_num is not None and self.meta.max_num < len(value):
             non_block_errors.append(
                 ValidationError(
-                    _("The maximum number of items is %d") % self.meta.max_num
+                    _("The maximum number of items is %(max_num)d")
+                    % {"max_num": self.meta.max_num}
                 )
             )
 
@@ -187,7 +189,8 @@ class BaseStreamBlock(Block):
                         ValidationError(
                             "{}: {}".format(
                                 block.label,
-                                _("The minimum number of items is %d") % min_num,
+                                _("The minimum number of items is %(min_num)d")
+                                % {"min_num": min_num},
                             )
                         )
                     )
@@ -196,7 +199,8 @@ class BaseStreamBlock(Block):
                         ValidationError(
                             "{}: {}".format(
                                 block.label,
-                                _("The maximum number of items is %d") % max_num,
+                                _("The maximum number of items is %(max_num)d")
+                                % {"max_num": max_num},
                             )
                         )
                     )

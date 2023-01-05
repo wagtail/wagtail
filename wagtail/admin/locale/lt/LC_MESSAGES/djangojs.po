@@ -1,4 +1,3 @@
-#
 # Translators:
 # Naglis Jonaitis, 2022
 # Matas Dailyda <matas@dailyda.com>, 2022
@@ -6,13 +5,10 @@
 msgid ""
 msgstr ""
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2022\n"
-"Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/"
-"lt/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/lt/)\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 msgid "Add a comment"
 msgstr "Pridėti komentarą"
@@ -50,8 +46,8 @@ msgstr "Ištrinama"
 msgid "Edit"
 msgstr "Redaguoti"
 
-msgid "Edit '{title}'"
-msgstr "Redaguoti '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Redaguoti '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Redaguoti savo vartotoją"

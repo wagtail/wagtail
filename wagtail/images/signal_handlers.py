@@ -16,10 +16,12 @@ def post_delete_purge_rendition_cache(instance, **kwargs):
 
 def pre_save_image_feature_detection(instance, **kwargs):
     if getattr(settings, "WAGTAILIMAGES_FEATURE_DETECTION_ENABLED", False):
-        # Make sure the image doesn't already have a focal point
-        if not instance.has_focal_point():
-            # Set the focal point
-            instance.set_focal_point(instance.get_suggested_focal_point())
+        # Make sure the image is not from a fixture
+        if kwargs["raw"] is False:
+            # Make sure the image doesn't already have a focal point
+            if not instance.has_focal_point():
+                # Set the focal point
+                instance.set_focal_point(instance.get_suggested_focal_point())
 
 
 def register_signal_handlers():

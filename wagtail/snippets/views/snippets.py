@@ -10,12 +10,10 @@ from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import path, re_path, reverse
-from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail.admin import messages
 from wagtail.admin.admin_url_finder import AdminURLFinder, register_admin_url_finder
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.panels import get_edit_handler
@@ -29,7 +27,7 @@ from wagtail.admin.ui.tables import (
     UserColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.admin.views.generic.mixins import RevisionsRevertMixin
+from wagtail.admin.views.generic import lock
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.generic.preview import PreviewOnCreate as PreviewOnCreateView
 from wagtail.admin.views.generic.preview import PreviewOnEdit as PreviewOnEditView
@@ -38,7 +36,13 @@ from wagtail.admin.views.reports.base import ReportView
 from wagtail.admin.viewsets.base import ViewSet
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import DraftStateMixin, Locale, PreviewableMixin, RevisionMixin
+from wagtail.models import (
+    DraftStateMixin,
+    Locale,
+    LockableMixin,
+    PreviewableMixin,
+    RevisionMixin,
+)
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -149,7 +153,7 @@ class SnippetTitleColumn(TitleColumn):
     cell_template_name = "wagtailsnippets/snippets/tables/title_cell.html"
 
 
-class IndexView(generic.IndexView):
+class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
     view_name = "list"
     index_results_url_name = None
     delete_multiple_url_name = None
@@ -161,18 +165,9 @@ class IndexView(generic.IndexView):
     table_class = InlineActionsTable
 
     def _get_title_column(self, field_name, column_class=SnippetTitleColumn, **kwargs):
-        accessor = kwargs.pop("accessor", None)
-
-        if not accessor and field_name == "__str__":
-
-            def accessor(obj):
-                if isinstance(obj, DraftStateMixin) and obj.latest_revision:
-                    return obj.latest_revision.object_str
-                return str(obj)
-
-        return super()._get_title_column(
-            field_name, column_class, accessor=accessor, **kwargs
-        )
+        # Use SnippetTitleColumn class to use custom template
+        # so that buttons from snippet_listing_buttons hook can be rendered
+        return super()._get_title_column(field_name, column_class, **kwargs)
 
     def get_columns(self):
         return [
@@ -213,7 +208,7 @@ class IndexView(generic.IndexView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-class CreateView(generic.CreateView):
+class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView):
     view_name = "create"
     preview_url_name = None
     permission_required = "add"
@@ -236,36 +231,15 @@ class CreateView(generic.CreateView):
         return url
 
     def get_success_url(self):
+        if self.draftstate_enabled and self.action != "publish":
+            return super().get_success_url()
+
+        # Make sure the redirect to the listing view uses the correct locale
         urlquery = ""
         if self.locale and self.object.locale is not Locale.get_default():
             urlquery = "?locale=" + self.object.locale.language_code
 
         return reverse(self.index_url_name) + urlquery
-
-    def get_success_message(self, instance):
-        message = _("%(snippet_type)s '%(instance)s' created.")
-        if isinstance(instance, DraftStateMixin) and self.action == "publish":
-            message = _("%(snippet_type)s '%(instance)s' created and published.")
-            if instance.go_live_at and instance.go_live_at > timezone.now():
-                message = _(
-                    "%(snippet_type)s '%(instance)s' created and scheduled for publishing."
-                )
-
-        return message % {
-            "snippet_type": capfirst(self.model._meta.verbose_name),
-            "instance": instance,
-        }
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(
-                    self.edit_url_name,
-                    args=[quote(self.object.pk)],
-                ),
-                _("Edit"),
-            )
-        ]
 
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view=self.view_name, model=self.model)
@@ -324,7 +298,7 @@ class CreateView(generic.CreateView):
         return context
 
 
-class EditView(generic.EditView):
+class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
     view_name = "edit"
     history_url_name = None
     preview_url_name = None
@@ -338,78 +312,18 @@ class EditView(generic.EditView):
     def run_after_hook(self):
         return self.run_hook("after_edit_snippet", self.request, self.object)
 
-    def setup(self, request, *args, pk, **kwargs):
-        self.pk = pk
-        self.object = self.get_object()
-        super().setup(request, *args, **kwargs)
-
     def get_panel(self):
         return get_edit_handler(self.model)
 
-    def get_object(self, queryset=None):
-        self.live_object = get_object_or_404(self.model, pk=unquote(self.pk))
-
-        if issubclass(self.model, DraftStateMixin):
-            return self.live_object.get_latest_revision_as_object()
-        return self.live_object
-
-    def get_edit_url(self):
-        return reverse(
-            self.edit_url_name,
-            args=[quote(self.object.pk)],
-        )
-
-    def get_delete_url(self):
-        # This actually isn't used because we use a custom action menu
-        return reverse(
-            self.delete_url_name,
-            args=[quote(self.object.pk)],
-        )
-
     def get_history_url(self):
-        return reverse(
-            self.history_url_name,
-            args=[quote(self.object.pk)],
-        )
-
-    def get_success_url(self):
-        return reverse(self.index_url_name)
-
-    def get_success_message(self):
-        message = _("%(snippet_type)s '%(instance)s' updated.")
-
-        if self.draftstate_enabled and self.action == "publish":
-            message = _("%(snippet_type)s '%(instance)s' updated and published.")
-
-            if self.object.go_live_at and self.object.go_live_at > timezone.now():
-                message = _(
-                    "%(snippet_type)s '%(instance)s' has been scheduled for publishing."
-                )
-
-                if self.object.live:
-                    message = _(
-                        "%(snippet_type)s '%(instance)s' is live and this version has been scheduled for publishing."
-                    )
-
-        return message % {
-            "snippet_type": capfirst(self.model._meta.verbose_name),
-            "instance": self.object,
-        }
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(
-                    self.edit_url_name,
-                    args=[quote(self.object.pk)],
-                ),
-                _("Edit"),
-            )
-        ]
+        return reverse(self.history_url_name, args=[quote(self.object.pk)])
 
     def _get_action_menu(self):
         return SnippetActionMenu(
-            self.request, view=self.view_name, instance=self.object
+            self.request,
+            view=self.view_name,
+            instance=self.object,
+            locked_for_user=self.locked_for_user,
         )
 
     def get_form_kwargs(self):
@@ -506,20 +420,20 @@ class DeleteView(generic.DeleteView):
     def get_success_message(self):
         count = len(self.objects)
         if count == 1:
-            return _("%(snippet_type)s '%(instance)s' deleted.") % {
-                "snippet_type": capfirst(self.model._meta.verbose_name),
-                "instance": self.objects[0],
+            return _("%(model_name)s '%(object)s' deleted.") % {
+                "model_name": capfirst(self.model._meta.verbose_name),
+                "object": self.objects[0],
             }
 
         # This message is only used in plural form, but we'll define it with ngettext so that
         # languages with multiple plural forms can be handled correctly (or, at least, as
         # correctly as possible within the limitations of verbose_name_plural...)
         return ngettext(
-            "%(count)d %(snippet_type)s deleted.",
-            "%(count)d %(snippet_type)s deleted.",
+            "%(count)d %(model_name)s deleted.",
+            "%(count)d %(model_name)s deleted.",
             count,
         ) % {
-            "snippet_type": capfirst(self.model._meta.verbose_name_plural),
+            "model_name": capfirst(self.model._meta.verbose_name_plural),
             "count": count,
         }
 
@@ -590,11 +504,15 @@ class UsageView(generic.IndexView):
         for object, references in context.get("page_obj"):
             edit_url = url_finder.get_edit_url(object)
             if edit_url is None:
-                label = _("(Private %s)") % object._meta.verbose_name
+                label = _("(Private %(object)s)") % {
+                    "object": object._meta.verbose_name
+                }
                 edit_link_title = None
             else:
                 label = str(object)
-                edit_link_title = _("Edit this %s") % object._meta.verbose_name
+                edit_link_title = _("Edit this %(object)s") % {
+                    "object": object._meta.verbose_name
+                }
             results.append((label, edit_url, edit_link_title, references))
 
         context.update(
@@ -657,6 +575,7 @@ class ActionColumn(Column):
         context["revision_enabled"] = isinstance(self.object, RevisionMixin)
         context["draftstate_enabled"] = isinstance(self.object, DraftStateMixin)
         context["preview_enabled"] = isinstance(self.object, PreviewableMixin)
+        context["can_publish"] = self.view.user_has_permission("publish")
         context["object"] = self.object
         context["view"] = self.view
         return context
@@ -729,15 +648,15 @@ class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView)
 
     @property
     def edit_label(self):
-        return _("Edit this {model_name}").format(
-            model_name=self.model._meta.verbose_name
-        )
+        return _("Edit this %(model_name)s") % {
+            "model_name": self.model._meta.verbose_name
+        }
 
     @property
     def history_label(self):
-        return _("{model_name} history").format(
-            model_name=self.model._meta.verbose_name
-        )
+        return _("%(model_name)s history") % {
+            "model_name": self.model._meta.verbose_name
+        }
 
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
@@ -745,7 +664,25 @@ class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
 
 
 class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnscheduleView):
-    permission_required = "change"
+    permission_required = "publish"
+
+
+class LockView(PermissionCheckedMixin, lock.LockView):
+    permission_required = "lock"
+
+
+class UnlockView(PermissionCheckedMixin, lock.UnlockView):
+    permission_required = "unlock"
+
+    def user_has_permission(self, permission):
+        # Allow unlocking even if the user does not have the 'unlock' permission
+        # if they are the user who locked the object
+        if (
+            permission == self.permission_required
+            and self.object.locked_by_id == self.request.user.pk
+        ):
+            return True
+        return super().user_has_permission(permission)
 
 
 class SnippetViewSet(ViewSet):
@@ -807,11 +744,18 @@ class SnippetViewSet(ViewSet):
     #: The view class to use for previewing on the edit view; must be a subclass of ``wagtail.snippet.views.snippets.PreviewOnEditView``.
     preview_on_edit_view_class = PreviewOnEditView
 
+    #: The view class to use for locking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.LockView``.
+    lock_view_class = LockView
+
+    #: The view class to use for unlocking a snippet; must be a subclass of ``wagtail.snippet.views.snippets.UnlockView``.
+    unlock_view_class = UnlockView
+
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
         self.preview_enabled = issubclass(self.model, PreviewableMixin)
         self.revision_enabled = issubclass(self.model, RevisionMixin)
         self.draftstate_enabled = issubclass(self.model, DraftStateMixin)
+        self.locking_enabled = issubclass(self.model, LockableMixin)
 
         if not self.list_display:
             self.list_display = self.index_view_class.list_display.copy()
@@ -830,7 +774,7 @@ class SnippetViewSet(ViewSet):
         """
         revisions_revert_view_class = type(
             "_RevisionsRevertView",
-            (RevisionsRevertMixin, self.edit_view_class),
+            (generic.RevisionsRevertMixin, self.edit_view_class),
             {"view_name": "revisions_revert"},
         )
         return revisions_revert_view_class
@@ -881,6 +825,7 @@ class SnippetViewSet(ViewSet):
 
     @property
     def edit_view(self):
+        # Any parameters passed here must also be passed in revisions_revert_view.
         return self.edit_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
@@ -889,6 +834,9 @@ class SnippetViewSet(ViewSet):
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
             preview_url_name=self.get_url_name("preview_on_edit"),
+            lock_url_name=self.get_url_name("lock"),
+            unlock_url_name=self.get_url_name("unlock"),
+            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
         )
 
     @property
@@ -938,6 +886,10 @@ class SnippetViewSet(ViewSet):
             edit_url_name=self.get_url_name("edit"),
             delete_url_name=self.get_url_name("delete"),
             history_url_name=self.get_url_name("history"),
+            preview_url_name=self.get_url_name("preview_on_edit"),
+            lock_url_name=self.get_url_name("lock"),
+            unlock_url_name=self.get_url_name("unlock"),
+            revisions_unschedule_url_name=self.get_url_name("revisions_unschedule"),
             revisions_revert_url_name=self.get_url_name("revisions_revert"),
         )
 
@@ -977,6 +929,22 @@ class SnippetViewSet(ViewSet):
     @property
     def preview_on_edit_view(self):
         return self.preview_on_edit_view_class.as_view(model=self.model)
+
+    @property
+    def lock_view(self):
+        return self.lock_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            success_url_name=self.get_url_name("edit"),
+        )
+
+    @property
+    def unlock_view(self):
+        return self.unlock_view_class.as_view(
+            model=self.model,
+            permission_policy=self.permission_policy,
+            success_url_name=self.get_url_name("edit"),
+        )
 
     @property
     def redirect_to_edit_view(self):
@@ -1055,6 +1023,12 @@ class SnippetViewSet(ViewSet):
                     name="revisions_unschedule",
                 ),
                 path("unpublish/<str:pk>/", self.unpublish_view, name="unpublish"),
+            ]
+
+        if self.locking_enabled:
+            urlpatterns += [
+                path("lock/<str:pk>/", self.lock_view, name="lock"),
+                path("unlock/<str:pk>/", self.unlock_view, name="unlock"),
             ]
 
         legacy_redirects = [

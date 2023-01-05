@@ -306,6 +306,7 @@ This is a straightforward React component. It does not use JSX since we do not w
 Finally, we register the JS components of our plugin:
 
 ```javascript
+// Register the plugin directly on script execution so the editor loads it when initialising.
 window.draftail.registerPlugin({
     type: 'STOCK',
     source: StockSource,

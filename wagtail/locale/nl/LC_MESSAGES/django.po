@@ -17,12 +17,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>, 2022\n"
-"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
-"nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail API v2"
@@ -35,12 +34,12 @@ msgid "Add Comment"
 msgstr "Commentaar toevoegen"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Het minimale aantal items is %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Het minimale aantal items is %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Het maximale aantal items is %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Het maximale aantal items is %(max_num)d"
 
 msgid "Move up"
 msgstr "Omhoog"
@@ -88,14 +87,14 @@ msgstr "Opmerking"
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "De pagina '{}' is geblokkeerd</b> door jou op <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "</b>De pagina '{}' is geblokkeerd door jou."
+msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
+msgstr "</b>De pagina '{page_title}' is geblokkeerd door jou."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
 msgstr "<b>De pagina '{}' is geblokkeerd</b> door <b>{}</b> op <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "De pagina '{}' is geblokkeerd."
+msgid "<b>Page '{page_title}' is locked</b>."
+msgstr "De pagina '{page_title}' is geblokkeerd."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Deze pagina is in afwachting van content goedkeuring."
@@ -171,11 +170,11 @@ msgid "slug"
 msgstr "slug"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
+"The name of the page as it will appear in URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 msgstr ""
-"De manier waarop de pagina in URL's getoond wordt, bijv. http://domein.nl/"
-"blog/[mijn-slug]/"
+"De manier waarop de pagina in URL's getoond wordt, bijv. "
+"http://domein.nl/blog/[mijn-slug]/"
 
 msgid "content type"
 msgstr "inhoudstype"
@@ -406,12 +405,12 @@ msgstr "huidige status taak"
 msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr ""
-"Er mag maar één in behandeling of heeft wijziging nodig workflow-status zijn "
-"per pagina."
+"Er mag maar één in behandeling of heeft wijziging nodig workflow-status zijn"
+" per pagina."
 
 #, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Workflow '{0}' op pagina '{1}': {2}"
+msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+msgstr "Workflow '%(workflow_name)s' op pagina '%(page_title)s': %(status)s"
 
 msgid "Not started"
 msgstr "Niet gestart"
@@ -444,8 +443,9 @@ msgid "finished by"
 msgstr "Afgerond door"
 
 #, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Taak '{0}' op pagina-revisie '{1}': {2}"
+msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"Taak '%(task_name)s' op pagina-revisie '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Taak-status"
@@ -483,8 +483,8 @@ msgstr "logboekvermelding"
 msgid "log entries"
 msgstr "logboekvermeldingen"
 
-msgid "The log action '{}' has not been registered."
-msgstr "De logboek actie '{}' is niet geregistreerd."
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "De logboek actie '%(action_name)s' is niet geregistreerd."
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -535,8 +535,8 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
-"moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
+"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL"
+" moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
 "request afhandeling (dus port forwarding blijft werken)."
 
 msgid "site name"
@@ -555,8 +555,8 @@ msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
-"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
-"die geen eigen site hebben."
+"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen"
+" die geen eigen site hebben."
 
 msgid "site"
 msgstr "site"
@@ -860,8 +860,7 @@ msgstr "Geef reactie op opmerking"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
-msgstr ""
-"Een reactie op een opmerking is geplaatst op veld %(field)s: \"%(text)s\""
+msgstr "Een reactie op een opmerking is geplaatst op veld %(field)s: \"%(text)s\""
 
 msgid "Replied to a comment"
 msgstr "Reactie op opmerking gemaakt"
@@ -871,8 +870,7 @@ msgstr "Wijzig reactie op opmerking"
 
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
-msgstr ""
-"Een reactie op een opmerking is gewijzigd op veld %(field)s: \"%(text)s\""
+msgstr "Een reactie op een opmerking is gewijzigd op veld %(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
 msgstr "Reactie gewijzigd"

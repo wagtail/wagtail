@@ -610,6 +610,50 @@ The model is added to allow snippets to have changes that are not immediately re
     .. automethod:: with_content_json
 ```
 
+## `LockableMixin`
+
+`LockableMixin` is an abstract model that can be added to any non-page Django model to allow its instances to be locked.
+Pages already include this mixin, so there is no need to add it.
+
+```{versionadded} 4.2
+The model is added to allow snippets to be locked. See [](wagtailsnippets_locking_snippets) for more details.
+```
+
+### Database fields
+
+```{eval-rst}
+.. class:: LockableMixin
+
+    .. attribute:: locked
+
+        (boolean)
+
+        A boolean that is set to ``True`` if the object is locked.
+
+    .. attribute:: locked_at
+
+        (date/time)
+
+        The date/time when the object was locked.
+
+    .. attribute:: locked_by
+
+        (foreign key to user model)
+
+        The user who locked the object.
+```
+
+### Methods and properties
+
+```{eval-rst}
+.. class:: LockableMixin
+    :noindex:
+
+    .. automethod:: get_lock
+
+    .. automethod:: with_content_json
+```
+
 (revision_model_ref)=
 
 ## `Revision`

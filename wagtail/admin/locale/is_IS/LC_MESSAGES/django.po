@@ -13,14 +13,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2020-2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
-"wagtail/language/is_IS/)\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2022\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
+"Language: is_IS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Publish"
@@ -29,11 +27,11 @@ msgstr "Setja í birtingu"
 msgid "Submit for moderation"
 msgstr "Senda inn til samþykktar"
 
-msgid "Resubmit to {}"
-msgstr "Endursenda til {}"
+msgid "Resubmit to %(task_name)s"
+msgstr "Endursenda til %(task_name)s"
 
-msgid "Submit to {}"
-msgstr "Senda til {}"
+msgid "Submit to %(workflow_name)s"
+msgstr "Senda til %(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "Byrja vinnuflæði upp á nýtt"
@@ -97,8 +95,8 @@ msgid "Enter password"
 msgstr "Sláðu inn lykilorð"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "Sláðu inn %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "Sláðu inn %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
@@ -157,8 +155,8 @@ msgstr "Þú getur ekki breytt athugasemdum annarra notenda."
 
 msgid "Go live date/time must be before expiry date/time"
 msgstr ""
-"Dags/tímasetningin þegar síðan fer í loftið þarf að vera á undan þegar hún á "
-"að fara úr loftinu"
+"Dags/tímasetningin þegar síðan fer í loftið þarf að vera á undan þegar hún á"
+" að fara úr loftinu"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Dagsetning afbirtingar verður að vera í framtíðinni"
@@ -215,13 +213,15 @@ msgstr "Halda nýjum síðum uppfærðum með framtíðar breytingum"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
-msgstr ""
-"Þú ert ekki með réttindi til þess að afrita undir síðu \"%(page_title)s\""
+msgstr "Þú ert ekki með réttindi til þess að afrita undir síðu \"%(page_title)s\""
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu \"%s\""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Þessi vefslóð (e.slug) er þegar í notkun innan ramma yfirsíðu "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
@@ -251,8 +251,8 @@ msgid "All types"
 msgstr "Allar tegundir"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "Þessi síða hefur þegar verið úthlutað vinnuflæði '{0}'."
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Þessi síða hefur þegar verið úthlutað vinnuflæði '%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "Þú getur ekki úthlutað þessu vinnuflæði oft á sömu síðu."
@@ -270,12 +270,12 @@ msgid "1 page selected"
 msgstr "1 síða valin"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "{0} síður valdar"
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s síður valdar"
 
 #, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "Allar {0} síður á þessum skjá valdar"
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Allar %(objects)s síður á þessum skjá valdar"
 
 msgid "All pages in listing selected"
 msgstr "Allar síður valdar"
@@ -284,12 +284,12 @@ msgid "1 document selected"
 msgstr "1 skjal valið"
 
 #, python-brace-format
-msgid "{0} documents selected"
-msgstr "{0} skjöl valin"
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s skjöl valin"
 
 #, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "Öll {0} skjöl á þessum skjá valin"
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Öll %(objects)s skjöl á þessum skjá valin"
 
 msgid "All documents in listing selected"
 msgstr "Öll skjöl valin"
@@ -298,12 +298,12 @@ msgid "1 image selected"
 msgstr "1 mynd valin"
 
 #, python-brace-format
-msgid "{0} images selected"
-msgstr "{0} myndir valdar"
+msgid "%(objects)s images selected"
+msgstr "%(objects)s myndir valdar"
 
 #, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "Allar {0} myndir á þessum skjá valdar"
+msgid "All %(objects)s images on this screen selected"
+msgstr "Allar %(objects)s myndir á þessum skjá valdar"
 
 msgid "All images in listing selected"
 msgstr "Allar myndir valdar"
@@ -312,12 +312,12 @@ msgid "1 user selected"
 msgstr "1 notandi valinn"
 
 #, python-brace-format
-msgid "{0} users selected"
-msgstr "{0} notendur valdir"
+msgid "%(objects)s users selected"
+msgstr "%(objects)s notendur valdir"
 
 #, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "Allir {0} notendur á þessum skjá valdir"
+msgid "All %(objects)s users on this screen selected"
+msgstr "Allir %(objects)s notendur á þessum skjá valdir"
 
 msgid "All users in listing selected"
 msgstr "Allir notendur valdir"
@@ -326,12 +326,12 @@ msgid "1 snippet selected"
 msgstr "1 snifsi valið"
 
 #, python-brace-format
-msgid "{0} snippets selected"
-msgstr "{0} snifsi valin"
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s snifsi valin"
 
 #, python-brace-format
-msgid "All {0} snippets on this screen selected"
-msgstr "Öll {0} snifsi á þessum skjá valin"
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Öll %(objects)s snifsi á þessum skjá valin"
 
 msgid "All snippets in listing selected"
 msgstr "Öll snifsi í lista valin"
@@ -340,12 +340,12 @@ msgid "1 item selected"
 msgstr "1 hlutur valinn"
 
 #, python-brace-format
-msgid "{0} items selected"
-msgstr "{0} hlutir valdir"
+msgid "%(objects)s items selected"
+msgstr "%(objects)s hlutir valdir"
 
 #, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "Allir {0} hlutir á þessum skjá valdir"
+msgid "All %(objects)s items on this screen selected"
+msgstr "Allir %(objects)s hlutir á þessum skjá valdir"
 
 msgid "All items in listing selected"
 msgstr "Allir hlutir valdir"
@@ -426,8 +426,8 @@ msgstr ""
 
 msgid "Please follow the link below to reset your password:"
 msgstr ""
-"Vinsamlegast smelltu á hlekkinn hér fyrir neðan til að endursetja lykilorðið "
-"þitt."
+"Vinsamlegast smelltu á hlekkinn hér fyrir neðan til að endursetja lykilorðið"
+" þitt."
 
 msgid "Your username (in case you've forgotten):"
 msgstr "Notendanafnið þitt (bara ef þú skildir hafa gleymt því):"
@@ -494,11 +494,11 @@ msgstr "Veldu síðu"
 
 #, python-format
 msgid ""
-"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
-"will exclude pages of other types."
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results"
+" will exclude pages of other types."
 msgid_plural ""
-"Only the following page types may be chosen for this field: %(type)s. Search "
-"results will exclude pages of other types."
+"Only the following page types may be chosen for this field: %(type)s. Search"
+" results will exclude pages of other types."
 msgstr[0] ""
 "Aðeins síður af tegundinni \"%(type)s\" eru leyfðar í þessum reit. "
 "Leitarniðurstöður munu ekki innihalda síður af öðrum tegundum."
@@ -511,15 +511,15 @@ msgstr "Breyta í hlekk á innri síðu"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Slóðin sem þú slóst inn, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, lítur út fyrir að passa við "
-"innri síðuna %(page)s, sem er með slóðina <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"Slóðin sem þú slóst inn, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, lítur út fyrir að passa "
+"við innri síðuna %(page)s, sem er með slóðina <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -596,11 +596,11 @@ msgstr "Nafn"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Engin söfn hafa verið búin til. Hví ekki að <a href=\"%(add_collection_url)s"
-"\">bæta við einu</a>?"
+"Engin söfn hafa verið búin til. Hví ekki að <a "
+"href=\"%(add_collection_url)s\">bæta við einu</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -736,8 +736,9 @@ msgstr[1] "<span>%(total)s</span> Síður búnar til í %(site_name)s</span>"
 
 #, python-format
 msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-upgrade-version></strong>."
+"Wagtail upgrade available. Your version: "
+"<strong>%(current_version)s</strong>. New version: <strong data-upgrade-"
+"version></strong>."
 msgstr ""
 "Wagtail uppfærsla í boði. Þín útgáfa: <strong>%(current_version)s</strong>. "
 "Nýjasta útgáfan: <strong data-upgrade-version></strong>."
@@ -766,15 +767,15 @@ msgstr "Ýmislegt hefur breyst í Wagtail %(version)s!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"Engar áhyggjur, kíktu á <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Notendahandbók Wagtail</a> til þess að sjá hvað hefur breyst og hvaða "
-"spennandi nýjungar eru í boði!"
+"Engar áhyggjur, kíktu á <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Notendahandbók Wagtail</a> til þess að sjá hvað hefur "
+"breyst og hvaða spennandi nýjungar eru í boði!"
 
 msgid "Awaiting your review"
 msgstr "Bíður yfirferðar"
@@ -846,20 +847,16 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Síðan \"%(page)s\" hefur verið send inn til yfirferðar"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr ""
-"Síðan \"%(title)s\" hefur verið samþykkt í yfirferðarskrefi \"%(task)s\"."
+msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "Síðan \"%(title)s\" hefur verið samþykkt í yfirferðarskrefi \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "Síðan \"%(title)s\" hefur verið samþykkt í skrefi \"%(task)s\"."
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
-msgstr ""
-"Síðan \"%(title)s\" hefur verið hafnað í yfirferðarskrefi \"%(task)s\"."
+msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "Síðan \"%(title)s\" hefur verið hafnað í yfirferðarskrefi \"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -870,23 +867,22 @@ msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi \"%(task)s"
-"\"."
+"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi "
+"\"%(task)s\"."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval to moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi \"%(task)s"
-"\"."
+"Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi "
+"\"%(task)s\"."
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for approval in moderation stage "
 "\"%(task)s\""
-msgstr ""
-"Síðan \"%(title)s\" hefur verið send inn til yfirferðar í skrefi \"%(task)s\""
+msgstr "Síðan \"%(title)s\" hefur verið send inn til yfirferðar í skrefi \"%(task)s\""
 
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\"."
@@ -925,8 +921,7 @@ msgstr "%(editor)s hefur uppfært athugasemdir í \"%(title)s\""
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
-msgstr ""
-"Síðan \"%(title)s\" hefur verið samþykkt í vinnuflæði \"%(workflow)s\"."
+msgstr "Síðan \"%(title)s\" hefur verið samþykkt í vinnuflæði \"%(workflow)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1299,8 +1294,8 @@ msgstr ""
 #, python-format
 msgid "This will also move one translation of this page and its child pages"
 msgid_plural ""
-"This will also move %(translations_to_move_count)s translations of this page "
-"and their child pages"
+"This will also move %(translations_to_move_count)s translations of this page"
+" and their child pages"
 msgstr[0] ""
 "Þetta mun einnig færa eina þýðingu af þessari síðu og öllum undirsíðum "
 "þýðingarinnar."
@@ -1374,11 +1369,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
-"strong>."
+"This page is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
-"Þessi síða er núna í skrefi <strong>%(task)s</strong> í <strong>"
-"%(workflow)s</strong>."
+"Þessi síða er núna í skrefi <strong>%(task)s</strong> í "
+"<strong>%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Að setja þessa síðu í birtingu mun stöðva núverandi vinnuflæði"
@@ -1697,7 +1692,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr ""
 "Veldu hvenær þessi síða á að fara í loftið og/eða verða tekin úr loftinu"
 
-msgid "This publishing schedule will only take effect after you have published"
+msgid ""
+"This publishing schedule will only take effect after you have published"
 msgstr ""
 "Þessi útgáfu tímastilling mun aðeins fara að virka þegar búið er að setja "
 "síðuna í loftið"
@@ -1892,8 +1888,8 @@ msgid ""
 "You can edit this page, but others may not. Unlock it to allow others to "
 "edit."
 msgstr ""
-"Þú getur breytt þessari síðu, en ekki endilega aðrir notendur. Aflæstu henni "
-"til að leyfa öðrum að breyta."
+"Þú getur breytt þessari síðu, en ekki endilega aðrir notendur. Aflæstu henni"
+" til að leyfa öðrum að breyta."
 
 msgid "You can edit this page, but others may not."
 msgstr "Þú getur breytt þessari síðu, en ekki endilega aðrir notendur."
@@ -1909,8 +1905,8 @@ msgstr "Aflæst"
 
 msgid "Anyone can edit this page. Lock it to prevent others from editing."
 msgstr ""
-"Allir geta breytt þessari síðu. Læstu henni til að koma í veg fyrir að aðrir "
-"notendur geti breytt henni."
+"Allir geta breytt þessari síðu. Læstu henni til að koma í veg fyrir að aðrir"
+" notendur geti breytt henni."
 
 msgid "Anyone can edit this page."
 msgstr "Allir geta breytt þessari síðu."
@@ -2009,13 +2005,13 @@ msgstr "Fjöldi villna:"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "JavaScript er nauðsynlegt til að nota Wagtail, en það er slökkt á því í "
-"vafranum þínum.<br /> Hér eru <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noreferrer\">leiðbeiningar um hvernig á að virkja "
+"vafranum þínum.<br /> Hér eru <a href=\"https://www.enable-javascript.com/\""
+" target=\"_blank\" rel=\"noreferrer\">leiðbeiningar um hvernig á að virkja "
 "Javascript í vafranum þínum</a>."
 
 msgid "Skip to main content"
@@ -2064,16 +2060,19 @@ msgstr "Búa til"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Vinnuflæði eiga við undirsíður líka. Ef þú velur yfirsíðu hérna, þá munu "
-"undirsíður þeirrar síðu einnig nota þetta vinnuflæði. Sjá <a href="
-"\"%(workflow_pages_url)s\">lista yfir síðurnar</a> sem vinnuflæðið á við."
+"undirsíður þeirrar síðu einnig nota þetta vinnuflæði. Sjá <a "
+"href=\"%(workflow_pages_url)s\">lista yfir síðurnar</a> sem vinnuflæðið á "
+"við."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
-"Þetta vinnuflæði er óvirkt svo það er ekki hægt að hengja það á neinar síður."
+"Þetta vinnuflæði er óvirkt svo það er ekki hægt að hengja það á neinar "
+"síður."
 
 msgid "Used on the following active workflows"
 msgstr "Notað af eftirfarandi virkum vinnuflæðum"
@@ -2116,8 +2115,8 @@ msgstr[1] "+%(counter)s í viðbót"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Engin vinnuflæði hafa verið búin til. Hví ekki að <a href=\"%(add_url)s"
-"\">búa til eitt</a>?"
+"Engin vinnuflæði hafa verið búin til. Hví ekki að <a "
+"href=\"%(add_url)s\">búa til eitt</a>?"
 
 #, python-format
 msgid ""
@@ -2168,15 +2167,13 @@ msgid "Show disabled tasks"
 msgstr "Sýna óvirk skref"
 
 #, python-format
-msgid ""
-"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Engin skref hafa verið búin til. Hví ekki að <a href=\"%(add_url)s\">bæta "
 "við einu</a>?"
 
 #, python-format
-msgid ""
-"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Það eru engin virk skref til. Hví ekki að <a href=\"%(add_url)s\">bæta við "
 "einu</a>?"
@@ -2328,12 +2325,12 @@ msgid "Add collection"
 msgstr "Bæta við safni"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "Safn '{0}' búið til."
+msgid "Collection '%(object)s' created."
+msgstr "Safn '%(object)s' búið til."
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "Safn '{0}' uppfært."
+msgid "Collection '%(object)s' updated."
+msgstr "Safn '%(object)s' uppfært."
 
 msgid "The collection could not be saved due to errors."
 msgstr "Ekki var hægt að vista safnið þar sem hún stóðst ekki villuprófanir"
@@ -2342,63 +2339,66 @@ msgid "Delete collection"
 msgstr "Eyða safni"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "Safni '{0}' eytt."
+msgid "Collection '%(object)s' deleted."
+msgstr "Safni '%(object)s' eytt."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ertu viss um að þú viljir eyða þessu safni?"
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
-"Þú ert að skoða eldri útgáfu af þessu %(model_name)s frá <b>%(created_at)s</"
-"b> eftir %(user)s"
+"Þú ert að skoða eldri útgáfu af þessu %(model_name)s frá "
+"<b>%(created_at)s</b> eftir %(user)s"
 
 #, python-brace-format
 msgid ""
-"{model_name} '{instance}' has been replaced with version from {timestamp}."
+"%(model_name)s '%(object)s' has been replaced with version from "
+"%(timestamp)s."
 msgstr ""
-"{model_name} '{instance}' hefur verið skipt út fyrir  útgáfu frá {timestamp}."
+"%(model_name)s '%(object)s' hefur verið skipt út fyrir  útgáfu frá "
+"%(timestamp)s."
 
 #, python-brace-format
 msgid ""
-"Version from {timestamp} of {model_name} '{instance}' has been published."
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been "
+"published."
 msgstr ""
-"Útgáfa frá {timestamp} af {model_name} '{instance}' hefur verið sett í "
+"Útgáfa frá %(timestamp)s af %(model_name)s '%(object)s' hefur verið sett í "
 "loftið."
 
 #, python-brace-format
 msgid ""
-"Version from {timestamp} of {model_name} '{instance}' has been scheduled for "
-"publishing."
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled"
+" for publishing."
 msgstr ""
-"Útgáfa frá {timestamp} af {model_name} '{instance}' hefur verið tímasett til "
-"birtingar."
+"Útgáfa frá %(timestamp)s af %(model_name)s '%(object)s' hefur verið tímasett"
+" til birtingar."
 
 #, python-format
 msgid "Search %(model_name)s"
 msgstr "Leita að  %(model_name)s"
 
 #, python-brace-format
-msgid "'{0}' created and scheduled for publishing."
-msgstr "'{0}' vistuð og tímastillt til að setja í loftið."
+msgid "'%(object)s' created and scheduled for publishing."
+msgstr "'%(object)s' vistuð og tímastillt til að setja í loftið."
 
 #, python-brace-format
-msgid "'{0}' created and published."
-msgstr "'{0}' vistuð og sett í loftið."
+msgid "'%(object)s' created and published."
+msgstr "'%(object)s' vistuð og sett í loftið."
 
 msgid "Editing"
 msgstr "Breyti"
 
 #, python-brace-format
-msgid "'{0}' updated and scheduled for publishing."
-msgstr "'{0}' uppfærð og tímastillt til að setja í loftið."
+msgid "'%(object)s' updated and scheduled for publishing."
+msgstr "'%(object)s' uppfærð og tímastillt til að setja í loftið."
 
 #, python-brace-format
-msgid "'{0}' updated and published."
-msgstr "'{0}' uppfærð og sett í loftið."
+msgid "'%(object)s' updated and published."
+msgstr "'%(object)s' uppfærð og sett í loftið."
 
 msgid "Earliest"
 msgstr "Fyrsta"
@@ -2407,16 +2407,16 @@ msgid "Latest"
 msgstr "Nýjasta"
 
 #, python-brace-format
-msgid "'{object_name}' unpublished."
-msgstr "'{object_name}' tekið úr loftinu."
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' tekið úr loftinu."
 
 #, python-brace-format
-msgid "Version {revision_id} of \"{object}\" unscheduled."
-msgstr "Útgáfa {revision_id} af \"{object}\" tekin úr tímastillingu."
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "Útgáfa %(revision_id)s af \"%(object)s\" tekin úr tímastillingu."
 
 #, python-brace-format
-msgid "revision {revision_id} of \"{object}\""
-msgstr "útgáfa {revision_id} af \"{object}\""
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "útgáfa %(revision_id)s af \"%(object)s\""
 
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
@@ -2442,14 +2442,14 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" deleted"
 msgstr[0] ""
 "%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðu hefur verið "
 "eytt"
 msgstr[1] ""
-"%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðum hefur verið "
-"eytt"
+"%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðum hefur verið"
+" eytt"
 
 msgid "Select a new parent page"
 msgstr "Veldu nýja yfirsíðu"
@@ -2471,7 +2471,8 @@ msgstr "1 síða hefur verið sett í loftið"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] ""
 "1 síða og %(num_child_objects)d undirsíða hafa verið settar í loftið"
 msgstr[1] ""
@@ -2486,8 +2487,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "published"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" published"
 msgstr[0] ""
 "%(num_parent_objects)d síður og %(num_child_objects)d undirsíða hafa verið "
 "settar í loftið"
@@ -2519,8 +2520,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "unpublished"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" unpublished"
 msgstr[0] ""
 "%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
 "teknar úr loftinu"
@@ -2529,16 +2530,16 @@ msgstr[1] ""
 "teknar úr loftinu"
 
 #, python-brace-format
-msgid "Page '{0}' has been converted into an ordinary page."
-msgstr "Síðu '{0}' hefur verið breytt í venjulega síðu."
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "Síðu '%(page_title)s' hefur verið breytt í venjulega síðu."
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Síða '{0}' og {1} undirsíður afritaðar."
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "Síða '%(page_title)s' og %(subpages_count)s undirsíður afritaðar."
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "Síða '{0}' afrituð."
+msgid "Page '%(page_title)s' copied."
+msgstr "Síða '%(page_title)s' afrituð."
 
 msgid "View draft"
 msgstr "Skoða uppkast"
@@ -2547,72 +2548,85 @@ msgid "View live"
 msgstr "Skoða á vef"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "Síða '{0}' vistuð."
+msgid "Page '%(page_title)s' created."
+msgstr "Síða '%(page_title)s' vistuð."
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Síða '{0}' hefur verið búin til og tímastillt til að setja í loftið."
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr ""
+"Síða '%(page_title)s' hefur verið búin til og tímastillt til að setja í "
+"loftið."
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "Síða '{0}' vistuð og birt."
+msgid "Page '%(page_title)s' created and published."
+msgstr "Síða '%(page_title)s' vistuð og birt."
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Síða '{0}' vistuð og send til samþykkis."
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Síða '%(page_title)s' vistuð og send til samþykkis."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "Síðu '{0}' eytt."
+msgid "Page '%(page_title)s' deleted."
+msgstr "Síðu '%(page_title)s' eytt."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Þessi síða bíður samþykkis til birtingar."
 
 #, python-brace-format
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu af {1}."
-
-#, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "Síða '{0}' hefur verið uppfærð."
-
-#, python-brace-format
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Hætt hefur verið við vinnuflæði á síðu '{0}' "
-
-#, python-brace-format
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Útgáfa {0} af síðu '{1}' hefur verið tímasett í birtingu."
-
-#, python-brace-format
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
 msgstr ""
-"Síðan '{0}' er í birtingu og þessi útgáfa hefur verið tímastillt fyrir "
-"birtingu."
+"Síða '%(page_title)s' hefur verið skipt út fyrir útgáfu af "
+"%(previous_revision_datetime)s."
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "Síða '{0}' hefur verið tímastillt til að setja í loftið."
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Síða '%(page_title)s' hefur verið uppfærð."
 
 #, python-brace-format
-msgid "Version from {0} of page '{1}' has been published."
-msgstr "Útgáfa {0} af síðu '{1}' hefur verið sett í birtingu."
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Hætt hefur verið við vinnuflæði á síðu '%(page_title)s' "
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "Síða '{0}' hefur verið birt."
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"Útgáfa %(previous_revision_datetime)s af síðu '%(page_title)s' hefur verið "
+"tímasett í birtingu."
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "Síða '{0}' hefur verið send inn til samþykkis."
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Síðan '%(page_title)s' er í birtingu og þessi útgáfa hefur verið tímastillt "
+"fyrir birtingu."
 
 #, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "Vinnuflæði á síðu '{0}' hefur verið endurræst."
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Síða '%(page_title)s' hefur verið tímastillt til að setja í loftið."
+
+#, python-brace-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr ""
+"Útgáfa %(datetime)s af síðu '%(page_title)s' hefur verið sett í birtingu."
+
+#, python-brace-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Síða '%(page_title)s' hefur verið birt."
+
+#, python-brace-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Síða '%(page_title)s' hefur verið send inn til samþykkis."
+
+#, python-brace-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Vinnuflæði á síðu '%(page_title)s' hefur verið endurræst."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Ekki var hægt að vista síðuna, hún er læst"
@@ -2627,54 +2641,58 @@ msgid "Page history"
 msgstr "Saga síðu"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "Síða '{0}' er nú ólæst."
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Síða '%(page_title)s' er nú ólæst."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "'{0}' bíður nú samþykkis til birtingar."
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "'%(page_title)s' bíður nú samþykkis til birtingar."
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "Síða '{0}' hefur verið birt."
+msgid "Page '%(page_title)s' published."
+msgstr "Síða '%(page_title)s' hefur verið birt."
 
 msgid "Failed to send approval notifications"
 msgstr "Ekki tókst að senda samþykkis tilkynningar"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "Birtingu '{0}' var hafnað."
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "Birtingu '%(page_title)s' var hafnað."
 
 msgid "Failed to send rejection notifications"
 msgstr "Ekki tókst að senda höfnunar tilkynningar"
 
 #, python-brace-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
+" sure the slug is unique and try again"
 msgstr ""
-"Vefslóðin '{0}' er þegar í notkun. Breyttu slóðinni svo hún sé einkvæm og "
-"reyndu aftur."
+"Vefslóðin '%(page_slug)s' er þegar í notkun. Breyttu slóðinni svo hún sé "
+"einkvæm og reyndu aftur."
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "Síða '{0}' færð."
+msgid "Page '%(page_title)s' moved."
+msgstr "Síða '%(page_title)s' færð."
 
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Þú ert að skoða eldri útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
-"%(user)s"
+"Þú ert að skoða eldri útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir"
+" %(user)s"
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "Síða '{0}' tekin úr birtingu."
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Síða '%(page_title)s' tekin úr birtingu."
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Síðan '{0}' er ekki að bíða eftir yfirferð í skrefi '{1}'."
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"Síðan '%(page_title)s' er ekki að bíða eftir yfirferð í skrefi "
+"'%(task_name)s'."
 
 msgid "Last published before"
 msgstr "Síðast sett í loftið fyrir"
@@ -2731,15 +2749,15 @@ msgid "New workflow"
 msgstr "Nýtt vinnuflæði"
 
 #, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "Vinnuflæði '{0}' búið til."
+msgid "Workflow '%(object)s' created."
+msgstr "Vinnuflæði '%(object)s' búið til."
 
 msgid "Editing workflow"
 msgstr "Breyti vinnuflæði"
 
 #, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "Vinnuflæði '{0}' uppfært."
+msgid "Workflow '%(object)s' updated."
+msgstr "Vinnuflæði '%(object)s' uppfært."
 
 msgid "Disable"
 msgstr "Afvirkja"
@@ -2751,16 +2769,16 @@ msgid "Disable workflow"
 msgstr "Afvirkja vinnuflæði"
 
 #, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "Vinnuflæði '{0}' óvirkt."
+msgid "Workflow '%(object)s' disabled."
+msgstr "Vinnuflæði '%(object)s' óvirkt."
 
 #, python-format
 msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
+" workflow will cancel moderation on these pages."
 msgstr[0] ""
 "Þetta vinnuflæði er í vinnslu á %(states_in_progress)d síðu. Að gera það "
 "óvirkt afvirkjar vinnuflæðið á þessari síðu."
@@ -2769,26 +2787,26 @@ msgstr[1] ""
 "óvirkt afvirkjar vinnuflæðið á þessum síðum."
 
 #, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "Vinnuflæði '{0}' virkt."
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Vinnuflæði '%(workflow_name)s' virkt."
 
 #, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "Vinnuflæði fjarlægt af síðu '{0}'."
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Vinnuflæði fjarlægt af síðu '%(page_title)s'."
 
 msgid "New workflow task"
 msgstr "Nýtt skref í vinnuflæði"
 
 #, python-brace-format
-msgid "Task '{0}' created."
-msgstr "Skref '{0}' búið til."
+msgid "Task '%(object)s' created."
+msgstr "Skref '%(object)s' búið til."
 
 msgid "Editing workflow task"
 msgstr "Breyti skrefi vinnuflæðis"
 
 #, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "Skref '{0}' uppfært."
+msgid "Task '%(object)s' updated."
+msgstr "Skref '%(object)s' uppfært."
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2798,30 +2816,30 @@ msgid "Disable task"
 msgstr "Afvirkja skref"
 
 #, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "Skref '{0}' óvirkt."
+msgid "Task '%(object)s' disabled."
+msgstr "Skref '%(object)s' óvirkt."
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page. Disabling this task"
+" will cause it to be skipped in the moderation workflow and not be listed "
+"for selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
 "task will cause it to be skipped in the moderation workflow and not be "
 "listed for selection when editing a workflow."
 msgstr[0] ""
 "Þetta skref er í vinnslu á %(states_in_progress)d síðu. Að gera það óvirkt "
-"veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki sýnt í "
-"valmyndum þegar vinnuflæði er breytt."
+"veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki sýnt í"
+" valmyndum þegar vinnuflæði er breytt."
 msgstr[1] ""
 "Þetta skref er í vinnslu á %(states_in_progress)d síðum. Að gera það óvirkt "
-"veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki sýnt í "
-"valmyndum þegar vinnuflæði er breytt."
+"veldur því að því verður sleppt í yfirferð vinnuflæðis og verður ekki sýnt í"
+" valmyndum þegar vinnuflæði er breytt."
 
 #, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "Skref '{0}' virkt."
+msgid "Task '%(task_name)s' enabled."
+msgstr "Skref '%(task_name)s' virkt."
 
 msgid "Choose another"
 msgstr "Veldu aðra"
@@ -2917,8 +2935,8 @@ msgid "Reports"
 msgstr "Skýrslur"
 
 #, python-brace-format
-msgid "What's new in Wagtail {version}"
-msgstr "Hvað er nýtt í Wagtail {version}"
+msgid "What's new in Wagtail %(version)s"
+msgstr "Hvað er nýtt í Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Notendahandbók"

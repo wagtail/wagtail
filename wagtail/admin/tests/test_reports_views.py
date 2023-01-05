@@ -412,6 +412,18 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
 
         self.assertEqual(worksheet["C2"].number_format, ExcelDateFormatter().get())
 
+    def test_report_renders_when_page_publisher_deleted(self):
+        temp_user = self.create_superuser(
+            "temp", email="temp@user.com", password="tempuser"
+        )
+        expected_deleted_string = f"user {temp_user.pk} (deleted)"
+
+        self.home.save_revision().publish(user=temp_user)
+        temp_user.delete()
+
+        response = self.get()
+        self.assertContains(response, expected_deleted_string)
+
 
 class TestFilteredAgingPagesView(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]

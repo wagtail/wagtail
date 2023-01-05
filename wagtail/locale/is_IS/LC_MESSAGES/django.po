@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2019-2022\n"
-"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
-"wagtail/language/is_IS/)\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/wagtail/language/is_IS/)\n"
+"Language: is_IS\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
 msgid "Wagtail API v2"
@@ -30,12 +29,12 @@ msgid "Add Comment"
 msgstr "Bæta við athugasemd"
 
 #, python-format
-msgid "The minimum number of items is %d"
-msgstr "Fjöldi eininga má minnst vera %d"
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Fjöldi eininga má minnst vera %(min_num)d"
 
 #, python-format
-msgid "The maximum number of items is %d"
-msgstr "Fjöldi eininga má mest vera %d"
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Fjöldi eininga má mest vera %(max_num)d"
 
 msgid "Move up"
 msgstr "Færa upp"
@@ -83,14 +82,14 @@ msgstr "Athugasemd"
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Síðu '{}' var læst</b> af <b>þér</b> á <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b> by <b>you</b>."
-msgstr "<b>Síðu '{}' er læst</b> af <b>þér</b>."
+msgid "<b>Page '{page_title}' is locked</b> by <b>you</b>."
+msgstr "<b>Síðu '{page_title}' er læst</b> af <b>þér</b>."
 
 msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
 msgstr "<b>Síðu '{}' var læst</b> af <b>{}</b> á <b>{}</b>."
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Síða '{}' er læst</b>."
+msgid "<b>Page '{page_title}' is locked</b>."
+msgstr "<b>Síða '{page_title}' er læst</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Þessi síða bíður yfirferðar."
@@ -165,11 +164,11 @@ msgid "slug"
 msgstr "vefslóð (e. slug)"
 
 msgid ""
-"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
-"[my-slug]/"
+"The name of the page as it will appear in URLs e.g "
+"http://domain.com/blog/[my-slug]/"
 msgstr ""
-"Nafnið á síðunni eins og það mun birtast í slóðinni t.d. http://domain.com/"
-"blog/[min-vefslod]/"
+"Nafnið á síðunni eins og það mun birtast í slóðinni t.d. "
+"http://domain.com/blog/[min-vefslod]/"
 
 msgid "content type"
 msgstr "efnistegund"
@@ -395,12 +394,12 @@ msgstr "núverandi staða skrefs"
 msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr ""
-"Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má "
-"vera á hverri síðu."
+"Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má"
+" vera á hverri síðu."
 
 #, python-brace-format
-msgid "Workflow '{0}' on Page '{1}': {2}"
-msgstr "Vinnuflæði '{0}' á síðu '{1}': {2}"
+msgid "Workflow '%(workflow_name)s' on Page '%(page_title)s': %(status)s"
+msgstr "Vinnuflæði '%(workflow_name)s' á síðu '%(page_title)s': %(status)s"
 
 msgid "Not started"
 msgstr "Ekki byrjað"
@@ -433,8 +432,8 @@ msgid "finished by"
 msgstr "endar"
 
 #, python-brace-format
-msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Skref '{0}' á síðu útgáfu '{1}': {2}"
+msgid "Task '%(task_name)s' on Page Revision '%(revision_info)s': %(status)s"
+msgstr "Skref '%(task_name)s' á síðu útgáfu '%(revision_info)s': %(status)s"
 
 msgid "Task state"
 msgstr "Staða skrefs"
@@ -472,8 +471,8 @@ msgstr "atburðaskráning"
 msgid "log entries"
 msgstr "atburðaskráningar"
 
-msgid "The log action '{}' has not been registered."
-msgstr "Aðgerð í atburðaskrá '{}' hefur ekki verið skráð."
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Aðgerð í atburðaskrá '%(action_name)s' hefur ekki verið skráð."
 
 #, python-format
 msgid "user %(id)s (deleted)"

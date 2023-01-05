@@ -15,12 +15,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2019\n"
-"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
-"ja/)\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail images"
@@ -30,34 +29,35 @@ msgstr "Wagtailの画像"
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
-msgstr ""
-"サポートされているフォーマット：%(supported_formats)s　ファイルサイズの上限："
-"%(max_upload_size)s"
+msgstr "サポートされているフォーマット：%(supported_formats)s　ファイルサイズの上限：%(max_upload_size)s"
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "サポートされている%(supported_formats)s"
 
 #, python-format
-msgid "Not a supported image format. Supported formats: %s."
-msgstr "サポートされていない画像形式です。%sをお試しください。"
+msgid ""
+"Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "サポートされていない画像形式です。%(supported_formats)sをお試しください。"
 
 #, python-format
 msgid "Not a valid %s image."
 msgstr "%sに該当しない画像形式です。"
 
 #, python-format
-msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "このファイルは大きすぎます（%%s）。ファイルサイズの上限は%sです。"
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "このファイルは大きすぎます（%(file_size)s）。ファイルサイズの上限は%(max_filesize)sです。"
 
 #, python-format
-msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr ""
-"このファイルのピクセル数 (%%s)は大きすぎます。ピクセル数の上限は%sです。"
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr "このファイルのピクセル数 (%(num_pixels)s)は大きすぎます。ピクセル数の上限は%(max_pixels_count)sです。"
 
 #, python-format
-msgid "This file is too big. Maximum filesize %s."
-msgstr "このファイルは大きすぎます。ファイルサイズの上限は%sです。"
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "このファイルは大きすぎます。ファイルサイズの上限は%(max_filesize)sです。"
 
 msgid "Full width"
 msgstr "最大幅"
@@ -238,19 +238,19 @@ msgstr "<em>%(query_string)s</em>に一致する画像はありませんでし�
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"まだこのコレクションに画像がアップロードされていません。<a href="
-"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+"まだこのコレクションに画像がアップロードされていません。<a "
+"href=\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"まだ画像がアップロードされていません。<a href="
-"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+"まだ画像がアップロードされていません。<a "
+"href=\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 msgid "Generating URL"
 msgstr "URLを生成"
@@ -264,9 +264,7 @@ msgstr "プレビュー"
 msgid ""
 "Note that images generated larger than the screen will appear smaller when "
 "previewed here, so they fit the screen."
-msgstr ""
-"スクリーンの大きさよりも大きく生成された画像はプレビューの際はスクリーンに合"
-"わせて小さく表示されます。"
+msgstr "スクリーンの大きさよりも大きく生成された画像はプレビューの際はスクリーンに合わせて小さく表示されます。"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -285,8 +283,7 @@ msgid "Add images"
 msgstr "画像を追加"
 
 msgid "Drag and drop images into this area to upload immediately."
-msgstr ""
-"画像ファイルをここにドラッグ&ドロップするとすぐにアップロードできます。"
+msgstr "画像ファイルをここにドラッグ&ドロップするとすぐにアップロードできます。"
 
 msgid "Or choose from your computer"
 msgstr "もしくはファイルを参照"
@@ -298,9 +295,7 @@ msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
-msgstr ""
-"アップロードに成功しました。必要の際には画像を更新できます。また、アップロー"
-"ドする必要のない画像を削除することもできます。"
+msgstr "アップロードに成功しました。必要の際には画像を更新できます。また、アップロードする必要のない画像を削除することもできます。"
 
 msgid "Sorry, upload failed."
 msgstr "アップロードに失敗しました。"
@@ -342,8 +337,8 @@ msgid "Search images"
 msgstr "画像を検索"
 
 #, python-brace-format
-msgid "Image '{0}' updated."
-msgstr "画像 '{0}' がアップロードされました。"
+msgid "Image '%(image_title)s' updated."
+msgstr "画像 '%(image_title)s' がアップロードされました。"
 
 msgid "Edit again"
 msgstr "もう一度編集する"
@@ -352,26 +347,24 @@ msgid "The image could not be saved due to errors."
 msgstr "この画像はエラーにより保存されませんでした。"
 
 msgid ""
-"The source image file could not be found. Please change the source or delete "
-"the image."
-msgstr ""
-"画像のソースファイルが見つかりませんでした。ソースを変更するか画像を削除して"
-"ください。"
+"The source image file could not be found. Please change the source or delete"
+" the image."
+msgstr "画像のソースファイルが見つかりませんでした。ソースを変更するか画像を削除してください。"
 
 #, python-brace-format
-msgid "Image '{0}' deleted."
-msgstr "画像 '{0}' が削除されました。"
+msgid "Image '%(image_title)s' deleted."
+msgstr "画像 '%(image_title)s' が削除されました。"
 
 #, python-brace-format
-msgid "Image '{0}' added."
-msgstr "画像 '{0}' が追加されました。 "
+msgid "Image '%(image_title)s' added."
+msgstr "画像 '%(image_title)s' が追加されました。 "
 
 msgid "The image could not be created due to errors."
 msgstr "この画像はエラーにより生成できませんでした。 "
 
 #, python-format
-msgid "Edit this %s"
-msgstr "%sを編集"
+msgid "Edit this %(object)s"
+msgstr "%(object)sを編集"
 
 msgid "Image"
 msgstr "画像"

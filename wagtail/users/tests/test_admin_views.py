@@ -1360,6 +1360,7 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             Q(codename__startswith="add")
             | Q(codename__startswith="change")
             | Q(codename__startswith="delete")
+            | Q(codename__startswith="publish")
         ).delete()
 
         response = self.get()
@@ -1370,6 +1371,37 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertInHTML("Custom permissions", str(response.content))
+
+    def test_show_publish_permissions(self):
+        response = self.get()
+        html = response.content.decode()
+
+        # Should show the Publish column
+        self.assertInHTML("<th>Publish</th>", html)
+
+        # Should show inputs for publish permissions on models with DraftStateMixin
+        self.assertInHTML("Can publish draft state model", html)
+        self.assertInHTML("Can publish draft state custom primary key model", html)
+
+        # Should not show inputs for publish permissions on models without DraftStateMixin
+        self.assertNotInHTML("Can publish advert", html)
+
+    def test_hide_publish_permissions(self):
+        # Remove all `publish` permissions
+        Permission.objects.filter(codename__startswith="publish").delete()
+
+        response = self.get()
+        html = response.content.decode()
+
+        # Should not show the Publish column
+        self.assertNotInHTML("<th>Publish</th>", html)
+
+        # Should not show inputs for publish permissions even on models with DraftStateMixin
+        self.assertNotInHTML("Can publish draft state model", html)
+        self.assertNotInHTML("Can publish draft state custom primary key model", html)
+
+        # Should not show inputs for publish permissions on models without DraftStateMixin
+        self.assertNotInHTML("Can publish advert", html)
 
 
 class TestGroupEditView(TestCase, WagtailTestUtils):
@@ -1775,6 +1807,37 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             % custom_permission.id,
             str(response.content),
         )
+
+    def test_show_publish_permissions(self):
+        response = self.get()
+        html = response.content.decode()
+
+        # Should show the Publish column
+        self.assertInHTML("<th>Publish</th>", html)
+
+        # Should show inputs for publish permissions on models with DraftStateMixin
+        self.assertInHTML("Can publish draft state model", html)
+        self.assertInHTML("Can publish draft state custom primary key model", html)
+
+        # Should not show inputs for publish permissions on models without DraftStateMixin
+        self.assertNotInHTML("Can publish advert", html)
+
+    def test_hide_publish_permissions(self):
+        # Remove all `publish` permissions
+        Permission.objects.filter(codename__startswith="publish").delete()
+
+        response = self.get()
+        html = response.content.decode()
+
+        # Should not show the Publish column
+        self.assertNotInHTML("<th>Publish</th>", html)
+
+        # Should not show inputs for publish permissions even on models with DraftStateMixin
+        self.assertNotInHTML("Can publish draft state model", html)
+        self.assertNotInHTML("Can publish draft state custom primary key model", html)
+
+        # Should not show inputs for publish permissions on models without DraftStateMixin
+        self.assertNotInHTML("Can publish advert", html)
 
 
 class TestGroupViewSet(TestCase):

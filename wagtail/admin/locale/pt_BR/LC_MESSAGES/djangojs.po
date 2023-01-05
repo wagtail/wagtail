@@ -1,4 +1,3 @@
-#
 # Translators:
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2022
 # Guilherme Nabanete <neoheartz@gmail.com>, 2022
@@ -12,12 +11,10 @@
 msgid ""
 msgstr ""
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2022\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/torchbox/"
-"teams/8009/pt_BR/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/torchbox/teams/8009/pt_BR/)\n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -55,8 +52,8 @@ msgstr "Remover erro"
 msgid "Edit"
 msgstr "Editar"
 
-msgid "Edit '{title}'"
-msgstr "Editar '{title}'"
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
 
 msgid "Edit your account"
 msgstr "Edite sua conta"
@@ -151,8 +148,8 @@ msgstr "Mostrar conteúdo mais recente"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"O editor simplesmente travou. O conteúdo foi redefinido para a última versão "
-"salva."
+"O editor simplesmente travou. O conteúdo foi redefinido para a última versão"
+" salva."
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
@@ -163,5 +160,5 @@ msgstr "Alternar barra lateral"
 msgid "Unfocus comment"
 msgstr "Desfocar comentário"
 
-msgid "View child pages of '{title}'"
-msgstr "Ver páginas filho de '{title}'"
+msgid "View child pages of '%(title)s'"
+msgstr "Ver páginas filho de '%(title)s'"

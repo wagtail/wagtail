@@ -48,9 +48,9 @@
                                         {{ live_expire_at }}
                                     </div>
                                 </div>
-                                {% if show_schedule_publishing_toggle and not has_draft_publishing_schedule and not page_perms.page_locked %}
+                                {% if show_schedule_publishing_toggle and not has_draft_publishing_schedule and not locked_for_user %}
                                     {% trans 'Edit schedule' as edit_schedule_text %}
-                                    {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                                 {% endif %}
                             </div>
                         </div>
@@ -93,7 +93,7 @@
 {% block action %}
     {% if workflow_state and not hide_action %}
         {% trans 'Moderators approval' as workflow_dialog_title %}
-        {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
+        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="workflow-status-dialog" text=action_text %}
 
         {# info subtitle #}
         {% if object.get_latest_revision %}
@@ -158,18 +158,18 @@
                             {% endif %}
                         {% endif %}
                     </div>
-                    {% if show_schedule_publishing_toggle and not page_perms.page_locked %}
+                    {% if show_schedule_publishing_toggle and not locked_for_user %}
                         {% trans 'Edit schedule' as edit_schedule_text %}
-                        {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
+                        {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=edit_schedule_text %}
                     {% endif %}
                 </div>
             </div>
         {% elif draftstate_enabled and not has_live_publishing_schedule %}
             <div class="w-flex w-justify-between w-items-center w-w-full">
                 <div class="w-ml-8 w-pr-4 w-label-3">{% trans 'No publishing schedule set' %}</div>
-                {% if show_schedule_publishing_toggle and not page_perms.page_locked %}
+                {% if show_schedule_publishing_toggle and not locked_for_user %}
                     {% trans 'Set schedule' as set_schedule_text %}
-                    {% dialog_toggle class_name='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=set_schedule_text %}
+                    {% dialog_toggle classname='w-bg-transparent w-text-14 w-p-0 w-text-secondary hover:w-text-secondary-600 w-inline-flex w-justify-center w-transition' dialog_id="schedule-publishing-dialog" text=set_schedule_text %}
                 {% endif %}
             </div>
         {% endif %}

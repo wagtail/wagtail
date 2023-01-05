@@ -1,5 +1,6 @@
 import logging
 import uuid
+import warnings
 from collections import defaultdict
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse, urlsplit, urlunparse, urlunsplit
@@ -9,6 +10,7 @@ import requests
 from django.core.exceptions import ImproperlyConfigured
 
 from wagtail import __version__
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 logger = logging.getLogger("wagtail.frontendcache")
 
@@ -293,7 +295,7 @@ class AzureBaseBackend(BaseBackend):
 
     def _get_client_kwargs(self):
         return {
-            "credentials": self._get_credentials(),
+            "credential": self._get_credentials(),
             "subscription_id": self._get_subscription_id(),
         }
 
@@ -339,9 +341,37 @@ class AzureBaseBackend(BaseBackend):
                     exception.response,
                 )
 
+    def _is_legacy_azure_library(self, *, major_required, installed_version):
+        """
+        Return `True` if the major part of the parsed `installed_version` string is
+        smaller than `major_required`.
+
+        This code is used to check versions from Azure libraries that got a backwards
+        incompatible change in versions 10 (azure-mgmt-cdn) and 1.0
+        (azure-mgmt-frontdoor).
+        """
+        try:
+            major = int(installed_version.split(".", maxsplit=1)[0])
+        except (IndexError, ValueError):
+            return False
+
+        return major < major_required
+
 
 class AzureFrontDoorBackend(AzureBaseBackend):
     def __init__(self, params):
+        from azure.mgmt.frontdoor import __version__
+
+        self._legacy_azure_library = self._is_legacy_azure_library(
+            major_required=1, installed_version=__version__
+        )
+
+        if self._legacy_azure_library:
+            warnings.warn(
+                f"Support for azure-mgmt-frontdoor {__version__} will be dropped in the next release. Please upgrade to azure-mgmt-frontdoor >= 1.0.",
+                RemovedInWagtail50Warning,
+            )
+
         super().__init__(params)
         try:
             self._front_door_name = params.pop("FRONT_DOOR_NAME")
@@ -359,6 +389,10 @@ class AzureFrontDoorBackend(AzureBaseBackend):
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
         kwargs.setdefault("base_url", self._front_door_service_url)
+
+        if self._legacy_azure_library:
+            kwargs["credentials"] = kwargs.pop("credential")
+
         return kwargs
 
     def _make_purge_call(self, client, paths):
@@ -370,6 +404,18 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
 class AzureCdnBackend(AzureBaseBackend):
     def __init__(self, params):
+        from azure.mgmt.cdn import __version__
+
+        self._legacy_azure_library = self._is_legacy_azure_library(
+            major_required=10, installed_version=__version__
+        )
+
+        if self._legacy_azure_library:
+            warnings.warn(
+                f"Support for azure-mgmt-cdn {__version__} will be dropped in the next release. Please upgrade to azure-mgmt-cdn >= 10.",
+                RemovedInWagtail50Warning,
+            )
+
         super().__init__(params)
         try:
             self._cdn_profile_name = params.pop("CDN_PROFILE_NAME")
@@ -388,6 +434,10 @@ class AzureCdnBackend(AzureBaseBackend):
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
         kwargs.setdefault("base_url", self._cdn_service_url)
+
+        if self._legacy_azure_library:
+            kwargs["credentials"] = kwargs.pop("credential")
+
         return kwargs
 
     def _make_purge_call(self, client, paths):

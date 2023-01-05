@@ -17,7 +17,6 @@ from wagtail.admin.views.generic.models import (
     RevisionsUnscheduleView,
 )
 from wagtail.admin.views.generic.preview import PreviewRevision
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
 
@@ -159,9 +158,3 @@ class RevisionsUnschedule(RevisionsUnscheduleView):
 
     def get_object_display_title(self):
         return self.object.get_admin_display_title()
-
-    def get_success_url(self):
-        next_url = get_valid_next_url_from_request(self.request)
-        if next_url:
-            return next_url
-        return super().get_success_url()

@@ -15,6 +15,7 @@ from django.db.models import Model
 from django.db.models.base import ModelBase
 from django.dispatch import receiver
 from django.http import HttpRequest
+from django.test import RequestFactory
 from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
@@ -394,7 +395,7 @@ def multigetattr(item, accessor):
     return current
 
 
-def get_dummy_request(path: str = "/", site: "Site" = None) -> HttpRequest:
+def get_dummy_request(*, path: str = "/", site: "Site" = None) -> HttpRequest:
     """
     Return a simple ``HttpRequest`` instance that can be passed to
     ``Page.get_url()`` and other methods to benefit from improved performance
@@ -403,19 +404,17 @@ def get_dummy_request(path: str = "/", site: "Site" = None) -> HttpRequest:
     If ``site`` is provided, the ``HttpRequest`` is made to look like it came
     from that Wagtail ``Site``.
     """
-    request = HttpRequest()
-    request.path = path
-    request.method = "GET"
-    SERVER_PORT = 80
+    server_port = 80
     if site:
-        SERVER_NAME = site.hostname
-        SERVER_PORT = site.port
+        server_name = site.hostname
+        server_port = site.port
     elif settings.ALLOWED_HOSTS == ["*"]:
-        SERVER_NAME = "example.com"
+        server_name = "example.com"
     else:
-        SERVER_NAME = settings.ALLOWED_HOSTS[0]
-    request.META = {"SERVER_NAME": SERVER_NAME, "SERVER_PORT": SERVER_PORT}
-    return request
+        server_name = settings.ALLOWED_HOSTS[0]
+
+    # `SERVER_PORT` doesn't work when passed to the constructor
+    return RequestFactory(SERVER_NAME=server_name).get(path, SERVER_PORT=server_port)
 
 
 class BatchProcessor:

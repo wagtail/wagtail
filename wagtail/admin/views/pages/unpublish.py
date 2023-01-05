@@ -6,8 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic.models import UnpublishView
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.models import Page, UserPagePermissionsProxy
 
 
@@ -16,7 +16,7 @@ class Unpublish(UnpublishView):
     index_url_name = "wagtailadmin_explore"
     edit_url_name = "wagtailadmin_pages:edit"
     unpublish_url_name = "wagtailadmin_pages:unpublish"
-    success_message = _("Page '{0}' unpublished.")
+    success_message = _("Page '%(page_title)s' unpublished.")
     template_name = "wagtailadmin/pages/confirm_unpublish.html"
 
     def setup(self, request, page_id, *args, **kwargs):
@@ -36,7 +36,9 @@ class Unpublish(UnpublishView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_message(self):
-        return self.success_message.format(self.object.get_admin_display_title())
+        return self.success_message % {
+            "page_title": self.object.get_admin_display_title()
+        }
 
     def get_next_url(self):
         next_url = get_valid_next_url_from_request(self.request)

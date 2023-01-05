@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.models import DraftStateMixin
+from wagtail.models import DraftStateMixin, LockableMixin
 from wagtail.snippets.permissions import get_permission_name
 
 
@@ -40,7 +40,7 @@ class ActionMenuItem(Component):
             'model' = the model of the snippet being created/edited
             'instance' (if view = 'edit') = the snippet being edited
         """
-        return True
+        return not context.get("locked_for_user")
 
     def get_context_data(self, parent_context):
         """Defines context for the template, overridable to use more data"""
@@ -72,7 +72,9 @@ class PublishMenuItem(ActionMenuItem):
 
     def is_shown(self, context):
         publish_permission = get_permission_name("publish", context["model"])
-        return context["request"].user.has_perm(publish_permission)
+        return context["request"].user.has_perm(publish_permission) and not context.get(
+            "locked_for_user"
+        )
 
 
 class UnpublishMenuItem(ActionMenuItem):
@@ -82,6 +84,8 @@ class UnpublishMenuItem(ActionMenuItem):
     classname = "action-secondary"
 
     def is_shown(self, context):
+        if context.get("locked_for_user"):
+            return False
         if context["view"] == "edit" and context["instance"].live:
             publish_permission = get_permission_name("publish", context["model"])
             return context["request"].user.has_perm(publish_permission)
@@ -105,8 +109,10 @@ class DeleteMenuItem(ActionMenuItem):
     def is_shown(self, context):
         delete_permission = get_permission_name("delete", context["model"])
 
-        return context["view"] == "edit" and context["request"].user.has_perm(
-            delete_permission
+        return (
+            context["view"] == "edit"
+            and context["request"].user.has_perm(delete_permission)
+            and not context.get("locked_for_user")
         )
 
     def get_url(self, context):
@@ -125,6 +131,15 @@ class SaveMenuItem(ActionMenuItem):
     template_name = "wagtailsnippets/snippets/action_menu/save.html"
 
 
+class LockedMenuItem(ActionMenuItem):
+    name = "action-locked"
+    label = _("Locked")
+    template_name = "wagtailsnippets/snippets/action_menu/locked.html"
+
+    def is_shown(self, context):
+        return context.get("locked_for_user")
+
+
 @lru_cache(maxsize=None)
 def get_base_snippet_action_menu_items(model):
     """
@@ -140,6 +155,8 @@ def get_base_snippet_action_menu_items(model):
             UnpublishMenuItem(order=20),
             PublishMenuItem(order=30),
         ]
+    if issubclass(model, LockableMixin):
+        menu_items.append(LockedMenuItem(order=10000))
 
     for hook in hooks.get_hooks("register_snippet_action_menu_item"):
         action_menu_item = hook(model)

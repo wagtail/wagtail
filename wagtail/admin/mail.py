@@ -54,6 +54,9 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         "headers": {
             "Auto-Submitted": "auto-generated",
         },
+        "bcc": kwargs.get("bcc", None),
+        "cc": kwargs.get("cc", None),
+        "reply_to": kwargs.get("reply_to", None),
     }
     mail = EmailMultiAlternatives(
         subject, message, from_email, recipient_list, **multi_alt_kwargs

@@ -24,15 +24,12 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
-"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
-"ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail documents"
 msgstr "Документы Wagtail"
@@ -137,7 +134,8 @@ msgstr[3] ""
 "Вы уверены, что хотите добавить следующие документы в выбранную коллекцию?"
 
 msgid "You don't have permission to add this document to a collection"
-msgid_plural "You don't have permission to add these documents to a collection"
+msgid_plural ""
+"You don't have permission to add these documents to a collection"
 msgstr[0] "У вас недостаточно прав для добавления этого документа в коллекцию"
 msgstr[1] "У вас недостаточно прав для добавления этих документов в коллекцию"
 msgstr[2] "У вас недостаточно прав для добавления этих документов в коллекцию"
@@ -188,8 +186,8 @@ msgstr "Последние документы"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"К сожалению, нет документов, соответствующих запросу \"<em>%(search_query)s</"
-"em>\""
+"К сожалению, нет документов, соответствующих запросу "
+"\"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "Вы не загрузили документы в эту коллекцию."
@@ -273,24 +271,23 @@ msgstr[3] "Есть %(counter)s совпадений"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
-msgstr ""
-"Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
+msgstr "Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Вы еще не загрузили ни одного документа в эту коллекцию. Почему бы не <a "
 "href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Вы еще не загрузили ни одного документа. Почему бы не <a href="
-"\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
+"Вы еще не загрузили ни одного документа. Почему бы не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -417,15 +414,15 @@ msgid "Search documents"
 msgstr "Поиск документов"
 
 #, python-brace-format
-msgid "Document '{0}' added."
-msgstr "Документ '{0}' добавлен."
+msgid "Document '%(document_title)s' added."
+msgstr "Документ '%(document_title)s' добавлен."
 
 msgid "The document could not be saved due to errors."
 msgstr "Документ не может быть сохранен из-за ошибок."
 
 #, python-brace-format
-msgid "Document '{0}' updated"
-msgstr "Документ '{0}' обновлен"
+msgid "Document '%(document_title)s' updated"
+msgstr "Документ '%(document_title)s' обновлен"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -434,12 +431,12 @@ msgstr ""
 "документ"
 
 #, python-brace-format
-msgid "Document '{0}' deleted."
-msgstr "Документ '{0}' удален."
+msgid "Document '%(document_title)s' deleted."
+msgstr "Документ '%(document_title)s' удален."
 
 #, python-format
-msgid "Edit this %s"
-msgstr "Править %s"
+msgid "Edit this %(object)s"
+msgstr "Править %(object)s"
 
 msgid "Document"
 msgstr "Документ"

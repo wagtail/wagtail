@@ -12,12 +12,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
-"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
-"mn/)\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/mn/)\n"
+"Language: mn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail forms"
@@ -114,8 +113,8 @@ msgid "subject"
 msgstr "сэдэв"
 
 #, python-format
-msgid "%s submissions"
-msgstr "%s хянуулахаар илгээсэн"
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s хянуулахаар илгээсэн"
 
 #, python-format
 msgid "Delete form data %(title)s"

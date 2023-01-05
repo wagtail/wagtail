@@ -28,12 +28,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2022\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
-"language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
@@ -42,11 +41,11 @@ msgstr "发布"
 msgid "Submit for moderation"
 msgstr "提交审核"
 
-msgid "Resubmit to {}"
-msgstr "重新提交给{}"
+msgid "Resubmit to %(task_name)s"
+msgstr "重新提交给%(task_name)s"
 
-msgid "Submit to {}"
-msgstr "提交给{}"
+msgid "Submit to %(workflow_name)s"
+msgstr "提交给%(workflow_name)s"
 
 msgid "Restart workflow "
 msgstr "重启工作流"
@@ -110,8 +109,8 @@ msgid "Enter password"
 msgstr "输入密码"
 
 #, python-format
-msgid "Enter your %s"
-msgstr "输入你的 %s"
+msgid "Enter your %(username_field_name)s"
+msgstr "输入你的 %(username_field_name)s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
@@ -222,8 +221,9 @@ msgstr "你没有权限复制到页面“%(page_title)s”"
 
 #, python-format
 msgid ""
-"This slug is already in use within the context of its parent page \"%s\""
-msgstr "此缩略名在其父页面\"%s\"上下文中已被使用。"
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "此缩略名在其父页面\"%(parent_page_title)s\"上下文中已被使用。"
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在复制子页面时不能复制当前页面本身"
@@ -248,8 +248,8 @@ msgid "All types"
 msgstr "所有类型"
 
 #, python-brace-format
-msgid "This page already has workflow '{0}' assigned."
-msgstr "此页面已经被分配给工作流'{0}'."
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "此页面已经被分配给工作流'%(workflow_name)s'."
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "你不能将此工作流多次分配给同一个页面."
@@ -267,12 +267,12 @@ msgid "1 page selected"
 msgstr "已选择1个页面"
 
 #, python-brace-format
-msgid "{0} pages selected"
-msgstr "已选择{0} 个页面"
+msgid "%(objects)s pages selected"
+msgstr "已选择%(objects)s 个页面"
 
 #, python-brace-format
-msgid "All {0} pages on this screen selected"
-msgstr "已选择本屏幕的所有{0} 个页面"
+msgid "All %(objects)s pages on this screen selected"
+msgstr "已选择本屏幕的所有%(objects)s 个页面"
 
 msgid "All pages in listing selected"
 msgstr "已选择列表中的所有页面"
@@ -281,12 +281,12 @@ msgid "1 document selected"
 msgstr "已选择1个文档"
 
 #, python-brace-format
-msgid "{0} documents selected"
-msgstr "已选择{0} 个文档"
+msgid "%(objects)s documents selected"
+msgstr "已选择%(objects)s 个文档"
 
 #, python-brace-format
-msgid "All {0} documents on this screen selected"
-msgstr "已选择本屏幕的所有{0} 个文档"
+msgid "All %(objects)s documents on this screen selected"
+msgstr "已选择本屏幕的所有%(objects)s 个文档"
 
 msgid "All documents in listing selected"
 msgstr "已选择列表中的所有文档"
@@ -295,12 +295,12 @@ msgid "1 image selected"
 msgstr "已选择1个图片"
 
 #, python-brace-format
-msgid "{0} images selected"
-msgstr "已选择{0} 个图片"
+msgid "%(objects)s images selected"
+msgstr "已选择%(objects)s 个图片"
 
 #, python-brace-format
-msgid "All {0} images on this screen selected"
-msgstr "已选择本屏幕的所有{0} 个图片"
+msgid "All %(objects)s images on this screen selected"
+msgstr "已选择本屏幕的所有%(objects)s 个图片"
 
 msgid "All images in listing selected"
 msgstr "已选择列表中的所有图片"
@@ -309,12 +309,12 @@ msgid "1 user selected"
 msgstr "已选择1个用户"
 
 #, python-brace-format
-msgid "{0} users selected"
-msgstr "已选择{0} 个用户"
+msgid "%(objects)s users selected"
+msgstr "已选择%(objects)s 个用户"
 
 #, python-brace-format
-msgid "All {0} users on this screen selected"
-msgstr "已选择本屏幕的所有{0} 个用户"
+msgid "All %(objects)s users on this screen selected"
+msgstr "已选择本屏幕的所有%(objects)s 个用户"
 
 msgid "All users in listing selected"
 msgstr "已选择列表中的所有用户"
@@ -323,12 +323,12 @@ msgid "1 item selected"
 msgstr "已选择1个条目"
 
 #, python-brace-format
-msgid "{0} items selected"
-msgstr "已选择{0} 个条目"
+msgid "%(objects)s items selected"
+msgstr "已选择%(objects)s 个条目"
 
 #, python-brace-format
-msgid "All {0} items on this screen selected"
-msgstr "已选择本屏幕的所有{0} 个条目"
+msgid "All %(objects)s items on this screen selected"
+msgstr "已选择本屏幕的所有%(objects)s 个条目"
 
 msgid "All items in listing selected"
 msgstr "已选择列表中的所有条目"
@@ -533,10 +533,9 @@ msgstr "名字"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
-msgstr ""
-"没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr "没有创建任何集合，为何不<a href=\"%(add_collection_url)s\">创建一个</a>"
 
 msgid "Yes, delete"
 msgstr "是的， 删除"
@@ -707,8 +706,7 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "页面\"%(page)s\"已提交审核"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgid "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
 msgstr "页面“%(title)s”已在审核阶段“%(task)s”获得批准。"
 
 #, python-format
@@ -716,8 +714,7 @@ msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
 msgstr "页面“%(title)s”已在“%(task)s”中批准。"
 
 #, python-format
-msgid ""
-"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgid "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
 msgstr "页面“%(title)s”已在审核阶段“%(task)s”被拒绝。"
 
 #, python-format
@@ -783,8 +780,7 @@ msgstr "页面“%(title)s”已在“%(workflow)s”中批准。"
 msgid ""
 "The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
 "\"%(workflow)s\" by %(rejector)s."
-msgstr ""
-"页面“%(title)s”在“%(task)s”期间的工作流“%(workflow)s”中被%(rejector)s拒绝。"
+msgstr "页面“%(title)s”在“%(task)s”期间的工作流“%(workflow)s”中被%(rejector)s拒绝。"
 
 #, python-format
 msgid ""
@@ -1003,8 +999,7 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"或者你可以 <a href=\"%(unpublish_url)s\">取消发布此页面</a>。此页面将不再公开"
-"展示，稍后你可以进行编辑或者重新发布。"
+"或者你可以 <a href=\"%(unpublish_url)s\">取消发布此页面</a>。此页面将不再公开展示，稍后你可以进行编辑或者重新发布。"
 
 #, python-format
 msgid "Move %(title)s"
@@ -1466,11 +1461,12 @@ msgstr "创建"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
-"工作流也应用于子页面。如果在此处选择父页面，则其子页面也将使用此工作流。请参"
-"见您的工作流应用的<a href=\"%(workflow_pages_url)s\">页面列表</a>。"
+"工作流也应用于子页面。如果在此处选择父页面，则其子页面也将使用此工作流。请参见您的工作流应用的<a "
+"href=\"%(workflow_pages_url)s\">页面列表</a>。"
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "此工作流已禁用，因此无法将其分配给任何页面。"
@@ -1552,8 +1548,8 @@ msgid ""
 "Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
 "trigger>create one now</a>?"
 msgstr ""
-"为什么不用 <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>马"
-"上创建一个</a>呢？"
+"为什么不用 <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>马上创建一个</a>呢？"
 
 msgid "Hide disabled tasks"
 msgstr "隐藏禁用的任务"
@@ -1562,13 +1558,11 @@ msgid "Show disabled tasks"
 msgstr "显示禁用的任务"
 
 #, python-format
-msgid ""
-"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr "尚未创建任何任务，为何不<a href=\"%(add_url)s\">创建一个</a>？"
 
 #, python-format
-msgid ""
-"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgid "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr "没有启用的任务，为何不<a href=\"%(add_url)s\">创建一个</a>？"
 
 #, python-format
@@ -1678,12 +1672,12 @@ msgid "Add collection"
 msgstr "添加集合"
 
 #, python-brace-format
-msgid "Collection '{0}' created."
-msgstr "集合 '{0}' 已创建"
+msgid "Collection '%(object)s' created."
+msgstr "集合 '%(object)s' 已创建"
 
 #, python-brace-format
-msgid "Collection '{0}' updated."
-msgstr "集合 '{0}' 已更新"
+msgid "Collection '%(object)s' updated."
+msgstr "集合 '%(object)s' 已更新"
 
 msgid "The collection could not be saved due to errors."
 msgstr "无法保存集合，出现错误。"
@@ -1692,8 +1686,8 @@ msgid "Delete collection"
 msgstr "删除集合"
 
 #, python-brace-format
-msgid "Collection '{0}' deleted."
-msgstr "集合 '{0}' 已删除"
+msgid "Collection '%(object)s' deleted."
+msgstr "集合 '%(object)s' 已删除"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "确定删除此集合？"
@@ -1730,8 +1724,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "deleted"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" deleted"
 msgstr[0] "已删除%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
 
 msgid "Select a new parent page"
@@ -1753,7 +1747,8 @@ msgstr "已发布1个页面"
 
 #, python-format
 msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been published"
 msgstr[0] "已发布1个页面和%(num_child_objects)d个子页面"
 
 #, python-format
@@ -1765,8 +1760,8 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "published"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" published"
 msgstr[0] "已发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
 
 msgid "Unpublish selected pages"
@@ -1790,22 +1785,21 @@ msgid ""
 "%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
 "unpublished"
 msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"已取消发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been"
+" unpublished"
+msgstr[0] "已取消发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
 
 #, python-brace-format
-msgid "Page '{0}' has been converted into an ordinary page."
-msgstr "页面“{0}”已经被转换成一个常规页面。"
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "页面“%(page_title)s”已经被转换成一个常规页面。"
 
 #, python-brace-format
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "页面 '%(page_title)s' 和 %(subpages_count)s 个子页面已复制。"
 
 #, python-brace-format
-msgid "Page '{0}' copied."
-msgstr "页面'{0}'已复制。"
+msgid "Page '%(page_title)s' copied."
+msgstr "页面'%(page_title)s'已复制。"
 
 msgid "View draft"
 msgstr "查看草稿"
@@ -1814,70 +1808,76 @@ msgid "View live"
 msgstr "实时查看"
 
 #, python-brace-format
-msgid "Page '{0}' created."
-msgstr "页面'{0}'已创建"
+msgid "Page '%(page_title)s' created."
+msgstr "页面'%(page_title)s'已创建"
 
 #, python-brace-format
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "页面 {0} 已创建并计划发布中。"
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "页面 %(page_title)s 已创建并计划发布中。"
 
 #, python-brace-format
-msgid "Page '{0}' created and published."
-msgstr "页面'{0}'已创建并发布。"
+msgid "Page '%(page_title)s' created and published."
+msgstr "页面'%(page_title)s'已创建并发布。"
 
 #, python-brace-format
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "页面 '{0}' 已创建并提交审核。"
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "页面 '%(page_title)s' 已创建并提交审核。"
 
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
 
 #, python-brace-format
-msgid "Page '{0}' deleted."
-msgstr "页面'{0}'已删除"
+msgid "Page '%(page_title)s' deleted."
+msgstr "页面'%(page_title)s'已删除"
 
 msgid "This page is currently awaiting moderation"
 msgstr "页面等待审核中"
 
 #, python-brace-format
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "页面 '{0}' 已经被版本 {1} 替换。"
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr "页面 '%(page_title)s' 已经被版本 %(previous_revision_datetime)s 替换。"
 
 #, python-brace-format
-msgid "Page '{0}' has been updated."
-msgstr "页面 '{0}' 已被更新。"
+msgid "Page '%(page_title)s' has been updated."
+msgstr "页面 '%(page_title)s' 已被更新。"
 
 #, python-brace-format
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "页面'{0}'上的工作流已被取消。"
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "页面'%(page_title)s'上的工作流已被取消。"
 
 #, python-brace-format
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr "页面 {1} 的版本 {0} 已计划发布。"
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr "页面 %(page_title)s 的版本 %(previous_revision_datetime)s 已计划发布。"
 
 #, python-brace-format
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
-msgstr "页面 {0} 处于活动状态，此版本已计划发布。"
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "页面 %(page_title)s 处于活动状态，此版本已计划发布。"
 
 #, python-brace-format
-msgid "Page '{0}' has been scheduled for publishing."
-msgstr "页面 {0} 已预定发布时间。"
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "页面 %(page_title)s 已预定发布时间。"
 
 #, python-brace-format
-msgid "Version from {0} of page '{1}' has been published."
-msgstr "页面 '{1}' 的版本 {0} 已经发布。"
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "页面 '%(page_title)s' 的版本 %(datetime)s 已经发布。"
 
 #, python-brace-format
-msgid "Page '{0}' has been published."
-msgstr "页面 '{0}' 已经发布。"
+msgid "Page '%(page_title)s' has been published."
+msgstr "页面 '%(page_title)s' 已经发布。"
 
 #, python-brace-format
-msgid "Page '{0}' has been submitted for moderation."
-msgstr "页面 '{0}' 已经提交进行审核。"
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "页面 '%(page_title)s' 已经提交进行审核。"
 
 #, python-brace-format
-msgid "Workflow on page '{0}' has been restarted."
-msgstr "页面'{0}'上的工作流已重启。"
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "页面'%(page_title)s'上的工作流已重启。"
 
 msgid "The page could not be saved as it is locked"
 msgstr "页面无法保存，已被锁定。"
@@ -1892,51 +1892,52 @@ msgid "Page history"
 msgstr "页面历史"
 
 #, python-brace-format
-msgid "Page '{0}' is now unlocked."
-msgstr "页面 '{0}'已解锁。"
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "页面 '%(page_title)s'已解锁。"
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "页面 '{0}'目前不在等待审核。"
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "页面 '%(page_title)s'目前不在等待审核。"
 
 #, python-brace-format
-msgid "Page '{0}' published."
-msgstr "页面'{0}'已发布"
+msgid "Page '%(page_title)s' published."
+msgstr "页面'%(page_title)s'已发布"
 
 msgid "Failed to send approval notifications"
 msgstr "发送批准通知失败。"
 
 #, python-brace-format
-msgid "Page '{0}' rejected for publication."
-msgstr "页面 '{0}'审核失败"
+msgid "Page '%(page_title)s' rejected for publication."
+msgstr "页面 '%(page_title)s'审核失败"
 
 msgid "Failed to send rejection notifications"
 msgstr "发送拒绝通知失败。"
 
 #, python-brace-format
 msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr "简称 '{0}' 已经被选中的父页面使用。请确保简称的唯一性，然后重试"
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make"
+" sure the slug is unique and try again"
+msgstr "简称 '%(page_slug)s' 已经被选中的父页面使用。请确保简称的唯一性，然后重试"
 
 #, python-brace-format
-msgid "Page '{0}' moved."
-msgstr "页面 '{0}' 已移动。"
+msgid "Page '%(page_title)s' moved."
+msgstr "页面 '%(page_title)s' 已移动。"
 
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
-msgstr ""
-"你正在查看此页面的上一版本，创建时间：<b>%(created_at)s</b> 创建人： %(user)s"
+msgstr "你正在查看此页面的上一版本，创建时间：<b>%(created_at)s</b> 创建人： %(user)s"
 
 #, python-brace-format
-msgid "Page '{0}' unpublished."
-msgstr "页面'{0}'已取消发布。"
+msgid "Page '%(page_title)s' unpublished."
+msgstr "页面'%(page_title)s'已取消发布。"
 
 #, python-brace-format
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "页面 '{0}'目前不在任务'{1}'中等待审核。"
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr "页面 '%(page_title)s'目前不在任务'%(task_name)s'中等待审核。"
 
 msgid "Last published before"
 msgstr "最后发行之前"
@@ -1993,15 +1994,15 @@ msgid "New workflow"
 msgstr "新建工作流"
 
 #, python-brace-format
-msgid "Workflow '{0}' created."
-msgstr "工作流 '{0}' 已创建。"
+msgid "Workflow '%(object)s' created."
+msgstr "工作流 '%(object)s' 已创建。"
 
 msgid "Editing workflow"
 msgstr "正在编辑工作流"
 
 #, python-brace-format
-msgid "Workflow '{0}' updated."
-msgstr "工作流 '{0}' 已更新。"
+msgid "Workflow '%(object)s' updated."
+msgstr "工作流 '%(object)s' 已更新。"
 
 msgid "Disable"
 msgstr "禁用"
@@ -2013,41 +2014,39 @@ msgid "Disable workflow"
 msgstr "禁用工作流"
 
 #, python-brace-format
-msgid "Workflow '{0}' disabled."
-msgstr "工作流 '{0}' 已禁用。"
+msgid "Workflow '%(object)s' disabled."
+msgstr "工作流 '%(object)s' 已禁用。"
 
 #, python-format
 msgid ""
 "This workflow is in progress on %(states_in_progress)d page. Disabling this "
 "workflow will cancel moderation on this page."
 msgid_plural ""
-"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
-"workflow will cancel moderation on these pages."
-msgstr[0] ""
-"此工作流正在页面%(states_in_progress)d上进行。禁用此工作流将取消对这些页面的"
-"审核。"
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this"
+" workflow will cancel moderation on these pages."
+msgstr[0] "此工作流正在页面%(states_in_progress)d上进行。禁用此工作流将取消对这些页面的审核。"
 
 #, python-brace-format
-msgid "Workflow '{0}' enabled."
-msgstr "工作流 '{0}' 已启用。"
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "工作流 '%(workflow_name)s' 已启用。"
 
 #, python-brace-format
-msgid "Workflow removed from Page '{0}'."
-msgstr "工作流已从页面 '{0}' 移除。"
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "工作流已从页面 '%(page_title)s' 移除。"
 
 msgid "New workflow task"
 msgstr "新建工作流任务"
 
 #, python-brace-format
-msgid "Task '{0}' created."
-msgstr "任务 '{0}'已创建。"
+msgid "Task '%(object)s' created."
+msgstr "任务 '%(object)s'已创建。"
 
 msgid "Editing workflow task"
 msgstr "正在编辑工作流任务"
 
 #, python-brace-format
-msgid "Task '{0}' updated."
-msgstr "任务 '{0}' 已更新。"
+msgid "Task '%(object)s' updated."
+msgstr "任务 '%(object)s' 已更新。"
 
 #, python-format
 msgid "Editing %(task_type)s"
@@ -2057,25 +2056,24 @@ msgid "Disable task"
 msgstr "禁用任务"
 
 #, python-brace-format
-msgid "Task '{0}' disabled."
-msgstr "任务 '{0}' 已禁用。"
+msgid "Task '%(object)s' disabled."
+msgstr "任务 '%(object)s' 已禁用。"
 
 #, python-format
 msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow and not be listed for "
-"selection when editing a workflow."
+"This task is in progress on %(states_in_progress)d page. Disabling this task"
+" will cause it to be skipped in the moderation workflow and not be listed "
+"for selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
 "task will cause it to be skipped in the moderation workflow and not be "
 "listed for selection when editing a workflow."
 msgstr[0] ""
-"此任务正在进行中，共%(states_in_progress)d个页面。禁用此任务将导致在审核工作"
-"流中跳过该任务，并且在编辑工作流时不会将其列出以供选择。"
+"此任务正在进行中，共%(states_in_progress)d个页面。禁用此任务将导致在审核工作流中跳过该任务，并且在编辑工作流时不会将其列出以供选择。"
 
 #, python-brace-format
-msgid "Task '{0}' enabled."
-msgstr "任务 '{0}' 已启用。"
+msgid "Task '%(task_name)s' enabled."
+msgstr "任务 '%(task_name)s' 已启用。"
 
 msgid "Pages"
 msgstr "页面"

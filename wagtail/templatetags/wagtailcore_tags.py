@@ -23,25 +23,28 @@ def pageurl(context, page, fallback=None):
     if page is None and fallback:
         return resolve_url(fallback)
 
-    if not hasattr(page, "relative_url"):
+    if not isinstance(page, Page):
         raise ValueError("pageurl tag expected a Page object, got %r" % page)
 
-    try:
-        site = Site.find_for_request(context["request"])
-        current_site = site
-    except KeyError:
-        # request not available in the current context; fall back on page.url
-        return page.url
+    return page.get_url(request=context.get("request"))
 
-    if current_site is None:
-        # request does not correspond to a recognised site; fall back on page.url
-        return page.url
 
-    # Pass page.relative_url the request object, which may contain a cached copy of
-    # Site.get_site_root_paths()
-    # This avoids page.relative_url having to make a database/cache fetch for this list
-    # each time it's called.
-    return page.relative_url(current_site, request=context.get("request"))
+@register.simple_tag(takes_context=True)
+def fullpageurl(context, page, fallback=None):
+    """
+    Outputs a page's absolute URL (http://example.com/foo/bar/)
+    If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
+    """
+    if page is None and fallback:
+        fallback_url = resolve_url(fallback)
+        if fallback_url and "request" in context and fallback_url[0] == "/":
+            fallback_url = context["request"].build_absolute_uri(fallback_url)
+        return fallback_url
+
+    if not isinstance(page, Page):
+        raise ValueError("fullpageurl tag expected a Page object, got %r" % page)
+
+    return page.get_full_url(request=context.get("request"))
 
 
 @register.simple_tag(takes_context=True)

@@ -12,22 +12,6 @@
             termInput: "#id_q",
             targetOutput: "#image-results"
         }
-
-        const submitFormOnDropdownChange = (dropdownSelector) => {
-            const dropdown = document.querySelector(dropdownSelector);
-            if (dropdown !== null) {
-                dropdown.addEventListener('change', () => dropdown.form.submit());
-            }
-        };
-        const dropdownSelectors = [
-            "#collection_chooser_collection_id",
-            "#order_images_by",
-            "#entries_per_page",
-        ];
-        window.addEventListener("DOMContentLoaded", () => {
-            dropdownSelectors.forEach(dropdownSelector => submitFormOnDropdownChange(dropdownSelector)
-            );
-        });
     </script>
     <script>
         window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
@@ -47,7 +31,7 @@
     {% endif %}
 
     <div class="nice-padding">
-        <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
+        <form class="image-search" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
             {% if current_tag %}
                 <input type="hidden" name="tag" value="{{ current_tag }}" />
             {% endif %}
@@ -59,7 +43,7 @@
 
                 {% trans "Sort by" as sort_by %}
                 {% field label_text=sort_by id_for_label="order_images_by" %}
-                    <select id="order_images_by" name="ordering">
+                    <select id="order_images_by" name="ordering" data-controller="w-auto-field" data-action="change->w-auto-field#submit">
                         {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
                             <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
                         {% endfor %}
@@ -68,7 +52,7 @@
 
                 {% trans "Entries per page" as entries_per_page_label %}
                 {% field label_text=entries_per_page_label id_for_label="entries_per_page_label" %}
-                    <select id="entries_per_page" name="entries_per_page">
+                    <select id="entries_per_page" name="entries_per_page" data-controller="w-auto-field" data-action="change->w-auto-field#submit">
                         {% for value in ENTRIES_PER_PAGE_CHOICES %}
                             <option value="{{ value }}" {% if entries_per_page == value %}selected="selected"{% endif %}>{{ value }}</option>
                         {% endfor %}

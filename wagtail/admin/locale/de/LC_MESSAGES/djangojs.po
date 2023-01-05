@@ -1,4 +1,3 @@
-#
 # Translators:
 # Patrick Hebner <hebner.tec@gmail.com>, 2022
 # karlsander <karlsander@gmail.com>, 2022
@@ -17,12 +16,12 @@ msgid ""
 msgstr ""
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "({number} new items in this menu)"
-msgstr "({number} neue Elemente in diesem Menü)"
+msgid "(%(number)s new items in this menu)"
+msgstr "(%(number)s neue Elemente in diesem Menü)"
 
 msgid "(1 new item in this menu)"
 msgstr "(1 neues Element in diesem Menü)"
@@ -30,10 +29,10 @@ msgstr "(1 neues Element in diesem Menü)"
 msgid "(New)"
 msgstr "(Neu)"
 
-msgid "{num} error"
-msgid_plural "{num} errors"
-msgstr[0] "{num} Fehler"
-msgstr[1] "{num} Fehler"
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s Fehler"
+msgstr[1] "%(num)s Fehler"
 
 msgid "Add a comment"
 msgstr "Einen Kommentar hinzufügen"
@@ -83,8 +82,8 @@ msgstr "Wird gelöscht"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-msgid "Edit '{title}'"
-msgstr "‚{title}‘ bearbeiten"
+msgid "Edit '%(title)s'"
+msgstr "‚%(title)s‘ bearbeiten"
 
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
@@ -204,8 +203,8 @@ msgstr "Block teilen"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
-"Version zurückgesetzt."
+"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte"
+" Version zurückgesetzt."
 
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
@@ -219,8 +218,8 @@ msgstr "Seitenleiste ein-/ausblenden"
 msgid "Unfocus comment"
 msgstr "Fokussierung des Kommentars aufheben"
 
-msgid "View child pages of '{title}'"
-msgstr "Unterseiten von ‚{title}‘ anzeigen"
+msgid "View child pages of '%(title)s'"
+msgstr "Unterseiten von ‚%(title)s‘ anzeigen"
 
 msgid "Write something or type ‘/’ to insert a block"
 msgstr "Schreiben Sie etwas oder geben Sie „/“ ein, um einen Block einzufügen"

@@ -13,12 +13,11 @@ msgstr ""
 "POT-Creation-Date: 2022-10-28 12:02+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
-"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
-"language/tet/)\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/language/tet/)\n"
+"Language: tet\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail users"
@@ -167,11 +166,11 @@ msgstr "Deskulpa, laiha grupu sira apar \"1%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Laiha grupu sira maka konfigura. Tamba sa labele<a href="
-"\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
+"Laiha grupu sira maka konfigura. Tamba sa labele<a "
+"href=\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
 
 msgid "Delete user"
 msgstr "Hamoos usuariu"
@@ -229,34 +228,34 @@ msgid "Search groups"
 msgstr "Buka grupu sira"
 
 #, python-brace-format
-msgid "Group '{0}' created."
-msgstr "Grupu '{0}' kria ona."
+msgid "Group '%(object)s' created."
+msgstr "Grupu '%(object)s' kria ona."
 
 #, python-brace-format
-msgid "Group '{0}' updated."
-msgstr "Grupu '{0}' troka ona."
+msgid "Group '%(object)s' updated."
+msgstr "Grupu '%(object)s' troka ona."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupu labele rai tamba erru."
 
 #, python-brace-format
-msgid "Group '{0}' deleted."
-msgstr "Grupu '{0}' hamoos ona."
+msgid "Group '%(object)s' deleted."
+msgstr "Grupu '%(object)s' hamoos ona."
 
 #, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Usuariu '{0}' troka ona"
+msgid "User '%(object)s' updated."
+msgstr "Usuariu '%(object)s' troka ona"
 
 msgid "The user could not be saved due to errors."
 msgstr "Usuariu labele rai tamba erru."
 
 #, python-format
-msgid "Editing %s"
-msgstr "Hadia hela %s"
+msgid "Editing %(object)s"
+msgstr "Hadia hela %(object)s"
 
 #, python-brace-format
-msgid "User '{0}' deleted."
-msgstr "Usuariu '{0}' hamoos ona."
+msgid "User '%(object)s' deleted."
+msgstr "Usuariu '%(object)s' hamoos ona."
 
 msgid "Edit"
 msgstr "Hadia"

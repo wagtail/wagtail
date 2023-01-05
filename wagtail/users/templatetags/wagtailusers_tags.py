@@ -17,9 +17,10 @@ def format_permissions(permission_bound_field):
     'objects': [
         {
             'object': name_of_some_content_object,
-            'add': checkbox
-            'change': checkbox
-            'delete': checkbox
+            'add': checkbox,
+            'change': checkbox,
+            'delete': checkbox,
+            'publish': checkbox,  # only if the model extends DraftStateMixin
             'custom': list_of_checkboxes_for_custom_permissions
         },
     ]
@@ -50,7 +51,18 @@ def format_permissions(permission_bound_field):
 
     object_perms = []
     other_perms = []
-    custom_perms_exist = False
+
+    # Permissions that are known by Wagtail, to be shown under their own columns.
+    # Other permissions will be shown under the "custom permissions" column.
+    main_permission_names = ["add", "change", "delete", "publish", "lock", "unlock"]
+
+    # Only show the columns for these permissions if any of the model has them.
+    extra_perms_exist = {
+        "publish": False,
+        "lock": False,
+        "unlock": False,
+        "custom": False,
+    }
 
     for content_type_id in content_type_ids:
         content_perms = permissions.filter(content_type_id=content_type_id)
@@ -65,16 +77,18 @@ def format_permissions(permission_bound_field):
         for perm in content_perms:
             content_perms_dict["object"] = perm.content_type.name
             checkbox = checkboxes_by_id[perm.id]
-            # identify the three main categories of permission, and assign to
-            # the relevant dict key, else bung in the 'other_perms' list
+            # identify the main categories of permission, and assign to
+            # the relevant dict key, else bung in the 'custom_perms' list
             permission_action = perm.codename.split("_")[0]
-            if permission_action in ["add", "change", "delete"]:
+            if permission_action in main_permission_names:
+                if permission_action in extra_perms_exist:
+                    extra_perms_exist[permission_action] = True
                 content_perms_dict[permission_action] = {
                     "perm": perm,
                     "checkbox": checkbox,
                 }
             else:
-                custom_perms_exist = True
+                extra_perms_exist["custom"] = True
                 custom_perms.append(
                     {
                         "perm": perm,
@@ -90,7 +104,7 @@ def format_permissions(permission_bound_field):
     return {
         "object_perms": object_perms,
         "other_perms": other_perms,
-        "custom_perms_exist": custom_perms_exist,
+        "extra_perms_exist": extra_perms_exist,
     }
 
 
