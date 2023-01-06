@@ -171,16 +171,4 @@
   &__mode-select {
     @apply w-outline-offset-inside;
   }
-
-  .axe-count {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $color-button-no;
-    border-radius: 100px;
-    color: $color-white;
-    font-size: 0.8125rem;
-    height: 20px;
-    width: 20px;
-  }
 }

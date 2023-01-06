@@ -265,33 +265,45 @@ class Userbar extends HTMLElement {
       hideUserbar();
     }
 
-    this.initialiseAxe();
+    document.addEventListener('DOMContentLoaded', async () => {
+      await this.initialiseAxe();
+    });
   }
 
   // in this implementation axe shows the same mistakes on all pages, all rules except for 1 from chosen or 2 from total list - inapplicable, can't find elements/nodes of the context, and with timeout added runs less rules than without it. Adn adding this script to the preview file make userbar disappear
 
   async initialiseAxe() {
-    const results = await axe.run({
-      runOnly: {
-        type: 'rule',
-        values: [
-          'button-name',
-          'link-name',
-          'input-button-name',
-          'role-img-alt',
-          'select-name',
-          'valid-lang',
-          'th-has-data-cells',
-          'empty-heading',
-          'heading-order',
-          'p-as-heading',
-          'td-has-header',
-          'page-has-heading-one',
-        ],
+    const results = await axe.run(
+      {
+        exclude: {
+          fromShadowDom: ['wagtail-userbar'],
+        },
       },
-    });
+      {
+        runOnly: {
+          type: 'rule',
+          values: [
+            'button-name',
+            'link-name',
+            'input-button-name',
+            'role-img-alt',
+            'select-name',
+            'valid-lang',
+            'th-has-data-cells',
+            'empty-heading',
+            'heading-order',
+            'p-as-heading',
+            'td-has-header',
+            'page-has-heading-one',
+          ],
+        },
+      },
+    );
 
-    // very draft output - waiting for the design inputs to adjust both design & logics
+    // full test result output for testing purposes
+    console.log('Axe test results', results);
+
+    // draft UI output for testing purposes
     if (results.violations.length) {
       const axeCount = document.createElement('div');
       axeCount.textContent = results.violations.length;
@@ -305,7 +317,7 @@ class Userbar extends HTMLElement {
       const showAxeResults = () => {
         results.violations.forEach((violation) => {
           const annotation = document.createElement('div');
-          annotation.textContent = JSON.stringify(violation.description);
+          annotation.textContent = violation.description;
           accessibilityTrigger.appendChild(annotation);
         });
       };
