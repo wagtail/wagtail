@@ -99,7 +99,7 @@ const colors = {
   primary: {
     DEFAULT: {
       hex: '#2E1F5E',
-      hsl: 'hsl(254.3 50.4% 24,5%)',
+      hsl: 'hsl(254.3 50.4% 24.5%)',
       bgUtility: 'w-bg-primary',
       textUtility: 'w-text-primary',
       cssVariable: '--w-color-primary',
