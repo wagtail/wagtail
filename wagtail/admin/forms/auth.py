@@ -12,6 +12,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": gettext_lazy("Enter password"),
+                "spellcheck": "false",
             }
         )
     )
