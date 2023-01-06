@@ -1,5 +1,6 @@
 import json
 import logging
+from collections import OrderedDict
 from django.db.models import JSONField, F, Q, Subquery, OuterRef
 from django.db.models.functions import Cast
 from django.db.migrations import RunPython
@@ -77,6 +78,16 @@ class MigrateStreamData(RunPython):
         kwargs["chunk_size"] = self.chunk_size
 
         return (self.__class__.__qualname__, args, kwargs)
+
+    @property
+    def migration_name_fragment(self):
+        # We are using an OrderedDict here to essentially get the functionality of an ordered set
+        # so that names generated will be consistent.
+        fragments = OrderedDict(
+            (op.operation_name_fragment, None)
+            for op, _ in self.operations_and_block_paths
+        )
+        return "_".join(fragments.keys())
 
     def migrate_stream_data_forward(self, apps, schema_editor):
         model = apps.get_model(self.app_name, self.model_name)
