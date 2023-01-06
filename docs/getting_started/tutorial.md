@@ -694,14 +694,16 @@ Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 To render tags on a `BlogPage`, add this to `blog_page.html`:
 
 ```html+django
-{% if page.tags.all.count %}
-    <div class="tags">
-        <h3>Tags</h3>
-        {% for tag in page.tags.all %}
-            <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
-        {% endfor %}
-    </div>
-{% endif %}
+{% with tags=page.tags.all %}
+    {% if tags %}
+        <div class="tags">
+            <h3>Tags</h3>
+            {% for tag in tags %}
+                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 ```
 
 Notice that we're linking to pages here with the builtin `slugurl`

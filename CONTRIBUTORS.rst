@@ -679,6 +679,7 @@ Contributors
 * Vallabh Tiwari
 * dr-rompecabezas
 * Rishabh jain
+* Jhonatan Lopes
 
 Translators
 ===========
