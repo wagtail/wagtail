@@ -270,7 +270,7 @@ class Userbar extends HTMLElement {
     });
   }
 
-  // in this implementation axe shows the same mistakes on all pages, all rules except for 1 from chosen or 2 from total list - inapplicable, can't find elements/nodes of the context, and with timeout added runs less rules than without it. Adn adding this script to the preview file make userbar disappear
+  // Initialise axe accessibility checker
 
   async initialiseAxe() {
     const results = await axe.run(
