@@ -4,13 +4,13 @@ from django.utils import translation
 
 from wagtail import hooks
 from wagtail.admin.userbar import (
+    AccessibilityItem,
     AddPageItem,
     AdminItem,
     ApproveModerationEditPageItem,
     EditPageItem,
     ExplorePageItem,
     RejectModerationEditPageItem,
-    AccessibilityItem,
 )
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile

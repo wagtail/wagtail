@@ -105,8 +105,8 @@ $positions: (
     height: 20px;
     width: 20px;
     position: absolute;
-    right: -3px;
-    top: -3px;
+    inset-inline-end: -3px;
+    inset-block-start: -3px;
   }
 
   &:focus {
