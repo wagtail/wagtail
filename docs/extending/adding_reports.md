@@ -178,14 +178,27 @@ def register_unpublished_changes_report_url():
 
 Here, we use the `AdminOnlyMenuItem` class to ensure our report icon is only shown to superusers. To make the report visible to all users, you could replace this with `MenuItem`.
 
+## Setting up permission restriction
+
+Even with the menu item hidden, it would still be possible for any user to visit the report's URL directly, and so it is necessary to set up a permission restriction on the report view itself. This can be done by adding a `dispatch` method to the existing `UnpublishedChangesReportView` view:
+
+```python
+
+    # add the below dispatch method to the existing UnpublishedChangesReportView view
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_superuser:
+            return permission_denied(request)
+        return super().dispatch(request, *args, **kwargs)
+```
+
 ## The full code
 
 ```python
 # <project>/views.py
 
+from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.reports import PageReportView
 from wagtail.models import Page
-
 
 class UnpublishedChangesReportView(PageReportView):
 
@@ -198,6 +211,11 @@ class UnpublishedChangesReportView(PageReportView):
 
     def get_queryset(self):
         return Page.objects.filter(has_unpublished_changes=True)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_superuser:
+            return permission_denied(request)
+        return super().dispatch(request, *args, **kwargs)
 ```
 
 ```python
