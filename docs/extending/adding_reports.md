@@ -180,23 +180,11 @@ Here, we use the `AdminOnlyMenuItem` class to ensure our report icon is only sho
 
 ## Setting up permission restriction
 
-To make sure that the reports are only accessible by the `Admin` it is required to set up a permission restriction on the report view itself this can be done by adding a `dispatch` method to the existing `UnpublishedChangesReportView` view .
+Even with the menu item hidden, it would still be possible for any user to visit the report's URL directly, and so it is necessary to set up a permission restriction on the report view itself. This can be done by adding a `dispatch` method to the existing `UnpublishedChangesReportView` view:
 
 ```python
-from wagtail.admin.auth import permission_denied
 
-class UnpublishedChangesReportView(PageReportView):
-    header_icon = 'doc-empty-inverse'
-    template_name = 'reports/unpublished_changes_report.html'
-    title = "Pages with unpublished changes"
-
-    list_export = PageReportView.list_export + ['last_published_at']
-    export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)
-
-    def get_queryset(self):
-        return Page.objects.filter(has_unpublished_changes=True)
-
-    # for restricting permission
+    # add the below dispatch method to the existing UnpublishedChangesReportView view
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_superuser:
             return permission_denied(request)
@@ -208,9 +196,9 @@ class UnpublishedChangesReportView(PageReportView):
 ```python
 # <project>/views.py
 
+from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.reports import PageReportView
 from wagtail.models import Page
-
 
 class UnpublishedChangesReportView(PageReportView):
 
