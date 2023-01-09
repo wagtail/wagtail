@@ -14,7 +14,6 @@ from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
 from django.core.files.storage import default_storage
-from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.forms.utils import flatatt
 from django.urls import reverse
@@ -264,19 +263,6 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     )
 
     objects = ImageQuerySet.as_manager()
-
-    def clean(self):
-        """
-        Checks for WAGTAILIMAGES_EXTENSIONS and validates the uploaded image file
-        based on allowed extensions that were specified.
-        Warning : This doesn't always ensure that the uploaded file is valid
-        as files can be renamed to have an extension no matter what
-        data they contain.
-        """
-        allowed_extensions = getattr(settings, "WAGTAILIMAGES_EXTENSIONS", None)
-        if allowed_extensions:
-            validate = FileExtensionValidator(allowed_extensions)
-            validate(self.file)
 
     def _set_file_hash(self, file_contents):
         self.file_hash = hashlib.sha1(file_contents).hexdigest()
