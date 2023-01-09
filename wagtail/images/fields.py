@@ -31,9 +31,7 @@ class WagtailImageField(ImageField):
             settings, "WAGTAILIMAGES_EXTENSIONS", ALLOWED_EXTENSIONS
         )
 
-        self.supported_formats_text = _(
-            ", ".join(self.allowed_image_extensions).upper()
-        )
+        self.supported_formats_text = ", ".join(self.allowed_image_extensions).upper()
 
         # Help text
         if self.max_upload_size is not None:

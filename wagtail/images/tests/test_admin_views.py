@@ -1787,10 +1787,6 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             },
         )
 
-        SUPPORTED_FORMATS_TEXT = ", ".join(
-            ["gif", "jpg", "jpeg", "png", "webp"]
-        ).upper()
-
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailadmin/generic/chooser/creation_form.html"
@@ -1799,7 +1795,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             response,
             "form",
             "file",
-            f"Not a supported image format. Supported formats: {SUPPORTED_FORMATS_TEXT}.",
+            "Not a supported image format. Supported formats: GIF, JPG, JPEG, PNG, WEBP.",
         )
 
         # the action URL of the re-rendered form should include the select_format=true parameter
