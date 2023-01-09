@@ -48,7 +48,7 @@ class TestImage(TestCase):
         self.assertTrue(self.image.is_landscape())
 
     def test_get_rect(self):
-        self.assertTrue(self.image.get_rect(), Rect(0, 0, 640, 480))
+        self.assertEqual(self.image.get_rect(), Rect(0, 0, 640, 480))
 
     def test_get_focal_point(self):
         self.assertIsNone(self.image.get_focal_point())

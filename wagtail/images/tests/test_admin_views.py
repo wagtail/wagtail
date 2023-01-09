@@ -1882,7 +1882,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             response,
             "form",
             "file",
-            "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: GIF, JPG, JPEG, PNG, WEBP.",
         )
 
         # the action URL of the re-rendered form should include the select_format=true parameter
@@ -2238,6 +2238,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
         )
 
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["jpg", "gif"])
     def test_add_post_bad_extension(self):
         """
         The add view must check that the uploaded file extension is a valid
@@ -2251,6 +2252,14 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             },
         )
 
+        post_with_invalid_extension = self.client.post(
+            reverse("wagtailimages:add_multiple"),
+            {
+                "files[]": SimpleUploadedFile(
+                    "test.png", get_test_image_file().file.getvalue()
+                ),
+            },
+        )
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
@@ -2264,7 +2273,25 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertFalse(response_json["success"])
         self.assertEqual(
             response_json["error_message"],
-            "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
+            "Not a supported image format. Supported formats: JPG, GIF.",
+        )
+
+        # Check post_with_invalid_extension
+        self.assertEqual(post_with_invalid_extension.status_code, 200)
+        self.assertEqual(
+            post_with_invalid_extension["Content-Type"], "application/json"
+        )
+
+        # Check JSON
+        response_json = json.loads(post_with_invalid_extension.content.decode())
+        self.assertNotIn("image_id", response_json)
+        self.assertNotIn("form", response_json)
+        self.assertIn("success", response_json)
+        self.assertIn("error_message", response_json)
+        self.assertFalse(response_json["success"])
+        self.assertEqual(
+            response_json["error_message"],
+            "Not a supported image format. Supported formats: JPG, GIF.",
         )
 
     def test_add_post_duplicate(self):
