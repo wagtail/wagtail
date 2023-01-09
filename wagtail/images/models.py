@@ -266,7 +266,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     objects = ImageQuerySet.as_manager()
 
     def clean(self):
-        """ "
+        """
         Checks for WAGTAILIMAGES_EXTENSIONS and validates the uploaded image file
         based on allowed extensions that were specified.
         Warning : This doesn't always ensure that the uploaded file is valid
