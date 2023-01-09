@@ -256,11 +256,27 @@ class CreateEditViewOptionalFeaturesMixin:
         self.current_workflow_task = self.object.current_workflow_task
 
     def user_has_permission(self, permission):
+        # Check with base PermissionCheckedMixin logic before any complex checks
+        has_base_permission = super().user_has_permission(permission)
+        if has_base_permission:
+            return True
+
         # Allow unlocking even if the user does not have the 'unlock' permission
         # if they are the user who locked the object
         if permission == "unlock" and self.object.locked_by_id == self.request.user.pk:
             return True
-        return super().user_has_permission(permission)
+
+        # Allow access to the editor if the current workflow task allows it,
+        # even if the user does not normally have edit access
+        if (
+            permission == "change"
+            and self.current_workflow_task
+            and self.current_workflow_task.user_can_access_editor(
+                self.object, self.request.user
+            )
+        ):
+            return True
+        return False
 
     def workflow_action_is_valid(self):
         if not self.current_workflow_task:
