@@ -680,6 +680,7 @@ Contributors
 * dr-rompecabezas
 * Rishabh jain
 * Jhonatan Lopes
+* Alex Simpson
 
 Translators
 ===========

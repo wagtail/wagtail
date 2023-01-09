@@ -54,6 +54,7 @@ Changelog
  * Fix: Close the userbar when clicking its toggle (Albina Starykova)
  * Fix: Add a border around the userbar menu in Windows high-contrast mode so it can be identified (Albina Starykova)
  * Fix: Make sure browser font resizing applies to the userbar (Albina Starykova)
+ * Fix: Fix check for `delete_url_name` attribute in generic `DeleteView` (Alex Simpson)
  * Docs: Add custom permissions section to permissions documentation page (Dan Hayden)
  * Docs: Add documentation for how to get started with contributing translations for the Wagtail admin (Ogunbanjo Oluwadamilare)
  * Docs: Officially recommend `fnm` over `nvm` in development documentation (LB (Ben) Johnston)

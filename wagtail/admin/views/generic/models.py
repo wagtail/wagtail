@@ -652,7 +652,7 @@ class DeleteView(
         return str(self.object)
 
     def get_delete_url(self):
-        if not self.index_url_name:
+        if not self.delete_url_name:
             raise ImproperlyConfigured(
                 "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide a "
                 "delete_url_name attribute or a get_delete_url method"
