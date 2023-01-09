@@ -2,7 +2,6 @@ import datetime
 import json
 import urllib
 
-from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -1789,11 +1788,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         )
 
         SUPPORTED_FORMATS_TEXT = ", ".join(
-            getattr(
-                settings,
-                "WAGTAILIMAGES_EXTENSIONS",
-                ["gif", "jpg", "jpeg", "png", "webp"],
-            )
+            ["gif", "jpg", "jpeg", "png", "webp"]
         ).upper()
 
         self.assertEqual(response.status_code, 200)
