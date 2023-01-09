@@ -257,6 +257,7 @@ $draftail-editor-font-family: $font-sans;
   &:hover,
   &:active {
     border: 1px solid $color-grey-3;
+    scroll-padding-bottom: 100px;
   }
 }
 
