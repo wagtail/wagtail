@@ -15,7 +15,7 @@ const calcHSLDifference = (refVariable, refValue, value, unit = '') => {
   }
 
   // Either add or remove the difference based on whether it’s positive or negative.
-  const diff = ref - val;
+  const diff = (ref * 10 - val * 10) / 10;
   const operation = `${diff > 0 ? '-' : '+'} ${Math.abs(diff)}${unit}`;
 
   return `calc(var(${refVariable}) ${operation})`;
