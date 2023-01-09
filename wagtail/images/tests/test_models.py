@@ -2,6 +2,7 @@ import unittest
 
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
+from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -48,7 +49,7 @@ class TestImage(TestCase):
         self.assertTrue(self.image.is_landscape())
 
     def test_get_rect(self):
-        self.assertTrue(self.image.get_rect(), Rect(0, 0, 640, 480))
+        self.assertEqual(self.image.get_rect(), Rect(0, 0, 640, 480))
 
     def test_get_focal_point(self):
         self.assertIsNone(self.image.get_focal_point())
@@ -956,3 +957,53 @@ class TestRenditionOrientation(TestCase):
         self.assertEqual(rendition.height, 450)
         # Check actual image dimensions and orientation
         self.assert_orientation_landscape_image_is_correct(rendition)
+
+
+@override_settings(WAGTAILIMAGES_EXTENSIONS=["jpg"])
+class TestImageValidateExtension(TestCase):
+    """
+    Checks for WAGTAILIMAGES_EXTENSIONS and validates the uploaded image file
+    based on allowed extensions that were specified.
+    Warning : This doesn't always ensure that the uploaded file is valid
+    as files can be renamed to have an extension no matter what
+    data they contain.
+    More info : https://docs.djangoproject.com/en/3.1/ref/validators/#fileextensionvalidator
+
+    """
+
+    def setUp(self):
+        self.image_invalid = Image.objects.create(
+            title="Test Image", file=get_test_image_file("image.png")
+        )
+        self.image_valid = Image.objects.create(
+            title="Test Image", file=get_test_image_file("image.jpg")
+        )
+
+    def test_for_invalid_image(self):
+        """
+        Checks if the uploaded image has the expected extensions
+        mentioned in settings.WAGTAILIMAGES_EXTENSIONS
+        This is caught in form.error and should be raised during model
+        creation when called full_clean. This specific testcase invalid
+        file extension is passed
+        """
+        with self.assertRaises(ValidationError):
+            self.image_invalid.full_clean()
+
+    def test_for_valid_image(self):
+        """
+        Checks if the uploaded image has the expected extensions
+        mentioned in settings.WAGTAILIMAGES_EXTENSIONS
+        This is caught in form.error and should be raised during
+        model creation when called full_clean. In this specific
+        testcase valid file extension is passed.
+
+        """
+        try:
+            self.image_valid.full_clean()
+        except ValidationError:
+            self.fail("Validation error is raised even when valid file name is passed")
+
+    def tearDown(self):
+        self.image_valid.delete()
+        self.image_invalid.delete()
