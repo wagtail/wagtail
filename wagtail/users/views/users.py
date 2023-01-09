@@ -146,7 +146,7 @@ class Create(CreateView):
     add_url_name = "wagtailusers_users:add"
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
-    success_message = "User '{0}' created."
+    success_message = gettext_lazy("User '%(object)s' created.")
     page_title = gettext_lazy("Add user")
 
     def run_before_hook(self):
@@ -178,7 +178,7 @@ class Edit(EditView):
     index_url_name = "wagtailusers_users:index"
     edit_url_name = "wagtailusers_users:edit"
     delete_url_name = "wagtailusers_users:delete"
-    success_message = _("User '%(object)s' updated.")
+    success_message = gettext_lazy("User '%(object)s' updated.")
     context_object_name = "user"
     error_message = gettext_lazy("The user could not be saved due to errors.")
 
@@ -250,7 +250,7 @@ class Delete(DeleteView):
     index_url_name = "wagtailusers_users:index"
     page_title = gettext_lazy("Delete user")
     context_object_name = "user"
-    success_message = _("User '%(object)s' deleted.")
+    success_message = gettext_lazy("User '%(object)s' deleted.")
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()

@@ -67,7 +67,7 @@ class TestEditView(EditView):
     edit_url_name = "testapp_generic_edit"
     delete_url_name = "testapp_generic_delete"
     form_class = CustomModelEditForm
-    success_message = "User '{0}' updated."
+    success_message = gettext_lazy("User '%(object)s' updated.")
     page_title = gettext_lazy("test edit view")
 
 
@@ -79,5 +79,5 @@ class TestDeleteView(DeleteView):
     index_url_name = "testapp_generic_index"
     edit_url_name = "testapp_generic_edit"
     delete_url_name = "testapp_generic_delete"
-    success_message = "User '{0}' updated."
+    success_message = gettext_lazy("User '%(object)s' updated.")
     page_title = gettext_lazy("test delete view")
